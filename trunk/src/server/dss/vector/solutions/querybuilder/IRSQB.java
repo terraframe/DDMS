@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.COUNT;
@@ -47,8 +46,6 @@ import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
-import dss.vector.solutions.irs.InsecticideNozzle;
-import dss.vector.solutions.irs.Nozzle;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.ResourceTarget;
 import dss.vector.solutions.irs.TargetUnit;
@@ -544,18 +541,25 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     // setAbstractSprayAttributes();
 
-    String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
+    String availableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedRooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedStructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedHouseholds END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
-    String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + avilableUnits
-        + "),0)";
+    
+    String detailUniqueId = this.getUniqueSprayDetailsId();
+    
+    String unitOperationalCoverageNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
+    String unitOperationalCoverageDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, availableUnits);
+    
+    String unit_operational_coverage = unitOperationalCoverageNumerator+"::float / nullif("+unitOperationalCoverageDenominator+",0)";
 
     // #2868 - instead of -refills- we now sum on sachets -used-
-    String unit_application_rate = "SUM("+Alias.USED.getAlias()+"::FLOAT * " + shareOfCans
-        + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
-    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
+    String unitApplicationRateNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, Alias.USED.getAlias());
+    String unitApplicationRateDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
+    String unit_application_rate = unitApplicationRateNumerator+"::FLOAT * " + shareOfCans
+        + " * active_ingredient_per_can) / nullif(("+unitApplicationRateDenominator+") * unitarea,0)";
+    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate)";
 
     QueryUtil.setSelectabeSQL(irsVQ, "sprayedunits", sprayedUnits);
     QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits);
@@ -641,31 +645,46 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void swapOutAttributesForAggregates()
   {
-    String[] aliases = new String[] {
+    // 
+    String[] insecticideAliases = new String[] {
 
       // insecticide usage
       Alias.RECEIVED.getAlias(),
       Alias.USED.getAlias(),
       Alias.REFILLS.getAlias(),
-      Alias.RETURNED.getAlias(),
-
-      // spray details (attributes defined by HouseholdSprayStatus)
-      Alias.HOUSEHOLDS.getAlias(),
-      Alias.SPRAYED_HOUSEHOLDS.getAlias(),
-      Alias.STRUCTURES.getAlias(),
-      Alias.SPRAYED_STRUCTURES.getAlias(),
-      Alias.ROOMS.getAlias(),
-      Alias.SPRAYED_ROOMS.getAlias(),
-      Alias.LOCKED.getAlias(),
-      Alias.REFUSED.getAlias(),
-      Alias.OTHER.getAlias()
-      
-      // spray detail custom calculations
+      Alias.RETURNED.getAlias()
     };
 
+    QueryUtil.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true);
+
+    String[] sprayDetails = new String[] {
+
+        // spray details (attributes defined by HouseholdSprayStatus)
+        Alias.HOUSEHOLDS.getAlias(),
+        Alias.SPRAYED_HOUSEHOLDS.getAlias(),
+        Alias.STRUCTURES.getAlias(),
+        Alias.SPRAYED_STRUCTURES.getAlias(),
+        Alias.ROOMS.getAlias(),
+        Alias.SPRAYED_ROOMS.getAlias(),
+        Alias.LOCKED.getAlias(),
+        Alias.REFUSED.getAlias(),
+        Alias.OTHER.getAlias(),
+        Alias.WRONG_SURFACE.getAlias()
+      };
     
-    
-    QueryUtil.setAttributesAsAggregated(aliases, idCol, irsVQ, sprayViewAlias, true);
+    // spray details are unique by the household and structure id
+    String detailUniqueId = this.getUniqueSprayDetailsId();
+    QueryUtil.setAttributesAsAggregated(sprayDetails, detailUniqueId, irsVQ, sprayViewAlias, true);
+  }
+  
+  /**
+   * Household spray details are unique by their household and structure ids.
+   * 
+   * @return
+   */
+  private String getUniqueSprayDetailsId()
+  {
+    return Alias.HOUSEHOLD_ID.getAlias()+"||'_'||"+Alias.STRUCTURE_ID.getAlias();
   }
 
   private void addPlannedTargetDateCriteria()
