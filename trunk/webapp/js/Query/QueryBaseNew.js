@@ -796,6 +796,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        }
     },
     
+	_setTextCriteriaFromLoad : function(checked, userAlias)
+	{
+      var key = userAlias + this._config.CRITERIA;
+      var crit = this._config.getProperty(key);
+      var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
+          
+      this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
+      this._toggleSingle(userAlias, true, criteria.display);	  
+	},
+	
     _setNumberCriteriaFromLoad : function(checked, userAlias)
     {
       var key = userAlias + this._config.CRITERIA;
@@ -1389,14 +1399,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         type: 'single'
       };
       
-      YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
-  
-      li.appendChild(singleInput);
+
       
       if(klass == 'queryTextCriteria')
       {
+	    YAHOO.util.Event.on(singleInput, 'keyup', this._setTextCriteria, obj, this);
+        li.appendChild(singleInput);
         this._buildTextAttributeAutoSuggest(singleInput,attribute,obj,this);
       }
+	  else
+	  {
+        YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
+        li.appendChild(singleInput);
+	  }
       
   
       // When the check box is toggled, be sure to clear and hide the input
@@ -1439,7 +1454,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var searchFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getTextAttributeSugestions;
         
         var selectEventHandler = function(selected) {
-          queryObject._setNumberCriteria(null,obj);  
+          queryObject._setTextCriteria(null,obj);  
         };
          
         var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
@@ -1681,6 +1696,34 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       
     },
+	
+	_setTextCriteria : function(e, obj)
+	{
+	  var attribute = obj.attribute;
+	  var criteria = null;
+	  
+	  var text = document.getElementById(attribute.getKey()+"-single");
+        
+      criteria = MDSS.QueryBaseNew.buildTextCriteriaFromInput(text);
+	  
+      if(criteria.value === '' || criteria.value === ' - ')
+      {
+        criteria.value = null;
+        criteria.display = null;
+      }
+    
+      this._queryPanel.clearWhereCriteria(attribute.getKey());
+      
+      if(criteria.value != null)
+      {
+        this._config.setNumberCriteria(attribute.getKey(), criteria.value);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), criteria.value, criteria.display);
+      }
+      else
+      {
+        this._config.removeNumberCriteria(attribute.getKey());
+      }	  
+	},
     
     /**
      * Sets number criteria on an attribute.
@@ -1730,6 +1773,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     }
   },
   Static : {
+   buildTextCriteriaFromInput : function(element){
+	   var value = element.value;
+	   var valueStr = (value != null) ? value.toString() : '';
+	   return {value:valueStr, display:valueStr};
+	 },
+	 buildTextCriteriaFromString : function(string){
+	   var value = (string != null ? string : '');
+	   return {value:value, display:value};
+	 },
      buildNumberCriteriaFromInput : function(element){
        var value = MDSS.parseNumber(element.value);
        value = (value != null && !isNaN(value) ? value : '');
