@@ -122,6 +122,11 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
     return caseSwap(alias);
   }
   
+  public String setUniqueSprayId(Alias alias)
+  {
+    return caseSwap(alias);
+  }
+  
   public String setCreateDate(Alias alias)
   {
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);

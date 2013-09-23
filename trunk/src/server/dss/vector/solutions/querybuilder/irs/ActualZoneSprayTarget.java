@@ -10,6 +10,9 @@ import dss.vector.solutions.irs.TeamSprayStatus;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.util.QueryUtil;
 
+/**
+ * LEVEL 3
+ */
 public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadable
 {
   private String teamLeaderCol;
@@ -330,4 +333,9 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     return where;
   }
 
+  @Override
+  public String setUniqueSprayId(Alias alias)
+  {
+    return set(this.sprayTeamCol, alias);
+  }
 }

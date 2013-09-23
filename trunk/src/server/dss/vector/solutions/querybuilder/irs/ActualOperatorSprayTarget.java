@@ -10,6 +10,9 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 
+/**
+ * LEVEL 1
+ */
 public class ActualOperatorSprayTarget extends ActualTargetUnion implements Reloadable
 {
   private String diseaseCol;
@@ -355,5 +358,16 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     
     
     return where;
+  }
+
+  @Override
+  public String setUniqueSprayId(Alias alias)
+  {
+    String sql = "";
+    sql += "(CASE WHEN household_id IS NOT NULL AND structure_id IS NOT NULL THEN household_id || structure_id";
+    sql += " WHEN structure_id IS NOT NULL THEN structure_id WHEN household_id IS NOT NULL THEN household_id";
+    sql += " ELSE abstract_spray.key_name END)";
+    
+    return set(sql, alias);
   }
 }

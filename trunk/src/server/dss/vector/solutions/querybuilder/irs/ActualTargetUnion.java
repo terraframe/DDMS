@@ -283,4 +283,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   {
     return set("get_epiWeek_from_Date("+abstractSprayTable+"."+sprayDateCol+", "+this.q.getStartDay()+")", alias); 
   }
+
+  public abstract String setUniqueSprayId(Alias alias);
 }

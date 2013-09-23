@@ -11,6 +11,7 @@ public enum Alias implements Reloadable
 {
   
   ID("id", IRSUnionIF.VARCHAR),
+  UNIQUE_SPRAY_ID("unique_spray_id", IRSUnionIF.VARCHAR),
   CREATE_DATE(Metadata.getCreateDateMd(), IRSUnionIF.DATETIME),
   LAST_UPDATE_DATE(Metadata.getLastUpdateDateMd(), IRSUnionIF.DATETIME),
   CREATED_BY(Metadata.getCreatedByMd(), IRSUnionIF.VARCHAR),

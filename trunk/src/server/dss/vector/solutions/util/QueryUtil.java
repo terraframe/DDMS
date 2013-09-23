@@ -26,7 +26,6 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
-import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Coalesce;
@@ -147,8 +146,9 @@ public class QueryUtil implements Reloadable
 
     return aliases;
   }
-
-  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
+  
+  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, 
+      String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
   {
     for (String alias : aliases)
     {
@@ -159,24 +159,30 @@ public class QueryUtil implements Reloadable
         
 
         String sql = null;
+        String oldSQL = alias;
         boolean useDefault = false;
         if(sel.isAggregateFunction())
         {
+          if(preserveSQL && sel.isAggregateFunction())
+          {
+            oldSQL = sel.getAggregateFunction().getSelectable().getSQL();
+          }
+          
           if (sel instanceof SUM)
           {
-            sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
+            sql = QueryUtil.sumColumnForId(tableAlias, id, null, oldSQL);
           }
           else if (sel instanceof AVG)
           {
-            sql = QueryUtil.avgColumnForId(tableAlias, id, null, alias);
+            sql = QueryUtil.avgColumnForId(tableAlias, id, null, oldSQL);
           }
           else if (sel instanceof MIN)
           {
-            sql = QueryUtil.minColumnForId(tableAlias, id, null, alias);
+            sql = QueryUtil.minColumnForId(tableAlias, id, null, oldSQL);
           }
           else if (sel instanceof MAX)
           {
-            sql = QueryUtil.maxColumnForId(tableAlias, id, null, alias);
+            sql = QueryUtil.maxColumnForId(tableAlias, id, null, oldSQL);
           }
           else
           {
@@ -250,6 +256,11 @@ public class QueryUtil implements Reloadable
         valueQuery.replaceSelectable(newSel);
       }
     }
+  }
+  
+  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
+  {
+    setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
   }
 
   public static String getColumnName(String klass, String attribute)

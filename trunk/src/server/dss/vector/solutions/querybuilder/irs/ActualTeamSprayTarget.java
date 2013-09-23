@@ -10,6 +10,9 @@ import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.util.QueryUtil;
 
+/**
+ * LEVEL 2
+ */
 public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadable
 {
   private String teamSprayTable;
@@ -317,5 +320,11 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
     
     return where;
+  }
+  
+  @Override
+  public String setUniqueSprayId(Alias alias)
+  {
+    return set(this.sprayOperatorCol, alias);
   }
 }

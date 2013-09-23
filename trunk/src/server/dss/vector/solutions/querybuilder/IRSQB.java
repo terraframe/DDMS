@@ -549,20 +549,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
     
-    String detailUniqueId = this.getUniqueSprayDetailsId();
-//    
-//    String unitOperationalCoverageNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
-//    String unitOperationalCoverageDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, availableUnits);
-//    
-//    String unit_operational_coverage = unitOperationalCoverageNumerator+"::float / nullif("+unitOperationalCoverageDenominator+",0)";
-//
-//    // #2868 - instead of -refills- we now sum on sachets -used-
-//    String unitApplicationRateNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, Alias.USED.getAlias());
-//    String unitApplicationRateDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
-//    String unit_application_rate = "("+unitApplicationRateNumerator+"::FLOAT * " + shareOfCans
-//        + " * active_ingredient_per_can) / nullif(("+unitApplicationRateDenominator+") * "+UNITAREA+",0)";
-//    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
-
+    String uniqueSprayId = this.getUniqueSprayDetailsId();
+    
+    
     String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + availableUnits
         + "),0)";
 
@@ -573,11 +562,15 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     
     if(QueryUtil.setSelectabeSQL(irsVQ, "sprayedunits", sprayedUnits))
-//    {
-//      QueryUtil.setAttributesAsAggregated(new String[]{"sprayedunits"}, detailUniqueId, irsVQ, null, true, true);
-//    }
+    {
+      QueryUtil.setAttributesAsAggregated(new String[]{"sprayedunits"}, uniqueSprayId, irsVQ, null, true, true);
+    }
     
-    QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits);
+    if(QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits))
+    {
+      QueryUtil.setAttributesAsAggregated(new String[]{"unit_unsprayed"}, uniqueSprayId, irsVQ, null, true, true);
+    }
+    
     QueryUtil.setSelectabeSQL(irsVQ, "refills * " + shareOfCans, unsprayedUnits);
 
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate", "(" + unit_application_rate + ")");
@@ -701,7 +694,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private String getUniqueSprayDetailsId()
   {
-    return Alias.HOUSEHOLD_ID.getAlias()+"||'_'||"+Alias.STRUCTURE_ID.getAlias();
+    return Alias.UNIQUE_SPRAY_ID.getAlias();
   }
 
   private void addPlannedTargetDateCriteria()
@@ -1273,6 +1266,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       sql += "SELECT \n";
       sql += join.setId(Alias.ID) + ", \n";
+      sql += join.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
       sql += join.setCreateDate(Alias.CREATE_DATE) + ", \n";
       sql += join.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
       sql += join.setCreatedBy(Alias.CREATED_BY) + ", \n";
@@ -1391,6 +1385,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
+    sql += union.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
     sql += union.setCreateDate(Alias.CREATE_DATE) + ", \n";
     sql += union.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
     sql += union.setCreatedBy(Alias.CREATED_BY) + ", \n";
