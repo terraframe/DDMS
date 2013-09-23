@@ -563,7 +563,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     
     if(QueryUtil.setSelectabeSQL(irsVQ, "sprayedunits", sprayedUnits))
     {
-      QueryUtil.setAttributesAsAggregated(new String[]{"sprayedunits"}, uniqueSprayId, irsVQ, null, true, true);
+      QueryUtil.setAttributesAsAggregated(new String[]{"sprayedunits"}, uniqueSprayId, irsVQ, this.sprayViewAlias, true, true);
     }
     
     if(QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits))
