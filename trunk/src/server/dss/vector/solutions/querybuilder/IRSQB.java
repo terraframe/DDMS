@@ -99,6 +99,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   public static final String                OPERATOR_PLANNED_TARGET    = "operator_planned_target";
 
   private static final String               OPERATOR_PLANNED_COVERAGE  = "operator_planned_coverage";
+  
+  private static final String UNITAREA = "unitarea";
 
   // The smallest (most depth) universal selected in the query screen
   private String                            smallestUnivesal;
@@ -548,27 +550,42 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     
     String detailUniqueId = this.getUniqueSprayDetailsId();
-    
-    String unitOperationalCoverageNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
-    String unitOperationalCoverageDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, availableUnits);
-    
-    String unit_operational_coverage = unitOperationalCoverageNumerator+"::float / nullif("+unitOperationalCoverageDenominator+",0)";
+//    
+//    String unitOperationalCoverageNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
+//    String unitOperationalCoverageDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, availableUnits);
+//    
+//    String unit_operational_coverage = unitOperationalCoverageNumerator+"::float / nullif("+unitOperationalCoverageDenominator+",0)";
+//
+//    // #2868 - instead of -refills- we now sum on sachets -used-
+//    String unitApplicationRateNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, Alias.USED.getAlias());
+//    String unitApplicationRateDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
+//    String unit_application_rate = "("+unitApplicationRateNumerator+"::FLOAT * " + shareOfCans
+//        + " * active_ingredient_per_can) / nullif(("+unitApplicationRateDenominator+") * "+UNITAREA+",0)";
+//    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
+
+    String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + availableUnits
+        + "),0)";
 
     // #2868 - instead of -refills- we now sum on sachets -used-
-    String unitApplicationRateNumerator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, Alias.USED.getAlias());
-    String unitApplicationRateDenominator = QueryUtil.sumColumnForId(sprayViewAlias, detailUniqueId, null, sprayedUnits);
-    String unit_application_rate = unitApplicationRateNumerator+"::FLOAT * " + shareOfCans
-        + " * active_ingredient_per_can) / nullif(("+unitApplicationRateDenominator+") * unitarea,0)";
-    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate)";
+    String unit_application_rate = "SUM("+Alias.USED.getAlias()+"::FLOAT * " + shareOfCans
+        + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
+    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
 
-    QueryUtil.setSelectabeSQL(irsVQ, "sprayedunits", sprayedUnits);
+    
+    if(QueryUtil.setSelectabeSQL(irsVQ, "sprayedunits", sprayedUnits))
+//    {
+//      QueryUtil.setAttributesAsAggregated(new String[]{"sprayedunits"}, detailUniqueId, irsVQ, null, true, true);
+//    }
+    
     QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits);
     QueryUtil.setSelectabeSQL(irsVQ, "refills * " + shareOfCans, unsprayedUnits);
 
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate", "(" + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate_mg", "1000.0 *" + "("
         + unit_application_rate + ")");
+    
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_ratio", unit_application_ratio);
+    
     QueryUtil
         .setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage + " * 100.0");
 
@@ -1633,7 +1650,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     select += "(CASE WHEN " + enumNameCol + " = '" + TargetUnit.ROOM.name() + "' THEN " + roomCol
         + "  WHEN " + enumNameCol + " = '" + TargetUnit.STRUCTURE.name() + "' THEN " + structureAreaCol
         + " WHEN " + enumNameCol + " = '" + TargetUnit.HOUSEHOLD.name() + "' THEN " + householdCol
-        + " END ) AS unitarea,\n";
+        + " END ) AS "+UNITAREA+",\n";
     
     // standard application rate
     select += "" + unitAreaNozzleCovCol + " " + unitAreaNozzleCovCol + ",\n";
