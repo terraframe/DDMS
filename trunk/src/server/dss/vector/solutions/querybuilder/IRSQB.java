@@ -694,7 +694,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private String getUniqueSprayDetailsId()
   {
-    return Alias.UNIQUE_SPRAY_ID.getAlias();
+    return idCol+" || "+Alias.UNIQUE_SPRAY_ID.getAlias();
   }
 
   private void addPlannedTargetDateCriteria()
