@@ -800,10 +800,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 	{
       var key = userAlias + this._config.CRITERIA;
       var crit = this._config.getProperty(key);
-      var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
+      
+      if(checked && crit){
+        var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
           
-      this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
-      this._toggleSingle(userAlias, true, criteria.display);	  
+        this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
+        this._toggleSingle(userAlias, true, criteria.display);	  
+      }
 	},
 	
     _setNumberCriteriaFromLoad : function(checked, userAlias)
@@ -923,7 +926,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }
           else
           {
-            thisRef._checkBox(userAlias);
+            var checked = thisRef._checkBox(userAlias);
+            thisRef._setTextCriteriaFromLoad(checked, userAlias);            
           }
           
         },
