@@ -1347,6 +1347,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
+    sql += union.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
     sql += union.setPlannedDate(Alias.PLANNED_DATE) + ", \n";
     sql += union.setTargetWeek(Alias.TARGET_WEEK) + ", \n";
     sql += union.setGeoEntity(Alias.GEO_ENTITY) + ", \n";

@@ -42,6 +42,12 @@ public abstract class PlannedResourceTarget extends PlannedTargetUnion implement
   }
   
   @Override
+  public final String setUniqueSprayId(Alias alias)
+  {
+    return this.setNULL(alias);
+  }
+  
+  @Override
   public String setDisease(Alias alias)
   {
     return set(resourceTargetTable, disease, alias);
