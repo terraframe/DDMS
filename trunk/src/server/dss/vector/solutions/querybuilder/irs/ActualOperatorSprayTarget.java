@@ -44,6 +44,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   private String returnCol;
   private String sprayOperatorCol;
   private String wrongSurfaceCol;
+  private String keyName;
   
   public ActualOperatorSprayTarget()
   {
@@ -82,6 +83,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.refusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.REFUSED);
     this.otherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.OTHER);
     this.wrongSurfaceCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.WRONGSURFACE);
+    this.keyName = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.KEYNAME);
   }
   
   public String setId(Alias alias)
@@ -363,11 +365,13 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setUniqueSprayId(Alias alias)
   {
-    String sql = "";
-    sql += "(CASE WHEN household_id IS NOT NULL AND structure_id IS NOT NULL THEN household_id || structure_id";
-    sql += " WHEN structure_id IS NOT NULL THEN structure_id WHEN household_id IS NOT NULL THEN household_id";
-    sql += " ELSE abstract_spray.key_name END)";
+    // old code: not unique enough
+//    String sql = "";
+//    sql += "(CASE WHEN household_id IS NOT NULL AND structure_id IS NOT NULL THEN household_id || structure_id";
+//    sql += " WHEN structure_id IS NOT NULL THEN structure_id WHEN household_id IS NOT NULL THEN household_id";
+//    sql += " ELSE abstract_spray.key_name END)";
     
+    String sql = this.householdSprayStatusTable+"."+this.keyName;
     return set(sql, alias);
   }
 }

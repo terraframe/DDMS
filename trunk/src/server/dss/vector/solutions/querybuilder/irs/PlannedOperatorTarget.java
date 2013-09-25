@@ -41,6 +41,12 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   }
   
   @Override
+  public String setUniquePlannedId(Alias alias)
+  {
+    return set(IRSQB.RESOURCE_TARGET_VIEW, keyName, alias);
+  }
+  
+  @Override
   public String from()
   {
     String sql = "--Planned Operator Target\n"; 

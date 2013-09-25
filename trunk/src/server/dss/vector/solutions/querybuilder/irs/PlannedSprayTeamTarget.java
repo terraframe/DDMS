@@ -33,6 +33,12 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   {
     return set(sprayTeamTable, teamIdCol, alias);
   }
+  
+  @Override
+  public String setUniquePlannedId(Alias alias)
+  {
+    return set(IRSQB.RESOURCE_TARGET_VIEW, keyName, alias);
+  }
 
 //  @Override
 //  public String setTeamActualTarget(Alias alias)

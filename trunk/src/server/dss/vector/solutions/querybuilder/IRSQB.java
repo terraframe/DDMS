@@ -30,6 +30,7 @@ import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.Property;
@@ -193,6 +194,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String                            sprayViewAlias;
 
   private String                            idCol;
+  
+  private String keyName;
 
   private String                            sprayedUnits;
 
@@ -261,6 +264,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.sprayedUnits = null;
 
     this.idCol = QueryUtil.getIdColumn();
+    this.keyName = QueryUtil.getColumnName(Metadata.getKeyNameMd());
     this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());
     this.geoEntity = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
 
@@ -694,7 +698,8 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private String getUniqueSprayDetailsId()
   {
-    return idCol+" || '_' || "+Alias.UNIQUE_SPRAY_ID.getAlias();
+//    return idCol+" || '_' || "+Alias.UNIQUE_SPRAY_ID.getAlias();
+    return Alias.UNIQUE_SPRAY_ID.getAlias();
   }
 
   private void addPlannedTargetDateCriteria()
@@ -1267,6 +1272,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       sql += "SELECT \n";
       sql += join.setId(Alias.ID) + ", \n";
       sql += join.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
+      sql += join.setUniquePlannedId(Alias.UNIQUE_PLANNED_ID) + ", \n";
       sql += join.setCreateDate(Alias.CREATE_DATE) + ", \n";
       sql += join.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
       sql += join.setCreatedBy(Alias.CREATED_BY) + ", \n";
@@ -1348,6 +1354,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
     sql += union.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
+    sql += union.setUniquePlannedId(Alias.UNIQUE_PLANNED_ID) + ", \n";
     sql += union.setPlannedDate(Alias.PLANNED_DATE) + ", \n";
     sql += union.setTargetWeek(Alias.TARGET_WEEK) + ", \n";
     sql += union.setGeoEntity(Alias.GEO_ENTITY) + ", \n";
@@ -1387,6 +1394,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
     sql += union.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
+    sql += union.setUniquePlannedId(Alias.UNIQUE_PLANNED_ID) + ", \n";
     sql += union.setCreateDate(Alias.CREATE_DATE) + ", \n";
     sql += union.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
     sql += union.setCreatedBy(Alias.CREATED_BY) + ", \n";
@@ -1472,7 +1480,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
 
     String weeks = "";
-    for (Integer i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
+    for (int i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
     {
       weeks += "target_" + i + ",";
       if (i % 10 == 0)
@@ -1481,6 +1489,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     weeks = weeks.substring(0, weeks.length() - 1);
 
     String select = "SELECT tar." + idCol + " AS " + idCol + ",\n";
+    select += "tar."+keyName+" AS "+keyName+",\n";
     select += "de." + Alias.PLANNED_DATE + " AS " + Alias.PLANNED_DATE + ", \n";
     select += "i AS " + Alias.TARGET_WEEK + ",\n";
     if (isResource)
@@ -1500,6 +1509,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     String from = "FROM ";
     from += "(SELECT id, ";
+    from += "key_name, ";
     if (isResource)
     {
       from += this.targeter + ", ";

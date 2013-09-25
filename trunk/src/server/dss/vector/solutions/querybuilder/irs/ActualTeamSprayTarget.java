@@ -44,6 +44,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String sprayTeamTable;
   private String targetCol;
   private String operTarget;
+  private String keyName;
   
   public ActualTeamSprayTarget()
   {
@@ -79,6 +80,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     refusedCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.REFUSED);
     otherCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OTHER);
     operTarget = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OPERATORTARGET);
+    keyName = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.KEYNAME);
    
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     sprayTeamTable = sprayTeamMd.getTableName();
@@ -325,6 +327,8 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setUniqueSprayId(Alias alias)
   {
-    return set(this.sprayOperatorCol, alias);
+    String sql = this.operSprayStatusTable+"."+this.keyName;
+    return set(sql, alias);
+    //    return set(this.sprayOperatorCol, alias); old code, not unique enough
   }
 }

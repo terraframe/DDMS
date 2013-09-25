@@ -1,8 +1,10 @@
 package dss.vector.solutions.querybuilder.irs;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.util.QueryUtil;
 
 public abstract class PlannedTargetUnion extends AbstractTargetUnion implements Reloadable
 {
@@ -10,9 +12,20 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
 
   public abstract String setUniqueSprayId(Alias alias);
   
+  public abstract String setUniquePlannedId(Alias alias);
+
   public abstract String setPlannedDate(Alias alias);
   
   public abstract String setSpraySeason(Alias alias);
+  
+  protected String keyName;
+  
+  public PlannedTargetUnion()
+  {
+    super();
+    
+    keyName = QueryUtil.getColumnName(Metadata.getKeyNameMd());
+  }
   
   public String setSprayOperator(Alias alias)
   {
@@ -23,7 +36,7 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   {
     return setNULL(alias);
   }
-
+  
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
 

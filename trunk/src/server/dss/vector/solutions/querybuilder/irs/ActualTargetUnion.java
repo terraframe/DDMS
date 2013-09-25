@@ -285,4 +285,9 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   }
 
   public abstract String setUniqueSprayId(Alias alias);
+  
+  public final String setUniquePlannedId(Alias alias)
+  {
+    return this.setNULL(alias);
+  }
 }

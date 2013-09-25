@@ -72,6 +72,8 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   private String geoEntityCol;
   
   private String targetCol;
+  
+  private String keyName;
 
   public ActualZoneSprayTarget()
   {
@@ -85,6 +87,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     diseaseCol = QueryUtil.getColumnName(ZoneSpray.getDiseaseMd());
     supervisorCol = QueryUtil.getColumnName(ZoneSpray.getSupervisorMd());
     geoEntityCol = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
+    
 
     MdEntityDAOIF teamSprayStatusMd = MdEntityDAO.getMdEntityDAO(TeamSprayStatus.CLASS);
     teamSprayStatusTable = teamSprayStatusMd.getTableName();
@@ -112,6 +115,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     refusedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.REFUSED);
     otherCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.OTHER);
     targetCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.TARGET);
+    keyName = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.KEYNAME);
   }
 
   public String setId(Alias alias)
@@ -336,6 +340,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setUniqueSprayId(Alias alias)
   {
-    return set(this.sprayTeamCol, alias);
+    String sql = this.teamSprayStatusTable+"."+this.keyName;
+    return set(sql, alias);
   }
 }

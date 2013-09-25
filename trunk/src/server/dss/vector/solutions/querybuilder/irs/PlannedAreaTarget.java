@@ -47,6 +47,12 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   {
     return set(Alias.PLANNED_DATE.getAlias(), alias);
   }
+  
+  @Override
+  public final String setUniquePlannedId(Alias alias)
+  {
+    return set(GTV_ALIAS, keyName, alias);
+  }
 
   @Override
   public String setGeoEntity(Alias alias)
@@ -65,11 +71,9 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   @Override
   public String from()
   {
-    String sql = "--Planned Area Target\n";
-
     String geoTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
     
-    sql += IRSQB.GEO_TARGET_VIEW +" "+GTV_ALIAS+" INNER JOIN "+geoTable+" g ON g."+childGeoEntity+" = "+GTV_ALIAS+"."+this.q.getGeoEntity()+" \n";
+    String sql = IRSQB.GEO_TARGET_VIEW +" "+GTV_ALIAS+" INNER JOIN "+geoTable+" g ON g."+childGeoEntity+" = "+GTV_ALIAS+"."+this.q.getGeoEntity()+" \n";
     
     return sql;
   }
@@ -91,8 +95,8 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
       
       sql += parentMd + " = '" + MdEntity.getMdEntity(universal).getId() + "'";
     }
-    
-    sql += "GROUP BY "+parentGeoEntity+", "+Alias.PLANNED_DATE.getAlias()+", "
+    sql += "\n";
+    sql += "GROUP BY "+GTV_ALIAS+"."+this.keyName+", "+parentGeoEntity+", "+Alias.PLANNED_DATE.getAlias()+", "
     +Alias.TARGET_WEEK.getAlias()+", "+IRSQB.MALARIA_SEASON+", "+IRSQB.PLANNED_TARGET_DISEASE+"\n";
     
     return sql;

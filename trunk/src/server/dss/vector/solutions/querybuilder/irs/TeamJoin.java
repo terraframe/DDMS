@@ -27,11 +27,11 @@ public class TeamJoin extends TargetJoin implements Reloadable
       // NOTE: old code for reference
 //      sql += "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") " +
 //      "= extract(YEAR FROM "+TargetJoin.PLANNED_ALIAS+"."+Alias.PLANNED_DATE.getAlias()+") \n";
-//      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = "
-//          + TargetJoin.ACTUAL_ALIAS + "." + Alias.TARGET_WEEK + " \n";
+      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = "
+          + TargetJoin.ACTUAL_ALIAS + "." + Alias.TARGET_WEEK + " \n";
       
       // FIXED: joined based on spray season instead of year + week
-      sql += "ON "+TargetJoin.PLANNED_ALIAS + "." + Alias.SPRAY_SEASON + " = "
+      sql += "AND "+TargetJoin.PLANNED_ALIAS + "." + Alias.SPRAY_SEASON + " = "
           + TargetJoin.ACTUAL_ALIAS + "." + Alias.SPRAY_SEASON + " \n";
 
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = "
