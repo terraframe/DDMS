@@ -720,7 +720,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
         irsVQ.AND(or);
       }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
       {
         String endValue = dateObj.getString("end");
 
