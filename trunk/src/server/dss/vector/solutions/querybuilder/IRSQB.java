@@ -1080,8 +1080,16 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     if (!this.hasEpiWeek)
     {
-      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
-          AREA_PLANNED_TARGET);
+      String geoEntity = this.sprayViewAlias+"."+Alias.GEO_ENTITY.getAlias();
+      String disease = this.sprayViewAlias+"."+Alias.DISEASE.getAlias();
+      String season = this.sprayViewAlias+"."+Alias.SPRAY_SEASON.getAlias();
+      String func = QueryConstants.SUM_AREA_TARGETS+"("+geoEntity+", to_char("+IRSQB.TARGET_WEEK+"-1, 'FM99'), "
+        +disease+", "+season+")";
+      
+      String check = "(CASE WHEN "+season+" IS NOT NULL AND "+geoEntity+" IS NOT NULL THEN "+func+" ELSE NULL END)";
+      String sum = QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), null, check);
+      
+      return sum;
     }
     else
     {
