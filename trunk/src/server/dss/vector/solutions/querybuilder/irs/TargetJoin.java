@@ -60,6 +60,11 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
     return caseSwap(alias);
   }
   
+  public String setParentGeoEntity(Alias alias)
+  {
+    return hasPlanned ? set(PLANNED_ALIAS, Alias.GEO_ENTITY, alias) : setNULL(alias);
+  }
+  
   public String setSprayMethod(Alias alias)
   {
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);

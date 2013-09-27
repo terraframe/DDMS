@@ -133,9 +133,9 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new EntomologyQB(xml, config, layer).construct();
+    return new EntomologyQB(xml, config, layer, pageSize, pageSize).construct();
   }
 
 }

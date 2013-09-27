@@ -33,9 +33,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class EfficacyAssayQB extends AbstractQB implements Reloadable
 {
 
-  public EfficacyAssayQB(String xml, String config, Layer layer)
+  public EfficacyAssayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
   }
   
   @Override

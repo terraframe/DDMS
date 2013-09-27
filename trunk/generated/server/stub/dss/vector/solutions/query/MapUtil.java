@@ -112,7 +112,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       ValueQuery valueQuery;
       try
       {
-        valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
+        valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer, null, null);
         
         // Format any decimal thematic variable to two decimal places
         if(layer.hasThematicVariable())

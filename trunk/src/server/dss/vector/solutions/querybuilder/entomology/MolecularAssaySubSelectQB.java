@@ -21,9 +21,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
 {
 
-  public MolecularAssaySubSelectQB(String xml, String config, Layer layer)
+  public MolecularAssaySubSelectQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
   }
   
   @Override

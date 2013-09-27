@@ -48,9 +48,9 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class InterventionControlQB extends AbstractQB implements Reloadable
 {
-  public InterventionControlQB(String xml, String config, Layer layer)
+  public InterventionControlQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
   }
   
   @Override

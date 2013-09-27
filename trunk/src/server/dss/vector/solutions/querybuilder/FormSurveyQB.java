@@ -34,9 +34,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class FormSurveyQB extends AbstractQB implements Reloadable
 {
 
-  public FormSurveyQB(String xml, String config, Layer layer)
+  public FormSurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
   }
   
   @Override
@@ -266,8 +266,8 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new FormSurveyQB(xml, config, layer).construct();
+    return new FormSurveyQB(xml, config, layer, pageSize, pageSize).construct();
   }
 }

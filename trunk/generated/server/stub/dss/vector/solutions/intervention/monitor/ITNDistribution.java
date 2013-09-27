@@ -117,9 +117,9 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new ITNFacilityDistributionQB(xml, config, layer).construct();
+    return new ITNFacilityDistributionQB(xml, config, layer, pageSize, pageSize).construct();
   }
 
   @Override

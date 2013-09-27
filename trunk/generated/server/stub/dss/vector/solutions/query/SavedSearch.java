@@ -351,7 +351,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     try
     {
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null);
 
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
@@ -873,7 +873,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // reflection.
       // TODO pass in queryType and have getValueQuery deref the class
       String queryClass = QueryConstants.getQueryClass(queryType);
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null);
 
       List<Selectable> selectables = valueQuery.getSelectableRefs();
       ThematicVariable[] thematicVars = new ThematicVariable[selectables.size()];

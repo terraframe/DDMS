@@ -60,8 +60,8 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new LarvacideQB(xml, config, layer).construct();
+    return new LarvacideQB(xml, config, layer, pageSize, pageSize).construct();
   }
 }

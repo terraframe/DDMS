@@ -21,9 +21,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class ITNFacilityDistributionQB extends AbstractQB implements Reloadable
 {
 
-  public ITNFacilityDistributionQB(String xml, String config, Layer layer)
+  public ITNFacilityDistributionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
   }
   
   @Override

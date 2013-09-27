@@ -84,7 +84,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     }
   }
   
-  public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer)
+  public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
     Class<?> clazz = null;
 
@@ -96,8 +96,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       // TODO instantiate querybuilder classes directly and remove static calls
       // from domain classes
       clazz = Class.forName(queryClass);
-      xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class);
-      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);
+      xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class, Integer.class, Integer.class);
+      valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer, pageNumber, pageSize);
     }
     catch (InvocationTargetException e)
     {
@@ -158,7 +158,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   @Authenticate
   public static com.runwaysdk.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
+    ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null, pageNumber, pageSize);
 
     valueQuery.restrictRows(pageSize, pageNumber);
 
@@ -177,7 +177,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, null, null, null);
 
     Set<String> aliases = getAliases(config);
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName(), aliases);
@@ -194,7 +194,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw ex;
     }
 
-    ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
+    ValueQuery query = getValueQuery(queryClass, queryXML, config, null, null, null);
 
     DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 

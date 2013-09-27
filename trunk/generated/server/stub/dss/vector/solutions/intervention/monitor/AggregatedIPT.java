@@ -286,9 +286,9 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    AggregatedIPTQB query = new AggregatedIPTQB(xml, config, layer);
+    AggregatedIPTQB query = new AggregatedIPTQB(xml, config, layer, pageSize, pageSize);
     return query.construct();
   }
   

@@ -64,9 +64,9 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
   private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
-  public MosquitoCollectionQB(String xml, String config, Layer layer)
+  public MosquitoCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
 
     this.universalClass = Country.CLASS;
     this.forceUniversal = false;

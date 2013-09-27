@@ -160,8 +160,12 @@ public abstract class AbstractQB implements Reloadable
   private List<WITHEntry>            withEntries;
   
   private boolean enableWindowCount;
+  
+  private Integer pageNumber;
+  
+  private Integer pageSize;
 
-  public AbstractQB(String xml, String config, Layer layer)
+  public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
     this.recursiveWithClause = false;
     this.xml = xml;
@@ -174,6 +178,18 @@ public abstract class AbstractQB implements Reloadable
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
     this.enableWindowCount = true;
+    this.pageNumber = pageNumber;
+    this.pageSize = pageSize;
+  }
+  
+  public Integer getPageNumber()
+  {
+    return pageNumber;
+  }
+  
+  public Integer getPageSize()
+  {
+    return pageSize;
   }
 
   protected void setWITHRecursive(boolean recursive)
@@ -239,6 +255,20 @@ public abstract class AbstractQB implements Reloadable
       this.addCountSelectable(valueQuery);
     }
     
+    ValueQuery finalQuery = this.postProcess(valueQuery);
+    
+    return finalQuery;
+  }
+  
+  /**
+   * By default there is no post-processing, but QBs can override this behavior
+   * to return whatever they want (I'm looking at you, IRS).
+   * 
+   * @param valueQuery
+   * @return
+   */
+  protected ValueQuery postProcess(ValueQuery valueQuery)
+  {
     return valueQuery;
   }
   

@@ -219,9 +219,9 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new ResistanceQB(xml, config, layer).construct();
+    return new ResistanceQB(xml, config, layer, pageSize, pageSize).construct();
   }
 
 }

@@ -36,6 +36,11 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   {
     return setNULL(alias);
   }
+
+  public String setParentGeoEntity(Alias alias)
+  {
+    return setNULL(alias);
+  }
   
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
@@ -73,7 +78,6 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   
   public String setAreaPlannedTarget(Alias alias)
   {
-
     return setNULL(alias);
   }
   

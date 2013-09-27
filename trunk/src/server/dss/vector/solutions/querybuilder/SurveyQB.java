@@ -31,9 +31,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class SurveyQB extends AbstractQB implements Reloadable
 {
 
-  public SurveyQB(String xml, String config, Layer layer)
+  public SurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
   }
   
   @Override

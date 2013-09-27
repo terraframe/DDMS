@@ -21,9 +21,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class PooledInfectionAssaySubSelectQB extends AbstractQB implements Reloadable
 {
 
-  public PooledInfectionAssaySubSelectQB(String xml, String config, Layer layer)
+  public PooledInfectionAssaySubSelectQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
   }
   
   @Override

@@ -171,9 +171,9 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new PupalContainerCollectionQB(xml, config, layer).construct();
+    return new PupalContainerCollectionQB(xml, config, layer, pageSize, pageSize).construct();
   }
   
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)

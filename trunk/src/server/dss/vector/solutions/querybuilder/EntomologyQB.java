@@ -30,9 +30,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class EntomologyQB extends AbstractQB implements Reloadable
 {
 
-  public EntomologyQB(String xml, String config, Layer layer)
+  public EntomologyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
   }
   
   @Override
@@ -50,28 +50,31 @@ public class EntomologyQB extends AbstractQB implements Reloadable
     
     ArrayList<ValueQuery>  unionQueries = new ArrayList<ValueQuery>();
     
+    Integer pageNumber = this.getPageNumber();
+    Integer pageSize = this.getPageSize();
+    
     InfectionAssayQuery infectionQuery = (InfectionAssayQuery) queryMap.get(InfectionAssay.CLASS);
     if (infectionQuery != null ||  xml.indexOf(">prevalence<") > 0)
     {
-      unionQueries.add(new InfectionAssaySubSelectQB(xml,config,layer).construct());
+      unionQueries.add(new InfectionAssaySubSelectQB(xml,config,layer, pageNumber, pageSize).construct());
     }
 
     PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
     if (pooledInfectionQuery != null ||  xml.indexOf(">minPrevalence<") > 0)
     {
-      unionQueries.add(new PooledInfectionAssaySubSelectQB(xml, config, layer).construct());
+      unionQueries.add(new PooledInfectionAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
     
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
     if (molecularQuery != null ||  xml.indexOf(">percent") > 0  ||  xml.indexOf(">frequency") > 0)
     {
-      unionQueries.add(new MolecularAssaySubSelectQB(xml, config, layer).construct());
+      unionQueries.add(new MolecularAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
     
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
     if (biochemicalQuery != null ||  xml.indexOf(">elevated<") > 0)
     {
-      unionQueries.add(new BiochemicalAssaySubSelectQB(xml, config, layer).construct());
+      unionQueries.add(new BiochemicalAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
     
     if(unionQueries.size() == 0)

@@ -29,9 +29,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class ResistanceBioassayQB extends AbstractQB implements Reloadable
 {
 
-  public ResistanceBioassayQB(String xml, String config, Layer layer)
+  public ResistanceBioassayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
   }
   
   @Override

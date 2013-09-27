@@ -19,9 +19,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class LarvacideQB extends AbstractQB implements Reloadable
 {
 
-  public LarvacideQB(String xml, String config, Layer layer)
+  public LarvacideQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageNumber, pageNumber);
   }
   
   @Override

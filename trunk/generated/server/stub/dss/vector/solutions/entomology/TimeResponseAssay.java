@@ -50,8 +50,8 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new ResistanceBioassayQB(xml, config, layer).construct();
+    return new ResistanceBioassayQB(xml, config, layer, pageSize, pageSize).construct();
   }
 }

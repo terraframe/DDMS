@@ -20,9 +20,9 @@ public class TypeQB extends AbstractQB implements Reloadable
 
   private String auditClass;
   
-  public TypeQB(String xml, String config, Layer layer)
+  public TypeQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    super(xml, config, layer);
+    super(xml, config, layer, pageSize, pageSize);
     auditClass = null;
   }
   
@@ -75,8 +75,8 @@ public class TypeQB extends AbstractQB implements Reloadable
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new TypeQB(xml, config, layer).construct();
+    return new TypeQB(xml, config, layer, pageSize, pageSize).construct();
   }
 }

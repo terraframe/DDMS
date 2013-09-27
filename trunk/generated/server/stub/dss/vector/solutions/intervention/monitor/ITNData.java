@@ -312,9 +312,9 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    AggregatedITNQB query = new AggregatedITNQB(xml, config, layer);
+    AggregatedITNQB query = new AggregatedITNQB(xml, config, layer, pageSize, pageSize);
     return query.construct();
   }
   

@@ -232,9 +232,9 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    MosquitoCollectionQB query = new MosquitoCollectionQB(xml, config, layer);
+    MosquitoCollectionQB query = new MosquitoCollectionQB(xml, config, layer, pageSize, pageSize);
     return query.construct();
   }
 

@@ -335,9 +335,9 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new ITNCommunityDistributionQB(xml, config, layer).construct();
+    return new ITNCommunityDistributionQB(xml, config, layer, pageSize, pageSize).construct();
   }
 
 }
