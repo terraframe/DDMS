@@ -722,7 +722,8 @@ public class IRSQB extends AbstractQB implements Reloadable
           String uniqueSprayId = this.getUniqueSprayDetailsId();
           String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
           
-          valueQuery.aSQLInteger(SPRAYED_UNITS, sum, SPRAYED_UNITS);
+          SelectableSQL sel = valueQuery.aSQLAggregateInteger(SPRAYED_UNITS, sum, SPRAYED_UNITS);
+          valueQuery.SELECT(sel);
         }
         
         SelectableSQL calc = (SelectableSQL) outer.getSelectableRef(AREA_PLANNED_COVERAGE);
