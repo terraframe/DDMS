@@ -1293,6 +1293,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 //            + ",0))*100.0";
 //        calc.setSQL(sql);
         
+        this.hasPlannedTargets = true;
+        
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
         calc.setSQL("NULL::INTEGER");       
       }
