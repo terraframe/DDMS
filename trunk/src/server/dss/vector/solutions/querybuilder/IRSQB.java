@@ -25,7 +25,6 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
-import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
@@ -69,6 +68,7 @@ import dss.vector.solutions.querybuilder.irs.IRSUnionIF;
 import dss.vector.solutions.querybuilder.irs.OperatorJoin;
 import dss.vector.solutions.querybuilder.irs.PlannedAreaTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedOperatorTarget;
+import dss.vector.solutions.querybuilder.irs.PlannedSprayTeamRollup;
 import dss.vector.solutions.querybuilder.irs.PlannedSprayTeamTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedTargetUnion;
 import dss.vector.solutions.querybuilder.irs.TargetJoin;
@@ -101,8 +101,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   public static final String                OPERATOR_PLANNED_TARGET    = "operator_planned_target";
 
   private static final String               OPERATOR_PLANNED_COVERAGE  = "operator_planned_coverage";
-  
-  private static final String UNITAREA = "unitarea";
+
+  private static final String               UNITAREA                   = "unitarea";
 
   // The smallest (most depth) universal selected in the query screen
   private String                            smallestUnivesal;
@@ -146,16 +146,16 @@ public class IRSQB extends AbstractQB implements Reloadable
   public static final String                RESOURCE_TARGET_VIEW       = "resourceTargetView";
 
   public static final String                DATE_EXTRAPOLATION         = "dateExtrapolation";
-  
+
   public static final String                SPRAY_SUMMARY              = "spraySummary";
 
   public static final String                SPRAYED_ROOMS_SUM          = "sprayedRoomsSum";
-  
+
   public static final String                SPRAYED_STRUCTURES_SUM     = "sprayedStructuresSum";
-  
+
   public static final String                SPRAYED_HOUSEHOLDS_SUM     = "sprayedHouseholdsSum";
 
-  public static final String                OPERATOR_SPRAY_ID     = "operatorSprayId";
+  public static final String                OPERATOR_SPRAY_ID          = "operatorSprayId";
 
   public static final String                GEO_TARGET_VIEW            = "geoTargetView";
 
@@ -163,9 +163,9 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   public static final String                PLANNED_TEAM               = "plannedTeam";
 
-  public static final String                TARGET_ROLLUP              = "targetRollup";
+  public static final String                PLANNED_TEAM_ROLLUP        = "plannedTeamRollup";
 
-  public static final String                ROLLUP_RESULTS             = "rollupResults";
+  public static final String                PLANNED_TEAM_RESULTS       = "plannedTeamResults";
 
   public static final String                PLANNED_AREA               = "plannedArea";
 
@@ -178,8 +178,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   // The final view of all actual and planned targets
   public static final String                SPRAY_VIEW                 = "sprayView";
 
-  public static final String SPRAYED_UNITS = "sprayedunits";
-  
+  public static final String                SPRAYED_UNITS              = "sprayedunits";
+
   public static final String                INSECTICIDE_VIEW           = "insecticideView";
 
   public static final String                TARGET_WEEK                = "target_week";
@@ -197,8 +197,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String                            sprayViewAlias;
 
   private String                            idCol;
-  
-  private String keyName;
+
+  private String                            keyName;
 
   private String                            sprayedUnits;
 
@@ -436,8 +436,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   protected ValueQueryParser createParser(ValueQuery valueQuery, List<ParseInterceptor> interceptors)
   {
     this.irsParser = super.createParser(this.irsVQ, this.createParseInterceptors(this.irsVQ));
-    this.insecticideParser = super.createParser(this.insecticideVQ, this
-        .createParseInterceptors(this.insecticideVQ));
+    this.insecticideParser = super.createParser(this.insecticideVQ,
+        this.createParseInterceptors(this.insecticideVQ));
     this.sprayParser = super.createParser(this.sprayVQ, this.createParseInterceptors(this.sprayVQ));
 
     return this.irsParser;
@@ -462,14 +462,16 @@ public class IRSQB extends AbstractQB implements Reloadable
       super.setTermCriteria(sprayVQ, abtractSprayQueryMap, qbInterceptor);
     }
   }
-  
-//  @Override
-//  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey,
-//      AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery,
-//      Map<String, GeneratedEntityQuery> queryMap)
-//  {
-//
-//  }
+
+  // @Override
+  // protected void setGeoCriteria(QBInterceptor interceptor, String
+  // attributeKey,
+  // AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries,
+  // ValueQuery valueQuery,
+  // Map<String, GeneratedEntityQuery> queryMap)
+  // {
+  //
+  // }
 
   @Override
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
@@ -486,7 +488,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     return this.mainQueryMap;
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -515,7 +517,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     swapOutAttributesForAggregates();
 
-//    this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
+    // this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
 
     if (insecticideQuery != null)
     {
@@ -551,37 +553,36 @@ public class IRSQB extends AbstractQB implements Reloadable
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
-    
     String uniqueSprayId = this.getUniqueSprayDetailsId();
-    
-    
+
     String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + availableUnits
         + "),0)";
 
     // #2868 - instead of -refills- we now sum on sachets -used-
-    String unit_application_rate = "SUM("+Alias.USED.getAlias()+"::FLOAT * " + shareOfCans
+    String unit_application_rate = "SUM(" + Alias.USED.getAlias() + "::FLOAT * " + shareOfCans
         + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
     String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
 
-    
-    if(QueryUtil.setSelectabeSQL(irsVQ, SPRAYED_UNITS, sprayedUnits))
+    if (QueryUtil.setSelectabeSQL(irsVQ, SPRAYED_UNITS, sprayedUnits))
     {
-      QueryUtil.setAttributesAsAggregated(new String[]{SPRAYED_UNITS}, uniqueSprayId, irsVQ, this.sprayViewAlias, true, true);
+      QueryUtil.setAttributesAsAggregated(new String[] { SPRAYED_UNITS }, uniqueSprayId, irsVQ,
+          this.sprayViewAlias, true, true);
     }
-    
-    if(QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits))
+
+    if (QueryUtil.setSelectabeSQL(irsVQ, "unit_unsprayed", unsprayedUnits))
     {
-      QueryUtil.setAttributesAsAggregated(new String[]{"unit_unsprayed"}, uniqueSprayId, irsVQ, null, true, true);
+      QueryUtil.setAttributesAsAggregated(new String[] { "unit_unsprayed" }, uniqueSprayId, irsVQ, null,
+          true, true);
     }
-    
+
     QueryUtil.setSelectabeSQL(irsVQ, "refills * " + shareOfCans, unsprayedUnits);
 
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate", "(" + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate_mg", "1000.0 *" + "("
         + unit_application_rate + ")");
-    
+
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_ratio", unit_application_ratio);
-    
+
     QueryUtil
         .setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage + " * 100.0");
 
@@ -619,25 +620,28 @@ public class IRSQB extends AbstractQB implements Reloadable
           SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);
           String original = sel.getSQL();
 
-          String sprayDateCol = sprayViewAlias+"."+Alias.SPRAY_DATE.getAlias();
-          String plannedDateCol = sprayViewAlias+"."+Alias.PLANNED_DATE.getAlias();
-          
+          String sprayDateCol = sprayViewAlias + "." + Alias.SPRAY_DATE.getAlias();
+          String plannedDateCol = sprayViewAlias + "." + Alias.PLANNED_DATE.getAlias();
+
           String sql;
-          if(group.equals(QueryUtil.DATEGROUP_SEASON))
+          if (group.equals(QueryUtil.DATEGROUP_SEASON))
           {
-            // If there isn't a planned date then don't show the season because that
-            // means activity didn't match a target, and it's rather meaningless to
-            // show a season value just because a spray date coincidentally fell within
+            // If there isn't a planned date then don't show the season because
+            // that
+            // means activity didn't match a target, and it's rather meaningless
+            // to
+            // show a season value just because a spray date coincidentally fell
+            // within
             // the season range.
-            String replaced = original.replaceAll(sprayViewAlias+"\\."+Alias.SPRAY_DATE.getAlias(), plannedDateCol);
-            sql = "CASE WHEN "+plannedDateCol+" IS NOT NULL THEN "+replaced+" ELSE NULL END";
+            String replaced = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(),
+                plannedDateCol);
+            sql = "CASE WHEN " + plannedDateCol + " IS NOT NULL THEN " + replaced + " ELSE NULL END";
           }
           else
           {
-            String caseStmt = "CASE WHEN " + sprayDateCol
-              + " IS NOT NULL THEN " + sprayDateCol + " ELSE "
-              + plannedDateCol + " END";
-            sql = original.replaceAll(sprayViewAlias+"\\."+Alias.SPRAY_DATE.getAlias(), caseStmt);
+            String caseStmt = "CASE WHEN " + sprayDateCol + " IS NOT NULL THEN " + sprayDateCol
+                + " ELSE " + plannedDateCol + " END";
+            sql = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(), caseStmt);
           }
           sel.setSQL(sql);
         }
@@ -652,113 +656,117 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     return this.irsVQ;
   }
-  
+
   @Override
   protected ValueQuery postProcess(ValueQuery valueQuery)
   {
     // incoming will be this.irsQV
-    
-    if(this.needsAreaPlanned)
+
+    if (this.needsAreaPlanned)
     {
-      
-      // we create a new ValueQuery that wraps the original to calculate the Area Targets
+
+      // we create a new ValueQuery that wraps the original to calculate the
+      // Area Targets
       ValueQuery outer = new ValueQuery(valueQuery.getQueryFactory());
-      
-      
-      // SELECT parent_geo_entity, target_week, spray_season, disease because those are
+
+      // SELECT parent_geo_entity, target_week, spray_season, disease because
+      // those are
       // required for the outer Area Target calculation
-      
+
       String aliasPrefix = "area_";
 
-      String pgeAlias = aliasPrefix+Alias.PARENT_GEO_ENTITY.getAlias();
-      SelectableSQL parentGeoEntity = valueQuery.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(), 
-          this.sprayViewAlias+"."+Alias.PARENT_GEO_ENTITY.getAlias(), pgeAlias);
+      String pgeAlias = aliasPrefix + Alias.PARENT_GEO_ENTITY.getAlias();
+      SelectableSQL parentGeoEntity = valueQuery.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(),
+          this.sprayViewAlias + "." + Alias.PARENT_GEO_ENTITY.getAlias(), pgeAlias);
       parentGeoEntity.setColumnAlias(pgeAlias);
-      
-      String twAlias = aliasPrefix+Alias.TARGET_WEEK.getAlias();
-      SelectableSQL targetWeek = valueQuery.aSQLCharacter(Alias.TARGET_WEEK.getAlias(), 
-          this.sprayViewAlias+"."+Alias.TARGET_WEEK.getAlias(), twAlias);
+
+      String twAlias = aliasPrefix + Alias.TARGET_WEEK.getAlias();
+      SelectableSQL targetWeek = valueQuery.aSQLCharacter(Alias.TARGET_WEEK.getAlias(),
+          this.sprayViewAlias + "." + Alias.TARGET_WEEK.getAlias(), twAlias);
       targetWeek.setColumnAlias(twAlias);
-      
-      String ssAlias = aliasPrefix+Alias.SPRAY_SEASON.getAlias();
-      SelectableSQL spraySeason = valueQuery.aSQLCharacter(Alias.SPRAY_SEASON.getAlias(), 
-          this.sprayViewAlias+"."+Alias.SPRAY_SEASON.getAlias(), ssAlias);
+
+      String ssAlias = aliasPrefix + Alias.SPRAY_SEASON.getAlias();
+      SelectableSQL spraySeason = valueQuery.aSQLCharacter(Alias.SPRAY_SEASON.getAlias(),
+          this.sprayViewAlias + "." + Alias.SPRAY_SEASON.getAlias(), ssAlias);
       spraySeason.setColumnAlias(ssAlias);
-      
-      String dAlias = aliasPrefix+Alias.DISEASE.getAlias();
-      SelectableSQL disease = valueQuery.aSQLCharacter(Alias.DISEASE.getAlias(),
-          this.sprayViewAlias+"."+Alias.DISEASE.getAlias(), dAlias);
+
+      String dAlias = aliasPrefix + Alias.DISEASE.getAlias();
+      SelectableSQL disease = valueQuery.aSQLCharacter(Alias.DISEASE.getAlias(), this.sprayViewAlias
+          + "." + Alias.DISEASE.getAlias(), dAlias);
       disease.setColumnAlias(dAlias);
-      
+
       valueQuery.SELECT(parentGeoEntity, targetWeek, spraySeason, disease);
-      
-      // add a reference to each selectable from the inner query to the outer query
-      for(Selectable sel : valueQuery.getSelectableRefs())
+
+      // add a reference to each selectable from the inner query to the outer
+      // query
+      for (Selectable sel : valueQuery.getSelectableRefs())
       {
-        // user SQL character because it's the most generic and works for all datatypes
-        SelectableSQL newSel = outer.aSQLCharacter(sel.getColumnAlias(), sel.getColumnAlias(), sel.getUserDefinedAlias());
+        // user SQL character because it's the most generic and works for all
+        // datatypes
+        SelectableSQL newSel = outer.aSQLCharacter(sel.getColumnAlias(), sel.getColumnAlias(),
+            sel.getUserDefinedAlias());
         newSel.setColumnAlias(sel.getColumnAlias());
-        
+
         outer.SELECT(newSel);
       }
-      
+
       // replace the Area Planned Target and Area Planned Coverage
-      String func = QueryConstants.SUM_AREA_TARGETS+"("+pgeAlias+", to_char("+twAlias+"-1, 'FM99'), "
-        +dAlias+", "+ssAlias+")";
-    
-      String check = "(CASE WHEN "+ssAlias+" IS NOT NULL AND "+pgeAlias+" IS NOT NULL THEN "+func+" ELSE NULL END)";
-//      String sum = QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), null, check);
-      
-      if(outer.hasSelectableRef(AREA_PLANNED_TARGET))
+      String func = QueryConstants.SUM_AREA_TARGETS + "(" + pgeAlias + ", to_char(" + twAlias
+          + "-1, 'FM99'), " + dAlias + ", " + ssAlias + ")";
+
+      String check = "(CASE WHEN " + ssAlias + " IS NOT NULL AND " + pgeAlias + " IS NOT NULL THEN "
+          + func + " ELSE NULL END)";
+      // String sum = QueryUtil.sumColumnForId(sprayViewAlias,
+      // Alias.TARGET_WEEK.getAlias(), null, check);
+
+      if (outer.hasSelectableRef(AREA_PLANNED_TARGET))
       {
         SelectableSQL sel = (SelectableSQL) outer.getSelectableRef(AREA_PLANNED_TARGET);
         sel.setSQL(check);
       }
-      
-      if(outer.hasSelectableRef(AREA_PLANNED_COVERAGE))
+
+      if (outer.hasSelectableRef(AREA_PLANNED_COVERAGE))
       {
-        if(!valueQuery.hasSelectableRef(SPRAYED_UNITS))
+        if (!valueQuery.hasSelectableRef(SPRAYED_UNITS))
         {
           String uniqueSprayId = this.getUniqueSprayDetailsId();
           String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
-          
+
           SelectableSQL sel = valueQuery.aSQLAggregateInteger(SPRAYED_UNITS, sum, SPRAYED_UNITS);
           valueQuery.SELECT(sel);
         }
-        
+
         SelectableSQL calc = (SelectableSQL) outer.getSelectableRef(AREA_PLANNED_COVERAGE);
-        String sql = "((" + SPRAYED_UNITS + ")/NULLIF(" + check
-          + ",0))*100.0";
-        calc.setSQL(sql);        
+        String sql = "((" + SPRAYED_UNITS + ")/NULLIF(" + check + ",0))*100.0";
+        calc.setSQL(sql);
       }
-      
-      if(valueQuery.hasCountSelectable())
+
+      if (valueQuery.hasCountSelectable())
       {
         Selectable count = valueQuery.getCountSelectable();
         valueQuery.SELECT(count);
-        
+
         String countAlias = count.getColumnAlias();
-        SelectableSQLLong c = valueQuery.isGrouping() ? 
-            valueQuery.aSQLAggregateLong(WINDOW_COUNT_ALIAS, countAlias, WINDOW_COUNT_ALIAS) :
-              valueQuery.aSQLLong(WINDOW_COUNT_ALIAS, countAlias, WINDOW_COUNT_ALIAS);
-          
+        SelectableSQLLong c = valueQuery.isGrouping() ? valueQuery.aSQLAggregateLong(WINDOW_COUNT_ALIAS,
+            countAlias, WINDOW_COUNT_ALIAS) : valueQuery.aSQLLong(WINDOW_COUNT_ALIAS, countAlias,
+            WINDOW_COUNT_ALIAS);
+
         valueQuery.setCountSelectable(null);
         outer.SELECT(c);
       }
-      
+
       // restrict the inner query by the page number and size
       // so the outer query has only the results to perform
       // costly calculations
       Integer pageNumber = this.getPageNumber();
       Integer pageSize = this.getPageSize();
-      if(pageNumber != null && pageSize != null)
+      if (pageNumber != null && pageSize != null)
       {
         valueQuery.restrictRows(pageSize, pageNumber);
       }
-      
-      
+
       outer.FROM("(" + valueQuery.getSQL() + ")", "original_IRS");
-      
+
       return outer;
     }
     else
@@ -772,38 +780,28 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void swapOutAttributesForAggregates()
   {
-    // 
+    //
     String[] insecticideAliases = new String[] {
 
-      // insecticide usage
-      Alias.RECEIVED.getAlias(),
-      Alias.USED.getAlias(),
-      Alias.REFILLS.getAlias(),
-      Alias.RETURNED.getAlias()
-    };
+        // insecticide usage
+        Alias.RECEIVED.getAlias(), Alias.USED.getAlias(), Alias.REFILLS.getAlias(),
+        Alias.RETURNED.getAlias() };
 
     QueryUtil.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true);
 
     String[] sprayDetails = new String[] {
 
         // spray details (attributes defined by HouseholdSprayStatus)
-        Alias.HOUSEHOLDS.getAlias(),
-        Alias.SPRAYED_HOUSEHOLDS.getAlias(),
-        Alias.STRUCTURES.getAlias(),
-        Alias.SPRAYED_STRUCTURES.getAlias(),
-        Alias.ROOMS.getAlias(),
-        Alias.SPRAYED_ROOMS.getAlias(),
-        Alias.LOCKED.getAlias(),
-        Alias.REFUSED.getAlias(),
-        Alias.OTHER.getAlias(),
-        Alias.WRONG_SURFACE.getAlias()
-      };
-    
+        Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(),
+        Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(),
+        Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(),
+        Alias.WRONG_SURFACE.getAlias() };
+
     // spray details are unique by the household and structure id
     String detailUniqueId = this.getUniqueSprayDetailsId();
     QueryUtil.setAttributesAsAggregated(sprayDetails, detailUniqueId, irsVQ, sprayViewAlias, true);
   }
-  
+
   /**
    * Household spray details are unique by their household and structure ids.
    * 
@@ -811,7 +809,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private String getUniqueSprayDetailsId()
   {
-//    return idCol+" || '_' || "+Alias.UNIQUE_SPRAY_ID.getAlias();
+    // return idCol+" || '_' || "+Alias.UNIQUE_SPRAY_ID.getAlias();
     return Alias.UNIQUE_SPRAY_ID.getAlias();
   }
 
@@ -825,11 +823,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         String startValue = dateObj.getString("start");
 
-        Condition or = OR.get(irsVQ.aSQLDate("planned_start_date",
-            this.sprayViewAlias + "." + Alias.PLANNED_DATE).GE(
-            irsVQ.aSQLDate("planned_start_val", "'" + startValue + "'")), irsVQ.aSQLDate(
-            "spray_start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
-            irsVQ.aSQLDate("spray_start_val", "'" + startValue + "'")));
+        Condition or = OR.get(
+            irsVQ.aSQLDate("planned_start_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).GE(
+                irsVQ.aSQLDate("planned_start_val", "'" + startValue + "'")),
+            irsVQ.aSQLDate("spray_start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
+                irsVQ.aSQLDate("spray_start_val", "'" + startValue + "'")));
 
         irsVQ.AND(or);
       }
@@ -837,11 +835,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         String endValue = dateObj.getString("end");
 
-        Condition or = OR.get(irsVQ.aSQLDate("planned_end_date",
-            this.sprayViewAlias + "." + Alias.PLANNED_DATE).LE(
-            irsVQ.aSQLDate("planned_end_val", "'" + endValue + "'")), irsVQ.aSQLDate("end_date",
-            this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(
-            irsVQ.aSQLDate("end_val", "'" + endValue + "'")));
+        Condition or = OR.get(
+            irsVQ.aSQLDate("planned_end_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).LE(
+                irsVQ.aSQLDate("planned_end_val", "'" + endValue + "'")),
+            irsVQ.aSQLDate("end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(
+                irsVQ.aSQLDate("end_val", "'" + endValue + "'")));
 
         irsVQ.AND(or);
       }
@@ -879,12 +877,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     // " \n";
     str.append("");
     str.append(leftTable + " " + leftAlias);
-    
-    if(irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
+
+    if (irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
-      str.append(" LEFT JOIN "+IMPORTED_DATETIME+" ON");
-      str.append(" "+IMPORTED_DATETIME+"."+IMPORTED_CREATE_DATE);
-      str.append(" = "+leftAlias+"."+Alias.CREATE_DATE.getAlias()+" ");
+      str.append(" LEFT JOIN " + IMPORTED_DATETIME + " ON");
+      str.append(" " + IMPORTED_DATETIME + "." + IMPORTED_CREATE_DATE);
+      str.append(" = " + leftAlias + "." + Alias.CREATE_DATE.getAlias() + " ");
     }
 
     if (insecticideQuery != null)
@@ -908,13 +906,12 @@ public class IRSQB extends AbstractQB implements Reloadable
       // included in the main query. Join on the insecticide brand in the main
       // query with that of the insecticideVQ
       // to make sure everything matches correctly.
-      irsVQ.FROM(outerInsecticideQuery.getMdClassIF().getTableName(), outerInsecticideQuery
-          .getTableAlias());
+      irsVQ.FROM(outerInsecticideQuery.getMdClassIF().getTableName(),
+          outerInsecticideQuery.getTableAlias());
       irsVQ
           .WHERE(irsVQ.aSQLCharacter("forceJoin1", outerInsecticideQuery.getId().getDbQualifiedName())
-              .EQ(
-                  irsVQ.aSQLCharacter("forceJoin2", insecticideQuery.getTableAlias() + "."
-                      + insecticideId)));
+              .EQ(irsVQ.aSQLCharacter("forceJoin2", insecticideQuery.getTableAlias() + "."
+                  + insecticideId)));
     }
 
     if (this.hasSprayEnumOrTerm)
@@ -937,14 +934,14 @@ public class IRSQB extends AbstractQB implements Reloadable
         + ".start_date) \n");
     str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView
         + ".end_date)) \n");
-    
-    /* removed for #2826
-    str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") >= (" + insecticideView
-        + ".nozzleStart)) \n");
-    str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView
-        + ".nozzleEnd)) \n");
-    */
-    
+
+    /*
+     * removed for #2826 str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE
+     * + ") >= (" + insecticideView + ".nozzleStart)) \n"); str.append("AND (" +
+     * leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView +
+     * ".nozzleEnd)) \n");
+     */
+
     // Special case to include rows from the planned targets, which have no
     // dates
     if (this.hasPlannedTargets)
@@ -956,7 +953,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     irsVQ.FROM(str.toString(), "");
   }
-  
+
   @Override
   protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v,
       Selectable importCreateDate)
@@ -1025,68 +1022,44 @@ public class IRSQB extends AbstractQB implements Reloadable
     String insecticideBrandQuery = this.getInsecticideView();
     String dateExtrapolationQuery = this.getDateExtrapolationView();
     String spraySummaryQuery = this.getSpraySummaryView();
-    // String targetRollupQuery = this.getTargetRollupView();
-    // String rollupResultsQuery = this.getRollupResultsView();
 
     this.setWITHRecursive(true);
 
-//    sql += " " + DATE_EXTRAPOLATION + " AS \n";
-//    sql += "(" + dateExtrapolationQuery + ")\n";
     this.addWITHEntry(new WITHEntry(DATE_EXTRAPOLATION, dateExtrapolationQuery));
-    
-//    sql += ", " + RESOURCE_TARGET_VIEW + " AS \n";
-//    sql += "(" + resourceTargetViewQuery + ")\n";
+
     this.addWITHEntry(new WITHEntry(RESOURCE_TARGET_VIEW, resourceTargetViewQuery));
 
-//    sql += ", " + GEO_TARGET_VIEW + " AS \n";
-//    sql += "(" + geoTargetViewQuery + ")\n";
     this.addWITHEntry(new WITHEntry(GEO_TARGET_VIEW, geoTargetViewQuery));
-    
+
     this.addWITHEntry(new WITHEntry(SPRAY_SUMMARY, spraySummaryQuery));
 
-    // sql += ", " + TARGET_ROLLUP + " AS \n";
-    // sql += "(" + targetRollupQuery + ")\n";
-    //
-    // sql += ", " + ROLLUP_RESULTS + " AS \n";
-    // sql += "(" + rollupResultsQuery + ")\n";
-
-//    sql += ", " + INSECTICIDE_VIEW + " AS \n";
-//    sql += "(" + insecticideBrandQuery + ")\n";
     this.addWITHEntry(new WITHEntry(INSECTICIDE_VIEW, insecticideBrandQuery));
 
-//    sql += "," + ALL_ACTUALS + " AS \n";
-//    sql += "("
-//        + createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
-//            new ActualZoneSprayTarget()) + ")\n";
-    this.addWITHEntry(new WITHEntry(ALL_ACTUALS, createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
-        new ActualZoneSprayTarget())));
+    this.addWITHEntry(new WITHEntry(ALL_ACTUALS, createUnion(new ActualOperatorSprayTarget(),
+        new ActualTeamSprayTarget(), new ActualZoneSprayTarget())));
 
     if (this.needsAreaPlanned)
     {
-//      sql += "," + PLANNED_AREA + " AS \n";
-//      sql += "(" + createUnion(new PlannedAreaTarget()) + ")\n";
       this.addWITHEntry(new WITHEntry(PLANNED_AREA, createUnion(new PlannedAreaTarget())));
     }
 
     if (this.needsTeamsPlanned)
     {
-//      sql += "," + PLANNED_TEAM + " AS \n";
-//      sql += "(" + createUnion(new PlannedSprayTeamTarget()) + ")\n";
       this.addWITHEntry(new WITHEntry(PLANNED_TEAM, createUnion(new PlannedSprayTeamTarget())));
+      this.addWITHEntry(new WITHEntry(PLANNED_TEAM_ROLLUP, createUnion(new PlannedSprayTeamRollup())));
+      
+      String results = this.getPlannedTeamResults();
+      this.addWITHEntry(new WITHEntry(PLANNED_TEAM_RESULTS, results));
+      
     }
 
     if (this.needsOperatorPlanned)
     {
-//      sql += "," + PLANNED_OPERATOR + " AS \n";
-//      sql += "(" + createUnion(new PlannedOperatorTarget()) + ")\n";
       this.addWITHEntry(new WITHEntry(PLANNED_OPERATOR, createUnion(new PlannedOperatorTarget())));
     }
 
-//    sql += "," + SPRAY_VIEW + " AS \n";
-//    sql += "(" + createSprayView() + ")\n";
-    this.addWITHEntry(new WITHEntry(SPRAY_VIEW, createSprayView()));
 
-//    irsVQ.setSqlPrefix(sql);
+    this.addWITHEntry(new WITHEntry(SPRAY_VIEW, createSprayView()));
   }
 
   private String getDateExtrapolationView()
@@ -1102,7 +1075,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     return sql;
   }
-  
+
   private String getSpraySummaryView()
   {
     String sprayedRooms = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedRoomsMd());
@@ -1110,39 +1083,68 @@ public class IRSQB extends AbstractQB implements Reloadable
     String sprayedStructures = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedStructuresMd());
     String householdSprayStatus = MdEntity.getMdEntity(HouseholdSprayStatus.CLASS).getTableName();
     String operatorSpray = MdEntity.getMdEntity(OperatorSpray.CLASS).getTableName();
-//    String spray = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
-    
+    // String spray =
+    // QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
+
     String sql = "";
     sql += "SELECT \n";
-    sql += " o."+QueryUtil.getIdColumn()+" as "+OPERATOR_SPRAY_ID+", \n";
-    sql += " SUM("+sprayedRooms+") as "+SPRAYED_ROOMS_SUM+", \n";
-    sql += " SUM("+sprayedHouseholds+") as "+SPRAYED_HOUSEHOLDS_SUM+", \n";
-    sql += " SUM("+sprayedStructures+") as "+SPRAYED_STRUCTURES_SUM+" \n";
+    sql += " o." + QueryUtil.getIdColumn() + " as " + OPERATOR_SPRAY_ID + ", \n";
+    sql += " SUM(" + sprayedRooms + ") as " + SPRAYED_ROOMS_SUM + ", \n";
+    sql += " SUM(" + sprayedHouseholds + ") as " + SPRAYED_HOUSEHOLDS_SUM + ", \n";
+    sql += " SUM(" + sprayedStructures + ") as " + SPRAYED_STRUCTURES_SUM + " \n";
     sql += "FROM \n";
-    sql += " "+householdSprayStatus+" h inner join "+operatorSpray+" o on o."+QueryUtil.getIdColumn()+" = h.spray \n";
+    sql += " " + householdSprayStatus + " h inner join " + operatorSpray + " o on o."
+        + QueryUtil.getIdColumn() + " = h.spray \n";
     sql += "GROUP BY \n";
     sql += " o.id \n";
     return sql;
   }
-
+  
   /**
-   * Adds the alias to the group by clause of the query.
+   * Combines the exact matches on the team targets to the team's operator targets rollup.
    * 
-   * @param alias
+   * FIXME optimize
    * @return
    */
-  private String forceGrouping(Alias alias)
+  private String getPlannedTeamResults()
   {
-    String sql = sprayViewAlias + "." + alias.getAlias();
-    if (!irsVQ.hasSelectableRef(alias.getAlias()))
-    {
-      irsVQ.SELECT(irsVQ.aSQLCharacter(alias.getAlias(), sql));
-    }
-
-    irsVQ.GROUP_BY((SelectableSingle) irsVQ.getSelectableRef(alias.getAlias()));
-
+    String sql = "";
+    
+    sql += "SELECT * FROM "+PLANNED_TEAM+" \n";
+    sql += "UNION ALL \n";
+    sql += "( \n";
+    sql += "  SELECT * FROM "+PLANNED_TEAM_ROLLUP+" ptr  \n";
+    sql += "  EXCEPT \n";
+    sql += "  SELECt ptr.* FROM "+PLANNED_TEAM_ROLLUP+" ptr  \n";
+    sql += "  INNER JOIN "+PLANNED_TEAM+" pt \n";
+    sql += "  ON ptr."+Alias.SPRAY_TEAM.getAlias()+" = pt."+Alias.SPRAY_TEAM.getAlias()+"  \n";
+    sql += "  AND ptr."+Alias.SPRAY_SEASON.getAlias()+" = pt."+Alias.SPRAY_SEASON.getAlias()+" \n";
+    sql += "  AND ptr."+Alias.DISEASE.getAlias()+" = pt."+Alias.DISEASE.getAlias()+" \n";
+    sql += "  AND ptr."+Alias.TARGET_WEEK.getAlias()+" = pt."+Alias.TARGET_WEEK.getAlias()+" \n";
+    sql += "  AND ptr."+Alias.SPRAY_TEAM.getAlias()+" = pt."+Alias.TARGET.getAlias()+" \n";
+    sql += ") \n";
+    
     return sql;
   }
+
+//  /**
+//   * Adds the alias to the group by clause of the query.
+//   * 
+//   * @param alias
+//   * @return
+//   */
+//  private String forceGrouping(Alias alias)
+//  {
+//    String sql = sprayViewAlias + "." + alias.getAlias();
+//    if (!irsVQ.hasSelectableRef(alias.getAlias()))
+//    {
+//      irsVQ.SELECT(irsVQ.aSQLCharacter(alias.getAlias(), sql));
+//    }
+//
+//    irsVQ.GROUP_BY((SelectableSingle) irsVQ.getSelectableRef(alias.getAlias()));
+//
+//    return sql;
+//  }
 
   private String sumOperatorActualTargets()
   {
@@ -1161,34 +1163,37 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     this.needsOperatorPlanned = true;
 
-      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
-          OPERATOR_PLANNED_TARGET);
+    return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
+        OPERATOR_PLANNED_TARGET);
   }
 
   private String sumTeamPlannedTargets()
   {
     this.needsTeamsPlanned = true;
 
-      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
-          TEAM_PLANNED_TARGET);
+    return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
+        TEAM_PLANNED_TARGET);
   }
 
   private String sumAreaPlannedTargets()
   {
     this.needsAreaPlanned = true;
 
-//      String geoEntity = this.sprayViewAlias+"."+Alias.GEO_ENTITY.getAlias();
-//      String disease = this.sprayViewAlias+"."+Alias.DISEASE.getAlias();
-//      String season = this.sprayViewAlias+"."+Alias.SPRAY_SEASON.getAlias();
-//      String func = QueryConstants.SUM_AREA_TARGETS+"("+geoEntity+", to_char("+IRSQB.TARGET_WEEK+"-1, 'FM99'), "
-//        +disease+", "+season+")";
-//      
-//      String check = "(CASE WHEN "+season+" IS NOT NULL AND "+geoEntity+" IS NOT NULL THEN "+func+" ELSE NULL END)";
-//      String sum = QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), null, check);
-//      
-//      return sum;
-      
-      return "NULL::"+Alias.AREA_PLANNED_TARGET.getType();
+    // String geoEntity = this.sprayViewAlias+"."+Alias.GEO_ENTITY.getAlias();
+    // String disease = this.sprayViewAlias+"."+Alias.DISEASE.getAlias();
+    // String season = this.sprayViewAlias+"."+Alias.SPRAY_SEASON.getAlias();
+    // String func =
+    // QueryConstants.SUM_AREA_TARGETS+"("+geoEntity+", to_char("+IRSQB.TARGET_WEEK+"-1, 'FM99'), "
+    // +disease+", "+season+")";
+    //
+    // String check =
+    // "(CASE WHEN "+season+" IS NOT NULL AND "+geoEntity+" IS NOT NULL THEN "+func+" ELSE NULL END)";
+    // String sum = QueryUtil.sumColumnForId(sprayViewAlias,
+    // Alias.TARGET_WEEK.getAlias(), null, check);
+    //
+    // return sum;
+
+    return "NULL::" + Alias.AREA_PLANNED_TARGET.getType();
   }
 
   private void calculateOperatorPlannedTargets()
@@ -1238,8 +1243,11 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(OPERATOR_TARGETED_COVERAGE))
     {
+      String uniqueSprayId = this.getUniqueSprayDetailsId();
+      String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_TARGETED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorActualTargets()
+      String sql = "((" + sum + ")/NULLIF(" + this.sumOperatorActualTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -1250,7 +1258,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(TEAM_TARGETED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_TARGETED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamActualTargets()
+      
+      String uniqueSprayId = this.getUniqueSprayDetailsId();
+      String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
+      
+      String sql = "((" + sum + ")/NULLIF(" + this.sumTeamActualTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -1260,8 +1272,11 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(OPERATOR_PLANNED_COVERAGE))
     {
+      String uniqueSprayId = this.getUniqueSprayDetailsId();
+      String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
+      String sql = "((" + sum + ")/NULLIF(" + this.sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -1271,8 +1286,11 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(TEAM_PLANNED_COVERAGE))
     {
+      String uniqueSprayId = this.getUniqueSprayDetailsId();
+      String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
+      String sql = "((" + sum + ")/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -1286,18 +1304,20 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
       {
-//        String uniqueSprayId = this.getUniqueSprayDetailsId();
-//        String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
-//        
-//        SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-//        String sql = "((" + sum + ")/NULLIF(" + this.sumAreaPlannedTargets()
-//            + ",0))*100.0";
-//        calc.setSQL(sql);
-        
+        // String uniqueSprayId = this.getUniqueSprayDetailsId();
+        // String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId,
+        // null, this.sprayedUnits);
+        //
+        // SelectableSQL calc = (SelectableSQL)
+        // irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
+        // String sql = "((" + sum + ")/NULLIF(" + this.sumAreaPlannedTargets()
+        // + ",0))*100.0";
+        // calc.setSQL(sql);
+
         this.needsAreaPlanned = true;
-        
+
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-        calc.setSQL("NULL::INTEGER");       
+        calc.setSQL("NULL::INTEGER");
       }
       else
       {
@@ -1464,6 +1484,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
+    sql += union.setTarget(Alias.TARGET) + ", \n";
     sql += union.setUniqueSprayId(Alias.UNIQUE_SPRAY_ID) + ", \n";
     sql += union.setUniquePlannedId(Alias.UNIQUE_PLANNED_ID) + ", \n";
     sql += union.setPlannedDate(Alias.PLANNED_DATE) + ", \n";
@@ -1600,7 +1621,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     weeks = weeks.substring(0, weeks.length() - 1);
 
     String select = "SELECT tar." + idCol + " AS " + idCol + ",\n";
-    select += "tar."+keyName+" AS "+keyName+",\n";
+    select += "tar." + keyName + " AS " + keyName + ",\n";
     select += "de." + Alias.PLANNED_DATE + " AS " + Alias.PLANNED_DATE + ", \n";
     select += "i AS " + Alias.TARGET_WEEK + ",\n";
     if (isResource)
@@ -1646,7 +1667,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS ) + ") AS i, "
         + DATE_EXTRAPOLATION + " de, " + malariaSeasonTable + " ms \n";
     from += " WHERE target_array[i] IS NOT NULL \n";
-    from += " AND (i-1) = de." + periodCol + " \n"; // substract 1 because arrays in postgres are 1-based
+    from += " AND (i-1) = de." + periodCol + " \n"; // substract 1 because
+                                                    // arrays in postgres are
+                                                    // 1-based
     from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";
@@ -1666,10 +1689,13 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private String getInsecticideView()
   {
-//    MdEntityDAOIF insectNozzleMd = MdEntityDAO.getMdEntityDAO(InsecticideNozzle.CLASS);
-//    String insectNozzleTable = insectNozzleMd.getTableName();
-//    String configDateCol = QueryUtil.getColumnName(insectNozzleMd, InsecticideNozzle.CONFIGURATIONDATE);
-//    String enabledCol = QueryUtil.getColumnName(insectNozzleMd, InsecticideNozzle.ENABLED);
+    // MdEntityDAOIF insectNozzleMd =
+    // MdEntityDAO.getMdEntityDAO(InsecticideNozzle.CLASS);
+    // String insectNozzleTable = insectNozzleMd.getTableName();
+    // String configDateCol = QueryUtil.getColumnName(insectNozzleMd,
+    // InsecticideNozzle.CONFIGURATIONDATE);
+    // String enabledCol = QueryUtil.getColumnName(insectNozzleMd,
+    // InsecticideNozzle.ENABLED);
 
     MdEntityDAOIF enumMasterMD = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
     String enumMasterTable = enumMasterMD.getTableName();
@@ -1689,10 +1715,11 @@ public class IRSQB extends AbstractQB implements Reloadable
         InsecticideBrand.CONCENTRATIONQUANTIFIER);
     String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
 
-//    MdEntityDAOIF nozzleMd = MdEntityDAO.getMdEntityDAO(Nozzle.CLASS);
-//    String nozzleTable = nozzleMd.getTableName();
-//    String ratioCol = QueryUtil.getColumnName(nozzleMd, Nozzle.RATIO);
-//    String nozzleDisLabelCol = QueryUtil.getColumnName(nozzleMd, Nozzle.DISPLAYLABEL);
+    // MdEntityDAOIF nozzleMd = MdEntityDAO.getMdEntityDAO(Nozzle.CLASS);
+    // String nozzleTable = nozzleMd.getTableName();
+    // String ratioCol = QueryUtil.getColumnName(nozzleMd, Nozzle.RATIO);
+    // String nozzleDisLabelCol = QueryUtil.getColumnName(nozzleMd,
+    // Nozzle.DISPLAYLABEL);
 
     MdEntityDAOIF areaStandardsMd = MdEntityDAO.getMdEntityDAO(AreaStandards.CLASS);
     String areaStandardsTable = areaStandardsMd.getTableName();
@@ -1705,60 +1732,61 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     // id (brand)
     String select = "SELECT " + insectBrandTable + ".id,\n";
-    
+
     // start date
     select += "COALESCE(start_date,'1900-01-01'::date) start_date,\n";
-    
+
     // disease
     select += insectBrandTable + "." + diseaseCol + " disease,\n";
-    
+
     // end date
     select += "COALESCE(end_Date,'2100-01-01'::date) end_date, \n";
-    
-    /* removed for #2826
-    // nozzle start
-    select += "COALESCE((SELECT i." + configDateCol + " FROM " + insectNozzleTable + " i WHERE "
-        + insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = i."
-        + RelationshipDAOIF.PARENT_ID_COLUMN + " \n";
-    select += "AND " + insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = i."
-        + RelationshipDAOIF.CHILD_ID_COLUMN + "  AND " + insectNozzleTable + "." + configDateCol
-        + " < i." + configDateCol + " ORDER BY i." + configDateCol
-        + " DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n";
-    */
-    
-    /* removed for #2826
-    // nozzle end
-    select += "COALESCE((SELECT i." + configDateCol + " FROM " + insectNozzleTable + " i WHERE "
-        + insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = i."
-        + RelationshipDAOIF.PARENT_ID_COLUMN + " \n";
-    select += "AND " + insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = i."
-        + RelationshipDAOIF.CHILD_ID_COLUMN + "  AND " + insectNozzleTable + "." + configDateCol
-        + " > i." + configDateCol + "  ORDER BY i." + configDateCol
-        + " ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n";
-    */
-    
+
+    /*
+     * removed for #2826 // nozzle start select += "COALESCE((SELECT i." +
+     * configDateCol + " FROM " + insectNozzleTable + " i WHERE " +
+     * insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = i." +
+     * RelationshipDAOIF.PARENT_ID_COLUMN + " \n"; select += "AND " +
+     * insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = i." +
+     * RelationshipDAOIF.CHILD_ID_COLUMN + "  AND " + insectNozzleTable + "." +
+     * configDateCol + " < i." + configDateCol + " ORDER BY i." + configDateCol
+     * + " DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n";
+     */
+
+    /*
+     * removed for #2826 // nozzle end select += "COALESCE((SELECT i." +
+     * configDateCol + " FROM " + insectNozzleTable + " i WHERE " +
+     * insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = i." +
+     * RelationshipDAOIF.PARENT_ID_COLUMN + " \n"; select += "AND " +
+     * insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = i." +
+     * RelationshipDAOIF.CHILD_ID_COLUMN + "  AND " + insectNozzleTable + "." +
+     * configDateCol + " > i." + configDateCol + "  ORDER BY i." + configDateCol
+     * + " ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n";
+     */
+
     // removed unitsPerApplicationCol * ratio for ticket #2826
-    select += "" + unitQuantifierCol + "*"// + unitsPerApplicationCol + "*ratio*"
-        + "("+concentrationQuantifierCol + "/100.0) AS active_ingredient_per_can,\n";
-    
-    /* removed for #2826
-    // nozzle ratio
-    select += "" + nozzleTable + "." + ratioCol + " AS nozzle_ratio,\n";
-    */
-    
-    /* removed for #2826
-    // nozzle default locale
-    select += "" + nozzleTable + "." + nozzleDisLabelCol + " AS nozzle_defaultLocale,\n";
-    */
-    
-    /* removed for #2826
-    // enabled
-    select += "" + insectNozzleTable + "." + enabledCol + ",\n";
-    */
-    
+    select += "" + unitQuantifierCol + "*"// + unitsPerApplicationCol +
+                                          // "*ratio*"
+        + "(" + concentrationQuantifierCol + "/100.0) AS active_ingredient_per_can,\n";
+
+    /*
+     * removed for #2826 // nozzle ratio select += "" + nozzleTable + "." +
+     * ratioCol + " AS nozzle_ratio,\n";
+     */
+
+    /*
+     * removed for #2826 // nozzle default locale select += "" + nozzleTable +
+     * "." + nozzleDisLabelCol + " AS nozzle_defaultLocale,\n";
+     */
+
+    /*
+     * removed for #2826 // enabled select += "" + insectNozzleTable + "." +
+     * enabledCol + ",\n";
+     */
+
     // spray unit
     select += "" + enumNameCol + " spray_unit,\n";
-    
+
     // target unit display label
     select += "(SELECT " + defaultLocaleCol + " FROM " + disLabelTable + " md WHERE " + enumMasterTable
         + "." + disLabelCol + " = md.id) targetUnit_displayLabel,\n";
@@ -1767,21 +1795,21 @@ public class IRSQB extends AbstractQB implements Reloadable
     select += "(CASE WHEN " + enumNameCol + " = '" + TargetUnit.ROOM.name() + "' THEN " + roomCol
         + "  WHEN " + enumNameCol + " = '" + TargetUnit.STRUCTURE.name() + "' THEN " + structureAreaCol
         + " WHEN " + enumNameCol + " = '" + TargetUnit.HOUSEHOLD.name() + "' THEN " + householdCol
-        + " END ) AS "+UNITAREA+",\n";
-    
+        + " END ) AS " + UNITAREA + ",\n";
+
     // standard application rate
     select += "" + unitAreaNozzleCovCol + " " + unitAreaNozzleCovCol + ",\n";
     select += "((" + unitQuantifierCol + "*" + unitsPerApplicationCol + "*("
         + concentrationQuantifierCol + "/100.0)) / " + unitAreaNozzleCovCol
         + " )  AS standard_application_rate,\n";
-    
+
     // standard application rate mg
     select += "(1000.0 * (" + unitQuantifierCol + "*" + unitsPerApplicationCol + "*("
         + concentrationQuantifierCol + "/100.0)) / " + unitAreaNozzleCovCol
         + " ) AS standard_application_rate_mg,\n";
-    
+
     // units per can (removed ratio per #2826)
-    select += /*"ratio * " + */unitAreaNozzleCovCol + "/(CASE WHEN " + enumNameCol + " = '"
+    select += /* "ratio * " + */unitAreaNozzleCovCol + "/(CASE WHEN " + enumNameCol + " = '"
         + TargetUnit.ROOM.name() + "' THEN " + roomCol + " WHEN " + enumNameCol + " = '"
         + TargetUnit.STRUCTURE.name() + "' THEN " + structureAreaCol + " WHEN " + enumNameCol + " = '"
         + TargetUnit.HOUSEHOLD.name() + "' THEN " + householdCol + " END ) AS units_per_can\n";
@@ -1789,21 +1817,21 @@ public class IRSQB extends AbstractQB implements Reloadable
     String from = "FROM ";
     from += areaStandardsTable + " AS " + areaStandardsTable + ",\n";
     from += insectBrandTable + " AS " + insectBrandTable + ",\n";
-    
-    /* removed for #2826
-    from += nozzleTable + " AS " + nozzleTable + ",\n";
-    from += insectNozzleTable + " AS " + insectNozzleTable + "\n,";
-    */
+
+    /*
+     * removed for #2826 from += nozzleTable + " AS " + nozzleTable + ",\n";
+     * from += insectNozzleTable + " AS " + insectNozzleTable + "\n,";
+     */
     from += "" + enumMasterTable + " " + enumMasterTable + "\n";
 
     String where = "WHERE \n";
-    
-    /* removed for #2826
-    where += "AND " + insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = "
-        + insectBrandTable + ".id \n";
-    where += "AND " + insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = " + nozzleTable
-        + ".id \n";
-        */
+
+    /*
+     * removed for #2826 where += "AND " + insectNozzleTable + "." +
+     * RelationshipDAOIF.PARENT_ID_COLUMN + " = " + insectBrandTable + ".id \n";
+     * where += "AND " + insectNozzleTable + "." +
+     * RelationshipDAOIF.CHILD_ID_COLUMN + " = " + nozzleTable + ".id \n";
+     */
     where += enumMasterTable + ".id = " + targetUnitCol + "_c \n";
 
     return select + "\n" + from + "\n" + where;

@@ -9,6 +9,8 @@ import dss.vector.solutions.util.QueryUtil;
 public abstract class PlannedTargetUnion extends AbstractTargetUnion implements Reloadable
 {
   public abstract String setId(Alias alias);
+  
+  public abstract String setTarget(Alias alias);
 
   public abstract String setUniqueSprayId(Alias alias);
   

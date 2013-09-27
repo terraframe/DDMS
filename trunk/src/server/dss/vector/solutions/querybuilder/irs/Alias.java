@@ -20,6 +20,7 @@ public enum Alias implements Reloadable
   SPRAY_DATE("spray_date", IRSUnionIF.DATE),
   PLANNED_DATE("planned_date", IRSUnionIF.DATE),
   TARGET_WEEK("target_week", IRSUnionIF.FLOAT),
+  TARGET("target", IRSUnionIF.VARCHAR),
   AGGREGATION_LEVEL("aggregation_level", IRSUnionIF.TEXT),
   GEO_ENTITY("geo_entity", IRSUnionIF.VARCHAR),
   PARENT_GEO_ENTITY("parent_geo_entity", IRSUnionIF.VARCHAR),

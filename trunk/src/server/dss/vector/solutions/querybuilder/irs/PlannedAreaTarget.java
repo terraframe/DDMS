@@ -35,6 +35,12 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   {
     return setNULL(alias);
   }
+  
+  @Override
+  public String setTarget(Alias alias)
+  {
+    return setNULL(alias);
+  }
 
   @Override
   public final String setUniqueSprayId(Alias alias)

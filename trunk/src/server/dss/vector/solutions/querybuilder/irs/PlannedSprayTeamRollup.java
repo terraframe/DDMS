@@ -1,43 +1,28 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.irs.InTeam;
 import dss.vector.solutions.querybuilder.IRSQB;
 
-public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
+public class PlannedSprayTeamRollup extends PlannedSprayTeamTarget implements Reloadable
 {
-  // private String teamSprayTable;
-  //
-  // private String sprayTeamCol;
-  //
-  // private String targetCol;
-  
-  public PlannedSprayTeamTarget()
+
+  private String inTeamTable;
+
+  public PlannedSprayTeamRollup()
   {
     super();
 
-    // MdEntityDAOIF teamSprayMd = MdEntityDAO.getMdEntityDAO(TeamSpray.CLASS);
-    // this.teamSprayTable = teamSprayMd.getTableName();
-    // sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
-    // targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+    this.inTeamTable = MdEntityDAO.getMdEntityDAO(InTeam.CLASS).getTableName();
   }
 
   @Override
   public String setTeamPlannedTarget(Alias alias)
   {
     return set(IRSQB.WEEKLY_TARGET, alias);
-  }
-  
-  @Override
-  public String setSprayTeam(Alias alias)
-  {
-    return set(sprayTeamTable, idCol, alias);
-  }
-
-  @Override
-  public String setTarget(Alias alias)
-  {
-    return set(IRSQB.RESOURCE_TARGET_VIEW, this.targeter, alias);
   }
 
   @Override
@@ -71,11 +56,17 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   public String from()
   {
     String sql = "--Planned Spray Team Target\n";
-    sql += IRSQB.RESOURCE_TARGET_VIEW + " " + IRSQB.RESOURCE_TARGET_VIEW + " INNER JOIN "
-        + resourceTargetTable + " " + resourceTargetTable + " ON " + IRSQB.RESOURCE_TARGET_VIEW + "."
-        + idCol + " = " + resourceTargetTable + "." + idCol + " \n";
-    sql += " INNER JOIN " + sprayTeamTable + " " + sprayTeamTable + " ON " + resourceTargetTable + "."
-        + targeter + " = " + sprayTeamTable + "." + idCol + " \n";
+
+    sql += IRSQB.RESOURCE_TARGET_VIEW + " " + IRSQB.RESOURCE_TARGET_VIEW + " \n";
+    sql += "INNER JOIN " + resourceTargetTable + " " + resourceTargetTable + " \n";
+    sql += "ON " + IRSQB.RESOURCE_TARGET_VIEW + "." + idCol + " = " + resourceTargetTable + "." + idCol
+        + " \n";
+    sql += "INNER JOIN " + teamMemberTable + " " + teamMemberTable + " ON " + resourceTargetTable + "."
+        + targeter + " = " + teamMemberTable + "." + idCol + "  \n";
+    sql += "INNER JOIN " + inTeamTable + " " + inTeamTable + " ON " + inTeamTable + "."
+        + RelationshipDAOIF.CHILD_ID_COLUMN + " = " + teamMemberTable + "." + idCol + " \n";
+    sql += "INNER JOIN " + sprayTeamTable + " " + sprayTeamTable + " ON " + sprayTeamTable + "." + idCol
+        + " = " + inTeamTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " \n";
 
     return sql;
   }

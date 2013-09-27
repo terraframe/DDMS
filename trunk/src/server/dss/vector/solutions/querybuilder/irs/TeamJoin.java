@@ -15,7 +15,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
   public final String from()
   {
     String a = IRSQB.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
-    String p = IRSQB.PLANNED_TEAM + " " + TargetJoin.PLANNED_ALIAS;
+    String p = IRSQB.PLANNED_TEAM_RESULTS + " " + TargetJoin.PLANNED_ALIAS;
 
     if (hasPlanned)
     {
