@@ -658,7 +658,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     // incoming will be this.irsQV
     
-    if(this.hasPlannedTargets)
+    if(this.needsAreaPlanned)
     {
       
       // we create a new ValueQuery that wraps the original to calculate the Area Targets
@@ -1293,7 +1293,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 //            + ",0))*100.0";
 //        calc.setSQL(sql);
         
-        this.hasPlannedTargets = true;
+        this.needsAreaPlanned = true;
         
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
         calc.setSQL("NULL::INTEGER");       
