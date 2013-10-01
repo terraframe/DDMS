@@ -16,12 +16,20 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AttributeDate;
+import com.runwaysdk.query.AttributeDateTime;
+import com.runwaysdk.query.AttributeTime;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableDecimal;
+import com.runwaysdk.query.SelectableDouble;
+import com.runwaysdk.query.SelectableFloat;
+import com.runwaysdk.query.SelectableInteger;
+import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
@@ -673,6 +681,66 @@ public class IRSQB extends AbstractQB implements Reloadable
       // those are
       // required for the outer Area Target calculation
 
+      // add a reference to each selectable from the inner query to the outer
+      // query
+      SelectableSQL newSel;
+      for (Selectable sel : valueQuery.getSelectableRefs())
+      {
+        // create a new Selectable based off the original type (because they are custom formatted later on)
+        if(sel instanceof SelectableInteger)
+        {
+          newSel = outer.aSQLInteger(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof SelectableLong)
+        {
+          newSel = outer.aSQLLong(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof SelectableFloat)
+        {
+          newSel = outer.aSQLFloat(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof SelectableDecimal)
+        {
+          newSel = outer.aSQLDecimal(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof SelectableDouble)
+        {
+          newSel = outer.aSQLDouble(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof AttributeDate)
+        {
+          newSel = outer.aSQLDate(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof AttributeDateTime)
+        {
+          newSel = outer.aSQLDateTime(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else if(sel instanceof AttributeTime)
+        {
+          newSel = outer.aSQLTime(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          // use character as the final default because it's flexible
+          newSel = outer.aSQLCharacter(sel.getColumnAlias(), sel.getColumnAlias(),
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        
+
+        newSel.setColumnAlias(sel.getColumnAlias());
+
+        outer.SELECT(newSel);
+        outer.GROUP_BY(newSel);
+      }
+      
       String aliasPrefix = "area_";
 
       String pgeAlias = aliasPrefix + Alias.PARENT_GEO_ENTITY.getAlias();
@@ -696,28 +764,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       disease.setColumnAlias(dAlias);
 
       valueQuery.SELECT(parentGeoEntity, targetWeek, spraySeason, disease);
-
-      // add a reference to each selectable from the inner query to the outer
-      // query
-      for (Selectable sel : valueQuery.getSelectableRefs())
-      {
-        // user SQL character because it's the most generic and works for all
-        // datatypes
-        SelectableSQL newSel = outer.aSQLCharacter(sel.getColumnAlias(), sel.getColumnAlias(),
-            sel.getUserDefinedAlias());
-        newSel.setColumnAlias(sel.getColumnAlias());
-
-        outer.SELECT(newSel);
-      }
-
+      
       // replace the Area Planned Target and Area Planned Coverage
       String func = QueryConstants.SUM_AREA_TARGETS + "(" + pgeAlias + ", to_char(" + twAlias
           + "-1, 'FM99'), " + dAlias + ", " + ssAlias + ")";
 
-      String check = "(CASE WHEN " + ssAlias + " IS NOT NULL AND " + pgeAlias + " IS NOT NULL THEN "
+      // Do a sum to force aggregation and avoid grouping by epi-week, which will break up the results
+      String check = "SUM(CASE WHEN " + ssAlias + " IS NOT NULL AND " + pgeAlias + " IS NOT NULL THEN "
           + func + " ELSE NULL END)";
-      // String sum = QueryUtil.sumColumnForId(sprayViewAlias,
-      // Alias.TARGET_WEEK.getAlias(), null, check);
 
       if (outer.hasSelectableRef(AREA_PLANNED_TARGET))
       {
@@ -740,7 +794,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         String sql = "((" + SPRAYED_UNITS + ")/NULLIF(" + check + ",0))*100.0";
         calc.setSQL(sql);
       }
-
+      
       if (valueQuery.hasCountSelectable())
       {
         Selectable count = valueQuery.getCountSelectable();
