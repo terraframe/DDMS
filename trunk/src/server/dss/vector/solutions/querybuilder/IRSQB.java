@@ -32,7 +32,10 @@ import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDate;
+import com.runwaysdk.query.SelectableSQLDateTime;
 import com.runwaysdk.query.SelectableSQLLong;
+import com.runwaysdk.query.SelectableSQLTime;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
@@ -712,17 +715,17 @@ public class IRSQB extends AbstractQB implements Reloadable
           newSel = outer.aSQLDouble(sel.getColumnAlias(), sel.getColumnAlias(),
               sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
-        else if(sel instanceof AttributeDate)
+        else if(sel instanceof AttributeDate || sel instanceof SelectableSQLDate)
         {
           newSel = outer.aSQLDate(sel.getColumnAlias(), sel.getColumnAlias(),
               sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
-        else if(sel instanceof AttributeDateTime)
+        else if(sel instanceof AttributeDateTime || sel instanceof SelectableSQLDateTime)
         {
           newSel = outer.aSQLDateTime(sel.getColumnAlias(), sel.getColumnAlias(),
               sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
-        else if(sel instanceof AttributeTime)
+        else if(sel instanceof AttributeTime || sel instanceof SelectableSQLTime)
         {
           newSel = outer.aSQLTime(sel.getColumnAlias(), sel.getColumnAlias(),
               sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
