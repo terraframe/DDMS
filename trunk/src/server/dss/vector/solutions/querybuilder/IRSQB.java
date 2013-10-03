@@ -637,16 +637,14 @@ public class IRSQB extends AbstractQB implements Reloadable
           String sql;
           if (group.equals(QueryUtil.DATEGROUP_SEASON))
           {
-            // If there isn't a planned date then don't show the season because
-            // that
-            // means activity didn't match a target, and it's rather meaningless
-            // to
-            // show a season value just because a spray date coincidentally fell
-            // within
-            // the season range.
-            String replaced = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(),
+            // show the season matching for either the planned target or spray activity
+            String plannedReplace = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(),
                 plannedDateCol);
-            sql = "CASE WHEN " + plannedDateCol + " IS NOT NULL THEN " + replaced + " ELSE NULL END";
+            String sprayReplace = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(),
+                sprayDateCol);
+            
+            sql = "CASE WHEN " + plannedDateCol + " IS NOT NULL THEN " 
+              + plannedReplace + " WHEN "+sprayDateCol+" IS NOT NULL THEN "+sprayReplace+" ELSE NULL END";
           }
           else
           {
