@@ -7,7 +7,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.irs.OperatorSprayStatus;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSpray;
+import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -45,6 +47,9 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String targetCol;
   private String operTarget;
   private String keyName;
+  private String supervisorCol;
+  private String supervisorTable;
+  private String supervisorPersonCol;
   
   public ActualTeamSprayTarget()
   {
@@ -56,6 +61,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
     diseaseCol = QueryUtil.getColumnName(TeamSpray.getDiseaseMd());
     targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+    supervisorCol = QueryUtil.getColumnName(TeamSpray.getSupervisorMd());
     
     MdEntityDAOIF operSprayStatusMd = MdEntityDAO.getMdEntityDAO(OperatorSprayStatus.CLASS);
     operSprayStatusTable = operSprayStatusMd.getTableName();
@@ -82,6 +88,9 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     operTarget = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OPERATORTARGET);
     keyName = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.KEYNAME);
    
+    supervisorTable = MdEntityDAO.getMdEntityDAO(Supervisor.CLASS).getTableName();
+    supervisorPersonCol = QueryUtil.getColumnName(Supervisor.getPersonMd());
+    
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     sprayTeamTable = sprayTeamMd.getTableName();
   }
@@ -95,6 +104,13 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   public String setOperatorActualTarget(Alias alias)
   {
     return set(this.operSprayStatusTable, this.operTarget, alias);
+  }
+  
+  @Override
+  public String setZoneSuperVisorDefaultLocale(Alias alias)
+  {
+    return set("(SELECT  p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + personTable
+        + " AS p WHERE p.id = " + supervisorTable + "." + supervisorPersonCol + ")", alias);
   }
   
   public String setAggregationLevel(Alias alias)
@@ -301,7 +317,10 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     String from = "";
     from += teamSprayTable + " AS "+teamSprayTable+" LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n";
     from += " LEFT JOIN "+teamMemberTable+"" + " AS sprayoperator ON "+operSprayStatusTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
-    from += " LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+"."+idCol+", \n";
+    from += " LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+"."+idCol+" \n";
+    from += " LEFT JOIN "
+        + supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = "
+        + teamSprayTable + "." + supervisorCol + ", \n";
     from += ""+abstractSprayTable+"" + " AS "+abstractSprayTable+"\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";

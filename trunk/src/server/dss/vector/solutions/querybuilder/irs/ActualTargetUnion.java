@@ -220,11 +220,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     return setNULL(alias);
   }
 
-  public String setZoneSuperVisorDefaultLocale(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
+  public abstract String setZoneSuperVisorDefaultLocale(Alias alias);
   
   public abstract String setDisease(Alias alias);
   
