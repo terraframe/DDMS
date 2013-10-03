@@ -21,6 +21,7 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -83,6 +84,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setUsed(this.getUsed());
     osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
     osv.setSprayOperator(operator);
+    osv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
 
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
@@ -179,6 +181,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(OPERATORID);
     list.add(LEADERID);
     list.add(SURFACETYPE);
+    list.add(SUPERVISORNAME);
+    list.add(SUPERVISORSURNAME);
     list.add(TARGET);
     list.add(RECEIVED);
     list.add(REFILLS);

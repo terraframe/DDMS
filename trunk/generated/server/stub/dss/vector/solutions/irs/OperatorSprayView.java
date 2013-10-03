@@ -26,27 +26,33 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
   @Transaction
   public void apply()
   {
-    OperatorSpray concrete;
-    if (this.hasConcrete())
-    {
-      concrete = OperatorSpray.get(this.getConcreteId());
-      concrete.appLock();
-      validateSprayMethod(concrete.getSprayMethod());
-    }
-    else
-    {
-      concrete = new OperatorSpray();
-    }
-        
+    OperatorSpray concrete = this.getAndLockConcrete();
+
     this.populateMapping(concrete);
 
     this.populateConcrete(concrete);
-        
+
     concrete.apply();
 
     this.populateView(concrete);
   }
-  
+
+  private OperatorSpray getAndLockConcrete()
+  {
+    if (this.hasConcrete())
+    {
+      OperatorSpray concrete = OperatorSpray.get(this.getConcreteId());
+      concrete.appLock();
+      validateSprayMethod(concrete.getSprayMethod());
+
+      return concrete;
+    }
+    else
+    {
+      return new OperatorSpray();
+    }
+  }
+
   protected void validateSprayMethod(List<SprayMethod> existing)
   {
     List<SprayMethod> newMethod = this.getSprayMethod();
@@ -76,9 +82,11 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     new AttributeNotificationMap(spray, OperatorSpray.TARGET, this, OperatorSprayView.TARGET);
     new AttributeNotificationMap(spray, OperatorSpray.RECEIVED, this, OperatorSprayView.RECEIVED);
     new AttributeNotificationMap(spray, OperatorSpray.REFILLS, this, OperatorSprayView.REFILLS);
-    new AttributeNotificationMap(spray, OperatorSpray.RETURNED, this, OperatorSprayView.RETURNED);        
+    new AttributeNotificationMap(spray, OperatorSpray.RETURNED, this, OperatorSprayView.RETURNED);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYOPERATOR, this, OperatorSprayView.SPRAYOPERATOR);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYTEAM, this, OperatorSprayView.SPRAYTEAM);
+    new AttributeNotificationMap(spray, OperatorSpray.SUPERVISOR, this, OperatorSprayView.SUPERVISOR);
+
   }
 
   protected void populateConcrete(OperatorSpray concrete)
@@ -95,14 +103,15 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     concrete.setUsed(this.getUsed());
     concrete.setTeamLeader(this.getTeamLeader());
     concrete.setSprayTeam(this.getSprayTeam());
+    concrete.setSupervisor(this.getSupervisor());
     concrete.clearSprayMethod();
 
     for (SprayMethod method : this.getSprayMethod())
     {
       concrete.addSprayMethod(method);
-    }    
+    }
   }
-  
+
   public void populateView(OperatorSpray concrete)
   {
     this.setConcreteId(concrete.getId());
@@ -118,12 +127,13 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     this.setUsed(concrete.getUsed());
     this.setTeamLeader(concrete.getTeamLeader());
     this.setSprayTeam(concrete.getSprayTeam());
+    this.setSupervisor(concrete.getSupervisor());
     this.clearSprayMethod();
-    
+
     for (SprayMethod method : concrete.getSprayMethod())
     {
       this.addSprayMethod(method);
-    }    
+    }
   }
 
   public void deleteConcrete()
@@ -133,12 +143,12 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
       OperatorSpray.get(this.getConcreteId()).delete();
     }
   }
-  
+
   protected boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public boolean hasStatus()
   {
     return this.getStatus().length > 0;
@@ -147,9 +157,9 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
   public HouseholdSprayStatusView[] getStatus()
   {
     List<HouseholdSprayStatusView> list = new LinkedList<HouseholdSprayStatusView>();
-    
+
     OperatorSpray spray = OperatorSpray.get(this.getConcreteId());
-    
+
     HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getSpray().EQ(spray));
     query.ORDER_BY_ASC(query.getHouseholdId());
@@ -175,7 +185,7 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
   public static OperatorSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String operatorId)
   {
     OperatorSprayQuery query = new OperatorSprayQuery(new QueryFactory());
-    
+
     Condition condition = query.getBrand().EQ(brand);
     condition = AND.get(condition, query.getGeoEntity().getGeoId().EQ(geoId));
     condition = AND.get(condition, query.getSprayDate().EQ(sprayDate));
@@ -183,7 +193,7 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     condition = AND.get(condition, query.getSprayOperator().EQ(operatorId));
 
     query.WHERE(condition);
-    
+
     OIterator<? extends OperatorSpray> it = query.getIterator();
 
     try
@@ -206,6 +216,6 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     finally
     {
       it.close();
-    }    
+    }
   }
 }

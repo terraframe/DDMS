@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1929597584)
+@com.runwaysdk.business.ClassSignature(hash = -1443166962)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,9 +38,11 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String SUPERVISORNAME = "supervisorName";
+  public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 1929597584;
+  private static final long serialVersionUID = -1443166962;
   
   public TeamSprayExcelViewBase()
   {
@@ -85,6 +87,11 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -795,6 +802,62 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(STRUCTURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getSupervisorName()
+  {
+    return getValue(SUPERVISORNAME);
+  }
+  
+  public void validateSupervisorName()
+  {
+    this.validateAttribute(SUPERVISORNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISORNAME);
+  }
+  
+  public void setSupervisorName(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORNAME, "");
+    }
+    else
+    {
+      setValue(SUPERVISORNAME, value);
+    }
+  }
+  
+  public String getSupervisorSurname()
+  {
+    return getValue(SUPERVISORSURNAME);
+  }
+  
+  public void validateSupervisorSurname()
+  {
+    this.validateAttribute(SUPERVISORSURNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorSurnameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISORSURNAME);
+  }
+  
+  public void setSupervisorSurname(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORSURNAME, "");
+    }
+    else
+    {
+      setValue(SUPERVISORSURNAME, value);
     }
   }
   

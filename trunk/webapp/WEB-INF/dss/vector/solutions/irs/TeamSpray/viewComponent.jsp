@@ -57,6 +57,9 @@
             <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
           </td>
           <td>
+            <mjl:dt attribute="supervisor"> ${person.firstName} ${person.lastName} </mjl:dt>
+          </td>                  
+          <td>
             <mjl:dt attribute="sprayTeam"> ${item.sprayTeam.teamId} </mjl:dt>                   
           </td>
         </tr>

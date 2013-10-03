@@ -20,14 +20,14 @@ import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246603807054L;
 
@@ -41,7 +41,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
   public void apply()
   {
     this.applyNoPersist();
-    
+
     GeoEntity entity = getGeoEntity();
 
     if (entity == null)
@@ -60,39 +60,35 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       e.setTeamId(teamId);
       throw e;
     }
-    
-    TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(),
-        ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()),
-        team.getId());
 
-    if (tsv.getConcreteId() == null || tsv.getConcreteId().equals(""))
+    TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), team.getId());
+    tsv.setTarget(this.getTarget());
+    tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    tsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
+
+    String leaderID = this.getLeaderId();
+
+    if (leaderID != null && !leaderID.equals(""))
     {
-      String leaderID = this.getLeaderId();
-      
-      if (leaderID != null && !leaderID.equals(""))
-      {
-        TeamMember leader = TeamMember.getMemberById(leaderID);
+      TeamMember leader = TeamMember.getMemberById(leaderID);
 
-        if(leader != null)
-        {
-          tsv.setTeamLeader(leader);
-        }
-        else
-        {
-          String msg = "Unknown team member [" + leaderID + "]";
-          throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
-        }
+      if (leader != null)
+      {
+        tsv.setTeamLeader(leader);
       }
-      
-      tsv.setTarget(this.getTarget());
-      tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
-      tsv.apply();
+      else
+      {
+        String msg = "Unknown team member [" + leaderID + "]";
+        throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
+      }
     }
+
+    tsv.apply();
 
     if (this.getOperatorId() != null && !this.getOperatorId().equals(""))
     {
       OperatorSprayStatusView view = new OperatorSprayStatusView();
-      
+
       // Check for existing records
       OperatorSprayStatusQuery query = new OperatorSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getSpray().getId().EQ(tsv.getConcreteId()));
@@ -108,7 +104,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
         view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       }
       iterator.close();
-      
+
       view.setOperatorTarget(this.getOperatorTarget());
       view.setReceived(this.getOperatorReceived());
       view.setRefills(this.getOperatorRefills());
@@ -131,7 +127,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       view.apply();
     }
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -141,6 +137,8 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     list.add(SPRAYTEAM);
     list.add(LEADERID);
     list.add(SURFACETYPE);
+    list.add(SUPERVISORNAME);
+    list.add(SUPERVISORSURNAME);
     list.add(TARGET);
     list.add(OPERATORID);
     list.add(OPERATORTARGET);

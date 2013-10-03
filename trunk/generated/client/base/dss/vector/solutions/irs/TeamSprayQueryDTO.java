@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1414467401)
+@com.runwaysdk.business.ClassSignature(hash = -351435536)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class TeamSprayQueryDTO extends dss.vector.solutions.irs.AbstractSprayQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1414467401;
+private static final long serialVersionUID = -351435536;
 
   protected TeamSprayQueryDTO(String type)
   {

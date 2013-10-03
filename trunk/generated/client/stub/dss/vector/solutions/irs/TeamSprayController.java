@@ -19,6 +19,7 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -74,6 +75,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getIRSInsecticideBrands(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
+    req.setAttribute("supervisors", Arrays.asList(SupervisorViewDTO.getSupervisors(request)));    
 
     if (sprayTeam != null)
     {
@@ -157,7 +159,17 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   private void setupReferences(TeamSprayViewDTO dto)
   {
+    SupervisorDTO supervisor = (SupervisorDTO) AttributeUtil.getValue(TeamSprayViewDTO.SUPERVISOR, dto);
+
+    if (supervisor != null)
+    {
+      PersonViewDTO person = supervisor.getPerson().getView();
+      req.setAttribute("person", person);
+    }
+
     req.setAttribute("surfaceType", AttributeUtil.getValue(TeamSprayViewDTO.SURFACETYPE, dto));
+    req.setAttribute("supervisor", supervisor);
+
   }
 
   private JSONObject buildOperatorsMap(TeamSprayViewDTO view)

@@ -24,15 +24,7 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
   @Transaction
   public void apply()
   {
-    TeamSpray concrete = new TeamSpray();
-
-    if (this.hasConcrete())
-    {
-      concrete = TeamSpray.get(this.getConcreteId());
-
-      validateSprayMethod(concrete.getSprayMethod());
-      validateSprayTeam(concrete.getSprayTeam());
-    }
+    TeamSpray concrete = this.getAndLockConcrete();
 
     this.populateMapping(concrete);
 
@@ -42,12 +34,30 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
 
     this.populateView(concrete);
   }
-  
+
+  private TeamSpray getAndLockConcrete()
+  {
+    if (this.hasConcrete())
+    {
+      TeamSpray concrete = TeamSpray.get(this.getConcreteId());
+      concrete.appLock();
+
+      validateSprayMethod(concrete.getSprayMethod());
+      validateSprayTeam(concrete.getSprayTeam());
+
+      return concrete;
+    }
+    else
+    {
+      return new TeamSpray();
+    }
+  }
+
   protected boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public boolean hasStatus()
   {
     return this.getStatus().length > 0;
@@ -96,6 +106,7 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     new AttributeNotificationMap(spray, TeamSpray.TEAMLEADER, this, TeamSprayView.TEAMLEADER);
     new AttributeNotificationMap(spray, TeamSpray.TARGET, this, TeamSprayView.TARGET);
     new AttributeNotificationMap(spray, TeamSpray.SPRAYTEAM, this, TeamSprayView.SPRAYTEAM);
+    new AttributeNotificationMap(spray, TeamSpray.SUPERVISOR, this, TeamSprayView.SUPERVISOR);
   }
 
   protected void populateConcrete(TeamSpray concrete)
@@ -104,6 +115,7 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     concrete.setBrand(this.getBrand());
     concrete.setGeoEntity(this.getGeoEntity());
     concrete.setSurfaceType(this.getSurfaceType());
+    concrete.setSupervisor(this.getSupervisor());
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setTarget(this.getTarget());
     concrete.setTeamLeader(this.getTeamLeader());
@@ -112,25 +124,26 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     for (SprayMethod method : this.getSprayMethod())
     {
       concrete.addSprayMethod(method);
-    }    
+    }
   }
-  
+
   public void populateView(TeamSpray concrete)
   {
-    this.setConcreteId(concrete.getId());    
+    this.setConcreteId(concrete.getId());
     this.setSprayDate(concrete.getSprayDate());
     this.setBrand(concrete.getBrand());
     this.setGeoEntity(concrete.getGeoEntity());
     this.setSurfaceType(concrete.getSurfaceType());
+    this.setSupervisor(concrete.getSupervisor());
     this.setSprayTeam(concrete.getSprayTeam());
     this.setTarget(concrete.getTarget());
     this.setTeamLeader(concrete.getTeamLeader());
     this.clearSprayMethod();
-    
+
     for (SprayMethod method : concrete.getSprayMethod())
     {
       this.addSprayMethod(method);
-    }    
+    }
   }
 
   public void deleteConcrete()
@@ -139,14 +152,14 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     {
       TeamSpray.get(this.getConcreteId()).delete();
     }
-  }  
+  }
 
   public OperatorSprayStatusView[] getStatus()
   {
     List<OperatorSprayStatusView> list = new LinkedList<OperatorSprayStatusView>();
-    
+
     TeamSpray spray = TeamSpray.get(this.getConcreteId());
-    
+
     OperatorSprayStatusQuery query = new OperatorSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getSpray().EQ(spray));
     query.ORDER_BY_ASC(query.getCreateDate());

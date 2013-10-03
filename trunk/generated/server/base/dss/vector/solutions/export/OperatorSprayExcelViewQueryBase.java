@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 998453482)
+@com.runwaysdk.business.ClassSignature(hash = -1467146352)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -509,6 +509,42 @@ public  abstract  class OperatorSprayExcelViewQueryBase extends com.runwaysdk.qu
   public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.STRUCTURES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorName()
+  {
+    return getSupervisorName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.SUPERVISORNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.SUPERVISORNAME, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorSurname()
+  {
+    return getSupervisorSurname(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorSurname(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.SUPERVISORSURNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorSurname(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.SUPERVISORSURNAME, alias, displayLabel);
 
   }
  

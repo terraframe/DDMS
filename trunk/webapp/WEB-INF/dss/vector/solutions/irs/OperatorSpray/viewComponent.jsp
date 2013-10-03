@@ -46,6 +46,9 @@
           <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
         </td>
         <td>
+          <mjl:dt attribute="supervisor"> ${person.firstName} ${person.lastName} </mjl:dt>
+        </td>        
+        <td>
           <mjl:dt attribute="teamLeader">
             <c:if test="${item.teamLeader != null}">
               ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}

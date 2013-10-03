@@ -50,13 +50,10 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
 
     ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
 
-    if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
-    {
-      zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
-      zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
+    zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
 
-      zsv.apply();
-    }
+    zsv.apply();
 
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {

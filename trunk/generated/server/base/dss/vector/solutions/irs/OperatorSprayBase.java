@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1257151750)
+@com.runwaysdk.business.ClassSignature(hash = -600637501)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,10 +21,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -1257151750;
+  private static final long serialVersionUID = -600637501;
   
   public OperatorSprayBase()
   {
@@ -41,6 +42,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     {
       return dss.vector.solutions.irs.InsecticideBrand.get(getValue(BRANDFORINDEX));
     }
+  }
+  
+  public String getBrandForIndexId()
+  {
+    return getValue(BRANDFORINDEX);
   }
   
   public void validateBrandForIndex()
@@ -78,6 +84,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
@@ -111,6 +122,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITYFORINDEX));
     }
+  }
+  
+  public String getGeoEntityForIndexId()
+  {
+    return getValue(GEOENTITYFORINDEX);
   }
   
   public void validateGeoEntityForIndex()
@@ -288,6 +304,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     }
   }
   
+  public String getSprayOperatorId()
+  {
+    return getValue(SPRAYOPERATOR);
+  }
+  
   public void validateSprayOperator()
   {
     this.validateAttribute(SPRAYOPERATOR);
@@ -323,6 +344,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void validateSprayTeam()
   {
     this.validateAttribute(SPRAYTEAM);
@@ -343,6 +369,46 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     else
     {
       setValue(SPRAYTEAM, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.irs.Supervisor getSupervisor()
+  {
+    if (getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.Supervisor.get(getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void validateSupervisor()
+  {
+    this.validateAttribute(SUPERVISOR);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
     }
   }
   
@@ -384,6 +450,11 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     {
       return dss.vector.solutions.irs.TeamMember.get(getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void validateTeamLeader()

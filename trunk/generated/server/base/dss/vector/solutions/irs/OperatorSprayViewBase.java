@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1300527380)
+@com.runwaysdk.business.ClassSignature(hash = -1947081577)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,12 +24,13 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMOPERATOR = "teamOperator";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 1300527380;
+  private static final long serialVersionUID = -1947081577;
   
   public OperatorSprayViewBase()
   {
@@ -74,6 +75,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.irs.InsecticideBrand.get(getValue(BRAND));
     }
+  }
+  
+  public String getBrandId()
+  {
+    return getValue(BRAND);
   }
   
   public void validateBrand()
@@ -165,6 +171,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -368,6 +379,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getSprayOperatorId()
+  {
+    return getValue(SPRAYOPERATOR);
+  }
+  
   public void validateSprayOperator()
   {
     this.validateAttribute(SPRAYOPERATOR);
@@ -403,6 +419,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void validateSprayTeam()
   {
     this.validateAttribute(SPRAYTEAM);
@@ -426,6 +447,46 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public dss.vector.solutions.irs.Supervisor getSupervisor()
+  {
+    if (getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.Supervisor.get(getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void validateSupervisor()
+  {
+    this.validateAttribute(SUPERVISOR);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSprayView.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getSurfaceType()
   {
     if (getValue(SURFACETYPE).trim().equals(""))
@@ -436,6 +497,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void validateSurfaceType()
@@ -499,6 +565,11 @@ public abstract class OperatorSprayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.irs.TeamMember.get(getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void validateTeamLeader()

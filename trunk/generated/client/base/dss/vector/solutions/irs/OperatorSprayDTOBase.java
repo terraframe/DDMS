@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -405535622)
+@com.runwaysdk.business.ClassSignature(hash = 1403670083)
 public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSpray";
-  private static final long serialVersionUID = -405535622;
+  private static final long serialVersionUID = 1403670083;
   
   protected OperatorSprayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,6 +37,7 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
   public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String USED = "used";
@@ -50,6 +51,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     {
       return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRANDFORINDEX));
     }
+  }
+  
+  public String getBrandForIndexId()
+  {
+    return getValue(BRANDFORINDEX);
   }
   
   public void setBrandForIndex(dss.vector.solutions.irs.InsecticideBrandDTO value)
@@ -96,6 +102,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -138,6 +149,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITYFORINDEX));
     }
+  }
+  
+  public String getGeoEntityForIndexId()
+  {
+    return getValue(GEOENTITYFORINDEX);
   }
   
   public void setGeoEntityForIndex(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -369,6 +385,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     }
   }
   
+  public String getSprayOperatorId()
+  {
+    return getValue(SPRAYOPERATOR);
+  }
+  
   public void setSprayOperator(dss.vector.solutions.irs.TeamMemberDTO value)
   {
     if(value == null)
@@ -413,6 +434,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void setSprayTeam(dss.vector.solutions.irs.SprayTeamDTO value)
   {
     if(value == null)
@@ -443,6 +469,55 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSprayTeamMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
+  {
+    if(getValue(SUPERVISOR) == null || getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
+    }
+  }
+  
+  public boolean isSupervisorWritable()
+  {
+    return isWritable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorReadable()
+  {
+    return isReadable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorModified()
+  {
+    return isModified(SUPERVISOR);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
   }
   
   public Integer getTarget()
@@ -492,6 +567,11 @@ public abstract class OperatorSprayDTOBase extends dss.vector.solutions.irs.Abst
     {
       return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1712508031)
+@com.runwaysdk.business.ClassSignature(hash = -1141582462)
 public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayView";
-  private static final long serialVersionUID = 1712508031;
+  private static final long serialVersionUID = -1141582462;
   
   protected TeamSprayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,7 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
@@ -36,6 +37,11 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRAND));
     }
+  }
+  
+  public String getBrandId()
+  {
+    return getValue(BRAND);
   }
   
   public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
@@ -117,6 +123,11 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -246,6 +257,11 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void setSprayTeam(dss.vector.solutions.irs.SprayTeamDTO value)
   {
     if(value == null)
@@ -278,6 +294,55 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
+  {
+    if(getValue(SUPERVISOR) == null || getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
+    }
+  }
+  
+  public boolean isSupervisorWritable()
+  {
+    return isWritable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorReadable()
+  {
+    return isReadable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorModified()
+  {
+    return isModified(SUPERVISOR);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getSurfaceType()
   {
     if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
@@ -288,6 +353,11 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
@@ -369,6 +439,11 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)

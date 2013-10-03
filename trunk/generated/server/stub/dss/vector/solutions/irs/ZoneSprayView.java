@@ -24,29 +24,39 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
   @Transaction
   public void apply()
   {
-    ZoneSpray concrete = new ZoneSpray();
-    
-    if (this.hasConcrete())
-    {
-      concrete = ZoneSpray.get(this.getConcreteId());
+    ZoneSpray concrete = this.getAndLockConcrete();
 
-      validateSprayMethod(concrete.getSprayMethod());
-      validateGeoEntity(concrete.getGeoEntity()); 
-    }
-        
     this.populateMapping(concrete);
 
     this.populateConcrete(concrete);
-        
+
     concrete.apply();
 
     this.populateView(concrete);
   }
-  
+
+  private ZoneSpray getAndLockConcrete()
+  {
+    if (this.hasConcrete())
+    {
+      ZoneSpray concrete = ZoneSpray.get(this.getConcreteId());
+      concrete.appLock();
+
+      validateSprayMethod(concrete.getSprayMethod());
+      validateGeoEntity(concrete.getGeoEntity());
+
+      return concrete;
+    }
+    else
+    {
+      return new ZoneSpray();
+    }
+  }
+
   private void validateGeoEntity(GeoEntity geoEntity)
   {
     GeoEntity newGeoEntity = this.getGeoEntity();
-    
+
     if (geoEntity != null && newGeoEntity != null)
     {
       if (!geoEntity.getId().equals(newGeoEntity.getId()) && this.hasStatus())
@@ -59,7 +69,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
       }
     }
   }
-  
+
   protected void validateSprayMethod(List<SprayMethod> existing)
   {
     List<SprayMethod> newMethod = this.getSprayMethod();
@@ -100,24 +110,24 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
     for (SprayMethod method : this.getSprayMethod())
     {
       concrete.addSprayMethod(method);
-    }    
+    }
   }
-  
+
   public void populateView(ZoneSpray concrete)
   {
-    this.setConcreteId(concrete.getId());    
+    this.setConcreteId(concrete.getId());
     this.setSprayDate(concrete.getSprayDate());
     this.setBrand(concrete.getBrand());
     this.setGeoEntity(concrete.getGeoEntity());
     this.setSurfaceType(concrete.getSurfaceType());
     this.setSupervisor(concrete.getSupervisor());
-    
+
     this.clearSprayMethod();
-    
+
     for (SprayMethod method : concrete.getSprayMethod())
     {
       this.addSprayMethod(method);
-    }    
+    }
   }
 
   public void deleteConcrete()
@@ -127,18 +137,18 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
       ZoneSpray.get(this.getConcreteId()).delete();
     }
   }
-  
+
   protected boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public TeamSprayStatusView[] getStatus()
   {
     List<TeamSprayStatusView> list = new LinkedList<TeamSprayStatusView>();
-    
+
     ZoneSpray spray = ZoneSpray.get(this.getConcreteId());
-    
+
     TeamSprayStatusQuery query = new TeamSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getSpray().EQ(spray));
     query.ORDER_BY_ASC(query.getCreateDate());
@@ -159,7 +169,6 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
       it.close();
     }
   }
-
 
   public boolean hasStatus()
   {

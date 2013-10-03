@@ -16,6 +16,7 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -151,7 +152,16 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   private void setupReferences(OperatorSprayViewDTO dto)
   {
+    SupervisorDTO supervisor = (SupervisorDTO) AttributeUtil.getValue(OperatorSprayViewDTO.SUPERVISOR, dto);
+
+    if (supervisor != null)
+    {
+      PersonViewDTO person = supervisor.getPerson().getView();
+      req.setAttribute("person", person);
+    }
+
     req.setAttribute("surfaceType", AttributeUtil.getValue(OperatorSprayViewDTO.SURFACETYPE, dto));
+    req.setAttribute("supervisor", supervisor);    
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -322,6 +332,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getIRSInsecticideBrands(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
+    req.setAttribute("supervisors", Arrays.asList(SupervisorViewDTO.getSupervisors(request)));
 
     String operatorId = dto.getValue(OperatorSprayViewDTO.SPRAYOPERATOR);
 

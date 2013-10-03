@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 233823743)
+@com.runwaysdk.business.ClassSignature(hash = -1477359870)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,10 +18,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  private static final long serialVersionUID = 233823743;
+  private static final long serialVersionUID = -1477359870;
   
   public TeamSprayViewBase()
   {
@@ -38,6 +39,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.irs.InsecticideBrand.get(getValue(BRAND));
     }
+  }
+  
+  public String getBrandId()
+  {
+    return getValue(BRAND);
   }
   
   public void validateBrand()
@@ -101,6 +107,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -220,6 +231,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void validateSprayTeam()
   {
     this.validateAttribute(SPRAYTEAM);
@@ -243,6 +259,46 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public dss.vector.solutions.irs.Supervisor getSupervisor()
+  {
+    if (getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.Supervisor.get(getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void validateSupervisor()
+  {
+    this.validateAttribute(SUPERVISOR);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
+    return mdClassIF.definesAttribute(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getSurfaceType()
   {
     if (getValue(SURFACETYPE).trim().equals(""))
@@ -253,6 +309,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void validateSurfaceType()
@@ -316,6 +377,11 @@ public abstract class TeamSprayViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.irs.TeamMember.get(getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void validateTeamLeader()

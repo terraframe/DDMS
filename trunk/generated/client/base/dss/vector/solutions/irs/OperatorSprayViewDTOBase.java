@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 947464084)
+@com.runwaysdk.business.ClassSignature(hash = 917975831)
 public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSprayView";
-  private static final long serialVersionUID = 947464084;
+  private static final long serialVersionUID = 917975831;
   
   protected OperatorSprayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYOPERATOR = "sprayOperator";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
@@ -81,6 +82,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRAND));
     }
+  }
+  
+  public String getBrandId()
+  {
+    return getValue(BRAND);
   }
   
   public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
@@ -199,6 +205,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -439,6 +450,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getSprayOperatorId()
+  {
+    return getValue(SPRAYOPERATOR);
+  }
+  
   public void setSprayOperator(dss.vector.solutions.irs.TeamMemberDTO value)
   {
     if(value == null)
@@ -483,6 +499,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getSprayTeamId()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
   public void setSprayTeam(dss.vector.solutions.irs.SprayTeamDTO value)
   {
     if(value == null)
@@ -515,6 +536,55 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
+  {
+    if(getValue(SUPERVISOR) == null || getValue(SUPERVISOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISOR));
+    }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
+  public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISOR, "");
+    }
+    else
+    {
+      setValue(SUPERVISOR, value.getId());
+    }
+  }
+  
+  public boolean isSupervisorWritable()
+  {
+    return isWritable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorReadable()
+  {
+    return isReadable(SUPERVISOR);
+  }
+  
+  public boolean isSupervisorModified()
+  {
+    return isModified(SUPERVISOR);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getSurfaceType()
   {
     if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
@@ -525,6 +595,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
@@ -606,6 +681,11 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)

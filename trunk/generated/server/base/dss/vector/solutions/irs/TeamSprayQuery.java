@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -196359433)
+@com.runwaysdk.business.ClassSignature(hash = -1881368062)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  class TeamSprayQuery extends dss.vector.solutions.irs.AbstractSprayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -196359433;
 
   public TeamSprayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -165,6 +164,29 @@ private static final long serialVersionUID = -196359433;
     return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
+  {
+    return getSupervisor(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.TeamSpray.SUPERVISOR);
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.SUPERVISOR, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.TeamSpray.SUPERVISOR);
+
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.SUPERVISOR, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getTarget()
   {
     return getTarget(null);
@@ -224,6 +246,10 @@ private static final long serialVersionUID = -196359433;
     else if (name.equals(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM)) 
     {
        return new dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.TeamSpray.SUPERVISOR)) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.irs.TeamSpray.TEAMLEADER)) 
     {
@@ -285,6 +311,9 @@ private static final long serialVersionUID = -196359433;
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam();
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias);
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias, String displayLabel);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor();
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias);
+    public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getTarget();
     public com.runwaysdk.query.SelectableInteger getTarget(String alias);
     public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel);
@@ -306,7 +335,6 @@ private static final long serialVersionUID = -196359433;
  implements TeamSprayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 120964117;
 
   public TeamSprayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -429,6 +457,23 @@ private static final long serialVersionUID = 120964117;
     return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
+  {
+    return getSupervisor(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias)
+  {
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.SUPERVISOR, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.SUPERVISOR,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getTarget()
   {
     return getTarget(null);
@@ -482,6 +527,10 @@ private static final long serialVersionUID = 120964117;
     else if (name.equals(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM)) 
     {
        return new dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.TeamSpray.SUPERVISOR)) 
+    {
+       return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.irs.TeamSpray.TEAMLEADER)) 
     {
