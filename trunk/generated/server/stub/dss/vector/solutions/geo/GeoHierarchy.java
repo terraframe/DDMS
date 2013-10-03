@@ -149,7 +149,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return sql;
   }
 
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
     JSONObject queryConfig;
     try
