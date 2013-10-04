@@ -789,6 +789,10 @@ public class IRSQB extends AbstractQB implements Reloadable
 
           SelectableSQL sel = valueQuery.aSQLAggregateInteger(SPRAYED_UNITS, sum, SPRAYED_UNITS);
           valueQuery.SELECT(sel);
+          
+          SelectableSQL outerSel = outer.aSQLInteger(SPRAYED_UNITS, SPRAYED_UNITS);
+          outer.SELECT(outerSel);
+          outer.GROUP_BY(outerSel);
         }
 
         SelectableSQL calc = (SelectableSQL) outer.getSelectableRef(AREA_PLANNED_COVERAGE);
