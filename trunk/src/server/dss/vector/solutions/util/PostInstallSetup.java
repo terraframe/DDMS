@@ -115,7 +115,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     this.classes = new File(appRoot, "WEB-INF/classes");
   }
 
-  public void go() throws IOException, ParserConfigurationException, SAXException, TransformerFactoryConfigurationError, TransformerException
+  public int go() throws IOException, ParserConfigurationException, SAXException, TransformerFactoryConfigurationError, TransformerException
   {
     this.updateProperties();
 
@@ -147,6 +147,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     int totalMemory = getTotalMemory(appCount);
     logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
+
+    return totalMemory;
   }
 
   public int getTotalMemory(int appCount)
@@ -448,7 +450,12 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
       }
       else
       {
-        setup.go();
+        int memory = setup.go();
+
+        /*
+         * NSIS uses this value to update the tomcat service parameters
+         */
+        System.exit(memory);
       }
     }
     catch (ParseException exp)
