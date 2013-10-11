@@ -60,6 +60,8 @@ Var ExtraOpts               # Optional parameter value for extra JAVA options wh
 Var Params                  # Variable for storing all of the params
 Var JavaHome                # Location of the Java JDK depending on the system OS version
 Var JvmType                 # Flag indicating if the jvm is 32-bit or not
+Var MaxMem                  # Max amount of memory to give Tomcat
+Var TomcatExec              # Path of the tomcat service executable
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -94,24 +96,28 @@ Section -Main SEC0000
   # Determine the location of java home.	
   ${IfNot} ${RunningX64}
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
-	StrCpy $JvmType true
+    StrCpy $JvmType true
+    StrCpy $MaxMem 768	  
+    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
   ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16
-	StrCpy $JvmType false
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+    StrCpy $JvmType false
+    StrCpy $MaxMem 1512
+    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
   ${EndIf}
 
   SetOutPath $INSTDIR
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 6899
-  StrCpy $ManagerVersion 7198
-  StrCpy $PatchVersion 7208
+  StrCpy $RunwayVersion 7232
+  StrCpy $ManagerVersion 7294
+  StrCpy $PatchVersion 7293
   StrCpy $TermsVersion 6644
   StrCpy $RootsVersion 5432
   StrCpy $MenuVersion 6655
-  StrCpy $LocalizationVersion 7206
-  StrCpy $PermissionsVersion 7180
+  StrCpy $LocalizationVersion 7225
+  StrCpy $PermissionsVersion 7290
   StrCpy $BirtVersion 7149
   StrCpy $WebappsVersion 7194
   StrCpy $JavaVersion 7202  
@@ -178,7 +184,7 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
   Push $INSTDIR\manager\manager.bat      # file to replace in
-  Call AdvReplaceInFile
+  Call AdvReplaceInFile  
   
   # Clean-up the logging libs
   Delete $PatchDir\*  
@@ -443,9 +449,9 @@ Function patchMetadata
     Call JavaAbort
 
     # Build any dimensional metadata with the Master domain
-    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Recompiling $AppName..."
-    ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath  com.runwaysdk.util.UpdateDatabaseSourceAndClasses -compile` $JavaError
-    Call JavaAbort  
+    #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Recompiling $AppName..."
+    #ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath  com.runwaysdk.util.UpdateDatabaseSourceAndClasses -compile` $JavaError
+    #Call JavaAbort  
   
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
   ${Else}
@@ -578,6 +584,35 @@ Function patchInstallerStage
   ${Else}
     DetailPrint "Webapps directory is already up to date"  
   ${EndIf}      
+  
+  ################################################################################
+  # Copy over the tomcat conf files
+  ################################################################################
+  SetOutPath $INSTDIR\tomcat6\conf
+  File /r /x .svn /x .war ..\installer-stage\tomcat6\conf\tomcat-users.xml  
+  
+  # Copy over the 64 bit tomcat service executable
+  SetOutPath $INSTDIR\tomcat6\bin
+  File /r /x .svn /x .war ..\installer-stage\tomcat6\bin\tomcat64.exe
+  
+  ################################################################################
+  # Install tomcat as a service
+  ################################################################################
+  
+  SimpleSC::ExistsService "Tomcat6"
+  Pop $0
+  
+  ${If} $0 <> 0        
+  	# Install tomcat as a service	
+    LogEx::Write "Configuring Tomcat as a service"
+    ExecWait `$TomcatExec //IS//Tomcat6 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+	
+	# Update tomcat service parameters
+    LogEx::Write "Update tomcat service parameters"
+    ExecWait `$TomcatExec //US//Tomcat6 --Startup=auto --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=256M;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
+	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"		
+  ${EndIf}
   
 FunctionEnd
 
@@ -782,8 +817,29 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
+
+    # Determine the location of java home.	
+    ${IfNot} ${RunningX64}
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
+    ${Else}
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
+    ${EndIf}
+
     CreateDirectory $DESKTOP\temp_uninstall_files
     CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
+	
+	################################################################################
+	# Uninstall the tomcat service
+	################################################################################  
+    SimpleSC::ExistsService "Tomcat6"
+	Pop $0
+  
+    ${If} $0 == 0        
+      # Service exists, we need to delete it	
+      LogEx::Write "Deleting tomcat service"
+      ExecWait `$TomcatExec //DS//Tomcat6`
+    ${EndIf}
+	
     DeleteRegValue HKLM "${REGKEY}\Components" Main
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
