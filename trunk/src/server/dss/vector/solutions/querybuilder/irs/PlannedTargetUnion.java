@@ -46,13 +46,31 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
+    return setNULL(alias);
+  }
+  
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return setNULL(alias);
+  }
 
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  public String setSprayOperatorPerson(Alias alias)
+  {
     return setNULL(alias);
   }
   
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-
     return setNULL(alias);
   }
   

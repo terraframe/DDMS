@@ -46,13 +46,15 @@
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayDataDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
-
-
 <%@page import="dss.vector.solutions.irs.OperatorSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayViewDTO"%>
 <%@page import="dss.vector.solutions.irs.AbstractSprayDTO"%>
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+<%@page import="dss.vector.solutions.PersonDTO"%>
+
+
+<c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -74,7 +76,8 @@
     TeamSprayStatusViewDTO.CLASS,
     ZoneSprayViewDTO.CLASS,
     TeamSprayViewDTO.CLASS,
-    OperatorSprayViewDTO.CLASS
+    OperatorSprayViewDTO.CLASS,
+    PersonDTO.CLASS
     };
     String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
@@ -490,6 +493,28 @@ YAHOO.util.Event.onDOMReady(function(){
                                 },
                                 {
                                   
+                                  key:"sprayoperator_personId",
+                                  type:"sqlcharacter",
+                                  attributeName:"sprayoperator_personId",
+                                  dtoType: 'AttributeCharacterDTO'
+                                },
+                                {
+                                  
+                                  key:"sprayoperator_birthdate",
+                                  type:"sqldate",
+                                  attributeName:"sprayoperator_birthdate",
+                                  dtoType: 'AttributeDateDTO'
+                                },
+                                {
+                                  
+                                  key:"sprayoperator_sex",
+                                  type:"dss.vector.solutions.Person",
+                                  attributeName:"sprayoperator_sex",
+                                  dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+                                  isTerm: true
+                                },
+                                {
+                                  
                                   key:"sprayteam_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayteam_defaultLocale",
@@ -505,14 +530,66 @@ YAHOO.util.Event.onDOMReady(function(){
                                 },
                                 {
                                   
+                                  key:"sprayleader_personId",
+                                  type:"sqlcharacter",
+                                  attributeName:"sprayleader_personId",
+                                  dtoType: 'AttributeCharacterDTO'
+                                },
+                                {
+                                  
+                                  key:"sprayleader_birthdate",
+                                  type:"sqldate",
+                                  attributeName:"sprayleader_birthdate",
+                                  dtoType: 'AttributeDateDTO'
+                                },
+                                {
+                                  
+                                  key:"sprayleader_sex",
+                                  type:"dss.vector.solutions.Person",
+                                  attributeName:"sprayleader_sex",
+                                  dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+                                  isTerm: true
+                                },
+                                {
+                                  
                                   key:"zone_supervisor_defaultLocale",
                                   displayLabel:MDSS.localize('zone_supervisor'),
                                   description:MDSS.localize('zone_supervisor_desc'),
                                   type:"sqlcharacter",
                                   attributeName:"zone_supervisor_defaultLocale"
+                                },
+                                {
+                                  
+                                  key:"zone_supervisor_personId",
+                                  type:"sqlcharacter",
+                                  attributeName:"zone_supervisor_personId",
+                                  dtoType: 'AttributeCharacterDTO'
+                                },
+                                {
+                                  
+                                  key:"zone_supervisor_birthdate",
+                                  type:"sqldate",
+                                  attributeName:"zone_supervisor_birthdate",
+                                  dtoType: 'AttributeDateDTO'
+                                },
+                                {
+                                  
+                                  key:"zone_supervisor_sex",
+                                  type:"dss.vector.solutions.Person",
+                                  attributeName:"zone_supervisor_sex",
+                                  dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+                                  isTerm: true
                                 }
                              ];
 
+    
+    /*
+    var operatorPerson = new dss.vector.solutions.Person();
+    var operatorPersonAttribs = ['indentifier', 'sex', 'birthdate'];
+    var operatorPersonCols = operatorPersonAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:operatorPerson, suffix:'_person', dropDownMaps:{}});
+
+    //Spray_Team_Detail = Spray_Team_Detail.concat(operatorPersonCols);
+    */
 
     var selectableGroups = [
  	                         {title:"Target_Management_Query", values:targetManagementColumns, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},

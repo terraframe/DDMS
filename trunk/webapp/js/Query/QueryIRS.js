@@ -90,6 +90,22 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       }
     },
     
+    _getBrowserRootAttribute : function(attribute)
+    {
+      var type = attribute.getType();
+      var name = attribute.getAttributeName();
+      
+      if(type === dss.vector.solutions.Person.CLASS)
+      {
+        if(name === 'sprayoperator_sex' || name === 'sprayleader_sex' || name === 'zone_supervisor_sex')
+        {
+          return dss.vector.solutions.Person.SEX; 
+        }
+      }
+      
+      return this.$_getBrowserRootAttribute(attribute);
+    },
+    
 	  /**
 	   * At least one date group checkbox must be checked when any of the target management
 	   * calculations are selected. This method is the callback used when the DependencyManager

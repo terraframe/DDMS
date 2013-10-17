@@ -9,7 +9,6 @@ import dss.vector.solutions.irs.OperatorSprayStatus;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSpray;
-import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -106,16 +105,9 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     return set(this.operSprayStatusTable, this.operTarget, alias);
   }
   
-  @Override
-  public String setZoneSuperVisorDefaultLocale(Alias alias)
-  {
-    return set("(SELECT  p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + personTable
-        + " AS p WHERE p.id = " + supervisorTable + "." + supervisorPersonCol + ")", alias);
-  }
-  
   public String setAggregationLevel(Alias alias)
   {
-    return set("'2'::TEXT", alias);
+    return set("'2'", alias);
   }
   
   @Override
@@ -125,32 +117,10 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   }
   
   @Override
-  public String setSprayOperatorDefaultLocale(Alias alias)
-  {
-    return set("sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+
-        " || ' ' || "+personTable+"."+lastNameCol, alias);
-  }
-  
-  @Override
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-    return set("(SELECT st." + teamIdCol + " FROM "+sprayTeamTable+
-        " st WHERE st.id = "+teamSprayTable+"." + sprayTeamCol + ")", alias);
+    return set(sprayTeamTable, teamIdCol, alias);
   }
-  
-  @Override
-  public String setSprayLeaderDefaultLocale(Alias alias)
-  {
-    return set("(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + 
-        " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ")", alias);
-  }
-  
-//  @Override
-//  public String setTeamPlannedTarget(Alias alias)
-//  {
-//    String sql = "(SELECT SUM("+IRSQuery.WEEKLY_TARGET+") FROM "+IRSQuery.RESOURCE_TARGET_VIEW+" rtv WHERE rtv."+this.q.getTargeter()+" = "+this.teamSprayTable+"."+this.sprayTeamCol+" AND get_epiWeek_from_date("+this.sprayDateCol+", "+this.q.getStartDay()+") = "+IRSQuery.TARGET_WEEK+")";
-//    return set(sql, alias);
-//  }
   
   @Override
   public String setTeamActualTarget(Alias alias)
@@ -311,20 +281,37 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String from()
   {
-    //team_spray team_spray LEFT JOIN operator_spray_status AS operator_spray_status ON team_spray.id = operator_spray_status.spray
-    //LEFT JOIN team_member AS sprayoperator ON operator_spray_status.spray_operator = sprayoperator.id LEFT JOIN person person ON sprayoperator.person = person.id,
-    
     String from = "";
-    from += teamSprayTable + " AS "+teamSprayTable+" LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n";
-    from += " LEFT JOIN "+teamMemberTable+"" + " AS sprayoperator ON "+operSprayStatusTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
-    from += " LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+"."+idCol+" \n";
-    from += " LEFT JOIN "
-        + supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = "
-        + teamSprayTable + "." + supervisorCol + ", \n";
-    from += ""+abstractSprayTable+"" + " AS "+abstractSprayTable+"\n";
-    from += " LEFT JOIN ";
-    from += malariaSeasonTable + " AS sprayseason ";
     
+    // Level 2 join on parent
+    from += teamSprayTable + " AS "+teamSprayTable+" \n";
+    from += "INNER JOIN "+abstractSprayTable+"" + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+teamSprayTable+"."+idCol+" \n";
+
+    // join the team
+    from += "INNER JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+teamSprayTable+"."+sprayTeamCol+" = "+sprayTeamCol+"."+idCol+" \n";
+    
+    // spray details
+    from += "LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n";
+    
+    // operator person
+    from += "LEFT JOIN "+teamMemberTable+"" + " AS "+OPERATOR_MEMBER+" ON "+operSprayStatusTable+"."+sprayOperatorCol+" = "+OPERATOR_MEMBER+".id \n";
+    from += "LEFT JOIN "+personTable + " AS "+OPERATOR_PERSON+" ON "+OPERATOR_MEMBER+"."+personCol+" = "+OPERATOR_PERSON+"."+idCol+" \n";
+    
+    
+    // leader person
+    from += "LEFT JOIN "+teamMemberTable+" AS "+LEADER_MEMBER+" ON "+teamSprayTable+"."+teamLeaderCol+" = "+LEADER_MEMBER+"."+idCol+" \n";
+    from += "LEFT JOIN "+personTable +" AS "+LEADER_PERSON+" ON "+LEADER_MEMBER+"."+personCol+ " = "+LEADER_PERSON + "." + idCol+" \n";
+ 
+    
+    // supervisor person
+    from += "LEFT JOIN "
+        + supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = "
+        + teamSprayTable + "." + supervisorCol + " \n";
+    from += "LEFT JOIN "+personTable+ " AS "+SUPERVISOR_PERSON+ " ON "+ supervisorTable+"."+supervisorPersonCol+" = "+SUPERVISOR_PERSON+"."+idCol+" \n";
+    
+    
+    // season
+    from += "LEFT JOIN "+ malariaSeasonTable + " AS sprayseason ";
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+this.q.getDiseaseId()+"' = sprayseason."+seasonDiseaseCol+" \n";
     
@@ -336,9 +323,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   public String where()
   {
     String where = "";
-
-    where += ""+abstractSprayTable+".id = "+teamSprayTable+".id\n";
-    where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
+    where += " "+teamSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
     
     return where;
   }

@@ -5,7 +5,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 

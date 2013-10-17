@@ -74,7 +74,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   private String targetCol;
   
   private String keyName;
-
+  
   public ActualZoneSprayTarget()
   {
     super();
@@ -125,7 +125,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
 
   public String setAggregationLevel(Alias alias)
   {
-    return set("'3'::TEXT", alias);
+    return set("'3'", alias);
   }
   
   @Override
@@ -137,23 +137,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-    return set("(SELECT st." + teamIdCol + " FROM " + sprayTeamTable + " st WHERE st.id = "
-        + teamSprayStatusTable + "." + sprayTeamCol + ")", alias);
-  }
-
-  @Override
-  public String setZoneSuperVisorDefaultLocale(Alias alias)
-  {
-    return set("(SELECT  p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + personTable
-        + " AS p WHERE p.id = " + supervisorTable + "." + supervisorPersonCol + ")", alias);
-  }
-
-  @Override
-  public String setSprayLeaderDefaultLocale(Alias alias)
-  {
-    return set("(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p."
-        + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm."
-        + personCol + " AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ")", alias);
+    return set(sprayTeamTable, teamIdCol, alias);
   }
 
   @Override
@@ -305,19 +289,81 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   {
     return set("1", alias);
   }
+  
+  /**
+   * Level 3 doesn't have operators.
+   */
+  @Override
+  public String setSprayOperatorDefaultLocale(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  /**
+   * Level 3 doesn't have operators.
+   */
+  @Override
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  /**
+   * Level 3 doesn't have operators.
+   */
+  @Override
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  /**
+   * Level 3 doesn't have operators.
+   */
+  @Override
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  /**
+   * Level 3 doesn't have operators.
+   */
+  @Override
+  public String setSprayOperatorPerson(Alias alias)
+  {
+    return setNULL(alias);
+  }
 
   @Override
   public String from()
   {
     String from = "";
-    from += zoneSprayTable + " AS " + zoneSprayTable + " LEFT JOIN " + teamSprayStatusTable + " AS "
+    
+    // level 3 join on parent
+    from += zoneSprayTable + " AS " + zoneSprayTable + " \n";
+    from +="INNER JOIN "+ abstractSprayTable + " AS " + abstractSprayTable +" ON "+abstractSprayTable+"."+idCol+" = "+zoneSprayTable+"."+idCol+" \n";
+    
+    from += "LEFT JOIN " + teamSprayStatusTable + " AS "
         + teamSprayStatusTable + " ON \n";
-    from += zoneSprayTable + "." + idCol + " = " + teamSprayStatusTable + "." + sprayCol + " LEFT JOIN "
+    from += zoneSprayTable + "." + idCol + " = " + teamSprayStatusTable + "." + sprayCol + " \n";
+    from += " LEFT JOIN "
         + supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = "
-        + zoneSprayTable + "." + supervisorCol + ", \n";
-    from += abstractSprayTable + " AS " + abstractSprayTable + "\n";
-    from += " LEFT JOIN ";
-    from += malariaSeasonTable + " AS sprayseason ";
+        + zoneSprayTable + "." + supervisorCol + " \n";
+    
+    // join the team
+    from += "INNER JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+teamSprayStatusTable+"."+sprayTeamCol+" = "+sprayTeamCol+"."+idCol+" \n";
+    
+    // leader
+    from += "LEFT JOIN "+teamMemberTable+" AS "+LEADER_MEMBER+" ON "+teamSprayStatusTable+"."+teamLeaderCol+" = "+LEADER_MEMBER+"."+idCol+" \n";
+    from += "LEFT JOIN "+personTable +" AS "+LEADER_PERSON+" ON "+LEADER_MEMBER+"."+personCol+ " = "+LEADER_PERSON + "." + idCol+" \n";
+    
+    // supervisor
+    from += "LEFT JOIN "+personTable+" AS "+SUPERVISOR_PERSON+ " ON " +SUPERVISOR_PERSON+"."+idCol
+        + " = " +supervisorTable+"."+supervisorPersonCol+ " \n";
+       
+    
+    from += "LEFT JOIN "+ malariaSeasonTable + " AS sprayseason ";
 
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol

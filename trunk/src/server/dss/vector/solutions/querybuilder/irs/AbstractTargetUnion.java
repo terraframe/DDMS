@@ -70,6 +70,42 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
   protected String lastUpdatedByCol;
   
   protected String targeter;
+  
+  protected String identifierCol;
+  
+  protected String sexCol;
+  
+  protected String birthdateCol;
+  
+  /**
+   * There are 3 joins to the Person table. This is the unique alias for the spray operator.
+   */
+  protected static final String OPERATOR_PERSON = "operator_person";
+  
+  /**
+   * There are 3 joins to the Person table. This is the unique alias for the spray leader.
+   */
+  protected static final String LEADER_PERSON = "leader_person";
+  
+  /**
+   * There are 3 joins to the Person table. This is the unique alias for the zone supervisor.
+   */
+  protected static final String SUPERVISOR_PERSON = "supervisor_person";
+  
+  /**
+   * Alias of the team member table used to describe the spray leader.
+   */
+  protected static final String LEADER_MEMBER = "leader_member";
+  
+  /**
+   * Alias of the team member table used to describe the spray operator.
+   */
+  protected static final String OPERATOR_MEMBER = "operator_member";
+  
+  /**
+   * Alias of the team member table used to describe the spray supervisor.
+   */
+  protected static final String SUPERVISOR_MEMBER = "supervisor_member";
 
   /**
    * The owning IRSQuery instance of this union. The variable is protected for
@@ -91,7 +127,10 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     this.personTable = personMd.getTableName();
     this.firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
     this.lastNameCol = QueryUtil.getColumnName(personMd, Person.LASTNAME);
-
+    this.identifierCol = QueryUtil.getColumnName(personMd, Person.IDENTIFIER);
+    this.sexCol = QueryUtil.getColumnName(personMd, Person.SEX);
+    this.birthdateCol = QueryUtil.getColumnName(personMd, Person.DATEOFBIRTH);
+    
     MdEntityDAOIF teamMemberMd = MdEntityDAO.getMdEntityDAO(TeamMember.CLASS);
     this.teamMemberTable = teamMemberMd.getTableName();
     this.memberIdCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.MEMBERID);
@@ -112,7 +151,7 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     this.lastUpdateDateCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDATE);
     this.createdByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.CREATEDBY);
     this.lastUpdatedByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDBY);
-
+    
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     this.malariaSeasonTable = malariaSeasonMd.getTableName();
     this.startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);

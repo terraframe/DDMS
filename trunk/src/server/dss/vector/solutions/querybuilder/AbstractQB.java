@@ -103,6 +103,28 @@ public abstract class AbstractQB implements Reloadable
     }
   }
   
+  protected class AliasPair implements Reloadable
+  {
+    private String tableAlias;
+    private String attributeAlias;
+    
+    protected AliasPair(String tableAlias, String attributeAlias)
+    {
+      this.tableAlias = tableAlias;
+      this.attributeAlias = attributeAlias;
+    }
+    
+    public String getAttributeAlias()
+    {
+      return attributeAlias;
+    }
+    
+    public String getTableAlias()
+    {
+      return tableAlias;
+    }
+  }
+  
   protected class ClassAttributePair implements Reloadable
   {
     private String klass;
@@ -445,6 +467,19 @@ public abstract class AbstractQB implements Reloadable
   }
   
   /**
+   * This can be used to replicate the alias build process in JavaScript for AllPaths terms.
+   * (See: QueryBaseNew.constructQuery()).
+   * @param attr
+   * @param klass
+   * @param attrAlias
+   * @return
+   */
+  protected String createAllPathsEntityAlias(String attr, String klass, String attrAlias)
+  {
+    return attr + "__" + klass.replaceAll("\\.", "_") + "__" + attrAlias;
+  }
+  
+  /**
    * Extracts a class and attribute pair from the entity alias for dereferencing term criteria.
    * If the alias is not a valid string for term criteria then null is returned.
    *  
@@ -467,6 +502,18 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
+  /**
+   * This allows subclasses to provide a list of aliases for tables and attributes. This is useful
+   * when the QueryAPI assumes one table/alias when another should be used (in the case of custom SQL).
+   * Ah, who am I kidding? This is only for the IRS QB.
+   * 
+   * @return
+   */
+  protected Map<String, AliasPair> getAliasPairs()
+  {
+    return new HashMap<String, AliasPair>();
+  }
+  
   /**
    * Sets the term criteria on the given ValueQuery.
    * 
@@ -493,7 +540,6 @@ public abstract class AbstractQB implements Reloadable
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
 
-          String attrCol = QueryUtil.getColumnName(attributeQuery.getMdClassIF(), attrib_name);
 
           // IMPORTANT: We cannot always rely on the class table directly
           // because the attribute
@@ -502,38 +548,54 @@ public abstract class AbstractQB implements Reloadable
           // Instead, rely on the query and metadata to resolve the
           // class/attribute mapping.
           String alias;
-          if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
+          String attrCol;
+
+          // check for a hard-coded override first (IRS uses this, of course)
+          Map<String, AliasPair> aliasPairMap = this.getAliasPairs();
+          if(aliasPairMap.containsKey(entityAlias))
           {
-            // We don't have metadata for childId or parentId so we have to
-            // manually get the table and alias
-            // IMPORTANT: this does not take inheritance into account (i.e., if
-            // child_id or parent_id are
-            // defined by an MdRelationship superclass).
-            alias = attributeQuery.getTableAlias();
+             AliasPair aPair = aliasPairMap.get(entityAlias);
+             alias = aPair.getTableAlias();
+             attrCol = aPair.getAttributeAlias();
           }
           else
           {
-            com.runwaysdk.query.Attribute attr = attributeQuery.get(attrib_name);
-
-            // first check to see if attributeQuery directly defines the
-            // metadata
-            // or it's defined on a superclass. If it's on the suberclass then
-            // use that table
-            // alias instead.
-            String originalClass = attr.getMdAttributeIF().definedByClass().definesType();
-            if (originalClass.equals(klass))
+            // not using a custom selectable so get the column based on the metadata
+            attrCol = QueryUtil.getColumnName(attributeQuery.getMdClassIF(), attrib_name);
+            if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
             {
-              alias = attr.getDefiningTableAlias();
-            }
-            else if (queryMap.containsKey(originalClass))
-            {
-              alias = queryMap.get(originalClass).getTableAlias();
+              // We don't have metadata for childId or parentId so we have to
+              // manually get the table and alias
+              // IMPORTANT: this does not take inheritance into account (i.e., if
+              // child_id or parent_id are
+              // defined by an MdRelationship superclass).
+              alias = attributeQuery.getTableAlias();
             }
             else
             {
-              alias = attr.getDefiningTableAlias();
+              com.runwaysdk.query.Attribute attr = attributeQuery.get(attrib_name);
+              
+              // first check to see if attributeQuery directly defines the
+              // metadata
+              // or it's defined on a superclass. If it's on the suberclass then
+              // use that table
+              // alias instead.
+              String originalClass = attr.getMdAttributeIF().definedByClass().definesType();
+              if (originalClass.equals(klass))
+              {
+                alias = attr.getDefiningTableAlias();
+              }
+              else if (queryMap.containsKey(originalClass))
+              {
+                alias = queryMap.get(originalClass).getTableAlias();
+              }
+              else
+              {
+                alias = attr.getDefiningTableAlias();
+              }
             }
           }
+          
 
           ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
           termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));

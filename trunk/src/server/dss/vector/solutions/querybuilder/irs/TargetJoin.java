@@ -260,7 +260,26 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
 
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
+    return caseSwap(alias);
+  }
+  
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return caseSwap(alias);
+  }
 
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return caseSwap(alias);
+  }
+  
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return caseSwap(alias);
+  }
+
+  public String setSprayOperatorPerson(Alias alias)
+  {
     return caseSwap(alias);
   }
 
@@ -356,8 +375,46 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
 
   public String setZoneSuperVisorDefaultLocale(Alias alias)
   {
-
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
+  public String setSprayLeaderPersonId(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setSprayLeaderBirthdate(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setSprayLeaderSex(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setSprayLeaderPerson(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+
+  public String setZoneSuperVisorPersonId(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setZoneSuperVisorBirthdate(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setZoneSuperVisorSex(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setZoneSuperVisorPerson(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
 }

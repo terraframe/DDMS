@@ -6,6 +6,18 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public abstract class ActualTargetUnion extends AbstractTargetUnion implements Reloadable
 {
+  
+  public final String setSprayLeaderDefaultLocale(Alias alias)
+  {
+    return set(LEADER_MEMBER+"."+memberIdCol+" || ' - ' || "
+      +LEADER_PERSON+"."+firstNameCol+" || ' ' || "+LEADER_PERSON+"."+lastNameCol, alias);
+  }
+  
+  public final String setZoneSuperVisorDefaultLocale(Alias alias)
+  {
+    return set(SUPERVISOR_PERSON+"." + firstNameCol + " || ' ' || "+SUPERVISOR_PERSON+"." + lastNameCol, alias);
+  }
+  
   public String setSprayOperator(Alias alias)
   {
     return setNULL(alias);
@@ -135,19 +147,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
 
     return setNULL(alias);
   }
-
-  public String setSprayLeaderDefaultLocale(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
-
-  public String setSprayOperatorDefaultLocale(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
-
+  
   public String setSprayTeamDefaultLocale(Alias alias)
   {
 
@@ -220,8 +220,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     return setNULL(alias);
   }
 
-  public abstract String setZoneSuperVisorDefaultLocale(Alias alias);
-  
   public abstract String setDisease(Alias alias);
   
   
@@ -285,5 +283,71 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   public final String setUniquePlannedId(Alias alias)
   {
     return this.setNULL(alias);
+  }
+  
+  public String setSprayOperatorDefaultLocale(Alias alias)
+  {
+    return set(OPERATOR_MEMBER + "."+memberIdCol+" || ' - ' || "+OPERATOR_PERSON+"."+firstNameCol+
+        " || ' ' || "+OPERATOR_PERSON+"."+lastNameCol, alias);
+  }
+  
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.identifierCol, alias);
+  }
+
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.birthdateCol, alias);
+  }
+
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.sexCol, alias);
+  }
+
+  public String setSprayOperatorPerson(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.idCol, alias);
+  }
+
+  public final String setSprayLeaderPersonId(Alias alias)
+  {
+    return set(LEADER_PERSON, this.identifierCol, alias);
+  }
+  
+  public final String setSprayLeaderBirthdate(Alias alias)
+  {
+    return set(LEADER_PERSON, this.birthdateCol, alias);
+  }
+  
+  public final String setSprayLeaderSex(Alias alias)
+  {
+    return set(LEADER_PERSON, this.sexCol, alias);
+  }
+  
+  public final String setSprayLeaderPerson(Alias alias)
+  {
+    return set(LEADER_PERSON, this.idCol, alias);
+  }
+  
+  public final String setZoneSuperVisorPersonId(Alias alias)
+  {
+    return set(SUPERVISOR_PERSON, this.identifierCol, alias);
+  }
+  
+  public final String setZoneSuperVisorBirthdate(Alias alias)
+  {
+    return set(SUPERVISOR_PERSON, this.birthdateCol, alias);
+  }
+  
+  public final String setZoneSuperVisorSex(Alias alias)
+  {
+    return set(SUPERVISOR_PERSON, this.sexCol, alias);
+  }
+  
+  public final String setZoneSuperVisorPerson(Alias alias)
+  {
+    return set(SUPERVISOR_PERSON, this.idCol, alias);
   }
 }

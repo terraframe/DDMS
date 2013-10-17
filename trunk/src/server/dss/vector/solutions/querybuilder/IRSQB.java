@@ -40,10 +40,13 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.EnumerationMaster;
+import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
+import dss.vector.solutions.Person;
+import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
@@ -331,7 +334,28 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     return startDay;
   }
+  
+  @Override
+  protected Map<String, AliasPair> getAliasPairs()
+  {
+    Map<String, AliasPair> pairs = super.getAliasPairs();
+    
+    // The sex attribute across supervisor, leader, and operator require custom overrides
+    String operatorSex = this.createAllPathsEntityAlias(Alias.SPRAY_OPERATOR_SEX.getAlias(), Person.CLASS, Alias.SPRAY_OPERATOR_SEX.getAlias());
+    AliasPair operatorSexPair = new AliasPair(this.sprayViewAlias, Alias.SPRAY_OPERATOR_SEX.getAlias());
+    pairs.put(operatorSex, operatorSexPair);
 
+    String leaderSex = this.createAllPathsEntityAlias(Alias.SPRAY_LEADER_SEX.getAlias(), Person.CLASS, Alias.SPRAY_LEADER_SEX.getAlias());
+    AliasPair leaderSexPair = new AliasPair(this.sprayViewAlias, Alias.SPRAY_LEADER_SEX.getAlias());
+    pairs.put(leaderSex, leaderSexPair);
+    
+    String supervisorSex = this.createAllPathsEntityAlias(Alias.ZONE_SUPERVISOR_SEX.getAlias(), Person.CLASS, Alias.ZONE_SUPERVISOR_SEX.getAlias());
+    AliasPair supervisorSexPair = new AliasPair(this.sprayViewAlias, Alias.ZONE_SUPERVISOR_SEX.getAlias());
+    pairs.put(supervisorSex, supervisorSexPair);
+    
+    return pairs;
+  }
+  
   private void filterSelectables()
   {
     List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
@@ -474,16 +498,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
   }
 
-  // @Override
-  // protected void setGeoCriteria(QBInterceptor interceptor, String
-  // attributeKey,
-  // AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries,
-  // ValueQuery valueQuery,
-  // Map<String, GeneratedEntityQuery> queryMap)
-  // {
-  //
-  // }
-
   @Override
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
       ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
@@ -528,8 +542,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     swapOutAttributesForAggregates();
 
-    // this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
-
+    joinSexAttributes();
+    
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
@@ -664,6 +678,57 @@ public class IRSQB extends AbstractQB implements Reloadable
     setWithQuerySQL();
 
     return this.irsVQ;
+  }
+  
+  /**
+   * The sex attributes on operator, leader, and supervisor in the team details
+   * requires custom logic.
+   * 
+   * FIXME push these into a join instead of subselect
+   */
+  private void joinSexAttributes()
+  {
+    if(irsVQ.hasSelectableRef(Alias.SPRAY_OPERATOR_SEX.getAlias()))
+    {
+      PersonQuery p = new PersonQuery(irsVQ);
+      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.SPRAY_OPERATOR_SEX.getAlias());
+      this.leftJoinSexDisplayLabels(sel, p, Alias.SPRAY_OPERATOR_PERSON.getAlias());
+    }
+    
+    if(irsVQ.hasSelectableRef(Alias.SPRAY_LEADER_SEX.getAlias()))
+    {
+      PersonQuery p = new PersonQuery(irsVQ);
+      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.SPRAY_LEADER_SEX.getAlias());
+      this.leftJoinSexDisplayLabels(sel, p, Alias.SPRAY_LEADER_PERSON.getAlias());
+    }
+
+    if(irsVQ.hasSelectableRef(Alias.ZONE_SUPERVISOR_SEX.getAlias()))
+    {
+      PersonQuery p = new PersonQuery(irsVQ);
+      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.ZONE_SUPERVISOR_SEX.getAlias());
+      this.leftJoinSexDisplayLabels(sel, p, Alias.ZONE_SUPERVISOR_PERSON.getAlias());
+    }
+  }
+  
+  /**
+   * Custom deviation from QueryUtil.leftJoinTermDisplayLabels() to accommodate IRS.
+   * 
+   * @param sexSel
+   * @param p
+   * @param joinAlias
+   */
+  public void leftJoinSexDisplayLabels(SelectableSQL sexSel, PersonQuery p, String joinAlias)
+  {
+    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+    MdEntityDAOIF md = p.getMdClassIF();
+    String tableName = md.getTableName();
+    String sexCol = QueryUtil.getColumnName(md, Person.SEX);
+    
+    String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t";
+    sql += " LEFT JOIN " + termTable + " as term  on t." + sexCol + " = term." + idCol;
+    sql += " WHERE t." + this.idCol + " = " + joinAlias + "";
+
+    sexSel.setSQL(sql);
   }
 
   @Override
@@ -929,14 +994,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     String leftAlias = this.sprayViewAlias;
     String insecticideView = IRSQB.INSECTICIDE_VIEW;
 
-    // TODO refactor this to use more of the query API instead of string
-    // concatenation.
-    // Push InsecticideView into a ValueQuery
-    // String start = ( str.toString().trim().equals("FROM") ? "" : "," ) +
-    // " \n";
     str.append("");
     str.append(leftTable + " " + leftAlias);
 
+    // join and restrict for the sex attribute on the spray team details
+    
+    
     if (irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
       str.append(" LEFT JOIN " + IMPORTED_DATETIME + " ON");
@@ -1142,8 +1205,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     String sprayedStructures = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedStructuresMd());
     String householdSprayStatus = MdEntity.getMdEntity(HouseholdSprayStatus.CLASS).getTableName();
     String operatorSpray = MdEntity.getMdEntity(OperatorSpray.CLASS).getTableName();
-    // String spray =
-    // QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
 
     String sql = "";
     sql += "SELECT \n";
@@ -1186,36 +1247,14 @@ public class IRSQB extends AbstractQB implements Reloadable
     return sql;
   }
 
-//  /**
-//   * Adds the alias to the group by clause of the query.
-//   * 
-//   * @param alias
-//   * @return
-//   */
-//  private String forceGrouping(Alias alias)
-//  {
-//    String sql = sprayViewAlias + "." + alias.getAlias();
-//    if (!irsVQ.hasSelectableRef(alias.getAlias()))
-//    {
-//      irsVQ.SELECT(irsVQ.aSQLCharacter(alias.getAlias(), sql));
-//    }
-//
-//    irsVQ.GROUP_BY((SelectableSingle) irsVQ.getSelectableRef(alias.getAlias()));
-//
-//    return sql;
-//  }
-
   private String sumOperatorActualTargets()
   {
     return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_ACTUAL_TARGET);
-
-    // return forceGrouping(Alias.OPERATOR_ACTUAL_TARGET);
   }
 
   private String sumTeamActualTargets()
   {
     return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, TEAM_ACTUAL_TARGET);
-    // return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
   }
 
   private String sumOperatorPlannedTargets()
@@ -1237,21 +1276,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String sumAreaPlannedTargets()
   {
     this.needsAreaPlanned = true;
-
-    // String geoEntity = this.sprayViewAlias+"."+Alias.GEO_ENTITY.getAlias();
-    // String disease = this.sprayViewAlias+"."+Alias.DISEASE.getAlias();
-    // String season = this.sprayViewAlias+"."+Alias.SPRAY_SEASON.getAlias();
-    // String func =
-    // QueryConstants.SUM_AREA_TARGETS+"("+geoEntity+", to_char("+IRSQB.TARGET_WEEK+"-1, 'FM99'), "
-    // +disease+", "+season+")";
-    //
-    // String check =
-    // "(CASE WHEN "+season+" IS NOT NULL AND "+geoEntity+" IS NOT NULL THEN "+func+" ELSE NULL END)";
-    // String sum = QueryUtil.sumColumnForId(sprayViewAlias,
-    // Alias.TARGET_WEEK.getAlias(), null, check);
-    //
-    // return sum;
-
     return "NULL::" + Alias.AREA_PLANNED_TARGET.getType();
   }
 
@@ -1363,16 +1387,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
       {
-        // String uniqueSprayId = this.getUniqueSprayDetailsId();
-        // String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId,
-        // null, this.sprayedUnits);
-        //
-        // SelectableSQL calc = (SelectableSQL)
-        // irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-        // String sql = "((" + sum + ")/NULLIF(" + this.sumAreaPlannedTargets()
-        // + ",0))*100.0";
-        // calc.setSQL(sql);
-
         this.needsAreaPlanned = true;
 
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
@@ -1483,9 +1497,21 @@ public class IRSQB extends AbstractQB implements Reloadable
       sql += join.setTeamPlannedTarget(Alias.TEAM_PLANNED_TARGET) + ", \n";
       sql += join.setAreaPlannedTarget(Alias.AREA_PLANNED_TARGET) + ", \n";
       sql += join.setSprayOperatorDefaultLocale(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE) + ", \n";
+      sql += join.setSprayOperatorPersonId(Alias.SPRAY_OPERATOR_PERSON_ID) + ", \n";
+      sql += join.setSprayOperatorBirthdate(Alias.SPRAY_OPERATOR_BIRTHDATE) + ", \n";
+      sql += join.setSprayOperatorSex(Alias.SPRAY_OPERATOR_SEX) + ", \n";
+      sql += join.setSprayOperatorPerson(Alias.SPRAY_OPERATOR_PERSON) + ", \n";
       sql += join.setSprayTeamDefaultLocale(Alias.SPRAY_TEAM_DEFAULT_LOCALE) + ", \n";
       sql += join.setSprayLeaderDefaultLocale(Alias.SPRAY_LEADER_DEFAULT_LOCALE) + ", \n";
+      sql += join.setSprayLeaderPersonId(Alias.SPRAY_LEADER_PERSON_ID) + ", \n";
+      sql += join.setSprayLeaderBirthdate(Alias.SPRAY_LEADER_BIRTHDATE) + ", \n";
+      sql += join.setSprayLeaderSex(Alias.SPRAY_LEADER_SEX) + ", \n";
+      sql += join.setSprayLeaderPerson(Alias.SPRAY_LEADER_PERSON) + ", \n";
       sql += join.setZoneSuperVisorDefaultLocale(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE) + ", \n";
+      sql += join.setZoneSuperVisorPersonId(Alias.ZONE_SUPERVISOR_PERSON_ID) + ", \n";
+      sql += join.setZoneSuperVisorBirthdate(Alias.ZONE_SUPERVISOR_BIRTHDATE) + ", \n";
+      sql += join.setZoneSuperVisorSex(Alias.ZONE_SUPERVISOR_SEX) + ", \n";
+      sql += join.setZoneSuperVisorPerson(Alias.ZONE_SUPERVISOR_PERSON) + ", \n";
       sql += join.setStructureId(Alias.STRUCTURE_ID) + ", \n";
       sql += join.setHouseholdId(Alias.HOUSEHOLD_ID) + ", \n";
       sql += join.setSpraySeason(Alias.SPRAY_SEASON) + ", \n";
@@ -1555,6 +1581,10 @@ public class IRSQB extends AbstractQB implements Reloadable
     sql += union.setTeamPlannedTarget(Alias.TEAM_PLANNED_TARGET) + ", \n";
     sql += union.setAreaPlannedTarget(Alias.AREA_PLANNED_TARGET) + ", \n";
     sql += union.setSprayOperatorDefaultLocale(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE) + ", \n";
+    sql += union.setSprayOperatorPersonId(Alias.SPRAY_OPERATOR_PERSON_ID) + ", \n";
+    sql += union.setSprayOperatorBirthdate(Alias.SPRAY_OPERATOR_BIRTHDATE) + ", \n";
+    sql += union.setSprayOperatorSex(Alias.SPRAY_OPERATOR_SEX) + ", \n";
+    sql += union.setSprayOperatorPerson(Alias.SPRAY_OPERATOR_PERSON) + ", \n";
     sql += union.setSprayTeamDefaultLocale(Alias.SPRAY_TEAM_DEFAULT_LOCALE) + ", \n";
     sql += union.setSpraySeason(Alias.SPRAY_SEASON) + ", \n";
     sql += union.setDisease(Alias.DISEASE) + " \n";
@@ -1602,9 +1632,21 @@ public class IRSQB extends AbstractQB implements Reloadable
     sql += union.setOperatorActualTarget(Alias.OPERATOR_ACTUAL_TARGET) + ", \n";
     sql += union.setTeamActualTarget(Alias.TEAM_ACTUAL_TARGET) + ", \n";
     sql += union.setSprayOperatorDefaultLocale(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE) + ", \n";
+    sql += union.setSprayOperatorPersonId(Alias.SPRAY_OPERATOR_PERSON_ID) + ", \n";
+    sql += union.setSprayOperatorBirthdate(Alias.SPRAY_OPERATOR_BIRTHDATE) + ", \n";
+    sql += union.setSprayOperatorSex(Alias.SPRAY_OPERATOR_SEX) + ", \n";
+    sql += union.setSprayOperatorPerson(Alias.SPRAY_OPERATOR_PERSON) + ", \n";
     sql += union.setSprayTeamDefaultLocale(Alias.SPRAY_TEAM_DEFAULT_LOCALE) + ", \n";
     sql += union.setSprayLeaderDefaultLocale(Alias.SPRAY_LEADER_DEFAULT_LOCALE) + ", \n";
+    sql += union.setSprayLeaderPersonId(Alias.SPRAY_LEADER_PERSON_ID) + ", \n";
+    sql += union.setSprayLeaderBirthdate(Alias.SPRAY_LEADER_BIRTHDATE) + ", \n";
+    sql += union.setSprayLeaderSex(Alias.SPRAY_LEADER_SEX) + ", \n";
+    sql += union.setSprayLeaderPerson(Alias.SPRAY_LEADER_PERSON) + ", \n";
     sql += union.setZoneSuperVisorDefaultLocale(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE) + ", \n";
+    sql += union.setZoneSuperVisorPersonId(Alias.ZONE_SUPERVISOR_PERSON_ID) + ", \n";
+    sql += union.setZoneSuperVisorBirthdate(Alias.ZONE_SUPERVISOR_BIRTHDATE) + ", \n";
+    sql += union.setZoneSuperVisorSex(Alias.ZONE_SUPERVISOR_SEX) + ", \n";
+    sql += union.setZoneSuperVisorPerson(Alias.ZONE_SUPERVISOR_PERSON) + ", \n";
     sql += union.setStructureId(Alias.STRUCTURE_ID) + ", \n";
     sql += union.setHouseholdId(Alias.HOUSEHOLD_ID) + ", \n";
     sql += union.setSpraySeason(Alias.SPRAY_SEASON) + ", \n";
