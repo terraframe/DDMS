@@ -496,7 +496,9 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"sprayoperator_personId",
                                   type:"sqlcharacter",
                                   attributeName:"sprayoperator_personId",
-                                  dtoType: 'AttributeCharacterDTO'
+                                  dtoType: 'AttributeCharacterDTO',
+                                  searchType : 'dss.vector.solutions.Person',
+                                  searchAttribute : 'operator_identifier'
                                 },
                                 {
                                   
@@ -533,7 +535,9 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"sprayleader_personId",
                                   type:"sqlcharacter",
                                   attributeName:"sprayleader_personId",
-                                  dtoType: 'AttributeCharacterDTO'
+                                  dtoType: 'AttributeCharacterDTO',
+                                  searchType : 'dss.vector.solutions.Person',
+                                  searchAttribute : 'operator_identifier'
                                 },
                                 {
                                   
@@ -563,7 +567,9 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"zone_supervisor_personId",
                                   type:"sqlcharacter",
                                   attributeName:"zone_supervisor_personId",
-                                  dtoType: 'AttributeCharacterDTO'
+                                  dtoType: 'AttributeCharacterDTO',
+                                  searchType : 'dss.vector.solutions.Person',
+                                  searchAttribute : 'supervisor_identifier'
                                 },
                                 {
                                   

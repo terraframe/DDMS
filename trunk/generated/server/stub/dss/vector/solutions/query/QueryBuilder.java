@@ -30,6 +30,7 @@ import com.runwaysdk.query.Join;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
@@ -39,6 +40,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MdssLog;
+import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.irs.TeamMember;
@@ -211,9 +213,31 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
+    // Searching on Person for IRS has special logic
+    if(Person.CLASS.equals(klass) && attribute.endsWith("_"+Person.IDENTIFIER))
+    {
+      String[] parts = attribute.split("_");
+      String prepend = parts[0];
+      String attr = parts[1];
+      
+      PersonQuery p = new PersonQuery(queryFactory);
+      
+      SelectableChar attrSel = p.getIdentifier("attribute");
+      COUNT count = F.COUNT(attrSel, "attributeCount"); 
+      valueQuery.SELECT(attrSel, count);
+      
+      valueQuery.WHERE(attrSel.LIKEi(match + "%"));
+
+      valueQuery.ORDER_BY_ASC(attrSel);
+      
+      valueQuery.restrictRows(20, 1);
+
+      return valueQuery;
+    }
     // IRS QB special case for searching on Spray Operator, which doesn't follow
-    // the same logic as normal attribute searching.
-    if (TeamMember.CLASS.equals(klass) && TeamMember.PERSON.equals(attribute))
+    // the same logic as normal attribute searching. There is also special logic
+    // when searching for 
+    else if (TeamMember.CLASS.equals(klass) && TeamMember.PERSON.equals(attribute))
     {
       PersonQuery personQuery = new PersonQuery(valueQuery);
       TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);

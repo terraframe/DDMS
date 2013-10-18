@@ -46,6 +46,10 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
                            {
                           	 klass :  dss.vector.solutions.irs.OperatorSpray,
                              accessor : abstractSpray.SPRAYDATE,
+                           },
+                           {
+                             klass : dss.vector.solutions.Person,
+                             accessor : dss.vector.solutions.Person.DATEOFBIRTH
                            }
                           ];
       
