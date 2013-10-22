@@ -105,6 +105,12 @@ public class QueryUtil implements Reloadable
 
   public static final String  DATE_ATTRIBUTE               = "date_attribute";
 
+  public static final String  DATE_CLASS               = "klass";
+  
+  public static final String  DATE_START               = "start";
+  
+  public static final String  DATE_END               = "end";
+
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
@@ -883,7 +889,7 @@ public class QueryUtil implements Reloadable
       if (dateObj.has(DATE_ATTRIBUTE))
       {
         attributeName = dateObj.getString(DATE_ATTRIBUTE);
-        klass = dateObj.getString("klass");
+        klass = dateObj.getString(DATE_CLASS);
 
         MdBusiness md = MdBusiness.getMdBusiness(klass);
         GeneratedEntityQuery attributeQuery = null;
@@ -905,9 +911,9 @@ public class QueryUtil implements Reloadable
           md = md.getSuperMdBusiness();
         }
 
-        if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
+        if (dateObj.has(DATE_START) && !dateObj.isNull(DATE_START) && !dateObj.getString(DATE_START).equals("null"))
         {
-          startValue = dateObj.getString("start");
+          startValue = dateObj.getString(DATE_START);
 
           if (!ignoreCriteria)
           {
@@ -916,9 +922,9 @@ public class QueryUtil implements Reloadable
           }
 
         }
-        if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
+        if (dateObj.has(DATE_END) && !dateObj.isNull(DATE_END) && !dateObj.getString(DATE_END).equals("null"))
         {
-          endValue = dateObj.getString("end");
+          endValue = dateObj.getString(DATE_END);
 
           if (!ignoreCriteria)
           {
@@ -971,7 +977,7 @@ public class QueryUtil implements Reloadable
     {
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
-      klass = dateObj.getString("klass");
+      klass = dateObj.getString(DATE_CLASS);
 
       MdBusiness md = MdBusiness.getMdBusiness(klass);
       GeneratedEntityQuery attributeQuery = null;
@@ -993,9 +999,9 @@ public class QueryUtil implements Reloadable
         md = md.getSuperMdBusiness();
       }
 
-      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
+      if (dateObj.has(DATE_START) && !dateObj.isNull(DATE_START) && !dateObj.getString(DATE_START).equals("null"))
       {
-        startValue = dateObj.getString("start");
+        startValue = dateObj.getString(DATE_START);
 
         if (!ignoreCriteria)
         {
@@ -1004,9 +1010,9 @@ public class QueryUtil implements Reloadable
         }
 
       }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
+      if (dateObj.has(DATE_END) && !dateObj.isNull(DATE_END) && !dateObj.getString(DATE_END).equals("null"))
       {
-        endValue = dateObj.getString("end");
+        endValue = dateObj.getString(DATE_END);
 
         if (!ignoreCriteria)
         {

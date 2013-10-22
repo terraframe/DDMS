@@ -1,12 +1,10 @@
 package dss.vector.solutions.querybuilder;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,10 +14,10 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributeDate;
 import com.runwaysdk.query.AttributeDateTime;
 import com.runwaysdk.query.AttributeTime;
-import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
@@ -30,6 +28,7 @@ import com.runwaysdk.query.SelectableDouble;
 import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.SelectableLong;
+import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
@@ -76,6 +75,7 @@ import dss.vector.solutions.querybuilder.irs.ActualTeamSprayTarget;
 import dss.vector.solutions.querybuilder.irs.ActualZoneSprayTarget;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.irs.AreaJoin;
+import dss.vector.solutions.querybuilder.irs.CriteriaInterceptor;
 import dss.vector.solutions.querybuilder.irs.DiseaseSelectableWrapper;
 import dss.vector.solutions.querybuilder.irs.IRSSpoofJoin;
 import dss.vector.solutions.querybuilder.irs.IRSUnionIF;
@@ -137,12 +137,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   private Map<String, GeneratedEntityQuery> insecticideQueryMap;
 
   private Map<String, GeneratedEntityQuery> abtractSprayQueryMap;
-
-  /**
-   * Set of all aliases that are not used with actual spray data or
-   * calculations.
-   */
-  private Set<String>                       nonActuals;
 
   /**
    * Set to true if any of the planned targets are included in the query.
@@ -207,6 +201,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private InsecticideBrandQuery             insecticideQuery;
 
   private InsecticideBrandQuery             outerInsecticideQuery;
+  
+  private CriteriaInterceptor criteriaInterceptor;
 
   private String                            sprayViewAlias;
 
@@ -237,6 +233,16 @@ public class IRSQB extends AbstractQB implements Reloadable
   private ValueQueryParser                  insecticideParser;
 
   private ValueQueryParser                  sprayParser;
+  
+  /**
+   * Specifies which type of date criteria was added (and optionally selected).
+   */
+  private enum DateCriteria implements Reloadable
+  {
+    PERSON_BIRTHDATE,
+    SPRAY_DATE,
+    NONE
+  }
 
   public IRSQB(String config, String xml, Layer layer, Integer pageNumber, Integer pageSize)
   {
@@ -282,25 +288,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.geoEntity = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
 
     this.periodCol = QueryUtil.getColumnName(EpiWeek.getPeriodMd());
-
-    nonActuals = new HashSet<String>();
-    nonActuals.add(TEAM_TARGET_DIVERGENCE);
-    nonActuals.add(TEAM_PLANNED_COVERAGE);
-    nonActuals.add(TEAM_PLANNED_TARGET);
-    nonActuals.add(TEAM_TARGETED_COVERAGE);
-    nonActuals.add(TEAM_ACTUAL_TARGET);
-    nonActuals.add(AREA_PLANNED_COVERAGE);
-    nonActuals.add(AREA_PLANNED_TARGET);
-    nonActuals.add(OPERATOR_TARGET_DIVERGENCE);
-    nonActuals.add(OPERATOR_ACTUAL_TARGET);
-    nonActuals.add(OPERATOR_TARGETED_COVERAGE);
-    nonActuals.add(OPERATOR_PLANNED_TARGET);
-    nonActuals.add(OPERATOR_PLANNED_COVERAGE);
-
-    nonActuals.add(Alias.SPRAY_LEADER_DEFAULT_LOCALE.getAlias());
-    nonActuals.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
-    nonActuals.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
-    nonActuals.add(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE.getAlias());
+    
+    this.criteriaInterceptor = new CriteriaInterceptor(this.irsVQ);
   }
 
   @Override
@@ -410,13 +399,6 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
       else
       {
-        if (alias.startsWith(geoPrefix) || alias.equals(QueryUtil.RATIO)
-            || alias.equals(QueryUtil.START_DATE_RANGE) || alias.equals(QueryUtil.END_DATE_RANGE)
-            || sel instanceof COUNT)
-        {
-          nonActuals.add(alias);
-        }
-
         irsSels.add(irsVQ.getSelectableRef(alias));
       }
     }
@@ -476,6 +458,22 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.sprayParser = super.createParser(this.sprayVQ, this.createParseInterceptors(this.sprayVQ));
 
     return this.irsParser;
+  }
+  
+  /**
+   * Adds a custom Interceptor to the this.irsVQ to look for aggregation level restrictions.
+   */
+  @Override
+  protected List<ParseInterceptor> createParseInterceptors(ValueQuery valueQuery)
+  {
+    List<ParseInterceptor> interceptors = super.createParseInterceptors(valueQuery);
+    
+    if(valueQuery == this.irsVQ)
+    {
+      interceptors.add(this.criteriaInterceptor);
+    }
+    
+    return interceptors;
   }
 
   @Override
@@ -620,14 +618,21 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     setTargetManagmentCalculations();
 
-    SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
 
-    DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
-
-    QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
-
-    addPlannedTargetDateCriteria();
-
+    DateCriteria dateCriteria = addDateCriteria();
+    if(dateCriteria == DateCriteria.PERSON_BIRTHDATE)
+    {
+      // include a Person EntityQuery into the map to make the QueryUtil.setQueryDate() work.
+      this.mainQueryMap.put(Person.CLASS, new PersonQuery(this.queryFactory));
+    }
+    
+    if(dateCriteria != DateCriteria.NONE)
+    {
+      SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
+      DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
+      QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
+    }
+    
     /* DATE POST PROCESSING */
     if (this.hasPlannedTargets)
     {
@@ -640,8 +645,6 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         if (irsVQ.hasSelectableRef(group))
         {
-          nonActuals.add(group);
-
           SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);
           String original = sel.getSQL();
 
@@ -937,35 +940,87 @@ public class IRSQB extends AbstractQB implements Reloadable
     return Alias.UNIQUE_SPRAY_ID.getAlias();
   }
 
-  private void addPlannedTargetDateCriteria()
+  /**
+   * Adds the custom date criteria.
+   * @return The DateCriteria that was added as criteria.
+   */
+  private DateCriteria addDateCriteria()
   {
     try
     {
       JSONObject dateObj = queryConfig.getJSONObject(QueryUtil.DATE_ATTRIBUTE);
-
-      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
+      
+      
+      if(dateObj.has(QueryUtil.DATE_CLASS) && !dateObj.isNull(QueryUtil.DATE_CLASS))
       {
-        String startValue = dateObj.getString("start");
+        String klass = dateObj.getString(QueryUtil.DATE_CLASS);
+        DateCriteria dateCriteria;
+        if(OperatorSpray.CLASS.equals(klass))
+        {
+          // represents spray date on all 3 levels
+          dateCriteria = DateCriteria.SPRAY_DATE;
+        }
+        else if(Person.CLASS.equals(klass))
+        {
+          // represents birth date on operator, leader, and supervisor
+          dateCriteria = DateCriteria.PERSON_BIRTHDATE;
+        }
+        else
+        {
+          throw new ProgrammingErrorException("The class ["+klass+"] is not supported as IRS date criteria.");
+        }
 
-        Condition or = OR.get(
-            irsVQ.aSQLDate("planned_start_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).GE(
-                irsVQ.aSQLDate("planned_start_val", "'" + startValue + "'")),
-            irsVQ.aSQLDate("spray_start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
-                irsVQ.aSQLDate("spray_start_val", "'" + startValue + "'")));
+        if (dateObj.has(QueryUtil.DATE_START) && !dateObj.isNull(QueryUtil.DATE_START) && !dateObj.getString(QueryUtil.DATE_START).equals("null"))
+        {
+          String startValue = dateObj.getString(QueryUtil.DATE_START);
+          SelectableMoment startCrit = irsVQ.aSQLDate("start_val", "'" + startValue + "'");
 
-        irsVQ.AND(or);
+          Condition cond;
+          if(dateCriteria == DateCriteria.PERSON_BIRTHDATE)
+          {
+            cond = AND.get(
+                    irsVQ.aSQLDate("operator_birthdate_start", this.sprayViewAlias + "." + Alias.SPRAY_OPERATOR_BIRTHDATE).GE(startCrit),
+                    irsVQ.aSQLDate("leader_birthdate_start", this.sprayViewAlias + "." + Alias.SPRAY_LEADER_BIRTHDATE).GE(startCrit),
+                    irsVQ.aSQLDate("supervisor_birthdate_start", this.sprayViewAlias + "." + Alias.ZONE_SUPERVISOR_BIRTHDATE).GE(startCrit));
+          }
+          else
+          {
+            cond = OR.get(
+              irsVQ.aSQLDate("planned_start_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).GE(startCrit),
+              irsVQ.aSQLDate("spray_start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(startCrit)
+            );
+          }
+          
+          irsVQ.AND(cond);
+        }
+        if (dateObj.has(QueryUtil.DATE_END) && !dateObj.isNull(QueryUtil.DATE_END) && !dateObj.getString(QueryUtil.DATE_END).equals("null"))
+        {
+          String endValue = dateObj.getString(QueryUtil.DATE_END);
+          SelectableMoment endCrit = irsVQ.aSQLDate("start_val", "'" + endValue + "'");
+
+          Condition cond;
+          if(dateCriteria == DateCriteria.PERSON_BIRTHDATE)
+          {
+            cond = AND.get(
+                irsVQ.aSQLDate("operator_birthdate_end", this.sprayViewAlias + "." + Alias.SPRAY_OPERATOR_BIRTHDATE).LE(endCrit),
+                irsVQ.aSQLDate("leader_birthdate_end", this.sprayViewAlias + "." + Alias.SPRAY_LEADER_BIRTHDATE).LE(endCrit),
+                irsVQ.aSQLDate("supervisor_birthdate_end", this.sprayViewAlias + "." + Alias.ZONE_SUPERVISOR_BIRTHDATE).LE(endCrit));
+          }
+          else
+          {
+            cond = OR.get(
+              irsVQ.aSQLDate("planned_end_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).LE(endCrit),
+              irsVQ.aSQLDate("spray_end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(endCrit));
+          }
+          
+          irsVQ.AND(cond);
+        }
+        
+        return dateCriteria;
       }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
+      else
       {
-        String endValue = dateObj.getString("end");
-
-        Condition or = OR.get(
-            irsVQ.aSQLDate("planned_end_date", this.sprayViewAlias + "." + Alias.PLANNED_DATE).LE(
-                irsVQ.aSQLDate("planned_end_val", "'" + endValue + "'")),
-            irsVQ.aSQLDate("end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(
-                irsVQ.aSQLDate("end_val", "'" + endValue + "'")));
-
-        irsVQ.AND(or);
+        return DateCriteria.NONE;
       }
     }
     catch (JSONException e)
@@ -1083,7 +1138,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // do nothing. Custom join logic is in this.joinMainQueryTables()
   }
 
-  private String createUnion(IRSUnionIF... unions)
+  private String createUnion(boolean unionAll, IRSUnionIF... unions)
   {
     String sql = "";
     int count = 0;
@@ -1102,7 +1157,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       if (count < unions.length - 1)
       {
-        sql += "\nUNION\n";
+        sql += "\nUNION "+(unionAll ? " ALL ":"")+" \n";
       }
 
       count++;
@@ -1157,18 +1212,36 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.addWITHEntry(new WITHEntry(INSECTICIDE_VIEW, insecticideBrandQuery));
 
-    this.addWITHEntry(new WITHEntry(ALL_ACTUALS, createUnion(new ActualOperatorSprayTarget(),
-        new ActualTeamSprayTarget(), new ActualZoneSprayTarget())));
+    
+    // only add the levels to the UNION if they're requested
+    List<IRSUnionIF> actuals = new LinkedList<IRSUnionIF>();
+    if(this.criteriaInterceptor.hasLevel1())
+    {
+      actuals.add(new ActualOperatorSprayTarget());
+    }
+    
+    if(this.criteriaInterceptor.hasLevel2())
+    {
+      actuals.add(new ActualTeamSprayTarget());
+    }
 
+    if(this.criteriaInterceptor.hasLevel3())
+    {
+      actuals.add(new ActualZoneSprayTarget());
+    }
+    
+    this.addWITHEntry(new WITHEntry(ALL_ACTUALS, createUnion(true, actuals.toArray(new IRSUnionIF[actuals.size()]))));
+
+    
     if (this.needsAreaPlanned)
     {
-      this.addWITHEntry(new WITHEntry(PLANNED_AREA, createUnion(new PlannedAreaTarget())));
+      this.addWITHEntry(new WITHEntry(PLANNED_AREA, createUnion(false, new PlannedAreaTarget())));
     }
 
     if (this.needsTeamsPlanned)
     {
-      this.addWITHEntry(new WITHEntry(PLANNED_TEAM, createUnion(new PlannedSprayTeamTarget())));
-      this.addWITHEntry(new WITHEntry(PLANNED_TEAM_ROLLUP, createUnion(new PlannedSprayTeamRollup())));
+      this.addWITHEntry(new WITHEntry(PLANNED_TEAM, createUnion(false, new PlannedSprayTeamTarget())));
+      this.addWITHEntry(new WITHEntry(PLANNED_TEAM_ROLLUP, createUnion(false, new PlannedSprayTeamRollup())));
       
       String results = this.getPlannedTeamResults();
       this.addWITHEntry(new WITHEntry(PLANNED_TEAM_RESULTS, results));
@@ -1177,7 +1250,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     if (this.needsOperatorPlanned)
     {
-      this.addWITHEntry(new WITHEntry(PLANNED_OPERATOR, createUnion(new PlannedOperatorTarget())));
+      this.addWITHEntry(new WITHEntry(PLANNED_OPERATOR, createUnion(false, new PlannedOperatorTarget())));
     }
 
 

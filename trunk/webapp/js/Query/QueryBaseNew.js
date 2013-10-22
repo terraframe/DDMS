@@ -1407,15 +1407,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       if(klass == 'queryTextCriteria')
       {
-	    YAHOO.util.Event.on(singleInput, 'keyup', this._setTextCriteria, obj, this);
+	      YAHOO.util.Event.on(singleInput, 'keyup', this._setTextCriteria, obj, this);
         li.appendChild(singleInput);
         this._buildTextAttributeAutoSuggest(singleInput,attribute,obj,this);
       }
-	  else
-	  {
+	    else
+	    {
         YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
         li.appendChild(singleInput);
-	  }
+	    }
       
   
       // When the check box is toggled, be sure to clear and hide the input
