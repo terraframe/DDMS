@@ -16,15 +16,15 @@ public class AreaJoin extends TargetJoin implements Reloadable
 //   */
 //  private boolean isLeftJoin;
   
-  public AreaJoin(boolean hasActual, boolean hasPlanned)
+  public AreaJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
-    super(hasActual, hasPlanned);
+    super(irsQB, hasActual, hasPlanned);
   }
 
   public final String from()
   {
-    String a = IRSQB.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
-    String p = IRSQB.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;
+    String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
+    String p = IRSQB.View.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;
 
     // Area targets work as follows: limit the planned targets by the universal
     // columns,

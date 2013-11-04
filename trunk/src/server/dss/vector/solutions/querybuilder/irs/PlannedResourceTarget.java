@@ -13,9 +13,9 @@ public abstract class PlannedResourceTarget extends PlannedTargetUnion implement
   protected String disease;
   protected String spraySeason;
   
-  public PlannedResourceTarget()
+  public PlannedResourceTarget(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
     
     this.resourceTargetTable = MdEntity.getMdEntity(ResourceTarget.CLASS).getTableName();
     this.disease = QueryUtil.getColumnName(ResourceTarget.getDiseaseMd());
@@ -26,7 +26,7 @@ public abstract class PlannedResourceTarget extends PlannedTargetUnion implement
   @Override
   public final String setPlannedDate(Alias alias)
   {
-    return set(IRSQB.RESOURCE_TARGET_VIEW,  Alias.PLANNED_DATE.getAlias(), alias);
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(),  Alias.PLANNED_DATE.getAlias(), alias);
   }
   
   @Override

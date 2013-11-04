@@ -7,19 +7,15 @@ import dss.vector.solutions.querybuilder.IRSQB;
 public class ActualJoin extends TargetJoin implements Reloadable
 {
 
-  public ActualJoin()
+  public ActualJoin(IRSQB irsQB)
   {
-    super(true, false);
+    super(irsQB, true, false);
   }
 
   @Override
-  public String from()
+  public String FROM()
   {
-    String sql = "";
-    
-    sql += IRSQB.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
-    
-    return sql;
+    return IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
   }
 
 }

@@ -3,6 +3,7 @@ package dss.vector.solutions.querybuilder.irs;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
 {
@@ -12,14 +13,20 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   //
   // private String targetCol;
   
-  public PlannedSprayTeamTarget()
+  public PlannedSprayTeamTarget(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
 
     // MdEntityDAOIF teamSprayMd = MdEntityDAO.getMdEntityDAO(TeamSpray.CLASS);
     // this.teamSprayTable = teamSprayMd.getTableName();
     // sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
     // targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+  }
+  
+  @Override
+  protected View getView()
+  {
+    return View.PLANNED_TEAM;
   }
 
   @Override
@@ -37,7 +44,7 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   @Override
   public String setTarget(Alias alias)
   {
-    return set(IRSQB.RESOURCE_TARGET_VIEW, this.targeter, alias);
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), this.targeter, alias);
   }
 
   @Override
@@ -49,7 +56,7 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   @Override
   public String setUniquePlannedId(Alias alias)
   {
-    return set(IRSQB.RESOURCE_TARGET_VIEW, idCol, alias);
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), idCol, alias);
   }
 
   // @Override
@@ -68,11 +75,12 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   // }
 
   @Override
-  public String from()
+  public String FROM()
   {
+    String resourceTargetView = IRSQB.View.RESOURCE_TARGET_VIEW.getView();
     String sql = "--Planned Spray Team Target\n";
-    sql += IRSQB.RESOURCE_TARGET_VIEW + " " + IRSQB.RESOURCE_TARGET_VIEW + " INNER JOIN "
-        + resourceTargetTable + " " + resourceTargetTable + " ON " + IRSQB.RESOURCE_TARGET_VIEW + "."
+    sql += resourceTargetView + " " + resourceTargetView + " INNER JOIN "
+        + resourceTargetTable + " " + resourceTargetTable + " ON " + resourceTargetView + "."
         + idCol + " = " + resourceTargetTable + "." + idCol + " \n";
     sql += " INNER JOIN " + sprayTeamTable + " " + sprayTeamTable + " ON " + resourceTargetTable + "."
         + targeter + " = " + sprayTeamTable + "." + idCol + " \n";

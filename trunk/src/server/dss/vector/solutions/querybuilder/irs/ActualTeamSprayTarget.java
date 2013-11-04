@@ -1,14 +1,16 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.List;
+
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.irs.OperatorSprayStatus;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSpray;
+import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -50,9 +52,9 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String supervisorTable;
   private String supervisorPersonCol;
   
-  public ActualTeamSprayTarget()
+  public ActualTeamSprayTarget(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
     
     MdEntityDAOIF teamSprayMd = MdEntityDAO.getMdEntityDAO(TeamSpray.CLASS);
     this.teamSprayTable = teamSprayMd.getTableName();
@@ -92,6 +94,105 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     sprayTeamTable = sprayTeamMd.getTableName();
+  }
+  
+  @Override
+  public List<TableDependency> loadTableDependencies()
+  {
+    List<TableDependency> tables = super.loadTableDependencies();
+    
+    // Level 2 join on parent
+    tables.add(new TableDependency(this, teamSprayTable, new Alias[]{
+        Alias.ID,
+        Alias.SPRAY_DATE,
+        Alias.DISEASE
+    },
+      teamSprayTable + " AS "+teamSprayTable+" \n"+
+      "INNER JOIN "+abstractSprayTable+"" + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+teamSprayTable+"."+idCol+" \n"+
+      "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.irsQB.getDiseaseId()+"' \n"+
+      this.getDateCriteriaSQL()
+    ));
+    
+    // join the team
+    tables.add(new TableDependency(this, teamSprayTable, new Alias[]{
+        Alias.SPRAY_TEAM,
+        Alias.SPRAY_TEAM_DEFAULT_LOCALE
+    },
+      "INNER JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+teamSprayTable+"."+sprayTeamCol+" = "+sprayTeamCol+"."+idCol+" \n"
+    ));
+    
+    
+    // spray details
+    tables.add(new TableDependency(this, teamSprayTable, new Alias[]{
+      Alias.UNIQUE_SPRAY_ID,
+      Alias.BEDNETS,
+      Alias.HOUSEHOLDS,
+      Alias.LOCKED,
+      Alias.OPERATOR_ACTUAL_TARGET,
+      Alias.TEAM_ACTUAL_TARGET,
+      Alias.OTHER,
+      Alias.PEOPLE,
+      Alias.PREV_SPRAYED_HOUSEHOLDS,
+      Alias.PREV_SPRAYED_STRUCTURES,
+      Alias.RECEIVED,
+      Alias.REFILLS,
+      Alias.REFUSED,
+      Alias.RETURNED,
+      Alias.ROOMS,
+      Alias.ROOMS_WITH_BED_NETS,
+      Alias.SPRAYED_HOUSEHOLDS,
+      Alias.SPRAYED_ROOMS,
+      Alias.SPRAYED_STRUCTURES,
+      Alias.STRUCTURES,
+      Alias.USED
+    },
+    "LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n"
+        ));
+    
+    // operator person
+    tables.add(new TableDependency(this, OPERATOR_PERSON, new Alias[]{
+        Alias.SPRAY_OPERATOR,
+        Alias.SPRAY_OPERATOR_DEFAULT_LOCALE,
+        Alias.SPRAY_OPERATOR_PERSON,
+        Alias.SPRAY_OPERATOR_PERSON_ID,
+        Alias.SPRAY_OPERATOR_SEX,
+        Alias.SPRAY_OPERATOR_BIRTHDATE,
+    },
+      "LEFT JOIN "+teamMemberTable+"" + " AS "+OPERATOR_MEMBER+" ON "+operSprayStatusTable+"."+sprayOperatorCol+" = "+OPERATOR_MEMBER+".id \n"+
+      "LEFT JOIN "+personTable + " AS "+OPERATOR_PERSON+" ON "+OPERATOR_MEMBER+"."+personCol+" = "+OPERATOR_PERSON+"."+idCol+" \n"
+    ));
+    
+  
+
+    // leader person
+    tables.add(new TableDependency(this, LEADER_PERSON, new Alias[]{
+        Alias.SPRAY_LEADER_DEFAULT_LOCALE,
+        Alias.SPRAY_LEADER_PERSON,
+        Alias.SPRAY_LEADER_PERSON_ID,
+        Alias.SPRAY_LEADER_SEX,
+        Alias.SPRAY_LEADER_BIRTHDATE,
+    },    
+       "LEFT JOIN "+teamMemberTable+" AS "+LEADER_MEMBER+" ON "+teamSprayTable+"."+teamLeaderCol+" = "+LEADER_MEMBER+"."+idCol+" \n"+
+       "LEFT JOIN "+personTable +" AS "+LEADER_PERSON+" ON "+LEADER_MEMBER+"."+personCol+ " = "+LEADER_PERSON + "." + idCol+" \n"
+    ));
+ 
+    
+    // supervisor person
+    tables.add(new TableDependency(this, SUPERVISOR_PERSON, new Alias[]{
+        Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE,
+        Alias.ZONE_SUPERVISOR_PERSON,
+        Alias.ZONE_SUPERVISOR_PERSON_ID,
+        Alias.ZONE_SUPERVISOR_SEX,
+        Alias.ZONE_SUPERVISOR_BIRTHDATE,
+    },
+      "LEFT JOIN "+ supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = " + teamSprayTable + "." + supervisorCol + " \n"+
+      "LEFT JOIN "+personTable+ " AS "+SUPERVISOR_PERSON+ " ON "+ supervisorTable+"."+supervisorPersonCol+" = "+SUPERVISOR_PERSON+"."+idCol+" \n"
+    ));
+    
+    // season
+    this.addSeasonTableDependency(tables);  
+    
+    return tables;
   }
   
   public String setId(Alias alias)
@@ -276,56 +377,6 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   public String setSprayedHouseholdsShare(Alias alias)
   {
     return set("1", alias);
-  }
-  
-  @Override
-  public String from()
-  {
-    String from = "";
-    
-    // Level 2 join on parent
-    from += teamSprayTable + " AS "+teamSprayTable+" \n";
-    from += "INNER JOIN "+abstractSprayTable+"" + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+teamSprayTable+"."+idCol+" \n";
-
-    // join the team
-    from += "INNER JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+teamSprayTable+"."+sprayTeamCol+" = "+sprayTeamCol+"."+idCol+" \n";
-    
-    // spray details
-    from += "LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n";
-    
-    // operator person
-    from += "LEFT JOIN "+teamMemberTable+"" + " AS "+OPERATOR_MEMBER+" ON "+operSprayStatusTable+"."+sprayOperatorCol+" = "+OPERATOR_MEMBER+".id \n";
-    from += "LEFT JOIN "+personTable + " AS "+OPERATOR_PERSON+" ON "+OPERATOR_MEMBER+"."+personCol+" = "+OPERATOR_PERSON+"."+idCol+" \n";
-    
-    
-    // leader person
-    from += "LEFT JOIN "+teamMemberTable+" AS "+LEADER_MEMBER+" ON "+teamSprayTable+"."+teamLeaderCol+" = "+LEADER_MEMBER+"."+idCol+" \n";
-    from += "LEFT JOIN "+personTable +" AS "+LEADER_PERSON+" ON "+LEADER_MEMBER+"."+personCol+ " = "+LEADER_PERSON + "." + idCol+" \n";
- 
-    
-    // supervisor person
-    from += "LEFT JOIN "
-        + supervisorTable + " " + supervisorTable + " ON " + supervisorTable + "." + idCol + " = "
-        + teamSprayTable + "." + supervisorCol + " \n";
-    from += "LEFT JOIN "+personTable+ " AS "+SUPERVISOR_PERSON+ " ON "+ supervisorTable+"."+supervisorPersonCol+" = "+SUPERVISOR_PERSON+"."+idCol+" \n";
-    
-    
-    // season
-    from += "LEFT JOIN "+ malariaSeasonTable + " AS sprayseason ";
-    String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
-    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+this.q.getDiseaseId()+"' = sprayseason."+seasonDiseaseCol+" \n";
-    
-    
-    return from;
-  }
-  
-  @Override
-  public String where()
-  {
-    String where = "";
-    where += " "+teamSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
-    
-    return where;
   }
   
   @Override

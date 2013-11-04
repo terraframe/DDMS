@@ -1,5 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.Set;
+
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.Metadata;
 
@@ -22,11 +24,21 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   
   protected String keyName;
   
-  public PlannedTargetUnion()
+  public PlannedTargetUnion(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
     
     keyName = QueryUtil.getColumnName(Metadata.getKeyNameMd());
+  }
+  
+  @Override
+  public void loadDependencies()
+  {
+    Set<Alias> selectAliases = this.irsQB.getSelectAliases();
+    for(Alias select : selectAliases)
+    {
+      this.irsQB.addRequiredAlias(this.getView(), select);
+    }
   }
   
   public String setSprayOperator(Alias alias)

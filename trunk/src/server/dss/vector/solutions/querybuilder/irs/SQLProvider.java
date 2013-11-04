@@ -1,22 +1,27 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.Set;
+
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
 
-public interface IRSUnionIF extends Reloadable
+public interface SQLProvider extends Reloadable
 {
-  static final String RESOURCE_TARGET_VIEW = "resourceTargetView";
-  
   public static final String FLOAT = "float";
   public static final String TEXT = "text";
   public static final String VARCHAR = "varchar";
   public static final String DATE = "date";
   public static final String DATETIME = "timestamp without time zone";
   
-  // get/set owning IRSQuery
-  void setIRSQuery(IRSQB irsQuery);
+  /**
+   * Subclasses must override this to customize their columns.
+   */
+  public void loadDependencies();
   
-  String from();
-  String where();
+  public Set<Alias> getRequiredAliases();
+  
+  public String getSQL();
+  
+  public IRSQB getIrsQB();
 }

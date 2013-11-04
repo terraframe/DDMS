@@ -7,15 +7,15 @@ import dss.vector.solutions.querybuilder.IRSQB;
 public class TeamJoin extends TargetJoin implements Reloadable
 {
   
-  public TeamJoin(boolean hasActual, boolean hasPlanned)
+  public TeamJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
-    super(hasActual, hasPlanned);
+    super(irsQB, hasActual, hasPlanned);
   }
   
   public final String from()
   {
-    String a = IRSQB.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
-    String p = IRSQB.PLANNED_TEAM_RESULTS + " " + TargetJoin.PLANNED_ALIAS;
+    String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
+    String p = IRSQB.View.PLANNED_TEAM_RESULTS + " " + TargetJoin.PLANNED_ALIAS;
 
     if (hasPlanned)
     {

@@ -3,6 +3,7 @@ package dss.vector.solutions.querybuilder.irs;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class PlannedOperatorTarget extends PlannedResourceTarget implements Reloadable
 {
@@ -10,9 +11,9 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   // private String targetCol;
   // private String sprayOperatorCol;
 
-  public PlannedOperatorTarget()
+  public PlannedOperatorTarget(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
 
     // MdEntityDAOIF operSprayMd =
     // MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
@@ -21,6 +22,12 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
     // OperatorSpray.TARGET);
     // this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd,
     // OperatorSpray.SPRAYOPERATOR);
+  }
+  
+  @Override
+  protected View getView()
+  {
+    return View.PLANNED_OPERATOR;
   }
 
   @Override
@@ -53,15 +60,16 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   @Override
   public String setUniquePlannedId(Alias alias)
   {
-    return set(IRSQB.RESOURCE_TARGET_VIEW, keyName, alias);
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), keyName, alias);
   }
 
   @Override
-  public String from()
+  public String FROM()
   {
+    String resourceTargetView = IRSQB.View.RESOURCE_TARGET_VIEW.getView();
     String sql = "--Planned Operator Target\n";
-    sql += IRSQB.RESOURCE_TARGET_VIEW + " " + IRSQB.RESOURCE_TARGET_VIEW + " INNER JOIN "
-        + resourceTargetTable + " " + resourceTargetTable + " ON " + IRSQB.RESOURCE_TARGET_VIEW + "."
+    sql += resourceTargetView + " " + resourceTargetView + " INNER JOIN "
+        + resourceTargetTable + " " + resourceTargetTable + " ON " + resourceTargetView + "."
         + idCol + " = " + resourceTargetTable + "." + idCol + " \n";
     sql += " INNER JOIN " + teamMemberTable + " sprayoperator ON " + resourceTargetTable + "."
         + targeter + " = sprayoperator." + idCol + " \n";

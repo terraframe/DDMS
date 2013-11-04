@@ -1,11 +1,61 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.List;
+import java.util.Set;
+
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Condition;
 
-
+import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
+import dss.vector.solutions.util.QueryUtil;
 
 public abstract class ActualTargetUnion extends AbstractTargetUnion implements Reloadable
 {
+  protected String seasonDiseaseCol;
+  
+  public ActualTargetUnion(IRSQB irsQB)
+  {
+    super(irsQB);
+    this.seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+  }
+  
+  @Override
+  protected final View getView()
+  {
+    return View.ALL_ACTUALS;
+  }
+  
+  /**
+   * Adds the season table join.
+   * FIXME is this needed? What columns are the dependents?
+   * @param tables
+   */
+  protected void addSeasonTableDependency(List<TableDependency> tables)
+  {
+    tables.add(
+        new TableDependency(this, malariaSeasonTable, new Alias[]{
+            // FIXME anything here?
+        },
+        "LEFT JOIN "+ malariaSeasonTable + " AS "+ malariaSeasonTable + " "+
+          "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN "+ malariaSeasonTable + "."+startDateCol+
+          " AND "+ malariaSeasonTable + "."+endDateCol+" AND '"+this.irsQB.getDiseaseId()+"' = "+ malariaSeasonTable + "."+seasonDiseaseCol+" \n"
+        ));
+  }
+  
+  /**
+   * Loads the dependencies for Levels 1, 2, and 3.
+   */
+  @Override
+  public void loadDependencies()
+  {
+    Set<Alias> selectAliases = this.irsQB.getSelectAliases();
+    for(Alias select : selectAliases)
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, select);
+    }
+  }
   
   public final String setSprayLeaderDefaultLocale(Alias alias)
   {
@@ -250,7 +300,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
 
   public final String setSpraySeason(Alias alias)
   {
-    return set("sprayseason", idCol, alias);
+    return set(malariaSeasonTable, idCol, alias);
   };
   
   public final String setGeoEntity(Alias alias)
@@ -275,7 +325,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   
   public final String setTargetWeek(Alias alias)
   {
-    return set("get_epiWeek_from_Date("+abstractSprayTable+"."+sprayDateCol+", "+this.q.getStartDay()+")", alias); 
+    return set("get_epiWeek_from_Date("+abstractSprayTable+"."+sprayDateCol+", "+this.irsQB.getStartDay()+")", alias); 
   }
 
   public abstract String setUniqueSprayId(Alias alias);
@@ -349,5 +399,22 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   public final String setZoneSuperVisorPerson(Alias alias)
   {
     return set(SUPERVISOR_PERSON, this.idCol, alias);
+  }
+  
+  protected String getDateCriteriaSQL()
+  {
+    String oDOB = column(OPERATOR_PERSON, this.birthdateCol);
+    String tDOB = column(LEADER_PERSON, this.birthdateCol);
+    String sDOB = column(SUPERVISOR_PERSON, this.birthdateCol);
+    
+    Condition cond = this.irsQB.addDateCriteria(null, false, oDOB, tDOB, sDOB);
+    if(cond != null)
+    {
+      return " AND "+cond.getSQL() + " \n";
+    }
+    else
+    {
+      return "";
+    }
   }
 }

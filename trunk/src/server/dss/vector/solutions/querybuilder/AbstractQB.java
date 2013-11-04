@@ -181,8 +181,6 @@ public abstract class AbstractQB implements Reloadable
 
   private List<WITHEntry>            withEntries;
   
-  private boolean enableWindowCount;
-  
   private Integer pageNumber;
   
   private Integer pageSize;
@@ -199,7 +197,6 @@ public abstract class AbstractQB implements Reloadable
     this.valueQuery = null;
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
-    this.enableWindowCount = true;
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
   }
@@ -272,10 +269,7 @@ public abstract class AbstractQB implements Reloadable
 
     this.setWITHClause();
 
-    if(enableWindowCount)
-    {
-      this.addCountSelectable(valueQuery);
-    }
+    this.addCountSelectable(valueQuery);
     
     ValueQuery finalQuery = this.postProcess(valueQuery);
     
@@ -1151,7 +1145,7 @@ public abstract class AbstractQB implements Reloadable
   {
     // some queries are nested or unioned. In that case the count selectable
     // may have already been added, and if so, skip doing so again
-    if(!v.containsSelectableSQL())
+    if(this.enableCountSelectable(v))
     {
       String windowCount = "count(*) over()";
       SelectableSQLLong c = v.isGrouping() ? 
@@ -1161,6 +1155,11 @@ public abstract class AbstractQB implements Reloadable
       v.SELECT(c);
       v.setCountSelectable(c);
     }
+  }
+  
+  protected boolean enableCountSelectable(ValueQuery v)
+  {
+    return !v.containsSelectableSQL() && !v.hasCountSelectable();
   }
 
   protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);

@@ -12,9 +12,9 @@ public class PlannedSprayTeamRollup extends PlannedSprayTeamTarget implements Re
 
   private String inTeamTable;
 
-  public PlannedSprayTeamRollup()
+  public PlannedSprayTeamRollup(IRSQB irsQB)
   {
-    super();
+    super(irsQB);
 
     this.inTeamTable = MdEntityDAO.getMdEntityDAO(InTeam.CLASS).getTableName();
   }
@@ -60,7 +60,7 @@ public class PlannedSprayTeamRollup extends PlannedSprayTeamTarget implements Re
   @Override
   public String setUniquePlannedId(Alias alias)
   {
-    return set(IRSQB.RESOURCE_TARGET_VIEW, idCol, alias);
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), idCol, alias);
   }
 
   // @Override
@@ -79,13 +79,14 @@ public class PlannedSprayTeamRollup extends PlannedSprayTeamTarget implements Re
   // }
 
   @Override
-  public String from()
+  public String FROM()
   {
+    String resourceTargetView = IRSQB.View.RESOURCE_TARGET_VIEW.getView();
     String sql = "--Planned Spray Operator Target\n";
 
-    sql += IRSQB.RESOURCE_TARGET_VIEW + " " + IRSQB.RESOURCE_TARGET_VIEW + " \n";
+    sql += resourceTargetView + " " + resourceTargetView + " \n";
     sql += "INNER JOIN " + resourceTargetTable + " " + resourceTargetTable + " \n";
-    sql += "ON " + IRSQB.RESOURCE_TARGET_VIEW + "." + idCol + " = " + resourceTargetTable + "." + idCol
+    sql += "ON " + resourceTargetView + "." + idCol + " = " + resourceTargetTable + "." + idCol
         + " \n";
     sql += "INNER JOIN " + teamMemberTable + " " + OPERATOR_MEMBER + " ON " + resourceTargetTable + "."
         + targeter + " = " + OPERATOR_MEMBER + "." + idCol + "  \n";

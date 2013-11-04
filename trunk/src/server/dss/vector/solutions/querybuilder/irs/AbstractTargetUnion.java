@@ -1,9 +1,18 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -15,114 +24,104 @@ import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 
-public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
+public abstract class AbstractTargetUnion extends AbstractSQLProvider implements Reloadable
 {
-  public static final String EMPTY = "''";
 
-  public static final String AS    = "AS";
+  protected String              idCol;
 
-  public static final String NULL  = "NULL";
+  protected String              personTable;
 
-  public static final String ZERO  = "0";
+  protected String              lastNameCol;
 
-  protected String           idCol;
+  protected String              firstNameCol;
 
-  protected String           personTable;
+  protected String              teamMemberTable;
 
-  protected String           lastNameCol;
+  protected String              memberIdCol;
 
-  protected String           firstNameCol;
+  protected String              personCol;
 
-  protected String           teamMemberTable;
+  protected String              teamIdCol;
 
-  protected String           memberIdCol;
+  protected String              sprayTeamTable;
 
-  protected String           personCol;
+  protected String              abstractSprayTable;
 
-  protected String           teamIdCol;
+  protected String              geoEntityCol;
 
-  protected String           sprayTeamTable;
+  protected String              sprayDateCol;
 
-  protected String           abstractSprayTable;
+  protected String              sprayMethodCol;
 
-  protected String           geoEntityCol;
+  protected String              surfaceTypeCol;
 
-  protected String           sprayDateCol;
-  
-  protected String           sprayMethodCol;
+  protected String              brandCol;
 
-  protected String           surfaceTypeCol;
+  protected String              malariaSeasonTable;
 
-  protected String           brandCol;
+  protected String              startDateCol;
 
-  protected String           malariaSeasonTable;
+  protected String              endDateCol;
 
-  protected String           startDateCol;
+  protected String              createDateCol;
 
-  protected String           endDateCol;
-  
-  protected String createDateCol;
-  
-  protected String lastUpdateDateCol;
-  
-  protected String createdByCol;
-  
-  protected String lastUpdatedByCol;
-  
-  protected String targeter;
-  
-  protected String identifierCol;
-  
-  protected String sexCol;
-  
-  protected String birthdateCol;
-  
+  protected String              lastUpdateDateCol;
+
+  protected String              createdByCol;
+
+  protected String              lastUpdatedByCol;
+
+  protected String              targeter;
+
+  protected String              identifierCol;
+
+  protected String              sexCol;
+
+  protected String              birthdateCol;
+
   /**
-   * There are 3 joins to the Person table. This is the unique alias for the spray operator.
+   * There are 3 joins to the Person table. This is the unique alias for the
+   * spray operator.
    */
-  protected static final String OPERATOR_PERSON = "operator_person";
-  
+  protected static final String OPERATOR_PERSON   = "operator_person";
+
   /**
-   * There are 3 joins to the Person table. This is the unique alias for the spray leader.
+   * There are 3 joins to the Person table. This is the unique alias for the
+   * spray leader.
    */
-  protected static final String LEADER_PERSON = "leader_person";
-  
+  protected static final String LEADER_PERSON     = "leader_person";
+
   /**
-   * There are 3 joins to the Person table. This is the unique alias for the zone supervisor.
+   * There are 3 joins to the Person table. This is the unique alias for the
+   * zone supervisor.
    */
   protected static final String SUPERVISOR_PERSON = "supervisor_person";
-  
+
   /**
    * Alias of the team member table used to describe the spray leader.
    */
-  protected static final String LEADER_MEMBER = "leader_member";
-  
+  protected static final String LEADER_MEMBER     = "leader_member";
+
   /**
    * Alias of the team member table used to describe the spray operator.
    */
-  protected static final String OPERATOR_MEMBER = "operator_member";
-  
+  protected static final String OPERATOR_MEMBER   = "operator_member";
+
   /**
    * Alias of the team member table used to describe the spray supervisor.
    */
   protected static final String SUPERVISOR_MEMBER = "supervisor_member";
 
-  /**
-   * The owning IRSQuery instance of this union. The variable is protected for
-   * easy reading by the subclasses.
-   */
-  protected IRSQB         q;
+  protected int                 startDay;
 
-  protected int              startDay;
-
-  public AbstractTargetUnion()
+  public AbstractTargetUnion(IRSQB irsQB)
   {
-    q = null;
-    
+    super(irsQB);
+
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
     this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());
-    
+
     MdEntityDAOIF personMd = MdEntityDAO.getMdEntityDAO(Person.CLASS);
     this.personTable = personMd.getTableName();
     this.firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
@@ -130,7 +129,7 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     this.identifierCol = QueryUtil.getColumnName(personMd, Person.IDENTIFIER);
     this.sexCol = QueryUtil.getColumnName(personMd, Person.SEX);
     this.birthdateCol = QueryUtil.getColumnName(personMd, Person.DATEOFBIRTH);
-    
+
     MdEntityDAOIF teamMemberMd = MdEntityDAO.getMdEntityDAO(TeamMember.CLASS);
     this.teamMemberTable = teamMemberMd.getTableName();
     this.memberIdCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.MEMBERID);
@@ -151,54 +150,84 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     this.lastUpdateDateCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDATE);
     this.createdByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.CREATEDBY);
     this.lastUpdatedByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDBY);
-    
+
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     this.malariaSeasonTable = malariaSeasonMd.getTableName();
     this.startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
     this.endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-    
+
     this.idCol = QueryUtil.getIdColumn();
   }
 
-  public final void setIRSQuery(IRSQB irsQuery)
+  /**
+   * Generates the SQL for this UNION component and optimizes the SELECT clause
+   * to include only what's needed.
+   */
+  public final String SELECT()
   {
-    this.q = irsQuery;
-  }
-  public String set(String table, Alias column, Alias alias)
-  {
-    return set(table, column.getAlias(), alias);
-  }
+    Set<Alias> requiredAliases = this.getRequiredAliases();
 
-  public String set(String table, String column, Alias alias)
-  {
-    return set(table + "." + column, alias);
-  }
+    String sql = "";
+    
+    Class<? extends SQLProvider> klass = this.getClass();
+    List<String> columns = new LinkedList<String>();
+    for (Alias alias : requiredAliases)
+    {
+      // not every alias has a method representing it (eg, custom
+      // pass-through and calculations), so
+      // only invoke the method if one exists.
+      String methodName = alias.getMethod();
+      if (methodName != null)
+      {
+        try
+        {
+          Method m = klass.getMethod(methodName, Alias.class);
 
-  public String set(String value, Alias alias)
-  {
-    String type = alias.getType();
-    return value + " " + (type != null ? "::"+type+" ":"") + AS + " " + alias;
-  }
+          columns.add((String) m.invoke(this, alias));
+        }
+        catch (Throwable t)
+        {
+          String msg = "IRS QB: Unable to process alias [" + alias.getAlias() + "] with method ["
+              + methodName + "] on class [" + klass.getName() + "].";
 
-  public String setEmpty(Alias alias)
-  {
-    return set(EMPTY, alias);
-  }
+          MdssLog.error(msg, t);
 
-  public String setNULL(Alias alias)
-  {
-    return set(NULL, alias);
-  }
+          throw new ProgrammingErrorException(t);
+        }
+      }
+    }
 
-  public String setZero(Alias alias)
-  {
-    return set(ZERO, alias);
+    sql += StringUtils.join(columns, COLUMN_SUFFIX) + " \n";
+
+    return sql;
   }
   
-  public String where()
+  /**
+   * Generates the SQL for this UNION component and optimizes the FROM clause
+   * to include only what's needed.
+   */
+  public String FROM()
   {
-    return "";
+    Set<Alias> requiredAliases = this.getRequiredAliases();
+    
+    String sql = "";
+    List<TableDependency> tables = this.loadTableDependencies();
+    if (tables.size() > 0)
+    {
+      for (TableDependency table : tables)
+      {
+        if (table.isNeeded(requiredAliases))
+        {
+          sql += table.getSQL();
+        }
+      }
+    }
+    
+    return sql;
   }
-  
-  public abstract String from();
+
+  public List<TableDependency> loadTableDependencies()
+  {
+    return new LinkedList<TableDependency>();
+  }
 }

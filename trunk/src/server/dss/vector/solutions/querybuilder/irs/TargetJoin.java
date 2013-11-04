@@ -2,6 +2,9 @@ package dss.vector.solutions.querybuilder.irs;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
+
 public abstract class TargetJoin extends AbstractTargetUnion implements Reloadable
 {
   protected boolean hasActual;
@@ -10,12 +13,26 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
   protected static final String ACTUAL_ALIAS = "a";
   protected static final String PLANNED_ALIAS = "p";
   
-  public TargetJoin(boolean hasActual, boolean hasPlanned)
+  public TargetJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
-    super();
+    super(irsQB);
     
     this.hasActual = hasActual;
     this.hasPlanned = hasPlanned;
+  }
+  
+  @Override
+  protected View getView()
+  {
+    return View.SPRAY_VIEW;
+  }
+  
+  @Override
+  public void loadDependencies()
+  {
+//    Set<Alias> selectAliases = this.irsQB.getSelectAliases();
+    
+    // need to do anything here?
   }
   
   public String caseSwap(Alias alias)
