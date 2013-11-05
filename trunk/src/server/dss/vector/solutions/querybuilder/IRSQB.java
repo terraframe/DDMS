@@ -75,6 +75,7 @@ import dss.vector.solutions.querybuilder.irs.CriteriaInterceptor;
 import dss.vector.solutions.querybuilder.irs.DateExtrapolationView;
 import dss.vector.solutions.querybuilder.irs.DiseaseSelectableWrapper;
 import dss.vector.solutions.querybuilder.irs.GeoTargetView;
+import dss.vector.solutions.querybuilder.irs.IRSSpoofJoin;
 import dss.vector.solutions.querybuilder.irs.InsecticideView;
 import dss.vector.solutions.querybuilder.irs.PlannedAreaTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedOperatorTarget;
@@ -218,6 +219,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private Map<String, List<ColumnDependency>> dependenciesByProvider;
   
   private Map<View, Set<Alias>> requiredAliases;
+  
+  private boolean needUniqueSprayId;
 
   /**
    * Specifies which type of date criteria was added (and optionally selected).
@@ -282,21 +285,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     
     this.requiredAliases = new HashMap<View, Set<Alias>>();
 
-    /*
-         DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class),
-    RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.class),
-    GEO_TARGET_VIEW("geoTargetView",GeoTargetView.class),
-    SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class),
-    INSECTICIDE_VIEW("insecticideView", InsecticideView.class), 
-    PLANNED_OPERATOR("plannedOperator", PlannedOperatorTarget.class), 
-    PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class), 
-    PLANNED_TEAM_ROLLUP("plannedTeamRollup", PlannedSprayTeamRollup.class),
-    PLANNED_TEAM_RESULTS("plannedTeamResults",PlannedSprayTeamResults.class), 
-    PLANNED_AREA("plannedArea", PlannedAreaTarget.class), 
-    ALL_ACTUALS("allActuals", ActivityUnion.class), 
-    SPRAY_VIEW("sprayView", SprayView.class); 
-     */
-    
     // manually put sets with different Views. Note that some views share the same
     // sets (to make the unions work by having the same columns).
     this.requiredAliases.put(View.DATE_EXTRAPOLATION_VIEW, new HashSet<Alias>());
@@ -354,6 +342,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.hasSprayEnumOrTerm = false;
 
+    this.needUniqueSprayId = false;
+    
     this.needsAreaPlanned = false;
     this.needsOperatorPlanned = false;
     this.needsTeamsPlanned = false;
@@ -728,6 +718,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);
     this.abstractSprayQuery = (AbstractSprayQuery) this.abtractSprayQueryMap.get(AbstractSpray.CLASS);
 
+    if(this.insecticideQuery != null)
+    {
+      this.addRequiredView(View.INSECTICIDE_VIEW);
+    }
+    
     filterSelectables();
 
     swapOutAttributesForAggregates();
@@ -1113,7 +1108,10 @@ public class IRSQB extends AbstractQB implements Reloadable
         Alias.RECEIVED.getAlias(), Alias.USED.getAlias(), Alias.REFILLS.getAlias(),
         Alias.RETURNED.getAlias() };
 
-    QueryUtil.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true);
+    if(QueryUtil.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true) > 0)
+    {
+      needUniqueSprayId = true;
+    }
 
     String[] sprayDetails = new String[] {
 
@@ -1121,11 +1119,14 @@ public class IRSQB extends AbstractQB implements Reloadable
         Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(),
         Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(),
         Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(),
-        Alias.WRONG_SURFACE.getAlias() };
+        Alias.WRONG_SURFACE.getAlias(), Alias.PEOPLE.getAlias() };
 
     // spray details are unique by the household and structure id
     String detailUniqueId = this.getUniqueSprayDetailsId();
-    QueryUtil.setAttributesAsAggregated(sprayDetails, detailUniqueId, irsVQ, sprayViewAlias, true);
+    if(QueryUtil.setAttributesAsAggregated(sprayDetails, detailUniqueId, irsVQ, sprayViewAlias, true) > 0)
+    {
+      needUniqueSprayId = true;
+    }
   }
 
   /**
@@ -1274,14 +1275,11 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void joinMainQueryTables()
   {
-    // FIXME remove this hack! Use SQL pass-through if necessary.
-    // String abstractSprayTable =
-    // MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
-    // IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable,
-    // this.sprayViewAlias, idCol,
-    // abstractSprayTable, this.sprayViewAlias);
-    // irsVQ.AND(join);
-    // irsVQ.fro
+    // FIXME This hack is needed to avoid specifying the abstract_table alias more than
+    // once when other joins are added.
+     String abstractSprayTable = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
+     IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol, abstractSprayTable, this.sprayViewAlias);
+     irsVQ.AND(join);
 
     StringBuffer str = new StringBuffer();
     String idCol = QueryUtil.getIdColumn();
@@ -1408,6 +1406,11 @@ public class IRSQB extends AbstractQB implements Reloadable
   String getAbstractSprayAlias()
   {
     return sprayViewAlias;
+  }
+  
+  public boolean needUniqueSprayId()
+  {
+    return needUniqueSprayId;
   }
 
   /**

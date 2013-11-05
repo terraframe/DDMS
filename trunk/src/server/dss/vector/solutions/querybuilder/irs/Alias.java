@@ -6,6 +6,7 @@ import java.util.Map;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.AbstractSpray;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.IRSQB;
 
 public enum Alias implements Reloadable
@@ -81,17 +82,49 @@ public enum Alias implements Reloadable
   SPRAYED_STRUCTURES_SHARE("sprayedstructures_share", "setSprayedStructuresShare", SQLProvider.FLOAT),
   SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share", "setSprayedHouseholdsShare", SQLProvider.FLOAT),
   
-  // CUSTOM (not specified on any level as a column)
+  /*
+   *  CUSTOM (not specified on any level as a column)
+   */
   
+  // Audit
+  AUDIT_CREATE_DATE(QueryConstants.AUDIT_CREATE_DATE_ALIAS, null, SQLProvider.DATE),
+  AUDIT_LAST_UPDATE_DATE(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS, null, SQLProvider.DATE),
+  AUDIT_CREATED_BY(QueryConstants.AUDIT_CREATED_BY_ALIAS, null, SQLProvider.DATE),
+  AUDIT_LAST_UPDATED_BY(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS, null, SQLProvider.DATE),
+  AUDIT_IMPORTED(QueryConstants.AUDIT_IMPORTED_ALIAS, null, SQLProvider.DATE),
+  
+  SPRAYED_UNITS("sprayedunits", null, SQLProvider.FLOAT),
+  UNITS_UNSPRAYED("unit_unsprayed", null, SQLProvider.FLOAT),
+  
+  // Insecticide
+  PRODUCT_NAME("productName_spray", null, SQLProvider.VARCHAR),
+  ACTIVE_INGREDIANT("activeIngredient_spray", null, SQLProvider.VARCHAR),
+  CONCENTRATION_QUANTIFIER("concentrationQuantifier_spray", null, SQLProvider.FLOAT),
+  CONCENTRATION_QUALIFIER("concentrationQualifier_spray", null, SQLProvider.VARCHAR),
+  INSECTICIDE_USE("insecticideUse_spray", null, SQLProvider.VARCHAR),
+  USE_DETAIL("useDetail_spray", null, SQLProvider.VARCHAR),
+  UNITS_PER_APPLICATION("unitsPerApplication_spray", null, SQLProvider.FLOAT),
+  UNIT_QUANTIFIER("unitQuantifier_spray", null, SQLProvider.VARCHAR),
+  UNIT_QUALIFIER("unitQualifier_spray", null, SQLProvider.VARCHAR),
+  ACTIVE_INGREDIENT_PER_CAN("active_ingredient_per_can", null, SQLProvider.VARCHAR),
+  STANDARD_APPLICATION_RATE("standard_application_rate", null, SQLProvider.VARCHAR),
+  STANDARD_APPLICATION_RAGE_MG("standard_application_rate_mg", null, SQLProvider.VARCHAR),
+  UNITS_PER_CAN("units_per_can", null, SQLProvider.VARCHAR),
+
   // InsecticideView
   SPRAY_UNIT("spray_unit", "setSprayUnit", SQLProvider.VARCHAR),
   UNIT_AREA("unit_area", "setUnitArea", SQLProvider.VARCHAR),
   
   
-  // Calculation
-  SPRAYED_UNITS("sprayedunits", null, SQLProvider.FLOAT),
-  UNITS_UNSPRAYED("unit_unsprayed", null, SQLProvider.FLOAT);
-  
+  // Calculations
+  UNIT_APPLICATION_RATE("unit_application_rate", null, SQLProvider.FLOAT),
+  UNIT_APPLICATION_RATE_MG("unit_application_rate_mg", null, SQLProvider.FLOAT),
+  UNIT_APPLICATION_RATIO("unit_application_ratio", null, SQLProvider.FLOAT),
+  UNIT_OPERATIONAL_COVERAGE("unit_operational_coverage", null, SQLProvider.FLOAT),
+  CALCULATED_ROOMS_SPRAYED("calculated_rooms_sprayed", null, SQLProvider.FLOAT),
+  CALCULATED_STRUCTURES_SPRAYED("calculated_structures_sprayed", null, SQLProvider.FLOAT),
+  CALCULATED_HOUSEHOLDS_SPRAYED("calculated_households_sprayed", null, SQLProvider.FLOAT);
+
   
   private String alias;
   

@@ -139,31 +139,32 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     ));   
     
     // spray details
-    tables.add(new TableDependency(this, teamSprayStatusTable, new Alias[]{
-      Alias.UNIQUE_SPRAY_ID,
-      Alias.BEDNETS,
-      Alias.HOUSEHOLDS,
-      Alias.LOCKED,
-      Alias.TEAM_ACTUAL_TARGET,
-      Alias.OTHER,
-      Alias.PEOPLE,
-      Alias.PREV_SPRAYED_HOUSEHOLDS,
-      Alias.PREV_SPRAYED_STRUCTURES,
-      Alias.RECEIVED,
-      Alias.REFILLS,
-      Alias.REFUSED,
-      Alias.RETURNED,
-      Alias.ROOMS,
-      Alias.ROOMS_WITH_BED_NETS,
-      Alias.SPRAYED_HOUSEHOLDS,
-      Alias.SPRAYED_ROOMS,
-      Alias.SPRAYED_STRUCTURES,
-      Alias.STRUCTURES,
-      Alias.USED
-    },
-       "LEFT JOIN " + teamSprayStatusTable + " AS "+ teamSprayStatusTable + " ON \n"+
-       zoneSprayTable + "." + idCol + " = " + teamSprayStatusTable + "." + sprayCol + " \n"
-     ));
+    TableDependency sprayDetails = new TableDependency(this, teamSprayStatusTable, new Alias[]{
+        Alias.UNIQUE_SPRAY_ID,
+        Alias.BEDNETS,
+        Alias.HOUSEHOLDS,
+        Alias.LOCKED,
+        Alias.TEAM_ACTUAL_TARGET,
+        Alias.OTHER,
+        Alias.PEOPLE,
+        Alias.PREV_SPRAYED_HOUSEHOLDS,
+        Alias.PREV_SPRAYED_STRUCTURES,
+        Alias.RECEIVED,
+        Alias.REFILLS,
+        Alias.REFUSED,
+        Alias.RETURNED,
+        Alias.ROOMS,
+        Alias.ROOMS_WITH_BED_NETS,
+        Alias.SPRAYED_HOUSEHOLDS,
+        Alias.SPRAYED_ROOMS,
+        Alias.SPRAYED_STRUCTURES,
+        Alias.STRUCTURES,
+        Alias.USED
+      },
+         "LEFT JOIN " + teamSprayStatusTable + " AS "+ teamSprayStatusTable + " ON \n"+
+         zoneSprayTable + "." + idCol + " = " + teamSprayStatusTable + "." + sprayCol + " \n"
+       );
+    tables.add(sprayDetails);
 
     
     // join the team
@@ -172,7 +173,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
         Alias.SPRAY_TEAM_DEFAULT_LOCALE
     },
       "INNER JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+teamSprayStatusTable+"."+sprayTeamCol+" = "+sprayTeamCol+"."+idCol+" \n"
-    ));    
+    , sprayDetails));    
     
     // leader
     tables.add(new TableDependency(this, LEADER_PERSON, new Alias[]{
@@ -184,7 +185,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     },    
       "LEFT JOIN "+teamMemberTable+" AS "+LEADER_MEMBER+" ON "+teamSprayStatusTable+"."+teamLeaderCol+" = "+LEADER_MEMBER+"."+idCol+" \n"+
       "LEFT JOIN "+personTable +" AS "+LEADER_PERSON+" ON "+LEADER_MEMBER+"."+personCol+ " = "+LEADER_PERSON + "." + idCol+" \n"
-    ));    
+    , sprayDetails));    
     
     // supervisor
     tables.add(new TableDependency(this, SUPERVISOR_PERSON, new Alias[]{
@@ -227,9 +228,9 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     return set(this.zoneSprayTable, this.idCol, alias);
   }
 
-  public String setAggregationLevel(Alias alias)
+  protected String getLevel()
   {
-    return set("'3'", alias);
+    return "3";
   }
   
   @Override

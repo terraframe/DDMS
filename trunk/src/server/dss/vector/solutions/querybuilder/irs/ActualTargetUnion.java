@@ -55,6 +55,173 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, select);
     }
+
+    // add the default dependencies
+    this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ID);
+    
+    // The unique spray id is used whenever an aggregation is requested (eg, SUM) so that
+    // a unique column can be specified as a discriminator to avoid cross-products.
+    if(this.irsQB.needUniqueSprayId())
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.UNIQUE_SPRAY_ID);
+    }
+    
+    // START: audit fields
+    if(selectAliases.contains(Alias.AUDIT_CREATE_DATE))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.CREATE_DATE);
+    }
+
+    if(selectAliases.contains(Alias.AUDIT_LAST_UPDATE_DATE))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.LAST_UPDATE_DATE);
+    }
+
+    if(selectAliases.contains(Alias.AUDIT_CREATED_BY))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.CREATED_BY);
+    }
+    
+    if(selectAliases.contains(Alias.AUDIT_LAST_UPDATED_BY))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.LAST_UPDATED_BY);
+    }
+    // END: audit fields
+    
+    
+    // sprayed units
+    if(selectAliases.contains(Alias.SPRAYED_UNITS))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+    }
+    
+    // unsprayed units
+    boolean unitsUnsprayed = false;
+    if(selectAliases.contains(Alias.UNITS_UNSPRAYED))
+    {
+      unitsUnsprayed = true;
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ROOMS_UNSPRAYED, Alias.STRUCTURES_UNSPRAYED, Alias.HOUSEHOLDS_UNSPRAYED);
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+    }
+    
+    if(unitsUnsprayed || selectAliases.contains(Alias.ROOMS_UNSPRAYED))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ROOMS, Alias.SPRAYED_ROOMS);
+    }
+    
+    if(unitsUnsprayed || selectAliases.contains(Alias.HOUSEHOLDS_UNSPRAYED))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.HOUSEHOLDS, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    if(unitsUnsprayed || selectAliases.contains(Alias.STRUCTURES_UNSPRAYED))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.STRUCTURES, Alias.SPRAYED_STRUCTURES);
+    }
+    
+    // operator, leader, supervisor
+    if(selectAliases.contains(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE) || selectAliases.contains(Alias.SPRAY_OPERATOR_SEX))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_OPERATOR_PERSON);
+    }
+    
+    if(selectAliases.contains(Alias.SPRAY_LEADER_DEFAULT_LOCALE) || selectAliases.contains(Alias.SPRAY_LEADER_SEX))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_LEADER_PERSON);
+    }
+    
+    if(selectAliases.contains(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE) || selectAliases.contains(Alias.ZONE_SUPERVISOR_SEX))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ZONE_SUPERVISOR_PERSON);
+    }
+    
+    
+    // calcs
+    boolean needsSpraySummary = false;
+    if(selectAliases.contains(Alias.UNIT_APPLICATION_RATE))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.SPRAYED_ROOMS_SHARE, Alias.SPRAYED_HOUSEHOLDS_SHARE, Alias.SPRAYED_STRUCTURES_SHARE);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    if(selectAliases.contains(Alias.UNIT_APPLICATION_RATE_MG))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.SPRAYED_ROOMS_SHARE, Alias.SPRAYED_HOUSEHOLDS_SHARE, Alias.SPRAYED_STRUCTURES_SHARE);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    if(selectAliases.contains(Alias.UNIT_APPLICATION_RATIO))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.SPRAYED_ROOMS_SHARE, Alias.SPRAYED_HOUSEHOLDS_SHARE, Alias.SPRAYED_STRUCTURES_SHARE);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    
+    if(selectAliases.contains(Alias.UNIT_OPERATIONAL_COVERAGE))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.ROOMS, Alias.HOUSEHOLDS, Alias.STRUCTURES);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    
+    if(selectAliases.contains(Alias.CALCULATED_ROOMS_SPRAYED))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.ROOMS, Alias.HOUSEHOLDS, Alias.STRUCTURES);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    
+    if(selectAliases.contains(Alias.CALCULATED_STRUCTURES_SPRAYED))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.ROOMS, Alias.HOUSEHOLDS, Alias.STRUCTURES);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+    
+    
+    if(selectAliases.contains(Alias.CALCULATED_HOUSEHOLDS_SPRAYED))
+    {
+      needsSpraySummary = true;
+      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.USED, Alias.ROOMS, Alias.HOUSEHOLDS, Alias.STRUCTURES);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
+    }
+
+    
+    // spray summary view
+    if(needsSpraySummary)
+    {
+      this.irsQB.addRequiredView(View.SPRAY_SUMMARY_VIEW);
+    }
+  }
+  
+  @Override
+  protected List<String> COMMENTS()
+  {
+    List<String> comments = super.COMMENTS();
+    
+    comments.add("LEVEL: "+this.getLevel());
+    
+    return comments;
+  }
+  
+  protected abstract String getLevel();
+  
+  public final String setAggregationLevel(Alias alias)
+  {
+    return set("'"+this.getLevel()+"'", alias);
   }
   
   public final String setSprayLeaderDefaultLocale(Alias alias)
@@ -75,12 +242,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   
   public String setSprayTeam(Alias alias)
   {
-    return setNULL(alias);
-  }
-
-  public String setAggregationLevel(Alias alias)
-  {
-
     return setNULL(alias);
   }
 

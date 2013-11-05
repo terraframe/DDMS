@@ -14,12 +14,33 @@ public class TableDependency implements Reloadable
   
   private Alias[] dependents;
   
+  /**
+   * A TableDependency that must be included before this one.
+   */
+  private TableDependency tableDependency;
+  
   public TableDependency(SQLProvider provider, String tableAlias, Alias[] dependents, String sql)
+  {
+    this(provider, tableAlias, dependents, sql, null);
+  }
+  
+  public String getTableAlias()
+  {
+    return tableAlias;
+  }
+
+  public TableDependency(SQLProvider provider, String tableAlias, Alias[] dependents, String sql, TableDependency tableDependency)
   {
     this.provider = provider;
     this.tableAlias = tableAlias;
     this.sql = sql;
     this.dependents = dependents;
+    this.tableDependency = tableDependency;
+  }
+  
+  public TableDependency getTableDependency()
+  {
+    return tableDependency;
   }
 
   /**

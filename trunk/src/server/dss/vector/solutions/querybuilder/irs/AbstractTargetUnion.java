@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -211,6 +212,7 @@ public abstract class AbstractTargetUnion extends AbstractSQLProvider implements
     Set<Alias> requiredAliases = this.getRequiredAliases();
     
     String sql = "";
+    Set<String> addedTables = new HashSet<String>();
     List<TableDependency> tables = this.loadTableDependencies();
     if (tables.size() > 0)
     {
@@ -218,7 +220,16 @@ public abstract class AbstractTargetUnion extends AbstractSQLProvider implements
       {
         if (table.isNeeded(requiredAliases))
         {
+          // Check if this TableDependency requires another one prior for JOINs.
+          TableDependency prior = table.getTableDependency();
+          if(prior != null && !addedTables.contains(prior.getTableAlias()))
+          {
+            sql += prior.getSQL();
+            addedTables.add(prior.getTableAlias());
+          }
+          
           sql += table.getSQL();
+          addedTables.add(table.getTableAlias());
         }
       }
     }

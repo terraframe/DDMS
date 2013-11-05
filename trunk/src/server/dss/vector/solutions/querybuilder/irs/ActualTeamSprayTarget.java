@@ -123,31 +123,33 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     
     
     // spray details
-    tables.add(new TableDependency(this, teamSprayTable, new Alias[]{
-      Alias.UNIQUE_SPRAY_ID,
-      Alias.BEDNETS,
-      Alias.HOUSEHOLDS,
-      Alias.LOCKED,
-      Alias.OPERATOR_ACTUAL_TARGET,
-      Alias.TEAM_ACTUAL_TARGET,
-      Alias.OTHER,
-      Alias.PEOPLE,
-      Alias.PREV_SPRAYED_HOUSEHOLDS,
-      Alias.PREV_SPRAYED_STRUCTURES,
-      Alias.RECEIVED,
-      Alias.REFILLS,
-      Alias.REFUSED,
-      Alias.RETURNED,
-      Alias.ROOMS,
-      Alias.ROOMS_WITH_BED_NETS,
-      Alias.SPRAYED_HOUSEHOLDS,
-      Alias.SPRAYED_ROOMS,
-      Alias.SPRAYED_STRUCTURES,
-      Alias.STRUCTURES,
-      Alias.USED
+    TableDependency sprayDetails = new TableDependency(this, operSprayStatusTable, new Alias[]{
+        Alias.UNIQUE_SPRAY_ID,
+        Alias.BEDNETS,
+        Alias.HOUSEHOLDS,
+        Alias.LOCKED,
+        Alias.OPERATOR_ACTUAL_TARGET,
+        Alias.TEAM_ACTUAL_TARGET,
+        Alias.OTHER,
+        Alias.PEOPLE,
+        Alias.PREV_SPRAYED_HOUSEHOLDS,
+        Alias.PREV_SPRAYED_STRUCTURES,
+        Alias.RECEIVED,
+        Alias.REFILLS,
+        Alias.REFUSED,
+        Alias.RETURNED,
+        Alias.ROOMS,
+        Alias.ROOMS_WITH_BED_NETS,
+        Alias.SPRAYED_HOUSEHOLDS,
+        Alias.SPRAYED_ROOMS,
+        Alias.SPRAYED_STRUCTURES,
+        Alias.STRUCTURES,
+        Alias.USED
     },
     "LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n"
-        ));
+        );
+    tables.add(sprayDetails);
+    
     
     // operator person
     tables.add(new TableDependency(this, OPERATOR_PERSON, new Alias[]{
@@ -160,8 +162,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     },
       "LEFT JOIN "+teamMemberTable+"" + " AS "+OPERATOR_MEMBER+" ON "+operSprayStatusTable+"."+sprayOperatorCol+" = "+OPERATOR_MEMBER+".id \n"+
       "LEFT JOIN "+personTable + " AS "+OPERATOR_PERSON+" ON "+OPERATOR_MEMBER+"."+personCol+" = "+OPERATOR_PERSON+"."+idCol+" \n"
-    ));
-    
+    , sprayDetails));
   
 
     // leader person
@@ -206,9 +207,9 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     return set(this.operSprayStatusTable, this.operTarget, alias);
   }
   
-  public String setAggregationLevel(Alias alias)
+  protected String getLevel()
   {
-    return set("'2'", alias);
+    return "2";
   }
   
   @Override

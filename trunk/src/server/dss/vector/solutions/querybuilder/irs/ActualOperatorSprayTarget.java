@@ -1,7 +1,6 @@
 package dss.vector.solutions.querybuilder.irs;
 
 import java.util.List;
-import java.util.Set;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -12,7 +11,6 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.querybuilder.IRSQB;
-import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -142,25 +140,6 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   }
 
   @Override
-  public void loadDependencies()
-  {
-    super.loadDependencies();
-    Set<Alias> selected = irsQB.getSelectAliases();
-
-    // add the default dependencies
-    this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ID);
-
-    // sprayed units
-    if(selected.contains(Alias.SPRAYED_UNITS))
-    {
-      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
-      this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
-    }
-  }
-  
-  
-
-  @Override
   public List<TableDependency> loadTableDependencies()
   {
     List<TableDependency> tables = super.loadTableDependencies();
@@ -189,18 +168,22 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     // spray details
     tables.add(new TableDependency(this, householdSprayStatusTable, new Alias[]{
         Alias.UNIQUE_SPRAY_ID,
+        Alias.BEDNETS,
         Alias.HOUSEHOLD_ID,
-        Alias.STRUCTURE_ID,
-        Alias.ROOMS,
-        Alias.STRUCTURES,
         Alias.HOUSEHOLDS,
-        Alias.SPRAYED_ROOMS,
-        Alias.SPRAYED_HOUSEHOLDS,
-        Alias.SPRAYED_STRUCTURES,
+        Alias.LOCKED,
+        Alias.OTHER,
+        Alias.PEOPLE,
         Alias.PREV_SPRAYED_HOUSEHOLDS,
         Alias.PREV_SPRAYED_STRUCTURES,
-        Alias.PEOPLE
-      
+        Alias.REFUSED,
+        Alias.ROOMS,
+        Alias.ROOMS_WITH_BED_NETS,
+        Alias.SPRAYED_HOUSEHOLDS,
+        Alias.SPRAYED_ROOMS,
+        Alias.SPRAYED_STRUCTURES,
+        Alias.STRUCTURE_ID,
+        Alias.STRUCTURES
     },
       "LEFT JOIN "+householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n"
     ));
@@ -273,10 +256,10 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   {
     return set(this.operSprayTable, this.sprayOperatorCol, alias);
   }
-
-  public String setAggregationLevel(Alias alias)
+  
+  protected String getLevel()
   {
-    return set("'1'", alias);
+    return "1";
   }
 
   public String setHouseholdId(Alias alias)

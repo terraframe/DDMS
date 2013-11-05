@@ -32,11 +32,11 @@ public class InsecticideView extends AbstractSQLProvider implements Reloadable
   @Override
   public void loadDependencies()
   {
+    // FIXME optimize the columns
     Set<Alias> selectAliases = this.irsQB.getSelectAliases();
-    if(selectAliases.contains(Alias.SPRAYED_UNITS))
-    {
-      this.irsQB.addRequiredAlias(View.INSECTICIDE_VIEW, Alias.SPRAY_UNIT);
-    }
+//    if(selectAliases.contains(Alias.SPRAYED_UNITS) || selectAliases.contains(Alias.UNITS_UNSPRAYED))
+//    {
+//    }
 
     // this view joins on all spray activity's brand and start/end date
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.BRAND, Alias.SPRAY_DATE, Alias.DISEASE);
