@@ -5,7 +5,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 
-public abstract class TargetJoin extends AbstractTargetUnion implements Reloadable
+public abstract class TargetJoin extends AbstractSprayProvider implements Reloadable
 {
   protected boolean hasActual;
   protected boolean hasPlanned;

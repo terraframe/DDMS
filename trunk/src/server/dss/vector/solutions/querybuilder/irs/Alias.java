@@ -1,15 +1,12 @@
 package dss.vector.solutions.querybuilder.irs;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.AbstractSpray;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.util.QueryUtil;
 
-public enum Alias implements Reloadable
+public enum Alias implements Reloadable, AliasIF
 {
   
   ID("id", "setId", SQLProvider.VARCHAR),
@@ -38,23 +35,23 @@ public enum Alias implements Reloadable
   SPRAY_OPERATOR_PERSON("sprayoperator_person", "setSprayOperatorPerson", SQLProvider.VARCHAR),
   SPRAY_OPERATOR_BIRTHDATE("sprayoperator_birthdate", "setSprayOperatorBirthdate", SQLProvider.DATE),
   SPRAY_OPERATOR_SEX("sprayoperator_sex", "setSprayOperatorSex", SQLProvider.TEXT),
-  OPERATOR_ACTUAL_TARGET(IRSQB.OPERATOR_ACTUAL_TARGET, "setOperatorActualTarget", SQLProvider.FLOAT),
+  OPERATOR_ACTUAL_TARGET("operator_actual_target", "setOperatorActualTarget", SQLProvider.FLOAT),
   SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", "setSprayTeamDefaultLocale", SQLProvider.TEXT),
   SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", "setSprayLeaderDefaultLocale", SQLProvider.TEXT),
   SPRAY_LEADER_PERSON_ID("sprayleader_personId", "setSprayLeaderPersonId", SQLProvider.TEXT),
   SPRAY_LEADER_PERSON("sprayleader_person", "setSprayLeaderPerson", SQLProvider.VARCHAR),
   SPRAY_LEADER_BIRTHDATE("sprayleader_birthdate", "setSprayLeaderBirthdate", SQLProvider.DATE),
   SPRAY_LEADER_SEX("sprayleader_sex", "setSprayLeaderSex", SQLProvider.TEXT),
-  TEAM_ACTUAL_TARGET(IRSQB.TEAM_ACTUAL_TARGET, "setTeamActualTarget", SQLProvider.FLOAT),
+  TEAM_ACTUAL_TARGET("team_actual_target", "setTeamActualTarget", SQLProvider.FLOAT),
   ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", "setZoneSuperVisorDefaultLocale", SQLProvider.TEXT),
   ZONE_SUPERVISOR_PERSON_ID("zone_supervisor_personId", "setZoneSuperVisorPersonId", SQLProvider.TEXT),
   ZONE_SUPERVISOR_PERSON("zone_supervisor_person", "setZoneSuperVisorPerson", SQLProvider.VARCHAR),
   ZONE_SUPERVISOR_BIRTHDATE("zone_supervisor_birthdate", "setZoneSuperVisorBirthdate", SQLProvider.DATE),
   ZONE_SUPERVISOR_SEX("zone_supervisor_sex", "setZoneSuperVisorSex", SQLProvider.TEXT),
   SPRAY_SEASON("spray_season", "setSpraySeason", SQLProvider.VARCHAR),
-  OPERATOR_PLANNED_TARGET(IRSQB.OPERATOR_PLANNED_TARGET, "setOperatorPlannedTarget", SQLProvider.FLOAT),
-  TEAM_PLANNED_TARGET(IRSQB.TEAM_PLANNED_TARGET, "setTeamPlannedTarget", SQLProvider.FLOAT),
-  AREA_PLANNED_TARGET(IRSQB.AREA_PLANNED_TARGET, "setAreaPlannedTarget", SQLProvider.FLOAT),
+  OPERATOR_PLANNED_TARGET("operator_planned_target", "setOperatorPlannedTarget", SQLProvider.FLOAT),
+  TEAM_PLANNED_TARGET("team_planned_target", "setTeamPlannedTarget", SQLProvider.FLOAT),
+  AREA_PLANNED_TARGET("area_planned_target", "setAreaPlannedTarget", SQLProvider.FLOAT),
   ROOMS("rooms", "setRooms", SQLProvider.FLOAT),
   STRUCTURES("structures", "setStructures", SQLProvider.FLOAT),
   HOUSEHOLDS("households", "setHouseholds", SQLProvider.FLOAT),
@@ -85,6 +82,30 @@ public enum Alias implements Reloadable
   /*
    *  CUSTOM (not specified on any level as a column)
    */
+  
+  // operator planned targets
+  OPERATOR_PLANNED_COVERAGE("operator_planned_coverage", null, SQLProvider.FLOAT),
+  OPERATOR_TARGET_DIVERGENCE("operator_target_divergence", null, SQLProvider.FLOAT),
+  OPERATOR_TARGETED_COVERAGE("operator_targeted_coverage", null, SQLProvider.FLOAT),
+  
+  // area planned targets
+  AREA_PLANNED_COVERAGE("area_planned_coverage", null, SQLProvider.FLOAT),
+  
+  // team planned target
+  TEAM_TARGET_DIVERGENCE("team_target_divergence", null, SQLProvider.FLOAT),
+  TEAM_PLANNED_COVERAGE("team_planned_coverage", null, SQLProvider.FLOAT),
+  TEAM_TARGETED_COVERAGE("team_targeted_coverage", null, SQLProvider.FLOAT),
+  
+  
+  // time grouping
+  DATEGROUP_SEASON(QueryUtil.DATEGROUP_SEASON, null, SQLProvider.VARCHAR),
+  DATEGROUP_YEAR(QueryUtil.DATEGROUP_CALENDARYEAR, null, SQLProvider.VARCHAR),
+  DATEGROUP_QUARTER(QueryUtil.DATEGROUP_QUARTER, null, SQLProvider.VARCHAR),
+  DATEGROUP_MONTH(QueryUtil.DATEGROUP_MONTH, null, SQLProvider.VARCHAR),
+  DATEGROUP_EPIYEAR(QueryUtil.DATEGROUP_EPIYEAR, null, SQLProvider.VARCHAR),
+  DATEGROUP_EPIWEEK(QueryUtil.DATEGROUP_EPIWEEK, null, SQLProvider.VARCHAR),
+  RATIO(QueryUtil.RATIO, null, SQLProvider.VARCHAR),
+  COUNT("dss_vector_solutions_irs_AbstractSpray__id", null, SQLProvider.VARCHAR),
   
   // Audit
   AUDIT_CREATE_DATE(QueryConstants.AUDIT_CREATE_DATE_ALIAS, null, SQLProvider.DATE),
@@ -140,26 +161,6 @@ public enum Alias implements Reloadable
   private String xmlAlias;
   
   /**
-   * Map of selectable aliases and their Alias enum object.
-   */
-  private static Map<String, Alias> aliasMap;
-  
-  static
-  {
-    aliasMap = new HashMap<String, Alias>();
-    
-    for(Alias alias : Alias.values())
-    {
-      aliasMap.put(alias.getXMLAlias(), alias);
-    }
-  }
-  
-  public static Alias get(String alias)
-  {
-    return aliasMap.get(alias);
-  }
-  
-  /**
    * Sets the xml alias to the value as the query alias (they should be the same, but the QB can't be
    * changed without breaking old saved queries).
    * 
@@ -188,6 +189,11 @@ public enum Alias implements Reloadable
     this.xmlAlias = xmlAlias;
   }
   
+  public String getXmlAlias()
+  {
+    return xmlAlias;
+  }
+  
   public String getType()
   {
     return type;
@@ -213,4 +219,5 @@ public enum Alias implements Reloadable
   {
     return getAlias();
   }
+
 }

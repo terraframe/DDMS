@@ -26,6 +26,19 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   }
   
   @Override
+  public void loadDependencies()
+  {
+    super.loadDependencies();
+    
+    // Load aliases that will be in the JOIN clause
+    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.PARENT_GEO_ENTITY, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.GEO_ENTITY, Alias.DISEASE};
+    this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
+    this.irsQB.addRequiredAlias(View.PLANNED_AREA, joinAliases);
+    
+    this.irsQB.addRequiredView(View.GEO_TARGET_VIEW);
+  }
+  
+  @Override
   protected View getView()
   {
     return View.PLANNED_AREA;

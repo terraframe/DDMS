@@ -9,7 +9,7 @@ import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
-public class SpraySummaryView extends AbstractSQLProvider implements Reloadable
+public class SpraySummaryView extends AuxiliaryProvider implements Reloadable
 {
 
   public SpraySummaryView(IRSQB irsQB)

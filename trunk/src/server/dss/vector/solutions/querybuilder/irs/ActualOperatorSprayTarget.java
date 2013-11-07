@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
 import java.util.List;
+import java.util.Set;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -11,6 +12,7 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -139,6 +141,19 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     supervisorPersonCol = QueryUtil.getColumnName(Supervisor.getPersonMd());
   }
 
+  @Override
+  public void loadDependencies()
+  {
+    super.loadDependencies();
+    
+    Set<Alias> selected = this.irsQB.getSelectAliases();
+    
+    if(selected.contains(Alias.OPERATOR_TARGETED_COVERAGE))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.OPERATOR_ACTUAL_TARGET);
+    }
+  }
+  
   @Override
   public List<TableDependency> loadTableDependencies()
   {

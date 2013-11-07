@@ -11,7 +11,7 @@ import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
-public abstract class AbstractTargetView extends AbstractSQLProvider implements Reloadable
+public abstract class AbstractTargetView extends AuxiliaryProvider implements Reloadable
 {
 
   public AbstractTargetView(IRSQB irsQB)

@@ -1,9 +1,11 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 
-public class PlannedSprayTeamResults extends AbstractSQLProvider
+public class PlannedSprayTeamResults extends AbstractSQLProvider implements Reloadable
 {
 
   public PlannedSprayTeamResults(IRSQB irsQB)

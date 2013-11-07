@@ -3,6 +3,7 @@ package dss.vector.solutions.querybuilder.irs;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class OperatorJoin extends TargetJoin implements Reloadable
 {
@@ -11,8 +12,8 @@ public class OperatorJoin extends TargetJoin implements Reloadable
   {
     super(irsQB, hasActual, hasPlanned);
   }
-
-  public final String from()
+  
+  public final String FROM()
   {
     String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQB.View.PLANNED_OPERATOR + " " + TargetJoin.PLANNED_ALIAS;

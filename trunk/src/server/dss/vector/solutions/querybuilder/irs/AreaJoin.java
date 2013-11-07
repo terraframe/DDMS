@@ -5,6 +5,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AreaJoin extends TargetJoin implements Reloadable
@@ -21,7 +22,18 @@ public class AreaJoin extends TargetJoin implements Reloadable
     super(irsQB, hasActual, hasPlanned);
   }
 
-  public final String from()
+  @Override
+  public void loadDependencies()
+  {
+    super.loadDependencies();
+    
+    // Load aliases that will be in the JOIN clause
+    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.GEO_ENTITY, Alias.DISEASE};
+    this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
+    this.irsQB.addRequiredAlias(View.PLANNED_AREA, joinAliases);
+  }
+  
+  public final String FROM()
   {
     String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQB.View.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;

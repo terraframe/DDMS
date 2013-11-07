@@ -39,6 +39,8 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
     {
       this.irsQB.addRequiredAlias(this.getView(), select);
     }
+    
+    this.irsQB.addRequiredAlias(this.getView(), Alias.ID, Alias.UNIQUE_PLANNED_ID, Alias.PLANNED_DATE);
   }
   
   public String setSprayOperator(Alias alias)

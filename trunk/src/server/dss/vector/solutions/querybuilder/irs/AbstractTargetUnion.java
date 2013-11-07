@@ -25,7 +25,10 @@ import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 
-public abstract class AbstractTargetUnion extends AbstractSQLProvider implements Reloadable
+/**
+ *
+ */
+public abstract class AbstractTargetUnion extends AbstractSprayProvider implements Reloadable
 {
 
   protected String              idCol;
@@ -160,85 +163,4 @@ public abstract class AbstractTargetUnion extends AbstractSQLProvider implements
     this.idCol = QueryUtil.getIdColumn();
   }
 
-  /**
-   * Generates the SQL for this UNION component and optimizes the SELECT clause
-   * to include only what's needed.
-   */
-  public final String SELECT()
-  {
-    Set<Alias> requiredAliases = this.getRequiredAliases();
-
-    String sql = "";
-    
-    Class<? extends SQLProvider> klass = this.getClass();
-    List<String> columns = new LinkedList<String>();
-    for (Alias alias : requiredAliases)
-    {
-      // not every alias has a method representing it (eg, custom
-      // pass-through and calculations), so
-      // only invoke the method if one exists.
-      String methodName = alias.getMethod();
-      if (methodName != null)
-      {
-        try
-        {
-          Method m = klass.getMethod(methodName, Alias.class);
-
-          columns.add((String) m.invoke(this, alias));
-        }
-        catch (Throwable t)
-        {
-          String msg = "IRS QB: Unable to process alias [" + alias.getAlias() + "] with method ["
-              + methodName + "] on class [" + klass.getName() + "].";
-
-          MdssLog.error(msg, t);
-
-          throw new ProgrammingErrorException(t);
-        }
-      }
-    }
-
-    sql += StringUtils.join(columns, COLUMN_SUFFIX) + " \n";
-
-    return sql;
-  }
-  
-  /**
-   * Generates the SQL for this UNION component and optimizes the FROM clause
-   * to include only what's needed.
-   */
-  public String FROM()
-  {
-    Set<Alias> requiredAliases = this.getRequiredAliases();
-    
-    String sql = "";
-    Set<String> addedTables = new HashSet<String>();
-    List<TableDependency> tables = this.loadTableDependencies();
-    if (tables.size() > 0)
-    {
-      for (TableDependency table : tables)
-      {
-        if (table.isNeeded(requiredAliases))
-        {
-          // Check if this TableDependency requires another one prior for JOINs.
-          TableDependency prior = table.getTableDependency();
-          if(prior != null && !addedTables.contains(prior.getTableAlias()))
-          {
-            sql += prior.getSQL();
-            addedTables.add(prior.getTableAlias());
-          }
-          
-          sql += table.getSQL();
-          addedTables.add(table.getTableAlias());
-        }
-      }
-    }
-    
-    return sql;
-  }
-
-  public List<TableDependency> loadTableDependencies()
-  {
-    return new LinkedList<TableDependency>();
-  }
 }

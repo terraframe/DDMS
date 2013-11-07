@@ -7,7 +7,7 @@ import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
-public class DateExtrapolationView extends AbstractSQLProvider implements Reloadable
+public class DateExtrapolationView extends AuxiliaryProvider implements Reloadable
 {
 
   public DateExtrapolationView(IRSQB irsQB)

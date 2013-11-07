@@ -29,14 +29,13 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   
   /**
    * Adds the season table join.
-   * FIXME is this needed? What columns are the dependents?
    * @param tables
    */
   protected void addSeasonTableDependency(List<TableDependency> tables)
   {
     tables.add(
         new TableDependency(this, malariaSeasonTable, new Alias[]{
-            // FIXME anything here?
+            Alias.SPRAY_SEASON
         },
         "LEFT JOIN "+ malariaSeasonTable + " AS "+ malariaSeasonTable + " "+
           "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN "+ malariaSeasonTable + "."+startDateCol+
@@ -61,13 +60,13 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     
     // The unique spray id is used whenever an aggregation is requested (eg, SUM) so that
     // a unique column can be specified as a discriminator to avoid cross-products.
-    if(this.irsQB.needUniqueSprayId())
+    if(this.irsQB.needUniqueSprayId() || this.irsQB.hasPlannedTargets())
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.UNIQUE_SPRAY_ID);
     }
     
     // START: audit fields
-    if(selectAliases.contains(Alias.AUDIT_CREATE_DATE))
+    if(selectAliases.contains(Alias.AUDIT_CREATE_DATE)  || selectAliases.contains(Alias.AUDIT_IMPORTED))
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.CREATE_DATE);
     }
@@ -90,7 +89,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     
     
     // sprayed units
-    if(selectAliases.contains(Alias.SPRAYED_UNITS))
+    if(selectAliases.contains(Alias.SPRAYED_UNITS) || this.irsQB.needsSprayedUnits())
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_ROOMS, Alias.SPRAYED_STRUCTURES, Alias.SPRAYED_HOUSEHOLDS);
       this.irsQB.addRequiredView(View.INSECTICIDE_VIEW);
@@ -98,7 +97,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     
     // unsprayed units
     boolean unitsUnsprayed = false;
-    if(selectAliases.contains(Alias.UNITS_UNSPRAYED))
+    if(selectAliases.contains(Alias.UNITS_UNSPRAYED) || selectAliases.contains(Alias.REFILLS))
     {
       unitsUnsprayed = true;
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ROOMS_UNSPRAYED, Alias.STRUCTURES_UNSPRAYED, Alias.HOUSEHOLDS_UNSPRAYED);
@@ -119,23 +118,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.STRUCTURES, Alias.SPRAYED_STRUCTURES);
     }
-    
-    // operator, leader, supervisor
-    if(selectAliases.contains(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE) || selectAliases.contains(Alias.SPRAY_OPERATOR_SEX))
-    {
-      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_OPERATOR_PERSON);
-    }
-    
-    if(selectAliases.contains(Alias.SPRAY_LEADER_DEFAULT_LOCALE) || selectAliases.contains(Alias.SPRAY_LEADER_SEX))
-    {
-      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_LEADER_PERSON);
-    }
-    
-    if(selectAliases.contains(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE) || selectAliases.contains(Alias.ZONE_SUPERVISOR_SEX))
-    {
-      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.ZONE_SUPERVISOR_PERSON);
-    }
-    
     
     // calcs
     boolean needsSpraySummary = false;
@@ -204,6 +186,19 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     if(needsSpraySummary)
     {
       this.irsQB.addRequiredView(View.SPRAY_SUMMARY_VIEW);
+    }
+    
+    if(selectAliases.contains(Alias.DATEGROUP_SEASON) ||
+       selectAliases.contains(Alias.DATEGROUP_YEAR) || 
+       selectAliases.contains(Alias.DATEGROUP_QUARTER) || 
+       selectAliases.contains(Alias.DATEGROUP_MONTH) || 
+       selectAliases.contains(Alias.DATEGROUP_EPIYEAR) || 
+       selectAliases.contains(Alias.DATEGROUP_EPIWEEK) || 
+       selectAliases.contains(Alias.RATIO) || 
+       selectAliases.contains(Alias.COUNT) 
+        )
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE, Alias.DISEASE); 
     }
   }
   

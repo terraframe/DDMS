@@ -1,5 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.Set;
+
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
@@ -21,6 +23,32 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
     // this.teamSprayTable = teamSprayMd.getTableName();
     // sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
     // targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+  }
+  
+  @Override
+  public void loadDependencies()
+  {
+    super.loadDependencies();
+    
+    this.irsQB.addRequiredView(View.RESOURCE_TARGET_VIEW);
+    
+    // Load aliases that will be in the JOIN clause
+    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.SPRAY_TEAM_DEFAULT_LOCALE, Alias.DISEASE};
+    this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
+    this.irsQB.addRequiredAlias(View.PLANNED_TEAM, joinAliases);
+    
+    Set<Alias> selected =  this.irsQB.getSelectAliases();
+    if(selected.contains(Alias.TEAM_PLANNED_TARGET) || selected.contains(Alias.TEAM_PLANNED_COVERAGE))
+    {
+      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.SPRAY_TEAM);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_TEAM);
+    }
+    
+    if(selected.contains(Alias.TEAM_PLANNED_COVERAGE))
+    {
+      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.TEAM_PLANNED_TARGET);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.TEAM_ACTUAL_TARGET);
+    }
   }
   
   @Override

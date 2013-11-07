@@ -15,7 +15,7 @@ import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
-public class InsecticideView extends AbstractSQLProvider implements Reloadable
+public class InsecticideView extends AuxiliaryProvider implements Reloadable
 {
 
   public InsecticideView(IRSQB irsQB)

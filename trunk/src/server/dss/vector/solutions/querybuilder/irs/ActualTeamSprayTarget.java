@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
 import java.util.List;
+import java.util.Set;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -11,6 +12,7 @@ import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -94,6 +96,19 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     sprayTeamTable = sprayTeamMd.getTableName();
+  }
+  
+  @Override
+  public void loadDependencies()
+  {
+    super.loadDependencies();
+    
+    Set<Alias> selected = this.irsQB.getSelectAliases();
+    
+    if(selected.contains(Alias.TEAM_TARGETED_COVERAGE))
+    {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.TEAM_ACTUAL_TARGET);
+    }
   }
   
   @Override
