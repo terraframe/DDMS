@@ -418,7 +418,7 @@ YAHOO.util.Event.onDOMReady(function(){
    }
 
    // Uses the available filter above
-   var netAttribs = [/*"people",*/"prevSprayedHouseholds","prevSprayedStructures","bedNets","roomsWithBedNets"];
+   var netAttribs = ["people","prevSprayedHouseholds","prevSprayedStructures","bedNets","roomsWithBedNets"];
    netAttribs = Mojo.Iter.filter(netAttribs, function(attrib){
      return this.contains(attrib);
    }, available);  

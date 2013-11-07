@@ -153,9 +153,22 @@ public class QueryUtil implements Reloadable
     return aliases;
   }
   
-  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, 
+  /**
+   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql aggregates that use custom aggreation
+   * logic (eg, SUM(unique_column, sum_column).
+   * @param aliases
+   * @param id
+   * @param valueQuery
+   * @param tableAlias
+   * @param allowNonAggregateDefault
+   * @param preserveSQL
+   * @return The number of aggregates that were swapped out.
+   */
+  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, 
       String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
   {
+    int swapped = 0;
+    
     for (String alias : aliases)
     {
       if (valueQuery.hasSelectableRef(alias))
@@ -260,13 +273,17 @@ public class QueryUtil implements Reloadable
         // swap out the old selectable with the new.
         newSel.setColumnAlias(sel.getColumnAlias());
         valueQuery.replaceSelectable(newSel);
+        
+        swapped++;
       }
     }
+    
+    return swapped;
   }
   
-  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
+  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
   {
-    setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
+    return setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
   }
 
   public static String getColumnName(String klass, String attribute)

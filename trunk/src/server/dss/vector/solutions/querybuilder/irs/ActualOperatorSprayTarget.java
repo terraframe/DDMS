@@ -176,8 +176,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     },
       operSprayTable + " AS "+operSprayTable+" \n"+
       "INNER JOIN "+abstractSprayTable + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+operSprayTable+"."+idCol+" \n"+
-      "AND " + operSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDiseaseId() + "' \n"+
-      this.getDateCriteriaSQL()
+      "AND " + operSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDiseaseId() + "' \n"
     ));
     
     // spray details

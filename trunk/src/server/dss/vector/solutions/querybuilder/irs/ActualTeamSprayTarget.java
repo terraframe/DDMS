@@ -124,8 +124,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     },
       teamSprayTable + " AS "+teamSprayTable+" \n"+
       "INNER JOIN "+abstractSprayTable+"" + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+teamSprayTable+"."+idCol+" \n"+
-      "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.irsQB.getDiseaseId()+"' \n"+
-      this.getDateCriteriaSQL()
+      "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.irsQB.getDiseaseId()+"' \n"
     ));
     
     // join the team

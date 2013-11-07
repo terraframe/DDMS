@@ -351,6 +351,18 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.requiredViews.add(view);
   }
   
+  /**
+   * Adds the aliases to all planned targets.
+   */
+  public void addPlannedAlias(Alias ...alias)
+  {
+    // Since planned area shares the same Set
+    // instance with operator and team planned targets
+    // we only need to reference it to set the values
+    // for all planned targets.
+    this.addRequiredAlias(View.PLANNED_AREA, alias);
+  }
+  
   public void addRequiredAlias(View view, Alias ... alias)
   {
     for(Alias a : alias)
@@ -700,27 +712,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     joinSexAttributes();
 
-    // ---- START DATE CRITERIA ----
-    Condition dateCond = addDateCriteria(this.sprayViewAlias, true,
-        Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias(), Alias.SPRAY_LEADER_BIRTHDATE.getAlias(),
-        Alias.ZONE_SUPERVISOR_BIRTHDATE.getAlias());
-    this.irsVQ.AND(dateCond);
-
-    if (this.dateCriteria == DateCriteria.PERSON_BIRTHDATE)
-    {
-      // include a Person EntityQuery into the map to make the
-      // QueryUtil.setQueryDate() work.
-      this.mainQueryMap.put(Person.CLASS, new PersonQuery(this.queryFactory));
-    }
-
-    if (this.dateCriteria != DateCriteria.NONE)
-    {
-      SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
-      DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
-      QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
-    }
-    // ---- END DATE CRITERIA ----
-
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
@@ -821,6 +812,27 @@ public class IRSQB extends AbstractQB implements Reloadable
     setTargetManagmentCalculations();
 
     
+    // ---- START DATE CRITERIA ----
+    Condition dateCond = addDateCriteria(this.sprayViewAlias, this.hasPlannedTargets,
+        Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias(), Alias.SPRAY_LEADER_BIRTHDATE.getAlias(),
+        Alias.ZONE_SUPERVISOR_BIRTHDATE.getAlias());
+    this.irsVQ.AND(dateCond);
+
+    if (this.dateCriteria == DateCriteria.PERSON_BIRTHDATE)
+    {
+      // include a Person EntityQuery into the map to make the
+      // QueryUtil.setQueryDate() work.
+      this.mainQueryMap.put(Person.CLASS, new PersonQuery(this.queryFactory));
+    }
+
+    if (this.dateCriteria != DateCriteria.NONE)
+    {
+      SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
+      DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
+      QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
+    }
+    // ---- END DATE CRITERIA ----
+    
     /* DATE POST PROCESSING */
     if (this.hasPlannedTargets)
     {
@@ -838,6 +850,10 @@ public class IRSQB extends AbstractQB implements Reloadable
 
           String sprayDateCol = sprayViewAlias + "." + Alias.SPRAY_DATE.getAlias();
           String plannedDateCol = sprayViewAlias + "." + Alias.PLANNED_DATE.getAlias();
+          
+          this.addRequiredAlias(View.PLANNED_AREA, Alias.PLANNED_DATE);
+          this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
+          
 
           String sql;
           if (group.equals(QueryUtil.DATEGROUP_SEASON))
@@ -1188,12 +1204,14 @@ public class IRSQB extends AbstractQB implements Reloadable
 
           if (this.dateCriteria == DateCriteria.PERSON_BIRTHDATE)
           {
+            
             if (operatorDOB == null)
             {
               // FIXME this is a hack for Level 3, which doesn't have operators.
               // Refactor with selectable dependencies
               cond1 = AND.get(v.aSQLDate("leader_birthdate_start", prepend + leaderDOB).GE(startCrit), v
                   .aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
+              
             }
             else
             {
@@ -1202,6 +1220,10 @@ public class IRSQB extends AbstractQB implements Reloadable
                   .GE(startCrit),
                   v.aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
             }
+            
+            Alias[] dates = new Alias[]{Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE, Alias.ZONE_SUPERVISOR_BIRTHDATE};
+            this.addPlannedAlias(dates);
+            this.addRequiredAlias(View.ALL_ACTUALS, dates);
           }
           else
           {
@@ -1210,10 +1232,13 @@ public class IRSQB extends AbstractQB implements Reloadable
               cond1 = OR.get(v.aSQLDate("planned_start_date", prepend + Alias.PLANNED_DATE)
                   .GE(startCrit),
                   v.aSQLDate("spray_start_date", prepend + Alias.SPRAY_DATE).GE(startCrit));
+              this.addPlannedAlias(Alias.PLANNED_DATE);
+              this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
             else
             {
               cond1 = v.aSQLDate("spray_start_date", prepend + Alias.SPRAY_DATE).GE(startCrit);
+              this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
           }
 
@@ -1242,6 +1267,10 @@ public class IRSQB extends AbstractQB implements Reloadable
                   .aSQLDate("leader_birthdate_end", prepend + leaderDOB).LE(endCrit),
                   v.aSQLDate("supervisor_birthdate_end", prepend + supervisorDOB).LE(endCrit));
             }
+            
+            Alias[] dates = new Alias[]{Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE, Alias.ZONE_SUPERVISOR_BIRTHDATE};
+            this.addPlannedAlias(dates);
+            this.addRequiredAlias(View.ALL_ACTUALS, dates);
           }
           else
           {
@@ -1249,10 +1278,13 @@ public class IRSQB extends AbstractQB implements Reloadable
             {
               cond2 = OR.get(v.aSQLDate("planned_end_date", prepend + Alias.PLANNED_DATE).LE(endCrit), v
                   .aSQLDate("spray_end_date", prepend + Alias.SPRAY_DATE).LE(endCrit));
+              this.addPlannedAlias(Alias.PLANNED_DATE);
+              this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
             else
             {
               cond2 = v.aSQLDate("spray_end_date", prepend + Alias.SPRAY_DATE).LE(endCrit);
+              this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
           }
 
@@ -1443,12 +1475,25 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void setWithQuerySQL()
   {
+    QBInterceptor interceptor = this.getQBInterceptor(this.irsParser);
+    if(interceptor != null && interceptor.getGeoCriteriaProcessed() > 0)
+    {
+      this.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
+    }
+    
     try
     {
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      if(selectedUniMap.length() > 0)
+      
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
       {
-        this.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
+        JSONArray universals = selectedUniMap.getJSONArray((String) keys.next());
+        if(universals.length() > 0)
+        {
+          this.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
+          break;
+        }
       }
     }
     catch(JSONException e)
@@ -1468,10 +1513,6 @@ public class IRSQB extends AbstractQB implements Reloadable
       if (alias != null)
       {
         this.selectAliases.add(alias);
-      }
-      else
-      {
-//        this.selectAliases.add(new DynamicAlias(userDefinedAlias));
       }
     }
 

@@ -134,8 +134,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     },
       zoneSprayTable + " AS " + zoneSprayTable + " \n"+
       "INNER JOIN "+ abstractSprayTable + " AS " + abstractSprayTable +" ON "+abstractSprayTable+"."+idCol+" = "+zoneSprayTable+"."+idCol+" \n"+
-      "AND " + zoneSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDiseaseId() + "' \n"+
-      this.getDateCriteriaSQL()
+      "AND " + zoneSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDiseaseId() + "' \n"
     ));   
     
     // spray details
@@ -215,7 +214,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     Condition cond = this.irsQB.addDateCriteria(null, false, oDOB, tDOB, sDOB);
     if(cond != null)
     {
-      return " AND "+cond.getSQL() + " \n";
+      return cond.getSQL() + " \n";
     }
     else
     {

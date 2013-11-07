@@ -43,6 +43,12 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
         ));
   }
   
+  @Override
+  public String WHERE()
+  {
+    return this.getDateCriteriaSQL();
+  }
+  
   /**
    * Loads the dependencies for Levels 1, 2, and 3.
    */
@@ -566,7 +572,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     Condition cond = this.irsQB.addDateCriteria(null, false, oDOB, tDOB, sDOB);
     if(cond != null)
     {
-      return " AND "+cond.getSQL() + " \n";
+      return cond.getSQL() + " \n";
     }
     else
     {

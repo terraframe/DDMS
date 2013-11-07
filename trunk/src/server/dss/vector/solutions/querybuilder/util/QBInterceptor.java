@@ -38,6 +38,10 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
    */
   private boolean hasGeoCriteria;
   
+  private int termCriteriaProcessed;
+  
+  private int geoCriteriaProcessed;
+  
   public QBInterceptor(ValueQuery valueQuery)
   {
     super(valueQuery);
@@ -46,6 +50,18 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
     this.hasGeoCriteria = false;
     this.termValueQueries = new HashMap<String, ValueQuery>();
     this.geoConditions = new HashMap<String, Condition>();
+    this.termCriteriaProcessed = 0;
+    this.geoCriteriaProcessed = 0;
+  }
+  
+  public int getGeoCriteriaProcessed()
+  {
+    return geoCriteriaProcessed;
+  }
+  
+  public int getTermCriteriaProcessed()
+  {
+    return termCriteriaProcessed;
   }
   
   protected boolean hasTermCriteria()
@@ -81,12 +97,14 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
       
       this.termValueQueries.put(entityAlias, termVQ);
       this.hasTermCriteria = false;
+      this.termCriteriaProcessed++;
     }
     else if(this.hasGeoCriteria)
     {
       // Create a new ValueQuery that represents criteria on the Geo's AllPaths table
       this.geoConditions.put(entityAlias, condition);
       this.hasGeoCriteria = false;
+      this.geoCriteriaProcessed++;
     }
     else
     {

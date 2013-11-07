@@ -1,19 +1,9 @@
 package dss.vector.solutions.querybuilder.irs;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
