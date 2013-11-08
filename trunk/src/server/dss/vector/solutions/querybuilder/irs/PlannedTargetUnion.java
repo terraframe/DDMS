@@ -34,6 +34,8 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   @Override
   public void loadDependencies()
   {
+    super.loadDependencies();
+    
     Set<Alias> selectAliases = this.irsQB.getSelectAliases();
     for(Alias select : selectAliases)
     {
