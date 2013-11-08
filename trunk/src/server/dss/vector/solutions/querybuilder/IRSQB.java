@@ -767,7 +767,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.needsSprayedUnits = true;
     }
 
-    if(QueryUtil.setSelectabeSQL(irsVQ, Alias.REFILLS+" * " + shareOfCans, unsprayedUnits))
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.REFILLS+" * " + shareOfCans, unsprayedUnits);
 
     if(QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE.getAlias(), "(" + unit_application_rate + ")"))
     {

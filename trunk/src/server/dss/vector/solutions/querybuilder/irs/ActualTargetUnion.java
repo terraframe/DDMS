@@ -55,6 +55,8 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   @Override
   public void loadDependencies()
   {
+    super.loadDependencies();
+    
     Set<Alias> selectAliases = this.irsQB.getSelectAliases();
     for(Alias select : selectAliases)
     {
