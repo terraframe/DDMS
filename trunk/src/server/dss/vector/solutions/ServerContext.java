@@ -72,6 +72,9 @@ public class ServerContext
     runSql(getIndexSql());
     runSql(getGeohierarchyAllpathsSQL());
     runSql(getFunctionSql());
+    
+    // Load all saved query views
+    this.createViews();
   }
 
   private String getDropSql()
@@ -788,6 +791,26 @@ public class ServerContext
       Class<?> savedMap = LoaderDecorator.load("dss.vector.solutions.query.SavedMap");
       Method method = savedMap.getMethod("cleanOldViews", Long.TYPE);
       method.invoke(null, System.currentTimeMillis());
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }    
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  public void createViews()
+  {
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
+    try
+    {
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.query.SavedSearch");
+      savedSearch.getMethod("createDatabaseViews").invoke(null);
     }
     catch (RuntimeException e)
     {

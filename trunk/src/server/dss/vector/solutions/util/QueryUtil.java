@@ -808,22 +808,26 @@ public class QueryUtil implements Reloadable
     List<String> subLocales = QueryUtil.getSupportedSubLocales(locale);
 
     MdDimensionDAOIF dimension = Session.getCurrentDimension();
-    String dimensionDefault = dimension.getDefaultLocaleAttributeName();
-
-    // First do all of the locales for the current dimension
-    for (String subLocale : subLocales)
+    if(dimension != null)
     {
-      columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimension.getLocaleAttributeName(subLocale)));
+      String dimensionDefault = dimension.getDefaultLocaleAttributeName();
+      
+      // First do all of the locales for the current dimension
+      for (String subLocale : subLocales)
+      {
+        columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimension.getLocaleAttributeName(subLocale)));
+      }
+      
+      // Add the default dimension key
+      columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimensionDefault));
+      
+      // Add the non dimension locales
+      for (String subLocale : subLocales)
+      {
+        columns.add(subLocale);
+      }
     }
-
-    // Add the default dimension key
-    columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimensionDefault));
-
-    // Add the non dimension locales
-    for (String subLocale : subLocales)
-    {
-      columns.add(subLocale);
-    }
+    
 
     // Add the default locale
     String key = MetadataDisplayLabel.CLASS + "." + MetadataDisplayLabel.DEFAULTLOCALE;
