@@ -200,10 +200,22 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var queryXML = this._constructQuery();
       var xml = queryXML.getXML();
 
+      if(this._debug)
+      {
+        var qStart = new Date().getTime();      
+      }
+      
       var request = new MDSS.Request({
         thisRef : this,
         onSuccess : function(query)
         {
+            if(this.thisRef._debug)
+            {
+              var qEnd = new Date().getTime();
+              var diff = qEnd - qStart;
+              MDSS.ErrorModal("Query Time: "+(diff)+" ms.");
+            }
+            
             this.thisRef.resetQueryResults(query);
         }
       });

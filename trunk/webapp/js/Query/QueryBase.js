@@ -28,6 +28,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         postRender : this.postRender
       }, renderDateRange);
       
+      this._debug = location.hash === '#debug';
+      
       this._dm = new MDSS.DependencyManager();
       
       // Map of attribute key to display label

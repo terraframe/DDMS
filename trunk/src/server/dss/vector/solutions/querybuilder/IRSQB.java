@@ -38,6 +38,7 @@ import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSQLDateTime;
+import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSQLTime;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
@@ -727,8 +728,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       SelectableSQLCharacter subGeo = (SelectableSQLCharacter) irsVQ
           .getSelectableRef(AbstractSpray.GEOENTITY);
-      QueryUtil.subselectGeoDisplayLabels(subGeo, AbstractSpray.CLASS, AbstractSpray.GEOENTITY,
-          sprayViewAlias + "." + idCol);
+      subGeo.setSQL(QueryUtil.GEO_DISPLAY_LABEL+"."+QueryUtil.LABEL_COLUMN);
+      
+      // The subselect was incredibly slow
+//      QueryUtil.subselectGeoDisplayLabels(subGeo, AbstractSpray.CLASS, AbstractSpray.GEOENTITY,
+//          sprayViewAlias + "." + idCol);
     }
 
     if (this.hasSprayEnumOrTerm)
@@ -1330,7 +1334,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       str.append(" LEFT JOIN " + IMPORTED_DATETIME + " ON");
       str.append(" " + IMPORTED_DATETIME + "." + IMPORTED_CREATE_DATE);
-      str.append(" = " + leftAlias + "." + Alias.CREATE_DATE.getAlias() + " ");
+      str.append(" = " + leftAlias + "." + Alias.CREATE_DATE.getAlias() + " \n");
+    }
+    
+    if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
+    {
+      str.append(" LEFT JOIN "+QueryUtil.GEO_DISPLAY_LABEL+" ON "+
+        QueryUtil.GEO_DISPLAY_LABEL+"."+idCol+" = "+this.sprayViewAlias+"."+Alias.GEO_ENTITY+" \n");
     }
 
     if (insecticideQuery != null)
@@ -1466,6 +1476,21 @@ public class IRSQB extends AbstractQB implements Reloadable
   public boolean needUniqueSprayId()
   {
     return needUniqueSprayId;
+  }
+  
+  @Override
+  protected void addCountSelectable(ValueQuery v)
+  {
+    if(!v.hasCountSelectable())
+    {
+      String windowCount = "count(*) over()";
+      SelectableSQLLong c = v.isGrouping() ? 
+        v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) :
+          v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
+        
+      v.SELECT(c);
+      v.setCountSelectable(c);
+    }
   }
 
   /**

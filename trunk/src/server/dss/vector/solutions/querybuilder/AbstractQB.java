@@ -716,7 +716,14 @@ public abstract class AbstractQB implements Reloadable
       }
     }
   }
-
+  
+  /*
+  protected void setGeoDisplayLabelSQL(ValueQuery valueQuery, )
+  {
+    
+  }
+  */
+  
   /**
    * Returns all ParseInterceptors. Subclasses may override this method to
    * append other interceptors.
