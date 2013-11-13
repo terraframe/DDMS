@@ -44,9 +44,10 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   }
   
   @Override
-  public String WHERE()
+  public final String WHERE()
   {
-    return this.getDateCriteriaSQL();
+    return "";
+//    return this.getDateCriteriaSQL();
   }
   
   /**
