@@ -59,9 +59,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   {
     super();
   }
-  
+
   /**
    * Creates a LinkedHashSet of the aliases to preserve order.
+   * 
    * @param config
    * @return
    */
@@ -77,7 +78,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       {
         set.add(aliases.getString(i));
       }
-      
+
       return set;
     }
     catch (JSONException e1)
@@ -85,7 +86,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw new ProgrammingErrorException(e1);
     }
   }
-  
+
   public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
     Class<?> clazz = null;
@@ -128,7 +129,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     // Enforce a sort order if not mapping
     if (layer == null)
     {
-      for(String alias : getAliases(config))
+      for (String alias : getAliases(config))
       {
         Selectable sel = valueQuery.getSelectableRef(alias);
 
@@ -141,7 +142,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     // IMPORTANT: Keep this debug here because the generated SQL is
     // required for even the most basic query screen troubleshooting.
-    if(MdssLog.isDebugEnabled())
+    if (MdssLog.isDebugEnabled())
     {
       String sql = valueQuery.getSQL();
       MdssLog.debug(sql);
@@ -166,7 +167,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     return valueQuery;
   }
-  
+
   @Transaction
   public static InputStream exportQueryToExcel(String queryClass, String queryXML, String config, String savedSearchId)
   {
@@ -214,29 +215,29 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // Searching on Person for IRS has special logic
-    if(Person.CLASS.equals(klass) && attribute.endsWith("_"+Person.IDENTIFIER))
+    if (Person.CLASS.equals(klass) && attribute.endsWith("_" + Person.IDENTIFIER))
     {
       String[] parts = attribute.split("_");
       String prepend = parts[0];
       String attr = parts[1];
-      
+
       PersonQuery p = new PersonQuery(queryFactory);
-      
+
       SelectableChar attrSel = p.getIdentifier("attribute");
-      COUNT count = F.COUNT(attrSel, "attributeCount"); 
+      COUNT count = F.COUNT(attrSel, "attributeCount");
       valueQuery.SELECT(attrSel, count);
-      
+
       valueQuery.WHERE(attrSel.LIKEi(match + "%"));
 
       valueQuery.ORDER_BY_ASC(attrSel);
-      
+
       valueQuery.restrictRows(20, 1);
 
       return valueQuery;
     }
     // IRS QB special case for searching on Spray Operator, which doesn't follow
     // the same logic as normal attribute searching. There is also special logic
-    // when searching for 
+    // when searching for
     else if (TeamMember.CLASS.equals(klass) && TeamMember.PERSON.equals(attribute))
     {
       PersonQuery personQuery = new PersonQuery(valueQuery);
@@ -286,33 +287,27 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     else
     {
       MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
-      
-      // check if we're searching on MdForm business artifacts or hard-coded class. This condition
-      // is a little hacky and might need to be split into different searches at some point,
-      // specificaly a separate method just for MdForms.
-      if(md.getPackage().equals(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
+
+      // check if we're searching on MdForm business artifacts or hard-coded
+      // class. This condition is a little hacky and might need to be split into
+      // different searches at some point, specificaly a separate method just
+      // for MdForms.
+      if (md.getPackage().equals(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE) && attribute != null && attribute.equals(MdFormUtil.OID))
       {
-        if(attribute != null && attribute.equals(MdFormUtil.OID))
-        {
-          MdAttributeDAOIF attr = md.definesAttribute(MdFormUtil.OID);
-          
-          Selectable runwayId = valueQuery.aSQLCharacter("runwayId", QueryUtil.getIdColumn());
-          SelectableSQLCharacter formId = valueQuery.aSQLCharacter("formId", attr.getColumnName());
-          
-          valueQuery.SELECT(runwayId, formId);
-          
-          String table = md.getTableName();
+        MdAttributeDAOIF attr = md.definesAttribute(MdFormUtil.OID);
 
-          valueQuery.FROM(table, "auto_complete");
+        Selectable runwayId = valueQuery.aSQLCharacter("runwayId", QueryUtil.getIdColumn());
+        SelectableSQLCharacter formId = valueQuery.aSQLCharacter("formId", attr.getColumnName());
 
-          valueQuery.WHERE(formId.LIKEi(match + "%"));
+        valueQuery.SELECT(runwayId, formId);
 
-          valueQuery.ORDER_BY_ASC(formId);
-        }
-        else
-        {
-          throw new ProgrammingErrorException("Searches on MdForm attributes other than Form Id (oid) is not supported.");
-        }
+        String table = md.getTableName();
+
+        valueQuery.FROM(table, "auto_complete");
+
+        valueQuery.WHERE(formId.LIKEi(match + "%"));
+
+        valueQuery.ORDER_BY_ASC(formId);
       }
       else
       {
@@ -358,9 +353,9 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
         valueQuery.ORDER_BY_DESC(count);
       }
-      
+
       valueQuery.restrictRows(20, 1);
-      
+
       return valueQuery;
     }
   }
