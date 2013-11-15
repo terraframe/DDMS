@@ -16,5 +16,6 @@ public class CleanupContextListener implements ServletContextListener
   public void contextInitialized(ServletContextEvent arg0)
   {
     // Do nothing
+    ServerContext.instance();
   }
 }
