@@ -164,7 +164,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     return xml.contains("abundance_subcol_1") || xml.contains("abundance_1") || xml.contains("mosquitoCount") || xml.contains("ollectionCount");
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
