@@ -79,7 +79,11 @@ public abstract class AbstractSprayProvider extends AbstractSQLProvider implemen
           try
           {
             Method m = klass.getMethod(methodName, Alias.class);
-            columns.add((String) m.invoke(this, alias));
+            Object o = m.invoke(this, alias);
+            if(o != null && o instanceof String)
+            {
+              columns.add((String) o);
+            }
           }
           catch(NoSuchMethodException e)
           {

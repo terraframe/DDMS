@@ -10,8 +10,8 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   protected boolean hasActual;
   protected boolean hasPlanned;
   
-  protected static final String ACTUAL_ALIAS = "a";
-  protected static final String PLANNED_ALIAS = "p";
+  public static final String ACTUAL_ALIAS = "a";
+  public static final String PLANNED_ALIAS = "p";
   
   public TargetJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
@@ -35,11 +35,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     // need to do anything here?
   }
   
-  public String caseSwap(Alias alias)
+  public String caseSwap(Alias alias, Alias other)
   {
     if(hasActual && hasPlanned)
     {
-      return "(CASE WHEN "+ACTUAL_ALIAS+"."+alias+" IS NOT NULL THEN "+ACTUAL_ALIAS+"."+alias+" ELSE "+PLANNED_ALIAS+"."+alias+" END)";
+      return "(CASE WHEN "+ACTUAL_ALIAS+"."+alias+" IS NOT NULL THEN "+ACTUAL_ALIAS+"."+alias+" ELSE "+PLANNED_ALIAS+"."+other+" END)";
     }
     else if(hasActual)
     {
@@ -49,6 +49,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     {
       return PLANNED_ALIAS+"."+alias;
     }
+  }
+  
+  public String caseSwap(Alias alias)
+  {
+    return caseSwap(alias, alias);
   }
   
   public String setPlannedDate(Alias alias)

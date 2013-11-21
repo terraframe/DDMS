@@ -10,13 +10,14 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class AreaJoin extends TargetJoin implements Reloadable
 {
-  
-//  /** OBSOLETE as of 9.1, which support Hash Conditions in RIGHT/OUTER joins
-//   * Marks this area join as either the left or right join to simulate a full outer join.
-//   * This is done due to limitations in postgres when doing full outer joins
-//   */
-//  private boolean isLeftJoin;
-  
+
+  // /** OBSOLETE as of 9.1, which support Hash Conditions in RIGHT/OUTER joins
+  // * Marks this area join as either the left or right join to simulate a full
+  // outer join.
+  // * This is done due to limitations in postgres when doing full outer joins
+  // */
+  // private boolean isLeftJoin;
+
   public AreaJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
     super(irsQB, hasActual, hasPlanned);
@@ -26,60 +27,62 @@ public class AreaJoin extends TargetJoin implements Reloadable
   public void loadDependencies()
   {
     super.loadDependencies();
-    
+
     // Load aliases that will be in the JOIN clause
-    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.GEO_ENTITY, Alias.DISEASE};
+    Alias[] joinAliases = new Alias[] { Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON,
+        Alias.GEO_ENTITY, Alias.DISEASE };
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
     this.irsQB.addRequiredAlias(View.PLANNED_AREA, joinAliases);
   }
-  
+
   public final String FROM()
   {
-    String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
+    return IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
+  }
+
+  public final String CUSTOM_FROM()
+  {
+    // String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
+    String a = TargetJoin.ACTUAL_ALIAS;
     String p = IRSQB.View.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;
 
     // Area targets work as follows: limit the planned targets by the universal
     // columns,
     // but sum the actual targets for all entities beneath the planned target
     // geo entity.
-    if (hasPlanned)
-    {
-      String sql = "";
 
-      // PostgreSQL 9.1+ supports RIGHT and OUTER joins with Hash Conditions,
-      // so there's no need to UNION a LEFT and RIGHT join to simulate an OUTER.
-      sql += a + " FULL OUTER JOIN " + p + " \n";
-//      sql += a + " "+(this.isLeftJoin ? "LEFT" : "RIGHT")+" OUTER JOIN " + p + " \n";
-      
-      
-      // NOTE: This is the old code for reference 
-//      sql += "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") " +
-//      		"= extract(YEAR FROM "+TargetJoin.PLANNED_ALIAS+"."+Alias.PLANNED_DATE.getAlias()+") \n";
-      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = "
-          + TargetJoin.ACTUAL_ALIAS + "." + Alias.TARGET_WEEK + " \n";
-      
-      // FIXED: joined based on spray season instead of year + week
-      sql += "AND "+TargetJoin.PLANNED_ALIAS + "." + Alias.SPRAY_SEASON + " = "
-          + TargetJoin.ACTUAL_ALIAS + "." + Alias.SPRAY_SEASON + " \n";
-      
-      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
-          + "." + Alias.DISEASE + " \n";
+    String sql = "";
 
-      String pathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
-      String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
-      String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
-      
-      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = (SELECT " + parentGeo
-          + " FROM " + pathsTable + " WHERE" + " " + parentGeo + " = " + TargetJoin.PLANNED_ALIAS + "."
-          + Alias.GEO_ENTITY + " AND " + childGeo + " = " + TargetJoin.ACTUAL_ALIAS + "."
-          + Alias.GEO_ENTITY + ")";
+    // PostgreSQL 9.1+ supports RIGHT and OUTER joins with Hash Conditions,
+    // so there's no need to UNION a LEFT and RIGHT join to simulate an OUTER.
+    sql += a + " FULL OUTER JOIN " + p + " \n";
+    // sql += a + " "+(this.isLeftJoin ? "LEFT" : "RIGHT")+" OUTER JOIN " + p +
+    // " \n";
 
-      return sql;
-    }
-    else
-    {
-      return a;
-    }
+    // NOTE: This is the old code for reference
+    // sql +=
+    // "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") "
+    // +
+    // "= extract(YEAR FROM "+TargetJoin.PLANNED_ALIAS+"."+Alias.PLANNED_DATE.getAlias()+") \n";
+    sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = " + TargetJoin.ACTUAL_ALIAS
+        + "." + IRSQB.AREA_PREFIX + Alias.TARGET_WEEK + " \n";
+
+    // FIXED: joined based on spray season instead of year + week
+    sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.SPRAY_SEASON + " = "
+        + TargetJoin.ACTUAL_ALIAS + "." + IRSQB.AREA_PREFIX + Alias.SPRAY_SEASON + " \n";
+
+    sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
+        + "." + IRSQB.AREA_PREFIX + Alias.DISEASE + " \n";
+
+    String pathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
+    String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
+    String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
+
+    sql += "AND EXISTS (SELECT 1 FROM " + pathsTable + " WHERE" + " " + parentGeo + " = "
+        + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " AND " + childGeo + " = "
+        + TargetJoin.ACTUAL_ALIAS + "." + IRSQB.AREA_PREFIX + Alias.GEO_ENTITY + ")";
+
+    return sql;
   }
 
 }

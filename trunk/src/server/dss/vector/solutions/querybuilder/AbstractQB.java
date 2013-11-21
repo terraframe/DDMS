@@ -62,6 +62,7 @@ import dss.vector.solutions.query.DatesOnlyException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -70,8 +71,6 @@ public abstract class AbstractQB implements Reloadable
   public static final String WINDOW_COUNT_ALIAS = "dss_vector_solutions__window_count";
   
   public static final String IMPORTED_DATETIME = "imported_datetime";
-  
-  public static final String IMPORTED_CREATE_DATE = "create_date";
   
   /**
    * Class to help with the structure of the join criteria for GeoEntity data
@@ -267,7 +266,7 @@ public abstract class AbstractQB implements Reloadable
     QBInterceptor termInterceptor = this.getQBInterceptor(parser);
     this.setTermCriteria(valueQuery, queryMap, termInterceptor);
 
-    this.setWITHClause();
+    this.setWITHClause(this.withEntries, this.recursiveWithClause, valueQuery);
 
     this.addCountSelectable(valueQuery);
     
@@ -342,27 +341,15 @@ public abstract class AbstractQB implements Reloadable
     if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
       MdEntityDAOIF mdClass = q.getMdClassIF();
-
-      // START - WITH clause
-      // Add the SQL WITH clause that shows all dates with a count greater than one.
-      // Any date grouped with a count greater than one is a derived sign of an import.
-      BusinessQuery withQ = f.businessQuery(mdClass.definesType());
       ValueQuery withV = new ValueQuery(f);
-      Attribute cd = withQ.get(Metadata.CREATEDATE);
-      cd.setColumnAlias(IMPORTED_CREATE_DATE);
       
-      withV.SELECT(cd);
-      
-      withV.FROM(mdClass.getTableName(), withQ.getTableAlias());
-      
-      withV.GROUP_BY(cd);
-      withV.HAVING(F.COUNT(cd).GT(1));
-      
+      Attribute cd = this.getImportedDateTimeSQL(f, mdClass, withV);
       this.addWITHEntry(new WITHEntry(IMPORTED_DATETIME, withV.getSQL()));
+      
       // END - WITH clause
 
       // fast solution, requires LEFT JOIN on a custom Selectable
-      String sql = "CASE WHEN "+IMPORTED_DATETIME+"."+IMPORTED_CREATE_DATE+" IS NOT NULL THEN 1 ELSE 0 END";
+      String sql = "CASE WHEN "+IMPORTED_DATETIME+"."+Alias.CREATE_DATE+" IS NOT NULL THEN 1 ELSE 0 END";
       
       // slow solution, requires sub-select
       //String sql = "EXISTS (SELECT 1 FROM "+IMPORTED_DATETIME+" WHERE "+cd.getColumnAlias()+" = "+q.get(Metadata.CREATEDATE).getDbQualifiedName()+")::integer";
@@ -372,6 +359,22 @@ public abstract class AbstractQB implements Reloadable
       
       this.joinImported(q, f, v, cd);
     }
+  }
+  
+  protected Attribute getImportedDateTimeSQL(QueryFactory f, MdEntityDAOIF mdClass, ValueQuery withV)
+  {
+    BusinessQuery withQ = f.businessQuery(mdClass.definesType());
+    Attribute cd = withQ.get(Metadata.CREATEDATE);
+    cd.setColumnAlias(Alias.CREATE_DATE.getAlias());
+    
+    withV.SELECT(cd);
+    
+    withV.FROM(mdClass.getTableName(), withQ.getTableAlias());
+    
+    withV.GROUP_BY(cd);
+    withV.HAVING(F.COUNT(cd).GT(1));
+    
+    return cd;
   }
 
   /**
@@ -387,7 +390,7 @@ public abstract class AbstractQB implements Reloadable
     Selectable createDate = q.get(Metadata.CREATEDATE);
     LeftJoin customJoin = new RawLeftJoinEq(createDate.getDbColumnName(),
         createDate.getDefiningTableName(), createDate.getDefiningTableAlias(),
-        IMPORTED_CREATE_DATE, IMPORTED_DATETIME, IMPORTED_DATETIME);
+        Alias.CREATE_DATE.getAlias(), IMPORTED_DATETIME, IMPORTED_DATETIME);
     
     // join on the main query
     v.WHERE(customJoin);
@@ -396,7 +399,7 @@ public abstract class AbstractQB implements Reloadable
   /**
    * Sets the WITH clause on the value query.
    */
-  private void setWITHClause()
+  protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery)
   {
     if (this.withEntries.size() == 0)
     {
@@ -404,17 +407,17 @@ public abstract class AbstractQB implements Reloadable
     }
 
     String with = "WITH ";
-    if (this.recursiveWithClause)
+    if (recursive)
     {
       with += "RECURSIVE ";
     }
 
     int count = 0;
-    for (WITHEntry entry : this.withEntries)
+    for (WITHEntry entry : entries)
     {
       with += entry.name + " AS (\n" + entry.sql + "\n)";
 
-      if (count < this.withEntries.size() - 1)
+      if (count < entries.size() - 1)
       {
         with += ",";
       }
@@ -426,7 +429,7 @@ public abstract class AbstractQB implements Reloadable
     valueQuery.setSqlPrefix(with);
   }
   
-  private void setGeoDisplayLabelSQL()
+  protected void setGeoDisplayLabelSQL()
   {
     String sql = QueryUtil.getGeoDisplayLabelSQL(false);
     this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
@@ -716,13 +719,6 @@ public abstract class AbstractQB implements Reloadable
       }
     }
   }
-  
-  /*
-  protected void setGeoDisplayLabelSQL(ValueQuery valueQuery, )
-  {
-    
-  }
-  */
   
   /**
    * Returns all ParseInterceptors. Subclasses may override this method to

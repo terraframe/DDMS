@@ -110,9 +110,9 @@ public enum Alias implements Reloadable, AliasIF
   // Audit
   AUDIT_CREATE_DATE(QueryConstants.AUDIT_CREATE_DATE_ALIAS, null, SQLProvider.DATE),
   AUDIT_LAST_UPDATE_DATE(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS, null, SQLProvider.DATE),
-  AUDIT_CREATED_BY(QueryConstants.AUDIT_CREATED_BY_ALIAS, null, SQLProvider.DATE),
-  AUDIT_LAST_UPDATED_BY(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS, null, SQLProvider.DATE),
-  AUDIT_IMPORTED(QueryConstants.AUDIT_IMPORTED_ALIAS, null, SQLProvider.DATE),
+  AUDIT_CREATED_BY(QueryConstants.AUDIT_CREATED_BY_ALIAS, null, SQLProvider.VARCHAR),
+  AUDIT_LAST_UPDATED_BY(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS, null, SQLProvider.VARCHAR),
+  AUDIT_IMPORTED(QueryConstants.AUDIT_IMPORTED_ALIAS, "setAuditImported", SQLProvider.FLOAT),
   
   SPRAYED_UNITS("sprayedunits", null, SQLProvider.FLOAT),
   UNITS_UNSPRAYED("unit_unsprayed", null, SQLProvider.FLOAT),
@@ -219,5 +219,5 @@ public enum Alias implements Reloadable, AliasIF
   {
     return getAlias();
   }
-
+  
 }

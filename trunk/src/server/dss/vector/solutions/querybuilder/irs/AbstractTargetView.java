@@ -1,7 +1,10 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.Set;
+
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
@@ -110,8 +113,6 @@ public abstract class AbstractTargetView extends AuxiliaryProvider implements Re
     from += " AND (i-1) = de." + this.irsQB.getPeriodCol() + " \n"; // substract 1 because
                                                     // arrays in postgres are
                                                     // 1-based
-    from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
-    from += " AND ms." + disease + " = '" + this.irsQB.getDiseaseId() + "' \n";
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";
     from += " AND ms." + idCol + " = tar." + seasonCol + "\n";
     return select + from;

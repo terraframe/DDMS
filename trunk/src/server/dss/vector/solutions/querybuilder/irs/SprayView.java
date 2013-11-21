@@ -74,7 +74,12 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
     {
       if (this.irsQB.needsAreaPlanned())
       {
-        joins.add(new AreaJoin(this.irsQB, true, true));
+        // Hack: Set has planned targets to false. By setting the value to
+        // false it keeps the planned area table from being in the join.
+        // IRSQB.postProcess() custom adds it later to make the query faster.
+        AreaJoin aj = new AreaJoin(this.irsQB, true, false);
+        this.irsQB.setAreaJoin(aj);
+        joins.add(aj);
       }
 
       if (this.irsQB.needsTeamsPlanned())
