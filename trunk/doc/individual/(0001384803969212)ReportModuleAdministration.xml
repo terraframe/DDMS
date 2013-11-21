@@ -26,12 +26,12 @@
           <char name="moduleName" label="Module name" size="255" />
         </attributes>
       </mdException>
-      <mdException name="dss.vector.solutions.general.InProgressReportModuleException" label="Unsupported report module" message="The database views for module [{moduleName}] are already in the process of being loaded.">
+      <mdException name="dss.vector.solutions.general.InProgressReportModuleException" label="Unsupported report module" message="The materialized report tables are already in the process of being created.">
         <attributes>
           <char name="moduleName" label="Module name" size="255" />
         </attributes>
       </mdException>
-      <mdException name="dss.vector.solutions.general.UnableToDeleteReportTableException" label="Unable to delete report table" message="Unable to delete the materialized report tables for module [{moduleName}].">
+      <mdException name="dss.vector.solutions.general.UnableToDeleteReportTableException" label="Unable to delete report table" message="Unable to delete the materialized report tables.">
         <attributes>
           <char name="moduleName" label="Module name" size="255" />
         </attributes>
@@ -41,18 +41,21 @@
           <char name="viewName" label="View name" size="255" />
         </attributes>
       </mdException>
+      <mdException name="dss.vector.solutions.general.ViewNotFoundException" label="View not found exception" message="View [{viewName}] does not exist.">
+        <attributes>
+          <char name="viewName" label="View name" size="255" />
+        </attributes>
+      </mdException>
     </create>
     <permissions>
-      <method
-        type="dss.vector.solutions.general.ReportModuleView"
-        methodName="buildDatabaseViews">
-        <assignedRole
-          roleName="Administrator" />
+      <method type="dss.vector.solutions.general.ReportModuleView" methodName="buildDatabaseViews">
+        <assignedRole roleName="Administrator" />
       </method>
     </permissions>
   </doIt>
   <undoIt>
     <delete>
+      <object key="dss.vector.solutions.general.ViewNotFoundException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.general.UnableToCreateReportTableException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.general.UnableToDeleteReportTableException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.general.InProgressReportModuleException" type="com.runwaysdk.system.metadata.MdException" />

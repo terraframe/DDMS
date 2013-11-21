@@ -7,22 +7,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MdssLog;
-import dss.vector.solutions.RequiredAttributeException;
+import dss.vector.solutions.query.SavedSearch;
 
 public class ReportModuleView extends ReportModuleViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -30,9 +31,7 @@ public class ReportModuleView extends ReportModuleViewBase implements com.runway
 
   private static final String                PROPERTIES_FILE_NAME = "reportmodule.properties";
 
-  public static final String                 IRS_MODULE           = "IRS";
-
-  private static final String[]              MODULE_NAMES         = new String[] { IRS_MODULE };
+  private static final String                DEFAULT_MODULE_NAME  = "TEMP";
 
   private static final Map<String, Progress> map                  = new HashMap<String, Progress>();
 
@@ -45,115 +44,147 @@ public class ReportModuleView extends ReportModuleViewBase implements com.runway
   {
     List<ReportModuleView> list = new LinkedList<ReportModuleView>();
 
-    for (String moduleName : MODULE_NAMES)
+    File file = new File(ReportModuleView.class.getResource("/" + PROPERTIES_FILE_NAME).getFile());
+
+    try
     {
-      ReportModuleView view = new ReportModuleView();
-      view.setModuleName(moduleName);
-      view.applyNoPersist();
+      Properties prop = new Properties();
+      prop.load(new FileInputStream(file));
 
-      list.add(view);
+      Set<Object> moduleNames = (Set<Object>) prop.keySet();
+
+      for (Object moduleName : moduleNames)
+      {
+        if (moduleName instanceof String)
+        {
+          ReportModuleView view = new ReportModuleView();
+          view.setModuleName((String) moduleName);
+          view.applyNoPersist();
+
+          list.add(view);
+        }
+      }
+
+      return list.toArray(new ReportModuleView[list.size()]);
     }
-
-    return list.toArray(new ReportModuleView[list.size()]);
+    catch (IOException ex)
+    {
+      throw new FileReadException(file, ex);
+    }
   }
 
   @Transaction
   @Authenticate
   public void buildDatabaseViews()
   {
-    String moduleName = this.getModuleName();
-
-    if (moduleName == null || moduleName.length() == 0)
-    {
-      RequiredAttributeException exception = new RequiredAttributeException();
-      exception.setAttributeLabel(getModuleNameMd().getDisplayLabel(Session.getCurrentLocale()));
-      exception.apply();
-
-      throw exception;
-    }
-
-    if (!ReportModuleView.isInProgress(moduleName))
+    if (!ReportModuleView.isInProgress(DEFAULT_MODULE_NAME))
     {
       try
       {
-        File file = new File(this.getClass().getResource("/" + PROPERTIES_FILE_NAME).getFile());
+        List<String> views = this.getViewNames();
 
-        try
+        if (views.size() > 0)
         {
-          Properties prop = new Properties();
-          prop.load(new FileInputStream(file));
+          ReportModuleView.addProgress(DEFAULT_MODULE_NAME, new Progress(views.size() + 2));
 
-          if (prop.containsKey(moduleName))
+          /*
+           * Ensure all of the views exist
+           */
+          for (String view : views)
           {
-            String property = prop.getProperty(moduleName);
+            List<String> existing = Database.getViewsByPrefix(view);
 
-            String[] views = property.split(",");
-
-            if (views.length > 0)
+            if (!existing.contains(view))
             {
-              ReportModuleView.addProgress(moduleName, new Progress(views.length));
+              String msg = "View [" + view + "] does not exist in the database";
+              ViewNotFoundException ex = new ViewNotFoundException(msg);
+              ex.setViewName(view);
+              ex.apply();
 
-              /*
-               * Delete all of the existing module report tables
-               */
-              ReportModuleView.dropExistingModuleTables(moduleName);
-
-              /*
-               * Create the new module report tables
-               */
-              for (String view : views)
-              {
-                ReportModuleView.createMaterializedView(moduleName, view.trim());
-
-                ReportModuleView.incrementProgress(moduleName, view);
-              }
+              throw ex;
             }
           }
-          else
+
+          ReportModuleView.incrementProgress(DEFAULT_MODULE_NAME, "Validate");
+
+          /*
+           * Delete all of the existing module report tables
+           */
+          ReportModuleView.dropExistingModuleTables(DEFAULT_MODULE_NAME);
+
+          ReportModuleView.incrementProgress(DEFAULT_MODULE_NAME, "Delete");
+
+          /*
+           * Create the new module report tables
+           */
+          for (String view : views)
           {
-            String msg = "Unable to find database views for module [" + moduleName + "]";
+            ReportModuleView.createMaterializedView(DEFAULT_MODULE_NAME, view.trim());
 
-            UnsupportedReportModuleException e = new UnsupportedReportModuleException(msg);
-            e.setModuleName(moduleName);
-            e.apply();
-
-            throw e;
+            ReportModuleView.incrementProgress(DEFAULT_MODULE_NAME, view);
           }
-        }
-        catch (IOException ex)
-        {
-          throw new FileReadException(file, ex);
         }
       }
       finally
       {
-        ReportModuleView.removeProgress(moduleName);
+        ReportModuleView.removeProgress(DEFAULT_MODULE_NAME);
       }
     }
     else
     {
-      String msg = "The database views for module [" + moduleName + "] are already in the process of being loaded";
+      String msg = "The database tables are already in the process of being created.";
 
       InProgressReportModuleException e = new InProgressReportModuleException(msg);
-      e.setModuleName(moduleName);
+      e.setModuleName(DEFAULT_MODULE_NAME);
       e.apply();
 
       throw e;
     }
   }
 
+  private List<String> getViewNames()
+  {
+    List<String> list = new LinkedList<String>();
+
+    File file = new File(this.getClass().getResource("/" + PROPERTIES_FILE_NAME).getFile());
+
+    try
+    {
+      Properties prop = new Properties();
+      prop.load(new FileInputStream(file));
+
+      Enumeration<?> moduleNames = prop.propertyNames();
+
+      while (moduleNames.hasMoreElements())
+      {
+        String moduleName = (String) moduleNames.nextElement();
+        String property = prop.getProperty(moduleName);
+
+        String[] views = property.split(",");
+
+        list.addAll(Arrays.asList(views));
+      }
+    }
+    catch (IOException ex)
+    {
+      throw new FileReadException(file, ex);
+    }
+
+    return list;
+  }
+
   public static synchronized Integer getProgress(String moduleName)
   {
-    if (ReportModuleView.isInProgress(moduleName))
+    if (ReportModuleView.isInProgress(DEFAULT_MODULE_NAME))
     {
-      return map.get(moduleName).getProgress();
+      return map.get(DEFAULT_MODULE_NAME).getProgress();
     }
     else
     {
-      String msg = "The database view for module [" + moduleName + "] are not being loaded";
+      String msg = "The materialized tables are not in the process of being created.";
 
       UnsupportedReportModuleException e = new UnsupportedReportModuleException(msg);
-      e.setModuleName(moduleName);
+      e.setModuleName(DEFAULT_MODULE_NAME);
       e.apply();
 
       throw e;
@@ -229,24 +260,13 @@ public class ReportModuleView extends ReportModuleViewBase implements com.runway
 
   private static String getModulePrefix(String moduleName)
   {
-    String prefix = new String();
-
-    if (moduleName.equals(ReportModuleView.IRS_MODULE))
-    {
-      prefix = "i";
-    }
-    else
-    {
-      throw new ProgrammingErrorException("Unsupported module [" + moduleName + "]");
-    }
-
-    return "m_" + prefix + "_";
+    return "mt_";
   }
 
   public static void dropExistingModuleTables(String moduleName)
   {
     String prefix = ReportModuleView.getModulePrefix(moduleName);
-    List<String> tableNames = ReportModuleView.getTableNamesByPrefix(prefix);
+    List<String> tableNames = ReportModuleView.getTableNamesByPrefix(prefix + SavedSearch.VIEW_PREFIX);
 
     StringBuffer sql = new StringBuffer();
 

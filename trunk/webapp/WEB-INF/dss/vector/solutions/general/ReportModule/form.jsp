@@ -12,9 +12,10 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<dl>
+<!-- <dl>  -->
   <mjl:form id="form.id" name="form.name" method="POST">
     <mjl:component param="view" item="${item}">
+<!-- 
       <mjl:dt attribute="moduleName">
         <mjl:select param="moduleName" items="${modules}" var="current" valueAttribute="moduleName" includeBlank="false">
           <mjl:option>
@@ -22,10 +23,11 @@
           </mjl:option>
         </mjl:select>
       </mjl:dt>
+ -->    
     </mjl:component>
     <input type="button" id="button.id" value=""  />
   </mjl:form>
-</dl>
+<!-- </dl>  -->
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{ReportModuleViewDTO.CLASS, ReportModuleController.CLASS}))%>
 
@@ -40,7 +42,7 @@
         YAHOO.util.Event.stopEvent(e);
 
         var params = Mojo.Util.collectFormValues('form.id');
-        var moduleName = params['view.moduleName'][0];
+        //var moduleName = params['view.moduleName'][0];
     
         var buildFunction = function(request)
         {
@@ -49,7 +51,7 @@
 
         var pollingFunction = function(request)
         {
-          Mojo.$.dss.vector.solutions.general.ReportModuleView.getProgress(request, moduleName);                    
+          Mojo.$.dss.vector.solutions.general.ReportModuleView.getProgress(request, '');                    
         }
 
         new MDSS.ProgressRequest(buildFunction, pollingFunction, 'Build_database_views').start();
