@@ -44,6 +44,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
 public class SavedSearch extends SavedSearchBase implements com.runwaysdk.generation.loader.Reloadable
@@ -360,6 +361,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       for (Selectable s : valueQuery.getSelectableRefs())
       {
+        if(s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+        {
+          continue; // used only for queries as an optimization
+        }
+        
         // convert the user display label into something a user-friendly column.
         // use SQL character because it's generic enough to handle all cases.
         Selectable c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
