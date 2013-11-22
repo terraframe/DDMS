@@ -53,7 +53,7 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     if(select.contains(Alias.AUDIT_IMPORTED))
     {
       this.needsImported = true;
-      this.irsQB.addRequiredAlias(View.PLANNED_AREA, Alias.AUDIT_IMPORTED);
+      this.irsQB.addRequiredAlias(View.PLANNED_AREA, Alias.AUDIT_IMPORTED, Alias.AUDIT_CREATE_DATE);
     }
     
     if(select.contains(Alias.AUDIT_CREATED_BY))
@@ -76,6 +76,30 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   }
   
   @Override
+  public String setSprayOperator(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
   public String setSpraySeason(Alias alias)
   {
     return set(IRSQB.MALARIA_SEASON, alias);
@@ -89,6 +113,42 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   public String setCreateDate(Alias alias)
   {
     return set(GTV_ALIAS, Alias.AUDIT_CREATE_DATE.getAlias(), Alias.AUDIT_CREATE_DATE);
+  }
+  
+  @Override
+  public String setSprayOperatorPerson(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayOperatorDefaultLocale(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayTeamDefaultLocale(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setTeamPlannedTarget(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setSprayTeam(Alias alias)
+  {
+    return null;
+  }
+  
+  @Override
+  public String setOperatorPlannedTarget(Alias alias)
+  {
+    return null;
   }
   
   public String setLastUpdateDate(Alias alias)

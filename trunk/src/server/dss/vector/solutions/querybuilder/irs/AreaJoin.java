@@ -1,9 +1,12 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.Map;
+
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
@@ -17,7 +20,8 @@ public class AreaJoin extends TargetJoin implements Reloadable
   // * This is done due to limitations in postgres when doing full outer joins
   // */
   // private boolean isLeftJoin;
-
+  public static final String JOIN_SUFFIX = "_join";
+  
   public AreaJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
   {
     super(irsQB, hasActual, hasPlanned);
@@ -40,7 +44,7 @@ public class AreaJoin extends TargetJoin implements Reloadable
     return IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
   }
 
-  public final String CUSTOM_FROM()
+  public final String CUSTOM_FROM(Map<String, IRSQB.Universal> universals)
   {
     // String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String a = TargetJoin.ACTUAL_ALIAS;
@@ -77,11 +81,30 @@ public class AreaJoin extends TargetJoin implements Reloadable
     String pathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
     String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
     String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
+    String parentUniversal = QueryUtil.getColumnName(AllPaths.getParentUniversalMd());
 
     sql += "AND EXISTS (SELECT 1 FROM " + pathsTable + " WHERE" + " " + parentGeo + " = "
         + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " AND " + childGeo + " = "
         + TargetJoin.ACTUAL_ALIAS + "." + IRSQB.AREA_PREFIX + Alias.GEO_ENTITY + ")";
 
+    String geoIdCol = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
+    
+    for(IRSQB.Universal universal : universals.values())
+    {
+      String alias = universal.getName().toLowerCase()+JOIN_SUFFIX;
+      
+      sql += "\n";
+      sql += "LEFT JOIN (\n";
+      sql += "    SELECT \n";
+      sql += "      gdl."+geoIdCol+" AS "+universal.getGeoIdPlanned()+", \n";
+      sql += "      gdl."+QueryUtil.LABEL_COLUMN+" AS "+universal.getEntityNamePlanned()+", \n";
+      sql += "      apg."+childGeo+" \n";
+      sql += "    FROM \n";
+      sql += "      "+QueryUtil.GEO_DISPLAY_LABEL+" gdl INNER JOIN "+pathsTable+" apg ON apg."+parentGeo+" = gdl."+this.irsQB.getIdCol()+" \n";
+      sql += "      AND "+parentUniversal+" = '"+universal.getId()+"' \n";
+      sql += ") "+alias+" ON "+alias+"."+childGeo+" = "+PLANNED_ALIAS+"."+Alias.GEO_ENTITY+" \n";
+    }
+    
     return sql;
   }
 

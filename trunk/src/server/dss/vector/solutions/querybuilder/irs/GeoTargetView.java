@@ -61,7 +61,7 @@ public class GeoTargetView extends AbstractTargetView implements Reloadable
     String select = "SELECT tar." + idCol + " AS " + idCol + ",\n";
     
     Set<Alias> selected = this.irsQB.getSelectAliases();
-    if(selected.contains(Alias.AUDIT_CREATE_DATE))
+    if(selected.contains(Alias.AUDIT_CREATE_DATE) || selected.contains(Alias.AUDIT_IMPORTED))
     {
       this.irsQB.addRequiredAlias(View.PLANNED_AREA, Alias.CREATE_DATE);
       select += "tar."+QueryUtil.getColumnName(Metadata.getCreateDateMd())+" "+Alias.AUDIT_CREATE_DATE+" "+", \n";
@@ -100,7 +100,7 @@ public class GeoTargetView extends AbstractTargetView implements Reloadable
     String from = "FROM ";
     from += "(SELECT id, ";
     
-    if(selected.contains(Alias.AUDIT_CREATE_DATE))
+    if(selected.contains(Alias.AUDIT_CREATE_DATE) || selected.contains(Alias.AUDIT_IMPORTED))
     {
       this.irsQB.addRequiredAlias(View.PLANNED_AREA, Alias.CREATE_DATE);
       from += QueryUtil.getColumnName(Metadata.getCreateDateMd())+", ";

@@ -907,6 +907,20 @@ public abstract class AbstractQB implements Reloadable
     return AllPaths.CLASS + "_" + attributeKey;
   }
 
+  public String getUniversalEntityName(String universalName, String attributeKey)
+  {
+    String prepend = attributeKey.replaceAll("\\.", "_") + "__";
+    String entityNameAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.ENTITYLABEL;
+    return entityNameAlias;
+  }
+  
+  public String getUniversalGeoId(String universalName, String attributeKey)
+  {
+    String prepend = attributeKey.replaceAll("\\.", "_") + "__";
+    String geoIdAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.GEOID;
+    return geoIdAlias;
+  }
+  
   private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
@@ -921,9 +935,10 @@ public abstract class AbstractQB implements Reloadable
       ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
 
-      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYLABEL;
-      String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
+      
+      
+      String entityNameAlias = this.getUniversalEntityName(geoEntityMd.getTypeName(), attributeKey);
+      String geoIdAlias = this.getUniversalGeoId(geoEntityMd.getTypeName(), attributeKey);
 
       Selectable selectable1 = geoEntityQuery.getEntityLabel().localize(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
@@ -989,6 +1004,8 @@ public abstract class AbstractQB implements Reloadable
 
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
       geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityVQ.aSQLCharacter(prepend + "geoDisplayLabel", QueryUtil.GEO_DISPLAY_LABEL + "." + idCol)));
 
       if (geoEntityQuery2 != null)

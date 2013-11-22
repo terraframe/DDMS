@@ -27,6 +27,7 @@ import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeDate;
 import com.runwaysdk.query.AttributeDateTime;
 import com.runwaysdk.query.AttributeTime;
+import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
@@ -48,6 +49,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.Metadata;
 import com.sun.tools.javac.util.Pair;
 
@@ -107,12 +109,15 @@ import dss.vector.solutions.util.QueryUtil;
 ORDERING?
 count() over
 pagination?
+multiple universals
 10. imported with create date dependency
  *
  */
 public class IRSQB extends AbstractQB implements Reloadable
 {
 
+  private Map<String, String> dategroups;
+  
   // The smallest (most depth) universal selected in the query screen
   private String                            smallestUnivesal;
   
@@ -290,6 +295,99 @@ public class IRSQB extends AbstractQB implements Reloadable
       return klass;
     }
   }
+  
+  public class Universal implements Reloadable
+  {
+    /**
+     * The universal name.
+     */
+    private String name;
+    
+    /**
+     * The universal's id (of the MdBusiness)
+     */
+    private String id;
+    
+    /**
+     * The user defined alias of the entity name in the value query.
+     */
+    private String entityNameAlias;
+    
+    /**
+     * The user defined alias of the geo id in the value query.
+     */
+    private String geoIdAlias;
+//    
+//    /**
+//     * The auto generated of the entity name in the value query.
+//     */
+//    private String entityNameGenerated;
+//    
+//    /**
+//     * The auto generated of the geo id in the value query.
+//     */
+//    private String geoIdGenerated;
+    
+    private Universal(String name, String id, String entityNameAlias, String geoIdAlias)
+    {
+      this.name = name;
+      this.id = id;
+      this.entityNameAlias = entityNameAlias;
+      this.geoIdAlias = geoIdAlias;
+    }
+    
+    public String getId()
+    {
+      return this.id;
+    }
+    
+    public String getName()
+    {
+      return name;
+    }
+    
+    public String getEntityNameAlias()
+    {
+      return entityNameAlias;
+    }
+    
+    public String getGeoIdAlias()
+    {
+      return geoIdAlias;
+    }
+    
+//    public void setEntityNameGenerated(String entityNameGenerated)
+//    {
+//      this.entityNameGenerated = entityNameGenerated;
+//    }
+//    
+//    public String getEntityNameGenerated()
+//    {
+//      return entityNameGenerated;
+//    }
+//    
+//    public void setGeoIdGenerated(String geoIdGenerated)
+//    {
+//      this.geoIdGenerated = geoIdGenerated;
+//    }
+//    
+//    public String getGeoIdGenerated()
+//    {
+//      return geoIdGenerated;
+//    }
+
+    public String getEntityNamePlanned()
+    {
+      return this.name.toLowerCase()+"_entityName";
+    }
+    
+    public String getGeoIdPlanned()
+    {
+      return this.name.toLowerCase()+"_geoid";
+    }
+  }
+  
+  private Map<String, Universal> universals;
 
   private Set<View> requiredViews;
 
@@ -298,6 +396,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     super(xml, config, layer, pageSize, pageSize);
 
     this.setWITHRecursive(true);
+    
+    this.universals = new HashMap<String, Universal>();
     
     this.requiredAliases = new HashMap<View, Set<Alias>>();
 
@@ -322,6 +422,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.requiredAliases.put(View.SPRAY_VIEW, new HashSet<Alias>());
 
     this.areaJoin = null;
+    
+    this.dategroups = new HashMap<String, String>();
     
     // The sprayView is always required
     this.requiredViews = new HashSet<View>();
@@ -922,6 +1024,8 @@ public class IRSQB extends AbstractQB implements Reloadable
           SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);
           String original = sel.getSQL();
 
+          this.dategroups.put(group, original);
+
           String sprayDateCol = sprayViewAlias + "." + Alias.SPRAY_DATE.getAlias();
           String plannedDateCol = sprayViewAlias + "." + Alias.PLANNED_DATE.getAlias();
           
@@ -948,6 +1052,8 @@ public class IRSQB extends AbstractQB implements Reloadable
                 + " ELSE " + plannedDateCol + " END";
             sql = original.replaceAll(sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias(), caseStmt);
           }
+          
+          
           sel.setSQL(sql);
         }
       }
@@ -1034,7 +1140,32 @@ public class IRSQB extends AbstractQB implements Reloadable
       List<String> newGB = new LinkedList<String>();
       
       Selectable[] replacements = this.replaceAll(valueQuery, valueQuery.getSelectableRefs(), TargetJoin.ACTUAL_ALIAS);
-      outer.SELECT(replacements);
+      
+      // remove count/ratio and put them in the outer query
+      List<Selectable> valid = new LinkedList<Selectable>();
+      for(Selectable r : replacements)
+      {
+        if(r.getUserDefinedAlias().equals("dss_vector_solutions_irs_AbstractSpray__id"))
+        {
+          COUNT s = (COUNT) valueQuery.getSelectableRef(r.getUserDefinedAlias());
+          
+          r = valueQuery.aSQLFloat(r._getAttributeName(), "COUNT(*)", 
+              r.getUserDefinedAlias(), r.getUserDefinedDisplayLabel());
+        }
+        else if(QueryUtil.RATIO.equals(r.getUserDefinedAlias()))
+        {
+          SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef(r.getUserDefinedAlias());
+
+          r = valueQuery.aSQLFloat(r._getAttributeName(), s.getSQL(), 
+              r.getUserDefinedAlias(), r.getUserDefinedDisplayLabel());
+
+          s.setSQL("NULL::INTEGER");
+        }
+        
+        valid.add(r);
+      }
+
+      outer.SELECT(valid.toArray(new Selectable[valid.size()]));
       
       AreaJoin aj = new AreaJoin(this, true, true);
       
@@ -1045,6 +1176,27 @@ public class IRSQB extends AbstractQB implements Reloadable
       swaps.put(Alias.AUDIT_CREATED_BY, Alias.AUDIT_CREATED_BY);
       swaps.put(Alias.AUDIT_LAST_UPDATED_BY, Alias.AUDIT_LAST_UPDATED_BY);
       swaps.put(Alias.AUDIT_IMPORTED, Alias.AUDIT_IMPORTED);
+      
+      
+      // for each universal column in the original query (activity + non-area planned), find the
+      // ValueQuery alias and swap it out with the area planned for the geo entity label and geo id.
+      Map<String, String> uSwaps = new HashMap<String, String>();
+      for(Universal universal : this.universals.values())
+      {
+        String ena = universal.getEntityNameAlias();
+        String gia = universal.getGeoIdAlias();
+        
+        String nameCol = valueQuery.getSelectableRef(ena).getColumnAlias();
+        String geoIdCol = valueQuery.getSelectableRef(gia).getColumnAlias();
+        
+        String enaSwap = universal.getEntityNamePlanned();
+        String giaSwap = universal.getGeoIdPlanned();
+        
+        uSwaps.put(nameCol, enaSwap);
+        uSwaps.put(geoIdCol, giaSwap);
+      }
+      
+      
       
       for(Selectable s : replacements)
       {
@@ -1064,9 +1216,49 @@ public class IRSQB extends AbstractQB implements Reloadable
           
           sel.setSQL(columnSQL);
         }
+        
+        String col = s.getColumnAlias();
+        if(uSwaps.containsKey(col))
+        {
+          String swap = uSwaps.get(col);
+          String columnSQL = aj.rawSwap(col, swap);
+          SelectableSQL sel = (SelectableSQL) s;
+          
+          sel.setSQL(columnSQL);
+          
+          newGB.add(swap);
+        }
       }
 
       String aliasPrefix = AREA_PREFIX;
+      
+      
+      String sprayDateCol = sprayViewAlias + "\\." + Alias.SPRAY_DATE.getAlias();
+      String plannedDateCol = TargetJoin.PLANNED_ALIAS + "\\." + Alias.PLANNED_DATE.getAlias();
+
+      String sprayDiseaseCol = sprayViewAlias + "\\." + Alias.DISEASE.getAlias();
+      String plannedDiseaseCol = TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE.getAlias();
+      
+      
+      for(String dateGroup : this.dategroups.keySet())
+      {
+        
+        String date = this.dategroups.get(dateGroup);
+        date = date.replaceAll(sprayDateCol, plannedDateCol);
+        date = date.replaceAll(sprayDiseaseCol, plannedDiseaseCol);
+        
+        SelectableSQL sel = (SelectableSQL) outer.getSelectableRef(dateGroup);
+        String sql = "CASE WHEN " + dateGroup + " IS NOT NULL THEN " + dateGroup + " ELSE "
+            + date +" END";
+        
+        sel.setSQL(sql);
+      }
+      
+      if(this.dategroups.size() > 0)
+      {
+        newGB.add(Alias.PLANNED_DATE.getAlias());
+      }
+      
 
       String pgeAlias = aliasPrefix + Alias.GEO_ENTITY.getAlias();
       SelectableSQL areaGeoEntity = valueQuery.aSQLCharacter(Alias.GEO_ENTITY.getAlias(),
@@ -1117,8 +1309,6 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          
-          
           String uniqueSprayId = this.getUniqueSprayDetailsId();
           String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
 
@@ -1165,7 +1355,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 //      }
 
       
-      String from = this.areaJoin.CUSTOM_FROM();
+      
+      String from = this.areaJoin.CUSTOM_FROM(this.universals);
       outer.FROM("(" + valueQuery.getSQL() + ")", from);
       
       // Horrible Hack! The GROUP BY clause requires those same columns
@@ -1226,8 +1417,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       int idx = m.start(1);
       String newSQL = sql.substring(0, idx) + group;
       
+      newSQL = "("+newSQL+") \n";
       
-      finalVQ.FROM("("+newSQL+")", "outerVQ");
+      finalVQ.FROM(newSQL, "outerVQ");
       
       
       return finalVQ;
@@ -2044,7 +2236,17 @@ public class IRSQB extends AbstractQB implements Reloadable
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
           {
-            selectedUniversals[i] = universals.getString(i);
+            String universalType = universals.getString(i);
+            selectedUniversals[i] = universalType;
+            
+            MdEntity uni = MdEntity.getMdEntity(universalType);
+            String id = uni.getId();
+            String name = uni.getTypeName();
+            
+            String entityNameAlias = this.getUniversalEntityName(name, attributeKey);
+            String geoIdAlias = this.getUniversalGeoId(name, attributeKey);
+            
+            this.universals.put(universalType, new Universal(name, id, entityNameAlias, geoIdAlias));
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
           this.smallestUnivesal = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);

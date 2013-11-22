@@ -35,7 +35,12 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     // need to do anything here?
   }
   
-  public String caseSwap(Alias alias, Alias other)
+  public String rawSwap(String a, String b)
+  {
+    return "(CASE WHEN "+a+" IS NOT NULL THEN "+a+" ELSE "+b+" END)";
+  }
+  
+  public String caseSwap(String alias, String other)
   {
     if(hasActual && hasPlanned)
     {
@@ -49,6 +54,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     {
       return PLANNED_ALIAS+"."+alias;
     }
+  }
+  
+  public String caseSwap(Alias alias, Alias other)
+  {
+    return caseSwap(alias.getAlias(), other.getAlias());
   }
   
   public String caseSwap(Alias alias)
