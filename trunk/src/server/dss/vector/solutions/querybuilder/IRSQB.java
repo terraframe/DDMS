@@ -1305,10 +1305,15 @@ public class IRSQB extends AbstractQB implements Reloadable
         sel.setSQL(check);
       }
 
+      // keep track if sprayed_units was selected originally so we know if we need to group by it
+      // later.
+      boolean sprayUnitsSelected = valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias());
       if (outer.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias()))
       {
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
+          // add the coverage numerator
+          
           String uniqueSprayId = this.getUniqueSprayDetailsId();
           String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
 
@@ -1321,10 +1326,18 @@ public class IRSQB extends AbstractQB implements Reloadable
           outer.SELECT(outerSel);
           outer.GROUP_BY(outerSel);
         }
+        
+        if(!valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias()))
+        {
+          // add the coverage denominator (keep as the area planned target for now)
+          
+          SelectableSQL sel = (SelectableSQL) outer.aSQLAggregateFloat(Alias.AREA_PLANNED_TARGET.getAlias(), check, Alias.AREA_PLANNED_TARGET.getAlias());
+          outer.SELECT(sel);
+        }
 
         SelectableSQL calc = (SelectableSQL) outer.getSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
-        String sql = "((" + Alias.SPRAYED_UNITS.getAlias() + ")/NULLIF(" + check + ",0))*100.0";
-        calc.setSQL(sql);
+//        String sql = "((" + Alias.SPRAYED_UNITS.getAlias() + ")/NULLIF(" + check + ",0))*100.0";
+        calc.setSQL("NULL::FLOAT"); // this will be finished later
       }
 
       // add the With entry to detect imported area targets
@@ -1365,8 +1378,53 @@ public class IRSQB extends AbstractQB implements Reloadable
       ValueQuery finalVQ = new ValueQuery(this.queryFactory);
       replacements = this.replaceAll(outer, outer.getSelectableRefs(), null);
       
-      finalVQ.SELECT(replacements); // don't group
+      List<Selectable> toSelect = new LinkedList<Selectable>();
+      
+      // filter out the sprayed_units if the original query did not specify it
+      if(outer.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()) && !sprayUnitsSelected)
+      {
+        for(Selectable sel : replacements)
+        {
+          if(!sel.getUserDefinedAlias().equals(Alias.SPRAYED_UNITS.getAlias()))
+          {
+            toSelect.add(sel);
+          }
+        }
 
+        finalVQ.SELECT(toSelect.toArray(new Selectable[toSelect.size()]));
+      }
+      else
+      {
+        finalVQ.SELECT(replacements);
+      }
+      
+
+      // do the final grouping
+      for(Selectable s : finalVQ.getSelectableRefs())
+      {
+        if(s.getUserDefinedAlias().equals(Alias.AREA_PLANNED_TARGET.getAlias()))
+        {
+          String sql = "SUM("+Alias.AREA_PLANNED_TARGET.getAlias()+")";
+          ((SelectableSQL)s).setSQL(sql);
+          
+          Selectable newSel = finalVQ.aSQLAggregateFloat(Alias.AREA_PLANNED_TARGET.getAlias(), sql, Alias.AREA_PLANNED_TARGET.getAlias(), s.getUserDefinedAlias());
+          finalVQ.replaceSelectable(newSel);
+        }
+        else if(s.getUserDefinedAlias().equals(Alias.AREA_PLANNED_COVERAGE.getAlias()))
+        {
+          String sql = "SUM("+Alias.SPRAYED_UNITS.getAlias()+")/SUM("+Alias.AREA_PLANNED_TARGET+")";
+          ((SelectableSQL)s).setSQL(sql);
+
+          Selectable newSel = finalVQ.aSQLAggregateFloat(Alias.AREA_PLANNED_COVERAGE.getAlias(), sql, Alias.AREA_PLANNED_COVERAGE.getAlias(), s.getUserDefinedAlias());
+          finalVQ.replaceSelectable(newSel);
+        }
+        else
+        {
+          finalVQ.GROUP_BY((SelectableSingle)s);
+        }
+      }
+      
+      
       String sql = outer.getSQL();
       
       // group by the planned area values

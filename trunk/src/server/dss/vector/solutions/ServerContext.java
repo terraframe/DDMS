@@ -651,7 +651,7 @@ public class ServerContext
     sql += "  END IF;\n";
     sql += "  RETURN _target; \n";
     sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql; \n";
+    sql += "$$ LANGUAGE plpgsql STABLE; \n";
 
     sql += "CREATE OR REPLACE FUNCTION get_epiWeek_from_date \n";
     sql += "( \n";
@@ -693,7 +693,7 @@ public class ServerContext
     sql += "      _epi_Week := NULL; \n";
     sql += "  END CASE; \n";
     sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql; \n";
+    sql += "$$ LANGUAGE plpgsql STABLE; \n";
 
     sql += "CREATE OR REPLACE FUNCTION get_epiYear_from_date \n";
     sql += "( \n";
@@ -716,7 +716,7 @@ public class ServerContext
     sql += "  _prev_Start_Date = get_epiStart(_year-1,_first_Day_Of_Epi_Week); \n";
     sql += "  _start_Date := get_epiStart(_year,_first_Day_Of_Epi_Week); \n";
     sql += "  _next_Start_Date := get_epiStart(_year+1,_first_Day_Of_Epi_Week); \n";
-    sql += "  RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
+    sql += "  --RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
     sql += "  CASE \n";
     sql += "   WHEN _date is NULL THEN \n";
     sql += "      _epi_Year := NULL; \n";
@@ -730,7 +730,7 @@ public class ServerContext
     sql += "      _epi_Year := NULL; \n";
     sql += "  END CASE; \n";
     sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql; \n";
+    sql += "$$ LANGUAGE plpgsql STABLE; \n";
 
     sql += "CREATE OR REPLACE FUNCTION get_epiStart \n";
     sql += "( \n";
@@ -754,7 +754,7 @@ public class ServerContext
     sql += "   --RAISE NOTICE 'B: % % %', _year,_fourth_Of_Jan_Week_Day,_start_Date; \n";
     sql += "  END IF; \n";
     sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql; \n";
+    sql += "$$ LANGUAGE plpgsql STABLE; \n";
 
     String termRel = MdEntity.getMdEntity(TERM_RELATIONSHIP_CLASS).getTableName();
 
