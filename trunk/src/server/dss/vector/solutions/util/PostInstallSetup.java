@@ -51,17 +51,17 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   /**
    * Amount of memory in MB to allocate to tomcat per app.
    */
-  private static final int    MEMORY_PER_APP_64   = 1512;
+  private static final int    MEMORY_PER_APP_64   = 3072;
 
   /**
    * Maximum amount of memory in MB to give to tomcat for all apps.
    */
-  private static int          MAX_TOTAL_MEMORY_64 = 4096;
+  private static int          MAX_TOTAL_MEMORY_64 = 3072;
 
   /**
    * Amount of memory in MB to allocate to tomcat per app for 32 bit.
    */
-  private static final int    MEMORY_PER_APP_32   = 768;
+  private static final int    MEMORY_PER_APP_32   = 1350;
 
   /**
    * Maximum amount of memory in MB to give to tomcat for all apps for 32 bit.
@@ -310,7 +310,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   public void patch() throws IOException
   {
     this.updateCSS();
-    this.updateMaxPermSize();
+    this.updateMemorySettings();
     this.updateBIRTJavaPath();
   }
 
@@ -324,11 +324,17 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     readAndReplace(new File(appRoot, "css/style-rtl.css"), template, replacer);
   }
 
-  private void updateMaxPermSize() throws IOException
+  private void updateMemorySettings() throws IOException
   {
-    logger.info("Setting MAX_PERM_SIZE to " + MAX_PERM_SIZE + "M");
-    File startup = new File(PostInstallSetup.DEFAULT_TOMCAT + "/bin/startup.bat");
-    this.readAndReplace(startup, "-XX:MaxPermSize=\\d*M", "-XX:MaxPermSize=" + MAX_PERM_SIZE + "M");
+    /*
+     * Update the ecache properties depending on 32 bit or not
+     */
+    if (!this.is32)
+    {
+      editWebappProperty("globalCache.memorySize", "100000", "server.properties");
+      editWebappProperty("transactionCache.memorySize", "5000", "server.properties");
+      editWebappProperty("transactionCache.diskstore.size", "25000", "server.properties");
+    }
   }
 
   /**
@@ -363,6 +369,11 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
       editWebappProperty("master", "false", "install.properties");
       editWebappProperty("domain", domain, "terraframe.properties");
     }
+
+    /*
+     * Update the ecache properties depending on 32 bit or not
+     */
+    this.updateMemorySettings();
   }
 
   public void editWebappProperty(String key, String newValue, String bundle) throws IOException
