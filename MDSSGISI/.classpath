@@ -144,11 +144,6 @@
 	<classpathentry kind="lib" path="/IDSLite/lib/server/xml-apis.jar"/>
 	<classpathentry kind="lib" path="/IDSLite/lib/server/xsom.jar"/>
 	<classpathentry kind="lib" path="/IDSLite/lib/server/xstream-1.1.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
-	<classpathentry kind="lib" path="/org.eclipse.swt/swt.jar" sourcepath="/org.eclipse.swt/src.zip">
-		<attributes>
-			<attribute name="javadoc_location" value="http://help.eclipse.org/stable/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="/IDSLite/lib/mac_swt/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
