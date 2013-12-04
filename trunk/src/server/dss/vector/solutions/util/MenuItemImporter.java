@@ -32,6 +32,8 @@ public class MenuItemImporter
 
   private String           fileName        = null;
 
+  private boolean          updateDiseaseRoots;
+
   /**
    * @param args
    * @throws Exception
@@ -44,14 +46,26 @@ public class MenuItemImporter
       switch (args.length)
       {
         case 1:
+        {
           String fileName = args[0];
           System.out.println("Start");
           MenuItemImporter i = new MenuItemImporter(fileName);
           i.importAll();
           System.out.println("End");
+        }
+          break;
+        case 2:
+        {
+          String fileName = args[0];
+          boolean updateDiseaseRoots = Boolean.parseBoolean(args[1]);
+          System.out.println("Start");
+          MenuItemImporter i = new MenuItemImporter(fileName, updateDiseaseRoots);
+          i.importAll();
+          System.out.println("End");
+        }
           break;
         default:
-          System.out.println("Incorrect args!  Takes one argument: the filename");
+          System.out.println("Incorrect args!  Required: the filename. Optional: update disease roots");
       }
     }
     finally
@@ -67,8 +81,15 @@ public class MenuItemImporter
 
   public MenuItemImporter(String fileName)
   {
+    this(fileName, true);
+  }
+
+  public MenuItemImporter(String fileName, boolean updateDiseaseRoots)
+  {
     this();
+
     this.fileName = fileName;
+    this.updateDiseaseRoots = updateDiseaseRoots;
   }
 
   @Request
@@ -80,7 +101,11 @@ public class MenuItemImporter
   @Transaction
   private void importAllInTransaction() throws Exception
   {
-    this.importDiseaseRoots();
+    if (this.updateDiseaseRoots)
+    {
+      this.importDiseaseRoots();
+    }
+
     this.importSystemUrls();
     this.importMenuItems();
 
