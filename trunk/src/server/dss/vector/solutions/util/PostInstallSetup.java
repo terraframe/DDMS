@@ -333,7 +333,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     {
       editWebappProperty("globalCache.memorySize", "100000", "server.properties");
       editWebappProperty("transactionCache.memorySize", "5000", "server.properties");
-      editWebappProperty("transactionCache.diskstore.size", "25000", "server.properties");
+      editWebappProperty("transactionCache.diskstore.size", "2500", "server.properties");
     }
   }
 
