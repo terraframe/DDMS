@@ -30,6 +30,11 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
    */
   private static final int                MAX_ATTEMPTS = 5;
 
+  /**
+   * Name of the service
+   */
+  private static final String             SERVICE_NAME = "Tomcat6";
+
   private RemoteLifecycleListenerServerIF server;
 
   private RemoteLifecycleListener         listener;
@@ -66,7 +71,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
     fireServerChange(this.getServerStatus());
   }
 
-  private void runCommand(final String command, final Runnable callback)
+  private void runCommand(final String[] command, final Runnable callback)
   {
     try
     {
@@ -110,7 +115,9 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
 
     if (status.equals(ServerStatus.STOPPED))
     {
-      runCommand(ManagerProperties.getStartCommand(), new Runnable()
+      String[] script = { "cmd.exe", "/c", "sc", "start", SERVICE_NAME };
+
+      runCommand(script, new Runnable()
       {
         @Override
         public void run()
@@ -123,7 +130,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
           while (count < MAX_ATTEMPTS && server == null)
           {
             count++;
-            
+
             long wait = System.currentTimeMillis() + WAIT_TIME;
 
             while (System.currentTimeMillis() < wait)
@@ -173,7 +180,9 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
 
     if (status.equals(ServerStatus.STARTED))
     {
-      runCommand(ManagerProperties.getStopCommand(), null);
+      String[] script = { "cmd.exe", "/c", "sc", "stop", SERVICE_NAME };
+
+      runCommand(script, null);
     }
     else
     {
