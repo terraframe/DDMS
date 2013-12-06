@@ -34,7 +34,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
         
       if(index != 0)
       {
-        var checkbox = factory.newElement('input', {'type':'checkbox', 'value':type, 'id':rootId + '_selectUniversalType', 'class':'selectUniversalType'})
+        var checkbox = factory.newElement('input', {'type':'checkbox', 'value':type, 'id':type + '_selectUniversalType', 'class':'selectUniversalType'})
 
         YAHOO.util.Event.on(checkbox.getRawEl(), 'click', this._notifySelectUniversalTypeHandler, checkbox.getRawEl().value, this);
         dt.appendChild(checkbox);

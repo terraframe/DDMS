@@ -892,7 +892,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         attribute : function(entityAlias, attributeName, userAlias){
             
             var checked = thisRef._checkBox(userAlias);
-            thisRef._setNumberCriteriaFromLoad(checked, userAlias);
+            thisRef._setTextCriteriaFromLoad(checked, userAlias);             
         },
         sum: function(entityAlias, attributeName, userAlias){
 

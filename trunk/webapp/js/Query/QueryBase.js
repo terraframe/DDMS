@@ -1477,7 +1477,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     
     _setTreeValidator : function()
     {
-      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          
+      this._selectSearch._tree.setValidator(Mojo.Util.bind(this, this._validator));          
     },
     
     _validator : function(request, geoId)
