@@ -8,9 +8,9 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 public class TeamJoin extends TargetJoin implements Reloadable
 {
   
-  public TeamJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
+  public TeamJoin(IRSQB irsQB)
   {
-    super(irsQB, hasActual, hasPlanned);
+    super(irsQB);
   }
   
   @Override
@@ -29,7 +29,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
     String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQB.View.PLANNED_TEAM_RESULTS + " " + TargetJoin.PLANNED_ALIAS;
 
-    if (hasPlanned)
+    if (hasActual && hasPlanned)
     {
       String sql = "";
 
@@ -52,6 +52,10 @@ public class TeamJoin extends TargetJoin implements Reloadable
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
       return sql;
+    }
+    else if(hasPlanned)
+    {
+      return p;
     }
     else
     {

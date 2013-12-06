@@ -25,9 +25,14 @@ public abstract class AbstractSQLProvider implements SQLProvider
    */
   protected IRSQB         irsQB;
   
+  protected boolean hasActual;
+  protected boolean hasPlanned;
+  
   public AbstractSQLProvider(IRSQB irsQB)
   {
     this.irsQB = irsQB;
+    this.hasActual = this.irsQB.hasActivity();
+    this.hasPlanned = this.irsQB.hasPlanned();
   }
   
   public String getSQL()

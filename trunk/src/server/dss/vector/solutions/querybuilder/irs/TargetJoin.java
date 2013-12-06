@@ -7,18 +7,13 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public abstract class TargetJoin extends AbstractSprayProvider implements Reloadable
 {
-  protected boolean hasActual;
-  protected boolean hasPlanned;
-  
   public static final String ACTUAL_ALIAS = "a";
   public static final String PLANNED_ALIAS = "p";
   
-  public TargetJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
+  public TargetJoin(IRSQB irsQB)
   {
     super(irsQB);
-    
-    this.hasActual = hasActual;
-    this.hasPlanned = hasPlanned;
+
   }
   
   @Override

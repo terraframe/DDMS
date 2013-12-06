@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSQLDateTime;
+import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSQLTime;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
@@ -53,6 +55,7 @@ import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.Metadata;
 import com.sun.tools.javac.util.Pair;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.Property;
@@ -124,7 +127,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   public static final String AREA_PREFIX = "area_";
   
   public static final String IMPORTED_AREA_DATETIME = "imported_area_datetime";
-
+  
   // The selectable user alias of the smallest universal in the query screen
   private String                            smallestUniversalSelectable;
 
@@ -217,7 +220,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   private ValueQueryParser                  sprayParser;
 
   private DateCriteria                      dateCriteria;
-
+  
   /**
    * A Set of all the select aliases that are used in the query.
    */
@@ -397,6 +400,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.setWITHRecursive(true);
     
+    
     this.universals = new HashMap<String, Universal>();
     
     this.requiredAliases = new HashMap<View, Set<Alias>>();
@@ -428,8 +432,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // The sprayView is always required
     this.requiredViews = new HashSet<View>();
     this.requiredViews.add(View.SPRAY_VIEW);
-    // FIXME default to having activity included (what if they're only querying planned)?
-    this.requiredViews.add(View.ALL_ACTUALS);
+//    this.requiredViews.add(View.ALL_ACTUALS);
 
     
     this.selectAliases = new HashSet<Alias>();
@@ -501,13 +504,20 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Add the count selectable if it's not added. This is a looser restriction
-   * than other QBs because we always want the count selectable hack.
+   * Activity is assumed if there are no planned targets (what else would the user select)
+   * or if activity has been explicitly requested.
+   * @return
    */
-//  protected boolean enableCountSelectable(ValueQuery v)
-//  {
-//    return !v.hasSelectableRef(WINDOW_COUNT_ALIAS);
-//  }
+  public boolean hasActivity()
+  {
+    boolean b = this.requiredViews.contains(View.ALL_ACTUALS);
+    return b || !this.hasPlannedTargets;
+  }
+
+  public boolean hasPlanned()
+  {
+    return this.hasPlannedTargets;
+  }
   
   public void addRequiredView(View view)
   {
@@ -885,6 +895,37 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     joinSexAttributes();
 
+    
+    // DEBUG
+    if(MdssLog.isDebugEnabled())
+    {
+      String f = String.format("Alias: [%s], Insecticide (inner): [%s], Insecticide (outer): [%s], Spray: [%s]", 
+          this.sprayViewAlias, this.insecticideQuery, this.outerInsecticideQuery, this.abstractSprayQuery);
+      System.out.println(f);
+      
+      for(Selectable s : this.irsVQ.getSelectableRefs())
+      {
+        System.out.println(s.getUserDefinedAlias());
+      }
+      
+      for(Field field : this.getClass().getFields())
+      {
+        String n = field.getName();
+        Object o;
+        try
+        {
+          o = field.get(this);
+        }
+        catch(Throwable t)
+        {
+          o = t.getMessage();
+        }
+        
+        System.out.println(n+" : "+o);
+      }
+    }
+    
+    
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
@@ -1167,7 +1208,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       outer.SELECT(valid.toArray(new Selectable[valid.size()]));
       
-      AreaJoin aj = new AreaJoin(this, true, true);
+      AreaJoin aj = new AreaJoin(this);
       
       Map<Alias, Alias> swaps = new HashMap<Alias, Alias>();
       swaps.put(Alias.DATEGROUP_EPIWEEK, Alias.TARGET_WEEK);
@@ -1920,16 +1961,16 @@ public class IRSQB extends AbstractQB implements Reloadable
   @Override
   protected void addCountSelectable(ValueQuery v)
   {
-//    if(!v.hasCountSelectable())
-//    {
-//      String windowCount = "count(*) over()";
-//      SelectableSQLLong c = v.isGrouping() ? 
-//        v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) :
-//          v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
-//        
-//      v.SELECT(c);
-//      v.setCountSelectable(c);
-//    }
+    if(!this.needsAreaPlanned && !v.hasCountSelectable())
+    {
+      String windowCount = "count(*) over()";
+      SelectableSQLLong c = v.isGrouping() ? 
+        v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) :
+          v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
+        
+      v.SELECT(c);
+      v.setCountSelectable(c);
+    }
   }
   
   public void setAreaJoin(AreaJoin areaJoin)
@@ -1957,6 +1998,12 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void setWithQuerySQL()
   {
+    // any thing that needs sprayed units requires all activity levels
+    if(this.needsSprayedUnits)
+    {
+      this.addRequiredView(View.ALL_ACTUALS);
+    }
+    
     if(!this.needsAreaPlanned)
     {
       this.setWITHGeoDisplayLabelSQL();
@@ -2122,6 +2169,9 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias()))
     {
+      this.addRequiredView(View.ALL_ACTUALS);
+      this.addRequiredView(View.PLANNED_OPERATOR);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias());
       String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + sumOperatorPlannedTargets()
           + ",0))*100.0";
@@ -2133,6 +2183,9 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias()))
     {
+      this.addRequiredView(View.ALL_ACTUALS);
+      this.addRequiredView(View.PLANNED_TEAM);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias());
 
       String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + this.sumTeamPlannedTargets()
@@ -2229,6 +2282,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.OPERATOR_ACTUAL_TARGET.getAlias()))
     {
+      this.addRequiredView(View.ALL_ACTUALS);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_ACTUAL_TARGET.getAlias());
       String sql = this.sumOperatorActualTargets();
       calc.setSQL(sql);
@@ -2239,6 +2294,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.TEAM_ACTUAL_TARGET.getAlias()))
     {
+      this.addRequiredView(View.ALL_ACTUALS);
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_ACTUAL_TARGET.getAlias());
       String sql = this.sumTeamActualTargets();
       calc.setSQL(sql);
@@ -2322,4 +2379,5 @@ public class IRSQB extends AbstractQB implements Reloadable
       throw new ProgrammingErrorException(e);
     }
   }
+
 }

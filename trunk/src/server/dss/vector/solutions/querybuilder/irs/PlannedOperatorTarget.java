@@ -42,13 +42,25 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
     if(selected.contains(Alias.OPERATOR_PLANNED_COVERAGE))
     {
       // coverage requires target
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
+      
       this.irsQB.addRequiredAlias(View.PLANNED_OPERATOR, Alias.OPERATOR_PLANNED_TARGET);
     }
     
     if(selected.contains(Alias.OPERATOR_TARGET_DIVERGENCE))
     {
-      this.irsQB.addRequiredAlias(View.PLANNED_OPERATOR, Alias.OPERATOR_PLANNED_TARGET);
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.OPERATOR_ACTUAL_TARGET);
+      
+      this.irsQB.addRequiredAlias(View.PLANNED_OPERATOR, Alias.OPERATOR_PLANNED_TARGET);
+    }
+    
+    // There are no geo entities for operator targets but selecting a universal will
+    // require a column. Although the value will be null, include the column to keep
+    // the SQL valid.
+    if(this.irsQB.hasUniversal())
+    {
+      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.GEO_ENTITY);
     }
   }
   

@@ -44,10 +44,26 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_TEAM);
     }
     
+    if(selected.contains(Alias.TEAM_TARGET_DIVERGENCE))
+    {
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_TEAM, Alias.TEAM_ACTUAL_TARGET);
+      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.SPRAY_TEAM, Alias.TEAM_PLANNED_TARGET);
+    }
+    
     if(selected.contains(Alias.TEAM_PLANNED_COVERAGE))
     {
       this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.TEAM_PLANNED_TARGET);
-      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.TEAM_ACTUAL_TARGET);
+      
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
+    }
+    
+    // There are no geo entities for team targets but selecting a universal will
+    // require a column. Although the value will be null, include the column to keep
+    // the SQL valid.
+    if(this.irsQB.hasUniversal())
+    {
+      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.GEO_ENTITY);
     }
   }
   

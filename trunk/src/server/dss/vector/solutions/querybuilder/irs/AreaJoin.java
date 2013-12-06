@@ -22,9 +22,9 @@ public class AreaJoin extends TargetJoin implements Reloadable
   // private boolean isLeftJoin;
   public static final String JOIN_SUFFIX = "_join";
   
-  public AreaJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
+  public AreaJoin(IRSQB irsQB)
   {
-    super(irsQB, hasActual, hasPlanned);
+    super(irsQB);
   }
 
   @Override

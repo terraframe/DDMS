@@ -180,12 +180,15 @@ public abstract class AbstractQB implements Reloadable
 
   private List<WITHEntry>            withEntries;
   
+  private boolean hasUniversal;
+  
   private Integer pageNumber;
   
   private Integer pageSize;
 
   public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
+    this.hasUniversal = false;
     this.recursiveWithClause = false;
     this.xml = xml;
     this.config = config;
@@ -198,6 +201,11 @@ public abstract class AbstractQB implements Reloadable
     this.withEntries = new LinkedList<WITHEntry>();
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
+  }
+  
+  public boolean hasUniversal()
+  {
+    return this.hasUniversal;
   }
   
   public Integer getPageNumber()
@@ -923,6 +931,8 @@ public abstract class AbstractQB implements Reloadable
   
   private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
+    this.hasUniversal = true;
+    
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
     for (String selectedGeoEntityType : selectedUniversals)

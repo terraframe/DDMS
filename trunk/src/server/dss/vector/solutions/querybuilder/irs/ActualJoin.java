@@ -9,7 +9,7 @@ public class ActualJoin extends TargetJoin implements Reloadable
 
   public ActualJoin(IRSQB irsQB)
   {
-    super(irsQB, true, false);
+    super(irsQB);
   }
 
   @Override

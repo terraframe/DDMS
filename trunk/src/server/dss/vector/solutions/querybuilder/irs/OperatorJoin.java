@@ -3,14 +3,13 @@ package dss.vector.solutions.querybuilder.irs;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
-import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class OperatorJoin extends TargetJoin implements Reloadable
 {
 
-  public OperatorJoin(IRSQB irsQB, boolean hasActual, boolean hasPlanned)
+  public OperatorJoin(IRSQB irsQB)
   {
-    super(irsQB, hasActual, hasPlanned);
+    super(irsQB);
   }
   
   public final String FROM()
@@ -18,7 +17,7 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     String a = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQB.View.PLANNED_OPERATOR + " " + TargetJoin.PLANNED_ALIAS;
 
-    if (hasPlanned)
+    if (hasActual && hasPlanned)
     {
       String sql = "";
 
@@ -40,6 +39,10 @@ public class OperatorJoin extends TargetJoin implements Reloadable
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
       return sql;
+    }
+    else if(hasPlanned)
+    {
+      return p;
     }
     else
     {

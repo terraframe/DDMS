@@ -42,8 +42,6 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
       this.irsQB.addRequiredAlias(View.SPRAY_VIEW, activity);
     }
     
-    // Load the activity (optimize by not loading all the time?)
-    this.irsQB.addRequiredView(IRSQB.View.ALL_ACTUALS);
     
     if(this.irsQB.needsAreaPlanned())
     {
@@ -77,19 +75,19 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
         // Hack: Set has planned targets to false. By setting the value to
         // false it keeps the planned area table from being in the join.
         // IRSQB.postProcess() custom adds it later to make the query faster.
-        AreaJoin aj = new AreaJoin(this.irsQB, true, false);
+        AreaJoin aj = new AreaJoin(this.irsQB);
         this.irsQB.setAreaJoin(aj);
         joins.add(aj);
       }
 
       if (this.irsQB.needsTeamsPlanned())
       {
-        joins.add(new TeamJoin(this.irsQB, true, true));
+        joins.add(new TeamJoin(this.irsQB));
       }
 
       if (this.irsQB.needsOperatorPlanned())
       {
-        joins.add(new OperatorJoin(this.irsQB, true, true));
+        joins.add(new OperatorJoin(this.irsQB));
       }
     }
     else
