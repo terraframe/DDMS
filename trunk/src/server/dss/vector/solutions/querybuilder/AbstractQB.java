@@ -937,6 +937,7 @@ public abstract class AbstractQB implements Reloadable
     String idCol = QueryUtil.getIdColumn();
     for (String selectedGeoEntityType : selectedUniversals)
     {
+      this.hasUniversal = true;
       List<Selectable> selectables = new LinkedList<Selectable>();
 
       GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);

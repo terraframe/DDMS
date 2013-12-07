@@ -63,6 +63,7 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
     // the SQL valid.
     if(this.irsQB.hasUniversal())
     {
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
       this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.GEO_ENTITY);
     }
   }

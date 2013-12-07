@@ -2049,6 +2049,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     neutral.add(Alias.AUDIT_LAST_UPDATED_BY.getAlias());
     neutral.add(Alias.AUDIT_IMPORTED.getAlias());
     
+    neutral.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
+    
     neutral.add(Alias.SPRAY_OPERATOR.getAlias());
     neutral.add(Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias());
     neutral.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
