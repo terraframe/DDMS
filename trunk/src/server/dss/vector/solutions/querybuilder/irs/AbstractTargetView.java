@@ -1,10 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
-import java.util.Set;
-
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
@@ -110,9 +107,8 @@ public abstract class AbstractTargetView extends AuxiliaryProvider implements Re
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS ) + ") AS i, "
         + IRSQB.View.DATE_EXTRAPOLATION_VIEW.getView() + " de, " + malariaSeasonTable + " ms \n";
     from += " WHERE target_array[i] IS NOT NULL \n";
-    from += " AND (i-1) = de." + this.irsQB.getPeriodCol() + " \n"; // substract 1 because
-                                                    // arrays in postgres are
-                                                    // 1-based
+    from += " AND (i-1) = de." + this.irsQB.getPeriodCol() + " \n";
+    from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";
     from += " AND ms." + idCol + " = tar." + seasonCol + "\n";
     return select + from;

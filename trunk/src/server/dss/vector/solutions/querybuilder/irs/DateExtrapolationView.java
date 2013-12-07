@@ -37,6 +37,7 @@ public class DateExtrapolationView extends AuxiliaryProvider implements Reloadab
 
     String sql = "";
     sql += "SELECT \n";
+    sql += " "+yearCol+" AS "+yearCol+", \n";
     sql += " " + periodCol + " AS " + periodCol + ", \n";
     sql += " (get_epistart(" + yearCol + ", " + startDay + ") + (to_char((" + periodCol
         + ")*7, '999')||' days')::interval)::date AS " + Alias.PLANNED_DATE + " \n";

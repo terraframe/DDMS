@@ -9,7 +9,6 @@ import com.runwaysdk.system.metadata.Metadata;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.irs.GeoTarget;
-import dss.vector.solutions.irs.ResourceTarget;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
@@ -47,6 +46,8 @@ public class GeoTargetView extends AbstractTargetView implements Reloadable
     String seasonCol;
     diseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
     seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
+    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
+    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
     
 
     String weeks = "";
@@ -85,6 +86,7 @@ public class GeoTargetView extends AbstractTargetView implements Reloadable
       select += "tar."+QueryUtil.getColumnName(Metadata.getLastUpdatedByMd())+" "+Alias.AUDIT_LAST_UPDATED_BY+" "+", \n";
     }
     
+    String yearCol = QueryUtil.getColumnName(EpiWeek.getYearOfWeekMd());
     
     select += "tar." + keyName + " AS " + keyName + ",\n";
     select += "de." + Alias.PLANNED_DATE + " AS " + Alias.PLANNED_DATE + ", \n";
@@ -135,9 +137,8 @@ public class GeoTargetView extends AbstractTargetView implements Reloadable
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS ) + ") AS i, "
         + IRSQB.View.DATE_EXTRAPOLATION_VIEW.getView() + " de, " + malariaSeasonTable + " ms \n";
     from += " WHERE target_array[i] IS NOT NULL \n";
-    from += " AND (i-1) = de." + this.irsQB.getPeriodCol() + " \n"; // substract 1 because
-                                                    // arrays in postgres are
-                                                    // 1-based
+    from += " AND (i-1) = de." + this.irsQB.getPeriodCol() + " \n";
+    from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";
     from += " AND ms." + idCol + " = tar." + seasonCol + "\n";
     return select + from;
