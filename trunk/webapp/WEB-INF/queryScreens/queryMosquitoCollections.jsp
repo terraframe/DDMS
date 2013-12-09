@@ -111,8 +111,7 @@ YAHOO.util.Event.onDOMReady(function(){
         displayLabel:MDSS.localize('percent_parous'),
         description:MDSS.localize('percent_parous'),
         type:'sqldouble',
-        dtoType:'AttributeDoubleDTO',
-        includes:MDSS.QueryXML.F_SET2
+        isAggregate:true
       });
     
   var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});

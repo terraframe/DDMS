@@ -13,9 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
@@ -31,9 +29,6 @@ import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
-import dss.vector.solutions.entomology.assay.AbstractAssay;
-import dss.vector.solutions.entomology.assay.AbstractAssayQuery;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
@@ -82,6 +77,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
    * this query is for abundance calculation and if no universal columns have
    * been added.
    */
+  @SuppressWarnings("unchecked")
   @Override
   protected JSONObject constructQueryConfig(String config)
   {
@@ -220,20 +216,12 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     if (valueQuery.hasSelectableRef(QueryConstants.PERCENT_PAROUS))
     {
       Selectable sel = valueQuery.getSelectableRef(QueryConstants.PERCENT_PAROUS);
-      SelectableSQLDouble overall;
-      if (sel.isAggregateFunction())
-      {
-        overall = (SelectableSQLDouble) ( (AggregateFunction) sel ).getSelectable();
-      }
-      else
-      {
-        overall = (SelectableSQLDouble) sel;
-      }
+      SelectableSQLDouble overall = (SelectableSQLDouble) sel;
 
       String parous = subCollectionQuery.getTableAlias() + "." + QueryUtil.getColumnName(SubCollection.getParousMd());
       String disected = subCollectionQuery.getTableAlias() + "." + QueryUtil.getColumnName(SubCollection.getDisectedMd());
 
-      String sql = "(" + parous + " / NULLIF(" + disected + ",0)::double precision * 100)";
+      String sql = "(SUM(" + parous + ") / NULLIF(SUM(" + disected + "),0)::double precision * 100)";
 
       overall.setSQL(sql);
     }
