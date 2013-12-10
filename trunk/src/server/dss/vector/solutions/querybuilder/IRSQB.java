@@ -1153,7 +1153,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (this.needsAreaPlanned)
     {
       boolean hasNonArea = this.hasActivity() || this.needsOperatorPlanned 
-          || this.needsTeamsPlanned || this.needUniqueSprayId;
+          || this.needsTeamsPlanned;
       
       List<WITHEntry> entries = new LinkedList<WITHEntry>();
       entries.add(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, 
@@ -2118,6 +2118,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // Loop through and collect all selectables aliases. Note that
     // other places might set aliases as well, but this is to make
     // sure the obvious Selectables are accounted for.
+    this.hasActivity = this.needsSprayedUnits; // all sprayed units require activity
     for (Selectable s : this.irsVQ.getSelectableRefs())
     {
       String userDefinedAlias = s.getUserDefinedAlias(); // alias from incoming
@@ -2360,7 +2361,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         this.needsAreaPlanned = true;
         this.needsSprayedUnits = true;
-
+        
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
         calc.setSQL("NULL::INTEGER");
       }

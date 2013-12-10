@@ -931,8 +931,6 @@ public abstract class AbstractQB implements Reloadable
   
   private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
-    this.hasUniversal = true;
-    
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
     for (String selectedGeoEntityType : selectedUniversals)

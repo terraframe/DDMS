@@ -67,6 +67,12 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
       UsersQuery u = new UsersQuery(this.irsQB.getValueQuery());
       this.lastUpdatedBy = u.getUsername();
     }
+    
+    if(select.contains(Alias.AREA_PLANNED_COVERAGE))
+    {
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAYED_UNITS);
+    }
   }
   
   @Override
