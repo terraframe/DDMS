@@ -402,4 +402,257 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
 
   }
   }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface AdultDiscriminatingDoseAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.AdultAssayQuery.AdultAssayQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality();
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getHoldingTime();
+    public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias);
+    public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDouble getKd50();
+    public com.runwaysdk.query.SelectableDouble getKd50(String alias);
+    public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDouble getKd95();
+    public com.runwaysdk.query.SelectableDouble getKd95(String alias);
+    public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getMortality();
+    public com.runwaysdk.query.SelectableFloat getMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityDead();
+    public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityLive();
+    public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId();
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class AdultDiscriminatingDoseAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.AdultAssayQuery.AdultAssayQueryMultiReference
+ implements AdultDiscriminatingDoseAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public AdultDiscriminatingDoseAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay)  {
+
+      String[] itemIdArray = new String[adultDiscriminatingDoseAssay.length]; 
+
+      for (int i=0; i<adultDiscriminatingDoseAssay.length; i++)
+      {
+        itemIdArray[i] = adultDiscriminatingDoseAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay)  {
+
+      String[] itemIdArray = new String[adultDiscriminatingDoseAssay.length]; 
+
+      for (int i=0; i<adultDiscriminatingDoseAssay.length; i++)
+      {
+        itemIdArray[i] = adultDiscriminatingDoseAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay)  {
+
+      String[] itemIdArray = new String[adultDiscriminatingDoseAssay.length]; 
+
+      for (int i=0; i<adultDiscriminatingDoseAssay.length; i++)
+      {
+        itemIdArray[i] = adultDiscriminatingDoseAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay)  {
+
+      String[] itemIdArray = new String[adultDiscriminatingDoseAssay.length]; 
+
+      for (int i=0; i<adultDiscriminatingDoseAssay.length; i++)
+      {
+        itemIdArray[i] = adultDiscriminatingDoseAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay ... adultDiscriminatingDoseAssay)  {
+
+      String[] itemIdArray = new String[adultDiscriminatingDoseAssay.length]; 
+
+      for (int i=0; i<adultDiscriminatingDoseAssay.length; i++)
+      {
+        itemIdArray[i] = adultDiscriminatingDoseAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  {
+    return getControlTestMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTMORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getHoldingTime()
+  {
+    return getHoldingTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.HOLDINGTIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.HOLDINGTIME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDouble getKd50()
+  {
+    return getKd50(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.KD50, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.KD50, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDouble getKd95()
+  {
+    return getKd95(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.KD95, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.KD95, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getMortality()
+  {
+    return getMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.MORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.MORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityDead()
+  {
+    return getQuantityDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYDEAD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityLive()
+  {
+    return getQuantityLive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYLIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.UNIQUEASSAYID, alias, displayLabel);
+
+  }
+  }
 }

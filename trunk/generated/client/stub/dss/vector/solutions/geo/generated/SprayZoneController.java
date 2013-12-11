@@ -5,8 +5,6 @@ public class SprayZoneController extends SprayZoneControllerBase implements com.
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/SprayZone/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 2013944688;
-  
   public SprayZoneController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);

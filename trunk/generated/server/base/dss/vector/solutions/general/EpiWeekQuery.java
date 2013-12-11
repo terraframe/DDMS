@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  class EpiWeekQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -215247080;
 
   public EpiWeekQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -567,7 +566,6 @@ private static final long serialVersionUID = -215247080;
  implements EpiWeekQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 269737274;
 
   public EpiWeekQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -942,6 +940,410 @@ private static final long serialVersionUID = 269737274;
     return this.isNotChildIn_SUBSELECT(weeklyThresholdQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.EpiWeek.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.EpiWeek.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.EpiWeek.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.EpiWeek.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.EpiWeek.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface EpiWeekQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPeriod();
+    public com.runwaysdk.query.SelectableInteger getPeriod(String alias);
+    public com.runwaysdk.query.SelectableInteger getPeriod(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getYearOfWeek();
+    public com.runwaysdk.query.SelectableInteger getYearOfWeek(String alias);
+    public com.runwaysdk.query.SelectableInteger getYearOfWeek(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.EpiWeek ... epiWeek);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.EpiWeek ... epiWeek);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.EpiWeek ... epiWeek);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.EpiWeek ... epiWeek);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.EpiWeek ... epiWeek);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class EpiWeekQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements EpiWeekQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public EpiWeekQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.EpiWeek ... epiWeek)  {
+
+      String[] itemIdArray = new String[epiWeek.length]; 
+
+      for (int i=0; i<epiWeek.length; i++)
+      {
+        itemIdArray[i] = epiWeek[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.EpiWeek ... epiWeek)  {
+
+      String[] itemIdArray = new String[epiWeek.length]; 
+
+      for (int i=0; i<epiWeek.length; i++)
+      {
+        itemIdArray[i] = epiWeek[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.EpiWeek ... epiWeek)  {
+
+      String[] itemIdArray = new String[epiWeek.length]; 
+
+      for (int i=0; i<epiWeek.length; i++)
+      {
+        itemIdArray[i] = epiWeek[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.EpiWeek ... epiWeek)  {
+
+      String[] itemIdArray = new String[epiWeek.length]; 
+
+      for (int i=0; i<epiWeek.length; i++)
+      {
+        itemIdArray[i] = epiWeek[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.EpiWeek ... epiWeek)  {
+
+      String[] itemIdArray = new String[epiWeek.length]; 
+
+      for (int i=0; i<epiWeek.length; i++)
+      {
+        itemIdArray[i] = epiWeek[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.EpiWeek.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.EpiWeek.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.EpiWeek.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.EpiWeek.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.EpiWeek.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPeriod()
+  {
+    return getPeriod(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriod(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EpiWeek.PERIOD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriod(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EpiWeek.PERIOD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.general.EpiWeek.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.general.EpiWeek.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EpiWeek.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getYearOfWeek()
+  {
+    return getYearOfWeek(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearOfWeek(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EpiWeek.YEAROFWEEK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearOfWeek(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EpiWeek.YEAROFWEEK, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

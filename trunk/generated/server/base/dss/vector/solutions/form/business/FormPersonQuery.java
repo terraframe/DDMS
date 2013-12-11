@@ -11,7 +11,6 @@ package dss.vector.solutions.form.business;
 public  class FormPersonQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1844832766;
 
   public FormPersonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -527,7 +526,6 @@ private static final long serialVersionUID = 1844832766;
  implements FormPersonQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2079925984;
 
   public FormPersonQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -548,6 +546,486 @@ private static final long serialVersionUID = -2079925984;
       return this.NE(formPerson.getId());
     }
 
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.form.business.FormPerson.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.form.business.FormPerson.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.CREATEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.DISEASE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold()
+  {
+    return getHousehold(null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold(String alias)
+  {
+    return (dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.HOUSEHOLD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.HOUSEHOLD,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.form.business.FormPerson.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.form.business.FormPerson.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet()
+  {
+    return getNet(null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet(String alias)
+  {
+    return (dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.NET, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.NET,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getOid()
+  {
+    return getOid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.OID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.OID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.form.business.FormPerson.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.form.business.FormPerson.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.SITEMASTER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey()
+  {
+    return getSurvey(null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey(String alias)
+  {
+    return (dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.SURVEY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.SURVEY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.TYPE, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.form.business.FormPerson.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.HOUSEHOLD)) 
+    {
+       return new dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.NET)) 
+    {
+       return new dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.form.business.FormPerson.SURVEY)) 
+    {
+       return new dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface FormPersonQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold();
+    public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold(String alias);
+    public dss.vector.solutions.form.business.FormHouseholdQuery.FormHouseholdQueryReferenceIF getHousehold(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet();
+    public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet(String alias);
+    public dss.vector.solutions.form.business.FormBedNetQuery.FormBedNetQueryReferenceIF getNet(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getOid();
+    public com.runwaysdk.query.SelectableChar getOid(String alias);
+    public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey();
+    public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey(String alias);
+    public dss.vector.solutions.form.business.FormSurveyQuery.FormSurveyQueryReferenceIF getSurvey(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.form.business.FormPerson ... formPerson);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.form.business.FormPerson ... formPerson);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.form.business.FormPerson ... formPerson);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.form.business.FormPerson ... formPerson);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.form.business.FormPerson ... formPerson);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class FormPersonQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements FormPersonQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public FormPersonQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.form.business.FormPerson ... formPerson)  {
+
+      String[] itemIdArray = new String[formPerson.length]; 
+
+      for (int i=0; i<formPerson.length; i++)
+      {
+        itemIdArray[i] = formPerson[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.form.business.FormPerson ... formPerson)  {
+
+      String[] itemIdArray = new String[formPerson.length]; 
+
+      for (int i=0; i<formPerson.length; i++)
+      {
+        itemIdArray[i] = formPerson[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.form.business.FormPerson ... formPerson)  {
+
+      String[] itemIdArray = new String[formPerson.length]; 
+
+      for (int i=0; i<formPerson.length; i++)
+      {
+        itemIdArray[i] = formPerson[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.form.business.FormPerson ... formPerson)  {
+
+      String[] itemIdArray = new String[formPerson.length]; 
+
+      for (int i=0; i<formPerson.length; i++)
+      {
+        itemIdArray[i] = formPerson[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.form.business.FormPerson ... formPerson)  {
+
+      String[] itemIdArray = new String[formPerson.length]; 
+
+      for (int i=0; i<formPerson.length; i++)
+      {
+        itemIdArray[i] = formPerson[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);

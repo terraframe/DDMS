@@ -5,8 +5,6 @@ public class CollectionSiteController extends CollectionSiteControllerBase imple
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/CollectionSite/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = -1712880256;
-  
   public CollectionSiteController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);

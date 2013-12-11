@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  class SprayMethodMasterQuery extends com.runwaysdk.system.EnumerationMasterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 151877683;
 
   public SprayMethodMasterQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -124,7 +123,6 @@ private static final long serialVersionUID = 151877683;
  implements SprayMethodMasterQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1991378095;
 
   public SprayMethodMasterQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -164,7 +162,6 @@ private static final long serialVersionUID = -1991378095;
   public static class SprayMethodMasterQueryEnumeration extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements SprayMethodMasterQueryEnumerationIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1553374211;
 
   public SprayMethodMasterQueryEnumeration(com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.runwaysdk.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -258,4 +255,97 @@ private static final long serialVersionUID = 1553374211;
 
       return this.containsExactly(enumIdArray);
   }
-  }}
+  }
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SprayMethodMasterQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SprayMethodMasterQueryMultiReference extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReference
+ implements SprayMethodMasterQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SprayMethodMasterQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster)  {
+
+      String[] itemIdArray = new String[sprayMethodMaster.length]; 
+
+      for (int i=0; i<sprayMethodMaster.length; i++)
+      {
+        itemIdArray[i] = sprayMethodMaster[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster)  {
+
+      String[] itemIdArray = new String[sprayMethodMaster.length]; 
+
+      for (int i=0; i<sprayMethodMaster.length; i++)
+      {
+        itemIdArray[i] = sprayMethodMaster[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster)  {
+
+      String[] itemIdArray = new String[sprayMethodMaster.length]; 
+
+      for (int i=0; i<sprayMethodMaster.length; i++)
+      {
+        itemIdArray[i] = sprayMethodMaster[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster)  {
+
+      String[] itemIdArray = new String[sprayMethodMaster.length]; 
+
+      for (int i=0; i<sprayMethodMaster.length; i++)
+      {
+        itemIdArray[i] = sprayMethodMaster[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.irs.SprayMethodMaster ... sprayMethodMaster)  {
+
+      String[] itemIdArray = new String[sprayMethodMaster.length]; 
+
+      for (int i=0; i<sprayMethodMaster.length; i++)
+      {
+        itemIdArray[i] = sprayMethodMaster[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  }
+}

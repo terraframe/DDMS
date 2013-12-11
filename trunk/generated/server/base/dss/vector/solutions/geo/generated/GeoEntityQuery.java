@@ -11,7 +11,6 @@ package dss.vector.solutions.geo.generated;
 public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2083856210;
 
   public GeoEntityQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -986,7 +985,6 @@ private static final long serialVersionUID = -2083856210;
  implements GeoEntityQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1605212496;
 
   public GeoEntityQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1678,6 +1676,529 @@ private static final long serialVersionUID = 1605212496;
     return this.isNotChildIn_SUBSELECT(locatedInQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.TERM)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface GeoEntityQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public com.runwaysdk.query.SelectableBoolean getActivated();
+    public com.runwaysdk.query.SelectableBoolean getActivated(String alias);
+    public com.runwaysdk.query.SelectableBoolean getActivated(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel();
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getGeoData();
+    public com.runwaysdk.query.SelectableChar getGeoData(String alias);
+    public com.runwaysdk.query.SelectableChar getGeoData(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getGeoId();
+    public com.runwaysdk.query.SelectableChar getGeoId(String alias);
+    public com.runwaysdk.query.SelectableChar getGeoId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon();
+    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias);
+    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getGeoPoint();
+    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias);
+    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class GeoEntityQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements GeoEntityQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public GeoEntityQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity)  {
+
+      String[] itemIdArray = new String[geoEntity.length]; 
+
+      for (int i=0; i<geoEntity.length; i++)
+      {
+        itemIdArray[i] = geoEntity[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity)  {
+
+      String[] itemIdArray = new String[geoEntity.length]; 
+
+      for (int i=0; i<geoEntity.length; i++)
+      {
+        itemIdArray[i] = geoEntity[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity)  {
+
+      String[] itemIdArray = new String[geoEntity.length]; 
+
+      for (int i=0; i<geoEntity.length; i++)
+      {
+        itemIdArray[i] = geoEntity[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity)  {
+
+      String[] itemIdArray = new String[geoEntity.length]; 
+
+      for (int i=0; i<geoEntity.length; i++)
+      {
+        itemIdArray[i] = geoEntity[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.GeoEntity ... geoEntity)  {
+
+      String[] itemIdArray = new String[geoEntity.length]; 
+
+      for (int i=0; i<geoEntity.length; i++)
+      {
+        itemIdArray[i] = geoEntity[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableBoolean getActivated()
+  {
+    return getActivated(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getActivated(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.geo.generated.GeoEntity.ACTIVATED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getActivated(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.geo.generated.GeoEntity.ACTIVATED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.geo.generated.GeoEntity.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.geo.generated.GeoEntity.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel()
+  {
+    return getEntityLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getGeoData()
+  {
+    return getGeoData(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoData(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEODATA, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoData(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEODATA, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getGeoId()
+  {
+    return getGeoId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon()
+  {
+    return getGeoMultiPolygon(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getGeoPoint()
+  {
+    return getGeoPoint(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.geo.generated.GeoEntity.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.geo.generated.GeoEntity.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.geo.generated.GeoEntity.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.geo.generated.GeoEntity.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.SITEMASTER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm()
+  {
+    return getTerm(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.TERM, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.TERM,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.TYPE, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

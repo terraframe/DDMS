@@ -10,8 +10,6 @@ public class CollectionSiteControllerBase implements com.runwaysdk.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1402506659;
-  
   public CollectionSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

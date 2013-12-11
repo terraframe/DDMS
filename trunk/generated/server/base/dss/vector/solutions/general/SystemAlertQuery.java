@@ -1112,4 +1112,606 @@ public  class SystemAlertQuery extends com.runwaysdk.query.GeneratedBusinessQuer
   }
 
   }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SystemAlertQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType();
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias);
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getEmailBccAddresses();
+    public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias);
+    public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias, String displayLabel);
+    public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText();
+    public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias);
+    public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getEmailCcAddresses();
+    public com.runwaysdk.query.SelectableChar getEmailCcAddresses(String alias);
+    public com.runwaysdk.query.SelectableChar getEmailCcAddresses(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getEmailFromAddress();
+    public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias);
+    public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias, String displayLabel);
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText();
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias);
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getEmailToAddresses();
+    public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias);
+    public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIsEmailActive();
+    public com.runwaysdk.query.SelectableBoolean getIsEmailActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsEmailActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive();
+    public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.SystemAlert ... systemAlert);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.SystemAlert ... systemAlert);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.SystemAlert ... systemAlert);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.SystemAlert ... systemAlert);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.SystemAlert ... systemAlert);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SystemAlertQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements SystemAlertQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SystemAlertQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.SystemAlert ... systemAlert)  {
+
+      String[] itemIdArray = new String[systemAlert.length]; 
+
+      for (int i=0; i<systemAlert.length; i++)
+      {
+        itemIdArray[i] = systemAlert[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.SystemAlert ... systemAlert)  {
+
+      String[] itemIdArray = new String[systemAlert.length]; 
+
+      for (int i=0; i<systemAlert.length; i++)
+      {
+        itemIdArray[i] = systemAlert[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.SystemAlert ... systemAlert)  {
+
+      String[] itemIdArray = new String[systemAlert.length]; 
+
+      for (int i=0; i<systemAlert.length; i++)
+      {
+        itemIdArray[i] = systemAlert[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.SystemAlert ... systemAlert)  {
+
+      String[] itemIdArray = new String[systemAlert.length]; 
+
+      for (int i=0; i<systemAlert.length; i++)
+      {
+        itemIdArray[i] = systemAlert[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.SystemAlert ... systemAlert)  {
+
+      String[] itemIdArray = new String[systemAlert.length]; 
+
+      for (int i=0; i<systemAlert.length; i++)
+      {
+        itemIdArray[i] = systemAlert[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType()
+  {
+    return getAlertType(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.get(dss.vector.solutions.general.SystemAlert.ALERTTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.get(dss.vector.solutions.general.SystemAlert.ALERTTYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.SystemAlert.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.SystemAlert.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.CREATEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.DISEASE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getEmailBccAddresses()
+  {
+    return getEmailBccAddresses(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILBCCADDRESSES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILBCCADDRESSES, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText()
+  {
+    return getEmailBodyText(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILBODYTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILBODYTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getEmailCcAddresses()
+  {
+    return getEmailCcAddresses(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailCcAddresses(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILCCADDRESSES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailCcAddresses(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILCCADDRESSES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getEmailFromAddress()
+  {
+    return getEmailFromAddress(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILFROMADDRESS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILFROMADDRESS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText()
+  {
+    return getEmailSubjectText(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getEmailToAddresses()
+  {
+    return getEmailToAddresses(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILTOADDRESSES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILTOADDRESSES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getIsEmailActive()
+  {
+    return getIsEmailActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsEmailActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.general.SystemAlert.ISEMAILACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsEmailActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.general.SystemAlert.ISEMAILACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive()
+  {
+    return getIsOnscreenActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.general.SystemAlert.ISONSCREENACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsOnscreenActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.general.SystemAlert.ISONSCREENACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.SystemAlert.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.general.SystemAlert.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.general.SystemAlert.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.general.SystemAlert.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.TYPE, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.SystemAlert.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILBODYTEXT)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.SystemAlert.ALERTTYPE)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
 }

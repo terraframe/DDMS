@@ -11,7 +11,6 @@ package dss.vector.solutions;
 public  class MDSSUserQuery extends com.runwaysdk.system.UsersQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1486548655;
 
   public MDSSUserQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -320,7 +319,6 @@ private static final long serialVersionUID = -1486548655;
  implements MDSSUserQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -432818833;
 
   public MDSSUserQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -508,6 +506,177 @@ private static final long serialVersionUID = -432818833;
     return this.isNotParentIn_SUBSELECT(persistsSearchQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.MDSSUser.PERSON)) 
+    {
+       return new dss.vector.solutions.PersonQuery.PersonQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.MDSSUser.ROOTGEOENTITY)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface MDSSUserQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.UsersQuery.UsersQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableChar getGeoRoot();
+    public com.runwaysdk.query.SelectableChar getGeoRoot(String alias);
+    public com.runwaysdk.query.SelectableChar getGeoRoot(String alias, String displayLabel);
+    public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson();
+    public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias);
+    public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity();
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.MDSSUser ... mDSSUser);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.MDSSUser ... mDSSUser);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.MDSSUser ... mDSSUser);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.MDSSUser ... mDSSUser);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.MDSSUser ... mDSSUser);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class MDSSUserQueryMultiReference extends com.runwaysdk.system.UsersQuery.UsersQueryMultiReference
+ implements MDSSUserQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public MDSSUserQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.MDSSUser ... mDSSUser)  {
+
+      String[] itemIdArray = new String[mDSSUser.length]; 
+
+      for (int i=0; i<mDSSUser.length; i++)
+      {
+        itemIdArray[i] = mDSSUser[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.MDSSUser ... mDSSUser)  {
+
+      String[] itemIdArray = new String[mDSSUser.length]; 
+
+      for (int i=0; i<mDSSUser.length; i++)
+      {
+        itemIdArray[i] = mDSSUser[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.MDSSUser ... mDSSUser)  {
+
+      String[] itemIdArray = new String[mDSSUser.length]; 
+
+      for (int i=0; i<mDSSUser.length; i++)
+      {
+        itemIdArray[i] = mDSSUser[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.MDSSUser ... mDSSUser)  {
+
+      String[] itemIdArray = new String[mDSSUser.length]; 
+
+      for (int i=0; i<mDSSUser.length; i++)
+      {
+        itemIdArray[i] = mDSSUser[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.MDSSUser ... mDSSUser)  {
+
+      String[] itemIdArray = new String[mDSSUser.length]; 
+
+      for (int i=0; i<mDSSUser.length; i++)
+      {
+        itemIdArray[i] = mDSSUser[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableChar getGeoRoot()
+  {
+    return getGeoRoot(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoRoot(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getGeoRoot(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
+  {
+    return getPerson(null);
+
+  }
+ 
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias)
+  {
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.PERSON, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.PERSON,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity()
+  {
+    return getRootGeoEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.ROOTGEOENTITY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.ROOTGEOENTITY,  alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

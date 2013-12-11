@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  class FontStyleQuery extends com.runwaysdk.system.EnumerationMasterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1335169396;
 
   public FontStyleQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -144,7 +143,6 @@ private static final long serialVersionUID = 1335169396;
  implements FontStyleQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 830298642;
 
   public FontStyleQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -204,7 +202,6 @@ private static final long serialVersionUID = 830298642;
   public static class FontStyleQueryEnumeration extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements FontStyleQueryEnumerationIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -478676668;
 
   public FontStyleQueryEnumeration(com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.runwaysdk.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -315,4 +312,117 @@ private static final long serialVersionUID = -478676668;
 
       return this.containsExactly(enumIdArray);
   }
-  }}
+  }
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface FontStyleQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableInteger getPriority();
+    public com.runwaysdk.query.SelectableInteger getPriority(String alias);
+    public com.runwaysdk.query.SelectableInteger getPriority(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.FontStyle ... fontStyle);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.FontStyle ... fontStyle);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.FontStyle ... fontStyle);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.FontStyle ... fontStyle);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.FontStyle ... fontStyle);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class FontStyleQueryMultiReference extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReference
+ implements FontStyleQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public FontStyleQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.FontStyle ... fontStyle)  {
+
+      String[] itemIdArray = new String[fontStyle.length]; 
+
+      for (int i=0; i<fontStyle.length; i++)
+      {
+        itemIdArray[i] = fontStyle[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.FontStyle ... fontStyle)  {
+
+      String[] itemIdArray = new String[fontStyle.length]; 
+
+      for (int i=0; i<fontStyle.length; i++)
+      {
+        itemIdArray[i] = fontStyle[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.FontStyle ... fontStyle)  {
+
+      String[] itemIdArray = new String[fontStyle.length]; 
+
+      for (int i=0; i<fontStyle.length; i++)
+      {
+        itemIdArray[i] = fontStyle[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.FontStyle ... fontStyle)  {
+
+      String[] itemIdArray = new String[fontStyle.length]; 
+
+      for (int i=0; i<fontStyle.length; i++)
+      {
+        itemIdArray[i] = fontStyle[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.FontStyle ... fontStyle)  {
+
+      String[] itemIdArray = new String[fontStyle.length]; 
+
+      for (int i=0; i<fontStyle.length; i++)
+      {
+        itemIdArray[i] = fontStyle[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableInteger getPriority()
+  {
+    return getPriority(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPriority(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPriority(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
+
+  }
+  }
+}

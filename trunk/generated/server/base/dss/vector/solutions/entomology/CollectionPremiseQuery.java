@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  class CollectionPremiseQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1996846242;
 
   public CollectionPremiseQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -567,7 +566,6 @@ private static final long serialVersionUID = -1996846242;
  implements CollectionPremiseQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 93287036;
 
   public CollectionPremiseQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -588,6 +586,538 @@ private static final long serialVersionUID = 93287036;
       return this.NE(collectionPremise.getId());
     }
 
+  public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection()
+  {
+    return getCollection(null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection(String alias)
+  {
+    return (dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.COLLECTION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.COLLECTION,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.CollectionPremise.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.CollectionPremise.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.CollectionPremise.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.CollectionPremise.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberExamined()
+  {
+    return getNumberExamined(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberExamined(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBEREXAMINED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberExamined(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBEREXAMINED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberInhabitants()
+  {
+    return getNumberInhabitants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERINHABITANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERINHABITANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures()
+  {
+    return getNumberWithImmatures(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae()
+  {
+    return getNumberWithLarvae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae()
+  {
+    return getNumberWithPupae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getPremiseSize()
+  {
+    return getPremiseSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getPremiseSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.entomology.CollectionPremise.PREMISESIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getPremiseSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.entomology.CollectionPremise.PREMISESIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType()
+  {
+    return getPremiseType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.PREMISETYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.CollectionPremise.PREMISETYPE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.entomology.CollectionPremise.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.entomology.CollectionPremise.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.CollectionPremise.TYPE, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.CollectionPremise.COLLECTION)) 
+    {
+       return new dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.CollectionPremise.PREMISETYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface CollectionPremiseQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection();
+    public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection(String alias);
+    public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberExamined();
+    public com.runwaysdk.query.SelectableInteger getNumberExamined(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberExamined(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberInhabitants();
+    public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures();
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae();
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae();
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDecimal getPremiseSize();
+    public com.runwaysdk.query.SelectableDecimal getPremiseSize(String alias);
+    public com.runwaysdk.query.SelectableDecimal getPremiseSize(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPremiseType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class CollectionPremiseQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements CollectionPremiseQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public CollectionPremiseQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise)  {
+
+      String[] itemIdArray = new String[collectionPremise.length]; 
+
+      for (int i=0; i<collectionPremise.length; i++)
+      {
+        itemIdArray[i] = collectionPremise[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise)  {
+
+      String[] itemIdArray = new String[collectionPremise.length]; 
+
+      for (int i=0; i<collectionPremise.length; i++)
+      {
+        itemIdArray[i] = collectionPremise[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise)  {
+
+      String[] itemIdArray = new String[collectionPremise.length]; 
+
+      for (int i=0; i<collectionPremise.length; i++)
+      {
+        itemIdArray[i] = collectionPremise[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise)  {
+
+      String[] itemIdArray = new String[collectionPremise.length]; 
+
+      for (int i=0; i<collectionPremise.length; i++)
+      {
+        itemIdArray[i] = collectionPremise[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.CollectionPremise ... collectionPremise)  {
+
+      String[] itemIdArray = new String[collectionPremise.length]; 
+
+      for (int i=0; i<collectionPremise.length; i++)
+      {
+        itemIdArray[i] = collectionPremise[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public dss.vector.solutions.entomology.ImmatureCollectionQuery.ImmatureCollectionQueryReferenceIF getCollection()
   {
     return getCollection(null);

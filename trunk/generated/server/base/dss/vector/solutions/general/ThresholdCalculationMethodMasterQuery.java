@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  class ThresholdCalculationMethodMasterQuery extends com.runwaysdk.system.EnumerationMasterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1978064339;
 
   public ThresholdCalculationMethodMasterQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -124,7 +123,6 @@ private static final long serialVersionUID = -1978064339;
  implements ThresholdCalculationMethodMasterQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 771024207;
 
   public ThresholdCalculationMethodMasterQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -164,7 +162,6 @@ private static final long serialVersionUID = 771024207;
   public static class ThresholdCalculationMethodMasterQueryEnumeration extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements ThresholdCalculationMethodMasterQueryEnumerationIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -834767779;
 
   public ThresholdCalculationMethodMasterQueryEnumeration(com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.runwaysdk.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -258,4 +255,97 @@ private static final long serialVersionUID = -834767779;
 
       return this.containsExactly(enumIdArray);
   }
-  }}
+  }
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface ThresholdCalculationMethodMasterQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class ThresholdCalculationMethodMasterQueryMultiReference extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReference
+ implements ThresholdCalculationMethodMasterQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public ThresholdCalculationMethodMasterQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster)  {
+
+      String[] itemIdArray = new String[thresholdCalculationMethodMaster.length]; 
+
+      for (int i=0; i<thresholdCalculationMethodMaster.length; i++)
+      {
+        itemIdArray[i] = thresholdCalculationMethodMaster[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster)  {
+
+      String[] itemIdArray = new String[thresholdCalculationMethodMaster.length]; 
+
+      for (int i=0; i<thresholdCalculationMethodMaster.length; i++)
+      {
+        itemIdArray[i] = thresholdCalculationMethodMaster[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster)  {
+
+      String[] itemIdArray = new String[thresholdCalculationMethodMaster.length]; 
+
+      for (int i=0; i<thresholdCalculationMethodMaster.length; i++)
+      {
+        itemIdArray[i] = thresholdCalculationMethodMaster[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster)  {
+
+      String[] itemIdArray = new String[thresholdCalculationMethodMaster.length]; 
+
+      for (int i=0; i<thresholdCalculationMethodMaster.length; i++)
+      {
+        itemIdArray[i] = thresholdCalculationMethodMaster[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.ThresholdCalculationMethodMaster ... thresholdCalculationMethodMaster)  {
+
+      String[] itemIdArray = new String[thresholdCalculationMethodMaster.length]; 
+
+      for (int i=0; i<thresholdCalculationMethodMaster.length; i++)
+      {
+        itemIdArray[i] = thresholdCalculationMethodMaster[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  }
+}

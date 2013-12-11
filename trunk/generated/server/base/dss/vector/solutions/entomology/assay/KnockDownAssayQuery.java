@@ -217,4 +217,157 @@ public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.
 
   }
   }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface KnockDownAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.AdultAssayQuery.AdultAssayQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableDouble getKd50();
+    public com.runwaysdk.query.SelectableDouble getKd50(String alias);
+    public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDouble getKd95();
+    public com.runwaysdk.query.SelectableDouble getKd95(String alias);
+    public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId();
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class KnockDownAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.AdultAssayQuery.AdultAssayQueryMultiReference
+ implements KnockDownAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public KnockDownAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay)  {
+
+      String[] itemIdArray = new String[knockDownAssay.length]; 
+
+      for (int i=0; i<knockDownAssay.length; i++)
+      {
+        itemIdArray[i] = knockDownAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay)  {
+
+      String[] itemIdArray = new String[knockDownAssay.length]; 
+
+      for (int i=0; i<knockDownAssay.length; i++)
+      {
+        itemIdArray[i] = knockDownAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay)  {
+
+      String[] itemIdArray = new String[knockDownAssay.length]; 
+
+      for (int i=0; i<knockDownAssay.length; i++)
+      {
+        itemIdArray[i] = knockDownAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay)  {
+
+      String[] itemIdArray = new String[knockDownAssay.length]; 
+
+      for (int i=0; i<knockDownAssay.length; i++)
+      {
+        itemIdArray[i] = knockDownAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.KnockDownAssay ... knockDownAssay)  {
+
+      String[] itemIdArray = new String[knockDownAssay.length]; 
+
+      for (int i=0; i<knockDownAssay.length; i++)
+      {
+        itemIdArray[i] = knockDownAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableDouble getKd50()
+  {
+    return getKd50(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDouble getKd95()
+  {
+    return getKd95(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, displayLabel);
+
+  }
+  }
 }

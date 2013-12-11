@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  class SprayTeamQuery extends dss.vector.solutions.irs.TargeterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1120726400;
 
   public SprayTeamQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -464,7 +463,6 @@ private static final long serialVersionUID = -1120726400;
  implements SprayTeamQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -767934818;
 
   public SprayTeamQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -768,6 +766,177 @@ private static final long serialVersionUID = -767934818;
     return this.isNotParentIn_SUBSELECT(leadTeamQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.irs.SprayTeam.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.SprayTeam.SPRAYZONE)) 
+    {
+       return new dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SprayTeamQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.irs.TargeterQuery.TargeterQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone();
+    public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias);
+    public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getTeamId();
+    public com.runwaysdk.query.SelectableChar getTeamId(String alias);
+    public com.runwaysdk.query.SelectableChar getTeamId(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.irs.SprayTeam ... sprayTeam);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.irs.SprayTeam ... sprayTeam);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.irs.SprayTeam ... sprayTeam);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.irs.SprayTeam ... sprayTeam);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.irs.SprayTeam ... sprayTeam);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SprayTeamQueryMultiReference extends dss.vector.solutions.irs.TargeterQuery.TargeterQueryMultiReference
+ implements SprayTeamQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SprayTeamQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.irs.SprayTeam ... sprayTeam)  {
+
+      String[] itemIdArray = new String[sprayTeam.length]; 
+
+      for (int i=0; i<sprayTeam.length; i++)
+      {
+        itemIdArray[i] = sprayTeam[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.irs.SprayTeam ... sprayTeam)  {
+
+      String[] itemIdArray = new String[sprayTeam.length]; 
+
+      for (int i=0; i<sprayTeam.length; i++)
+      {
+        itemIdArray[i] = sprayTeam[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.irs.SprayTeam ... sprayTeam)  {
+
+      String[] itemIdArray = new String[sprayTeam.length]; 
+
+      for (int i=0; i<sprayTeam.length; i++)
+      {
+        itemIdArray[i] = sprayTeam[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.irs.SprayTeam ... sprayTeam)  {
+
+      String[] itemIdArray = new String[sprayTeam.length]; 
+
+      for (int i=0; i<sprayTeam.length; i++)
+      {
+        itemIdArray[i] = sprayTeam[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.irs.SprayTeam ... sprayTeam)  {
+
+      String[] itemIdArray = new String[sprayTeam.length]; 
+
+      for (int i=0; i<sprayTeam.length; i++)
+      {
+        itemIdArray[i] = sprayTeam[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.DISEASE,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone()
+  {
+    return getSprayZone(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.SPRAYZONE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.SPRAYZONE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getTeamId()
+  {
+    return getTeamId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTeamId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTeamId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

@@ -5,8 +5,6 @@ public class CountryController extends CountryControllerBase implements com.runw
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/Country/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = 385243329;
-  
   public CountryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);

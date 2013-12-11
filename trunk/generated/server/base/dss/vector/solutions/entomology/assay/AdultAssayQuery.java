@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class AdultAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1374903765;
 
   public AdultAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -206,7 +205,6 @@ private static final long serialVersionUID = 1374903765;
  implements AdultAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -160893581;
 
   public AdultAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -227,6 +225,207 @@ private static final long serialVersionUID = -160893581;
       return this.NE(adultAssay.getId());
     }
 
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange()
+  {
+    return getAgeRange(null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias)
+  {
+    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.AGERANGE, com.runwaysdk.system.metadata.MdAttributeStruct.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.AGERANGE, com.runwaysdk.system.metadata.MdAttributeStruct.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFed()
+  {
+    return getFed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getGravid()
+  {
+    return getGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex()
+  {
+    return getSex(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.AdultAssay.SEX, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.AdultAssay.SEX,  alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.AdultAssay.SEX)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeStruct structFactory( com.runwaysdk.dataaccess.MdAttributeStructDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.AdultAssay.AGERANGE)) 
+    {
+       return new dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStruct((com.runwaysdk.dataaccess.MdAttributeStructDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.structFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface AdultAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.CollectionAssayQuery.CollectionAssayQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange();
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias);
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFed();
+    public com.runwaysdk.query.SelectableInteger getFed(String alias);
+    public com.runwaysdk.query.SelectableInteger getFed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getGravid();
+    public com.runwaysdk.query.SelectableInteger getGravid(String alias);
+    public com.runwaysdk.query.SelectableInteger getGravid(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class AdultAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.CollectionAssayQuery.CollectionAssayQueryMultiReference
+ implements AdultAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public AdultAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay)  {
+
+      String[] itemIdArray = new String[adultAssay.length]; 
+
+      for (int i=0; i<adultAssay.length; i++)
+      {
+        itemIdArray[i] = adultAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay)  {
+
+      String[] itemIdArray = new String[adultAssay.length]; 
+
+      for (int i=0; i<adultAssay.length; i++)
+      {
+        itemIdArray[i] = adultAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay)  {
+
+      String[] itemIdArray = new String[adultAssay.length]; 
+
+      for (int i=0; i<adultAssay.length; i++)
+      {
+        itemIdArray[i] = adultAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay)  {
+
+      String[] itemIdArray = new String[adultAssay.length]; 
+
+      for (int i=0; i<adultAssay.length; i++)
+      {
+        itemIdArray[i] = adultAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.AdultAssay ... adultAssay)  {
+
+      String[] itemIdArray = new String[adultAssay.length]; 
+
+      for (int i=0; i<adultAssay.length; i++)
+      {
+        itemIdArray[i] = adultAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange()
   {
     return getAgeRange(null);

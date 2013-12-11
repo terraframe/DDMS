@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  class DefaultSavedSearchQuery extends dss.vector.solutions.query.SavedSearchQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1981175318;
 
   public DefaultSavedSearchQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +85,6 @@ private static final long serialVersionUID = -1981175318;
  implements DefaultSavedSearchQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1390886792;
 
   public DefaultSavedSearchQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -107,5 +105,98 @@ private static final long serialVersionUID = 1390886792;
       return this.NE(defaultSavedSearch.getId());
     }
 
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface DefaultSavedSearchQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class DefaultSavedSearchQueryMultiReference extends dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryMultiReference
+ implements DefaultSavedSearchQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public DefaultSavedSearchQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch)  {
+
+      String[] itemIdArray = new String[defaultSavedSearch.length]; 
+
+      for (int i=0; i<defaultSavedSearch.length; i++)
+      {
+        itemIdArray[i] = defaultSavedSearch[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch)  {
+
+      String[] itemIdArray = new String[defaultSavedSearch.length]; 
+
+      for (int i=0; i<defaultSavedSearch.length; i++)
+      {
+        itemIdArray[i] = defaultSavedSearch[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch)  {
+
+      String[] itemIdArray = new String[defaultSavedSearch.length]; 
+
+      for (int i=0; i<defaultSavedSearch.length; i++)
+      {
+        itemIdArray[i] = defaultSavedSearch[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch)  {
+
+      String[] itemIdArray = new String[defaultSavedSearch.length]; 
+
+      for (int i=0; i<defaultSavedSearch.length; i++)
+      {
+        itemIdArray[i] = defaultSavedSearch[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.DefaultSavedSearch ... defaultSavedSearch)  {
+
+      String[] itemIdArray = new String[defaultSavedSearch.length]; 
+
+      for (int i=0; i<defaultSavedSearch.length; i++)
+      {
+        itemIdArray[i] = defaultSavedSearch[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   }
 }

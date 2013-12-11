@@ -11,7 +11,6 @@ package dss.vector.solutions.geo.generated;
 public  class EarthQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1090825601;
 
   public EarthQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +85,6 @@ private static final long serialVersionUID = 1090825601;
  implements EarthQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2108138721;
 
   public EarthQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -107,5 +105,98 @@ private static final long serialVersionUID = -2108138721;
       return this.NE(earth.getId());
     }
 
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface EarthQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.Earth ... earth);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.Earth ... earth);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.Earth ... earth);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.Earth ... earth);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.Earth ... earth);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class EarthQueryMultiReference extends dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryMultiReference
+ implements EarthQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public EarthQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.Earth ... earth)  {
+
+      String[] itemIdArray = new String[earth.length]; 
+
+      for (int i=0; i<earth.length; i++)
+      {
+        itemIdArray[i] = earth[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.Earth ... earth)  {
+
+      String[] itemIdArray = new String[earth.length]; 
+
+      for (int i=0; i<earth.length; i++)
+      {
+        itemIdArray[i] = earth[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.Earth ... earth)  {
+
+      String[] itemIdArray = new String[earth.length]; 
+
+      for (int i=0; i<earth.length; i++)
+      {
+        itemIdArray[i] = earth[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.Earth ... earth)  {
+
+      String[] itemIdArray = new String[earth.length]; 
+
+      for (int i=0; i<earth.length; i++)
+      {
+        itemIdArray[i] = earth[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.Earth ... earth)  {
+
+      String[] itemIdArray = new String[earth.length]; 
+
+      for (int i=0; i<earth.length; i++)
+      {
+        itemIdArray[i] = earth[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   }
 }

@@ -5,8 +5,6 @@ public class HealthFacilityController extends HealthFacilityControllerBase imple
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/HealthFacility/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = -1993267046;
-  
   public HealthFacilityController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);

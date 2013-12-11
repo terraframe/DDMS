@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1351068067;
 
   public LayerQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -1352,7 +1351,6 @@ private static final long serialVersionUID = -1351068067;
  implements LayerQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -305693189;
 
   public LayerQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2302,6 +2300,997 @@ private static final long serialVersionUID = -305693189;
     return this.isNotChildIn_SUBSELECT(hasLayersQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.query.Layer.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.DEFAULTSTYLES)) 
+    {
+       return new dss.vector.solutions.query.StylesQuery.StylesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.GEOHIERARCHY)) 
+    {
+       return new dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.LEGENDCOLOR)) 
+    {
+       return new com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.MDATTRIBUTE)) 
+    {
+       return new com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.SAVEDSEARCH)) 
+    {
+       return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.THEMATICVARIABLE)) 
+    {
+       return new dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES)) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES)) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.Layer.RENDERAS)) 
+    {
+       return new dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface LayerQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public com.runwaysdk.query.SelectableBoolean getAddToBBox();
+    public com.runwaysdk.query.SelectableBoolean getAddToBBox(String alias);
+    public com.runwaysdk.query.SelectableBoolean getAddToBBox(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer();
+    public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer(String alias);
+    public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getCreateRawLegend();
+    public com.runwaysdk.query.SelectableBoolean getCreateRawLegend(String alias);
+    public com.runwaysdk.query.SelectableBoolean getCreateRawLegend(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles();
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias);
+    public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnableLegend();
+    public com.runwaysdk.query.SelectableBoolean getEnableLegend(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnableLegend(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy();
+    public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias);
+    public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLayerName();
+    public com.runwaysdk.query.SelectableChar getLayerName(String alias);
+    public com.runwaysdk.query.SelectableChar getLayerName(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor();
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias);
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendFontFamily();
+    public com.runwaysdk.query.SelectableChar getLegendFontFamily(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendFontFamily(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendFontFill();
+    public com.runwaysdk.query.SelectableChar getLegendFontFill(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendFontFill(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendFontSize();
+    public com.runwaysdk.query.SelectableInteger getLegendFontSize(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendFontSize(String alias, String displayLabel);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles();
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendTitle();
+    public com.runwaysdk.query.SelectableChar getLegendTitle(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendTitle(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily();
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFill();
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFill(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendTitleFontFill(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize();
+    public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize(String alias, String displayLabel);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles();
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute();
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute(String alias);
+    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDecimal getOpacity();
+    public com.runwaysdk.query.SelectableDecimal getOpacity(String alias);
+    public com.runwaysdk.query.SelectableDecimal getOpacity(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs();
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs(String alias);
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs(String alias, String displayLabel);
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch();
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias);
+    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getShowLegendBorder();
+    public com.runwaysdk.query.SelectableBoolean getShowLegendBorder(String alias);
+    public com.runwaysdk.query.SelectableBoolean getShowLegendBorder(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getShowThematicValue();
+    public com.runwaysdk.query.SelectableBoolean getShowThematicValue(String alias);
+    public com.runwaysdk.query.SelectableBoolean getShowThematicValue(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSldFile();
+    public com.runwaysdk.query.SelectableChar getSldFile(String alias);
+    public com.runwaysdk.query.SelectableChar getSldFile(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getThematicColumnAlias();
+    public com.runwaysdk.query.SelectableChar getThematicColumnAlias(String alias);
+    public com.runwaysdk.query.SelectableChar getThematicColumnAlias(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getThematicUserAlias();
+    public com.runwaysdk.query.SelectableChar getThematicUserAlias(String alias);
+    public com.runwaysdk.query.SelectableChar getThematicUserAlias(String alias, String displayLabel);
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable();
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias);
+    public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getViewCreated();
+    public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias);
+    public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getViewName();
+    public com.runwaysdk.query.SelectableChar getViewName(String alias);
+    public com.runwaysdk.query.SelectableChar getViewName(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.Layer ... layer);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.Layer ... layer);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.Layer ... layer);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.Layer ... layer);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.Layer ... layer);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class LayerQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements LayerQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public LayerQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.Layer ... layer)  {
+
+      String[] itemIdArray = new String[layer.length]; 
+
+      for (int i=0; i<layer.length; i++)
+      {
+        itemIdArray[i] = layer[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.Layer ... layer)  {
+
+      String[] itemIdArray = new String[layer.length]; 
+
+      for (int i=0; i<layer.length; i++)
+      {
+        itemIdArray[i] = layer[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.Layer ... layer)  {
+
+      String[] itemIdArray = new String[layer.length]; 
+
+      for (int i=0; i<layer.length; i++)
+      {
+        itemIdArray[i] = layer[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.Layer ... layer)  {
+
+      String[] itemIdArray = new String[layer.length]; 
+
+      for (int i=0; i<layer.length; i++)
+      {
+        itemIdArray[i] = layer[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.Layer ... layer)  {
+
+      String[] itemIdArray = new String[layer.length]; 
+
+      for (int i=0; i<layer.length; i++)
+      {
+        itemIdArray[i] = layer[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableBoolean getAddToBBox()
+  {
+    return getAddToBBox(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getAddToBBox(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.ADDTOBBOX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getAddToBBox(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.ADDTOBBOX, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer()
+  {
+    return getClipToBaseLayer(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.CLIPTOBASELAYER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getClipToBaseLayer(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.CLIPTOBASELAYER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.query.Layer.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.query.Layer.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getCreateRawLegend()
+  {
+    return getCreateRawLegend(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getCreateRawLegend(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getCreateRawLegend(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.CREATEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles()
+  {
+    return getDefaultStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.DEFAULTSTYLES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.DEFAULTSTYLES,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableLegend()
+  {
+    return getEnableLegend(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableLegend(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableLegend(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy()
+  {
+    return getGeoHierarchy(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias)
+  {
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.GEOHIERARCHY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getGeoHierarchy(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.GEOHIERARCHY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.query.Layer.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.query.Layer.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLayerName()
+  {
+    return getLayerName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLayerName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LAYERNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLayerName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LAYERNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor()
+  {
+    return getLegendColor(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LEGENDCOLOR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LEGENDCOLOR,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLegendFontFamily()
+  {
+    return getLegendFontFamily(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendFontFamily(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendFontFamily(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLegendFontFill()
+  {
+    return getLegendFontFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendFontFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendFontFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendFontSize()
+  {
+    return getLegendFontSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendFontSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendFontSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles()
+  {
+    return getLegendFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLegendTitle()
+  {
+    return getLegendTitle(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitle(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitle(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily()
+  {
+    return getLegendTitleFontFamily(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFamily(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFill()
+  {
+    return getLegendTitleFontFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendTitleFontFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize()
+  {
+    return getLegendTitleFontSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendTitleFontSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles()
+  {
+    return getLegendTitleFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute()
+  {
+    return getMdAttribute(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.MDATTRIBUTE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getMdAttribute(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.MDATTRIBUTE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getOpacity()
+  {
+    return getOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.query.Layer.OPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.query.Layer.OPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.OWNER,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs()
+  {
+    return getRenderAs(null);
+
+  }
+ 
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs(String alias)
+  {
+    return (dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF)this.get(dss.vector.solutions.query.Layer.RENDERAS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF getRenderAs(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQueryIF)this.get(dss.vector.solutions.query.Layer.RENDERAS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch()
+  {
+    return getSavedSearch(null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias)
+  {
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.SAVEDSEARCH, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.SAVEDSEARCH,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.query.Layer.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.query.Layer.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getShowLegendBorder()
+  {
+    return getShowLegendBorder(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getShowLegendBorder(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getShowLegendBorder(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getShowThematicValue()
+  {
+    return getShowThematicValue(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getShowThematicValue(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.SHOWTHEMATICVALUE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getShowThematicValue(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.SHOWTHEMATICVALUE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSldFile()
+  {
+    return getSldFile(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSldFile(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SLDFILE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSldFile(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SLDFILE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getThematicColumnAlias()
+  {
+    return getThematicColumnAlias(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getThematicColumnAlias(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getThematicColumnAlias(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getThematicUserAlias()
+  {
+    return getThematicUserAlias(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getThematicUserAlias(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICUSERALIAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getThematicUserAlias(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICUSERALIAS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable()
+  {
+    return getThematicVariable(null);
+
+  }
+ 
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias)
+  {
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.THEMATICVARIABLE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF getThematicVariable(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.ThematicVariableQuery.ThematicVariableQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.THEMATICVARIABLE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getViewCreated()
+  {
+    return getViewCreated(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.VIEWCREATED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Layer.VIEWCREATED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getViewName()
+  {
+    return getViewName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getViewName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.VIEWNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getViewName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.VIEWNAME, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

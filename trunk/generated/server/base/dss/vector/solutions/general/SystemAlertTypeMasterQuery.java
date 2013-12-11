@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  class SystemAlertTypeMasterQuery extends com.runwaysdk.system.EnumerationMasterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1039282387;
 
   public SystemAlertTypeMasterQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -194,7 +193,6 @@ private static final long serialVersionUID = -1039282387;
  implements SystemAlertTypeMasterQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 227203659;
 
   public SystemAlertTypeMasterQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -292,7 +290,6 @@ private static final long serialVersionUID = 227203659;
   public static class SystemAlertTypeMasterQueryEnumeration extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements SystemAlertTypeMasterQueryEnumerationIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2002760445;
 
   public SystemAlertTypeMasterQueryEnumeration(com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.runwaysdk.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -438,4 +435,155 @@ private static final long serialVersionUID = 2002760445;
 
       return this.containsExactly(enumIdArray);
   }
-  }}
+  }
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SystemAlertTypeMasterQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText();
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText(String alias);
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText(String alias, String displayLabel);
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables();
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias);
+    public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SystemAlertTypeMasterQueryMultiReference extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReference
+ implements SystemAlertTypeMasterQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SystemAlertTypeMasterQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster)  {
+
+      String[] itemIdArray = new String[systemAlertTypeMaster.length]; 
+
+      for (int i=0; i<systemAlertTypeMaster.length; i++)
+      {
+        itemIdArray[i] = systemAlertTypeMaster[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster)  {
+
+      String[] itemIdArray = new String[systemAlertTypeMaster.length]; 
+
+      for (int i=0; i<systemAlertTypeMaster.length; i++)
+      {
+        itemIdArray[i] = systemAlertTypeMaster[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster)  {
+
+      String[] itemIdArray = new String[systemAlertTypeMaster.length]; 
+
+      for (int i=0; i<systemAlertTypeMaster.length; i++)
+      {
+        itemIdArray[i] = systemAlertTypeMaster[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster)  {
+
+      String[] itemIdArray = new String[systemAlertTypeMaster.length]; 
+
+      for (int i=0; i<systemAlertTypeMaster.length; i++)
+      {
+        itemIdArray[i] = systemAlertTypeMaster[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.general.SystemAlertTypeMaster ... systemAlertTypeMaster)  {
+
+      String[] itemIdArray = new String[systemAlertTypeMaster.length]; 
+
+      for (int i=0; i<systemAlertTypeMaster.length; i++)
+      {
+        itemIdArray[i] = systemAlertTypeMaster[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText()
+  {
+    return getEmailBodyText(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILBODYTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF getEmailBodyText(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILBODYTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables()
+  {
+    return getEmailTemplateVariables(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILTEMPLATEVARIABLES, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILTEMPLATEVARIABLES, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILBODYTEXT)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextQuery.SystemAlertTypeMasterEmailBodyTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlertTypeMaster.EMAILTEMPLATEVARIABLES)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesQuery.SystemAlertTypeMasterEmailTemplateVariablesQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.localFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+}

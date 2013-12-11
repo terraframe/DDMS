@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  class SurveyedPersonQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1219781244;
 
   public SurveyedPersonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -1466,7 +1465,6 @@ private static final long serialVersionUID = -1219781244;
  implements SurveyedPersonQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -830175194;
 
   public SurveyedPersonQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2447,6 +2445,925 @@ private static final long serialVersionUID = -830175194;
     return this.isNotChildIn_SUBSELECT(householdSurveyedPersonQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.ANAEMIATREATMENT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEDETAIL)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEREASON)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.HEADOFHOUSEHOLD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.HOUSEHOLD)) 
+    {
+       return new dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.IMMUNECOMPROMISED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIACONFORMATIONTECHNIQUE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.PAYMENT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTDETAIL)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTTREATMENT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.SEX)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.SLEPTUNDERNET)) 
+    {
+       return new dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.FEVER)) 
+    {
+       return new dss.vector.solutions.ResponseMasterQuery.ResponseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.HAEMOGLOBINMEASURED)) 
+    {
+       return new dss.vector.solutions.ResponseMasterQuery.RefusedResponseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIA)) 
+    {
+       return new dss.vector.solutions.ResponseMasterQuery.ResponseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERFORMEDRDT)) 
+    {
+       return new dss.vector.solutions.ResponseMasterQuery.RefusedResponseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SurveyedPersonQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getBloodslideResult();
+    public com.runwaysdk.query.SelectableBoolean getBloodslideResult(String alias);
+    public com.runwaysdk.query.SelectableBoolean getBloodslideResult(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getDob();
+    public com.runwaysdk.query.SelectableMoment getDob(String alias);
+    public com.runwaysdk.query.SelectableMoment getDob(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever();
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever(String alias);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDecimal getHaemoglobin();
+    public com.runwaysdk.query.SelectableDecimal getHaemoglobin(String alias);
+    public com.runwaysdk.query.SelectableDecimal getHaemoglobin(String alias, String displayLabel);
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured();
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured(String alias);
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold(String alias, String displayLabel);
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold();
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias);
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIron();
+    public com.runwaysdk.query.SelectableBoolean getIron(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIron(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria();
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria(String alias);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide();
+    public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide(String alias);
+    public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide(String alias, String displayLabel);
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT();
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT(String alias);
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getPersonId();
+    public com.runwaysdk.query.SelectableChar getPersonId(String alias);
+    public com.runwaysdk.query.SelectableChar getPersonId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getPregnant();
+    public com.runwaysdk.query.SelectableBoolean getPregnant(String alias);
+    public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getRdtResult();
+    public com.runwaysdk.query.SelectableBoolean getRdtResult(String alias);
+    public com.runwaysdk.query.SelectableBoolean getRdtResult(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet();
+    public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet(String alias);
+    public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SurveyedPersonQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements SurveyedPersonQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SurveyedPersonQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson)  {
+
+      String[] itemIdArray = new String[surveyedPerson.length]; 
+
+      for (int i=0; i<surveyedPerson.length; i++)
+      {
+        itemIdArray[i] = surveyedPerson[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson)  {
+
+      String[] itemIdArray = new String[surveyedPerson.length]; 
+
+      for (int i=0; i<surveyedPerson.length; i++)
+      {
+        itemIdArray[i] = surveyedPerson[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson)  {
+
+      String[] itemIdArray = new String[surveyedPerson.length]; 
+
+      for (int i=0; i<surveyedPerson.length; i++)
+      {
+        itemIdArray[i] = surveyedPerson[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson)  {
+
+      String[] itemIdArray = new String[surveyedPerson.length]; 
+
+      for (int i=0; i<surveyedPerson.length; i++)
+      {
+        itemIdArray[i] = surveyedPerson[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.intervention.monitor.SurveyedPerson ... surveyedPerson)  {
+
+      String[] itemIdArray = new String[surveyedPerson.length]; 
+
+      for (int i=0; i<surveyedPerson.length; i++)
+      {
+        itemIdArray[i] = surveyedPerson[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment()
+  {
+    return getAnaemiaTreatment(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ANAEMIATREATMENT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getAnaemiaTreatment(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ANAEMIATREATMENT,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail()
+  {
+    return getBloodslideDetail(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEDETAIL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideDetail(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEDETAIL,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason()
+  {
+    return getBloodslideReason(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEREASON, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getBloodslideReason(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDEREASON,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getBloodslideResult()
+  {
+    return getBloodslideResult(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBloodslideResult(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDERESULT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBloodslideResult(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.BLOODSLIDERESULT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getDob()
+  {
+    return getDob(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDob(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.DOB, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDob(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.DOB, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever()
+  {
+    return getFever(null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever(String alias)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.FEVER, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getFever(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.FEVER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getHaemoglobin()
+  {
+    return getHaemoglobin(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getHaemoglobin(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HAEMOGLOBIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getHaemoglobin(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HAEMOGLOBIN, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured()
+  {
+    return getHaemoglobinMeasured(null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured(String alias)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HAEMOGLOBINMEASURED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getHaemoglobinMeasured(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HAEMOGLOBINMEASURED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold()
+  {
+    return getHeadOfHousehold(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HEADOFHOUSEHOLD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHeadOfHousehold(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HEADOFHOUSEHOLD,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold()
+  {
+    return getHousehold(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias)
+  {
+    return (dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HOUSEHOLD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.HOUSEHOLD,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.ID, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised()
+  {
+    return getImmuneCompromised(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.IMMUNECOMPROMISED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getImmuneCompromised(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.IMMUNECOMPROMISED,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getIron()
+  {
+    return getIron(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIron(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.IRON, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIron(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.IRON, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria()
+  {
+    return getMalaria(null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria(String alias)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIA, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getMalaria(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIA, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique()
+  {
+    return getMalariaConformationTechnique(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIACONFORMATIONTECHNIQUE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaConformationTechnique(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.MALARIACONFORMATIONTECHNIQUE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.OWNER,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment()
+  {
+    return getPayment(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PAYMENT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPayment(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PAYMENT,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide()
+  {
+    return getPerformedBloodslide(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERFORMEDBLOODSLIDE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPerformedBloodslide(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERFORMEDBLOODSLIDE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT()
+  {
+    return getPerformedRDT(null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT(String alias)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERFORMEDRDT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF getPerformedRDT(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERFORMEDRDT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getPersonId()
+  {
+    return getPersonId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERSONID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PERSONID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getPregnant()
+  {
+    return getPregnant(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPregnant(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PREGNANT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.PREGNANT, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail()
+  {
+    return getRdtDetail(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTDETAIL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtDetail(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTDETAIL,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getRdtResult()
+  {
+    return getRdtResult(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRdtResult(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTRESULT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRdtResult(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTRESULT, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment()
+  {
+    return getRdtTreatment(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTTREATMENT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getRdtTreatment(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.RDTTREATMENT,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SEQ, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex()
+  {
+    return getSex(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SEX, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SEX,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SITEMASTER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet()
+  {
+    return getSleptUnderNet(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet(String alias)
+  {
+    return (dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SLEPTUNDERNET, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF getSleptUnderNet(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.intervention.monitor.ITNInstanceQuery.ITNInstanceQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.SLEPTUNDERNET,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.SurveyedPerson.TYPE, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

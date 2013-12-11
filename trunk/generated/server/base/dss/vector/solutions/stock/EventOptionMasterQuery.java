@@ -11,7 +11,6 @@ package dss.vector.solutions.stock;
 public  class EventOptionMasterQuery extends com.runwaysdk.system.EnumerationMasterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1964779780;
 
   public EventOptionMasterQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -124,7 +123,6 @@ private static final long serialVersionUID = 1964779780;
  implements EventOptionMasterQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1825208282;
 
   public EventOptionMasterQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -164,7 +162,6 @@ private static final long serialVersionUID = -1825208282;
   public static class EventOptionMasterQueryEnumeration extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements EventOptionMasterQueryEnumerationIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -175498444;
 
   public EventOptionMasterQueryEnumeration(com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.runwaysdk.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -258,4 +255,97 @@ private static final long serialVersionUID = -175498444;
 
       return this.containsExactly(enumIdArray);
   }
-  }}
+  }
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface EventOptionMasterQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class EventOptionMasterQueryMultiReference extends com.runwaysdk.system.EnumerationMasterQuery.EnumerationMasterQueryMultiReference
+ implements EventOptionMasterQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public EventOptionMasterQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster)  {
+
+      String[] itemIdArray = new String[eventOptionMaster.length]; 
+
+      for (int i=0; i<eventOptionMaster.length; i++)
+      {
+        itemIdArray[i] = eventOptionMaster[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster)  {
+
+      String[] itemIdArray = new String[eventOptionMaster.length]; 
+
+      for (int i=0; i<eventOptionMaster.length; i++)
+      {
+        itemIdArray[i] = eventOptionMaster[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster)  {
+
+      String[] itemIdArray = new String[eventOptionMaster.length]; 
+
+      for (int i=0; i<eventOptionMaster.length; i++)
+      {
+        itemIdArray[i] = eventOptionMaster[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster)  {
+
+      String[] itemIdArray = new String[eventOptionMaster.length]; 
+
+      for (int i=0; i<eventOptionMaster.length; i++)
+      {
+        itemIdArray[i] = eventOptionMaster[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.stock.EventOptionMaster ... eventOptionMaster)  {
+
+      String[] itemIdArray = new String[eventOptionMaster.length]; 
+
+      for (int i=0; i<eventOptionMaster.length; i++)
+      {
+        itemIdArray[i] = eventOptionMaster[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  }
+}

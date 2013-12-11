@@ -10,8 +10,6 @@ public class SentinelSiteControllerBase implements com.runwaysdk.generation.load
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1491941097;
-  
   public SentinelSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

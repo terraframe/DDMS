@@ -947,4 +947,525 @@ public  class EfficacyAssayQuery extends dss.vector.solutions.entomology.assay.A
   }
 
   }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface EfficacyAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.AbstractAssayQuery.AbstractAssayQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange();
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias);
+    public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getColonyName();
+    public com.runwaysdk.query.SelectableChar getColonyName(String alias);
+    public com.runwaysdk.query.SelectableChar getColonyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality();
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getExposureTime();
+    public com.runwaysdk.query.SelectableInteger getExposureTime(String alias);
+    public com.runwaysdk.query.SelectableInteger getExposureTime(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFed();
+    public com.runwaysdk.query.SelectableInteger getFed(String alias);
+    public com.runwaysdk.query.SelectableInteger getFed(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity();
+    public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias);
+    public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getGravid();
+    public com.runwaysdk.query.SelectableInteger getGravid(String alias);
+    public com.runwaysdk.query.SelectableInteger getGravid(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getHoldingTime();
+    public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias);
+    public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand();
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getMortality();
+    public com.runwaysdk.query.SelectableFloat getMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityDead();
+    public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityLive();
+    public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityTested();
+    public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getTimeOnSurface();
+    public com.runwaysdk.query.SelectableInteger getTimeOnSurface(String alias);
+    public com.runwaysdk.query.SelectableInteger getTimeOnSurface(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId();
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class EfficacyAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.AbstractAssayQuery.AbstractAssayQueryMultiReference
+ implements EfficacyAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public EfficacyAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay)  {
+
+      String[] itemIdArray = new String[efficacyAssay.length]; 
+
+      for (int i=0; i<efficacyAssay.length; i++)
+      {
+        itemIdArray[i] = efficacyAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay)  {
+
+      String[] itemIdArray = new String[efficacyAssay.length]; 
+
+      for (int i=0; i<efficacyAssay.length; i++)
+      {
+        itemIdArray[i] = efficacyAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay)  {
+
+      String[] itemIdArray = new String[efficacyAssay.length]; 
+
+      for (int i=0; i<efficacyAssay.length; i++)
+      {
+        itemIdArray[i] = efficacyAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay)  {
+
+      String[] itemIdArray = new String[efficacyAssay.length]; 
+
+      for (int i=0; i<efficacyAssay.length; i++)
+      {
+        itemIdArray[i] = efficacyAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.EfficacyAssay ... efficacyAssay)  {
+
+      String[] itemIdArray = new String[efficacyAssay.length]; 
+
+      for (int i=0; i<efficacyAssay.length; i++)
+      {
+        itemIdArray[i] = efficacyAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange()
+  {
+    return getAgeRange(null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias)
+  {
+    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.AGERANGE, com.runwaysdk.system.metadata.MdAttributeStruct.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.AGERANGE, com.runwaysdk.system.metadata.MdAttributeStruct.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getColonyName()
+  {
+    return getColonyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getColonyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.COLONYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getColonyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.COLONYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  {
+    return getControlTestMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getExposureTime()
+  {
+    return getExposureTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getExposureTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.EXPOSURETIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getExposureTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.EXPOSURETIME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFed()
+  {
+    return getFed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.FED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.FED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity()
+  {
+    return getGeoEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getGravid()
+  {
+    return getGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.GRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.GRAVID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getHoldingTime()
+  {
+    return getHoldingTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.HOLDINGTIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.HOLDINGTIME, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getMortality()
+  {
+    return getMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.MORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.MORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityDead()
+  {
+    return getQuantityDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYDEAD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityLive()
+  {
+    return getQuantityLive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYLIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYLIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityTested()
+  {
+    return getQuantityTested(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYTESTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.QUANTITYTESTED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex()
+  {
+    return getSex(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion()
+  {
+    return getSurfacePostion(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType()
+  {
+    return getSurfaceType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACETYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfaceType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACETYPE,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()
+  {
+    return getTestMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getTimeOnSurface()
+  {
+    return getTimeOnSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getTimeOnSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.TIMEONSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getTimeOnSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.TIMEONSURFACE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.UNIQUEASSAYID, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY)) 
+    {
+       return new dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACETYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeStruct structFactory( com.runwaysdk.dataaccess.MdAttributeStructDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.AGERANGE)) 
+    {
+       return new dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStruct((com.runwaysdk.dataaccess.MdAttributeStructDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.structFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
 }

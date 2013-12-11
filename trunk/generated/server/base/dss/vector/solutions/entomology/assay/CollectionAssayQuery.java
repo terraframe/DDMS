@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class CollectionAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1735453360;
 
   public CollectionAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -306,7 +305,6 @@ private static final long serialVersionUID = -1735453360;
  implements CollectionAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1637087858;
 
   public CollectionAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -327,6 +325,289 @@ private static final long serialVersionUID = 1637087858;
       return this.NE(collectionAssay.getId());
     }
 
+  public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection()
+  {
+    return getCollection(null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias)
+  {
+    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getExposureTime()
+  {
+    return getExposureTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getExposureTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getExposureTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration()
+  {
+    return getGeneration(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod()
+  {
+    return getIdentificationMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  {
+    return getInsecticide(null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  {
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getIsofemale()
+  {
+    return getIsofemale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getQuantityTested()
+  {
+    return getQuantityTested(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()
+  {
+    return getTestMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD,  alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION)) 
+    {
+       return new dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE)) 
+    {
+       return new dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface CollectionAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.AbstractAssayQuery.AbstractAssayQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection();
+    public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias);
+    public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getExposureTime();
+    public com.runwaysdk.query.SelectableInteger getExposureTime(String alias);
+    public com.runwaysdk.query.SelectableInteger getExposureTime(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel);
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIsofemale();
+    public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getQuantityTested();
+    public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias);
+    public com.runwaysdk.query.SelectableInteger getQuantityTested(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class CollectionAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.AbstractAssayQuery.AbstractAssayQueryMultiReference
+ implements CollectionAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public CollectionAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay)  {
+
+      String[] itemIdArray = new String[collectionAssay.length]; 
+
+      for (int i=0; i<collectionAssay.length; i++)
+      {
+        itemIdArray[i] = collectionAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay)  {
+
+      String[] itemIdArray = new String[collectionAssay.length]; 
+
+      for (int i=0; i<collectionAssay.length; i++)
+      {
+        itemIdArray[i] = collectionAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay)  {
+
+      String[] itemIdArray = new String[collectionAssay.length]; 
+
+      for (int i=0; i<collectionAssay.length; i++)
+      {
+        itemIdArray[i] = collectionAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay)  {
+
+      String[] itemIdArray = new String[collectionAssay.length]; 
+
+      for (int i=0; i<collectionAssay.length; i++)
+      {
+        itemIdArray[i] = collectionAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.CollectionAssay ... collectionAssay)  {
+
+      String[] itemIdArray = new String[collectionAssay.length]; 
+
+      for (int i=0; i<collectionAssay.length; i++)
+      {
+        itemIdArray[i] = collectionAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection()
   {
     return getCollection(null);

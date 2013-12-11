@@ -11,7 +11,6 @@ package dss.vector.solutions.geo.generated;
 public  class SprayZoneQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1963078719;
 
   public SprayZoneQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +85,6 @@ private static final long serialVersionUID = 1963078719;
  implements SprayZoneQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1253281055;
 
   public SprayZoneQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -107,5 +105,98 @@ private static final long serialVersionUID = -1253281055;
       return this.NE(sprayZone.getId());
     }
 
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface SprayZoneQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryMultiReferenceIF
+  {
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.SprayZone ... sprayZone);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.SprayZone ... sprayZone);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.SprayZone ... sprayZone);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.SprayZone ... sprayZone);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.SprayZone ... sprayZone);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class SprayZoneQueryMultiReference extends dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryMultiReference
+ implements SprayZoneQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public SprayZoneQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.geo.generated.SprayZone ... sprayZone)  {
+
+      String[] itemIdArray = new String[sprayZone.length]; 
+
+      for (int i=0; i<sprayZone.length; i++)
+      {
+        itemIdArray[i] = sprayZone[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.geo.generated.SprayZone ... sprayZone)  {
+
+      String[] itemIdArray = new String[sprayZone.length]; 
+
+      for (int i=0; i<sprayZone.length; i++)
+      {
+        itemIdArray[i] = sprayZone[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.geo.generated.SprayZone ... sprayZone)  {
+
+      String[] itemIdArray = new String[sprayZone.length]; 
+
+      for (int i=0; i<sprayZone.length; i++)
+      {
+        itemIdArray[i] = sprayZone[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.geo.generated.SprayZone ... sprayZone)  {
+
+      String[] itemIdArray = new String[sprayZone.length]; 
+
+      for (int i=0; i<sprayZone.length; i++)
+      {
+        itemIdArray[i] = sprayZone[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.geo.generated.SprayZone ... sprayZone)  {
+
+      String[] itemIdArray = new String[sprayZone.length]; 
+
+      for (int i=0; i<sprayZone.length; i++)
+      {
+        itemIdArray[i] = sprayZone[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   }
 }

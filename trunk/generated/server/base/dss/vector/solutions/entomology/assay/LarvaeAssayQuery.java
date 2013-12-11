@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class LarvaeAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1012108955;
 
   public LarvaeAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -156,7 +155,6 @@ private static final long serialVersionUID = -1012108955;
  implements LarvaeAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -49291005;
 
   public LarvaeAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -177,6 +175,157 @@ private static final long serialVersionUID = -49291005;
       return this.NE(larvaeAssay.getId());
     }
 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint()
+  {
+    return getEndPoint(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint()
+  {
+    return getStartPoint(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT,  alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface LarvaeAssayQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.CollectionAssayQuery.CollectionAssayQueryMultiReferenceIF
+  {
+
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class LarvaeAssayQueryMultiReference extends dss.vector.solutions.entomology.assay.CollectionAssayQuery.CollectionAssayQueryMultiReference
+ implements LarvaeAssayQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public LarvaeAssayQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay)  {
+
+      String[] itemIdArray = new String[larvaeAssay.length]; 
+
+      for (int i=0; i<larvaeAssay.length; i++)
+      {
+        itemIdArray[i] = larvaeAssay[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay)  {
+
+      String[] itemIdArray = new String[larvaeAssay.length]; 
+
+      for (int i=0; i<larvaeAssay.length; i++)
+      {
+        itemIdArray[i] = larvaeAssay[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay)  {
+
+      String[] itemIdArray = new String[larvaeAssay.length]; 
+
+      for (int i=0; i<larvaeAssay.length; i++)
+      {
+        itemIdArray[i] = larvaeAssay[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay)  {
+
+      String[] itemIdArray = new String[larvaeAssay.length]; 
+
+      for (int i=0; i<larvaeAssay.length; i++)
+      {
+        itemIdArray[i] = larvaeAssay[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.entomology.assay.LarvaeAssay ... larvaeAssay)  {
+
+      String[] itemIdArray = new String[larvaeAssay.length]; 
+
+      for (int i=0; i<larvaeAssay.length; i++)
+      {
+        itemIdArray[i] = larvaeAssay[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint()
   {
     return getEndPoint(null);

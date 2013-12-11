@@ -10,8 +10,6 @@ public class CountryControllerBase implements com.runwaysdk.generation.loader.Re
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 120729470;
-  
   public CountryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

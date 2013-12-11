@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  class ITNInstanceQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1124488304;
 
   public ITNInstanceQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -1058,7 +1057,6 @@ private static final long serialVersionUID = 1124488304;
  implements ITNInstanceQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 763613970;
 
   public ITNInstanceQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1756,6 +1754,841 @@ private static final long serialVersionUID = 763613970;
     return this.isNotChildIn_SUBSELECT(householdITNInstanceQuery);
   }
 
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.DAMAGED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.ENTITYDOMAIN)) 
+    {
+       return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.HANGING)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.HOUSEHOLD)) 
+    {
+       return new dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.LASTUPDATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.LOCKEDBY)) 
+    {
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.NETBRAND)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.OBTAINED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.OWNER)) 
+    {
+       return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.WASHPERIOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRECEIVED)) 
+    {
+       return new dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRETREATED)) 
+    {
+       return new dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.ITNInstance.WASHED)) 
+    {
+       return new dss.vector.solutions.ResponseMasterQuery.ResponseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface ITNInstanceQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
+  {
+
+    public com.runwaysdk.query.SelectableMoment getCreateDate();
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging(String alias, String displayLabel);
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold();
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias);
+    public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getId();
+    public com.runwaysdk.query.SelectableChar getId(String alias);
+    public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getKeyName();
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias);
+    public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate();
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived();
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias);
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias, String displayLabel);
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated();
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated(String alias);
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getNetId();
+    public com.runwaysdk.query.SelectableChar getNetId(String alias);
+    public com.runwaysdk.query.SelectableChar getNetId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping();
+    public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping(String alias);
+    public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained(String alias, String displayLabel);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDecimal getPrice();
+    public com.runwaysdk.query.SelectableDecimal getPrice(String alias);
+    public com.runwaysdk.query.SelectableDecimal getPrice(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getPurposeComments();
+    public com.runwaysdk.query.SelectableChar getPurposeComments(String alias);
+    public com.runwaysdk.query.SelectableChar getPurposeComments(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getReceivedDate();
+    public com.runwaysdk.query.SelectableMoment getReceivedDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getReceivedDate(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getRetreated();
+    public com.runwaysdk.query.SelectableBoolean getRetreated(String alias);
+    public com.runwaysdk.query.SelectableBoolean getRetreated(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getRetreatedDate();
+    public com.runwaysdk.query.SelectableMoment getRetreatedDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getRetreatedDate(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSeq();
+    public com.runwaysdk.query.SelectableLong getSeq(String alias);
+    public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSiteMaster();
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
+    public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableLong getSleptUnderNet();
+    public com.runwaysdk.query.SelectableLong getSleptUnderNet(String alias);
+    public com.runwaysdk.query.SelectableLong getSleptUnderNet(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getType();
+    public com.runwaysdk.query.SelectableChar getType(String alias);
+    public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getWashFrequency();
+    public com.runwaysdk.query.SelectableInteger getWashFrequency(String alias);
+    public com.runwaysdk.query.SelectableInteger getWashFrequency(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod(String alias, String displayLabel);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed();
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed(String alias);
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getYearReceived();
+    public com.runwaysdk.query.SelectableInteger getYearReceived(String alias);
+    public com.runwaysdk.query.SelectableInteger getYearReceived(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getYearRetreated();
+    public com.runwaysdk.query.SelectableInteger getYearRetreated(String alias);
+    public com.runwaysdk.query.SelectableInteger getYearRetreated(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class ITNInstanceQueryMultiReference extends com.runwaysdk.query.AttributeMultiReference
+ implements ITNInstanceQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public ITNInstanceQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance)  {
+
+      String[] itemIdArray = new String[iTNInstance.length]; 
+
+      for (int i=0; i<iTNInstance.length; i++)
+      {
+        itemIdArray[i] = iTNInstance[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance)  {
+
+      String[] itemIdArray = new String[iTNInstance.length]; 
+
+      for (int i=0; i<iTNInstance.length; i++)
+      {
+        itemIdArray[i] = iTNInstance[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance)  {
+
+      String[] itemIdArray = new String[iTNInstance.length]; 
+
+      for (int i=0; i<iTNInstance.length; i++)
+      {
+        itemIdArray[i] = iTNInstance[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance)  {
+
+      String[] itemIdArray = new String[iTNInstance.length]; 
+
+      for (int i=0; i<iTNInstance.length; i++)
+      {
+        itemIdArray[i] = iTNInstance[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.intervention.monitor.ITNInstance ... iTNInstance)  {
+
+      String[] itemIdArray = new String[iTNInstance.length]; 
+
+      for (int i=0; i<iTNInstance.length; i++)
+      {
+        itemIdArray[i] = iTNInstance[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableMoment getCreateDate()
+  {
+    return getCreateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.CREATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.CREATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
+  {
+    return getCreatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.CREATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.CREATEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged()
+  {
+    return getDamaged(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.DAMAGED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDamaged(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.DAMAGED,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
+  {
+    return getEntityDomain(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.ENTITYDOMAIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging()
+  {
+    return getHanging(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.HANGING, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getHanging(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.HANGING,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold()
+  {
+    return getHousehold(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias)
+  {
+    return (dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.HOUSEHOLD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF getHousehold(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.HOUSEHOLD,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getId()
+  {
+    return getId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.ID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getKeyName()
+  {
+    return getKeyName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.KEYNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate()
+  {
+    return getLastUpdateDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LASTUPDATEDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LASTUPDATEDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
+  {
+    return getLastUpdatedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LASTUPDATEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LASTUPDATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  {
+    return getLockedBy(null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LOCKEDBY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived()
+  {
+    return getMonthReceived(null);
+
+  }
+ 
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias)
+  {
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRECEIVED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthReceived(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRECEIVED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated()
+  {
+    return getMonthRetreated(null);
+
+  }
+ 
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated(String alias)
+  {
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRETREATED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF getMonthRetreated(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.MonthOfYearMasterQuery.MonthOfYearQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.MONTHRETREATED, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand()
+  {
+    return getNetBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NETBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNetBrand(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NETBRAND,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getNetId()
+  {
+    return getNetId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getNetId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NETID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getNetId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NETID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping()
+  {
+    return getNotUsedForSleeping(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NOTUSEDFORSLEEPING, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNotUsedForSleeping(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.NOTUSEDFORSLEEPING, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained()
+  {
+    return getObtained(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.OBTAINED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getObtained(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.OBTAINED,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
+  {
+    return getOwner(null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.OWNER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getPrice()
+  {
+    return getPrice(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getPrice(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PRICE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getPrice(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PRICE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose()
+  {
+    return getPurpose(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPurpose(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getPurposeComments()
+  {
+    return getPurposeComments(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPurposeComments(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSECOMMENTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPurposeComments(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.PURPOSECOMMENTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getReceivedDate()
+  {
+    return getReceivedDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getReceivedDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RECEIVEDDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getReceivedDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RECEIVEDDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getRetreated()
+  {
+    return getRetreated(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRetreated(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRetreated(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getRetreatedDate()
+  {
+    return getRetreatedDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getRetreatedDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATEDDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getRetreatedDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.RETREATEDDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSeq()
+  {
+    return getSeq(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SEQ, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SEQ, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSiteMaster()
+  {
+    return getSiteMaster(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SITEMASTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableLong getSleptUnderNet()
+  {
+    return getSleptUnderNet(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSleptUnderNet(String alias)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SLEPTUNDERNET, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableLong getSleptUnderNet(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableLong)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.SLEPTUNDERNET, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getType()
+  {
+    return getType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.TYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getWashFrequency()
+  {
+    return getWashFrequency(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWashFrequency(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHFREQUENCY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWashFrequency(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHFREQUENCY, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod()
+  {
+    return getWashPeriod(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHPERIOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWashPeriod(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHPERIOD,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed()
+  {
+    return getWashed(null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed(String alias)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF getWashed(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.WASHED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getYearReceived()
+  {
+    return getYearReceived(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearReceived(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.YEARRECEIVED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearReceived(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.YEARRECEIVED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getYearRetreated()
+  {
+    return getYearRetreated(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearRetreated(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.YEARRETREATED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getYearRetreated(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.intervention.monitor.ITNInstance.YEARRETREATED, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();

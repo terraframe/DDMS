@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  class NonRangeCategoryQuery extends dss.vector.solutions.query.AbstractCategoryQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -488843179;
 
   public NonRangeCategoryQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -106,7 +105,6 @@ private static final long serialVersionUID = -488843179;
  implements NonRangeCategoryQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -784038157;
 
   public NonRangeCategoryQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -127,6 +125,119 @@ private static final long serialVersionUID = -784038157;
       return this.NE(nonRangeCategory.getId());
     }
 
+  public com.runwaysdk.query.SelectableChar getExactValueStr()
+  {
+    return getExactValueStr(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getExactValueStr(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getExactValueStr(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, displayLabel);
+
+  }
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface NonRangeCategoryQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableChar getExactValueStr();
+    public com.runwaysdk.query.SelectableChar getExactValueStr(String alias);
+    public com.runwaysdk.query.SelectableChar getExactValueStr(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class NonRangeCategoryQueryMultiReference extends dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryMultiReference
+ implements NonRangeCategoryQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public NonRangeCategoryQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory)  {
+
+      String[] itemIdArray = new String[nonRangeCategory.length]; 
+
+      for (int i=0; i<nonRangeCategory.length; i++)
+      {
+        itemIdArray[i] = nonRangeCategory[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory)  {
+
+      String[] itemIdArray = new String[nonRangeCategory.length]; 
+
+      for (int i=0; i<nonRangeCategory.length; i++)
+      {
+        itemIdArray[i] = nonRangeCategory[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory)  {
+
+      String[] itemIdArray = new String[nonRangeCategory.length]; 
+
+      for (int i=0; i<nonRangeCategory.length; i++)
+      {
+        itemIdArray[i] = nonRangeCategory[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory)  {
+
+      String[] itemIdArray = new String[nonRangeCategory.length]; 
+
+      for (int i=0; i<nonRangeCategory.length; i++)
+      {
+        itemIdArray[i] = nonRangeCategory[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.NonRangeCategory ... nonRangeCategory)  {
+
+      String[] itemIdArray = new String[nonRangeCategory.length]; 
+
+      for (int i=0; i<nonRangeCategory.length; i++)
+      {
+        itemIdArray[i] = nonRangeCategory[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public com.runwaysdk.query.SelectableChar getExactValueStr()
   {
     return getExactValueStr(null);

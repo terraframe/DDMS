@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  class RangeCategoryQuery extends dss.vector.solutions.query.AbstractCategoryQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 240743742;
 
   public RangeCategoryQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -126,7 +125,6 @@ private static final long serialVersionUID = 240743742;
  implements RangeCategoryQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1129390432;
 
   public RangeCategoryQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -147,6 +145,139 @@ private static final long serialVersionUID = 1129390432;
       return this.NE(rangeCategory.getId());
     }
 
+  public com.runwaysdk.query.SelectableChar getLowerBoundStr()
+  {
+    return getLowerBoundStr(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLowerBoundStr(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLowerBoundStr(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUpperBoundStr()
+  {
+    return getUpperBoundStr(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUpperBoundStr(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUpperBoundStr(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
+
+  }
+  }
+
+/**
+ * Interface that masks all type unsafe query methods and defines all type safe methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public interface RangeCategoryQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryMultiReferenceIF
+  {
+
+    public com.runwaysdk.query.SelectableChar getLowerBoundStr();
+    public com.runwaysdk.query.SelectableChar getLowerBoundStr(String alias);
+    public com.runwaysdk.query.SelectableChar getLowerBoundStr(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUpperBoundStr();
+    public com.runwaysdk.query.SelectableChar getUpperBoundStr(String alias);
+    public com.runwaysdk.query.SelectableChar getUpperBoundStr(String alias, String displayLabel);
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.RangeCategory ... rangeCategory);
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.RangeCategory ... rangeCategory);
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.RangeCategory ... rangeCategory);
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.RangeCategory ... rangeCategory);
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.RangeCategory ... rangeCategory);
+  }
+
+/**
+ * Implements type safe query methods.
+ * This type is used when a join is performed on this class as a reference.
+ **/
+  public static class RangeCategoryQueryMultiReference extends dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryMultiReference
+ implements RangeCategoryQueryMultiReferenceIF
+, com.runwaysdk.generation.loader.Reloadable
+  {
+
+  public RangeCategoryQueryMultiReference(com.runwaysdk.dataaccess.MdAttributeMultiReferenceDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdMultiReferenceTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
+  {
+    super(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdMultiReferenceTableName, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, alias, displayLabel);
+
+  }
+
+
+
+    public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.RangeCategory ... rangeCategory)  {
+
+      String[] itemIdArray = new String[rangeCategory.length]; 
+
+      for (int i=0; i<rangeCategory.length; i++)
+      {
+        itemIdArray[i] = rangeCategory[i].getId();
+      }
+
+      return this.containsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.RangeCategory ... rangeCategory)  {
+
+      String[] itemIdArray = new String[rangeCategory.length]; 
+
+      for (int i=0; i<rangeCategory.length; i++)
+      {
+        itemIdArray[i] = rangeCategory[i].getId();
+      }
+
+      return this.notContainsAny(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsAll(dss.vector.solutions.query.RangeCategory ... rangeCategory)  {
+
+      String[] itemIdArray = new String[rangeCategory.length]; 
+
+      for (int i=0; i<rangeCategory.length; i++)
+      {
+        itemIdArray[i] = rangeCategory[i].getId();
+      }
+
+      return this.containsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition notContainsAll(dss.vector.solutions.query.RangeCategory ... rangeCategory)  {
+
+      String[] itemIdArray = new String[rangeCategory.length]; 
+
+      for (int i=0; i<rangeCategory.length; i++)
+      {
+        itemIdArray[i] = rangeCategory[i].getId();
+      }
+
+      return this.notContainsAll(itemIdArray);
+  }
+
+    public com.runwaysdk.query.Condition containsExactly(dss.vector.solutions.query.RangeCategory ... rangeCategory)  {
+
+      String[] itemIdArray = new String[rangeCategory.length]; 
+
+      for (int i=0; i<rangeCategory.length; i++)
+      {
+        itemIdArray[i] = rangeCategory[i].getId();
+      }
+
+      return this.containsExactly(itemIdArray);
+  }
   public com.runwaysdk.query.SelectableChar getLowerBoundStr()
   {
     return getLowerBoundStr(null);
