@@ -69,7 +69,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     
     // The unique spray id is used whenever an aggregation is requested (eg, SUM) so that
     // a unique column can be specified as a discriminator to avoid cross-products.
-    if(this.irsQB.needUniqueSprayId() || this.irsQB.hasPlannedTargets())
+    if(this.irsQB.needsSprayedUnits() || this.irsQB.hasPlannedTargets())
     {
       this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.UNIQUE_SPRAY_ID);
     }

@@ -224,7 +224,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private List<Pair<String, SQLProvider>> areaPairs; 
   
-  private boolean needUniqueSprayId;
+//  private boolean needUniqueSprayId;
   
   /**
    * True if any part of the query required spray_unit, thus the insecticide view.
@@ -458,7 +458,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.hasSprayEnumOrTerm = false;
 
-    this.needUniqueSprayId = false;
+//    this.needUniqueSprayId = false;
     
     this.needsAreaPlanned = false;
     this.needsOperatorPlanned = false;
@@ -880,36 +880,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     joinSexAttributes();
 
-    
-    // DEBUG
-    if(MdssLog.isDebugEnabled())
-    {
-      String f = String.format("Alias: [%s], Insecticide (inner): [%s], Insecticide (outer): [%s], Spray: [%s]", 
-          this.sprayViewAlias, this.insecticideQuery, this.outerInsecticideQuery, this.abstractSprayQuery);
-      System.out.println(f);
-      
-      for(Selectable s : this.irsVQ.getSelectableRefs())
-      {
-        System.out.println(s.getUserDefinedAlias());
-      }
-      
-      for(Field field : this.getClass().getFields())
-      {
-        String n = field.getName();
-        Object o;
-        try
-        {
-          o = field.get(this);
-        }
-        catch(Throwable t)
-        {
-          o = t.getMessage();
-        }
-        
-        System.out.println(n+" : "+o);
-      }
-    }
-    
     
     if (insecticideQuery != null)
     {
@@ -1460,8 +1430,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       
 
       // do the final grouping
+      Selectable countSel = null;
       for(Selectable s : finalVQ.getSelectableRefs())
       {
+        if(s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+        {
+          countSel = s;
+        }
+        
         if(s.getUserDefinedAlias().equals(Alias.AREA_PLANNED_TARGET.getAlias()))
         {
           String sql = "SUM("+Alias.AREA_PLANNED_TARGET.getAlias()+")";
@@ -1549,6 +1525,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       finalVQ.FROM(newSQL, "outerVQ");
       
+      finalVQ.setCountSelectable((SelectableSQLLong) countSel);
       
       return finalVQ;
     }
@@ -1639,7 +1616,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     if(QueryUtil.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true) > 0)
     {
-      needUniqueSprayId = true;
+      this.needsSprayedUnits = true;
+//      needUniqueSprayId = true;
     }
 
     String[] sprayDetails = new String[] {
@@ -1654,7 +1632,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     String detailUniqueId = this.getUniqueSprayDetailsId();
     if(QueryUtil.setAttributesAsAggregated(sprayDetails, detailUniqueId, irsVQ, sprayViewAlias, true) > 0)
     {
-      needUniqueSprayId = true;
+      this.needsSprayedUnits = true;
+//      needUniqueSprayId = true;
     }
   }
 
@@ -1982,10 +1961,10 @@ public class IRSQB extends AbstractQB implements Reloadable
     return sprayViewAlias;
   }
   
-  public boolean needUniqueSprayId()
-  {
-    return needUniqueSprayId;
-  }
+//  public boolean needUniqueSprayId()
+//  {
+//    return needUniqueSprayId;
+//  }
   
   @Override
   protected void addCountSelectable(ValueQuery v)
@@ -2293,7 +2272,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(Alias.OPERATOR_TARGETED_COVERAGE.getAlias()))
     {
       this.needsSprayedUnits = true;
-      this.needUniqueSprayId = true;
+//      this.needUniqueSprayId = true;
       
       String uniqueSprayId = this.getUniqueSprayDetailsId();
       String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
@@ -2309,7 +2288,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(Alias.TEAM_TARGETED_COVERAGE.getAlias()))
     {
       this.needsSprayedUnits = true;
-      this.needUniqueSprayId = true;
+//      this.needUniqueSprayId = true;
       
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGETED_COVERAGE.getAlias());
 
