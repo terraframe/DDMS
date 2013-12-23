@@ -114,25 +114,33 @@ public class QueryUtil implements Reloadable
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
+  
+  public static final String SUM_FUNCTION = "sum_stringified_id_int_pairs";
+
+  public static final String MIN_FUNCTION = "min_stringified_id_int_pairs";
+  
+  public static final String MAX_FUNCTION = "max_stringified_id_int_pairs";
+  
+  public static final String AVG_FUNCTION = "avg_stringified_id_int_pairs";
 
   public static String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "sum_stringified_id_int_pairs(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return SUM_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String minColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "min_stringified_id_int_pairs(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return MIN_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "max_stringified_id_int_pairs(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return MAX_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "avg_stringified_id_int_pairs(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return AVG_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   /**

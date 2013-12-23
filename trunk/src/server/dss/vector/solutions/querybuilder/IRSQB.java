@@ -1,7 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,6 +39,7 @@ import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
@@ -55,7 +55,6 @@ import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.Metadata;
 import com.sun.tools.javac.util.Pair;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.Property;
@@ -1138,7 +1137,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // a list of selectables to add to the outer query
       List<String> newGB = new LinkedList<String>();
       
-      Selectable[] replacements = this.replaceAll(valueQuery, valueQuery.getSelectableRefs(), TargetJoin.ACTUAL_ALIAS);
+      Selectable[] replacements = this.replaceAll(valueQuery, valueQuery.getSelectableRefs(), TargetJoin.ACTUAL_ALIAS, false, null);
       
       // remove count/ratio and put them in the outer query
       List<Selectable> valid = new LinkedList<Selectable>();
@@ -1406,7 +1405,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // to be selected, yet that throws off the result set. Use ANOTHER ValueQuery
       // as the final one and custom add the columns to the outer grouping. I'm sorry.
       ValueQuery finalVQ = new ValueQuery(this.queryFactory);
-      replacements = this.replaceAll(outer, outer.getSelectableRefs(), null);
+      replacements = this.replaceAll(outer, outer.getSelectableRefs(), null, true, valueQuery);
       
       List<Selectable> toSelect = new LinkedList<Selectable>();
       
@@ -1428,27 +1427,35 @@ public class IRSQB extends AbstractQB implements Reloadable
         finalVQ.SELECT(replacements);
       }
       
+      // SELECT this in the outer query but use it in the final query to force proper grouping on
+      // aggregates
+      twAlias = aliasPrefix + Alias.TARGET_WEEK.getAlias();
+      SelectableSQL areaTargetWeek = valueQuery.aSQLCharacter(Alias.TARGET_WEEK.getAlias(), Alias.TARGET_WEEK.getAlias());
+      outer.SELECT(areaTargetWeek);
 
       // do the final grouping
       Selectable countSel = null;
       for(Selectable s : finalVQ.getSelectableRefs())
       {
-        if(s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+        String alias = s.getUserDefinedAlias();
+        if(alias.equals(AbstractQB.WINDOW_COUNT_ALIAS))
         {
           countSel = s;
         }
         
-        if(s.getUserDefinedAlias().equals(Alias.AREA_PLANNED_TARGET.getAlias()))
+        if(alias.equals(Alias.AREA_PLANNED_TARGET.getAlias()))
         {
-          String sql = "SUM("+Alias.AREA_PLANNED_TARGET.getAlias()+")";
+          String sql = QueryUtil.sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, Alias.AREA_PLANNED_TARGET.getAlias());
           ((SelectableSQL)s).setSQL(sql);
           
           Selectable newSel = finalVQ.aSQLAggregateFloat(Alias.AREA_PLANNED_TARGET.getAlias(), sql, Alias.AREA_PLANNED_TARGET.getAlias(), s.getUserDefinedAlias());
           finalVQ.replaceSelectable(newSel);
         }
-        else if(s.getUserDefinedAlias().equals(Alias.AREA_PLANNED_COVERAGE.getAlias()))
+        else if(alias.equals(Alias.AREA_PLANNED_COVERAGE.getAlias()))
         {
-          String sql = "SUM("+Alias.SPRAYED_UNITS.getAlias()+")/SUM("+Alias.AREA_PLANNED_TARGET+")";
+          String numer = QueryUtil.sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, Alias.SPRAYED_UNITS.getAlias());
+          String denom = QueryUtil.sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, Alias.AREA_PLANNED_TARGET.getAlias());
+          String sql = numer+"/NULLIF("+denom+",0)";
           ((SelectableSQL)s).setSQL(sql);
 
           Selectable newSel = finalVQ.aSQLAggregateFloat(Alias.AREA_PLANNED_COVERAGE.getAlias(), sql, Alias.AREA_PLANNED_COVERAGE.getAlias(), s.getUserDefinedAlias());
@@ -1456,7 +1463,45 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
         else
         {
-          if(!hasNonArea)
+          boolean groupBy = true;
+          // don't group by aggregates
+          if(valueQuery.hasSelectableRef(alias))
+          {
+            Selectable original = valueQuery.getSelectableRef(alias);
+            if(original.isAggregateFunction() && original instanceof SelectableSQL && original instanceof SelectableNumber)
+            {
+              groupBy = false;
+              
+              
+              String sql = original.getSQL();
+              String newSQL = null;
+              if(sql.contains(QueryUtil.SUM_FUNCTION))
+              {
+                newSQL = QueryUtil.sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
+              }
+              else if(sql.contains(QueryUtil.MIN_FUNCTION))
+              {
+                newSQL = QueryUtil.minColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
+              }
+              else if(sql.contains(QueryUtil.MAX_FUNCTION))
+              {
+                newSQL = QueryUtil.maxColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
+              }
+              else if(sql.contains(QueryUtil.AVG_FUNCTION))
+              {
+                newSQL = QueryUtil.avgColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
+              }
+              
+              if(newSQL != null)
+              {
+                SelectableSQL sel = (SelectableSQL) finalVQ.getSelectableRef(alias);
+                sel.setSQL(newSQL);
+              }
+            }
+          }
+          
+          
+          if((!hasNonArea && groupBy) || alias.equals(AbstractQB.WINDOW_COUNT_ALIAS))
           {
             finalVQ.GROUP_BY((SelectableSingle)s);
           }
@@ -1535,7 +1580,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
   }
   
-  private Selectable[] replaceAll(ValueQuery vq, List<Selectable> sels, String prefix)
+  private Selectable[] replaceAll(ValueQuery vq, List<Selectable> sels, String prefix, boolean preserveAggregates, ValueQuery original)
   {
     Selectable[] replacements = new Selectable[sels.size()];
     
@@ -1543,34 +1588,81 @@ public class IRSQB extends AbstractQB implements Reloadable
     int count = 0;
     for (Selectable sel : sels)
     {
+      String alias = sel.getUserDefinedAlias();
       // create a new Selectable based off the original type (because they are
       // custom formatted later on)
       String qualifiedCol = prefix != null ? prefix+"."+sel.getColumnAlias() : sel.getColumnAlias();
       if (sel instanceof SelectableInteger)
       {
-        newSel = vq.aSQLInteger(sel.getColumnAlias(), qualifiedCol,
+        if(preserveAggregates && 
+            original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateInteger(sel.getColumnAlias(), qualifiedCol,
             sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLInteger(sel.getColumnAlias(), qualifiedCol,
+            sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
       }
       else if (sel instanceof SelectableLong)
       {
-        newSel = vq.aSQLLong(sel.getColumnAlias(), qualifiedCol, 
-            sel.getUserDefinedAlias(),
-            sel.getUserDefinedDisplayLabel());
+        if(preserveAggregates && 
+            original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateLong(sel.getColumnAlias(), qualifiedCol, 
+              sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLLong(sel.getColumnAlias(), qualifiedCol, 
+              sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
       }
       else if (sel instanceof SelectableFloat)
       {
-        newSel = vq.aSQLFloat(sel.getColumnAlias(), qualifiedCol,
-            sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        if(preserveAggregates && 
+            original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateFloat(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLFloat(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
       }
       else if (sel instanceof SelectableDecimal)
       {
-        newSel = vq.aSQLDecimal(sel.getColumnAlias(), qualifiedCol,
-            sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        if(preserveAggregates && 
+            original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateDecimal(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLDecimal(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
       }
       else if (sel instanceof SelectableDouble)
       {
-        newSel = vq.aSQLDouble(sel.getColumnAlias(), qualifiedCol,
-            sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        if(preserveAggregates && 
+            original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateDouble(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLDouble(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
       }
       else if (sel instanceof AttributeDate || sel instanceof SelectableSQLDate)
       {
