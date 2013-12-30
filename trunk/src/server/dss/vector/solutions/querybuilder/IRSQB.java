@@ -1491,6 +1491,11 @@ public class IRSQB extends AbstractQB implements Reloadable
               {
                 newSQL = QueryUtil.avgColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
               }
+              else
+              {
+                // covers all calculations which require grouping
+                groupBy = true;
+              }
               
               if(newSQL != null)
               {
