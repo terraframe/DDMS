@@ -1494,7 +1494,7 @@ public class IRSQB extends AbstractQB implements Reloadable
               else
               {
                 // covers all calculations which require grouping
-                groupBy = true;
+                finalVQ.GROUP_BY((SelectableSingle)s);
               }
               
               if(newSQL != null)
