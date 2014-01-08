@@ -1493,8 +1493,11 @@ public class IRSQB extends AbstractQB implements Reloadable
               }
               else
               {
+                // default for every other calculation to avoid desegregation of results
+                newSQL = QueryUtil.sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, alias);
+                
                 // covers all calculations which require grouping
-                finalVQ.GROUP_BY((SelectableSingle)s);
+//                finalVQ.GROUP_BY((SelectableSingle)s);
               }
               
               if(newSQL != null)
