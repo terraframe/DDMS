@@ -105,11 +105,11 @@ public class QueryUtil implements Reloadable
 
   public static final String  DATE_ATTRIBUTE               = "date_attribute";
 
-  public static final String  DATE_CLASS               = "klass";
-  
-  public static final String  DATE_START               = "start";
-  
-  public static final String  DATE_END               = "end";
+  public static final String  DATE_CLASS                   = "klass";
+
+  public static final String  DATE_START                   = "start";
+
+  public static final String  DATE_END                     = "end";
 
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
@@ -160,10 +160,12 @@ public class QueryUtil implements Reloadable
 
     return aliases;
   }
-  
+
   /**
-   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql aggregates that use custom aggreation
-   * logic (eg, SUM(unique_column, sum_column).
+   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql
+   * aggregates that use custom aggreation logic (eg, SUM(unique_column,
+   * sum_column).
+   * 
    * @param aliases
    * @param id
    * @param valueQuery
@@ -172,29 +174,27 @@ public class QueryUtil implements Reloadable
    * @param preserveSQL
    * @return The number of aggregates that were swapped out.
    */
-  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, 
-      String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
+  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
   {
     int swapped = 0;
-    
+
     for (String alias : aliases)
     {
       if (valueQuery.hasSelectableRef(alias))
       {
         Selectable sel = valueQuery.getSelectableRef(alias);
         String dislay = sel.getUserDefinedDisplayLabel();
-        
 
         String sql = null;
         String oldSQL = alias;
         boolean useDefault = false;
-        if(sel.isAggregateFunction())
+        if (sel.isAggregateFunction())
         {
-          if(preserveSQL && sel.isAggregateFunction())
+          if (preserveSQL && sel.isAggregateFunction())
           {
             oldSQL = sel.getAggregateFunction().getSelectable().getSQL();
           }
-          
+
           if (sel instanceof SUM)
           {
             sql = QueryUtil.sumColumnForId(tableAlias, id, null, oldSQL);
@@ -223,25 +223,25 @@ public class QueryUtil implements Reloadable
           // Selectable is not an aggregate function. Use default behavior
           useDefault = true;
         }
-        
+
         // unwrap the Selectable to get the core type
-        while(sel.isAggregateFunction())
+        while (sel.isAggregateFunction())
         {
           sel = sel.getAggregateFunction().getSelectable();
         }
-        
+
         SelectableSQL newSel;
-        
-        if(useDefault)
+
+        if (useDefault)
         {
-          // The default behavior is to be used since no recognized 
+          // The default behavior is to be used since no recognized
           // aggregate functions were found.
-          
+
           if (allowNonAggregateDefault)
           {
             sql = sel.getSQL();
-            
-            if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+
+            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
             {
               newSel = valueQuery.aSQLLong(alias, sql, alias, dislay);
             }
@@ -254,8 +254,8 @@ public class QueryUtil implements Reloadable
           {
             // We have to SUM by default to avoid a cross-product
             sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
-            
-            if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+
+            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
             {
               newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
             }
@@ -267,8 +267,9 @@ public class QueryUtil implements Reloadable
         }
         else
         {
-          // aggregate found. Wrap the SQL in new selectable depending on the type
-          if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+          // aggregate found. Wrap the SQL in new selectable depending on the
+          // type
+          if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
           {
             newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
           }
@@ -277,18 +278,18 @@ public class QueryUtil implements Reloadable
             newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
           }
         }
-        
+
         // swap out the old selectable with the new.
         newSel.setColumnAlias(sel.getColumnAlias());
         valueQuery.replaceSelectable(newSel);
-        
+
         swapped++;
       }
     }
-    
+
     return swapped;
   }
-  
+
   public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
   {
     return setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
@@ -816,26 +817,25 @@ public class QueryUtil implements Reloadable
     List<String> subLocales = QueryUtil.getSupportedSubLocales(locale);
 
     MdDimensionDAOIF dimension = Session.getCurrentDimension();
-    if(dimension != null)
+    if (dimension != null)
     {
       String dimensionDefault = dimension.getDefaultLocaleAttributeName();
-      
+
       // First do all of the locales for the current dimension
       for (String subLocale : subLocales)
       {
         columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimension.getLocaleAttributeName(subLocale)));
       }
-      
+
       // Add the default dimension key
       columns.add(MetadataDAO.convertCamelCaseToUnderscore(dimensionDefault));
-      
+
       // Add the non dimension locales
       for (String subLocale : subLocales)
       {
         columns.add(subLocale);
       }
     }
-    
 
     // Add the default locale
     String key = MetadataDisplayLabel.CLASS + "." + MetadataDisplayLabel.DEFAULTLOCALE;
@@ -947,7 +947,15 @@ public class QueryUtil implements Reloadable
           if (!ignoreCriteria)
           {
             AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-            valueQuery.AND(dateAttriute.GE(startValue));
+
+            if (startValue != null && startValue.equals("NOW"))
+            {
+              valueQuery.AND(dateAttriute.GE(valueQuery.aSQLDate("CURRENT_START_DATE", "now()::date")));
+            }
+            else
+            {
+              valueQuery.AND(dateAttriute.GE(startValue));
+            }
           }
 
         }
@@ -958,7 +966,16 @@ public class QueryUtil implements Reloadable
           if (!ignoreCriteria)
           {
             AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-            valueQuery.AND(dateAttriute.LE(endValue));
+
+            if (endValue != null && endValue.equals("NOW"))
+            {
+              valueQuery.AND(dateAttriute.LE(valueQuery.aSQLDate("CURRENT_END_DATE", "now()::date")));
+            }
+            else
+            {
+              valueQuery.AND(dateAttriute.LE(endValue));
+            }
+
           }
         }
 

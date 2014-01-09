@@ -72,7 +72,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderD
   // Flag denoting if the date range widget should be rendered
   if(renderDateRange != null)
   {
-    this._renderDateRange = renderDateRange;	  
+    this._renderDateRange = renderDateRange;    
   }
   else
   {
@@ -99,11 +99,15 @@ MDSS.QueryPanel.prototype = {
   START_DATE_RANGE : "startDateRange",
   
   START_DATE_RANGE_CHECK : "start_date_range",
+  
+  START_DATE_CURRENT_DATE_CHECK : "start_date_current_date",
 
   END_DATE_RANGE : "endDateRange",
   
   END_DATE_RANGE_CHECK : "end_date_range",
-
+  
+  END_DATE_CURRENT_DATE_CHECK : "end_date_current_date",
+  
   GEO_ENTITY_PANEL_LIST : "geoEntityPanelList",
 
   COLUMNS_LIST : "columnsList",
@@ -332,7 +336,12 @@ MDSS.QueryPanel.prototype = {
   {
     return this._startDateRangeCheck;
   },
-
+  
+  getStartDateCurrentDateCheck : function()
+  {
+    return this._startDateCurrentDateCheck;
+  },
+  
   /**
    * Returns the end date element wrapped
    * in a YUI Element object.
@@ -346,7 +355,12 @@ MDSS.QueryPanel.prototype = {
   {
     return this._endDateRangeCheck;
   },
-
+  
+  getEndDateCurrentDateCheck : function()
+  {
+    return this._endDateCurrentDateCheck;
+  },
+  
   /**
    * Adds the date range div to the top panel.
    */
@@ -370,7 +384,18 @@ MDSS.QueryPanel.prototype = {
       YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', this.START_DATE_RANGE_CHECK);
       YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
+      
+      var currentStartDateLabel = document.createElement('span');
+      currentStartDateLabel.innerHTML = MDSS.localize('Current_Date');
 
+      this._startDateCurrentDateCheck = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'id', this.START_DATE_CURRENT_DATE_CHECK);
+      YAHOO.util.Event.addListener(this._startDateCurrentDateCheck, "click", this.disableDateCheck, null, this);
+
+      var startSpaceLabel = document.createElement('span');
+      startSpaceLabel.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+      
       var endLabel = document.createElement('span');
       endLabel.innerHTML = MDSS.localize('Query_End_Date');
 
@@ -384,6 +409,17 @@ MDSS.QueryPanel.prototype = {
       YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', this.END_DATE_RANGE_CHECK);
       YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
+      
+      var currentEndDateLabel = document.createElement('span');
+      currentEndDateLabel.innerHTML = MDSS.localize('Current_Date');
+      
+      this._endDateCurrentDateCheck = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'id', this.END_DATE_CURRENT_DATE_CHECK);
+      YAHOO.util.Event.addListener(this._endDateCurrentDateCheck, "click", this.disableDateCheck, null, this);
+
+      var endSpaceLabel = document.createElement('span');
+      endSpaceLabel.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'      
 
       var toggleDatesSpan = document.createElement('span');
       toggleDatesSpan.innerHTML = MDSS.localize('Toggle_Show');
@@ -396,9 +432,15 @@ MDSS.QueryPanel.prototype = {
       dateRange.appendChild(startLabel);
       dateRange.appendChild(this._startDateRangeCheck);
       dateRange.appendChild(this._startDate);
+      dateRange.appendChild(currentStartDateLabel);
+      dateRange.appendChild(this._startDateCurrentDateCheck);
+      dateRange.appendChild(startSpaceLabel);
       dateRange.appendChild(endLabel);
       dateRange.appendChild(this._endDateRangeCheck);
       dateRange.appendChild(this._endDate);
+      dateRange.appendChild(currentEndDateLabel);
+      dateRange.appendChild(this._endDateCurrentDateCheck);
+      dateRange.appendChild(endSpaceLabel);
 
       var dateGroupLabel = document.createElement('span');
       dateGroupLabel.innerHTML = MDSS.localize("Snap_To_Nearest");
@@ -434,8 +476,8 @@ MDSS.QueryPanel.prototype = {
   
   disableDates : function(disableStart, disableEnd)
   {
-	if(this.getRenderDateRange())
-	{
+  if(this.getRenderDateRange())
+  {
       if(disableStart !== null)
       {
         this._startDateRangeCheck.disabled = disableStart;
@@ -445,44 +487,68 @@ MDSS.QueryPanel.prototype = {
       {
       this._endDateRangeCheck.disabled = disableEnd;
       }
-	}
+  }
   },
   
   getDateGroupBy : function()
   {
     return this._dateGroupBy;
   },
-
+  
   /**
    */
   disableDateCheck : function()
   {
     if(this.getRenderDateRange())
     {
-      if(this._startDate.value.length == 0)
+      if(this._startDate.value.length == 0 && !this._startDateCurrentDateCheck.checked)
       {
         if(this._startDateRangeCheck.checked)
         {
           this._startDateRangeCheck.click();
         }
-        this._startDateRangeCheck.disabled = true;
+        this._startDateRangeCheck.disabled = true;        
+        this._startDate.disabled = false;
+        this._startDateCurrentDateCheck.disabled = false;
       }
       else
       {
         this._startDateRangeCheck.disabled = false;
+        
+        if(this._startDateCurrentDateCheck.checked)
+        {
+          this._startDate.value = '';
+          this._startDate.disabled = true;
+        }
+        else
+        {        
+          this._startDateCurrentDateCheck.disabled = true;
+        }
       }
 
-      if(this._endDate.value.length == 0)
+      if(this._endDate.value.length == 0 && !this._endDateCurrentDateCheck.checked)
       {
         if(this._endDateRangeCheck.checked)
         {
           this._endDateRangeCheck.click();
         }
-        this._endDateRangeCheck.disabled = true;
+        this._endDateRangeCheck.disabled = true;        
+        this._endDate.disabled = false;
+        this._endDateCurrentDateCheck.disabled = false;
       }
       else
       {
         this._endDateRangeCheck.disabled = false;
+        
+        if(this._endDateCurrentDateCheck.checked)
+        {
+          this._endDate.value = '';
+          this._endDate.disabled = true;
+        }
+        else
+        {        
+          this._endDateCurrentDateCheck.disabled = true;
+        }
       }
     }
   },
@@ -839,7 +905,7 @@ MDSS.QueryPanel.prototype = {
   _clearTemplateFrame : function()
   {
     var frame = document.getElementById('templateIframe');
-    frame.contentDocument.firstChild.innerHTML = '';	  
+    frame.contentDocument.firstChild.innerHTML = '';    
   },
 
   /**

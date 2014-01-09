@@ -808,8 +808,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        }
     },
     
-	_setTextCriteriaFromLoad : function(checked, userAlias)
-	{
+  _setTextCriteriaFromLoad : function(checked, userAlias)
+  {
       var key = userAlias + this._config.CRITERIA;
       var crit = this._config.getProperty(key);
       
@@ -817,10 +817,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
           
         this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
-        this._toggleSingle(userAlias, true, criteria.display);	  
+        this._toggleSingle(userAlias, true, criteria.display);    
       }
-	},
-	
+  },
+  
     _setNumberCriteriaFromLoad : function(checked, userAlias)
     {
       var key = userAlias + this._config.CRITERIA;
@@ -873,15 +873,32 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         
         if(dateRestrictions.start)
         {
-          var start = thisRef._queryPanel.getStartDate();
-          var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.start);
-          start.value = formatted;
+          if(dateRestrictions.start !== 'NOW')
+          {            
+            var start = thisRef._queryPanel.getStartDate();
+            var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.start);
+            start.value = formatted;
+          }
+          else
+          {
+            var startCurrentDateEl = thisRef._queryPanel.getStartDateCurrentDateCheck();
+            startCurrentDateEl.checked = true;
+          }
+          
         }
         if(dateRestrictions.end)
         {
-          var end = thisRef._queryPanel.getEndDate();
-          var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.end);
-          end.value = formatted;
+          if(dateRestrictions.end !== 'NOW')
+          {            
+            var end = thisRef._queryPanel.getEndDate();
+            var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.end);
+            end.value = formatted;
+          }
+          else
+          {
+            var endCurrentDateEl = thisRef._queryPanel.getEndDateCurrentDateCheck();
+            endCurrentDateEl.checked = true;
+          }
         }
       }
       
@@ -1419,15 +1436,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       if(klass == 'queryTextCriteria')
       {
-	      YAHOO.util.Event.on(singleInput, 'keyup', this._setTextCriteria, obj, this);
+        YAHOO.util.Event.on(singleInput, 'keyup', this._setTextCriteria, obj, this);
         li.appendChild(singleInput);
         this._buildTextAttributeAutoSuggest(singleInput,attribute,obj,this);
       }
-	    else
-	    {
+      else
+      {
         YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
         li.appendChild(singleInput);
-	    }
+      }
       
   
       // When the check box is toggled, be sure to clear and hide the input
@@ -1712,16 +1729,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       
     },
-	
-	_setTextCriteria : function(e, obj)
-	{
-	  var attribute = obj.attribute;
-	  var criteria = null;
-	  
-	  var text = document.getElementById(attribute.getKey()+"-single");
+  
+  _setTextCriteria : function(e, obj)
+  {
+    var attribute = obj.attribute;
+    var criteria = null;
+    
+    var text = document.getElementById(attribute.getKey()+"-single");
         
       criteria = MDSS.QueryBaseNew.buildTextCriteriaFromInput(text);
-	  
+    
       if(criteria.value === '' || criteria.value === ' - ')
       {
         criteria.value = null;
@@ -1738,8 +1755,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       else
       {
         this._config.removeNumberCriteria(attribute.getKey());
-      }	  
-	},
+      }    
+  },
     
     /**
      * Sets number criteria on an attribute.
@@ -1789,15 +1806,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     }
   },
   Static : {
-   buildTextCriteriaFromInput : function(element){
-	   var value = element.value;
-	   var valueStr = (value != null) ? value.toString() : '';
-	   return {value:valueStr, display:valueStr};
-	 },
-	 buildTextCriteriaFromString : function(string){
-	   var value = (string != null ? string : '');
-	   return {value:value, display:value};
-	 },
+     buildTextCriteriaFromInput : function(element){
+       var value = element.value;
+       var valueStr = (value != null) ? value.toString() : '';
+       return {value:valueStr, display:valueStr};
+     },
+     buildTextCriteriaFromString : function(string){
+       var value = (string != null ? string : '');
+       return {value:value, display:value};
+     },
      buildNumberCriteriaFromInput : function(element){
        var value = MDSS.parseNumber(element.value);
        value = (value != null && !isNaN(value) ? value : '');

@@ -1170,11 +1170,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       if(this._queryPanel.getRenderDateRange())
       {
         var startDateEl = this._queryPanel.getStartDate();
-        var startDate = MDSS.util.stripWhitespace(startDateEl.value);
+        var startDateCurrentDateEl = this._queryPanel.getStartDateCurrentDateCheck();        
+        var startDate = (startDateCurrentDateEl.checked ? 'NOW' : MDSS.Calendar.getMojoDateString(MDSS.util.stripWhitespace(startDateEl.value)));
+        
         var endDateEl = this._queryPanel.getEndDate();
-        var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-        startDate = MDSS.Calendar.getMojoDateString(startDate);
-        endDate = MDSS.Calendar.getMojoDateString(endDate);
+        var endDateCurrentDateEl = this._queryPanel.getEndDateCurrentDateCheck();        
+        var endDate = (endDateCurrentDateEl.checked ? 'NOW' : MDSS.Calendar.getMojoDateString(MDSS.util.stripWhitespace(endDateEl.value)));
+        
         
         this._endDate = null;
         this._startDate = null;
