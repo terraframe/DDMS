@@ -71,31 +71,12 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
 
     if (premiseTaxonQuery != null)
     {
-
-      if (collectionPremiseQuery == null)
-      {
-        collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
-        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
-      }
-
       QueryUtil.joinTermAllpaths(valueQuery, PremiseTaxon.CLASS, premiseTaxonQuery);
       valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
     }
 
     if (collectionContainerQuery != null)
     {
-      if (collectionPremiseQuery == null)
-      {
-        collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
-        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
-      }
-
-      if (premiseTaxonQuery == null)
-      {
-        premiseTaxonQuery = new PremiseTaxonQuery(valueQuery);
-        valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
-      }
-
       QueryUtil.joinTermAllpaths(valueQuery, CollectionContainer.CLASS, collectionContainerQuery);
       valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
     }

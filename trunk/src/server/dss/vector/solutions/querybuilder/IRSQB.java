@@ -1000,7 +1000,19 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
       DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
-      QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
+      
+      if(this.dateCriteria == DateCriteria.PERSON_BIRTHDATE)
+      {
+        // Throw in a SelectableMoment override that points to Alias.SPRAY_DATE because setQueryDates()
+        // will try to use the selected date from the QB, PERSON_BIRTHDATE in this case, and that doesn't
+        // make sense.
+        SelectableMoment dateSel = irsVQ.aSQLDate("birthdate_override", this.sprayViewAlias+"."+Alias.SPRAY_DATE.getAlias());
+        QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper, dateSel);
+      }
+      else
+      {
+        QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
+      }
     }
     // ---- END DATE CRITERIA ----
     

@@ -903,8 +903,15 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
+  
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
+      boolean ignoreCriteria, Selectable diseaseSel)
+  {
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, ignoreCriteria, diseaseSel, null);
+  }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
+      boolean ignoreCriteria, Selectable diseaseSel, SelectableMoment dateSel)
   {
     String attributeName = null;
     String startValue = null;
@@ -1000,7 +1007,17 @@ public class QueryUtil implements Reloadable
           }
         }
 
-        return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
+        // If a SelectableMoment is not provided, extract one from the map. While a hack, this allows a QB to
+        // override the Selectable that will be plugged into the date groups (eg, DATEGROUP_SEASON).
+        if(dateSel != null)
+        {
+          String dbCol = dateSel.getSQL();
+          return setQueryDates(xml, valueQuery, attributeQuery, dbCol, diseaseSel);
+        }
+        else
+        {
+          return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
+        }
       }
 
       return valueQuery;
@@ -1011,8 +1028,9 @@ public class QueryUtil implements Reloadable
     }
 
   }
-
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
+  
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, 
+      boolean ignoreCriteria)
   {
     String attributeName = null;
     String startValue = null;
@@ -1096,7 +1114,8 @@ public class QueryUtil implements Reloadable
     }
 
   }
-
+  
+  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
@@ -1104,25 +1123,31 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
   {
-    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel);
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel, null);
+  }
+  
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Selectable diseaseSel)
+  {
+    Set<String> found = new HashSet<String>();
+    
+    if (xml.indexOf(DATEGROUP_SEASON) > 0)
+    {
+      found.add(DATEGROUP_SEASON);
+      
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
+      
+      String sql = QueryUtil.getSeasonNameSQL(diseaseSel, da, da);
+      dateGroup.setSQL(sql);
+    }
+    
+    return setQueryDates(xml, valueQuery, target, da, found);
+    
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel, Selectable diseaseSel)
   {
     String da = daSel.getDbQualifiedName();
-    Set<String> found = new HashSet<String>();
-
-    if (xml.indexOf(DATEGROUP_SEASON) > 0)
-    {
-      found.add(DATEGROUP_SEASON);
-
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
-
-      String sql = QueryUtil.getSeasonNameSQL(diseaseSel, da, da);
-      dateGroup.setSQL(sql);
-    }
-
-    return setQueryDates(xml, valueQuery, target, da, found);
+    return setQueryDates(xml, valueQuery, target, da, diseaseSel);
   }
 
   public static String getSeasonNameSQL(Selectable diseaseSel, String startDateColumnName, String endDateColumnName)
