@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 56160277)
+@com.runwaysdk.business.ClassSignature(hash = 553058804)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 56160277;
+  private static final long serialVersionUID = 553058804;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -863,6 +863,14 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     Object[] _parameters = new Object[]{termId, parameters};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getTermById", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void importTerms(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream importFile)
+  {
+    String[] _declaredTypes = new String[]{"java.io.InputStream"};
+    Object[] _parameters = new Object[]{importFile};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "importTerms", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.business.ValueQueryDTO searchByRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[][] roots)

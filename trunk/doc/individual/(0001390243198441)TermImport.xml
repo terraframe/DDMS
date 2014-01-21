@@ -1,0 +1,39 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.ontology.TermImportException" label="Term import exception" message="An error occured while importing row [{row}]: {exceptionMessage}">
+        <attributes>
+          <integer name="row" label="Row"/>
+          <text name="exceptionMessage" label="Exception message"/>
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.ontology.TermImportFormatException" label="Term import format exception" message="Invalid file format."/>
+      <mdException name="dss.vector.solutions.ontology.TermImportInvalidRowException" label="Incomplete row" message="Row is an invalid format or does not have all of the required data."/>
+    </create>
+    <update>
+      <mdController name="dss.vector.solutions.ontology.TermController">
+        <create>
+          <mdAction name="importTerms" label="Import terms" isPost="true" >
+            <mdParameter name="importFile" label="importFile" order="0" type="com.runwaysdk.controller.MultipartFileParameter" />            
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod name="importTerms" label="Import terms" static="true" returnType="void">
+            <mdParameter name="importFile" label="importFile" order="0" type="java.io.InputStream"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ontology.TermImportInvalidRowException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.ontology.TermImportException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.ontology.TermImportFormatException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.ontology.TermController.importTerms" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.ontology.Term.importTerms" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

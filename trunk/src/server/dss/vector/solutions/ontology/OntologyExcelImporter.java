@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -20,7 +21,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.runwaysdk.SystemException;
+import com.runwaysdk.business.SmartException;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -30,14 +31,18 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.export.ExcelVersionException;
 
 public class OntologyExcelImporter
 {
-  private Map<String, TermNode> terms;
-  private Deque<TermNode> stack;
-  private static Ontology ontology;
+  private Map<String, TermNode>       terms;
+
+  private Deque<TermNode>             stack;
+
+  private static Ontology             ontology;
+
   private static OntologyRelationship ontologyRelationship;
 
   public static void main(String[] args) throws FileNotFoundException
@@ -66,10 +71,10 @@ public class OntologyExcelImporter
 
     try
     {
-    readRequest(file);
+      readRequest(file);
 
-    long end = System.currentTimeMillis();
-    System.out.println("Imported in " + (end-start)/1000.0 + " seconds");
+      long end = System.currentTimeMillis();
+      System.out.println("Imported in " + ( end - start ) / 1000.0 + " seconds");
     }
     finally
     {
@@ -99,32 +104,62 @@ public class OntologyExcelImporter
     iterator.next();
 
     RootTerm rootTerm = new RootTerm();
-    
+
     QueryFactory f = new QueryFactory();
     RootTermQuery q = new RootTermQuery(f);
     OIterator<? extends RootTerm> rootIterator = q.getIterator();
-    if(rootIterator.hasNext())
+
+    try
     {
-      rootTerm = rootIterator.next();
+      if (rootIterator.hasNext())
+      {
+        rootTerm = rootIterator.next();
+      }
+      else
+      {
+        rootTerm.setTermId("ROOT");
+        rootTerm.setName("ROOT");
+        rootTerm.getTermDisplayLabel().setValue("Root");
+        rootTerm.setOntology(getOntology());
+        rootTerm.apply();
+      }
     }
-    else
+    finally
     {
-      rootTerm.setTermId("ROOT");
-      rootTerm.setName("ROOT");
-      rootTerm.getTermDisplayLabel().setValue("Root");
-      rootTerm.setOntology(getOntology());
-      rootTerm.apply();
+      rootIterator.close();
     }
-    rootIterator.close();
 
     TermNode root = new TermNode(rootTerm);
+
     // indent=0 means this will always be on the stack
     root.setIndent(0);
     stack.addFirst(root);
 
     while (iterator.hasNext())
     {
-      readRow(iterator.next());
+      HSSFRow row = iterator.next();
+
+      try
+      {
+        readRow(row);
+      }
+      catch (Exception e)
+      {
+        String message = e.getLocalizedMessage();
+
+        if (e instanceof SmartException)
+        {
+          message = ( (SmartException) e ).localize(Session.getCurrentLocale());
+        }
+
+        TermImportException ex = new TermImportException(e);
+        ex.setRow(row.getRowNum());
+        ex.setExceptionMessage(message);
+        ex.apply();
+
+        throw ex;
+      }
+
     }
 
     for (TermNode node : terms.values())
@@ -145,86 +180,96 @@ public class OntologyExcelImporter
 
     HSSFCell cell = iterator.next();
 
-    // The first item should be the term Id.  If it's not present, we need to skip the row
-    if (cell.getColumnIndex()!=0)
+    // The first item should be the term Id. If it's not present, we need to
+    // skip the row
+    if (cell.getColumnIndex() != 0)
     {
       return;
     }
 
-    String id = ExcelUtil.getString(cell);
-    TermNode node = getNodeById(id);
-    if (node==null)
+    try
     {
-      node = new TermNode();
-      node.setId(id);
-    }
-    cell = iterator.next();
-
-    if (cell.getColumnIndex()==1)
-    {
-      node.setActiveMalaria(ExcelUtil.getBoolean(cell));
+      String id = ExcelUtil.getString(cell);
+      TermNode node = getNodeById(id);
+      if (node == null)
+      {
+        node = new TermNode();
+        node.setId(id);
+      }
       cell = iterator.next();
-    }
 
-    if (cell.getColumnIndex()==2)
+      if (cell.getColumnIndex() == 1)
+      {
+        node.setActiveMalaria(ExcelUtil.getBoolean(cell));
+        cell = iterator.next();
+      }
+
+      if (cell.getColumnIndex() == 2)
+      {
+        node.setActiveDengue(ExcelUtil.getBoolean(cell));
+        cell = iterator.next();
+      }
+
+      TermNode parentNode = null;
+      if (cell.getColumnIndex() == 3)
+      {
+        parentNode = getNodeById(ExcelUtil.getString(cell));
+        cell = iterator.next();
+      }
+
+      // By here, we know that index >=4, and should contain the name
+      String nodeName = ExcelUtil.getString(cell);
+
+      // It's possible there are blank cells. Ignore them.
+      while (nodeName.length() == 0)
+      {
+        cell = iterator.next();
+        nodeName = ExcelUtil.getString(cell);
+      }
+      node.setName(nodeName);
+      node.setIndent(cell.getColumnIndex());
+
+      // Pop the stack until the top has an indent less than the current row.
+      TermNode peek = stack.peek();
+      while (OntologyExcelImporter.greaterIndent(peek, cell.getColumnIndex()))
+      {
+        stack.removeFirst();
+        peek = stack.peek();
+      }
+
+      // Push the current node onto the indentation stack
+      stack.addFirst(node);
+
+      // If a parent wasn't specified explicitly, use the indentation to assign
+      // one
+      if (parentNode == null)
+      {
+        parentNode = peek;
+      }
+      node.addParent(parentNode);
+
+      terms.put(id, node);
+    }
+    catch (NoSuchElementException e)
     {
-      node.setActiveDengue(ExcelUtil.getBoolean(cell));
-      cell = iterator.next();
+      throw new TermImportInvalidRowException(e);
     }
-
-    TermNode parentNode = null;
-    if (cell.getColumnIndex()==3)
-    {
-      parentNode = getNodeById(ExcelUtil.getString(cell));
-      cell = iterator.next();
-    }
-
-    // By here, we know that index >=4, and should contain the name
-    String nodeName = ExcelUtil.getString(cell);
-
-    // It's possible there are blank cells.  Ignore them.
-    while (nodeName.length()==0)
-    {
-      cell = iterator.next();
-      nodeName = ExcelUtil.getString(cell);
-    }
-    node.setName(nodeName);
-    node.setIndent(cell.getColumnIndex());
-
-    // Pop the stack until the top has an indent less than the current row.
-    TermNode peek = stack.peek();
-    while (OntologyExcelImporter.greaterIndent(peek, cell.getColumnIndex()))
-    {
-      stack.removeFirst();
-      peek = stack.peek();
-    }
-
-    // Push the current node onto the indentation stack
-    stack.addFirst(node);
-
-    // If a parent wasn't specified explicitly, use the indentation to assign one
-    if (parentNode==null)
-    {
-      parentNode = peek;
-    }
-    node.addParent(parentNode);
-
-    terms.put(id, node);
   }
 
   private static boolean greaterIndent(TermNode node, Integer index)
   {
-    if (node==null)
+    if (node == null)
     {
       return false;
     }
 
-    return node.getIndent()>=index;
+    return node.getIndent() >= index;
   }
 
   /**
-   * Tries to fetch a TermNode first from the cache, then from the db.  If found in neither, null is returned.
-   *
+   * Tries to fetch a TermNode first from the cache, then from the db. If found
+   * in neither, null is returned.
+   * 
    * @param id
    * @return
    */
@@ -232,7 +277,7 @@ public class OntologyExcelImporter
   {
     TermNode node = terms.get(id);
 
-    if (node==null)
+    if (node == null)
     {
       TermQuery query = new TermQuery(new QueryFactory());
       query.WHERE(query.getTermId().EQ(id));
@@ -251,7 +296,7 @@ public class OntologyExcelImporter
 
   /**
    * Opens the stream and returns an initialized row iterator
-   *
+   * 
    * @param stream
    * @return
    * @throws IOException
@@ -274,13 +319,13 @@ public class OntologyExcelImporter
     }
     catch (IOException e)
     {
-      throw new SystemException(e);
+      throw new TermImportFormatException(e);
     }
   }
 
   public static Ontology getOntology()
   {
-    if (ontology==null)
+    if (ontology == null)
     {
       setup();
     }
@@ -290,7 +335,7 @@ public class OntologyExcelImporter
 
   public static OntologyRelationship getOntologyRelationship()
   {
-    if (ontologyRelationship==null)
+    if (ontologyRelationship == null)
     {
       setup();
     }

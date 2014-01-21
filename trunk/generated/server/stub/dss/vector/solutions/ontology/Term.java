@@ -1,5 +1,7 @@
 package dss.vector.solutions.ontology;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1608,4 +1610,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
   }
 
+  public static void importTerms(InputStream importFile)
+  {
+    OntologyExcelImporter importer = new OntologyExcelImporter();
+    importer.read(new BufferedInputStream(importFile));
+  }
 }

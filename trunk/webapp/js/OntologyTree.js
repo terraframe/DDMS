@@ -543,6 +543,10 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     _setupMenu : function()
     {
       var itemData = [];
+      
+      var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Import_Button'));
+      importMenuItem.subscribe("click", Mojo.Util.bind(this, this._uploadImport));
+      itemData.push(importMenuItem);
     
       var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Create'));
       createMenuItem.subscribe("click", Mojo.Util.bind(this, this._addNodeHandler));
@@ -588,7 +592,79 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         } 
       });
       this._Term.getDefaultRoots(request);
+    },
+    
+    /**
+     * Action to upload a template file.
+     */
+    _uploadImport : function()
+    {
+      if (this._uploadModal == null)
+      {
+        var formId = 'importUploadForm';
+        var action = 'dss.vector.solutions.ontology.TermController.importTerms.mojo';
+
+        var html = MDSS.localize('File_Upload_Status') + ":<br />";
+        html += "<iframe name='importIframe' id='importIframe' style='height:200px; width:350px; margin-bottom: 15px'></iframe>";
+        html += "<form action='" + action + "' enctype='multipart/form-data' target='importIframe' id='" + formId + "' method='post'>";
+        html += "<input type='file' name='importFile' id='importFile' /><br />";
+        html += "<input type='submit' name='import' value='" + MDSS.localize('Submit') + "' />"
+        html += "</form>";
+
+        this._uploadModal = new YAHOO.widget.Panel("uploadTemplateModal", {
+          width : "400px",
+          height : "400px",
+          fixedcenter : true,
+          close : true,
+          draggable : false,
+          zindex : 8,
+          modal : true,
+          visible : true
+        });
+
+        // wrap content in divs
+        var outer = document.createElement('div');
+
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>' + MDSS.localize('Upload_Template') + '</h3><hr />';
+        outer.appendChild(header);
+
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        var that = this;
+        this._uploadModal.subscribe('hide', function()
+        {
+          // Clear out the status list of any existing imports
+          var myIFrame = document.getElementById('importIframe');
+
+          if (myIFrame != null)
+          {
+            myIFrame.contentWindow.document.body.innerHTML = "";
+          }
+
+          that._selectedNode.collapse();
+          that._selectedNode.dynamicLoadComplete = false;
+          that._selectedNode.expanded = false;
+          that._selectedNode.expand();
+        });
+        this._uploadModal.setBody(outer);
+        this._uploadModal.render(document.body);
+        this._uploadModal.bringToTop();
+
+        YAHOO.util.Event.on(formId, 'submit', this._uploadImportOnSubmit, null, this);
+      } 
+      else
+      {
+        this._uploadModal.show();
+      }
+    },
+
+    _uploadImportOnSubmit : function(e)
+    { 
+      return true;
     }
   }
-
 });

@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1979858302)
+@com.runwaysdk.business.ClassSignature(hash = 1158364357)
 public class TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.TermController";
@@ -9,8 +9,6 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = -1979858302;
   
   public TermControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -205,6 +203,20 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failEdit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:importFile", post=true)
+  public void importTerms(com.runwaysdk.controller.MultipartFileParameter importFile) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.importTerms");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:importFile", post=true)
+  public void failImportTerms(com.runwaysdk.controller.MultipartFileParameter importFile) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failImportTerms");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

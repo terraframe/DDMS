@@ -4,11 +4,17 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientConstants;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 
 public class TermController extends TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -279,5 +285,33 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+
+  @Override
+  public void importTerms(MultipartFileParameter importFile) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = (ClientRequestIF) req.getAttribute(ClientConstants.CLIENTREQUEST);
+
+    resp.setContentType("text/html;charset=UTF-8");
+    resp.setCharacterEncoding("UTF-8");
+    
+    try
+    {
+      // No file was uploaded
+      if (!ServletFileUpload.isMultipartContent(req) || importFile == null || importFile.getSize() == 0)
+      {
+        throw new RuntimeException(LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Required"));        
+      }
+      else
+      {
+        TermDTO.importTerms(clientRequest, importFile.getInputStream());
+        
+        resp.getWriter().write(LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Upload_Success"));
+      }
+    }
+    catch (Exception e)
+    {
+      resp.getWriter().write(e.getLocalizedMessage());
+    }
   }
 }
