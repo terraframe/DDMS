@@ -637,13 +637,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         var that = this;
         this._uploadModal.subscribe('hide', function()
         {
-          // Clear out the status list of any existing imports
-          var myIFrame = document.getElementById('importIframe');
-
-          if (myIFrame != null)
-          {
-            myIFrame.contentWindow.document.body.innerHTML = "";
-          }
+          that._uploadClearStatus();
 
           that._selectedNode.collapse();
           that._selectedNode.dynamicLoadComplete = false;
@@ -654,6 +648,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         this._uploadModal.render(document.body);
         this._uploadModal.bringToTop();
 
+        YAHOO.util.Event.on('importFile', 'change', this._uploadClearStatus, null, this);
         YAHOO.util.Event.on(formId, 'submit', this._uploadImportOnSubmit, null, this);
       } 
       else
@@ -661,9 +656,22 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         this._uploadModal.show();
       }
     },
+        
+    _uploadClearStatus : function(e)
+    {
+      // Clear out the status list of any existing imports
+      var myIFrame = document.getElementById('importIframe');
+
+      if (myIFrame != null)
+      {
+        myIFrame.contentWindow.document.body.innerHTML = "";
+      }    	
+    },
 
     _uploadImportOnSubmit : function(e)
     { 
+      this._uploadClearStatus();
+      
       return true;
     }
   }
