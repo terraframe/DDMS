@@ -47,6 +47,9 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
     this.irsQB.addRequiredAlias(View.PLANNED_AREA, joinAliases);
     
+//    // JN change
+//    this.irsQB.addRequiredAlias(this.getView(), Alias.UNIQUE_PLANNED_ID);
+    
     this.irsQB.addRequiredView(View.GEO_TARGET_VIEW);
     
     Set<Alias> select = this.irsQB.getSelectAliases();
@@ -81,29 +84,30 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     return View.PLANNED_AREA;
   }
   
-  @Override
-  public String setSprayOperator(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayOperatorBirthdate(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayOperatorPersonId(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayOperatorSex(Alias alias)
-  {
-    return null;
-  }
+  // JN change
+//  @Override
+//  public String setSprayOperator(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayOperatorBirthdate(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayOperatorPersonId(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayOperatorSex(Alias alias)
+//  {
+//    return null;
+//  }
   
   @Override
   public String setSpraySeason(Alias alias)
@@ -121,41 +125,42 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     return set(GTV_ALIAS, Alias.AUDIT_CREATE_DATE.getAlias(), Alias.AUDIT_CREATE_DATE);
   }
   
-  @Override
-  public String setSprayOperatorPerson(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayOperatorDefaultLocale(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayTeamDefaultLocale(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setTeamPlannedTarget(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setSprayTeam(Alias alias)
-  {
-    return null;
-  }
-  
-  @Override
-  public String setOperatorPlannedTarget(Alias alias)
-  {
-    return null;
-  }
+  // JN change
+//  @Override
+//  public String setSprayOperatorPerson(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayOperatorDefaultLocale(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayTeamDefaultLocale(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setTeamPlannedTarget(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setSprayTeam(Alias alias)
+//  {
+//    return null;
+//  }
+//  
+//  @Override
+//  public String setOperatorPlannedTarget(Alias alias)
+//  {
+//    return null;
+//  }
   
   public String setLastUpdateDate(Alias alias)
   {
@@ -205,8 +210,9 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   @Override
   public final String setUniquePlannedId(Alias alias)
   {
-//    return set(GTV_ALIAS, keyName, alias);
-    return null;
+    // JN Change
+    return set(GTV_ALIAS, keyName, alias);
+//    return null;
   }
 
   @Override
@@ -222,7 +228,10 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     // String sum =
     // QueryConstants.SUM_AREA_TARGETS+"("+parentGeoEntity+", to_char("+IRSQB.TARGET_WEEK+"-1, 'FM99'), "+Alias.DISEASE.getAlias()+", "+IRSQB.MALARIA_SEASON+")";
     // return set(sum, alias);
-    return null;// omit the column entirely
+    
+//    JN Change
+//    return null;// omit the column entirely
+    return setNULL(alias);
   }
 
   @Override
@@ -317,7 +326,10 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     
     sql += GTV_ALIAS + "." + idCol + ", " + parentGeoEntity + ", "
         + Alias.PLANNED_DATE.getAlias() + ", " + Alias.TARGET_WEEK.getAlias() + ", "
-        + IRSQB.MALARIA_SEASON + ", " + IRSQB.PLANNED_TARGET_DISEASE + "\n";
+        + IRSQB.MALARIA_SEASON + ", " + IRSQB.PLANNED_TARGET_DISEASE + 
+        // JN change
+        ", " + GTV_ALIAS+"."+keyName +
+        "\n";
 
     return sql;
   }

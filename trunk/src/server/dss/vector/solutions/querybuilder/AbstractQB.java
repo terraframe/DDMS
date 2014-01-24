@@ -185,9 +185,14 @@ public abstract class AbstractQB implements Reloadable
   private Integer pageNumber;
   
   private Integer pageSize;
-
+  
+  private JSONObject queryConfig;
+  
+  private Map<String, GeneratedEntityQuery> queryMap;
+  
   public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
+    this.queryConfig = null;
     this.hasUniversal = false;
     this.recursiveWithClause = false;
     this.xml = xml;
@@ -195,6 +200,7 @@ public abstract class AbstractQB implements Reloadable
     this.layer = layer;
     this.geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
 
+    this.queryMap = null;
     this.factory = null;
     this.valueQuery = null;
     this.parser = null;
@@ -237,21 +243,26 @@ public abstract class AbstractQB implements Reloadable
   {
     return config;
   }
+  
+  public JSONObject getQueryConfig()
+  {
+    return queryConfig;
+  }
 
   protected Layer getLayer()
   {
     return layer;
   }
-
-  /**
-   * Generates a ValueQuery based on the query this builder represents.
-   * Subclasses may override any of the individual steps in the query
-   * construction for finer grained control.
-   */
-  public final ValueQuery construct()
+  
+  protected Map<String, GeneratedEntityQuery> getQueryMap()
+  {
+    return queryMap;
+  }
+  
+  protected void initialConstruct()
   {
     // Query Config
-    JSONObject queryConfig = this.constructQueryConfig(this.config);
+    this.queryConfig = this.constructQueryConfig(this.config);
 
     factory = this.createFactory();
     valueQuery = this.createValueQuery();
@@ -261,12 +272,11 @@ public abstract class AbstractQB implements Reloadable
     this.setGeoDisplayLabelSQL();
 
     // Universals, mapping, and geo entity criteria
-    Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
-
-    // Reset the ValueQuery to be returned because the subclass has the option
-    // to substitute it with a custom one.
-    valueQuery = this.construct(factory, valueQuery, queryMap, this.xml, queryConfig);
-
+    this.queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
+  }
+  
+  protected ValueQuery finishConstruct()
+  {
     this.processAuditSelectables(valueQuery, queryMap);
     
     this.joinGeoDisplayLabels(valueQuery);
@@ -281,6 +291,20 @@ public abstract class AbstractQB implements Reloadable
     ValueQuery finalQuery = this.postProcess(valueQuery);
     
     return finalQuery;
+  }
+
+  /**
+   * Generates a ValueQuery based on the query this builder represents.
+   * Subclasses may override any of the individual steps in the query
+   * construction for finer grained control.
+   */
+  public final ValueQuery construct()
+  {
+    this.initialConstruct();
+    
+    valueQuery = this.construct(factory, valueQuery, queryMap, this.xml, queryConfig);
+
+    return this.finishConstruct();
   }
   
   /**
@@ -437,7 +461,7 @@ public abstract class AbstractQB implements Reloadable
     valueQuery.setSqlPrefix(with);
   }
   
-  protected void setGeoDisplayLabelSQL()
+  protected final void setGeoDisplayLabelSQL()
   {
     String sql = QueryUtil.getGeoDisplayLabelSQL(false);
     this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
