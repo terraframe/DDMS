@@ -100,7 +100,9 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   @Override
   public String setUniquePlannedId(Alias alias)
   {
-    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), keyName, alias);
+    // Make planned id unique by keyName (spray operator + season) + target_week
+    String uniqueId = keyName +"||'.'||"+Alias.TARGET_WEEK;
+    return set(IRSQB.View.RESOURCE_TARGET_VIEW.getView(), uniqueId, alias);
   }
 
   @Override
