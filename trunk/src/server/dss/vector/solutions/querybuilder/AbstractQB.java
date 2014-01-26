@@ -428,10 +428,7 @@ public abstract class AbstractQB implements Reloadable
     v.WHERE(customJoin);
   }
 
-  /**
-   * Sets the WITH clause on the value query.
-   */
-  protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery)
+  protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery, String prepend)
   {
     if (this.withEntries.size() == 0)
     {
@@ -458,7 +455,20 @@ public abstract class AbstractQB implements Reloadable
       with += "\n";
     }
 
+    if(prepend != null)
+    {
+      with = prepend+" \n"+with;
+    }
+    
     valueQuery.setSqlPrefix(with);
+  }
+  
+  /**
+   * Sets the WITH clause on the value query.
+   */
+  protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery)
+  {
+    this.setWITHClause(entries, recursive, valueQuery, null);
   }
   
   protected final void setGeoDisplayLabelSQL()
