@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1108063861)
+@com.runwaysdk.business.ClassSignature(hash = -1894830502)
 public class ExcelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.generator.ExcelController";
@@ -79,15 +79,15 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelExport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void excelImport() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType, com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void excelImport(java.lang.String excelType, com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.excelImport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void failExcelImport() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType, com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void failExcelImport(java.lang.String excelType, com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelImport");
@@ -121,15 +121,15 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failSurveyExcelExport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void surveyExcelImport() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type, com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void surveyExcelImport(java.lang.String type, com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.surveyExcelImport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void failSurveyExcelImport() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type, com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void failSurveyExcelImport(java.lang.String type, com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failSurveyExcelImport");

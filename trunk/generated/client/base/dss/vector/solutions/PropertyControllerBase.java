@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -952104537)
+@com.runwaysdk.business.ClassSignature(hash = 1568752142)
 public class PropertyControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.PropertyController";
@@ -9,8 +9,6 @@ public class PropertyControllerBase implements com.runwaysdk.generation.loader.R
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = -952104537;
   
   public PropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -193,15 +191,15 @@ public class PropertyControllerBase implements com.runwaysdk.generation.loader.R
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failNewInstance");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void setFlag() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void setFlag(com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.setFlag");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failSetFlag() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void failSetFlag(com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failSetFlag");

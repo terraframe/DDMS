@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1631897740)
+@com.runwaysdk.business.ClassSignature(hash = -1189661302)
 public class LocalizationControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.LocalizationController";
@@ -9,8 +9,6 @@ public class LocalizationControllerBase implements com.runwaysdk.generation.load
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = -1631897740;
   
   public LocalizationControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,15 +79,15 @@ public class LocalizationControllerBase implements com.runwaysdk.generation.load
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failExportFile");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void importFile() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void importFile(com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.importFile");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
-  public void failImportFile() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:upfile", post=true)
+  public void failImportFile(com.runwaysdk.controller.MultipartFileParameter upfile) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failImportFile");
