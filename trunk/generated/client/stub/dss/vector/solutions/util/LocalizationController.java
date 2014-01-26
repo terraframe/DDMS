@@ -11,12 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.system.metadata.SupportedLocaleQueryDTO;
 
 public class LocalizationController extends LocalizationControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -40,41 +36,25 @@ public class LocalizationController extends LocalizationControllerBase implement
   private void renderSelectLocales() throws IOException, ServletException
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "selectLocales");
-    
+
     SupportedLocaleQueryDTO query = LocalizationFacadeDTO.getInstalledLocales(getClientRequest());
     req.setAttribute("query", query);
     render("selectLocales.jsp");
   }
 
-  @SuppressWarnings("unchecked")
-  public void importFile() throws IOException, ServletException
+  @Override
+  public void importFile(MultipartFileParameter upfile) throws IOException, ServletException
   {
     try
     {
-      // Create a factory for disk-based file items
-      FileItemFactory factory = new DiskFileItemFactory();
-
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-
-      FileItem file = null;
-      List<FileItem> items = upload.parseRequest(this.req);
-      for (FileItem item : items)
-      {
-        if (!item.isFormField() && item.getSize() > 0)
-        {
-          file = item;
-        }
-      }
-
       ClientRequestIF request = this.getClientRequest();
-      if (file == null)
+      if (upfile == null || upfile.getSize() == 0)
       {
         req.setAttribute(ErrorUtility.ERROR_MESSAGE, LocalizationFacadeDTO.getFromBundles(request, "File_Required"));
       }
       else
       {
-        LocalizationFacadeDTO.importFile(request, file.getInputStream());
+        LocalizationFacadeDTO.importFile(request, upfile.getInputStream());
       }
     }
     catch (Throwable t)
@@ -89,11 +69,11 @@ public class LocalizationController extends LocalizationControllerBase implement
   {
     try
     {
-    ClientRequestIF clientRequest = this.getClientRequest();
+      ClientRequestIF clientRequest = this.getClientRequest();
 
-    InputStream stream = LocalizationFacadeDTO.exportFile(clientRequest, locales);
+      InputStream stream = LocalizationFacadeDTO.exportFile(clientRequest, locales);
 
-    FileDownloadUtil.writeXLS(resp, "Localization", stream);
+      FileDownloadUtil.writeXLS(resp, "Localization", stream);
     }
     catch (Throwable t)
     {
@@ -105,7 +85,7 @@ public class LocalizationController extends LocalizationControllerBase implement
       }
     }
   }
-  
+
   @Override
   public void failExportFile(String[] locales) throws IOException, ServletException
   {

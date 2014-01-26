@@ -9,10 +9,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +17,7 @@ import com.runwaysdk.ClientException;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
@@ -292,44 +289,22 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
   }
 
-  @SuppressWarnings("unchecked")
   @Override
-  public void uploadTemplate(String savedSearchId) throws IOException, ServletException
+  public void uploadTemplate(String savedSearchId, MultipartFileParameter templateFile) throws IOException, ServletException
   {
     String message = "";
 
     try
     {
-      // Create a factory for disk-based file items
-      FileItemFactory factory = new DiskFileItemFactory();
-
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-
-      String savedSearchIdValue = null;
-      FileItem file = null;
-      List<FileItem> items = upload.parseRequest(this.req);
-      for (FileItem item : items)
-      {
-        if (item.getFieldName().equals("savedSearchId"))
-        {
-          savedSearchIdValue = item.getString();
-        }
-        else if (!item.isFormField() && item.getSize() > 0)
-        {
-          file = item;
-        }
-      }
-
       ClientRequestIF request = this.getClientRequest();
-      if (savedSearchIdValue == null || savedSearchIdValue.trim().length() == 0)
+      if (savedSearchId == null || savedSearchId.trim().length() == 0)
       {
         SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(request, req.getLocale());
         message = ex.getLocalizedMessage();
         return;
       }
 
-      if (file == null)
+      if (templateFile == null || templateFile.getSize() > 0)
       {
         message = LocalizationFacadeDTO.getFromBundles(request, "File_Required");
         return;
@@ -338,7 +313,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // All checks passed. Save the file to the SavedSearch
 
       // Ensure that a saved search actually exists
-      SavedSearchDTO search = SavedSearchDTO.lock(request, savedSearchIdValue);
+      SavedSearchDTO search = SavedSearchDTO.lock(request, savedSearchId);
 
       String templateId = search.getTemplateFile();
 
@@ -350,7 +325,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       }
 
       // Upload the template file to the vault
-      BusinessDTO templateDTO = request.newSecureFile("template", "rptdesign", file.getInputStream());
+      BusinessDTO templateDTO = request.newSecureFile("template", "rptdesign", templateFile.getInputStream());
 
       // Associate the template file with the saved search
       search.setTemplateFile(templateDTO.getId());
@@ -1577,7 +1552,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       FormQueryBuilder builder = new FormQueryBuilder(request, QueryConstants.TYPE_QB);
       builder.setQuerySpecifics(classType, QueryConstants.TYPE_QB);
       builder.addForm(MdFormUtilDTO.getForm(request, type), "root");
-      
+
       String formDisplayLabel = form.getDisplayLabel().toString();
       this.req.setAttribute("localized_page_title", formDisplayLabel);
 
@@ -1617,10 +1592,10 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       builder.addForm(MdFormUtilDTO.getForm(request, FormBedNetDTO.FORM_TYPE), "root");
 
       builder.populateRequest(req);
-      
+
       MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormSurveyDTO.FORM_TYPE);
-      req.setAttribute("localized_page_title", surveyForm.getDisplayLabel().getValue()); 
-      
+      req.setAttribute("localized_page_title", surveyForm.getDisplayLabel().getValue());
+
       req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
     }
     catch (Throwable t)

@@ -3,19 +3,14 @@ package dss.vector.solutions.generator;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.form.business.FormSurveyDTO;
@@ -87,59 +82,30 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
 
   @Override
-  public void excelImport() throws IOException, ServletException
+  public void excelImport(String excelType, MultipartFileParameter upfile) throws IOException, ServletException
   {
-    this.excelImport(new DefaultImportConfiguration());
+    this.excelImport(new DefaultImportConfiguration(), excelType, upfile);
   }
 
   @SuppressWarnings("unchecked")
-  private void excelImport(ImportConfiguration configuration) throws IOException, ServletException
+  private void excelImport(ImportConfiguration configuration, String excelType, MultipartFileParameter upfile) throws IOException, ServletException
   {
     if (ServletFileUpload.isMultipartContent(req))
     {
       ClientRequestIF clientRequest = this.getClientRequest();
 
-      // Create a factory for disk-based file items
-      FileItemFactory factory = new DiskFileItemFactory();
-
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-
       try
       {
-        List<FileItem> items = upload.parseRequest(req);
-
-        HashMap<String, String> fields = new HashMap<String, String>();
-        InputStream sourceStream = null;
-        long size = 0;
-
-        for (FileItem item : items)
+        if (upfile != null && upfile.getSize() > 0)
         {
-          if (item.isFormField())
-          {
-            String name = item.getFieldName();
-            String value = item.getString();
-            fields.put(name, value);
-          }
-          else
-          {
-            size = item.getSize();
-            sourceStream = item.getInputStream();
-          }
-        }
-
-        if (size > 0)
-        {
+          InputStream sourceStream = upfile.getInputStream();
           int available = sourceStream.available();
           byte[] bytes = new byte[available];
           sourceStream.read(bytes);
           sourceStream.close();
 
-          String excelType = fields.get(TYPE);
-
           try
           {
-
             UnknownGeoEntityDTO[] unknownEntities = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
 
             // all geo entities in the file were identified
@@ -189,7 +155,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
           render("importFailure.jsp");
         }
       }
-      catch (FileUploadException e)
+      catch (Exception e)
       {
         ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
 
@@ -203,7 +169,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
 
   @Override
-  public void failExcelImport() throws IOException, ServletException
+  public void failExcelImport(String excelType, MultipartFileParameter upfile) throws IOException, ServletException
   {
     req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
@@ -262,8 +228,8 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
 
   @Override
-  public void surveyExcelImport() throws IOException, ServletException
+  public void surveyExcelImport(String type, MultipartFileParameter upfile) throws IOException, ServletException
   {
-    this.excelImport(new SurveyImportConfiguration());
+    this.excelImport(new SurveyImportConfiguration(), type, upfile);
   }
 }

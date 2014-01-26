@@ -4,19 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.general.EpiConfigurationDTO;
@@ -144,7 +139,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       }
     }
   }
-  
+
   public void localCancel(LocalPropertyDTO dto) throws IOException, ServletException
   {
     try
@@ -163,12 +158,12 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       }
     }
   }
-  
+
   public void failCancel(PropertyDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
-  
+
   public void failLocalCancel(LocalPropertyDTO dto) throws IOException, ServletException
   {
     this.localEdit(dto.getId());
@@ -224,7 +219,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       }
     }
   }
-  
+
   public void localUpdate(LocalPropertyDTO dto) throws IOException, ServletException
   {
     try
@@ -236,7 +231,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     catch (Throwable t)
     {
       boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-      
+
       if (!redirected)
       {
         this.failLocalUpdate(dto);
@@ -248,7 +243,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
   {
     this.edit(dto.getId());
   }
-  
+
   public void failLocalUpdate(LocalPropertyDTO dto) throws IOException, ServletException
   {
     this.localEdit(dto.getId());
@@ -265,7 +260,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     catch (Throwable t)
     {
       boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-      
+
       if (!redirected)
       {
         this.failEdit(id);
@@ -277,7 +272,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
   {
     this.viewAll();
   }
-  
+
   public void localEdit(String id) throws IOException, ServletException
   {
     try
@@ -289,14 +284,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     catch (Throwable t)
     {
       boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-      
+
       if (!redirected)
       {
         this.failLocalEdit(id);
       }
     }
   }
-  
+
   public void failLocalEdit(String id) throws IOException, ServletException
   {
     failEdit(id);
@@ -360,7 +355,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
   @SuppressWarnings("unchecked")
   @Override
-  public void setFlag() throws IOException, ServletException
+  public void setFlag(MultipartFileParameter upfile) throws IOException, ServletException
   {
     try
     {
@@ -369,28 +364,12 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       // Ensure the user has permission to update Properties
       new PropertyDTO(request);
 
-      // Create a factory for disk-based file items
-      FileItemFactory factory = new DiskFileItemFactory();
-
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-
-      FileItem file = null;
-      List<FileItem> items = upload.parseRequest(this.req);
-      for (FileItem item : items)
-      {
-        if (!item.isFormField() && item.getSize() > 0)
-        {
-          file = item;
-        }
-      }
-
-      if (file == null)
+      if (upfile == null || upfile.getSize() == 0)
       {
         throw new FileRequiredExceptionDTO(request, req.getLocale());
       }
 
-      this.setFlag(file.getInputStream());
+      this.setFlag(upfile.getInputStream());
 
       this.editFlag();
     }
@@ -400,13 +379,13 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       if (!redirected)
       {
-        this.failSetFlag();
+        this.failSetFlag(upfile);
       }
     }
   }
 
   @Override
-  public void failSetFlag() throws IOException, ServletException
+  public void failSetFlag(MultipartFileParameter upfile) throws IOException, ServletException
   {
     this.editFlag();
   }
