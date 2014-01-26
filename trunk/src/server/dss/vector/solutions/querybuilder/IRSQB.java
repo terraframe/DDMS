@@ -1585,8 +1585,7 @@ public class IRSQB extends AbstractQB implements Reloadable
           toReturn.setCountSelectable(c);
           
      valueQuery.SELECT(seasonJoin, diseaseJoin);
-     String workMem = "set work_mem = 102400"; // 100MB per query
-     this.setWITHClause(entries, false, toReturn, workMem);
+     this.setWITHClause(entries, false, toReturn);
      toReturn.FROM("("+valueQuery.getSQL()+")", FROM);
     }
     else
