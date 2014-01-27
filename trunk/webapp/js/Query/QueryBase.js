@@ -28,7 +28,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         postRender : this.postRender
       }, renderDateRange);
       
-      this._debug = location.hash === '#debug';
+      this._debug = location.hash === '#time';
       
       this._dm = new MDSS.DependencyManager();
       
