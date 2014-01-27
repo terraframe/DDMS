@@ -304,7 +304,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
         return;
       }
 
-      if (templateFile == null || templateFile.getSize() > 0)
+      if (templateFile == null || templateFile.getSize() == 0)
       {
         message = LocalizationFacadeDTO.getFromBundles(request, "File_Required");
         return;
