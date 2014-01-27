@@ -1170,15 +1170,19 @@ public class IRSQB extends AbstractQB implements Reloadable
         this.sprayViewAlias+"."+Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
     diseaseJoin.setColumnAlias(this.sprayViewAlias+"_"+Alias.DISEASE.getAlias());
     
+    boolean selectablesReset = false;
     
     if(this.needsAreaPlanned)
     {
       String areaAggregation = "areaAggregation";
-      toReturn = new ValueQuery(valueQuery.getQueryFactory());
       
-      // Select all of the columns from the original
-      Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
-      toReturn.SELECT(copies);
+      if(toReturn == null)
+      {
+        toReturn = new ValueQuery(valueQuery.getQueryFactory());
+        // Select all of the columns from the original
+        Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
+        toReturn.SELECT(copies);
+      }
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
@@ -1286,7 +1290,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
         
         SelectableSQL aptReplace = (SelectableSQL) toReturn.getSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+areaAggregation+"."+Alias.AREA_PLANNED_TARGET+",0)");
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+areaAggregation+"."+Alias.AREA_PLANNED_TARGET+",0)*100.0");
       }
       
       // Set the aggregation as a subquery in the WITH clause
@@ -1301,14 +1305,12 @@ public class IRSQB extends AbstractQB implements Reloadable
       if(toReturn == null)
       {
         toReturn = new ValueQuery(valueQuery.getQueryFactory());
+        // Select all of the columns from the original
+        Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
+        toReturn.SELECT(copies);
       }
       
       String operatorAggregation = "operatorAggregation";
-      toReturn = new ValueQuery(valueQuery.getQueryFactory());
-      
-      // Select all of the columns from the original
-      Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
-      toReturn.SELECT(copies);
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
@@ -1413,7 +1415,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
         
         SelectableSQL aptReplace = (SelectableSQL) toReturn.getSelectableRef(Alias.OPERATOR_PLANNED_COVERAGE.getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+operatorAggregation+"."+Alias.OPERATOR_PLANNED_TARGET+",0)");
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+operatorAggregation+"."+Alias.OPERATOR_PLANNED_TARGET+",0)*100.0");
       }
       
       if(toReturn.hasSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias()))
@@ -1439,15 +1441,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       if(toReturn == null)
       {
         toReturn = new ValueQuery(valueQuery.getQueryFactory());
+        // Select all of the columns from the original
+        Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
+        toReturn.SELECT(copies);
       }
       
 
       String teamAggregation = "teamAggregation";
-      toReturn = new ValueQuery(valueQuery.getQueryFactory());
       
-      // Select all of the columns from the original
-      Selectable[] copies = this.copyAll(valueQuery, valueQuery.getSelectableRefs(), originalVQ, false, null);
-      toReturn.SELECT(copies);
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
@@ -1552,7 +1553,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
         
         SelectableSQL aptReplace = (SelectableSQL) toReturn.getSelectableRef(Alias.TEAM_PLANNED_COVERAGE.getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+teamAggregation+"."+Alias.TEAM_PLANNED_TARGET+",0)");
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias()+"/NULLIF("+teamAggregation+"."+Alias.TEAM_PLANNED_TARGET+",0)*100.0");
       }
       
       if(toReturn.hasSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias()))
