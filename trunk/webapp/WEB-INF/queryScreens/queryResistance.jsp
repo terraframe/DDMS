@@ -174,7 +174,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var pooledAttribs = ["specie","identificationMethod","generation","isofemale","testDate","exposureTime","quantityTested"];
+    var pooledAttribs = ["specie","identificationMethod","generation","isofemale","testDate", "testMethod", "exposureTime","quantityTested"];
     <%
     Halp.setReadableAttributes(request, "pooledAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
