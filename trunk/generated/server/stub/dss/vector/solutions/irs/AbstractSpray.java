@@ -44,6 +44,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    return new IRSQB(config, xml, layer, pageSize, pageSize).construct();
+    return new IRSQB(xml, config, layer, pageSize, pageSize).construct();
   }
 }
