@@ -1,9 +1,14 @@
 package dss.vector.solutions.report;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +32,7 @@ import dss.vector.solutions.util.ReportGenerator;
 
 public class ReportController extends ReportControllerBase implements Reloadable
 {
-  private static final long serialVersionUID = 1236706138416L;
+  public static final long serialVersionUID = 1236706138416L;
 
   public ReportController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -84,6 +89,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
       try
       {
+        resp.setHeader("Content-Type", "application/pdf");
         resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
 
         generator.generate(design, resp.getOutputStream());
@@ -131,6 +137,89 @@ public class ReportController extends ReportControllerBase implements Reloadable
        */
 
       throw new ProgrammingErrorException(e);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void generate(String report) throws IOException, ServletException
+  {
+    try
+    {
+      ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
+      /*
+       * First validate permissions, this must be done before response.getOutputStream()
+       * is called otherwise redirecting on the error case will not work
+       */
+      item.validatePermissions();
+
+      List<ReportParameterDTO> parameters = new LinkedList<ReportParameterDTO>();
+
+      Enumeration<String> parameterNames = req.getParameterNames();
+
+      while (parameterNames.hasMoreElements())
+      {
+        String parameterName = parameterNames.nextElement();
+        String[] parameterValues = req.getParameterValues(parameterName);
+
+        ReportParameterDTO parameter = new ReportParameterDTO(this.getClientRequest());
+        parameter.setParameterName(parameterName);
+        parameter.setParameterValue(parameterValues[0]);
+
+        parameters.add(parameter);
+      }
+
+      /*
+       * Important: Calling resp.getOutputStream() changes the state of the HTTP
+       * request and response objects.  However, if an error occurs while rendering
+       * the report we need to delegate to the standard error handling mechanism.
+       * As such we can't call resp.getOutputStream() until we are sure the report
+       * has rendered.  Therefore, first render the report to a temp byte array stream.
+       * Once that has rendered, copy the bytes from the byte array to the servlet
+       * output stream.  Note, this may cause memory problems if the report being
+       * rendered is too big.
+       */
+      ByteArrayOutputStream rStream = new ByteArrayOutputStream();
+
+      try
+      {
+        String url = this.req.getRequestURL().toString();
+        String baseURL = url.substring(0, url.lastIndexOf('/'));
+
+        item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL);
+
+        if (item.getOutputFormatEnumNames().contains(OutputFormatDTO.PDF.name()))
+        {
+          String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
+          resp.setHeader("Content-Type", "application/pdf");
+          resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
+        }
+
+        ServletOutputStream oStream = resp.getOutputStream();
+
+        try
+        {
+          oStream.write(rStream.toByteArray());
+        }
+        finally
+        {
+          oStream.flush();
+          oStream.close();
+        }
+      }
+      finally
+      {
+        rStream.close();
+      }
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+      }
     }
   }
 }

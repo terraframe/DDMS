@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 1612413766)
+@com.runwaysdk.business.ClassSignature(hash = -495495531)
 public class ReportControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.report.ReportController";
@@ -9,8 +9,6 @@ public class ReportControllerBase implements com.runwaysdk.generation.loader.Rel
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 1612413766;
   
   public ReportControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -65,6 +63,20 @@ public class ReportControllerBase implements com.runwaysdk.generation.loader.Rel
   public com.runwaysdk.ClientSession getClientSession()
   {
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:report", post=false)
+  public void generate(java.lang.String report) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.generate");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:report", post=false)
+  public void failGenerate(java.lang.String report) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.failGenerate");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
