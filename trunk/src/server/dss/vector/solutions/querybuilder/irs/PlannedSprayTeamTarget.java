@@ -4,8 +4,10 @@ import java.util.Set;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
+import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
 {
@@ -15,6 +17,8 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   //
   // private String targetCol;
   
+  private String sprayZone;
+  
   public PlannedSprayTeamTarget(IRSQB irsQB)
   {
     super(irsQB);
@@ -23,6 +27,8 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
     // this.teamSprayTable = teamSprayMd.getTableName();
     // sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
     // targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+
+    sprayZone = QueryUtil.getColumnName(SprayTeam.getSprayZoneMd());
   }
   
   @Override
@@ -84,6 +90,12 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   public String setSprayTeam(Alias alias)
   {
     return set(sprayTeamTable, idCol, alias);
+  }
+  
+  @Override
+  public String setGeoEntity(Alias alias)
+  {
+    return set(sprayTeamTable, sprayZone, alias);
   }
 
   @Override

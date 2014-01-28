@@ -188,6 +188,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private DateCriteria                      dateCriteria;
   
+  private Set<String> universalAliases;
+  
   /**
    * A Set of all the select aliases that are used in the query.
    */
@@ -377,11 +379,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     TEAM
   }
 
-  public IRSQB(String config, String xml, Layer layer, Integer pageNumber, Integer pageSize, AggregationQueryType aggType)
+  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, AggregationQueryType aggType)
   {
     super(xml, config, layer, pageSize, pageSize);
 
     this.aggType = aggType;
+    
+    this.universalAliases = new HashSet<String>();
     
     this.setWITHRecursive(true);
     
@@ -483,9 +487,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.criteriaInterceptor = new CriteriaInterceptor(this.irsVQ);
   }
   
-  public IRSQB(String config, String xml, Layer layer, Integer pageNumber, Integer pageSize)
+  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
-    this(config, xml, layer, pageNumber, pageSize, null);
+    this(xml, config, layer, pageNumber, pageSize, null);
 
   }
   
@@ -885,6 +889,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.addRequiredView(View.INSECTICIDE_VIEW);
     }
     
+    processUniversals();
+    
     filterSelectables();
 
     swapOutAttributesForAggregates();
@@ -1170,8 +1176,6 @@ public class IRSQB extends AbstractQB implements Reloadable
         this.sprayViewAlias+"."+Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
     diseaseJoin.setColumnAlias(this.sprayViewAlias+"_"+Alias.DISEASE.getAlias());
     
-    boolean selectablesReset = false;
-    
     if(this.needsAreaPlanned)
     {
       String areaAggregation = "areaAggregation";
@@ -1186,7 +1190,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
-      IRSQB qb = new IRSQB(this.getConfig(), this.getXml(), null, null, null, AggregationQueryType.AREA);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.AREA);
       
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -1314,7 +1318,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
-      IRSQB qb = new IRSQB(this.getConfig(), this.getXml(), null, null, null, AggregationQueryType.OPERATOR);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.OPERATOR);
       
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -1452,7 +1456,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       // create a new IRS Query that aggregates the area targets for the universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps the original.
-      IRSQB qb = new IRSQB(this.getConfig(), this.getXml(), null, null, null, AggregationQueryType.TEAM);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.TEAM);
       
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -2695,7 +2699,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       String userDefinedAlias = s.getUserDefinedAlias(); // alias from incoming
                                                          // XML
       
-      if(!neutral.contains(userDefinedAlias) && !planned.contains(userDefinedAlias))
+      if(!neutral.contains(userDefinedAlias) && !planned.contains(userDefinedAlias) && !this.universalAliases.contains(userDefinedAlias))
       {
         this.hasActivity = true;
       }
@@ -2935,8 +2939,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias()))
     {
-      this.getGeoType();
-
       if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
       {
         this.needsAreaPlanned = true;
@@ -2980,8 +2982,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias()))
     {
-      this.getGeoType();
-
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
 
       if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
@@ -2996,8 +2996,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
   }
 
-  // FIXME make sure this works with multiple universals
-  private void getGeoType()
+  private void processUniversals()
   {
     if (this.smallestUnivesal != null)
     {
@@ -3036,6 +3035,8 @@ public class IRSQB extends AbstractQB implements Reloadable
             String geoIdAlias = this.getUniversalGeoId(name, attributeKey);
             
             this.universals.put(universalType, new Universal(name, id, entityNameAlias, geoIdAlias));
+            this.universalAliases.add(entityNameAlias);
+            this.universalAliases.add(geoIdAlias);
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
           this.smallestUnivesal = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
