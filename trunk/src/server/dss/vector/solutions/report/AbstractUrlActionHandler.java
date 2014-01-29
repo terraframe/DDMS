@@ -124,8 +124,7 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
     if (reportPath != null && reportPath.length() > 0)
     {
-      int index = reportPath.lastIndexOf(File.separator);
-      String reportName = reportPath.substring(index + 1);
+      String reportName = new File(reportPath).getName();
 
       if (! ( reportName.endsWith(RPTDESIGN) || reportName.endsWith(RPTDOCUMENT) ))
       {
@@ -213,10 +212,12 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
     try
     {
       URL url = new URL(reportName);
+
       if ("file".equals(url.getProtocol()))
       {
         return url.getFile();
       }
+
       return url.toExternalForm();
     }
     catch (MalformedURLException ex)
@@ -244,6 +245,7 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
     // now the root should be a file and the report name is a file also
     File file = new File(reportName);
+
     if (file.isAbsolute())
     {
       return reportName;
