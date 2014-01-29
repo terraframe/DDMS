@@ -2,8 +2,12 @@ package dss.vector.solutions.querybuilder.irs;
 
 import java.util.Set;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
@@ -142,6 +146,19 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
     sql += " INNER JOIN " + sprayTeamTable + " " + sprayTeamTable + " ON " + resourceTargetTable + "."
         + targeter + " = " + sprayTeamTable + "." + idCol + " \n";
 
+    // Restrict by a universal such that only spray teams allowed within the universal type are valid.
+    String universal = this.irsQB.getSmallestUniversal();
+    if(universal != null)
+    {
+      String uId = MdBusiness.getMdBusiness(universal).getId();
+      MdEntityDAOIF allpaths = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
+      String parentUniversal = QueryUtil.getColumnName(allpaths, AllPaths.PARENTUNIVERSAL);
+      String childGeo = QueryUtil.getColumnName(allpaths, AllPaths.CHILDGEOENTITY);
+      
+      sql += "INNER JOIN "+allpaths.getTableName()+" apg ON apg."+parentUniversal+" = '"+uId+"' \n";
+      sql += "AND apg."+childGeo+" = "+sprayTeamTable+"."+this.sprayZone+" \n";
+    }
+    
     return sql;
   }
 }
