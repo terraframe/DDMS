@@ -21,7 +21,7 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += a + " FULL OUTER JOIN " + p + " \n";
+      sql += a + " INNER JOIN " + p + " \n";
       
       // NOTE: old code for reference
 //      sql += "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") " +
