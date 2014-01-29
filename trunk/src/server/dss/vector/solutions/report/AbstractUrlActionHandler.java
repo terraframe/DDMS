@@ -128,7 +128,10 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
       if (! ( reportName.endsWith(RPTDESIGN) || reportName.endsWith(RPTDOCUMENT) ))
       {
-        throw new RuntimeException("Drill through report must end in .rptdesign or .rptdocument");
+        InvalidDrillThroughFileException exception = new InvalidDrillThroughFileException("Drill through report must end in .rptdesign or .rptdocument");
+        exception.apply();
+
+        throw exception;
       }
 
       if (reportName.endsWith(RPTDOCUMENT))
