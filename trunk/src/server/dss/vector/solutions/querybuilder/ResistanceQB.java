@@ -52,7 +52,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageSize, pageSize);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -60,14 +60,13 @@ public class ResistanceQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (mosquitoCollectionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
     }
     else
     {
@@ -78,64 +77,65 @@ public class ResistanceQB extends AbstractQB implements Reloadable
       {
         valueQuery.WHERE((InnerJoin) join);
       }
-      
-      // manually put MosquitoCollectionQuery into the query map so QueryUtil.setQueryDates() can
+
+      // manually put MosquitoCollectionQuery into the query map so
+      // QueryUtil.setQueryDates() can
       // correctly find any date attributes on that class. THIS IS A HACK.
       queryMap.put(MosquitoCollection.CLASS, mosquitoCollectionQuery);
     }
-    
+
     AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
     CollectionAssayQuery collectionAssayQuery = (CollectionAssayQuery) queryMap.get(CollectionAssay.CLASS);
     AdultAssayQuery adultAssayQuery = (AdultAssayQuery) queryMap.get(AdultAssay.CLASS);
-    
+
     AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
     LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
     KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
 
     if (abstractAssayQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery);
-    }
-    
-    if(collectionAssayQuery != null)
-    {
-      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias());
+      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery, this.getTermRestrictions());
     }
 
-    // We must force join on CollectionAssay to avoid mixing results with EfficacyAssay which also
+    if (collectionAssayQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS, collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias());
+    }
+
+    // We must force join on CollectionAssay to avoid mixing results with
+    // EfficacyAssay which also
     // extends AbstractAssay.
-    if(collectionAssayQuery == null)
+    if (collectionAssayQuery == null)
     {
       collectionAssayQuery = new CollectionAssayQuery(valueQuery);
     }
     valueQuery.WHERE(abstractAssayQuery.getId().EQ(collectionAssayQuery.getId()));
-    
-    
+
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
     if (insecticideQuery != null)
     {
       valueQuery.WHERE(collectionAssayQuery.getInsecticide().EQ(insecticideQuery));
-      QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery, this.getTermRestrictions());
     }
-    
 
     // join Mosquito with mosquito collection
     CollectionAssayQuery joinResults = null;
     if (adultQuery != null || kdQuery != null)
     {
       joinResults = adultQuery != null ? adultQuery : kdQuery;
-      
-      if(adultAssayQuery == null)
+
+      if (adultAssayQuery == null)
       {
         adultAssayQuery = new AdultAssayQuery(valueQuery);
       }
-      
-      // force these joins to avoid a cross-product caused by QueryUtil.joinTermAllPaths.
+
+      // force these joins to avoid a cross-product caused by
+      // QueryUtil.joinTermAllPaths.
       valueQuery.WHERE(abstractAssayQuery.getId().EQ(adultAssayQuery.getId()));
       valueQuery.WHERE(joinResults.getId().EQ(adultAssayQuery.getId()));
-      
-      boolean found = QueryUtil.joinTermAllpaths(valueQuery, AdultAssay.CLASS, adultAssayQuery);
-      if(found)
+
+      boolean found = QueryUtil.joinTermAllpaths(valueQuery, AdultAssay.CLASS, adultAssayQuery, this.getTermRestrictions());
+      if (found)
       {
         String id = QueryUtil.getIdColumn();
         String table = adultAssayQuery.getMdClassIF().getTableName();
@@ -146,7 +146,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     else if (larvaeQuery != null)
     {
       joinResults = larvaeQuery;
-      QueryUtil.joinTermAllpaths(valueQuery, LarvaeAssay.CLASS, larvaeQuery.getStartPoint().getDefiningTableAlias());
+      QueryUtil.joinTermAllpaths(valueQuery, LarvaeAssay.CLASS, larvaeQuery.getStartPoint().getDefiningTableAlias(), this.getTermRestrictions());
     }
     else
     {
@@ -155,7 +155,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 
-    if(joinResults!= null)
+    if (joinResults != null)
     {
       valueQuery.WHERE(joinResults.getCollection().EQ(mosquitoCollectionQuery));
       valueQuery.WHERE(abstractAssayQuery.getId().EQ(joinResults.getId()));
@@ -168,48 +168,52 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
     String result = "resistance_result";
 
-    for(Selectable selectable : valueQuery.getSelectableRefs())
+    for (Selectable selectable : valueQuery.getSelectableRefs())
     {
-      if(selectable.getColumnAlias().equals(result))
+      if (selectable.getColumnAlias().equals(result))
       {
-        ((SelectableSQL) selectable).setSQL(result);
-        
+        ( (SelectableSQL) selectable ).setSQL(result);
+
         String id = QueryUtil.getIdColumn();
-        
+
         String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
         this.addWITHEntry(new WITHEntry(tableName, this.getResistanceQuerySQL(labels)));
-//        valueQuery.setSqlPrefix(this.getResistanceWithQuerySQL(tableName, labels));
+        // valueQuery.setSqlPrefix(this.getResistanceWithQuerySQL(tableName,
+        // labels));
         valueQuery.FROM(tableName, tableName);
         valueQuery.WHERE(new RawLeftJoinEq(id, joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), id, tableName, tableName));
       }
     }
     // Type discriminator
-    if(valueQuery.hasSelectableRef(QueryConstants.ASSAY_TYPE))
+    if (valueQuery.hasSelectableRef(QueryConstants.ASSAY_TYPE))
     {
-      valueQuery.FROM(abstractAssayQuery.getMdClassIF().getTableName(), abstractAssayQuery.getTableAlias()); // ensure AbstractAssay is included
+      valueQuery.FROM(abstractAssayQuery.getMdClassIF().getTableName(), abstractAssayQuery.getTableAlias()); // ensure
+                                                                                                             // AbstractAssay
+                                                                                                             // is
+                                                                                                             // included
       SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.ASSAY_TYPE);
-          
-      String typeCol = abstractAssayQuery.getTableAlias()+"."+QueryUtil.getColumnName(AbstractAssay.getTypeMd());
+
+      String typeCol = abstractAssayQuery.getTableAlias() + "." + QueryUtil.getColumnName(AbstractAssay.getTypeMd());
       String sql = "CASE \n";
-      sql += "WHEN "+typeCol+" = '"+AdultDiscriminatingDoseAssay.CLASS+"' THEN '"+MultiBundle.get("adult_diagnostic")+"' \n";
-      sql += "WHEN "+typeCol+" = '"+LarvaeDiscriminatingDoseAssay.CLASS+"' THEN '"+MultiBundle.get("larval_diagnostic")+"' \n";
-      sql += "ELSE '"+MultiBundle.get("adult_time_response")+"' \n";
+      sql += "WHEN " + typeCol + " = '" + AdultDiscriminatingDoseAssay.CLASS + "' THEN '" + MultiBundle.get("adult_diagnostic") + "' \n";
+      sql += "WHEN " + typeCol + " = '" + LarvaeDiscriminatingDoseAssay.CLASS + "' THEN '" + MultiBundle.get("larval_diagnostic") + "' \n";
+      sql += "ELSE '" + MultiBundle.get("adult_time_response") + "' \n";
       sql += " END";
       sel.setSQL(sql);
-      
-      if(queryConfig.has(QueryConstants.ASSAY_TYPE))
+
+      if (queryConfig.has(QueryConstants.ASSAY_TYPE))
       {
         try
         {
           JSONArray types = queryConfig.getJSONArray(QueryConstants.ASSAY_TYPE);
-          if(types.length() > 0)
+          if (types.length() > 0)
           {
             String[] typesCrit = new String[types.length()];
-            for(int i=0; i<types.length(); i++)
+            for (int i = 0; i < types.length(); i++)
             {
               typesCrit[i] = types.getString(i);
             }
-            
+
             valueQuery.WHERE(abstractAssayQuery.getType().IN(typesCrit));
           }
         }
@@ -219,7 +223,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
         }
       }
     }
-    
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     return valueQuery;
 

@@ -86,7 +86,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias() + "." + idCol);
     }
 
-    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
+    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions());
 
     if (valueQuery.hasSelectableRef("instances"))
     {

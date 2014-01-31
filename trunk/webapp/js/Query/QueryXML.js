@@ -14,19 +14,19 @@ MDSS.QueryXML = {
   },
 
   Functions : {
-  	SUM: {name: 'SUM', label: MDSS.localize('SUM'), toString: function(){ return this.name; }},
-  	MIN: {name: 'MIN', label: MDSS.localize('MIN'), toString: function(){ return this.name; }},
-  	MAX: {name: 'MAX', label: MDSS.localize('MAX'), toString: function(){ return this.name; }},
-  	AVG: {name: 'AVG', label: MDSS.localize('AVG'), toString: function(){ return this.name; }}
+    SUM: {name: 'SUM', label: MDSS.localize('SUM'), toString: function(){ return this.name; }},
+    MIN: {name: 'MIN', label: MDSS.localize('MIN'), toString: function(){ return this.name; }},
+    MAX: {name: 'MAX', label: MDSS.localize('MAX'), toString: function(){ return this.name; }},
+    AVG: {name: 'AVG', label: MDSS.localize('AVG'), toString: function(){ return this.name; }}
   },
   
   DateGroupOpts: {
-  	DATEGROUP_EPIWEEK:MDSS.localize('DATEGROUP_EPIWEEK'),
-  	DATEGROUP_EPIYEAR:MDSS.localize('DATEGROUP_EPIYEAR'),
-  	DATEGROUP_MONTH:MDSS.localize('DATEGROUP_MONTH'),
-  	DATEGROUP_QUARTER:MDSS.localize('DATEGROUP_QUARTER'),
-  	DATEGROUP_YEAR:MDSS.localize('DATEGROUP_YEAR'),
-  	DATEGROUP_SEASON:MDSS.localize('DATEGROUP_SEASON')
+    DATEGROUP_EPIWEEK:MDSS.localize('DATEGROUP_EPIWEEK'),
+    DATEGROUP_EPIYEAR:MDSS.localize('DATEGROUP_EPIYEAR'),
+    DATEGROUP_MONTH:MDSS.localize('DATEGROUP_MONTH'),
+    DATEGROUP_QUARTER:MDSS.localize('DATEGROUP_QUARTER'),
+    DATEGROUP_YEAR:MDSS.localize('DATEGROUP_YEAR'),
+    DATEGROUP_SEASON:MDSS.localize('DATEGROUP_SEASON')
   },
 
   GROUP_BY_FUNCTION : 'AG',
@@ -130,7 +130,7 @@ MDSS.QueryXML.Query.prototype = {
 
   getGroupBy : function()
   {
-  	return this._groupBy;
+    return this._groupBy;
   },
 
   /**
@@ -710,17 +710,17 @@ MDSS.QueryXML.SUM.prototype = {
 
   build : function()
   {
-  	var selectableObj = this._selectable.build();
+    var selectableObj = this._selectable.build();
     var alias = this._userAlias != null ? this._userAlias : '';
 
-  	var obj = {
-  	  'sum': [selectableObj,
-  	  {
-  	    'userAlias': alias,
-  	    'userDisplayLabel': this._userDisplayLabel}]
-  	};
+    var obj = {
+      'sum': [selectableObj,
+      {
+        'userAlias': alias,
+        'userDisplayLabel': this._userDisplayLabel}]
+    };
 
-  	return obj;
+    return obj;
   }
 }
 
@@ -736,16 +736,16 @@ MDSS.QueryXML.MIN.prototype = {
 
   build : function()
   {
-  	var selectableObj = this._selectable.build();
+    var selectableObj = this._selectable.build();
     var alias = this._userAlias != null ? this._userAlias : '';
 
-  	var obj = {
-  	  'min': [selectableObj,
-  	  {'userAlias': alias,
-  	   'userDisplayLabel': this._userDisplayLabel}]
-  	};
+    var obj = {
+      'min': [selectableObj,
+      {'userAlias': alias,
+       'userDisplayLabel': this._userDisplayLabel}]
+    };
 
-  	return obj;
+    return obj;
   }
 }
 
@@ -761,15 +761,15 @@ MDSS.QueryXML.MAX.prototype = {
 
   build : function()
   {
-  	var selectableObj = this._selectable.build();
+    var selectableObj = this._selectable.build();
     var alias = this._userAlias != null ? this._userAlias : '';
 
-  	var obj = {
-  	  'max': [selectableObj,
-  	  {'userAlias': alias,
-  	   'userDisplayLabel': this._userDisplayLabel}]
-  	};
-  	return obj;
+    var obj = {
+      'max': [selectableObj,
+      {'userAlias': alias,
+       'userDisplayLabel': this._userDisplayLabel}]
+    };
+    return obj;
   }
 }
 
@@ -785,16 +785,16 @@ MDSS.QueryXML.AVG.prototype = {
 
   build : function()
   {
-  	var selectableObj = this._selectable.build();
+    var selectableObj = this._selectable.build();
     var alias = this._userAlias != null ? this._userAlias : '';
 
-  	var obj = {
-  	  'avg': [selectableObj,
-  	  {'userAlias': alias,
-  	   'userDisplayLabel': this._userDisplayLabel}]
-  	};
+    var obj = {
+      'avg': [selectableObj,
+      {'userAlias': alias,
+       'userDisplayLabel': this._userDisplayLabel}]
+    };
 
-  	return obj;
+    return obj;
   }
 }
 
@@ -810,16 +810,16 @@ MDSS.QueryXML.COUNT.prototype = {
 
   build : function()
   {
-  	var selectableObj = this._selectable.build();
+    var selectableObj = this._selectable.build();
     var alias = this._userAlias != null ? this._userAlias : '';
 
-  	var obj = {
-  	  'count': [selectableObj,
-  	  {'userAlias': alias,
-  	   'userDisplayLabel': this._userDisplayLabel}]
-  	};
+    var obj = {
+      'count': [selectableObj,
+      {'userAlias': alias,
+       'userDisplayLabel': this._userDisplayLabel}]
+    };
 
-  	return obj;
+    return obj;
   }
 }
 
@@ -900,7 +900,8 @@ MDSS.Query.Config = function(configJSON)
     selectedUniversals : {},
     criteriaEntities : {},
     terms: {},
-    date_attribute: {}
+    date_attribute: {},
+    termsAg : {}
   };
 
   if(configJSON != null)
@@ -1024,10 +1025,25 @@ MDSS.Query.Config.prototype = {
   {
     return this._config.terms[key][termId];
   },
-  
+    
   removeTerms : function(key)
   {
     this._config.terms[key] = {};
+  },
+  
+  setTermAggregate : function (attribute)
+  {
+    this._config.termsAg[attribute.getKey()] = '';
+  },
+  
+  removeTermAggregate : function (attribute)
+  {
+    delete this._config.termsAg[attribute.getKey()];
+  },
+  
+  getTermAggregates : function ()
+  {
+    return this._config.termsAg;
   },
 
   getJSON : function()

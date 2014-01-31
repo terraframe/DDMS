@@ -33,7 +33,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageNumber, pageNumber);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -41,15 +41,11 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
-    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap
-        .get(MosquitoCollection.CLASS);
-    DiagnosticAssayQuery diagnosticAssayQuery = (DiagnosticAssayQuery) queryMap
-        .get(DiagnosticAssay.CLASS);
-    TimeResponseAssayQuery timeResponseQuery = (TimeResponseAssayQuery) queryMap
-        .get(TimeResponseAssay.CLASS);
+    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+    DiagnosticAssayQuery diagnosticAssayQuery = (DiagnosticAssayQuery) queryMap.get(DiagnosticAssay.CLASS);
+    TimeResponseAssayQuery timeResponseQuery = (TimeResponseAssayQuery) queryMap.get(TimeResponseAssay.CLASS);
 
     // We always include mosquito collection because it is required for both
     // time response and diagnostic assays. If it was included explicitely then
@@ -57,7 +53,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
     if (mosquitoCollectionQuery != null)
     {
       this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
     }
     else
     {
@@ -66,15 +62,13 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil
-        .setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
 
     MdEntityDAOIF timeMd = MdEntityDAO.getMdEntityDAO(TimeResponseAssay.CLASS);
 
     String lifeStageCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.LIFESTAGE);
     String assayCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.ASSAY);
-    String referenceStrainResultCol = QueryUtil.getColumnName(timeMd,
-        TimeResponseAssay.REFERENCESTRAINRESULT);
+    String referenceStrainResultCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.REFERENCESTRAINRESULT);
     String testStrainResult = QueryUtil.getColumnName(timeMd, TimeResponseAssay.TESTSTRAINRESULT);
     String timeResponseTable = null;
 
@@ -97,10 +91,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
           }
 
           timeResponseTable = timeResponseQuery.getTableAlias();
-          String sql = "AVG(" + "CASE " + timeResponseTable + "." + assayCol + " || "
-              + timeResponseTable + "." + lifeStageCol + " WHEN '" + idStr + "' THEN "
-              + timeResponseTable + "." + testStrainResult + " / " + timeResponseTable + "."
-              + referenceStrainResultCol + " ELSE NULL END)";
+          String sql = "AVG(" + "CASE " + timeResponseTable + "." + assayCol + " || " + timeResponseTable + "." + lifeStageCol + " WHEN '" + idStr + "' THEN " + timeResponseTable + "." + testStrainResult + " / " + timeResponseTable + "." + referenceStrainResultCol + " ELSE NULL END)";
 
           QueryUtil.setSelectabeSQL(valueQuery, stageAmmountCol, sql);
         }
@@ -142,12 +133,12 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
     if (diagnosticAssayQuery != null)
     {
       valueQuery.WHERE(diagnosticAssayQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, DiagnosticAssay.CLASS, diagnosticAssayQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, DiagnosticAssay.CLASS, diagnosticAssayQuery, this.getTermRestrictions());
     }
     else if (timeResponseQuery != null)
     {
       valueQuery.WHERE(timeResponseQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, TimeResponseAssay.CLASS, timeResponseQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, TimeResponseAssay.CLASS, timeResponseQuery, this.getTermRestrictions());
     }
     else
     {
@@ -156,11 +147,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
       ValueQuery subSelect = new ValueQuery(queryFactory);
       diagnosticAssayQuery = new DiagnosticAssayQuery(subSelect);
 
-      Selectable[] selectables = new Selectable[] { mosquitoSubSel.getId(MosquitoCollection.ID),
-          mosquitoSubSel.getCollectionId(MosquitoCollection.COLLECTIONID),
-          mosquitoSubSel.getGeoEntity(MosquitoCollection.GEOENTITY),
-          mosquitoSubSel.getCollectionDate(MosquitoCollection.COLLECTIONDATE),
-          mosquitoSubSel.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD) };
+      Selectable[] selectables = new Selectable[] { mosquitoSubSel.getId(MosquitoCollection.ID), mosquitoSubSel.getCollectionId(MosquitoCollection.COLLECTIONID), mosquitoSubSel.getGeoEntity(MosquitoCollection.GEOENTITY), mosquitoSubSel.getCollectionDate(MosquitoCollection.COLLECTIONDATE), mosquitoSubSel.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD) };
       setColumnAsAttribute(selectables);
       subSelect.SELECT(selectables);
       subSelect.WHERE(diagnosticAssayQuery.getCollection().EQ(mosquitoSubSel.getId()));
@@ -170,11 +157,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
       ValueQuery subSelect2 = new ValueQuery(queryFactory);
       timeResponseQuery = new TimeResponseAssayQuery(subSelect);
 
-      Selectable[] selectables2 = new Selectable[] { mosquitoSubSel2.getId(MosquitoCollection.ID),
-          mosquitoSubSel2.getCollectionId(MosquitoCollection.COLLECTIONID),
-          mosquitoSubSel2.getGeoEntity(MosquitoCollection.GEOENTITY),
-          mosquitoSubSel2.getCollectionDate(MosquitoCollection.COLLECTIONDATE),
-          mosquitoSubSel2.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD) };
+      Selectable[] selectables2 = new Selectable[] { mosquitoSubSel2.getId(MosquitoCollection.ID), mosquitoSubSel2.getCollectionId(MosquitoCollection.COLLECTIONID), mosquitoSubSel2.getGeoEntity(MosquitoCollection.GEOENTITY), mosquitoSubSel2.getCollectionDate(MosquitoCollection.COLLECTIONDATE), mosquitoSubSel2.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD) };
       setColumnAsAttribute(selectables2);
       subSelect2.SELECT(selectables2);
       subSelect2.WHERE(timeResponseQuery.getCollection().EQ(mosquitoSubSel2));

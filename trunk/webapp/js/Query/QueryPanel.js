@@ -183,13 +183,33 @@ MDSS.QueryPanel.prototype = {
       var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
           function(a){return('<li id= "'+a.uuid+'_summary" >'+a.text+'</li>');
           });
-      li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
+      li.innerHTML = "<span id= '" +column.getKey() + "_summary_label" + "'>"+ column.label + '</span><ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
     }else{
-      li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues"></ul>';
+      li.innerHTML = "<span id= '" +column.getKey() + "_summary_label" + "'>"+ column.label + '</span><ul id="'+column.getKey()+'_whereValues"></ul>';
     }
 
     ul.appendChild(li);
   },
+  
+  setTermAggregate : function (attribute, aggregate)
+  { 
+    var el = document.getElementById(attribute.getKey() +"_summary_label");
+    
+    if(aggregate)
+    {
+      el.innerHTML = attribute.getDisplayLabel() + " " + MDSS.localize('AG');    
+    }
+    else
+    {
+      el.innerHTML = attribute.getDisplayLabel();
+    }
+  },   
+    
+  appendTermAggregate : function (key)
+  { 
+    var el = document.getElementById(key + "_summary_label");    
+    el.innerHTML = el.innerHTML + " " + MDSS.localize('AG');    
+  },   
 
   clearWhereCriteria : function(key)
   {

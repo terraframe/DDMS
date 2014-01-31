@@ -184,12 +184,12 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     {
       valueQuery.WHERE(subCollectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
 
-      QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery, this.getTermRestrictions());
     }
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 

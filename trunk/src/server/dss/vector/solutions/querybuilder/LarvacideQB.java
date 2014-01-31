@@ -48,7 +48,7 @@ public class LarvacideQB extends AbstractQB implements Reloadable
 //      valueQuery.WHERE(larvacideQuery.LEFT_JOIN_EQ(larvacideAssQuery.parentId()));
 //      valueQuery.WHERE(larvacideAssQuery.childId().LEFT_JOIN_EQ(larvacideInstanceQuery.getId())); 
 
-      QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, larvacideInstanceQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, larvacideInstanceQuery, this.getTermRestrictions());
     }
     
     if (personQuery != null)

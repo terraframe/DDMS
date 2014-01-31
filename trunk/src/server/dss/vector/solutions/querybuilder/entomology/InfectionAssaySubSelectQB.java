@@ -25,7 +25,7 @@ public class InfectionAssaySubSelectQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageSize, pageSize);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -33,41 +33,37 @@ public class InfectionAssaySubSelectQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
     InfectionAssayQuery infectionQuery = (InfectionAssayQuery) queryMap.get(InfectionAssay.CLASS);
-    
-    
+
     if (infectionQuery == null && xml.indexOf(">prevalence<") > 0)
     {
       infectionQuery = new InfectionAssayQuery(queryFactory);
     }
-    
-    
+
     if (infectionQuery != null)
     {
       valueQuery.WHERE(infectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, InfectionAssay.CLASS, infectionQuery);
-      
-      if(xml.indexOf(">prevalence<") > 0)
+      QueryUtil.joinTermAllpaths(valueQuery, InfectionAssay.CLASS, infectionQuery, this.getTermRestrictions());
+
+      if (xml.indexOf(">prevalence<") > 0)
       {
         String numberPositiveCol = QueryUtil.getColumnName(infectionQuery.getMdClassIF(), InfectionAssay.NUMBERPOSITIVE);
         String numberTestedCol = QueryUtil.getColumnName(infectionQuery.getMdClassIF(), InfectionAssay.NUMBERTESTED);
-        
+
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("prevalence");
-        s.setSQL("100.0 * SUM("+numberPositiveCol+") / SUM("+numberTestedCol+")");
+        s.setSQL("100.0 * SUM(" + numberPositiveCol + ") / SUM(" + numberTestedCol + ")");
       }
-      
+
     }
-    
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
-    
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     this.setNumericRestrictions(valueQuery, queryConfig);

@@ -114,33 +114,33 @@ public class QueryUtil implements Reloadable
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
-  
-  public static final String SUM_FUNCTION = "sum_stringified_id_int_pairs";
 
-  public static final String MIN_FUNCTION = "min_stringified_id_int_pairs";
-  
-  public static final String MAX_FUNCTION = "max_stringified_id_int_pairs";
-  
-  public static final String AVG_FUNCTION = "avg_stringified_id_int_pairs";
+  public static final String  SUM_FUNCTION                 = "sum_stringified_id_int_pairs";
+
+  public static final String  MIN_FUNCTION                 = "min_stringified_id_int_pairs";
+
+  public static final String  MAX_FUNCTION                 = "max_stringified_id_int_pairs";
+
+  public static final String  AVG_FUNCTION                 = "avg_stringified_id_int_pairs";
 
   public static String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return SUM_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return SUM_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String minColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return MIN_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return MIN_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return MAX_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return MAX_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return AVG_FUNCTION+"(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+    return AVG_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   /**
@@ -227,7 +227,16 @@ public class QueryUtil implements Reloadable
         // unwrap the Selectable to get the core type
         while (sel.isAggregateFunction())
         {
-          sel = sel.getAggregateFunction().getSelectable();
+          Selectable root = sel.getAggregateFunction().getSelectable();
+
+          if (root.equals(sel))
+          {
+            break;
+          }
+          else
+          {
+            sel = root;
+          }
         }
 
         SelectableSQL newSel;
@@ -446,7 +455,13 @@ public class QueryUtil implements Reloadable
     String tableAlias = query.getTableAlias();
 
     return joinTermAllpaths(valueQuery, klass, tableAlias);
+  }
 
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, Map<String, Restriction> restrictions)
+  {
+    String tableAlias = query.getTableAlias();
+
+    return joinTermAllpaths(valueQuery, klass, tableAlias, restrictions);
   }
 
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
@@ -469,6 +484,110 @@ public class QueryUtil implements Reloadable
     }
     return false;
 
+  }
+
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
+  {
+    boolean found = false;
+
+    // make a list of terms that are included as selectables
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String attributeName = s.getDbColumnName();
+
+        List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
+
+        for (String termAttrib : termAttributes)
+        {
+          int ind = attributeName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
+          if (ind != -1)
+          {
+            String attr = attributeName.substring(0, ind);
+
+            /*
+             * Only join for term attributes
+             */
+            if (termAttrib.equals(attr))
+            {
+              found = true;
+
+              String id = getIdColumn();
+
+              StringBuffer sql = new StringBuffer("(" + "\n");
+
+              String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
+
+              MdEntityDAOIF targetMdBusiness = MdEntityDAO.getMdEntityDAO(klass);
+              MdAttributeConcreteDAOIF mdAttribute = targetMdBusiness.definesAttribute(attr);
+
+              String tableName = targetMdBusiness.getTableName();
+              String columName = mdAttribute.getColumnName();
+
+              sql.append("       SELECT " + tableName + ".id AS id, term0.name AS " + attr + "_displayLabel" + "\n");
+              sql.append("       FROM " + tableName + " AS " + tableName + "\n");
+
+              String columnAlias = s.getUserDefinedAlias();
+
+              if (aggregations.containsKey(columnAlias))
+              {
+                sql.append("       JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
+
+                Restriction aggregation = aggregations.get(columnAlias);
+
+                if (aggregation.getAggregate())
+                {
+                  sql.append("       JOIN " + termTable + " AS term0 on allpaths_ontology_6.parent_term = term0.id" + "\n");
+                }
+                else
+                {
+                  sql.append("       JOIN " + termTable + " AS term0 on allpaths_ontology_6.child_term = term0.id" + "\n");
+                }
+
+                List<String> restrictions = aggregation.getRestrictions();
+
+                if (restrictions.size() > 0)
+                {
+                  for (int i = 0; i < restrictions.size(); i++)
+                  {
+                    if (i == 0)
+                    {
+                      sql.append("       WHERE ");
+                    }
+                    else
+                    {
+                      sql.append("       OR ");
+                    }
+
+                    sql.append("allpaths_ontology_6.parent_term = '" + restrictions.get(i) + "'" + "\n");
+                  }
+                }
+              }
+              else
+              {
+                sql.append("       JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");
+              }
+
+              // String subSelect = klass.replace('.', '_') + "TermSubSel";
+              sql.append("     )");
+
+              String subSelect = tableAlias + "_" + columName;
+              String table = MdEntity.getMdEntity(klass).getTableName();
+              valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql.toString(), subSelect));
+            }
+          }
+        }
+      }
+    }
+
+    return found;
   }
 
   public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query, String attributeId)

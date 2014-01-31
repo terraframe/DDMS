@@ -2020,7 +2020,7 @@ Mojo.Meta.newClass('MDSS.EnumerationAttribute', {
   Extends: MDSS.DisplayLabelAttribute,
   
   Instance : {  
-	
+
     initialize : function(obj)
     {
       this.$initialize(obj);

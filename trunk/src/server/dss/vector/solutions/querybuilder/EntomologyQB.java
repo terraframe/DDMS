@@ -34,7 +34,7 @@ public class EntomologyQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageSize, pageSize);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -42,62 +42,61 @@ public class EntomologyQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     String config = this.getConfig();
     Layer layer = this.getLayer();
-    
-    ArrayList<ValueQuery>  unionQueries = new ArrayList<ValueQuery>();
-    
+
+    ArrayList<ValueQuery> unionQueries = new ArrayList<ValueQuery>();
+
     Integer pageNumber = this.getPageNumber();
     Integer pageSize = this.getPageSize();
-    
+
     InfectionAssayQuery infectionQuery = (InfectionAssayQuery) queryMap.get(InfectionAssay.CLASS);
-    if (infectionQuery != null ||  xml.indexOf(">prevalence<") > 0)
+    if (infectionQuery != null || xml.indexOf(">prevalence<") > 0)
     {
-      unionQueries.add(new InfectionAssaySubSelectQB(xml,config,layer, pageNumber, pageSize).construct());
+      unionQueries.add(new InfectionAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
 
     PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
-    if (pooledInfectionQuery != null ||  xml.indexOf(">minPrevalence<") > 0)
+    if (pooledInfectionQuery != null || xml.indexOf(">minPrevalence<") > 0)
     {
       unionQueries.add(new PooledInfectionAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
-    
+
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
-    if (molecularQuery != null ||  xml.indexOf(">percent") > 0  ||  xml.indexOf(">frequency") > 0)
+    if (molecularQuery != null || xml.indexOf(">percent") > 0 || xml.indexOf(">frequency") > 0)
     {
       unionQueries.add(new MolecularAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
-    
+
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
-    if (biochemicalQuery != null ||  xml.indexOf(">elevated<") > 0)
+    if (biochemicalQuery != null || xml.indexOf(">elevated<") > 0)
     {
       unionQueries.add(new BiochemicalAssaySubSelectQB(xml, config, layer, pageNumber, pageSize).construct());
     }
-    
-    if(unionQueries.size() == 0)
+
+    if (unionQueries.size() == 0)
     {
       MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
       this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
       this.setNumericRestrictions(valueQuery, queryConfig);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     }
 
-    if(unionQueries.size() == 1)
+    if (unionQueries.size() == 1)
     {
       valueQuery = unionQueries.get(0);
     }
-    
-    if(unionQueries.size() > 1)
+
+    if (unionQueries.size() > 1)
     {
       valueQuery = new ValueQuery(queryFactory);
       valueQuery.UNION(unionQueries.toArray(new ValueQuery[unionQueries.size()]));
-    }  
-    
+    }
+
     return valueQuery;
   }
 

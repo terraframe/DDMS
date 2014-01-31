@@ -74,7 +74,7 @@ public class StockQB extends AbstractQB implements Reloadable
     {
     }
 
-    QueryUtil.joinTermAllpaths(valueQuery, StockItem.CLASS, stockItemQuery);
+    QueryUtil.joinTermAllpaths(valueQuery, StockItem.CLASS, stockItemQuery, this.getTermRestrictions());
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 

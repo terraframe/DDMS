@@ -136,7 +136,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     if (individualPremiseVisitQuery != null)
     {
 
-      QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery, this.getTermRestrictions());
       Boolean needsJoin = QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias());
       if (needsJoin)
       {
@@ -176,7 +176,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     
     if (aggregatedPremiseVisitQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery, this.getTermRestrictions());
       QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias());
 
       valueQuery.WHERE(aggregatedPremiseVisitQuery.getPoint().EQ(controlInterventionQuery));
@@ -184,7 +184,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
     if (personInterventionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery, this.getTermRestrictions());
       QueryUtil.getSingleAttribteGridSql(valueQuery, personInterventionQuery.getTableAlias());
       
       valueQuery.WHERE(personInterventionQuery.getPoint().EQ(controlInterventionQuery));
@@ -192,7 +192,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
     if (insecticideInterventionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery, this.getTermRestrictions());
       
       valueQuery.WHERE(insecticideInterventionQuery.getIntervention().EQ(controlInterventionQuery));
     }
@@ -210,7 +210,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
       valueQuery.AND(insecticideInterventionQuery.getIntervention().EQ(controlInterventionQuery));
 
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions());
     }
 
     MdEntityDAOIF individualVisit = MdEntityDAO.getMdEntityDAO(IndividualPremiseVisitMethod.CLASS);

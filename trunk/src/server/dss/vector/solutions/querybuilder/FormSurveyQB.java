@@ -38,7 +38,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageSize, pageSize);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -56,7 +56,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     FormPersonQuery personQuery = (FormPersonQuery) queryMap.get(FormPerson.CLASS);
 
     this.addGeoDisplayLabelQuery(surveyQuery);
-    QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery);
+    QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery, this.getTermRestrictions());
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyQuery.get(MdFormUtil.DISEASE));
     this.getSingleAttributeGridSql(valueQuery, surveyQuery, "id");
 
@@ -65,7 +65,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(householdQuery.getSurvey().EQ(surveyQuery));
 
       this.addGeoDisplayLabelQuery(householdQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery, this.getTermRestrictions());
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, householdQuery.get(MdFormUtil.DISEASE));
       this.getSingleAttributeGridSql(valueQuery, householdQuery, "id");
     }
@@ -81,7 +81,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(personQuery.getHousehold().EQ(householdQuery));
 
       this.addGeoDisplayLabelQuery(personQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery, this.getTermRestrictions());
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, personQuery.get(MdFormUtil.DISEASE));
       this.getSingleAttributeGridSql(valueQuery, personQuery, "id");
     }
@@ -99,7 +99,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         valueQuery.WHERE(bedNetQuery.getHousehold().EQ(householdQuery));
 
         this.addGeoDisplayLabelQuery(bedNetQuery);
-        QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery);
+        QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery, this.getTermRestrictions());
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
         this.getSingleAttributeGridSql(valueQuery, bedNetQuery, "id");
       }

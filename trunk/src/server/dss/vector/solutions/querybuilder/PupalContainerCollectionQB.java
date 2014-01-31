@@ -54,7 +54,7 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     if(premiseQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, PupalPremise.CLASS, premiseQuery );
+      QueryUtil.joinTermAllpaths(valueQuery, PupalPremise.CLASS, premiseQuery, this.getTermRestrictions() );
       valueQuery.WHERE(premiseQuery.getCollection().EQ(collectionQuery));
     }
     
@@ -69,7 +69,7 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     if(pupalContainerQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
+      QueryUtil.joinTermAllpaths(valueQuery, PupalContainer.CLASS, pupalContainerQuery, this.getTermRestrictions() );
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
       
       if(premiseQuery == null)

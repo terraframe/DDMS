@@ -55,7 +55,7 @@ public class TypeQB extends AbstractQB implements Reloadable
 
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get(MdFormUtil.DISEASE));
 
-        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query);
+        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query, this.getTermRestrictions());
 
         QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
 

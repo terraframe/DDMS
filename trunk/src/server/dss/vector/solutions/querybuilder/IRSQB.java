@@ -901,7 +901,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.joinTermAllpaths(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
+      QueryUtil.joinTermAllpaths(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions());
       this.setNumericRestrictions(insecticideVQ, queryConfig);
     }
 
@@ -923,7 +923,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (this.hasSprayEnumOrTerm)
     {
       QueryUtil.joinEnumerationDisplayLabels(sprayVQ, AbstractSpray.CLASS, abstractSprayQuery);
-      QueryUtil.joinTermAllpaths(sprayVQ, AbstractSpray.CLASS, abstractSprayQuery);
+      QueryUtil.joinTermAllpaths(sprayVQ, AbstractSpray.CLASS, abstractSprayQuery, this.getTermRestrictions());
     }
 
     String availableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
