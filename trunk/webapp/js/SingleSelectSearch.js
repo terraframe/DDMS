@@ -148,7 +148,11 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     _updateSelection : function(geoEntityView)
     {
       var div = document.getElementById(this._CURRENT_SELECTION + this._suffix);
-      div.innerHTML = this.constructor.formatDisplay(geoEntityView);
+      
+      if(div != null)
+      {
+        div.innerHTML = this.constructor.formatDisplay(geoEntityView);    	  
+      }
 
       this._currentSelection = geoEntityView;
     },

@@ -1,8 +1,27 @@
+/*
+ * Copyright (c) 2013 TerraFrame, Inc. All rights reserved.
+ *
+ * This file is part of Runway SDK(tm).
+ *
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * RunwaySDK Javascript DTO library.
  * 
  * @author Terraframe
  */
+//define(["./RunwaySDK_Core"], function(){
 (function(){
 
 // set up some package constants.
@@ -75,22 +94,26 @@ var RunwayRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'RunwayRequest', {
         obj = responseText;
       }
 
-      // invoke the success handler
-      if(Mojo.Util.isFunction(this.clientRequest.onSuccess))
-      {
-        this.clientRequest.onSuccess(obj);
-      }      
+      this.clientRequest.performOnSuccess(obj);
     },
 
     _failure : function()
     {
       var responseText = this._getResponseText();
       var e = null;
+      
+      if (responseText === "" && this._xhr.status === 0) {
+    	  
+        var e = new com.runwaysdk.Exception(com.runwaysdk.Localize("rNoServer", "Unable to communicate with server."));
+        this.clientRequest.performOnFailure(e);
+        return;
+      }
+      
+      var exceptionType = null;
       try
       {
         var obj = Mojo.Util.getObject(responseText);
 
-        var exceptionType = null;
         if('dto_type' in obj && obj.dto_type === Mojo.ROOT_PACKAGE+'RunwayExceptionDTO')
         {
           exceptionType = obj.wrappedException;
@@ -118,7 +141,6 @@ var RunwayRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'RunwayRequest', {
           e = new com.runwaysdk.Exception(obj);
         }
 
-        // try to match the exception name to an error callback
         if(Mojo.Util.isString(exceptionType) && exceptionType.length > 0)
         {
           var exNameInd = exceptionType.lastIndexOf('.');
@@ -126,35 +148,19 @@ var RunwayRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'RunwayRequest', {
           {
             exceptionType = exceptionType.substr(exNameInd + 1);
           }
-
-          var handlerName = 'on'+exceptionType;
-          if(Mojo.Util.isFunction(this.clientRequest[handlerName]))
-          {
-            this.clientRequest[handlerName](e);
-          }
-          // no match ... use the default handler
-          else if(Mojo.Util.isFunction(this.clientRequest.onFailure))
-          {
-            this.clientRequest.onFailure(e);
-          }
-        }
-        else
-        {
-          // use the default handler
-          if(Mojo.Util.isFunction(this.clientRequest.onFailure))
-          {
-            this.clientRequest.onFailure(e);
-          }
         }
       }
       catch(e1)
       {
-        // use the default handler
-        if(Mojo.Util.isFunction(this.clientRequest.onFailure))
-        {
-          var e = new com.runwaysdk.Exception(responseText);
-          this.clientRequest.onFailure(e);
-        }
+        // Intentionally empty
+      }
+      
+      if (e == null) {
+        var e = new com.runwaysdk.Exception(responseText);
+        this.clientRequest.performOnFailure(e);
+      }
+      else {
+        this.clientRequest.performOnFailure(e, exceptionType);
       }
     }
   }
@@ -555,6 +561,8 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
   
     /**
    * AddChild
+   * 
+   * @returns com.runwaysdk.business.RelationshipDTO
    */
     addChild : function(clientRequest, parentId, childId, relationshipType)
     {
@@ -630,7 +638,7 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
   
       new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
     },
-  
+    
     /**
    * getChildren
    */
@@ -1012,7 +1020,7 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
    */
     queryEntities : function(clientRequest, queryDTO)
     {
-      queryDTO.clearAttributes();
+//      queryDTO.clearAttributes();
       queryDTO.clearResultSet();
       var json = Mojo.Util.getJSON(queryDTO);
   
@@ -1036,6 +1044,39 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
         'method' : 'queryRelationships',
         'queryDTO' : json};
   
+      new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
+    },
+    
+    /**
+     * getTermAllChildren
+     * 
+     * @returns com.runwaysdk.business.ontology.TermAndRel[]
+     */
+    getTermAllChildren : function(clientRequest, parentId, pageNum, pageSize)
+    {
+      var params = {
+        'method' : 'getTermAllChildren',
+        'parentId' : parentId,
+        'pageNum' : pageNum,
+        'pageSize' : pageSize};
+      
+      new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
+    },
+    
+    /**
+     * moveBusiness
+     * 
+     * @returns com.runwaysdk.business.RelationshipDTO
+     */
+    moveBusiness : function(clientRequest, newParentId, childId, oldRelationshipId, newRelationshipType)
+    {
+      var params = {
+        'method' : 'moveBusiness',
+        'parentId' : newParentId,
+        'childId' : childId,
+        'relationshipId' : oldRelationshipId,
+        'relationshipType' : newRelationshipType};
+      
       new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
     }
   }
@@ -1427,23 +1468,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructOrderBy', {
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructQueryDTO', {
 
   Extends : Mojo.BUSINESS_PACKAGE+'EntityQueryDTO',
-
-  Instance : {
-
-    initialize : function(obj)
-    {
-      this.$initialize(obj);
-    }
-  
-  }
-});
-
-/**
- * LocalStructQueryDTO
- */
-Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalStructQueryDTO', {
-
-  Extends : Mojo.BUSINESS_PACKAGE+'StructQueryDTO',
 
   Instance : {
 
@@ -1914,7 +1938,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', {
       this.definingType = obj.definingType;
       this.definingTypeDisplayLabel = obj.definingTypeDisplayLabel;
       this.attributeName = obj.attributeName;
-			this.attributeId = obj.attributeId;
+      this.attributeId = obj.attributeId;
       this.attributeDisplayLabel = obj.attributeDisplayLabel;
     },
   
@@ -2425,6 +2449,23 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalStructDTO', {
   }
 });
 
+/**
+ * LocalStructQueryDTO
+ */
+Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalStructQueryDTO', {
+
+  Extends : Mojo.BUSINESS_PACKAGE+'StructQueryDTO',
+
+  Instance : {
+
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
+  
+  }
+});
+
 /*
  * Attribute definitions
  */
@@ -2813,7 +2854,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeClobMdDTO',        {
   
   initialize : function(obj)
   {
-    this.$initialize(obj);
+  this.$initialize(obj);
   }
 
 }
@@ -2827,25 +2868,27 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
   
   Instance : {
   
-  initialize : function(obj)
-  {
-    this.$initialize(obj);
-    this.structDTO = obj.structDTO
-  },
-  getStructDTO : function(){ return this.structDTO; },
-  setStructDTO : function(structDTO){ this.structDTO = structDTO; }
-}
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+      this.structDTO = obj.structDTO;
+    },
+    getStructDTO : function(){ return this.structDTO; },
+    setStructDTO : function(structDTO){ this.structDTO = structDTO; }
+  }
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLocalTextMdDTO',        {
   
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+  
   Instance : {
   
   initialize : function(obj)
   {
     this.$initialize(obj);
   }
+
 }
 });
 
@@ -2860,6 +2903,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeCharacterDTO', {
     {
       this.$initialize(obj);
     }
+  
   }
 });
 
@@ -3332,6 +3376,104 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeEnumerationMdDTO', {
   }
 });
 
+//multi reference
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMultiReferenceDTO', {
+        
+        Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
+        
+          Instance : {
+                    
+            initialize : function(obj)
+            {
+              this.$initialize(obj);
+                  
+              // javascript doesn't have a set, so use a hash with key == value.
+              this.itemIds = {};
+                      
+              for(var i=0; i<obj.itemIds.length; i++)
+              {
+                var itemId = obj.itemIds[i];
+                this.itemIds[itemId] = itemId;
+              }
+            },
+                  
+            add : function(item)
+            {
+              if(this.isWritable())
+              {
+                var itemId = Mojo.Util.isObject(item) ? item.getId() : item;
+                this.itemIds[itemId] = itemId;
+              }
+            },
+                  
+            remove : function(item)
+            {
+              if(this.isWritable())
+              {
+                var itemId = Mojo.Util.isObject(item) ? item.getId() : item;
+                delete this.itemIds[itemId];
+              }
+            },
+                  
+            clear : function()
+            {
+              if(this.isWritable())
+              {
+                this.itemIds = {};
+              }
+            },
+                  
+            getItemIds : function()
+            {
+              return Mojo.Util.getKeys(this.itemIds);
+            }                  
+        }
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMultiReferenceMdDTO', {
+        
+        Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+        
+        Instance : {
+                    
+                    initialize : function(obj)
+                    {
+                      this.$initialize(obj);
+                  
+                      this.referencedMdBusiness = obj.referencedMdBusiness;
+                    },
+                  
+                    getReferencedMdBusiness : function() { return this.referencedMdBusiness; }
+        }
+});
+
+// multi term
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMultiTermDTO', {
+        
+        Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMultiReferenceDTO',
+        
+        Instance : {
+                
+                initialize : function(obj)
+                {
+                        this.$initialize(obj);
+                }
+        }
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMultiTermMdDTO', {
+        
+        Extends : Mojo.MD_DTO_PACKAGE+'AttributeMultiReferenceMdDTO',
+        
+        Instance : {
+                
+                initialize : function(obj)
+                {
+                        this.$initialize(obj);
+                },
+        }                
+});
+
 // encryption
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEncryptionDTO', {
 
@@ -3467,6 +3609,93 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'RelationshipMd', {
   
     getChildMdBusiness  : function() { return this.childMdBusiness; }
   
+  }
+});
+
+/*
+ * TermDTO definition
+ */
+Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TermDTO', {
+
+  IsAbstract : true,
+	
+  Extends : Mojo.BUSINESS_PACKAGE+'BusinessDTO',
+
+  Instance : {
+
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    },
+    
+    addChild : function(child, relationshipType) {
+       var params = {
+              'method' : 'addChild',
+              'parentId' : this.getId(),
+              'childId' : child.getId(),
+              'relationshipType' : relationshipType};
+      
+       new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
+    },
+    
+    getParents : function(relationshipType) {
+      var params = {
+            'method' : 'getParents',
+            'childId' : this.getId(),
+            'relationshipType' : relationshipType};
+     
+      new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
+    }
+  
+  }
+});
+
+Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TermRelationshipDTO', {
+
+	  IsAbstract : true,
+	  
+	  Extends : Mojo.BUSINESS_PACKAGE+'RelationshipDTO',
+
+	  Instance : {
+
+	    initialize : function(obj)
+	    {
+	      this.$initialize(obj);
+	    }
+	  
+	  }
+});
+
+Mojo.Meta.newClass('com.runwaysdk.business.ontology.TermAndRel', {
+  
+  IsAbstract : false,
+  
+  Instance : {
+
+    initialize : function(obj)
+    {
+      this._term = DTOUtil.convertToType(obj.term);
+      this._relType = obj.relType;
+      this._relId = obj.relId;
+      this._dto_type = obj.dto_type;
+    },
+    
+    getTerm : function() {
+      return this._term;
+    },
+    
+    getRelationshipType : function() {
+      return this._relType;
+    },
+    
+    getRelationshipId : function() {
+      return this._relId;
+    },
+    
+    getType : function() {
+      return this._dto_type;
+    }
+    
   }
 });
 

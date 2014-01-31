@@ -1,8 +1,29 @@
+/*
+ * Copyright (c) 2013 TerraFrame, Inc. All rights reserved.
+ *
+ * This file is part of Runway SDK(tm).
+ *
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ */
 // refactor so that it's not dependent on the dom having loaded (I reference the body element directly)
 // add record/stop auto-record+buffer for Tracer (and logger?)
 // add settings tab for above
 // Fix bug where method with same name for static/instance shows only instance (I think it executes this way too)
 // viewing initialize's (and probably any overriden method) source does infinite recursion
+
+//define(["./ClassFramework"], function(){
+(function(){
 
 Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
 
@@ -46,7 +67,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       this._classRE = /^(?:(?!(Mojo.log\..*)|(Mojo.aspect)|(Mojo.Iter)|(Mojo.Util)|(Mojo.Meta)|(com\.terraframe\.mojo\.((MetaClass)|(Method)|(Constant)|(Base)|(inspector\.)))).)*$/;
       this._methodRE = /^(?!toString).*$/;
       
-      
       this._explorer = new com.runwaysdk.inspector.Explorer(this, this._explorerTab, this._explorerContent);
       this._logger = new com.runwaysdk.inspector.Logger(this, this._loggerTab, this._loggerContent);
       this._tracer = new com.runwaysdk.inspector.Tracer(this, this._tracerTab, this._tracerContent, this._logger);
@@ -54,6 +74,22 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       this._currentContent = this._explorer;
       
       this._rendered = false;
+      
+      // log window onError
+      var oldOnError = window.onerror;
+      var that = this;
+      window.onerror = function(msg, url, line) {
+        oldOnError.apply(window, arguments);
+        that._logger.logError({ fileName: url, lineNumber: line, message: msg });
+      };
+    },
+    
+    getLogger : function() {
+      return this._logger;
+    },
+    
+    getTracer : function() {
+      return this._tracer;
     },
     
     isRendered : function()
@@ -131,7 +167,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       var html = '';
       html += '<div style="border: 1px solid black; position: absolute; width: 800px; height: 600px; background-color: white">';
       html += '  <div id="'+this._mainDrag+'" style="cursor: move; height: 30px; width: 100%; border-bottom: 1px solid black;">';
-      html += '    <div id="'+this._mainDrag+'_label" style="float: left; margin: 3px 3px 3px 5px">JS Inspector (Prototype Edition)</div>';
+      html += '    <div id="'+this._mainDrag+'_label" style="float: left; margin: 3px 3px 3px 5px">JS Inspector</div>';
       html += '    <div id="'+this._mainExitId+'" style="cursor: pointer; float: right; width: 20px; height: 20px; border: 1px solid black; text-align: center; margin: 3px 3px">x</div>';
       html += '    <div id="'+this._mainMinId+'" style="cursor: pointer; float: right; width: 20px; height: 20px; border: 1px solid black; text-align: center; margin: 3px 3px">-</div>';
       html += '  </div>';
@@ -188,21 +224,27 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
     {
       if(this._beaconId == null)
       {
-        this._beaconId = setInterval((function(mainWin, secWin){
+        this._beaconId = setInterval((function(mainWin, secWin) {
 
+          var mainWinEl = document.getElementById(mainWin);
+          if (mainWinEl == null || mainWinEl == undefined) { return; }
+          
           var on = false;
 
           return function(){
          
+            var secWin = document.getElementById(secWin);
+            if (secWin == null) { return; }
+            
             if(on)
             {
-              document.getElementById(mainWin).style.backgroundColor = 'white';
-              document.getElementById(secWin).style.backgroundColor = 'white';
+              mainWinEl.style.backgroundColor = 'white';
+              secWin.style.backgroundColor = 'white';
             }
             else
             {
-              document.getElementById(mainWin).style.backgroundColor = 'red';
-              document.getElementById(secWin).style.backgroundColor = 'red';
+              mainWinEl.style.backgroundColor = 'red';
+              secWin.style.backgroundColor = 'red';
             }
 
             on = !on;          
@@ -228,7 +270,8 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
     {
       function alertClose()
       {
-        alert("This cannot be closed, only minimized or maximized.\n This software is in prototype phase.");
+        //alert("This cannot be closed, only minimized or maximized.\n This is why it's super ultra mega alpha edition.");
+        this.destroy();
       }
     
       var manager = com.runwaysdk.inspector.EventManager.getInstance();
@@ -377,9 +420,9 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       this._logger.stopRowBuffer();
       this._tracer.stopRowBuffer();
       
-      this._explorer = null;
-      this._logger = null;
-      this._tracer = null;
+      //this._explorer = null;
+      //this._logger = null;
+      //this._tracer = null;
       
       this._rendered = false;
     },
@@ -423,8 +466,18 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
     {
       var inspector = Mojo.$.com.runwaysdk.inspector.Inspector.getInstance();
       inspector.isRendered() ? inspector.show() : inspector.render();
+    },
+    
+    getLogger : function() {
+      var inspector = Mojo.$.com.runwaysdk.inspector.Inspector.getInstance();
+      return inspector.getLogger();
+    },
+    
+    getTracer : function() {
+      var inspector = Mojo.$.com.runwaysdk.inspector.Inspector.getInstance();
+      return inspector.getTracer();
     }
-  
+    
   }
 
 });
@@ -924,7 +977,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
   
   Constants : {
   
-    MAX_ROWS : 500,
+    MAX_ROWS : 100,
   },
   
   Instance : {
@@ -936,9 +989,17 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
       //var logger = new com.runwaysdk.inspector.LoggerImpl(this);
       //Mojo.log.LogManager.addLogger(logger);
       
+      this._selectId = this.getMetaClass().getQualifiedName()+'_select';
       this._logTable = this.getMetaClass().getQualifiedName()+'_logTable';
       this._table = null;
       this._errorBuffer = [];
+      this._loggedInfos = [];
+      this._loggedWarnings = [];
+      this._loggedErrors = [];
+      this._logLevel = 0; // 0 = trace, 5 = fatal
+      
+      this._table = new com.runwaysdk.inspector.Table(this._logTable, this.constructor.MAX_ROWS);
+      this._table.setHeaders('#', 'Type', 'Time', 'Tracer', 'Message', 'Stack', 'File', 'Line');
     },
     
     stopRowBuffer : function()
@@ -951,13 +1012,21 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
       var el = this.getEl();
       
       var html = '';
+      
+      html += 'Log Display Level: ';
+      html += '<select id="' + this._selectId + '">' +
+        "<option>trace</option>" +
+        "<option>debug</option>" +
+        "<option>info</option>" +
+        "<option>warning</option>" +
+        "<option>error</option>" +
+        "<option>fatal</option>" +
+        "</select>";
+      
       html += '<div style="overflow: scroll; height: 527px;">';
       
-      this._table = new com.runwaysdk.inspector.Table(this._logTable, this.constructor.MAX_ROWS);
-      this._table.setHeaders('#', 'Type', 'Time', 'Tracer', 'Error', 'Stack', 'File', 'Line');
-      
       // definition
-      html += 'Last 500 Log Entries:<br />';
+      html += 'Last ' + this.constructor.MAX_ROWS + ' Log Entries:<br />';
       html  += '<div>';
       html += this._table.getHTML();
       html += '</div>'; 
@@ -966,11 +1035,57 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
       el.innerHTML = html;
       
       this._table.startRowBuffer();
+      
+      var manager = com.runwaysdk.inspector.EventManager.getInstance();
+      var IEvent = com.runwaysdk.inspector.IEvent;
+      manager.addEvent(new IEvent(this._selectId, 'change', this.onSelectChange, this));
+    },
+    
+    onSelectChange : function(e) {
+      var select = document.getElementById(this._selectId);
+      this._logLevel = select.selectedIndex;
+      
+      this._table.clearAllRows();
+      
+      if (this._logLevel <= 2) {
+        for (var key in this._loggedInfos) {
+          this._table.insertRow(this._loggedInfos[key].slice(0), null);
+        }
+      }
+      if (this._logLevel <= 3) {
+        for (var key in this._loggedWarnings) {
+          this._table.insertRow(this._loggedWarnings[key].slice(0), null);
+        } 
+      }
+      if (this._logLevel <= 4) {
+        for (var key in this._loggedErrors) {
+          this._table.insertRow(this._loggedErrors[key].slice(0), null);
+        }
+      }
+      
+      this._table.clearBuffer(true);
+    },
+    
+    logInfo : function(msg)
+    {
+      var rowData = ['<span style="color: black; font-weight: bold">Info</span>',
+        Mojo.Util.toISO8601(new Date()), '', '<pre>' + msg + '</pre>', '', '', ''];
+      this._loggedInfos.push(rowData);
+      
+      if (this._logLevel <= 2) {
+        this._table.insertRow(rowData.slice(0), null);
+      }
     },
     
     logWarning : function(msg)
     {
+      var rowData = ['<span style="color: yellow; font-weight: bold">Warning</span>',
+        Mojo.Util.toISO8601(new Date()), '', '<pre>' + msg + '</pre>', '', '', ''];
+      this._loggedWarnings.push(rowData);
       
+      if (this._logLevel <= 3) {
+        this._table.insertRow(rowData.slice(0), null);
+      }
     },
 
     logError : function(error, id)
@@ -987,10 +1102,14 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
         traceA = '';
       }
     
-      this._table.insertRow(['<span style="color: red; font-weight: bold">Error</span>',
-      Mojo.Util.toISO8601(new Date()), traceA, error, '<pre>'+error.stack+'</pre>', error.fileName, error.lineNumber], id);
-        
-      this._mainWin.startBeacon();
+      var rowData = ['<span style="color: red; font-weight: bold">Error</span>',
+        Mojo.Util.toISO8601(new Date()), traceA, '<pre>'+ error.message + '</pre>', '<pre>'+error.stack+'</pre>', error.fileName, error.lineNumber];
+      this._loggedErrors.push(rowData);
+      
+      if (this._logLevel <= 4) {
+        this._table.insertRow(rowData.slice(0), id);
+        this._mainWin.startBeacon();
+      }
     },
     
     purgeErrorBuffer : function()
@@ -1190,20 +1309,21 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
     
     startRowBuffer : function()
     {
-      var bound = Mojo.Util.bind(this, this._clearBuffer);
+      var bound = Mojo.Util.bind(this, this.clearBuffer);
       setInterval(bound, 1000);
     },
     
-    _clearBuffer : function()
+    clearBuffer : function(forceHtmlFlush)
     {
-      if(this._rowBuffer.length === 0)
+      if(this._rowBuffer.length === 0 && forceHtmlFlush == null)
       {
         return;
       }
       
       // insert the last buffered rows
-      //FIXME this is showing more than 500 rows
-      [].splice.apply(this._rows, [0, this._rowBuffer.length].concat(this._rowBuffer));
+      // this._rowBuffer.length
+      [].splice.apply(this._rows, [0,0].concat(this._rowBuffer)); // this appends to the front
+      //[].push.apply(this._rows, this._rowBuffer); // this appends to the back
       this._rowBuffer = [];
       
       if(this._rows.length > this._maxRows)
@@ -1211,9 +1331,17 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
         this._rows = this._rows.slice(0, this._maxRows);
       }
       
+      if(this._table == null)
+      {
+        this._table = document.getElementById(this._id);
+      }
+      
       var html = this.getHTML(false);
-      this._table.parentNode.innerHTML = html;
-      this._table = null;
+      
+      if (this._table != null) {
+        this._table.parentNode.innerHTML = html;
+        this._table = null;
+      }
     },
     
     setHeaders : function(headers)
@@ -1231,16 +1359,17 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
       {
         this._table = document.getElementById(this._id);
       }
-
+      
       data = Mojo.Util.isArray(data) ? data : [].splice.call(arguments, 0);
       id = id || new String(Math.random()).substring(2);
-    
+      
       // add row count since we're using the buffer
       data.splice(0, 0, this._rowCount++);
     
       var row = {data: data, id: id};
       
-      this._rowBuffer.splice(0, 0, row);
+      this._rowBuffer.splice(0,0,row); // add the row to the beginning of the rowBuffer array
+      //this._rowBuffer.push(row); // add it to the end
     },
     
     // Does not use buffer
@@ -1253,7 +1382,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
 
       data = Mojo.Util.isArray(data) ? data : [].splice.call(arguments, 0);
       id = id || new String(Math.random()).substring(2);
-    
+      
       var row = {data: data, id: id};
       
       this._rows.splice(0, 0, row);
@@ -1278,9 +1407,13 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
       return html;
     },
     
+    clearAllRows : function() {
+      this._rows = [];
+      this._rowBuffer = [];
+    },
+    
     getHTML : function(rowsOnly)
     {
-      this._rows.reverse(); // FIXME
       var html = '';
       
       if(!rowsOnly)
@@ -1611,3 +1744,11 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.SyntaxHighlighter', {
                  
   }
 });
+
+com.runwaysdk.Exception.addEventListener(function(ex){
+  //Log it
+  var msg = "A new exception was instantiated: " + ex.getDeveloperMessage();
+  com.runwaysdk.inspector.Inspector.getLogger().logInfo(msg);
+});
+
+})();
