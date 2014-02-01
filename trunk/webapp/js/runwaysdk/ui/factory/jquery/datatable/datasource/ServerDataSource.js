@@ -34,11 +34,14 @@
     
     Instance : {
       initialize : function(config) {
+        config = config || {};
+        
         this.$initialize(config);
         
         this._config = config;
         
         this._genericDataSource = config.genericDataSource;
+        this._iDisplayStart = 0;
       },
       
       getConfig : function() {
@@ -50,6 +53,29 @@
           "fnServerData": Util.bind(this, this.__fnServerData),
           aoColumns: this.getColumns()
         };
+      },
+      
+      setDataTablesCallback : function(callback) {
+        var didInvoke = false;
+        var thisDataSource = this;
+        var hisCallback = callback;
+        this._datatablesCallback = {
+          onFailure: function(ex) {
+            if (!didInvoke) {
+              didInvoke = true;
+              hisCallback.onFailure(ex);
+            }
+            else {
+              thisDataSource.handleException(ex);
+            }
+          },
+          onSuccess : function(data) {
+            if (!didInvoke) {
+              didInvoke = true;
+              hisCallback.onSuccess(data);
+            }
+          }
+        }
       },
       
       /**
@@ -75,13 +101,26 @@
         
         this._sSource = sSource;
         this._sEcho = sEcho;
-        this._fnCallback = fnCallback;
+        this._oSettings = oSettings;
         
         this._genericDataSource.setPageNumber(displayStart / displayLen + 1);
         this._genericDataSource.setPageSize(displayLen);
         this._genericDataSource.setSortColumn(oSettings.aaSorting[0][0]);
         this._genericDataSource.setAscending(oSettings.aaSorting[0][1] === "asc" ? true : false);
-        this._genericDataSource.getData({onSuccess: fnCallback, onFailure: this.handleException});
+        
+        
+        var dtCallback = this._datatablesCallback;
+        
+        this._genericDataSource.getData({
+          onSuccess : function(data) {
+            fnCallback(data);
+            
+            if (dtCallback) {
+              dtCallback.onSuccess(data);
+            }
+          },
+          onFailure : dtCallback ? dtCallback.onFailure : this.handleException
+        });
       },
       
       formatResponse : function(response) {
@@ -91,7 +130,8 @@
           sEcho : this._sEcho,
           iTotalRecords: count,
           iTotalDisplayRecords: count,
-          aaData: response
+          aaData: response,
+//          oSettings: this._oSettings
 //          aoColumns: this.getColumns()
         };
       }

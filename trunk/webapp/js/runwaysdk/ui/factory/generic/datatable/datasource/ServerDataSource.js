@@ -39,12 +39,18 @@
       
       initialize : function(cfg)
       {
+        cfg = cfg || {};
+        
         this.$initialize(cfg);
         
         cfg.type = "Server";
         cfg.genericDataSource = this;
         
         this._impl = DataSourceFactory.newDataSource(cfg);
+      },
+      
+      getImpl : function() {
+        return this._impl;
       },
       
       formatResponse : function(response) {

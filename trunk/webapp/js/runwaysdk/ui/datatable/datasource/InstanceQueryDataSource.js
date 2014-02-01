@@ -18,7 +18,7 @@
  */
 
 //define(["../../../ClassFramework", "../../../Util", "../../factory/generic/datatable/datasource/ServerDataSource"], function(ClassFramework, Util, ServerDataSource) {
-(function(){  
+(function(){
 
   var ClassFramework = Mojo.Meta;
   var Util = Mojo.Util;
@@ -56,6 +56,10 @@
         
         // FOR TESTING ERR0RS ONLY
 //        this._requests = 0;
+      },
+      
+      getSortAttr : function() {
+        return this._config.columns[this.getSortColumn()].queryAttr;
       },
       
       // OVERRIDE
@@ -227,7 +231,7 @@
         this._metadataQueryDTO.setPageSize(this._pageSize);
         this._metadataQueryDTO.setPageNumber(this._pageNumber);
         
-        var sortAttribute = thisDS._config.columns[this.getSortColumn()].queryAttr;
+        var sortAttribute = this.getSortAttr();
         if(Mojo.Util.isString(sortAttribute)) {
           this._metadataQueryDTO.clearOrderByList();
           this._metadataQueryDTO.addOrderBy(sortAttribute, this.isAscending() ? 'asc' : 'desc');

@@ -28,6 +28,7 @@
   var ClassFramework = Mojo.Meta;
   var Util = Mojo.Util;
   var Structure = Mojo.Meta.alias(Mojo.STRUCTURE_PACKAGE + "*");
+  var Exception = com.runwaysdk.Exception;
 
   var Base = ClassFramework.getBaseClass();
   
@@ -2392,7 +2393,7 @@ var Localize = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Localize', {
       
       return "???" + key + "???";
     },
-   
+    
     put : function(key, value)
     {
       return Localize.getInstance().put(key, value);
@@ -2401,6 +2402,18 @@ var Localize = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Localize', {
     putAll : function(obj)
     {
      return Localize.getInstance().putAll(obj);
+    },
+    
+    defineLanguage : function(className, map) {
+      var newMap = {};
+      
+      for (var key in map) {
+        if(map.hasOwnProperty(key)){
+          newMap[className + "." + key] = map[key];
+        }
+      }
+      
+      return Localize.putAll(newMap);
     }
   }
 });
