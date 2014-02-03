@@ -357,37 +357,39 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           if (pair.getAttribute().equals(MosquitoCollection.COLLECTIONMETHOD))
           {
-            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
-            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-            termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW + "." + this.collectionMethod.getColumnAlias())));
-
-            // There is no condition passthrough so we have to hack in the
-            // EXISTS
-            // operator
-            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+            continue; // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
+//            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+//            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+//            termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
+//            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW + "." + this.collectionMethod.getColumnAlias())));
+//
+//            // There is no condition passthrough so we have to hack in the
+//            // EXISTS
+//            // operator
+//            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
           }
           else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
+            continue; // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
             // Filtering on species during abundance calculation has to be done
             // at the end so it doesn't disrupt the results
             // of the recursive rollup. Even though the conditions are on the
             // ontology allpaths table, we strictly match on the
             // terms and do not include children.
-
-            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
-            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-
-            String taxonCol = ABUNDANCE_VIEW + "." + QueryUtil.getColumnName(SubCollection.getTaxonMd());
-            SelectableSQLCharacter taxon = termVQ.aSQLCharacter("taxon_term_criteria", taxonCol);
-
-            termVQ.SELECT(allpathsQ.getParentTerm());
-            termVQ.AND(allpathsQ.getChildTerm().EQ(taxon));
-
-            // There is no condition passthrough so we have to hack in the
-            // EXISTS
-            // operator
-            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", taxonCol + " IN ((" + termVQ.getSQL() + ")) AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+//
+//            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+//            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+//
+//            String taxonCol = ABUNDANCE_VIEW + "." + QueryUtil.getColumnName(SubCollection.getTaxonMd());
+//            SelectableSQLCharacter taxon = termVQ.aSQLCharacter("taxon_term_criteria", taxonCol);
+//
+//            termVQ.SELECT(allpathsQ.getParentTerm());
+//            termVQ.AND(allpathsQ.getChildTerm().EQ(taxon));
+//
+//            // There is no condition passthrough so we have to hack in the
+//            // EXISTS
+//            // operator
+//            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", taxonCol + " IN ((" + termVQ.getSQL() + ")) AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
           }
         }
       }
