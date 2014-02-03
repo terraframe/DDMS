@@ -536,7 +536,7 @@ public class QueryUtil implements Reloadable
 
               String columnAlias = s.getUserDefinedAlias();
 
-              if (aggregations.containsKey(columnAlias))
+              if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               {
                 sql.append("       JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
 
