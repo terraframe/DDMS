@@ -1121,7 +1121,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     /*
      * Visible Attributes
      */
-    _getVizDiv : function(that,visibleAttributes,divName,mainQueryClass,checkClass)
+    _getVizDiv : function(that,visibleAttributes,divName,mainQueryClass,checkClass, selectAll)
     {
       var visibleDiv = document.createElement('div');
       // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
@@ -1145,7 +1145,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
 
       that._toggleVisibility(toggleDiv, visibleUl);
-      that._attachSelectAll(visibleUl,checkClass);
+      
+      selectAll = Mojo.Util.isBoolean(selectAll) ? selectAll : true;
+      
+      if(selectAll)
+      {
+        that._attachSelectAll(visibleUl,checkClass);
+      }
       
       for(var i=0; i<visibleAttributes.length; i++)
       {
@@ -1391,7 +1397,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       var setupDiv =  function(group,idx){
         this._queryPanel.addQueryItem({
-          html: this._getVizDiv(this, group.values, group.title, group.klass, group.group),
+          html: this._getVizDiv(this, group.values, group.title, group.klass, group.group, group.selectAll),
           id: group.group + '_checkbox_group',
           menuBuilder : Mojo.Util.bind(this, this._menuBuilder)
         });

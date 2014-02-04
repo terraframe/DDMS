@@ -598,7 +598,7 @@ YAHOO.util.Event.onDOMReady(function(){
     */
 
     var selectableGroups = [
- 	                         {title:"Target_Management_Query", values:targetManagementColumns, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Target_Management_Query", values:targetManagementColumns, selectAll:false, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
@@ -659,10 +659,10 @@ YAHOO.util.Event.onDOMReady(function(){
     });
 
     // Team
-    var targetCalcs = ['team_actual_target','team_planned_target','team_planned_coverage','team_target_divergence','team_targeted_coverage'];
+    var teamCalcs = ['team_actual_target','team_planned_target','team_planned_coverage','team_target_divergence','team_targeted_coverage'];
     var teamCol = 'sprayteam_defaultLocale';
     dm.includes({
-      independent: targetCalcs,
+      independent: teamCalcs,
       dependent: teamCol,
       type: MDSS.Dependent.CHECKED,
       bidirectional: false,
@@ -670,7 +670,7 @@ YAHOO.util.Event.onDOMReady(function(){
     });
     dm.includes({
       independent: teamCol,
-      dependent: targetCalcs,
+      dependent: teamCalcs,
       type: MDSS.Dependent.UNCHECKED,
       bidirectional: false
     });
@@ -683,6 +683,26 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.CHECKED,
       bidirectional: false,
       name: MDSS.QueryIRS.DATE_GROUP
+    });
+    
+    // Exclusive checks that ensures target types can't be mixed (#????)
+    dm.excludes({
+      independent: areaCalcs,
+      dependent: operatorCalcs.concat(teamCalcs),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: teamCalcs,
+      dependent: operatorCalcs.concat(areaCalcs),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: operatorCalcs,
+      dependent: areaCalcs.concat(teamCalcs),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
     });
 
     // This will ensure the transaction lister fires after checking/unchecking a date group
