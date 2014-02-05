@@ -93,8 +93,28 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   @Override
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
-    return set("sprayoperator." + memberIdCol + " || ' - ' || person." + firstNameCol + " || ' ' || "
-        + personTable + "." + lastNameCol, alias);
+    return set("sprayoperator." + memberIdCol + " || ' - ' || "+OPERATOR_PERSON+"." + firstNameCol + " || ' ' || "
+        + OPERATOR_PERSON + "." + lastNameCol, alias);
+  }
+  
+  public String setSprayOperatorPersonId(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.identifierCol, alias);
+  }
+
+  public String setSprayOperatorBirthdate(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.birthdateCol, alias);
+  }
+
+  public String setSprayOperatorSex(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.sexCol, alias);
+  }
+
+  public String setSprayOperatorPerson(Alias alias)
+  {
+    return set(OPERATOR_PERSON, this.idCol, alias);
   }
 
   @Override
@@ -115,9 +135,11 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
         + idCol + " = " + resourceTargetTable + "." + idCol + " \n";
     sql += " INNER JOIN " + teamMemberTable + " sprayoperator ON " + resourceTargetTable + "."
         + targeter + " = sprayoperator." + idCol + " \n";
-    sql += " INNER JOIN " + personTable + " AS " + personTable + " ON sprayoperator." + personCol
-        + " = " + personTable + ".id\n";
+    sql += " INNER JOIN " + personTable + " AS " + OPERATOR_PERSON + " ON sprayoperator." + personCol
+        + " = " + OPERATOR_PERSON + "."+this.idCol+" \n";
 
+    
+    
     return sql;
   }
 }
