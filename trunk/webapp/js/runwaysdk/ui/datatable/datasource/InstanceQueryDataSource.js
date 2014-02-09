@@ -232,9 +232,24 @@
         this._metadataQueryDTO.setPageNumber(this._pageNumber);
         
         var sortAttribute = this.getSortAttr();
+        
         if(Mojo.Util.isString(sortAttribute)) {
           this._metadataQueryDTO.clearOrderByList();
-          this._metadataQueryDTO.addOrderBy(sortAttribute, this.isAscending() ? 'asc' : 'desc');
+        
+          var attributeDTO = this._metadataQueryDTO.getAttributeDTO(sortAttribute);
+          
+          if((attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeLocalCharacterDTO) || (attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeLocalTextDTO))
+          {
+            this._metadataQueryDTO.addStructOrderBy(sortAttribute, 'LOCALIZE', this.isAscending() ? 'asc' : 'desc');                      
+          }
+          else if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeStructDTO)
+          {
+            this._metadataQueryDTO.addStructOrderBy(sortAttribute, 'id', this.isAscending() ? 'asc' : 'desc');                      
+          }
+          else
+          {
+            this._metadataQueryDTO.addOrderBy(sortAttribute, this.isAscending() ? 'asc' : 'desc');          
+          }
         }
         
         com.runwaysdk.Facade.queryEntities(clientRequest, this._metadataQueryDTO);

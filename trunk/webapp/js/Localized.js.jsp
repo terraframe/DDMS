@@ -46,6 +46,7 @@ locale : "<%=request.getLocale().toString()%>"
 MDSS.DateSettings =
 {
 java_date_format:'<%=Halp.getDateFormatString(request)%>',
+java_date_time_format:'<%=Halp.getDateTimeFormatString(request)%>',
 db_datetime_format:'<%=Constants.DATETIME_FORMAT%>',
 db_date_format:'<%=Constants.DATE_FORMAT%>',
 DATE_FIELD_DELIMITER:'/',

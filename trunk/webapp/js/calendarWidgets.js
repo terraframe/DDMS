@@ -30,6 +30,7 @@ MDSS.Calendar = {
         over_cal = false,
         cur_field = '',
         java_date_format = MDSS.DateSettings.java_date_format,
+        java_date_time_format = MDSS.DateSettings.java_date_time_format,
         db_datetime_format = MDSS.DateSettings.db_datetime_format,
         db_date_format = MDSS.DateSettings.db_date_format;
 
@@ -121,6 +122,12 @@ MDSS.Calendar = {
     	return date.format(java_date_format);
     }
     
+    var var_to_localized_date_time_string = function(date_str) {
+    	var date = var_to_date(date_str);
+    	if(date == null  || date == '') return null;
+    	return date.format(java_date_time_format);
+    }
+    
     var el_to_localized_el = function(el) {
         el.value = var_to_localized_string(el.value);    	
     }
@@ -128,6 +135,8 @@ MDSS.Calendar = {
     MDSS.Calendar.getMojoDateString = var_to_db_string;
 
     MDSS.Calendar.getLocalizedString = var_to_localized_string;
+    
+    MDSS.Calendar.getLocalizedDateTime = var_to_localized_date_time_string;
     
     MDSS.Calendar.localizeDateElement = el_to_localized_el;
 
