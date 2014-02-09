@@ -506,7 +506,8 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   public boolean hasActivity()
   {
-    return this.hasActivity && this.aggType == null;
+    // Add actuals (spray activity) if it has explicitly been specified or if COUNT or RATIO exists
+    return this.hasActivity && this.aggType == null || (this.selectAliases.contains(Alias.COUNT) || this.selectAliases.contains(Alias.RATIO));
   }
 
   public boolean hasPlanned()
@@ -2663,6 +2664,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 //      this.setWITHGeoDisplayLabelSQL();
 //    }
     
+    
     QBInterceptor interceptor = this.getQBInterceptor(this.irsParser);
     if(interceptor != null && interceptor.getGeoCriteriaProcessed() > 0)
     {
@@ -2709,8 +2711,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         this.selectAliases.add(alias);
       }
-    }
-    
+    }    
 
     if(this.hasActivity())
     {
