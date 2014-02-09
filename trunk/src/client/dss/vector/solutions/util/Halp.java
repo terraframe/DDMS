@@ -72,6 +72,20 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     return pattern;
   }
 
+  public static String getDateTimeFormatString(HttpServletRequest request)
+  {
+    Locale locale = request.getLocale();
+    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
+
+    SimpleDateFormat formatter = (SimpleDateFormat) df;
+    String pattern = formatter.toPattern();
+    pattern = pattern.replace("yy", "yyyy");
+    pattern = pattern.replace("yyyyyyyy", "yyyy");
+    request.setAttribute("dateFormatPattern", pattern);
+
+    return pattern;
+  }
+
   public static String getFormatedDate(HttpServletRequest request, Date date)
   {
     SimpleDateFormat formatter = new SimpleDateFormat(getDateFormatString(request));

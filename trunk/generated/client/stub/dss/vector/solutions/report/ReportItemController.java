@@ -112,7 +112,7 @@ public class ReportItemController extends ReportItemControllerBase implements co
     {
       req.setAttribute("outputFormat", OutputFormatDTO.allItems(this.getClientRequest()));
       req.setAttribute("item", dto);
-      
+
       render("editComponent.jsp");
     }
     catch (Throwable t)
@@ -198,7 +198,8 @@ public class ReportItemController extends ReportItemControllerBase implements co
     }
   }
 
-  public void failUpdate(ReportItemDTO dto) throws IOException, ServletException
+  @Override
+  public void failUpdate(ReportItemDTO dto, MultipartFileParameter design) throws IOException, ServletException
   {
     this.edit(dto);
   }

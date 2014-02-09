@@ -134,16 +134,16 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       file.delete();
     }
 
-//    /*
-//     * Delete the job report
-//     */
-//    ReportJob job = ReportJob.get(this);
-//
-//    if (job != null)
-//    {
-//      job.lock();
-//      job.delete();
-//    }
+    /*
+     * Delete the job report
+     */
+    ReportJob job = ReportJob.get(this);
+
+    if (job != null)
+    {
+      job.lock();
+      job.delete();
+    }
 
     super.delete();
   }
@@ -251,55 +251,65 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       url.setUrlName(this.getReportLabel().getValue());
       url.apply();
 
-      Disease[] diseases = Disease.getAllDiseases();
-
-      for (Disease disease : diseases)
-      {
-        // Create the Write role for the report url
-        WriteAction writeAction = new WriteAction(url, disease);
-        writeAction.assign(MdMethodDAO.getMdMethod(ReportItem.CLASS + ".render"));
-
-        // Create the Read role for the report url
-        ReadAction readAction = new ReadAction(url, disease);
-        readAction.assign(this.getMdClass());
-        readAction.assign(MdViewDAO.getMdViewDAO(ReportParameter.CLASS));
-        readAction.assign(MdMethodDAO.getMdMethod(ReportItem.CLASS + ".render"));
-      }
+      this.addPermissions(url, Disease.getAllDiseases());
     }
 
-//    /*
-//     * Handle the job report
-//     */
-//    ReportJob job = ReportJob.get(this);
-//
-//    if (this.getCacheDocument())
-//    {
-//      if (job == null)
-//      {
-//        job = new ReportJob();
-//        job.setReportItem(this);
-//      }
-//      else
-//      {
-//        job.lock();
-//      }
-//
-//      job.setPauseable(false);
-//      job.setJobId(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
-//      job.getDescription().setValue(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
-//      job.setWorkTotal(1);
-//      job.apply();
-//
-//      job.start();
-//    }
-//    else
-//    {
-//      if (job != null)
-//      {
-//        job.lock();
-//        job.delete();
-//      }
-//    }
+    /*
+    * Handle the job report
+    */
+    ReportJob job = ReportJob.get(this);
+
+    if (this.getCacheDocument())
+    {
+      if (job == null)
+      {
+        job = new ReportJob();
+        job.setReportItem(this);
+      }
+      else
+      {
+        job.lock();
+      }
+
+      job.setPauseable(false);
+      job.setJobId(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
+      job.getDescription().setValue(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
+      job.setWorkTotal(1);
+      job.apply();
+
+      job.start();
+    }
+    else
+    {
+      if (job != null)
+      {
+        job.lock();
+        job.delete();
+      }
+    }
+  }
+
+  public void addPermissions(SystemURL url, Disease... diseases)
+  {
+    for (Disease disease : diseases)
+    {
+      // Create the Write role for the report url
+      WriteAction writeAction = new WriteAction(url, disease);
+      writeAction.assign(MdMethodDAO.getMdMethod(ReportItem.CLASS + ".render"));
+
+      // Create the Read role for the report url
+      ReadAction readAction = new ReadAction(url, disease);
+      readAction.assign(this.getMdClass());
+      readAction.assign(MdViewDAO.getMdViewDAO(ReportParameter.CLASS));
+      readAction.assign(MdMethodDAO.getMdMethod(ReportItem.CLASS + ".render"));
+    }
+  }
+
+  public void addPermissions(Disease... diseases)
+  {
+    SystemURL url = SystemURL.getByURL(this.getURL());
+
+    this.addPermissions(url, diseases);
   }
 
   private void checkVaultPermissions(VaultFile entity, Operation operation)
@@ -554,7 +564,9 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
   private String run(ReportParameter[] parameters) throws BirtException, EngineException
   {
-    String path = DeployProperties.getJspDir() + File.separator + "temp" + File.separator + IDGenerator.nextID();
+    File path = new File(DeployProperties.getJspDir() + File.separator + "temp" + File.separator + IDGenerator.nextID());
+    path.deleteOnExit();
+
     IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
     HashMap<String, Object> contextMap = new HashMap<String, Object>();
@@ -575,14 +587,14 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       task.validateParameters();
 
-      task.run(path);
+      task.run(path.getAbsolutePath());
     }
     finally
     {
       task.close();
     }
 
-    return path;
+    return path.getAbsolutePath();
   }
 
   private void runAndRender(OutputStream outputStream, ReportParameter[] parameters, String baseURL) throws BirtException, EngineException
@@ -633,6 +645,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setImageDirectory(DeployProperties.getDeployPath() + "/imgs");
       options.setActionHandler(new HTMLUrlActionHandler(baseURL));
       options.setHtmlTitle(this.getReportLabel().getValue());
+//      options.setHtmlPagination(true);
+//      options.setMasterPageContent(true);
 
       return options;
     }
@@ -740,4 +754,5 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
 
   }
+
 }
