@@ -507,7 +507,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   public boolean hasActivity()
   {
     // Add actuals (spray activity) if it has explicitly been specified or if COUNT or RATIO exists
-    return this.hasActivity && this.aggType == null || (this.selectAliases.contains(Alias.COUNT) || this.selectAliases.contains(Alias.RATIO));
+    return this.requiredViews.contains(View.ALL_ACTUALS) || this.hasActivity && this.aggType == null || (this.selectAliases.contains(Alias.COUNT) || this.selectAliases.contains(Alias.RATIO));
   }
 
   public boolean hasPlanned()
@@ -2669,6 +2669,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     if(interceptor != null && interceptor.getGeoCriteriaProcessed() > 0)
     {
       this.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
+    }
+    
+    if(this.requiredViews.contains(View.PLANNED_OPERATOR) && this.hasUniversal())
+    {
+      this.addRequiredView(View.ALL_ACTUALS);
+      this.hasActivity = true;
     }
     
     try

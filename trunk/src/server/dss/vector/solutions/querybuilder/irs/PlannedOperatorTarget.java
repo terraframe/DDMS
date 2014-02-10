@@ -60,7 +60,9 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
     // the SQL valid.
     if(this.irsQB.hasUniversal())
     {
-      this.irsQB.addRequiredAlias(View.PLANNED_TEAM, Alias.GEO_ENTITY);
+      this.irsQB.addRequiredView(View.ALL_ACTUALS);
+      this.irsQB.addRequiredAlias(View.ALL_ACTUALS, Alias.GEO_ENTITY);
+      this.irsQB.addPlannedAlias(Alias.GEO_ENTITY);
     }
   }
   
