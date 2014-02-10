@@ -13,11 +13,9 @@
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-<!-- 
   <mjl:dt attribute="cacheDocument">
     <mjl:boolean param="cacheDocument"/>
   </mjl:dt>
--->
 </mjl:component>
 <dt>
   <label>* ${item.designMd.displayLabel}</label>
