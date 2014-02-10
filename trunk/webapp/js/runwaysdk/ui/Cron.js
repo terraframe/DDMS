@@ -63,6 +63,15 @@
     
     Extends : Widget,
     
+    Constants: {
+    	SECONDS : 0,
+    	MINUTES : 1,
+    	HOURS : 2,
+    	DOM : 3,
+    	MONTH : 4,
+    	DOW : 5
+    },
+    	 
     Instance : {
       
       initialize : function(cronStr, config) {
@@ -88,7 +97,7 @@
         
         this._minutePicker = this._generateNumberPicker(0, 59, function(index){if (index < 10) {return "0"+index;} return index; });
         this._hourPicker = this._generateNumberPicker(0, 23);
-        this._dayOfWeekPicker = this._generateNumberPicker(0, 6, function(index){return CronUtil.convertDayOfWeekNumberToLocalizedWeek(index)});
+        this._dayOfWeekPicker = this._generateNumberPicker(1, 7, function(index){return CronUtil.convertDayOfWeekNumberToLocalizedWeek(index)});
         this._dayOfWeekPicker.setValue(0);
         this._dayPicker = this._generateNumberPicker(1, 31, CronUtil.formatDayValue);
         this._dayPicker.setValue(1);
@@ -237,7 +246,7 @@
         
         minute = minute == null ? "*" : minute;
         hour = hour == null ? "*" : hour;
-        dayNum = dayNum == null ? "*" : dayNum;
+        dayNum = dayNum == null ? (dayOfTheWeek == null ? "*" : "?") : dayNum;
         month = month == null ? "*" : month;
         dayOfTheWeek = dayOfTheWeek == null ? "?" : dayOfTheWeek;
         
@@ -270,7 +279,7 @@
             this._rangePicker.setValue("everyHour");
             
             this._minutePicker = this._cron.getChildWithId(this._minutePicker.getId());
-            this._minutePicker.setValue(cronStrParts[0]);
+            this._minutePicker.setValue(cronStrParts[this.constructor.MINUTES]);
             
             var changeFunc = Mojo.Util.bind(this, function(){this._calcCronStr(this._minutePicker.getValue())});
             this._minutePicker.addEventListener("change", changeFunc);
@@ -288,10 +297,10 @@
             this._rangePicker.setValue("everyDay");
             
             this._minutePicker = this._cron.getChildWithId(this._minutePicker.getId());
-            this._minutePicker.setValue(cronStrParts[0]);
+            this._minutePicker.setValue(cronStrParts[this.constructor.MINUTES]);
             
             this._hourPicker = this._cron.getChildWithId(this._hourPicker.getId());
-            this._hourPicker.setValue(cronStrParts[1]);
+            this._hourPicker.setValue(cronStrParts[this.constructor.HOURS]);
             
             var changeFunc = Mojo.Util.bind(this, function(){this._calcCronStr(this._minutePicker.getValue(), this._hourPicker.getValue())});
             this._minutePicker.addEventListener("change", changeFunc);
@@ -311,13 +320,13 @@
             this._rangePicker.setValue("everyWeek");
             
             this._minutePicker = this._cron.getChildWithId(this._minutePicker.getId());
-            this._minutePicker.setValue(cronStrParts[0]);
+            this._minutePicker.setValue(cronStrParts[this.constructor.MINUTES]);
             
             this._hourPicker = this._cron.getChildWithId(this._hourPicker.getId());
-            this._hourPicker.setValue(cronStrParts[1]);
+            this._hourPicker.setValue(cronStrParts[this.constructor.HOURS]);
             
             this._dayOfWeekPicker = this._cron.getChildWithId(this._dayOfWeekPicker.getId());
-            this._dayOfWeekPicker.setValue(cronStrParts[4]);
+            this._dayOfWeekPicker.setValue(cronStrParts[this.constructor.DOW]);
             
             var changeFunc = Mojo.Util.bind(this, function(){this._calcCronStr(this._minutePicker.getValue(), this._hourPicker.getValue(), null, null, this._dayOfWeekPicker.getValue())});
             this._minutePicker.addEventListener("change", changeFunc);
@@ -338,13 +347,13 @@
             this._rangePicker.setValue("everyMonth");
             
             this._minutePicker = this._cron.getChildWithId(this._minutePicker.getId());
-            this._minutePicker.setValue(cronStrParts[0]);
+            this._minutePicker.setValue(cronStrParts[this.constructor.MINUTES]);
             
             this._hourPicker = this._cron.getChildWithId(this._hourPicker.getId());
-            this._hourPicker.setValue(cronStrParts[1]);
+            this._hourPicker.setValue(cronStrParts[this.constructor.HOURS]);
             
             this._dayPicker = this._cron.getChildWithId(this._dayPicker.getId());
-            this._dayPicker.setValue(cronStrParts[2]);
+            this._dayPicker.setValue(cronStrParts[this.constructor.DOM]);
             
             var changeFunc = Mojo.Util.bind(this, function(){this._calcCronStr(this._minutePicker.getValue(), this._hourPicker.getValue(), this._dayPicker.getValue(), null, null)});
             this._minutePicker.addEventListener("change", changeFunc);
@@ -366,11 +375,11 @@
   });
   
   var regexMapper = [
-     {regex: /0 \* \* \* \* \*/, name: "everyMinute"},
-     {regex: /0 \d+ \* \* \* \*/, name: "everyHour"},
-     {regex: /0 \d+ \d+ \* \* \*/, name: "everyDay"},
-     {regex: /0 \d+ \d+ \* \* \d+/, name: "everyWeek"},
-     {regex: /0 \d+ \d+ \d+ \* \*/, name: "everyMonth"}
+     {regex: /0 \* \* \* \* \?/, name: "everyMinute"},
+     {regex: /0 \d+ \* \* \* \?/, name: "everyHour"},
+     {regex: /0 \d+ \d+ \* \* \?/, name: "everyDay"},
+     {regex: /0 \d+ \d+ \? \* ./, name: "everyWeek"},
+     {regex: /0 \d+ \d+ \d+ \* \?/, name: "everyMonth"}
    ];
   
   var CronUtil = Mojo.Meta.newClass(pack+"CronUtil", {
@@ -401,26 +410,26 @@
         
         var cronStrParts = cronStr.split(" ");
         
-        if (cronStrParts[0].toString().length === 1) {
-          cronStrParts[0] = "0" + cronStrParts[0].toString();
+        if (cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES].toString().length === 1) {
+          cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES] = "0" + cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES].toString();
         }
         
         if (everyStrName == "everyMinute") {
           return everyStr.replace("${minute}", language["minute"]);
         }
         else if (everyStrName == "everyHour") {
-          return everyStr.replace("${hour}", language["hour"]).replace("${actualMinute}", cronStrParts[0]);
+          return everyStr.replace("${hour}", language["hour"]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyDay") {
-          return everyStr.replace("${day}", language["day"]).replace("${actualHour}", cronStrParts[1]).replace("${actualMinute}", cronStrParts[0]);
+          return everyStr.replace("${day}", language["day"]).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyWeek") {
-          var actualWeek = CronUtil.convertDayOfWeekNumberToLocalizedWeek(cronStrParts[4]);
-          return everyStr.replace("${week}", language["week"]).replace("${actualDayOfWeek}", actualWeek).replace("${actualHour}", cronStrParts[1]).replace("${actualMinute}", cronStrParts[0]);
+          var actualWeek = CronUtil.convertDayOfWeekNumberToLocalizedWeek(cronStrParts[com.runwaysdk.ui.CronPicker.DOW]);
+          return everyStr.replace("${week}", language["week"]).replace("${actualDayOfWeek}", actualWeek).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyMonth") {
-          var day = this.formatDayValue(cronStrParts[2]);
-          return everyStr.replace("${month}", language["month"]).replace("${actualDay}", day).replace("${actualHour}", cronStrParts[1]).replace("${actualMinute}", cronStrParts[0]);
+          var day = this.formatDayValue(cronStrParts[com.runwaysdk.ui.CronPicker.DOM]);
+          return everyStr.replace("${month}", language["month"]).replace("${actualDay}", day).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else {
           return cronStr;
@@ -446,25 +455,25 @@
       convertDayOfWeekNumberToLocalizedWeek : function(weekNum) {
         var language = com.runwaysdk.Localize.getLanguage(cronUtilName);
         
-        if (weekNum == 0) {
+        if (weekNum == 1) {
           return language["sunday"];
         }
-        else if (weekNum == 1) {
+        else if (weekNum == 2) {
           return language["monday"];
         }
-        else if (weekNum == 2) {
+        else if (weekNum == 3) {
           return language["tuesday"];
         }
-        else if (weekNum == 3) {
+        else if (weekNum == 4) {
           return language["wednesday"];
         }
-        else if (weekNum == 4) {
+        else if (weekNum == 5) {
           return language["thursday"];
         }
-        else if (weekNum == 5) {
+        else if (weekNum == 6) {
           return language["friday"];
         }
-        else if (weekNum == 6) {
+        else if (weekNum == 7) {
           return language["saturday"];
         }
       }

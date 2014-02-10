@@ -112,11 +112,11 @@ YAHOO.util.Event.onDOMReady(function(){
     premiseAttribsColumns = premiseAttribsColumns.concat([
                                                           {
                                                             key:'number_examined',
-                                                            type:"sqlfloat",
-                                                            displayLabel:premise.getNumberWithLarvaeMd().getDisplayLabel(),
-                                                            description:premise.getNumberWithLarvaeMd().getDescription(),
+                                                            type:"sqldouble",
+                                                            displayLabel:premise.getNumberExaminedMd().getDisplayLabel(),
+                                                            description:premise.getNumberExaminedMd().getDescription(),
                                                             attributeName:'number_examined',
-                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeDoubleDTO",
                                                             isAggregate:true
                                                           },
                                                           {
