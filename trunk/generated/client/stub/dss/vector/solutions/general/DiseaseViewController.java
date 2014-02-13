@@ -41,15 +41,32 @@ public class DiseaseViewController extends DiseaseViewControllerBase implements 
 
   public void viewAll() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    DiseaseViewQueryDTO query = DiseaseViewDTO.getPage(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+
+      // Ensure the user has read permissions on DiseaseView
+      new DiseaseViewDTO(clientRequest);
+
+      DiseaseViewQueryDTO query = DiseaseViewDTO.getPage(clientRequest, null, true, 20, 1);
+      req.setAttribute("query", query);
+      render("viewAllComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failViewAll();
+      }
+    }
+
   }
 
   public void failViewAll() throws IOException, ServletException
   {
-    resp.sendError(500);
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   public void view(String id) throws IOException, ServletException
@@ -120,7 +137,7 @@ public class DiseaseViewController extends DiseaseViewControllerBase implements 
   {
     try
     {
-      dto.apply();
+      dto.applyConcrete();
       this.view(dto);
     }
     catch (Throwable t)
@@ -170,7 +187,7 @@ public class DiseaseViewController extends DiseaseViewControllerBase implements 
   {
     try
     {
-      dto.apply();
+      dto.applyConcrete();
       this.view(dto);
     }
     catch (Throwable t)
