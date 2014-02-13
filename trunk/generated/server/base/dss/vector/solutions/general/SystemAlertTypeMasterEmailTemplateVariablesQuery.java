@@ -10,7 +10,6 @@ package dss.vector.solutions.general;
  */
 public  class SystemAlertTypeMasterEmailTemplateVariablesQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1317732284;
 
   public SystemAlertTypeMasterEmailTemplateVariablesQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = 1317732284;
  **/
   public static class SystemAlertTypeMasterEmailTemplateVariablesQueryStruct extends com.runwaysdk.query.AttributeLocal implements SystemAlertTypeMasterEmailTemplateVariablesQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -551223616;
 
   public SystemAlertTypeMasterEmailTemplateVariablesQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

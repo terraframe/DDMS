@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 823049778)
+@com.runwaysdk.business.ClassSignature(hash = -2048181510)
 public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.Disease";
-  private static final long serialVersionUID = 823049778;
+  private static final long serialVersionUID = -2048181510;
   
   protected DiseaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -78,6 +78,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -108,6 +113,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     {
       return com.runwaysdk.system.metadata.MdDimensionDTO.get(getRequest(), getValue(DIMENSION));
     }
+  }
+  
+  public String getDimensionId()
+  {
+    return getValue(DIMENSION);
   }
   
   public void setDimension(com.runwaysdk.system.metadata.MdDimensionDTO value)
@@ -152,6 +162,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -260,6 +275,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -292,6 +312,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -322,6 +347,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(MENUROOT));
     }
+  }
+  
+  public String getMenuRootId()
+  {
+    return getValue(MENUROOT);
   }
   
   public void setMenuRoot(dss.vector.solutions.ontology.TermDTO value)
@@ -366,6 +396,11 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -474,12 +509,60 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.general.DiseaseViewDTO getView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseViewDTO getView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.general.DiseaseViewDTO lockView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "lockView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseViewDTO lockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "lockView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final void setCurrentDimension(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "setCurrentDimension", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.general.DiseaseViewDTO unlockView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "unlockView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseViewDTO unlockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "unlockView", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.general.DiseaseDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

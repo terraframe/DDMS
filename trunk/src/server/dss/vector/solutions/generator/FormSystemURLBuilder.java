@@ -65,13 +65,13 @@ public class FormSystemURLBuilder implements Reloadable
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey query url
    */
-  public static final String FORM_SURVEY_QUERY_URL = "dss.vector.solutions.query.QueryController.queryFormSurvey.mojo";
+  public static final String  FORM_SURVEY_QUERY_URL = "dss.vector.solutions.query.QueryController.queryFormSurvey.mojo";
 
   /**
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey view all url
    */
-  public static final String FORM_SURVEY_CRUD_URL  = "dss.vector.solutions.form.business.FormSurveyController.viewAll.mojo";
+  public static final String  FORM_SURVEY_CRUD_URL  = "dss.vector.solutions.form.business.FormSurveyController.viewAll.mojo";
 
   /**
    * Prefix to add to before all generated CRUD URLs
@@ -113,9 +113,12 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void add(MdClassDAOIF mdClass)
   {
-    SystemURL crudURL = this.getCrudURL();
+    this.addPermissions(mdClass, Disease.getAllDiseases());
+  }
 
-    Disease[] diseases = Disease.getAllDiseases();
+  public void addPermissions(MdClassDAOIF mdClass, Disease... diseases)
+  {
+    SystemURL crudURL = this.getCrudURL();
 
     for (Disease disease : diseases)
     {
@@ -163,12 +166,6 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void generate()
   {
-    MdBusinessDAOIF mdBusiness = (MdBusinessDAOIF) mdForm.getFormMdClass();
-
-    List<MdRelationshipDAOIF> mdRelationships = new LinkedList<MdRelationshipDAOIF>();
-    mdRelationships.addAll(mdBusiness.getAllChildMdRelationships());
-    mdRelationships.addAll(mdBusiness.getAllParentMdRelationships());
-
     // Create the system url for the CRUD screen
     SystemURL crudURL = new SystemURL();
     crudURL.setUrl(this.getCrudURLKey());
@@ -183,7 +180,24 @@ public class FormSystemURLBuilder implements Reloadable
     queryURL.setUrlName(QUERY_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
     queryURL.apply();
 
-    Disease[] diseases = Disease.getAllDiseases();
+    this.addPermissions(crudURL, queryURL, Disease.getAllDiseases());
+  }
+
+  public void addPermissions(Disease... diseases)
+  {
+    SystemURL crudURL = this.getCrudURL();
+    SystemURL queryURL = this.getQueryURL();
+
+    this.addPermissions(crudURL, queryURL, diseases);
+  }
+
+  private void addPermissions(SystemURL crudURL, SystemURL queryURL, Disease... diseases)
+  {
+    MdBusinessDAOIF mdBusiness = (MdBusinessDAOIF) mdForm.getFormMdClass();
+
+    List<MdRelationshipDAOIF> mdRelationships = new LinkedList<MdRelationshipDAOIF>();
+    mdRelationships.addAll(mdBusiness.getAllChildMdRelationships());
+    mdRelationships.addAll(mdBusiness.getAllParentMdRelationships());
 
     for (Disease disease : diseases)
     {
@@ -245,7 +259,6 @@ public class FormSystemURLBuilder implements Reloadable
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getQueryResults"));
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getTextAttributeSugestions"));
     }
-
   }
 
   private SystemURL getCrudURL()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1350075214)
+@com.runwaysdk.business.ClassSignature(hash = 1421102202)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1350075214;
+  private static final long serialVersionUID = 1421102202;
   
   public DiseaseBase()
   {
@@ -60,6 +60,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -81,6 +86,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     {
       return com.runwaysdk.system.metadata.MdDimension.get(getValue(DIMENSION));
     }
+  }
+  
+  public String getDimensionId()
+  {
+    return getValue(DIMENSION);
   }
   
   public void validateDimension()
@@ -116,6 +126,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -213,6 +228,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -236,6 +256,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -257,6 +282,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     {
       return dss.vector.solutions.ontology.Term.get(getValue(MENUROOT));
     }
+  }
+  
+  public String getMenuRootId()
+  {
+    return getValue(MENUROOT);
   }
   
   public void validateMenuRoot()
@@ -292,6 +322,11 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -405,10 +440,46 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public dss.vector.solutions.general.DiseaseView getView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseView getView(java.lang.String id)
+  {
+    Disease _instance = Disease.get(id);
+    return _instance.getView();
+  }
+  
+  public dss.vector.solutions.general.DiseaseView lockView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseView lockView(java.lang.String id)
+  {
+    Disease _instance = Disease.get(id);
+    return _instance.lockView();
+  }
+  
   public static void setCurrentDimension()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.general.DiseaseView unlockView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseView unlockView(java.lang.String id)
+  {
+    Disease _instance = Disease.get(id);
+    return _instance.unlockView();
   }
   
   public static Disease lock(java.lang.String id)

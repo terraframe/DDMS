@@ -59,6 +59,8 @@ import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.permissions.RoleProperty;
+import dss.vector.solutions.permissions.RolePropertyQuery;
 
 public class PermissionImporter implements Reloadable
 {
@@ -68,6 +70,8 @@ public class PermissionImporter implements Reloadable
 
   private static final String               ROLE_SHEET_NAME       = "MDSS Role Assignment";
 
+  private Boolean                           urlOnly;
+
   private Disease[]                         diseases;
 
   private HashMap<String, MdDimensionDAOIF> mdDimensions;
@@ -76,7 +80,13 @@ public class PermissionImporter implements Reloadable
 
   public PermissionImporter()
   {
-    this.diseases = Disease.getAllDiseases();
+    this(false, Disease.getAllDiseases());
+  }
+
+  public PermissionImporter(boolean urlOnly, Disease... diseases)
+  {
+    this.urlOnly = urlOnly;
+    this.diseases = diseases;
     this.systemURLs = new HashMap<String, SystemURL>();
     this.mdDimensions = new HashMap<String, MdDimensionDAOIF>();
 
@@ -94,10 +104,39 @@ public class PermissionImporter implements Reloadable
     HSSFWorkbook workbook = openStream(stream);
 
     this.readURLSheet(workbook);
-    this.readVisibilitySheet(workbook);
-    this.readRoleAssignment(workbook);
-    this.addLocatedInPermissions();
+
+    if (!this.urlOnly)
+    {
+      this.readVisibilitySheet(workbook);
+      this.readRoleAssignment(workbook);
+      this.addLocatedInPermissions();
+    }
+
     this.serializeURLRoles();
+  }
+
+  @Transaction
+  public void delete()
+  {
+    for (Disease disease : diseases)
+    {
+      RolePropertyQuery query = new RolePropertyQuery(new QueryFactory());
+      query.WHERE(query.getDisease().EQ(disease));
+
+      OIterator<? extends RoleProperty> it = query.getIterator();
+
+      try
+      {
+        while (it.hasNext())
+        {
+          it.next().delete();
+        }
+      }
+      finally
+      {
+        it.close();
+      }
+    }
   }
 
   private void addLocatedInPermissions()

@@ -10,7 +10,6 @@ package dss.vector.solutions.general;
  */
 public  class SystemAlertEmailBodyTextQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -114335362;
 
   public SystemAlertEmailBodyTextQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = -114335362;
  **/
   public static class SystemAlertEmailBodyTextQueryStruct extends com.runwaysdk.query.AttributeLocal implements SystemAlertEmailBodyTextQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -543172358;
 
   public SystemAlertEmailBodyTextQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

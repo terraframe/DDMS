@@ -30,6 +30,12 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
   }
 
   @Override
+  protected String buildKey()
+  {
+    return this.getDimension().getName();
+  }
+
+  @Override
   public void apply()
   {
     if (!this.isNew() && this.isModified(MENUROOT) && this.getMenuRoot() == null)
@@ -169,6 +175,39 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
   public String toString()
   {
-    return this.getDisplayLabel();
+    if (this.getDimension() != null)
+    {
+      return this.getDisplayLabel();
+    }
+
+    return super.toString();
   }
+
+  @Override
+  public DiseaseView getView()
+  {
+    DiseaseView view = new DiseaseView();
+    view.populateView(this, this.getDimension());
+
+    return view;
+  }
+
+  @Override
+  public DiseaseView unlockView()
+  {
+    this.unlock();
+    this.getDimension().unlock();
+
+    return this.getView();
+  }
+
+  @Override
+  public DiseaseView lockView()
+  {
+    this.lock();
+    this.getDimension().lock();
+
+    return this.getView();
+  }
+
 }
