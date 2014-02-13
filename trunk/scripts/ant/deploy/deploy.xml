@@ -10,7 +10,7 @@
 	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};runwayProperties.jar" />
 	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
-
+	
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -23,7 +23,11 @@
 		<pathelement location="${server.bin}" />
 		<pathelement location="${common.bin}" />
 	</path>
-
+	
+	<property name="myclasspath" refid="framework.classpath"/>
+	<!-- Emit the property to the ant console -->
+	<echo message="Classpath = ${myclasspath}"/>
+	
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 
@@ -839,6 +843,7 @@
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.localization.LocalizationMerger" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
 			<jvmarg value="-Xmx1024M" />
+			
 			<!--<jvmarg value="-javaagent:/home/jsmethie/workspace/MDSS/lib/server/aspectjweaver.jar" />-->
 
 			<classpath>
@@ -977,7 +982,7 @@
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
-			<arg value="../../../doc/permissions/Permissions.xls" />
+			<arg value="../../../profiles/Permissions.xls" />
 		</java>
 
 	</target>
