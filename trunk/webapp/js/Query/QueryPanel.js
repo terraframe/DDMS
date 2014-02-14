@@ -82,6 +82,8 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderD
 
 MDSS.QueryPanel.prototype = {
     
+  PREPEND_CLASS : 'prependClass',
+    
   RUN_QUERY_BUTTON : 'runQueryBtn',
 
   QUERY_ITEMS : "queryItemsList",
@@ -154,8 +156,20 @@ MDSS.QueryPanel.prototype = {
   updateColumnLabel : function(key, prepend)
   {
     var li = document.getElementById(key+"_summary");
-    var prependEl = li.firstChild;
-    prependEl.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+    var child = li.firstChild;
+    
+    // Update the prepend text if the prepend element exists, otherwise create a new one
+    if(YAHOO.util.Dom.hasClass(child, this.PREPEND_CLASS))
+    {
+      child.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+    }
+    else
+    {
+      var prependNode = document.createElement('span');
+      YAHOO.util.Dom.addClass(prependNode, this.PREPEND_CLASS);
+      prependNode.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+      YAHOO.util.Dom.insertBefore(prependNode, child);
+    }
   },
 
   getSelectedDisplayLabel : function(key)
