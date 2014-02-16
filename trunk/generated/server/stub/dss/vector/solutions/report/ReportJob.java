@@ -1,11 +1,13 @@
 package dss.vector.solutions.report;
 
+import org.quartz.DisallowConcurrentExecution;
+
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 
+@DisallowConcurrentExecution
 public class ReportJob extends ReportJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1264275518;
@@ -19,7 +21,16 @@ public class ReportJob extends ReportJobBase implements com.runwaysdk.generation
   public void execute(ExecutionContext executionContext)
   {
     ReportItem item = this.getReportItem();
-    item.generateAndSaveDocument(new ReportParameter[] {});
+    item.lock();
+
+    try
+    {
+      item.generateAndSaveDocument(new ReportParameter[] {});
+    }
+    finally
+    {
+      item.unlock();
+    }
   }
 
   public static ReportJob get(ReportItem item)

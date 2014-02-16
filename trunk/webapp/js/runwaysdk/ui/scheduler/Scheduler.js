@@ -392,6 +392,7 @@
         // Create the DataTable impl
         this._config.el = this;
         this._config.dataSource = ds;
+        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';
         this._table = this.getFactory().newDataTable(this._config);
         
         this._table.addNewRowEventListener(Mojo.Util.bind(this, this._onNewRowEvent));
@@ -471,6 +472,7 @@
         this._config["iDisplayLength"] = 5;
         this._config.el = this;
         this._config.dataSource = ds;
+        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';        
         this._table = this.getFactory().newDataTable(this._config);
         this._table.render(parent);
         

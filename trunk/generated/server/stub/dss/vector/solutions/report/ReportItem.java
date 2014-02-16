@@ -502,7 +502,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
           // If a vault file doesn't exist for the rptdocument then create one
           if (this.getDocument() == null || this.getDocument().length() == 0)
           {
-            this.appLock();
+            this.lock();
 
             VaultFile entity = new VaultFile();
             VaultFileDAO fileDao = (VaultFileDAO) BusinessFacade.getEntityDAO(entity);
@@ -528,7 +528,9 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
           }
           else
           {
-            VaultFileDAOIF document = this.getDocumentAsVaultFile();
+            VaultFile vaultFile = VaultFile.lock(this.getDocument());
+            VaultFileDAO document = (VaultFileDAO) BusinessFacade.getEntityDAO(vaultFile);
+
             document.putFile(new FileInputStream(file));
           }
         }
@@ -645,8 +647,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setImageDirectory(DeployProperties.getDeployPath() + "/imgs");
       options.setActionHandler(new HTMLUrlActionHandler(baseURL));
       options.setHtmlTitle(this.getReportLabel().getValue());
-//      options.setHtmlPagination(true);
-//      options.setMasterPageContent(true);
+      // options.setHtmlPagination(true);
+      // options.setMasterPageContent(true);
 
       return options;
     }
