@@ -19,7 +19,7 @@
         </c:forEach>
       </mjl:dt>      
       <mjl:dt attribute="cacheDocument">
-        <mjl:boolean param="cacheDocument" readonly="true"/>
+        ${item.cacheDocument ? item.cacheDocumentMd.positiveDisplayLabel : item.cacheDocumentMd.negativeDisplayLabel}
       </mjl:dt>      
       <mjl:dt attribute="reportName">
         ${item.reportName}
