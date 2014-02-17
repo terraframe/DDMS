@@ -89,7 +89,7 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     // The aliases are the same as the column name
     String[] aliases = {numberExamined, numberInhabitants, premiseSize};
-    QueryUtil.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery.getTableAlias(), false);
+    this.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery.getTableAlias(), false);
     
     boolean needsJoin = false; 
     boolean needsView = 
@@ -102,9 +102,9 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     String pupalContainerTable = MdBusiness.getMdBusiness(PupalContainer.CLASS).getTableName();
     String pupalContainerAmmountTable = MdBusiness.getMdEntity(PupalContainerAmount.CLASS).getTableName();
     
-    String numberExaminedSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberExamined);
-    String numberSizeSum =     QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, premiseSize);
-    String numberInhabitantsSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberInhabitants);  
+    String numberExaminedSum = this.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberExamined);
+    String numberSizeSum =     this.sumColumnForId(premiseQuery.getTableAlias(), id, null, premiseSize);
+    String numberInhabitantsSum = this.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberInhabitants);  
     
     String taxonSql = "SELECT pc."+id+" ";
     for (Term taxon : TermRootCache.getRoots(PupalContainerView.getPupaeAmountMd()))

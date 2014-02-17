@@ -207,9 +207,9 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     
     String caseAlias = caseQuery.getTableAlias();
     String idCol = QueryUtil.getIdColumn();
-    String casesSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, casesCol);
-    String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, posCasesCol);
-    String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, negCasesCol);
+    String casesSum = this.sumColumnForId(caseAlias, idCol, null, casesCol);
+    String posSum = this.sumColumnForId(caseAlias, idCol, null, posCasesCol);
+    String negSum = this.sumColumnForId(caseAlias, idCol, null, negCasesCol);
 
     // TODO cache this per request
     String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();

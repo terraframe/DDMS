@@ -98,12 +98,12 @@ public enum Alias implements Reloadable, AliasIF
   
   
   // time grouping
-  DATEGROUP_SEASON(QueryUtil.DATEGROUP_SEASON, null, SQLProvider.VARCHAR),
-  DATEGROUP_YEAR(QueryUtil.DATEGROUP_CALENDARYEAR, null, SQLProvider.VARCHAR),
-  DATEGROUP_QUARTER(QueryUtil.DATEGROUP_QUARTER, null, SQLProvider.VARCHAR),
-  DATEGROUP_MONTH(QueryUtil.DATEGROUP_MONTH, null, SQLProvider.VARCHAR),
-  DATEGROUP_EPIYEAR(QueryUtil.DATEGROUP_EPIYEAR, null, SQLProvider.VARCHAR),
-  DATEGROUP_EPIWEEK(QueryUtil.DATEGROUP_EPIWEEK, null, SQLProvider.VARCHAR),
+  DATEGROUP_SEASON(QueryUtil.DATEGROUP_SEASON, "setDategroupSeason", SQLProvider.VARCHAR),
+  DATEGROUP_YEAR(QueryUtil.DATEGROUP_CALENDARYEAR, "setDategroupYear", SQLProvider.VARCHAR),
+  DATEGROUP_QUARTER(QueryUtil.DATEGROUP_QUARTER, "setDategroupQuarter", SQLProvider.VARCHAR),
+  DATEGROUP_MONTH(QueryUtil.DATEGROUP_MONTH, "setDategroupMonth", SQLProvider.VARCHAR),
+  DATEGROUP_EPIYEAR(QueryUtil.DATEGROUP_EPIYEAR, "setDategroupEpiYear", SQLProvider.VARCHAR),
+  DATEGROUP_EPIWEEK(QueryUtil.DATEGROUP_EPIWEEK, "setDategroupEpiWeek", SQLProvider.VARCHAR),
   RATIO(QueryUtil.RATIO, null, SQLProvider.VARCHAR),
   COUNT("dss_vector_solutions_irs_AbstractSpray__id", null, SQLProvider.VARCHAR),
   

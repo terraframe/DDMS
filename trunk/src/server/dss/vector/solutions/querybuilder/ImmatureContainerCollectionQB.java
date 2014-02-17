@@ -89,7 +89,7 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
 
     // The aliases are the same as the column name
     String[] aliases = { numberExamined, numberWithImmatures, numberWithLarvae, numberWithPupae, numberInhabitants, premiseSize };
-    QueryUtil.setAttributesAsAggregated(aliases, idCol, valueQuery, collectionPremiseQuery.getTableAlias(), false);
+    this.setAttributesAsAggregated(aliases, idCol, valueQuery, collectionPremiseQuery.getTableAlias(), false);
 
     this.addGeoDisplayLabelQuery(collectionQuery);
 
@@ -98,31 +98,31 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
     MdEntityDAOIF containerMd = MdEntityDAO.getMdEntityDAO(CollectionContainer.CLASS);
 
     String numberwithwater = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERWITHWATER);
-    String numberwithwaterSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberwithwater);
+    String numberwithwaterSum = this.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberwithwater);
 
     String numberimmatures = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERIMMATURES);
-    String numberimmaturesSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberimmatures);
+    String numberimmaturesSum = this.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberimmatures);
 
     String numberlarvae = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERLARVAE);
-    String numberlarvaeSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberlarvae);
+    String numberlarvaeSum = this.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberlarvae);
 
     String numberpupae = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERPUPAE);
-    String numberpupaeSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberpupae);
+    String numberpupaeSum = this.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberpupae);
 
     String numberlarvaecollected = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERLARVAECOLLECTED);
 
     String numberpupaecollected = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERPUPAECOLLECTED);
-    String numberpupaecollectedSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberpupaecollected);
+    String numberpupaecollectedSum = this.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberpupaecollected);
 
-    String numberWithImmaturesSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithImmatures);
+    String numberWithImmaturesSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithImmatures);
 
-    String numberWithLarvaeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithLarvae);
+    String numberWithLarvaeSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithLarvae);
 
-    String numberWithPupaeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithPupae);
+    String numberWithPupaeSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberWithPupae);
 
-    String numberExaminedSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberExamined);
-    String numberSizeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, premiseSize);
-    String numberInhabitantsSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberInhabitants);
+    String numberExaminedSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberExamined);
+    String numberSizeSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, premiseSize);
+    String numberInhabitantsSum = this.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null, numberInhabitants);
 
     QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "" + numberWithImmaturesSum + "::float/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
     QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "" + numberWithLarvaeSum + "::float/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");

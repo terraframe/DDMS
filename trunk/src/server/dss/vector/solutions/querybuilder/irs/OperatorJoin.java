@@ -21,7 +21,7 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += p + " LEFT JOIN " + a + " \n";
+      sql += p  + dateGroupJoin() + " LEFT JOIN " + a + " \n";
 //      sql += a + " FULL OUTER JOIN " + p + " \n";
       
       // NOTE: old code for reference
@@ -53,11 +53,11 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     }
     else if(hasPlanned)
     {
-      return p;
+      return p + dateGroupJoin();
     }
     else
     {
-      return a;
+      return a + dateGroupJoin();
     }
   }
 }

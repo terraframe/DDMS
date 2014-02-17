@@ -33,7 +33,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += a + " FULL OUTER JOIN " + p + " \n";
+      sql += a + dateGroupJoin() + " FULL OUTER JOIN " + p + " \n";
       
       
       // NOTE: old code for reference
@@ -55,11 +55,11 @@ public class TeamJoin extends TargetJoin implements Reloadable
     }
     else if(hasPlanned)
     {
-      return p;
+      return p + dateGroupJoin();
     }
     else
     {
-      return a;
+      return a + dateGroupJoin();
     }
   }
 

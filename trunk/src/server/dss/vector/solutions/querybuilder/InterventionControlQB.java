@@ -239,13 +239,13 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     // available and included for vehicle-based spraying
     String visit = "visit";
     
-    String availableSum = QueryUtil.sumColumnForId(null, visit, view, available);
-    String includedSum = QueryUtil.sumColumnForId(null, visit, view, included);
+    String availableSum = this.sumColumnForId(null, visit, view, available);
+    String includedSum = this.sumColumnForId(null, visit, view, included);
     
     String treatedCol = byTreatmentMethod ? used : treated;
-    String treatedSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, treatedCol);
-    String premisesSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, premises);
-    String visitedSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, visited);
+    String treatedSum = this.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, treatedCol);
+    String premisesSum = this.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, premises);
+    String visitedSum = this.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, visited);
     
     needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PREMISES_AVAILABLE_FOR_VEHICLE_SPRAYING, "" + availableSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PREMISES_INCLUDED_FOR_VEHICLE_SPRAYING, "" + includedSum + "") || needsView;
@@ -257,7 +257,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     
     if(byReasonNotTreated)
     {
-      String amountSum = QueryUtil.sumColumnForId(view, visit, view, amount);
+      String amountSum = this.sumColumnForId(view, visit, view, amount);
       needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_NOT_TREATED, "" + amountSum +"") || needsView;
       needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_VISITED_NOT_TREATED, "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     }

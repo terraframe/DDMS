@@ -133,7 +133,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       // String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM "
       // + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias +
       // "." + idCol + ")))*100.0";
-      String deathSum = QueryUtil.sumColumnForId(instanceQuery.getTableAlias(), idCol, null, diedInFacCol);
+      String deathSum = this.sumColumnForId(instanceQuery.getTableAlias(), idCol, null, diedInFacCol);
       String sql = "(" + deathSum + "::float/NULLIF((" + adjustedCases + "),0))*100.0";
       calc.setSQL(sql);
     }
@@ -280,9 +280,9 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     String idCol = QueryUtil.getIdColumn();
     String caseAlias = caseQuery.getTableAlias();
-    String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
-    String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
-    String clinSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
+    String posSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
+    String negSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
+    String clinSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
     String percentPositive = diagnosisAliases.get(cachedPercentPositive);
 
     // adjusted case count

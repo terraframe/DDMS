@@ -20,6 +20,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
@@ -32,11 +33,16 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.LeftJoin;
+import com.runwaysdk.query.MAX;
+import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.RawLeftJoinEq;
+import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableInteger;
+import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.SelectableSQL;
@@ -1310,6 +1316,169 @@ public abstract class AbstractQB implements Reloadable
     }
 
     return map;
+  }
+  
+  /**
+   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql
+   * aggregates that use custom aggreation logic (eg, SUM(unique_column,
+   * sum_column).
+   * 
+   * @param aliases
+   * @param id
+   * @param valueQuery
+   * @param tableAlias
+   * @param allowNonAggregateDefault
+   * @param preserveSQL
+   * @return The number of aggregates that were swapped out.
+   */
+  protected int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
+  {
+    int swapped = 0;
+
+    for (String alias : aliases)
+    {
+      if (valueQuery.hasSelectableRef(alias))
+      {
+        Selectable sel = valueQuery.getSelectableRef(alias);
+        String dislay = sel.getUserDefinedDisplayLabel();
+
+        String sql = null;
+        String oldSQL = alias;
+        boolean useDefault = false;
+        if (sel.isAggregateFunction())
+        {
+          if (preserveSQL && sel.isAggregateFunction())
+          {
+            oldSQL = sel.getAggregateFunction().getSelectable().getSQL();
+          }
+
+          if (sel instanceof SUM)
+          {
+            sql = this.sumColumnForId(tableAlias, id, null, oldSQL);
+          }
+          else if (sel instanceof AVG)
+          {
+            sql = this.avgColumnForId(tableAlias, id, null, oldSQL);
+          }
+          else if (sel instanceof MIN)
+          {
+            sql = this.minColumnForId(tableAlias, id, null, oldSQL);
+          }
+          else if (sel instanceof MAX)
+          {
+            sql = this.maxColumnForId(tableAlias, id, null, oldSQL);
+          }
+          else
+          {
+            // aggregate function unknown. Could be something custom. We can't
+            // make any assumptions so use the default behavior
+            useDefault = true;
+          }
+        }
+        else
+        {
+          // Selectable is not an aggregate function. Use default behavior
+          useDefault = true;
+        }
+
+        // unwrap the Selectable to get the core type
+        while (sel.isAggregateFunction())
+        {
+          Selectable root = sel.getAggregateFunction().getSelectable();
+
+          if (root.equals(sel))
+          {
+            break;
+          }
+          else
+          {
+            sel = root;
+          }
+        }
+
+        SelectableSQL newSel;
+
+        if (useDefault)
+        {
+          // The default behavior is to be used since no recognized
+          // aggregate functions were found.
+
+          if (allowNonAggregateDefault)
+          {
+            sql = sel.getSQL();
+
+            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
+            {
+              newSel = valueQuery.aSQLLong(alias, sql, alias, dislay);
+            }
+            else
+            {
+              newSel = valueQuery.aSQLDouble(alias, sql, alias, dislay);
+            }
+          }
+          else
+          {
+            // We have to SUM by default to avoid a cross-product
+            sql = this.sumColumnForId(tableAlias, id, null, alias);
+
+            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
+            {
+              newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
+            }
+            else
+            {
+              newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
+            }
+          }
+        }
+        else
+        {
+          // aggregate found. Wrap the SQL in new selectable depending on the
+          // type
+          if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
+          {
+            newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
+          }
+          else
+          {
+            newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
+          }
+        }
+
+        // swap out the old selectable with the new.
+        newSel.setColumnAlias(sel.getColumnAlias());
+        valueQuery.replaceSelectable(newSel);
+
+        swapped++;
+      }
+    }
+
+    return swapped;
+  }
+
+  protected int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
+  {
+    return setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
+  }
+  
+  protected String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return QueryUtil.SUM_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+  }
+
+  protected String minColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return QueryUtil.MIN_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+  }
+
+  protected String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return QueryUtil.MAX_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
+  }
+
+  protected String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return QueryUtil.AVG_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);

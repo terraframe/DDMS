@@ -30,6 +30,50 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     // need to do anything here?
   }
   
+  
+  protected String dateGroupJoin()
+  {
+    if(this.irsQB.getDategroups().size() > 0)
+    {
+      String v = View.DATE_GROUPS.getView();
+      return " LEFT JOIN "+v+" ON "+v+"."+Alias.SPRAY_DATE+" = "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE + " \n";
+    }
+    else
+    {
+      return "";
+    }
+  }
+  
+  public String setDategroupEpiWeek(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
+  public String setDategroupSeason(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
+  public String setDategroupQuarter(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
+  public String setDategroupMonth(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
+  public String setDategroupEpiYear(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
+  public String setDategroupYear(Alias alias)
+  {
+    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+  }
+  
   public String rawSwap(String a, String b)
   {
     return "(CASE WHEN "+a+" IS NOT NULL THEN "+a+" ELSE "+b+" END)";

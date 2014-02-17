@@ -25,7 +25,6 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Coalesce;
@@ -33,15 +32,10 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
-import com.runwaysdk.query.MAX;
-import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
-import com.runwaysdk.query.SelectableInteger;
-import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
@@ -123,26 +117,10 @@ public class QueryUtil implements Reloadable
 
   public static final String  AVG_FUNCTION                 = "avg_stringified_id_int_pairs";
 
-  public static String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
-  {
-    return SUM_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
-  }
-
-  public static String minColumnForId(String sourceTable, String uniqueId, String table, String column)
-  {
-    return MIN_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
-  }
-
-  public static String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
-  {
-    return MAX_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
-  }
-
-  public static String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
-  {
-    return AVG_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
-  }
-
+  public static final String TABLE_ALIAS = "ms";
+  
+  public static final String LABEL_ALIAS = "la";
+  
   /**
    * Builds a unique DB alias based on the given terms.
    * 
@@ -159,149 +137,6 @@ public class QueryUtil implements Reloadable
     }
 
     return aliases;
-  }
-
-  /**
-   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql
-   * aggregates that use custom aggreation logic (eg, SUM(unique_column,
-   * sum_column).
-   * 
-   * @param aliases
-   * @param id
-   * @param valueQuery
-   * @param tableAlias
-   * @param allowNonAggregateDefault
-   * @param preserveSQL
-   * @return The number of aggregates that were swapped out.
-   */
-  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault, boolean preserveSQL)
-  {
-    int swapped = 0;
-
-    for (String alias : aliases)
-    {
-      if (valueQuery.hasSelectableRef(alias))
-      {
-        Selectable sel = valueQuery.getSelectableRef(alias);
-        String dislay = sel.getUserDefinedDisplayLabel();
-
-        String sql = null;
-        String oldSQL = alias;
-        boolean useDefault = false;
-        if (sel.isAggregateFunction())
-        {
-          if (preserveSQL && sel.isAggregateFunction())
-          {
-            oldSQL = sel.getAggregateFunction().getSelectable().getSQL();
-          }
-
-          if (sel instanceof SUM)
-          {
-            sql = QueryUtil.sumColumnForId(tableAlias, id, null, oldSQL);
-          }
-          else if (sel instanceof AVG)
-          {
-            sql = QueryUtil.avgColumnForId(tableAlias, id, null, oldSQL);
-          }
-          else if (sel instanceof MIN)
-          {
-            sql = QueryUtil.minColumnForId(tableAlias, id, null, oldSQL);
-          }
-          else if (sel instanceof MAX)
-          {
-            sql = QueryUtil.maxColumnForId(tableAlias, id, null, oldSQL);
-          }
-          else
-          {
-            // aggregate function unknown. Could be something custom. We can't
-            // make any assumptions so use the default behavior
-            useDefault = true;
-          }
-        }
-        else
-        {
-          // Selectable is not an aggregate function. Use default behavior
-          useDefault = true;
-        }
-
-        // unwrap the Selectable to get the core type
-        while (sel.isAggregateFunction())
-        {
-          Selectable root = sel.getAggregateFunction().getSelectable();
-
-          if (root.equals(sel))
-          {
-            break;
-          }
-          else
-          {
-            sel = root;
-          }
-        }
-
-        SelectableSQL newSel;
-
-        if (useDefault)
-        {
-          // The default behavior is to be used since no recognized
-          // aggregate functions were found.
-
-          if (allowNonAggregateDefault)
-          {
-            sql = sel.getSQL();
-
-            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
-            {
-              newSel = valueQuery.aSQLLong(alias, sql, alias, dislay);
-            }
-            else
-            {
-              newSel = valueQuery.aSQLDouble(alias, sql, alias, dislay);
-            }
-          }
-          else
-          {
-            // We have to SUM by default to avoid a cross-product
-            sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
-
-            if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
-            {
-              newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
-            }
-            else
-            {
-              newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
-            }
-          }
-        }
-        else
-        {
-          // aggregate found. Wrap the SQL in new selectable depending on the
-          // type
-          if (sel instanceof SelectableInteger || sel instanceof SelectableLong)
-          {
-            newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
-          }
-          else
-          {
-            newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
-          }
-        }
-
-        // swap out the old selectable with the new.
-        newSel.setColumnAlias(sel.getColumnAlias());
-        valueQuery.replaceSelectable(newSel);
-
-        swapped++;
-      }
-    }
-
-    return swapped;
-  }
-
-  public static int setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
-  {
-    return setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
   }
 
   public static String getColumnName(String klass, String attribute)
@@ -1268,8 +1103,21 @@ public class QueryUtil implements Reloadable
     String da = daSel.getDbQualifiedName();
     return setQueryDates(xml, valueQuery, target, da, diseaseSel);
   }
-
-  public static String getSeasonNameSQL(Selectable diseaseSel, String startDateColumnName, String endDateColumnName)
+  
+  public static String getSeasonNameSQL(String diseaseSel, String startDateColumnName, String endDateColumnName)
+  {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("SELECT " + getSeasonNameSelect());
+    buffer.append(" FROM " + getSeasonNameFrom(diseaseSel, startDateColumnName, endDateColumnName, true));
+    return buffer.toString();
+  }
+  
+  public static String getSeasonNameSelect()
+  {
+    return QueryUtil.getLocaleCoalesce(LABEL_ALIAS + ".");
+  }
+  
+  public static String getSeasonNameFrom(String diseaseSel, String startDateColumnName, String endDateColumnName, boolean standalone)
   {
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     String table = malariaSeasonMd.getTableName();
@@ -1277,23 +1125,37 @@ public class QueryUtil implements Reloadable
     String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
     String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
     String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
-
+    
     MdEntityDAOIF seasonLabelMd = MdEntityDAO.getMdEntityDAO(MalariaSeasonSeasonLabel.CLASS);
     String labelTable = seasonLabelMd.getTableName();
     String seasonLabelIdCol = QueryUtil.getColumnName(seasonLabelMd, MalariaSeasonSeasonLabel.ID);
-
-    String TABLE_ALIAS = "ms";
-    String LABEL_ALIAS = "la";
-
+    
     StringBuffer buffer = new StringBuffer();
-    buffer.append("SELECT " + QueryUtil.getLocaleCoalesce(LABEL_ALIAS + "."));
-    buffer.append(" FROM " + table + " AS " + TABLE_ALIAS);
-    buffer.append(" INNER JOIN " + labelTable + " AS " + LABEL_ALIAS + " ON " + TABLE_ALIAS + "." + seasonLabelCol + " = " + LABEL_ALIAS + "." + seasonLabelIdCol + "\n");
-    buffer.append(" WHERE " + TABLE_ALIAS + "." + startDateCol + " <= " + startDateColumnName);
-    buffer.append(" AND " + TABLE_ALIAS + "." + endDateCol + " >= " + endDateColumnName);
-    buffer.append(" AND " + TABLE_ALIAS + "." + disease + " = " + diseaseSel.getDbQualifiedName());
+    
 
+    if(standalone)
+    {
+      buffer.append(" "+table + " AS " + TABLE_ALIAS);
+      buffer.append(" INNER JOIN " + labelTable + " AS " + LABEL_ALIAS + " ON " + TABLE_ALIAS + "." + seasonLabelCol + " = " + LABEL_ALIAS + "." + seasonLabelIdCol + "\n");
+      buffer.append(" WHERE " + TABLE_ALIAS + "." + startDateCol + " <= " + startDateColumnName);
+      buffer.append(" AND " + TABLE_ALIAS + "." + endDateCol + " >= " + endDateColumnName);
+      buffer.append(" AND " + TABLE_ALIAS + "." + disease + " = " + diseaseSel);
+    }
+    else
+    {
+      buffer.append(" " + table + " AS " + TABLE_ALIAS +" \n");
+      buffer.append(" ON " + TABLE_ALIAS + "." + startDateCol + " <= " + startDateColumnName+" \n");
+      buffer.append(" AND " + TABLE_ALIAS + "." + endDateCol + " >= " + endDateColumnName+" \n");
+      buffer.append(" AND " + TABLE_ALIAS + "." + disease + " = " + diseaseSel+" \n");
+      buffer.append(" INNER JOIN " + labelTable + " AS " + LABEL_ALIAS + " ON " + TABLE_ALIAS + "." + seasonLabelCol + " = " + LABEL_ALIAS + "." + seasonLabelIdCol + "\n");
+    }
+    
     return buffer.toString();
+  }
+  
+  public static String getSeasonNameSQL(Selectable diseaseSel, String startDateColumnName, String endDateColumnName)
+  {
+    return getSeasonNameSQL(diseaseSel.getDbQualifiedName(), startDateColumnName, endDateColumnName);
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
@@ -1304,6 +1166,33 @@ public class QueryUtil implements Reloadable
     return setQueryDates(xml, valueQuery, target, da, found);
   }
 
+  public static String getEpiWeekSQL(String da)
+  {
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    return "get_epiWeek_from_date(" + da + "," + startDay + ")";
+  }
+  
+  public static String getMonthSQL(String da)
+  {
+    return "to_char(" + da + ",'MM')";
+  }
+
+  public static String getQuarterSQL(String da)
+  {
+    return "to_char(" + da + ",'Q')";
+  }
+  
+  public static String getCalendarYearSQL(String da)
+  {
+    return "to_char(" + da + ",'YYYY')";
+  }
+  
+  public static String getEpiYearSQL(String da)
+  {
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    return "get_epiYear_from_date(" + da + "," + startDay + ")";
+  }
+  
   private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Set<String> found)
   {
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
@@ -1311,8 +1200,7 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_EPIWEEK);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
-      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      dateGroup.setSQL("get_epiWeek_from_date(" + da + "," + startDay + ")");
+      dateGroup.setSQL(getEpiWeekSQL(da));
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
@@ -1320,7 +1208,7 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_MONTH);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
-      dateGroup.setSQL("to_char(" + da + ",'MM')");
+      dateGroup.setSQL(getMonthSQL(da));
     }
 
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
@@ -1328,7 +1216,7 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_QUARTER);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
-      dateGroup.setSQL("to_char(" + da + ",'Q')");
+      dateGroup.setSQL(getQuarterSQL(da));
     }
 
     if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
@@ -1336,16 +1224,15 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_CALENDARYEAR);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
-      dateGroup.setSQL("to_char(" + da + ",'YYYY')");
+      dateGroup.setSQL(getCalendarYearSQL(da));
     }
 
     if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
     {
       found.add(DATEGROUP_EPIYEAR);
 
-      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
-      dateGroup.setSQL("get_epiYear_from_date(" + da + "," + startDay + ")");
+      dateGroup.setSQL(getEpiYearSQL(da));
     }
 
     ensureEntityInFromClause(found, valueQuery, target);

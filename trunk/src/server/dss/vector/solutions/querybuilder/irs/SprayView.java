@@ -60,7 +60,7 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
       this.irsQB.addRequiredView(IRSQB.View.PLANNED_OPERATOR);
     }
   }
-
+  
   @Override
   public String getSQL()
   {

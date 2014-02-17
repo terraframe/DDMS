@@ -51,7 +51,7 @@ public class AreaJoin extends TargetJoin implements Reloadable
 
       // PostgreSQL 9.1+ supports RIGHT and OUTER joins with Hash Conditions,
       // so there's no need to UNION a LEFT and RIGHT join to simulate an OUTER.
-      sql += a + " FULL OUTER JOIN " + p + " \n";
+      sql += a +  this.dateGroupJoin() + " FULL OUTER JOIN " + p + " \n";
 //      sql += a + " "+(this.isLeftJoin ? "LEFT" : "RIGHT")+" OUTER JOIN " + p + " \n";
       
       
@@ -80,11 +80,11 @@ public class AreaJoin extends TargetJoin implements Reloadable
     }
     else if(this.hasPlanned)
     {
-      return p;
+      return p  + dateGroupJoin();
     }
     else
     {
-      return a;
+      return a + dateGroupJoin();
     }
   }
 
