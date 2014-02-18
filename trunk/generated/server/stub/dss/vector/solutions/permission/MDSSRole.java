@@ -13,8 +13,8 @@ import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.InstallProperties;

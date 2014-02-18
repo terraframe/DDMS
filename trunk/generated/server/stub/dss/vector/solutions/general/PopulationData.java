@@ -9,8 +9,8 @@ import java.util.Stack;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.geo.GeoHierarchy;

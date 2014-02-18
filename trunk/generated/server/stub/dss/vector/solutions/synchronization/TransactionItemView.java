@@ -1,8 +1,8 @@
 package dss.vector.solutions.synchronization;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.transaction.TransactionRecord;
 import com.runwaysdk.system.transaction.TransactionRecordQuery;
 

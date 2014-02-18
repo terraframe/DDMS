@@ -126,8 +126,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private boolean                           hasSprayEnumOrTerm;
   
-  private boolean needsPreAggregation;;
-
   private ValueQuery                        irsVQ;
 
   private ValueQuery                        sprayVQ;
@@ -200,6 +198,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private Set<Alias>                        selectAliases;
 
   private Map<View, Set<Alias>> requiredAliases;
+  
+  private Set<Alias> preAggregateAliases;
   
   /**
    * The audit columns.
@@ -396,8 +396,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.aggType = aggType;
     
-    this.needsPreAggregation = false;
-    
     this.universalAliases = new HashSet<String>();
     
     this.setWITHRecursive(true);
@@ -446,6 +444,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
+    this.preAggregateAliases = new HashSet<Alias>();
     
     this.audits = new HashSet<Alias>();
     this.audits.add(Alias.AUDIT_CREATE_DATE);
@@ -1103,7 +1102,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
     }
-
+    
+    
     // Note: This must go last but before joinMainQueryTables()
     setWithQuerySQL();
 
@@ -1970,6 +1970,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       throw new ProgrammingErrorException(e);
     }
   }
+  
+  public boolean needsPreAggregation()
+  {
+    return this.preAggregateAliases.size() > 0;
+  }
 
   /**
    * Joins the necessary tables to make the main query work (this also includes
@@ -2013,7 +2018,7 @@ public class IRSQB extends AbstractQB implements Reloadable
      * Create the pre-aggregation subquery if relationships are being joined. If class A is a parent of B
      * in a relationship, duplicates of A can occur, which will happen on activity in this domain.
      */
-    if(this.needsPreAggregation)
+    if(this.needsPreAggregation())
     {
       Object[] groups = this.dategroups.keySet().toArray();
       String groupsSQL = "";
@@ -2025,18 +2030,48 @@ public class IRSQB extends AbstractQB implements Reloadable
       str.append(" LEFT JOIN \n");
       str.append("( \n");
       str.append("  SELECT \n");
-      str.append("  SUM("+Alias.OPERATOR_ACTUAL_TARGET+") OVER(PARTITION BY "+Alias.SPRAY_OPERATOR_DEFAULT_LOCALE+", "+Alias.DISEASE+" "+groupsSQL+") "+Alias.OPERATOR_ACTUAL_TARGET+", \n");
+      
+      List<Alias> groupBy = new LinkedList<Alias>();
+      
+      for(Alias preAgg : this.preAggregateAliases)
+      {
+        String agg = "";
+        if(preAgg == Alias.OPERATOR_ACTUAL_TARGET)
+        {
+          agg = "SUM("+preAgg+") OVER(PARTITION BY "+Alias.SPRAY_OPERATOR_DEFAULT_LOCALE+", "+Alias.DISEASE+" "+groupsSQL+") "+preAgg+", \n";
+          
+          groupBy.add(Alias.OPERATOR_ACTUAL_TARGET);
+          groupBy.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE);
+        }
+        else if(preAgg == Alias.TEAM_ACTUAL_TARGET)
+        {
+          agg = "SUM("+preAgg+") OVER(PARTITION BY "+Alias.SPRAY_TEAM_DEFAULT_LOCALE+", "+Alias.DISEASE+" "+groupsSQL+") "+preAgg+", \n";
+          
+          groupBy.add(Alias.TEAM_ACTUAL_TARGET);
+          groupBy.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE);
+        }
+        
+        // Add the Alias to the main query's group by clause since it's no longer an aggregation within that context
+        String targetGroupName = "preAggregation_"+preAgg;
+        SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, PRE_AGGREGATION+"."+preAgg, targetGroupName);
+        targetGroup.setColumnAlias(targetGroup.getSQL());
+        
+        irsVQ.GROUP_BY(targetGroup);
+        
+        str.append(agg);
+      }
+      
       str.append("  "+Alias.ID+" \n");
       str.append("  FROM "+View.SPRAY_VIEW.getView()+" \n");
-      str.append("  GROUP BY "+Alias.OPERATOR_ACTUAL_TARGET+", "+Alias.SPRAY_OPERATOR_DEFAULT_LOCALE+", "+Alias.DISEASE+", "+Alias.ID+" "+groupsSQL+" \n");
+      
+      String grouping = StringUtils.join(groupBy, ", ");
+      str.append("  GROUP BY "+grouping+", "+Alias.DISEASE+", "+Alias.ID+" "+groupsSQL+" \n");
+      
+      
       str.append(") "+PRE_AGGREGATION+" \n");
       str.append("ON "+PRE_AGGREGATION+"."+Alias.ID+" = "+this.sprayViewAlias+"."+Alias.ID+" \n");
       
-      String targetGroupName = "preAggregation_operator_actual_target";
-      SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, PRE_AGGREGATION+"."+Alias.OPERATOR_ACTUAL_TARGET, targetGroupName);
-      targetGroup.setColumnAlias(PRE_AGGREGATION+"."+Alias.OPERATOR_ACTUAL_TARGET);
-      
-      irsVQ.GROUP_BY(targetGroup);
+
     }
 
     // Don't add anything regarding insecticide if the query is used for aggregation
@@ -2342,7 +2377,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.addRequiredView(View.ALL_ACTUALS);
     }
     
-    if(this.dategroups.size() > 0)
+    if(this.hasActivity() && this.dategroups.size() > 0)
     {
       this.addRequiredView(View.DATE_GROUPS);
     }
@@ -2413,14 +2448,16 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private String sumOperatorActualTargets()
   {
-    this.needsPreAggregation = true;
+    this.preAggregateAliases.add(Alias.OPERATOR_ACTUAL_TARGET);
     return PRE_AGGREGATION+"."+Alias.OPERATOR_ACTUAL_TARGET;
 //    return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, Alias.OPERATOR_ACTUAL_TARGET.getAlias());
   }
 
   private String sumTeamActualTargets()
   {
-    return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, Alias.TEAM_ACTUAL_TARGET.getAlias());
+    this.preAggregateAliases.add(Alias.TEAM_ACTUAL_TARGET);
+    return PRE_AGGREGATION+"."+Alias.TEAM_ACTUAL_TARGET;
+//    return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, Alias.TEAM_ACTUAL_TARGET.getAlias());
   }
 
   private String sumOperatorPlannedTargets()

@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.PropertyInfo;

@@ -3,6 +3,7 @@ package dss.vector.solutions.querybuilder.irs;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class OperatorJoin extends TargetJoin implements Reloadable
 {
@@ -21,7 +22,7 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += p  + dateGroupJoin() + " LEFT JOIN " + a + " \n";
+      sql += p + new DateGroups(irsQB, this, View.PLANNED_OPERATOR, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL() + " LEFT JOIN " + a + " \n";
 //      sql += a + " FULL OUTER JOIN " + p + " \n";
       
       // NOTE: old code for reference
@@ -40,6 +41,8 @@ public class OperatorJoin extends TargetJoin implements Reloadable
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
       
+      sql += dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
+      
       // #2323 Change: restrict the planned rows by showing only those that have activity within the time and geo criteria, but don't do a strict row-by-row
       // join on target week. Reference the ticket examples for something better
       sql += "INNER JOIN \n";
@@ -53,11 +56,11 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     }
     else if(hasPlanned)
     {
-      return p + dateGroupJoin();
+      return p + new DateGroups(irsQB, this, View.PLANNED_OPERATOR, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
     }
     else
     {
-      return a + dateGroupJoin();
+      return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
     }
   }
 }

@@ -3,7 +3,6 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import dss.vector.solutions.entomology.DiagnosticAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;

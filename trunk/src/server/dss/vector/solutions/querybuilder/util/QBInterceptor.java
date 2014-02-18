@@ -12,9 +12,9 @@ import com.runwaysdk.query.Component;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.Visitor;
 import com.runwaysdk.query.ValueQueryParser.InterceptorChain;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
+import com.runwaysdk.query.Visitor;
 
 import dss.vector.solutions.ontology.AllPaths;
 

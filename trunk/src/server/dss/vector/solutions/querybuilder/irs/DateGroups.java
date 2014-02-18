@@ -17,9 +17,26 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
 {
   private static String dateJoined = "date_joined";
   
+  private String overrideName;
+  private String overrideDate;
+  private String overrideAlias;
+  private View view;
+  private TargetJoin targetJoin;
+  
   public DateGroups(IRSQB irsQB)
   {
     super(irsQB);
+  }
+  
+  public DateGroups(IRSQB irsQB, TargetJoin targetJoin, IRSQB.View overrideView, String overrideAlias, Alias overrideDate)
+  {
+    super(irsQB);
+    
+    this.view = overrideView;
+    this.overrideName = overrideView.getView();
+    this.overrideDate = overrideDate.getAlias();
+    this.overrideAlias = overrideAlias;
+    this.targetJoin = targetJoin;
   }
 
   @Override
@@ -41,12 +58,14 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
   
   public String setSprayDate(Alias alias)
   {
-    return this.set(dateJoined, Alias.SPRAY_DATE.getAlias(), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(col, alias);
   }
   
   public String setDategroupEpiWeek(Alias alias)
   {
-    return this.set(QueryUtil.getEpiWeekSQL(Alias.SPRAY_DATE.getAlias()), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(QueryUtil.getEpiWeekSQL(col), alias);
   }
   
   public String setDategroupSeason(Alias alias)
@@ -57,22 +76,80 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
   
   public String setDategroupMonth(Alias alias)
   {
-    return this.set(QueryUtil.getMonthSQL(Alias.SPRAY_DATE.getAlias()), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(QueryUtil.getMonthSQL(col), alias);
   }
 
   public String setDategroupQuarter(Alias alias)
   {
-    return this.set(QueryUtil.getQuarterSQL(Alias.SPRAY_DATE.getAlias()), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(QueryUtil.getQuarterSQL(col), alias);
   }
   
   public String setDategroupEpiYear(Alias alias)
   {
-    return this.set(QueryUtil.getEpiYearSQL(Alias.SPRAY_DATE.getAlias()), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(QueryUtil.getEpiYearSQL(col), alias);
   }
   
   public String setDategroupYear(Alias alias)
   {
-    return this.set(QueryUtil.getCalendarYearSQL(Alias.SPRAY_DATE.getAlias()), alias);
+    String col = this.overrideDate != null ? this.overrideDate : Alias.SPRAY_DATE.getAlias();
+    return this.set(QueryUtil.getCalendarYearSQL(col), alias);
+  }
+  
+  public String getOverrideSQL()
+  {
+    String sql = "";
+    
+    if(this.irsQB.getDategroups().size() > 0)
+    {
+      Set<Alias> selected = this.irsQB.getSelectAliases();
+      
+      sql += " INNER JOIN \n";
+      sql += "( \n";
+      sql += " SELECT \n";
+
+      if(selected.contains(Alias.DATEGROUP_EPIWEEK))
+      {
+        sql += this.setDategroupEpiWeek(Alias.DATEGROUP_EPIWEEK)+", \n";
+      }
+      
+      if(selected.contains(Alias.DATEGROUP_EPIYEAR))
+      {
+        sql += this.setDategroupEpiYear(Alias.DATEGROUP_EPIYEAR)+", \n";
+      }
+      
+      if(selected.contains(Alias.DATEGROUP_YEAR))
+      {
+        sql += this.setDategroupYear(Alias.DATEGROUP_YEAR)+", \n";
+      }
+      
+      if(selected.contains(Alias.DATEGROUP_QUARTER))
+      {
+        sql += this.setDategroupQuarter(Alias.DATEGROUP_QUARTER)+", \n";
+      }
+      
+      if(selected.contains(Alias.DATEGROUP_MONTH))
+      {
+        sql += this.setDategroupMonth(Alias.DATEGROUP_MONTH)+", \n";
+      }
+      
+      if(selected.contains(Alias.DATEGROUP_SEASON))
+      {
+        sql += this.setDategroupSeason(Alias.DATEGROUP_SEASON)+", \n";
+      }
+      
+      sql += this.set("date_joined", this.overrideDate, Alias.PLANNED_DATE)+" \n";
+      sql += "FROM \n";
+      sql += "( \n";
+      sql += "  SELECT "+this.overrideDate+" FROM "+this.overrideName+" GROUP BY "+this.overrideDate+" \n";
+      sql += ") date_joined \n";
+      sql += ") \n";
+      sql += this.targetJoin.getDateGroupAlias()+" ON "+this.targetJoin.getDateGroupAlias()+"."+this.overrideDate+" = "+this.overrideAlias+"."+this.overrideDate;
+    }
+    
+    return sql;
   }
 
   @Override

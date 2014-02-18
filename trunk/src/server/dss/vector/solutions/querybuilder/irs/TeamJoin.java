@@ -33,7 +33,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += a + dateGroupJoin() + " FULL OUTER JOIN " + p + " \n";
+      sql += a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias()) + " FULL OUTER JOIN " + p + " \n";
       
       
       // NOTE: old code for reference
@@ -51,15 +51,18 @@ public class TeamJoin extends TargetJoin implements Reloadable
       
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
+      
+      sql += new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
+      
       return sql;
     }
     else if(hasPlanned)
     {
-      return p + dateGroupJoin();
+      return p + new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
     }
     else
     {
-      return a + dateGroupJoin();
+      return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
     }
   }
 

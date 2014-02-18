@@ -15,7 +15,7 @@ public class ActualJoin extends TargetJoin implements Reloadable
   @Override
   public String FROM()
   {
-    return IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS + dateGroupJoin();
+    return IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
   }
 
 }

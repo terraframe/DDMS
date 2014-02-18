@@ -10,10 +10,10 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.attributes.EmptyValueProblem;
 import com.runwaysdk.dataaccess.transaction.TransactionManagement;
 import com.runwaysdk.session.AttributeReadPermissionException;
-import com.runwaysdk.session.Session;
-import com.runwaysdk.session.SessionIF;
-import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.RequestManagement;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.session.SessionIF;
 
 privileged public aspect EmptyValueProblemWithNoRead
 {

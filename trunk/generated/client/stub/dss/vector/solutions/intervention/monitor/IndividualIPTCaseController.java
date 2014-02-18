@@ -3,16 +3,12 @@ package dss.vector.solutions.intervention.monitor;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
@@ -20,7 +16,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
-import dss.vector.solutions.RequiredAttributeProblemDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;

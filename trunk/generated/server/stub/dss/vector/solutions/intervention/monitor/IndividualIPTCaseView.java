@@ -18,9 +18,9 @@ import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.RequiredAttributeException;
-import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 

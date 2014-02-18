@@ -51,7 +51,8 @@ public class AreaJoin extends TargetJoin implements Reloadable
 
       // PostgreSQL 9.1+ supports RIGHT and OUTER joins with Hash Conditions,
       // so there's no need to UNION a LEFT and RIGHT join to simulate an OUTER.
-      sql += a +  this.dateGroupJoin() + " FULL OUTER JOIN " + p + " \n";
+      sql += a +  this.dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias()) + " FULL OUTER JOIN " + p + " \n";
+
 //      sql += a + " "+(this.isLeftJoin ? "LEFT" : "RIGHT")+" OUTER JOIN " + p + " \n";
       
       
@@ -76,15 +77,17 @@ public class AreaJoin extends TargetJoin implements Reloadable
           + Alias.GEO_ENTITY + " AND " + childGeo + " = " + TargetJoin.ACTUAL_ALIAS + "."
           + Alias.GEO_ENTITY + ")";
 
+      sql += new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
+      
       return sql;
     }
     else if(this.hasPlanned)
     {
-      return p  + dateGroupJoin();
+      return p + new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
     }
     else
     {
-      return a + dateGroupJoin();
+      return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
     }
   }
 

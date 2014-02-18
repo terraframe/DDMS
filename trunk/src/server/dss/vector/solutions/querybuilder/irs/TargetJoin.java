@@ -31,12 +31,12 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   }
   
   
-  protected String dateGroupJoin()
+  protected String dateGroupJoin(String joinTable, String joinDate)
   {
     if(this.irsQB.getDategroups().size() > 0)
     {
       String v = View.DATE_GROUPS.getView();
-      return " LEFT JOIN "+v+" ON "+v+"."+Alias.SPRAY_DATE+" = "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE + " \n";
+      return " LEFT JOIN "+v+" ON "+v+"."+Alias.SPRAY_DATE+" = "+joinTable+"."+joinDate + " \n";
     }
     else
     {
@@ -44,34 +44,105 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     }
   }
   
+  public String getDateGroupAlias()
+  {
+    return this.getView().getView()+"_"+View.DATE_GROUPS.getView();
+  }
+  
   public String setDategroupEpiWeek(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String setDategroupSeason(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String setDategroupQuarter(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String setDategroupMonth(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String setDategroupEpiYear(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String setDategroupYear(Alias alias)
   {
-    return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return this.rawSwap(View.DATE_GROUPS.getView()+"."+alias, this.getDateGroupAlias()+"."+alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), alias, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), alias, alias);
+    }
   }
   
   public String rawSwap(String a, String b)

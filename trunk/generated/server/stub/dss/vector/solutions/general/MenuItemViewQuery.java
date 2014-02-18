@@ -1,9 +1,9 @@
 package dss.vector.solutions.general;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
-import com.runwaysdk.query.OrderBy.SortOrder;
 
 /**
  * 
