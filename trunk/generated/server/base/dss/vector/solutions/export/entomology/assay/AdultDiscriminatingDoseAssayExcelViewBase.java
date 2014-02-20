@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1119158235)
+@com.runwaysdk.business.ClassSignature(hash = -275226470)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,8 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
   
   public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTIONID = "collectionId";
-  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
+  public static java.lang.String CONTROLTESTNUMBERDEAD = "controlTestNumberDead";
+  public static java.lang.String CONTROLTESTNUMBEREXPOSED = "controlTestNumberExposed";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
@@ -38,7 +39,7 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = 1119158235;
+  private static final long serialVersionUID = -275226470;
   
   public AdultDiscriminatingDoseAssayExcelViewBase()
   {
@@ -118,31 +119,59 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     }
   }
   
-  public Float getControlTestMortality()
+  public Integer getControlTestNumberDead()
   {
-    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBERDEAD));
   }
   
-  public void validateControlTestMortality()
+  public void validateControlTestNumberDead()
   {
-    this.validateAttribute(CONTROLTESTMORTALITY);
+    this.validateAttribute(CONTROLTESTNUMBERDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestNumberDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+    return mdClassIF.definesAttribute(CONTROLTESTNUMBERDEAD);
   }
   
-  public void setControlTestMortality(Float value)
+  public void setControlTestNumberDead(Integer value)
   {
     if(value == null)
     {
-      setValue(CONTROLTESTMORTALITY, "");
+      setValue(CONTROLTESTNUMBERDEAD, "");
     }
     else
     {
-      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
+      setValue(CONTROLTESTNUMBERDEAD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getControlTestNumberExposed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBEREXPOSED));
+  }
+  
+  public void validateControlTestNumberExposed()
+  {
+    this.validateAttribute(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestNumberExposedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public void setControlTestNumberExposed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, java.lang.Integer.toString(value));
     }
   }
   

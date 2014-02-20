@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1980873294)
+@com.runwaysdk.business.ClassSignature(hash = 1239488078)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -53,6 +53,57 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
   public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTMORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead()
+  {
+    return getControlTestNumberDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed()
+  {
+    return getControlTestNumberExposed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead()
+  {
+    return getCorrectedQuantityDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getHoldingTime()
@@ -123,6 +174,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.MORTALITY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableFloat getObservedMortality()
+  {
+    return getObservedMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getQuantityDead()
   {
     return getQuantityDead(null);
@@ -155,6 +223,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
   public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getRootAssay()
+  {
+    return getRootAssay(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getUniqueAssayId()
@@ -209,6 +294,15 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     public com.runwaysdk.query.SelectableFloat getControlTestMortality();
     public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias);
     public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead();
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed();
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead();
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias);
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getHoldingTime();
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias);
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel);
@@ -221,12 +315,18 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     public com.runwaysdk.query.SelectableFloat getMortality();
     public com.runwaysdk.query.SelectableFloat getMortality(String alias);
     public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getObservedMortality();
+    public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getQuantityDead();
     public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias);
     public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getQuantityLive();
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias);
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getRootAssay();
+    public com.runwaysdk.query.SelectableChar getRootAssay(String alias);
+    public com.runwaysdk.query.SelectableChar getRootAssay(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getUniqueAssayId();
     public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
     public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
@@ -280,6 +380,57 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
   public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTMORTALITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead()
+  {
+    return getControlTestNumberDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed()
+  {
+    return getControlTestNumberExposed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead()
+  {
+    return getCorrectedQuantityDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getHoldingTime()
@@ -350,6 +501,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.MORTALITY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableFloat getObservedMortality()
+  {
+    return getObservedMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getQuantityDead()
   {
     return getQuantityDead(null);
@@ -384,6 +552,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getRootAssay()
+  {
+    return getRootAssay(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getUniqueAssayId()
   {
     return getUniqueAssayId(null);
@@ -413,6 +598,15 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     public com.runwaysdk.query.SelectableFloat getControlTestMortality();
     public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias);
     public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead();
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed();
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias);
+    public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead();
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias);
+    public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getHoldingTime();
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias);
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel);
@@ -425,12 +619,18 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     public com.runwaysdk.query.SelectableFloat getMortality();
     public com.runwaysdk.query.SelectableFloat getMortality(String alias);
     public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getObservedMortality();
+    public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getQuantityDead();
     public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias);
     public com.runwaysdk.query.SelectableInteger getQuantityDead(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getQuantityLive();
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias);
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getRootAssay();
+    public com.runwaysdk.query.SelectableChar getRootAssay(String alias);
+    public com.runwaysdk.query.SelectableChar getRootAssay(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getUniqueAssayId();
     public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
     public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
@@ -535,6 +735,57 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTMORTALITY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead()
+  {
+    return getControlTestNumberDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed()
+  {
+    return getControlTestNumberExposed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead()
+  {
+    return getCorrectedQuantityDead(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getCorrectedQuantityDead(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CORRECTEDQUANTITYDEAD, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getHoldingTime()
   {
     return getHoldingTime(null);
@@ -603,6 +854,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
     return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.MORTALITY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableFloat getObservedMortality()
+  {
+    return getObservedMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getObservedMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.OBSERVEDMORTALITY, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getQuantityDead()
   {
     return getQuantityDead(null);
@@ -635,6 +903,23 @@ public  class AdultDiscriminatingDoseAssayQuery extends dss.vector.solutions.ent
   public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getRootAssay()
+  {
+    return getRootAssay(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getRootAssay(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.ROOTASSAY, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getUniqueAssayId()

@@ -61,6 +61,18 @@ MDSS.Calendar = {
             over_cal = false;
             hideCal();
             fireOnblur(cur_field);
+            
+            /*
+             * This is so dumb but without redesigning how the
+             * calendar widgets are instatiated this is the only
+             * way I can see to add additional listeners to the
+             * calendar widget.
+             */
+            if(Mojo.Util.isFunction(MDSS.GlobalDateListener))
+            {
+            	MDSS.GlobalDateListener(cur_field);
+            }
+            
     }
 
     var parseISO8601 = function (date_string){
@@ -319,7 +331,7 @@ MDSS.Calendar = {
 	    Dom.insertAfter(errorInfo,tar);
 		Dom.addClass(errorInfo,'alert');
 	}
-
+	
 	function removeError(tar)
 	{
 		if(tar instanceof String)

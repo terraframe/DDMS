@@ -333,7 +333,7 @@
           // TODO create a progress bar widget
         }
         
-        row.addEventListener("dblclick", Mojo.Util.bind(this, this._openEditMenu));
+        row.addEventListener("mousedown", Mojo.Util.bind(this, this._openEditMenu));
         row.addEventListener("contextmenu", Mojo.Util.bind(this, this._openContextMenu));
       },
       
@@ -381,7 +381,6 @@
           columns: [
             { queryAttr: "jobId" },
             { queryAttr: "description",  customFormatter: function(jobDTO){ return jobDTO.getDescription().getLocalizedValue(); } },
-            { header: this._config.language["progress"], customFormatter: Mojo.Util.bind(this, this.formatProgress) },
             { header: this._config.language["status"], customFormatter: Mojo.Util.bind(this, this.formatStatus) },
             { header: this._config.language["scheduledRun"], customFormatter: function(job) {
               return com.runwaysdk.ui.CronUtil.cronToHumanReadable(job.getCronExpression());

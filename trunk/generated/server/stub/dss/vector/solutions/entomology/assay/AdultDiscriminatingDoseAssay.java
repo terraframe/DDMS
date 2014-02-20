@@ -33,7 +33,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getUniqueAssayId() != null)
+    else if (this.getUniqueAssayId() != null)
     {
       return this.getUniqueAssayId();
     }
@@ -83,7 +83,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     super.delete();
   }
-  
+
   @SuppressWarnings("unchecked")
   @Override
   public AdultDiscriminatingDoseIntervalView[] getIntervals()
@@ -120,7 +120,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     }
   }
 
-
   @Override
   public void validateQuantityDead()
   {
@@ -132,7 +131,9 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Override
   public void validateControlTestMortality()
   {
-    if (this.getControlTestMortality() != null && this.getControlTestMortality() > 20)
+    Float mortality = this.getControlTestMortality();
+
+    if (mortality != null && mortality > 20)
     {
       String msg = "The mortality rate of the control collection exceeds 20% invalidating this test";
 
@@ -144,10 +145,96 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   }
 
   @Override
+  @Transaction
   public void apply()
   {
+    boolean modifiedReplicate = isModifiedReplicate();
+
+    this.applyNoPropigate();
+
+    /*
+     * The control test has been modified so update all of the replicates
+     */
+    if (modifiedReplicate)
+    {
+      if (this.getRootAssay() != null && this.getRootAssay().length() > 0)
+      {
+        AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
+        query.WHERE(query.getRootAssay().EQ(this.getRootAssay()));
+
+        OIterator<? extends AdultDiscriminatingDoseAssay> iterator = query.getIterator();
+
+        try
+        {
+          while (iterator.hasNext())
+          {
+            AdultDiscriminatingDoseAssay replicate = iterator.next();
+
+            if (!replicate.getId().equals(this.getId()))
+            {
+              replicate.lock();
+              replicate.setCollection(this.getCollection());
+              replicate.setTestDate(this.getTestDate());
+              replicate.setTestMethod(this.getTestMethod());
+              replicate.setGeneration(this.getGeneration());
+              replicate.setIsofemale(this.getIsofemale());
+              replicate.setSex(this.getSex());
+              replicate.setSpecie(this.getSpecie());
+              replicate.setIdentificationMethod(this.getIdentificationMethod());
+              replicate.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
+              replicate.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
+              replicate.setExposureTime(this.getExposureTime());
+              replicate.setHoldingTime(this.getHoldingTime());
+              replicate.setInsecticide(this.getInsecticide());
+              replicate.setQuantityTested(this.getQuantityTested());
+              replicate.setControlTestNumberExposed(this.getControlTestNumberExposed());
+              replicate.setControlTestNumberDead(this.getControlTestNumberDead());
+              replicate.applyNoPropigate();
+            }
+          }
+        }
+        finally
+        {
+          iterator.close();
+        }
+      }
+    }
+  }
+
+  public boolean isModifiedReplicate()
+  {
+    String[] attributes = new String[] { AdultDiscriminatingDoseAssay.COLLECTION, AdultDiscriminatingDoseAssay.TESTDATE, AdultDiscriminatingDoseAssay.TESTMETHOD, AdultDiscriminatingDoseAssay.GENERATION, AdultDiscriminatingDoseAssay.ISOFEMALE, AdultDiscriminatingDoseAssay.SEX, AdultDiscriminatingDoseAssay.SPECIE, AdultDiscriminatingDoseAssay.IDENTIFICATIONMETHOD, AdultDiscriminatingDoseAssay.AGERANGE, AdultDiscriminatingDoseAssay.EXPOSURETIME, AdultDiscriminatingDoseAssay.HOLDINGTIME,
+        AdultDiscriminatingDoseAssay.INSECTICIDE, AdultDiscriminatingDoseAssay.QUANTITYTESTED, AdultDiscriminatingDoseAssay.CONTROLTESTNUMBEREXPOSED, AdultDiscriminatingDoseAssay.CONTROLTESTNUMBERDEAD };
+
+    for (String attribute : attributes)
+    {
+      if (this.isModified(attribute))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private void applyNoPropigate()
+  {
+    if (this.getRootAssay() == null || this.getRootAssay().length() == 0)
+    {
+      this.setRootAssay(this.getId());
+    }
+
+    if (this.getControlTestNumberDead() != null && this.getControlTestNumberExposed() != null && this.getControlTestNumberExposed() > 0)
+    {
+      this.setControlTestMortality((float) this.getControlTestNumberDead() / this.getControlTestNumberExposed() * 100);
+    }
+    else
+    {
+      this.setControlTestMortality(0F);
+    }
+
     UniqueAssayUtil.setUniqueAssayId(this);
-    
+
     validateControlTestMortality();
     validateQuantityDead();
 
@@ -162,6 +249,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     this.setQuantityLive(live);
     this.setMortality(mortality);
+    this.setObservedMortality(mortality);
 
     if (this.getControlTestMortality() != null && this.getControlTestMortality() > 5)
     {
@@ -174,6 +262,11 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       float corrected = 100.0F * ( mortality - this.getControlTestMortality() ) / ( 100.0F - this.getControlTestMortality() );
       this.setMortality(corrected);
     }
+
+    /*
+     * Set the corrected number dead value
+     */
+    this.setCorrectedQuantityDead( ( this.getMortality() * this.getQuantityTested() / 100 ));
 
     super.apply();
 
@@ -210,6 +303,62 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
 
     return ( this.getMortality() > susceptible );
+  }
+
+  @Override
+  public AdultDiscriminatingDoseAssay cloneAssay()
+  {
+    AdultDiscriminatingDoseAssay clone = new AdultDiscriminatingDoseAssay();
+    clone.setCollection(this.getCollection());
+    clone.setTestDate(this.getTestDate());
+    clone.setTestMethod(this.getTestMethod());
+    clone.setGeneration(this.getGeneration());
+    clone.setIsofemale(this.getIsofemale());
+    clone.setSex(this.getSex());
+    clone.setSpecie(this.getSpecie());
+    clone.setIdentificationMethod(this.getIdentificationMethod());
+    clone.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
+    clone.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
+    clone.setExposureTime(this.getExposureTime());
+    clone.setHoldingTime(this.getHoldingTime());
+    clone.setInsecticide(this.getInsecticide());
+    clone.setQuantityTested(this.getQuantityTested());
+    clone.setControlTestNumberExposed(this.getControlTestNumberExposed());
+    clone.setControlTestNumberDead(this.getControlTestNumberDead());
+
+    if (this.getRootAssay() != null)
+    {
+      clone.setRootAssay(this.getRootAssay());
+    }
+    else
+    {
+      clone.setRootAssay(this.getId());
+    }
+
+    return clone;
+  }
+
+  @Override
+  public Boolean hasReplicates()
+  {
+    if (this.getRootAssay() != null && this.getRootAssay().length() > 0)
+    {
+      if (this.isNew() || !this.isAppliedToDB())
+      {
+        return true;
+      }
+      else
+      {
+        AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
+        query.WHERE(query.getRootAssay().EQ(this.getRootAssay()));
+
+        long count = query.getCount();
+
+        return ( count > 1 );
+      }
+    }
+
+    return false;
   }
 
   /**

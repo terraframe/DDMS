@@ -34,7 +34,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     {
       dto.unlock();
 
-      this.view(dto);
+      this.view(dto.getId());
     }
     catch (Throwable t)
     {
@@ -90,8 +90,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void view(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     // if this method is being accessed from create or edit, redirect so the url
-    // will be correct and refresh will
-    // not create a new object
+    // will be correct and refresh will not create a new object
     ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);
 
     RedirectUtility utility = new RedirectUtility(req, resp);
@@ -140,7 +139,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     try
     {
       dto.apply();
-      this.view(dto);
+      this.view(dto.getId());
     }
     catch (Throwable t)
     {
@@ -218,7 +217,8 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     try
     {
       dto.apply();
-      this.view(dto);
+
+      this.view(dto.getId());
     }
     catch (Throwable t)
     {
@@ -234,6 +234,38 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void failUpdate(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     edit(dto);
+  }
+
+  @Override
+  public void cloneAssay(String id) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      // Ensure the user has permissions to create a new adult discriminating
+      // dose assay
+      new AdultDiscriminatingDoseAssayDTO(request);
+
+      AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.cloneAssay(request, id);
+
+      this.newInstance(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCloneAssay(id);
+      }
+    }
+  }
+
+  @Override
+  public void failCloneAssay(String id) throws IOException, ServletException
+  {
+    this.view(id);
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -283,7 +315,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
     }
 
-    req.setAttribute("grid", new AdultDiscriminatingDoseIntervalGridBuilder(this.getClientRequest(), dto, readOnly).build());
+    req.setAttribute("grid", new AdultDiscriminatingDoseIntervalGridBuilder(this.getClientRequest(), readOnly, dto).build());
   }
 
   private void setupRequest()

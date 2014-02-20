@@ -31,9 +31,6 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       <mjl:dt attribute="testDate">
         <span class="formatDate">${item.testDate}</span>
       </mjl:dt>
-      <mjl:dt attribute="controlTestMortality">
-        ${item.controlTestMortality}
-      </mjl:dt>
       <mjl:dt attribute="testMethod">
         <c:if test="${testMethod != null}">
           ${testMethod.displayLabel}
@@ -96,9 +93,23 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       <mjl:dt attribute="quantityDead">
         ${item.quantityDead}
       </mjl:dt>
-      <mjl:dt attribute="mortality">
-        <fmt:formatNumber minFractionDigits="2">${item.mortality}</fmt:formatNumber>              
+      
+      <mjl:dt attribute="observedMortality">        
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.observedMortality}</fmt:formatNumber>              
       </mjl:dt>
+      
+      <mjl:dt attribute="controlTestMortality">
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.controlTestMortality}</fmt:formatNumber>              
+      </mjl:dt>
+            
+      <mjl:dt attribute="correctedQuantityDead">
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.correctedQuantityDead}</fmt:formatNumber>              
+      </mjl:dt>
+      
+      <mjl:dt attribute="mortality">
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.mortality}</fmt:formatNumber>              
+      </mjl:dt>
+      
       <mjl:dt attribute="kd50">
         <fmt:formatNumber minFractionDigits="2">${item.kd50}</fmt:formatNumber>
       </mjl:dt>
@@ -112,6 +123,11 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
     <dd>
       <mdss:localize key="Edit" var="Localized_Edit" />
       <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
+      
+      <mdss:localize key="Create_replicate" var="Create_replicate" />
+      <mjl:command value="${Create_replicate}" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cloneAssay.mojo" name="clone.button" classes="submitButton" />
+    </dd>
+    <dd>
     </dd>
   </dl>
 </mjl:form>
@@ -119,13 +135,13 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 <ul>
   <li>
     <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
-      <mjl:property name="id" value="${item.collection.id}"/>
+      <mjl:property name="id" value="${collection.concreteId}"/>
       <mdss:localize key="Return_to_Collection"/>
     </mjl:commandLink>
   </li>
   <li>
     <mjl:commandLink action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" name="newWiththisCollection">
-      <mjl:property value="${item.collection.id}" name="collection_id" />
+      <mjl:property value="${collection.concreteId}" name="collection_id" />
       <mdss:localize key="Create_Another_Adult_Diagnostic_Assay_With_This_Collection"/>
     </mjl:commandLink>
   </li>

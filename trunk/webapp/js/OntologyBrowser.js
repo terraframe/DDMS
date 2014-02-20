@@ -259,7 +259,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       }
     },
     
-    _addToSelection : function(termId)
+    _addToSelection : function(termId, onOpen)
     {
       if(this._selection[termId])
       {
@@ -295,7 +295,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         divParent.scrollTop = sHeight - oHeight;
       }
       
-      var evt = new dss.vector.solutions.ontology.TermSelectedEvent(termId);
+      var evt = new dss.vector.solutions.ontology.TermSelectedEvent(termId, onOpen);
       this.dispatchEvent(evt);
     },
     
@@ -555,7 +555,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     /**
    * Sets the currently selected Term(s) by providing an array of term ids.
    */
-    setSelection : function(termIds)
+    setSelection : function(termIds, onOpen)
     {
       var toFetch = [];
       var cached = [];
@@ -582,6 +582,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         var request = new MDSS.Request({
           that: this,
           cached : cached,
+          onOpen : onOpen,
           onSuccess : function(query)
           {
             var views = query.getResultSet();
@@ -595,7 +596,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
               var id = this._idFunction(term)
               this._cacheSet(id, term);
               
-              this._addToSelection(id); 
+              this._addToSelection(id, onOpen); 
             }, this.that);
           }
         });
@@ -607,7 +608,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         // no items to fetch, so refresh the selection with the
         // cached items
         Mojo.Iter.forEach(cached, function(view){
-          this._addToSelection(this._idFunction(view)); 
+          this._addToSelection(this._idFunction(view), onOpen); 
         }, this);
       }
     },
@@ -890,6 +891,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
       this.addEventListener(this._TermSelectedEvent, listener);
       this._browser.addEventListener(this._TermSelectedEvent, listener);
+      this._browser.addEventListener(dss.vector.solutions.ontology.TermDeletedEvent, listener);      
     },    
     addRoot : function (root) {
       this._roots.push(root);
@@ -957,7 +959,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         browser.render();
       }
       
-      browser.setSelection(selected); 
+      browser.setSelection(selected, true); 
     },
     
     _displayFunction : function(valueObject)
@@ -1313,11 +1315,13 @@ getInputDisplayLabel : function() {
 Mojo.Meta.newClass('dss.vector.solutions.ontology.TermSelectedEvent', {
   Extends: Mojo.$.com.runwaysdk.event.CustomEvent,
   Instance : {
-    initialize : function(termId){
+    initialize : function(termId, onOpen){
       this.$initialize();
       this._termId = termId;
+      this._onOpen = onOpen;
     },
-    getTermId : function(){ return this._termId; }
+    getTermId : function(){ return this._termId; },
+    getOnOpen : function(){ return this._onOpen; }
   }
 });
 

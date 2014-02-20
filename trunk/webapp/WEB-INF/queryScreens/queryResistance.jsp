@@ -127,8 +127,8 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionColumns = [];    
 
     var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var adultAttribs = ["uniqueAssayId", "sex", "fed","gravid","holdingTime", "quantityLive","quantityDead","controlTestMortality",
-                        "mortality","kd50","kd95"];
+    var adultAttribs = ["uniqueAssayId", "sex", "fed","gravid","holdingTime", "quantityLive","quantityDead", "correctedQuantityDead", "controlTestMortality",
+                        "observedMortality", "mortality", "kd50","kd95"];
     <%
     Halp.setReadableAttributes(request, "adultAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
@@ -141,6 +141,28 @@ YAHOO.util.Event.onDOMReady(function(){
     var adultColumns =   adultAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps});
     MDSS.QueryBase.filterFunctions(adultColumns, ['holdingTime_adult', 'kd50_adult','kd95_adult'], MDSS.QueryXML.F_SET1);
     MDSS.QueryBase.filterFunctions(adultColumns, ['controlTestMortality_adult','mortality_adult'], MDSS.QueryXML.F_SET2);
+    
+    var observedMortality = MDSS.QueryBase.getColumn(adultColumns, 'observedMortality');
+    
+    if(observedMortality != null)
+    {      
+      observedMortality.key = '<%=QueryConstants.OBSERVED_MORTALITY%>';
+      observedMortality.type = 'sqldouble';
+      observedMortality.isAggregate = true;    
+      delete observedMortality.dtoType;
+      delete observedMortality.includes;
+    }
+    
+    var mortality = MDSS.QueryBase.getColumn(adultColumns, 'mortality');
+    
+    if(mortality != null)
+    {      
+      mortality.key = '<%=QueryConstants.CORRECTED_MORTALITY%>';
+      mortality.type = 'sqldouble';
+      mortality.isAggregate = true;    
+      delete mortality.dtoType;
+      delete mortality.includes;
+    }
     
     var larvaeAssay = new  dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = ["uniqueAssayId", "startPoint","endPoint", "holdingTime",
@@ -157,6 +179,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var larvaeColumns =   larvaeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvaeAssay, suffix:'_larvae', dropDownMaps:larvaeMaps});
     MDSS.QueryBase.filterFunctions(larvaeColumns, ['holdingTime_larvae', 'lt50_larvae','lt95_larvae'], MDSS.QueryXML.F_SET1);
     MDSS.QueryBase.filterFunctions(larvaeColumns, ['controlTestMortality_larvae','mortality_larvae'], MDSS.QueryXML.F_SET2);
+    
     
     var knockDownAssay = new  dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = ["uniqueAssayId", "sex","fed","gravid","kd50","kd95"];

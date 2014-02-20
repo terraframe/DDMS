@@ -1585,6 +1585,21 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           col.includes = funcs;
         }
       }
+    },
+    
+    getColumn : function(columns, attributeName)
+    {
+    	var len = columns.length;
+    	for(var i=0; i<len; i++)
+    	{
+    		var col = columns[i];
+    		if(attributeName == col.attributeName)
+    		{
+    			return col;
+    		}
+    	}
+    	
+    	return null;
     }
   }
 });

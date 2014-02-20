@@ -35,6 +35,20 @@
     </attribute>
     <attribute>
       <description>
+        Java-script selection listener function
+      </description>
+      <name>
+        listener
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
         Classes of the MO input
       </description>
       <name>
@@ -1925,6 +1939,20 @@
     </attribute>
     <attribute>
       <description>
+        Java-script selection listener function
+      </description>
+      <name>
+        listener
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
         The name of the controller parameter or attribute
       </description>
       <name>
@@ -2061,20 +2089,6 @@
       </required>
       <rtexprvalue>
         true
-      </rtexprvalue>
-    </attribute>
-    <attribute>
-      <description>
-        Java-script selection listener function
-      </description>
-      <name>
-        listener
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
       </rtexprvalue>
     </attribute>
   </tag>

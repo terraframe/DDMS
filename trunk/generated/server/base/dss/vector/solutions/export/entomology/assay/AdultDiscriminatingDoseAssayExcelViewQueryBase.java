@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1791304764)
+@com.runwaysdk.business.ClassSignature(hash = -1696652029)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -79,21 +79,39 @@ public  abstract  class AdultDiscriminatingDoseAssayExcelViewQueryBase extends c
 
   }
  
-  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead()
   {
-    return getControlTestMortality(null);
+    return getControlTestNumberDead(null);
 
   }
  
-  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias)
   {
-    return (com.runwaysdk.query.SelectableFloat)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberDead(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableFloat)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed()
+  {
+    return getControlTestNumberExposed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBEREXPOSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getControlTestNumberExposed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBEREXPOSED, alias, displayLabel);
 
   }
  

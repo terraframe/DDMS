@@ -1,10 +1,10 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1634758235)
+@com.runwaysdk.business.ClassSignature(hash = -628289766)
 public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = 1634758235;
+  private static final long serialVersionUID = -628289766;
   
   protected AdultDiscriminatingDoseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -19,7 +19,8 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public static java.lang.String AGERANGE = "ageRange";
   public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTIONID = "collectionId";
-  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
+  public static java.lang.String CONTROLTESTNUMBERDEAD = "controlTestNumberDead";
+  public static java.lang.String CONTROLTESTNUMBEREXPOSED = "controlTestNumberExposed";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
@@ -140,41 +141,78 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
-  public Float getControlTestMortality()
+  public Integer getControlTestNumberDead()
   {
-    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBERDEAD));
   }
   
-  public void setControlTestMortality(Float value)
+  public void setControlTestNumberDead(Integer value)
   {
     if(value == null)
     {
-      setValue(CONTROLTESTMORTALITY, "");
+      setValue(CONTROLTESTNUMBERDEAD, "");
     }
     else
     {
-      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
+      setValue(CONTROLTESTNUMBERDEAD, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isControlTestMortalityWritable()
+  public boolean isControlTestNumberDeadWritable()
   {
-    return isWritable(CONTROLTESTMORTALITY);
+    return isWritable(CONTROLTESTNUMBERDEAD);
   }
   
-  public boolean isControlTestMortalityReadable()
+  public boolean isControlTestNumberDeadReadable()
   {
-    return isReadable(CONTROLTESTMORTALITY);
+    return isReadable(CONTROLTESTNUMBERDEAD);
   }
   
-  public boolean isControlTestMortalityModified()
+  public boolean isControlTestNumberDeadModified()
   {
-    return isModified(CONTROLTESTMORTALITY);
+    return isModified(CONTROLTESTNUMBERDEAD);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getControlTestNumberDeadMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CONTROLTESTNUMBERDEAD).getAttributeMdDTO();
+  }
+  
+  public Integer getControlTestNumberExposed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBEREXPOSED));
+  }
+  
+  public void setControlTestNumberExposed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isControlTestNumberExposedWritable()
+  {
+    return isWritable(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public boolean isControlTestNumberExposedReadable()
+  {
+    return isReadable(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public boolean isControlTestNumberExposedModified()
+  {
+    return isModified(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getControlTestNumberExposedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CONTROLTESTNUMBEREXPOSED).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()

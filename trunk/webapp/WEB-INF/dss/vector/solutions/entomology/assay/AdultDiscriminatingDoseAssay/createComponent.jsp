@@ -39,7 +39,7 @@ AdultDiscriminatingDoseAssayDTO assay = (AdultDiscriminatingDoseAssayDTO) reques
 
 Mojo.Meta.newClass('MDSS.AdultDiscriminatingDoseAssayForm', {
   Instance: {
-    initialize : function(grid, isNewInstance) {
+    initialize : function(grid, isNewInstance, isReplicate) {
       this._attributes = YAHOO.util.Dom.getElementsByClassName("component");
 
       this._saveButton = new YAHOO.widget.Button("save.button");
@@ -48,17 +48,35 @@ Mojo.Meta.newClass('MDSS.AdultDiscriminatingDoseAssayForm', {
       
       this._id = document.getElementById('id');
       this._formEl = document.getElementById("form.id");
+      
       this._grid = grid;
       this._isNewInstance = isNewInstance;
+      this._isReplicate = isReplicate;      
       
       // SETUP THE DELETE BUTTON
       this._initButtons();     
 
       this._deleteButton.on("click", this.deleteHandler, this, this);
       this._cancelButton.on("click", this.cancelHandler, this, this);      
-      this._saveButton.on('click', this.saveHandler, this, this);      
+      this._saveButton.on('click', this.saveHandler, this, this);  
+      
+      // Attach the on change listener to the replicate fields
+      var replicates = YAHOO.util.Dom.getElementsByClassName("replicate");
+
+      for(var i=0, len=replicates.length; i<len; i++){
+        var el = replicates[i];
+        YAHOO.util.Event.addListener(el, 'change', this.validate, this, this);
+      }
+      
+      MDSS.GlobalDateListener = (Mojo.Util.bind(this, this.validate));      
     },
     
+    validate : function(e) {  
+      if(this._isReplicate)
+      {
+        alert(MDSS.localize('changing_control_numbers'));
+      }
+    },    
 
     populateComponent : function(component) {
       for(var i=0, len=this._attributes.length; i<len; i++){
@@ -198,7 +216,9 @@ Mojo.Meta.newClass('MDSS.AdultDiscriminatingDoseAssayForm', {
     // SETUP THE INTERVAL GRID
     <%=grid.getJavascript()%>        
     
-    var _form = new MDSS.AdultDiscriminatingDoseAssayForm(intervalsGrid, <%=assay.isNewInstance()%>);    
+    var _form = new MDSS.AdultDiscriminatingDoseAssayForm(intervalsGrid, <%=assay.isNewInstance()%>, <%=assay.hasReplicates()%>);    
+    
+    MDSS.ValidationBridge.getInstance().setHandler(_form);
   })
 })();       
 </script>

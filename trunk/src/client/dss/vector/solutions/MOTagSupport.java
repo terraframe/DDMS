@@ -31,6 +31,8 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
    */
   private TermComponentIF value;
 
+  private String          listener;
+
   @AttributeAnnotation(required = false, rtexprvalue = true, description = "Current value for the MO input")
   public TermComponentIF getValue()
   {
@@ -53,6 +55,17 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
   public void setValue(TermDTO value)
   {
     this.value = value;
+  }
+
+  @AttributeAnnotation(rtexprvalue = false, required = false, description = "Java-script selection listener function")
+  public String getListener()
+  {
+    return listener;
+  }
+
+  public void setListener(String listener)
+  {
+    this.listener = listener;
   }
 
   @Override
@@ -129,6 +142,11 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
         out.write("    browser.addRoot(['" + root.getTermId() + "','" + root.getSelectable() + "']);\n");
       }
       
+      if(this.getListener() != null)
+      {
+        out.write("    browser.addTermSelectedListener(" + this.getListener() + ");\n");        
+      }
+
       out.write("  })\n");
       out.write("})();\n");
       out.write("</script>\n");
@@ -154,7 +172,7 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
     try
     {
       // Generate mojo form tags
-      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanTagSupport.class, BooleanListTagSupport.class, BooleanCheckTagSupport.class, GeoTagSupport.class, FilterTagSupport.class, LocalizedTagSupport.class}, "MDSS").generate();
+      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanTagSupport.class, BooleanListTagSupport.class, BooleanCheckTagSupport.class, GeoTagSupport.class, FilterTagSupport.class, LocalizedTagSupport.class }, "MDSS").generate();
     }
     catch (IOException e)
     {

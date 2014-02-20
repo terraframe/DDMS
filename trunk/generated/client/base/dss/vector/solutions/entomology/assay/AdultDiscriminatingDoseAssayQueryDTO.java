@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -176184132)
+@com.runwaysdk.business.ClassSignature(hash = 1062699424)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public class AdultDiscriminatingDoseAssayQueryDTO extends dss.vector.solutions.entomology.assay.AdultAssayQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -176184132;
+private static final long serialVersionUID = 1062699424;
 
   protected AdultDiscriminatingDoseAssayQueryDTO(String type)
   {

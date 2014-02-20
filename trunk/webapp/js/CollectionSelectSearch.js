@@ -27,7 +27,11 @@ MDSS.collectionSearch = function(config) {
 
   var searchFunction = Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.searchByValueQuery;
 
-  var selectEventHandler = function() {};
+  var selectEventHandler = function(selected) {
+    if(config.handler != null) {
+      config.handler.handleEvent(selected);
+    }
+  };
    
   var search = new MDSS.GenericSearch(searchEl, concreteEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
   

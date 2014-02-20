@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 823042721)
+@com.runwaysdk.business.ClassSignature(hash = 1907507251)
 public class AdultDiscriminatingDoseAssayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController";
@@ -9,8 +9,6 @@ public class AdultDiscriminatingDoseAssayControllerBase implements com.runwaysdk
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 823042721;
   
   public AdultDiscriminatingDoseAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -79,6 +77,20 @@ public class AdultDiscriminatingDoseAssayControllerBase implements com.runwaysdk
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCancel");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void cloneAssay(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cloneAssay");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failCloneAssay(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCloneAssay");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)

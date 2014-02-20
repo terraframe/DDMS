@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -130577691)
+@com.runwaysdk.business.ClassSignature(hash = -1351132009)
 public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.AdultAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay";
-  private static final long serialVersionUID = -130577691;
+  private static final long serialVersionUID = -1351132009;
   
   protected AdultDiscriminatingDoseAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -28,12 +28,17 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
   }
   
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
+  public static java.lang.String CONTROLTESTNUMBERDEAD = "controlTestNumberDead";
+  public static java.lang.String CONTROLTESTNUMBEREXPOSED = "controlTestNumberExposed";
+  public static java.lang.String CORRECTEDQUANTITYDEAD = "correctedQuantityDead";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
   public static java.lang.String MORTALITY = "mortality";
+  public static java.lang.String OBSERVEDMORTALITY = "observedMortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public static java.lang.String ROOTASSAY = "rootAssay";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public Float getControlTestMortality()
   {
@@ -70,6 +75,117 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
   public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
+  }
+  
+  public Integer getControlTestNumberDead()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBERDEAD));
+  }
+  
+  public void setControlTestNumberDead(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTNUMBERDEAD, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTNUMBERDEAD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isControlTestNumberDeadWritable()
+  {
+    return isWritable(CONTROLTESTNUMBERDEAD);
+  }
+  
+  public boolean isControlTestNumberDeadReadable()
+  {
+    return isReadable(CONTROLTESTNUMBERDEAD);
+  }
+  
+  public boolean isControlTestNumberDeadModified()
+  {
+    return isModified(CONTROLTESTNUMBERDEAD);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getControlTestNumberDeadMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CONTROLTESTNUMBERDEAD).getAttributeMdDTO();
+  }
+  
+  public Integer getControlTestNumberExposed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONTROLTESTNUMBEREXPOSED));
+  }
+  
+  public void setControlTestNumberExposed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTNUMBEREXPOSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isControlTestNumberExposedWritable()
+  {
+    return isWritable(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public boolean isControlTestNumberExposedReadable()
+  {
+    return isReadable(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public boolean isControlTestNumberExposedModified()
+  {
+    return isModified(CONTROLTESTNUMBEREXPOSED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getControlTestNumberExposedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CONTROLTESTNUMBEREXPOSED).getAttributeMdDTO();
+  }
+  
+  public Float getCorrectedQuantityDead()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CORRECTEDQUANTITYDEAD));
+  }
+  
+  public void setCorrectedQuantityDead(Float value)
+  {
+    if(value == null)
+    {
+      setValue(CORRECTEDQUANTITYDEAD, "");
+    }
+    else
+    {
+      setValue(CORRECTEDQUANTITYDEAD, java.lang.Float.toString(value));
+    }
+  }
+  
+  public boolean isCorrectedQuantityDeadWritable()
+  {
+    return isWritable(CORRECTEDQUANTITYDEAD);
+  }
+  
+  public boolean isCorrectedQuantityDeadReadable()
+  {
+    return isReadable(CORRECTEDQUANTITYDEAD);
+  }
+  
+  public boolean isCorrectedQuantityDeadModified()
+  {
+    return isModified(CORRECTEDQUANTITYDEAD);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCorrectedQuantityDeadMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CORRECTEDQUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
@@ -220,6 +336,43 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
   }
   
+  public Float getObservedMortality()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(OBSERVEDMORTALITY));
+  }
+  
+  public void setObservedMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(OBSERVEDMORTALITY, "");
+    }
+    else
+    {
+      setValue(OBSERVEDMORTALITY, java.lang.Float.toString(value));
+    }
+  }
+  
+  public boolean isObservedMortalityWritable()
+  {
+    return isWritable(OBSERVEDMORTALITY);
+  }
+  
+  public boolean isObservedMortalityReadable()
+  {
+    return isReadable(OBSERVEDMORTALITY);
+  }
+  
+  public boolean isObservedMortalityModified()
+  {
+    return isModified(OBSERVEDMORTALITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getObservedMortalityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OBSERVEDMORTALITY).getAttributeMdDTO();
+  }
+  
   public Integer getQuantityDead()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
@@ -294,6 +447,43 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
+  public String getRootAssay()
+  {
+    return getValue(ROOTASSAY);
+  }
+  
+  public void setRootAssay(String value)
+  {
+    if(value == null)
+    {
+      setValue(ROOTASSAY, "");
+    }
+    else
+    {
+      setValue(ROOTASSAY, value);
+    }
+  }
+  
+  public boolean isRootAssayWritable()
+  {
+    return isWritable(ROOTASSAY);
+  }
+  
+  public boolean isRootAssayReadable()
+  {
+    return isReadable(ROOTASSAY);
+  }
+  
+  public boolean isRootAssayModified()
+  {
+    return isModified(ROOTASSAY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getRootAssayMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROOTASSAY).getAttributeMdDTO();
+  }
+  
   public String getUniqueAssayId()
   {
     return getValue(UNIQUEASSAYID);
@@ -347,6 +537,22 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO cloneAssay()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "cloneAssay", _declaredTypes);
+    return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO cloneAssay(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "cloneAssay", _declaredTypes);
+    return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final java.io.InputStream exportQueryToCSV(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
@@ -377,6 +583,22 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getIntervals", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.Boolean hasReplicates()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "hasReplicates", _declaredTypes);
+    return (java.lang.Boolean) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.Boolean hasReplicates(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "hasReplicates", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String mapQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)

@@ -20,16 +20,23 @@ public class AdultDiscriminatingDoseIntervalGridBuilder extends GridBuilder impl
 
   private boolean                         readOnly;
 
-  public AdultDiscriminatingDoseIntervalGridBuilder(ClientRequestIF request, AdultDiscriminatingDoseAssayDTO dto, boolean readOnly)
+  private AdultDiscriminatingDoseIntervalGridBuilder(ClientRequestIF request, boolean readOnly)
   {
     this.request = request;
-    this.dto = dto;
     this.readOnly = readOnly;
+    this.dto = null;
+  }
+
+  public AdultDiscriminatingDoseIntervalGridBuilder(ClientRequestIF request, boolean readOnly, AdultDiscriminatingDoseAssayDTO dto)
+  {
+    this(request, readOnly);
+
+    this.dto = dto;
   }
 
   public DataGrid build()
   {
-    AdultDiscriminatingDoseIntervalViewDTO[] data = dto.getIntervals();
+    AdultDiscriminatingDoseIntervalViewDTO[] data = this.getData();
 
     String[] keys = getKeys();
 
@@ -55,6 +62,11 @@ public class AdultDiscriminatingDoseIntervalGridBuilder extends GridBuilder impl
     grid.setAddButton(!readOnly);
 
     return grid;
+  }
+
+  public AdultDiscriminatingDoseIntervalViewDTO[] getData()
+  {
+    return dto.getIntervals();
   }
 
   private String[] getKeys()

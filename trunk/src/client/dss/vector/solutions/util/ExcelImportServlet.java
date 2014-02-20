@@ -122,6 +122,7 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
+          res.setContentType("application/xls");
           res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
           ServletOutputStream outputStream = res.getOutputStream();
           FileIO.write(outputStream, errorStream);
@@ -141,6 +142,7 @@ public class ExcelImportServlet extends HttpServlet
 
           if (errorStream.available() > 0)
           {
+            res.setContentType("application/xls");            
             res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
             ServletOutputStream outputStream = res.getOutputStream();
             FileIO.write(outputStream, errorStream);

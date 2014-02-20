@@ -17,8 +17,7 @@ import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
 
-public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase
-    implements com.runwaysdk.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244508626257L;
 
@@ -31,8 +30,7 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
   @Transaction
   public void apply()
   {
-    AdultDiscriminatingDoseAssay adda = UniqueAssayUtil.getOrCreateAssay(
-        AdultDiscriminatingDoseAssay.class, this.getUniqueAssayId());
+    AdultDiscriminatingDoseAssay adda = UniqueAssayUtil.getOrCreateAssay(AdultDiscriminatingDoseAssay.class, this.getUniqueAssayId());
 
     if (!adda.isNew())
     {
@@ -53,14 +51,12 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, TESTMETHOD))
     {
-      adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
-          AdultDiscriminatingDoseAssay.getTestMethodMd()));
+      adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, GENERATION))
     {
-      adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-          AdultDiscriminatingDoseAssay.getGenerationMd()));
+      adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, ISOFEMALE))
@@ -75,14 +71,12 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, SPECIE))
     {
-      adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(),
-          AdultDiscriminatingDoseAssay.getSpecieMd()));
+      adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, IDENTIFICATIONMETHOD))
     {
-      adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
-          AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
+      adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, AGERANGE))
@@ -116,11 +110,9 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     // set the Insecticide if at least one value is set (three values are
     // required, but
     // we want validation to notify the user that values are missing).
-    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS)
-        || this.isModified(INSECTICIDEAMOUNT))
+    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS) || this.isModified(INSECTICIDEAMOUNT))
     {
-      adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
-          this.getInsecticideUnits(), this.getInsecticideAmount()));
+      adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYTESTED))
@@ -133,9 +125,14 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
       adda.setQuantityDead(this.getQuantityDead());
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTMORTALITY))
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTNUMBERDEAD))
     {
-      adda.setControlTestMortality(this.getControlTestMortality());
+      adda.setControlTestNumberDead(this.getControlTestNumberDead()); 
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTNUMBEREXPOSED))
+    {
+      adda.setControlTestNumberExposed(this.getControlTestNumberExposed());
     }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, KD50))
@@ -232,7 +229,8 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     list.add(INSECTICIDEUNITS);
     list.add(QUANTITYTESTED);
     list.add(QUANTITYDEAD);
-    list.add(CONTROLTESTMORTALITY);
+    list.add(CONTROLTESTNUMBEREXPOSED);
+    list.add(CONTROLTESTNUMBERDEAD);
     list.add(KD50);
     list.add(KD95);
     list.add(INTERVALTIME);

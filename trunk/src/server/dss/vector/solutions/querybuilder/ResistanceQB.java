@@ -18,6 +18,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
@@ -222,6 +223,32 @@ public class ResistanceQB extends AbstractQB implements Reloadable
           throw new ProgrammingErrorException(e);
         }
       }
+    }
+
+    if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY))
+    {
+      Selectable sel = valueQuery.getSelectableRef(QueryConstants.OBSERVED_MORTALITY);
+      SelectableSQLDouble overall = (SelectableSQLDouble) sel;
+
+      String dead = adultQuery.getTableAlias() + "." + QueryUtil.getColumnName(AdultDiscriminatingDoseAssay.getQuantityDeadMd());
+      String tested = collectionAssayQuery.getTableAlias() + "." + QueryUtil.getColumnName(AdultDiscriminatingDoseAssay.getQuantityTestedMd());
+
+      String sql = "(SUM(" + dead + ") / NULLIF(SUM(" + tested + "),0)::double precision * 100)";
+
+      overall.setSQL(sql);
+    }
+
+    if (valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
+    {
+      Selectable sel = valueQuery.getSelectableRef(QueryConstants.CORRECTED_MORTALITY);
+      SelectableSQLDouble overall = (SelectableSQLDouble) sel;
+
+      String correctedDead = adultQuery.getTableAlias() + "." + QueryUtil.getColumnName(AdultDiscriminatingDoseAssay.getCorrectedQuantityDeadMd());
+      String tested = collectionAssayQuery.getTableAlias() + "." + QueryUtil.getColumnName(AdultDiscriminatingDoseAssay.getQuantityTestedMd());
+
+      String sql = "(SUM(" + correctedDead + ") / NULLIF(SUM(" + tested + "),0)::double precision * 100)";
+
+      overall.setSQL(sql);
     }
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());

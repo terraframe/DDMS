@@ -1,11 +1,8 @@
 package dss.vector.solutions.entomology.assay;
 
-
-
-public class AdultDiscriminatingDoseAssayDTO extends AdultDiscriminatingDoseAssayDTOBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssayDTO extends AdultDiscriminatingDoseAssayDTOBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long  serialVersionUID = 1234731979247L;
+  private static final long serialVersionUID = 1234731979247L;
 
   public AdultDiscriminatingDoseAssayDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -22,8 +19,7 @@ public class AdultDiscriminatingDoseAssayDTO extends AdultDiscriminatingDoseAssa
    *          The clientRequest this DTO should use to communicate with the
    *          server.
    */
-  protected AdultDiscriminatingDoseAssayDTO(com.runwaysdk.business.BusinessDTO businessDTO,
-      com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected AdultDiscriminatingDoseAssayDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

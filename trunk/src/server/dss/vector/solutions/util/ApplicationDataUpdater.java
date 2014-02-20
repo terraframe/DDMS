@@ -24,6 +24,7 @@ import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
@@ -44,41 +45,67 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     this.updateMalariaSeasonLabels();
 
     this.updateSubCollections();
-    
+
     this.updateAssayIds();
+
+    // For ticket #2922
+    this.updateAdultDiscriminatingDoseAssays();
   }
-  
+
+  private void updateAdultDiscriminatingDoseAssays()
+  {
+    /*
+     * Default hard-coded control number.  It is 10000 because we most derive
+     * the control test number from the existing control test mortality and
+     * the control number.  Existing control test mortality values have
+     * relevant decimal values up to the hunderth decimal spot.
+     */
+    int controlNumber = 10000;
+
+    AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
+    query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
+    query.AND(query.getControlTestMortality().NE((Float) null));
+    query.AND(query.getControlTestNumberExposed().EQ((Integer) null));
+    query.AND(query.getControlTestNumberDead().EQ((Integer) null));
+
+    OIterator<? extends AdultDiscriminatingDoseAssay> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        AdultDiscriminatingDoseAssay assay = iterator.next();
+        assay.appLock();
+        assay.setControlTestNumberExposed(controlNumber);
+        assay.setControlTestNumberDead((int) ( controlNumber * assay.getControlTestMortality() / 100 ));
+        assay.apply();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
   private void updateAssayIds()
   {
-    String[] types = new String[]{
-        EfficacyAssay.CLASS,
-        InfectionAssay.CLASS,
-        PooledInfectionAssay.CLASS,
-        MolecularAssay.CLASS,
-        BiochemicalAssay.CLASS,
-        KnockDownAssay.CLASS,
-        AdultDiscriminatingDoseAssay.CLASS,
-        LarvaeDiscriminatingDoseAssay.CLASS,
-        DiagnosticAssay.CLASS,
-        TimeResponseAssay.CLASS
-    };
-    
-    
-    for(String type : types)
+    String[] types = new String[] { EfficacyAssay.CLASS, InfectionAssay.CLASS, PooledInfectionAssay.CLASS, MolecularAssay.CLASS, BiochemicalAssay.CLASS, KnockDownAssay.CLASS, AdultDiscriminatingDoseAssay.CLASS, LarvaeDiscriminatingDoseAssay.CLASS, DiagnosticAssay.CLASS, TimeResponseAssay.CLASS };
+
+    for (String type : types)
     {
       QueryFactory f = new QueryFactory();
       BusinessQuery q = f.businessQuery(type);
-      
+
       q.WHERE(q.get(UniqueAssay.UNIQUE_ASSAY_ID).EQ(null));
-      
+
       OIterator<Business> iter = q.getIterator();
-      
+
       try
       {
-        while(iter.hasNext())
+        while (iter.hasNext())
         {
           Business b = iter.next();
-          
+
           b.appLock();
           UniqueAssayUtil.setUniqueAssayId((UniqueAssay) b);
           b.apply();
