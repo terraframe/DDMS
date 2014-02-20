@@ -8,8 +8,8 @@
         </attributes>
         <create>
           <attributes>
-            <integer name="controlTestNumberExposed" label="Control number" rejectNegative="true" required="true" />
-            <integer name="controlTestNumberDead" label="Control number dead" rejectNegative="true" required="true" />
+            <integer name="controlTestNumberExposed" label="Control number" rejectNegative="true" required="false" />
+            <integer name="controlTestNumberDead" label="Control number dead" rejectNegative="true" required="false" />
             <float name="correctedQuantityDead" label="Corrected number dead" rejectNegative="true" length="32" decimal="2" required="true" />
             <float name="observedMortality" label="Observed Mortality (%)" length="5" decimal="2" description="Observed mortality" required="true" />
             <char name="rootAssay" label="Root assay" size="64" />
