@@ -127,6 +127,20 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     new QuantityDeadValidator(this).validate();
   }
+  
+  @Override
+  public void validateControlTestNumberDead()
+  {
+    super.validateControlTestNumberDead();
+    
+    if(this.getControlTestNumberDead() != null)
+    {
+      if(this.getControlTestNumberExposed() == null || this.getControlTestNumberDead() > this.getControlTestNumberExposed())
+      {
+        
+      }
+    }
+  }
 
   @Override
   public void validateControlTestMortality()
@@ -219,6 +233,9 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
   private void applyNoPropigate()
   {
+    validateControlTestNumberDead();
+    validateQuantityDead();
+    
     if (this.getRootAssay() == null || this.getRootAssay().length() == 0)
     {
       this.setRootAssay(this.getId());
@@ -236,7 +253,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     UniqueAssayUtil.setUniqueAssayId(this);
 
     validateControlTestMortality();
-    validateQuantityDead();
 
     float mortality = 0.0F;
     int live = 0;
