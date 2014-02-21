@@ -527,9 +527,17 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
           else
           {
             VaultFile vaultFile = VaultFile.lock(this.getDocument());
-            VaultFileDAO document = (VaultFileDAO) BusinessFacade.getEntityDAO(vaultFile);
 
-            document.putFile(new FileInputStream(file));
+            try
+            {
+              VaultFileDAO document = (VaultFileDAO) BusinessFacade.getEntityDAO(vaultFile);
+
+              document.putFile(new FileInputStream(file));
+            }
+            finally
+            {
+              vaultFile.unlock();
+            }
           }
         }
         catch (FileNotFoundException e)
