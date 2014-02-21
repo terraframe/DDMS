@@ -333,7 +333,7 @@
           // TODO create a progress bar widget
         }
         
-        row.addEventListener("mousedown", Mojo.Util.bind(this, this._openEditMenu));
+        row.addEventListener("click", Mojo.Util.bind(this, this._openEditMenu));
         row.addEventListener("contextmenu", Mojo.Util.bind(this, this._openContextMenu));
       },
       

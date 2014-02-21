@@ -22,6 +22,68 @@
 <jwr:script src="/bundles/genericDatatable.js" useRandomParam="false"/>
 <jwr:script src="/bundles/runwayDatatable.js" useRandomParam="false"/>
 
+<style>
+
+.ui-widget-header {
+	border: none;
+	background: #ffffff;
+	color: rgb(102, 102, 102);
+	font-weight: bold;
+}
+
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: #333;
+	text-decoration: none;
+}	
+
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	border: none;
+	background: #ffffff;
+	font-weight: bold;
+	color: #333;
+	cursor:pointer;	
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: none;
+	background: #ffffff;
+	font-weight: bold;
+	color: #333;
+	cursor:pointer;	
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+	border: 1px solid rgb(213, 214, 215);
+	background: #ffffff;
+	font-weight: bold;
+	color: #333;
+	cursor:pointer;	
+}
+
+.ui-state-default .ui-icon {
+	background-image: none;
+}
+
+</style>
+
 <%
     String[] types = new String[]{ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS, QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS};
 
@@ -123,6 +185,16 @@
      "thursday" : MDSS.localize("thursday"),
      "friday" : MDSS.localize("friday"),
      "saturday" : MDSS.localize("saturday")
+   });
+   
+   com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.PollingRequest', {
+     "timeout" : MDSS.localize("Polling_timeout"),
+     "dialogTitle" : MDSS.localize("Polling_Failed"),
+     "errLabel" : MDSS.localize("Error_Label"),
+     "failText1" : MDSS.localize("Polling_text_1"),
+     "failText2" : MDSS.localize("Polling_text_2"),
+     "failText3" : MDSS.localize("Polling_text_3"),
+     "failText4" : MDSS.localize("Polling_text_4")
    });
    
    var parent = document.getElementById('schedulerDiv');
