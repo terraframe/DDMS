@@ -82,6 +82,10 @@
 	background-image: none;
 }
 
+table.com-runwaysdk-ui-scheduler-JobTable tr {
+    cursor:pointer;
+}
+
 </style>
 
 <%
