@@ -404,24 +404,28 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setReceived(Alias alias)
   {
+    this.irsQB.addPreAggregation(alias);
     return set(operSprayTable, receivedCol, alias);
   }
 
   @Override
   public String setUsed(Alias alias)
   {
+    this.irsQB.addPreAggregation(alias);
     return set(operSprayTable, usedCol, alias);
   }
 
   @Override
   public String setRefills(Alias alias)
   {
+    this.irsQB.addPreAggregation(alias);
     return set(operSprayTable, refillsCol, alias);
   }
 
   @Override
   public String setReturned(Alias alias)
   {
+    this.irsQB.addPreAggregation(alias);
     return set(operSprayTable, returnCol, alias);
   }
 

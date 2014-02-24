@@ -52,13 +52,13 @@ public class TeamJoin extends TargetJoin implements Reloadable
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
       
-      sql += new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
+      sql += new DateGroups(irsQB, this, View.PLANNED_TEAM_RESULTS, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
       
       return sql;
     }
     else if(hasPlanned)
     {
-      return p + new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
+      return p + new DateGroups(irsQB, this, View.PLANNED_TEAM_RESULTS, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
     }
     else
     {

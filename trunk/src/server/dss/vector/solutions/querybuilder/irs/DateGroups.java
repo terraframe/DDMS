@@ -15,7 +15,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class DateGroups extends AbstractSprayProvider implements Reloadable
 {
-  private static String dateJoined = "date_joined";
+  private static final String dateJoined = "date_joined";
+  private static final String djCol = dateJoined+".";
   
   private String overrideName;
   private String overrideDate;
@@ -140,11 +141,20 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
         sql += this.setDategroupSeason(Alias.DATEGROUP_SEASON)+", \n";
       }
       
-      sql += this.set("date_joined", this.overrideDate, Alias.PLANNED_DATE)+" \n";
+      sql += this.set("date_joined", this.overrideDate, Alias.PLANNED_DATE)+", \n";
+      sql += this.set("date_joined", Alias.DISEASE.getAlias(), Alias.DISEASE)+" \n";
       sql += "FROM \n";
       sql += "( \n";
-      sql += "  SELECT "+this.overrideDate+" FROM "+this.overrideName+" GROUP BY "+this.overrideDate+" \n";
-      sql += ") date_joined \n";
+      sql += "  SELECT "+this.overrideDate+", "+Alias.DISEASE+" FROM "+this.overrideName+" GROUP BY "+this.overrideDate+", "+Alias.DISEASE+" \n";
+      sql += ") "+dateJoined+" \n";
+      
+      if (selected.contains(Alias.DATEGROUP_SEASON))
+      {
+        sql += " INNER JOIN ";
+        sql += QueryUtil.getSeasonNameFrom(djCol+Alias.DISEASE.getAlias(), djCol+this.overrideDate,
+            djCol+this.overrideDate, false);
+      }
+      
       sql += ") \n";
       sql += this.targetJoin.getDateGroupAlias()+" ON "+this.targetJoin.getDateGroupAlias()+"."+this.overrideDate+" = "+this.overrideAlias+"."+this.overrideDate;
     }
@@ -184,10 +194,9 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
     
     if (selected.contains(Alias.DATEGROUP_SEASON))
     {
-      dateJoined += ".";
       from += " INNER JOIN ";
-      from += QueryUtil.getSeasonNameFrom(dateJoined+Alias.DISEASE.getAlias(), dateJoined+Alias.SPRAY_DATE.getAlias(),
-          dateJoined+Alias.SPRAY_DATE.getAlias(), false);
+      from += QueryUtil.getSeasonNameFrom(djCol+Alias.DISEASE.getAlias(), djCol+Alias.SPRAY_DATE.getAlias(),
+          djCol+Alias.SPRAY_DATE.getAlias(), false);
     }
 
     return from;

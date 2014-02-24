@@ -1244,7 +1244,7 @@ public abstract class AbstractQB implements Reloadable
 
   protected boolean enableCountSelectable(ValueQuery v)
   {
-    return !v.containsSelectableSQL() && !v.hasCountSelectable();
+    return !v.hasCountSelectable();
   }
 
   public Map<String, Restriction> getTermRestrictions()
