@@ -212,9 +212,21 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
   
+  // Convert the epiweek into the target week.
   public String setTargetWeek(Alias alias)
   {
-    return caseSwap(alias);
+    if(this.hasActual && this.hasPlanned)
+    {
+      return set(this.rawSwap(View.DATE_GROUPS.getView()+"."+Alias.DATEGROUP_EPIWEEK, this.getDateGroupAlias()+"."+Alias.DATEGROUP_EPIWEEK), alias);
+    }
+    else if(this.hasPlanned)
+    {
+      return this.set(this.getDateGroupAlias(), Alias.DATEGROUP_EPIWEEK, alias);
+    }
+    else
+    {
+      return this.set(View.DATE_GROUPS.getView(), Alias.DATEGROUP_EPIWEEK, alias);
+    }
   }
   
   public String setBrand(Alias alias)

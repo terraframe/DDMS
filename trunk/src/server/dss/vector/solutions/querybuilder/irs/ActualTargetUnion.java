@@ -488,10 +488,10 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     return set(this.brandCol, alias);
   }
   
-  public final String setTargetWeek(Alias alias)
-  {
-    return set("get_epiWeek_from_Date("+abstractSprayTable+"."+sprayDateCol+", "+this.irsQB.getStartDay()+")", alias); 
-  }
+//  public final String setTargetWeek(Alias alias)
+//  {
+//    return set("get_epiWeek_from_Date("+abstractSprayTable+"."+sprayDateCol+", "+this.irsQB.getStartDay()+")", alias); 
+//  }
 
   public abstract String setUniqueSprayId(Alias alias);
   

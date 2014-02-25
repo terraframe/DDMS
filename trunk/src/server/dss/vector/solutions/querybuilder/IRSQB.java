@@ -890,11 +890,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.outerInsecticideQuery = (InsecticideBrandQuery) this.mainQueryMap.get(InsecticideBrand.CLASS);
     this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);
     this.abstractSprayQuery = (AbstractSprayQuery) this.abtractSprayQueryMap.get(AbstractSpray.CLASS);
-
-    for(Selectable s : this.irsVQ.getSelectableRefs())
-    {
-      System.out.println(s.getUserDefinedAlias());
-    }
     
     // Two of the insecticide selectables are not on the InsecticideBrand class,
     // so
