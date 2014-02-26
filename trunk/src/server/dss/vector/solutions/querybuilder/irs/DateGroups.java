@@ -43,6 +43,8 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
   @Override
   public void loadDependencies()
   {
+    super.loadDependencies();
+    
     this.irsQB.addRequiredAlias(this.getView(), Alias.SPRAY_DATE);
     this.irsQB.addRequiredAlias(View.SPRAY_VIEW, Alias.SPRAY_DATE);
     
@@ -55,6 +57,16 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
       this.irsQB.addRequiredAlias(View.SPRAY_VIEW, alias);
     }
     
+    if(this.hasTargetWeekConversion())
+    {
+      this.irsQB.addRequiredAlias(View.DATE_GROUPS, Alias.DATEGROUP_EPIWEEK);      
+    }
+  }
+  
+  // Area calculations require the target week, which we compute from the epi week (they're the same thing)
+  private boolean hasTargetWeekConversion()
+  {
+    return this.irsQB.getRequiredAlias(View.ALL_ACTUALS).contains(Alias.TARGET_WEEK) || this.irsQB.hasAreaCalcs();
   }
   
   public String setSprayDate(Alias alias)
@@ -111,7 +123,7 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
       sql += "( \n";
       sql += " SELECT \n";
 
-      if(selected.contains(Alias.DATEGROUP_EPIWEEK))
+      if(selected.contains(Alias.DATEGROUP_EPIWEEK) || hasTargetWeekConversion())
       {
         sql += this.setDategroupEpiWeek(Alias.DATEGROUP_EPIWEEK)+", \n";
       }
@@ -151,7 +163,7 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
       if (selected.contains(Alias.DATEGROUP_SEASON))
       {
         sql += " INNER JOIN ";
-        sql += QueryUtil.getSeasonNameFrom(djCol+Alias.DISEASE.getAlias(), djCol+this.overrideDate,
+        sql += QueryUtil.getSeasonNameFrom("'"+this.irsQB.getDiseaseId()+"'", djCol+this.overrideDate,
             djCol+this.overrideDate, false);
       }
       
