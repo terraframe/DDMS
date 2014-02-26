@@ -141,11 +141,11 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
         sql += this.setDategroupSeason(Alias.DATEGROUP_SEASON)+", \n";
       }
       
-      sql += this.set("date_joined", this.overrideDate, Alias.PLANNED_DATE)+", \n";
-      sql += this.set("date_joined", Alias.DISEASE.getAlias(), Alias.DISEASE)+" \n";
+      sql += this.set("date_joined", this.overrideDate, Alias.PLANNED_DATE)+" \n";
+//      sql += this.set("date_joined", Alias.DISEASE.getAlias(), Alias.DISEASE)+" \n";
       sql += "FROM \n";
       sql += "( \n";
-      sql += "  SELECT "+this.overrideDate+", "+Alias.DISEASE+" FROM "+this.overrideName+" GROUP BY "+this.overrideDate+", "+Alias.DISEASE+" \n";
+      sql += "  SELECT "+this.overrideDate+" FROM "+this.overrideName+" GROUP BY "+this.overrideDate+" \n";
       sql += ") "+dateJoined+" \n";
       
       if (selected.contains(Alias.DATEGROUP_SEASON))
