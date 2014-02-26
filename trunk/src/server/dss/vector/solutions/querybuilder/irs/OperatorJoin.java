@@ -22,8 +22,11 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += p + new DateGroups(irsQB, this, View.PLANNED_OPERATOR, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL() + " LEFT JOIN " + a + " \n";
-//      sql += a + " FULL OUTER JOIN " + p + " \n";
+      sql += p + new DateGroups(irsQB, this, View.PLANNED_OPERATOR, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL() + " LEFT JOIN \n";
+
+      sql += "( \n";
+      sql += a+ " "+ dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
+      sql += ") \n";
       
       // NOTE: old code for reference
 //      sql += "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") " +
@@ -41,7 +44,6 @@ public class OperatorJoin extends TargetJoin implements Reloadable
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
       
-      sql += dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
       
       // #2323 Change: restrict the planned rows by showing only those that have activity within the time and geo criteria, but don't do a strict row-by-row
       // join on target week. Reference the ticket examples for something better
