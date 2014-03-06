@@ -79,6 +79,8 @@ public abstract class AbstractQB implements Reloadable
 
   public static final String IMPORTED_DATETIME  = "imported_datetime";
 
+  public static final String PARENT_UNIVERSAL_ID = "parentUniversalId";
+  
   /**
    * Class to help with the structure of the join criteria for GeoEntity data
    * and mapping.
@@ -88,6 +90,8 @@ public abstract class AbstractQB implements Reloadable
 
     private String                        entityNameAlias;
 
+    private String idAlias;
+    
     private String                        geoIdAlias;
 
     private String                        geoThematicAlias;
@@ -105,6 +109,7 @@ public abstract class AbstractQB implements Reloadable
       geoThematicAlias = null;
       geoThematicAttr = null;
       geoThematicEntity = null;
+      idAlias = null;
       attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
     }
   }
@@ -171,6 +176,8 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
+  protected GeoEntityJoinData geoEntityJoinData;
+  
   private String                            xml;
 
   private String                            config;
@@ -218,6 +225,7 @@ public abstract class AbstractQB implements Reloadable
     this.withEntries = new LinkedList<WITHEntry>();
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
+    this.geoEntityJoinData = new GeoEntityJoinData();
   }
 
   public boolean hasUniversal()
@@ -871,7 +879,6 @@ public abstract class AbstractQB implements Reloadable
     }
 
     // Normal query (non-mapping)
-    GeoEntityJoinData joinData = new GeoEntityJoinData();
     try
     {
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
@@ -889,7 +896,7 @@ public abstract class AbstractQB implements Reloadable
           selectedUniversals[i] = universals.getString(i);
         }
 
-        addUniversalsForAttribute(joinData, factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias);
       }
     }
     catch (JSONException e)
@@ -904,9 +911,9 @@ public abstract class AbstractQB implements Reloadable
 
       parser.addAttributeSelectable(entityAlias, attr, attr, QueryConstants.GEOMETRY_NAME_COLUMN);
 
-      if (joinData.geoThematicAlias != null)
+      if (geoEntityJoinData.geoThematicAlias != null)
       {
-        parser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, "data");
+        parser.addAttributeSelectable(geoEntityJoinData.geoThematicEntity, geoEntityJoinData.geoThematicAttr, geoEntityJoinData.geoThematicAlias, "data");
       }
     }
 
@@ -919,14 +926,14 @@ public abstract class AbstractQB implements Reloadable
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
     {
-      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-      valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
+      valueQuery.getSelectableRef(geoEntityJoinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      valueQuery.getSelectableRef(geoEntityJoinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
 
       if (layer.hasThematicVariable())
       {
-        String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
+        String alias = geoEntityJoinData.geoThematicAlias != null ? geoEntityJoinData.geoThematicAlias : thematicUserAlias;
         Selectable thematic = valueQuery.getSelectableRef(alias);
 
         // Only lock and apply the layer if it's not new to avoid erroring out
@@ -950,10 +957,10 @@ public abstract class AbstractQB implements Reloadable
     }
 
     QBInterceptor interceptor = this.getQBInterceptor(parser);
-    for (String attributeKey : joinData.attributeKeysAndJoins.keySet())
+    for (String attributeKey : geoEntityJoinData.attributeKeysAndJoins.keySet())
     {
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(getGeoAllPathsAlias(attributeKey));
-      List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
+      List<ValueQuery> leftJoinValueQueries = geoEntityJoinData.attributeKeysAndJoins.get(attributeKey);
 
       setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
     }
@@ -989,7 +996,14 @@ public abstract class AbstractQB implements Reloadable
     return geoIdAlias;
   }
 
-  private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
+  public String getUniversalId(String universalName, String attributeKey)
+  {
+    String prepend = attributeKey.replaceAll("\\.", "_") + "__";
+    String geoIdAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.ID;
+    return geoIdAlias;
+  }
+
+  private void addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
@@ -1006,6 +1020,7 @@ public abstract class AbstractQB implements Reloadable
 
       String entityNameAlias = this.getUniversalEntityName(geoEntityMd.getTypeName(), attributeKey);
       String geoIdAlias = this.getUniversalGeoId(geoEntityMd.getTypeName(), attributeKey);
+      String idAlias = this.getUniversalId(geoEntityMd.getTypeName(), attributeKey);
 
       Selectable selectable1 = geoEntityQuery.getEntityLabel().localize(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
@@ -1017,13 +1032,19 @@ public abstract class AbstractQB implements Reloadable
       SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
       selectables.add(selectable3);
 
+      SelectableChar selectable6 = geoEntityQuery.getId(idAlias);
+      Selectable selectableId = geoEntityVQ.aSQLCharacter(PARENT_UNIVERSAL_ID, selectable6.getDbQualifiedName(), PARENT_UNIVERSAL_ID, selectable6.getUserDefinedAlias());
+      selectableId.setColumnAlias(PARENT_UNIVERSAL_ID);
+      selectables.add(selectableId);
+      
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
       GeoEntityQuery geoEntityQuery2 = null;
       if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
       {
         // save the aliases used for mapping the entity name and geo id columns
-        joinData.entityNameAlias = entityNameAlias;
-        joinData.geoIdAlias = geoIdAlias;
+        geoEntityJoinData.entityNameAlias = entityNameAlias;
+        geoEntityJoinData.geoIdAlias = geoIdAlias;
+        geoEntityJoinData.idAlias = idAlias;
 
         // If the thematic variable is either the entity name or geo id
         // then create a new selectable because those columns already have
@@ -1036,20 +1057,20 @@ public abstract class AbstractQB implements Reloadable
           {
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
 
-            joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = entityNameAlias + "_entityname_thematic";
-            joinData.geoThematicAttr = GeoEntity.ENTITYLABEL;
-            thematicSel = geoEntityQuery2.getEntityLabel().localize(joinData.geoThematicAlias);
+            geoEntityJoinData.geoThematicEntity = geoVQEntityAlias;
+            geoEntityJoinData.geoThematicAlias = entityNameAlias + "_entityname_thematic";
+            geoEntityJoinData.geoThematicAttr = GeoEntity.ENTITYLABEL;
+            thematicSel = geoEntityQuery2.getEntityLabel().localize(geoEntityJoinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
           else if (thematicUserAlias.equals(geoIdAlias))
           {
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
 
-            joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = geoIdAlias + "_geoid_thematic";
-            joinData.geoThematicAttr = GeoEntity.GEOID;
-            thematicSel = geoEntityQuery2.getGeoId(joinData.geoThematicAlias);
+            geoEntityJoinData.geoThematicEntity = geoVQEntityAlias;
+            geoEntityJoinData.geoThematicAlias = geoIdAlias + "_geoid_thematic";
+            geoEntityJoinData.geoThematicAttr = GeoEntity.GEOID;
+            thematicSel = geoEntityQuery2.getGeoId(geoEntityJoinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
         }
@@ -1073,7 +1094,7 @@ public abstract class AbstractQB implements Reloadable
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
 
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityVQ.aSQLCharacter(prepend + "geoDisplayLabel", QueryUtil.GEO_DISPLAY_LABEL + "." + idCol)));
+      geoEntityVQ.AND(selectable6.EQ(geoEntityVQ.aSQLCharacter(prepend + "geoDisplayLabel", QueryUtil.GEO_DISPLAY_LABEL + "." + idCol)));
 
       if (geoEntityQuery2 != null)
       {
@@ -1085,7 +1106,7 @@ public abstract class AbstractQB implements Reloadable
       valueQueryParser.setValueQuery(geoVQEntityAlias, geoEntityVQ);
     }
 
-    joinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
+    geoEntityJoinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
   protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)

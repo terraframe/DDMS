@@ -1,12 +1,9 @@
 package dss.vector.solutions.querybuilder.irs;
 
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
-import dss.vector.solutions.util.QueryUtil;
 
 public class AreaJoin extends TargetJoin implements Reloadable
 {
@@ -45,6 +42,7 @@ public class AreaJoin extends TargetJoin implements Reloadable
     // columns,
     // but sum the actual targets for all entities beneath the planned target
     // geo entity.
+    /*
     if (this.hasActual && this.hasPlanned)
     {
       String sql = "";
@@ -81,7 +79,8 @@ public class AreaJoin extends TargetJoin implements Reloadable
       
       return sql;
     }
-    else if(this.hasPlanned)
+    */
+    if(this.hasPlanned)
     {
       return p + new DateGroups(irsQB, this, View.PLANNED_AREA, TargetJoin.PLANNED_ALIAS, Alias.PLANNED_DATE).getOverrideSQL();
     }

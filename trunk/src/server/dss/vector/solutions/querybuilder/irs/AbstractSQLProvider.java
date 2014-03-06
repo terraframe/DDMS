@@ -31,8 +31,23 @@ public abstract class AbstractSQLProvider implements SQLProvider
   public AbstractSQLProvider(IRSQB irsQB)
   {
     this.irsQB = irsQB;
-    this.hasActual = this.irsQB.hasActivity();
-    this.hasPlanned = this.irsQB.hasPlanned();
+    
+
+    /*
+     * The logic for detecting activity and planned targets varies depending
+     * on whether this is a standalone query or one used to join activity and
+     * planned targets.
+     */
+    if(this.irsQB.hasActivity() && this.irsQB.hasPlanned())
+    {
+      this.hasActual = this.irsQB.getAggregationType() == null;
+      this.hasPlanned = this.irsQB.getAggregationType() != null;
+    }
+    else
+    {
+      this.hasActual = this.irsQB.hasActivity();
+      this.hasPlanned = this.irsQB.hasPlanned();
+    }
   }
   
   public String getSQL()

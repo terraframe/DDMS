@@ -382,7 +382,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    * Denotes what type of aggregation this query will be used for (eg, as a
    * query in a WITH clause to aggregate area planned targets).
    */
-  private enum AggregationQueryType implements Reloadable {
+  public enum AggregationQueryType implements Reloadable {
     AREA, OPERATOR, TEAM
   }
 
@@ -503,6 +503,11 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   }
 
+  public AggregationQueryType getAggregationType()
+  {
+    return this.aggType;
+  }
+  
   public String getSprayViewAlias()
   {
     return sprayViewAlias;
@@ -1192,7 +1197,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   @Override
   protected ValueQuery postProcess(ValueQuery valueQuery)
   {
-
     // skip this processing if this query is for aggregation and
     // by doing so we'll avoid infinite recursion.
     if (this.aggType != null)
@@ -1299,12 +1303,30 @@ public class IRSQB extends AbstractQB implements Reloadable
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
       qb.finishConstruct();
 
+      
+      // We need to aggregate targets based on the lowest universal. In the original query we need
+      // to set the parent geo entity to the id of the universal it was joined with
+      // Grab the id column of the smallest universal (used for aggreation later on). This is tricky,
+      // so grab an existing known selectable that references the same ValueQuery and select fom there.
+      ValueQuery universalVQ = (ValueQuery) valueQuery.getSelectableRef(this.smallestUniversalSelectable).getRootQuery();
+      String parentUniversalId = universalVQ.getSelectableRef(PARENT_UNIVERSAL_ID).getDbQualifiedName();
+
+      // Create a new selectable to group by the universal id
+      if(valueQuery.isGrouping())
+      {
+        SelectableSQL targetGroup = irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
+            PARENT_UNIVERSAL_ID);
+        targetGroup.setColumnAlias(targetGroup.getSQL());
+
+        irsVQ.GROUP_BY(targetGroup);
+      }
+      
       parentGeo = aggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(),
-          Alias.PARENT_GEO_ENTITY.getAlias(), Alias.PARENT_GEO_ENTITY.getAlias());
+          parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       valueQuery.SELECT(parentGeo);
 
-      FROM += " LEFT JOIN " + areaAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
+      FROM += " FULL OUTER JOIN " + areaAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
           + " = " + areaAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalVQ
           + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "."
           + disease._getAttributeName() + " \n" + "AND " + originalVQ + "." + Alias.PARENT_GEO_ENTITY
@@ -1355,9 +1377,8 @@ public class IRSQB extends AbstractQB implements Reloadable
         aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + areaAggregation + "."
             + Alias.AREA_PLANNED_TARGET + ",0)*100.0");
       }
-
+      
       // Set the aggregation as a subquery in the WITH clause
-
       entries.add(new WITHEntry(areaAggregation, aggVQ.getSQL()));
       this.setWITHClause(entries, false, toReturn);
     }
@@ -1406,7 +1427,6 @@ public class IRSQB extends AbstractQB implements Reloadable
               Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
       parentGeo.setColumnAlias(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
       toAdd.add(parentGeo);
-
       toAdd.add(opt);
       toAdd.add(season);
       toAdd.add(disease);
@@ -1443,11 +1463,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
       qb.finishConstruct();
-
+      
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " LEFT JOIN " + operatorAggregation + " ON " + originalVQ + "."
+      FROM += " RIGHT JOIN " + operatorAggregation + " ON " + originalVQ + "."
           + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName()
           + " \n" + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = "
           + operatorAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalVQ + "."
@@ -1514,6 +1534,20 @@ public class IRSQB extends AbstractQB implements Reloadable
             + Alias.OPERATOR_PLANNED_TARGET + ",0))*100.0";
         aptReplace.setSQL(sql);
       }
+      
+      // Because we're doing a right join, which makes the planned operator targets more important,
+      // just grab the default locale from operatorAggregation as it will always have a value
+      for(Selectable aggSel : aggVQ.getSelectableRefs())
+      {
+        String alias = aggSel.getUserDefinedAlias();
+        if(valueQuery.hasSelectableRef(alias) && toReturn.hasSelectableRef(alias))
+        {
+          SelectableSQL swap = (SelectableSQL) toReturn.getSelectableRef(alias);
+          String col = swap.getColumnAlias();
+          String c = "COALESCE("+operatorAggregation+"."+swap.getColumnAlias()+", "+originalVQ+"."+col+")";
+          swap.setSQL(c);
+        }
+      }
 
       // Set the aggregation as a subquery in the WITH clause
       entries.add(new WITHEntry(operatorAggregation, aggVQ.getSQL()));
@@ -1546,7 +1580,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       String aggAlias = qb.getQueryMap().get(AbstractSpray.CLASS).getTableAlias();
 
       ValueQuery aggVQ = qb.getValueQuery();
-
+      
       List<Selectable> toAdd = new LinkedList<Selectable>();
       Selectable opt = aggVQ.aSQLAggregateInteger(Alias.TEAM_PLANNED_TARGET.getAlias(),
           Alias.TEAM_PLANNED_TARGET.getAlias());
@@ -1674,6 +1708,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     if (toReturn != null)
     {
+      // Set the window count (the total result set).
       String windowCount = "count(*) over()";
       SelectableSQLLong c = toReturn.isGrouping() ? toReturn.aSQLAggregateLong(WINDOW_COUNT_ALIAS,
           windowCount, WINDOW_COUNT_ALIAS) : toReturn.aSQLLong(WINDOW_COUNT_ALIAS, windowCount,
@@ -1682,6 +1717,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       toReturn.SELECT(c);
       toReturn.setCountSelectable(c);
 
+      // If we're joining planned and activity make sure we join the queries correctly
       valueQuery.SELECT(seasonJoin, diseaseJoin);
       this.setWITHClause(entries, false, toReturn);
       toReturn.FROM("(" + valueQuery.getSQL() + ")", FROM);
@@ -2038,7 +2074,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   public void addPreAggregation(Alias alias)
   {
-    this.preAggregateAliases.add(alias);
+    // FIXME disable for now
+    //this.preAggregateAliases.add(alias);
   }
 
   public boolean needsPreAggregation()
@@ -2172,7 +2209,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       String grouping = StringUtils.join(groupBy, ", ");
       str.append("  GROUP BY " + grouping + ", " + Alias.ID + " " + groupsSQL + " \n");
-      str.append(" WINDOW win AS (PARTITION BY " + Alias.ID + " " + groupsSQL + " " + groupsSQL + ")");
+      str.append(" WINDOW win AS (PARTITION BY " + grouping +", "+ Alias.ID + " " + groupsSQL + ")");
 
       str.append(") " + PRE_AGGREGATION + " \n");
       str.append("ON " + PRE_AGGREGATION + "." + Alias.ID + " = " + this.sprayViewAlias + "." + Alias.ID
@@ -2558,7 +2595,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String sumOperatorActualTargets()
   {
     this.addPreAggregation(Alias.OPERATOR_ACTUAL_TARGET);
-    return PRE_AGGREGATION + "." + Alias.OPERATOR_ACTUAL_TARGET;
+//    return PRE_AGGREGATION + "." + Alias.OPERATOR_ACTUAL_TARGET;
+    return "SUM(DISTINCT "+sprayViewAlias + "." + Alias.OPERATOR_ACTUAL_TARGET+")";
     // return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias,
     // Alias.OPERATOR_ACTUAL_TARGET.getAlias());
   }
@@ -2566,7 +2604,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String sumTeamActualTargets()
   {
     this.addPreAggregation(Alias.TEAM_ACTUAL_TARGET);
-    return PRE_AGGREGATION + "." + Alias.TEAM_ACTUAL_TARGET;
+    return "SUM(DISTINCT "+sprayViewAlias + "." + Alias.TEAM_ACTUAL_TARGET+")";
+//    return PRE_AGGREGATION + "." + Alias.TEAM_ACTUAL_TARGET;
     // return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias,
     // Alias.TEAM_ACTUAL_TARGET.getAlias());
   }
@@ -2829,10 +2868,12 @@ public class IRSQB extends AbstractQB implements Reloadable
 
             String entityNameAlias = this.getUniversalEntityName(name, attributeKey);
             String geoIdAlias = this.getUniversalGeoId(name, attributeKey);
+            String idAlias = this.getUniversalId(name, attributeKey);
 
             this.universals.put(universalType, new Universal(name, id, entityNameAlias, geoIdAlias));
             this.universalAliases.add(entityNameAlias);
             this.universalAliases.add(geoIdAlias);
+            this.universalAliases.add(idAlias);
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
           this.smallestUnivesal = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
