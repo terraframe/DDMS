@@ -29,6 +29,7 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
@@ -622,9 +623,8 @@ public class ServerContext
     /*
      * Copy of QueryConstants.SUM_AREA_TARGETS in order to break Reloadable dependency.
      */
-    String SUM_AREA_TARGETS = "get_area_spray_target_by_id_and_tar";
 
-    sql += "CREATE OR REPLACE FUNCTION " + SUM_AREA_TARGETS + " \n";
+    sql += "CREATE OR REPLACE FUNCTION " + QueryConstants.SUM_AREA_TARGETS + " \n";
     sql += "( \n";
     sql += "  _geo_target_id VARCHAR, \n";
     sql += "  _target_column VARCHAR, \n";
@@ -637,7 +637,19 @@ public class ServerContext
     sql += " _child_Count FLOAT;\n";
     sql += " _sql VARCHAR;\n";
     sql += " rec record;\n";
+    sql += " _week INT;\n";
     sql += "BEGIN \n";
+    sql += "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS cached ( \n";
+    sql += "  id varchar(64), \n";
+    sql += "  target integer, \n";
+    sql += "  week integer, \n";
+    sql += "  season varchar(64), \n";
+    sql += "  disease varchar(64) \n";
+    sql += "  ) ON COMMIT DROP'; \n";
+    sql += "  SELECT target FROM cached WHERE id = _geo_target_id AND week = _week::integer AND season = _season AND disease = _disease INTO _target; \n";
+    sql += "  IF _target IS NOT NULL THEN \n";
+    sql += "    RETURN _target; \n";
+    sql += "  END IF; \n";
     sql += "  EXECUTE 'SELECT target_'|| _target_Column ||' FROM " + geoTargetTable + " WHERE " + geoEntityTargetCol + " = '|| quote_literal(_geo_target_id) \n";
     sql += "    || ' AND " + seasonCol + " = ' || quote_literal(_season) || ' AND " + gtDiseaseCol + " = ' || quote_literal(_disease) \n";
     sql += "  INTO _target;\n";
@@ -646,12 +658,13 @@ public class ServerContext
     sql += "    _target := 0;\n";
     sql += "    _sql := 'SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + "  FROM " + locatedInTable + " WHERE " + RelationshipDAOIF.PARENT_ID_COLUMN + " = ' || quote_literal(_geo_target_id); \n";
     sql += "    FOR  rec IN EXECUTE _sql LOOP \n";
-    sql += "      _target = _target + " + SUM_AREA_TARGETS + "(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ", _target_column, _disease, _season); \n";
+    sql += "      _target = _target + " + QueryConstants.SUM_AREA_TARGETS + "(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ", _target_column, _disease, _season); \n";
     sql += "    END LOOP;\n";
     sql += "  END IF;\n";
+    sql += "  INSERT INTO cached (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n";
     sql += "  RETURN _target; \n";
     sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql STABLE; \n";
+    sql += "$$ LANGUAGE plpgsql VOLATILE; \n";
 
     sql += "CREATE OR REPLACE FUNCTION get_epiWeek_from_date \n";
     sql += "( \n";
