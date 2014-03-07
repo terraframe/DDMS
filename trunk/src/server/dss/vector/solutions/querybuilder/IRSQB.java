@@ -1235,6 +1235,14 @@ public class IRSQB extends AbstractQB implements Reloadable
             false, null);
         toReturn.SELECT(copies);
       }
+      
+      // We need to aggregate targets based on the lowest universal. In the original query we need
+      // to set the parent geo entity to the id of the universal it was joined with
+      // Grab the id column of the smallest universal (used for aggreation later on). This is tricky,
+      // so grab an existing known selectable that references the same ValueQuery and select from there.
+      // Because the aggregation query is a clone of the original query we can use the same selectable/namespace
+      ValueQuery universalVQ = (ValueQuery) valueQuery.getSelectableRef(this.smallestUniversalSelectable).getRootQuery();
+      String parentUniversalId = universalVQ.getSelectableRef(PARENT_UNIVERSAL_ID).getDbQualifiedName();
 
       // create a new IRS Query that aggregates the area targets for the
       // universals selected.
@@ -1254,17 +1262,17 @@ public class IRSQB extends AbstractQB implements Reloadable
       List<Selectable> toAdd = new LinkedList<Selectable>();
       Selectable smallestUni = aggVQ.getSelectableRef(this.smallestUniversalSelectable);
       Selectable apt = aggVQ.aSQLAggregateInteger(Alias.AREA_PLANNED_TARGET.getAlias(),
-          Alias.AREA_PLANNED_TARGET.getAlias());
+           Alias.AREA_PLANNED_TARGET.getAlias());
       Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
           + "." + Alias.SPRAY_SEASON.getAlias());
       Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
           + Alias.DISEASE.getAlias());
 
       Selectable parentGeo = aggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(),
-          Alias.PARENT_GEO_ENTITY.getAlias(), Alias.PARENT_GEO_ENTITY.getAlias());
+          parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       toAdd.add(parentGeo);
-
+      
       toAdd.add(smallestUni);
       toAdd.add(apt);
       toAdd.add(season);
@@ -1277,6 +1285,13 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       toAdd.addAll(groupsToAdd);
+      
+      // Group by the universal column that is the parent geo entity
+      // Create a new selectable to group by the universal id
+      SelectableSQL universalGroup = aggVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
+          PARENT_UNIVERSAL_ID);
+      universalGroup.setColumnAlias(universalGroup.getSQL());
+      aggVQ.GROUP_BY(universalGroup);
 
       // set the user defined alias to the attribute name
       Iterator<Selectable> iter = toAdd.iterator();
@@ -1304,14 +1319,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       qb.finishConstruct();
 
       
-      // We need to aggregate targets based on the lowest universal. In the original query we need
-      // to set the parent geo entity to the id of the universal it was joined with
-      // Grab the id column of the smallest universal (used for aggreation later on). This is tricky,
-      // so grab an existing known selectable that references the same ValueQuery and select fom there.
-      ValueQuery universalVQ = (ValueQuery) valueQuery.getSelectableRef(this.smallestUniversalSelectable).getRootQuery();
-      String parentUniversalId = universalVQ.getSelectableRef(PARENT_UNIVERSAL_ID).getDbQualifiedName();
-
-      // Create a new selectable to group by the universal id
+      // Create a new selectable to group by the universal
       if(valueQuery.isGrouping())
       {
         SelectableSQL targetGroup = irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
@@ -1321,8 +1329,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         irsVQ.GROUP_BY(targetGroup);
       }
       
-      parentGeo = aggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(),
-          parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
+      parentGeo = valueQuery.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(), parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       valueQuery.SELECT(parentGeo);
 
@@ -1340,7 +1347,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // The aggregation query needs to sum the area planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ
           .getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
-      String func = QueryConstants.SUM_AREA_TARGETS + "(" + aggAlias + "." + Alias.PARENT_GEO_ENTITY
+      String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId
           + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "."
           + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
       String sum = sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, "(" + func + ")");
