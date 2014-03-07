@@ -59,7 +59,9 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     {
       if (dimension.isNew() && !dimension.isAppliedToDB())
       {
-        dimension.setName(this.getDiseaseName());
+        String diseaseName = this.getDiseaseName().replaceAll("\\s", "_");
+        
+        dimension.setName(diseaseName);
       }
 
       dimension.getDisplayLabel().setValue(this.getDiseaseName());
