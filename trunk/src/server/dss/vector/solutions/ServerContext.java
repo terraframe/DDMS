@@ -623,7 +623,7 @@ public class ServerContext
     /*
      * Copy of QueryConstants.SUM_AREA_TARGETS in order to break Reloadable dependency.
      */
-
+    String aptCache = "apt_cached";
     sql += "CREATE OR REPLACE FUNCTION " + QueryConstants.SUM_AREA_TARGETS + " \n";
     sql += "( \n";
     sql += "  _geo_target_id VARCHAR, \n";
@@ -639,14 +639,22 @@ public class ServerContext
     sql += " rec record;\n";
     sql += " _week INT;\n";
     sql += "BEGIN \n";
-    sql += "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS cached ( \n";
-    sql += "  id varchar(64), \n";
-    sql += "  target integer, \n";
-    sql += "  week integer, \n";
-    sql += "  season varchar(64), \n";
-    sql += "  disease varchar(64) \n";
+    sql += "IF NOT EXISTS ( \n";
+    sql += "    SELECT 1 \n";
+    sql += "    FROM   pg_class c \n";
+    sql += "    WHERE  c.relname = '"+aptCache+"' \n";
+    sql += "    ) THEN \n";
+    sql += "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS "+aptCache+" (  \n";
+    sql += "  id varchar(64),  \n";
+    sql += "  target integer,  \n";
+    sql += "  week integer,  \n";
+    sql += "  season varchar(64),  \n";
+    sql += "  disease varchar(64)  \n";
     sql += "  ) ON COMMIT DROP'; \n";
-    sql += "  SELECT target FROM cached WHERE id = _geo_target_id AND week = _week::integer AND season = _season AND disease = _disease INTO _target; \n";
+    sql += "  EXECUTE 'CREATE INDEX cached_apt_index ON "+aptCache+" (id, week, season, disease)'; \n";
+    sql += "END IF; \n";
+    sql += "  _week = _target_column::integer; \n";
+    sql += "  SELECT target FROM "+aptCache+" WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n";
     sql += "  IF _target IS NOT NULL THEN \n";
     sql += "    RETURN _target; \n";
     sql += "  END IF; \n";
@@ -661,7 +669,7 @@ public class ServerContext
     sql += "      _target = _target + " + QueryConstants.SUM_AREA_TARGETS + "(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ", _target_column, _disease, _season); \n";
     sql += "    END LOOP;\n";
     sql += "  END IF;\n";
-    sql += "  INSERT INTO cached (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n";
+    sql += "  INSERT INTO "+aptCache+" (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n";
     sql += "  RETURN _target; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql VOLATILE; \n";

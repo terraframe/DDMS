@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -36,12 +35,14 @@ import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSQLDateTime;
 import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSQLTime;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
@@ -1222,6 +1223,15 @@ public class IRSQB extends AbstractQB implements Reloadable
         this.sprayViewAlias + "_" + Alias.DISEASE.getAlias(),
         this.sprayViewAlias + "." + Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
     diseaseJoin.setColumnAlias(this.sprayViewAlias + "_" + Alias.DISEASE.getAlias());
+    
+    List<String> partitionBy = new LinkedList<String>();
+    for(String group : this.dategroups.values())
+    {
+      partitionBy.add(group);
+    }
+    partitionBy.add(seasonJoin.getColumnAlias());
+    partitionBy.add(seasonJoin.getColumnAlias());
+    
 
     if (this.needsAreaPlanned)
     {
@@ -1241,7 +1251,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Grab the id column of the smallest universal (used for aggreation later on). This is tricky,
       // so grab an existing known selectable that references the same ValueQuery and select from there.
       // Because the aggregation query is a clone of the original query we can use the same selectable/namespace
-      ValueQuery universalVQ = (ValueQuery) valueQuery.getSelectableRef(this.smallestUniversalSelectable).getRootQuery();
+      Selectable smallestUniversal = valueQuery.getSelectableRef(this.smallestUniversalSelectable);
+      ValueQuery universalVQ = (ValueQuery) smallestUniversal.getRootQuery();
       String parentUniversalId = universalVQ.getSelectableRef(PARENT_UNIVERSAL_ID).getDbQualifiedName();
 
       // create a new IRS Query that aggregates the area targets for the
@@ -1265,6 +1276,8 @@ public class IRSQB extends AbstractQB implements Reloadable
            Alias.AREA_PLANNED_TARGET.getAlias());
       Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
           + "." + Alias.SPRAY_SEASON.getAlias());
+//      Selectable week = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.TARGET_WEEK.getAlias(), aggAlias
+//          + "." + Alias.TARGET_WEEK.getAlias());
       Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
           + Alias.DISEASE.getAlias());
 
@@ -1275,6 +1288,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       toAdd.add(smallestUni);
       toAdd.add(apt);
+//      toAdd.add(week);
       toAdd.add(season);
       toAdd.add(disease);
 
@@ -1333,7 +1347,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       valueQuery.SELECT(parentGeo);
 
-      FROM += " FULL OUTER JOIN " + areaAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
+      boolean hasAPC = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
+      boolean hasAPT = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+      
+      // Coverage requires activity and APT, meaning unless the user also selects
+      // APT there will be empty rows for every APT result for which there's no activity.
+      String join = hasAPC && !hasAPT ? "LEFT JOIN" : "FULL OUTER JOIN";
+      
+      FROM += " "+join+" " + areaAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
           + " = " + areaAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalVQ
           + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "."
           + disease._getAttributeName() + " \n" + "AND " + originalVQ + "." + Alias.PARENT_GEO_ENTITY
@@ -1350,9 +1371,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId
           + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "."
           + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
-      String sum = sumColumnForId(null, Alias.TARGET_WEEK.getAlias(), null, "(" + func + ")");
-      aptSel.setSQL(sum);
-
+      aptSel.setSQL(func);
+      
+      String targetGroupName = "grouping_"+Alias.TARGET_WEEK;
+      SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, aggAlias+"."+Alias.TARGET_WEEK,
+          targetGroupName);
+      targetGroup.setColumnAlias(targetGroup.getSQL());
+      aggVQ.GROUP_BY(targetGroup);
+      
       // Now that everything is joined, grab the area planned target value from
       // the aggregation query
       if (toReturn.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias()))
@@ -1369,14 +1395,10 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String uniqueSprayId = this.getUniqueSprayDetailsId();
-
-          SelectableSQL sprayedUnits = valueQuery.aSQLInteger(Alias.SPRAYED_UNITS.getAlias(),
-              this.sprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sum = "SUM("+this.sprayedUnits+")";
+          SelectableSQL sprayedUnits = valueQuery.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
+              sum, Alias.SPRAYED_UNITS.getAlias());
           valueQuery.SELECT(sprayedUnits);
-
-          setAttributesAsAggregated(new String[] { Alias.SPRAYED_UNITS.getAlias() }, uniqueSprayId,
-              valueQuery, this.sprayViewAlias, true, true);
         }
 
         SelectableSQL aptReplace = (SelectableSQL) toReturn.getSelectableRef(Alias.AREA_PLANNED_COVERAGE
@@ -1386,7 +1408,29 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
       
       // Set the aggregation as a subquery in the WITH clause
-      entries.add(new WITHEntry(areaAggregation, aggVQ.getSQL()));
+      
+      ValueQuery uniqueSum = queryFactory.valueQuery();
+      
+      Selectable[] originals = this.copyAll(aggVQ, aggVQ.getSelectableRefs(), null, false, null);
+      List<SelectablePrimitive> distincts = new LinkedList<SelectablePrimitive>();
+      for(Selectable original : originals)
+      {
+        // Target week is required for the APT calculation but unless it's also
+        // selected as a field don't include it to avoid splitting the rows.
+        distincts.add((SelectablePrimitive) original);
+      }
+      uniqueSum.SELECT_DISTINCT(distincts.toArray(new SelectablePrimitive[distincts.size()]));
+      
+      partitionBy.add(smallestUniversal.getColumnAlias());
+      String overWindow = StringUtils.join(partitionBy, ",");
+      
+      SelectableSQL aptOver = (SelectableSQL) uniqueSum.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+      String over = "SUM("+Alias.AREA_PLANNED_TARGET+") OVER(PARTITION BY "+overWindow+")";
+      aptOver.setSQL(over);
+      
+      uniqueSum.FROM("("+aggVQ.getSQL()+")", "uniqueSum");
+      
+      entries.add(new WITHEntry(areaAggregation, uniqueSum.getSQL()));
       this.setWITHClause(entries, false, toReturn);
     }
 
@@ -1489,7 +1533,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // The aggregation query needs to sum the operator planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET
           .getAlias());
-      String sum = sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias,
+      String sum = sumDistinctColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias,
           Alias.OPERATOR_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
@@ -1656,7 +1700,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // The aggregation query needs to sum the team planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ
           .getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
-      String sum = this.sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(),
+      String sum = this.sumDistinctColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(),
           sprayViewAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
@@ -1850,6 +1894,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     return replacements;
   }
 
+  protected String sumDistinctColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    String col = ( table != null ? table + "." : "" ) + column;
+    return "SUM(DISTINCT " + col + ")";
+  }
+  
   protected String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
@@ -2237,7 +2287,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         insecticideVQ.AND(insecticideVQ.aSQLCharacter("i_vq",
             insecticideQuery.getTableAlias() + "." + idCol).EQ(
             insecticideVQ.aSQLCharacter("i_view", insecticideView + "." + idCol)));
-
+        
         String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
         str.append(" " + joinType + " (" + insecticideVQ.getSQL() + ") "
             + insecticideQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.BRAND + " = "
