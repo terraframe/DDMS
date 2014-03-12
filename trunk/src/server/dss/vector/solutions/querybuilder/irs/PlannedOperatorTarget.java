@@ -34,7 +34,7 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
     this.irsQB.addRequiredView(View.RESOURCE_TARGET_VIEW);
     
     // Target week is required for all planned + activity joins
-    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.SPRAY_OPERATOR_DEFAULT_LOCALE, Alias.DISEASE};
+    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.SPRAY_SEASON, Alias.SPRAY_OPERATOR_DEFAULT_LOCALE, Alias.DISEASE};
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
     this.irsQB.addRequiredAlias(View.PLANNED_OPERATOR, joinAliases);
     
