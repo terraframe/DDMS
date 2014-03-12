@@ -1395,9 +1395,9 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String sum = "SUM("+this.sprayedUnits+")";
+          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
           SelectableSQL sprayedUnits = valueQuery.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
-              sum, Alias.SPRAYED_UNITS.getAlias());
+              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           valueQuery.SELECT(sprayedUnits);
         }
 
@@ -1533,7 +1533,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // The aggregation query needs to sum the operator planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET
           .getAlias());
-      String sum = sumDistinctColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias,
+      String sum = sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias,
           Alias.OPERATOR_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
@@ -1553,14 +1553,10 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String uniqueSprayId = this.getUniqueSprayDetailsId();
-
-          SelectableSQL sprayedUnits = valueQuery.aSQLInteger(Alias.SPRAYED_UNITS.getAlias(),
-              this.sprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
+          SelectableSQL sprayedUnits = valueQuery.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
+              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           valueQuery.SELECT(sprayedUnits);
-
-          setAttributesAsAggregated(new String[] { Alias.SPRAYED_UNITS.getAlias() }, uniqueSprayId,
-              valueQuery, this.sprayViewAlias, true, true);
         }
 
         SelectableSQL aptReplace = (SelectableSQL) toReturn
@@ -1700,7 +1696,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // The aggregation query needs to sum the team planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ
           .getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
-      String sum = this.sumDistinctColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(),
+      String sum = this.sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(),
           sprayViewAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
@@ -1720,14 +1716,10 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!valueQuery.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String uniqueSprayId = this.getUniqueSprayDetailsId();
-
-          SelectableSQL sprayedUnits = valueQuery.aSQLInteger(Alias.SPRAYED_UNITS.getAlias(),
-              this.sprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
+          SelectableSQL sprayedUnits = valueQuery.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
+              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           valueQuery.SELECT(sprayedUnits);
-
-          this.setAttributesAsAggregated(new String[] { Alias.SPRAYED_UNITS.getAlias() }, uniqueSprayId,
-              valueQuery, this.sprayViewAlias, true, true);
         }
 
         SelectableSQL aptReplace = (SelectableSQL) toReturn.getSelectableRef(Alias.TEAM_PLANNED_COVERAGE
