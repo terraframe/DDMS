@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 588689919)
+@com.runwaysdk.business.ClassSignature(hash = 652481364)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class ZoneSprayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 588689919;
 
   public ZoneSprayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,6 +40,96 @@ private static final long serialVersionUID = 588689919;
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.BEDNETS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.CATTLESHEDSSPRAYED, alias, displayLabel);
 
   }
  
@@ -153,6 +242,24 @@ private static final long serialVersionUID = 588689919;
 
   }
  
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.NOZZLESUSED, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getOther()
   {
     return getOther(null);
@@ -222,6 +329,24 @@ private static final long serialVersionUID = 588689919;
   public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.PUMPSUSED, alias, displayLabel);
 
   }
  
@@ -546,6 +671,114 @@ private static final long serialVersionUID = 588689919;
   public com.runwaysdk.query.SelectableInteger getTeamUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TEAMUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDAS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASLOCKED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASOTHER, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASREFUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.VERANDASSPRAYED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.WRONGSURFACE, alias, displayLabel);
 
   }
  

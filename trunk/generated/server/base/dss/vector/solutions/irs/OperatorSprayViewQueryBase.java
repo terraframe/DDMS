@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1849498304)
+@com.runwaysdk.business.ClassSignature(hash = 1312402758)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -132,6 +132,42 @@ public  abstract  class OperatorSprayViewQueryBase extends com.runwaysdk.query.G
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.NOZZLESUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.PUMPSUSED, alias, displayLabel);
 
   }
  

@@ -3,10 +3,8 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +18,6 @@ import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class OperatorSprayController extends OperatorSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -119,35 +115,11 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     this.setupReferences(dto);
 
-    req.setAttribute("grid", this.getGrid(dto, request));
+    req.setAttribute("grid", new OperatorSprayGridBuilder(request, dto).build());
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
-  }
-
-  private ViewDataGrid getGrid(OperatorSprayViewDTO dto, ClientRequestIF request)
-  {
-    HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(request);
-    view.setValue(HouseholdSprayStatusViewDTO.SPRAY, dto.getConcreteId());
-
-    HouseholdSprayStatusViewDTO[] data = dto.getStatus();
-
-    // If the order of these attributes are changed, you need to change the
-    // javascript indexes at the bottom!
-    String[] keys = { "ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures", "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures", "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other", "WrongSurface" };
-
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    map.put("ConcreteId", new ColumnSetup(true, false));
-    map.put("Spray", new ColumnSetup(true, false));
-    map.put("Households", new ColumnSetup(true, false));
-    map.put("Structures", new ColumnSetup(true, false));
-    map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));
-    map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
-    map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));
-    map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
-
-    return new ViewDataGrid(view, map, keys, data);
   }
 
   private void setupReferences(OperatorSprayViewDTO dto)

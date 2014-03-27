@@ -81,6 +81,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setReceived(this.getReceived());
     osv.setRefills(this.getRefills());
     osv.setReturned(this.getReturned());
+    osv.setNozzlesUsed(this.getNozzlesUsed());
+    osv.setPumpsUsed(this.getPumpsUsed());
     osv.setUsed(this.getUsed());
     osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
     osv.setSprayOperator(operator);
@@ -111,13 +113,23 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setPrevSprayedHouseholds(this.getPrevSprayedHouseholds());
       view.setPrevSprayedStructures(this.getPrevSprayedStructures());
       view.setRooms(this.getRooms());
+      view.setVerandas(this.getVerandas());
+      view.setCattleSheds(this.getCattleSheds());
       view.setSprayedRooms(this.getSprayedRooms());
+      view.setVerandasSprayed(this.getVerandasSprayed());
+      view.setCattleShedsSprayed(this.getCattleShedsSprayed());
       view.setPeople(this.getPeople());
       view.setBedNets(this.getBedNets());
       view.setRoomsWithBedNets(this.getRoomsWithBedNets());
       view.setLocked(this.getLocked());
+      view.setVerandasLocked(this.getVerandasLocked());
+      view.setCattleShedsLocked(this.getCattleShedsLocked());
       view.setOther(this.getOther());
+      view.setVerandasOther(this.getVerandasOther());
+      view.setCattleShedsOther(this.getCattleShedsOther());    
       view.setRefused(this.getRefused());
+      view.setVerandasRefused(this.getVerandasRefused());
+      view.setCattleShedsRefused(this.getCattleShedsRefused());
       view.setWrongSurface(this.getWrongSurface());
       view.apply();
     }
@@ -125,7 +137,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
 
   private boolean hasHouseholdSprayValues()
   {
-    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, SPRAYEDROOMS, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, OTHER, REFUSED, WRONGSURFACE };
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE };
 
     for (String attributeName : attributeNames)
     {
@@ -188,6 +200,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(REFILLS);
     list.add(RETURNED);
     list.add(USED);
+    list.add(NOZZLESUSED);
+    list.add(PUMPSUSED);
     list.add(HOUSEHOLDID);
     list.add(STRUCTUREID);
     list.add(HOUSEHOLDS);
@@ -197,13 +211,23 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(PREVSPRAYEDHOUSEHOLDS);
     list.add(PREVSPRAYEDSTRUCTURES);
     list.add(ROOMS);
+    list.add(VERANDAS);
+    list.add(CATTLESHEDS);
     list.add(SPRAYEDROOMS);
+    list.add(VERANDASSPRAYED);
+    list.add(CATTLESHEDSSPRAYED);
     list.add(PEOPLE);
     list.add(BEDNETS);
     list.add(ROOMSWITHBEDNETS);
     list.add(LOCKED);
+    list.add(VERANDASLOCKED);
+    list.add(CATTLESHEDSLOCKED);
     list.add(REFUSED);
+    list.add(VERANDASREFUSED);
+    list.add(CATTLESHEDSREFUSED);
     list.add(OTHER);
+    list.add(VERANDASOTHER);
+    list.add(CATTLESHEDSOTHER);
     list.add(WRONGSURFACE);
     return list;
   }

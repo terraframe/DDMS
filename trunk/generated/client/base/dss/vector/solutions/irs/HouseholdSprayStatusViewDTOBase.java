@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1486367430)
+@com.runwaysdk.business.ClassSignature(hash = 1715890)
 public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatusView";
-  private static final long serialVersionUID = 1486367430;
+  private static final long serialVersionUID = 1715890;
   
   protected HouseholdSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,11 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   }
   
   public static java.lang.String BEDNETS = "bedNets";
+  public static java.lang.String CATTLESHEDS = "cattleSheds";
+  public static java.lang.String CATTLESHEDSLOCKED = "cattleShedsLocked";
+  public static java.lang.String CATTLESHEDSOTHER = "cattleShedsOther";
+  public static java.lang.String CATTLESHEDSREFUSED = "cattleShedsRefused";
+  public static java.lang.String CATTLESHEDSSPRAYED = "cattleShedsSprayed";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
@@ -35,6 +40,11 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTUREID = "structureId";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String VERANDAS = "verandas";
+  public static java.lang.String VERANDASLOCKED = "verandasLocked";
+  public static java.lang.String VERANDASOTHER = "verandasOther";
+  public static java.lang.String VERANDASREFUSED = "verandasRefused";
+  public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
   public Integer getBedNets()
   {
@@ -71,6 +81,191 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
+  }
+  
+  public Integer getCattleSheds()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDS));
+  }
+  
+  public void setCattleSheds(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDS, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isCattleShedsWritable()
+  {
+    return isWritable(CATTLESHEDS);
+  }
+  
+  public boolean isCattleShedsReadable()
+  {
+    return isReadable(CATTLESHEDS);
+  }
+  
+  public boolean isCattleShedsModified()
+  {
+    return isModified(CATTLESHEDS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCattleShedsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATTLESHEDS).getAttributeMdDTO();
+  }
+  
+  public Integer getCattleShedsLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSLOCKED));
+  }
+  
+  public void setCattleShedsLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSLOCKED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isCattleShedsLockedWritable()
+  {
+    return isWritable(CATTLESHEDSLOCKED);
+  }
+  
+  public boolean isCattleShedsLockedReadable()
+  {
+    return isReadable(CATTLESHEDSLOCKED);
+  }
+  
+  public boolean isCattleShedsLockedModified()
+  {
+    return isModified(CATTLESHEDSLOCKED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCattleShedsLockedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATTLESHEDSLOCKED).getAttributeMdDTO();
+  }
+  
+  public Integer getCattleShedsOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSOTHER));
+  }
+  
+  public void setCattleShedsOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSOTHER, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isCattleShedsOtherWritable()
+  {
+    return isWritable(CATTLESHEDSOTHER);
+  }
+  
+  public boolean isCattleShedsOtherReadable()
+  {
+    return isReadable(CATTLESHEDSOTHER);
+  }
+  
+  public boolean isCattleShedsOtherModified()
+  {
+    return isModified(CATTLESHEDSOTHER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCattleShedsOtherMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATTLESHEDSOTHER).getAttributeMdDTO();
+  }
+  
+  public Integer getCattleShedsRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSREFUSED));
+  }
+  
+  public void setCattleShedsRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSREFUSED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isCattleShedsRefusedWritable()
+  {
+    return isWritable(CATTLESHEDSREFUSED);
+  }
+  
+  public boolean isCattleShedsRefusedReadable()
+  {
+    return isReadable(CATTLESHEDSREFUSED);
+  }
+  
+  public boolean isCattleShedsRefusedModified()
+  {
+    return isModified(CATTLESHEDSREFUSED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCattleShedsRefusedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATTLESHEDSREFUSED).getAttributeMdDTO();
+  }
+  
+  public Integer getCattleShedsSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSSPRAYED));
+  }
+  
+  public void setCattleShedsSprayed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSSPRAYED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSSPRAYED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isCattleShedsSprayedWritable()
+  {
+    return isWritable(CATTLESHEDSSPRAYED);
+  }
+  
+  public boolean isCattleShedsSprayedReadable()
+  {
+    return isReadable(CATTLESHEDSSPRAYED);
+  }
+  
+  public boolean isCattleShedsSprayedModified()
+  {
+    return isModified(CATTLESHEDSSPRAYED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCattleShedsSprayedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATTLESHEDSSPRAYED).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -712,6 +907,191 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+  }
+  
+  public Integer getVerandas()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDAS));
+  }
+  
+  public void setVerandas(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDAS, "");
+    }
+    else
+    {
+      setValue(VERANDAS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isVerandasWritable()
+  {
+    return isWritable(VERANDAS);
+  }
+  
+  public boolean isVerandasReadable()
+  {
+    return isReadable(VERANDAS);
+  }
+  
+  public boolean isVerandasModified()
+  {
+    return isModified(VERANDAS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVerandasMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VERANDAS).getAttributeMdDTO();
+  }
+  
+  public Integer getVerandasLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASLOCKED));
+  }
+  
+  public void setVerandasLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASLOCKED, "");
+    }
+    else
+    {
+      setValue(VERANDASLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isVerandasLockedWritable()
+  {
+    return isWritable(VERANDASLOCKED);
+  }
+  
+  public boolean isVerandasLockedReadable()
+  {
+    return isReadable(VERANDASLOCKED);
+  }
+  
+  public boolean isVerandasLockedModified()
+  {
+    return isModified(VERANDASLOCKED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVerandasLockedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VERANDASLOCKED).getAttributeMdDTO();
+  }
+  
+  public Integer getVerandasOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASOTHER));
+  }
+  
+  public void setVerandasOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASOTHER, "");
+    }
+    else
+    {
+      setValue(VERANDASOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isVerandasOtherWritable()
+  {
+    return isWritable(VERANDASOTHER);
+  }
+  
+  public boolean isVerandasOtherReadable()
+  {
+    return isReadable(VERANDASOTHER);
+  }
+  
+  public boolean isVerandasOtherModified()
+  {
+    return isModified(VERANDASOTHER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVerandasOtherMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VERANDASOTHER).getAttributeMdDTO();
+  }
+  
+  public Integer getVerandasRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASREFUSED));
+  }
+  
+  public void setVerandasRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASREFUSED, "");
+    }
+    else
+    {
+      setValue(VERANDASREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isVerandasRefusedWritable()
+  {
+    return isWritable(VERANDASREFUSED);
+  }
+  
+  public boolean isVerandasRefusedReadable()
+  {
+    return isReadable(VERANDASREFUSED);
+  }
+  
+  public boolean isVerandasRefusedModified()
+  {
+    return isModified(VERANDASREFUSED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVerandasRefusedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VERANDASREFUSED).getAttributeMdDTO();
+  }
+  
+  public Integer getVerandasSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASSPRAYED));
+  }
+  
+  public void setVerandasSprayed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASSPRAYED, "");
+    }
+    else
+    {
+      setValue(VERANDASSPRAYED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isVerandasSprayedWritable()
+  {
+    return isWritable(VERANDASSPRAYED);
+  }
+  
+  public boolean isVerandasSprayedReadable()
+  {
+    return isReadable(VERANDASSPRAYED);
+  }
+  
+  public boolean isVerandasSprayedModified()
+  {
+    return isModified(VERANDASSPRAYED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVerandasSprayedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VERANDASSPRAYED).getAttributeMdDTO();
   }
   
   public Integer getWrongSurface()

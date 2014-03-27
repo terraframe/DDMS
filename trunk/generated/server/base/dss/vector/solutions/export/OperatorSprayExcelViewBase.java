@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1768439705)
+@com.runwaysdk.business.ClassSignature(hash = 2142029893)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,6 +12,11 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
 {
   public final static String CLASS = "dss.vector.solutions.export.OperatorSprayExcelView";
   public static java.lang.String BEDNETS = "bedNets";
+  public static java.lang.String CATTLESHEDS = "cattleSheds";
+  public static java.lang.String CATTLESHEDSLOCKED = "cattleShedsLocked";
+  public static java.lang.String CATTLESHEDSOTHER = "cattleShedsOther";
+  public static java.lang.String CATTLESHEDSREFUSED = "cattleShedsRefused";
+  public static java.lang.String CATTLESHEDSSPRAYED = "cattleShedsSprayed";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
@@ -19,11 +24,13 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String INSECTICIDETERM = "insecticideTerm";
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
+  public static java.lang.String NOZZLESUSED = "nozzlesUsed";
   public static java.lang.String OPERATORID = "operatorId";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
+  public static java.lang.String PUMPSUSED = "pumpsUsed";
   public static java.lang.String RECEIVED = "received";
   public static java.lang.String REFILLS = "refills";
   public static java.lang.String REFUSED = "refused";
@@ -43,8 +50,13 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String USED = "used";
+  public static java.lang.String VERANDAS = "verandas";
+  public static java.lang.String VERANDASLOCKED = "verandasLocked";
+  public static java.lang.String VERANDASOTHER = "verandasOther";
+  public static java.lang.String VERANDASREFUSED = "verandasRefused";
+  public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -1768439705;
+  private static final long serialVersionUID = 2142029893;
   
   public OperatorSprayExcelViewBase()
   {
@@ -76,6 +88,146 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(BEDNETS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getCattleSheds()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDS));
+  }
+  
+  public void validateCattleSheds()
+  {
+    this.validateAttribute(CATTLESHEDS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CATTLESHEDS);
+  }
+  
+  public void setCattleSheds(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDS, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getCattleShedsLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSLOCKED));
+  }
+  
+  public void validateCattleShedsLocked()
+  {
+    this.validateAttribute(CATTLESHEDSLOCKED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsLockedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CATTLESHEDSLOCKED);
+  }
+  
+  public void setCattleShedsLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSLOCKED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getCattleShedsOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSOTHER));
+  }
+  
+  public void validateCattleShedsOther()
+  {
+    this.validateAttribute(CATTLESHEDSOTHER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsOtherMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CATTLESHEDSOTHER);
+  }
+  
+  public void setCattleShedsOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSOTHER, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getCattleShedsRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSREFUSED));
+  }
+  
+  public void validateCattleShedsRefused()
+  {
+    this.validateAttribute(CATTLESHEDSREFUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsRefusedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CATTLESHEDSREFUSED);
+  }
+  
+  public void setCattleShedsRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSREFUSED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getCattleShedsSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATTLESHEDSSPRAYED));
+  }
+  
+  public void validateCattleShedsSprayed()
+  {
+    this.validateAttribute(CATTLESHEDSSPRAYED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsSprayedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CATTLESHEDSSPRAYED);
+  }
+  
+  public void setCattleShedsSprayed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CATTLESHEDSSPRAYED, "");
+    }
+    else
+    {
+      setValue(CATTLESHEDSSPRAYED, java.lang.Integer.toString(value));
     }
   }
   
@@ -275,6 +427,34 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public Integer getNozzlesUsed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NOZZLESUSED));
+  }
+  
+  public void validateNozzlesUsed()
+  {
+    this.validateAttribute(NOZZLESUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzlesUsedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(NOZZLESUSED);
+  }
+  
+  public void setNozzlesUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NOZZLESUSED, "");
+    }
+    else
+    {
+      setValue(NOZZLESUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
   public String getOperatorId()
   {
     return getValue(OPERATORID);
@@ -412,6 +592,34 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(PREVSPRAYEDSTRUCTURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPumpsUsed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUMPSUSED));
+  }
+  
+  public void validatePumpsUsed()
+  {
+    this.validateAttribute(PUMPSUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPumpsUsedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(PUMPSUSED);
+  }
+  
+  public void setPumpsUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PUMPSUSED, "");
+    }
+    else
+    {
+      setValue(PUMPSUSED, java.lang.Integer.toString(value));
     }
   }
   
@@ -944,6 +1152,146 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(USED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getVerandas()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDAS));
+  }
+  
+  public void validateVerandas()
+  {
+    this.validateAttribute(VERANDAS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(VERANDAS);
+  }
+  
+  public void setVerandas(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDAS, "");
+    }
+    else
+    {
+      setValue(VERANDAS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getVerandasLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASLOCKED));
+  }
+  
+  public void validateVerandasLocked()
+  {
+    this.validateAttribute(VERANDASLOCKED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasLockedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(VERANDASLOCKED);
+  }
+  
+  public void setVerandasLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASLOCKED, "");
+    }
+    else
+    {
+      setValue(VERANDASLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getVerandasOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASOTHER));
+  }
+  
+  public void validateVerandasOther()
+  {
+    this.validateAttribute(VERANDASOTHER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasOtherMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(VERANDASOTHER);
+  }
+  
+  public void setVerandasOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASOTHER, "");
+    }
+    else
+    {
+      setValue(VERANDASOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getVerandasRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASREFUSED));
+  }
+  
+  public void validateVerandasRefused()
+  {
+    this.validateAttribute(VERANDASREFUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasRefusedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(VERANDASREFUSED);
+  }
+  
+  public void setVerandasRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASREFUSED, "");
+    }
+    else
+    {
+      setValue(VERANDASREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getVerandasSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VERANDASSPRAYED));
+  }
+  
+  public void validateVerandasSprayed()
+  {
+    this.validateAttribute(VERANDASSPRAYED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasSprayedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(VERANDASSPRAYED);
+  }
+  
+  public void setVerandasSprayed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(VERANDASSPRAYED, "");
+    }
+    else
+    {
+      setValue(VERANDASSPRAYED, java.lang.Integer.toString(value));
     }
   }
   

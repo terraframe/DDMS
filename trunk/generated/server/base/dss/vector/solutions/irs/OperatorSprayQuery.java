@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 462541932)
+@com.runwaysdk.business.ClassSignature(hash = -1805844624)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -105,6 +105,40 @@ public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQ
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX);
 
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -397,6 +431,12 @@ public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQ
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed();
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReceived();
     public com.runwaysdk.query.SelectableInteger getReceived(String alias);
     public com.runwaysdk.query.SelectableInteger getReceived(String alias, String displayLabel);
@@ -514,6 +554,40 @@ public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQ
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel)
   {
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -759,6 +833,12 @@ public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQ
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed();
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReceived();
     public com.runwaysdk.query.SelectableInteger getReceived(String alias);
     public com.runwaysdk.query.SelectableInteger getReceived(String alias, String displayLabel);
@@ -925,6 +1005,40 @@ public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQ
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel)
   {
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()

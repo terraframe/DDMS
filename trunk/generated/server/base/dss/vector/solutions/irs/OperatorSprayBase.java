@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -600637501)
+@com.runwaysdk.business.ClassSignature(hash = 1308321159)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,8 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String BRANDFORINDEX = "brandForIndex";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
+  public static java.lang.String NOZZLESUSED = "nozzlesUsed";
+  public static java.lang.String PUMPSUSED = "pumpsUsed";
   public static java.lang.String RECEIVED = "received";
   public static java.lang.String REFILLS = "refills";
   public static java.lang.String RETURNED = "returned";
@@ -25,7 +27,7 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -600637501;
+  private static final long serialVersionUID = 1308321159;
   
   public OperatorSprayBase()
   {
@@ -149,6 +151,62 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     else
     {
       setValue(GEOENTITYFORINDEX, value.getId());
+    }
+  }
+  
+  public Integer getNozzlesUsed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NOZZLESUSED));
+  }
+  
+  public void validateNozzlesUsed()
+  {
+    this.validateAttribute(NOZZLESUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzlesUsedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
+    return mdClassIF.definesAttribute(NOZZLESUSED);
+  }
+  
+  public void setNozzlesUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NOZZLESUSED, "");
+    }
+    else
+    {
+      setValue(NOZZLESUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPumpsUsed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUMPSUSED));
+  }
+  
+  public void validatePumpsUsed()
+  {
+    this.validateAttribute(PUMPSUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPumpsUsedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
+    return mdClassIF.definesAttribute(PUMPSUSED);
+  }
+  
+  public void setPumpsUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PUMPSUSED, "");
+    }
+    else
+    {
+      setValue(PUMPSUSED, java.lang.Integer.toString(value));
     }
   }
   

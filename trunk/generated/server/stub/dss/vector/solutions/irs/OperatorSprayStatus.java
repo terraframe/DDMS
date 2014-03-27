@@ -127,40 +127,6 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
     }
   }
 
-  public void validateRooms(SprayMethod method)
-  {
-    if (this.getRooms() != null)
-    {
-      if (method.equals(SprayMethod.MOP_UP))
-      {
-        String msg = "Value is not applicable on a mop-up spray";
-        RoomValueNotApplicableProblem p = new RoomValueNotApplicableProblem(msg);
-        p.setNotification(this, ROOMS);
-        p.apply();
-        p.throwIt();
-      }
-    }
-  }
-
-  @Override
-  public void validateSprayedRooms()
-  {
-    if (this.getRooms() != null && this.getSprayedRooms() != null && this.getRooms() < this.getSprayedRooms())
-    {
-      String msg = "The number of sprayed rooms cannot be greater than the number of rooms";
-
-      SprayedSumProblem p = new SprayedSumProblem(msg);
-      p.setNotification(this, SPRAYEDROOMS);
-      p.setObjectLabel(this.getMdAttributeDAO(ROOMS).getDisplayLabel(Session.getCurrentLocale()));
-      p.setSprayedObjectLabel(this.getMdAttributeDAO(SPRAYEDROOMS).getDisplayLabel(Session.getCurrentLocale()));
-      p.setObjects(this.getRooms());
-      p.setSprayedObjects(this.getSprayedRooms());
-      p.apply();
-
-      p.throwIt();
-    }
-  }
-
   @Override
   public void validateSprayedHouseholds()
   {
@@ -198,34 +164,109 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
       p.throwIt();
     }
   }
-
-  @Override
-  @Transaction
-  public void apply()
+  
+  public void validateRooms(SprayMethod method)
   {
-    SprayMethod method = this.getSprayMethod();
-
-    // Validate MOP-UP
-    validateHouseholds(method);
-    validateStructures(method);
-    validatePrevSprayedHouseholds(method);
-    validatePrevSprayedStructures(method);
-    validateRooms(method);
-    validatePeople(method);
-    validateBedNets(method);
-    validateRoomsWithBedNets(method);
-    validateLocked(method);
-    validateRefused(method);
-    validateOther(method);
-
-    // Validate values
-    validateSprayedHouseholds();
-    validateSprayedStructures();
-    validateSprayedRooms();
-
-    super.apply();
+    if (this.getRooms() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Value is not applicable on a mop-up spray";
+        RoomValueNotApplicableProblem p = new RoomValueNotApplicableProblem(msg);
+        p.setNotification(this, ROOMS);
+        p.apply();
+        p.throwIt();
+      }
+    }
   }
+  
+  public void validateVerandas(SprayMethod method)
+  {
+    if (this.getVerandas() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Value is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, VERANDAS);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  public void validateCattleSheds(SprayMethod method)
+  {
+    if (this.getCattleSheds() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Value is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, CATTLESHEDS);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void validateSprayedRooms()
+  {
+    if (this.getRooms() != null && this.getSprayedRooms() != null && this.getRooms() < this.getSprayedRooms())
+    {
+      String msg = "The number of sprayed rooms cannot be greater than the number of rooms";
 
+      SprayedSumProblem p = new SprayedSumProblem(msg);
+      p.setNotification(this, SPRAYEDROOMS);
+      p.setObjectLabel(this.getMdAttributeDAO(ROOMS).getDisplayLabel(Session.getCurrentLocale()));
+      p.setSprayedObjectLabel(this.getMdAttributeDAO(SPRAYEDROOMS).getDisplayLabel(Session.getCurrentLocale()));
+      p.setObjects(this.getRooms());
+      p.setSprayedObjects(this.getSprayedRooms());
+      p.apply();
+
+      p.throwIt();
+    }
+  }
+  
+  @Override
+  public void validateVerandasSprayed()
+  {
+    if (this.getVerandas() != null && this.getVerandasSprayed() != null && this.getVerandas() < this.getVerandasSprayed())
+    {
+      String msg = "The number of verandas sprayed cannot be greater than the number of verandas";
+      
+      SprayedSumProblem p = new SprayedSumProblem(msg);
+      p.setNotification(this, VERANDASSPRAYED);
+      p.setObjectLabel(this.getMdAttributeDAO(VERANDAS).getDisplayLabel(Session.getCurrentLocale()));
+      p.setSprayedObjectLabel(this.getMdAttributeDAO(VERANDASSPRAYED).getDisplayLabel(Session.getCurrentLocale()));
+      p.setObjects(this.getVerandas());
+      p.setSprayedObjects(this.getVerandasSprayed());
+      p.apply();
+      
+      p.throwIt();
+    }
+  }
+  
+  @Override
+  public void validateCattleShedsSprayed()
+  {
+    if (this.getCattleSheds() != null && this.getCattleShedsSprayed() != null && this.getCattleSheds() < this.getCattleShedsSprayed())
+    {
+      String msg = "The number of cattle sheds sprayed cannot be greater than the number of cattle sheds";
+      
+      SprayedSumProblem p = new SprayedSumProblem(msg);
+      p.setNotification(this, CATTLESHEDSSPRAYED);
+      p.setObjectLabel(this.getMdAttributeDAO(CATTLESHEDS).getDisplayLabel(Session.getCurrentLocale()));
+      p.setSprayedObjectLabel(this.getMdAttributeDAO(CATTLESHEDSSPRAYED).getDisplayLabel(Session.getCurrentLocale()));
+      p.setObjects(this.getCattleSheds());
+      p.setSprayedObjects(this.getCattleShedsSprayed());
+      p.apply();
+      
+      p.throwIt();
+    }
+  }
+  
   private void validateOther(SprayMethod method)
   {
     if (this.getOther() != null)
@@ -235,6 +276,36 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
         String msg = "Other is not applicable on a mop-up spray";
         ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
         p.setNotification(this, OTHER);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  public void validateVerandasOther(SprayMethod method)
+  {
+    if (this.getVerandasOther() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Veranda others is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, VERANDASOTHER);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  public void validateCattleShedsOther(SprayMethod method)
+  {
+    if (this.getCattleShedsOther() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Cattle sheds other is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, CATTLESHEDSOTHER);
         p.apply();
         p.throwIt();
       }
@@ -252,7 +323,37 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
       p.throwIt();
     }
   }
-
+    
+  public void validateVerandasRefused(SprayMethod method)
+  {
+    if (this.getVerandasRefused() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Veranda refused is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, VERANDASREFUSED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  public void validateCattleShedsRefused(SprayMethod method)
+  {
+    if (this.getCattleShedsRefused() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Cattle sheds refused is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, CATTLESHEDSREFUSED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
   private void validateLocked(SprayMethod method)
   {
     if (this.getLocked() != null && method.equals(SprayMethod.MOP_UP))
@@ -263,6 +364,86 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
       p.apply();
       p.throwIt();
     }
+  }
+  
+  public void validateVerandasLocked(SprayMethod method)
+  {
+    if (this.getVerandasLocked() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Veranda locked is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, VERANDASLOCKED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }  
+  
+  public void validateCattleShedsLocked(SprayMethod method)
+  {
+    if (this.getCattleShedsLocked() != null)
+    {
+      if (method.equals(SprayMethod.MOP_UP))
+      {
+        String msg = "Cattle sheds locked is not applicable on a mop-up spray";
+        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+        p.setNotification(this, CATTLESHEDSLOCKED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }  
+  
+  private void validateWrongSurface(SprayMethod method)
+  {
+    if (this.getWrongSurface() != null && method.equals(SprayMethod.MOP_UP))
+    {
+      String msg = "Wrong surface is not applicable on a mop-up spray";
+      ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+      p.setNotification(this, WRONGSURFACE);
+      p.apply();
+      p.throwIt();
+    }
+  }
+
+  @Override
+  @Transaction
+  public void apply()
+  {
+    SprayMethod method = this.getSprayMethod();
+
+    // Validate MOP-UP
+    validateHouseholds(method);
+    validateStructures(method);
+    validatePrevSprayedHouseholds(method);
+    validatePrevSprayedStructures(method);
+    validateRooms(method);
+    validateVerandas(method);
+    validateCattleSheds(method);
+    validatePeople(method);
+    validateBedNets(method);
+    validateRoomsWithBedNets(method);
+    validateWrongSurface(method);
+    validateLocked(method);
+    validateVerandasLocked(method);
+    validateCattleShedsLocked(method);
+    validateRefused(method);
+    validateVerandasRefused(method);
+    validateCattleShedsRefused(method);
+    validateOther(method);
+    validateVerandasOther(method);
+    validateCattleShedsOther(method);
+
+    // Validate values
+    validateSprayedHouseholds();
+    validateSprayedStructures();
+    validateSprayedRooms();
+    validateVerandasSprayed();
+    validateCattleShedsSprayed();
+
+    super.apply();
   }
 
   private void validateRoomsWithBedNets(SprayMethod method)

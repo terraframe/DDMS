@@ -117,13 +117,26 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
       view.setPrevSprayedHouseholds(this.getPrevSprayedHouseholds());
       view.setPrevSprayedStructures(this.getPrevSprayedStructures());
       view.setRooms(this.getRooms());
+      view.setVerandas(this.getVerandas());
+      view.setCattleSheds(this.getCattleSheds());
       view.setSprayedRooms(this.getSprayedRooms());
+      view.setVerandasSprayed(this.getVerandasSprayed());
+      view.setCattleShedsSprayed(this.getCattleShedsSprayed());
       view.setPeople(this.getPeople());
       view.setBedNets(this.getBedNets());
       view.setRoomsWithBedNets(this.getRoomsWithBedNets());
       view.setLocked(this.getLocked());
+      view.setVerandasLocked(this.getVerandasLocked());
+      view.setCattleShedsLocked(this.getCattleShedsLocked());
       view.setOther(this.getOther());
+      view.setVerandasOther(this.getVerandasOther());
+      view.setCattleShedsOther(this.getCattleShedsOther());    
       view.setRefused(this.getRefused());
+      view.setVerandasRefused(this.getVerandasRefused());
+      view.setCattleShedsRefused(this.getCattleShedsRefused());
+      view.setWrongSurface(this.getWrongSurface());    
+      view.setNozzlesUsed(this.getNozzlesUsed());
+      view.setPumpsUsed(this.getPumpsUsed());
       view.apply();
     }
   }
@@ -153,13 +166,27 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
     list.add(PREVSPRAYEDHOUSEHOLDS);
     list.add(PREVSPRAYEDSTRUCTURES);
     list.add(ROOMS);
+    list.add(VERANDAS);
+    list.add(CATTLESHEDS);
     list.add(SPRAYEDROOMS);
+    list.add(VERANDASSPRAYED);
+    list.add(CATTLESHEDSSPRAYED);
     list.add(PEOPLE);
     list.add(BEDNETS);
     list.add(ROOMSWITHBEDNETS);
     list.add(LOCKED);
+    list.add(VERANDASLOCKED);
+    list.add(CATTLESHEDSLOCKED);
     list.add(REFUSED);
+    list.add(VERANDASREFUSED);
+    list.add(CATTLESHEDSREFUSED);
     list.add(OTHER);
+    list.add(VERANDASOTHER);
+    list.add(CATTLESHEDSOTHER);
+    list.add(WRONGSURFACE);
+    list.add(NOZZLESUSED);
+    list.add(PUMPSUSED);
+    
     return list;
   }
 

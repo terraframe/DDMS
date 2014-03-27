@@ -22,6 +22,8 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   public void populateView(HouseholdSprayStatus concrete)
   {
     this.setConcreteId(concrete.getId());
+    this.setHouseholdId(concrete.getHouseholdId());
+    this.setStructureId(concrete.getStructureId());    
     this.setSpray(concrete.getSpray());
     this.setHouseholds(concrete.getHouseholds());
     this.setStructures(concrete.getStructures());
@@ -30,20 +32,30 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     this.setPrevSprayedHouseholds(concrete.getPrevSprayedHouseholds());
     this.setPrevSprayedStructures(concrete.getPrevSprayedStructures());
     this.setRooms(concrete.getRooms());
+    this.setVerandas(concrete.getVerandas());
+    this.setCattleSheds(concrete.getCattleSheds());
     this.setSprayedRooms(concrete.getSprayedRooms());
+    this.setVerandasSprayed(concrete.getVerandasSprayed());
+    this.setCattleShedsSprayed(concrete.getCattleShedsSprayed());
     this.setPeople(concrete.getPeople());
     this.setBedNets(concrete.getBedNets());
     this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
     this.setLocked(concrete.getLocked());
-    this.setWrongSurface(concrete.getWrongSurface());
+    this.setVerandasLocked(concrete.getVerandasLocked());
+    this.setCattleShedsLocked(concrete.getCattleShedsLocked());
     this.setOther(concrete.getOther());
+    this.setVerandasOther(concrete.getVerandasOther());
+    this.setCattleShedsOther(concrete.getCattleShedsOther());    
     this.setRefused(concrete.getRefused());
-    this.setHouseholdId(concrete.getHouseholdId());
-    this.setStructureId(concrete.getStructureId());
+    this.setVerandasRefused(concrete.getVerandasRefused());
+    this.setCattleShedsRefused(concrete.getCattleShedsRefused());
+    this.setWrongSurface(concrete.getWrongSurface());
   }
 
   protected void populateConcrete(HouseholdSprayStatus concrete)
   {
+    concrete.setHouseholdId(this.getHouseholdId());
+    concrete.setStructureId(this.getStructureId());    
     concrete.setSpray(this.getSpray());
     concrete.setHouseholds(this.getHouseholds());
     concrete.setStructures(this.getStructures());
@@ -52,20 +64,30 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     concrete.setPrevSprayedHouseholds(this.getPrevSprayedHouseholds());
     concrete.setPrevSprayedStructures(this.getPrevSprayedStructures());
     concrete.setRooms(this.getRooms());
+    concrete.setVerandas(this.getVerandas());
+    concrete.setCattleSheds(this.getCattleSheds());
     concrete.setSprayedRooms(this.getSprayedRooms());
+    concrete.setVerandasSprayed(this.getVerandasSprayed());
+    concrete.setCattleShedsSprayed(this.getCattleShedsSprayed());
     concrete.setPeople(this.getPeople());
     concrete.setBedNets(this.getBedNets());
     concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
     concrete.setLocked(this.getLocked());
-    concrete.setWrongSurface(this.getWrongSurface());
+    concrete.setVerandasLocked(this.getVerandasLocked());
+    concrete.setCattleShedsLocked(this.getCattleShedsLocked());
     concrete.setOther(this.getOther());
+    concrete.setVerandasOther(this.getVerandasOther());
+    concrete.setCattleShedsOther(this.getCattleShedsOther());    
     concrete.setRefused(this.getRefused());
-    concrete.setHouseholdId(this.getHouseholdId());
-    concrete.setStructureId(this.getStructureId());
+    concrete.setVerandasRefused(this.getVerandasRefused());
+    concrete.setCattleShedsRefused(this.getCattleShedsRefused());
+    concrete.setWrongSurface(this.getWrongSurface());
   }
 
   private void populateMapping(HouseholdSprayStatus concrete)
   {
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.HOUSEHOLDID, this, HouseholdSprayStatusView.HOUSEHOLDID);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTUREID, this, HouseholdSprayStatusView.STRUCTUREID);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.SPRAY, this, HouseholdSprayStatusView.SPRAY);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.HOUSEHOLDS, this, HouseholdSprayStatusView.HOUSEHOLDS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURES, this, HouseholdSprayStatusView.STRUCTURES);
@@ -74,16 +96,24 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, this, HouseholdSprayStatusView.PREVSPRAYEDHOUSEHOLDS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, this, HouseholdSprayStatusView.PREVSPRAYEDSTRUCTURES);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.ROOMS, this, HouseholdSprayStatusView.ROOMS);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDAS, this, HouseholdSprayStatusView.VERANDAS);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDS, this, HouseholdSprayStatusView.CATTLESHEDS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.SPRAYEDROOMS, this, HouseholdSprayStatusView.SPRAYEDROOMS);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASSPRAYED, this, HouseholdSprayStatusView.VERANDASSPRAYED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSSPRAYED, this, HouseholdSprayStatusView.CATTLESHEDSSPRAYED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.PEOPLE, this, HouseholdSprayStatusView.PEOPLE);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.BEDNETS, this, HouseholdSprayStatusView.BEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.ROOMSWITHBEDNETS, this, HouseholdSprayStatusView.ROOMSWITHBEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.LOCKED, this, HouseholdSprayStatusView.LOCKED);
-    new AttributeNotificationMap(concrete, HouseholdSprayStatus.WRONGSURFACE, this, HouseholdSprayStatusView.WRONGSURFACE);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASLOCKED, this, HouseholdSprayStatusView.VERANDASLOCKED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSLOCKED, this, HouseholdSprayStatusView.CATTLESHEDSLOCKED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.OTHER, this, HouseholdSprayStatusView.OTHER);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASOTHER, this, HouseholdSprayStatusView.VERANDASOTHER);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSOTHER, this, HouseholdSprayStatusView.CATTLESHEDSOTHER);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.REFUSED, this, HouseholdSprayStatusView.REFUSED);
-    new AttributeNotificationMap(concrete, HouseholdSprayStatus.HOUSEHOLDID, this, HouseholdSprayStatusView.HOUSEHOLDID);
-    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTUREID, this, HouseholdSprayStatusView.STRUCTUREID);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASREFUSED, this, HouseholdSprayStatusView.VERANDASREFUSED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSREFUSED, this, HouseholdSprayStatusView.CATTLESHEDSREFUSED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.WRONGSURFACE, this, HouseholdSprayStatusView.WRONGSURFACE);
   }
 
   @Override

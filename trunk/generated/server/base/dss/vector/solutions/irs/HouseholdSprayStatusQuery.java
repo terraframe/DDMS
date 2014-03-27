@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1898311377)
+@com.runwaysdk.business.ClassSignature(hash = 1135551071)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -53,6 +53,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -567,6 +652,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getWrongSurface()
   {
     return getWrongSurface(null);
@@ -654,6 +824,21 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getBedNets();
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias);
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds();
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -738,6 +923,21 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandas();
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked();
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther();
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused();
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed();
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getWrongSurface();
     public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias);
     public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel);
@@ -791,6 +991,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -1269,6 +1554,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getWrongSurface()
   {
     return getWrongSurface(null);
@@ -1333,6 +1703,21 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getBedNets();
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias);
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds();
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -1417,6 +1802,21 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandas();
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked();
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther();
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused();
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed();
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getWrongSurface();
     public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias);
     public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel);
@@ -1521,6 +1921,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -1995,6 +2480,91 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.VERANDASSPRAYED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getWrongSurface()

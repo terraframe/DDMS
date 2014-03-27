@@ -34,18 +34,31 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     this.setSprayedStructures(concrete.getSprayedStructures());
     this.setPrevSprayedHouseholds(concrete.getPrevSprayedHouseholds());
     this.setPrevSprayedStructures(concrete.getPrevSprayedStructures());
+    this.setSprayTeam(concrete.getSprayTeam());
+    this.setTeamLeader(concrete.getTeamLeader());
+    this.setTarget(concrete.getTarget());
     this.setRooms(concrete.getRooms());
+    this.setVerandas(concrete.getVerandas());
+    this.setCattleSheds(concrete.getCattleSheds());
     this.setSprayedRooms(concrete.getSprayedRooms());
+    this.setVerandasSprayed(concrete.getVerandasSprayed());
+    this.setCattleShedsSprayed(concrete.getCattleShedsSprayed());
     this.setPeople(concrete.getPeople());
     this.setBedNets(concrete.getBedNets());
     this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
     this.setLocked(concrete.getLocked());
+    this.setVerandasLocked(concrete.getVerandasLocked());
+    this.setCattleShedsLocked(concrete.getCattleShedsLocked());
     this.setOther(concrete.getOther());
+    this.setVerandasOther(concrete.getVerandasOther());
+    this.setCattleShedsOther(concrete.getCattleShedsOther());    
     this.setRefused(concrete.getRefused());
-    this.setSprayTeam(concrete.getSprayTeam());
-    this.setTeamLeader(concrete.getTeamLeader());
-    this.setTarget(concrete.getTarget());
-    
+    this.setVerandasRefused(concrete.getVerandasRefused());
+    this.setCattleShedsRefused(concrete.getCattleShedsRefused());
+    this.setWrongSurface(concrete.getWrongSurface());
+    this.setNozzlesUsed(concrete.getNozzlesUsed());
+    this.setPumpsUsed(concrete.getPumpsUsed());
+        
     if (concrete.getSprayTeam() != null)
     {
       this.setTeamLabel(concrete.getSprayTeam().getTeamId());
@@ -73,14 +86,6 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     concrete.setSprayedStructures(this.getSprayedStructures());
     concrete.setPrevSprayedHouseholds(this.getPrevSprayedHouseholds());
     concrete.setPrevSprayedStructures(this.getPrevSprayedStructures());
-    concrete.setRooms(this.getRooms());
-    concrete.setSprayedRooms(this.getSprayedRooms());
-    concrete.setPeople(this.getPeople());
-    concrete.setBedNets(this.getBedNets());
-    concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
-    concrete.setLocked(this.getLocked());
-    concrete.setOther(this.getOther());
-    concrete.setRefused(this.getRefused());
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setTeamLeader(this.getTeamLeader());
     concrete.setTarget(this.getTarget());
@@ -88,6 +93,27 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
     concrete.setUsed(this.getUsed());
+    concrete.setRooms(this.getRooms());
+    concrete.setVerandas(this.getVerandas());
+    concrete.setCattleSheds(this.getCattleSheds());
+    concrete.setSprayedRooms(this.getSprayedRooms());
+    concrete.setVerandasSprayed(this.getVerandasSprayed());
+    concrete.setCattleShedsSprayed(this.getCattleShedsSprayed());
+    concrete.setPeople(this.getPeople());
+    concrete.setBedNets(this.getBedNets());
+    concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
+    concrete.setLocked(this.getLocked());
+    concrete.setVerandasLocked(this.getVerandasLocked());
+    concrete.setCattleShedsLocked(this.getCattleShedsLocked());
+    concrete.setOther(this.getOther());
+    concrete.setVerandasOther(this.getVerandasOther());
+    concrete.setCattleShedsOther(this.getCattleShedsOther());    
+    concrete.setRefused(this.getRefused());
+    concrete.setVerandasRefused(this.getVerandasRefused());
+    concrete.setCattleShedsRefused(this.getCattleShedsRefused());
+    concrete.setWrongSurface(this.getWrongSurface());    
+    concrete.setNozzlesUsed(this.getNozzlesUsed());
+    concrete.setPumpsUsed(this.getPumpsUsed());    
   }
 
   private void populateMapping(TeamSprayStatus concrete)
@@ -99,14 +125,6 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYEDSTRUCTURES, this, TeamSprayStatusView.SPRAYEDSTRUCTURES);
     new AttributeNotificationMap(concrete, TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, this, TeamSprayStatusView.PREVSPRAYEDHOUSEHOLDS);
     new AttributeNotificationMap(concrete, TeamSprayStatus.PREVSPRAYEDSTRUCTURES, this, TeamSprayStatusView.PREVSPRAYEDSTRUCTURES);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.ROOMS, this, TeamSprayStatusView.ROOMS);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYEDROOMS, this, TeamSprayStatusView.SPRAYEDROOMS);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.PEOPLE, this, TeamSprayStatusView.PEOPLE);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.BEDNETS, this, TeamSprayStatusView.BEDNETS);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.ROOMSWITHBEDNETS, this, TeamSprayStatusView.ROOMSWITHBEDNETS);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.LOCKED, this, TeamSprayStatusView.LOCKED);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.OTHER, this, TeamSprayStatusView.OTHER);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.REFUSED, this, TeamSprayStatusView.REFUSED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYTEAM, this, TeamSprayStatusView.SPRAYTEAM);
     new AttributeNotificationMap(concrete, TeamSprayStatus.TEAMLEADER, this, TeamSprayStatusView.TEAMLEADER);
     new AttributeNotificationMap(concrete, TeamSprayStatus.TARGET, this, TeamSprayStatusView.TARGET);
@@ -114,6 +132,27 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     new AttributeNotificationMap(concrete, TeamSprayStatus.REFILLS, this, TeamSprayStatusView.REFILLS);
     new AttributeNotificationMap(concrete, TeamSprayStatus.RETURNED, this, TeamSprayStatusView.RETURNED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.USED, this, TeamSprayStatusView.USED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.ROOMS, this, TeamSprayStatusView.ROOMS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDAS, this, TeamSprayStatusView.VERANDAS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDS, this, TeamSprayStatusView.CATTLESHEDS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYEDROOMS, this, TeamSprayStatusView.SPRAYEDROOMS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDASSPRAYED, this, TeamSprayStatusView.VERANDASSPRAYED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSSPRAYED, this, TeamSprayStatusView.CATTLESHEDSSPRAYED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.PEOPLE, this, TeamSprayStatusView.PEOPLE);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.BEDNETS, this, TeamSprayStatusView.BEDNETS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.ROOMSWITHBEDNETS, this, TeamSprayStatusView.ROOMSWITHBEDNETS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.LOCKED, this, TeamSprayStatusView.LOCKED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDASLOCKED, this, TeamSprayStatusView.VERANDASLOCKED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSLOCKED, this, TeamSprayStatusView.CATTLESHEDSLOCKED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.OTHER, this, TeamSprayStatusView.OTHER);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDASOTHER, this, TeamSprayStatusView.VERANDASOTHER);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSOTHER, this, TeamSprayStatusView.CATTLESHEDSOTHER);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.REFUSED, this, TeamSprayStatusView.REFUSED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDASREFUSED, this, TeamSprayStatusView.VERANDASREFUSED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSREFUSED, this, TeamSprayStatusView.CATTLESHEDSREFUSED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.WRONGSURFACE, this, TeamSprayStatusView.WRONGSURFACE);    
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NOZZLESUSED, this, TeamSprayStatusView.NOZZLESUSED);    
+    new AttributeNotificationMap(concrete, TeamSprayStatus.PUMPSUSED, this, TeamSprayStatusView.PUMPSUSED);        
   }
 
   @Override

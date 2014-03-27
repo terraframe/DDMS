@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1465811939)
+@com.runwaysdk.business.ClassSignature(hash = -2062887804)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -53,6 +53,91 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -249,6 +334,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getOther()
   {
     return getOther(null);
@@ -338,6 +440,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -664,6 +783,108 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -742,6 +963,21 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getBedNets();
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias);
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds();
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -772,6 +1008,9 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -787,6 +1026,9 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures();
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed();
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReceived();
     public com.runwaysdk.query.SelectableInteger getReceived(String alias);
     public com.runwaysdk.query.SelectableInteger getReceived(String alias, String displayLabel);
@@ -841,6 +1083,24 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getUsed();
     public com.runwaysdk.query.SelectableInteger getUsed(String alias);
     public com.runwaysdk.query.SelectableInteger getUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandas();
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked();
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther();
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused();
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed();
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface();
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.TeamSprayStatus teamSprayStatus);
 
@@ -891,6 +1151,91 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -1063,6 +1408,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getOther()
   {
     return getOther(null);
@@ -1146,6 +1508,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -1454,6 +1833,108 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -1509,6 +1990,21 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getBedNets();
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias);
     public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds();
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed();
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -1539,6 +2035,9 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -1554,6 +2053,9 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures();
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed();
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias);
+    public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReceived();
     public com.runwaysdk.query.SelectableInteger getReceived(String alias);
     public com.runwaysdk.query.SelectableInteger getReceived(String alias, String displayLabel);
@@ -1608,6 +2110,24 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     public com.runwaysdk.query.SelectableInteger getUsed();
     public com.runwaysdk.query.SelectableInteger getUsed(String alias);
     public com.runwaysdk.query.SelectableInteger getUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandas();
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked();
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther();
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused();
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed();
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias);
+    public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface();
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel);
 
     public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.irs.TeamSprayStatus ... teamSprayStatus);
     public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.irs.TeamSprayStatus ... teamSprayStatus);
@@ -1709,6 +2229,91 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getCattleSheds()
+  {
+    return getCattleSheds(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleSheds(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked()
+  {
+    return getCattleShedsLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther()
+  {
+    return getCattleShedsOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused()
+  {
+    return getCattleShedsRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed()
+  {
+    return getCattleShedsSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCattleShedsSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.CATTLESHEDSSPRAYED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -1879,6 +2484,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed()
+  {
+    return getNozzlesUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getOther()
   {
     return getOther(null);
@@ -1962,6 +2584,23 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed()
+  {
+    return getPumpsUsed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPumpsUsed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PUMPSUSED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -2268,6 +2907,108 @@ public  class TeamSprayStatusQuery extends com.runwaysdk.query.GeneratedBusiness
   public com.runwaysdk.query.SelectableInteger getUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandas()
+  {
+    return getVerandas(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandas(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDAS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked()
+  {
+    return getVerandasLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasOther()
+  {
+    return getVerandasOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused()
+  {
+    return getVerandasRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed()
+  {
+    return getVerandasSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getVerandasSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.VERANDASSPRAYED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.WRONGSURFACE, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

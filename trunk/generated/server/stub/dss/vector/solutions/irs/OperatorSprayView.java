@@ -86,6 +86,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYOPERATOR, this, OperatorSprayView.SPRAYOPERATOR);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYTEAM, this, OperatorSprayView.SPRAYTEAM);
     new AttributeNotificationMap(spray, OperatorSpray.SUPERVISOR, this, OperatorSprayView.SUPERVISOR);
+    new AttributeNotificationMap(spray, OperatorSpray.NOZZLESUSED, this, OperatorSprayView.NOZZLESUSED);
+    new AttributeNotificationMap(spray, OperatorSpray.PUMPSUSED, this, OperatorSprayView.PUMPSUSED);
 
   }
 
@@ -104,6 +106,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     concrete.setTeamLeader(this.getTeamLeader());
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setSupervisor(this.getSupervisor());
+    concrete.setNozzlesUsed(this.getNozzlesUsed());
+    concrete.setPumpsUsed(this.getPumpsUsed());
     concrete.clearSprayMethod();
 
     for (SprayMethod method : this.getSprayMethod())
@@ -128,6 +132,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     this.setTeamLeader(concrete.getTeamLeader());
     this.setSprayTeam(concrete.getSprayTeam());
     this.setSupervisor(concrete.getSupervisor());
+    this.setNozzlesUsed(concrete.getNozzlesUsed());
+    this.setPumpsUsed(concrete.getPumpsUsed());
     this.clearSprayMethod();
 
     for (SprayMethod method : concrete.getSprayMethod())

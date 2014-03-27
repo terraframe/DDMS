@@ -1,0 +1,106 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.irs.TeamSprayStatus">
+        <create>
+          <attributes>
+            <integer name="verandas" label="# Verandas" rejectNegative="true" />
+            <integer name="cattleSheds" label="# cattle sheds" rejectNegative="true" />
+            <integer name="verandasSprayed" label="# Verandas sprayed" rejectNegative="true" />
+            <integer name="cattleShedsSprayed" label="# cattle sheds sprayed" rejectNegative="true" />
+            <integer name="verandasLocked" label="# Verandas not sprayed - locked" rejectNegative="true" />
+            <integer name="cattleShedsLocked" label="# cattle sheds not sprayed - locked" rejectNegative="true" />
+            <integer name="verandasRefused" label="# Verandas not sprayed - refused" rejectNegative="true" />
+            <integer name="cattleShedsRefused" label="# cattle sheds not sprayed - feused" rejectNegative="true" />
+            <integer name="verandasOther" label="# Verandas not sprayed - other" rejectNegative="true" />
+            <integer name="cattleShedsOther" label="# cattle sheds not sprayed" rejectNegative="true" />
+            <integer name="nozzlesUsed" label="# Nozzles used" rejectNegative="true" />
+            <integer name="pumpsUsed" label="# pumps used" rejectNegative="true" />            
+            <integer name="wrongSurface" label="Not sprayed (wrong surface) #" rejectNegative="true" />            
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.TeamSprayStatusView" label="Operator Spray Status">
+        <create>
+          <attributes>
+            <virtual name="verandas" concrete="verandas" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleSheds" concrete="cattleSheds" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasSprayed" concrete="verandasSprayed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsSprayed" concrete="cattleShedsSprayed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasLocked" concrete="verandasLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsLocked" concrete="cattleShedsLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasRefused" concrete="verandasRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsRefused" concrete="cattleShedsRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasOther" concrete="verandasOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsOther" concrete="cattleShedsOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="nozzlesUsed" concrete="nozzlesUsed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="pumpsUsed" concrete="pumpsUsed" type="dss.vector.solutions.irs.TeamSprayStatus" />            
+            <virtual name="wrongSurface" concrete="wrongSurface" type="dss.vector.solutions.irs.TeamSprayStatus" />            
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.ZoneSprayExcelView">
+        <create>
+          <attributes>
+            <virtual name="verandas" concrete="verandas" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleSheds" concrete="cattleSheds" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasSprayed" concrete="verandasSprayed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsSprayed" concrete="cattleShedsSprayed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasLocked" concrete="verandasLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsLocked" concrete="cattleShedsLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasRefused" concrete="verandasRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsRefused" concrete="cattleShedsRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="verandasOther" concrete="verandasOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual name="cattleShedsOther" concrete="cattleShedsOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="nozzlesUsed" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="pumpsUsed" type="dss.vector.solutions.irs.TeamSprayStatus" />                      
+            <virtual name="wrongSurface" concrete="wrongSurface" type="dss.vector.solutions.irs.TeamSprayStatus" />            
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.verandas" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.cattleSheds" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.verandasSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.cattleShedsSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.verandasLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.cattleShedsLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.verandasRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.cattleShedsRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.verandasOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.cattleShedsOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.nozzlesUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.pumpsUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.verandas" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.cattleSheds" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.verandasSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.cattleShedsSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.verandasLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.cattleShedsLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.verandasRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.cattleShedsRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.verandasOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.cattleShedsOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.nozzlesUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.pumpsUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.verandas" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.cattleSheds" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.verandasSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.cattleShedsSprayed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.verandasLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.cattleShedsLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.verandasRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.cattleShedsRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.verandasOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.cattleShedsOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.nozzlesUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.pumpsUsed" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

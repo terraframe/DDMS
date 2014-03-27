@@ -34,20 +34,33 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     this.setSprayedStructures(concrete.getSprayedStructures());
     this.setPrevSprayedHouseholds(concrete.getPrevSprayedHouseholds());
     this.setPrevSprayedStructures(concrete.getPrevSprayedStructures());
-    this.setRooms(concrete.getRooms());
-    this.setSprayedRooms(concrete.getSprayedRooms());
-    this.setPeople(concrete.getPeople());
-    this.setBedNets(concrete.getBedNets());
-    this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
-    this.setLocked(concrete.getLocked());
-    this.setOther(concrete.getOther());
-    this.setRefused(concrete.getRefused());
     this.setSprayOperator(concrete.getSprayOperator());
     this.setOperatorTarget(concrete.getOperatorTarget());    
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());
     this.setUsed(concrete.getUsed());
+    this.setRooms(concrete.getRooms());
+    this.setVerandas(concrete.getVerandas());
+    this.setCattleSheds(concrete.getCattleSheds());
+    this.setSprayedRooms(concrete.getSprayedRooms());
+    this.setVerandasSprayed(concrete.getVerandasSprayed());
+    this.setCattleShedsSprayed(concrete.getCattleShedsSprayed());
+    this.setPeople(concrete.getPeople());
+    this.setBedNets(concrete.getBedNets());
+    this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
+    this.setLocked(concrete.getLocked());
+    this.setVerandasLocked(concrete.getVerandasLocked());
+    this.setCattleShedsLocked(concrete.getCattleShedsLocked());
+    this.setOther(concrete.getOther());
+    this.setVerandasOther(concrete.getVerandasOther());
+    this.setCattleShedsOther(concrete.getCattleShedsOther());    
+    this.setRefused(concrete.getRefused());
+    this.setVerandasRefused(concrete.getVerandasRefused());
+    this.setCattleShedsRefused(concrete.getCattleShedsRefused());
+    this.setWrongSurface(concrete.getWrongSurface());
+    this.setNozzlesUsed(concrete.getNozzlesUsed());
+    this.setPumpsUsed(concrete.getPumpsUsed());
     
     if (concrete.getSprayOperator() != null)
     {
@@ -72,20 +85,33 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     concrete.setSprayedStructures(this.getSprayedStructures());
     concrete.setPrevSprayedHouseholds(this.getPrevSprayedHouseholds());
     concrete.setPrevSprayedStructures(this.getPrevSprayedStructures());
-    concrete.setRooms(this.getRooms());
-    concrete.setSprayedRooms(this.getSprayedRooms());
-    concrete.setPeople(this.getPeople());
-    concrete.setBedNets(this.getBedNets());
-    concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
-    concrete.setLocked(this.getLocked());
-    concrete.setOther(this.getOther());
-    concrete.setRefused(this.getRefused());
     concrete.setSprayOperator(this.getSprayOperator());
     concrete.setOperatorTarget(this.getOperatorTarget());
     concrete.setReceived(this.getReceived());
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
     concrete.setUsed(this.getUsed());
+    concrete.setRooms(this.getRooms());
+    concrete.setVerandas(this.getVerandas());
+    concrete.setCattleSheds(this.getCattleSheds());
+    concrete.setSprayedRooms(this.getSprayedRooms());
+    concrete.setVerandasSprayed(this.getVerandasSprayed());
+    concrete.setCattleShedsSprayed(this.getCattleShedsSprayed());
+    concrete.setPeople(this.getPeople());
+    concrete.setBedNets(this.getBedNets());
+    concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
+    concrete.setLocked(this.getLocked());
+    concrete.setVerandasLocked(this.getVerandasLocked());
+    concrete.setCattleShedsLocked(this.getCattleShedsLocked());
+    concrete.setOther(this.getOther());
+    concrete.setVerandasOther(this.getVerandasOther());
+    concrete.setCattleShedsOther(this.getCattleShedsOther());    
+    concrete.setRefused(this.getRefused());
+    concrete.setVerandasRefused(this.getVerandasRefused());
+    concrete.setCattleShedsRefused(this.getCattleShedsRefused());
+    concrete.setWrongSurface(this.getWrongSurface());    
+    concrete.setNozzlesUsed(this.getNozzlesUsed());
+    concrete.setPumpsUsed(this.getPumpsUsed());
   }
 
   private void populateMapping(OperatorSprayStatus concrete)
@@ -97,20 +123,36 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAYEDSTRUCTURES, this, OperatorSprayStatusView.SPRAYEDSTRUCTURES);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.PREVSPRAYEDHOUSEHOLDS, this, OperatorSprayStatusView.PREVSPRAYEDHOUSEHOLDS);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.PREVSPRAYEDSTRUCTURES, this, OperatorSprayStatusView.PREVSPRAYEDSTRUCTURES);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.ROOMS, this, OperatorSprayStatusView.ROOMS);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAYEDROOMS, this, OperatorSprayStatusView.SPRAYEDROOMS);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.PEOPLE, this, OperatorSprayStatusView.PEOPLE);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.BEDNETS, this, OperatorSprayStatusView.BEDNETS);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.ROOMSWITHBEDNETS, this, OperatorSprayStatusView.ROOMSWITHBEDNETS);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.LOCKED, this, OperatorSprayStatusView.LOCKED);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.OTHER, this, OperatorSprayStatusView.OTHER);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.REFUSED, this, OperatorSprayStatusView.REFUSED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.OPERATORTARGET, this, OperatorSprayStatusView.OPERATORTARGET);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAYOPERATOR, this, OperatorSprayStatusView.SPRAYOPERATOR);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.RECEIVED, this, OperatorSprayStatusView.RECEIVED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.REFILLS, this, OperatorSprayStatusView.REFILLS);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.RETURNED, this, OperatorSprayStatusView.RETURNED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.USED, this, OperatorSprayStatusView.USED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.ROOMS, this, OperatorSprayStatusView.ROOMS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.VERANDAS, this, OperatorSprayStatusView.VERANDAS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.CATTLESHEDS, this, OperatorSprayStatusView.CATTLESHEDS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAYEDROOMS, this, OperatorSprayStatusView.SPRAYEDROOMS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.VERANDASSPRAYED, this, OperatorSprayStatusView.VERANDASSPRAYED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.CATTLESHEDSSPRAYED, this, OperatorSprayStatusView.CATTLESHEDSSPRAYED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.PEOPLE, this, OperatorSprayStatusView.PEOPLE);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.BEDNETS, this, OperatorSprayStatusView.BEDNETS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.ROOMSWITHBEDNETS, this, OperatorSprayStatusView.ROOMSWITHBEDNETS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.LOCKED, this, OperatorSprayStatusView.LOCKED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.VERANDASLOCKED, this, OperatorSprayStatusView.VERANDASLOCKED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.CATTLESHEDSLOCKED, this, OperatorSprayStatusView.CATTLESHEDSLOCKED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.OTHER, this, OperatorSprayStatusView.OTHER);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.VERANDASOTHER, this, OperatorSprayStatusView.VERANDASOTHER);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.CATTLESHEDSOTHER, this, OperatorSprayStatusView.CATTLESHEDSOTHER);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.REFUSED, this, OperatorSprayStatusView.REFUSED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.VERANDASREFUSED, this, OperatorSprayStatusView.VERANDASREFUSED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.CATTLESHEDSREFUSED, this, OperatorSprayStatusView.CATTLESHEDSREFUSED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.WRONGSURFACE, this, OperatorSprayStatusView.WRONGSURFACE);    
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NOZZLESUSED, this, OperatorSprayStatusView.NOZZLESUSED);    
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.PUMPSUSED, this, OperatorSprayStatusView.PUMPSUSED);    
   }
 
   @Override
