@@ -69,6 +69,9 @@
         <td>
           <mjl:dt attribute="refills"> ${item.refills} </mjl:dt>
         </td>
+        <td>
+          <mjl:dt attribute="nozzlesUsed"> ${item.nozzlesUsed} </mjl:dt>
+        </td>
       </tr>
       <tr>
         <td>
@@ -82,6 +85,9 @@
         <td>
           <mjl:dt attribute="returned"> ${item.returned} </mjl:dt>
         </td>
+        <td>
+          <mjl:dt attribute="pumpsUsed"> ${item.pumpsUsed} </mjl:dt>
+        </td>        
       </tr>
       <tr>
         <td>
@@ -212,22 +218,7 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
          addRows = false;         
       }        
     }
-    
-    var indexHouseholds = 4;
-    var indexStructures = 5;
-    var indexSprayedHouseholds = 6;
-    var indexSprayedStructures = 7;
-    var indexPrevSprayedHouseholds = 8;
-    var indexPrevSprayedStructures = 9;
-    var indexRooms = 10;
-    var indexPeople = 12;
-    var indexBedNets = 13;
-    var indexRoomsWithBedNets = 14;
-    var indexLocked = 15;
-    var indexRefused = 16;
-    var indexOther = 17;
-    var indexWrongSurface = 18;
-  
+      
     var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
   
     data = {
@@ -240,21 +231,6 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
       excelButtons:false,
       addButton:false
     };
-
-    if (!isMainSpray) {
-      delete data.columnDefs[indexHouseholds].editor;
-      delete data.columnDefs[indexStructures].editor;
-      delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-      delete data.columnDefs[indexPrevSprayedStructures].editor;
-      delete data.columnDefs[indexRooms].editor;
-      delete data.columnDefs[indexPeople].editor;
-      delete data.columnDefs[indexBedNets].editor;
-      delete data.columnDefs[indexRoomsWithBedNets].editor;
-      delete data.columnDefs[indexLocked].editor;
-      delete data.columnDefs[indexRefused].editor;
-      delete data.columnDefs[indexOther].editor;
-      delete data.columnDefs[indexWrongSurface].editor;
-    }    
 
     var grid = MojoGrid.createDataTable(data);
     grid.addListener(dataListener);

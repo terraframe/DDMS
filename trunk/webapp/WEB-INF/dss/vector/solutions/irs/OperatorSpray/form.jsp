@@ -70,6 +70,8 @@
       <mjl:dt attribute="refills" type="text"/>
       <mjl:dt attribute="returned" type="text"/>
       <mjl:dt attribute="used" type="text"/>
+      <mjl:dt attribute="nozzlesUsed" type="text"/>
+      <mjl:dt attribute="pumpsUsed" type="text"/>
     </mjl:component>
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS, TeamMemberDTO.CLASS, TeamMemberViewDTO.CLASS}))%>
