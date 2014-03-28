@@ -75,7 +75,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
       
       // A counter used by refreshColumnsWhenIdle() to know when
-      // the QB is ready to display all the columns after loading 
+      // the QB is ready to display all the columns after loading
       // a saved query.
       this._refreshIdleCounter = 0;
       
@@ -143,8 +143,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
-     * Returns the MDSS.QueryBrowser instance based on the AbstractAttribute or key parameters.
-     * Null is returned if no match is found.
+     * Returns the MDSS.QueryBrowser instance based on the AbstractAttribute or
+     * key parameters. Null is returned if no match is found.
      */
     getBrowser : function(attribute)
     {
@@ -152,9 +152,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
-     * Clears all selected Terms on the ontology browser for the given attribute.
-     * This is useful to remove criteria when a selectable for a Term attribute
-     * has been removed from the query.
+     * Clears all selected Terms on the ontology browser for the given
+     * attribute. This is useful to remove criteria when a selectable for a Term
+     * attribute has been removed from the query.
      */
     clearBrowserTerms : function(attribute)
     {
@@ -166,8 +166,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
-     * Maps a QueryBrowser object to a specific
-     * attribute element (typically an LI).
+     * Maps a QueryBrowser object to a specific attribute element (typically an
+     * LI).
      */
     _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute)
     {
@@ -217,7 +217,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     _dateGroupHandler : function(e,group)
     {
       var check = e.target;
-      //var group = check.value;
+      // var group = check.value;
       if(check.checked)
       {
         var attribute = new MDSS.QueryXML.Sqlcharacter('', group , group.toLowerCase(),MDSS.QueryXML.DateGroupOpts[group]);
@@ -312,10 +312,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       form.action = action;
   
-      xmlInput.textContent = xml; // use textContent to avoid unescaping XML escape characters
+      xmlInput.textContent = xml; // use textContent to avoid unescaping XML
+                                    // escape characters
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
-//      queryTypeInput.value = this._getReportQueryType();
+// queryTypeInput.value = this._getReportQueryType();
       form.submit();
     },
   
@@ -378,12 +379,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
              {
                displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getPositiveDisplayLabel();
              }
-             else if(value === false) // must be boolean false to avoid matching against an empty string
+             else if(value === false) // must be boolean false to avoid
+                                        // matching against an empty string
              {
                displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getNegativeDisplayLabel();
              }
   
-             // make sure a meaningful label was given (otherwise, the default true/false/"" will be used)
+             // make sure a meaningful label was given (otherwise, the
+                // default true/false/"" will be used)
              if(Mojo.Util.isString(displayValue) && displayValue !== '')
              {
                value = displayValue;
@@ -420,15 +423,16 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Called after the QueryPanel has performed all of its rendering operations.
+     * Called after the QueryPanel has performed all of its rendering
+     * operations.
      */
     postRender : function()
     {
       YAHOO.util.Event.on(MDSS.QueryBase.TARGET, 'click', this._displaySearch, null, this);
     
       /*
-       * Attach the date range handlers
-       */
+         * Attach the date range handlers
+         */
       if(this._queryPanel.getRenderDateRange())
       {
         var options = this._queryPanel._dateGroupBy.options;
@@ -475,10 +479,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Called when a user toggles the value in the checkbox next
-     * to the start and end date fields. This generally means the user
-     * wants to add the respective dates to the select clause in the result
-     * set.
+     * Called when a user toggles the value in the checkbox next to the start
+     * and end date fields. This generally means the user wants to add the
+     * respective dates to the select clause in the result set.
      */
     toggleDates : function(e,range)
     {
@@ -543,8 +546,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       visibleDiv.appendChild(visibleUl);
   
       /*
-       * Global COUNT, causes implicit group by on all selected attributes
-       */
+         * Global COUNT, causes implicit group by on all selected attributes
+         */
   
       var countAttribute = new MDSS.BasicAttribute({
         type: klass.CLASS,
@@ -570,8 +573,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       visibleUl.appendChild(li);
   
       /*
-       * Global RATIO, causes implicit group by on all selected attributes
-       */
+         * Global RATIO, causes implicit group by on all selected attributes
+         */
       if(useRatio)
       {
         var ratioAttribute = new MDSS.BasicAttribute({
@@ -633,8 +636,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Method called to render to set up the QueryPanel
-     * this QueryBase uses.
+     * Method called to render to set up the QueryPanel this QueryBase uses.
      */
     render: {
       IsAbstract : true
@@ -694,7 +696,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
               loaded[id] = view;
             }
             
-            // Only set the found geo entities (in case we were referencing a deleted entity)
+            // Only set the found geo entities (in case we were referencing a
+            // deleted entity)
             for(var i=0; i<attributeKeys.length; i++)
             {
               var attributeKey = attributeKeys[i];
@@ -798,8 +801,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Loops through all the default settings in this._defaults
-     * and applies the necessary logic depending on the input type.
+     * Loops through all the default settings in this._defaults and applies the
+     * necessary logic depending on the input type.
      */
     _resetToDefault : function()
     {
@@ -910,7 +913,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         browser.openBrowser();
       
-        // return empty set of menu items as the browser will be launched instead.
+        // return empty set of menu items as the browser will be launched
+        // instead.
         return [];
       }
       
@@ -1099,8 +1103,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
-     * Unique type of this query which is the string: "[query class:query type]".
-     * For example, "dss.vector.solutions.entomology.MosquitoCollection:QUERYIRS"
+     * Unique type of this query which is the string: "[query class:query
+     * type]". For example,
+     * "dss.vector.solutions.entomology.MosquitoCollection:QUERYIRS"
      */
     _getQueryType : function()
     {
@@ -1108,17 +1113,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Subclasses must override this to return the controller method
-     * that will be executed to save a search.
-    _getQueryType: {
-      IsAbstract : true
-    },
+     * Subclasses must override this to return the controller method that will
+     * be executed to save a search. _getQueryType: { IsAbstract : true },
      */
     
     /**
-     * Creates and returns an MDSS.QueryXML.Query object.
-     * Subclasses must override this method and use the returned
-     * object according their specific use case.
+     * Creates and returns an MDSS.QueryXML.Query object. Subclasses must
+     * override this method and use the returned object according their specific
+     * use case.
      */
     _constructQuery : function()
     {
@@ -1212,8 +1214,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
     /**
      * Adds a universal type as a selectable to the query results. The universal
-     * is represented as a GeoEntityView, which is a view instance of that geo entity
-     * type. This is done to grab any necessary metadata/display labels.
+     * is represented as a GeoEntityView, which is a view instance of that geo
+     * entity type. This is done to grab any necessary metadata/display labels.
      * 
      * Returns the key
      */
@@ -1241,7 +1243,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var geoSelectables = this._geoEntitySelectables[namespacedType];
       if(!Mojo.Util.isObject(geoSelectables))
       {
-        // use the type name and lowercase it so it adheres to attribute naming conventions
+        // use the type name and lowercase it so it adheres to attribute naming
+        // conventions
         var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
 
         var entityName = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getEntityLabelMd().getName());
@@ -1257,13 +1260,15 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
     
     /**
-     * Adds the actual YUI column that represents the given universal attribute. Returns
-     * the selectable representing the column.
+     * Adds the actual YUI column that represents the given universal attribute.
+     * Returns the selectable representing the column.
      */
     _addUniversalColumn : function(attributeKey, geoEntityView, typeName, entityAlias, geoAttr)
     {
-      // namespace the column using the attributeKey because different attributes
-      // can add the same universal columns (e.g., Country [work], Country [home]).
+      // namespace the column using the attributeKey because different
+        // attributes
+      // can add the same universal columns (e.g., Country [work], Country
+        // [home]).
       var columnKey = attributeKey.replace(/\./g, '_')+'__'+typeName+'_'+geoAttr;
       
       var obj = {
@@ -1326,8 +1331,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Uses the given GeoEntityView objects to add
-     * restrictions to the GeoEntity query.
+     * Uses the given GeoEntityView objects to add restrictions to the GeoEntity
+     * query.
      */
     _hideHandler : function(criteriaEntities, selectedUniversals, currentAttribute)
     {
@@ -1342,9 +1347,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       // clear any prior selected universals
       this._config.clearSelectedUniversals(currentAttribute);
   
-      // add universal columns. The criteria for pre-existing columns will be recreated but
+      // add universal columns. The criteria for pre-existing columns will be
+        // recreated but
       // the columns will not be deleted.
-      var ignoreSet = new MDSS.Set(); // namespaced key in geo type/attr maps to not remove
+      var ignoreSet = new MDSS.Set(); // namespaced key in geo type/attr maps
+                                        // to not remove
       for(var i=0; i<selectedUniversals.length; i++)
       {
         var universal = selectedUniversals[i];
@@ -1366,7 +1373,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       
       if(criteriaEntities.length > 0)
       {
-        var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique namespace per attribute 
+        var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique
+                                                                // namespace per
+                                                                // attribute
         var allPaths = new MDSS.QueryXML.Entity(this.ALL_PATHS, entityAlias);
   
         this._allPathQueries[currentAttribute] = allPaths;
@@ -1505,8 +1514,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
 
   
     /**
-     * Creates a modal with the given HTML as its body and the given title
-     * as the modal title, wrapped in an H3.
+     * Creates a modal with the given HTML as its body and the given title as
+     * the modal title, wrapped in an H3.
      */
     _createModal : function(html, title, useLarge, allowClose)
     {
@@ -1589,17 +1598,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     
     getColumn : function(columns, attributeName)
     {
-    	var len = columns.length;
-    	for(var i=0; i<len; i++)
-    	{
-    		var col = columns[i];
-    		if(attributeName == col.attributeName)
-    		{
-    			return col;
-    		}
-    	}
-    	
-    	return null;
+      var len = columns.length;
+      for(var i=0; i<len; i++)
+      {
+        var col = columns[i];
+        if(attributeName == col.attributeName)
+        {
+          return col;
+        }
+      }
+      
+      return null;
     }
   }
 });
@@ -1623,12 +1632,14 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._displayLabel = obj.displayLabel || MDSS.localize(obj.key);
       
       this._description = this._displayLabel; // default
-      // first look for the description using the convention key+'_desc', used mainly for calculations
+      // first look for the description using the convention key+'_desc', used
+        // mainly for calculations
       if(Mojo.Util.isString(obj.key) && obj.key+MDSS.AbstractAttribute.DESCRIPTION_SUFFIX in MDSS.Localized)
       {
         this._description = MDSS.localize(obj.key+MDSS.AbstractAttribute.DESCRIPTION_SUFFIX);
       }
-      // The description defaults to the display label if it is null or a length of 0
+      // The description defaults to the display label if it is null or a
+        // length of 0
       else if(Mojo.Util.isString(obj.description) && obj.description.length > 0)
       {
         this._description = obj.description;
@@ -1674,8 +1685,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     },
     
     /**
-     * Unique key used with YUI Column
-     * and as the user alias for the attribute
+     * Unique key used with YUI Column and as the user alias for the attribute
      * in a ValueObject.
      */
     getKey : function()
@@ -1701,6 +1711,12 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     getDtoType : function()
     {
       return this._dtoType;
+    },
+    
+    isNumber : function()
+    {
+      // Overwritten in sub-classes
+      return false;
     },
   
     getWhereValues : function()
@@ -1734,8 +1750,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     },
   
     /**
-     * Returns an object compatible with YUI Column's
-     * constructor.
+     * Returns an object compatible with YUI Column's constructor.
      */
     getColumnObject : function()
     {
@@ -1746,8 +1761,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     },
     
     /**
-     * Returns a basic selectable object that represents this
-     * attribute.
+     * Returns a basic selectable object that represents this attribute.
      */
     getSelectable : function(dereference, asClass)
     {
@@ -1760,7 +1774,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       else if(dereference)
       {
         attrName = attrName + '.displayLabel.currentValue';
-        //attrName = attrName + '_displayLabel';
+        // attrName = attrName + '_displayLabel';
       }
   
       var attribute;
@@ -1861,7 +1875,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       // so be careful to call the correct id and display methods.
       var idAttr = Mojo.$.dss.vector.solutions.ontology.Term.ID;
       var TermView = Mojo.$.dss.vector.solutions.ontology.TermView;
-//      var entryMap = new Mojo.Map();
+// var entryMap = new Mojo.Map();
       var entryMap = {};
       for(var i=0, len=terms.length; i<len; i++)
       {
@@ -1881,7 +1895,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
         
         this._terms.set(id);
         entryMap[id] = {id:id, display:display};
-//        entryMap.put(id, {id:id, display:display});
+// entryMap.put(id, {id:id, display:display});
       }
       
       
@@ -1900,7 +1914,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
             {
               var id = idsToRemove[i];
               that._terms.remove(id);
-              //entryMap.remove(id);
+              // entryMap.remove(id);
               delete entryMap[id];
             }
          
@@ -1960,6 +1974,25 @@ Mojo.Meta.newClass('MDSS.BasicAttribute', {
     initialize : function(obj)
     {
       this.$initialize(obj);
+    },
+    
+    isNumber : function()
+    {
+      var dtoType = this.getDtoType();
+      
+      if(dtoType != null)
+      {
+        if(dtoType.indexOf('AttributeIntegerDTO') != -1 ||
+           dtoType.indexOf('AttributeFloatDTO') != -1 ||
+           dtoType.indexOf('AttributeLongDTO') != -1 ||
+           dtoType.indexOf('AttributeDoubleDTO') != -1 ||
+           dtoType.indexOf('AttributeDecimalDTO') != -1 )
+        {
+	      return true;
+        }
+      }
+      
+      return false;
     }
   }
 });
@@ -1976,7 +2009,8 @@ Mojo.Meta.newClass('MDSS.DiseaseAttribute', {
     },
     
     /**
-     * Returns a basic selectable object that represents this 'disease' attribute.
+     * Returns a basic selectable object that represents this 'disease'
+     * attribute.
      */
     getSelectable : function(dereference, asClass)
     {
@@ -2002,8 +2036,9 @@ Mojo.Meta.newClass('MDSS.DisplayLabelAttribute', {
   },
   
   /**
-   * Returns a basic selectable object that represents this 'disease' attribute.
-   */
+     * Returns a basic selectable object that represents this 'disease'
+     * attribute.
+     */
   getSelectable : function(dereference, asClass)
   {
     var attrName = this._attributeName;

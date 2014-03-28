@@ -818,11 +818,21 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var key = userAlias + this._config.CRITERIA;
       var crit = this._config.getProperty(key);
       
+      
       if(checked && crit){
-        var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
+        var selectable = this._visibleSelectables[userAlias];
+        
+        if(selectable && selectable.attribute && selectable.attribute.isNumber())
+        {
+          this._setNumberCriteriaFromLoad(checked, userAlias);
+        }
+        else
+        {          
+          var criteria =  MDSS.QueryBaseNew.buildTextCriteriaFromString(crit);
           
-        this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
-        this._toggleSingle(userAlias, true, criteria.display);    
+          this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
+          this._toggleSingle(userAlias, true, criteria.display);            
+        }
       }
   },
   
@@ -962,7 +972,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             }
             
             if(size > 0)
-            {    	
+            {      
               thisRef.showTermAggregation(browser.getAttribute().getKey());              
             }
           }
