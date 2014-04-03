@@ -712,7 +712,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setOutputStream(outputStream);
       options.setBaseURL(baseURL);
       options.setImageHandler(new HTMLServerImageHandler());
-      options.setBaseImageURL(baseURL + File.separator + CacheDocumentManager.BIRT_SUFFIX + File.separator + folderName);
+      options.setBaseImageURL(baseURL + "/" + CacheDocumentManager.BIRT_SUFFIX + "/" + folderName);
       options.setImageDirectory(CacheDocumentManager.IMGS_DIR + File.separator + folderName);
       options.setActionHandler(new HTMLUrlActionHandler(baseURL));
       options.setHtmlTitle(this.getReportLabel().getValue());
