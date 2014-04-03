@@ -3,6 +3,7 @@ package dss.vector.solutions.report;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -157,6 +158,8 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
       Enumeration<String> parameterNames = req.getParameterNames();
 
+      Integer pageNumber = 1;
+
       while (parameterNames.hasMoreElements())
       {
         String parameterName = parameterNames.nextElement();
@@ -167,6 +170,11 @@ public class ReportController extends ReportControllerBase implements Reloadable
         parameter.setParameterValue(parameterValues[0]);
 
         parameters.add(parameter);
+
+        if (parameter.getParameterName().equals("pageNumber"))
+        {
+          pageNumber = new Integer(parameter.getParameterValue());
+        }
       }
 
       /*
@@ -186,25 +194,62 @@ public class ReportController extends ReportControllerBase implements Reloadable
         String url = this.req.getRequestURL().toString();
         String baseURL = url.substring(0, url.lastIndexOf('/'));
 
-        item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL);
+        Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL);
 
         if (item.getOutputFormatEnumNames().contains(OutputFormatDTO.PDF.name()))
         {
           String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
           resp.setHeader("Content-Type", "application/pdf");
           resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
-        }
 
-        ServletOutputStream oStream = resp.getOutputStream();
+          ServletOutputStream oStream = resp.getOutputStream();
 
-        try
-        {
-          oStream.write(rStream.toByteArray());
+          try
+          {
+            oStream.write(rStream.toByteArray());
+          }
+          finally
+          {
+            oStream.flush();
+            oStream.close();
+          }
         }
-        finally
+        else
         {
-          oStream.flush();
-          oStream.close();
+          String str = "dss.vector.solutions.report.ReportController.generate.mojo?";
+          boolean isFirst = true;
+
+          Enumeration<String> paramNames = req.getParameterNames();
+          while (paramNames.hasMoreElements())
+          {
+            String paramName = paramNames.nextElement();
+
+            if (!paramName.equals("pageNumber"))
+            {
+              if (!isFirst)
+              {
+                str = str + "&";
+              }
+
+              String[] paramValues = req.getParameterValues(paramName);
+
+              for (int i = 0; i < paramValues.length; i++)
+              {
+                String paramValue = paramValues[i];
+                str = str + URLEncoder.encode(paramName, "UTF-8") + "=" + URLEncoder.encode(paramValue, "UTF-8");
+              }
+
+              isFirst = false;
+            }
+          }
+
+          req.setAttribute("pageTitle", item.getReportLabel().getValue());
+          req.setAttribute("report", rStream.toString());
+          req.setAttribute("pageNumber", pageNumber);
+          req.setAttribute("pageCount", pageCount);
+          req.setAttribute("url", str);
+
+          req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
         }
       }
       finally

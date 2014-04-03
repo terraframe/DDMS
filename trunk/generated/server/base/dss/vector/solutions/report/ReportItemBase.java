@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 1945509044)
+@com.runwaysdk.business.ClassSignature(hash = -1867633872)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1945509044;
+  private static final long serialVersionUID = -1867633872;
   
   public ReportItemBase()
   {
@@ -592,16 +592,16 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     return _instance.getURL();
   }
   
-  public void render(java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameter[] parameters, java.lang.String baseURL)
+  public java.lang.Long render(java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameter[] parameters, java.lang.String baseURL)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItem.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final void render(java.lang.String id, java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameter[] parameters, java.lang.String baseURL)
+  public static final java.lang.Long render(java.lang.String id, java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameter[] parameters, java.lang.String baseURL)
   {
     ReportItem _instance = ReportItem.get(id);
-    _instance.render(outputStream, parameters, baseURL);
+    return _instance.render(outputStream, parameters, baseURL);
   }
   
   public void validatePermissions()

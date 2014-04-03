@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -1688797644)
+@com.runwaysdk.business.ClassSignature(hash = 1937976496)
 public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.ReportItem";
-  private static final long serialVersionUID = -1688797644;
+  private static final long serialVersionUID = 1937976496;
   
   protected ReportItemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -712,20 +712,20 @@ public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessD
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final void render(java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameterDTO[] parameters, java.lang.String baseURL)
+  public final java.lang.Long render(java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameterDTO[] parameters, java.lang.String baseURL)
   {
     String[] _declaredTypes = new String[]{"java.io.OutputStream", "[Ldss.vector.solutions.report.ReportParameter;", "java.lang.String"};
     Object[] _parameters = new Object[]{outputStream, parameters, baseURL};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "render", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
+    return (java.lang.Long) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void render(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameterDTO[] parameters, java.lang.String baseURL)
+  public static final java.lang.Long render(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameterDTO[] parameters, java.lang.String baseURL)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.io.OutputStream", "[Ldss.vector.solutions.report.ReportParameter;", "java.lang.String"};
     Object[] _parameters = new Object[]{id, outputStream, parameters, baseURL};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "render", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.Long) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void validatePermissions()

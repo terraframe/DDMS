@@ -5,16 +5,10 @@ import javax.servlet.ServletContextListener;
 
 import com.runwaysdk.system.scheduler.SchedulerManager;
 
+import dss.vector.solutions.report.CacheDocumentManager;
+
 public class CleanupContextListener implements ServletContextListener
 {
-
-  @Override
-  public void contextDestroyed(ServletContextEvent arg0)
-  {
-    SchedulerManager.shutdown();
-
-    ServerContext.instance().contextDestroyed();
-  }
 
   @Override
   public void contextInitialized(ServletContextEvent arg0)
@@ -22,5 +16,17 @@ public class CleanupContextListener implements ServletContextListener
     ServerContext.instance();
 
     SchedulerManager.start();
+
+    CacheDocumentManager.start();
+  }
+
+  @Override
+  public void contextDestroyed(ServletContextEvent arg0)
+  {
+    SchedulerManager.shutdown();
+
+    ServerContext.instance().contextDestroyed();
+
+    CacheDocumentManager.stop();
   }
 }
