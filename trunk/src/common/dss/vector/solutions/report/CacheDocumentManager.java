@@ -16,7 +16,7 @@ import dss.vector.solutions.MdssLog;
 
 public class CacheDocumentManager implements Runnable
 {
-  public static final String                    BIRT_SUFFIX   = "imgs" + File.separator + "birt";
+  public static final String                    BIRT_SUFFIX   = "imgs/birt";
 
   /**
    * rptdocument cache directory
@@ -26,7 +26,7 @@ public class CacheDocumentManager implements Runnable
   /**
    * birt temp imgs directory
    */
-  public static final String                    IMGS_DIR      = DeployProperties.getDeployPath() + File.separator + BIRT_SUFFIX;
+  public static final String                    IMGS_DIR      = DeployProperties.getDeployPath() + File.separator + "imgs" + File.separator + "birt";
 
   /**
    * Executer responsible for running the cleanup thread
