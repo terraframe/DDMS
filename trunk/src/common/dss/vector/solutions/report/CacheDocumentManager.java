@@ -41,32 +41,32 @@ public class CacheDocumentManager implements Runnable
   @Override
   public void run()
   {
-    String[] directories = new String[] { CACHE_DIR, IMGS_DIR };
-
-    for (String dir : directories)
+    try
     {
-      File directory = new File(dir);
+      String[] directories = new String[] { CACHE_DIR, IMGS_DIR };
 
-      File[] files = directory.listFiles();
-
-      for (File file : files)
+      for (String dir : directories)
       {
-        String sessionId = new String(Base64.decode(file.getName()));
+        File directory = new File(dir);
 
-        if (!SessionFacade.containsSession(sessionId))
+        File[] files = directory.listFiles();
+
+        for (File file : files)
         {
-          try
+          String sessionId = new String(Base64.decode(file.getName()));
+
+          if (!SessionFacade.containsSession(sessionId))
           {
             FileIO.deleteDirectory(file);
           }
-          catch (IOException e)
-          {
-            // This is run inside of a thread so there isn't much to do except
-            // log the error
-            MdssLog.error("Error deleting cached report documents for session [" + sessionId + "]", e);
-          }
         }
       }
+    }
+    catch (Exception e)
+    {
+      // This is run inside of a thread so there isn't much to do except
+      // log the error
+      MdssLog.error("Error in reporting cleanup thread", e);
     }
   }
 
