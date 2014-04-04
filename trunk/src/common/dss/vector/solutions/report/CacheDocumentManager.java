@@ -51,13 +51,16 @@ public class CacheDocumentManager implements Runnable
 
         File[] files = directory.listFiles();
 
-        for (File file : files)
+        if (files != null)
         {
-          String sessionId = new String(Base64.decode(file.getName()));
-
-          if (!SessionFacade.containsSession(sessionId))
+          for (File file : files)
           {
-            FileIO.deleteDirectory(file);
+            String sessionId = new String(Base64.decode(file.getName()));
+
+            if (!SessionFacade.containsSession(sessionId))
+            {
+              FileIO.deleteDirectory(file);
+            }
           }
         }
       }
