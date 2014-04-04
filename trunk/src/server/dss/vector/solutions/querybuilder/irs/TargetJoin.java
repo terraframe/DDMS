@@ -1,6 +1,14 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Selectable;
 
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
@@ -10,11 +18,91 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   public static final String ACTUAL_ALIAS = "a";
   public static final String PLANNED_ALIAS = "p";
   
+  protected List<Alias> groupBy;
+  protected Set<Alias> agg;
+  
   public TargetJoin(IRSQB irsQB)
   {
     super(irsQB);
-
+    groupBy = new LinkedList<Alias>();
+    agg = new HashSet<Alias>();
   }
+  
+  protected String GROUP_BY()
+  {
+    if(this.groupBy.size() > 0)
+    {
+      List<String> groupStr = new LinkedList<String>();
+      for(Alias a : this.groupBy)
+      {
+        // Spray date needs to be qualified with a prefix because it's
+        // ambiguous in some cases.
+        String groupCol;
+        if(Alias.SPRAY_DATE.equals(a))
+        {
+          groupCol = ACTUAL_ALIAS+"."+a;
+        }
+        else
+        {
+          groupCol = a.getAlias();
+        }
+        
+        groupStr.add(groupCol);
+      }
+      
+      return "\n GROUP BY \n"+StringUtils.join(groupStr, ",");
+    }
+    else
+    {
+      return "";
+    }
+  }
+  
+//  @Override
+//  protected void preProcess(Alias alias)
+//  {
+//    if(this.irsQB.hasChildAggregate(alias) && this.irsQB.isAggregate(alias))
+//    {
+//      this.agg.add(alias);
+//    }
+//    else
+//    {
+//      this.groupBy.add(alias);
+//    }
+//  }
+  
+  @Override
+  public String postProcess(Alias alias, String sql)
+  {
+    if(this.irsQB.hasParentAggregate(alias))
+    {
+      this.groupBy.add(alias);
+      return sql+" /*[parent agg]*/";
+    }
+    else if(this.irsQB.hasChildAggregate(alias))
+    {
+      if(this.irsQB.isAggregate(alias))
+      {
+        Selectable s = this.irsQB.get(alias);
+        return set(s.getSQL(), alias)+" /*[child agg]*/";
+      }
+      else
+      {
+        // NOTE: This behavior is an assumption, but should hold
+        // true when calculations require this field.
+        return set("SUM("+alias+")", alias)+" /*[default agg]*/";
+        
+        //this.groupBy.add(alias);
+        //return sql+" /*[child non-agg]*/";
+      }
+    }
+    else
+    {
+      this.groupBy.add(alias);
+      return sql+" /*[regular]*/";
+    }
+  }
+  
   
   @Override
   protected View getView()
@@ -263,11 +351,13 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
+  /*
   public String setHouseholdUnsprayed(Alias alias)
   {
 
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  */
 
   public String setHouseholds(Alias alias)
   {
@@ -277,10 +367,10 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
 
   public String setId(Alias alias)
   {
-
     return caseSwap(alias);
   }
   
+  /*
   public String setUniqueSprayId(Alias alias)
   {
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
@@ -290,6 +380,7 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   {
     return hasPlanned ? set(PLANNED_ALIAS, alias, alias) : setNULL(alias);
   }
+  */
   
   public String setCreateDate(Alias alias)
   {
@@ -383,15 +474,15 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
+  /*
   public String setRoomUnsprayed(Alias alias)
   {
-
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  */
 
   public String setRooms(Alias alias)
   {
-
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
@@ -463,13 +554,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
 
   public String setSprayedHouseholdsShare(Alias alias)
   {
-
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
   public String setSprayedRooms(Alias alias)
   {
-
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
@@ -497,11 +586,13 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
 
+  /*
   public String setStructureUnsprayed(Alias alias)
   {
 
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  */
 
   public String setStructures(Alias alias)
   {

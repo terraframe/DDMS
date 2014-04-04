@@ -218,6 +218,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setOperatorActualTarget(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.operSprayStatusTable, this.operTarget, alias);
   }
   
@@ -241,90 +242,105 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setTeamActualTarget(Alias alias)
   {
+    this.irsQB.addParentAggregate(alias);
     return set(teamSprayTable, targetCol, alias);
   }
   
   @Override
   public String setRooms(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, roomsCol, alias);
   }
   
   @Override
   public String setStructures(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, structuresCol, alias);
   }
   
   @Override
   public String setHouseholds(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, householdsCol, alias);
   }
   
   @Override
   public String setSprayedRooms(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, sprayedRoomsCol, alias);
   }
   
   @Override
   public String setSprayedStructures(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, sprayedStructuresCol, alias);
   }
   
   @Override
   public String setSprayedHouseholds(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, sprayedHouseholdsCol, alias);
   }
   
   @Override
   public String setPrevSprayedStructures(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, prevSprayedStructuresCol, alias);
   }
 
   @Override
   public String setPrevSprayedHouseholds(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, prevSprayedHouseholdsCol, alias);
   }
   
   @Override
   public String setPeople(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, peopleCol, alias);
   }
   
   @Override
   public String setBedNets(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, bedNetsCol, alias);
   }
   
   @Override
   public String setRoomsWithBedNets(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, roomsWithBedNetsCol, alias);
   }
   
   @Override
   public String setLocked(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, lockedCol, alias);
   }
 
   @Override
   public String setRefused(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, refusedCol, alias);
   }
   
   @Override
   public String setOther(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, otherCol, alias);
   }
   
@@ -337,60 +353,75 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setReceived(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, receivedCol, alias);
   }
   
   @Override
   public String setUsed(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, usedCol, alias);
   }
   
   @Override
   public String setRefills(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, refillsCol, alias);
   }
   
   @Override
   public String setReturned(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(operSprayStatusTable, returnCol, alias);
   }
   
+  /* No longer set here, but at the end of the query instead.
   @Override
   public String setRoomUnsprayed(Alias alias)
   {
-    return set("("+roomsCol+" - "+sprayedRoomsCol+")", alias);
+    this.irsQB.addChildAggregate(alias);
+    return setNULL(alias);
+    //return set("("+roomsCol+" - "+sprayedRoomsCol+")", alias);
   }
   
   @Override
   public String setStructureUnsprayed(Alias alias)
   {
-    return set("("+structuresCol+" - "+sprayedStructuresCol+")", alias);
+    this.irsQB.addChildAggregate(alias);
+    return setNULL(alias);
+    //return set("("+structuresCol+" - "+sprayedStructuresCol+")", alias);
   }
   
   @Override
   public String setHouseholdUnsprayed(Alias alias)
   {
-    return set("("+householdsCol+" - "+sprayedHouseholdsCol+")", alias);
+    this.irsQB.addChildAggregate(alias);
+    return setNULL(alias);
+    //return set("("+householdsCol+" - "+sprayedHouseholdsCol+")", alias);
   }
+  */
   
   @Override
   public String setSprayedRoomsShare(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set("1", alias);
   }
   
   @Override
   public String setSprayedStructuresShare(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set("1", alias);
   }
   
   @Override
   public String setSprayedHouseholdsShare(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set("1", alias);
   }
   

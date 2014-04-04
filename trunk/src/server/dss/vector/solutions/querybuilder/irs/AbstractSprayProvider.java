@@ -54,6 +54,17 @@ public abstract class AbstractSprayProvider extends AbstractSQLProvider implemen
     return new LinkedList<TableDependency>();
   }
   
+  protected void preProcess(Alias alias)
+  {
+    // do nothing by default
+  }
+  
+  public String postProcess(Alias alias, String sql)
+  {
+    // return the original sql by default
+    return sql;
+  }
+  
   /**
    * Generates the SQL for this UNION component and optimizes the SELECT clause
    * to include only what's needed.
@@ -78,11 +89,13 @@ public abstract class AbstractSprayProvider extends AbstractSQLProvider implemen
         {
           try
           {
+            this.preProcess(alias);
             Method m = klass.getMethod(methodName, Alias.class);
             Object o = m.invoke(this, alias);
             if(o != null && o instanceof String)
             {
-              columns.add((String) o);
+              String colSQL = this.postProcess(alias, (String)o);
+              columns.add(colSQL);
             }
           }
           catch(NoSuchMethodException e)

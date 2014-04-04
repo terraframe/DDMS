@@ -62,7 +62,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
     }
     else
     {
-      return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
+      return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias()) + this.GROUP_BY();
     }
   }
 

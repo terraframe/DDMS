@@ -366,6 +366,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      
                                      key:"household_unsprayed",
                                      type:"sqlinteger",
+                                     isAggregate:true,
                                      attributeName:"household_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -373,6 +374,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      
                                      key:"structure_unsprayed",
                                      type:"sqlinteger",
+                                     isAggregate:true,
                                      attributeName:"structure_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -380,6 +382,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      
                                      key:"room_unsprayed",
                                      type:"sqlinteger",
+                                     isAggregate:true,
                                      attributeName:"room_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -387,6 +390,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                       
                                       key:"unit_unsprayed",
                                       type:"sqlinteger",
+                                      isAggregate:true,
                                       attributeName:"unit_unsprayed",
                                       dtoType:'AttributeIntegerDTO'
                                    }
