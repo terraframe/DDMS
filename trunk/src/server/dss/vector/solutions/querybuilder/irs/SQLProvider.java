@@ -8,7 +8,9 @@ import dss.vector.solutions.querybuilder.IRSQB;
 
 public interface SQLProvider extends Reloadable
 {
+  // Use float in case aggregation function is used
   public static final String FLOAT = "float";
+//  public static final String INTEGER = "integer";
   public static final String TEXT = "text";
   public static final String VARCHAR = "varchar";
   public static final String DATE = "date";

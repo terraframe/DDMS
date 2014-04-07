@@ -265,7 +265,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var abstractSpray = new Mojo.$.dss.vector.solutions.irs.OperatorSpray();
 
     // OperatorSpray, OperatorSprayStatus, TeamSprayStatus
-    var insectcideUsageAttribs = ["received","used","refills","returned"];
+    var insectcideUsageAttribs = ["received","used","refills","returned", "nozzlesUsed", "pumpsUsed"];
     <%
       Halp.setReadableAttributes(request, "insectcideUsageAttribs_os", OperatorSprayViewDTO.CLASS, requestIF);
       Halp.setReadableAttributes(request, "insectcideUsageAttribs_oss", OperatorSprayStatusViewDTO.CLASS, requestIF);
@@ -342,7 +342,9 @@ YAHOO.util.Event.onDOMReady(function(){
     available.addAll(<%= request.getAttribute("tss") %>);
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
-    var sprayStatusAttribs = ["households","sprayedHouseholds","structures","sprayedStructures","rooms","sprayedRooms","locked","refused","other","wrongSurface"];
+    var sprayStatusAttribs = ["households","sprayedHouseholds","structures","sprayedStructures","rooms","sprayedRooms","locked","refused","other",
+                              "wrongSurface", "verandas", "verandasSprayed", "verandasLocked", "verandasRefused", "verandasOther",
+                              "cattleSheds", "cattleShedsSprayed", "cattleShedsLocked", "cattleShedsRefused", "cattleShedsOther"];
     sprayStatusAttribs = Mojo.Iter.filter(sprayStatusAttribs, function(attrib){
       return this.contains(attrib);
     }, available); 
@@ -352,7 +354,7 @@ YAHOO.util.Event.onDOMReady(function(){
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
     // The last three unsprayed columns (locked, refused, other) go after the calculations
-    var unsprayedLast = Spray_Details.splice(-3,3);
+    //var unsprayedLast = Spray_Details.splice(-3,3);
     
    Spray_Details = Spray_Details.concat([
                                   {
@@ -367,6 +369,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"household_unsprayed",
                                      type:"sqlinteger",
                                      isAggregate:true,
+                                      includes:[],
                                      attributeName:"household_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -375,6 +378,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"structure_unsprayed",
                                      type:"sqlinteger",
                                      isAggregate:true,
+                                      includes:[],
                                      attributeName:"structure_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -383,6 +387,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"room_unsprayed",
                                      type:"sqlinteger",
                                      isAggregate:true,
+                                      includes:[],
                                      attributeName:"room_unsprayed",
                                      dtoType:'AttributeIntegerDTO'
                                    },
@@ -391,11 +396,12 @@ YAHOO.util.Event.onDOMReady(function(){
                                       key:"unit_unsprayed",
                                       type:"sqlinteger",
                                       isAggregate:true,
+                                      includes:[],
                                       attributeName:"unit_unsprayed",
                                       dtoType:'AttributeIntegerDTO'
                                    }
-                                ],
-                                unsprayedLast
+                                ]
+                                //, unsprayedLast
                                 );
   
    

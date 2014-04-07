@@ -10,7 +10,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.Supervisor;
-import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
@@ -85,6 +84,30 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   private String supervisorTable;
 
   private String supervisorPersonCol;
+  
+  private String nozzlesUsedCol;
+  
+  private String pumpsUsedCol;
+
+  private String verandasCol;
+
+  private String verandasSprayedCol;
+
+  private String verandasLockedCol;
+
+  private String verandasRefusedCol;
+
+  private String verandasOtherCol;
+
+  private String cattleShedsCol;
+
+  private String cattleShedsSprayedCol;
+
+  private String cattleShedsLockedCol;
+
+  private String cattleShedsRefusedCol;
+
+  private String cattleShedsOtherCol;
 
   public ActualOperatorSprayTarget(IRSQB irsQB)
   {
@@ -102,7 +125,9 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.refillsCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.REFILLS);
     this.returnCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RETURNED);
     this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
-    supervisorCol = QueryUtil.getColumnName(ZoneSpray.getSupervisorMd());
+    this.supervisorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SUPERVISOR);
+    this.nozzlesUsedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.NOZZLESUSED);
+    this.pumpsUsedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.PUMPSUSED);
 
     MdEntityDAOIF householdSprayStatusMd = MdEntityDAO.getMdEntityDAO(HouseholdSprayStatus.CLASS);
     this.householdSprayStatusTable = householdSprayStatusMd.getTableName();
@@ -136,7 +161,17 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.wrongSurfaceCol = QueryUtil.getColumnName(householdSprayStatusMd,
         HouseholdSprayStatus.WRONGSURFACE);
     this.keyName = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.KEYNAME);
-
+    this.verandasCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.VERANDAS);
+    this.verandasSprayedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.VERANDASSPRAYED);
+    this.verandasLockedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.VERANDASLOCKED);
+    this.verandasRefusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.VERANDASREFUSED);
+    this.verandasOtherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.VERANDASOTHER);
+    this.cattleShedsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDS);
+    this.cattleShedsSprayedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSSPRAYED);
+    this.cattleShedsLockedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSLOCKED);
+    this.cattleShedsRefusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSREFUSED);
+    this.cattleShedsOtherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSOTHER);
+    
     supervisorTable = MdEntityDAO.getMdEntityDAO(Supervisor.CLASS).getTableName();
     supervisorPersonCol = QueryUtil.getColumnName(Supervisor.getPersonMd());
   }
@@ -505,5 +540,77 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
 
     String sql = this.householdSprayStatusTable + "." + this.keyName;
     return set(sql, alias);
+  }
+
+  @Override
+  public String setNozzlesUsed(Alias alias)
+  {
+    return set(this.operSprayTable, this.nozzlesUsedCol, alias);
+  }
+
+  @Override
+  public String setPumpsUsed(Alias alias)
+  {
+    return set(this.operSprayTable, this.pumpsUsedCol, alias);
+  }
+
+  @Override
+  public String setVerandas(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.verandasCol, alias);
+  }
+
+  @Override
+  public String setVerandasSprayed(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.verandasSprayedCol, alias);
+  }
+
+  @Override
+  public String setVerandasLocked(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.verandasLockedCol, alias);
+  }
+
+  @Override
+  public String setVerandasRefused(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.verandasRefusedCol, alias);
+  }
+
+  @Override
+  public String setVerandasOther(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.verandasOtherCol, alias);
+  }
+
+  @Override
+  public String setCattleSheds(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.cattleShedsCol, alias);
+  }
+
+  @Override
+  public String setCattleShedsSprayed(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.cattleShedsSprayedCol, alias);
+  }
+
+  @Override
+  public String setCattleShedsLocked(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.cattleShedsLockedCol, alias);
+  }
+
+  @Override
+  public String setCattleShedsRefused(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.cattleShedsRefusedCol, alias);
+  }
+
+  @Override
+  public String setCattleShedsOther(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, this.cattleShedsOtherCol, alias);
   }
 }
