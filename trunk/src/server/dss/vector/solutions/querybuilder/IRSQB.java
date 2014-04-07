@@ -125,8 +125,6 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private boolean                           hasPlannedTargets;
 
-  private boolean                           hasSprayEnumOrTerm;
-
   private ValueQuery                        irsVQ;
 
 //  private ValueQuery                        sprayVQ;
@@ -478,8 +476,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.irsVQ = new ValueQuery(queryFactory);
 //    this.insecticideVQ = new ValueQuery(queryFactory);
 
-    this.hasSprayEnumOrTerm = false;
-
     // this.needUniqueSprayId = false;
 
     this.needsAreaPlanned = false;
@@ -701,10 +697,10 @@ public class IRSQB extends AbstractQB implements Reloadable
     return pairs;
   }
 
+  /*
   private void filterSelectables()
   {
-    List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
-        AbstractSpray.SURFACETYPE + "_spray" });
+
 
     String insecticideTable = MdEntityDAO.getMdEntityDAO(InsecticideBrand.CLASS).getTableName();
     List<String> insecticideSQLs = new LinkedList<String>();
@@ -795,7 +791,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
     }
   }
-
+*/
+  
   public boolean hasAreaCalcs()
   {
     return this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias())
@@ -926,6 +923,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     discoverDateGroups();
 
+    // JN Change: remove
 //    filterSelectables();
 
     // JN Change
@@ -957,7 +955,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       // sprayViewAlias + "." + idCol);
     }
 
-    if (this.hasSprayEnumOrTerm)
+    // NOTE: for backwards compatibility use the XMLAlias() instead of alias()
+    if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) 
+        || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery);
       QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, abstractSprayQuery,
@@ -2375,15 +2375,15 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     // FIXME trigger this...is it necessary? Maybe push more columns into
     // all-actuals
-    if (this.hasSprayEnumOrTerm)
-    {
+//    if (this.hasSprayEnumOrTerm)
+//    {
 //      String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
 //
 //      String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
 //      str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") " + abstractSprayQuery.getTableAlias()
 //          + " ON " + leftAlias + "." + Alias.ID + " = " + abstractSprayQuery.getTableAlias() + "."
 //          + sprayId + " \n");
-    }
+//    }
 
     /*
      * removed for #2826 str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE
