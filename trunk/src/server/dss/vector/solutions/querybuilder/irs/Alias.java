@@ -78,6 +78,7 @@ public enum Alias implements Reloadable, AliasIF
   CATTLESHEDS_LOCKED("cattleShedsLocked", "setCattleShedsLocked", SQLProvider.FLOAT),
   CATTLESHEDS_REFUSED("cattleShedsRefused", "setCattleShedsRefused", SQLProvider.FLOAT),
   CATTLESHEDS_OTHER("cattleShedsOther", "setCattleShedsOther", SQLProvider.FLOAT),
+  NUMBER_OF_PEOPLE("numberOfPeople", "setNumberOfPeople", SQLProvider.FLOAT),
   WRONG_SURFACE("wrongSurface", "setWrongSurface", SQLProvider.FLOAT),
   DISEASE("disease", "setDisease", SQLProvider.VARCHAR),    
   RECEIVED("received", "setReceived", SQLProvider.FLOAT),

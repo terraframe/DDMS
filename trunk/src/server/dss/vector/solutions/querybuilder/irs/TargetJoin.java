@@ -446,6 +446,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   {
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  
+  public String setNumberOfPeople(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
 
   public String setCattleSheds(Alias alias)
   {

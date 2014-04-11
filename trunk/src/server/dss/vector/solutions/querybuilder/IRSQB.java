@@ -934,8 +934,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery,
-          this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery,    this.getTermRestrictions());
       this.setNumericRestrictions(irsVQ, queryConfig);
     }
 
@@ -964,7 +963,9 @@ public class IRSQB extends AbstractQB implements Reloadable
           this.getTermRestrictions());
     }
 
-    sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedRooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedStructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedHouseholds END )";
+    sprayedUnits = "(CASE WHEN "+Alias.SPRAY_UNIT+" = 'ROOM' THEN "+Alias.SPRAYED_ROOMS+"  WHEN "
+        +Alias.SPRAY_UNIT+" = 'STRUCTURE' THEN "+Alias.SPRAYED_STRUCTURES
+        +" WHEN "+Alias.SPRAY_UNIT+" = 'HOUSEHOLD' THEN "+Alias.SPRAYED_HOUSEHOLDS+" END )";
 
 
     // make sure if we have a calculation that the right columns are included

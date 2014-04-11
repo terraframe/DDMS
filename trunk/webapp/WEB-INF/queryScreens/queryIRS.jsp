@@ -343,7 +343,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
     var sprayStatusAttribs = ["households","sprayedHouseholds","structures","sprayedStructures","rooms","sprayedRooms","locked","refused","other",
-                              "wrongSurface", "verandas", "verandasSprayed", "verandasLocked", "verandasRefused", "verandasOther",
+                              "numberOfPeople", "wrongSurface", "verandas", "verandasSprayed", "verandasLocked", "verandasRefused", "verandasOther",
                               "cattleSheds", "cattleShedsSprayed", "cattleShedsLocked", "cattleShedsRefused", "cattleShedsOther"];
     sprayStatusAttribs = Mojo.Iter.filter(sprayStatusAttribs, function(attrib){
       return this.contains(attrib);

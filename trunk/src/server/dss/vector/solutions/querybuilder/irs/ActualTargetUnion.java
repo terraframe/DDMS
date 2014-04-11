@@ -502,6 +502,8 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   
   public abstract String setVerandasOther(Alias alias);
   
+  public abstract String setNumberOfPeople(Alias alias);
+  
   public abstract String setCattleSheds(Alias alias);
   
   public abstract String setCattleShedsSprayed(Alias alias);

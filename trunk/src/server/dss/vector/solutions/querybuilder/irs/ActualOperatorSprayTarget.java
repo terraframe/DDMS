@@ -109,6 +109,8 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
 
   private String cattleShedsOtherCol;
 
+  private String numberOfPeopleCol;
+
   public ActualOperatorSprayTarget(IRSQB irsQB)
   {
     super(irsQB);
@@ -171,6 +173,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.cattleShedsLockedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSLOCKED);
     this.cattleShedsRefusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSREFUSED);
     this.cattleShedsOtherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSOTHER);
+    this.numberOfPeopleCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.NUMBEROFPEOPLE);
     
     supervisorTable = MdEntityDAO.getMdEntityDAO(Supervisor.CLASS).getTableName();
     supervisorPersonCol = QueryUtil.getColumnName(Supervisor.getPersonMd());
@@ -207,7 +210,9 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
         Alias.RETURNED,
         Alias.SPRAY_OPERATOR,
         Alias.TEAM_ACTUAL_TARGET,
-        Alias.USED
+        Alias.USED,
+        Alias.NOZZLES_USED,
+        Alias.PUMPS_USED,
     },
       operSprayTable + " AS "+operSprayTable+" \n"+
       "INNER JOIN "+abstractSprayTable + " AS "+abstractSprayTable+" ON "+abstractSprayTable+"."+idCol+" = "+operSprayTable+"."+idCol+" \n"+
@@ -232,7 +237,18 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
         Alias.SPRAYED_ROOMS,
         Alias.SPRAYED_STRUCTURES,
         Alias.STRUCTURE_ID,
-        Alias.STRUCTURES
+        Alias.STRUCTURES,
+        Alias.VERANDAS,
+        Alias.VERANDAS_SPRAYED,
+        Alias.VERANDAS_LOCKED,
+        Alias.VERANDAS_REFUSED,
+        Alias.VERANDAS_OTHER,
+        Alias.CATTLESHEDS,
+        Alias.CATTLESHEDS_SPRAYED,
+        Alias.CATTLESHEDS_LOCKED,
+        Alias.CATTLESHEDS_REFUSED,
+        Alias.CATTLESHEDS_OTHER,
+        Alias.NUMBER_OF_PEOPLE
     },
       "LEFT JOIN "+householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n"
     ));
@@ -338,6 +354,13 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   public String setSprayTeamDefaultLocale(Alias alias)
   {
     return set(sprayTeamTable, teamIdCol, alias);
+  }
+  
+  @Override
+  public String setNumberOfPeople(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(householdSprayStatusTable, numberOfPeopleCol, alias);
   }
 
   @Override
@@ -545,72 +568,84 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setNozzlesUsed(Alias alias)
   {
+    this.irsQB.addParentAggregate(alias);
     return set(this.operSprayTable, this.nozzlesUsedCol, alias);
   }
 
   @Override
   public String setPumpsUsed(Alias alias)
   {
+    this.irsQB.addParentAggregate(alias);
     return set(this.operSprayTable, this.pumpsUsedCol, alias);
   }
 
   @Override
   public String setVerandas(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.verandasCol, alias);
   }
 
   @Override
   public String setVerandasSprayed(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.verandasSprayedCol, alias);
   }
 
   @Override
   public String setVerandasLocked(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.verandasLockedCol, alias);
   }
 
   @Override
   public String setVerandasRefused(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.verandasRefusedCol, alias);
   }
 
   @Override
   public String setVerandasOther(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.verandasOtherCol, alias);
   }
 
   @Override
   public String setCattleSheds(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.cattleShedsCol, alias);
   }
 
   @Override
   public String setCattleShedsSprayed(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.cattleShedsSprayedCol, alias);
   }
 
   @Override
   public String setCattleShedsLocked(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.cattleShedsLockedCol, alias);
   }
 
   @Override
   public String setCattleShedsRefused(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.cattleShedsRefusedCol, alias);
   }
 
   @Override
   public String setCattleShedsOther(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(this.householdSprayStatusTable, this.cattleShedsOtherCol, alias);
   }
 }
