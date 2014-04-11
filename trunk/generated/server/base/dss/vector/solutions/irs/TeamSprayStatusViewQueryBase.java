@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 772980361)
+@com.runwaysdk.business.ClassSignature(hash = -1811790462)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -220,6 +220,24 @@ public  abstract  class TeamSprayStatusViewQueryBase extends com.runwaysdk.query
   public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.NOZZLESUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
  

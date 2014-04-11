@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -447203654)
+@com.runwaysdk.business.ClassSignature(hash = 489752090)
 public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
-  private static final long serialVersionUID = -447203654;
+  private static final long serialVersionUID = 489752090;
   
   protected MosquitoCollectionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,12 +31,16 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String COLLECTIONROUND = "collectionRound";
+  public static java.lang.String COLLECTIONTYPE = "collectionType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DATELASTSPRAYED = "dateLastSprayed";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
+  public static java.lang.String INSECTICIDEBRAND = "insecticideBrand";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -171,6 +175,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getCollectionMethodId()
+  {
+    return getValue(COLLECTIONMETHOD);
+  }
+  
   public void setCollectionMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -201,6 +210,104 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getCollectionRound()
+  {
+    if(getValue(COLLECTIONROUND) == null || getValue(COLLECTIONROUND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(COLLECTIONROUND));
+    }
+  }
+  
+  public String getCollectionRoundId()
+  {
+    return getValue(COLLECTIONROUND);
+  }
+  
+  public void setCollectionRound(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(COLLECTIONROUND, "");
+    }
+    else
+    {
+      setValue(COLLECTIONROUND, value.getId());
+    }
+  }
+  
+  public boolean isCollectionRoundWritable()
+  {
+    return isWritable(COLLECTIONROUND);
+  }
+  
+  public boolean isCollectionRoundReadable()
+  {
+    return isReadable(COLLECTIONROUND);
+  }
+  
+  public boolean isCollectionRoundModified()
+  {
+    return isModified(COLLECTIONROUND);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionRoundMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONROUND).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getCollectionType()
+  {
+    if(getValue(COLLECTIONTYPE) == null || getValue(COLLECTIONTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(COLLECTIONTYPE));
+    }
+  }
+  
+  public String getCollectionTypeId()
+  {
+    return getValue(COLLECTIONTYPE);
+  }
+  
+  public void setCollectionType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(COLLECTIONTYPE, "");
+    }
+    else
+    {
+      setValue(COLLECTIONTYPE, value.getId());
+    }
+  }
+  
+  public boolean isCollectionTypeWritable()
+  {
+    return isWritable(COLLECTIONTYPE);
+  }
+  
+  public boolean isCollectionTypeReadable()
+  {
+    return isReadable(COLLECTIONTYPE);
+  }
+  
+  public boolean isCollectionTypeModified()
+  {
+    return isModified(COLLECTIONTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONTYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
@@ -240,6 +347,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -260,6 +372,43 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
+  public java.util.Date getDateLastSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATELASTSPRAYED));
+  }
+  
+  public void setDateLastSprayed(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATELASTSPRAYED, "");
+    }
+    else
+    {
+      setValue(DATELASTSPRAYED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isDateLastSprayedWritable()
+  {
+    return isWritable(DATELASTSPRAYED);
+  }
+  
+  public boolean isDateLastSprayedReadable()
+  {
+    return isReadable(DATELASTSPRAYED);
+  }
+  
+  public boolean isDateLastSprayedModified()
+  {
+    return isModified(DATELASTSPRAYED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateLastSprayedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATELASTSPRAYED).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.general.DiseaseDTO getDisease()
   {
     if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
@@ -270,6 +419,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -316,6 +470,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -360,6 +519,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -390,6 +554,55 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.irs.InsecticideBrandDTO getInsecticideBrand()
+  {
+    if(getValue(INSECTICIDEBRAND) == null || getValue(INSECTICIDEBRAND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(INSECTICIDEBRAND));
+    }
+  }
+  
+  public String getInsecticideBrandId()
+  {
+    return getValue(INSECTICIDEBRAND);
+  }
+  
+  public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEBRAND, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEBRAND, value.getId());
+    }
+  }
+  
+  public boolean isInsecticideBrandWritable()
+  {
+    return isWritable(INSECTICIDEBRAND);
+  }
+  
+  public boolean isInsecticideBrandReadable()
+  {
+    return isReadable(INSECTICIDEBRAND);
+  }
+  
+  public boolean isInsecticideBrandModified()
+  {
+    return isModified(INSECTICIDEBRAND);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideBrandMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDEBRAND).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -464,6 +677,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     {
       return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
+  }
+  
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
   }
   
   public boolean isLastUpdatedByWritable()
@@ -581,6 +799,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -611,6 +834,11 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

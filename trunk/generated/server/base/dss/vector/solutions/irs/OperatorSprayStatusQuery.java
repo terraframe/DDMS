@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -2070524087)
+@com.runwaysdk.business.ClassSignature(hash = -194155105)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -349,6 +349,23 @@ public  class OperatorSprayStatusQuery extends com.runwaysdk.query.GeneratedBusi
   public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOperatorTarget()
@@ -984,6 +1001,9 @@ public  class OperatorSprayStatusQuery extends com.runwaysdk.query.GeneratedBusi
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOperatorTarget();
     public com.runwaysdk.query.SelectableInteger getOperatorTarget(String alias);
     public com.runwaysdk.query.SelectableInteger getOperatorTarget(String alias, String displayLabel);
@@ -1393,6 +1413,23 @@ public  class OperatorSprayStatusQuery extends com.runwaysdk.query.GeneratedBusi
   public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOperatorTarget()
@@ -1987,6 +2024,9 @@ public  class OperatorSprayStatusQuery extends com.runwaysdk.query.GeneratedBusi
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed();
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias);
     public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOperatorTarget();
     public com.runwaysdk.query.SelectableInteger getOperatorTarget(String alias);
     public com.runwaysdk.query.SelectableInteger getOperatorTarget(String alias, String displayLabel);
@@ -2445,6 +2485,23 @@ public  class OperatorSprayStatusQuery extends com.runwaysdk.query.GeneratedBusi
   public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NOZZLESUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOperatorTarget()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1901719268)
+@com.runwaysdk.business.ClassSignature(hash = 960505365)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -257,6 +257,24 @@ public  abstract  class TeamSprayExcelViewQueryBase extends com.runwaysdk.query.
   public com.runwaysdk.query.SelectableInteger getNozzlesUsed(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.NOZZLESUSED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
  

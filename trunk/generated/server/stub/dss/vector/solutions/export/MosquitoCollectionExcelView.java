@@ -22,6 +22,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -144,6 +145,32 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setCollectionMethod(colMethod);
     }
 
+    Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
+    if (collectionRound != null)
+    {
+      view.setCollectionRound(collectionRound);
+    }
+
+    Term collectionType = Term.validateByDisplayLabel(this.getCollectionType(), MosquitoCollectionView.getCollectionTypeMd());
+
+    if (collectionType != null)
+    {
+      view.setCollectionType(collectionType);
+    }
+
+    InsecticideBrand insecticideBrand = InsecticideBrand.validateByName(this.getInsecticideBrand());
+
+    if (insecticideBrand != null)
+    {
+      view.setInsecticideBrand(insecticideBrand);
+    }
+
+    Date dateLastSprayed = this.getDateLastSprayed();
+    if (dateLastSprayed != null)
+    {
+      view.setDateLastSprayed(dateLastSprayed);
+    }
+
     Date colDate = this.getCollectionDate();
     if (colDate != null)
     {
@@ -179,6 +206,10 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(COLLECTIONID);
     list.add(ABUNDANCE);
     list.add(LIFESTAGE);
+    list.add(COLLECTIONROUND);
+    list.add(COLLECTIONTYPE);
+    list.add(DATELASTSPRAYED);
+    list.add(INSECTICIDEBRAND);
     list.add(SUBCOLLECTIONID);
     list.add(IDENTMETHOD);
     list.add(TAXON);

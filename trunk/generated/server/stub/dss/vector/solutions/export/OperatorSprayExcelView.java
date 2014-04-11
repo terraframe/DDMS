@@ -119,6 +119,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setVerandasSprayed(this.getVerandasSprayed());
       view.setCattleShedsSprayed(this.getCattleShedsSprayed());
       view.setPeople(this.getPeople());
+      view.setNumberOfPeople(this.getNumberOfPeople());
       view.setBedNets(this.getBedNets());
       view.setRoomsWithBedNets(this.getRoomsWithBedNets());
       view.setLocked(this.getLocked());
@@ -137,7 +138,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
 
   private boolean hasHouseholdSprayValues()
   {
-    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE };
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, NUMBEROFPEOPLE, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE };
 
     for (String attributeName : attributeNames)
     {
@@ -216,6 +217,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(SPRAYEDROOMS);
     list.add(VERANDASSPRAYED);
     list.add(CATTLESHEDSSPRAYED);
+    list.add(NUMBEROFPEOPLE);
     list.add(PEOPLE);
     list.add(BEDNETS);
     list.add(ROOMSWITHBEDNETS);

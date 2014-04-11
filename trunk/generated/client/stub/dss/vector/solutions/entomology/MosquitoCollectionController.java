@@ -24,6 +24,7 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryD
 import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
+import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.ColumnSetup;
@@ -45,7 +46,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public static final String COLLECTION       = "collection";
 
-  private static final long  serialVersionUID = -579744080;
+  public static final long   serialVersionUID = -579744080;
 
   public MosquitoCollectionController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -144,13 +145,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("kda", kda);
     req.setAttribute("item", dto);
     req.setAttribute("entityUniversals", entityUniversals);
-        
-    req.setAttribute("adaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"));
-    req.setAttribute("ldaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"));
-    req.setAttribute("kdaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"));
-    req.setAttribute("raFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo"));
-    req.setAttribute("iaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo"));
-    req.setAttribute("maFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo"));
+
+    req.setAttribute("adaFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"));
+    req.setAttribute("ldaFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"));
+    req.setAttribute("kdaFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"));
+    req.setAttribute("raFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo"));
+    req.setAttribute("iaFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo"));
+    req.setAttribute("maFlag", SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo"));
 
     render("viewComponent.jsp");
   }
@@ -284,8 +285,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.setupReferences((MosquitoCollectionViewDTO) dto);
 
     Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-    
-    
+
     if (dto.getStartDate() != null)
     {
       String startDate = f.format(dto.getStartDate(), req.getLocale());
@@ -307,14 +307,18 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   private void setupReferences(MosquitoCollectionViewDTO dto)
   {
     List<LifeStageDTO> stage = dto.getLifeStage();
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(dto.getRequest());
 
     if (stage.size() > 0)
     {
       req.setAttribute("currentLifeStage", stage.get(0).getName());
     }
 
+    req.setAttribute("collectionRound", dto.getCollectionRound());
+    req.setAttribute("collectionType", dto.getCollectionType());
     req.setAttribute("collectionMethod", dto.getCollectionMethod());
     req.setAttribute("lifeStage", LifeStageDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("brands", Arrays.asList(brands));
   }
 
   public void failView(String id) throws IOException, ServletException

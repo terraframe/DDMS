@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology;
  */
 public  class ImmatureThresholdDisplayLabelQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -481695056;
 
   public ImmatureThresholdDisplayLabelQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = -481695056;
  **/
   public static class ImmatureThresholdDisplayLabelQueryStruct extends com.runwaysdk.query.AttributeLocal implements ImmatureThresholdDisplayLabelQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1996175436;
 
   public ImmatureThresholdDisplayLabelQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

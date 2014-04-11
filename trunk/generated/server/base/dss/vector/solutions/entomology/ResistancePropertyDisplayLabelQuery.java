@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology;
  */
 public  class ResistancePropertyDisplayLabelQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 652794823;
 
   public ResistancePropertyDisplayLabelQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = 652794823;
  **/
   public static class ResistancePropertyDisplayLabelQueryStruct extends com.runwaysdk.query.AttributeLocal implements ResistancePropertyDisplayLabelQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 948543299;
 
   public ResistancePropertyDisplayLabelQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

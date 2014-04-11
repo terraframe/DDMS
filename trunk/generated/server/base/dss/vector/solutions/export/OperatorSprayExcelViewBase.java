@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2142029893)
+@com.runwaysdk.business.ClassSignature(hash = 1187351486)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,6 +25,7 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String NOZZLESUSED = "nozzlesUsed";
+  public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
   public static java.lang.String OPERATORID = "operatorId";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
@@ -56,7 +57,7 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = 2142029893;
+  private static final long serialVersionUID = 1187351486;
   
   public OperatorSprayExcelViewBase()
   {
@@ -452,6 +453,34 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(NOZZLESUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfPeople()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
+  }
+  
+  public void validateNumberOfPeople()
+  {
+    this.validateAttribute(NUMBEROFPEOPLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfPeopleMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFPEOPLE);
+  }
+  
+  public void setNumberOfPeople(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFPEOPLE, "");
+    }
+    else
+    {
+      setValue(NUMBEROFPEOPLE, java.lang.Integer.toString(value));
     }
   }
   

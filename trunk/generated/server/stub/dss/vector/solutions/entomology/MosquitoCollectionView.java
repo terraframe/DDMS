@@ -47,6 +47,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   public void populateView(MosquitoCollection concrete)
   {
     Term method = concrete.getCollectionMethod();
+    Term collectionRound = concrete.getCollectionRound();
     GeoEntity entity = concrete.getGeoEntity();
 
     this.setConcreteId(concrete.getId());
@@ -55,6 +56,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     this.setAbundance(concrete.getAbundance());
     this.setCollectionMethod(method);
     this.setCollectionId(concrete.getCollectionId());
+    this.setCollectionRound(collectionRound);
+    this.setCollectionType(concrete.getCollectionType());
+    this.setInsecticideBrand(concrete.getInsecticideBrand());
+    this.setDateLastSprayed(concrete.getDateLastSprayed());
     this.setResistanceAssayComments(concrete.getResistanceAssayComments());
     this.clearLifeStage();
 
@@ -71,6 +76,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     concrete.setAbundance(this.getAbundance());
     concrete.setCollectionMethod(this.getCollectionMethod());
     concrete.setCollectionId(this.getCollectionId());
+    concrete.setCollectionRound(this.getCollectionRound());
+    concrete.setCollectionType(this.getCollectionType());
+    concrete.setInsecticideBrand(this.getInsecticideBrand());
+    concrete.setDateLastSprayed(this.getDateLastSprayed());
     concrete.setResistanceAssayComments(this.getResistanceAssayComments());
     concrete.clearLifeStage();
 
@@ -90,6 +99,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     new AttributeNotificationMap(concrete, MosquitoCollection.ABUNDANCE, this, MosquitoCollectionView.ABUNDANCE);
     new AttributeNotificationMap(concrete, MosquitoCollection.LIFESTAGE, this, MosquitoCollectionView.LIFESTAGE);
     new AttributeNotificationMap(concrete, MosquitoCollection.RESISTANCEASSAYCOMMENTS, this, MosquitoCollectionView.RESISTANCEASSAYCOMMENTS);
+    new AttributeNotificationMap(concrete, MosquitoCollection.COLLECTIONROUND, this, MosquitoCollectionView.COLLECTIONROUND);
+    new AttributeNotificationMap(concrete, MosquitoCollection.COLLECTIONTYPE, this, MosquitoCollectionView.COLLECTIONTYPE);
+    new AttributeNotificationMap(concrete, MosquitoCollection.DATELASTSPRAYED, this, MosquitoCollectionView.DATELASTSPRAYED);
+    new AttributeNotificationMap(concrete, MosquitoCollection.INSECTICIDEBRAND, this, MosquitoCollectionView.INSECTICIDEBRAND);
   }
 
   @Override
@@ -270,7 +283,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new MolecularAssayView[0];
   }
-  
+
   @Override
   public DiagnosticAssayView[] getDiagnosticAssays()
   {
@@ -295,7 +308,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new DiagnosticAssayView[0];
   }
-  
+
   @Override
   public TimeResponseAssayView[] getTimeResponseAssays()
   {
@@ -303,13 +316,13 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       TimeResponseAssayViewQuery query = new TimeResponseAssayViewQuery(new QueryFactory());
       query.WHERE(query.getCollection().EQ(this.getConcreteId()));
-      
+
       OIterator<? extends TimeResponseAssayView> it = query.getIterator();
-      
+
       try
       {
         List<? extends TimeResponseAssayView> list = it.getAll();
-        
+
         return list.toArray(new TimeResponseAssayView[list.size()]);
       }
       finally
@@ -317,10 +330,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
         it.close();
       }
     }
-    
+
     return new TimeResponseAssayView[0];
   }
-  
+
   public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
@@ -464,8 +477,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
         return it.next().getView();
       }
 
-      String errMsg = "An instance of type [" + MosquitoCollection.CLASS + "] with id ["+collectionId+"] does not exist.";
-      
+      String errMsg = "An instance of type [" + MosquitoCollection.CLASS + "] with id [" + collectionId + "] does not exist.";
+
       throw new DataNotFoundException(errMsg, MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS));
     }
     finally
@@ -486,7 +499,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { cQ.getId(MosquitoCollection.ID), cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), cQ.getCollectionDate(MosquitoCollectionView.COLLECTIONDATE), q.getEntityLabel().localize(GeoEntityView.ENTITYLABEL), q.getGeoId(GeoEntityView.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusiness.DISPLAYLABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
 
-    Condition[] conditions = new Condition[] {q.getId().EQ(cQ.getGeoEntity().getId()), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
+    Condition[] conditions = new Condition[] { q.getId().EQ(cQ.getGeoEntity().getId()), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
 
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
@@ -503,10 +516,8 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     }
 
     valueQuery.restrictRows(20, 1);
-    
+
     return valueQuery;
   }
-
-
 
 }

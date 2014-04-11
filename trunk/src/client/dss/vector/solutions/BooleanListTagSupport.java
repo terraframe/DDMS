@@ -19,8 +19,8 @@ import com.runwaysdk.transport.attributes.AttributeBooleanDTO;
 public class BooleanListTagSupport extends BooleanTagSupport implements Reloadable
 {
   private Boolean includeBlank;
-  
-  @AttributeAnnotation(description = "Flag denoting if an empty option should be generated.", rtexprvalue=true)
+
+  @AttributeAnnotation(description = "Flag denoting if an empty option should be generated.", rtexprvalue = true)
   public Boolean getIncludeBlank()
   {
     return includeBlank;
@@ -38,8 +38,9 @@ public class BooleanListTagSupport extends BooleanTagSupport implements Reloadab
     JspTag parent = findAncestorWithClass(this, ComponentMarkerIF.class);
 
     String _name = this.getParam();
-    String _value = this.getValue();    
+    String _value = this.getValue();
     String _id = this.getId();
+    String _classes = this.getClasses();
 
     // If the input tag is in the context of a component then
     // load update the parameter name and display value
@@ -83,38 +84,43 @@ public class BooleanListTagSupport extends BooleanTagSupport implements Reloadab
     {
       this.setFalseLabel("false");
     }
-    
-    this.writeTags(out, _name, _value, _id);    
+
+    this.writeTags(out, _name, _value, _id, _classes);
   }
 
-  private void writeTags(JspWriter out, String _name, String _value, String _id) throws IOException
+  private void writeTags(JspWriter out, String _name, String _value, String _id, String _classes) throws IOException
   {
-    String selectTag = this.getSelectTag(_name, _id);
-    
+    String selectTag = this.getSelectTag(_name, _id, _classes);
+
     out.write(selectTag + "\n");
-    
-    if(this.getIncludeBlank() != null && this.getIncludeBlank())
+
+    if (this.getIncludeBlank() != null && this.getIncludeBlank())
     {
-      writeOption(out, "", "", null, (_id != null ? _id + ".blank" : null));
+      writeOption(out, "", "", null, ( _id != null ? _id + ".blank" : null ));
     }
-    
-    this.writeOption(out, "true", this.getTrueLabel(), _value.equalsIgnoreCase("true"), (_id != null ? _id + ".positive" : null));
-    this.writeOption(out, "false", this.getFalseLabel(), _value.equalsIgnoreCase("false"), (_id != null ? _id + ".negative" : null));
-    
+
+    this.writeOption(out, "true", this.getTrueLabel(), _value.equalsIgnoreCase("true"), ( _id != null ? _id + ".positive" : null ));
+    this.writeOption(out, "false", this.getFalseLabel(), _value.equalsIgnoreCase("false"), ( _id != null ? _id + ".negative" : null ));
+
     out.write("</select>");
   }
 
-  private String getSelectTag(String name, String id)
+  private String getSelectTag(String name, String id, String classes)
   {
-    String tag =  "<select name=\"" + name + "\"";
-    
-    if(id != null)
+    String tag = "<select name=\"" + name + "\"";
+
+    if (id != null)
     {
       tag += " id =\"" + id + "\"";
     }
-    
+
+    if (classes != null)
+    {
+      tag += " class =\"" + classes + "\"";
+    }
+
     tag += ">";
-    
+
     return tag;
   }
 
@@ -122,16 +128,16 @@ public class BooleanListTagSupport extends BooleanTagSupport implements Reloadab
   {
     out.write("<option value=\"" + optionValue + "\"");
 
-    if(selected != null && selected)
+    if (selected != null && selected)
     {
-      out.write(" selected=\"selected\"");      
+      out.write(" selected=\"selected\"");
     }
-    
-    if(id != null)
+
+    if (id != null)
     {
-      out.write(" id = \"" + id  + "\"");
+      out.write(" id = \"" + id + "\"");
     }
-    
+
     out.write(">" + optionLabel + "</option>\n");
   }
 }

@@ -51,26 +51,26 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
     return view;
   }
-  
+
   @Override
   public void validateStructureId()
   {
-    if(this.getStructureId() != null && this.getSpray() != null)
+    if (this.getStructureId() != null && this.getSpray() != null)
     {
       HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getId().NE(this.getId()));
       query.AND(query.getStructureId().EQ(this.getStructureId()));
       query.AND(query.getSpray().EQ(this.getSpray()));
-      
+
       long count = query.getCount();
-      
-      if(count > 0)
+
+      if (count > 0)
       {
         UniqueValueProblem p = new UniqueValueProblem();
         p.setDisplayLabel(getStructureIdMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setValue(this.getStructureId());
         p.apply();
-        
+
         p.throwIt();
       }
     }
@@ -123,7 +123,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         if (status == null)
         {
           String msg = "A spray status of this household has not been set to 1";
-          
+
           UncountedProblem p = new UncountedProblem(msg);
           p.setNotification(this, HOUSEHOLDS);
           p.setHouseholdId(this.getHouseholdId());
@@ -167,7 +167,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   public void validateSprayedHouseholds()
   {
     Integer value = this.getSprayedHouseholds();
-    
+
     if (value != null)
     {
       if (value != 1 && value != 0)
@@ -318,7 +318,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   public void validateVerandas(SprayMethod method)
   {
     if (this.getVerandas() != null)
@@ -333,7 +333,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   public void validateCattleSheds(SprayMethod method)
   {
     if (this.getCattleSheds() != null)
@@ -348,7 +348,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   @Override
   public void validateSprayedRooms()
   {
@@ -367,14 +367,14 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateVerandasSprayed()
   {
     if (this.getVerandas() != null && this.getVerandasSprayed() != null && this.getVerandas() < this.getVerandasSprayed())
     {
       String msg = "The number of verandas sprayed cannot be greater than the number of verandas";
-      
+
       SprayedSumProblem p = new SprayedSumProblem(msg);
       p.setNotification(this, VERANDASSPRAYED);
       p.setObjectLabel(this.getMdAttributeDAO(VERANDAS).getDisplayLabel(Session.getCurrentLocale()));
@@ -382,18 +382,18 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.setObjects(this.getVerandas());
       p.setSprayedObjects(this.getVerandasSprayed());
       p.apply();
-      
+
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateCattleShedsSprayed()
   {
     if (this.getCattleSheds() != null && this.getCattleShedsSprayed() != null && this.getCattleSheds() < this.getCattleShedsSprayed())
     {
       String msg = "The number of cattle sheds sprayed cannot be greater than the number of cattle sheds";
-      
+
       SprayedSumProblem p = new SprayedSumProblem(msg);
       p.setNotification(this, CATTLESHEDSSPRAYED);
       p.setObjectLabel(this.getMdAttributeDAO(CATTLESHEDS).getDisplayLabel(Session.getCurrentLocale()));
@@ -401,11 +401,11 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.setObjects(this.getCattleSheds());
       p.setSprayedObjects(this.getCattleShedsSprayed());
       p.apply();
-      
+
       p.throwIt();
     }
   }
-  
+
   private void validateOther(SprayMethod method)
   {
     if (this.getOther() != null)
@@ -420,7 +420,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   public void validateVerandasOther(SprayMethod method)
   {
     if (this.getVerandasOther() != null)
@@ -435,7 +435,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   public void validateCattleShedsOther(SprayMethod method)
   {
     if (this.getCattleShedsOther() != null)
@@ -462,7 +462,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
-    
+
   public void validateVerandasRefused(SprayMethod method)
   {
     if (this.getVerandasRefused() != null)
@@ -477,7 +477,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   public void validateCattleShedsRefused(SprayMethod method)
   {
     if (this.getCattleShedsRefused() != null)
@@ -492,7 +492,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       }
     }
   }
-  
+
   private void validateLocked(SprayMethod method)
   {
     if (this.getLocked() != null && method.equals(SprayMethod.MOP_UP))
@@ -504,7 +504,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
-  
+
   public void validateVerandasLocked(SprayMethod method)
   {
     if (this.getVerandasLocked() != null)
@@ -518,8 +518,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
     }
-  }  
-  
+  }
+
   public void validateCattleShedsLocked(SprayMethod method)
   {
     if (this.getCattleShedsLocked() != null)
@@ -533,8 +533,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
     }
-  }  
-  
+  }
+
   private void validateWrongSurface(SprayMethod method)
   {
     if (this.getWrongSurface() != null && method.equals(SprayMethod.MOP_UP))
@@ -571,6 +571,18 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     }
   }
 
+  protected void validateNumberOfPeople(SprayMethod method)
+  {
+    if (this.getNumberOfPeople() != null && method.equals(SprayMethod.MOP_UP))
+    {
+      String msg = "# People is not applicable on a mop-up spray";
+      ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+      p.setNotification(this, NUMBEROFPEOPLE);
+      p.apply();
+      p.throwIt();
+    }
+  }
+
   protected void validatePeople(SprayMethod method)
   {
     if (this.getPeople() != null && method.equals(SprayMethod.MOP_UP))
@@ -588,7 +600,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   {
     SprayMethod method = this.getSprayMethod();
 
-    if(!method.equals(SprayMethod.MOP_UP))
+    if (!method.equals(SprayMethod.MOP_UP))
     {
       this.setStructures(1);
     }
@@ -597,7 +609,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       this.setHouseholds(null);
       this.setStructures(null);
     }
-    
+
     validateStructureId();
 
     // Validate MOP-UP
@@ -608,6 +620,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     validateRooms(method);
     validateVerandas(method);
     validateCattleSheds(method);
+    validateNumberOfPeople(method);
     validatePeople(method);
     validateBedNets(method);
     validateRoomsWithBedNets(method);

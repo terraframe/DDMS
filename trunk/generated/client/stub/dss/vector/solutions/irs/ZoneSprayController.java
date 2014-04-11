@@ -31,7 +31,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1240860686933L;
+  public static final long   serialVersionUID = 1240860686933L;
 
   public ZoneSprayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {

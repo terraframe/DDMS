@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -882973742)
+@com.runwaysdk.business.ClassSignature(hash = -870117813)
 public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayStatusView";
-  private static final long serialVersionUID = -882973742;
+  private static final long serialVersionUID = -870117813;
   
   protected TeamSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.
   public static java.lang.String ID = "id";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String NOZZLESUSED = "nozzlesUsed";
+  public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -422,6 +423,43 @@ public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNozzlesUsedMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NOZZLESUSED).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberOfPeople()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
+  }
+  
+  public void setNumberOfPeople(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFPEOPLE, "");
+    }
+    else
+    {
+      setValue(NUMBEROFPEOPLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberOfPeopleWritable()
+  {
+    return isWritable(NUMBEROFPEOPLE);
+  }
+  
+  public boolean isNumberOfPeopleReadable()
+  {
+    return isReadable(NUMBEROFPEOPLE);
+  }
+  
+  public boolean isNumberOfPeopleModified()
+  {
+    return isModified(NUMBEROFPEOPLE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfPeopleMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFPEOPLE).getAttributeMdDTO();
   }
   
   public Integer getOther()

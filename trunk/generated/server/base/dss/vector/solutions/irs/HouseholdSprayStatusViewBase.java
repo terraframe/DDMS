@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 840895794)
+@com.runwaysdk.business.ClassSignature(hash = -1659328551)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String HOUSEHOLDS = "households";
   public static java.lang.String ID = "id";
   public static java.lang.String LOCKED = "locked";
+  public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -41,7 +42,7 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = 840895794;
+  private static final long serialVersionUID = -1659328551;
   
   public HouseholdSprayStatusViewBase()
   {
@@ -341,6 +342,34 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     else
     {
       setValue(LOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfPeople()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
+  }
+  
+  public void validateNumberOfPeople()
+  {
+    this.validateAttribute(NUMBEROFPEOPLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfPeopleMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFPEOPLE);
+  }
+  
+  public void setNumberOfPeople(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFPEOPLE, "");
+    }
+    else
+    {
+      setValue(NUMBEROFPEOPLE, java.lang.Integer.toString(value));
     }
   }
   

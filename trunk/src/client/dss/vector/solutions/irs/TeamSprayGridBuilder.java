@@ -45,6 +45,7 @@ public class TeamSprayGridBuilder extends GridBuilder implements Reloadable
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.ROOMS, false);
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.VERANDAS, false);
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.CATTLESHEDS, false);
+      GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.NUMBEROFPEOPLE, false);
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.PEOPLE, false);
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.BEDNETS, false);
       GridBuilder.setEditable(map, OperatorSprayStatusViewDTO.ROOMSWITHBEDNETS, false);
@@ -87,6 +88,7 @@ public class TeamSprayGridBuilder extends GridBuilder implements Reloadable
         OperatorSprayStatusViewDTO.VERANDASSPRAYED,
         OperatorSprayStatusViewDTO.CATTLESHEDS,
         OperatorSprayStatusViewDTO.CATTLESHEDSSPRAYED,
+        OperatorSprayStatusViewDTO.NUMBEROFPEOPLE,
         OperatorSprayStatusViewDTO.PEOPLE,
         OperatorSprayStatusViewDTO.BEDNETS,
         OperatorSprayStatusViewDTO.ROOMSWITHBEDNETS,

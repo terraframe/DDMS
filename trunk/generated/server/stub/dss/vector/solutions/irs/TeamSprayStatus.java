@@ -140,7 +140,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   public void validateVerandas(SprayMethod method)
   {
     if (this.getVerandas() != null)
@@ -155,7 +155,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   public void validateCattleSheds(SprayMethod method)
   {
     if (this.getCattleSheds() != null)
@@ -170,7 +170,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   @Override
   public void validateSprayedRooms()
   {
@@ -189,14 +189,14 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateVerandasSprayed()
   {
     if (this.getVerandas() != null && this.getVerandasSprayed() != null && this.getVerandas() < this.getVerandasSprayed())
     {
       String msg = "The number of verandas sprayed cannot be greater than the number of verandas";
-      
+
       SprayedSumProblem p = new SprayedSumProblem(msg);
       p.setNotification(this, VERANDASSPRAYED);
       p.setObjectLabel(this.getMdAttributeDAO(VERANDAS).getDisplayLabel(Session.getCurrentLocale()));
@@ -204,18 +204,18 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       p.setObjects(this.getVerandas());
       p.setSprayedObjects(this.getVerandasSprayed());
       p.apply();
-      
+
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateCattleShedsSprayed()
   {
     if (this.getCattleSheds() != null && this.getCattleShedsSprayed() != null && this.getCattleSheds() < this.getCattleShedsSprayed())
     {
       String msg = "The number of cattle sheds sprayed cannot be greater than the number of cattle sheds";
-      
+
       SprayedSumProblem p = new SprayedSumProblem(msg);
       p.setNotification(this, CATTLESHEDSSPRAYED);
       p.setObjectLabel(this.getMdAttributeDAO(CATTLESHEDS).getDisplayLabel(Session.getCurrentLocale()));
@@ -223,11 +223,11 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       p.setObjects(this.getCattleSheds());
       p.setSprayedObjects(this.getCattleShedsSprayed());
       p.apply();
-      
+
       p.throwIt();
     }
   }
-  
+
   private void validateOther(SprayMethod method)
   {
     if (this.getOther() != null)
@@ -242,7 +242,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   public void validateVerandasOther(SprayMethod method)
   {
     if (this.getVerandasOther() != null)
@@ -257,7 +257,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   public void validateCattleShedsOther(SprayMethod method)
   {
     if (this.getCattleShedsOther() != null)
@@ -284,7 +284,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       p.throwIt();
     }
   }
-    
+
   public void validateVerandasRefused(SprayMethod method)
   {
     if (this.getVerandasRefused() != null)
@@ -299,7 +299,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   public void validateCattleShedsRefused(SprayMethod method)
   {
     if (this.getCattleShedsRefused() != null)
@@ -314,7 +314,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       }
     }
   }
-  
+
   private void validateLocked(SprayMethod method)
   {
     if (this.getLocked() != null && method.equals(SprayMethod.MOP_UP))
@@ -326,7 +326,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       p.throwIt();
     }
   }
-  
+
   public void validateVerandasLocked(SprayMethod method)
   {
     if (this.getVerandasLocked() != null)
@@ -340,8 +340,8 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
         p.throwIt();
       }
     }
-  }  
-  
+  }
+
   public void validateCattleShedsLocked(SprayMethod method)
   {
     if (this.getCattleShedsLocked() != null)
@@ -355,8 +355,8 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
         p.throwIt();
       }
     }
-  }  
-  
+  }
+
   private void validateWrongSurface(SprayMethod method)
   {
     if (this.getWrongSurface() != null && method.equals(SprayMethod.MOP_UP))
@@ -420,6 +420,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
     validateRooms(method);
     validateVerandas(method);
     validateCattleSheds(method);
+    validateNumberOfPeople(method);
     validatePeople(method);
     validateBedNets(method);
     validateRoomsWithBedNets(method);
@@ -463,6 +464,18 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
       String msg = "# ITNs is not applicable on a mop-up spray";
       ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
       p.setNotification(this, BEDNETS);
+      p.apply();
+      p.throwIt();
+    }
+  }
+
+  protected void validateNumberOfPeople(SprayMethod method)
+  {
+    if (this.getNumberOfPeople() != null && method.equals(SprayMethod.MOP_UP))
+    {
+      String msg = "# People is not applicable on a mop-up spray";
+      ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+      p.setNotification(this, NUMBEROFPEOPLE);
       p.apply();
       p.throwIt();
     }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1135551071)
+@com.runwaysdk.business.ClassSignature(hash = -706558531)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -349,6 +349,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()
@@ -872,6 +889,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -1263,6 +1283,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()
@@ -1751,6 +1788,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -2191,6 +2231,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()

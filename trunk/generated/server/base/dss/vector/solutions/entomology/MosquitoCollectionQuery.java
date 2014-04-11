@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 461068963)
+@com.runwaysdk.business.ClassSignature(hash = 1496407057)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -112,6 +112,52 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONMETHOD, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound()
+  {
+    return getCollectionRound(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType()
+  {
+    return getCollectionType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -150,6 +196,23 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed()
+  {
+    return getDateLastSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
@@ -236,6 +299,29 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.ID, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND);
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND);
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -457,6 +543,14 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -472,6 +566,10 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.LASTUPDATEDBY)) 
     {
@@ -551,12 +649,21 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed();
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias);
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel);
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
@@ -569,6 +676,9 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand();
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -705,6 +815,40 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONMETHOD,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound()
+  {
+    return getCollectionRound(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType()
+  {
+    return getCollectionType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -737,6 +881,23 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed()
+  {
+    return getDateLastSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
@@ -805,6 +966,23 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.MosquitoCollection.ID, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -1002,6 +1180,14 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1017,6 +1203,10 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.LASTUPDATEDBY)) 
     {
@@ -1073,12 +1263,21 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionMethod(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed();
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias);
+    public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel);
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
     public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
@@ -1091,6 +1290,9 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand();
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -1276,6 +1478,40 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONMETHOD,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound()
+  {
+    return getCollectionRound(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType()
+  {
+    return getCollectionType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -1308,6 +1544,23 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed()
+  {
+    return getDateLastSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.entomology.MosquitoCollection.DATELASTSPRAYED, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
@@ -1376,6 +1629,23 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.MosquitoCollection.ID, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -1573,6 +1843,14 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONROUND)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.COLLECTIONTYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1588,6 +1866,10 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MosquitoCollection.LASTUPDATEDBY)) 
     {

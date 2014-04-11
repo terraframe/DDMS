@@ -45,6 +45,7 @@ public class ZoneSprayGridBuilder extends GridBuilder implements Reloadable
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.ROOMS, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.VERANDAS, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.CATTLESHEDS, false);
+      GridBuilder.setEditable(map, TeamSprayStatusViewDTO.NUMBEROFPEOPLE, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.PEOPLE, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.BEDNETS, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.ROOMSWITHBEDNETS, false);
@@ -65,9 +66,46 @@ public class ZoneSprayGridBuilder extends GridBuilder implements Reloadable
 
   private String[] getKeys()
   {
-    String[] keys = { TeamSprayStatusViewDTO.CONCRETEID, TeamSprayStatusViewDTO.SPRAY, TeamSprayStatusViewDTO.TEAMLABEL, TeamSprayStatusViewDTO.SPRAYTEAM, TeamSprayStatusViewDTO.TEAMLEADER, TeamSprayStatusViewDTO.TARGET, TeamSprayStatusViewDTO.RECEIVED, TeamSprayStatusViewDTO.REFILLS, TeamSprayStatusViewDTO.RETURNED, TeamSprayStatusViewDTO.USED, TeamSprayStatusViewDTO.HOUSEHOLDS, TeamSprayStatusViewDTO.STRUCTURES, TeamSprayStatusViewDTO.SPRAYEDHOUSEHOLDS,
-        TeamSprayStatusViewDTO.SPRAYEDSTRUCTURES, TeamSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS, TeamSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES, TeamSprayStatusViewDTO.ROOMS, TeamSprayStatusViewDTO.SPRAYEDROOMS, TeamSprayStatusViewDTO.VERANDAS, TeamSprayStatusViewDTO.VERANDASSPRAYED, TeamSprayStatusViewDTO.CATTLESHEDS, TeamSprayStatusViewDTO.CATTLESHEDSSPRAYED, TeamSprayStatusViewDTO.PEOPLE, TeamSprayStatusViewDTO.BEDNETS, TeamSprayStatusViewDTO.ROOMSWITHBEDNETS, TeamSprayStatusViewDTO.LOCKED,
-        TeamSprayStatusViewDTO.VERANDASLOCKED, TeamSprayStatusViewDTO.CATTLESHEDSLOCKED, TeamSprayStatusViewDTO.REFUSED, TeamSprayStatusViewDTO.VERANDASREFUSED, TeamSprayStatusViewDTO.CATTLESHEDSREFUSED, TeamSprayStatusViewDTO.OTHER, TeamSprayStatusViewDTO.VERANDASOTHER, TeamSprayStatusViewDTO.CATTLESHEDSOTHER, TeamSprayStatusViewDTO.WRONGSURFACE, TeamSprayStatusViewDTO.NOZZLESUSED, TeamSprayStatusViewDTO.PUMPSUSED };
+    String[] keys = {
+        TeamSprayStatusViewDTO.CONCRETEID,
+        TeamSprayStatusViewDTO.SPRAY,
+        TeamSprayStatusViewDTO.TEAMLABEL,
+        TeamSprayStatusViewDTO.SPRAYTEAM,
+        TeamSprayStatusViewDTO.TEAMLEADER,
+        TeamSprayStatusViewDTO.TARGET,
+        TeamSprayStatusViewDTO.RECEIVED,
+        TeamSprayStatusViewDTO.REFILLS,
+        TeamSprayStatusViewDTO.RETURNED,
+        TeamSprayStatusViewDTO.USED,
+        TeamSprayStatusViewDTO.HOUSEHOLDS,
+        TeamSprayStatusViewDTO.STRUCTURES,
+        TeamSprayStatusViewDTO.SPRAYEDHOUSEHOLDS,
+        TeamSprayStatusViewDTO.SPRAYEDSTRUCTURES,
+        TeamSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS,
+        TeamSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES,
+        TeamSprayStatusViewDTO.ROOMS,
+        TeamSprayStatusViewDTO.SPRAYEDROOMS,
+        TeamSprayStatusViewDTO.VERANDAS,
+        TeamSprayStatusViewDTO.VERANDASSPRAYED,
+        TeamSprayStatusViewDTO.CATTLESHEDS,
+        TeamSprayStatusViewDTO.CATTLESHEDSSPRAYED,
+        TeamSprayStatusViewDTO.NUMBEROFPEOPLE,
+        TeamSprayStatusViewDTO.PEOPLE,
+        TeamSprayStatusViewDTO.BEDNETS,
+        TeamSprayStatusViewDTO.ROOMSWITHBEDNETS,
+        TeamSprayStatusViewDTO.LOCKED,
+        TeamSprayStatusViewDTO.VERANDASLOCKED,
+        TeamSprayStatusViewDTO.CATTLESHEDSLOCKED,
+        TeamSprayStatusViewDTO.REFUSED,
+        TeamSprayStatusViewDTO.VERANDASREFUSED,
+        TeamSprayStatusViewDTO.CATTLESHEDSREFUSED,
+        TeamSprayStatusViewDTO.OTHER,
+        TeamSprayStatusViewDTO.VERANDASOTHER,
+        TeamSprayStatusViewDTO.CATTLESHEDSOTHER,
+        TeamSprayStatusViewDTO.WRONGSURFACE,
+        TeamSprayStatusViewDTO.NOZZLESUSED,
+        TeamSprayStatusViewDTO.PUMPSUSED
+     };
 
     upperFirstCharacter(keys);
 

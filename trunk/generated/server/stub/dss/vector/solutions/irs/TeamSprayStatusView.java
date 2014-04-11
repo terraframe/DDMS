@@ -44,6 +44,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     this.setVerandasSprayed(concrete.getVerandasSprayed());
     this.setCattleShedsSprayed(concrete.getCattleShedsSprayed());
     this.setPeople(concrete.getPeople());
+    this.setNumberOfPeople(concrete.getNumberOfPeople());
     this.setBedNets(concrete.getBedNets());
     this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
     this.setLocked(concrete.getLocked());
@@ -99,6 +100,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     concrete.setSprayedRooms(this.getSprayedRooms());
     concrete.setVerandasSprayed(this.getVerandasSprayed());
     concrete.setCattleShedsSprayed(this.getCattleShedsSprayed());
+    concrete.setNumberOfPeople(this.getNumberOfPeople());
     concrete.setPeople(this.getPeople());
     concrete.setBedNets(this.getBedNets());
     concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
@@ -138,6 +140,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYEDROOMS, this, TeamSprayStatusView.SPRAYEDROOMS);
     new AttributeNotificationMap(concrete, TeamSprayStatus.VERANDASSPRAYED, this, TeamSprayStatusView.VERANDASSPRAYED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSSPRAYED, this, TeamSprayStatusView.CATTLESHEDSSPRAYED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBEROFPEOPLE, this, TeamSprayStatusView.NUMBEROFPEOPLE);
     new AttributeNotificationMap(concrete, TeamSprayStatus.PEOPLE, this, TeamSprayStatusView.PEOPLE);
     new AttributeNotificationMap(concrete, TeamSprayStatus.BEDNETS, this, TeamSprayStatusView.BEDNETS);
     new AttributeNotificationMap(concrete, TeamSprayStatus.ROOMSWITHBEDNETS, this, TeamSprayStatusView.ROOMSWITHBEDNETS);

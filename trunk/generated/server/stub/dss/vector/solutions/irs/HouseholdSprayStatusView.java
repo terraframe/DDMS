@@ -38,6 +38,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     this.setVerandasSprayed(concrete.getVerandasSprayed());
     this.setCattleShedsSprayed(concrete.getCattleShedsSprayed());
     this.setPeople(concrete.getPeople());
+    this.setNumberOfPeople(concrete.getNumberOfPeople());
     this.setBedNets(concrete.getBedNets());
     this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
     this.setLocked(concrete.getLocked());
@@ -70,6 +71,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     concrete.setVerandasSprayed(this.getVerandasSprayed());
     concrete.setCattleShedsSprayed(this.getCattleShedsSprayed());
     concrete.setPeople(this.getPeople());
+    concrete.setNumberOfPeople(this.getNumberOfPeople());
     concrete.setBedNets(this.getBedNets());
     concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
     concrete.setLocked(this.getLocked());
@@ -102,6 +104,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASSPRAYED, this, HouseholdSprayStatusView.VERANDASSPRAYED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSSPRAYED, this, HouseholdSprayStatusView.CATTLESHEDSSPRAYED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.PEOPLE, this, HouseholdSprayStatusView.PEOPLE);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBEROFPEOPLE, this, HouseholdSprayStatusView.NUMBEROFPEOPLE);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.BEDNETS, this, HouseholdSprayStatusView.BEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.ROOMSWITHBEDNETS, this, HouseholdSprayStatusView.ROOMSWITHBEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.LOCKED, this, HouseholdSprayStatusView.LOCKED);

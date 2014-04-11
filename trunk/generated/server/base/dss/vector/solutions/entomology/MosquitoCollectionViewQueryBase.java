@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -165018524)
+@com.runwaysdk.business.ClassSignature(hash = -1404581097)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -98,6 +98,44 @@ public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.qu
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHOD, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound()
+  {
+    return getCollectionRound(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONROUND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionRound(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONROUND, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType()
+  {
+    return getCollectionType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCollectionType(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONTYPE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
@@ -113,6 +151,24 @@ public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.qu
   public com.runwaysdk.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.CONCRETEID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed()
+  {
+    return getDateLastSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.DATELASTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.DATELASTSPRAYED, alias, displayLabel);
 
   }
  
@@ -153,6 +209,25 @@ public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.qu
 
   }
  
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.INSECTICIDEBRAND, alias, displayLabel);
+
+  }
   public dss.vector.solutions.entomology.LifeStageMasterQuery.LifeStageQueryIF getLifeStage()
   {
     return getLifeStage(null);

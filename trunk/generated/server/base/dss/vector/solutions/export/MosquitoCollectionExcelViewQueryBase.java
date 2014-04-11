@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1498095637)
+@com.runwaysdk.business.ClassSignature(hash = -1342841641)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -94,6 +94,60 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionRound()
+  {
+    return getCollectionRound(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionRound(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONROUND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionRound(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONROUND, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionType()
+  {
+    return getCollectionType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONTYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCollectionType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONTYPE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed()
+  {
+    return getDateLastSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.DATELASTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateLastSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.DATELASTSPRAYED, alias, displayLabel);
 
   }
  
@@ -275,6 +329,24 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableChar getIdentMethod(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.IDENTMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInsecticideBrand(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInsecticideBrand(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.INSECTICIDEBRAND, alias, displayLabel);
 
   }
  

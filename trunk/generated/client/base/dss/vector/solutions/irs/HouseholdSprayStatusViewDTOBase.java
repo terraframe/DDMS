@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1715890)
+@com.runwaysdk.business.ClassSignature(hash = 638519641)
 public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatusView";
-  private static final long serialVersionUID = 1715890;
+  private static final long serialVersionUID = 638519641;
   
   protected HouseholdSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public static java.lang.String HOUSEHOLDS = "households";
   public static java.lang.String ID = "id";
   public static java.lang.String LOCKED = "locked";
+  public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -414,6 +415,43 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLockedMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberOfPeople()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
+  }
+  
+  public void setNumberOfPeople(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFPEOPLE, "");
+    }
+    else
+    {
+      setValue(NUMBEROFPEOPLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberOfPeopleWritable()
+  {
+    return isWritable(NUMBEROFPEOPLE);
+  }
+  
+  public boolean isNumberOfPeopleReadable()
+  {
+    return isReadable(NUMBEROFPEOPLE);
+  }
+  
+  public boolean isNumberOfPeopleModified()
+  {
+    return isModified(NUMBEROFPEOPLE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfPeopleMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFPEOPLE).getAttributeMdDTO();
   }
   
   public Integer getOther()

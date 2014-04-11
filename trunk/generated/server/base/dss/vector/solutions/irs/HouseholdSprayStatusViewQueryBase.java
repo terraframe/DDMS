@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -441140759)
+@com.runwaysdk.business.ClassSignature(hash = 226537744)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -220,6 +220,24 @@ public  abstract  class HouseholdSprayStatusViewQueryBase extends com.runwaysdk.
   public com.runwaysdk.query.SelectableInteger getLocked(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.LOCKED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
+  {
+    return getNumberOfPeople(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.NUMBEROFPEOPLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.NUMBEROFPEOPLE, alias, displayLabel);
 
   }
  

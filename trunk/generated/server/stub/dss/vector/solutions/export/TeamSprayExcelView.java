@@ -171,6 +171,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
     list.add(SPRAYEDROOMS);
     list.add(VERANDASSPRAYED);
     list.add(CATTLESHEDSSPRAYED);
+    list.add(NUMBEROFPEOPLE);
     list.add(PEOPLE);
     list.add(BEDNETS);
     list.add(ROOMSWITHBEDNETS);

@@ -16,6 +16,44 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
+<script type="text/javascript">
+Mojo.Meta.newClass("MDSS.ValidationBridge", {
+
+  IsSingleton : true,
+  
+  Instance : {
+  
+    initialize : function()
+    {
+    },
+    
+    setHandler : function(handler) {
+      this._handler = handler;
+    },
+
+    handleEvent : function(evt){      
+      if(this._handler != null)
+      {
+        if(evt instanceof dss.vector.solutions.ontology.TermSelectedEvent)
+        {        
+          if(!evt.getOnOpen())
+          {
+            this._handler(evt);          
+          }
+        }
+        else
+        {        
+          this._handler(evt);
+        }
+      }
+    }    
+  },
+});
+
+
+</script>    
+
+
 <c:set var="page_title" value="Create_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
 <mjl:message />
@@ -39,26 +77,42 @@
       </mjl:dt>
       <mjl:dt attribute="collectionDate">
         <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/>
-       </mjl:dt>
-       <mjl:dt attribute="geoEntity">
-         <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${entity}" />
-       </mjl:dt>
-       <mjl:dt attribute="lifeStage">
-         <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName" id="lifeStage">
-           <mjl:option selected="${mjl:contains(item.lifeStageEnumNames, current.enumName) ? 'selected' : 'false'}">
-             ${item.lifeStageMd.enumItems[current.enumName]}
-           </mjl:option>
-         </mjl:select>
-       </mjl:dt> 
-       <mdss:localize key="Go" var="Localized_Go" /> 
-       <mjl:command name="Go" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" value="${Localized_Go}" />
-       <hr />
-       <mjl:dt attribute="collectionId">
-         <mjl:input type="text" param="collectionId" id="collectionId"/>
-       </mjl:dt>
-       <mjl:dt attribute="abundance">
-         <mdss:selectBoolean param="abundance" id="abundance" includeBlank="true" value="${item.abundance == null ? '' : item.abundance}"/>
-       </mjl:dt>
+      </mjl:dt>
+      <mjl:dt attribute="geoEntity">
+        <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${entity}" />
+      </mjl:dt>
+      <mjl:dt attribute="lifeStage">
+        <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName" id="lifeStage">
+          <mjl:option selected="${mjl:contains(item.lifeStageEnumNames, current.enumName) ? 'selected' : 'false'}">
+            ${item.lifeStageMd.enumItems[current.enumName]}
+          </mjl:option>
+        </mjl:select>
+      </mjl:dt> 
+      <mdss:localize key="Go" var="Localized_Go" /> 
+      <mjl:command name="Go" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" value="${Localized_Go}" />
+      <hr />
+      <mjl:dt attribute="collectionId">
+        <mjl:input type="text" param="collectionId" id="collectionId" classes="component"/>
+      </mjl:dt>
+      <mjl:dt attribute="abundance">
+        <mdss:selectBoolean param="abundance" id="abundance" includeBlank="true" value="${item.abundance == null ? '' : item.abundance}" classes="component"/>
+      </mjl:dt>
+      <mjl:dt attribute="collectionRound">
+         <mdss:mo param="collectionRound" value="${collectionRound}" listener="MDSS.ValidationBridge.getInstance()"/>
+      </mjl:dt>       
+      <mjl:dt attribute="collectionType">
+         <mdss:mo param="collectionType" value="${collectionType}" listener="MDSS.ValidationBridge.getInstance()"/>
+      </mjl:dt>       
+      <mjl:dt attribute="dateLastSprayed">
+        <mjl:input param="dateLastSprayed" type="text" classes="DatePick NoFuture component" id="dateLastSprayed"/>
+      </mjl:dt>    
+      <mjl:dt attribute="insecticideBrand"> 
+        <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="insecticideBrand" id="insecticideBrand" includeBlank="true" classes="component" >
+          <mjl:option>
+            ${current.label}
+          </mjl:option>
+        </mjl:select>
+      </mjl:dt>
     </mjl:component>
     <c:if test="${adaFlag}">
       <mdss:localize key="Adult_DDA" var="Localized_Adult_DDA" />
@@ -264,9 +318,10 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       // IMPORTANT: If this is an existing collection then we do not update the searchable attributes        
       if(concreteId.value == '') {
         var stage = document.getElementById('lifeStage').value;
+        
         var collectionDate = document.getElementById('collectionDate').value;
         collectionDate = MDSS.Calendar.parseDate(collectionDate);
-
+        
         collection.setCollectionMethod(document.getElementById('collectionMethod').value);
         collection.setCollectionDate(collectionDate);
         collection.setGeoEntity(document.getElementById('geoEntity_geoEntityId').value);        
@@ -282,9 +337,21 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         collection.setGeoEntity(document.getElementById('original.geoEntity').value);        
         collection.addLifeStage(document.getElementById('original.lifeStage').value);         
       }
+      
+      var dateLastSprayed = document.getElementById('dateLastSprayed').value;
+      dateLastSprayed = MDSS.Calendar.parseDate(dateLastSprayed);     
+      
+      if(dateLastSprayed === '')
+      {
+        dateLastSprayed = null;        
+      }
 
       collection.setCollectionId(collectionId.value);        
       collection.setAbundance(abundance.value);        
+      collection.setCollectionRound(document.getElementById('collectionRound').value);
+      collection.setCollectionType(document.getElementById('collectionType').value);
+      collection.setInsecticideBrand(document.getElementById('insecticideBrand').value);
+      collection.setDateLastSprayed(dateLastSprayed);
 
       return collection;
     }
@@ -295,6 +362,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       var stage = collection.getLifeStage();
       var method = collection.getValue('collectionMethod');
       var entity = collection.getValue('geoEntity');
+      var collectionRound = collection.getValue('collectionRound');
+      var collectionType = collection.getValue('collectionType');
+      var insecticideBrand = collection.getValue('insecticideBrand');
       
       document.getElementById('original.collectionMethod').value = method;
       document.getElementById('original.collectionDate').value = collection.getCollectionDate();      
@@ -358,7 +428,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       saveLabelKey : "Save_Collection",
       saveHandler : saveCollection,
       after_row_edit:function(record){
-    	var femaleTotal = calculateFemaleTotal(record);
+        var femaleTotal = calculateFemaleTotal(record);
         var total = calculateTotal(record);
 
         var dataTable = grid.getDataTable();
@@ -371,12 +441,21 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
     var grid = MojoGrid.createDataTable(data);
 
     // SETUP SUBMIT BUTTON HANDLERS
-    enableSave = function() {
-      grid.enableSaveButton();      
+    enableSave = function(e) {
+      if(!Mojo.Util.isElement(e) || e.id === 'dateLastSprayed')
+      {
+        grid.enableSaveButton();
+      }
     }
 
-    YAHOO.util.Event.on(collectionId, 'change', enableSave);   
-    YAHOO.util.Event.on(abundance, 'change', enableSave);   
+    var components = YAHOO.util.Dom.getElementsByClassName("component");
+
+    for(var i=0, len=components.length; i<len; i++){
+      YAHOO.util.Event.on(components[i], 'change', enableSave);   
+    }       
+    
+    MDSS.ValidationBridge.getInstance().setHandler(enableSave);
+    MDSS.GlobalDateListener = enableSave;
 
     if(concreteId.value == '') {
       enableSave();

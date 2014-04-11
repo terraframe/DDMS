@@ -33,9 +33,9 @@ public class CacheDocumentManager implements Runnable
   private static final ScheduledExecutorService executor      = Executors.newSingleThreadScheduledExecutor();
 
   /**
-   * Interval time in milliseconds
+   * Interval time in minutes
    */
-  public static final long                      INTERVAL_TIME = 5000;
+  public static final long                      INTERVAL_TIME = 5;
 
   @Override
   public void run()
@@ -74,7 +74,7 @@ public class CacheDocumentManager implements Runnable
 
   public static void start()
   {
-    executor.scheduleWithFixedDelay(new CacheDocumentManager(), 0, INTERVAL_TIME, TimeUnit.MILLISECONDS);
+    executor.scheduleWithFixedDelay(new CacheDocumentManager(), 0, INTERVAL_TIME, TimeUnit.MINUTES);
   }
 
   public static void stop()

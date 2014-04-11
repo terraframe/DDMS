@@ -47,6 +47,7 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.ROOMS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.VERANDAS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.CATTLESHEDS, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBEROFPEOPLE, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.PEOPLE, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.BEDNETS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.ROOMSWITHBEDNETS, false);
@@ -91,6 +92,7 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
         HouseholdSprayStatusViewDTO.VERANDASSPRAYED,
         HouseholdSprayStatusViewDTO.CATTLESHEDS,
         HouseholdSprayStatusViewDTO.CATTLESHEDSSPRAYED,
+        HouseholdSprayStatusViewDTO.NUMBEROFPEOPLE,
         HouseholdSprayStatusViewDTO.PEOPLE,
         HouseholdSprayStatusViewDTO.BEDNETS,
         HouseholdSprayStatusViewDTO.ROOMSWITHBEDNETS,

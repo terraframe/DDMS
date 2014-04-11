@@ -140,6 +140,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     this.populateCollectionId();
     this.populateLifeStageName();
     this.validateCollectionDate();
+    this.validateDateLastSprayed();
 
     if (this.isNew() && this.getDisease() == null)
     {
@@ -164,7 +165,22 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
       p.throwIt();
     }
   }
-
+  @Override
+  public void validateDateLastSprayed()
+  {
+    if (this.getDateLastSprayed() != null && this.getDateLastSprayed().after(new Date()))
+    {
+      String msg = "It is impossible to have a test date after the current date";
+      
+      CurrentDateProblem p = new CurrentDateProblem(msg);
+      p.setGivenDate(this.getDateLastSprayed());
+      p.setCurrentDate(new Date());
+      p.setNotification(this, DATELASTSPRAYED);
+      p.apply();
+      p.throwIt();
+    }
+  }
+  
   private void populateLifeStageName()
   {
     for (LifeStage stage : this.getLifeStage())

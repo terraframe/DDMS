@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2055196020)
+@com.runwaysdk.business.ClassSignature(hash = 78583918)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,9 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String COLLECTIONROUND = "collectionRound";
+  public static java.lang.String COLLECTIONTYPE = "collectionType";
+  public static java.lang.String DATELASTSPRAYED = "dateLastSprayed";
   public static java.lang.String DISECTED = "disected";
   public static java.lang.String EGGS = "eggs";
   public static java.lang.String FEMALESFED = "femalesFed";
@@ -25,6 +28,7 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTMETHOD = "identMethod";
+  public static java.lang.String INSECTICIDEBRAND = "insecticideBrand";
   public static java.lang.String LARVAE = "larvae";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String MALE = "male";
@@ -33,7 +37,7 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 2055196020;
+  private static final long serialVersionUID = 78583918;
   
   public MosquitoCollectionExcelViewBase()
   {
@@ -149,6 +153,90 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(COLLECTIONMETHOD, value);
+    }
+  }
+  
+  public String getCollectionRound()
+  {
+    return getValue(COLLECTIONROUND);
+  }
+  
+  public void validateCollectionRound()
+  {
+    this.validateAttribute(COLLECTIONROUND);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionRoundMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(COLLECTIONROUND);
+  }
+  
+  public void setCollectionRound(String value)
+  {
+    if(value == null)
+    {
+      setValue(COLLECTIONROUND, "");
+    }
+    else
+    {
+      setValue(COLLECTIONROUND, value);
+    }
+  }
+  
+  public String getCollectionType()
+  {
+    return getValue(COLLECTIONTYPE);
+  }
+  
+  public void validateCollectionType()
+  {
+    this.validateAttribute(COLLECTIONTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(COLLECTIONTYPE);
+  }
+  
+  public void setCollectionType(String value)
+  {
+    if(value == null)
+    {
+      setValue(COLLECTIONTYPE, "");
+    }
+    else
+    {
+      setValue(COLLECTIONTYPE, value);
+    }
+  }
+  
+  public java.util.Date getDateLastSprayed()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATELASTSPRAYED));
+  }
+  
+  public void validateDateLastSprayed()
+  {
+    this.validateAttribute(DATELASTSPRAYED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateLastSprayedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(DATELASTSPRAYED);
+  }
+  
+  public void setDateLastSprayed(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATELASTSPRAYED, "");
+    }
+    else
+    {
+      setValue(DATELASTSPRAYED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -429,6 +517,34 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(IDENTMETHOD, value);
+    }
+  }
+  
+  public String getInsecticideBrand()
+  {
+    return getValue(INSECTICIDEBRAND);
+  }
+  
+  public void validateInsecticideBrand()
+  {
+    this.validateAttribute(INSECTICIDEBRAND);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideBrandMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDEBRAND);
+  }
+  
+  public void setInsecticideBrand(String value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEBRAND, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEBRAND, value);
     }
   }
   
