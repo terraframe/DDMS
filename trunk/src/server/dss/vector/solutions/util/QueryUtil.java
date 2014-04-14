@@ -325,6 +325,8 @@ public class QueryUtil implements Reloadable
   {
     boolean found = false;
 
+    List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
+    
     // make a list of terms that are included as selectables
     for (Selectable s : valueQuery.getSelectableRefs())
     {
@@ -338,7 +340,7 @@ public class QueryUtil implements Reloadable
       {
         String attributeName = s.getDbColumnName();
 
-        List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
+        
 
         for (String termAttrib : termAttributes)
         {
