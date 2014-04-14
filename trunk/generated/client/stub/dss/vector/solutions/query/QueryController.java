@@ -794,6 +794,15 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
       req.setAttribute("collectionMaps", collectionMap);
 
+      ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
+      String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+
+      // Product names for MosquitoCollection (copied from Efficacy Assay as the behavior is the same).
+      InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(this.getClientRequest());
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
+
+      req.setAttribute("insecticideBrandMap", insecticideBrandMap);
+      
       req.getRequestDispatcher(QUERY_MOSQUITO_COLLECTIONS).forward(req, resp);
 
     }

@@ -26,10 +26,26 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
     },
     _getBrowserRootClass : function(attribute)
     {
-      return attribute.getKey() === 'taxon' ? 'dss.vector.solutions.entomology.SubCollectionView' : this.$_getBrowserRootClass(attribute);
+      if(attribute.getKey() === 'collectionRound')
+      {
+        return 'dss.vector.solutions.entomology.MosquitoCollectionView';
+      }
+      else if(attribute.getKey() === 'taxon')
+      {
+        return 'dss.vector.solutions.entomology.SubCollectionView';
+      }
+      else
+      {
+        return this.$_getBrowserRootClass(attribute); 
+      }
     },
     _getBrowserRootAttribute : function(attribute)
     {
+      if(attribute.getKey() === 'collectionRound')
+      {
+        return this._mosquitoCollection.getCollectionRoundMd().getName()
+      }
+      
       return attribute.getKey() === 'taxon' ? 'taxon' : 
         this.$_getBrowserRootAttribute(attribute);
     }

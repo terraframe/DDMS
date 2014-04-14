@@ -39,6 +39,8 @@
 <%@page	import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 <%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>
+
 <c:set var="page_title" value="Query_Mosquito_Collections" scope="request" />
 
 <jsp:include page="../templates/header.jsp" />
@@ -49,7 +51,8 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,SubCollectionDTO.CLASS};
-    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, 
+        QueryController.CLASS, QueryBuilderDTO.CLASS, InsecticideBrandDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();
@@ -84,13 +87,12 @@ YAHOO.util.Event.onDOMReady(function(){
       Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
     %>
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection();
-    var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
+    var collectionAttribs = ["collectionId","collectionMethod", "collectionRound","collectionType","geoEntity","collectionDate","dateLastSprayed", /*"insecticideBrand",*/ "lifeStage","abundance"];
     var available = new MDSS.Set(<%= request.getAttribute("collectionAttribs") %>);
     collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
      
-    
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
 
     <%
@@ -115,6 +117,33 @@ YAHOO.util.Event.onDOMReady(function(){
         isAggregate:true
       });
     
+    
+    var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrand();
+
+    var insecticideAttrs = [
+                             "productName",
+                             "activeIngredient",
+                             "concentrationQuantifier",
+                             "concentrationQualifier",
+                             "insecticideUse",
+                             "useDetail",
+                             "unitsPerApplication",
+                             "unitQuantifier",
+                             "unitQualifier",
+                             ];
+    <%
+      Halp.setReadableAttributes(request, "insecticideAttrs", InsecticideBrandDTO.CLASS, requestIF);
+    %>
+    
+    var available = new MDSS.Set(<%= request.getAttribute("insecticideAttrs") %>);
+    insecticideAttrs = Mojo.Iter.filter(insecticideAttrs, function(attrib){
+        return this.contains(attrib);
+    }, available);
+
+    var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
+    var insectcideColumns =   insecticideAttrs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideBrandMap});
+    
+    
   var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
 
  //  abundanceColumns = abundanceColumns.concat( ["taxon"].map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_ab',dropDownMaps:{}}));
@@ -128,6 +157,15 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"taxon",
                                   type:"sqlcharacter",
                                   attributeName:"taxon_displayLabel",
+                                  isAggregate:false,
+                                  isTerm:true
+                                },
+                                {
+                                  displayLabel:mosquitoCollection.getCollectionRoundMd().getDisplayLabel(),
+                                  description:mosquitoCollection.getCollectionRoundMd().getDescription(),
+                                  key:"collectionRound",
+                                  type:"sqlcharacter",
+                                  attributeName:"collectionRound_displayLabel",
                                   isAggregate:false,
                                   isTerm:true
                                 },
@@ -218,6 +256,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"mc", klass:mosquitoCollection.CLASS},
                 {title:"SubCollection", values:subCollectionColumns, group:"mc", klass:subCollection.CLASS},
+                {title:"Insecticide_Detail", values:insectcideColumns, group:"mc", klass:insectcide.CLASS},
                 {title:"Abundance", values:abundanceColumns, group:"mc", klass:subCollection.CLASS}
         ];
 
