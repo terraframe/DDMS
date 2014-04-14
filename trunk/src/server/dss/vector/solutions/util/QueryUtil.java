@@ -323,10 +323,11 @@ public class QueryUtil implements Reloadable
 
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
   {
+    // This operation is expensive, so only do it once.
+    List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
+
     boolean found = false;
 
-    List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
-    
     // make a list of terms that are included as selectables
     for (Selectable s : valueQuery.getSelectableRefs())
     {
@@ -340,7 +341,6 @@ public class QueryUtil implements Reloadable
       {
         String attributeName = s.getDbColumnName();
 
-        
 
         for (String termAttrib : termAttributes)
         {
