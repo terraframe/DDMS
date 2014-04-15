@@ -70,7 +70,7 @@ public class PostOntologySetup
     // Setup root values
     AttributeRootImporter.main(new String[] { args[0] });
 
-    setupMDSSUser();
+    setupMDSSUser(args.length >= 3 ? Boolean.parseBoolean(args[2]) : true);
 
     setupApplicationRate();
 
@@ -78,9 +78,9 @@ public class PostOntologySetup
   }
 
   @Transaction
-  private static void setupMDSSUser()
+  private static void setupMDSSUser(boolean createUser)
   {
-    if (!PostOntologySetup.isDDMSDefined())
+    if (createUser && !PostOntologySetup.isDDMSDefined())
     {
       String UNKNOWN = "MDSS:0000320";
 
