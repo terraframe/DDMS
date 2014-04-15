@@ -47,11 +47,25 @@ public class PostOntologySetup
   public static final String DDT_WP_75         = "MDSS:0000477";
 
   /**
-   * @param args[0] Attribute Roots excel spread sheet
-   * @param args[1] Geo Hierarchy Universal spread sheet
+   * @param args
+   *          [0] Attribute Roots excel spread sheet
+   * @param args
+   *          [1] Geo Hierarchy Universal spread sheet
    */
-  @Request
   public static void main(String[] args) throws Exception
+  {
+    try
+    {
+      PostOntologySetup.start(args);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+
+  @Request
+  public static void start(String[] args) throws Exception
   {
     // Setup root values
     AttributeRootImporter.main(new String[] { args[0] });
@@ -61,8 +75,6 @@ public class PostOntologySetup
     setupApplicationRate();
 
     setGeoUniversals(args[1]);
-    
-    CacheShutdown.shutdown();
   }
 
   @Transaction
@@ -215,7 +227,7 @@ public class PostOntologySetup
           geoHierarchy.setTerm(term);
           geoHierarchy.apply();
         }
-        
+
         row = sheet.getRow(rowCount++);
       }
     }
