@@ -40,6 +40,7 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   {
     MosquitoCollectionView view = getCollection();
     String subId = this.getSubCollectionId();
+    
     Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
     Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
 
@@ -145,24 +146,45 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setCollectionMethod(colMethod);
     }
 
-    Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
-    if (collectionRound != null)
+    if (this.getCollectionRound() != null && this.getCollectionRound().length() > 0)
     {
-      view.setCollectionRound(collectionRound);
+      Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
+      if (collectionRound != null)
+      {
+        view.setCollectionRound(collectionRound);
+      }
+    }
+    else
+    {
+      view.setCollectionRound(null);
     }
 
-    Term collectionType = Term.validateByDisplayLabel(this.getCollectionType(), MosquitoCollectionView.getCollectionTypeMd());
-
-    if (collectionType != null)
+    if (this.getCollectionType() != null && this.getCollectionType().length() > 0)
     {
-      view.setCollectionType(collectionType);
+      Term collectionType = Term.validateByDisplayLabel(this.getCollectionType(), MosquitoCollectionView.getCollectionTypeMd());
+
+      if (collectionType != null)
+      {
+        view.setCollectionType(collectionType);
+      }
+    }
+    else
+    {
+      view.setCollectionType(null);
     }
 
-    InsecticideBrand insecticideBrand = InsecticideBrand.validateByName(this.getInsecticideBrand());
-
-    if (insecticideBrand != null)
+    if (this.getInsecticideBrand() != null && this.getInsecticideBrand().length() > 0)
     {
-      view.setInsecticideBrand(insecticideBrand);
+      InsecticideBrand insecticideBrand = InsecticideBrand.validateByName(this.getInsecticideBrand());
+
+      if (insecticideBrand != null)
+      {
+        view.setInsecticideBrand(insecticideBrand);
+      }
+    }
+    else
+    {
+      view.setInsecticideBrand(null);
     }
 
     Date dateLastSprayed = this.getDateLastSprayed();
