@@ -39,71 +39,105 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   public void apply()
   {
     MosquitoCollectionView view = getCollection();
-    String subId = this.getSubCollectionId();
-    
-    Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
-    Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
+    SubCollectionView[] subcollections = new SubCollectionView[] {};
 
-    SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
-    query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
-    if (subId == null || subId.length() == 0)
+    if (this.hasSubCollectionValues())
     {
-      query.WHERE(query.getSubCollectionId().EQ(subId));
-    }
-    else
-    {
-      query.WHERE(query.getSubCollectionId().EQ(subId));
+      String subId = this.getSubCollectionId();
+      Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
+      Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
+
+      SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
+      query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
+
+      if (subId != null && subId.length() > 0)
+      {
+        query.WHERE(query.getSubCollectionId().EQ(subId));
+      }
+
+      if (this.getIdentMethod() != null && this.getIdentMethod().length() > 0)
+      {
+
+        query.WHERE(query.getIdentMethod().EQ(idMethod));
+      }
+
+      if (this.getTaxon() != null && this.getTaxon().length() > 0)
+      {
+
+        query.WHERE(query.getTaxon().EQ(taxonTerm));
+      }
+
+      OIterator<? extends SubCollection> iterator = query.getIterator();
+
+      try
+      {
+        SubCollectionView sub;
+
+        if (iterator.hasNext())
+        {
+          SubCollection next = iterator.next();
+          sub = next.lockView();
+        }
+        else
+        {
+          sub = new SubCollectionView();
+          sub.setSubCollectionId(subId);
+          sub.setIdentMethod(idMethod);
+          sub.setTaxon(taxonTerm);
+        }
+
+        sub.setEggs(this.getEggs());
+        sub.setMale(this.getMale());
+        sub.setLarvae(this.getLarvae());
+        sub.setPupae(this.getPupae());
+        sub.setUnknowns(this.getUnknowns());
+        sub.setFemalesFed(this.getFemalesFed());
+        sub.setFemalesGravid(this.getFemalesGravid());
+        sub.setFemalesHalfGravid(this.getFemalesHalfGravid());
+        sub.setFemalesUnfed(this.getFemalesUnfed());
+        sub.setFemalesUnknown(this.getFemalesUnknown());
+        sub.setParous(this.getParous());
+        sub.setDisected(this.getDisected());
+
+        subcollections = new SubCollectionView[] { sub };
+      }
+      finally
+      {
+        iterator.close();
+      }
     }
 
-    if (idMethod == null)
+    view.applyAll(subcollections);
+  }
+
+  private boolean hasSubCollectionValues()
+  {
+    List<String> attributes = new LinkedList<String>();
+    attributes.add(SUBCOLLECTIONID);
+    attributes.add(TAXON);
+    attributes.add(IDENTMETHOD);
+    attributes.add(EGGS);
+    attributes.add(MALE);
+    attributes.add(LARVAE);
+    attributes.add(PUPAE);
+    attributes.add(UNKNOWNS);
+    attributes.add(FEMALESFED);
+    attributes.add(FEMALESGRAVID);
+    attributes.add(FEMALESHALFGRAVID);
+    attributes.add(FEMALESUNFED);
+    attributes.add(UNKNOWNS);
+    attributes.add(PAROUS);
+    attributes.add(DISECTED);
+
+    for (String attribute : attributes)
     {
-      query.WHERE(query.getIdentMethod().EQ(idMethod));
-    }
-    else
-    {
-      query.WHERE(query.getIdentMethod().EQ(idMethod));
+      if (this.getValue(attribute) != null && this.getValue(attribute).length() > 0)
+      {
+        return true;
+      }
     }
 
-    if (taxonTerm == null)
-    {
-      query.WHERE(query.getTaxon().EQ(taxonTerm));
-    }
-    else
-    {
-      query.WHERE(query.getTaxon().EQ(taxonTerm));
-    }
-
-    OIterator<? extends SubCollection> iterator = query.getIterator();
-
-    SubCollectionView sub;
-    if (iterator.hasNext())
-    {
-      SubCollection next = iterator.next();
-      sub = next.lockView();
-    }
-    else
-    {
-      sub = new SubCollectionView();
-      sub.setSubCollectionId(subId);
-      sub.setIdentMethod(idMethod);
-      sub.setTaxon(taxonTerm);
-    }
-    iterator.close();
-
-    sub.setEggs(this.getEggs());
-    sub.setMale(this.getMale());
-    sub.setLarvae(this.getLarvae());
-    sub.setPupae(this.getPupae());
-    sub.setUnknowns(this.getUnknowns());
-    sub.setFemalesFed(this.getFemalesFed());
-    sub.setFemalesGravid(this.getFemalesGravid());
-    sub.setFemalesHalfGravid(this.getFemalesHalfGravid());
-    sub.setFemalesUnfed(this.getFemalesUnfed());
-    sub.setFemalesUnknown(this.getFemalesUnknown());
-    sub.setParous(this.getParous());
-    sub.setDisected(this.getDisected());
-
-    view.applyAll(new SubCollectionView[] { sub });
+    return false;
   }
 
   private MosquitoCollectionView getCollection()
@@ -146,31 +180,18 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setCollectionMethod(colMethod);
     }
 
-    if (this.getCollectionRound() != null && this.getCollectionRound().length() > 0)
+    Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
+
+    if (collectionRound != null)
     {
-      Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
-      if (collectionRound != null)
-      {
-        view.setCollectionRound(collectionRound);
-      }
-    }
-    else
-    {
-      view.setCollectionRound(null);
+      view.setCollectionRound(collectionRound);
     }
 
-    if (this.getCollectionType() != null && this.getCollectionType().length() > 0)
-    {
-      Term collectionType = Term.validateByDisplayLabel(this.getCollectionType(), MosquitoCollectionView.getCollectionTypeMd());
+    Term collectionType = Term.validateByDisplayLabel(this.getCollectionType(), MosquitoCollectionView.getCollectionTypeMd());
 
-      if (collectionType != null)
-      {
-        view.setCollectionType(collectionType);
-      }
-    }
-    else
+    if (collectionType != null)
     {
-      view.setCollectionType(null);
+      view.setCollectionType(collectionType);
     }
 
     if (this.getInsecticideBrand() != null && this.getInsecticideBrand().length() > 0)
