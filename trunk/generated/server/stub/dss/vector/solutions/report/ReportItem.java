@@ -465,12 +465,12 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
         if (task.getRenderOption() instanceof HTMLRenderOption)
         {
-          long pageNumber = this.getPageNumber(parameterMap);
-
-          if (pageNumber > 0)
-          {
-            task.setPageNumber(pageNumber);
-          }
+//          long pageNumber = this.getPageNumber(parameterMap);
+//
+//          if (pageNumber > 0)
+//          {
+//            task.setPageNumber(pageNumber);
+//          }
         }
 
         // set and validate the parameters
@@ -717,7 +717,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setActionHandler(new HTMLUrlActionHandler(baseURL));
       options.setHtmlTitle(this.getReportLabel().getValue());
       options.setEmbeddable(true);
-      options.setHtmlPagination(true);
+//      options.setHtmlPagination(true);
+      options.setHtmlPagination(false);
 
       return options;
     }
