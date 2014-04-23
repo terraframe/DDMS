@@ -399,7 +399,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   @Override
   @Transaction
   @Authenticate
-  public Long render(OutputStream outputStream, ReportParameter[] parameters, String baseURL)
+  public Long render(OutputStream outputStream, ReportParameter[] parameters, String baseURL, String reportURL)
   {
     /*
      * Ensure the user has permissions to view the report
@@ -410,7 +410,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     {
       Map<String, String> parameterMap = this.createParameterMap(parameters);
 
-      return this.runAndRender(outputStream, parameterMap, baseURL);
+      return this.runAndRender(outputStream, parameterMap, baseURL, reportURL);
     }
     catch (EngineException e)
     {
@@ -446,7 +446,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private Long renderFromDocument(OutputStream outputStream, Map<String, String> parameterMap, String baseURL, IDocArchiveReader reader) throws BirtException, EngineException
+  private Long renderFromDocument(OutputStream outputStream, Map<String, String> parameterMap, String baseURL, String reportURL, IDocArchiveReader reader) throws BirtException, EngineException
   {
     IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
@@ -461,16 +461,16 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       try
       {
         task.setAppContext(contextMap);
-        task.setRenderOption(this.getRenderOptions(outputStream, baseURL));
+        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL));
 
         if (task.getRenderOption() instanceof HTMLRenderOption)
         {
-//          long pageNumber = this.getPageNumber(parameterMap);
-//
-//          if (pageNumber > 0)
-//          {
-//            task.setPageNumber(pageNumber);
-//          }
+          long pageNumber = this.getPageNumber(parameterMap);
+
+          if (pageNumber > 0)
+          {
+            task.setPageNumber(pageNumber);
+          }
         }
 
         // set and validate the parameters
@@ -681,7 +681,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     return true;
   }
 
-  private Long runAndRender(OutputStream outputStream, Map<String, String> parameterMap, String baseURL) throws BirtException, EngineException, IOException
+  private Long runAndRender(OutputStream outputStream, Map<String, String> parameterMap, String baseURL, String reportURL) throws BirtException, EngineException, IOException
   {
     File document = null;
 
@@ -697,10 +697,10 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
     IDocArchiveReader reader = new ArchiveReader(document.getAbsolutePath());
 
-    return this.renderFromDocument(outputStream, parameterMap, baseURL, reader);
+    return this.renderFromDocument(outputStream, parameterMap, baseURL, reportURL, reader);
   }
 
-  private IRenderOption getRenderOptions(OutputStream outputStream, String baseURL)
+  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL)
   {
     if (this.getOutputFormat().contains(OutputFormat.HTML))
     {
@@ -714,11 +714,10 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setImageHandler(new HTMLServerImageHandler());
       options.setBaseImageURL(baseURL + "/" + CacheDocumentManager.BIRT_SUFFIX + "/" + folderName);
       options.setImageDirectory(CacheDocumentManager.IMGS_DIR + File.separator + folderName);
-      options.setActionHandler(new HTMLUrlActionHandler(baseURL));
+      options.setActionHandler(new HTMLUrlActionHandler(document, baseURL, reportURL));
       options.setHtmlTitle(this.getReportLabel().getValue());
       options.setEmbeddable(true);
-//      options.setHtmlPagination(true);
-      options.setHtmlPagination(false);
+      options.setHtmlPagination(true);
 
       return options;
     }
@@ -729,7 +728,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setOutputFormat(this.getRenderOutputFormat());
       options.setOutputStream(outputStream);
       options.setBaseURL(baseURL);
-      options.setActionHandler(new PDFUrlActionHandler(baseURL));
+      options.setActionHandler(new PDFUrlActionHandler(document, baseURL, reportURL));
 
       return options;
     }

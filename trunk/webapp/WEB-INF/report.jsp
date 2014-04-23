@@ -21,7 +21,6 @@
       </style>
   </head>
   <body class="style_0" style=" margin:0px;">    
-  <!-- 
     <DIV id="navigationBar">
       <TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" HEIGHT="25px" CLASS="birtviewer_navbar">
         <TR><TD></TD></TR>
@@ -83,32 +82,31 @@
         </TR>
       </TABLE>
     </DIV>
-   -->
     <div class="reportDiv">
       ${report}
     </div>
     
     <script type="text/javascript">
       YAHOO.util.Event.onDOMReady(function(){
-//           var button = document.getElementById('go_id');
-//           var input = document.getElementById('gotoPage');
-//           var pageCount = <%=request.getAttribute("pageCount")%>;
-//           var url = '<%=request.getAttribute("url")%>';
-//           
-//           var handleClick = function() {
-//             var pageNumber = parseInt(input.value);
-//             
-//             if(Mojo.Util.isNumber(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount)
-//             {
-//               window.location.href = url + '&pageNumber=' + pageNumber;
-//             }
-//             else
-//             {
-//               alert(MDSS.localize('Invalid_page_input'));
-//             }
-//           };
-//           
-//           YAHOO.util.Event.on(button, 'click', handleClick);   
+           var button = document.getElementById('go_id');
+           var input = document.getElementById('gotoPage');
+           var pageCount = <%=request.getAttribute("pageCount")%>;
+           var url = '<%=request.getAttribute("url")%>';
+           
+           var handleClick = function() {
+             var pageNumber = parseInt(input.value);
+             
+             if(Mojo.Util.isNumber(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount)
+             {
+               window.location.href = url + '&pageNumber=' + pageNumber;
+             }
+             else
+             {
+               alert(MDSS.localize('Invalid_page_input'));
+             }
+           };
+           
+           YAHOO.util.Event.on(button, 'click', handleClick);   
          });
     </script>    
   </body>

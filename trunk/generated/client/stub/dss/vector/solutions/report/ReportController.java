@@ -3,6 +3,7 @@ package dss.vector.solutions.report;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -148,11 +149,14 @@ public class ReportController extends ReportControllerBase implements Reloadable
     try
     {
       ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
+
       /*
        * First validate permissions, this must be done before response.getOutputStream()
        * is called otherwise redirecting on the error case will not work
        */
       item.validatePermissions();
+
+      String reportUrl = this.getReportURL();
 
       List<ReportParameterDTO> parameters = new LinkedList<ReportParameterDTO>();
 
@@ -194,7 +198,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
         String url = this.req.getRequestURL().toString();
         String baseURL = url.substring(0, url.lastIndexOf('/'));
 
-        Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL);
+        Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
 
         if (item.getOutputFormatEnumNames().contains(OutputFormatDTO.PDF.name()))
         {
@@ -216,38 +220,11 @@ public class ReportController extends ReportControllerBase implements Reloadable
         }
         else
         {
-          String str = "dss.vector.solutions.report.ReportController.generate.mojo?";
-          boolean isFirst = true;
-
-          Enumeration<String> paramNames = req.getParameterNames();
-          while (paramNames.hasMoreElements())
-          {
-            String paramName = paramNames.nextElement();
-
-            if (!paramName.equals("pageNumber"))
-            {
-              if (!isFirst)
-              {
-                str = str + "&";
-              }
-
-              String[] paramValues = req.getParameterValues(paramName);
-
-              for (int i = 0; i < paramValues.length; i++)
-              {
-                String paramValue = paramValues[i];
-                str = str + URLEncoder.encode(paramName, "UTF-8") + "=" + URLEncoder.encode(paramValue, "UTF-8");
-              }
-
-              isFirst = false;
-            }
-          }
-
           req.setAttribute("pageTitle", item.getReportLabel().getValue());
           req.setAttribute("report", rStream.toString());
           req.setAttribute("pageNumber", pageNumber);
           req.setAttribute("pageCount", pageCount);
-          req.setAttribute("url", str);
+          req.setAttribute("url", reportUrl);
 
           req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
         }
@@ -266,5 +243,37 @@ public class ReportController extends ReportControllerBase implements Reloadable
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
       }
     }
+  }
+
+  @SuppressWarnings("unchecked")
+  public String getReportURL() throws UnsupportedEncodingException
+  {
+    String str = "dss.vector.solutions.report.ReportController.generate.mojo?";
+    boolean isFirst = true;
+
+    Enumeration<String> paramNames = req.getParameterNames();
+    while (paramNames.hasMoreElements())
+    {
+      String paramName = paramNames.nextElement();
+
+      if (!paramName.equals("pageNumber"))
+      {
+        if (!isFirst)
+        {
+          str = str + "&";
+        }
+
+        String[] paramValues = req.getParameterValues(paramName);
+
+        for (int i = 0; i < paramValues.length; i++)
+        {
+          String paramValue = paramValues[i];
+          str = str + URLEncoder.encode(paramName, "UTF-8") + "=" + URLEncoder.encode(paramValue, "UTF-8");
+        }
+
+        isFirst = false;
+      }
+    }
+    return str;
   }
 }
