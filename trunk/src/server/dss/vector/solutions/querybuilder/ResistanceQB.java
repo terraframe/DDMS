@@ -63,6 +63,8 @@ public class ResistanceQB extends AbstractQB implements Reloadable
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    this.prepareQueryMap(queryFactory, valueQuery, queryMap);
+
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (mosquitoCollectionQuery != null)
@@ -254,6 +256,32 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     return valueQuery;
 
+  }
+
+  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY) || valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
+    {
+      if (!queryMap.containsKey(AbstractAssay.CLASS))
+      {
+        queryMap.put(AbstractAssay.CLASS, new AbstractAssayQuery(queryFactory));
+      }
+
+      if (!queryMap.containsKey(CollectionAssay.CLASS))
+      {
+        queryMap.put(CollectionAssay.CLASS, new CollectionAssayQuery(queryFactory));
+      }
+
+      if (!queryMap.containsKey(AdultAssay.CLASS))
+      {
+        queryMap.put(AdultAssay.CLASS, new AdultAssayQuery(queryFactory));
+      }
+
+      if (!queryMap.containsKey(AdultDiscriminatingDoseAssay.CLASS))
+      {
+        queryMap.put(AdultDiscriminatingDoseAssay.CLASS, new AdultDiscriminatingDoseAssayQuery(queryFactory));
+      }
+    }
   }
 
   private String getResistanceQuerySQL(String[] labels)
