@@ -144,11 +144,20 @@ YAHOO.util.Event.onDOMReady(function(){
     var insectcideColumns =   insecticideAttrs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideBrandMap});
     
     
-  var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
+ //  var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
 
  //  abundanceColumns = abundanceColumns.concat( ["taxon"].map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_ab',dropDownMaps:{}}));
-
-
+   var abundanceColumns = [                                {
+     displayLabel:mosquitoCollection.getCollectionMethodMd().getDisplayLabel(),
+     description:mosquitoCollection.getCollectionMethodMd().getDescription(),
+     dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+     key:"collectionMethod_ab",
+     type:"dss.vector.solutions.entomology.MosquitoCollection",
+     attributeName:"collectionMethod",
+     isAggregate:false,
+     isTerm:true,
+     isTermAggregate:false
+   }];
 
    abundanceColumns = abundanceColumns.concat( [     
                                 {
@@ -158,7 +167,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                   type:"sqlcharacter",
                                   attributeName:"taxon_displayLabel",
                                   isAggregate:false,
-                                  isTerm:true
+                                  isTerm:true,
+                                  isTermAggregate:false
                                 },
                                 {
                                   displayLabel:mosquitoCollection.getCollectionRoundMd().getDisplayLabel(),
@@ -167,7 +177,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                   type:"sqlcharacter",
                                   attributeName:"collectionRound_displayLabel",
                                   isAggregate:false,
-                                  isTerm:true
+                                  isTerm:true,
+                                  isTermAggregate:false
                                 },
                                 {
                                   

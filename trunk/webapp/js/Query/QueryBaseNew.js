@@ -1096,9 +1096,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       for (var key in aggregates)
       {
         var checkbox = document.getElementById(key + '_ag');
-        checkbox.checked = true;
         
-        this._queryPanel.appendTermAggregate(key);
+        if(checkbox != null)
+        {          
+          checkbox.checked = true;
+        
+          this._queryPanel.appendTermAggregate(key);
+        }
       }
 
     },
@@ -1308,27 +1312,30 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           /*
            * Add the toggle for term aggregation level
            */          
-          var termAG = document.createElement('span');
-          YAHOO.util.Dom.setAttribute(termAG, 'id', attribute.getKey() + '_ag_span');  
-          YAHOO.util.Dom.setStyle(termAG, 'marginLeft', '5px');                     
-          YAHOO.util.Dom.setStyle(termAG, 'display', 'none');            
+          if(attribute.isTermAggregate())
+          {            
+            var termAG = document.createElement('span');
+            YAHOO.util.Dom.setAttribute(termAG, 'id', attribute.getKey() + '_ag_span');  
+            YAHOO.util.Dom.setStyle(termAG, 'marginLeft', '5px');                     
+            YAHOO.util.Dom.setStyle(termAG, 'display', 'none');            
                     
-          var termAGCheck = document.createElement('input');
-          YAHOO.util.Dom.setAttribute(termAGCheck, 'type', 'checkbox');
-          YAHOO.util.Dom.setAttribute(termAGCheck, 'id', attribute.getKey() + '_ag');
-          YAHOO.util.Dom.setAttribute(termAGCheck, 'disabled', 'true');          
-          this._defaults.push({element:termAGCheck, checked:false});         
+            var termAGCheck = document.createElement('input');
+            YAHOO.util.Dom.setAttribute(termAGCheck, 'type', 'checkbox');
+            YAHOO.util.Dom.setAttribute(termAGCheck, 'id', attribute.getKey() + '_ag');
+            YAHOO.util.Dom.setAttribute(termAGCheck, 'disabled', 'true');          
+            this._defaults.push({element:termAGCheck, checked:false});         
           
-          YAHOO.util.Event.on(termAGCheck, 'click', this._termAggregateHandler, attribute, this);
+            YAHOO.util.Event.on(termAGCheck, 'click', this._termAggregateHandler, attribute, this);
                     
-          var termAGLabel = document.createElement('span');
-          termAGLabel.innerHTML = MDSS.localize("AG");
-          YAHOO.util.Dom.setAttribute(termAGLabel, 'id', attribute.getKey() + '_ag_label');          
+            var termAGLabel = document.createElement('span');
+            termAGLabel.innerHTML = MDSS.localize("AG");
+            YAHOO.util.Dom.setAttribute(termAGLabel, 'id', attribute.getKey() + '_ag_label');          
           
-          termAG.appendChild(termAGCheck);          
-          termAG.appendChild(termAGLabel);
+            termAG.appendChild(termAGCheck);          
+            termAG.appendChild(termAGLabel);
           
-          li.appendChild(termAG)
+            li.appendChild(termAG);
+          }
         }
 
         visibleUl.appendChild(li);
@@ -1340,11 +1347,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     hideTermAggregation : function(attribute)
     {
       var checkbox = document.getElementById(attribute.getKey() + '_ag');
-      checkbox.disabled = true;
-      checkbox.checked = false;
+
+      if(checkbox != null)
+      {        
+        checkbox.disabled = true;
+        checkbox.checked = false;
+      }
             
       var span = document.getElementById(attribute.getKey() + '_ag_span');
-      YAHOO.util.Dom.setStyle(span, 'display', 'none');
+      
+      if(span != null)
+      {
+        YAHOO.util.Dom.setStyle(span, 'display', 'none');      
+      }
       
       this._config.removeTermAggregate(attribute);
     },
@@ -1352,10 +1367,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     showTermAggregation : function(key)
     {
       var checkbox = document.getElementById(key + '_ag');
-      checkbox.disabled = false;
+      
+      if(checkbox != null)
+      {        
+        checkbox.disabled = false;
+      }
       
       var span = document.getElementById(key + '_ag_span');
-      YAHOO.util.Dom.setStyle(span, 'display', 'inline');
+      
+        YAHOO.util.Dom.setStyle(span, 'display', 'inline');        
     },
 
     _genericBrowserHandler : function(browser, selected)
@@ -1380,16 +1400,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       var checkbox = document.getElementById(attribute.getKey() + '_ag');
 
-      if(checkbox.checked)
-      {      
-        this._config.setTermAggregate(attribute);
-      }
-      else
-      {
-        this._config.removeTermAggregate(attribute);      
-      }
+      if(checkbox != null)
+      {        
+        if(checkbox.checked)
+        {      
+          this._config.setTermAggregate(attribute);
+        }
+        else
+        {
+          this._config.removeTermAggregate(attribute);      
+        }
       
-      this._queryPanel.setTermAggregate(attribute, checkbox.checked);      
+        this._queryPanel.setTermAggregate(attribute, checkbox.checked);      
+      }
     },    
     
     /**

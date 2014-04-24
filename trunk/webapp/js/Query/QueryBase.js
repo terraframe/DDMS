@@ -2088,7 +2088,13 @@ Mojo.Meta.newClass('MDSS.TermAttribute', {
     initialize : function(obj)
     {
       this.$initialize(obj);
-    },  
+      
+      this._isTermAggregate = (obj.isTermAggregate != null ? obj.isTermAggregate : true);
+    },
+    isTermAggregate : function()
+    {
+      return this._isTermAggregate;
+    }
   }
 });
 
