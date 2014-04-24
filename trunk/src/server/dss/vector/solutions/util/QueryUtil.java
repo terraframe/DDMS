@@ -375,17 +375,17 @@ public class QueryUtil implements Reloadable
 
               if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               {
-                sql.append("       JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
+                sql.append("       LEFT JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
 
                 Restriction aggregation = aggregations.get(columnAlias);
 
                 if (aggregation.getAggregate())
                 {
-                  sql.append("       JOIN " + termTable + " AS term0 on allpaths_ontology_6.parent_term = term0.id" + "\n");
+                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.parent_term = term0.id" + "\n");
                 }
                 else
                 {
-                  sql.append("       JOIN " + termTable + " AS term0 on allpaths_ontology_6.child_term = term0.id" + "\n");
+                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.child_term = term0.id" + "\n");
                 }
 
                 List<String> restrictions = aggregation.getRestrictions();
@@ -409,7 +409,7 @@ public class QueryUtil implements Reloadable
               }
               else
               {
-                sql.append("       JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");
+                sql.append("       LEFT JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");
               }
 
               // String subSelect = klass.replace('.', '_') + "TermSubSel";
