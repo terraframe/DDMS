@@ -284,13 +284,13 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
-  {
-
-    String tableAlias = query.getTableAlias();
-
-    return joinTermAllpaths(valueQuery, klass, tableAlias);
-  }
+//  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+//  {
+//
+//    String tableAlias = query.getTableAlias();
+//
+//    return joinTermAllpaths(valueQuery, klass, tableAlias);
+//  }
 
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, Map<String, Restriction> restrictions)
   {
@@ -298,28 +298,28 @@ public class QueryUtil implements Reloadable
 
     return joinTermAllpaths(valueQuery, klass, tableAlias, restrictions);
   }
-
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
-  {
-
-    String[] termAttributes = filterSelectedAttributes(valueQuery, Term.getTermAttributes(klass));
-
-    // optimization: do nothing if there are no terms selected
-    if (termAttributes.length > 0)
-    {
-      String id = getIdColumn();
-
-      String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
-      // String subSelect = klass.replace('.', '_') + "TermSubSel";
-      String subSelect = tableAlias + "_TermSubSel";
-      String table = MdEntity.getMdEntity(klass).getTableName();
-      valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
-
-      return true;
-    }
-    return false;
-
-  }
+//
+//  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
+//  {
+//
+//    String[] termAttributes = filterSelectedAttributes(valueQuery, Term.getTermAttributes(klass));
+//
+//    // optimization: do nothing if there are no terms selected
+//    if (termAttributes.length > 0)
+//    {
+//      String id = getIdColumn();
+//
+//      String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
+//      // String subSelect = klass.replace('.', '_') + "TermSubSel";
+//      String subSelect = tableAlias + "_TermSubSel";
+//      String table = MdEntity.getMdEntity(klass).getTableName();
+//      valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
+//
+//      return true;
+//    }
+//    return false;
+//
+//  }
 
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
   {

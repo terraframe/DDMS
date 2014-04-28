@@ -102,7 +102,9 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
     if (collectionAssayQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS, collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias());
+      String alias = collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias();
+      
+      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS, alias, this.getTermRestrictions());
     }
 
     // We must force join on CollectionAssay to avoid mixing results with
