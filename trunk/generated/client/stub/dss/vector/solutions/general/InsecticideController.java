@@ -18,7 +18,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1237396167095L;
+  public static final long   serialVersionUID = 1237396167095L;
 
   public InsecticideController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -69,7 +69,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, InsecticideDTO.ACTIVEINGREDIENT, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
