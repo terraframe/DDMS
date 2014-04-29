@@ -10,7 +10,6 @@ package dss.vector.solutions;
  */
 public  class LocalPropertyPropertyDescriptionQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1717558215;
 
   public LocalPropertyPropertyDescriptionQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = -1717558215;
  **/
   public static class LocalPropertyPropertyDescriptionQueryStruct extends com.runwaysdk.query.AttributeLocal implements LocalPropertyPropertyDescriptionQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 368723261;
 
   public LocalPropertyPropertyDescriptionQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
