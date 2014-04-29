@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.query.AttributeEnumeration;
 import com.runwaysdk.query.AttributeLocal;
 import com.runwaysdk.query.AttributeReference;
@@ -8,6 +9,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.system.EnumerationMaster;
 
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
 
 public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -33,7 +35,15 @@ public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAss
     }
     else if (attribute instanceof AttributeReference)
     {
-      attribute = ( (AttributeReference) attribute ).get(Term.NAME);
+      AttributeReference attributeReference = (AttributeReference) attribute;
+      MdAttributeReferenceDAOIF mdAttribute = (MdAttributeReferenceDAOIF) attribute.getMdAttributeIF();
+
+      if (mdAttribute.getReferenceMdBusinessDAO().definesType().equals(Insecticide.CLASS))
+      {
+        attributeReference = attributeReference.aReference(Insecticide.ACTIVEINGREDIENT);
+      }
+      
+      attribute = attributeReference.get(Term.NAME);
     }
     else if (attribute instanceof AttributeLocal)
     {

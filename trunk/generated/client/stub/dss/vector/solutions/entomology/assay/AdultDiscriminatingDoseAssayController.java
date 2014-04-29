@@ -57,7 +57,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
+    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, AdultDiscriminatingDoseAssayViewDTO.COLLECTIONLABEL, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
