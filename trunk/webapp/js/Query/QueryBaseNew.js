@@ -892,11 +892,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             var start = thisRef._queryPanel.getStartDate();
             var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.start);
             start.value = formatted;            
+            
+            thisRef._queryPanel.getStartDateCurrentDateCheck().disabled = true;
           }
           else
           {
             var startCurrentDateEl = thisRef._queryPanel.getStartDateCurrentDateCheck();
             startCurrentDateEl.checked = true;            
+            
+            thisRef._queryPanel.getStartDate().disabled = true;
           }
 
           thisRef._queryPanel.getStartDateCheck().disabled = false;
@@ -908,11 +912,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             var end = thisRef._queryPanel.getEndDate();
             var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.end);
             end.value = formatted;
+            
+            thisRef._queryPanel.getEndDateCurrentDateCheck().disabled = true;
           }
           else
           {
             var endCurrentDateEl = thisRef._queryPanel.getEndDateCurrentDateCheck();
             endCurrentDateEl.checked = true;
+            
+            thisRef._queryPanel.getEndDate().disabled = true;
           }
 
           thisRef._queryPanel.getEndDateCheck().disabled = false;
