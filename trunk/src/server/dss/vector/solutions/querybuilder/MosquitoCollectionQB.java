@@ -57,6 +57,10 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private Selectable          collectionMethod;
 
   private final String        geoIdColumn;
+  
+  private static final String ROUND_DISPLAY_LABEL = MosquitoCollection.COLLECTIONROUND+QueryUtil.DISPLAY_LABEL_SUFFIX;
+  
+  private boolean hasRound;
 
   private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
@@ -171,6 +175,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    this.hasRound = valueQuery.hasSelectableRef("collectionRound");
+    
     // protect the user if they're doing abundance calcs without enough columns
     // (the collection method and species columns are not enough)
     if (!this.hasAbundance && ( valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_ab") ))
@@ -423,7 +429,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     {
       this.abundanceCols.add(s.getColumnAlias());
 
-      if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
+      if (s.getUserDefinedAlias().equals("collectionRound") || s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
       {
         joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " AND ss." + GEO_ID_COALESCE_ALIAS + " = mainQuery." + GEO_ID_COALESCE_ALIAS;
         areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
@@ -526,17 +532,29 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     this.addWITHEntry(new WITHEntry("percent_view", percentViewSQL));
 
-    String rollupView = " SELECT " + GEO_ID_COALESCE_ALIAS + ", areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
+    String rollupView = " SELECT " + (hasRound ? ROUND_DISPLAY_LABEL+", ":"")+" "+ GEO_ID_COALESCE_ALIAS + ", areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     rollupView += "     FROM percent_view\n";
     rollupView += "     WHERE depth = 0\n";
     rollupView += " UNION\n";
-    rollupView += " SELECT child_v." + GEO_ID_COALESCE_ALIAS + ", child_v.areagroup, child_v." + taxonCol + ", child_v.parent, child_v.depth ,child_v.my_share, \n";
+    rollupView += " SELECT "+(hasRound ? "child_v."+ROUND_DISPLAY_LABEL+", ":"")+" child_v." + GEO_ID_COALESCE_ALIAS + ", child_v.areagroup, child_v." + taxonCol + ", child_v.parent, child_v.depth ,child_v.my_share, \n";
     rollupView += "  parent_v.final_abundance * child_v.my_share \n";
-    rollupView += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS + " \n";
+    rollupView += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." 
+      + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS;
+    if(this.hasRound)
+    {
+      rollupView += " AND child_v."+ROUND_DISPLAY_LABEL+" = parent_v."+ROUND_DISPLAY_LABEL;
+    }
+    rollupView += " \n";
     this.addWITHEntry(new WITHEntry("rollup_view", rollupView));
 
     String viewSQL = "SELECT pv.*, final_abundance\n";
-    viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol + " AND rv." + GEO_ID_COALESCE_ALIAS + " = pv." + GEO_ID_COALESCE_ALIAS + " \n";
+    viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol 
+        + " AND rv." + GEO_ID_COALESCE_ALIAS + " = pv." + GEO_ID_COALESCE_ALIAS;
+    if(this.hasRound)
+    {
+      viewSQL += " AND rv." + ROUND_DISPLAY_LABEL + " = pv." + ROUND_DISPLAY_LABEL;
+    }
+    viewSQL += " \n";
     this.addWITHEntry(new WITHEntry(viewName, viewSQL));
   }
 
