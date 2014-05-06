@@ -49,6 +49,7 @@ import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.VaultFile;
+import com.runwaysdk.util.FileIO;
 import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
@@ -64,6 +65,8 @@ import dss.vector.solutions.util.BirtEngine;
 public class ReportItem extends ReportItemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID      = -935561311;
+
+  private static final String TEMP_REPORT_PREFIX    = "birt-temp-doc-archive";
 
   private static final String PAGE_NUMBER           = "pageNumber";
 
@@ -582,6 +585,13 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       {
         throw new FileReadException(file, e);
       }
+      finally
+      {
+        if (file.getName().startsWith(TEMP_REPORT_PREFIX))
+        {
+          FileIO.deleteFile(file);
+        }
+      }
     }
     catch (BirtException e)
     {
@@ -602,7 +612,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   {
     File file = this.getCachedDocument(parameterMap);
 
-    if (!file.exists())
+    if (!file.exists() || file.getName().startsWith(TEMP_REPORT_PREFIX))
     {
       IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
@@ -662,7 +672,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
     try
     {
-      return File.createTempFile("birt-temp-doc-archive", "tempReportDocument");
+      return File.createTempFile(TEMP_REPORT_PREFIX, "tempReportDocument");
     }
     catch (IOException e)
     {
@@ -695,9 +705,19 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       document = this.run(parameterMap);
     }
 
-    IDocArchiveReader reader = new ArchiveReader(document.getAbsolutePath());
+    try
+    {
+      IDocArchiveReader reader = new ArchiveReader(document.getAbsolutePath());
 
-    return this.renderFromDocument(outputStream, parameterMap, baseURL, reportURL, reader);
+      return this.renderFromDocument(outputStream, parameterMap, baseURL, reportURL, reader);
+    }
+    finally
+    {
+      if (document != null && document.getName().startsWith(TEMP_REPORT_PREFIX))
+      {
+        FileIO.deleteFile(document);
+      }
+    }
   }
 
   private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL)
