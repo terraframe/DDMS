@@ -700,7 +700,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       document = this.getDocumentAsFile();
     }
 
-    if (document == null || !document.exists())
+    if (document == null || !document.exists() || ( !parameterMap.containsKey(PAGE_NUMBER) && !this.getCacheDocument() ))
     {
       document = this.run(parameterMap);
     }
