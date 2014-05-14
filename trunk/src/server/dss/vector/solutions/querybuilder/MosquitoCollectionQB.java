@@ -396,7 +396,6 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
               valueQuery.WHERE(taxon.IN(idsList.toArray(new String[idsList.size()])));
             }
             
-            
             // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
             // Filtering on species during abundance calculation has to be done
             // at the end so it doesn't disrupt the results
