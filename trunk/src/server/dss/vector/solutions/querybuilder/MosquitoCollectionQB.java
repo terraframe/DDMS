@@ -18,6 +18,7 @@ import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
@@ -386,7 +387,17 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           }
           else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
-            continue; // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
+            // #3002 - Apply filtering to the final query
+            if(this.getTermRestrictions().containsKey("taxon"))
+            {
+              SelectableChar taxon = valueQuery.aSQLCharacter(ABUNDANCE_VIEW+".taxon", ABUNDANCE_VIEW+".taxon");
+              List<String> idsList = this.getTermRestrictions().get("taxon").getRestrictions();
+              
+              valueQuery.WHERE(taxon.IN(idsList.toArray(new String[idsList.size()])));
+            }
+            
+            
+            // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
             // Filtering on species during abundance calculation has to be done
             // at the end so it doesn't disrupt the results
             // of the recursive rollup. Even though the conditions are on the
