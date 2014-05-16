@@ -612,7 +612,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   {
     File file = this.getCachedDocument(parameterMap);
 
-    if (!file.exists() || file.getName().startsWith(TEMP_REPORT_PREFIX))
+    if (!file.exists() || file.getName().startsWith(TEMP_REPORT_PREFIX) || ( !parameterMap.containsKey(PAGE_NUMBER) && !this.getCacheDocument() ))
     {
       IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
@@ -695,7 +695,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   {
     File document = null;
 
-    if (this.getDocument() != null && this.getDocument().length() > 0)
+    if (this.getCacheDocument() && this.getDocument() != null && this.getDocument().length() > 0)
     {
       document = this.getDocumentAsFile();
     }
