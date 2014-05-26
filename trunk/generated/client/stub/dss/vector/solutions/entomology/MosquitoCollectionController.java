@@ -25,6 +25,7 @@ import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.ColumnSetup;
@@ -314,8 +315,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       req.setAttribute("currentLifeStage", stage.get(0).getName());
     }
 
-    req.setAttribute("collectionRound", dto.getCollectionRound());
-    req.setAttribute("collectionType", dto.getCollectionType());
+    req.setAttribute("collectionRound", AttributeUtil.getValue(MosquitoCollection.COLLECTIONROUND,dto));
+    req.setAttribute("collectionType", AttributeUtil.getValue(MosquitoCollection.COLLECTIONTYPE,dto));
     req.setAttribute("collectionMethod", dto.getCollectionMethod());
     req.setAttribute("lifeStage", LifeStageDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("brands", Arrays.asList(brands));
