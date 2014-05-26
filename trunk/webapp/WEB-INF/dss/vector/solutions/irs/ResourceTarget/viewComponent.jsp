@@ -89,5 +89,5 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 </script>
 
 <mjl:commandLink action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" >
-  <fmt:message key="Back_To_Search"/>
+  <mdss:localize key="Back_To_Search" />
 </mjl:commandLink>

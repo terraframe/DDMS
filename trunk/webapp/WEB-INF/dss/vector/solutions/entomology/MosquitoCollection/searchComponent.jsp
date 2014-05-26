@@ -18,7 +18,7 @@
   </dl>
 </mjl:form>
 
-<h2><fmt:message key="Results"/></h2>
+<h2><mdss:localize key="Results" /></h2>
 <c:choose> 
   <c:when test="${query.count > 0}" > 
 	<mjl:table var="current" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
@@ -74,7 +74,7 @@
 	      </mjl:header>
 	      <mjl:row>
 	        <mjl:commandLink action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="view.link">
-	          <fmt:message key="View" />
+	          <mdss:localize key="View" />
 	          <mjl:property value="${current.concreteId}" name="id" />
 	        </mjl:commandLink>
 	      </mjl:row>
