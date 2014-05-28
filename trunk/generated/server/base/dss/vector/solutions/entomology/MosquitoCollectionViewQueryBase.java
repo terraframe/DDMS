@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1404581097)
+@com.runwaysdk.business.ClassSignature(hash = -278280918)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -245,6 +245,60 @@ public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.qu
     return (dss.vector.solutions.entomology.LifeStageMasterQuery.LifeStageQueryIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.LIFESTAGE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants()
+  {
+    return getNumberOfAnimalOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFANIMALOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFANIMALOCCUPANTS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants()
+  {
+    return getNumberOfHumanOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFHUMANOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFHUMANOCCUPANTS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs()
+  {
+    return getNumberOfLLINs(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFLLINS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.NUMBEROFLLINS, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getResistanceAssayComments()
   {
     return getResistanceAssayComments(null);

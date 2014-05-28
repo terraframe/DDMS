@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -274479378)
+@com.runwaysdk.business.ClassSignature(hash = 1305202235)
 public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MosquitoCollectionExcelView";
-  private static final long serialVersionUID = -274479378;
+  private static final long serialVersionUID = 1305202235;
   
   protected MosquitoCollectionExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,6 +37,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public static java.lang.String LARVAE = "larvae";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String MALE = "male";
+  public static java.lang.String NUMBEROFANIMALOCCUPANTS = "numberOfAnimalOccupants";
+  public static java.lang.String NUMBEROFHUMANOCCUPANTS = "numberOfHumanOccupants";
+  public static java.lang.String NUMBEROFLLINS = "numberOfLLINs";
   public static java.lang.String PAROUS = "parous";
   public static java.lang.String PUPAE = "pupae";
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
@@ -792,6 +795,117 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMaleMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MALE).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberOfAnimalOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFANIMALOCCUPANTS));
+  }
+  
+  public void setNumberOfAnimalOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberOfAnimalOccupantsWritable()
+  {
+    return isWritable(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public boolean isNumberOfAnimalOccupantsReadable()
+  {
+    return isReadable(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public boolean isNumberOfAnimalOccupantsModified()
+  {
+    return isModified(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfAnimalOccupantsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFANIMALOCCUPANTS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberOfHumanOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFHUMANOCCUPANTS));
+  }
+  
+  public void setNumberOfHumanOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberOfHumanOccupantsWritable()
+  {
+    return isWritable(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public boolean isNumberOfHumanOccupantsReadable()
+  {
+    return isReadable(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public boolean isNumberOfHumanOccupantsModified()
+  {
+    return isModified(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfHumanOccupantsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFHUMANOCCUPANTS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberOfLLINs()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFLLINS));
+  }
+  
+  public void setNumberOfLLINs(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFLLINS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFLLINS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberOfLLINsWritable()
+  {
+    return isWritable(NUMBEROFLLINS);
+  }
+  
+  public boolean isNumberOfLLINsReadable()
+  {
+    return isReadable(NUMBEROFLLINS);
+  }
+  
+  public boolean isNumberOfLLINsModified()
+  {
+    return isModified(NUMBEROFLLINS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfLLINsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFLLINS).getAttributeMdDTO();
   }
   
   public Integer getParous()

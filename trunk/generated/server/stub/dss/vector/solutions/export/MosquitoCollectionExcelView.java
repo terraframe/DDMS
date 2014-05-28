@@ -180,6 +180,30 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setCollectionMethod(colMethod);
     }
 
+    Date colDate = this.getCollectionDate();
+    if (colDate != null)
+    {
+      view.setCollectionDate(colDate);
+    }
+
+    GeoEntity geo = this.getGeoEntity();
+    if (geo != null)
+    {
+      view.setGeoEntity(geo);
+    }
+
+    Boolean abund = this.getAbundance();
+    if (abund != null)
+    {
+      view.setAbundance(abund);
+    }
+
+    LifeStage life = ExcelEnums.getLifeStage(this.getLifeStage());
+    if (life != null)
+    {
+      view.addLifeStage(life);
+    }
+
     Term collectionRound = Term.validateByDisplayLabel(this.getCollectionRound(), MosquitoCollectionView.getCollectionRoundMd());
 
     if (collectionRound != null)
@@ -214,28 +238,23 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setDateLastSprayed(dateLastSprayed);
     }
 
-    Date colDate = this.getCollectionDate();
-    if (colDate != null)
+    Integer numberOfHumanOccupants = this.getNumberOfHumanOccupants();
+    if (numberOfHumanOccupants != null)
     {
-      view.setCollectionDate(colDate);
+      view.setNumberOfHumanOccupants(numberOfHumanOccupants);
     }
 
-    GeoEntity geo = this.getGeoEntity();
-    if (geo != null)
+    Integer numberOfAnimalOccupants = this.getNumberOfAnimalOccupants();
+    if (numberOfAnimalOccupants != null)
     {
-      view.setGeoEntity(geo);
+      view.setNumberOfAnimalOccupants(numberOfAnimalOccupants);
     }
 
-    Boolean abund = this.getAbundance();
-    if (abund != null)
-    {
-      view.setAbundance(abund);
-    }
+    Integer numberOfLLINs = this.getNumberOfLLINs();
 
-    LifeStage life = ExcelEnums.getLifeStage(this.getLifeStage());
-    if (life != null)
+    if (numberOfLLINs != null)
     {
-      view.addLifeStage(life);
+      view.setNumberOfLLINs(numberOfLLINs);
     }
 
     return view;
@@ -253,6 +272,9 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(COLLECTIONTYPE);
     list.add(DATELASTSPRAYED);
     list.add(INSECTICIDEBRAND);
+    list.add(NUMBEROFHUMANOCCUPANTS);
+    list.add(NUMBEROFANIMALOCCUPANTS);
+    list.add(NUMBEROFLLINS);
     list.add(SUBCOLLECTIONID);
     list.add(IDENTMETHOD);
     list.add(TAXON);

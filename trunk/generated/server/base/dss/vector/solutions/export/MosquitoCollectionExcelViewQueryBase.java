@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1342841641)
+@com.runwaysdk.business.ClassSignature(hash = -585844060)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -401,6 +401,60 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableInteger getMale(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants()
+  {
+    return getNumberOfAnimalOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFANIMALOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFANIMALOCCUPANTS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants()
+  {
+    return getNumberOfHumanOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFHUMANOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFHUMANOCCUPANTS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs()
+  {
+    return getNumberOfLLINs(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFLLINS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.NUMBEROFLLINS, alias, displayLabel);
 
   }
  

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1911358618)
+@com.runwaysdk.business.ClassSignature(hash = 159186532)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,12 +31,15 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String LIFESTAGENAME = "lifeStageName";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String NUMBEROFANIMALOCCUPANTS = "numberOfAnimalOccupants";
+  public static java.lang.String NUMBEROFHUMANOCCUPANTS = "numberOfHumanOccupants";
+  public static java.lang.String NUMBEROFLLINS = "numberOfLLINs";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1911358618;
+  private static final long serialVersionUID = 159186532;
   
   public MosquitoCollectionBase()
   {
@@ -659,6 +662,90 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
     return mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public Integer getNumberOfAnimalOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFANIMALOCCUPANTS));
+  }
+  
+  public void validateNumberOfAnimalOccupants()
+  {
+    this.validateAttribute(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfAnimalOccupantsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public void setNumberOfAnimalOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfHumanOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFHUMANOCCUPANTS));
+  }
+  
+  public void validateNumberOfHumanOccupants()
+  {
+    this.validateAttribute(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfHumanOccupantsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public void setNumberOfHumanOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfLLINs()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFLLINS));
+  }
+  
+  public void validateNumberOfLLINs()
+  {
+    this.validateAttribute(NUMBEROFLLINS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfLLINsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFLLINS);
+  }
+  
+  public void setNumberOfLLINs(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFLLINS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFLLINS, java.lang.Integer.toString(value));
+    }
   }
   
   public com.runwaysdk.system.Actor getOwner()

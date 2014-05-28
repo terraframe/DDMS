@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 78583918)
+@com.runwaysdk.business.ClassSignature(hash = 1148903355)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,12 +32,15 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String LARVAE = "larvae";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String MALE = "male";
+  public static java.lang.String NUMBEROFANIMALOCCUPANTS = "numberOfAnimalOccupants";
+  public static java.lang.String NUMBEROFHUMANOCCUPANTS = "numberOfHumanOccupants";
+  public static java.lang.String NUMBEROFLLINS = "numberOfLLINs";
   public static java.lang.String PAROUS = "parous";
   public static java.lang.String PUPAE = "pupae";
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 78583918;
+  private static final long serialVersionUID = 1148903355;
   
   public MosquitoCollectionExcelViewBase()
   {
@@ -629,6 +632,90 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(MALE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfAnimalOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFANIMALOCCUPANTS));
+  }
+  
+  public void validateNumberOfAnimalOccupants()
+  {
+    this.validateAttribute(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfAnimalOccupantsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFANIMALOCCUPANTS);
+  }
+  
+  public void setNumberOfAnimalOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFANIMALOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfHumanOccupants()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFHUMANOCCUPANTS));
+  }
+  
+  public void validateNumberOfHumanOccupants()
+  {
+    this.validateAttribute(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfHumanOccupantsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFHUMANOCCUPANTS);
+  }
+  
+  public void setNumberOfHumanOccupants(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFHUMANOCCUPANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberOfLLINs()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFLLINS));
+  }
+  
+  public void validateNumberOfLLINs()
+  {
+    this.validateAttribute(NUMBEROFLLINS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfLLINsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBEROFLLINS);
+  }
+  
+  public void setNumberOfLLINs(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBEROFLLINS, "");
+    }
+    else
+    {
+      setValue(NUMBEROFLLINS, java.lang.Integer.toString(value));
     }
   }
   

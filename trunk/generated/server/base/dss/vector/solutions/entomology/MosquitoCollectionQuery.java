@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1496407057)
+@com.runwaysdk.business.ClassSignature(hash = -1238576819)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -444,6 +444,57 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants()
+  {
+    return getNumberOfAnimalOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants()
+  {
+    return getNumberOfHumanOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs()
+  {
+    return getNumberOfLLINs(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -697,6 +748,15 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants();
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants();
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs();
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -1087,6 +1147,57 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants()
+  {
+    return getNumberOfAnimalOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants()
+  {
+    return getNumberOfHumanOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs()
+  {
+    return getNumberOfLLINs(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -1311,6 +1422,15 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants();
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants();
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs();
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -1748,6 +1868,57 @@ public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusin
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants()
+  {
+    return getNumberOfAnimalOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfAnimalOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFANIMALOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants()
+  {
+    return getNumberOfHumanOccupants(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfHumanOccupants(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFHUMANOCCUPANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs()
+  {
+    return getNumberOfLLINs(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberOfLLINs(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MosquitoCollection.NUMBEROFLLINS, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()

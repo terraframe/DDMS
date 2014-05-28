@@ -113,6 +113,15 @@ Mojo.Meta.newClass("MDSS.ValidationBridge", {
           </mjl:option>
         </mjl:select>
       </mjl:dt>
+      <mjl:dt attribute="numberOfHumanOccupants">
+        <mjl:input type="text" param="numberOfHumanOccupants" id="numberOfHumanOccupants" classes="component"/>
+      </mjl:dt>
+      <mjl:dt attribute="numberOfAnimalOccupants">
+        <mjl:input type="text" param="numberOfAnimalOccupants" id="numberOfAnimalOccupants" classes="component"/>
+      </mjl:dt>
+      <mjl:dt attribute="numberOfLLINs">
+        <mjl:input type="text" param="numberOfLLINs" id="numberOfLLINs" classes="component"/>
+      </mjl:dt>      
     </mjl:component>
     <c:if test="${adaFlag}">
       <mdss:localize key="Adult_DDA" var="Localized_Adult_DDA" />
@@ -351,6 +360,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       collection.setCollectionRound(document.getElementById('collectionRound').value);
       collection.setCollectionType(document.getElementById('collectionType').value);
       collection.setInsecticideBrand(document.getElementById('insecticideBrand').value);
+      collection.setNumberOfHumanOccupants(document.getElementById('numberOfHumanOccupants').value);
+      collection.setNumberOfAnimalOccupants(document.getElementById('numberOfAnimalOccupants').value);
+      collection.setNumberOfLLINs(document.getElementById('numberOfLLINs').value);
       collection.setDateLastSprayed(dateLastSprayed);
 
       return collection;
