@@ -15,7 +15,6 @@ import org.eclipse.birt.report.engine.api.RenderOption;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 
 import com.runwaysdk.constants.CommonProperties;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public abstract class AbstractUrlActionHandler extends HTMLActionHandler implements Reloadable
@@ -114,10 +113,9 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
    */
   protected String buildDrillAction(IAction action, Object context)
   {
-    StringBuffer link = new StringBuffer();
-
     ReportItem item = this.getReportItem(action);
 
+    StringBuffer link = new StringBuffer();
     link.append(this.baseURL + "/" + item.getURL());
 
     // Adds the parameters

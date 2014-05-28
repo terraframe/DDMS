@@ -42,6 +42,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRelationship;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
+import dss.vector.solutions.report.ReportItem;
 
 /**
  * @author chris
@@ -96,6 +97,8 @@ public class MenuGenerator implements Reloadable
 
     private boolean                  disabled = false;
 
+    private String                   target;
+
     private Map<String, GuiMenuItem> children = new TreeMap<String, GuiMenuItem>();
 
     public GuiMenuItem(MenuItem menuItem, boolean disabled)
@@ -130,6 +133,7 @@ public class MenuGenerator implements Reloadable
       this.label = label;
       this.url = url;
       this.disabled = disabled;
+      this.target = null;
     }
 
     public Map<String, GuiMenuItem> getChildren()
@@ -175,6 +179,16 @@ public class MenuGenerator implements Reloadable
     public void addChild(GuiMenuItem child)
     {
       this.children.put(child.getId(), child);
+    }
+
+    public String getTarget()
+    {
+      return target;
+    }
+
+    public void setTarget(String target)
+    {
+      this.target = target;
     }
   }
 
@@ -320,6 +334,12 @@ public class MenuGenerator implements Reloadable
           }
 
           GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url, !this.hasAccess(systemUrlId));
+
+          if (url != null && url.startsWith(ReportItem.BASE_URL))
+          {
+            guiMenuItem.setTarget("_blank");
+          }
+
           guiMenuItems.put(ancestorId, guiMenuItem);
         }
 
@@ -520,6 +540,12 @@ public class MenuGenerator implements Reloadable
     {
       json.put("text", guiMenuItem.getLabel());
       json.put("id", "_" + id + "_" + map.get(id));
+
+      if (guiMenuItem.getTarget() != null)
+      {
+        json.put("target", guiMenuItem.getTarget());
+      }
+
       if (guiMenuItem.getChildren().size() == 0)
       {
         json.put("url", guiMenuItem.getUrl());
