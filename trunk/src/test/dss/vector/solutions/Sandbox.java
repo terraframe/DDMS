@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,17 +21,16 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
-import com.runwaysdk.RunwayExceptionDTO;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.ComponentInfo;
@@ -45,12 +43,10 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.value.Attribute;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
-import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdLocalStructDAO;
 import com.runwaysdk.dataaccess.metadata.MdStructDAO;
-import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.Condition;
@@ -75,8 +71,6 @@ import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.irs.InsecticideBrand;
-import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.querybuilder.IRSQB;
@@ -128,12 +122,12 @@ public class Sandbox
     }
   }
   
-  private static Iterator<HSSFRow> load(FileInputStream file) throws Exception
+  private static Iterator<Row> load(FileInputStream file) throws Exception
   {
     POIFSFileSystem fileSystem = new POIFSFileSystem(file);
     HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-    HSSFSheet sheet = workbook.getSheetAt(0);
-    Iterator<HSSFRow> rowI = sheet.rowIterator();
+    Sheet sheet = workbook.getSheetAt(0);
+    Iterator<Row> rowI = sheet.rowIterator();
     
     return rowI;
   }
@@ -162,13 +156,13 @@ public class Sandbox
       // File("/Users/justin/projects/work/terraframe/hospital/errors.csv");
       System.out.println("AV: " + file.available());
 
-      Iterator<HSSFRow> rowI = load(contrib);
+      Iterator<Row> rowI = load(contrib);
       
       Map<String, String> amount = new HashMap<String, String>();
       while(rowI.hasNext())
       {
-        HSSFRow row = rowI.next();
-        Iterator<HSSFCell> cellI = row.cellIterator();
+        Row row = rowI.next();
+        Iterator<Cell> cellI = row.cellIterator();
         String record = getValue(cellI.next());
         String dollar = getValue(cellI.next());
         
@@ -198,12 +192,12 @@ public class Sandbox
       {
         boolean processed = false;
 
-        HSSFRow row = rowI.next();
+        Row row = rowI.next();
         if (count != 0)
         {
 
           
-          Iterator<HSSFCell> cellI = row.cellIterator();
+          Iterator<Cell> cellI = row.cellIterator();
 
           String record = getValue(cellI.next());
 
@@ -421,7 +415,7 @@ public class Sandbox
     }
   }
 
-  private static String getValue(HSSFCell cell)
+  private static String getValue(Cell cell)
   {
     try
     {
