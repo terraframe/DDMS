@@ -15,11 +15,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
@@ -48,37 +48,37 @@ import dss.vector.solutions.InstallProperties;
 
 public class MdssLocalizationImporter implements Reloadable
 {
-  private HSSFSheet  exceptionSheet;
+  private Sheet  exceptionSheet;
 
-  private HSSFSheet  termSheet;
+  private Sheet  termSheet;
 
-  private HSSFSheet  entityLabelSheet;
+  private Sheet  entityLabelSheet;
 
-  private HSSFSheet  labelSheet;
+  private Sheet  labelSheet;
 
-  private HSSFSheet  localPropertySheet;
+  private Sheet  localPropertySheet;
 
-  private HSSFSheet  malariaSeasonSheet;
+  private Sheet  malariaSeasonSheet;
 
-  private HSSFSheet  descriptionSheet;
+  private Sheet  descriptionSheet;
 
-  private HSSFSheet  clientSheet;
+  private Sheet  clientSheet;
 
-  private HSSFSheet  serverSheet;
+  private Sheet  serverSheet;
 
-  private HSSFSheet  commonSheet;
+  private Sheet  commonSheet;
 
-  private HSSFSheet  propertySheet;
+  private Sheet  propertySheet;
 
-  private HSSFSheet  managerSheet;
+  private Sheet  managerSheet;
 
-  private HSSFSheet  synchSheet;
+  private Sheet  synchSheet;
 
-  private HSSFSheet  geoSheet;
+  private Sheet  geoSheet;
 
-  private HSSFSheet  initializerSheet;
+  private Sheet  initializerSheet;
 
-  private HSSFSheet  backupSheet;
+  private Sheet  backupSheet;
 
   private static int modifiedCount = 0;
 
@@ -248,8 +248,8 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, entityLabelSheet, localPropertySheet, malariaSeasonSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
-    for (HSSFSheet sheet : sheets)
+    Sheet[] sheets = new Sheet[] { exceptionSheet, termSheet, entityLabelSheet, localPropertySheet, malariaSeasonSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
+    for (Sheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
       {
@@ -277,7 +277,7 @@ public class MdssLocalizationImporter implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private List<LocaleDimension> getColumnHeaders(HSSFSheet sheet)
+  private List<LocaleDimension> getColumnHeaders(Sheet sheet)
   {
     List<LocaleDimension> list = new ArrayList<LocaleDimension>();
     if (sheet == null)
@@ -285,8 +285,8 @@ public class MdssLocalizationImporter implements Reloadable
       return list;
     }
 
-    HSSFRow row = sheet.getRow(0);
-    Iterator<HSSFCell> cellIterator = row.cellIterator();
+    Row row = sheet.getRow(0);
+    Iterator<Cell> cellIterator = row.cellIterator();
     cellIterator.next();
 
     if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet) || sheet.equals(localPropertySheet) || sheet.equals(malariaSeasonSheet))
@@ -297,13 +297,13 @@ public class MdssLocalizationImporter implements Reloadable
 
     while (cellIterator.hasNext())
     {
-      HSSFCell cell = cellIterator.next();
+      Cell cell = cellIterator.next();
       list.add(LocaleDimension.parseColumnHeader(getStringValue(cell)));
     }
     return list;
   }
 
-  private void updateProperties(String bundle, HSSFSheet sheet)
+  private void updateProperties(String bundle, Sheet sheet)
   {
     try
     {
@@ -318,7 +318,7 @@ public class MdssLocalizationImporter implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private void updateProperties(File dir, String bundleName, HSSFSheet sheet)
+  private void updateProperties(File dir, String bundleName, Sheet sheet)
   {
     // Bail if there's no tab for this bundle
     if (sheet == null)
@@ -335,14 +335,14 @@ public class MdssLocalizationImporter implements Reloadable
 
       File file = new File(dir, localeDimension.getPropertyFileName(bundleName));
 
-      Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+      Iterator<Row> rowIterator = sheet.rowIterator();
       rowIterator.next();
 
       Map<String, String> props = localeDimension.getPropertiesFromFile(file);
 
       while (rowIterator.hasNext())
       {
-        HSSFRow row = rowIterator.next();
+        Row row = rowIterator.next();
         String key = this.getStringValue(row.getCell(0));
 
         if (key == null)
@@ -350,7 +350,7 @@ public class MdssLocalizationImporter implements Reloadable
           continue;
         }
 
-        HSSFCell cell = row.getCell(cellIndex);
+        Cell cell = row.getCell(cellIndex);
         String value = getStringValue(cell);
 
         if (value != null)
@@ -385,7 +385,7 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
-  private String getStringValue(HSSFCell cell)
+  private String getStringValue(Cell cell)
   {
     String value = ExcelUtil.getString(cell);
     if (value == null)
@@ -405,7 +405,7 @@ public class MdssLocalizationImporter implements Reloadable
 
   @SuppressWarnings("unchecked")
   @Transaction
-  private void updateLocalAttribute(HSSFSheet sheet)
+  private void updateLocalAttribute(Sheet sheet)
   {
     // Bail if there's no tab for labels
     if (sheet == null)
@@ -417,11 +417,11 @@ public class MdssLocalizationImporter implements Reloadable
 
     List<LocaleDimension> columnHeaders = getColumnHeaders(sheet);
 
-    Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+    Iterator<Row> rowIterator = sheet.rowIterator();
     rowIterator.next();
     while (rowIterator.hasNext())
     {
-      HSSFRow row = rowIterator.next();
+      Row row = rowIterator.next();
       readLocalAttributeRow(columnHeaders, row, sheetName);
 
       // if (row.getRowNum()%50==0)
@@ -441,7 +441,7 @@ public class MdssLocalizationImporter implements Reloadable
    * @param row
    * @param sheetName
    */
-  private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, HSSFRow row, String sheetName)
+  private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, Row row, String sheetName)
   {
     int c = 0;
     String type = getStringValue(row.getCell(c++));
@@ -554,7 +554,7 @@ public class MdssLocalizationImporter implements Reloadable
    * @param sheet
    * @return Name of the sheet
    */
-  private String getSheetName(HSSFSheet sheet)
+  private String getSheetName(Sheet sheet)
   {
     if (sheet.equals(exceptionSheet))
     {

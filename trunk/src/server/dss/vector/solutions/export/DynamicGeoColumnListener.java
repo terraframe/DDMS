@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -58,7 +58,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     List<String> geoEntityNames = new ArrayList<String>(hierarchyList.size());
 
@@ -76,7 +76,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
       for (ExcelColumn column : extraColumns)
       {
         String entityName;
-        HSSFCell cell = row.getCell(column.getIndex());
+        Cell cell = row.getCell(column.getIndex());
         if (cell != null)
         {
           if (column.getAttributeName().equals(excelAttribute))

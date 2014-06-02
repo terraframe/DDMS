@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -27,7 +27,7 @@ public abstract class HouseholdReferenceContextBuilder extends FormContextBuilde
   }
 
   @Override
-  public void configure(ImportContext currentContext, HSSFRow typeRow, HSSFRow nameRow, HSSFRow labelRow)
+  public void configure(ImportContext currentContext, Row typeRow, Row nameRow, Row labelRow)
   {
     super.configure(currentContext, typeRow, nameRow, labelRow);
 

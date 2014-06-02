@@ -8,9 +8,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.query.OIterator;
@@ -25,7 +25,7 @@ public class OntologyExcelExporter
   private static final int NAME_COLUMN = 4;
 
   private HSSFWorkbook workbook;
-  private HSSFSheet sheet;
+  private Sheet sheet;
   private int indent = NAME_COLUMN;
   private int rowCount = 0;
 
@@ -66,7 +66,7 @@ public class OntologyExcelExporter
 
   public void export()
   {
-    HSSFRow header = sheet.createRow(rowCount++);
+    Row header = sheet.createRow(rowCount++);
     header.createCell(0).setCellValue(new HSSFRichTextString("ID"));
     header.createCell(1).setCellValue(new HSSFRichTextString("Active Malaria"));
     header.createCell(2).setCellValue(new HSSFRichTextString("Active Dengue"));
@@ -115,7 +115,7 @@ public class OntologyExcelExporter
     }
 
     // Write the row
-    HSSFRow row = sheet.createRow(rowCount++);
+    Row row = sheet.createRow(rowCount++);
     row.createCell(0).setCellValue(new HSSFRichTextString(parent.getTermId()));
     row.createCell(1).setCellValue(activeMalaria);
     row.createCell(2).setCellValue(activeDengue);

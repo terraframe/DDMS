@@ -3,10 +3,10 @@ package dss.vector.solutions.util;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
@@ -155,10 +155,10 @@ public class MenuItemImporter
   {
     InputStream is = new FileInputStream(this.fileName);
     HSSFWorkbook wb = new HSSFWorkbook(is);
-    HSSFSheet sheet = wb.getSheetAt(DISEASE_SHEET);
+    Sheet sheet = wb.getSheetAt(DISEASE_SHEET);
     int rowCount = 1; // Start at second row
-    HSSFRow row = sheet.getRow(rowCount++);
-    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK)
+    Row row = sheet.getRow(rowCount++);
+    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
     {
       String diseaseKey = this.getCellValue(row, 0);
       String termId = this.getCellValue(row, 1);
@@ -180,10 +180,10 @@ public class MenuItemImporter
   {
     InputStream is = new FileInputStream(this.fileName);
     HSSFWorkbook wb = new HSSFWorkbook(is);
-    HSSFSheet sheet = wb.getSheetAt(SYSTEMURL_SHEET); // Use first sheet
+    Sheet sheet = wb.getSheetAt(SYSTEMURL_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
-    HSSFRow row = sheet.getRow(rowCount++);
-    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK)
+    Row row = sheet.getRow(rowCount++);
+    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
     {
       String urlId = this.getCellValue(row, 0);
       String url = this.getCellValue(row, 1);
@@ -210,10 +210,10 @@ public class MenuItemImporter
   {
     InputStream is = new FileInputStream(this.fileName);
     HSSFWorkbook wb = new HSSFWorkbook(is);
-    HSSFSheet sheet = wb.getSheetAt(MENUITEM_SHEET); // Use first sheet
+    Sheet sheet = wb.getSheetAt(MENUITEM_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
-    HSSFRow row = sheet.getRow(rowCount++);
-    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK)
+    Row row = sheet.getRow(rowCount++);
+    while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
     {
       String diseaseKey = this.getCellValue(row, 0);
       String urlId = this.getCellValue(row, 1);
@@ -262,7 +262,7 @@ public class MenuItemImporter
     }
   }
 
-  private String getCellValue(HSSFRow row, int col)
+  private String getCellValue(Row row, int col)
   {
     return ExcelUtil.getString(row.getCell(col));
   }

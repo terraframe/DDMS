@@ -3,8 +3,8 @@ package dss.vector.solutions.generator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -39,7 +39,7 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
   }
 
   @Override
-  public ImportContext createContext(HSSFSheet sheet, String sheetName, HSSFWorkbook errorWorkbook, String type)
+  public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(type);
 
@@ -48,14 +48,14 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
       throw new UnexpectedTypeException("Excel Importer does not support type [" + mdClass.definesType() + "]");
     }
 
-    HSSFSheet error = errorWorkbook.createSheet(sheetName);
+    Sheet error = errorWorkbook.createSheet(sheetName);
 
     FormImportContext context = new FormImportContext(sheet, sheetName, error, mdClass);
 
     List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
     List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
-    for (DynamicGeoColumnListener listener : geoListeners)
+    for (DynamicGeoColumnListener listener : geoListeners) 
     {
       context.addListener(listener);
     }

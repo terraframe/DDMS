@@ -1,8 +1,8 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -32,7 +32,7 @@ public class FormPersonContextBuilder extends HouseholdReferenceContextBuilder i
   }
 
   @Override
-  public void configure(ImportContext currentContext, HSSFRow typeRow, HSSFRow nameRow, HSSFRow labelRow)
+  public void configure(ImportContext currentContext, Row typeRow, Row nameRow, Row labelRow)
   {
     super.configure(currentContext, typeRow, nameRow, labelRow);
 
@@ -43,7 +43,7 @@ public class FormPersonContextBuilder extends HouseholdReferenceContextBuilder i
   }
 
   @Override
-  public ImportContext createContext(HSSFSheet sheet, String sheetName, HSSFWorkbook errorWorkbook, String type)
+  public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(type);
 
@@ -52,7 +52,7 @@ public class FormPersonContextBuilder extends HouseholdReferenceContextBuilder i
       throw new UnexpectedTypeException("Excel Importer does not support type [" + mdClass.definesType() + "]");
     }
 
-    HSSFSheet error = errorWorkbook.createSheet(sheetName);
+    Sheet error = errorWorkbook.createSheet(sheetName);
 
     return new FormPersonImportContext(sheet, sheetName, error, mdClass);
   }

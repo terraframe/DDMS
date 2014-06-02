@@ -2,7 +2,7 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
@@ -19,7 +19,7 @@ public class GeoParentListener extends ImportAdapter implements ImportListener, 
     this.parentGeoEntityId = parentId;
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
   {
     GeoEntityExcelView view = (GeoEntityExcelView) instance;
     view.setParentGeoEntityId(this.parentGeoEntityId);

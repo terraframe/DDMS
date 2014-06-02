@@ -2,7 +2,7 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -35,7 +35,7 @@ public class AggregatedPremiseListener extends ExcelAdapter implements ExcelExpo
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedPremiseExcelView collection = (AggregatedPremiseExcelView) instance;
 

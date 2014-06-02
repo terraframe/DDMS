@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Mutable;
@@ -57,7 +57,7 @@ public class GridListener extends ExcelAdapter implements ExcelExportListener, I
   }
 
   @Override
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     String compositeFieldName = mdCompositeField.getFieldName();
     MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(compositeFieldName);

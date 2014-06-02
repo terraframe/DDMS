@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -106,14 +106,13 @@ public class GridExcelAdapter extends ExcelExportSheet implements ContextBuilder
   }
 
   @Override
-  public ImportContext createContext(HSSFSheet sheet, String sheetName, HSSFWorkbook errorWorkbook, String type)
+  public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
     return new GridContext(sheet, sheetName, errorWorkbook.createSheet(sheetName), mdRelationship, mdCompositeField);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
-  public void configure(ImportContext context, HSSFRow typeRow, HSSFRow nameRow, HSSFRow labelRow)
+  public void configure(ImportContext context, Row typeRow, Row nameRow, Row labelRow)
   {
     // Copy the type, name, and label rows to the error sheet
     context.addErrorRow(typeRow);
@@ -150,12 +149,12 @@ public class GridExcelAdapter extends ExcelExportSheet implements ContextBuilder
       }
     }
 
-    Iterator<HSSFCell> nameIterator = nameRow.cellIterator();
-    Iterator<HSSFCell> labelIterator = labelRow.cellIterator();
+    Iterator<Cell> nameIterator = nameRow.cellIterator();
+    Iterator<Cell> labelIterator = labelRow.cellIterator();
     while (nameIterator.hasNext())
     {
-      HSSFCell nameCell = nameIterator.next();
-      HSSFCell labelCell = labelIterator.next();
+      Cell nameCell = nameIterator.next();
+      Cell labelCell = labelIterator.next();
 
       String columnName = ExcelUtil.getString(nameCell);
       String columnLabel = ExcelUtil.getString(labelCell);

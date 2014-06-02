@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
@@ -30,7 +30,7 @@ public class GeoExporter implements Reloadable
 
   private HSSFWorkbook workbook;
 
-  private HSSFSheet    sheet;
+  private Sheet    sheet;
 
   private Boolean      exportGIS;
 
@@ -91,7 +91,7 @@ public class GeoExporter implements Reloadable
       return;
     }
 
-    HSSFRow row = sheet.createRow(rownum++);
+    Row row = sheet.createRow(rownum++);
 
     // Follows GeoEntityExcelView.customAttributeOrder()
     row.createCell(0).setCellValue(new HSSFRichTextString(geo.getEntityLabel().getValue()));

@@ -2,8 +2,8 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -31,7 +31,7 @@ public class ITNDistributionListener extends ExcelAdapter implements ExcelExport
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
   {
     ITNDistributionExcelView aggregatedITN = (ITNDistributionExcelView) instance;
 
@@ -41,7 +41,7 @@ public class ITNDistributionListener extends ExcelAdapter implements ExcelExport
       {
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
+          Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
             Integer amount = new Double(cell.getNumericCellValue()).intValue();

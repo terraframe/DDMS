@@ -2,8 +2,8 @@ package dss.vector.solutions.generator;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
@@ -20,13 +20,13 @@ import com.runwaysdk.query.QueryFactory;
 public class FormImportContext extends ImportContext implements Reloadable
 {
 
-  public FormImportContext(HSSFSheet sheet, String sheetName, HSSFSheet error, MdClassDAOIF mdClass)
+  public FormImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass)
   {
     super(sheet, sheetName, error, mdClass);
   }
 
   @Override
-  protected Mutable getMutableForRow(HSSFRow row)
+  protected Mutable getMutableForRow(Row row)
   {
     String oid = this.getCellValue(row, MdFormUtil.OID);
 
@@ -74,7 +74,7 @@ public class FormImportContext extends ImportContext implements Reloadable
     return null;
   }
 
-  protected String getCellValue(HSSFRow row, String columnName)
+  protected String getCellValue(Row row, String columnName)
   {
     ExcelColumn column = this.getColumn(columnName);
     

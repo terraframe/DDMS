@@ -12,10 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.business.rbac.ActorDAO;
@@ -246,31 +246,31 @@ public class PermissionImporter implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private Iterator<HSSFRow> getSheetRows(HSSFWorkbook workbook, String sheetName)
+  private Iterator<Row> getSheetRows(HSSFWorkbook workbook, String sheetName)
   {
     return workbook.getSheet(sheetName).iterator();
   }
 
   private void readRoleAssignment(HSSFWorkbook workbook)
   {
-    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, ROLE_SHEET_NAME);
+    Iterator<Row> iterator = this.getSheetRows(workbook, ROLE_SHEET_NAME);
 
     if (iterator.hasNext())
     {
-      HSSFRow header = iterator.next();
+      Row header = iterator.next();
 
       List<RoleDAO> roles = this.getMDSSRoles(header);
 
       while (iterator.hasNext())
       {
-        HSSFRow row = iterator.next();
+        Row row = iterator.next();
 
         this.readAssignment(row, roles);
       }
     }
   }
 
-  private void readAssignment(HSSFRow row, List<RoleDAO> roles)
+  private void readAssignment(Row row, List<RoleDAO> roles)
   {
     SystemURL url = this.getURL(ExcelUtil.getString(row.getCell(0)));
 
@@ -316,7 +316,7 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  private List<RoleDAO> getMDSSRoles(HSSFRow header)
+  private List<RoleDAO> getMDSSRoles(Row header)
   {
     List<RoleDAO> list = new LinkedList<RoleDAO>();
 
@@ -341,7 +341,7 @@ public class PermissionImporter implements Reloadable
 
   private void readURLSheet(HSSFWorkbook workbook)
   {
-    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, URL_SHEET_NAME);
+    Iterator<Row> iterator = this.getSheetRows(workbook, URL_SHEET_NAME);
 
     // Skip the header row
     iterator.next();
@@ -355,7 +355,7 @@ public class PermissionImporter implements Reloadable
   private void readVisibilitySheet(HSSFWorkbook workbook)
   {
     RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
-    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, VISIBILITY_SHEET_NAME);
+    Iterator<Row> iterator = this.getSheetRows(workbook, VISIBILITY_SHEET_NAME);
 
     // Skip the header row
     if (iterator.hasNext())
@@ -369,7 +369,7 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  private void readVisibilityRow(HSSFRow row, RoleDAO role)
+  private void readVisibilityRow(Row row, RoleDAO role)
   {
     String key = ExcelUtil.getString(row.getCell(0));
     String diseaseName = ExcelUtil.getString(row.getCell(1));
@@ -422,7 +422,7 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  private void readURLRow(HSSFRow row)
+  private void readURLRow(Row row)
   {
     String urlKey = ExcelUtil.getString(row.getCell(0));
     String actionKey = ExcelUtil.getString(row.getCell(1));
@@ -487,7 +487,7 @@ public class PermissionImporter implements Reloadable
     return this.systemURLs.get(urlKey);
   }
 
-  private void importPermissions(HSSFRow row, PermissionAction action)
+  private void importPermissions(Row row, PermissionAction action)
   {
     int i = 3;
 

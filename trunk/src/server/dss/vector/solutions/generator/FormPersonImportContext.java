@@ -1,7 +1,7 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -16,13 +16,13 @@ import dss.vector.solutions.form.business.FormPersonQuery;
 public class FormPersonImportContext extends FormImportContext implements Reloadable
 {
 
-  public FormPersonImportContext(HSSFSheet sheet, String sheetName, HSSFSheet error, MdClassDAOIF mdClass)
+  public FormPersonImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass)
   {
     super(sheet, sheetName, error, mdClass);
   }
 
   @Override
-  protected Mutable getMutableForRow(HSSFRow row)
+  protected Mutable getMutableForRow(Row row)
   {
     String oid = getCellValue(row, FormPerson.OID);
     String surveyId = getCellValue(row, FormPerson.SURVEY);

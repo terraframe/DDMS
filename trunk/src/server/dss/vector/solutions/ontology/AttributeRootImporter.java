@@ -8,12 +8,12 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeDimensionInfo;
@@ -59,7 +59,7 @@ public class AttributeRootImporter implements Reloadable
   @Transaction
   public void read(InputStream stream)
   {
-    Iterator<HSSFRow> iterator = openStream(stream);
+    Iterator<Row> iterator = openStream(stream);
 
     // Skip the header row
     iterator.next();
@@ -70,13 +70,13 @@ public class AttributeRootImporter implements Reloadable
     }
   }
 
-  private void readRow(HSSFRow row)
+  private void readRow(Row row)
   {
     this.importDefault(row);
     this.importRoots(row);
   }
 
-  private void importDefault(HSSFRow row)
+  private void importDefault(Row row)
   {
     String key = ExcelUtil.getString(row.getCell(0));
     if (key == null) {
@@ -90,9 +90,9 @@ public class AttributeRootImporter implements Reloadable
     }
 
     // Iterate over all remaining columns. Each should have a Mo Term ID
-    HSSFCell cell = row.getCell(3);
+    Cell cell = row.getCell(3);
 
-    if (cell != null && cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+    if (cell != null && cell.getCellType() == Cell.CELL_TYPE_STRING)
     {
       String termId = ExcelUtil.getString(cell);
       if (termId.length() == 0)
@@ -123,7 +123,7 @@ public class AttributeRootImporter implements Reloadable
     }
   }
 
-  private void importRoots(HSSFRow row)
+  private void importRoots(Row row)
   {
     String key = ExcelUtil.getString(row.getCell(0));
     if (key == null) {
@@ -207,14 +207,14 @@ public class AttributeRootImporter implements Reloadable
    * @throws IOException
    */
   @SuppressWarnings("unchecked")
-  private Iterator<HSSFRow> openStream(InputStream stream)
+  private Iterator<Row> openStream(InputStream stream)
   {
     try
     {
       POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet sheet = workbook.getSheetAt(0);
-      Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+      Sheet sheet = workbook.getSheetAt(0);
+      Iterator<Row> rowIterator = sheet.rowIterator();
 
       return rowIterator;
     }

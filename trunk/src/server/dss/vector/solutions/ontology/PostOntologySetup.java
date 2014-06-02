@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
@@ -70,6 +70,9 @@ public class PostOntologySetup
     // Setup root values
     AttributeRootImporter.main(new String[] { args[0] });
 
+    /*
+     * Important: we only want to create the ddms user if this is an install and not a patch.
+     */
     setupMDSSUser(args.length >= 3 ? Boolean.parseBoolean(args[2]) : true);
 
     setupApplicationRate();
@@ -209,12 +212,12 @@ public class PostOntologySetup
     {
       InputStream is = new FileInputStream(excel);
       HSSFWorkbook wb = new HSSFWorkbook(is);
-      HSSFSheet sheet = wb.getSheetAt(0); // Use first sheet
+      Sheet sheet = wb.getSheetAt(0); // Use first sheet
 
       int rowCount = 1; // Start at second row
-      HSSFRow row = sheet.getRow(rowCount++);
+      Row row = sheet.getRow(rowCount++);
 
-      while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK)
+      while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
       {
         String universalName = ExcelUtil.getString(row.getCell(0));
         String termId = ExcelUtil.getString(row.getCell(6));

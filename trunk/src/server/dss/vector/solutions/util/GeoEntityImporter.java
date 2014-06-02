@@ -13,10 +13,10 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.postgis.jts.JtsGeometry;
 import org.postgresql.PGConnection;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -490,7 +490,7 @@ public class GeoEntityImporter
     }
   }
 
-  private String getCellValue(HSSFRow row, int col)
+  private String getCellValue(Row row, int col)
   {
     return ExcelUtil.getString(row.getCell(col));
   }
@@ -500,10 +500,10 @@ public class GeoEntityImporter
   {
     InputStream is = new FileInputStream(this.universalSpreadsheet);
     HSSFWorkbook wb = new HSSFWorkbook(is);
-    HSSFSheet sheet = wb.getSheetAt(1); // Use second sheet
+    Sheet sheet = wb.getSheetAt(1); // Use second sheet
     int rowCount = 1; // Start at second row
-    HSSFRow row = sheet.getRow(rowCount++);
-    while (row != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK)
+    Row row = sheet.getRow(rowCount++);
+    while (row != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
     {
       int oldUniversalId = (int) row.getCell(0).getNumericCellValue();
       // String oldUniversalName = this.getCellValue(row, 1);

@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.business.BusinessFacade;
@@ -35,7 +35,7 @@ public class AttributeRootExporter
 {
   private HSSFWorkbook workbook;
 
-  private HSSFSheet    sheet;
+  private Sheet    sheet;
 
   private Disease[]    allDiseases;
 
@@ -79,7 +79,7 @@ public class AttributeRootExporter
 
     OIterator<? extends BrowserField> iterator = query.getIterator();
 
-    HSSFRow header = sheet.createRow(rowCount++);
+    Row header = sheet.createRow(rowCount++);
     header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
     header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
     header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
@@ -133,7 +133,7 @@ public class AttributeRootExporter
       return;
     }
 
-    HSSFRow row = writeFieldInfo(field, disease);
+    Row row = writeFieldInfo(field, disease);
 
     int cellCount = 5;
     for (ExportData root : roots)
@@ -148,7 +148,7 @@ public class AttributeRootExporter
     }
   }
 
-  private HSSFRow writeFieldInfo(BrowserField field, Disease disease)
+  private Row writeFieldInfo(BrowserField field, Disease disease)
   {
     MdAttribute mdAttribute = field.getMdAttribute();
     MdClass mdClass = mdAttribute.getAllDefiningClass().next();
@@ -162,7 +162,7 @@ public class AttributeRootExporter
     }
 
     // Create a row for this root-default-disease triple
-    HSSFRow row = sheet.createRow(rowCount++);
+    Row row = sheet.createRow(rowCount++);
 
     int c = 0;
     createAndSet(row, c++, mdAttribute.getKey());
@@ -186,7 +186,7 @@ public class AttributeRootExporter
     return row;
   }
 
-  private void createAndSet(HSSFRow row, int cellNum, String value)
+  private void createAndSet(Row row, int cellNum, String value)
   {
     row.createCell(cellNum).setCellValue(new HSSFRichTextString(value));
   }

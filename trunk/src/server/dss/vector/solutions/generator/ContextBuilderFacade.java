@@ -3,9 +3,9 @@ package dss.vector.solutions.generator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
@@ -38,15 +38,15 @@ public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
   }
 
   @Override
-  public ImportContext createContext(HSSFSheet sheet, String sheetName, HSSFWorkbook errorWorkbook, String type)
+  public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
     ContextBuilderIF builder = this.getBuilder(type);
 
     return builder.createContext(sheet, sheetName, errorWorkbook, type);
   }
-
+  
   @Override
-  public void configure(ImportContext context, HSSFRow typeRow, HSSFRow nameRow, HSSFRow labelRow)
+  public void configure(ImportContext context, Row typeRow, Row nameRow, Row labelRow)
   {
     ContextBuilderIF builder = this.getBuilder(context.getMdClassType());
 

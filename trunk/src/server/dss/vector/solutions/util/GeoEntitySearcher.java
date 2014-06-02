@@ -12,12 +12,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
@@ -123,11 +123,11 @@ public class GeoEntitySearcher implements Reloadable
       {
         this.geoColumnInfoMap.clear();
 
-        HSSFSheet sheet = workbook.getSheetAt(sheetNumber);
+        Sheet sheet = workbook.getSheetAt(sheetNumber);
 
         if (this.isValidSheet(sheet))
         {
-          Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+          Iterator<Row> rowIterator = sheet.rowIterator();
 
           // Parse the header rows, which builds up our list of ColumnInfos
           readHeaders(rowIterator);
@@ -159,7 +159,7 @@ public class GeoEntitySearcher implements Reloadable
               rowIterator = getRowIteratorAdvancedToContent(sheet);
               while (rowIterator.hasNext())
               {
-                HSSFRow contentRow = rowIterator.next();
+                Row contentRow = rowIterator.next();
 
                 String endPointEntityName = "";
                 String endPointEntityType = "";
@@ -171,7 +171,7 @@ public class GeoEntitySearcher implements Reloadable
 
                   int columnIndex = geoHeaderInfo.getColumnIndex();
 
-                  HSSFCell cell = contentRow.getCell(columnIndex);
+                  Cell cell = contentRow.getCell(columnIndex);
 
                   if (cell != null)
                   {
@@ -263,15 +263,15 @@ public class GeoEntitySearcher implements Reloadable
     return unknownEntityList;
   }
 
-  private boolean isValidSheet(HSSFSheet sheet)
+  private boolean isValidSheet(Sheet sheet)
   {
     try
     {
-      HSSFRow row = sheet.getRow(0);
+      Row row = sheet.getRow(0);
 
       if (row != null)
       {
-        HSSFCell cell = row.getCell(0);
+        Cell cell = row.getCell(0);
         String type = ExcelUtil.getString(cell);
 
         return ( type != null && MdTypeDAO.getMdTypeDAO(type) != null );
@@ -340,11 +340,10 @@ public class GeoEntitySearcher implements Reloadable
    * @return iterator that is advanced passed the headers to the first row of
    *         content.
    */
-  @SuppressWarnings("unchecked")
-  private Iterator<HSSFRow> getRowIteratorAdvancedToContent(HSSFSheet sheet)
+  private Iterator<Row> getRowIteratorAdvancedToContent(Sheet sheet)
   {
     // Open the stream
-    Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+    Iterator<Row> rowIterator = sheet.rowIterator();
     // Ignore type row
     rowIterator.next();
     // Ignore the attribute name row
@@ -362,22 +361,21 @@ public class GeoEntitySearcher implements Reloadable
    * 
    * @param rowIterator
    */
-  @SuppressWarnings("unchecked")
-  private void readHeaders(Iterator<HSSFRow> rowIterator)
+  private void readHeaders(Iterator<Row> rowIterator)
   {
     // Ignore type row
     try
     {
       rowIterator.next();
-      HSSFRow nameRow = rowIterator.next();
+      Row nameRow = rowIterator.next();
       // Ignore label row
       rowIterator.next();
 
-      Iterator<HSSFCell> nameIterator = nameRow.cellIterator();
+      Iterator<Cell> nameIterator = nameRow.cellIterator();
 
       while (nameIterator.hasNext())
       {
-        HSSFCell nameCell = nameIterator.next();
+        Cell nameCell = nameIterator.next();
 
         String nameValue = ExcelUtil.getString(nameCell).trim();
         if (nameValue.startsWith(DynamicGeoColumnListener.PREFIX))

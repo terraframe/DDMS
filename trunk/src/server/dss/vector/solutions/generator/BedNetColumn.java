@@ -1,7 +1,7 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -45,9 +45,9 @@ public class BedNetColumn extends AttributeColumn implements Reloadable
   }
 
   @Override
-  public Object getValue(HSSFCell cell) throws Exception
+  public Object getValue(Cell cell) throws Exception
   {
-    HSSFRow row = cell.getSheet().getRow(cell.getRowIndex());
+    Row row = cell.getSheet().getRow(cell.getRowIndex());
     String surveyId = ExcelUtil.getString(row.getCell(this.surveyIndex));
 
     String netId = ExcelUtil.getString(cell);

@@ -9,9 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.ProblemIF;
 import com.runwaysdk.business.Business;
@@ -60,7 +60,7 @@ public class GridContext extends ImportContext implements Reloadable
 
   private MdAttributeDAOIF                                     mdAttribute;
 
-  public GridContext(HSSFSheet sheet, String sheetName, HSSFSheet error, MdRelationshipDAOIF mdRelationship, MdWebSingleTermGridDAOIF mdCompositeField)
+  public GridContext(Sheet sheet, String sheetName, Sheet error, MdRelationshipDAOIF mdRelationship, MdWebSingleTermGridDAOIF mdCompositeField)
   {
     super(sheet, sheetName, error, mdRelationship);
 
@@ -125,7 +125,7 @@ public class GridContext extends ImportContext implements Reloadable
     return this.map.get(term);
   }
 
-  public void readRow(HSSFRow row)
+  public void readRow(Row row)
   {
     MdRelationshipDAOIF mdRelationship = this.getMdClass();
 
@@ -169,7 +169,7 @@ public class GridContext extends ImportContext implements Reloadable
 
           try
           {
-            HSSFCell cell = row.getCell(column.getIndex());
+            Cell cell = row.getCell(column.getIndex());
 
             if (cell != null)
             {

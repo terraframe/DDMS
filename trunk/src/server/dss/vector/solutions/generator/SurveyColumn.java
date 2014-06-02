@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.usermodel.Cell;
 
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -27,7 +27,7 @@ public class SurveyColumn extends AttributeColumn implements Reloadable
   }
 
   @Override
-  public Object getValue(HSSFCell cell) throws Exception
+  public Object getValue(Cell cell) throws Exception
   {
     String surveyId = ExcelUtil.getString(cell);
 

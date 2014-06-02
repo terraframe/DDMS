@@ -14,12 +14,12 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
@@ -98,7 +98,7 @@ public class OntologyExcelImporter
   @Transaction
   public void read(InputStream stream)
   {
-    Iterator<HSSFRow> iterator = openStream(stream);
+    Iterator<Row> iterator = openStream(stream);
 
     // Skip the header row
     iterator.next();
@@ -137,7 +137,7 @@ public class OntologyExcelImporter
 
     while (iterator.hasNext())
     {
-      HSSFRow row = iterator.next();
+      Row row = iterator.next();
 
       try
       {
@@ -174,11 +174,11 @@ public class OntologyExcelImporter
   }
 
   @SuppressWarnings("unchecked")
-  private void readRow(HSSFRow row)
+  private void readRow(Row row)
   {
-    Iterator<HSSFCell> iterator = row.cellIterator();
+    Iterator<Cell> iterator = row.cellIterator();
 
-    HSSFCell cell = iterator.next();
+    Cell cell = iterator.next();
 
     // The first item should be the term Id. If it's not present, we need to
     // skip the row
@@ -302,14 +302,14 @@ public class OntologyExcelImporter
    * @throws IOException
    */
   @SuppressWarnings("unchecked")
-  private Iterator<HSSFRow> openStream(InputStream stream)
+  private Iterator<Row> openStream(InputStream stream)
   {
     try
     {
       POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet sheet = workbook.getSheetAt(0);
-      Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+      Sheet sheet = workbook.getSheetAt(0);
+      Iterator<Row> rowIterator = sheet.rowIterator();
 
       return rowIterator;
     }

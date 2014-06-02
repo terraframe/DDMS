@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.Mutable;
@@ -65,7 +65,7 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
   }
 
   @Override
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     String fieldName = mdField.getFieldName();
     MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();

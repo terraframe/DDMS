@@ -1,7 +1,7 @@
 package dss.vector.solutions.generator;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
@@ -23,7 +23,7 @@ public class FormBedNetContextBuilder extends HouseholdReferenceContextBuilder i
   }
 
   @Override
-  public ImportContext createContext(HSSFSheet sheet, String sheetName, HSSFWorkbook errorWorkbook, String type)
+  public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(type);
 
@@ -32,7 +32,7 @@ public class FormBedNetContextBuilder extends HouseholdReferenceContextBuilder i
       throw new UnexpectedTypeException("Excel Importer does not support type [" + mdClass.definesType() + "]");
     }
 
-    HSSFSheet error = errorWorkbook.createSheet(sheetName);
+    Sheet error = errorWorkbook.createSheet(sheetName);
 
     return new FormBedNetImportContext(sheet, sheetName, error, mdClass);
   }

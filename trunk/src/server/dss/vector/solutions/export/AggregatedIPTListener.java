@@ -2,8 +2,8 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -58,7 +58,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
   {
     AggregatedIPTExcelView aggregatedIPT = (AggregatedIPTExcelView) instance;
 
@@ -68,7 +68,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
       {
         if (column.getAttributeName().equals(PATIENTS + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
+          Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
             Integer amount = new Double(cell.getNumericCellValue()).intValue();
@@ -84,7 +84,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
       {
         if (column.getAttributeName().equals(ANCVISITS + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
+          Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
             Integer amount = new Double(cell.getNumericCellValue()).intValue();
@@ -100,7 +100,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
       {
         if (column.getAttributeName().equals(DOSES + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
+          Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
             Integer amount = new Double(cell.getNumericCellValue()).intValue();
@@ -116,7 +116,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
       {
         if (column.getAttributeName().equals(TREATMENT + term.getTermId()))
         {
-          HSSFCell cell = row.getCell(column.getIndex());
+          Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
             Integer amount = new Double(cell.getNumericCellValue()).intValue();
