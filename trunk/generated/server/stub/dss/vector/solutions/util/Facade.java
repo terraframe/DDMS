@@ -8,12 +8,12 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdBusinessInfo;
@@ -175,7 +175,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(AggregatedCaseReferralsExcelView.CLASS);
       POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet referralSheet = workbook.getSheetAt(0);
+      Sheet referralSheet = workbook.getSheetAt(0);
       String referralSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -183,7 +183,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(AggregatedCaseTreatmentsExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet treatmentSheet = workbook.getSheetAt(0);
+      Sheet treatmentSheet = workbook.getSheetAt(0);
       String treatmentSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -191,7 +191,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(CaseDiagnosisTypeExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet diagnosisSheet = workbook.getSheetAt(0);
+      Sheet diagnosisSheet = workbook.getSheetAt(0);
       String diagnosisSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -199,7 +199,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(CaseDiseaseManifestationExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet diseaseSheet = workbook.getSheetAt(0);
+      Sheet diseaseSheet = workbook.getSheetAt(0);
       String diseaseSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -207,7 +207,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(CasePatientTypeExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet patientSheet = workbook.getSheetAt(0);
+      Sheet patientSheet = workbook.getSheetAt(0);
       String patientSheetName = workbook.getSheetName(0);
 
       workbook = new HSSFWorkbook();
@@ -243,7 +243,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(AggregatedPremiseExcelView.CLASS);
       POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet premiseSheet = workbook.getSheetAt(0);
+      Sheet premiseSheet = workbook.getSheetAt(0);
       String premiseSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -251,7 +251,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(IndividualPremiseExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet individualSheet = workbook.getSheetAt(0);
+      Sheet individualSheet = workbook.getSheetAt(0);
       String individualSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -259,7 +259,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(InsecticideInterventionExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet insecticideSheet = workbook.getSheetAt(0);
+      Sheet insecticideSheet = workbook.getSheetAt(0);
       String insecticideSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
@@ -267,7 +267,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       exporter.addTemplate(PersonInterventionExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
       workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet personSheet = workbook.getSheetAt(0);
+      Sheet personSheet = workbook.getSheetAt(0);
       String personSheetName = workbook.getSheetName(0);
 
       workbook = new HSSFWorkbook();
@@ -294,38 +294,38 @@ public abstract class Facade extends FacadeBase implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private static void copySheetIntoWorkbook(HSSFWorkbook workbook, HSSFSheet oldSheet, String name)
+  private static void copySheetIntoWorkbook(HSSFWorkbook workbook, Sheet oldSheet, String name)
   {
-    HSSFSheet newSheet = workbook.createSheet(name);
-    Iterator<HSSFRow> rowIterator = oldSheet.rowIterator();
+    Sheet newSheet = workbook.createSheet(name);
+    Iterator<Row> rowIterator = oldSheet.rowIterator();
     while (rowIterator.hasNext())
     {
-      HSSFRow oldRow = rowIterator.next();
+      Row oldRow = rowIterator.next();
       int rowNum = oldRow.getRowNum();
-      HSSFRow newRow = newSheet.createRow(rowNum);
+      Row newRow = newSheet.createRow(rowNum);
 
-      Iterator<HSSFCell> cellIterator = oldRow.cellIterator();
+      Iterator<Cell> cellIterator = oldRow.cellIterator();
       while (cellIterator.hasNext())
       {
-        HSSFCell oldCell = cellIterator.next();
+        Cell oldCell = cellIterator.next();
         int columnIndex = oldCell.getColumnIndex();
-        HSSFCell newCell = newRow.createCell(columnIndex);
+        Cell newCell = newRow.createCell(columnIndex);
         switch (oldCell.getCellType())
         {
-          case HSSFCell.CELL_TYPE_BOOLEAN:
+          case Cell.CELL_TYPE_BOOLEAN:
             newCell.setCellValue(oldCell.getBooleanCellValue());
             break;
-          case HSSFCell.CELL_TYPE_FORMULA:
+          case Cell.CELL_TYPE_FORMULA:
             newCell.setCellFormula(oldCell.getCellFormula());
             break;
-          case HSSFCell.CELL_TYPE_NUMERIC:
+          case Cell.CELL_TYPE_NUMERIC:
             newCell.setCellValue(oldCell.getNumericCellValue());
             break;
-          case HSSFCell.CELL_TYPE_STRING:
+          case Cell.CELL_TYPE_STRING:
             newCell.setCellValue(oldCell.getRichStringCellValue());
             break;
-          case HSSFCell.CELL_TYPE_ERROR:
-            newCell.setCellType(HSSFCell.CELL_TYPE_ERROR);
+          case Cell.CELL_TYPE_ERROR:
+            newCell.setCellType(Cell.CELL_TYPE_ERROR);
             newCell.setCellValue(oldCell.getErrorCellValue());
             break;
         }
