@@ -181,7 +181,7 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
        */
       String format = this.getFormat(action);
 
-      ReportItem item = ReportItem.find(reportName, ReportItem.getOutputFormat(format));
+      ReportItem item = ReportItem.find(reportName, this.getOutputFormat(format));
 
       if (item != null)
       {
@@ -207,6 +207,23 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
       throw e;
     }
+  }
+
+  public OutputFormat getOutputFormat(String format)
+  {
+    if (format.equals(RenderOption.OUTPUT_FORMAT_PDF))
+    { 
+      return OutputFormat.PDF;
+    }
+    else if (format.equals(RenderOption.OUTPUT_FORMAT_HTML))
+    {
+      return OutputFormat.HTML;
+    }
+
+    UnsupportedOutputFormatException e = new UnsupportedOutputFormatException("Unknown output format type");
+    e.apply();
+
+    throw e;
   }
 
   private String getFormat(IAction action)

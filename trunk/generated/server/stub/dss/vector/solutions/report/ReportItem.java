@@ -17,10 +17,13 @@ import org.eclipse.birt.core.archive.FileArchiveWriter;
 import org.eclipse.birt.core.archive.IDocArchiveReader;
 import org.eclipse.birt.core.archive.compound.ArchiveReader;
 import org.eclipse.birt.core.exception.BirtException;
+import org.eclipse.birt.report.engine.api.DocxRenderOption;
+import org.eclipse.birt.report.engine.api.EXCELRenderOption;
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
 import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
+import org.eclipse.birt.report.engine.api.IExcelRenderOption;
 import org.eclipse.birt.report.engine.api.IRenderOption;
 import org.eclipse.birt.report.engine.api.IRenderTask;
 import org.eclipse.birt.report.engine.api.IReportDocument;
@@ -69,6 +72,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   private static final String TEMP_REPORT_PREFIX    = "birt-temp-doc-archive";
 
   private static final String PAGE_NUMBER           = "pageNumber";
+
+  private static final String FORMAT                = "format";
 
   public static final String  RPTDESIGN_EXTENSION   = "rptdesign";
 
@@ -458,13 +463,15 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
     IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
 
+    String format = this.getFormat(parameterMap);
+
     try
     {
       IRenderTask task = engine.createRenderTask(document);
       try
       {
         task.setAppContext(contextMap);
-        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL));
+        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format));
 
         if (task.getRenderOption() instanceof HTMLRenderOption)
         {
@@ -526,6 +533,16 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       }
     }
     return 1;
+  }
+
+  private String getFormat(Map<String, String> parameters)
+  {
+    if (parameters.containsKey(FORMAT))
+    {
+      return parameters.get(FORMAT);
+    }
+
+    return this.getOutputFormat().get(0).name();
   }
 
   @Transaction
@@ -720,15 +737,43 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL)
+  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL, String format)
   {
-    if (this.getOutputFormat().contains(OutputFormat.HTML))
+    if (format.equals("xlsx"))
+    {
+      EXCELRenderOption options = new EXCELRenderOption();
+      options.setOutputStream(outputStream);
+      options.setOutputFormat("xlsx");
+      options.setOption(IExcelRenderOption.OFFICE_VERSION, "office2007");
+
+      return options;
+    }
+    else if (format.equals("docx"))
+    {
+      DocxRenderOption option = new DocxRenderOption();
+      option.setOutputStream(outputStream);
+      option.setOption(DocxRenderOption.OPTION_EMBED_HTML, Boolean.FALSE);
+      option.setOption(IRenderOption.EMITTER_ID, "org.eclipse.birt.report.engine.emitter.docx");
+      return option;
+    }
+    else if (format.equalsIgnoreCase(OutputFormat.PDF.name()))
+    {
+      // set output options
+      PDFRenderOption options = new PDFRenderOption();
+      options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
+      options.setOutputStream(outputStream);
+      options.setBaseURL(baseURL);
+      options.setActionHandler(new PDFUrlActionHandler(document, baseURL, reportURL));
+
+      return options;
+    }
+    else if (format.equalsIgnoreCase(OutputFormat.HTML.name()))
     {
       String folderName = this.getCacheFolderName();
 
       // set output options
       HTMLRenderOption options = new HTMLRenderOption();
-      options.setOutputFormat(this.getRenderOutputFormat());
+      options.setOutputFormat(RenderOption.OUTPUT_FORMAT_HTML);
       options.setOutputStream(outputStream);
       options.setBaseURL(baseURL);
       options.setImageHandler(new HTMLServerImageHandler());
@@ -741,17 +786,12 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       return options;
     }
-    else
-    {
-      // set output options
-      PDFRenderOption options = new PDFRenderOption();
-      options.setOutputFormat(this.getRenderOutputFormat());
-      options.setOutputStream(outputStream);
-      options.setBaseURL(baseURL);
-      options.setActionHandler(new PDFUrlActionHandler(document, baseURL, reportURL));
 
-      return options;
-    }
+    UnsupportedOutputFormatException e = new UnsupportedOutputFormatException("Unknown output format type");
+    e.setOutputFormat(format);
+    e.apply();
+
+    throw e;
   }
 
   private String getCacheFolderName()
@@ -778,40 +818,6 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       throw new ReadPermissionException(message, this, user);
     }
-  }
-
-  public String getRenderOutputFormat()
-  {
-    if (this.getOutputFormat().contains(OutputFormat.PDF))
-    {
-      return RenderOption.OUTPUT_FORMAT_PDF;
-    }
-    else if (this.getOutputFormat().contains(OutputFormat.HTML))
-    {
-      return RenderOption.OUTPUT_FORMAT_HTML;
-    }
-
-    UnsupportedOutputFormatException e = new UnsupportedOutputFormatException("Unknown output format type");
-    e.apply();
-
-    throw e;
-  }
-
-  public static OutputFormat getOutputFormat(String format)
-  {
-    if (format.equals(RenderOption.OUTPUT_FORMAT_PDF))
-    {
-      return OutputFormat.PDF;
-    }
-    else if (format.equals(RenderOption.OUTPUT_FORMAT_HTML))
-    {
-      return OutputFormat.HTML;
-    }
-
-    UnsupportedOutputFormatException e = new UnsupportedOutputFormatException("Unknown output format type");
-    e.apply();
-
-    throw e;
   }
 
   public static ReportItem find(String reportName, OutputFormat outputFormat)

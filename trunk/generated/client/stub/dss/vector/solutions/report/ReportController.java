@@ -163,6 +163,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
       Enumeration<String> parameterNames = req.getParameterNames();
 
       Integer pageNumber = 1;
+      String format = item.getOutputFormatEnumNames().get(0);
 
       while (parameterNames.hasMoreElements())
       {
@@ -178,6 +179,11 @@ public class ReportController extends ReportControllerBase implements Reloadable
         if (parameter.getParameterName().equals("pageNumber"))
         {
           pageNumber = new Integer(parameter.getParameterValue());
+        }
+
+        if (parameter.getParameterName().equals("format"))
+        {
+          format = parameter.getParameterValue();
         }
       }
 
@@ -200,11 +206,21 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
         Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
 
-        if (item.getOutputFormatEnumNames().contains(OutputFormatDTO.PDF.name()))
+        if (format.equals(OutputFormatDTO.HTML.name()))
+        {
+          req.setAttribute("pageTitle", item.getReportLabel().getValue());
+          req.setAttribute("report", rStream.toString());
+          req.setAttribute("pageNumber", pageNumber);
+          req.setAttribute("pageCount", pageCount);
+          req.setAttribute("url", reportUrl);
+
+          req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
+        }
+        else
         {
           String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
-          resp.setHeader("Content-Type", "application/pdf");
-          resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
+          resp.setHeader("Content-Type", "application/" + format);
+          resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + "." + format);
 
           ServletOutputStream oStream = resp.getOutputStream();
 
@@ -217,16 +233,6 @@ public class ReportController extends ReportControllerBase implements Reloadable
             oStream.flush();
             oStream.close();
           }
-        }
-        else
-        {
-          req.setAttribute("pageTitle", item.getReportLabel().getValue());
-          req.setAttribute("report", rStream.toString());
-          req.setAttribute("pageNumber", pageNumber);
-          req.setAttribute("pageCount", pageCount);
-          req.setAttribute("url", reportUrl);
-
-          req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
         }
       }
       finally
