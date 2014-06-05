@@ -26,12 +26,24 @@
         <TR><TD></TD></TR>
         <TR>
           <TD WIDTH="6px">&nbsp;</TD>
-          <TD WIDTH="100%" NOWRAP>
+          <TD WIDTH="70px" NOWRAP>
             <B>
               <mdss:localize key="prompt.one"/> &nbsp;
               <SPAN ID='pageNumber'>${pageNumber}</SPAN>&nbsp;
               <mdss:localize key="prompt.two"/>&nbsp;
               <SPAN ID='totalPage'>${pageCount}</SPAN>
+            </B>
+          </TD>
+          <TD WIDTH="12px">&nbsp;</TD>          
+          <TD WIDTH="100%">
+            <B>
+              <mdss:localize key="export"/>
+              <select id="export">
+                <option value="" selected="selected"></option>
+                <option value="docx"><mdss:localize key="docx"/></option>
+                <option value="xlsx"><mdss:localize key="xlsx"/></option>
+                <option value="pdf"><mdss:localize key="pdf"/></option>
+              </select>
             </B>
           </TD>
           <TD WIDTH="15px">
@@ -88,6 +100,7 @@
     
     <script type="text/javascript">
       YAHOO.util.Event.onDOMReady(function(){
+           // Hook up the page navigation inputs
            var button = document.getElementById('go_id');
            var input = document.getElementById('gotoPage');
            var pageCount = <%=request.getAttribute("pageCount")%>;
@@ -107,7 +120,22 @@
            };
            
            YAHOO.util.Event.on(button, 'click', handleClick);   
-         });
+           
+           var exportEl = document.getElementById('export');
+           
+           // Hook up the export option inputs
+           var handleSelect = function() {
+             var selected = exportEl.value;
+             
+             if(selected != null && selected != "")
+             {
+               window.location.href = url + '&format=' + selected;
+             }
+           };
+           
+           YAHOO.util.Event.on(exportEl, 'change', handleSelect);   
+       });
+      
     </script>    
   </body>
 </html>
