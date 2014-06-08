@@ -315,8 +315,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       req.setAttribute("currentLifeStage", stage.get(0).getName());
     }
 
-    req.setAttribute("collectionRound", AttributeUtil.getValue(MosquitoCollection.COLLECTIONROUND,dto));
-    req.setAttribute("collectionType", AttributeUtil.getValue(MosquitoCollection.COLLECTIONTYPE,dto));
+    req.setAttribute("collectionRound", AttributeUtil.getValue(MosquitoCollection.COLLECTIONROUND, dto));
+    req.setAttribute("collectionType", AttributeUtil.getValue(MosquitoCollection.COLLECTIONTYPE, dto));
+    req.setAttribute("wallType", AttributeUtil.getValue(MosquitoCollection.WALLTYPE, dto));
     req.setAttribute("collectionMethod", dto.getCollectionMethod());
     req.setAttribute("lifeStage", LifeStageDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("brands", Arrays.asList(brands));

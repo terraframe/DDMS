@@ -106,6 +106,9 @@ Mojo.Meta.newClass("MDSS.ValidationBridge", {
       <mjl:dt attribute="dateLastSprayed">
         <mjl:input param="dateLastSprayed" type="text" classes="DatePick NoFuture component" id="dateLastSprayed"/>
       </mjl:dt>    
+      <mjl:dt attribute="wallType">
+         <mdss:mo param="wallType" value="${wallType}" listener="MDSS.ValidationBridge.getInstance()"/>
+      </mjl:dt>             
       <mjl:dt attribute="insecticideBrand"> 
         <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="insecticideBrand" id="insecticideBrand" includeBlank="true" classes="component" >
           <mjl:option>
@@ -359,6 +362,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       collection.setAbundance(abundance.value);        
       collection.setCollectionRound(document.getElementById('collectionRound').value);
       collection.setCollectionType(document.getElementById('collectionType').value);
+      collection.setWallType(document.getElementById('wallType').value);
       collection.setInsecticideBrand(document.getElementById('insecticideBrand').value);
       collection.setNumberOfHumanOccupants(document.getElementById('numberOfHumanOccupants').value);
       collection.setNumberOfAnimalOccupants(document.getElementById('numberOfAnimalOccupants').value);
@@ -376,6 +380,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       var entity = collection.getValue('geoEntity');
       var collectionRound = collection.getValue('collectionRound');
       var collectionType = collection.getValue('collectionType');
+      var wallType = collection.getValue('wallType');
       var insecticideBrand = collection.getValue('insecticideBrand');
       
       document.getElementById('original.collectionMethod').value = method;

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1148903355)
+@com.runwaysdk.business.ClassSignature(hash = 2086703011)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -40,7 +40,8 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 1148903355;
+  public static java.lang.String WALLTYPE = "wallType";
+  private static final long serialVersionUID = 2086703011;
   
   public MosquitoCollectionExcelViewBase()
   {
@@ -856,6 +857,34 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(UNKNOWNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getWallType()
+  {
+    return getValue(WALLTYPE);
+  }
+  
+  public void validateWallType()
+  {
+    this.validateAttribute(WALLTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(WALLTYPE);
+  }
+  
+  public void setWallType(String value)
+  {
+    if(value == null)
+    {
+      setValue(WALLTYPE, "");
+    }
+    else
+    {
+      setValue(WALLTYPE, value);
     }
   }
   

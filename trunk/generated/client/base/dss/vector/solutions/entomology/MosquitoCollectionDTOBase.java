@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -25563932)
+@com.runwaysdk.business.ClassSignature(hash = 1813156990)
 public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
-  private static final long serialVersionUID = -25563932;
+  private static final long serialVersionUID = 1813156990;
   
   protected MosquitoCollectionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -55,6 +55,7 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String WALLTYPE = "wallType";
   public Boolean getAbundance()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
@@ -1072,6 +1073,55 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getWallType()
+  {
+    if(getValue(WALLTYPE) == null || getValue(WALLTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(WALLTYPE));
+    }
+  }
+  
+  public String getWallTypeId()
+  {
+    return getValue(WALLTYPE);
+  }
+  
+  public void setWallType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WALLTYPE, "");
+    }
+    else
+    {
+      setValue(WALLTYPE, value.getId());
+    }
+  }
+  
+  public boolean isWallTypeWritable()
+  {
+    return isWritable(WALLTYPE);
+  }
+  
+  public boolean isWallTypeReadable()
+  {
+    return isReadable(WALLTYPE);
+  }
+  
+  public boolean isWallTypeModified()
+  {
+    return isModified(WALLTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWallTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WALLTYPE).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.MosquitoCollectionViewDTO getView()

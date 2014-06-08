@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 159186532)
+@com.runwaysdk.business.ClassSignature(hash = 1179010558)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -39,7 +39,8 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 159186532;
+  public static java.lang.String WALLTYPE = "wallType";
+  private static final long serialVersionUID = 1179010558;
   
   public MosquitoCollectionBase()
   {
@@ -862,6 +863,46 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
     return mdClassIF.definesAttribute(TYPE);
+  }
+  
+  public dss.vector.solutions.ontology.Term getWallType()
+  {
+    if (getValue(WALLTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(WALLTYPE));
+    }
+  }
+  
+  public String getWallTypeId()
+  {
+    return getValue(WALLTYPE);
+  }
+  
+  public void validateWallType()
+  {
+    this.validateAttribute(WALLTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
+    return mdClassIF.definesAttribute(WALLTYPE);
+  }
+  
+  public void setWallType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(WALLTYPE, "");
+    }
+    else
+    {
+      setValue(WALLTYPE, value.getId());
+    }
   }
   
   protected String getDeclaredType()

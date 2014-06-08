@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -585844060)
+@com.runwaysdk.business.ClassSignature(hash = -1324119014)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -545,6 +545,24 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableInteger getUnknowns(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.UNKNOWNS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getWallType()
+  {
+    return getWallType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getWallType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.WALLTYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getWallType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.WALLTYPE, alias, displayLabel);
 
   }
  

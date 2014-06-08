@@ -53,10 +53,11 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     this.setCollectionRound(collectionRound);
     this.setCollectionType(concrete.getCollectionType());
     this.setInsecticideBrand(concrete.getInsecticideBrand());
+    this.setDateLastSprayed(concrete.getDateLastSprayed());
+    this.setWallType(concrete.getWallType());
     this.setNumberOfHumanOccupants(concrete.getNumberOfHumanOccupants());
     this.setNumberOfAnimalOccupants(concrete.getNumberOfAnimalOccupants());
     this.setNumberOfLLINs(concrete.getNumberOfLLINs());
-    this.setDateLastSprayed(concrete.getDateLastSprayed());
     this.setResistanceAssayComments(concrete.getResistanceAssayComments());
     this.clearLifeStage();
 
@@ -76,10 +77,11 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     concrete.setCollectionRound(this.getCollectionRound());
     concrete.setCollectionType(this.getCollectionType());
     concrete.setInsecticideBrand(this.getInsecticideBrand());
+    concrete.setDateLastSprayed(this.getDateLastSprayed());
+    concrete.setWallType(this.getWallType());
     concrete.setNumberOfHumanOccupants(this.getNumberOfHumanOccupants());
     concrete.setNumberOfAnimalOccupants(this.getNumberOfAnimalOccupants());
     concrete.setNumberOfLLINs(this.getNumberOfLLINs());
-    concrete.setDateLastSprayed(this.getDateLastSprayed());
     concrete.setResistanceAssayComments(this.getResistanceAssayComments());
     concrete.clearLifeStage();
 
@@ -102,6 +104,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     new AttributeNotificationMap(concrete, MosquitoCollection.COLLECTIONROUND, this, MosquitoCollectionView.COLLECTIONROUND);
     new AttributeNotificationMap(concrete, MosquitoCollection.COLLECTIONTYPE, this, MosquitoCollectionView.COLLECTIONTYPE);
     new AttributeNotificationMap(concrete, MosquitoCollection.DATELASTSPRAYED, this, MosquitoCollectionView.DATELASTSPRAYED);
+    new AttributeNotificationMap(concrete, MosquitoCollection.WALLTYPE, this, MosquitoCollectionView.WALLTYPE);
     new AttributeNotificationMap(concrete, MosquitoCollection.INSECTICIDEBRAND, this, MosquitoCollectionView.INSECTICIDEBRAND);
     new AttributeNotificationMap(concrete, MosquitoCollection.NUMBEROFHUMANOCCUPANTS, this, MosquitoCollectionView.NUMBEROFHUMANOCCUPANTS);
     new AttributeNotificationMap(concrete, MosquitoCollection.NUMBEROFANIMALOCCUPANTS, this, MosquitoCollectionView.NUMBEROFANIMALOCCUPANTS);

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -278280918)
+@com.runwaysdk.business.ClassSignature(hash = -2115504290)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -317,6 +317,25 @@ public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.qu
 
   }
  
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWallType()
+  {
+    return getWallType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWallType(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.WALLTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getWallType(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.WALLTYPE, alias, displayLabel);
+
+  }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

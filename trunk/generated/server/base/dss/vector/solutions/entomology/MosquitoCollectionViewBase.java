@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1695503347)
+@com.runwaysdk.business.ClassSignature(hash = -1460055371)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,8 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String NUMBEROFHUMANOCCUPANTS = "numberOfHumanOccupants";
   public static java.lang.String NUMBEROFLLINS = "numberOfLLINs";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
-  private static final long serialVersionUID = 1695503347;
+  public static java.lang.String WALLTYPE = "wallType";
+  private static final long serialVersionUID = -1460055371;
   
   public MosquitoCollectionViewBase()
   {
@@ -537,6 +538,46 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     else
     {
       setValue(RESISTANCEASSAYCOMMENTS, value);
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getWallType()
+  {
+    if (getValue(WALLTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(WALLTYPE));
+    }
+  }
+  
+  public String getWallTypeId()
+  {
+    return getValue(WALLTYPE);
+  }
+  
+  public void validateWallType()
+  {
+    this.validateAttribute(WALLTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
+    return mdClassIF.definesAttribute(WALLTYPE);
+  }
+  
+  public void setWallType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(WALLTYPE, "");
+    }
+    else
+    {
+      setValue(WALLTYPE, value.getId());
     }
   }
   

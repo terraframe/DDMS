@@ -238,6 +238,13 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       view.setDateLastSprayed(dateLastSprayed);
     }
 
+    Term wallType = Term.validateByDisplayLabel(this.getWallType(), MosquitoCollectionView.getWallTypeMd());
+
+    if (wallType != null)
+    {
+      view.setWallType(wallType);
+    }
+
     Integer numberOfHumanOccupants = this.getNumberOfHumanOccupants();
     if (numberOfHumanOccupants != null)
     {
@@ -271,6 +278,7 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(COLLECTIONROUND);
     list.add(COLLECTIONTYPE);
     list.add(DATELASTSPRAYED);
+    list.add(WALLTYPE);
     list.add(INSECTICIDEBRAND);
     list.add(NUMBEROFHUMANOCCUPANTS);
     list.add(NUMBEROFANIMALOCCUPANTS);

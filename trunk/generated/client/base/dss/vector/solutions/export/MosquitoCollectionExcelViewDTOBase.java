@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1305202235)
+@com.runwaysdk.business.ClassSignature(hash = 306778403)
 public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MosquitoCollectionExcelView";
-  private static final long serialVersionUID = 1305202235;
+  private static final long serialVersionUID = 306778403;
   
   protected MosquitoCollectionExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -45,6 +45,7 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
+  public static java.lang.String WALLTYPE = "wallType";
   public Boolean getAbundance()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
@@ -1091,6 +1092,43 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnknownsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNKNOWNS).getAttributeMdDTO();
+  }
+  
+  public String getWallType()
+  {
+    return getValue(WALLTYPE);
+  }
+  
+  public void setWallType(String value)
+  {
+    if(value == null)
+    {
+      setValue(WALLTYPE, "");
+    }
+    else
+    {
+      setValue(WALLTYPE, value);
+    }
+  }
+  
+  public boolean isWallTypeWritable()
+  {
+    return isWritable(WALLTYPE);
+  }
+  
+  public boolean isWallTypeReadable()
+  {
+    return isReadable(WALLTYPE);
+  }
+  
+  public boolean isWallTypeModified()
+  {
+    return isModified(WALLTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getWallTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WALLTYPE).getAttributeMdDTO();
   }
   
   public static MosquitoCollectionExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
