@@ -83,7 +83,7 @@ Mojo.Meta.newClass('MDSS.KnockDownAssayForm', {
       if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
         value = (value == '') ? null : value;
         
-        var date = MDSS.Calendar.parseDate(value);
+        var date = MDSS.Calendar.parseDate(value, true);
 
         attributeDTO.setValue(date);        
       }

@@ -88,7 +88,7 @@ MDSS.Calendar = {
       return null;
     }
 
-    var var_to_date = function(date_str) {    	
+    var var_to_date = function(date_str, offset) {    	
     	if(date_str instanceof Date) return date_str;
     	
     	if(Mojo.Util.isString(date_str)) {
@@ -103,7 +103,18 @@ MDSS.Calendar = {
     	if(date == null) date = Date.parseString(date_str);
     	//remove the timezone and the day
     	date_str = date_str.replace(/^(\w+ )(\w+ \d\d \d\d:\d\d:\d\d )(\w+ )(\d\d\d\d)$/, '$2$4');
-    	if(date == null && date_str.length > 16) date = new Date(date_str);  	
+    	if(date == null && date_str.length > 16)
+    	{
+    	  date = new Date(date_str);  	
+    	}
+    	
+    	// We need to offset the timezone difference such that when its serialized to JSON the date is the same
+    	if(offset != null && offset)
+  	  {
+    	  // Timezone offset is in minutes.  Get time is in milliseconds
+    	  date = new Date(date.getTime() + (-1 * date.getTimezoneOffset() * 60 * 1000));    	  
+  	  }
+    	
     	return date;
     }
     

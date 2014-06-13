@@ -70,7 +70,7 @@ Mojo.Meta.newClass("MDSS.EfficacyAssayValidation", {
         }
       }
   
-      var testDate = MDSS.Calendar.parseDate(this._inputs[0].value);
+      var testDate = MDSS.Calendar.parseDate(this._inputs[0].value, true);
       var controlTestMortality = MDSS.parseNumber(this._inputs[1].value);
       
       var request = new MDSS.Request({

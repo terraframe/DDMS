@@ -332,7 +332,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         var stage = document.getElementById('lifeStage').value;
         
         var collectionDate = document.getElementById('collectionDate').value;
-        collectionDate = MDSS.Calendar.parseDate(collectionDate);
+        collectionDate = MDSS.Calendar.parseDate(collectionDate, true);
         
         collection.setCollectionMethod(document.getElementById('collectionMethod').value);
         collection.setCollectionDate(collectionDate);
@@ -341,7 +341,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
       else {
         var collectionDate = document.getElementById('original.collectionDate').value;
-        collectionDate = MDSS.Calendar.parseDate(collectionDate);
+        collectionDate = MDSS.Calendar.parseDate(collectionDate, true);
         
         collection.setConcreteId(concreteId.value);
         collection.setCollectionMethod(document.getElementById('original.collectionMethod').value);
@@ -351,7 +351,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
       
       var dateLastSprayed = document.getElementById('dateLastSprayed').value;
-      dateLastSprayed = MDSS.Calendar.parseDate(dateLastSprayed);     
+      dateLastSprayed = MDSS.Calendar.parseDate(dateLastSprayed, true);     
       
       if(dateLastSprayed === '')
       {
