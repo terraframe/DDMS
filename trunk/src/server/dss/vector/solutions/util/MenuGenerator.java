@@ -42,6 +42,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRelationship;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
+import dss.vector.solutions.report.OutputFormat;
 import dss.vector.solutions.report.ReportItem;
 
 /**
@@ -337,7 +338,16 @@ public class MenuGenerator implements Reloadable
 
           if (url != null && url.startsWith(ReportItem.BASE_URL))
           {
-            guiMenuItem.setTarget("_blank");
+            // Set the target as blank if the report is a HTML report
+
+            String id = url.replace(ReportItem.BASE_URL, "");
+
+            ReportItem item = ReportItem.get(id);
+
+            if (item != null && item.getOutputFormat().contains(OutputFormat.HTML))
+            {
+              guiMenuItem.setTarget("_blank");
+            }
           }
 
           guiMenuItems.put(ancestorId, guiMenuItem);
