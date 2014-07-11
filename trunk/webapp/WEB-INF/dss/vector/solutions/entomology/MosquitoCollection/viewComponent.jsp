@@ -350,25 +350,49 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         collection.addLifeStage(document.getElementById('original.lifeStage').value);         
       }
       
-      var dateLastSprayed = document.getElementById('dateLastSprayed').value;
-      dateLastSprayed = MDSS.Calendar.parseDate(dateLastSprayed, true);     
+      if(collection.isDateLastSprayedReadable()){
+        var dateLastSprayed = document.getElementById('dateLastSprayed').value;
+        dateLastSprayed = MDSS.Calendar.parseDate(dateLastSprayed, true);     
       
-      if(dateLastSprayed === '')
-      {
-        dateLastSprayed = null;        
+        if(dateLastSprayed === '')
+        {
+          dateLastSprayed = null;        
+        }
+        
+        collection.setDateLastSprayed(dateLastSprayed);
+      }
+      
+      
+      collection.setCollectionId(collectionId.value);        
+      collection.setAbundance(abundance.value);   
+      if(collection.isCollectionRoundReadable()){
+        collection.setCollectionRound(document.getElementById('collectionRound').value);
+      }
+      
+      if(collection.isCollectionTypeReadable()){
+        collection.setCollectionType(document.getElementById('collectionType').value);
+      }
+      
+      if(collection.isWallTypeReadable()){
+        collection.setWallType(document.getElementById('wallType').value);
+      }
+      
+      if(collection.isInsecticideBrandReadable()){
+        collection.setInsecticideBrand(document.getElementById('insecticideBrand').value);
       }
 
-      collection.setCollectionId(collectionId.value);        
-      collection.setAbundance(abundance.value);        
-      collection.setCollectionRound(document.getElementById('collectionRound').value);
-      collection.setCollectionType(document.getElementById('collectionType').value);
-      collection.setWallType(document.getElementById('wallType').value);
-      collection.setInsecticideBrand(document.getElementById('insecticideBrand').value);
-      collection.setNumberOfHumanOccupants(document.getElementById('numberOfHumanOccupants').value);
-      collection.setNumberOfAnimalOccupants(document.getElementById('numberOfAnimalOccupants').value);
-      collection.setNumberOfLLINs(document.getElementById('numberOfLLINs').value);
-      collection.setDateLastSprayed(dateLastSprayed);
-
+      if(collection.isNumberOfHumanOccupantsReadable()){
+        collection.setNumberOfHumanOccupants(document.getElementById('numberOfHumanOccupants').value);
+      }
+      
+      if(collection.isNumberOfAnimalOccupantsReadable()){
+        collection.setNumberOfAnimalOccupants(document.getElementById('numberOfAnimalOccupants').value);
+      }
+      
+      if(collection.isNumberOfLLINsReadable()){
+        collection.setNumberOfLLINs(document.getElementById('numberOfLLINs').value);
+      }      
+      
       return collection;
     }
 
