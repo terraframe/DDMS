@@ -40,7 +40,7 @@
         <mjl:input param="endDate" id="endDate" type="text" classes="DatePick NoFuture component immutable"/>
        </mjl:dt>
 
-      <button id="button.go"><mdss:localize key="Go" /></button>
+      <button type="button" id="button.go"><mdss:localize key="Go" /></button>
 
       <hr />
       

@@ -29,7 +29,7 @@
     <dd>
       <mjl:input id="collectionInput" param="collectionInput" type="text" />
       <mjl:input id="collectionId" param="collectionId" type="hidden" />       
-      <button id="button.go"><mdss:localize key="Go" /></button>
+      <button type="button" id="button.go"><mdss:localize key="Go" /></button>
     </dd>
   </dl>  
 </mjl:form>

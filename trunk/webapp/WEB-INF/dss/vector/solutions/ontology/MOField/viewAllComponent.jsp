@@ -15,7 +15,7 @@
 <c:forEach items="${moFields}" var="moField">
  <dt>
    ${moField.mdClassLabel} : ${moField.mdAttributeLabel}<br />
-   <button value="Add Root" id=""></button>
+   <button type="button" value="Add Root" id=""></button>
  </dt> 
  <dd>
    <table>

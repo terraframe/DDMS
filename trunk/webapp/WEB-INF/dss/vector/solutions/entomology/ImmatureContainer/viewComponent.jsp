@@ -32,7 +32,7 @@
         <mdss:mo param="taxon" value="${taxon}"/>
       </mjl:dt>      
       
-      <button id="button.go"><mdss:localize key="Go" /></button>
+      <button type="button" id="button.go"><mdss:localize key="Go" /></button>
          
       <hr />
       

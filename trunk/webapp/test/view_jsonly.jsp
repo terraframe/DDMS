@@ -159,7 +159,7 @@
       // success handler for newly created mosquito
       onSuccess : function(rows){
         var el = new YAHOO.util.Element('rows'); 
-         for each (row in rows)
+         for (var row in rows)
          {
 		    YAHOO.example.DynamicData.addRow(row);
 	    }

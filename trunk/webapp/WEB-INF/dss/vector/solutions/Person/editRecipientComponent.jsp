@@ -33,7 +33,7 @@
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mdss:mo param="sex" value="${sex}" id="sex" classes="component" />
-      </mjl:dt>            
+      </mjl:dt> 
       <mjl:dt attribute="residentialGeoId" >
         <mdss:geo param="residentialGeoId" id="residentialGeoId" classes="component" concrete="false" value="${item.residentialGeoId}" />
       </mjl:dt>
@@ -53,8 +53,8 @@
         <mjl:textarea param="birthLocation" id="birthLocation" classes="component" />
       </mjl:dt>
     </mjl:component>
-    
-    <button id="button.confirm"><mdss:localize key="Confirm" /></button>
-    <button id="button.cancel"><mdss:localize key="Cancel" /></button>
+
+    <button type="button" id="button.confirm"><mdss:localize key="Confirm" /></button>
+    <button type="button" id="button.cancel"><mdss:localize key="Cancel" /></button>
   </mjl:form>
 </dl>

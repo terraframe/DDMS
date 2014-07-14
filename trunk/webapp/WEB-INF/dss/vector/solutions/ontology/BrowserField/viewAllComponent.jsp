@@ -39,7 +39,7 @@ YAHOO.util.Event.onDOMReady(function() {
 <c:forEach items="${fields}" var="field">
 
  <dt>
-    <button value="${field.browserFieldId}" class="addRootBtn"><mdss:localize key="Add_Root" /></button>
+    <button type="button" value="${field.browserFieldId}" class="addRootBtn"><mdss:localize key="Add_Root" /></button>
     ${field.mdClassLabel} : ${field.mdAttributeLabel}
  </dt> 
  <dd>
@@ -55,8 +55,8 @@ YAHOO.util.Event.onDOMReady(function() {
        <tr id="${root.browserRootId}_row">
          <td>${root.displayLabel}</td>
          <td>${root.selectable}</td>
-         <td><button class="editRootBtn" value="${root.browserRootId}"><mdss:localize key="Edit" /></button></td>
-         <td><button class="deleteRootBtn" value="${root.browserRootId}"><mdss:localize key="Delete" /></button></td>
+         <td><button type="button" class="editRootBtn" value="${root.browserRootId}"><mdss:localize key="Edit" /></button></td>
+         <td><button type="button" class="deleteRootBtn" value="${root.browserRootId}"><mdss:localize key="Delete" /></button></td>
        </tr>
      </c:forEach>
    </table>
