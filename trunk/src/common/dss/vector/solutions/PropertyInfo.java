@@ -12,7 +12,8 @@ public interface PropertyInfo
 
   public static final String STANDARDS_PACKAGE       = GENERAL_PACKAGE + ".irs.Standards";
 
-  public static final String RESISTANCE_PACKAGE      = GENERAL_PACKAGE + ".entomology.ResistantanceCutOff";
+  public static final String RESISTANCE_PACKAGE      = GENERAL_PACKAGE
+                                                         + ".entomology.ResistantanceCutOff";
 
   public static final String GEO_PACKAGE             = GENERAL_PACKAGE + ".geo";
 
@@ -31,6 +32,8 @@ public interface PropertyInfo
   public static final String EPI_START               = "epiStart";
 
   public static final String EPI_START_DAY           = "epiStartWeekDay";
+
+  public static final String NEW_CASE_PERIOD         = "newCasePeriod";
 
   public static final String COUNTRY_GEO_ID          = "countryGeoId";
 

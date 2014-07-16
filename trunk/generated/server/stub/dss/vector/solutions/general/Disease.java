@@ -9,6 +9,8 @@ import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.metadata.MdDimension;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
@@ -43,6 +45,12 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
       RequiredAttributeException ex = new RequiredAttributeException();
       ex.setAttributeLabel(Disease.getMenuRootMd().getDisplayLabel(Session.getCurrentLocale()));
       throw ex;
+    }
+    
+    if(this.isNew())
+    {
+      // Add a default case period with a new disease #3026
+       Property.getAllByPackage(PropertyInfo.MONITOR_PACKAGE);
     }
 
     super.apply();

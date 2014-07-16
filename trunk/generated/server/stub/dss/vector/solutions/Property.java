@@ -69,8 +69,8 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
 
     return query;
   }
-
-  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name)
+  
+  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name, Disease disease)
   {
     Property prop = null;
 
@@ -81,9 +81,9 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     
     Disease currentDisease = Disease.getCurrent();
     if (currentDisease == null) {
-    	query.AND(query.getDisease().EQ("NULL"));
+        query.AND(query.getDisease().EQ("NULL"));
     } else {
-    	query.AND(OR.get(query.getDisease().EQ(Disease.getCurrent()), query.getDisease().EQ("NULL")));
+        query.AND(OR.get(query.getDisease().EQ(disease), query.getDisease().EQ("NULL")));
     }
     OIterator<? extends Property> iterator = query.getIterator();
 
@@ -105,7 +105,7 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
 
       query.WHERE(query.getPropertyPackage().LIKE(pkg + "%"));
       query.AND(query.getPropertyName().EQ(name));
-      query.AND(OR.get(query.getDisease().EQ(Disease.getCurrent()), query.getDisease().EQ("NULL")));
+      query.AND(OR.get(query.getDisease().EQ(disease), query.getDisease().EQ("NULL")));
       
       iterator = query.getIterator();
 
@@ -123,6 +123,11 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     }
 
     return prop;
+  }
+
+  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name)
+  {
+    return getByPackageAndName(pkg, name, Disease.getCurrent());
   }
 
   @Override
@@ -157,7 +162,7 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     // }
 
   }
-
+  
   public Integer getPropertyInteger()
   {
     String value = this.getPropertyValue();

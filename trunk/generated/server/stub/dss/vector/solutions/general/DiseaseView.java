@@ -4,12 +4,17 @@ import java.io.BufferedInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdTreeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdTreeDAO;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
@@ -22,6 +27,9 @@ import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.PropertyQuery;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.generator.FormSystemURLBuilder;
 import dss.vector.solutions.ontology.BrowserField;
@@ -37,7 +45,9 @@ import dss.vector.solutions.report.ReportItemQuery;
 public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1948354243;
-
+  
+  private static final Log log = LogFactory.getLog(DiseaseView.class);
+  
   public DiseaseView()
   {
     super();
@@ -77,6 +87,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
   @Override
   @Authenticate
   @Transaction
+  @com.runwaysdk.logging.Log(level=LogLevel.DEBUG)
   public void applyConcrete()
   {
     this.applyNoPersist();
@@ -99,24 +110,35 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
 
     if (firstApply)
     {
+      log.debug("Disease - first apply");
       /*
        * STEP 1: Copy over the InactiveProperties from the Malaria disease
        */
+      log.debug("STEP 1: Copy over the InactiveProperties from the Malaria disease");
       this.cloneInactiveProperties(concrete);
 
       /*
        *  STEP 2: Create the menu structure for the new disease
        */
+      log.debug("STEP 2: Create the menu structure for the new disease");
       this.cloneMenuItems(concrete);
 
       /*
        * STEP 3: Create the browser roots for the new disease
        */
+      log.debug("STEP 3: Create the browser roots for the new disease");
       this.cloneBrowserRoots(concrete);
+      
+      /*
+       * STEP 4: Add default case period property #3026 [value of 4 was recommended by Miguel)
+       */
+      log.debug("STEP 4: Add default case period property");
+      this.addDefaultCasePeriod(concrete);
 
       /*
-       *  STEP 3: Create permissions for the new disease and dimension
+       *  STEP 5: Create permissions for the new disease and dimension
        */
+      log.debug("STEP 5: Create permissions for the new disease and dimension");
       this.addPermissions(concrete);
 
     }
@@ -124,6 +146,69 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     this.populateView(concrete, dimension);
   }
 
+  public boolean hasDefaultCasePeriod(Disease concrete)
+  {
+    return Property.getByPackageAndName(PropertyInfo.MONITOR_PACKAGE, PropertyInfo.NEW_CASE_PERIOD, concrete) != null;
+  }
+  
+  /**
+   * Adds a default newCasePeriod property, which is required to make individual cases work
+   * after a new disease is added. Ideally we could clone an existing case period and change the
+   * disease but that might have unknown behavior so we do it manually here.
+   * 
+   * @param concrete
+   */
+  @AbortIfProblem
+  public void addDefaultCasePeriod(Disease concrete)
+  {
+    if(this.hasDefaultCasePeriod(concrete))
+    {
+      // Nothing to do here.
+      return;
+    }
+    
+    Property prop = new Property();
+    prop.setPropertyPackage(PropertyInfo.MONITOR_PACKAGE);
+    prop.setPropertyName(PropertyInfo.NEW_CASE_PERIOD);
+    prop.setDisease(concrete);
+    prop.setKeyName(PropertyInfo.NEW_CASE_PERIOD+"."+concrete.getKeyName()); // eg, newCasePerson.Visceral Leishmaniasis
+    prop.setPropertyValue("4");
+    prop.setPropertyType("Integer");
+    prop.setPropertyValidator("^[1-9][0-9]*$");
+    prop.setValidValues("4, 6, 10");
+    prop.getDisplayLabel().setDefaultValue("New Case Period (weeks)");
+    prop.getDescription().setDefaultValue("Number of weeks (from case diagnosis date) after which to create a new case");
+    prop.apply();
+    
+    /*
+     * For Reference:
+    
+    -- JAVA accessor
+    Property casePeriod = Property.getByPackageAndName(PropertyInfo.MONITOR_PACKAGE, PropertyInfo.NEW_CASE_PERIOD);
+    
+    -- XML definitino
+    <object type="dss.vector.solutions.Property" key="newCasePeriod.MALARIA">
+      <attribute name="propertyPackage" value="dss.vector.solutions.intervention.monitor" />
+      <attribute name="propertyName" value="newCasePeriod" />
+      <attributeReference name="disease" key="MALARIA" />
+      <attributeStruct
+         name="displayLabel">
+        <attribute name="defaultLocale" value="New Case Period (weeks)" />
+      </attributeStruct>
+      <attribute name="propertyValue" value="4" />
+      <attribute name="propertyType" value="Integer" />
+      <attribute name="propertyValidator" value="^[1-9][0-9]*$" />
+      <attribute name="validValues" value="4, 6, 10" />
+      <attributeStruct
+         name="description">
+        <attribute name="defaultLocale" value="Number of weeks (from case diagnosis date) after which to create a new case" />
+      </attributeStruct>
+    </object>
+     * 
+     */
+  }
+  
+  @AbortIfProblem
   public void addPermissions(Disease concrete)
   {
     // Define the static permissions
@@ -199,6 +284,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  @AbortIfProblem
   private void cloneBrowserRoots(Disease concrete)
   {
     BrowserRootQuery query = new BrowserRootQuery(new QueryFactory());
@@ -227,6 +313,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  @AbortIfProblem
   private void cloneMenuItems(Disease concrete)
   {
     /*
@@ -342,6 +429,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     return termId;
   }
 
+  @AbortIfProblem
   private void cloneInactiveProperties(Disease concrete)
   {
     InactivePropertyQuery query = new InactivePropertyQuery(new QueryFactory());
@@ -446,9 +534,34 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
        * Delete the inactive properties
        */
       this.deleteInactiveProperties(disease);
+      
+      /*
+       * Delete default case period
+       */
+      this.deleteDefaultCasePeriod(disease);
 
       disease.delete();
       dimension.delete();
+    }
+  }
+  
+  private void deleteDefaultCasePeriod(Disease disease)
+  {
+    PropertyQuery q = new PropertyQuery(new QueryFactory());
+    q.WHERE(q.getDisease().EQ(disease));
+    
+    OIterator<? extends Property> iter = q.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      
     }
   }
 

@@ -19,6 +19,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.general.Disease;
@@ -54,7 +55,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
     return this.getClassDisplayLabel();
   }
-
+  
   @Override
   @Transaction
   public void apply()
@@ -370,7 +371,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       throw exception;
     }
 
-    int newCasePeriod = Property.getInt("dss.vector.solutions.intervention.monitor", "newCasePeriod");
+    int newCasePeriod = Property.getInt(PropertyInfo.MONITOR_PACKAGE, PropertyInfo.NEW_CASE_PERIOD);
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
     calendar.add(Calendar.DAY_OF_MONTH, -7 * newCasePeriod);
