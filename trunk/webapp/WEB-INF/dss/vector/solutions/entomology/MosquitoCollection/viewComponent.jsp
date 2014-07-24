@@ -106,9 +106,6 @@ Mojo.Meta.newClass("MDSS.ValidationBridge", {
       <mjl:dt attribute="dateLastSprayed">
         <mjl:input param="dateLastSprayed" type="text" classes="DatePick NoFuture component" id="dateLastSprayed"/>
       </mjl:dt>    
-      <mjl:dt attribute="wallType">
-         <mdss:mo param="wallType" value="${wallType}" listener="MDSS.ValidationBridge.getInstance()"/>
-      </mjl:dt>             
       <mjl:dt attribute="insecticideBrand"> 
         <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="insecticideBrand" id="insecticideBrand" includeBlank="true" classes="component" >
           <mjl:option>
@@ -116,6 +113,9 @@ Mojo.Meta.newClass("MDSS.ValidationBridge", {
           </mjl:option>
         </mjl:select>
       </mjl:dt>
+      <mjl:dt attribute="wallType">
+         <mdss:mo param="wallType" value="${wallType}" listener="MDSS.ValidationBridge.getInstance()"/>
+      </mjl:dt>      
       <mjl:dt attribute="numberOfHumanOccupants">
         <mjl:input type="text" param="numberOfHumanOccupants" id="numberOfHumanOccupants" classes="component"/>
       </mjl:dt>

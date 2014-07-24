@@ -87,7 +87,7 @@ YAHOO.util.Event.onDOMReady(function(){
       Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
     %>
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection();
-    var collectionAttribs = ["collectionId","collectionMethod", "geoEntity","collectionDate", "lifeStage","abundance", "collectionRound","collectionType", "dateLastSprayed", /*"insecticideBrand",*/, "numberOfHumanOccupants", "numberOfAnimalOccupants", "numberOfLLINs"];
+    var collectionAttribs = ["collectionId","collectionMethod", "geoEntity","collectionDate", "lifeStage","abundance", "collectionRound","collectionType", "dateLastSprayed","wallType", /*"insecticideBrand",*/, "numberOfHumanOccupants", "numberOfAnimalOccupants", "numberOfLLINs"];
     var available = new MDSS.Set(<%= request.getAttribute("collectionAttribs") %>);
     collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
       return this.contains(attrib);
