@@ -127,7 +127,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionColumns = [];    
 
     var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var adultAttribs = ["uniqueAssayId", "sex", "fed","gravid","holdingTime", "quantityLive","quantityDead", "correctedQuantityDead", "controlTestMortality",
+    var adultAttribs = ["uniqueAssayId", "sex", "fed","gravid","holdingTime", "quantityLive","quantityDead", "correctedQuantityDead", "controlTestNumberExposed", "controlTestMortality",
                         "observedMortality", "mortality", "kd50","kd95"];
     <%
     Halp.setReadableAttributes(request, "adultAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
