@@ -1,7 +1,6 @@
 package dss.vector.solutions.ontology;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.constants.MdAttributeConcreteInfo;
 import com.runwaysdk.constants.MdAttributeDimensionInfo;
 import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -46,10 +45,10 @@ public class FieldDefaultView extends FieldDefaultViewBase implements com.runway
     {
       String attributeId = mdAttribute.getId();
       MdAttributeDAOIF mdAttributeDAOIF = (MdAttributeDAOIF) MdAttributeDAO.get(attributeId).getMdAttributeConcrete();
-      
+
       if (mdAttributeDAOIF instanceof MdAttributeRefDAOIF)
       {
-        MdDimensionDAOIF mdDimension = Session.getCurrentDimension();      
+        MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
         MdAttributeDimensionDAO mdAttributeDimension = mdAttributeDAOIF.getMdAttributeDimension(mdDimension).getBusinessDAO();
 
         Term term = this.getDefaultValue();
@@ -78,8 +77,12 @@ public class FieldDefaultView extends FieldDefaultViewBase implements com.runway
 
     if (mdAttributeDAO instanceof MdAttributeRefDAOIF)
     {
-      mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, "");
-      mdAttributeDAO.apply();
+      MdAttributeDAOIF mdAttributeDAOIF = (MdAttributeDAOIF) mdAttributeDAO;
+      MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+
+      MdAttributeDimensionDAO mdAttributeDimension = mdAttributeDAOIF.getMdAttributeDimension(mdDimension).getBusinessDAO();
+      mdAttributeDimension.setValue(MdAttributeDimensionInfo.DEFAULT_VALUE, "");
+      mdAttributeDimension.apply();
     }
   }
 
