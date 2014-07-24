@@ -6,16 +6,17 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.runwaysdk.business.ClassLoaderException;
-import com.runwaysdk.business.email.EmailException;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.session.Request;
 
 public class EmailContextListener implements ServletContextListener
 {
-  private static final String EMAILTYPE = "dss.vector.solutions.general.Email";
+  private static final String EMAILTYPE  = "dss.vector.solutions.general.Email";
+
   private static final String CONFIGTYPE = "dss.vector.solutions.general.EmailConfiguration";
 
   public void contextInitialized(ServletContextEvent arg0)
@@ -43,28 +44,28 @@ public class EmailContextListener implements ServletContextListener
       {
         try
         {
-        	runOnce();
+          runOnce();
         }
         catch (Throwable t)
         {
           // Catch all errors and try again
           t.printStackTrace(System.err);
           fails++;
-          if (fails<50)
+          if (fails < 50)
           {
             continue;
           }
           else
           {
             // 50 consecutive fails means that something is wrong.
-            throw new EmailException("50 consecutive failures to run the e-mail daemon method.  Most recent cause attached.", t);
+            throw new ProgrammingErrorException("50 consecutive failures to run the e-mail daemon method.  Most recent cause attached.", t);
           }
         }
-//        finally
-//        {
-//          LockHolder.unlock();
-//        }
-        
+        // finally
+        // {
+        // LockHolder.unlock();
+        // }
+
         try
         {
           // If we get here, then we have executed successfully.
@@ -81,16 +82,17 @@ public class EmailContextListener implements ServletContextListener
     @Request
     private void runOnce()
     {
-//      Intentionally removing LockHolder access infavor of the "just-try-again" approach
-//        LockHolder.lock(this);
-        long current = System.currentTimeMillis();
-        Object config = configInvoke(null, "getDefault");
-        Integer retry = (Integer) configInvoke(config, "getRetry");
-        if (this.lastRun == 0 || ( current >= ( this.lastRun + ( retry * MINUTE_IN_MILLISECONDS ) ) ))
-        {
-          emailInvoke("sendAll");
-          this.lastRun = current;
-        }
+      // Intentionally removing LockHolder access infavor of the
+      // "just-try-again" approach
+      // LockHolder.lock(this);
+      long current = System.currentTimeMillis();
+      Object config = configInvoke(null, "getDefault");
+      Integer retry = (Integer) configInvoke(config, "getRetry");
+      if (this.lastRun == 0 || ( current >= ( this.lastRun + ( retry * MINUTE_IN_MILLISECONDS ) ) ))
+      {
+        emailInvoke("sendAll");
+        this.lastRun = current;
+      }
     }
 
     public void start()
@@ -134,7 +136,7 @@ public class EmailContextListener implements ServletContextListener
       MdTypeDAOIF mdTypeDAO = MdTypeDAO.getMdTypeDAO(EMAILTYPE);
       if (e instanceof InvocationTargetException)
       {
-        InvocationTargetException ite = (InvocationTargetException)e;
+        InvocationTargetException ite = (InvocationTargetException) e;
         throw new ClassLoaderException(error, mdTypeDAO, ite.getTargetException());
       }
       else
@@ -157,7 +159,7 @@ public class EmailContextListener implements ServletContextListener
       MdTypeDAOIF mdTypeDAO = MdTypeDAO.getMdTypeDAO(CONFIGTYPE);
       if (e instanceof InvocationTargetException)
       {
-        InvocationTargetException ite = (InvocationTargetException)e;
+        InvocationTargetException ite = (InvocationTargetException) e;
         throw new ClassLoaderException(error, mdTypeDAO, ite.getTargetException());
       }
       else

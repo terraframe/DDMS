@@ -118,7 +118,10 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
 
       if (view.getCollectionMethod() != null)
       {
-        this.addCondition(vQuery.getCollectionMethod().EQ(view.getCollectionMethod()));
+        dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = new dss.vector.solutions.ontology.AllPathsQuery(this.getQueryFactory());
+        allPathsQuery.WHERE(allPathsQuery.getParentTerm().EQ(view.getCollectionMethod()));
+
+        this.addCondition(vQuery.getCollectionMethod().EQ(allPathsQuery.getChildTerm()));
       }
 
       if (view.getGeoEntity() != null)
