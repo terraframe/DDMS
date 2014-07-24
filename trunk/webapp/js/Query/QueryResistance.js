@@ -30,6 +30,10 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
                              accessor : this._groupByClass.COLLECTIONDATE
                            },
                            {
+                             klass :  this._groupByClass,
+                             accessor : this._groupByClass.DATELASTSPRAYED
+                           },
+                           {
                           	 klass :  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay,
                              accessor : dss.vector.solutions.entomology.assay.AbstractAssay.TESTDATE
                            }

@@ -105,7 +105,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
 
-    var collectionAttribs = ["collectionId", "collectionDate", "collectionMethod"];
+    var collectionAttribs = ["collectionId", "collectionDate", "collectionMethod", "collectionRound","collectionType", "dateLastSprayed"];
     <%
     Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
     %>
@@ -149,7 +149,7 @@ YAHOO.util.Event.onDOMReady(function(){
       observedMortality.key = '<%=QueryConstants.OBSERVED_MORTALITY%>';
       observedMortality.type = 'sqldouble';
       observedMortality.isAggregate = true;    
-      delete observedMortality.dtoType;
+      observedMortality.dtoType = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO";
       delete observedMortality.includes;
     }
     
@@ -160,7 +160,7 @@ YAHOO.util.Event.onDOMReady(function(){
       mortality.key = '<%=QueryConstants.CORRECTED_MORTALITY%>';
       mortality.type = 'sqldouble';
       mortality.isAggregate = true;    
-      delete mortality.dtoType;
+      mortality.dtoType = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO";
       delete mortality.includes;
     }
     
