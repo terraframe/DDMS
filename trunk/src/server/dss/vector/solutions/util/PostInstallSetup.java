@@ -1,9 +1,14 @@
 package dss.vector.solutions.util;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
@@ -83,6 +88,11 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   public static String        DEFAULT_BIRT        = ROOT_DIRECTORY + "/birt/";
 
+  /**
+   * Key of the firefox response timeout
+   */
+  public final static String  TIMEOUT_KEY         = "network.http.response.timeout";
+
   private final static Logger logger              = Logger.getLogger(PostInstallSetup.class.getName());
 
   private File                appRoot;
@@ -154,6 +164,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     int totalMemory = getTotalMemory(appCount);
     logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
+
+    this.updateFirefoxPreferences();
 
     return totalMemory;
   }
@@ -320,20 +332,21 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     this.updateMemorySettings();
     this.updateBIRTJavaPath();
     this.updateCasePeriod();
+    this.updateFirefoxPreferences();
   }
-  
+
   /**
-   * Makes sure all diseases 
+   * Makes sure all diseases
    */
   @Request(RequestType.SESSION)
   public void updateCasePeriod()
   {
     DiseaseQuery q = new DiseaseQuery(new QueryFactory());
     OIterator<? extends Disease> iter = q.getIterator();
-    
+
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         Disease d = iter.next();
         d.getView().addDefaultCasePeriod(d);
@@ -435,6 +448,88 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     String data = FileIO.readString(file);
     String replaced = data.replaceAll(regex, replacement);
     FileIO.write(file, replaced);
+  }
+
+  public void updateFirefoxPreferences() throws IOException
+  {
+    String appData = System.getenv("APPDATA");
+    String path = appData + File.separator + "Mozilla" + File.separator + "Firefox" + File.separator + "Profiles";
+
+    File profiles = new File(path);
+
+    File[] files = profiles.listFiles(new FilenameFilter()
+    {
+
+      @Override
+      public boolean accept(File dir, String name)
+      {
+        return ( dir.isDirectory() && name.endsWith("default") );
+      }
+    });
+
+    for (File file : files)
+    {
+      File user = new File(file, "user.js");
+
+      if (user.exists())
+      {
+        boolean hasResponseTimeout = hasResponseTimeout(user);
+
+        if (!hasResponseTimeout)
+        {
+          writeResponseTimeout(user, true);
+        }
+      }
+      else
+      {
+        writeResponseTimeout(user, false);
+      }
+    }
+
+  }
+
+  private boolean hasResponseTimeout(File user) throws FileNotFoundException, IOException
+  {
+    BufferedReader reader = new BufferedReader(new FileReader(user));
+
+    try
+    {
+      String line = null;
+
+      while ( ( line = reader.readLine() ) != null)
+      {
+
+        if (line.contains(TIMEOUT_KEY))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+    finally
+    {
+      reader.close();
+    }
+  }
+
+  private void writeResponseTimeout(File user, boolean exists) throws FileNotFoundException, IOException
+  {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(user, exists));
+
+    try
+    {
+
+      writer.append("# Overwrite of default response timeout for DDMS");
+      writer.newLine();
+
+      writer.append("user_pref(\"" + TIMEOUT_KEY + "\", 0);");
+      writer.newLine();
+    }
+    finally
+    {
+      writer.close();
+    }
   }
 
   public static void main(String[] args)
