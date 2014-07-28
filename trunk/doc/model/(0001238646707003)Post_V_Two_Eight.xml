@@ -10783,9 +10783,7 @@
       </object>
     </create>
     <create>
-      <object type="com.runwaysdk.system.Vault" key="C:/Tomcat/webapps/MDSS/WEB-INF/vault">
-        <attribute name="rootPath" value="C:/Tomcat/webapps/MDSS/WEB-INF/vault" />
-      </object>
+      <object type="com.runwaysdk.system.Vault" key="default" />
     </create>
     <update>
       <object type="com.runwaysdk.system.Users" key="Users.SYSTEM">
