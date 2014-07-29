@@ -25,6 +25,12 @@
 	Terraframe Project
   </description>
 
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
 
   <filter>
     <filter-name>CharsetFilter</filter-name>
