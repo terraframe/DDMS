@@ -30,6 +30,8 @@ import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.DiseaseQuery;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
@@ -50,6 +52,31 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     // For ticket #2922
     this.updateAdultDiscriminatingDoseAssays();
+
+    // Update the case period
+    this.updateCasePeriod();
+  }
+
+  /**
+   * Makes sure all diseases
+   */
+  private void updateCasePeriod()
+  {
+    DiseaseQuery q = new DiseaseQuery(new QueryFactory());
+    OIterator<? extends Disease> iter = q.getIterator();
+
+    try
+    {
+      while (iter.hasNext())
+      {
+        Disease d = iter.next();
+        d.getView().addDefaultCasePeriod(d);
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
   }
 
   private void updateAdultDiscriminatingDoseAssays()

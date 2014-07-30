@@ -36,16 +36,9 @@ import org.xml.sax.SAXException;
 
 import sun.security.action.GetPropertyAction;
 
-import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
 import com.runwaysdk.util.FileIO;
-
-import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.DiseaseQuery;
 
 /**
  * Called at the end of NSIS installation. Edits the user-supplied app name into
@@ -326,30 +319,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     this.updateCSS();
     this.updateMemorySettings();
     this.updateBIRTJavaPath();
-    this.updateCasePeriod();
     this.updateFirefoxPreferences();
-  }
-
-  /**
-   * Makes sure all diseases
-   */
-  public void updateCasePeriod()
-  {
-    DiseaseQuery q = new DiseaseQuery(new QueryFactory());
-    OIterator<? extends Disease> iter = q.getIterator();
-
-    try
-    {
-      while (iter.hasNext())
-      {
-        Disease d = iter.next();
-        d.getView().addDefaultCasePeriod(d);
-      }
-    }
-    finally
-    {
-      iter.close();
-    }
   }
 
   public void updateCSS() throws IOException
@@ -527,19 +497,6 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   }
 
   public static void main(String[] args)
-  {
-    try
-    {
-      PostInstallSetup.start(args);
-    }
-    finally
-    {
-      CacheShutdown.shutdown();
-    }
-  }
-
-  @Request
-  public static void start(String[] args) throws TransformerFactoryConfigurationError
   {
     Option appNameOption = new Option("a", true, "Name of the app (required)");
     appNameOption.setRequired(true);
