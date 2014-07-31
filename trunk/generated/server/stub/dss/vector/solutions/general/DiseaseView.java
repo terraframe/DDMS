@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdTreeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdTreeDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
@@ -32,6 +33,8 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.PropertyQuery;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.generator.FormSystemURLBuilder;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootQuery;
@@ -134,7 +137,13 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
        */
       log.debug("STEP 4: Add default case period property");
       this.addDefaultCasePeriod(concrete);
-
+      
+      /*
+       * STEP 5: Add a threshold alert calculation type for this disease #3026.
+       */
+      log.debug("STEP 5: Add default threshold alert calculation type for the disease.");
+      this.addThresholdAlertCalcType(concrete);
+      
       /*
        *  STEP 5: Create permissions for the new disease and dimension
        */
@@ -149,6 +158,36 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
   public boolean hasDefaultCasePeriod(Disease concrete)
   {
     return Property.getByPackageAndName(PropertyInfo.MONITOR_PACKAGE, PropertyInfo.NEW_CASE_PERIOD, concrete) != null;
+  }
+  
+  public boolean hasThresholdAlertCalcType(Disease concrete)
+  {
+    try
+    {
+      ThresholdAlertCalculationType.getCurrent(concrete);
+      return true;
+    }
+    catch(DataNotFoundException ex)
+    {
+      return false;
+    }
+  }
+  
+  @AbortIfProblem
+  public void addThresholdAlertCalcType(Disease d)
+  {
+    if(this.hasThresholdAlertCalcType(d))
+    {
+      return;
+    }
+    
+    ThresholdAlertCalculationType threshold = new ThresholdAlertCalculationType();
+    threshold.setClinicalPositivePercentage(100);
+    threshold.setKeyName(d.getKeyName());
+    threshold.addCountingMethod(OutbreakCalculation.EPI_WEEK);
+    threshold.setDisease(d);
+    threshold.setEpidemicUniversal(GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS));
+    threshold.apply();
   }
   
   /**
@@ -684,4 +723,5 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
 
     return query;
   }
+
 }

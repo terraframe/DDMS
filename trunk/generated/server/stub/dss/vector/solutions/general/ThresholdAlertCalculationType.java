@@ -35,7 +35,12 @@ public class ThresholdAlertCalculationType extends ThresholdAlertCalculationType
 
   public static ThresholdAlertCalculationType getCurrent()
   {
-    return getByKey(Disease.getCurrent().getKeyName());
+    return getCurrent(Disease.getCurrent());
+  }
+  
+  public static ThresholdAlertCalculationType getCurrent(Disease disease)
+  {
+    return getByKey(disease.getKeyName());
   }
 
   public static List<GeoHierarchy> getEpidemicUniversals()

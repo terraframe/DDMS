@@ -32,6 +32,7 @@ import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.DiseaseQuery;
+import dss.vector.solutions.general.DiseaseView;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
@@ -70,7 +71,10 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iter.hasNext())
       {
         Disease d = iter.next();
-        d.getView().addDefaultCasePeriod(d);
+        DiseaseView v = d.getView();
+        
+        v.addDefaultCasePeriod(d);
+        v.addThresholdAlertCalcType(d);
       }
     }
     finally
