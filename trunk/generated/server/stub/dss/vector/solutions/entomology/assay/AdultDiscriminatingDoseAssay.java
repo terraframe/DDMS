@@ -127,17 +127,17 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     new QuantityDeadValidator(this).validate();
   }
-  
+
   @Override
   public void validateControlTestNumberDead()
   {
     super.validateControlTestNumberDead();
-    
-    if(this.getControlTestNumberDead() != null)
+
+    if (this.getControlTestNumberDead() != null)
     {
-      if(this.getControlTestNumberExposed() == null || this.getControlTestNumberDead() > this.getControlTestNumberExposed())
+      if (this.getControlTestNumberExposed() == null || this.getControlTestNumberDead() > this.getControlTestNumberExposed())
       {
-        
+
       }
     }
   }
@@ -235,7 +235,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     validateControlTestNumberDead();
     validateQuantityDead();
-    
+
     if (this.getRootAssay() == null || this.getRootAssay().length() == 0)
     {
       this.setRootAssay(this.getId());
@@ -282,7 +282,10 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     /*
      * Set the corrected number dead value
      */
-    this.setCorrectedQuantityDead( ( this.getMortality() * this.getQuantityTested() / 100 ));
+    if (this.getMortality() != null && this.getQuantityTested() != null)
+    {
+      this.setCorrectedQuantityDead( ( this.getMortality() * this.getQuantityTested() / 100 ));
+    }
 
     super.apply();
 
