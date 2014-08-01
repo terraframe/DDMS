@@ -113,41 +113,41 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
 
     if (firstApply)
     {
-      log.debug("Disease - first apply");
+      log.info("Disease - first apply");
       /*
        * STEP 1: Copy over the InactiveProperties from the Malaria disease
        */
-      log.debug("STEP 1: Copy over the InactiveProperties from the Malaria disease");
+      log.info("STEP 1: Copy over the InactiveProperties from the Malaria disease");
       this.cloneInactiveProperties(concrete);
 
       /*
        *  STEP 2: Create the menu structure for the new disease
        */
-      log.debug("STEP 2: Create the menu structure for the new disease");
+      log.info("STEP 2: Create the menu structure for the new disease");
       this.cloneMenuItems(concrete);
 
       /*
        * STEP 3: Create the browser roots for the new disease
        */
-      log.debug("STEP 3: Create the browser roots for the new disease");
+      log.info("STEP 3: Create the browser roots for the new disease");
       this.cloneBrowserRoots(concrete);
       
       /*
        * STEP 4: Add default case period property #3026 [value of 4 was recommended by Miguel)
        */
-      log.debug("STEP 4: Add default case period property");
+      log.info("STEP 4: Add default case period property");
       this.addDefaultCasePeriod(concrete);
       
       /*
        * STEP 5: Add a threshold alert calculation type for this disease #3026.
        */
-      log.debug("STEP 5: Add default threshold alert calculation type for the disease.");
+      log.info("STEP 5: Add default threshold alert calculation type for the disease.");
       this.addThresholdAlertCalcType(concrete);
       
       /*
-       *  STEP 5: Create permissions for the new disease and dimension
+       *  STEP 6: Create permissions for the new disease and dimension
        */
-      log.debug("STEP 5: Create permissions for the new disease and dimension");
+      log.info("STEP 6: Create permissions for the new disease and dimension");
       this.addPermissions(concrete);
 
     }
@@ -261,6 +261,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     this.addFormPermissions(concrete);
   }
 
+  @AbortIfProblem
   public void addFormPermissions(Disease concrete)
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
@@ -304,6 +305,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  @AbortIfProblem
   public void addReportItemPermissions(Disease concrete)
   {
     ReportItemQuery reportQuery = new ReportItemQuery(new QueryFactory());
@@ -555,35 +557,53 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       }
 
       /*
-       *  Delete permissions
+       * Delete permissions
        */
-      new PermissionImporter(true, disease).delete();
+      log.info("STEP 1: Delete Permissions");
+      this.deletePermissions(disease);
 
       /*
        * Delete the browser roots
        */
+      log.info("STEP 2: Delete Browser Roots");
       this.deleteBrowserRoots(disease);
 
       /*
        * Delete the menu items
        */
+      log.info("STEP 3: Delete Menu Items");
       this.deleteMenuItems(disease);
 
       /*
        * Delete the inactive properties
        */
+      log.info("STEP 4: Delete Inactive Properties");
       this.deleteInactiveProperties(disease);
       
       /*
        * Delete default case period
        */
+      log.info("STEP 5: Delete Default Case Period");
       this.deleteDefaultCasePeriod(disease);
 
+      /*
+       * Delete the threshold alert calculation type 
+       */
+      log.info("STEP 6: Delete Threshold Alert Calculation Type");
+      this.deleteThresholdAlertCalcType(disease);
+      
       disease.delete();
       dimension.delete();
     }
   }
   
+  @AbortIfProblem
+  private void deletePermissions(Disease disease)
+  {
+    new PermissionImporter(true, disease).delete();
+  }
+  
+  @AbortIfProblem
   private void deleteDefaultCasePeriod(Disease disease)
   {
     PropertyQuery q = new PropertyQuery(new QueryFactory());
@@ -600,10 +620,32 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
     finally
     {
-      
+      iter.close();
+    }
+  }
+  
+  @AbortIfProblem
+  private void deleteThresholdAlertCalcType(Disease disease)
+  {
+    ThresholdAlertCalculationTypeQuery q = new ThresholdAlertCalculationTypeQuery(new QueryFactory());
+    q.WHERE(q.getDisease().EQ(disease));
+    
+    OIterator<? extends ThresholdAlertCalculationType> iter = q.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
     }
   }
 
+  @AbortIfProblem
   private void deleteBrowserRoots(Disease disease)
   {
     BrowserRootQuery query = new BrowserRootQuery(new QueryFactory());
@@ -624,6 +666,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  @AbortIfProblem
   private void deleteInactiveProperties(Disease disease)
   {
     InactivePropertyQuery query = new InactivePropertyQuery(new QueryFactory());
@@ -644,6 +687,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  @AbortIfProblem
   private void deleteMenuItems(Disease disease)
   {
     MenuItemQuery query = new MenuItemQuery(new QueryFactory());
