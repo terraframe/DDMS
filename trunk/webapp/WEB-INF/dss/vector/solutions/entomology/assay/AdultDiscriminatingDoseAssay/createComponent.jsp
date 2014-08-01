@@ -87,14 +87,28 @@ Mojo.Meta.newClass('MDSS.AdultDiscriminatingDoseAssayForm', {
         this.setValue(component, key, value);
       }
       
-      // Set the more custom fields
-      var isofemale = document.getElementById('isofemale.positive').checked;
-      var startPoint = MDSS.parseNumber(document.getElementById('startPointinput').value, true);
-      var endPoint = MDSS.parseNumber(document.getElementById('endPointinput').value, true);
+      var startPointEl = document.getElementById('startPointinput');
+      var endPointEl = document.getElementById('endPointinput');
+      var isofemaleEl = document.getElementById('isofemale.positive');
       
-      component.setIsofemale(isofemale);      
-      component.getAgeRange().setStartPoint(startPoint);
-      component.getAgeRange().setEndPoint(endPoint);
+      // Set the more custom fields      
+      if(isofemaleEl != null)
+      {
+        var isofemale = isofemaleEl.checked;
+        component.setIsofemale(isofemale);
+      }
+      
+      if(startPointEl != null)
+      {
+        var startPoint = MDSS.parseNumber(startPointEl.value, true);        
+        component.getAgeRange().setStartPoint(startPoint);        
+      }
+            
+      if(endPointEl != null)
+      {
+        var endPoint = MDSS.parseNumber(endPointEl.value, true);        
+        component.getAgeRange().setEndPoint(endPoint);
+      }
 
       return component;  
     },
