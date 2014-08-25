@@ -45,7 +45,7 @@ public class TypeQB extends AbstractQB implements Reloadable
     {
       GeneratedEntityQuery query = it.next();
 
-      if (! ( query instanceof AllPathsQuery ))
+      if (! ( query instanceof AllPathsQuery ) && ! ( query instanceof dss.vector.solutions.ontology.AllPathsQuery ))
       {
         this.auditClass = query.getMdClassIF().definesType();
         
