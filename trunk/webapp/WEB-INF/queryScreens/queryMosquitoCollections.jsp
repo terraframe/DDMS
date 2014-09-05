@@ -178,6 +178,16 @@ YAHOO.util.Event.onDOMReady(function(){
                                   isTermAggregate:false
                                 },
                                 {
+                                  displayLabel:mosquitoCollection.getCollectionTypeMd().getDisplayLabel(),
+                                  description:mosquitoCollection.getCollectionTypeMd().getDescription(),
+                                  key:"collectionType",
+                                  type:"sqlcharacter",
+                                  attributeName:"collectionType_displayLabel",
+                                  isAggregate:false,
+                                  isTerm:true,
+                                  isTermAggregate:false
+                                },
+                                {
                                   
                                   key:"mosquitoCount",
                                   type:"sqlinteger",
