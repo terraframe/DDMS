@@ -234,7 +234,7 @@ public abstract class AbstractTermTagSupport extends SimpleTagSupport implements
 
     String title = LocalizationFacadeDTO.getFromBundles(request, "Browser");
     String iconClass = ( _enabled ? " class=\"ontologyOpener\"" : "" );
-    String iconSpanClass = ( _enabled ? " class=\"clickable\"" : "" );
+    String iconSpanClass = ( _enabled ? " class=\"clickable ontology-clickable\"" : "" );
 
     out.write("<span id=\"" + _id + "Btn\"" + iconSpanClass + ">\n");
     out.write("<img alt=\"" + title + "\" title=\"" + title + "\" src=\"./imgs/icons/term.png\"" + iconClass + ">\n");

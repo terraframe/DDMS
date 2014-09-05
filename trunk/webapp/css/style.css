@@ -269,6 +269,10 @@ dd {
   color: blue;
 }
 
+.ontology-clickable {
+  width: 5px;
+}
+
 .evenRow {
   background-color: #f6f5ed;
   padding: 5px;
@@ -1518,5 +1522,6 @@ span.generatedViewCommand:hover {
     margin-left: 0px;
     padding: 12px 12px 12px 12px;
   }
+  
 }
 /*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THIS LINE, PUT CHANGES ABOVE THE PRINT STYLES  */ /*---------------------------------------------------------------*/
