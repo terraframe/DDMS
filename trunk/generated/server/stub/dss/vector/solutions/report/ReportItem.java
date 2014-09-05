@@ -32,6 +32,8 @@ import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunTask;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
@@ -39,6 +41,7 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.VaultFileInfo;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
@@ -483,8 +486,12 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
           }
         }
 
+        IReportRunnable design = engine.openReportDesign(document.getDesignStream());
+
+        Map<String, Object> convertedParameters = new ReportParameterUtil().convertParameters(design, parameterMap);
+
         // set and validate the parameters
-        task.setParameterValues(parameterMap);
+        task.setParameterValues(convertedParameters);
         task.validateParameters();
 
         // run report
@@ -642,9 +649,10 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       try
       {
-        task.setAppContext(contextMap);
+        Map<String, Object> convertedParameters = new ReportParameterUtil().convertParameters(design, parameterMap);
 
-        task.setParameterValues(parameterMap);
+        task.setAppContext(contextMap);
+        task.setParameterValues(convertedParameters);
         task.validateParameters();
 
         task.run(new FileArchiveWriter(file.getAbsolutePath()));
@@ -856,6 +864,40 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     finally
     {
       it.close();
+    }
+  }
+
+  @Override
+  public String getParameterDefinitions()
+  {
+    InputStream stream = this.getDesignAsStream();
+
+    try
+    {
+      ReportParameterUtil util = new ReportParameterUtil();
+      JSONArray definition = util.getParameterDefinitions(stream);
+
+      return definition.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (BirtException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      try
+      {
+        stream.close();
+      }
+      catch (IOException e)
+      {
+        // TODO change exception type
+        throw new RuntimeException("Unable to get a report document", e);
+      }
     }
   }
 }

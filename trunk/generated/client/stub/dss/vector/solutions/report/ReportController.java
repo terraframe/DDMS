@@ -144,7 +144,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
 
   @SuppressWarnings("unchecked")
   @Override
-  public void generate(String report) throws IOException, ServletException
+  public void run(String report) throws IOException, ServletException
   {
     try
     {
@@ -212,7 +212,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
           req.setAttribute("report", rStream.toString());
           req.setAttribute("pageNumber", pageNumber);
           req.setAttribute("pageCount", pageCount);
-          req.setAttribute("url", reportUrl);
+          req.setAttribute("id", report);
 
           req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
         }
@@ -239,6 +239,38 @@ public class ReportController extends ReportControllerBase implements Reloadable
       {
         rStream.close();
       }
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+      }
+    }
+  }
+
+  @Override
+  public void generate(String report) throws IOException, ServletException
+  {
+    try
+    {
+      ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
+
+      /*
+       * First validate permissions, this must be done before response.getOutputStream()
+       * is called otherwise redirecting on the error case will not work
+       */
+      item.validatePermissions();
+
+      req.setAttribute("pageTitle", item.getReportLabel().getValue());
+      req.setAttribute("report", null);
+      req.setAttribute("pageNumber", 0);
+      req.setAttribute("pageCount", 0);
+      req.setAttribute("id", report);
+
+      req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
     }
     catch (Throwable t)
     {

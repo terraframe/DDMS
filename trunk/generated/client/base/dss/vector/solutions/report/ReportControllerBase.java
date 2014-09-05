@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -495495531)
+@com.runwaysdk.business.ClassSignature(hash = 1093103412)
 public class ReportControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.report.ReportController";
@@ -91,6 +91,20 @@ public class ReportControllerBase implements com.runwaysdk.generation.loader.Rel
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.failGenerateReport");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:report", post=false)
+  public void run(java.lang.String report) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.run");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:report", post=false)
+  public void failRun(java.lang.String report) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.failRun");
   }
   
 }
