@@ -16,6 +16,9 @@
   <mjl:dt attribute="cacheDocument">
     <mjl:boolean param="cacheDocument"/>
   </mjl:dt>
+  <mjl:dt attribute="reportName">
+    ${item.reportName}
+  </mjl:dt>  
 </mjl:component>
 <dt>
   <label>* ${item.designMd.displayLabel}</label>
