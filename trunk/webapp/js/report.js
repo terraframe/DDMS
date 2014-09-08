@@ -1158,7 +1158,7 @@
         this._gotoPage(this._pageCount);
       },      
       _handlePageClick : function() {
-        var pageNumber = $('#gotoPage').val();
+        var pageNumber = parseInt($('#gotoPage').val());
         
         this._gotoPage(pageNumber);
       },      
