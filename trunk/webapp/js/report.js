@@ -942,11 +942,12 @@
     
   Mojo.Meta.newClass('MDSS.report.ReportPage', {
     Instance: {
-      initialize : function(id, pageNumber, pageCount, required) {
+      initialize : function(id, pageNumber, pageCount, required, cached) {
         this._id = id;
         this._pageNumber = pageNumber;
         this._pageCount = pageCount;
         this._required = required;
+        this._cached = cached;
         
         this._rendered = false;
         this._parameters = null;            
@@ -1010,26 +1011,33 @@
       },
       _handleParametersClick : function()
       {
-        if(this._parameters == null)
+        if(this._cached === true)
         {
-          var request = new MDSS.Request({
-            that : this,
-            onSuccess : function(json) {
-              this.that._setParameters(json);
-                  
-              this.that.showParameterForm();
-            },
-            onFailure : function(e) {
-              alert(e.getLocalizedMessage());
-            }
-          });
-              
-          dss.vector.solutions.report.ReportItem.getParameterDefinitions(request, this._id);              
+          alert(MDSS.localize('cached.parameter.error'));          
         }
         else
         {
-          this.showParameterForm();
-        }            
+          if(this._parameters == null)
+          {
+            var request = new MDSS.Request({
+              that : this,
+              onSuccess : function(json) {
+                this.that._setParameters(json);
+                
+                this.that.showParameterForm();
+              },
+              onFailure : function(e) {
+                alert(e.getLocalizedMessage());
+              }
+            });
+            
+            dss.vector.solutions.report.ReportItem.getParameterDefinitions(request, this._id);              
+          }
+          else
+          {
+            this.showParameterForm();
+          }                      
+        }
       },
       _buildParameterForm : function(readOnly) {
         var form = new MDSS.report.Form();

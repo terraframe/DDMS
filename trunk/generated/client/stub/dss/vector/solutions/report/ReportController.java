@@ -142,103 +142,12 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public void run(String report) throws IOException, ServletException
   {
     try
     {
-      ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
-
-      /*
-       * First validate permissions, this must be done before response.getOutputStream()
-       * is called otherwise redirecting on the error case will not work
-       */
-      item.validatePermissions();
-
-      String reportUrl = this.getReportURL();
-
-      List<ReportParameterDTO> parameters = new LinkedList<ReportParameterDTO>();
-
-      Enumeration<String> parameterNames = req.getParameterNames();
-
-      Integer pageNumber = 1;
-      String format = item.getOutputFormatEnumNames().get(0);
-
-      while (parameterNames.hasMoreElements())
-      {
-        String parameterName = parameterNames.nextElement();
-        String[] parameterValues = req.getParameterValues(parameterName);
-
-        ReportParameterDTO parameter = new ReportParameterDTO(this.getClientRequest());
-        parameter.setParameterName(parameterName);
-        parameter.setParameterValue(parameterValues[0]);
-
-        parameters.add(parameter);
-
-        if (parameter.getParameterName().equals("pageNumber"))
-        {
-          pageNumber = new Integer(parameter.getParameterValue());
-        }
-
-        if (parameter.getParameterName().equals("format"))
-        {
-          format = parameter.getParameterValue();
-        }
-      }
-
-      /*
-       * Important: Calling resp.getOutputStream() changes the state of the HTTP
-       * request and response objects.  However, if an error occurs while rendering
-       * the report we need to delegate to the standard error handling mechanism.
-       * As such we can't call resp.getOutputStream() until we are sure the report
-       * has rendered.  Therefore, first render the report to a temp byte array stream.
-       * Once that has rendered, copy the bytes from the byte array to the servlet
-       * output stream.  Note, this may cause memory problems if the report being
-       * rendered is too big.
-       */
-      ByteArrayOutputStream rStream = new ByteArrayOutputStream();
-
-      try
-      {
-        String url = this.req.getRequestURL().toString();
-        String baseURL = url.substring(0, url.lastIndexOf('/'));
-
-        Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
-
-        if (format.equals(OutputFormatDTO.HTML.name()))
-        {
-          req.setAttribute("pageTitle", item.getReportLabel().getValue());
-          req.setAttribute("report", rStream.toString());
-          req.setAttribute("pageNumber", pageNumber);
-          req.setAttribute("pageCount", pageCount);
-          req.setAttribute("id", report);
-
-          req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
-        }
-        else
-        {
-          String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
-          resp.setHeader("Content-Type", "application/" + format);
-          resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + "." + format);
-
-          ServletOutputStream oStream = resp.getOutputStream();
-
-          try
-          {
-            oStream.write(rStream.toByteArray());
-          }
-          finally
-          {
-            oStream.flush();
-            oStream.close();
-          }
-        }
-      }
-      finally
-      {
-        rStream.close();
-      }
+      run(report, ReportItemDTO.get(this.getClientRequest(), report));
     }
     catch (Throwable t)
     {
@@ -251,6 +160,101 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
   }
 
+  @SuppressWarnings("unchecked")
+  public void run(String report, ReportItemDTO item) throws UnsupportedEncodingException, ServletException, IOException
+  {
+    /*
+     * First validate permissions, this must be done before response.getOutputStream()
+     * is called otherwise redirecting on the error case will not work
+     */
+    item.validatePermissions();
+
+    String reportUrl = this.getReportURL();
+
+    List<ReportParameterDTO> parameters = new LinkedList<ReportParameterDTO>();
+
+    Enumeration<String> parameterNames = req.getParameterNames();
+
+    Integer pageNumber = 1;
+    String format = item.getOutputFormatEnumNames().get(0);
+
+    while (parameterNames.hasMoreElements())
+    {
+      String parameterName = parameterNames.nextElement();
+      String[] parameterValues = req.getParameterValues(parameterName);
+
+      ReportParameterDTO parameter = new ReportParameterDTO(this.getClientRequest());
+      parameter.setParameterName(parameterName);
+      parameter.setParameterValue(parameterValues[0]);
+
+      parameters.add(parameter);
+
+      if (parameter.getParameterName().equals("pageNumber"))
+      {
+        pageNumber = new Integer(parameter.getParameterValue());
+      }
+
+      if (parameter.getParameterName().equals("format"))
+      {
+        format = parameter.getParameterValue();
+      }
+    }
+
+    /*
+     * Important: Calling resp.getOutputStream() changes the state of the HTTP
+     * request and response objects.  However, if an error occurs while rendering
+     * the report we need to delegate to the standard error handling mechanism.
+     * As such we can't call resp.getOutputStream() until we are sure the report
+     * has rendered.  Therefore, first render the report to a temp byte array stream.
+     * Once that has rendered, copy the bytes from the byte array to the servlet
+     * output stream.  Note, this may cause memory problems if the report being
+     * rendered is too big.
+     */
+    ByteArrayOutputStream rStream = new ByteArrayOutputStream();
+
+    try
+    {
+      String url = this.req.getRequestURL().toString();
+      String baseURL = url.substring(0, url.lastIndexOf('/'));
+
+      Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
+
+      if (format.equals(OutputFormatDTO.HTML.name()))
+      {
+        req.setAttribute("pageTitle", item.getReportLabel().getValue());
+        req.setAttribute("report", rStream.toString());
+        req.setAttribute("pageNumber", pageNumber);
+        req.setAttribute("pageCount", pageCount);
+        req.setAttribute("id", report);
+        req.setAttribute("cache", item.getCacheDocument());        
+
+        req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
+      }
+      else
+      {
+        String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
+        resp.setHeader("Content-Type", "application/" + format);
+        resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + "." + format);
+
+        ServletOutputStream oStream = resp.getOutputStream();
+
+        try
+        {
+          oStream.write(rStream.toByteArray());
+        }
+        finally
+        {
+          oStream.flush();
+          oStream.close();
+        }
+      }
+    }
+    finally
+    {
+      rStream.close();
+    }
+  }
+
   @Override
   public void generate(String report) throws IOException, ServletException
   {
@@ -258,19 +262,27 @@ public class ReportController extends ReportControllerBase implements Reloadable
     {
       ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
 
-      /*
-       * First validate permissions, this must be done before response.getOutputStream()
-       * is called otherwise redirecting on the error case will not work
-       */
-      item.validatePermissions();
+      if (item.getCacheDocument() || item.getOutputFormat().contains(OutputFormatDTO.PDF))
+      {
+        this.run(report, item);
+      }
+      else
+      {
+        /*
+         * First validate permissions, this must be done before response.getOutputStream()
+         * is called otherwise redirecting on the error case will not work
+         */
+        item.validatePermissions();
 
-      req.setAttribute("pageTitle", item.getReportLabel().getValue());
-      req.setAttribute("report", null);
-      req.setAttribute("pageNumber", 0);
-      req.setAttribute("pageCount", 0);
-      req.setAttribute("id", report);
+        req.setAttribute("pageTitle", item.getReportLabel().getValue());
+        req.setAttribute("report", null);
+        req.setAttribute("pageNumber", 0);
+        req.setAttribute("pageCount", 0);
+        req.setAttribute("id", report);
+        req.setAttribute("cache", item.getCacheDocument());
 
-      req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
+      }
     }
     catch (Throwable t)
     {

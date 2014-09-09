@@ -329,8 +329,14 @@
       (function(){
         YAHOO.util.Event.onDOMReady(function(){   
           com.runwaysdk.ui.Manager.setFactory("JQuery");
+          
+          var id = '<%=request.getAttribute("id")%>';
+          var pageNumber = <%=request.getAttribute("pageNumber")%>;
+          var pageCount = <%=request.getAttribute("pageCount")%>;
+          var required = <%=request.getAttribute("report") == null%>;
+          var cached = <%=request.getAttribute("cache")%>;
 
-          var report = new MDSS.report.ReportPage('<%=request.getAttribute("id")%>', <%=request.getAttribute("pageNumber")%>, <%=request.getAttribute("pageCount")%>, <%=request.getAttribute("report") == null%>);
+          var report = new MDSS.report.ReportPage(id, pageNumber, pageCount, required, cached);
           report.init();
         })
       })();      
