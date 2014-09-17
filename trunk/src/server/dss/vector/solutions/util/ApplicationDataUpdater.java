@@ -56,6 +56,30 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     // Update the case period
     this.updateCasePeriod();
+
+    // Fort Ticket #3072
+    this.updateSystemAlerts();
+  }
+
+  private void updateSystemAlerts()
+  {
+    DiseaseQuery q = new DiseaseQuery(new QueryFactory());
+    OIterator<? extends Disease> iter = q.getIterator();
+
+    try
+    {
+      while (iter.hasNext())
+      {
+        Disease d = iter.next();
+        DiseaseView v = d.getView();
+
+        v.addSystemAlerts(d);
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
   }
 
   /**
@@ -72,7 +96,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         Disease d = iter.next();
         DiseaseView v = d.getView();
-        
+
         v.addDefaultCasePeriod(d);
         v.addThresholdAlertCalcType(d);
       }
