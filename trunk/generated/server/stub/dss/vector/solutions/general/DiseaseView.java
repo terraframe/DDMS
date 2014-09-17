@@ -48,9 +48,9 @@ import dss.vector.solutions.report.ReportItemQuery;
 public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1948354243;
-  
-  private static final Log log = LogFactory.getLog(DiseaseView.class);
-  
+
+  private static final Log  log              = LogFactory.getLog(DiseaseView.class);
+
   public DiseaseView()
   {
     super();
@@ -73,7 +73,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       if (dimension.isNew() && !dimension.isAppliedToDB())
       {
         String diseaseName = this.getDiseaseName().replaceAll("\\s", "_");
-        
+
         dimension.setName(diseaseName);
       }
 
@@ -90,7 +90,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
   @Override
   @Authenticate
   @Transaction
-  @com.runwaysdk.logging.Log(level=LogLevel.DEBUG)
+  @com.runwaysdk.logging.Log(level = LogLevel.DEBUG)
   public void applyConcrete()
   {
     this.applyNoPersist();
@@ -131,19 +131,19 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
        */
       log.info("STEP 3: Create the browser roots for the new disease");
       this.cloneBrowserRoots(concrete);
-      
+
       /*
        * STEP 4: Add default case period property #3026 [value of 4 was recommended by Miguel)
        */
       log.info("STEP 4: Add default case period property");
       this.addDefaultCasePeriod(concrete);
-      
+
       /*
        * STEP 5: Add a threshold alert calculation type for this disease #3026.
        */
       log.info("STEP 5: Add default threshold alert calculation type for the disease.");
       this.addThresholdAlertCalcType(concrete);
-      
+
       /*
        *  STEP 6: Create permissions for the new disease and dimension
        */
@@ -159,7 +159,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
   {
     return Property.getByPackageAndName(PropertyInfo.MONITOR_PACKAGE, PropertyInfo.NEW_CASE_PERIOD, concrete) != null;
   }
-  
+
   public boolean hasThresholdAlertCalcType(Disease concrete)
   {
     try
@@ -167,20 +167,20 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       ThresholdAlertCalculationType.getCurrent(concrete);
       return true;
     }
-    catch(DataNotFoundException ex)
+    catch (DataNotFoundException ex)
     {
       return false;
     }
   }
-  
+
   @AbortIfProblem
   public void addThresholdAlertCalcType(Disease d)
   {
-    if(this.hasThresholdAlertCalcType(d))
+    if (this.hasThresholdAlertCalcType(d))
     {
       return;
     }
-    
+
     ThresholdAlertCalculationType threshold = new ThresholdAlertCalculationType();
     threshold.setClinicalPositivePercentage(100);
     threshold.setKeyName(d.getKeyName());
@@ -188,29 +188,64 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     threshold.setDisease(d);
     threshold.setEpidemicUniversal(GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS));
     threshold.apply();
+
+    // Copy the system alerts of malaria
+    SystemAlertQuery query = new SystemAlertQuery(new QueryFactory());
+    query.WHERE(query.getDisease().EQ(Disease.getMalaria()));
+
+    OIterator<? extends SystemAlert> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        SystemAlert existing = iterator.next();
+
+        SystemAlert alert = new SystemAlert();
+        alert.setDisease(d);
+        alert.addAlertType(existing.getAlertType().get(0));
+        alert.setIsOnscreenActive(existing.getIsOnscreenActive());
+        alert.setIsEmailActive(existing.getIsEmailActive());
+        alert.setEmailToAddresses(existing.getEmailToAddresses());
+        alert.setEmailFromAddress(existing.getEmailFromAddress());
+        alert.setEmailCcAddresses(existing.getEmailCcAddresses());
+        alert.setEmailBccAddresses(existing.getEmailBccAddresses());
+        alert.getEmailBodyText().setValue(existing.getEmailBodyText().getValue());
+        alert.getEmailBodyText().setValue(existing.getEmailBodyText().getValue());
+        alert.getEmailSubjectText().setValue(existing.getEmailSubjectText().getValue());
+        alert.apply();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
-  
+
   /**
-   * Adds a default newCasePeriod property, which is required to make individual cases work
-   * after a new disease is added. Ideally we could clone an existing case period and change the
-   * disease but that might have unknown behavior so we do it manually here.
+   * Adds a default newCasePeriod property, which is required to make individual
+   * cases work after a new disease is added. Ideally we could clone an existing
+   * case period and change the disease but that might have unknown behavior so
+   * we do it manually here.
    * 
    * @param concrete
    */
   @AbortIfProblem
   public void addDefaultCasePeriod(Disease concrete)
   {
-    if(this.hasDefaultCasePeriod(concrete))
+    if (this.hasDefaultCasePeriod(concrete))
     {
       // Nothing to do here.
       return;
     }
-    
+
     Property prop = new Property();
     prop.setPropertyPackage(PropertyInfo.MONITOR_PACKAGE);
     prop.setPropertyName(PropertyInfo.NEW_CASE_PERIOD);
     prop.setDisease(concrete);
-    prop.setKeyName(PropertyInfo.NEW_CASE_PERIOD+"."+concrete.getKeyName()); // eg, newCasePerson.Visceral Leishmaniasis
+    prop.setKeyName(PropertyInfo.NEW_CASE_PERIOD + "." + concrete.getKeyName()); // eg,
+                                                                                 // newCasePerson.Visceral
+                                                                                 // Leishmaniasis
     prop.setPropertyValue("4");
     prop.setPropertyType("Integer");
     prop.setPropertyValidator("^[1-9][0-9]*$");
@@ -218,7 +253,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     prop.getDisplayLabel().setDefaultValue("New Case Period (weeks)");
     prop.getDescription().setDefaultValue("Number of weeks (from case diagnosis date) after which to create a new case");
     prop.apply();
-    
+
     /*
      * For Reference:
     
@@ -246,7 +281,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
      * 
      */
   }
-  
+
   @AbortIfProblem
   public void addPermissions(Disease concrete)
   {
@@ -579,7 +614,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
        */
       log.info("STEP 4: Delete Inactive Properties");
       this.deleteInactiveProperties(disease);
-      
+
       /*
        * Delete default case period
        */
@@ -591,29 +626,29 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
        */
       log.info("STEP 6: Delete Threshold Alert Calculation Type");
       this.deleteThresholdAlertCalcType(disease);
-      
+
       disease.delete();
       dimension.delete();
     }
   }
-  
+
   @AbortIfProblem
   private void deletePermissions(Disease disease)
   {
     new PermissionImporter(true, disease).delete();
   }
-  
+
   @AbortIfProblem
   private void deleteDefaultCasePeriod(Disease disease)
   {
     PropertyQuery q = new PropertyQuery(new QueryFactory());
     q.WHERE(q.getDisease().EQ(disease));
-    
+
     OIterator<? extends Property> iter = q.getIterator();
-    
+
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
@@ -623,18 +658,18 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       iter.close();
     }
   }
-  
+
   @AbortIfProblem
   private void deleteThresholdAlertCalcType(Disease disease)
   {
     ThresholdAlertCalculationTypeQuery q = new ThresholdAlertCalculationTypeQuery(new QueryFactory());
     q.WHERE(q.getDisease().EQ(disease));
-    
+
     OIterator<? extends ThresholdAlertCalculationType> iter = q.getIterator();
-    
+
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
