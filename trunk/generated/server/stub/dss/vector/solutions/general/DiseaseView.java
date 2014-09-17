@@ -145,9 +145,15 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       this.addThresholdAlertCalcType(concrete);
 
       /*
-       *  STEP 6: Create permissions for the new disease and dimension
+       * STEP 6: Add system alerts type for this disease #3072.
        */
-      log.info("STEP 6: Create permissions for the new disease and dimension");
+      log.info("STEP 6: Add system alerts for the disease.");
+      this.addSystemAlerts(concrete);
+
+      /*
+       *  STEP 7: Create permissions for the new disease and dimension
+       */
+      log.info("STEP 7: Create permissions for the new disease and dimension");
       this.addPermissions(concrete);
 
     }
@@ -173,6 +179,14 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
   }
 
+  public boolean hasSystemAlerts(Disease concrete)
+  {
+    SystemAlertQuery query = new SystemAlertQuery(new QueryFactory());
+    query.WHERE(query.getDisease().EQ(concrete));
+
+    return ( query.getCount() > 0 );
+  }
+
   @AbortIfProblem
   public void addThresholdAlertCalcType(Disease d)
   {
@@ -189,6 +203,15 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     threshold.setEpidemicUniversal(GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS));
     threshold.apply();
 
+  }
+
+  public void addSystemAlerts(Disease d)
+  {
+    if (this.hasSystemAlerts(d))
+    {
+      return;
+
+    }
     // Copy the system alerts of malaria
     SystemAlertQuery query = new SystemAlertQuery(new QueryFactory());
     query.WHERE(query.getDisease().EQ(Disease.getMalaria()));
