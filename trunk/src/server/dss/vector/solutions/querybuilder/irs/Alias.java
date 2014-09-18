@@ -4,6 +4,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.AbstractSpray;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
 
 public enum Alias implements Reloadable, AliasIF
@@ -16,38 +17,38 @@ public enum Alias implements Reloadable, AliasIF
   LAST_UPDATE_DATE("last_update_date", "setLastUpdateDate", SQLProvider.DATETIME),
   CREATED_BY("created_by", "setCreatedBy", SQLProvider.VARCHAR),
   LAST_UPDATED_BY("last_updated_by", "setLastUpdatedBy", SQLProvider.VARCHAR),
-  SPRAY_DATE("spray_date", "setSprayDate", SQLProvider.DATE, AbstractSpray.SPRAYDATE),
+  SPRAY_DATE("spray_date", "setSprayDate", SQLProvider.DATE, AbstractSpray.SPRAYDATE, View.SPRAY_VIEW),
   PLANNED_DATE("planned_date", "setPlannedDate", SQLProvider.DATE),
   TARGET_WEEK("target_week", "setTargetWeek", SQLProvider.FLOAT),
   TARGET("target", "setTarget", SQLProvider.VARCHAR),
   AGGREGATION_LEVEL("aggregation_level", "setAggregationLevel", SQLProvider.VARCHAR),
   GEO_ENTITY("geo_entity", "setGeoEntity", SQLProvider.VARCHAR, AbstractSpray.GEOENTITY),
   PARENT_GEO_ENTITY("parent_geo_entity", "setParentGeoEntity", SQLProvider.VARCHAR),
-  SPRAY_OPERATOR("spray_operator", "setSprayOperator", SQLProvider.TEXT),
-  SPRAY_TEAM("spray_team", "setSprayTeam", SQLProvider.TEXT),
+  SPRAY_OPERATOR("spray_operator", "setSprayOperator", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_TEAM("spray_team", "setSprayTeam", SQLProvider.TEXT, View.SPRAY_VIEW),
   SPRAY_METHOD("spray_method", "setSprayMethod", SQLProvider.TEXT, "sprayMethod_spray"),
   SURFACE_TYPE("surface_type", "setSurfaceType", SQLProvider.TEXT, "surfaceType_spray"),
   BRAND("brand", "setBrand", SQLProvider.VARCHAR),
   HOUSEHOLD_ID("household_id", "setHouseholdId", SQLProvider.VARCHAR),
   STRUCTURE_ID("structure_id", "setStructureId", SQLProvider.VARCHAR),
-  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", "setSprayOperatorDefaultLocale", SQLProvider.TEXT),
-  SPRAY_OPERATOR_PERSON_ID("sprayoperator_personId", "setSprayOperatorPersonId", SQLProvider.TEXT),
-  SPRAY_OPERATOR_PERSON("sprayoperator_person", "setSprayOperatorPerson", SQLProvider.VARCHAR),
-  SPRAY_OPERATOR_BIRTHDATE("sprayoperator_birthdate", "setSprayOperatorBirthdate", SQLProvider.DATE),
-  SPRAY_OPERATOR_SEX("sprayoperator_sex", "setSprayOperatorSex", SQLProvider.TEXT),
+  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", "setSprayOperatorDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_OPERATOR_PERSON_ID("sprayoperator_personId", "setSprayOperatorPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_OPERATOR_PERSON("sprayoperator_person", "setSprayOperatorPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
+  SPRAY_OPERATOR_BIRTHDATE("sprayoperator_birthdate", "setSprayOperatorBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
+  SPRAY_OPERATOR_SEX("sprayoperator_sex", "setSprayOperatorSex", SQLProvider.TEXT, View.SPRAY_VIEW),
   OPERATOR_ACTUAL_TARGET("operator_actual_target", "setOperatorActualTarget", SQLProvider.FLOAT),
-  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", "setSprayTeamDefaultLocale", SQLProvider.TEXT),
-  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", "setSprayLeaderDefaultLocale", SQLProvider.TEXT),
-  SPRAY_LEADER_PERSON_ID("sprayleader_personId", "setSprayLeaderPersonId", SQLProvider.TEXT),
-  SPRAY_LEADER_PERSON("sprayleader_person", "setSprayLeaderPerson", SQLProvider.VARCHAR),
-  SPRAY_LEADER_BIRTHDATE("sprayleader_birthdate", "setSprayLeaderBirthdate", SQLProvider.DATE),
-  SPRAY_LEADER_SEX("sprayleader_sex", "setSprayLeaderSex", SQLProvider.TEXT),
+  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", "setSprayTeamDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", "setSprayLeaderDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_LEADER_PERSON_ID("sprayleader_personId", "setSprayLeaderPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
+  SPRAY_LEADER_PERSON("sprayleader_person", "setSprayLeaderPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
+  SPRAY_LEADER_BIRTHDATE("sprayleader_birthdate", "setSprayLeaderBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
+  SPRAY_LEADER_SEX("sprayleader_sex", "setSprayLeaderSex", SQLProvider.TEXT, View.SPRAY_VIEW),
   TEAM_ACTUAL_TARGET("team_actual_target", "setTeamActualTarget", SQLProvider.FLOAT),
-  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", "setZoneSuperVisorDefaultLocale", SQLProvider.TEXT),
-  ZONE_SUPERVISOR_PERSON_ID("zone_supervisor_personId", "setZoneSuperVisorPersonId", SQLProvider.TEXT),
-  ZONE_SUPERVISOR_PERSON("zone_supervisor_person", "setZoneSuperVisorPerson", SQLProvider.VARCHAR),
-  ZONE_SUPERVISOR_BIRTHDATE("zone_supervisor_birthdate", "setZoneSuperVisorBirthdate", SQLProvider.DATE),
-  ZONE_SUPERVISOR_SEX("zone_supervisor_sex", "setZoneSuperVisorSex", SQLProvider.TEXT),
+  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", "setZoneSuperVisorDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
+  ZONE_SUPERVISOR_PERSON_ID("zone_supervisor_personId", "setZoneSuperVisorPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
+  ZONE_SUPERVISOR_PERSON("zone_supervisor_person", "setZoneSuperVisorPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
+  ZONE_SUPERVISOR_BIRTHDATE("zone_supervisor_birthdate", "setZoneSuperVisorBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
+  ZONE_SUPERVISOR_SEX("zone_supervisor_sex", "setZoneSuperVisorSex", SQLProvider.TEXT, View.SPRAY_VIEW),
   SPRAY_SEASON("spray_season", "setSpraySeason", SQLProvider.VARCHAR),
   OPERATOR_PLANNED_TARGET("operator_planned_target", "setOperatorPlannedTarget", SQLProvider.FLOAT),
   TEAM_PLANNED_TARGET("team_planned_target", "setTeamPlannedTarget", SQLProvider.FLOAT),
@@ -173,6 +174,8 @@ public enum Alias implements Reloadable, AliasIF
   
   private String xmlAlias;
   
+  private View associatedView;
+  
   /**
    * Sets the xml alias to the value as the query alias (they should be the same, but the QB can't be
    * changed without breaking old saved queries).
@@ -184,6 +187,11 @@ public enum Alias implements Reloadable, AliasIF
   private Alias(String alias, String method, String type)
   {
     this(alias, method, type, alias);
+  }
+  
+  private Alias(String alias, String method, String type, View view)
+  {
+    this(alias, method, type, alias, view);
   }
   
   /**
@@ -200,6 +208,21 @@ public enum Alias implements Reloadable, AliasIF
     this.method = method;
     this.type = type;
     this.xmlAlias = xmlAlias;
+    this.associatedView = null;
+  }
+  
+  private Alias(String alias, String method, String type, String xmlAlias, View view)
+  {
+    this.alias = alias;
+    this.method = method;
+    this.type = type;
+    this.xmlAlias = xmlAlias;
+    this.associatedView = view;
+  }
+  
+  public View getView()
+  {
+    return this.associatedView;
   }
   
   public String getXmlAlias()

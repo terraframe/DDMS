@@ -243,15 +243,19 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   public enum View implements Reloadable {
 
-    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class), RESOURCE_TARGET_VIEW(
-        "resourceTargetView", ResourceTargetView.class), GEO_TARGET_VIEW("geoTargetView",
-        GeoTargetView.class), SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class), INSECTICIDE_VIEW(
-        "insecticideView", InsecticideView.class), PLANNED_OPERATOR("plannedOperator",
-        PlannedOperatorTarget.class), PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class), PLANNED_TEAM_ROLLUP(
-        "plannedTeamRollup", PlannedSprayTeamRollup.class), PLANNED_TEAM_RESULTS("plannedTeamResults",
-        PlannedSprayTeamResults.class), PLANNED_AREA("plannedArea", PlannedAreaTarget.class), DATE_GROUPS(
-        "dateGroups", DateGroups.class), ALL_ACTUALS("allActuals", ActivityUnion.class), SPRAY_VIEW(
-        "sprayView", SprayView.class);
+    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class),
+    RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.class),
+    GEO_TARGET_VIEW("geoTargetView", GeoTargetView.class),
+    SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class),
+    INSECTICIDE_VIEW("insecticideView", InsecticideView.class),
+    PLANNED_OPERATOR("plannedOperator",PlannedOperatorTarget.class),
+    PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class),
+    PLANNED_TEAM_ROLLUP("plannedTeamRollup", PlannedSprayTeamRollup.class),
+    PLANNED_TEAM_RESULTS("plannedTeamResults", PlannedSprayTeamResults.class),
+    PLANNED_AREA("plannedArea", PlannedAreaTarget.class),
+    DATE_GROUPS("dateGroups", DateGroups.class),
+    ALL_ACTUALS("allActuals", ActivityUnion.class),
+    SPRAY_VIEW("sprayView", SprayView.class);
 
     private String                       view;
 
@@ -896,7 +900,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     queryFactory = this.irsVQ.getQueryFactory();
-
+    
     this.sprayViewAlias = this.mainQueryMap.get(AbstractSpray.CLASS).getTableAlias();
     this.abstractSprayQuery = (AbstractSprayQuery) this.mainQueryMap.get(AbstractSpray.CLASS);
 //    this.abstractSprayQuery = (AbstractSprayQuery) this.abtractSprayQueryMap.get(AbstractSpray.CLASS);
@@ -2562,7 +2566,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       this.addRequiredView(View.ALL_ACTUALS);
     }
-
+    
     // JN change
     // if(!this.needsAreaPlanned)
     // {
@@ -2623,6 +2627,24 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         this.selectAliases.add(alias);
       }
+    }
+    
+    // Look at the selected aliases and make sure if any of them are spray we add them to required aliases.
+    boolean needsAllActuals = false;
+    Set<Alias> selectAliases = this.getSelectAliases();
+    if(selectAliases.contains(Alias.SPRAY_DATE) || this.getDategroups().size() > 0)
+    {
+      this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
+      needsAllActuals = true;
+    }
+    for (Alias alias : selectAliases) {
+      if (alias.getView() != null && alias.getView().equals(View.SPRAY_VIEW)) {
+        this.addRequiredAlias(View.ALL_ACTUALS, alias);
+        needsAllActuals = true;
+      }
+    }
+    if (needsAllActuals) {
+      this.addRequiredView(View.ALL_ACTUALS);
     }
 
     if (this.hasActivity())
