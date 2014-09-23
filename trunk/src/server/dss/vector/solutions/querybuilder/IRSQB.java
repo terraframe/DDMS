@@ -2635,6 +2635,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if(selectAliases.contains(Alias.SPRAY_DATE) || this.getDategroups().size() > 0)
     {
       this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
+      this.getValueQuery().GROUP_BY(this.getValueQuery().aSQLDateTime(Alias.SPRAY_DATE.getAlias(), Alias.SPRAY_DATE.getAlias()));
       needsAllActuals = true;
     }
     for (Alias alias : selectAliases) {

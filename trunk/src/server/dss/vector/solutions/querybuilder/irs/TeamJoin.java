@@ -19,7 +19,7 @@ public class TeamJoin extends TargetJoin implements Reloadable
     super.loadDependencies();
     
     // Load aliases that will be in the JOIN clause
-    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.TARGET_WEEK, Alias.SPRAY_SEASON, Alias.SPRAY_TEAM_DEFAULT_LOCALE, Alias.DISEASE};
+    Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.SPRAY_SEASON, Alias.SPRAY_TEAM_DEFAULT_LOCALE, Alias.DISEASE};
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
     this.irsQB.addRequiredAlias(View.PLANNED_TEAM, joinAliases);
   }

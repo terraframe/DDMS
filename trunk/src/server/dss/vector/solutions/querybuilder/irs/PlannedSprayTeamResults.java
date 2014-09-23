@@ -41,7 +41,7 @@ public class PlannedSprayTeamResults extends AbstractSQLProvider implements Relo
     sql += "  ON ptr."+Alias.SPRAY_TEAM.getAlias()+" = pt."+Alias.SPRAY_TEAM.getAlias()+"  \n";
     sql += "  AND ptr."+Alias.SPRAY_SEASON.getAlias()+" = pt."+Alias.SPRAY_SEASON.getAlias()+" \n";
     sql += "  AND ptr."+Alias.DISEASE.getAlias()+" = pt."+Alias.DISEASE.getAlias()+" \n";
-    sql += "  AND ptr."+Alias.TARGET_WEEK.getAlias()+" = pt."+Alias.TARGET_WEEK.getAlias()+" \n";
+//    sql += "  AND ptr."+Alias.TARGET_WEEK.getAlias()+" = pt."+Alias.TARGET_WEEK.getAlias()+" \n";
     sql += "  AND ptr."+Alias.SPRAY_TEAM.getAlias()+" = pt."+Alias.TARGET.getAlias()+" \n";
     sql += ") \n";
     
