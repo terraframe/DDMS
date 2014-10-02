@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1577786778)
+@com.runwaysdk.business.ClassSignature(hash = -950679257)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,11 +30,14 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String LEGENDFONTFILL = "legendFontFill";
   public static java.lang.String LEGENDFONTSIZE = "legendFontSize";
   public static java.lang.String LEGENDFONTSTYLES = "legendFontStyles";
+  public static java.lang.String LEGENDID = "legendId";
   public static java.lang.String LEGENDTITLE = "legendTitle";
   public static java.lang.String LEGENDTITLEFONTFAMILY = "legendTitleFontFamily";
   public static java.lang.String LEGENDTITLEFONTFILL = "legendTitleFontFill";
   public static java.lang.String LEGENDTITLEFONTSIZE = "legendTitleFontSize";
   public static java.lang.String LEGENDTITLEFONTSTYLES = "legendTitleFontStyles";
+  public static java.lang.String LEGENDXPOSITION = "legendXPosition";
+  public static java.lang.String LEGENDYPOSITION = "legendYPosition";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MDATTRIBUTE = "mdAttribute";
   public static java.lang.String OPACITY = "opacity";
@@ -52,7 +55,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -1577786778;
+  private static final long serialVersionUID = -950679257;
   
   public LayerBase()
   {
@@ -171,6 +174,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -192,6 +200,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return dss.vector.solutions.query.Styles.get(getValue(DEFAULTSTYLES));
     }
+  }
+  
+  public String getDefaultStylesId()
+  {
+    return getValue(DEFAULTSTYLES);
   }
   
   public void validateDefaultStyles()
@@ -257,6 +270,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
@@ -290,6 +308,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return dss.vector.solutions.geo.GeoHierarchy.get(getValue(GEOHIERARCHY));
     }
+  }
+  
+  public String getGeoHierarchyId()
+  {
+    return getValue(GEOHIERARCHY);
   }
   
   public void validateGeoHierarchy()
@@ -387,6 +410,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -436,6 +464,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return com.runwaysdk.system.metadata.MdAttribute.get(getValue(LEGENDCOLOR));
     }
+  }
+  
+  public String getLegendColorId()
+  {
+    return getValue(LEGENDCOLOR);
   }
   
   public void validateLegendColor()
@@ -581,6 +614,34 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
     return mdClassIF.definesAttribute(LEGENDFONTSTYLES);
+  }
+  
+  public String getLegendId()
+  {
+    return getValue(LEGENDID);
+  }
+  
+  public void validateLegendId()
+  {
+    this.validateAttribute(LEGENDID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDID);
+  }
+  
+  public void setLegendId(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDID, "");
+    }
+    else
+    {
+      setValue(LEGENDID, value);
+    }
   }
   
   public String getLegendTitle()
@@ -733,6 +794,62 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     return mdClassIF.definesAttribute(LEGENDTITLEFONTSTYLES);
   }
   
+  public Integer getLegendXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDXPOSITION));
+  }
+  
+  public void validateLegendXPosition()
+  {
+    this.validateAttribute(LEGENDXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDXPOSITION);
+  }
+  
+  public void setLegendXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDXPOSITION, "");
+    }
+    else
+    {
+      setValue(LEGENDXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getLegendYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDYPOSITION));
+  }
+  
+  public void validateLegendYPosition()
+  {
+    this.validateAttribute(LEGENDYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDYPOSITION);
+  }
+  
+  public void setLegendYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDYPOSITION, "");
+    }
+    else
+    {
+      setValue(LEGENDYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
   public com.runwaysdk.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
@@ -743,6 +860,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public void validateLockedBy()
@@ -766,6 +888,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return com.runwaysdk.system.metadata.MdAttribute.get(getValue(MDATTRIBUTE));
     }
+  }
+  
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTE);
   }
   
   public void validateMdAttribute()
@@ -829,6 +956,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -902,6 +1034,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return dss.vector.solutions.query.SavedSearch.get(getValue(SAVEDSEARCH));
     }
+  }
+  
+  public String getSavedSearchId()
+  {
+    return getValue(SAVEDSEARCH);
   }
   
   public void validateSavedSearch()
@@ -1109,6 +1246,11 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     {
       return dss.vector.solutions.query.ThematicVariable.get(getValue(THEMATICVARIABLE));
     }
+  }
+  
+  public String getThematicVariableId()
+  {
+    return getValue(THEMATICVARIABLE);
   }
   
   public void validateThematicVariable()

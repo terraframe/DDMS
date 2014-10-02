@@ -1421,7 +1421,38 @@ span.generatedViewCommand:hover {
   display: none;
 }
 
-/*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */ /*---------------------------------------------------------------*/
+.closeButton {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border-radius: 5px;
+	background: none repeat scroll 0% 0% #FFF;
+	font-weight: bold;
+	border: .5px solid gray;
+	color: gray;
+}
+
+.closeButton:hover {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border-radius: 5px;
+	background: none repeat scroll 0% 0% #FFF;
+	font-weight: bold;
+	border: .5px solid black;
+	color: black;
+	cursor: pointer;
+}
+
+/*---------------------------------------------------------------*/
+	/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
+	/*---------------------------------------------------------------*/
 @media screen {
   .printOnly {
     display: none;

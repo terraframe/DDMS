@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 96279088)
+@com.runwaysdk.business.ClassSignature(hash = -1881419681)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = 96279088;
+  private static final long serialVersionUID = -1881419681;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -36,11 +36,19 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPCENTER = "mapCenter";
   public static java.lang.String MAPNAME = "mapName";
+  public static java.lang.String NORTHARROWACTIVE = "northArrowActive";
+  public static java.lang.String NORTHARROWXPOSITION = "northArrowXPosition";
+  public static java.lang.String NORTHARROWYPOSITION = "northArrowYPosition";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SCALEBARACTIVE = "scaleBarActive";
+  public static java.lang.String SCALEBARXPOSITION = "scaleBarXPosition";
+  public static java.lang.String SCALEBARYPOSITION = "scaleBarYPosition";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String ZOOMLEVEL = "zoomLevel";
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -337,6 +345,43 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public String getMapCenter()
+  {
+    return getValue(MAPCENTER);
+  }
+  
+  public void setMapCenter(String value)
+  {
+    if(value == null)
+    {
+      setValue(MAPCENTER, "");
+    }
+    else
+    {
+      setValue(MAPCENTER, value);
+    }
+  }
+  
+  public boolean isMapCenterWritable()
+  {
+    return isWritable(MAPCENTER);
+  }
+  
+  public boolean isMapCenterReadable()
+  {
+    return isReadable(MAPCENTER);
+  }
+  
+  public boolean isMapCenterModified()
+  {
+    return isModified(MAPCENTER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMapCenterMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MAPCENTER).getAttributeMdDTO();
+  }
+  
   public String getMapName()
   {
     return getValue(MAPNAME);
@@ -372,6 +417,117 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMapNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MAPNAME).getAttributeMdDTO();
+  }
+  
+  public Boolean getNorthArrowActive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NORTHARROWACTIVE));
+  }
+  
+  public void setNorthArrowActive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWACTIVE, "");
+    }
+    else
+    {
+      setValue(NORTHARROWACTIVE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isNorthArrowActiveWritable()
+  {
+    return isWritable(NORTHARROWACTIVE);
+  }
+  
+  public boolean isNorthArrowActiveReadable()
+  {
+    return isReadable(NORTHARROWACTIVE);
+  }
+  
+  public boolean isNorthArrowActiveModified()
+  {
+    return isModified(NORTHARROWACTIVE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getNorthArrowActiveMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NORTHARROWACTIVE).getAttributeMdDTO();
+  }
+  
+  public Integer getNorthArrowXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NORTHARROWXPOSITION));
+  }
+  
+  public void setNorthArrowXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWXPOSITION, "");
+    }
+    else
+    {
+      setValue(NORTHARROWXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNorthArrowXPositionWritable()
+  {
+    return isWritable(NORTHARROWXPOSITION);
+  }
+  
+  public boolean isNorthArrowXPositionReadable()
+  {
+    return isReadable(NORTHARROWXPOSITION);
+  }
+  
+  public boolean isNorthArrowXPositionModified()
+  {
+    return isModified(NORTHARROWXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNorthArrowXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NORTHARROWXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getNorthArrowYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NORTHARROWYPOSITION));
+  }
+  
+  public void setNorthArrowYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWYPOSITION, "");
+    }
+    else
+    {
+      setValue(NORTHARROWYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNorthArrowYPositionWritable()
+  {
+    return isWritable(NORTHARROWYPOSITION);
+  }
+  
+  public boolean isNorthArrowYPositionReadable()
+  {
+    return isReadable(NORTHARROWYPOSITION);
+  }
+  
+  public boolean isNorthArrowYPositionModified()
+  {
+    return isModified(NORTHARROWYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNorthArrowYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NORTHARROWYPOSITION).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.ActorDTO getOwner()
@@ -423,6 +579,117 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
+  public Boolean getScaleBarActive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SCALEBARACTIVE));
+  }
+  
+  public void setScaleBarActive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARACTIVE, "");
+    }
+    else
+    {
+      setValue(SCALEBARACTIVE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isScaleBarActiveWritable()
+  {
+    return isWritable(SCALEBARACTIVE);
+  }
+  
+  public boolean isScaleBarActiveReadable()
+  {
+    return isReadable(SCALEBARACTIVE);
+  }
+  
+  public boolean isScaleBarActiveModified()
+  {
+    return isModified(SCALEBARACTIVE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getScaleBarActiveMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SCALEBARACTIVE).getAttributeMdDTO();
+  }
+  
+  public Integer getScaleBarXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEBARXPOSITION));
+  }
+  
+  public void setScaleBarXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARXPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEBARXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isScaleBarXPositionWritable()
+  {
+    return isWritable(SCALEBARXPOSITION);
+  }
+  
+  public boolean isScaleBarXPositionReadable()
+  {
+    return isReadable(SCALEBARXPOSITION);
+  }
+  
+  public boolean isScaleBarXPositionModified()
+  {
+    return isModified(SCALEBARXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getScaleBarXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SCALEBARXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getScaleBarYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEBARYPOSITION));
+  }
+  
+  public void setScaleBarYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARYPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEBARYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isScaleBarYPositionWritable()
+  {
+    return isWritable(SCALEBARYPOSITION);
+  }
+  
+  public boolean isScaleBarYPositionReadable()
+  {
+    return isReadable(SCALEBARYPOSITION);
+  }
+  
+  public boolean isScaleBarYPositionModified()
+  {
+    return isModified(SCALEBARYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getScaleBarYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SCALEBARYPOSITION).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -471,6 +738,59 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public Integer getZoomLevel()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ZOOMLEVEL));
+  }
+  
+  public void setZoomLevel(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ZOOMLEVEL, "");
+    }
+    else
+    {
+      setValue(ZOOMLEVEL, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isZoomLevelWritable()
+  {
+    return isWritable(ZOOMLEVEL);
+  }
+  
+  public boolean isZoomLevelReadable()
+  {
+    return isReadable(ZOOMLEVEL);
+  }
+  
+  public boolean isZoomLevelModified()
+  {
+    return isModified(ZOOMLEVEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getZoomLevelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ZOOMLEVEL).getAttributeMdDTO();
+  }
+  
+  public final java.lang.String addMapImage(java.lang.String savedMapId, java.lang.String imageName, java.lang.String imagePath)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{savedMapId, imageName, imagePath};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addMapImage", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String addMapImage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String savedMapId, java.lang.String imageName, java.lang.String imagePath)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, savedMapId, imageName, imagePath};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addMapImage", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void cleanOldViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
@@ -545,12 +865,44 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (dss.vector.solutions.query.LayerViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.query.MapImageQueryDTO getAllMapImages()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getAllMapImages", _declaredTypes);
+    return (dss.vector.solutions.query.MapImageQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.MapImageQueryDTO getAllMapImages(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getAllMapImages", _declaredTypes);
+    return (dss.vector.solutions.query.MapImageQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final dss.vector.solutions.query.SavedMapQueryDTO getAllSavedMaps(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getAllSavedMaps", _declaredTypes);
     return (dss.vector.solutions.query.SavedMapQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String getImageByCustomImageId(java.lang.String customImageId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{customImageId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getImageByCustomImageId", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String getImageByCustomImageId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String customImageId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, customImageId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getImageByCustomImageId", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedMapDTO loadDefaultMap(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.query.SavedMapDTO savedMap)
@@ -585,20 +937,170 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final java.lang.String refreshMap()
+  public final java.lang.String refreshMap(java.lang.String currentMapId)
   {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{currentMapId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "refreshMap", _declaredTypes);
     return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String refreshMap(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.String refreshMap(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String currentMapId)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, currentMapId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "refreshMap", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String removeMapImage(java.lang.String customImageId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{customImageId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "removeMapImage", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String removeMapImage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String customImageId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, customImageId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "removeMapImage", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateImageLocations(java.lang.String imageLocations)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{imageLocations};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateImageLocations", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateImageLocations(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String imageLocations)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, imageLocations};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateImageLocations", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateLegendLocations(java.lang.String legendLocations)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{legendLocations};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateLegendLocations", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateLegendLocations(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String legendLocations)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, legendLocations};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateLegendLocations", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.Integer", "java.lang.String"};
+    Object[] _parameters = new Object[]{zoomLevel, mapCenter};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateMapState", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateMapState(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, zoomLevel, mapCenter};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateMapState", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateNorthArrow(java.lang.Integer northArrowXPosition, java.lang.Integer northArrowYPosition, java.lang.Boolean northArrowActive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.Integer", "java.lang.Integer", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{northArrowXPosition, northArrowYPosition, northArrowActive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateNorthArrow", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateNorthArrow(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Integer northArrowXPosition, java.lang.Integer northArrowYPosition, java.lang.Boolean northArrowActive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer", "java.lang.Integer", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, northArrowXPosition, northArrowYPosition, northArrowActive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateNorthArrow", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateScaleBar(java.lang.Integer scaleBarXPosition, java.lang.Integer scaleBarYPosition, java.lang.Boolean scaleBarActive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.Integer", "java.lang.Integer", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{scaleBarXPosition, scaleBarYPosition, scaleBarActive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateScaleBar", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateScaleBar(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Integer scaleBarXPosition, java.lang.Integer scaleBarYPosition, java.lang.Boolean scaleBarActive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer", "java.lang.Integer", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, scaleBarXPosition, scaleBarYPosition, scaleBarActive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateScaleBar", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.MapImageDTO> getAllHasImage()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.MapImageDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.MapImageDTO> getAllHasImage(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.MapImageDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.HasImageDTO> getAllHasImageRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasImageDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.HasImageDTO> getAllHasImageRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasImageDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasImageDTO addHasImage(dss.vector.solutions.query.MapImageDTO child)
+  {
+    return (dss.vector.solutions.query.HasImageDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.query.HasImageDTO addHasImage(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.MapImageDTO child)
+  {
+    return (dss.vector.solutions.query.HasImageDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  public void removeHasImage(dss.vector.solutions.query.HasImageDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeHasImage(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasImageDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllHasImage()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  public static void removeAllHasImage(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.query.HasImageDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

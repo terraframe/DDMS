@@ -56,6 +56,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
   
       // The current ThematicVarible object that is used for mapping.
       this._currentThematicVariable = null;
+      
   
       // the current layers in the map. If this._currentSavedSearch
       // is not null, then these layers belong to that SavedSearch.
@@ -114,32 +115,30 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // export operations
       YAHOO.util.Event.on('exportIframe', 'load', this._handleExport, null, this);
     
-      YAHOO.util.Event.on('imageIframe', 'load', this._handleUpload, null, this);
+      YAHOO.util.Event.on('imageIframe', 'load', this._handleImageUpload, null, this);
       
       this._drawLineControl = null;
       this._measureControle = null;
     },
     
-    _handleUpload : function(e)
+    /**
+     * Handler for imageIframe event listener
+     * 
+     */
+    _handleImageUpload : function(e)
     {
       var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var mapId = this.constructor.getCurrentMap();
+      
       var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
       text = MDSS.util.stripWhitespace(text);
       if(text.length > 0)
       {
+    	var that = this;  
         var obj = Mojo.Util.getObject(text);
         if(obj.success)
         {
-          var img = document.createElement('img');
-          img.src = obj.message;
-        
-          var div = document.createElement('div');
-          div.appendChild(img);
-          
-          var dd = this.addDragDrop(div);
-          this.position(div);
-            
-          this._ddDivs.push({div:div, dd:dd});
+          that._renderImages(obj.message, obj.id);
           this._destroyModal();
         }
         else
@@ -147,6 +146,59 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           new MDSS.ErrorModal(obj.message);
         }
       }
+    },
+    
+    /**
+     * Renders an image on the map
+     * 
+     * @src - path to image on the file system
+     * @id - unique id of the image (MapImage instance id)
+     */
+    _renderImages : function(src, id)
+    {
+        var img = document.createElement('img');
+        img.src = src;
+        
+        var closeDiv = document.createElement('span');
+        closeDiv.setAttribute("class", "closeButton");
+        closeDiv.innerHTML = "X";
+        
+        var div = document.createElement('div');
+        div.id = id;
+        YAHOO.util.Dom.addClass(div, 'mapImage');
+        div.appendChild(closeDiv)
+        div.appendChild(img);
+        
+        var dd = this.addDragDrop(div);
+        this.position(div);
+        
+        YAHOO.util.Event.on(closeDiv, 'click', this._removeImage, null, this);
+          
+        this._ddDivs.push({div:div, dd:dd});
+        
+        return div;
+    },
+    
+    /**
+     * Remove the image from the browser and the database (instance of MapImage)
+     * 
+     */
+    _removeImage : function(e)
+    {
+        var request = new MDSS.Request({
+            that: this,
+            onSuccess : function(deletedMapImageId)
+            {
+            	// remove the containing div
+            	var imageContainerDiv = document.getElementById(deletedMapImageId);
+            	imageContainerDiv.remove();
+            }
+          });
+        
+        var imageId = e.target.parentElement.id;
+        var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+        var mapId = mapList.value;
+        Mojo.$.dss.vector.solutions.query.SavedMap.removeMapImage(request, mapId, imageId);
     },
     
     _handleExport : function(e)
@@ -776,6 +828,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Dom.setAttribute(scale, 'type', 'button');
       YAHOO.util.Dom.setAttribute(scale, 'value', MDSS.localize('Scale'));
       YAHOO.util.Dom.addClass(scale, 'queryButton');
+      YAHOO.util.Dom.setAttribute(scale, "id", "scaleBarBtn");
       YAHOO.util.Event.on(scale, 'click', this._toggleScale, null, this);
       scale.disabled = true;
       annotationsDiv.appendChild(scale);
@@ -785,6 +838,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Dom.setAttribute(northArrow, 'type', 'button');
       YAHOO.util.Dom.setAttribute(northArrow, 'value', MDSS.localize('NorthArrow'));
       YAHOO.util.Dom.addClass(northArrow, 'queryButton');
+      YAHOO.util.Dom.setAttribute(northArrow, "id", "northArrowBtn");
       YAHOO.util.Event.on(northArrow, 'click', this._toggleArrow, null, this);
       northArrow.disabled = true;
       annotationsDiv.appendChild(northArrow);
@@ -849,11 +903,19 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       mBottom.appendChild(annotationsDiv);
     },
     
+    /**
+     * Opens the image upload form
+     * 
+     */
     _addImage : function()
     {
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var mapId = mapList.value;
+      
       var html = '<form action="dss.vector.solutions.query.MappingController.uploadMapImage.mojo"'
         +' method="POST" enctype="multipart/form-data" target="imageIframe">';
       html += '<input type="file" name="imageFile" />';
+      html += '<input type="hidden" name="mapId" id="mapId" value="'+ mapId +'" />';
       html += '<input type="submit" value="'+MDSS.localize('Submit')+'" />';
       html += '</form>';
       
@@ -1018,6 +1080,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           {
             // repopulate the map list with the layers
             this.that._setLayers(query.getResultSet());
+            
+            // Persist map elements status (active or inactive) and well as location
+            this.that._updateNorthArrowStatus(mapId); 
+            this.that._updateScaleBarStatus(mapId);
+            this.that._updateLegendStatus(mapId);
+            this.that._updateMapImageStatus(mapId);
+            this.that._updateMapState(mapId);
           }
         });        
         
@@ -1037,6 +1106,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       });
   
       this._SavedMapController.newInstance(request);
+      
     },
     
     _mapCreateListener : function(params)
@@ -1053,24 +1123,199 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           that._addSavedMap(mapId, savedMap.getMapName());
           
-          // Keep the current layers which are defined on the default saved map
-          //that._setLayers(query.getResultSet());          
+          // Persist map elements status (active or inactive) and well as location
+          that._updateNorthArrowStatus(mapId);  
+          that._updateScaleBarStatus(mapId); 
+          that._updateLegendStatus(mapId);
+          that._updateMapImageStatus(mapId);
+          that._updateMapState(mapId);
           
           that._destroyModal();
         }
       });
 
       var existingMapId = MDSS.MapPanel.getCurrentMap();
+      var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var activeMapId = select.value;
       
+      // Creates the new instance of SavedMap when saving a new map
       var map = new Mojo.$.dss.vector.solutions.query.SavedMap();
       map.setMapName(params['dto.mapName']);
       map.createFromExisting(request, existingMapId);
+      
     },
     
     _mapCancelListener : function(params)
     {
       this._destroyModal();
     },
+    
+    /**
+     * Persist north arrow status (active or inactive) and well as location
+     * 
+     * @mapId = mapId of the map to persist north arrow status 
+     */
+    _updateNorthArrowStatus : function(mapId)
+    {
+    	if(typeof arrowDiv !== "undefined"){
+	        var request = new MDSS.Request({
+	            that : this,
+	            onSuccess : function(query)
+	            {
+	              // No callback necessary
+	            }
+	          });  
+	        
+	        // Set the location of the north arrow. 
+	        // if the north arrow is not visible the left/top values will be set to 0
+	        var northArrowIsActive = false;
+	        if(arrowDiv.style.display !== 'none'){
+	        	northArrowIsActive = true;
+	        }
+	        
+	        var style = window.getComputedStyle(arrowDiv);
+	        var top = style.getPropertyValue('top');
+	        var left = style.getPropertyValue('left');
+	        
+	        Mojo.$.dss.vector.solutions.query.SavedMap.updateNorthArrow(request, mapId, left, top, northArrowIsActive);
+    	}
+    },
+    
+    /**
+     * Persist scale bar status (active or inactive) and well as location
+     * 
+     * @mapId = mapId of the map to persist scale bar status 
+     */
+    _updateScaleBarStatus : function(mapId)
+    {
+    	if(typeof scaleDiv !== "undefined"){
+	        var request = new MDSS.Request({
+	            that : this,
+	            onSuccess : function(query)
+	            {
+	              // No callback necessary
+	            }
+	          });  
+	        
+	        // Set the location of the north arrow. 
+	        // if the north arrow is not visible the left/top values will be set to 0
+	        var scaleBarIsActive = false;
+	        if(scaleDiv.style.display !== 'none'){
+	        	scaleBarIsActive = true;
+	        }
+	        
+	        var style = window.getComputedStyle(scaleDiv);
+	        var top = style.getPropertyValue('top');
+	        var left = style.getPropertyValue('left');
+	        
+	        Mojo.$.dss.vector.solutions.query.SavedMap.updateScaleBar(request, mapId, left, top, scaleBarIsActive);
+    	}
+    },
+    
+    /**
+     * Persist scale bar status (active or inactive) and well as location
+     * 
+     * @mapId = mapId of the map to persist all legends status as JSON
+     */
+    _updateLegendStatus : function(mapId)
+    {
+    	
+        var activeLegends = document.getElementsByClassName("ddmsLegend");
+        
+        var legendsJSONArr = [];
+        for(var i=0; i<activeLegends.length; i++){
+        	var legend = activeLegends[i];
+        	var legendId = legend.id;
+        	
+	        var style = window.getComputedStyle(legend);
+	        var top = style.getPropertyValue('top');
+	        var left = style.getPropertyValue('left');
+        	
+	        var legendInfo = { "legendId":legendId, "top":top, "left":left };
+	        legendsJSONArr.push(legendInfo);
+        }
+        
+        var legendsJSON = { "legends" : legendsJSONArr };
+        
+        var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(query)
+            {
+              // No callback necessary
+            }
+          });  
+        
+    	
+        Mojo.$.dss.vector.solutions.query.SavedMap.updateLegendLocations(request, mapId, legendsJSON);
+    },
+    
+    /**
+     * Persist map image status (active or inactive) as well as location
+     * 
+     * @mapId = mapId of the map to persist all legends status as JSON
+     */
+    _updateMapImageStatus : function(mapId)
+    {
+        var activeMapImages = document.getElementsByClassName("mapImage");
+        
+        var imagesJSONArr = [];
+        for(var i=0; i<activeMapImages.length; i++){
+        	var img = activeMapImages[i];
+        	var imgId = img.id;
+        	
+	        var style = window.getComputedStyle(img);
+	        var top = style.getPropertyValue('top');
+	        var left = style.getPropertyValue('left');
+        	
+	        var imgInfo = { "imageId":imgId, "top":top, "left":left };
+	        imagesJSONArr.push(imgInfo);
+        }
+        
+        var imagesJSON = { "images" : imagesJSONArr };
+        
+        var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(query)
+            {
+              // No callback necessary
+            }
+          });  	
+        
+    	
+        Mojo.$.dss.vector.solutions.query.SavedMap.updateImageLocations(request, mapId, imagesJSON);
+    },
+    
+    
+    /**
+     * Persist map image status (active or inactive) as well as location
+     * 
+     * @mapId = mapId of the map to persist all legends status as JSON
+     */
+    _updateMapState : function(mapId)
+    {
+    	// if trying to save an empty default map the _map object won't exist yet. 
+    	if(this._map){
+	    	var mapBounds ={};
+	    	mapBounds.left = this._map.getExtent().left;
+	    	mapBounds.bottom = this._map.getExtent().bottom;
+	    	mapBounds.right = this._map.getExtent().right;
+	    	mapBounds.top = this._map.getExtent().top;
+	    	
+	    	
+	    	var zoomLevel = this._map.getZoom()
+	    	
+	        var request = new MDSS.Request({
+	            that : this,
+	            onSuccess : function(query)
+	            {
+	              // No callback necessary
+	            }
+	          });  
+	        
+	        Mojo.$.dss.vector.solutions.query.SavedMap.updateMapState(request, mapId, zoomLevel, mapBounds);
+    	}
+    },
+    
     
     _doDeleteMap : function(mapId)
     {
@@ -1127,7 +1372,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       if(select.selectedIndex == 0)
       {
-        this._loadDefaultMap(); // this will reset the current default map
+        this._loadDefaultMap(); // this will reset the current default map and set the current map to the default
       }
       else
       {
@@ -1243,8 +1488,30 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               controls: [],
               projection: "EPSG:4326",
               units: 'degrees',
-              numZoomLevels : 20,
-              maxResolution : 'auto'
+              resolutions: [1.40625,0.703125,
+                            0.3515625,0.17578125, 
+                            0.1142578125, 
+                            0.087890625, 
+                            0.05712890625, 
+                            // all resolutions below are 1.3 x increase/decrease from each other
+                            0.04922315513,
+                            0.03786396549,
+                            0.0291261273,
+                            0.02240471331,
+                            0.01723439486,
+                            0.01325722682,
+                            0.01019786679,
+                            0.00784451292,
+                            0.00603424071,
+                            0.00464172363,
+                            0.00357055664,
+                            0.00274658203125,
+                            // end of 1/3 intervals
+                            0.00137329101
+                            ],
+              minResolution: "auto",
+              maxResolution: "auto"
+//              numZoomLevels : 20
           };
       
       
@@ -1254,7 +1521,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           for(var i=0; i<layers.length; i++)
           {
-            var layer = layers[i];
+              var layer = layers[i];
               var extraLayer = new OpenLayers.Layer.WMS("", geoServerPath+"/wms",
               {
                   srs: 'EPSG:4326',
@@ -1325,6 +1592,52 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._addLegends(layers);
           
           that._enableAnnotations();
+          
+          var savedImages = mapData.savedImages;
+          for(var i=0; i<savedImages.length; i++){
+        	 var savedImage = savedImages[i];
+        	 var leftPosition = savedImage.imageXPosition;
+    		 var topPosition = savedImage.imageYPosition;
+        	 
+        	 var div = that._renderImages(savedImage.filePath, savedImage.imageId);
+        	 if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
+        		 div.style.left = leftPosition + "px";
+        		 div.style.top = topPosition + "px";
+        	 }
+          }
+          
+          
+          var mapId = mapList.value;
+          
+          var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(map)
+            {
+            	if(map.getNorthArrowActive()){
+            		var leftPosition = map.getNorthArrowXPosition().toString() + "px";
+            		var topPosition = map.getNorthArrowYPosition().toString() + "px";
+            		
+            		that._showArrow();
+            		arrowDiv.style.left = leftPosition;
+            		arrowDiv.style.top = topPosition;
+            		
+            		that._markOn(document.getElementById("northArrowBtn"));  
+            	}
+            	
+            	if(map.getScaleBarActive()){
+            		var leftPosition = map.getScaleBarXPosition().toString() + "px";
+            		var topPosition = map.getScaleBarYPosition().toString() + "px";
+            		
+            		that._showScale();
+            		scaleDiv.style.left = leftPosition;
+            		scaleDiv.style.top = topPosition;
+            		
+            		that._markOn(document.getElementById("scaleBarBtn"));  
+            	}
+            }
+          });  
+          
+          Mojo.$.dss.vector.solutions.query.SavedMap.get(request, mapId);         
         } 
       });
       
@@ -1332,7 +1645,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._disableAnnotations();
       
       var mapId = MDSS.MapPanel.getCurrentMap();
-      this._MappingController.refreshMap(request, mapId);
+      var currentMapId = document.getElementById("mapList").value;
+      this._MappingController.refreshMap(request, mapId, currentMapId);
     },
     
     _handleMeasurements : function(event)
@@ -1462,7 +1776,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         if(legend != null)
         {
           var div = document.createElement('div');
-          div.id = Mojo.Util.generateId();
+//          div.id = Mojo.Util.generateId();
+          div.id = "legend_" + layers[i].id;
+          div.setAttribute("class", "ddmsLegend");
           var css = 'display: none; background-color: #ffffff;';
           css += 'font-size: '+legend.fontSize+'px; font-family: '+legend.fontFamily+'; ';
           css += this._getFontStyle(legend.fontStyle) + ' color: '+legend.fontFill+';';
@@ -1503,13 +1819,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               table += '<td><div class="colorPickerValue legendColor" style="background-color: '+category.color+'">&nbsp;</div></td></tr>';
             }
           }
-                    
           
           table += '</table>';
 
           div.innerHTML = table;
           var dd = this.addDragDrop(div);
           this.position(div);
+                    
+          // Assign saved legend position after creating the legend div
+          div.style.left = legend.legendXPosition+"px";
+  		  div.style.top = legend.legendYPosition+"px";
           
           this._ddDivs.push({div:div, dd:dd});
         }

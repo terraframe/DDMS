@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
+
+//import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +36,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
@@ -52,6 +56,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   public String toString()
   {
     return this.getMapName();
+  }
+  
+  @Override
+  public void delete()
+  {
+    List<? extends MapImage> savedImages = this.getAllHasImage().getAll();
+    for(MapImage image : savedImages){
+      image.removeMapImage(image.getId(), this.getId());
+    }
+    super.delete();
   }
 
   @Override
@@ -80,10 +94,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    */
   @Override
   @Authenticate
-  public String refreshMap()
+  public String refreshMap(String currentMapId)
   {
     JSONObject mapData;
     JSONArray layersJSON;
+    JSONArray savedImagesJSON;
 
     Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false);
     String sessionId = Session.getCurrentSession().getId();
@@ -100,10 +115,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       
       mapData = new JSONObject();
       layersJSON = new JSONArray();
+      savedImagesJSON = new JSONArray();
 
       mapData.put("geoserverURL", geoserverPath);
       mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
+      mapData.put("savedImages", savedImagesJSON);
     }
     catch (JSONException e)
     {
@@ -128,7 +145,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         layerJSON.put("view", namespacedView);
         layerJSON.put("sld", sldFile);
         layerJSON.put("opacity", layer.getOpacity());
-
+        layerJSON.put("id", layer.getId());
+        
         // Always add the base layer to the bounding box
         if (count == 0 || layer.getAddToBBox())
         {
@@ -149,6 +167,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           legend.put("fontFill", layer.getLegendFontFill());
           legend.put("fontSize", layer.getLegendFontSize());
           legend.put("fontStyle", layer.getLegendFontStyles().get(0).name().toLowerCase());
+          legend.put("legendXPosition", layer.getLegendXPosition());
+          legend.put("legendYPosition", layer.getLegendYPosition());
 
           MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
           String colorAttribute = md.definesAttribute();
@@ -179,22 +199,17 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               {
                 category.put("exact", ( (NonRangeCategory) cat ).getExactValueStr());
               }
-
               category.put("color", cat.getStyles().getValue(colorAttribute));
-
               categories.put(category);
             }
           }
-
           layerJSON.put("legend", legend);
         }
         else
         {
           layerJSON.put("legend", JSONObject.NULL);
         }
-
         layersJSON.put(layerJSON);
-
         count++;
       }
       catch (JSONException e)
@@ -203,18 +218,53 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         throw new ProgrammingErrorException(error, e);
       }
     }
+    
+    SavedMap currentMap = SavedMap.get(currentMapId);
 
     // restrict the map bounds to the applicable layers
+    // unless a saved map has a saved bounding box
     try
     {
-      mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers));
+      String mapCenter = currentMap.getMapCenter();
+      if(mapCenter != ""){
+        JSONObject mapCenterObj = new JSONObject(mapCenter);
+        JSONArray mapBounds = new JSONArray();
+        mapBounds.put(mapCenterObj.getString("left"));
+        mapBounds.put(mapCenterObj.getString("bottom"));
+        mapBounds.put(mapCenterObj.getString("right"));
+        mapBounds.put(mapCenterObj.getString("top"));
+        mapData.put("bbox", mapBounds);
+      }
+      else{
+        mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers));
+      }
     }
     catch (JSONException e)
     {
       String error = "Could not produce the bounding box.";
       throw new ProgrammingErrorException(error, e);
     }
+    
 
+    List<? extends MapImage> mapImages = currentMap.getAllHasImage().getAll();
+    
+    // Build json for all instances of image related to this map
+    for(MapImage image : mapImages){
+      try{
+        JSONObject imageInstanceJSONObj = new JSONObject();
+        imageInstanceJSONObj.put("filePath", image.getImageFilePath());
+        imageInstanceJSONObj.put("fileName", image.getImageName());
+        imageInstanceJSONObj.put("imageXPosition", image.getImageXPosition());
+        imageInstanceJSONObj.put("imageYPosition", image.getImageYPosition());
+        imageInstanceJSONObj.put("imageId", image.getCustomImageId());
+        savedImagesJSON.put(imageInstanceJSONObj);
+      }
+      catch (JSONException e){
+        String error = "Could collect map image info.";
+        throw new ProgrammingErrorException(error, e);
+      }
+    }
+    
     return mapData.toString();
   };
 
@@ -248,6 +298,31 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return ordered;
   }
+  
+  /**
+   * Returns the instances of MapImage for this map 
+   * 
+   * @return
+   */
+  public MapImage[] getMapImages()
+  {
+    
+    QueryFactory f = new QueryFactory();
+    MapImageQuery q = new MapImageQuery(f);
+    OIterator<? extends MapImage> iterator = q.getIterator();
+
+    try{
+      List<? extends MapImage> all = iterator.getAll();
+      MapImage[] array = all.toArray(new MapImage[all.size()]);
+      
+      return array;
+    }
+    finally{
+      iterator.close();
+    }
+
+  }
+  
 
   @Override
   public InputStream exportShapefile()
@@ -308,6 +383,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Authenticate
   public LayerViewQuery createFromExisting(String existingMapId)
   {
+    SavedMap existingMap = SavedMap.get(existingMapId);
+    
     boolean returnExisting = true;
     if (this.isNew())
     {
@@ -320,11 +397,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       {
         layer.delete();
       }
+      
+      for (MapImage image : this.getAllHasImage().getAll())
+      {
+        image.delete();
+      }
     }
+    
 
     // copy the layers from the existing map
-    SavedMap existingMap = SavedMap.get(existingMapId);
-
     for (LayerView existingLayerView : existingMap.getAllLayers().getIterator().getAll())
     {
       Layer existingLayer = Layer.get(existingLayerView.getLayerId());
@@ -394,8 +475,26 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       HasLayers rel = this.addLayer(layer);
       rel.setLayerPosition(existingLayerView.getLayerPosition());
       rel.apply();
-
     }
+    
+    
+    // Copy instances of mapImage
+    List<? extends MapImage> mapImages = existingMap.getAllHasImage().getAll();
+    for (MapImage image : mapImages)
+    {
+
+      MapImage newImage = new MapImage();
+      newImage.setImageName(image.getImageName());
+      newImage.setImageFilePath(image.getImageFilePath());
+      newImage.setImageXPosition(image.getImageXPosition());
+      newImage.setImageYPosition(image.getImageYPosition());
+      newImage.setCustomImageId(image.getCustomImageId());
+      newImage.apply();
+
+      HasImage newHasImage = this.addHasImage(newImage);
+      newHasImage.apply();
+    }
+    
 
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
@@ -405,6 +504,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     return defaultMap.getAllLayers();
   }
 
+  
   /**
    * Removes the given layer from this SavedMap and reorders the other layers
    * accordingly.
@@ -582,27 +682,27 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
 
-    // Also clean up any old map images (the directory will be recreated when an
-    // image is uploaded)
-
-    String deploy = DeployProperties.getDeployPath();
-    if (!deploy.endsWith("/"))
-    {
-      deploy += "/";
-    }
-    String imageDir = deploy + QueryConstants.MAP_IMAGES_DIR;
-    File dir = new File(imageDir);
-    if (dir.exists())
-    {
-      try
-      {
-        FileIO.deleteDirectory(dir);
-      }
-      catch (IOException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
-    }
+//    // Also clean up any old map images (the directory will be recreated when an
+//    // image is uploaded)
+//
+//    String deploy = DeployProperties.getDeployPath();
+//    if (!deploy.endsWith("/"))
+//    {
+//      deploy += "/";
+//    }
+//    String imageDir = deploy + QueryConstants.MAP_IMAGES_DIR;
+//    File dir = new File(imageDir);
+//    if (dir.exists())
+//    {
+//      try
+//      {
+//        FileIO.deleteDirectory(dir);
+//      }
+//      catch (IOException e)
+//      {
+//        throw new ProgrammingErrorException(e);
+//      }
+//    }
   }
 
   /**
@@ -612,6 +712,174 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     long anHourAgo = System.currentTimeMillis() - ( 60 * 60 * 1000 );
     cleanOldViews(anHourAgo);
+  }
+  
+  @Override
+  @Transaction
+  public void updateNorthArrow(Integer northArrowXPosition, Integer northArrowYPosition, Boolean northArrowActive)
+  {
+    if(northArrowActive){
+      this.appLock();
+      this.setNorthArrowXPosition(northArrowXPosition);
+      this.setNorthArrowYPosition(northArrowYPosition);
+      this.setNorthArrowActive(true);
+      this.apply();
+    }
+    else{
+      this.appLock();
+      this.setNorthArrowXPosition(0);
+      this.setNorthArrowYPosition(0);
+      this.setNorthArrowActive(false);
+      this.apply();
+    }
+  }
+  
+  @Override
+  @Transaction
+  public void updateScaleBar(Integer scaleBarXPosition, Integer scaleBarYPosition, Boolean scaleBarActive)
+  {
+    if(scaleBarActive){
+      this.appLock();
+      this.setScaleBarXPosition(scaleBarXPosition);
+      this.setScaleBarYPosition(scaleBarYPosition);
+      this.setScaleBarActive(true);
+      this.apply();
+    }
+    else{
+      this.appLock();
+      this.setScaleBarXPosition(0);
+      this.setScaleBarYPosition(0);
+      this.setScaleBarActive(false);
+      this.apply();
+    }
+  }
+  
+  @Override
+  public void updateLegendLocations(String legendLocations)
+  {
+    try{
+      JSONObject legendsObj = new JSONObject(legendLocations);
+      JSONArray legendsArr = legendsObj.getJSONArray("legends");
+      
+      for(int i=0; i<legendsArr.length(); i++){
+        
+        JSONObject legendObj = legendsArr.getJSONObject(i);
+        String legendId = legendObj.getString("legendId");
+        String layerId = legendId.replace("legend_", "");
+        Integer legendTopPos = Math.round(Float.parseFloat(legendObj.getString("top").replace("px", "")));
+        Integer legendLeftPos = Math.round(Float.parseFloat(legendObj.getString("left").replace("px", "")));
+        
+        Layer layer = Layer.get(layerId);
+        
+        layer.appLock();
+        layer.setLegendXPosition(legendLeftPos);
+        layer.setLegendYPosition(legendTopPos);
+        layer.apply();
+      }
+    }
+    catch(JSONException e){
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  @Override
+  public void updateImageLocations(String imageLocations)
+  {
+    try{
+      JSONObject imagesObj = new JSONObject(imageLocations);
+      JSONArray imagesArr = imagesObj.getJSONArray("images");
+      
+      for(int i=0; i<imagesArr.length(); i++){
+        
+        JSONObject imageObj = imagesArr.getJSONObject(i);
+        String imageId = imageObj.getString("imageId");
+        Integer imageTopPos = Math.round(Float.parseFloat(imageObj.getString("top").replace("px", "")));
+        Integer imageLeftPos = Math.round(Float.parseFloat(imageObj.getString("left").replace("px", "")));
+        
+        String mdImageId = getImageByCustomImageId(imageId);
+        
+        MapImage image = MapImage.get(mdImageId);
+        
+        image.appLock();
+        image.setImageXPosition(imageLeftPos);
+        image.setImageYPosition(imageTopPos);
+        image.apply();
+      }
+    }
+    catch(JSONException e){
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  /**
+   * Persists the MapImage to the database
+   * 
+   * @savedMapId 
+   * @imageName
+   * @imagePath
+   */
+  @Override
+  @Transaction
+  public String addMapImage(String savedMapId, String imageName, String imagePath)
+  {
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
+    
+    String newImageCustomId = "image_" + IDGenerator.nextID();
+    
+    MapImage newImage = new MapImage();
+    newImage.setImageName(imageName);
+    newImage.setImageFilePath(imagePath);
+    newImage.setCustomImageId(newImageCustomId);
+    newImage.apply();
+
+    // we only need to add the relationship to the default map because this relationship 
+    // will later be passed to the saved map
+    HasImage defaultHasImage = defaultMap.addHasImage(newImage);
+    defaultHasImage.apply();
+    
+    return newImageCustomId;
+  }
+  
+  
+  @Override
+  public String getImageByCustomImageId(String customImageId)
+  {
+    String mdImageId = "";
+    List<? extends MapImage> childImages = this.getAllHasImage().getAll();
+    for (MapImage childImage : childImages)
+    {
+      String currCustomImageid = childImage.getCustomImageId();
+      if(currCustomImageid.equals(customImageId)){
+        mdImageId = childImage.getId();
+      }
+    }
+    
+    return mdImageId;
+  }
+  
+  @Override
+  public String removeMapImage(String customImageId)
+  {
+    String imageId = getImageByCustomImageId(customImageId);
+    if(imageId != ""){
+      MapImage image = MapImage.get(imageId);
+      image.removeMapImage(imageId, this.getId());
+    }
+
+    return customImageId; 
+  }
+  
+  @Override
+  public void updateMapState(Integer zoomLevel, String mapCenter)
+  {
+    this.appLock();
+    this.setZoomLevel(zoomLevel);
+    this.setMapCenter(mapCenter);
+    this.apply();
   }
 
 }

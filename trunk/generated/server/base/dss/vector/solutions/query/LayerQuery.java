@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1351068067)
+@com.runwaysdk.business.ClassSignature(hash = 228673488)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -403,6 +403,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getLegendId()
+  {
+    return getLegendId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getLegendTitle()
   {
     return getLegendTitle(null);
@@ -492,6 +509,40 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES);
 
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition()
+  {
+    return getLegendXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition()
+  {
+    return getLegendYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -1218,6 +1269,9 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendId();
+    public com.runwaysdk.query.SelectableChar getLegendId(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getLegendTitle();
     public com.runwaysdk.query.SelectableChar getLegendTitle(String alias);
     public com.runwaysdk.query.SelectableChar getLegendTitle(String alias, String displayLabel);
@@ -1233,6 +1287,12 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition();
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition();
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias, String displayLabel);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
@@ -1694,6 +1754,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getLegendId()
+  {
+    return getLegendId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getLegendTitle()
   {
     return getLegendTitle(null);
@@ -1777,6 +1854,40 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition()
+  {
+    return getLegendXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition()
+  {
+    return getLegendYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -2444,6 +2555,9 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getLegendId();
+    public com.runwaysdk.query.SelectableChar getLegendId(String alias);
+    public com.runwaysdk.query.SelectableChar getLegendId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getLegendTitle();
     public com.runwaysdk.query.SelectableChar getLegendTitle(String alias);
     public com.runwaysdk.query.SelectableChar getLegendTitle(String alias, String displayLabel);
@@ -2459,6 +2573,12 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition();
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition();
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias, String displayLabel);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
@@ -2917,6 +3037,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getLegendId()
+  {
+    return getLegendId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getLegendId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.LEGENDID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getLegendTitle()
   {
     return getLegendTitle(null);
@@ -3000,6 +3137,40 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition()
+  {
+    return getLegendXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition()
+  {
+    return getLegendYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getLegendYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Layer.LEGENDYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()

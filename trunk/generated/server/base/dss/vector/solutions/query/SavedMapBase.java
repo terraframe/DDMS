@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1682009008)
+@com.runwaysdk.business.ClassSignature(hash = -1796616481)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,12 +20,20 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPCENTER = "mapCenter";
   public static java.lang.String MAPNAME = "mapName";
+  public static java.lang.String NORTHARROWACTIVE = "northArrowActive";
+  public static java.lang.String NORTHARROWXPOSITION = "northArrowXPosition";
+  public static java.lang.String NORTHARROWYPOSITION = "northArrowYPosition";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SCALEBARACTIVE = "scaleBarActive";
+  public static java.lang.String SCALEBARXPOSITION = "scaleBarXPosition";
+  public static java.lang.String SCALEBARYPOSITION = "scaleBarYPosition";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1682009008;
+  public static java.lang.String ZOOMLEVEL = "zoomLevel";
+  private static final long serialVersionUID = -1796616481;
   
   public SavedMapBase()
   {
@@ -272,6 +280,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public String getMapCenter()
+  {
+    return getValue(MAPCENTER);
+  }
+  
+  public void validateMapCenter()
+  {
+    this.validateAttribute(MAPCENTER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapCenterMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(MAPCENTER);
+  }
+  
+  public void setMapCenter(String value)
+  {
+    if(value == null)
+    {
+      setValue(MAPCENTER, "");
+    }
+    else
+    {
+      setValue(MAPCENTER, value);
+    }
+  }
+  
   public String getMapName()
   {
     return getValue(MAPNAME);
@@ -297,6 +333,90 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     else
     {
       setValue(MAPNAME, value);
+    }
+  }
+  
+  public Boolean getNorthArrowActive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NORTHARROWACTIVE));
+  }
+  
+  public void validateNorthArrowActive()
+  {
+    this.validateAttribute(NORTHARROWACTIVE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowActiveMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(NORTHARROWACTIVE);
+  }
+  
+  public void setNorthArrowActive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWACTIVE, "");
+    }
+    else
+    {
+      setValue(NORTHARROWACTIVE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Integer getNorthArrowXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NORTHARROWXPOSITION));
+  }
+  
+  public void validateNorthArrowXPosition()
+  {
+    this.validateAttribute(NORTHARROWXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(NORTHARROWXPOSITION);
+  }
+  
+  public void setNorthArrowXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWXPOSITION, "");
+    }
+    else
+    {
+      setValue(NORTHARROWXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNorthArrowYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NORTHARROWYPOSITION));
+  }
+  
+  public void validateNorthArrowYPosition()
+  {
+    this.validateAttribute(NORTHARROWYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(NORTHARROWYPOSITION);
+  }
+  
+  public void setNorthArrowYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NORTHARROWYPOSITION, "");
+    }
+    else
+    {
+      setValue(NORTHARROWYPOSITION, java.lang.Integer.toString(value));
     }
   }
   
@@ -337,6 +457,90 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public Boolean getScaleBarActive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SCALEBARACTIVE));
+  }
+  
+  public void validateScaleBarActive()
+  {
+    this.validateAttribute(SCALEBARACTIVE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarActiveMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(SCALEBARACTIVE);
+  }
+  
+  public void setScaleBarActive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARACTIVE, "");
+    }
+    else
+    {
+      setValue(SCALEBARACTIVE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Integer getScaleBarXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEBARXPOSITION));
+  }
+  
+  public void validateScaleBarXPosition()
+  {
+    this.validateAttribute(SCALEBARXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(SCALEBARXPOSITION);
+  }
+  
+  public void setScaleBarXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARXPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEBARXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getScaleBarYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEBARYPOSITION));
+  }
+  
+  public void validateScaleBarYPosition()
+  {
+    this.validateAttribute(SCALEBARYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(SCALEBARYPOSITION);
+  }
+  
+  public void setScaleBarYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEBARYPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEBARYPOSITION, java.lang.Integer.toString(value));
     }
   }
   
@@ -388,6 +592,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     return mdClassIF.definesAttribute(TYPE);
   }
   
+  public Integer getZoomLevel()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ZOOMLEVEL));
+  }
+  
+  public void validateZoomLevel()
+  {
+    this.validateAttribute(ZOOMLEVEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getZoomLevelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(ZOOMLEVEL);
+  }
+  
+  public void setZoomLevel(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ZOOMLEVEL, "");
+    }
+    else
+    {
+      setValue(ZOOMLEVEL, java.lang.Integer.toString(value));
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -398,6 +630,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     SavedMapQuery query = new SavedMapQuery(new com.runwaysdk.query.QueryFactory());
     com.runwaysdk.business.Entity.getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
     return query;
+  }
+  
+  public dss.vector.solutions.query.HasImage addHasImage(dss.vector.solutions.query.MapImage mapImage)
+  {
+    return (dss.vector.solutions.query.HasImage) addChild(mapImage, dss.vector.solutions.query.HasImage.CLASS);
+  }
+  
+  public void removeHasImage(dss.vector.solutions.query.MapImage mapImage)
+  {
+    removeAllChildren(mapImage, dss.vector.solutions.query.HasImage.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.MapImage> getAllHasImage()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.MapImage>) getChildren(dss.vector.solutions.query.HasImage.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasImage> getAllHasImageRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasImage>) getChildRelationships(dss.vector.solutions.query.HasImage.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasImage> getHasImageRel(dss.vector.solutions.query.MapImage mapImage)
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasImage>) getRelationshipsWithChild(mapImage, dss.vector.solutions.query.HasImage.CLASS);
   }
   
   public dss.vector.solutions.query.HasLayers addLayer(dss.vector.solutions.query.Layer layer)
@@ -436,6 +696,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static SavedMap getByKey(String key)
   {
     return (SavedMap) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public java.lang.String addMapImage(java.lang.String savedMapId, java.lang.String imageName, java.lang.String imagePath)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String addMapImage(java.lang.String id, java.lang.String savedMapId, java.lang.String imageName, java.lang.String imagePath)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.addMapImage(savedMapId, imageName, imagePath);
   }
   
   public static void cleanOldViews()
@@ -492,10 +764,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     return _instance.getAllLayers();
   }
   
+  public dss.vector.solutions.query.MapImageQuery getAllMapImages()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.MapImageQuery getAllMapImages(java.lang.String id)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.getAllMapImages();
+  }
+  
   public static dss.vector.solutions.query.SavedMapQuery getAllSavedMaps()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public java.lang.String getImageByCustomImageId(java.lang.String customImageId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getImageByCustomImageId(java.lang.String id, java.lang.String customImageId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.getImageByCustomImageId(customImageId);
   }
   
   public static dss.vector.solutions.query.SavedMap loadDefaultMap(dss.vector.solutions.query.SavedMap savedMap)
@@ -522,16 +818,88 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     _instance.moveLayerOnMap(layerId, layerPosition);
   }
   
-  public java.lang.String refreshMap()
+  public java.lang.String refreshMap(java.lang.String currentMapId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final java.lang.String refreshMap(java.lang.String id)
+  public static final java.lang.String refreshMap(java.lang.String id, java.lang.String currentMapId)
   {
     SavedMap _instance = SavedMap.get(id);
-    return _instance.refreshMap();
+    return _instance.refreshMap(currentMapId);
+  }
+  
+  public java.lang.String removeMapImage(java.lang.String customImageId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String removeMapImage(java.lang.String id, java.lang.String customImageId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.removeMapImage(customImageId);
+  }
+  
+  public void updateImageLocations(java.lang.String imageLocations)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateImageLocations(java.lang.String id, java.lang.String imageLocations)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateImageLocations(imageLocations);
+  }
+  
+  public void updateLegendLocations(java.lang.String legendLocations)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateLegendLocations(java.lang.String id, java.lang.String legendLocations)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateLegendLocations(legendLocations);
+  }
+  
+  public void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateMapState(java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateMapState(zoomLevel, mapCenter);
+  }
+  
+  public void updateNorthArrow(java.lang.Integer northArrowXPosition, java.lang.Integer northArrowYPosition, java.lang.Boolean northArrowActive)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateNorthArrow(java.lang.String id, java.lang.Integer northArrowXPosition, java.lang.Integer northArrowYPosition, java.lang.Boolean northArrowActive)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateNorthArrow(northArrowXPosition, northArrowYPosition, northArrowActive);
+  }
+  
+  public void updateScaleBar(java.lang.Integer scaleBarXPosition, java.lang.Integer scaleBarYPosition, java.lang.Boolean scaleBarActive)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateScaleBar(java.lang.String id, java.lang.Integer scaleBarXPosition, java.lang.Integer scaleBarYPosition, java.lang.Boolean scaleBarActive)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateScaleBar(scaleBarXPosition, scaleBarYPosition, scaleBarActive);
   }
   
   public static SavedMap lock(java.lang.String id)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 2000298597)
+@com.runwaysdk.business.ClassSignature(hash = -700351356)
 public class MappingControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -247,15 +247,15 @@ public class MappingControllerBase implements com.runwaysdk.generation.loader.Re
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapSurveyQuery");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
-  public void refreshMap(java.lang.String savedMapId) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId, java.lang.String:currentMapId", post=true)
+  public void refreshMap(java.lang.String savedMapId, java.lang.String currentMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.refreshMap");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
-  public void failRefreshMap(java.lang.String savedMapId) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId, java.lang.String:currentMapId", post=true)
+  public void failRefreshMap(java.lang.String savedMapId, java.lang.String currentMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failRefreshMap");
@@ -289,15 +289,15 @@ public class MappingControllerBase implements com.runwaysdk.generation.loader.Re
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUpdateThematicVariable");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:imageFile", post=true)
-  public void uploadMapImage(com.runwaysdk.controller.MultipartFileParameter imageFile) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:imageFile, java.lang.String:mapId", post=true)
+  public void uploadMapImage(com.runwaysdk.controller.MultipartFileParameter imageFile, java.lang.String mapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.uploadMapImage");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:imageFile", post=true)
-  public void failUploadMapImage(com.runwaysdk.controller.MultipartFileParameter imageFile) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:imageFile, java.lang.String:mapId", post=true)
+  public void failUploadMapImage(com.runwaysdk.controller.MultipartFileParameter imageFile, java.lang.String mapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUploadMapImage");

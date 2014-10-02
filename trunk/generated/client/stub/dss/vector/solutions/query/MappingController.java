@@ -10,15 +10,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.runwaysdk.ClientException;
+import com.runwaysdk.ClientRequest;
 import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.controller.MultipartFileParameter;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
+import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
@@ -113,16 +118,18 @@ public class MappingController extends MappingControllerBase implements com.runw
   }
 
   @Override
-  public void refreshMap(String savedMapId) throws IOException, ServletException
+  public void refreshMap(String savedMapId, String currentMapId) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF request = this.getClientRequest();
 
+      // Gets the default map instance
+      // savedMapId is actually the default map id (as passed in from javascript)
       SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
 
       // Regenerate the database views
-      String mapData = map.refreshMap();
+      String mapData = map.refreshMap(currentMapId);
 
       // Re-print all SLD files for the layers
       for (LayerDTO layer : map.getAllLayer())
@@ -149,11 +156,13 @@ public class MappingController extends MappingControllerBase implements com.runw
     }
   }
 
+  
   @Override
-  public void uploadMapImage(MultipartFileParameter imageFile) throws IOException, ServletException
+  public void uploadMapImage(MultipartFileParameter imageFile, String mapId) throws IOException, ServletException
   {
     boolean success = false;
     String message = "";
+    String imageId = "";
     try
     {
       if (imageFile != null && imageFile.getSize() > 0)
@@ -169,19 +178,26 @@ public class MappingController extends MappingControllerBase implements com.runw
           return;
         }
 
-        String name = QueryConstants.MAP_IMAGES_DIR + System.currentTimeMillis() + ext;
+        String imageDirPath = QueryConstants.MAP_IMAGES_DIR;
+        String name = System.currentTimeMillis() + ext;
+        String imagePath = imageDirPath + name;
         String deploy = DeployProperties.getDeployPath();
         if (!deploy.endsWith("/"))
         {
           deploy += "/";
         }
 
-        String path = deploy + name;
+        String path = deploy + imagePath;
 
         FileIO.write(path, file.get());
-
+        
+        // Create new instance of MapImage
+        SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), mapId);
+        String newImageId = savedMap.addMapImage(savedMap.getId(), name, imagePath);
+        
+        imageId = newImageId;
         success = true;
-        message = name;
+        message = imagePath;
       }
       else
       {
@@ -199,7 +215,7 @@ public class MappingController extends MappingControllerBase implements com.runw
     {
       message = JSONObject.quote(message);
       resp.setContentType("text/html");
-      resp.getWriter().write("{\"success\":" + success + ", \"message\":" + message + "}");
+      resp.getWriter().write("{\"success\":" + success + ", \"message\":" + message + ", \"id\":" + "\"" + imageId + "\"" + "}");
     }
   }
 

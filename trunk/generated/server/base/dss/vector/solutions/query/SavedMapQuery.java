@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1702102553)
+@com.runwaysdk.business.ClassSignature(hash = 1238766166)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -221,6 +221,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedMap.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getMapCenter()
+  {
+    return getMapCenter(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -236,6 +253,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()
+  {
+    return getNorthArrowActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition()
+  {
+    return getNorthArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition()
+  {
+    return getNorthArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -259,6 +327,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.SavedMap.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedMap.OWNER, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive()
+  {
+    return getScaleBarActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition()
+  {
+    return getScaleBarXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition()
+  {
+    return getScaleBarYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -310,6 +429,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getZoomLevel()
+  {
+    return getZoomLevel(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -369,6 +505,122 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
 
     java.sql.ResultSet results = com.runwaysdk.dataaccess.database.Database.query(sqlStmt);
     return new com.runwaysdk.business.BusinessIterator<SavedMap>(this.getComponentQuery().getMdEntityIF(), columnInfoMap, results);
+  }
+
+
+  public com.runwaysdk.query.Condition hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.getBusinessQuery().isParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.getBusinessQuery().isParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasImageQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.getBusinessQuery().isNotParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasImageQuery);
   }
 
 
@@ -522,12 +774,33 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getMapCenter();
+    public com.runwaysdk.query.SelectableChar getMapCenter(String alias);
+    public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMapName();
     public com.runwaysdk.query.SelectableChar getMapName(String alias);
     public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive();
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition();
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition();
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive();
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -537,10 +810,27 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getZoomLevel();
+    public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias);
+    public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.query.SavedMap savedMap);
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.query.SavedMap savedMap);
+
+
+  public com.runwaysdk.query.Condition hasImage();
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery);
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage();
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
 
 
   public com.runwaysdk.query.Condition layer();
@@ -555,6 +845,20 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.Condition SUBSELECT_layer(dss.vector.solutions.query.LayerQuery layerQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_layer(dss.vector.solutions.query.LayerQuery layerQuery, dss.vector.solutions.query.HasLayersQuery hasLayersQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage();
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage();
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
 
 
   public com.runwaysdk.query.Condition NOT_IN_layer();
@@ -753,6 +1057,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedMap.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getMapCenter()
+  {
+    return getMapCenter(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -770,6 +1091,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()
+  {
+    return getNorthArrowActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition()
+  {
+    return getNorthArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition()
+  {
+    return getNorthArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -785,6 +1157,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedMap.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive()
+  {
+    return getScaleBarActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition()
+  {
+    return getScaleBarXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition()
+  {
+    return getScaleBarYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -838,6 +1261,81 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.TYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getZoomLevel()
+  {
+    return getZoomLevel(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, displayLabel);
+
+  }
+
+  public com.runwaysdk.query.Condition hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.isParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.isParentIn_SUBSELECT(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.isParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.isParentIn_SUBSELECT(hasImageQuery);
+  }
+
 
   public com.runwaysdk.query.Condition layer()
   {
@@ -894,6 +1392,64 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   {
     hasLayersQuery.AND(hasLayersQuery.hasChild(layerQuery));
     return this.isParentIn_SUBSELECT(hasLayersQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.isNotParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasImage.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(mapImageQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.isNotParentIn(hasImageQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery)
+  {
+    hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
+    return this.isNotParentIn_SUBSELECT(hasImageQuery);
   }
 
 
@@ -1025,12 +1581,33 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getMapCenter();
+    public com.runwaysdk.query.SelectableChar getMapCenter(String alias);
+    public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMapName();
     public com.runwaysdk.query.SelectableChar getMapName(String alias);
     public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive();
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition();
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition();
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive();
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias);
+    public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -1040,6 +1617,9 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getZoomLevel();
+    public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias);
+    public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias, String displayLabel);
 
     public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.query.SavedMap ... savedMap);
     public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.query.SavedMap ... savedMap);
@@ -1277,6 +1857,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedMap.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getMapCenter()
+  {
+    return getMapCenter(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -1294,6 +1891,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()
+  {
+    return getNorthArrowActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition()
+  {
+    return getNorthArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition()
+  {
+    return getNorthArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNorthArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.NORTHARROWYPOSITION, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -1309,6 +1957,57 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedMap.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive()
+  {
+    return getScaleBarActive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getScaleBarActive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedMap.SCALEBARACTIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition()
+  {
+    return getScaleBarXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition()
+  {
+    return getScaleBarYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleBarYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.SCALEBARYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -1360,6 +2059,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getZoomLevel()
+  {
+    return getZoomLevel(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getZoomLevel(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.ZOOMLEVEL, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

@@ -21,6 +21,7 @@
 <%@page import="dss.vector.solutions.query.LayerController"%>
 <%@page import="dss.vector.solutions.query.AbstractCategoryController"%>
 
+<%@page import="dss.vector.solutions.query.MapImage"%>
 
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%>
@@ -39,7 +40,7 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 String[] types = new String[]{DefaultSavedMapDTO.CLASS, SavedMapController.CLASS, LayerViewDTO.CLASS, LayerDTO.CLASS,
     ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS,
     NonRangeCategoryController.CLASS, MappingController.CLASS, LayerController.CLASS, AbstractCategoryController.CLASS, SavedSearchDTO.CLASS,
-    AttributeGeoHierarchyDTO.CLASS};
+    AttributeGeoHierarchyDTO.CLASS, MapImage.CLASS};
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);

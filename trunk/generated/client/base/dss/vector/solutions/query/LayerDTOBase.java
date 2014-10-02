@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 101983206)
+@com.runwaysdk.business.ClassSignature(hash = 428218279)
 public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 101983206;
+  private static final long serialVersionUID = 428218279;
   
   protected LayerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -46,11 +46,14 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
   public static java.lang.String LEGENDFONTFILL = "legendFontFill";
   public static java.lang.String LEGENDFONTSIZE = "legendFontSize";
   public static java.lang.String LEGENDFONTSTYLES = "legendFontStyles";
+  public static java.lang.String LEGENDID = "legendId";
   public static java.lang.String LEGENDTITLE = "legendTitle";
   public static java.lang.String LEGENDTITLEFONTFAMILY = "legendTitleFontFamily";
   public static java.lang.String LEGENDTITLEFONTFILL = "legendTitleFontFill";
   public static java.lang.String LEGENDTITLEFONTSIZE = "legendTitleFontSize";
   public static java.lang.String LEGENDTITLEFONTSTYLES = "legendTitleFontStyles";
+  public static java.lang.String LEGENDXPOSITION = "legendXPosition";
+  public static java.lang.String LEGENDYPOSITION = "legendYPosition";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MDATTRIBUTE = "mdAttribute";
   public static java.lang.String OPACITY = "opacity";
@@ -216,6 +219,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -246,6 +254,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return dss.vector.solutions.query.StylesDTO.get(getRequest(), getValue(DEFAULTSTYLES));
     }
+  }
+  
+  public String getDefaultStylesId()
+  {
+    return getValue(DEFAULTSTYLES);
   }
   
   public void setDefaultStyles(dss.vector.solutions.query.StylesDTO value)
@@ -329,6 +342,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -371,6 +389,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(GEOHIERARCHY));
     }
+  }
+  
+  public String getGeoHierarchyId()
+  {
+    return getValue(GEOHIERARCHY);
   }
   
   public void setGeoHierarchy(dss.vector.solutions.geo.GeoHierarchyDTO value)
@@ -479,6 +502,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -546,6 +574,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(LEGENDCOLOR));
     }
+  }
+  
+  public String getLegendColorId()
+  {
+    return getValue(LEGENDCOLOR);
   }
   
   public void setLegendColor(com.runwaysdk.system.metadata.MdAttributeDTO value)
@@ -735,6 +768,43 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
   public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getLegendFontStylesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDFONTSTYLES).getAttributeMdDTO();
+  }
+  
+  public String getLegendId()
+  {
+    return getValue(LEGENDID);
+  }
+  
+  public void setLegendId(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDID, "");
+    }
+    else
+    {
+      setValue(LEGENDID, value);
+    }
+  }
+  
+  public boolean isLegendIdWritable()
+  {
+    return isWritable(LEGENDID);
+  }
+  
+  public boolean isLegendIdReadable()
+  {
+    return isReadable(LEGENDID);
+  }
+  
+  public boolean isLegendIdModified()
+  {
+    return isModified(LEGENDID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDID).getAttributeMdDTO();
   }
   
   public String getLegendTitle()
@@ -931,6 +1001,80 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDTITLEFONTSTYLES).getAttributeMdDTO();
   }
   
+  public Integer getLegendXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDXPOSITION));
+  }
+  
+  public void setLegendXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDXPOSITION, "");
+    }
+    else
+    {
+      setValue(LEGENDXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLegendXPositionWritable()
+  {
+    return isWritable(LEGENDXPOSITION);
+  }
+  
+  public boolean isLegendXPositionReadable()
+  {
+    return isReadable(LEGENDXPOSITION);
+  }
+  
+  public boolean isLegendXPositionModified()
+  {
+    return isModified(LEGENDXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLegendXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getLegendYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDYPOSITION));
+  }
+  
+  public void setLegendYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDYPOSITION, "");
+    }
+    else
+    {
+      setValue(LEGENDYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLegendYPositionWritable()
+  {
+    return isWritable(LEGENDYPOSITION);
+  }
+  
+  public boolean isLegendYPositionReadable()
+  {
+    return isReadable(LEGENDYPOSITION);
+  }
+  
+  public boolean isLegendYPositionModified()
+  {
+    return isModified(LEGENDYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLegendYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDYPOSITION).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
@@ -941,6 +1085,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -973,6 +1122,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
     }
+  }
+  
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTE);
   }
   
   public void setMdAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)
@@ -1054,6 +1208,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -1144,6 +1303,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return dss.vector.solutions.query.SavedSearchDTO.get(getRequest(), getValue(SAVEDSEARCH));
     }
+  }
+  
+  public String getSavedSearchId()
+  {
+    return getValue(SAVEDSEARCH);
   }
   
   public void setSavedSearch(dss.vector.solutions.query.SavedSearchDTO value)
@@ -1423,6 +1587,11 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     {
       return dss.vector.solutions.query.ThematicVariableDTO.get(getRequest(), getValue(THEMATICVARIABLE));
     }
+  }
+  
+  public String getThematicVariableId()
+  {
+    return getValue(THEMATICVARIABLE);
   }
   
   public void setThematicVariable(dss.vector.solutions.query.ThematicVariableDTO value)
