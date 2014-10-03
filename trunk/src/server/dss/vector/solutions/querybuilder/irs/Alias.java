@@ -1,5 +1,7 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.AbstractSpray;
@@ -17,81 +19,81 @@ public enum Alias implements Reloadable, AliasIF
   LAST_UPDATE_DATE("last_update_date", "setLastUpdateDate", SQLProvider.DATETIME),
   CREATED_BY("created_by", "setCreatedBy", SQLProvider.VARCHAR),
   LAST_UPDATED_BY("last_updated_by", "setLastUpdatedBy", SQLProvider.VARCHAR),
-  SPRAY_DATE("spray_date", "setSprayDate", SQLProvider.DATE, AbstractSpray.SPRAYDATE, View.SPRAY_VIEW),
-  PLANNED_DATE("planned_date", "setPlannedDate", SQLProvider.DATE),
-  TARGET_WEEK("target_week", "setTargetWeek", SQLProvider.FLOAT),
-  TARGET("target", "setTarget", SQLProvider.VARCHAR),
+  SPRAY_DATE("spray_date", "setSprayDate", SQLProvider.DATE, AbstractSpray.SPRAYDATE, new View[]{View.SPRAY_VIEW}),
+  PLANNED_DATE("planned_date", "setPlannedDate", SQLProvider.DATE, new View[]{View.RESOURCE_TARGET_VIEW}),
+  TARGET_WEEK("target_week", "setTargetWeek", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  TARGET("target", "setTarget", SQLProvider.VARCHAR, new View[]{View.ALL_ACTUALS}),
   AGGREGATION_LEVEL("aggregation_level", "setAggregationLevel", SQLProvider.VARCHAR),
   GEO_ENTITY("geo_entity", "setGeoEntity", SQLProvider.VARCHAR, AbstractSpray.GEOENTITY),
   PARENT_GEO_ENTITY("parent_geo_entity", "setParentGeoEntity", SQLProvider.VARCHAR),
-  SPRAY_OPERATOR("spray_operator", "setSprayOperator", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_TEAM("spray_team", "setSprayTeam", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_METHOD("spray_method", "setSprayMethod", SQLProvider.TEXT, "sprayMethod_spray"),
-  SURFACE_TYPE("surface_type", "setSurfaceType", SQLProvider.TEXT, "surfaceType_spray"),
-  BRAND("brand", "setBrand", SQLProvider.VARCHAR),
-  HOUSEHOLD_ID("household_id", "setHouseholdId", SQLProvider.VARCHAR),
-  STRUCTURE_ID("structure_id", "setStructureId", SQLProvider.VARCHAR),
-  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", "setSprayOperatorDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_OPERATOR_PERSON_ID("sprayoperator_personId", "setSprayOperatorPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_OPERATOR_PERSON("sprayoperator_person", "setSprayOperatorPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
-  SPRAY_OPERATOR_BIRTHDATE("sprayoperator_birthdate", "setSprayOperatorBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
-  SPRAY_OPERATOR_SEX("sprayoperator_sex", "setSprayOperatorSex", SQLProvider.TEXT, View.SPRAY_VIEW),
-  OPERATOR_ACTUAL_TARGET("operator_actual_target", "setOperatorActualTarget", SQLProvider.FLOAT),
-  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", "setSprayTeamDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", "setSprayLeaderDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_LEADER_PERSON_ID("sprayleader_personId", "setSprayLeaderPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_LEADER_PERSON("sprayleader_person", "setSprayLeaderPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
-  SPRAY_LEADER_BIRTHDATE("sprayleader_birthdate", "setSprayLeaderBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
-  SPRAY_LEADER_SEX("sprayleader_sex", "setSprayLeaderSex", SQLProvider.TEXT, View.SPRAY_VIEW),
-  TEAM_ACTUAL_TARGET("team_actual_target", "setTeamActualTarget", SQLProvider.FLOAT),
-  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", "setZoneSuperVisorDefaultLocale", SQLProvider.TEXT, View.SPRAY_VIEW),
-  ZONE_SUPERVISOR_PERSON_ID("zone_supervisor_personId", "setZoneSuperVisorPersonId", SQLProvider.TEXT, View.SPRAY_VIEW),
-  ZONE_SUPERVISOR_PERSON("zone_supervisor_person", "setZoneSuperVisorPerson", SQLProvider.VARCHAR, View.SPRAY_VIEW),
-  ZONE_SUPERVISOR_BIRTHDATE("zone_supervisor_birthdate", "setZoneSuperVisorBirthdate", SQLProvider.DATE, View.SPRAY_VIEW),
-  ZONE_SUPERVISOR_SEX("zone_supervisor_sex", "setZoneSuperVisorSex", SQLProvider.TEXT, View.SPRAY_VIEW),
-  SPRAY_SEASON("spray_season", "setSpraySeason", SQLProvider.VARCHAR),
-  OPERATOR_PLANNED_TARGET("operator_planned_target", "setOperatorPlannedTarget", SQLProvider.FLOAT),
-  TEAM_PLANNED_TARGET("team_planned_target", "setTeamPlannedTarget", SQLProvider.FLOAT),
-  AREA_PLANNED_TARGET("area_planned_target", "setAreaPlannedTarget", SQLProvider.FLOAT),
-  ROOMS("rooms", "setRooms", SQLProvider.FLOAT),
-  STRUCTURES("structures", "setStructures", SQLProvider.FLOAT),
-  HOUSEHOLDS("households", "setHouseholds", SQLProvider.FLOAT),
-  SPRAYED_ROOMS("sprayedRooms", "setSprayedRooms", SQLProvider.FLOAT),
-  SPRAYED_STRUCTURES("sprayedStructures", "setSprayedStructures", SQLProvider.FLOAT),
-  SPRAYED_HOUSEHOLDS("sprayedHouseholds", "setSprayedHouseholds", SQLProvider.FLOAT),
-  PREV_SPRAYED_STRUCTURES("prevSprayedStructures", "setPrevSprayedStructures", SQLProvider.FLOAT),
-  PREV_SPRAYED_HOUSEHOLDS("prevSprayedHouseholds", "setPrevSprayedHouseholds", SQLProvider.FLOAT),
-  PEOPLE("people", "setPeople", SQLProvider.FLOAT),
-  BEDNETS("bedNets", "setBedNets", SQLProvider.FLOAT),
-  NOZZLES_USED("nozzlesUsed", "setNozzlesUsed", SQLProvider.FLOAT),
-  PUMPS_USED("pumpsUsed", "setPumpsUsed", SQLProvider.FLOAT),
-  ROOMS_WITH_BED_NETS("roomsWithBedNets", "setRoomsWithBedNets", SQLProvider.FLOAT),
-  LOCKED("locked", "setLocked", SQLProvider.FLOAT),
-  REFUSED("refused", "setRefused", SQLProvider.FLOAT),
-  OTHER("other", "setOther", SQLProvider.FLOAT),
-  VERANDAS("verandas", "setVerandas", SQLProvider.FLOAT),
-  VERANDAS_SPRAYED("verandasSprayed", "setVerandasSprayed", SQLProvider.FLOAT),
-  VERANDAS_LOCKED("verandasLocked", "setVerandasLocked", SQLProvider.FLOAT),
-  VERANDAS_REFUSED("verandasRefused", "setVerandasRefused", SQLProvider.FLOAT),
-  VERANDAS_OTHER("verandasOther", "setVerandasOther", SQLProvider.FLOAT),
-  CATTLESHEDS("cattleSheds", "setCattleSheds", SQLProvider.FLOAT),
-  CATTLESHEDS_SPRAYED("cattleShedsSprayed", "setCattleShedsSprayed", SQLProvider.FLOAT),
-  CATTLESHEDS_LOCKED("cattleShedsLocked", "setCattleShedsLocked", SQLProvider.FLOAT),
-  CATTLESHEDS_REFUSED("cattleShedsRefused", "setCattleShedsRefused", SQLProvider.FLOAT),
-  CATTLESHEDS_OTHER("cattleShedsOther", "setCattleShedsOther", SQLProvider.FLOAT),
-  NUMBER_OF_PEOPLE("numberOfPeople", "setNumberOfPeople", SQLProvider.FLOAT),
-  WRONG_SURFACE("wrongSurface", "setWrongSurface", SQLProvider.FLOAT),
-  DISEASE("disease", "setDisease", SQLProvider.VARCHAR),    
-  RECEIVED("received", "setReceived", SQLProvider.FLOAT),
-  USED("used", "setUsed", SQLProvider.FLOAT),
-  REFILLS("refills", "setRefills", SQLProvider.FLOAT),
-  RETURNED("returned", "setReturned", SQLProvider.FLOAT),
-  ROOMS_UNSPRAYED("room_unsprayed", "setRoomUnsprayed", SQLProvider.FLOAT),
-  STRUCTURES_UNSPRAYED("structure_unsprayed", "setStructureUnsprayed", SQLProvider.FLOAT),
-  HOUSEHOLDS_UNSPRAYED("household_unsprayed", "setHouseholdUnsprayed", SQLProvider.FLOAT),
-  SPRAYED_ROOMS_SHARE("sprayedrooms_share", "setSprayedRoomsShare", SQLProvider.FLOAT),
-  SPRAYED_STRUCTURES_SHARE("sprayedstructures_share", "setSprayedStructuresShare", SQLProvider.FLOAT),
-  SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share", "setSprayedHouseholdsShare", SQLProvider.FLOAT),
+  SPRAY_OPERATOR("spray_operator", "setSprayOperator", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
+  SPRAY_TEAM("spray_team", "setSprayTeam", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
+  SPRAY_METHOD("spray_method", "setSprayMethod", SQLProvider.TEXT, "sprayMethod_spray", new View[]{View.ALL_ACTUALS}),
+  SURFACE_TYPE("surface_type", "setSurfaceType", SQLProvider.TEXT, "surfaceType_spray", new View[]{View.ALL_ACTUALS}),
+  BRAND("brand", "setBrand", SQLProvider.VARCHAR, new View[]{View.ALL_ACTUALS}),
+  HOUSEHOLD_ID("household_id", "setHouseholdId", SQLProvider.VARCHAR, new View[]{View.ALL_ACTUALS}),
+  STRUCTURE_ID("structure_id", "setStructureId", SQLProvider.VARCHAR, new View[]{View.ALL_ACTUALS}),
+  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", "setSprayOperatorDefaultLocale", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  SPRAY_OPERATOR_PERSON_ID("sprayoperator_personId", "setSprayOperatorPersonId", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  SPRAY_OPERATOR_PERSON("sprayoperator_person", "setSprayOperatorPerson", SQLProvider.VARCHAR, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  SPRAY_OPERATOR_BIRTHDATE("sprayoperator_birthdate", "setSprayOperatorBirthdate", SQLProvider.DATE, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  SPRAY_OPERATOR_SEX("sprayoperator_sex", "setSprayOperatorSex", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  OPERATOR_ACTUAL_TARGET("operator_actual_target", "setOperatorActualTarget", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", "setSprayTeamDefaultLocale", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", "setSprayLeaderDefaultLocale", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.ALL_ACTUALS}),
+  SPRAY_LEADER_PERSON_ID("sprayleader_personId", "setSprayLeaderPersonId", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.ALL_ACTUALS}),
+  SPRAY_LEADER_PERSON("sprayleader_person", "setSprayLeaderPerson", SQLProvider.VARCHAR, new View[]{View.SPRAY_VIEW, View.ALL_ACTUALS}),
+  SPRAY_LEADER_BIRTHDATE("sprayleader_birthdate", "setSprayLeaderBirthdate", SQLProvider.DATE, new View[]{View.SPRAY_VIEW, View.ALL_ACTUALS}),
+  SPRAY_LEADER_SEX("sprayleader_sex", "setSprayLeaderSex", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW, View.ALL_ACTUALS}),
+  TEAM_ACTUAL_TARGET("team_actual_target", "setTeamActualTarget", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", "setZoneSuperVisorDefaultLocale", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
+  ZONE_SUPERVISOR_PERSON_ID("zone_supervisor_personId", "setZoneSuperVisorPersonId", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
+  ZONE_SUPERVISOR_PERSON("zone_supervisor_person", "setZoneSuperVisorPerson", SQLProvider.VARCHAR, new View[]{View.SPRAY_VIEW}),
+  ZONE_SUPERVISOR_BIRTHDATE("zone_supervisor_birthdate", "setZoneSuperVisorBirthdate", SQLProvider.DATE, new View[]{View.SPRAY_VIEW}),
+  ZONE_SUPERVISOR_SEX("zone_supervisor_sex", "setZoneSuperVisorSex", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
+  SPRAY_SEASON("spray_season", "setSpraySeason", SQLProvider.VARCHAR, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  OPERATOR_PLANNED_TARGET("operator_planned_target", "setOperatorPlannedTarget", SQLProvider.FLOAT, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR}),
+  TEAM_PLANNED_TARGET("team_planned_target", "setTeamPlannedTarget", SQLProvider.FLOAT, new View[]{View.SPRAY_VIEW, View.PLANNED_TEAM}),
+  AREA_PLANNED_TARGET("area_planned_target", "setAreaPlannedTarget", SQLProvider.FLOAT, new View[]{View.SPRAY_VIEW, View.PLANNED_AREA}),
+  ROOMS("rooms", "setRooms", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES("structures", "setStructures", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  HOUSEHOLDS("households", "setHouseholds", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_ROOMS("sprayedRooms", "setSprayedRooms", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_STRUCTURES("sprayedStructures", "setSprayedStructures", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_HOUSEHOLDS("sprayedHouseholds", "setSprayedHouseholds", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  PREV_SPRAYED_STRUCTURES("prevSprayedStructures", "setPrevSprayedStructures", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  PREV_SPRAYED_HOUSEHOLDS("prevSprayedHouseholds", "setPrevSprayedHouseholds", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  PEOPLE("people", "setPeople", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  BEDNETS("bedNets", "setBedNets", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  NOZZLES_USED("nozzlesUsed", "setNozzlesUsed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  PUMPS_USED("pumpsUsed", "setPumpsUsed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  ROOMS_WITH_BED_NETS("roomsWithBedNets", "setRoomsWithBedNets", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  LOCKED("locked", "setLocked", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  REFUSED("refused", "setRefused", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  OTHER("other", "setOther", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  VERANDAS("verandas", "setVerandas", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  VERANDAS_SPRAYED("verandasSprayed", "setVerandasSprayed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  VERANDAS_LOCKED("verandasLocked", "setVerandasLocked", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  VERANDAS_REFUSED("verandasRefused", "setVerandasRefused", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  VERANDAS_OTHER("verandasOther", "setVerandasOther", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  CATTLESHEDS("cattleSheds", "setCattleSheds", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  CATTLESHEDS_SPRAYED("cattleShedsSprayed", "setCattleShedsSprayed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  CATTLESHEDS_LOCKED("cattleShedsLocked", "setCattleShedsLocked", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  CATTLESHEDS_REFUSED("cattleShedsRefused", "setCattleShedsRefused", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  CATTLESHEDS_OTHER("cattleShedsOther", "setCattleShedsOther", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  NUMBER_OF_PEOPLE("numberOfPeople", "setNumberOfPeople", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  WRONG_SURFACE("wrongSurface", "setWrongSurface", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  DISEASE("disease", "setDisease", SQLProvider.VARCHAR, new View[]{View.SPRAY_VIEW, View.PLANNED_OPERATOR, View.PLANNED_TEAM, View.PLANNED_AREA}),
+  RECEIVED("received", "setReceived", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  USED("used", "setUsed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  REFILLS("refills", "setRefills", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  RETURNED("returned", "setReturned", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  ROOMS_UNSPRAYED("room_unsprayed", "setRoomUnsprayed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_UNSPRAYED("structure_unsprayed", "setStructureUnsprayed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  HOUSEHOLDS_UNSPRAYED("household_unsprayed", "setHouseholdUnsprayed", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_ROOMS_SHARE("sprayedrooms_share", "setSprayedRoomsShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_STRUCTURES_SHARE("sprayedstructures_share", "setSprayedStructuresShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share", "setSprayedHouseholdsShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
   
   /*
    *  CUSTOM (not specified on any level as a column)
@@ -174,7 +176,7 @@ public enum Alias implements Reloadable, AliasIF
   
   private String xmlAlias;
   
-  private View associatedView;
+  private View[] associatedView;
   
   /**
    * Sets the xml alias to the value as the query alias (they should be the same, but the QB can't be
@@ -189,7 +191,7 @@ public enum Alias implements Reloadable, AliasIF
     this(alias, method, type, alias);
   }
   
-  private Alias(String alias, String method, String type, View view)
+  private Alias(String alias, String method, String type, View[] view)
   {
     this(alias, method, type, alias, view);
   }
@@ -211,7 +213,7 @@ public enum Alias implements Reloadable, AliasIF
     this.associatedView = null;
   }
   
-  private Alias(String alias, String method, String type, String xmlAlias, View view)
+  private Alias(String alias, String method, String type, String xmlAlias, View[] view)
   {
     this.alias = alias;
     this.method = method;
@@ -220,9 +222,15 @@ public enum Alias implements Reloadable, AliasIF
     this.associatedView = view;
   }
   
-  public View getView()
+  public View[] getViews()
   {
     return this.associatedView;
+  }
+  
+  public boolean hasView(View view) {
+    if (this.getViews() == null) { return false; }
+    
+    return ArrayUtils.contains(this.getViews(), view);
   }
   
   public String getXmlAlias()

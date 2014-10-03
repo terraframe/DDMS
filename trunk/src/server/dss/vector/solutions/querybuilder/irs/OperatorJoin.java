@@ -68,4 +68,15 @@ public class OperatorJoin extends TargetJoin implements Reloadable
       return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias()) + this.GROUP_BY();
     }
   }
+  
+  @Override
+  public String setSprayDate(Alias alias)
+  {
+    if (!hasActual && hasPlanned) {
+      return set("sprayView_dateGroups", "planned_date", alias);
+    }
+    else {
+      return super.setSprayDate(alias);
+    }
+  }
 }

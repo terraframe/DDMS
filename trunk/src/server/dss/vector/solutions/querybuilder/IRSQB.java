@@ -1,7 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -640,16 +639,19 @@ public class IRSQB extends AbstractQB implements Reloadable
     return dategroups.keySet();
   }
 
+  /**
+   * These aggregation levels refer to whether or not the query includes data from this level. If the user does not specify any levels, then all levels are included.
+   * 
+   * @return
+   */
   public boolean hasLevel1()
   {
     return this.criteriaInterceptor.hasLevel1();
   }
-
   public boolean hasLevel2()
   {
     return this.criteriaInterceptor.hasLevel2();
   }
-
   public boolean hasLevel3()
   {
     return this.criteriaInterceptor.hasLevel3();
@@ -1330,7 +1332,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       ValueQuery aggVQ = qb.getValueQuery();
 
-      List<Selectable> toAdd = new LinkedList<Selectable>();
+      HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
       Selectable smallestUni = aggVQ.getSelectableRef(this.smallestUniversalSelectable);
       Selectable apt = aggVQ.aSQLAggregateInteger(Alias.AREA_PLANNED_TARGET.getAlias(),
            Alias.AREA_PLANNED_TARGET.getAlias());
@@ -1356,32 +1358,30 @@ public class IRSQB extends AbstractQB implements Reloadable
           Selectable s = aggVQ.aSQLCharacter(geoIdSel._getAttributeName(), geoIdSel.getSQL(), geoIdSel.getUserDefinedAlias());
           s.setColumnAlias(valueQuery.getSelectableRef(geoId).getColumnAlias());
           
-          toAdd.add(s);
+          toAdd.put(s.getResultAttributeName(), s);
         }
       
         Selectable s = aggVQ.aSQLCharacter(entityNameSel._getAttributeName(), entityNameSel.getSQL(), entityNameSel.getUserDefinedAlias());
         s.setColumnAlias(valueQuery.getSelectableRef(entityName).getColumnAlias());
-        toAdd.add(s);
+        toAdd.put(s.getResultAttributeName(), s);
         
         toCoalesce.add(geoId);
         toCoalesce.add(entityName);
       }
       
-      toAdd.add(parentGeo);
-      toAdd.add(smallestUni);
-      toAdd.add(apt);
-      toAdd.add(season);
-      toAdd.add(disease);
+      toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
+      toAdd.put(smallestUni.getResultAttributeName(), smallestUni);
+      toAdd.put(apt.getResultAttributeName(), apt);
+      toAdd.put(season.getResultAttributeName(), season);
+      toAdd.put(disease.getResultAttributeName(), disease);
 
-      List<Selectable> groupsToAdd = new LinkedList<Selectable>();
       for (String group : this.dategroups.keySet())
       {
-        groupsToAdd.add(aggVQ.aSQLCharacter(group, group));
+        Selectable sel = aggVQ.aSQLCharacter(group, group);
+        toAdd.put(sel.getResultAttributeName(), sel);
         toCoalesce.add(group);
       }
 
-      toAdd.addAll(groupsToAdd);
-      
       // Group by the universal column that is the parent geo entity
       // Create a new selectable to group by the universal id
       SelectableSQL universalGroup = aggVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
@@ -1390,7 +1390,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       aggVQ.GROUP_BY(universalGroup);
 
       // set the user defined alias to the attribute name
-      Iterator<Selectable> iter = toAdd.iterator();
+      Iterator<Selectable> iter = toAdd.values().iterator();
       Set<Alias> resetAliases = new HashSet<Alias>();
       while (iter.hasNext())
       {
@@ -1405,10 +1405,19 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       qb.resetSelectAliases(resetAliases);
+      
+      // Make sure we preserve any relevant planning selectables from the original query.
+      List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
+      for (Selectable sel : sels) {
+        Alias alias = AliasLookup.get(sel.getResultAttributeName());
+        if (alias.hasView(View.PLANNED_AREA) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+          toAdd.put(sel.getResultAttributeName(), sel);
+        }
+      }
 
       // replace the selectables
       aggVQ.clearSelectClause();
-      aggVQ.SELECT(toAdd.toArray(new Selectable[toAdd.size()]));
+      aggVQ.SELECT(toAdd.values().toArray(new Selectable[toAdd.size()]));
 
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
@@ -1434,13 +1443,12 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       // Coverage requires activity and APT, meaning unless the user also selects
       // APT there will be empty rows for every APT result for which there's no activity.
-      String join = hasAPC && !hasAPT ? "LEFT JOIN" : "FULL OUTER JOIN";
+      String joinType = hasAPC && !hasAPT ? "LEFT JOIN" : "FULL OUTER JOIN";
       
-      FROM += " "+join+" " + areaAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
-          + " = " + areaAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalVQ
-          + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "."
-          + disease._getAttributeName() + " \n" + "AND " + originalVQ + "." + Alias.PARENT_GEO_ENTITY
-          + " = " + areaAggregation + "." + Alias.PARENT_GEO_ENTITY + " \n";
+      FROM += " " + joinType + " " + areaAggregation + " ON "
+          + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + areaAggregation + "." + season._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "." + disease._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + Alias.PARENT_GEO_ENTITY + " = " + areaAggregation + "." + Alias.PARENT_GEO_ENTITY + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
         FROM += "AND " + originalVQ + "." + dateGroup + " = " + areaAggregation + "." + dateGroup
@@ -1559,35 +1567,37 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       ValueQuery aggVQ = qb.getValueQuery();
 
-      List<Selectable> toAdd = new LinkedList<Selectable>();
+      HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>(); // We're using a HashMap here so as to guarantee no duplicates
+      
+      // Add the selectables required for joining our inner IRSQB table with the outer.
       Selectable opt = aggVQ.aSQLAggregateInteger(Alias.OPERATOR_PLANNED_TARGET.getAlias(),
           Alias.OPERATOR_PLANNED_TARGET.getAlias());
       Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
           + "." + Alias.SPRAY_SEASON.getAlias());
       Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
           + Alias.DISEASE.getAlias());
-
+      
       Selectable parentGeo = aggVQ
           .aSQLCharacter(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(),
               Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(),
               Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
       parentGeo.setColumnAlias(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
-      toAdd.add(parentGeo);
-      toAdd.add(opt);
-      toAdd.add(season);
-      toAdd.add(disease);
+      toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
+      toAdd.put(opt.getResultAttributeName(), opt);
+      toAdd.put(season.getResultAttributeName(), season);
+      toAdd.put(disease.getResultAttributeName(), disease);
 
-      List<Selectable> groupsToAdd = new LinkedList<Selectable>();
       for (String group : this.dategroups.keySet())
       {
-        groupsToAdd.add(aggVQ.aSQLCharacter(group, group));
+        Selectable sel = aggVQ.aSQLCharacter(group, group);
+        toAdd.put(sel.getResultAttributeName(), sel);
         toCoalesce.add(group);
       }
-
-      toAdd.addAll(groupsToAdd);
+      
+      
 
       // set the user defined alias to the attribute name
-      Iterator<Selectable> iter = toAdd.iterator();
+      Iterator<Selectable> iter = toAdd.values().iterator();
       Set<Alias> resetAliases = new HashSet<Alias>();
       while (iter.hasNext())
       {
@@ -1601,11 +1611,20 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
       }
 
-      qb.resetSelectAliases(resetAliases);
+      // Make sure we preserve any relevant planning selectables from the original query.
+      List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
+      for (Selectable sel : sels) {
+        Alias alias = AliasLookup.get(sel.getResultAttributeName());
+        if (alias.hasView(View.PLANNED_OPERATOR) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+          toAdd.put(sel.getResultAttributeName(), sel);
+        }
+      }
+      
+//      qb.resetSelectAliases(resetAliases);
 
       // replace the selectables
       aggVQ.clearSelectClause();
-      aggVQ.SELECT(toAdd.toArray(new Selectable[toAdd.size()]));
+      aggVQ.SELECT(toAdd.values().toArray(new Selectable[toAdd.size()]));
 
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
@@ -1614,12 +1633,10 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " RIGHT JOIN " + operatorAggregation + " ON " + originalVQ + "."
-          + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName()
-          + " \n" + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = "
-          + operatorAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalVQ + "."
-          + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "."
-          + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
+      FROM += " RIGHT JOIN " + operatorAggregation + " ON "
+          + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = " + operatorAggregation + "." + disease._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
         FROM += "AND " + originalVQ + "." + dateGroup + " = " + operatorAggregation + "." + dateGroup
@@ -1737,7 +1754,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       ValueQuery aggVQ = qb.getValueQuery();
       
-      List<Selectable> toAdd = new LinkedList<Selectable>();
+      HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
       Selectable opt = aggVQ.aSQLAggregateInteger(Alias.TEAM_PLANNED_TARGET.getAlias(),
           Alias.TEAM_PLANNED_TARGET.getAlias());
       Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
@@ -1748,23 +1765,22 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable parentGeo = aggVQ.aSQLCharacter(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(),
           Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
       parentGeo.setColumnAlias(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
-      toAdd.add(parentGeo);
-
-      toAdd.add(opt);
-      toAdd.add(season);
-      toAdd.add(disease);
+      
+      toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
+      toAdd.put(opt.getResultAttributeName(), opt);
+      toAdd.put(season.getResultAttributeName(), season);
+      toAdd.put(disease.getResultAttributeName(), disease);
 
       List<Selectable> groupsToAdd = new LinkedList<Selectable>();
       for (String group : this.dategroups.keySet())
       {
-        groupsToAdd.add(aggVQ.aSQLCharacter(group, group));
+        Selectable sel = aggVQ.aSQLCharacter(group, group);
+        toAdd.put(sel.getResultAttributeName(), sel);
         toCoalesce.add(group);
       }
 
-      toAdd.addAll(groupsToAdd);
-
       // set the user defined alias to the attribute name
-      Iterator<Selectable> iter = toAdd.iterator();
+      Iterator<Selectable> iter = toAdd.values().iterator();
       Set<Alias> resetAliases = new HashSet<Alias>();
       while (iter.hasNext())
       {
@@ -1779,10 +1795,19 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       qb.resetSelectAliases(resetAliases);
+      
+      // Make sure we preserve any relevant planning selectables from the original query.
+      List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
+      for (Selectable sel : sels) {
+        Alias alias = AliasLookup.get(sel.getResultAttributeName());
+        if (alias.hasView(View.PLANNED_TEAM) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+          toAdd.put(sel.getResultAttributeName(), sel);
+        }
+      }
 
       // replace the selectables
       aggVQ.clearSelectClause();
-      aggVQ.SELECT(toAdd.toArray(new Selectable[toAdd.size()]));
+      aggVQ.SELECT(toAdd.values().toArray(new Selectable[toAdd.size()]));
 
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
@@ -1791,12 +1816,10 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " LEFT JOIN " + teamAggregation + " ON " + originalVQ + "." + seasonJoin.getColumnAlias()
-          + " = " + teamAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalVQ
-          + "." + diseaseJoin.getColumnAlias() + " = " + teamAggregation + "."
-          + disease._getAttributeName() + " \n" + "AND " + originalVQ + "."
-          + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = " + teamAggregation + "."
-          + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " \n";
+      FROM += " LEFT JOIN " + teamAggregation + " ON "
+          + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + teamAggregation + "." + season._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = " + teamAggregation + "." + disease._getAttributeName() + " \n"
+          + "AND " + originalVQ + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = " + teamAggregation + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
         FROM += "AND " + originalVQ + "." + dateGroup + " = " + teamAggregation + "." + dateGroup
@@ -2638,8 +2661,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.getValueQuery().GROUP_BY(this.getValueQuery().aSQLDateTime(Alias.SPRAY_DATE.getAlias(), Alias.SPRAY_DATE.getAlias()));
       needsAllActuals = true;
     }
+    
     for (Alias alias : selectAliases) {
-      if (alias.getView() != null && alias.getView().equals(View.SPRAY_VIEW)) {
+      if (alias.hasView(View.SPRAY_VIEW)) {
         this.addRequiredAlias(View.ALL_ACTUALS, alias);
         needsAllActuals = true;
       }
