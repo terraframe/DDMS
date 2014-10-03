@@ -298,7 +298,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
   @SuppressWarnings("unchecked")
   public String getReportURL() throws UnsupportedEncodingException
   {
-    String str = "dss.vector.solutions.report.ReportController.generate.mojo?";
+    String str = "dss.vector.solutions.report.ReportController.run.mojo?";
     boolean isFirst = true;
 
     Enumeration<String> paramNames = req.getParameterNames();
