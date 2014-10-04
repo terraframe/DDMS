@@ -13,6 +13,10 @@ import java.util.Map;
 
 
 
+
+
+
+
 //import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,6 +103,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     JSONObject mapData;
     JSONArray layersJSON;
     JSONArray savedImagesJSON;
+    JSONArray savedTextJSON;
 
     Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false);
     String sessionId = Session.getCurrentSession().getId();
@@ -116,11 +121,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       mapData = new JSONObject();
       layersJSON = new JSONArray();
       savedImagesJSON = new JSONArray();
+      savedTextJSON = new JSONArray();
 
       mapData.put("geoserverURL", geoserverPath);
       mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
       mapData.put("savedImages", savedImagesJSON);
+      mapData.put("savedTextElements", savedTextJSON);
     }
     catch (JSONException e)
     {
@@ -265,6 +272,29 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
     
+    
+    List<? extends TextElement> textElements = currentMap.getAllHasTextElement().getAll();
+    
+    // Build json for all instances of image related to this map
+    for(TextElement text : textElements){
+      try{
+        JSONObject textInstanceJSONObj = new JSONObject();
+        textInstanceJSONObj.put("textValue", text.getTextValue());
+        textInstanceJSONObj.put("fontColor", text.getFontColor());
+        textInstanceJSONObj.put("fontFamily", text.getFontFamily());
+        textInstanceJSONObj.put("fontSize", text.getFontSize());
+        textInstanceJSONObj.put("fontStyle", text.getFontStyle());
+        textInstanceJSONObj.put("textXPosition", text.getTextXPosition());
+        textInstanceJSONObj.put("textYPosition", text.getTextYPosition());
+        textInstanceJSONObj.put("textId", text.getCustomTextElementId());
+        savedTextJSON.put(textInstanceJSONObj);
+      }
+      catch (JSONException e){
+        String error = "Could collect text element info.";
+        throw new ProgrammingErrorException(error, e);
+      }
+    }
+    
     return mapData.toString();
   };
 
@@ -402,6 +432,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       {
         image.delete();
       }
+      
+      for (TextElement text : this.getAllHasTextElement().getAll())
+      {
+        text.delete();
+      }
     }
     
 
@@ -482,7 +517,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     List<? extends MapImage> mapImages = existingMap.getAllHasImage().getAll();
     for (MapImage image : mapImages)
     {
-
       MapImage newImage = new MapImage();
       newImage.setImageName(image.getImageName());
       newImage.setImageFilePath(image.getImageFilePath());
@@ -493,6 +527,26 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
       HasImage newHasImage = this.addHasImage(newImage);
       newHasImage.apply();
+    }
+    
+    
+    // Copy instances of TextElement
+    List<? extends TextElement> textElements = existingMap.getAllHasTextElement().getAll();
+    for (TextElement textElement : textElements)
+    {
+      TextElement newTextElement = new TextElement();
+      newTextElement.setTextValue(textElement.getTextValue());
+      newTextElement.setFontColor(textElement.getFontColor());
+      newTextElement.setFontFamily(textElement.getFontFamily());
+      newTextElement.setFontSize(textElement.getFontSize());
+      newTextElement.setFontStyle(textElement.getFontStyle());
+      newTextElement.setCustomTextElementId(textElement.getCustomTextElementId());
+      newTextElement.setTextXPosition(textElement.getTextXPosition());
+      newTextElement.setTextYPosition(textElement.getTextYPosition());
+      newTextElement.apply();
+
+      HasTextElement newHasText = this.addHasTextElement(newTextElement);
+      newHasText.apply();
     }
     
 
@@ -880,6 +934,97 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     this.setZoomLevel(zoomLevel);
     this.setMapCenter(mapCenter);
     this.apply();
+  }
+  
+  
+  /**
+   * Persists the TextElement to the database
+   * 
+   * @savedMapId 
+   * @textValue
+   * @fontColor
+   * @fontFamily
+   * @fontSize
+   * @fontStyle
+   * @customTextElementId
+   */
+  @Override
+  @Transaction
+  public String addTextElement(String savedMapId, String textValue, String fontColor, String fontFamily,
+      Integer fontSize, String fontStyle, String customTextElementId)
+  {
+    
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
+    
+    TextElement newTextElem = new TextElement();
+    newTextElem.setTextValue(textValue);
+    newTextElem.setFontColor(fontColor);
+    newTextElem.setFontFamily(fontFamily);
+    newTextElem.setFontSize(fontSize);  
+    newTextElem.setFontStyle(fontStyle);
+    newTextElem.setCustomTextElementId(customTextElementId);
+    
+    newTextElem.apply();
+
+    // we only need to add the relationship to the default map because this relationship 
+    // will later be passed to the saved map
+    HasTextElement defaultHasText = defaultMap.addHasTextElement(newTextElem);
+    defaultHasText.apply();
+    
+    return customTextElementId;  
+  }
+  
+  
+  @Override
+  @Transaction
+  public void updateTextElements(String textElements)
+  {
+    try{
+      JSONObject textObjs = new JSONObject(textElements);
+      JSONArray textArr = textObjs.getJSONArray("textElements");
+      
+      for(int i=0; i<textArr.length(); i++){
+        
+        JSONObject textObj = textArr.getJSONObject(i);
+        String textId = textObj.getString("textId");
+        Integer textTopPos = Math.round(Float.parseFloat(textObj.getString("top").replace("px", "")));
+        Integer textLeftPos = Math.round(Float.parseFloat(textObj.getString("left").replace("px", "")));
+        
+        String mdTextId = getTextByCustomTextElementId(textId);
+        
+        if(mdTextId != ""){
+          TextElement text = TextElement.get(mdTextId);
+          
+          text.appLock();
+          text.setTextXPosition(textLeftPos);
+          text.setTextYPosition(textTopPos);
+          text.apply();
+        }
+      }
+    }
+    catch(JSONException e){
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  @Override
+  public String getTextByCustomTextElementId(String customTextElementId)
+  {
+    String mdTextId = "";
+    List<? extends TextElement> childTextElements = this.getAllHasTextElement().getAll();
+    for (TextElement childTextElement : childTextElements)
+    {
+      String currCustomTextId = childTextElement.getCustomTextElementId();
+      if(currCustomTextId.equals(customTextElementId)){
+        mdTextId = childTextElement.getId();
+      }
+    }
+    
+    return mdTextId;
   }
 
 }

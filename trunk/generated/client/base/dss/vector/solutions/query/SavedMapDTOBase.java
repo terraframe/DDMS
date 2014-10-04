@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1881419681)
+@com.runwaysdk.business.ClassSignature(hash = 307015415)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = -1881419681;
+  private static final long serialVersionUID = 307015415;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -793,6 +793,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final java.lang.String addTextElement(java.lang.String savedMapId, java.lang.String textValue, java.lang.String fontColor, java.lang.String fontFamily, java.lang.Integer fontSize, java.lang.String fontStyle, java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{savedMapId, textValue, fontColor, fontFamily, fontSize, fontStyle, customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addTextElement", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String addTextElement(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String savedMapId, java.lang.String textValue, java.lang.String fontColor, java.lang.String fontFamily, java.lang.Integer fontSize, java.lang.String fontStyle, java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, savedMapId, textValue, fontColor, fontFamily, fontSize, fontStyle, customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "addTextElement", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final void cleanOldViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
@@ -902,6 +918,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, customImageId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getImageByCustomImageId", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String getTextByCustomTextElementId(java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getTextByCustomTextElementId", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String getTextByCustomTextElementId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getTextByCustomTextElementId", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1049,6 +1081,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final void updateTextElements(java.lang.String textElements)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{textElements};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateTextElements", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateTextElements(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String textElements)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, textElements};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateTextElements", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.query.MapImageDTO> getAllHasImage()
   {
@@ -1101,6 +1149,60 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public static void removeAllHasImage(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.query.HasImageDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.TextElementDTO> getAllHasTextElement()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.TextElementDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.TextElementDTO> getAllHasTextElement(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.TextElementDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.query.HasTextElementDTO> getAllHasTextElementRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasTextElementDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.query.HasTextElementDTO> getAllHasTextElementRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.query.HasTextElementDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.query.HasTextElementDTO addHasTextElement(dss.vector.solutions.query.TextElementDTO child)
+  {
+    return (dss.vector.solutions.query.HasTextElementDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.query.HasTextElementDTO addHasTextElement(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.TextElementDTO child)
+  {
+    return (dss.vector.solutions.query.HasTextElementDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  public void removeHasTextElement(dss.vector.solutions.query.HasTextElementDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeHasTextElement(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasTextElementDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllHasTextElement()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.HasTextElementDTO.CLASS);
+  }
+  
+  public static void removeAllHasTextElement(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.query.HasTextElementDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

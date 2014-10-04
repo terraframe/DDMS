@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1238766166)
+@com.runwaysdk.business.ClassSignature(hash = 1416243296)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -624,6 +624,122 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   }
 
 
+  public com.runwaysdk.query.Condition hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.getBusinessQuery().isParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.getBusinessQuery().isParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.getBusinessQuery().isNotParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+
   public com.runwaysdk.query.Condition layer()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -833,6 +949,20 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.Condition SUBSELECT_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
 
 
+  public com.runwaysdk.query.Condition hasTextElement();
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery);
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement();
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery);
+
+
   public com.runwaysdk.query.Condition layer();
 
   public com.runwaysdk.query.Condition layer(dss.vector.solutions.query.LayerQuery layerQuery);
@@ -859,6 +989,20 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasImage(dss.vector.solutions.query.MapImageQuery mapImageQuery, dss.vector.solutions.query.HasImageQuery hasImageQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement();
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement();
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery);
 
 
   public com.runwaysdk.query.Condition NOT_IN_layer();
@@ -1337,6 +1481,64 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   }
 
 
+  public com.runwaysdk.query.Condition hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.isParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.isParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.isParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.isParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+
   public com.runwaysdk.query.Condition layer()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1450,6 +1652,64 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   {
     hasImageQuery.AND(hasImageQuery.hasChild(mapImageQuery));
     return this.isNotParentIn_SUBSELECT(hasImageQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.isNotParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.HasTextElement.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(textElementQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.isNotParentIn(hasTextElementQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_hasTextElement(dss.vector.solutions.query.TextElementQuery textElementQuery, dss.vector.solutions.query.HasTextElementQuery hasTextElementQuery)
+  {
+    hasTextElementQuery.AND(hasTextElementQuery.hasChild(textElementQuery));
+    return this.isNotParentIn_SUBSELECT(hasTextElementQuery);
   }
 
 

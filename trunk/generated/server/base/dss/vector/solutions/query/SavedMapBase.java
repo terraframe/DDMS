@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1796616481)
+@com.runwaysdk.business.ClassSignature(hash = -1475133321)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String ZOOMLEVEL = "zoomLevel";
-  private static final long serialVersionUID = -1796616481;
+  private static final long serialVersionUID = -1475133321;
   
   public SavedMapBase()
   {
@@ -660,6 +660,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasImage>) getRelationshipsWithChild(mapImage, dss.vector.solutions.query.HasImage.CLASS);
   }
   
+  public dss.vector.solutions.query.HasTextElement addHasTextElement(dss.vector.solutions.query.TextElement textElement)
+  {
+    return (dss.vector.solutions.query.HasTextElement) addChild(textElement, dss.vector.solutions.query.HasTextElement.CLASS);
+  }
+  
+  public void removeHasTextElement(dss.vector.solutions.query.TextElement textElement)
+  {
+    removeAllChildren(textElement, dss.vector.solutions.query.HasTextElement.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.TextElement> getAllHasTextElement()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.TextElement>) getChildren(dss.vector.solutions.query.HasTextElement.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasTextElement> getAllHasTextElementRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasTextElement>) getChildRelationships(dss.vector.solutions.query.HasTextElement.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasTextElement> getHasTextElementRel(dss.vector.solutions.query.TextElement textElement)
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.query.HasTextElement>) getRelationshipsWithChild(textElement, dss.vector.solutions.query.HasTextElement.CLASS);
+  }
+  
   public dss.vector.solutions.query.HasLayers addLayer(dss.vector.solutions.query.Layer layer)
   {
     return (dss.vector.solutions.query.HasLayers) addChild(layer, dss.vector.solutions.query.HasLayers.CLASS);
@@ -708,6 +736,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   {
     SavedMap _instance = SavedMap.get(id);
     return _instance.addMapImage(savedMapId, imageName, imagePath);
+  }
+  
+  public java.lang.String addTextElement(java.lang.String savedMapId, java.lang.String textValue, java.lang.String fontColor, java.lang.String fontFamily, java.lang.Integer fontSize, java.lang.String fontStyle, java.lang.String customTextElementId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String addTextElement(java.lang.String id, java.lang.String savedMapId, java.lang.String textValue, java.lang.String fontColor, java.lang.String fontFamily, java.lang.Integer fontSize, java.lang.String fontStyle, java.lang.String customTextElementId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.addTextElement(savedMapId, textValue, fontColor, fontFamily, fontSize, fontStyle, customTextElementId);
   }
   
   public static void cleanOldViews()
@@ -792,6 +832,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   {
     SavedMap _instance = SavedMap.get(id);
     return _instance.getImageByCustomImageId(customImageId);
+  }
+  
+  public java.lang.String getTextByCustomTextElementId(java.lang.String customTextElementId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getTextByCustomTextElementId(java.lang.String id, java.lang.String customTextElementId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.getTextByCustomTextElementId(customTextElementId);
   }
   
   public static dss.vector.solutions.query.SavedMap loadDefaultMap(dss.vector.solutions.query.SavedMap savedMap)
@@ -900,6 +952,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   {
     SavedMap _instance = SavedMap.get(id);
     _instance.updateScaleBar(scaleBarXPosition, scaleBarYPosition, scaleBarActive);
+  }
+  
+  public void updateTextElements(java.lang.String textElements)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateTextElements(java.lang.String id, java.lang.String textElements)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.updateTextElements(textElements);
   }
   
   public static SavedMap lock(java.lang.String id)

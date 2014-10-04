@@ -62,6 +62,13 @@ public class MappingController extends MappingControllerBase implements com.runw
       resp.getWriter().print(jsonE.getJSON());
     }
   }
+  
+  @Override
+  public void setText() throws IOException, ServletException
+  {
+    
+    super.setText();
+  }
 
   @Override
   public void exportShapefile(String mapId, String namedMapId) throws IOException, ServletException

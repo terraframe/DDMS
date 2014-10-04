@@ -161,6 +161,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         var closeDiv = document.createElement('span');
         closeDiv.setAttribute("class", "closeButton");
+        YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
         closeDiv.innerHTML = "X";
         
         var div = document.createElement('div');
@@ -168,6 +169,22 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         YAHOO.util.Dom.addClass(div, 'mapImage');
         div.appendChild(closeDiv)
         div.appendChild(img);
+        
+        var mouseEnterHandler = function(e){
+       	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+       		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+       			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
+       		}
+        }
+        var mouseLeaveHandler = function(e){
+       	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+       		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+       			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+       		}
+        }
+        
+        YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
+        YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
         
         var dd = this.addDragDrop(div);
         this.position(div);
@@ -1087,6 +1104,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             this.that._updateLegendStatus(mapId);
             this.that._updateMapImageStatus(mapId);
             this.that._updateMapState(mapId);
+            this.that._updateTextElementState(mapId);
           }
         });        
         
@@ -1129,6 +1147,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._updateLegendStatus(mapId);
           that._updateMapImageStatus(mapId);
           that._updateMapState(mapId);
+          that._updateTextElementState(mapId);
           
           that._destroyModal();
         }
@@ -1314,6 +1333,42 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 	        
 	        Mojo.$.dss.vector.solutions.query.SavedMap.updateMapState(request, mapId, zoomLevel, mapBounds);
     	}
+    },
+    
+    /**
+     * Persist user added text element positions
+     * 
+     * @mapId = mapId of the map to persist all 
+     */
+    _updateTextElementState : function(mapId)
+    {
+    	
+    	var activeText = document.getElementsByClassName("ddmsTextElement");
+    	
+        var textJSONArr = [];
+        for(var i=0; i<activeText.length; i++){
+        	var text = activeText[i];
+        	var textId = text.id;
+        	
+	        var style = window.getComputedStyle(text);
+	        var top = style.getPropertyValue('top');
+	        var left = style.getPropertyValue('left');
+        	
+	        var textInfo = { "textId":textId, "top":top, "left":left };
+	        textJSONArr.push(textInfo);
+        }
+        
+        var textJSON = { "textElements" : textJSONArr };
+    	
+        var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(query)
+            {
+              // No callback necessary
+            }
+          });  
+        
+        Mojo.$.dss.vector.solutions.query.SavedMap.updateTextElements(request, mapId, textJSON);
     },
     
     
@@ -1593,6 +1648,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           that._enableAnnotations();
           
+	      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+	      var mapId = mapList.value;
+          
           var savedImages = mapData.savedImages;
           for(var i=0; i<savedImages.length; i++){
         	 var savedImage = savedImages[i];
@@ -1606,8 +1664,74 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         	 }
           }
           
+          var textElements = mapData.savedTextElements;
+          for(var i=0; i<textElements.length; i++){
+        	 var textElement = textElements[i];
+        	 var leftPosition = textElement.textXPosition;
+    		 var topPosition = textElement.textYPosition;
+    		 
+    	     var text = textElement.textValue;
+    	     if(text.length > 0)
+    	     {
+    	    	 var fontColor = textElement.fontColor;
+    	    	 var fontFamily = textElement.fontFamily;
+    	    	 var fontSize = textElement.fontSize;
+    	    	 var fontStyle = textElement.fontStyle;
+    	    	  
+    	         var div = document.createElement('div');
+    	         div.id = textElement.textId;
+    	         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
+    	         
+    	         var closeDiv = document.createElement('span');
+    	         closeDiv.setAttribute("class", "closeButton");
+    	         YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+    	         closeDiv.innerHTML = "X";
+    	         
+    	         YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
+    	         
+    	         var style = 'color: '+fontColor+';';
+    	         style += 'font-size: '+fontSize+'px;';
+    	         style += fontStyle;
+    	         style += 'font-family: '+fontFamily+';';
+    	         style += 'padding:7px;';
+    	         var html = '<span style="'+style+'">'+text+'</span>';
+    	         div.innerHTML = html;
+    	         
+    	         // add the close button at the top of the container
+    	         div.insertBefore(closeDiv, div.firstChild)
+    	         
+    	         var dd = that.addDragDrop(div);
+    	         that.position(div);
+    	         
+
+    	         var mouseEnterHandler = function(e){
+    	        	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+    	        		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+    	        			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
+    	        		}
+    	         }
+    	         var mouseLeaveHandler = function(e){
+    	        	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+    	        		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+    	        			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+    	        		}
+    	         }
+    	         
+    	         YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
+    	         YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
+    	         
+    	         
+    	         that._ddDivs.push({div:div, dd:dd});
+        	 
+	//        	 var div = that._renderImages(savedImage.filePath, savedImage.imageId);
+	        	 if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
+	        		 div.style.left = leftPosition + "px";
+	        		 div.style.top = topPosition + "px";
+	        	 }
+    	      }
+          }
           
-          var mapId = mapList.value;
+//          var mapId = mapList.value;
           
           var request = new MDSS.Request({
             that : this,
@@ -1735,22 +1859,66 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var text = Mojo.Util.trim(params['freeText.customText']);
       if(text.length > 0)
       {
+    	  
+    	 var fontColor = params['freeText.textFontFill'];
+    	 var fontFamily = params['freeText.textFontFamily'][0];
+    	 var fontSize = params['freeText.textFontSize'];
+    	 var fontStyle = this._getFontStyle(params['freeText.textFontStyles'][0]);
+    	  
+         var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+         var mapId = mapList.value;
+          
          var div = document.createElement('div');
-         div.id = Mojo.Util.generateId();
+         div.id = "text_" + Mojo.Util.generateId();
+         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
+         
+         var closeDiv = document.createElement('span');
+         closeDiv.setAttribute("class", "closeButton");
+         YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+         closeDiv.innerHTML = "X";
          
          YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
          
-         var style = 'color: '+params['freeText.textFontFill']+';';
-         style += 'font-size: '+params['freeText.textFontSize']+'px;';
-         style += this._getFontStyle(params['freeText.textFontStyles'][0]);
-         style += 'font-family: '+params['freeText.textFontFamily']+';';
+         var style = 'color: '+fontColor+';';
+         style += 'font-size: '+fontSize+'px;';
+         style += fontStyle;
+         style += 'font-family: '+fontFamily+';';
+         style += 'padding:7px;';
          var html = '<span style="'+style+'">'+text+'</span>';
          div.innerHTML = html;
+         
+         // add the close button at the top of the container
+         div.insertBefore(closeDiv, div.firstChild)
          
          var dd = this.addDragDrop(div);
          this.position(div);
          
+         var mouseEnterHandler = function(e){
+     	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+     		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+     			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
+     		}
+	      }
+	      var mouseLeaveHandler = function(e){
+	     	    var child = YAHOO.util.Dom.getFirstChild(e.target);
+	     		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+	     			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+	     		}
+	      }
+	      
+	      YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
+	      YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
+         
          this._ddDivs.push({div:div, dd:dd});
+         
+         var request = new MDSS.Request({
+             that : this,
+             onSuccess : function(){
+               // no success callback
+             }
+           });
+         
+         Mojo.$.dss.vector.solutions.query.SavedMap.addTextElement(request, mapId, mapId, text, fontColor, fontFamily, fontSize, fontStyle, div.id);
       }
       
       this._destroyModal();
@@ -1776,7 +1944,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         if(legend != null)
         {
           var div = document.createElement('div');
-//          div.id = Mojo.Util.generateId();
           div.id = "legend_" + layers[i].id;
           div.setAttribute("class", "ddmsLegend");
           var css = 'display: none; background-color: #ffffff;';
