@@ -1543,7 +1543,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               controls: [],
               projection: "EPSG:4326",
               units: 'degrees',
-              resolutions: [1.40625,0.703125,
+              resolutions: [
+                            1.40625,0.703125,
                             0.3515625,0.17578125, 
                             0.1142578125, 
                             0.087890625, 
@@ -1561,8 +1562,26 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                             0.00464172363,
                             0.00357055664,
                             0.00274658203125,
+                            // additions to allow for closer zoom levels
+                            0.002112755,
+                            0.001625196,
+                            0.001250151,
+                            0.000961655,
+                            0.000739734,
+                            0.000569026,
+                            0.000437713,
+                            0.000336702,
+                            0.000259002,
+                            0.000199232,
+                            0.000153255,
+                            0.000117889,
+                            0.000090684,
+                            0.000069757,
+                            0.000053659,
+                            0.000041276
+//                            0.000031751
+//                            0.000024424
                             // end of 1/3 intervals
-                            0.00137329101
                             ],
               minResolution: "auto",
               maxResolution: "auto"
@@ -1642,7 +1661,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           });
           that._map.addControl(that._measureControl);
 
-          that._map.zoomToExtent(bounds);      
+          that._map.zoomToExtent(bounds);  
+          
+          // OpenLayers doesn't always fit the saved map bounds to the zoom level that was saved 
+          // so we will ensure the correct zoom level is used
+          if(mapData.zoomLevel){
+        	  that._map.zoomTo(mapData.zoomLevel);
+          }
           
           that._addLegends(layers);
           
@@ -1723,7 +1748,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     	         
     	         that._ddDivs.push({div:div, dd:dd});
         	 
-	//        	 var div = that._renderImages(savedImage.filePath, savedImage.imageId);
 	        	 if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
 	        		 div.style.left = leftPosition + "px";
 	        		 div.style.top = topPosition + "px";

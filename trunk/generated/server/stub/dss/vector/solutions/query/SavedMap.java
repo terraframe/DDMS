@@ -241,6 +241,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         mapBounds.put(mapCenterObj.getString("right"));
         mapBounds.put(mapCenterObj.getString("top"));
         mapData.put("bbox", mapBounds);
+        
+        mapData.put("zoomLevel", currentMap.getZoomLevel());
       }
       else{
         mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers));
