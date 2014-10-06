@@ -7,9 +7,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class PDFUrlActionHandler extends AbstractUrlActionHandler implements Reloadable
 {
-  public PDFUrlActionHandler(IReportDocument document, String baseURL, String reportURL)
+  public PDFUrlActionHandler(IReportDocument document, RenderContext context)
   {
-    super(document, baseURL, reportURL);
+    super(document, context);
   }
 
   @Override

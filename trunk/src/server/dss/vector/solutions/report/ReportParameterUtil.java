@@ -44,6 +44,14 @@ public class ReportParameterUtil implements Reloadable
 
   public static final String CHECK_BOX    = "Check Box";
 
+  public Map<String, Object> convertParameters(InputStream stream, Map<String, String> map) throws BirtException
+  {
+    IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
+    IReportRunnable design = engine.openReportDesign(stream);
+
+    return this.convertParameters(design, map);
+  }
+
   @SuppressWarnings("unchecked")
   public Map<String, Object> convertParameters(IReportRunnable design, Map<String, String> map) throws BirtException
   {
@@ -53,7 +61,7 @@ public class ReportParameterUtil implements Reloadable
 
     try
     {
-      Map<String, Object> parameters = new HashMap<String, Object>();
+      Map<String, Object> parameters = new HashMap<String, Object>(map);
 
       for (Entry<String, String> entry : map.entrySet())
       {
@@ -217,9 +225,8 @@ public class ReportParameterUtil implements Reloadable
     parameter.put("scalarParameterType", scalar.getScalarParameterType());
     parameter.put("allowNewValues", scalar.allowNewValues());
 
-
     ScalarParameterHandle parameterHandle = (ScalarParameterHandle) scalar.getHandle();
-    
+
     parameter.put("valueExpr", parameterHandle.getValueExpr());
 
     if (scalar.getControlType() != IScalarParameterDefn.TEXT_BOX)
@@ -245,11 +252,11 @@ public class ReportParameterUtil implements Reloadable
           {
             String label = selectionItem.getLabel();
             Object value = selectionItem.getValue();
-            
+
             JSONObject option = new JSONObject();
             option.put("label", label);
             option.put("value", value);
-            
+
             options.put(option);
           }
 
@@ -285,6 +292,28 @@ public class ReportParameterUtil implements Reloadable
     }
 
     return array;
+  }
+
+  @SuppressWarnings("unchecked")
+  public Boolean hasParameterDefinitions(InputStream stream) throws BirtException, JSONException
+  {
+    IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
+
+    // Open a report design
+    IReportRunnable design = engine.openReportDesign(stream);
+
+    IGetParameterDefinitionTask task = engine.createGetParameterDefinitionTask(design);
+
+    try
+    {
+      Collection<IParameterDefnBase> params = (Collection<IParameterDefnBase>) task.getParameterDefns(true);
+
+      return ( params.size() > 0 );
+    }
+    finally
+    {
+      task.close();
+    }
   }
 
 }

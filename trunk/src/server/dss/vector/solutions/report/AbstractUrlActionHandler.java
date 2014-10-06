@@ -3,19 +3,26 @@ package dss.vector.solutions.report;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
+import org.eclipse.birt.core.archive.IDocArchiveReader;
+import org.eclipse.birt.core.archive.compound.ArchiveReader;
 import org.eclipse.birt.report.engine.api.HTMLActionHandler;
 import org.eclipse.birt.report.engine.api.IAction;
 import org.eclipse.birt.report.engine.api.IReportDocument;
+import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.RenderOption;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
 
-import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.generation.loader.Reloadable;
+
+import dss.vector.solutions.util.BirtEngine;
 
 public abstract class AbstractUrlActionHandler extends HTMLActionHandler implements Reloadable
 {
@@ -26,17 +33,14 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
   /** logger */
   protected Logger            log         = Logger.getLogger(AbstractUrlActionHandler.class.getName());
 
-  private String              baseURL;
-
   private IReportDocument     document;
 
-  private String              reportURL;
+  private RenderContext       context;
 
-  public AbstractUrlActionHandler(IReportDocument document, String baseURL, String reportURL)
+  public AbstractUrlActionHandler(IReportDocument document, RenderContext context)
   {
-    this.baseURL = baseURL;
     this.document = document;
-    this.reportURL = reportURL;
+    this.context = context;
   }
 
   protected abstract String getDefaultFormat();
@@ -73,17 +77,13 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
     }
     else
     {
-      StringBuffer buffer = new StringBuffer();
-      buffer.append("/");
-      buffer.append(CommonProperties.getDeployAppName());
-      buffer.append("/");
-      buffer.append(this.reportURL);
+      StringBuffer buffer = this.getReportLink(this.context.getParameters());
 
       if (this.document != null)
       {
         long pageNumber = this.document.getPageNumber(action.getBookmark());
 
-        this.appendParamter(buffer, "pageNumber", pageNumber);
+        this.appendParamter(buffer, RenderContext.PAGE_NUMBER, pageNumber);
       }
 
       this.appendBookmark(buffer, action.getBookmark());
@@ -115,21 +115,74 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
   {
     ReportItem item = this.getReportItem(action);
 
-    StringBuffer link = new StringBuffer();
-    link.append(this.baseURL + "/" + item.getURL());
+    StringBuffer buffer = new StringBuffer();
+    buffer.append(this.context.getBaseUrl() + "/" + item.getRunURL());
 
     // Adds the parameters
-    Map<?, ?> parameters = action.getParameterBindings();
+    Map<String, Object> parameters = this.getParameterMap(action);
 
     if (parameters != null)
     {
-      Iterator<?> iterator = parameters.entrySet().iterator();
+      Set<Entry<String, Object>> entries = parameters.entrySet();
 
-      while (iterator.hasNext())
+      for (Entry<String, Object> entry : entries)
       {
-        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iterator.next();
-
         String parameterKey = (String) entry.getKey();
+        Object parameterValue = entry.getValue();
+
+        if (parameterValue != null && parameterValue instanceof List)
+        {
+          List<?> list = (List<?>) parameterValue;
+
+          this.appendParamter(buffer, parameterKey, list);
+        }
+        else
+        {
+          this.appendParamter(buffer, parameterKey, parameterValue);
+        }
+      }
+    }
+
+    if (action.getBookmark() != null)
+    {
+      /*
+       * Important: Not only do we need to append the bookmark to the link we must
+       * also find the page number the bookmark appears on and append the calculated
+       * page number to the link. The only way to find the actual page number is to
+       * process the design and produce a rptdocument file.
+       */
+      try
+      {
+        File archive = item.getReportDocument(new RenderContext(item, this.context.getBaseUrl(), parameters));
+        IDocArchiveReader reader = new ArchiveReader(archive.getAbsolutePath());
+
+        IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
+        IReportDocument document = engine.openReportDocument(item.getReportName(), reader, new HashMap<Object, Object>());
+
+        long pageNumber = document.getPageNumber(action.getBookmark());
+        this.appendParamter(buffer, RenderContext.PAGE_NUMBER, pageNumber);
+        this.appendBookmark(buffer, action.getBookmark());
+      }
+      catch (Exception e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
+
+    return buffer.toString();
+  }
+
+  @SuppressWarnings("unchecked")
+  private Map<String, Object> getParameterMap(IAction action)
+  {
+    Map<String, Object> parameters = (Map<String, Object>) action.getParameterBindings();
+
+    if (parameters != null)
+    {
+      Set<Entry<String, Object>> entries = parameters.entrySet();
+
+      for (Entry<String, Object> entry : entries)
+      {
         Object parameterValue = entry.getValue();
 
         if (parameterValue != null && parameterValue instanceof List)
@@ -138,21 +191,15 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
           if (list.size() == 1)
           {
-            this.appendParamter(link, parameterKey, list.get(0));
+            entry.setValue(list.get(0));
           }
-          else
-          {
-            this.appendParamter(link, parameterKey, list);
-          }
-        }
-        else
-        {
-          this.appendParamter(link, parameterKey, parameterValue);
         }
       }
+
+      return parameters;
     }
 
-    return link.toString();
+    return null;
   }
 
   protected ReportItem getReportItem(IAction action)
@@ -212,7 +259,7 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
   public OutputFormat getOutputFormat(String format)
   {
     if (format.equals(RenderOption.OUTPUT_FORMAT_PDF))
-    { 
+    {
       return OutputFormat.PDF;
     }
     else if (format.equals(RenderOption.OUTPUT_FORMAT_HTML))
@@ -246,6 +293,41 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
     }
 
     return format;
+  }
+
+  public StringBuffer getReportLink(Map<String, Object> parameters)
+  {
+    StringBuffer link = new StringBuffer(this.context.getBaseUrl() + "/" + ReportItem.ROOT_RUN_URL);
+    Set<Entry<String, Object>> entries = parameters.entrySet();
+
+    for (Entry<String, Object> entry : entries)
+    {
+      String parameterKey = entry.getKey();
+      Object parameterValue = entry.getValue();
+
+      if (!parameterKey.equals(RenderContext.PAGE_NUMBER))
+      {
+        if (parameterValue != null && parameterValue instanceof List)
+        {
+          List<?> list = (List<?>) parameterValue;
+
+          if (list.size() == 1)
+          {
+            this.appendParamter(link, parameterKey, list.get(0));
+          }
+          else
+          {
+            this.appendParamter(link, parameterKey, list);
+          }
+        }
+        else
+        {
+          this.appendParamter(link, parameterKey, parameterValue);
+        }
+      }
+    }
+
+    return link;
   }
 
   /**

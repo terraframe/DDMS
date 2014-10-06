@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,8 +168,6 @@ public class ReportController extends ReportControllerBase implements Reloadable
      */
     item.validatePermissions();
 
-    String reportUrl = this.getReportURL();
-
     List<ReportParameterDTO> parameters = new LinkedList<ReportParameterDTO>();
 
     Enumeration<String> parameterNames = req.getParameterNames();
@@ -217,7 +214,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
       String url = this.req.getRequestURL().toString();
       String baseURL = url.substring(0, url.lastIndexOf('/'));
 
-      Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
+      Long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, null);
 
       if (format.equals(OutputFormatDTO.HTML.name()))
       {
@@ -226,7 +223,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
         req.setAttribute("pageNumber", pageNumber);
         req.setAttribute("pageCount", pageCount);
         req.setAttribute("id", report);
-        req.setAttribute("cache", item.getCacheDocument());        
+        req.setAttribute("cache", item.getCacheDocument());
 
         req.getRequestDispatcher("/WEB-INF/report.jsp").forward(req, resp);
       }
@@ -262,7 +259,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
     {
       ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
 
-      if (item.getCacheDocument() || item.getOutputFormat().contains(OutputFormatDTO.PDF))
+      if (item.getCacheDocument() || item.getOutputFormat().contains(OutputFormatDTO.PDF) || !item.hasParameterDefinitions())
       {
         this.run(report, item);
       }
@@ -293,37 +290,5 @@ public class ReportController extends ReportControllerBase implements Reloadable
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
       }
     }
-  }
-
-  @SuppressWarnings("unchecked")
-  public String getReportURL() throws UnsupportedEncodingException
-  {
-    String str = "dss.vector.solutions.report.ReportController.run.mojo?";
-    boolean isFirst = true;
-
-    Enumeration<String> paramNames = req.getParameterNames();
-    while (paramNames.hasMoreElements())
-    {
-      String paramName = paramNames.nextElement();
-
-      if (!paramName.equals("pageNumber"))
-      {
-        if (!isFirst)
-        {
-          str = str + "&";
-        }
-
-        String[] paramValues = req.getParameterValues(paramName);
-
-        for (int i = 0; i < paramValues.length; i++)
-        {
-          String paramValue = paramValues[i];
-          str = str + URLEncoder.encode(paramName, "UTF-8") + "=" + URLEncoder.encode(paramValue, "UTF-8");
-        }
-
-        isFirst = false;
-      }
-    }
-    return str;
   }
 }

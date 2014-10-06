@@ -7,9 +7,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class HTMLUrlActionHandler extends AbstractUrlActionHandler implements Reloadable
 {
-  public HTMLUrlActionHandler(IReportDocument document, String baseURL, String reportURL)
+
+  public HTMLUrlActionHandler(IReportDocument document, RenderContext context)
   {
-    super(document, baseURL, reportURL);
+    super(document, context);
   }
 
   @Override

@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -826605043)
+@com.runwaysdk.business.ClassSignature(hash = -1024658288)
 public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.ReportItem";
-  private static final long serialVersionUID = -826605043;
+  private static final long serialVersionUID = -1024658288;
   
   protected ReportItemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -726,6 +726,22 @@ public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessD
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "getURL", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.Boolean hasParameterDefinitions()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "hasParameterDefinitions", _declaredTypes);
+    return (java.lang.Boolean) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.Boolean hasParameterDefinitions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "hasParameterDefinitions", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.Long render(java.io.OutputStream outputStream, dss.vector.solutions.report.ReportParameterDTO[] parameters, java.lang.String baseURL, java.lang.String reportURL)

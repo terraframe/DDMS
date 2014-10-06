@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.axis.encoding.Base64;
 import org.eclipse.birt.core.archive.FileArchiveWriter;
@@ -39,6 +37,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.VaultFileInfo;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -59,7 +58,6 @@ import com.runwaysdk.util.FileIO;
 import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
@@ -74,13 +72,13 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
   private static final String TEMP_REPORT_PREFIX    = "birt-temp-doc-archive";
 
-  private static final String PAGE_NUMBER           = "pageNumber";
-
-  private static final String FORMAT                = "format";
-
   public static final String  RPTDESIGN_EXTENSION   = "rptdesign";
 
   public static final String  RPTDOCUMENT_EXTENSION = "rptdoc";
+
+  public static final String  ROOT_RUN_URL          = "dss.vector.solutions.report.ReportController.run.mojo?";
+
+  public static final String  BASE_RUN_URL          = ROOT_RUN_URL + "report=";
 
   public static final String  BASE_URL              = "dss.vector.solutions.report.ReportController.generate.mojo?report=";
 
@@ -354,6 +352,11 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     return BASE_URL + this.getId();
   }
 
+  public String getRunURL()
+  {
+    return BASE_RUN_URL + this.getId();
+  }
+
   @Override
   public InputStream getDesignAsStream()
   {
@@ -419,9 +422,9 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
     try
     {
-      Map<String, String> parameterMap = this.createParameterMap(parameters);
+      RenderContext context = this.createRenderContext(baseURL, parameters);
 
-      return this.runAndRender(outputStream, parameterMap, baseURL, reportURL);
+      return this.runAndRender(outputStream, context);
     }
     catch (EngineException e)
     {
@@ -457,7 +460,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private Long renderFromDocument(OutputStream outputStream, Map<String, String> parameterMap, String baseURL, String reportURL, IDocArchiveReader reader) throws BirtException, EngineException
+  private Long renderFromDocument(OutputStream outputStream, IDocArchiveReader reader, RenderContext context) throws BirtException, EngineException
   {
     IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
@@ -466,19 +469,17 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
     IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
 
-    String format = this.getFormat(parameterMap);
-
     try
     {
       IRenderTask task = engine.createRenderTask(document);
       try
       {
         task.setAppContext(contextMap);
-        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format));
+        task.setRenderOption(this.getRenderOptions(outputStream, document, context));
 
         if (task.getRenderOption() instanceof HTMLRenderOption)
         {
-          long pageNumber = this.getPageNumber(parameterMap);
+          long pageNumber = context.getPageNumber();
 
           if (pageNumber > 0)
           {
@@ -486,12 +487,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
           }
         }
 
-        IReportRunnable design = engine.openReportDesign(document.getDesignStream());
-
-        Map<String, Object> convertedParameters = new ReportParameterUtil().convertParameters(design, parameterMap);
-
         // set and validate the parameters
-        task.setParameterValues(convertedParameters);
+        task.setParameterValues(context.getParameters());
         task.validateParameters();
 
         // run report
@@ -510,7 +507,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     return document.getPageCount();
   }
 
-  private Map<String, String> createParameterMap(ReportParameter[] parameters)
+  private RenderContext createRenderContext(String baseUrl, ReportParameter[] parameters) throws BirtException, EngineException, IOException
   {
     Map<String, String> map = new HashMap<String, String>();
 
@@ -519,37 +516,9 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       map.put(parameter.getParameterName(), parameter.getParameterValue());
     }
 
-    return map;
-  }
+    Map<String, Object> params = new ReportParameterUtil().convertParameters(this.getDesignAsStream(), map);
 
-  private long getPageNumber(Map<String, String> parameters)
-  {
-    if (parameters.containsKey(PAGE_NUMBER))
-    {
-      String value = parameters.get(PAGE_NUMBER);
-      try
-      {
-        return Long.parseLong(value);
-      }
-      catch (Exception e)
-      {
-        /*
-         * Unable to parse the pageNumber: log the error and just return the first page
-         */
-        MdssLog.error("Unable to parse the value [" + value + "] as a long.", e);
-      }
-    }
-    return 1;
-  }
-
-  private String getFormat(Map<String, String> parameters)
-  {
-    if (parameters.containsKey(FORMAT))
-    {
-      return parameters.get(FORMAT);
-    }
-
-    return this.getOutputFormat().get(0).name();
+    return new RenderContext(this, baseUrl, params);
   }
 
   @Transaction
@@ -557,8 +526,10 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   {
     try
     {
+      RenderContext context = this.createRenderContext(DeployProperties.getApplicationURL(), parameters);
+
       // Run the report and get the path of the temp rptdocument file
-      File file = this.run(this.createParameterMap(parameters));
+      File file = this.run(context);
 
       try
       {
@@ -632,11 +603,11 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private File run(Map<String, String> parameterMap) throws BirtException, EngineException, IOException
+  private File run(RenderContext context) throws BirtException, EngineException, IOException
   {
-    File file = this.getCachedDocument(parameterMap);
+    File file = this.getCachedDocument(context);
 
-    if (!file.exists() || file.getName().startsWith(TEMP_REPORT_PREFIX) || ( !parameterMap.containsKey(PAGE_NUMBER) && !this.getCacheDocument() ))
+    if (!file.exists() || file.getName().startsWith(TEMP_REPORT_PREFIX) || ( !context.hasPageNumber() && !this.getCacheDocument() ))
     {
       IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
 
@@ -644,15 +615,12 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
 
       IReportRunnable design = engine.openReportDesign(this.getDesignAsStream());
-
       IRunTask task = engine.createRunTask(design);
 
       try
       {
-        Map<String, Object> convertedParameters = new ReportParameterUtil().convertParameters(design, parameterMap);
-
         task.setAppContext(contextMap);
-        task.setParameterValues(convertedParameters);
+        task.setParameterValues(context.getParameters());
         task.validateParameters();
 
         task.run(new FileArchiveWriter(file.getAbsolutePath()));
@@ -666,28 +634,13 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     return file;
   }
 
-  public File getCachedDocument(Map<String, String> parameters)
+  public File getCachedDocument(RenderContext context)
   {
     SessionIF session = Session.getCurrentSession();
 
     if (session != null)
     {
-      StringBuffer key = new StringBuffer();
-      key.append(this.getReportName());
-
-      Iterator<Entry<String, String>> iterator = parameters.entrySet().iterator();
-
-      while (iterator.hasNext())
-      {
-        Entry<String, String> entry = iterator.next();
-
-        if (this.isValidParameter(entry))
-        {
-          key.append(entry.getKey() + "-" + entry.getValue());
-        }
-      }
-
-      int hashCode = key.toString().hashCode();
+      int hashCode = context.getReportHash(this.getReportName());
 
       String filepath = CacheDocumentManager.CACHE_DIR + File.separator + this.getCacheFolderName();
       String filename = hashCode + ".rptdocument";
@@ -706,35 +659,15 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private boolean isValidParameter(Entry<String, String> parameter)
+  private Long runAndRender(OutputStream outputStream, RenderContext context) throws BirtException, EngineException, IOException
   {
-    if (parameter.getKey().equals(PAGE_NUMBER))
-    {
-      return false;
-    }
-
-    return true;
-  }
-
-  private Long runAndRender(OutputStream outputStream, Map<String, String> parameterMap, String baseURL, String reportURL) throws BirtException, EngineException, IOException
-  {
-    File document = null;
-
-    if (this.getCacheDocument() && this.getDocument() != null && this.getDocument().length() > 0)
-    {
-      document = this.getDocumentAsFile();
-    }
-
-    if (document == null || !document.exists() || ( !parameterMap.containsKey(PAGE_NUMBER) && !this.getCacheDocument() ))
-    {
-      document = this.run(parameterMap);
-    }
+    File document = this.getReportDocument(context);
 
     try
     {
       IDocArchiveReader reader = new ArchiveReader(document.getAbsolutePath());
 
-      return this.renderFromDocument(outputStream, parameterMap, baseURL, reportURL, reader);
+      return this.renderFromDocument(outputStream, reader, context);
     }
     finally
     {
@@ -745,9 +678,26 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
   }
 
-  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL, String format)
+  public File getReportDocument(RenderContext context) throws BirtException, EngineException, IOException
   {
-    if (format.equals("xlsx"))
+    File document = null;
+
+    if (this.getCacheDocument() && this.getDocument() != null && this.getDocument().length() > 0)
+    {
+      document = this.getDocumentAsFile();
+    }
+
+    if (document == null || !document.exists() || ( !context.hasPageNumber() && !this.getCacheDocument() ))
+    {
+      document = this.run(context);
+    }
+
+    return document;
+  }
+
+  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, RenderContext context)
+  {
+    if (context.getFormat().equals("xlsx"))
     {
       EXCELRenderOption options = new EXCELRenderOption();
       options.setOutputStream(outputStream);
@@ -756,7 +706,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       return options;
     }
-    else if (format.equals("docx"))
+    else if (context.getFormat().equals("docx"))
     {
       DocxRenderOption option = new DocxRenderOption();
       option.setOutputStream(outputStream);
@@ -764,18 +714,18 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       option.setOption(IRenderOption.EMITTER_ID, "org.eclipse.birt.report.engine.emitter.docx");
       return option;
     }
-    else if (format.equalsIgnoreCase(OutputFormat.PDF.name()))
+    else if (context.getFormat().equalsIgnoreCase(OutputFormat.PDF.name()))
     {
       // set output options
       PDFRenderOption options = new PDFRenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
       options.setOutputStream(outputStream);
-      options.setBaseURL(baseURL);
-      options.setActionHandler(new PDFUrlActionHandler(document, baseURL, reportURL));
+      options.setBaseURL(context.getBaseUrl());
+      options.setActionHandler(new PDFUrlActionHandler(document, context));
 
       return options;
     }
-    else if (format.equalsIgnoreCase(OutputFormat.HTML.name()))
+    else if (context.getFormat().equalsIgnoreCase(OutputFormat.HTML.name()))
     {
       String folderName = this.getCacheFolderName();
 
@@ -783,11 +733,11 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       HTMLRenderOption options = new HTMLRenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_HTML);
       options.setOutputStream(outputStream);
-      options.setBaseURL(baseURL);
+      options.setBaseURL(context.getBaseUrl());
       options.setImageHandler(new HTMLServerImageHandler());
-      options.setBaseImageURL(baseURL + "/" + CacheDocumentManager.BIRT_SUFFIX + "/" + folderName);
+      options.setBaseImageURL(context.getBaseUrl() + "/" + CacheDocumentManager.BIRT_SUFFIX + "/" + folderName);
       options.setImageDirectory(CacheDocumentManager.IMGS_DIR + File.separator + folderName);
-      options.setActionHandler(new HTMLUrlActionHandler(document, baseURL, reportURL));
+      options.setActionHandler(new HTMLUrlActionHandler(document, context));
       options.setHtmlTitle(this.getReportLabel().getValue());
       options.setEmbeddable(true);
       options.setHtmlPagination(true);
@@ -796,7 +746,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     }
 
     UnsupportedOutputFormatException e = new UnsupportedOutputFormatException("Unknown output format type");
-    e.setOutputFormat(format);
+    e.setOutputFormat(context.getFormat());
     e.apply();
 
     throw e;
@@ -878,6 +828,39 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       JSONArray definition = util.getParameterDefinitions(stream);
 
       return definition.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (BirtException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      try
+      {
+        stream.close();
+      }
+      catch (IOException e)
+      {
+        // TODO change exception type
+        throw new RuntimeException("Unable to get a report document", e);
+      }
+    }
+  }
+
+  @Override
+  public Boolean hasParameterDefinitions()
+  {
+    InputStream stream = this.getDesignAsStream();
+
+    try
+    {
+      ReportParameterUtil util = new ReportParameterUtil();
+
+      return util.hasParameterDefinitions(stream);
     }
     catch (JSONException e)
     {
