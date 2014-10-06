@@ -136,7 +136,21 @@ public class ReportParameterUtil implements Reloadable
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_INTEGER)
         {
-          return new Integer(value);
+          /*
+           *  On drill though reports all numbers come in as a Double
+           */
+          Double number = new Double(value);
+
+          if ( ( (int) Math.ceil(number) ) == number.intValue())
+          {
+            return new Integer(number.intValue());
+          }
+
+          ReportParameterParseException e = new ReportParameterParseException();
+          e.setParameterName(param.getName());
+          e.setParameterValue(value);
+
+          throw e;
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_TIME)
         {
@@ -149,8 +163,11 @@ public class ReportParameterUtil implements Reloadable
     }
     catch (Exception e)
     {
-      // TODO change exception type
-      throw new RuntimeException("Unable to parse value: [" + value + "]");
+      ReportParameterParseException ex = new ReportParameterParseException(e);
+      ex.setParameterName(param.getName());
+      ex.setParameterValue(value);
+
+      throw ex;
     }
   }
 
