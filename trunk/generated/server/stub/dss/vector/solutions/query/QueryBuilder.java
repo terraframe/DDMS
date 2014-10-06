@@ -42,6 +42,7 @@ import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamMemberQuery;
@@ -150,6 +151,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     return valueQuery;
   }
+  
 
   /**
    * Queries

@@ -64,7 +64,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * digit.
    */
   private static final Pattern INVALID_PREFIX   = Pattern.compile("^\\d.*$");
-
+  
   /**
    * An identifier with an invalid prefix can be fixed by adding an underscore.
    */
@@ -349,11 +349,16 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     String queryClass = QueryConstants.getQueryClass(queryType);
     Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
-
+    
     try
     {
+      // This ideally should be a parameter for the next method we're about to invoke, but... I don't want to change all that metadata. It's okay though, because this is only used on server initialization, so there's no threading issues here.
+      Disease.SYSTEM_DISEASE = this.getDiseaseId();
+      
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null);
-
+      
+      Disease.SYSTEM_DISEASE = null;
+      
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
