@@ -1024,15 +1024,16 @@ public class IRSQB extends AbstractQB implements Reloadable
         // will try to use the selected date from the QB, PERSON_BIRTHDATE in
         // this case, and that doesn't
         // make sense.
-        SelectableMoment dateSel = irsVQ.aSQLDate("birthdate_override", this.sprayViewAlias + "."
-            + Alias.SPRAY_DATE.getAlias());
-         QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap,
-         true, wrapper, dateSel);
+        SelectableMoment dateSel = irsVQ.aSQLDate("birthdate_override", this.sprayViewAlias + "." + Alias.SPRAY_DATE.getAlias());
+        QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper, dateSel);
       }
       else
       {
-       QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap,
-       true, wrapper);
+        String attrName = QueryUtil.getDateAttributeFromConfig(queryConfig);
+        
+        if (xml.contains(attrName)) {
+          QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
+        }
       }
     }
     // ---- END DATE CRITERIA ----

@@ -866,6 +866,24 @@ public class QueryUtil implements Reloadable
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, ignoreCriteria, diseaseSel, null);
   }
 
+  public static String getDateAttributeFromConfig(JSONObject queryConfig)
+  {
+    try {
+      JSONObject dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
+  
+      if (dateObj.has(DATE_ATTRIBUTE))
+      {
+        return dateObj.getString(DATE_ATTRIBUTE);
+      }
+      else {
+        return null;
+      }
+    }
+    catch (JSONException e) {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
       boolean ignoreCriteria, Selectable diseaseSel, SelectableMoment dateSel)
   {
@@ -970,12 +988,10 @@ public class QueryUtil implements Reloadable
           String dbCol = dateSel.getSQL();
           return setQueryDates(xml, valueQuery, attributeQuery, dbCol, diseaseSel);
         }
-        
-        // TODO (Ask Smethie) : I commented this code out, and I'm not sure if it will break anything, but it certainly seems to fix a lot.
-//        else
-//        {
-//          return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
-//        }
+        else
+        {
+          return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
+        }
       }
 
       return valueQuery;
