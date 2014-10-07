@@ -237,14 +237,15 @@ public class ReportParameterUtil implements Reloadable
     parameter.put("isValueConcealed", scalar.isValueConcealed());
     parameter.put("type", scalar.getControlType());
     parameter.put("dataType", scalar.getDataType());
-    parameter.put("defaultValue", scalar.getDefaultValue());
+    parameter.put("defaultValue", task.getDefaultValue(scalar));
     parameter.put("promptText", scalar.getPromptText());
     parameter.put("scalarParameterType", scalar.getScalarParameterType());
     parameter.put("allowNewValues", scalar.allowNewValues());
 
     ScalarParameterHandle parameterHandle = (ScalarParameterHandle) scalar.getHandle();
+    String valueExpr = parameterHandle.getValueExpr();
 
-    parameter.put("valueExpr", parameterHandle.getValueExpr());
+    parameter.put("valueExpr", valueExpr);
 
     if (scalar.getControlType() != IScalarParameterDefn.TEXT_BOX)
     {
@@ -280,7 +281,6 @@ public class ReportParameterUtil implements Reloadable
           parameter.put("options", options);
         }
       }
-
     }
 
     return parameter;
