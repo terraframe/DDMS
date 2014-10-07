@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1475133321)
+@com.runwaysdk.business.ClassSignature(hash = -217657220)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String ZOOMLEVEL = "zoomLevel";
-  private static final long serialVersionUID = -1475133321;
+  private static final long serialVersionUID = -217657220;
   
   public SavedMapBase()
   {
@@ -892,6 +892,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   {
     SavedMap _instance = SavedMap.get(id);
     return _instance.removeMapImage(customImageId);
+  }
+  
+  public java.lang.String removeTextElement(java.lang.String customTextElementId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String removeTextElement(java.lang.String id, java.lang.String customTextElementId)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.removeTextElement(customTextElementId);
   }
   
   public void updateImageLocations(java.lang.String imageLocations)

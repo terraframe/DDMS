@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1875508942)
+@com.runwaysdk.business.ClassSignature(hash = -426357499)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public class SavedMapQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1875508942;
+private static final long serialVersionUID = -426357499;
 
   protected SavedMapQueryDTO(String type)
   {

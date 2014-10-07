@@ -43,10 +43,22 @@ public class MapImage extends MapImageBase implements com.runwaysdk.generation.l
     String imageFileName = image.getImageName();
     List<String> childImageNameArray = new ArrayList<String>();
     
+
+    // delete the instance of MapImage from the default map so it isnt copied back to the saved map
+    // this works because image names are unique for the saved map and default map 
+    DefaultSavedMap defaultMap = SavedMap.getSessionDefaultMap();
+    List<? extends MapImage> defaultMapChildImages = defaultMap.getAllHasImage().getAll();
+    for( MapImage defaultMapChildImage : defaultMapChildImages){
+      if(defaultMapChildImage.getImageName().equals(imageFileName)){
+        defaultMapChildImage.delete();
+      }
+    }
+    
+    
     // get all SavedMaps 
     SavedMap[] parentMaps;
-    SavedMapQuery maps2 = SavedMap.getAllSavedMaps();
-    OIterator<? extends SavedMap> iterator = maps2.getIterator();
+    SavedMapQuery maps = SavedMap.getAllSavedMaps();
+    OIterator<? extends SavedMap> iterator = maps.getIterator();
     try{
       List<? extends SavedMap> all = iterator.getAll();
       parentMaps = all.toArray(new SavedMap[all.size()]);
@@ -59,6 +71,7 @@ public class MapImage extends MapImageBase implements com.runwaysdk.generation.l
     for(SavedMap parentMap : parentMaps){
       String parentMapId = parentMap.getId();
       String parentType = parentMap.getType();
+
       if(!parentType.equals("dss.vector.solutions.query.DefaultSavedMap") && !parentMapId.equals(mapId)){
         List<? extends MapImage> childImages = parentMap.getAllHasImage().getAll();
         for (MapImage childImage : childImages){

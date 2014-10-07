@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 
+
 //import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -425,6 +426,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     else
     {
       returnExisting = false;
+      
+      // If saved elements exist for the saved map delete them so they can be
+      // copied from the default without being duplicated
       for (Layer layer : this.getAllLayer().getAll())
       {
         layer.delete();
@@ -678,6 +682,17 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return q;
   }
+  
+  public static DefaultSavedMap getSessionDefaultMap()
+  {
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
+    
+    return defaultMap;
+  }
 
   /**
    * Loads the default map.
@@ -891,9 +906,21 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     newImage.setImageFilePath(imagePath);
     newImage.setCustomImageId(newImageCustomId);
     newImage.apply();
+    
+    // The SavedMap instance and relationship is being added to allow for retention 
+    // of the element when a user adds an element and hits refresh before saving.  
+    MapImage newImage2 = new MapImage();
+    newImage2.setImageName(imageName);
+    newImage2.setImageFilePath(imagePath);
+    newImage2.setCustomImageId(newImageCustomId);
+    newImage2.apply();
+    
+    SavedMap savedMap = SavedMap.get(savedMapId);
+    HasImage savedMapHasImage = savedMap.addHasImage(newImage2);
+    savedMapHasImage.apply();
 
-    // we only need to add the relationship to the default map because this relationship 
-    // will later be passed to the saved map
+    // The relationship to the default map is most important because it will 
+    // later be passed to the saved map when the user saves
     HasImage defaultHasImage = defaultMap.addHasImage(newImage);
     defaultHasImage.apply();
     
@@ -927,6 +954,19 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     return customImageId; 
+  }
+  
+  @Override
+  @Transaction
+  public String removeTextElement(String customTextElementId)
+  {
+    String textId = getTextByCustomTextElementId(customTextElementId);
+    if(textId != ""){
+      TextElement textElement = TextElement.get(textId);
+      textElement.removeTextElement(textId, this.getId());
+    }
+
+    return customTextElementId; 
   }
   
   @Override
@@ -971,9 +1011,24 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     newTextElem.setCustomTextElementId(customTextElementId);
     
     newTextElem.apply();
+    
+    // The SavedMap instance and relationship is being added to allow for retention 
+    // of the element when a user adds an element and hits refresh before saving. 
+    TextElement newTextElem2 = new TextElement();
+    newTextElem2.setTextValue(textValue);
+    newTextElem2.setFontColor(fontColor);
+    newTextElem2.setFontFamily(fontFamily);
+    newTextElem2.setFontSize(fontSize);  
+    newTextElem2.setFontStyle(fontStyle);
+    newTextElem2.setCustomTextElementId(customTextElementId);
+    newTextElem2.apply();
+    
+    SavedMap savedMap = SavedMap.get(savedMapId);
+    HasTextElement savedMapHasText = savedMap.addHasTextElement(newTextElem2);
+    savedMapHasText.apply();
 
-    // we only need to add the relationship to the default map because this relationship 
-    // will later be passed to the saved map
+    // The relationship to the default map is most important because it will 
+    // later be passed to the saved map when the user saves
     HasTextElement defaultHasText = defaultMap.addHasTextElement(newTextElem);
     defaultHasText.apply();
     

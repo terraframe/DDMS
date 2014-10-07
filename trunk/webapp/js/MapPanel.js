@@ -170,6 +170,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         div.appendChild(closeDiv)
         div.appendChild(img);
         
+        YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
+        
         var mouseEnterHandler = function(e){
        	    var child = YAHOO.util.Dom.getFirstChild(e.target);
        		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
@@ -197,6 +199,67 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
+     * Renders a text element on the map
+     * 
+     * @textId = id of the text element 
+     * @fontColor = hex code (#000000)
+     * @fontSize = integer size of font
+     * @fontStyle = css font style text ("font-style: NORMAL; font-weight: normal;")
+     * @fontFamily = string name of font family ("Times New Roman")
+     * @leftPosition = Integer position for the css left param
+     * @topPosition = Integer position for the css top param
+     * @text = the value of the text element 
+     */
+    _renderTextElements : function(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text)
+    {
+    	
+        var div = document.createElement('div');
+        div.id = textId;
+        YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
+        
+        var closeDiv = document.createElement('span');
+        closeDiv.setAttribute("class", "closeButton");
+        YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+        closeDiv.innerHTML = "X";
+        
+        YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
+        
+        var style = 'color: '+fontColor+';';
+        style += 'font-size: '+fontSize+'px;';
+        style += fontStyle;
+        style += 'font-family: '+fontFamily+';';
+        style += 'padding:7px;';
+        var html = '<span style="'+style+'">'+text+'</span>';
+        div.innerHTML = html;
+        
+        // add the close button at the top of the container
+        div.insertBefore(closeDiv, div.firstChild)
+        
+        var dd = this.addDragDrop(div);
+        this.position(div);
+
+        var mouseEnterHandler = function(e){
+       	 e.target.firstChild.style.display="";
+        }
+        
+        var mouseLeaveHandler = function(e){
+       	 e.target.firstChild.style.display="none";
+        }
+        
+        YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
+        YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
+        
+        YAHOO.util.Event.on(closeDiv, 'click', this._removeTextElement, null, this);
+        
+        this._ddDivs.push({div:div, dd:dd});
+	 
+   	 	if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
+   	 		div.style.left = leftPosition + "px";
+   	 		div.style.top = topPosition + "px";
+   	 	}
+    },
+    
+    /**
      * Remove the image from the browser and the database (instance of MapImage)
      * 
      */
@@ -209,6 +272,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             	// remove the containing div
             	var imageContainerDiv = document.getElementById(deletedMapImageId);
             	imageContainerDiv.remove();
+            	
+            	// remove the entry from the ddDivs cache
+            	var dragNDropDivs = this.that._ddDivs;
+            	var toDelete;
+            	for(var i=0; i<dragNDropDivs.length; i++){
+            		if(this.that._ddDivs[i].div.id === deletedMapImageId){
+            			toDelete = this.that._ddDivs[i];
+            		}
+            	}
+            	var index = dragNDropDivs.indexOf(toDelete);
+            	this.that._ddDivs.splice(index, 1);
             }
           });
         
@@ -216,6 +290,39 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
         var mapId = mapList.value;
         Mojo.$.dss.vector.solutions.query.SavedMap.removeMapImage(request, mapId, imageId);
+    },
+    
+    /**
+     * Remove the text element from the browser and the database (instance of TextElement)
+     * 
+     */
+    _removeTextElement : function(e)
+    {
+        var request = new MDSS.Request({
+            that: this,
+            onSuccess : function(deletedTextElementId)
+            {
+            	// remove the containing div
+            	var textContainerDiv = document.getElementById(deletedTextElementId);
+            	textContainerDiv.remove();
+            	
+            	// remove the entry from the ddDivs cache
+            	var dragNDropDivs = this.that._ddDivs;
+            	var toDelete;
+            	for(var i=0; i<dragNDropDivs.length; i++){
+            		if(this.that._ddDivs[i].div.id === deletedTextElementId){
+            			toDelete = this.that._ddDivs[i];
+            		}
+            	}
+            	var index = dragNDropDivs.indexOf(toDelete);
+            	this.that._ddDivs.splice(index, 1);
+            }
+          });
+        
+        var textId = e.target.parentElement.id;
+        var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+        var mapId = mapList.value;
+        Mojo.$.dss.vector.solutions.query.SavedMap.removeTextElement(request, mapId, textId);
     },
     
     _handleExport : function(e)
@@ -1300,7 +1407,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             }
           });  	
         
-    	
         Mojo.$.dss.vector.solutions.query.SavedMap.updateImageLocations(request, mapId, imagesJSON);
     },
     
@@ -1676,6 +1782,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 	      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
 	      var mapId = mapList.value;
           
+	      // render saved images
           var savedImages = mapData.savedImages;
           for(var i=0; i<savedImages.length; i++){
         	 var savedImage = savedImages[i];
@@ -1689,6 +1796,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         	 }
           }
           
+          // render saved text elements
           var textElements = mapData.savedTextElements;
           for(var i=0; i<textElements.length; i++){
         	 var textElement = textElements[i];
@@ -1702,56 +1810,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     	    	 var fontFamily = textElement.fontFamily;
     	    	 var fontSize = textElement.fontSize;
     	    	 var fontStyle = textElement.fontStyle;
+    	    	 var textId = textElement.textId;
+    	    	 
+    	    	// render the text element to the map
+    	    	 that._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);
     	    	  
-    	         var div = document.createElement('div');
-    	         div.id = textElement.textId;
-    	         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
-    	         
-    	         var closeDiv = document.createElement('span');
-    	         closeDiv.setAttribute("class", "closeButton");
-    	         YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
-    	         closeDiv.innerHTML = "X";
-    	         
-    	         YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
-    	         
-    	         var style = 'color: '+fontColor+';';
-    	         style += 'font-size: '+fontSize+'px;';
-    	         style += fontStyle;
-    	         style += 'font-family: '+fontFamily+';';
-    	         style += 'padding:7px;';
-    	         var html = '<span style="'+style+'">'+text+'</span>';
-    	         div.innerHTML = html;
-    	         
-    	         // add the close button at the top of the container
-    	         div.insertBefore(closeDiv, div.firstChild)
-    	         
-    	         var dd = that.addDragDrop(div);
-    	         that.position(div);
-    	         
-
-    	         var mouseEnterHandler = function(e){
-    	        	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-    	        		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-    	        			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
-    	        		}
-    	         }
-    	         var mouseLeaveHandler = function(e){
-    	        	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-    	        		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-    	        			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
-    	        		}
-    	         }
-    	         
-    	         YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
-    	         YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
-    	         
-    	         
-    	         that._ddDivs.push({div:div, dd:dd});
-        	 
-	        	 if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
-	        		 div.style.left = leftPosition + "px";
-	        		 div.style.top = topPosition + "px";
-	        	 }
     	      }
           }
           
@@ -1888,53 +1951,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     	 var fontFamily = params['freeText.textFontFamily'][0];
     	 var fontSize = params['freeText.textFontSize'];
     	 var fontStyle = this._getFontStyle(params['freeText.textFontStyles'][0]);
+    	 var leftPosition = 0;
+    	 var topPosition = 0;
+    	 
+    	 var textId = "text_" + Mojo.Util.generateId();
     	  
          var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
          var mapId = mapList.value;
+         
+         // render the text element to the map
+         this._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);
           
-         var div = document.createElement('div');
-         div.id = "text_" + Mojo.Util.generateId();
-         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
-         
-         var closeDiv = document.createElement('span');
-         closeDiv.setAttribute("class", "closeButton");
-         YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
-         closeDiv.innerHTML = "X";
-         
-         YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
-         
-         var style = 'color: '+fontColor+';';
-         style += 'font-size: '+fontSize+'px;';
-         style += fontStyle;
-         style += 'font-family: '+fontFamily+';';
-         style += 'padding:7px;';
-         var html = '<span style="'+style+'">'+text+'</span>';
-         div.innerHTML = html;
-         
-         // add the close button at the top of the container
-         div.insertBefore(closeDiv, div.firstChild)
-         
-         var dd = this.addDragDrop(div);
-         this.position(div);
-         
-         var mouseEnterHandler = function(e){
-     	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-     		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-     			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
-     		}
-	      }
-	      var mouseLeaveHandler = function(e){
-	     	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-	     		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-	     			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
-	     		}
-	      }
-	      
-	      YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
-	      YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
-         
-         this._ddDivs.push({div:div, dd:dd});
-         
+       
          var request = new MDSS.Request({
              that : this,
              onSuccess : function(){
@@ -1942,7 +1970,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
              }
            });
          
-         Mojo.$.dss.vector.solutions.query.SavedMap.addTextElement(request, mapId, mapId, text, fontColor, fontFamily, fontSize, fontStyle, div.id);
+         Mojo.$.dss.vector.solutions.query.SavedMap.addTextElement(request, mapId, mapId, text, fontColor, fontFamily, fontSize, fontStyle, textId);
       }
       
       this._destroyModal();
@@ -2018,8 +2046,10 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           this.position(div);
                     
           // Assign saved legend position after creating the legend div
-          div.style.left = legend.legendXPosition+"px";
-  		  div.style.top = legend.legendYPosition+"px";
+          if(legend.legendXPosition > 0 && legend.legendYPosition > 0){
+        	  div.style.left = legend.legendXPosition+"px";
+        	  div.style.top = legend.legendYPosition+"px";
+          }
           
           this._ddDivs.push({div:div, dd:dd});
         }

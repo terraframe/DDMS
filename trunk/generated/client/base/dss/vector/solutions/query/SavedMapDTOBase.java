@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 307015415)
+@com.runwaysdk.business.ClassSignature(hash = -933023236)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = 307015415;
+  private static final long serialVersionUID = -933023236;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -998,6 +998,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, customImageId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "removeMapImage", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String removeTextElement(java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "removeTextElement", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String removeTextElement(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String customTextElementId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, customTextElementId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "removeTextElement", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
