@@ -970,10 +970,12 @@ public class QueryUtil implements Reloadable
           String dbCol = dateSel.getSQL();
           return setQueryDates(xml, valueQuery, attributeQuery, dbCol, diseaseSel);
         }
-        else
-        {
-          return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
-        }
+        
+        // TODO (Ask Smethie) : I commented this code out, and I'm not sure if it will break anything, but it certainly seems to fix a lot.
+//        else
+//        {
+//          return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
+//        }
       }
 
       return valueQuery;
@@ -1097,12 +1099,12 @@ public class QueryUtil implements Reloadable
     }
     
     return setQueryDates(xml, valueQuery, target, da, found);
-    
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel, Selectable diseaseSel)
   {
     String da = daSel.getDbQualifiedName();
+
     return setQueryDates(xml, valueQuery, target, da, diseaseSel);
   }
   

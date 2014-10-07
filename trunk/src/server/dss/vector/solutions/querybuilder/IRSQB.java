@@ -998,6 +998,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     setTargetManagmentCalculations();
 
+    // Modify the Date sql for both SELECT and WHERE
     // ---- START DATE CRITERIA ----
     Condition dateCond = addDateCriteria(this.sprayViewAlias, this.hasPlannedTargets,
         Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias(), Alias.SPRAY_LEADER_BIRTHDATE.getAlias(),
@@ -1030,8 +1031,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
       else
       {
-         QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap,
-         true, wrapper);
+       QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap,
+       true, wrapper);
       }
     }
     // ---- END DATE CRITERIA ----
@@ -1620,7 +1621,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
       }
       
-//      qb.resetSelectAliases(resetAliases);
+      qb.resetSelectAliases(resetAliases);
 
       // replace the selectables
       aggVQ.clearSelectClause();
@@ -2652,36 +2653,25 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
     }
     
-    // Look at the selected aliases and make sure if any of them are spray we add them to required aliases.
-    boolean needsAllActuals = false;
-    Set<Alias> selectAliases = this.getSelectAliases();
-    if(selectAliases.contains(Alias.SPRAY_DATE) || this.getDategroups().size() > 0)
-    {
-      this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
-      this.getValueQuery().GROUP_BY(this.getValueQuery().aSQLDateTime(Alias.SPRAY_DATE.getAlias(), Alias.SPRAY_DATE.getAlias()));
-      needsAllActuals = true;
-    }
-    
-    for (Alias alias : selectAliases) {
-      if (alias.hasView(View.SPRAY_VIEW)) {
-        this.addRequiredAlias(View.ALL_ACTUALS, alias);
-        needsAllActuals = true;
-      }
-    }
-    if (needsAllActuals) {
-      this.addRequiredView(View.ALL_ACTUALS);
-    }
-
     if (this.hasActivity())
     {
       this.addRequiredView(View.ALL_ACTUALS);
     }
 
-    if (this.hasActivity() && this.dategroups.size() > 0)
+    if (this.dategroups.size() > 0)
     {
       this.addRequiredView(View.DATE_GROUPS);
     }
 
+    // Additional check for any required aliases that may have slipped through the cracks. We won't need this once we have a better dependency management system in place.
+    boolean hasPlanned = this.hasPlannedTargets();
+    for (Alias alias : selectAliases) {
+      if (alias.hasView(View.SPRAY_VIEW) && !hasPlanned) {
+        this.addRequiredAlias(View.ALL_ACTUALS, alias);
+        this.addRequiredView(View.ALL_ACTUALS);
+      }
+    }
+    
     // Invoke each View and load the dependencies.
     View[] views = View.values();
     List<Pair<String, SQLProvider>> viewPairs = new LinkedList<Pair<String, SQLProvider>>();
