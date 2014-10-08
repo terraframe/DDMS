@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -703,102 +704,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     return pairs;
   }
 
-  /*
-  private void filterSelectables()
-  {
-
-
-    String insecticideTable = MdEntityDAO.getMdEntityDAO(InsecticideBrand.CLASS).getTableName();
-    List<String> insecticideSQLs = new LinkedList<String>();
-
-    // insecticide calculations
-    insecticideSQLs.addAll(Arrays.asList(new String[] { // "nozzle_defaultLocale",
-                                                        // "nozzle_ratio",
-        Alias.ACTIVE_INGREDIENT_PER_CAN.getAlias(), Alias.STANDARD_APPLICATION_RATE.getAlias(),
-            Alias.STANDARD_APPLICATION_RAGE_MG.getAlias(), Alias.UNITS_PER_CAN.getAlias() }));
-
-    // insecticide terms and enums
-    for (String termAttr : Term.getTermAttributes(InsecticideBrand.CLASS))
-    {
-      insecticideSQLs.add(termAttr + QueryUtil.DISPLAY_LABEL_SUFFIX);
-    }
-
-    for (String enumAttr : QueryUtil.getEnumAttributes(InsecticideBrand.CLASS))
-    {
-      insecticideSQLs.add(enumAttr + QueryUtil.DISPLAY_LABEL_SUFFIX);
-    }
-
-    // String geoPrefix = ( AbstractSpray.CLASS + "." + AbstractSpray.GEOENTITY
-    // ).replaceAll("\\.", "_");
-
-    // remove insecticide selectables from the irsQuery
-    List<Selectable> irsSels = new LinkedList<Selectable>();
-    List<Selectable> insecticideSels = new LinkedList<Selectable>();
-    List<Selectable> spraySels = new LinkedList<Selectable>();
-    for (Selectable sel : irsVQ.getSelectableRefs())
-    {
-      String alias = sel.getUserDefinedAlias();
-      String name = sel._getAttributeName();
-
-      if (sel.getDefiningTableName().equals(insecticideTable) || insecticideSQLs.contains(alias)
-          || insecticideSQLs.contains(name))
-      {
-        Selectable iSel = irsVQ.getSelectableRef(alias);
-        iSel.setColumnAlias(iSel.getColumnAlias() + "_i"); // namespace to
-        // avoid
-        // a bug in grouping
-        insecticideSels.add(iSel);
-      }
-      else if (spraySQLs.contains(alias))
-      {
-        Selectable sSel = irsVQ.getSelectableRef(alias);
-        sSel.setColumnAlias(sSel.getColumnAlias() + "_s"); // namespace to
-        // avoid
-        // a bug in grouping
-        spraySels.add(sSel);
-      }
-      else
-      {
-        irsSels.add(irsVQ.getSelectableRef(alias));
-      }
-    }
-
-    irsVQ.clearSelectClause();
-
-//    insecticideVQ = new ValueQuery(irsVQ.getQueryFactory());
-//    sprayVQ = new ValueQuery(irsVQ.getQueryFactory());
-
-    irsVQ.SELECT(irsSels.toArray(new Selectable[irsSels.size()]));
-    this.setNumericRestrictions(irsVQ, queryConfig);
-
-    if (insecticideQuery != null)
-    {
-//      insecticideVQ.SELECT(insecticideSels.toArray(new Selectable[insecticideSels.size()]));
-//      insecticideVQ.SELECT(insecticideQuery.getId(InsecticideBrand.ID));
-
-      for (Selectable sel : insecticideSels)
-      {
-        irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), insecticideQuery.getTableAlias() + "."
-            + sel.getColumnAlias(), sel.getUserDefinedAlias()));
-      }
-    }
-
-    if (spraySels.size() > 0)
-    {
-      this.hasSprayEnumOrTerm = true;
-
-      irsVQ.SELECT(spraySels.toArray(new Selectable[spraySels.size()]));
-      irsVQ.SELECT(abstractSprayQuery.getId(AbstractSpray.ID));
-
-      for (Selectable sel : spraySels)
-      {
-        irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), abstractSprayQuery.getTableAlias() + "."
-            + sel.getColumnAlias(), sel.getUserDefinedAlias()));
-      }
-    }
-  }
-*/
-  
   public boolean hasAreaCalcs()
   {
     return this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias())
@@ -929,19 +834,19 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     discoverDateGroups();
 
-    // JN Change: remove
-//    filterSelectables();
-
-    // JN Change
     swapOutAttributesForAggregates();
 
     joinSexAttributes();
 
+    // Add the filters (spray operator id = 123) to the WHERE criteria.
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
       QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery,    this.getTermRestrictions());
       this.setNumericRestrictions(irsVQ, queryConfig);
+    }
+    else {
+      setNumericRestrictions(irsVQ, queryConfig);
     }
 
     // Spray Date
@@ -1031,7 +936,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         String attrName = QueryUtil.getDateAttributeFromConfig(queryConfig);
         
-        if (xml.contains(attrName)) {
+        if (xml.contains(attrName)) { // This IF statement is a fix for IRS ticket 2979.
           QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
         }
       }
