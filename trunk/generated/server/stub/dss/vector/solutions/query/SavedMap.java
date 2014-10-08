@@ -899,6 +899,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
     DefaultSavedMap defaultMap = settings.getDefaultMap();
     
+    SavedMap savedMap = SavedMap.get(savedMapId);
+    
     String newImageCustomId = "image_" + IDGenerator.nextID();
     
     MapImage newImage = new MapImage();
@@ -909,15 +911,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     
     // The SavedMap instance and relationship is being added to allow for retention 
     // of the element when a user adds an element and hits refresh before saving.  
-    MapImage newImage2 = new MapImage();
-    newImage2.setImageName(imageName);
-    newImage2.setImageFilePath(imagePath);
-    newImage2.setCustomImageId(newImageCustomId);
-    newImage2.apply();
-    
-    SavedMap savedMap = SavedMap.get(savedMapId);
-    HasImage savedMapHasImage = savedMap.addHasImage(newImage2);
-    savedMapHasImage.apply();
+    if(!defaultMap.equals(savedMap)){
+      MapImage newImage2 = new MapImage();
+      newImage2.setImageName(imageName);
+      newImage2.setImageFilePath(imagePath);
+      newImage2.setCustomImageId(newImageCustomId);
+      newImage2.apply();
+      
+      HasImage savedMapHasImage = savedMap.addHasImage(newImage2);
+      savedMapHasImage.apply();
+    }
 
     // The relationship to the default map is most important because it will 
     // later be passed to the saved map when the user saves
@@ -1002,6 +1005,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
     DefaultSavedMap defaultMap = settings.getDefaultMap();
     
+    SavedMap savedMap = SavedMap.get(savedMapId);
+    
     TextElement newTextElem = new TextElement();
     newTextElem.setTextValue(textValue);
     newTextElem.setFontColor(fontColor);
@@ -1012,20 +1017,22 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     
     newTextElem.apply();
     
+    
     // The SavedMap instance and relationship is being added to allow for retention 
     // of the element when a user adds an element and hits refresh before saving. 
-    TextElement newTextElem2 = new TextElement();
-    newTextElem2.setTextValue(textValue);
-    newTextElem2.setFontColor(fontColor);
-    newTextElem2.setFontFamily(fontFamily);
-    newTextElem2.setFontSize(fontSize);  
-    newTextElem2.setFontStyle(fontStyle);
-    newTextElem2.setCustomTextElementId(customTextElementId);
-    newTextElem2.apply();
-    
-    SavedMap savedMap = SavedMap.get(savedMapId);
-    HasTextElement savedMapHasText = savedMap.addHasTextElement(newTextElem2);
-    savedMapHasText.apply();
+    if(!defaultMap.equals(savedMap)){
+      TextElement newTextElem2 = new TextElement();
+      newTextElem2.setTextValue(textValue);
+      newTextElem2.setFontColor(fontColor);
+      newTextElem2.setFontFamily(fontFamily);
+      newTextElem2.setFontSize(fontSize);  
+      newTextElem2.setFontStyle(fontStyle);
+      newTextElem2.setCustomTextElementId(customTextElementId);
+      newTextElem2.apply();
+      
+      HasTextElement savedMapHasText = savedMap.addHasTextElement(newTextElem2);
+      savedMapHasText.apply();
+    }
 
     // The relationship to the default map is most important because it will 
     // later be passed to the saved map when the user saves
