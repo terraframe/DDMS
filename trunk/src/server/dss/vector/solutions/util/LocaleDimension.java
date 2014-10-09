@@ -126,10 +126,13 @@ public class LocaleDimension implements Reloadable
       // if (split.length!=2)
       // throw an error;
 
-      String key = split[0].trim();
-      String value = split[1].trim();
+      if (split.length == 2)
+      {
+        String key = split[0].trim();
+        String value = split[1].trim();
 
-      props.put(key, value);
+        props.put(key, value);
+      }
     }
     return props;
   }
