@@ -1405,6 +1405,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       {
         this.showTermAggregation(attribute.getKey());      
       }
+      else
+      {
+        this._queryPanel.setTermAggregate(attribute, false);
+        
+        this.hideTermAggregation(attribute);              
+      }
     },
 
     _termAggregateHandler : function (e, attribute)
