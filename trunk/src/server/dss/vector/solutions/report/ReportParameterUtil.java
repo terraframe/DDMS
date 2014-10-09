@@ -36,13 +36,28 @@ import dss.vector.solutions.util.BirtEngine;
 
 public class ReportParameterUtil implements Reloadable
 {
-  public static final String TEXT_BOX     = "Text Box";
+  /**
+   * Date format
+   */
+  public static final String DATE_FORMAT      = "yyyy-MM-dd";
 
-  public static final String LIST_BOX     = "List Box";
+  /**
+   * Date time format
+   */
+  public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
-  public static final String RADIO_BUTTON = "Radio Button";
+  /**
+   * Time format
+   */
+  public static final String TIME_FORMAT      = "HH:mm:ss";
 
-  public static final String CHECK_BOX    = "Check Box";
+  public static final String TEXT_BOX         = "Text Box";
+
+  public static final String LIST_BOX         = "List Box";
+
+  public static final String RADIO_BUTTON     = "Radio Button";
+
+  public static final String CHECK_BOX        = "Check Box";
 
   public Map<String, Object> convertParameters(InputStream stream, Map<String, String> map) throws BirtException
   {
@@ -62,23 +77,37 @@ public class ReportParameterUtil implements Reloadable
     try
     {
       Map<String, Object> parameters = new HashMap<String, Object>(map);
+      Collection<IParameterDefnBase> params = (Collection<IParameterDefnBase>) task.getParameterDefns(true);
 
       for (Entry<String, String> entry : map.entrySet())
       {
-        Collection<IParameterDefnBase> params = (Collection<IParameterDefnBase>) task.getParameterDefns(true);
-
-        Iterator<IParameterDefnBase> iter = params.iterator();
-
-        while (iter.hasNext())
+        for (IParameterDefnBase param : params)
         {
-          IParameterDefnBase param = iter.next();
-
-          if (entry.getKey().equals(param.getName()))
+          if (param instanceof IParameterGroupDefn)
           {
-            IScalarParameterDefn definition = (IScalarParameterDefn) param;
-            boolean multivalue = definition.getScalarParameterType().equals("multi-value");
+            IParameterGroupDefn group = (IParameterGroupDefn) param;
 
-            parameters.put(entry.getKey(), this.parse(definition, entry.getValue(), multivalue));
+            ArrayList<IScalarParameterDefn> contents = group.getContents();
+
+            for (IScalarParameterDefn scalar : contents)
+            {
+              if (entry.getKey().equals(scalar.getName()))
+              {
+                boolean multivalue = scalar.getScalarParameterType().equals("multi-value");
+
+                parameters.put(entry.getKey(), this.parse(scalar, entry.getValue(), multivalue));
+              }
+            }
+          }
+          else if (param instanceof IScalarParameterDefn)
+          {
+            if (entry.getKey().equals(param.getName()))
+            {
+              IScalarParameterDefn definition = (IScalarParameterDefn) param;
+              boolean multivalue = definition.getScalarParameterType().equals("multi-value");
+
+              parameters.put(entry.getKey(), this.parse(definition, entry.getValue(), multivalue));
+            }
           }
         }
       }
@@ -116,15 +145,17 @@ public class ReportParameterUtil implements Reloadable
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_DATE)
         {
-          DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+          DateFormat df = new SimpleDateFormat(DATE_FORMAT);
           Date date = df.parse(value);
 
           return new java.sql.Date(date.getTime());
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_DATE_TIME)
         {
-          DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-          return df.parse(value);
+          DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT);
+          Date date = df.parse(value);
+
+          return new java.sql.Timestamp(date.getTime());
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_DECIMAL)
         {
@@ -154,8 +185,10 @@ public class ReportParameterUtil implements Reloadable
         }
         else if (param.getDataType() == IScalarParameterDefn.TYPE_TIME)
         {
-          DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
-          return df.parse(value);
+          DateFormat df = new SimpleDateFormat(TIME_FORMAT);
+          Date date = df.parse(value);
+
+          return new java.sql.Time(date.getTime());
         }
 
         return value;
@@ -237,7 +270,7 @@ public class ReportParameterUtil implements Reloadable
     parameter.put("isValueConcealed", scalar.isValueConcealed());
     parameter.put("type", scalar.getControlType());
     parameter.put("dataType", scalar.getDataType());
-    parameter.put("defaultValue", task.getDefaultValue(scalar));
+    parameter.put("defaultValue", this.getDefaultValue(task, scalar));
     parameter.put("promptText", scalar.getPromptText());
     parameter.put("scalarParameterType", scalar.getScalarParameterType());
     parameter.put("allowNewValues", scalar.allowNewValues());
@@ -284,6 +317,37 @@ public class ReportParameterUtil implements Reloadable
     }
 
     return parameter;
+  }
+
+  public String getDefaultValue(IGetParameterDefinitionTask task, IScalarParameterDefn scalar)
+  {
+    Object value = task.getDefaultValue(scalar);
+
+    if (value instanceof Date)
+    {
+      if (scalar.getDataType() == IScalarParameterDefn.TYPE_DATE)
+      {
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        return df.format((Date) value);
+      }
+      else if (scalar.getDataType() == IScalarParameterDefn.TYPE_DATE_TIME)
+      {
+        DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT);
+        return df.format((Date) value);
+      }
+      else if (scalar.getDataType() == IScalarParameterDefn.TYPE_TIME)
+      {
+        DateFormat df = new SimpleDateFormat(TIME_FORMAT);
+        return df.format((Date) value);
+      }
+    }
+
+    if (value != null)
+    {
+      return value.toString();
+    }
+
+    return null;
   }
 
   @SuppressWarnings("unchecked")
