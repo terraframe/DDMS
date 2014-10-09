@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Display;
 
 import dss.vector.solutions.manager.Localizer;
 import dss.vector.solutions.manager.ManagerContextBean;
-import dss.vector.solutions.manager.ManagerProperties;
+import dss.vector.solutions.manager.properties.ManagerProperties;
 
 public class BackupRestoreAction extends Action implements UncaughtExceptionHandler
 {

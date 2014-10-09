@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 
+import dss.vector.solutions.manager.properties.ManagerProperties;
 import dss.vector.solutions.manager.server.ServerStatus;
 
 public class ManagerContextBean
@@ -78,6 +79,11 @@ public class ManagerContextBean
     return ManagerContextBean.getApplicationClassesPath(this.application);
   }
 
+  public String getApplicationPath()
+  {
+    return ManagerContextBean.getApplicationPath(this.application);
+  }
+
   public String getApplicationLibPath()
   {
     return ManagerContextBean.getApplicationLibPath(this.application);
@@ -103,6 +109,26 @@ public class ManagerContextBean
     return this.getApplicationClassesPath() + "install.properties";
   }
 
+  public String getOriginalVersion()
+  {
+    return ManagerContextBean.getApplicationWebInfPath(application) + "originalVersion.jsp";
+  }
+
+  public String getBackupProfilesPath()
+  {
+    return ManagerContextBean.getBackupProfilesPath(application);
+  }
+
+  public String getDatabaseProperties()
+  {
+    return ManagerContextBean.getApplicationClassesPath(this.application) + "database.properties";
+  }
+
+  private static String getBackupProfilesPath(String application)
+  {
+    return ManagerProperties.getBackupProfiles() + application + File.separator;
+  }
+
   private static String getApplicationPath(String application)
   {
     return ManagerProperties.getWebappPath() + application + File.separator;
@@ -123,8 +149,4 @@ public class ManagerContextBean
     return ManagerContextBean.getApplicationWebInfPath(application) + "lib" + File.separator;
   }
 
-  public String getOriginalVersion()
-  {
-    return ManagerContextBean.getApplicationWebInfPath(application) + "originalVersion.jsp";
-  }
 }

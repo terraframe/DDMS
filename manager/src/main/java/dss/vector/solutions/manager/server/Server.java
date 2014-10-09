@@ -14,8 +14,8 @@ import javax.rmi.ssl.SslRMIClientSocketFactory;
 import com.runwaysdk.tomcat.RemoteLifecycleListenerServer;
 import com.runwaysdk.tomcat.RemoteLifecycleListenerServerIF;
 
-import dss.vector.solutions.manager.ManagerProperties;
 import dss.vector.solutions.manager.Localizer;
+import dss.vector.solutions.manager.properties.ManagerProperties;
 
 public class Server extends EventProvider implements UncaughtExceptionHandler, IServer
 {

@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.Monitor;
 
 import dss.vector.solutions.manager.action.BackupRestoreAction;
 import dss.vector.solutions.manager.action.ChangeSettingAction;
+import dss.vector.solutions.manager.action.UninstallAction;
 import dss.vector.solutions.manager.action.ExitAction;
 import dss.vector.solutions.manager.action.GeoAction;
 import dss.vector.solutions.manager.action.SyncAction;
@@ -57,7 +58,7 @@ import dss.vector.solutions.manager.server.IServerListener;
 import dss.vector.solutions.manager.server.Server;
 import dss.vector.solutions.manager.server.ServerStatus;
 
-public class ServerManagerWindow extends ApplicationWindow implements IServerListener, PropertyChangeListener, UncaughtExceptionHandler
+public class ServerManagerWindow extends ApplicationWindow implements IServerListener, PropertyChangeListener, UncaughtExceptionHandler, IApplicationUninstallManager
 {
   private static final Point                 DIMENSION        = new Point(300, 275);
 
@@ -99,37 +100,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     this.server = new Server();
     this.server.addListener(this);
 
-    Collection<String> collection = new LinkedList<String>();
-
-    try
-    {
-      URL resource = Object.class.getResource("/applications.txt");
-      File file = new File(resource.toURI());
-
-      BufferedReader reader = new BufferedReader(new FileReader(file));
-
-      try
-      {
-        while (reader.ready())
-        {
-          collection.add(reader.readLine().trim());
-        }
-      }
-      finally
-      {
-        reader.close();
-      }
-    }
-    catch (RuntimeException e)
-    {
-      throw e;
-    }
-    catch (Exception e)
-    {
-      throw new RuntimeException(e);
-    }
-
-    this.applications = collection.toArray(new String[collection.size()]);
+    this.applications = this.loadApplicationInformation();
   }
 
   @Override
@@ -311,6 +282,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     this.items.add(new ActionContributionItem(new GeoAction(this.context, this)));
     this.items.add(new ActionContributionItem(new SyncAction(this.context)));
     this.items.add(new ActionContributionItem(new ChangeSettingAction(this.context)));
+    this.items.add(new ActionContributionItem(new UninstallAction(this.context, this)));
 
     for (ActionContributionItem item : this.items)
     {
@@ -479,6 +451,27 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     }
   }
 
+  @Override
+  public int getApplicationCount()
+  {
+    return this.applications.length;
+  }
+
+  @Override
+  public void onUninstall(String application)
+  {
+    // OK Button selected do something
+    this.applications = this.loadApplicationInformation();
+    this.application.setInput(this.applications);
+    this.loadSelection();
+  }
+
+  @Override
+  public String[] getApplications()
+  {
+    return this.applications;
+  }
+
   private void asyncExec(Runnable runnable)
   {
     Display display = composite.getDisplay();
@@ -527,6 +520,41 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   public void uncaughtException(Thread t, Throwable e)
   {
     this.error(e);
+  }
+
+  private String[] loadApplicationInformation()
+  {
+    Collection<String> collection = new LinkedList<String>();
+
+    try
+    {
+      URL resource = Object.class.getResource("/applications.txt");
+      File file = new File(resource.toURI());
+
+      BufferedReader reader = new BufferedReader(new FileReader(file));
+
+      try
+      {
+        while (reader.ready())
+        {
+          collection.add(reader.readLine().trim());
+        }
+      }
+      finally
+      {
+        reader.close();
+      }
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+
+    return collection.toArray(new String[collection.size()]);
   }
 
   public static void main(String[] args)

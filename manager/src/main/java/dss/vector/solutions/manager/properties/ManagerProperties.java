@@ -1,4 +1,4 @@
-package dss.vector.solutions.manager;
+package dss.vector.solutions.manager.properties;
 
 import java.util.ResourceBundle;
 

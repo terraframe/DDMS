@@ -8,6 +8,7 @@ import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Path;
 import org.eclipse.swt.widgets.Display;
 
+import dss.vector.solutions.manager.properties.ManagerProperties;
 import dss.vector.solutions.manager.server.IServer;
 import dss.vector.solutions.manager.server.ServerStatus;
 
