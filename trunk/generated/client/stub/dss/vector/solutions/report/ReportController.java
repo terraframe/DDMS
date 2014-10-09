@@ -259,7 +259,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
     {
       ReportItemDTO item = ReportItemDTO.get(this.getClientRequest(), report);
 
-      if (item.getCacheDocument() || item.getOutputFormat().contains(OutputFormatDTO.PDF) || !item.hasParameterDefinitions())
+      if (item.getCacheDocument() || !item.hasParameterDefinitions())
       {
         this.run(report, item);
       }
