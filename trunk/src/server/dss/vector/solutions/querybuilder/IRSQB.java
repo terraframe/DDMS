@@ -1317,7 +1317,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
       for (Selectable sel : sels) {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias.hasView(View.PLANNED_AREA) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+        if (alias != null && (alias.hasView(View.PLANNED_AREA) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
@@ -1522,7 +1522,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
       for (Selectable sel : sels) {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias.hasView(View.PLANNED_OPERATOR) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+        if (alias != null && (alias.hasView(View.PLANNED_OPERATOR) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
@@ -1707,7 +1707,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
       for (Selectable sel : sels) {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias.hasView(View.PLANNED_TEAM) || alias.hasView(View.RESOURCE_TARGET_VIEW)) {
+        if (alias != null && (alias.hasView(View.PLANNED_TEAM) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
