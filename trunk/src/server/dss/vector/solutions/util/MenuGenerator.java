@@ -343,8 +343,11 @@ public class MenuGenerator implements Reloadable
             String id = url.replace(ReportItem.BASE_URL, "");
 
             ReportItem item = ReportItem.get(id);
-
-            if (item != null && item.getOutputFormat().contains(OutputFormat.HTML))
+            
+            /*
+             * Do not open a new window if the report is a cached pdf report
+             */
+            if (item == null || item.getOutputFormat().contains(OutputFormat.HTML) || !item.getCacheDocument())
             {
               guiMenuItem.setTarget("_blank");
             }
