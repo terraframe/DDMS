@@ -43,7 +43,10 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
       this.irsQB.addRequiredAlias(View.SPRAY_VIEW, activity);
     }
     
-    this.getIrsQB().addRequiredAlias(View.SPRAY_VIEW, Alias.AGGREGATION_LEVEL);
+    if (this.irsQB.hasPlannedTargets())
+    {
+      this.getIrsQB().addRequiredAlias(View.SPRAY_VIEW, Alias.AGGREGATION_LEVEL);
+    }
     
     if(this.irsQB.needsAreaPlanned())
     {

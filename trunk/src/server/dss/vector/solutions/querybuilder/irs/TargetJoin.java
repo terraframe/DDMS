@@ -295,11 +295,19 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
 
   public String setAggregationLevel(Alias alias)
   {
-    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : set("'"+this.getLevel()+"'", alias);
+    if (this.getLevel() != null) {
+      return set("'"+this.getLevel()+"'", alias);
+    }
+    
+    if (hasActual && this.irsQB.getRequiredAlias(View.ALL_ACTUALS).contains(Alias.AGGREGATION_LEVEL)) {
+      return set(ACTUAL_ALIAS, alias, alias);
+    }
+    
+    return setNULL(alias);
   }
   
   public String getLevel() {
-    throw new UnsupportedOperationException();
+    return null;
   }
 
   public String setGeoEntity(Alias alias)
