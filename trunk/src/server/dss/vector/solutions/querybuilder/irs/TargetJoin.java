@@ -114,9 +114,15 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   @Override
   public void loadDependencies()
   {
+    // HEY! THIS CODE NEVER GETS EXECUTED.
+    // The reason is because the AreaJoin is used in the SprayView and this only gets new instanced when the SQL gets generated,
+    // which is far too late for the dependencies to be loaded. If you want to modify the dependencies do it in the SprayView.
+    
     // Set<Alias> selectAliases = this.irsQB.getSelectAliases();
 
     // need to do anything here?
+    
+    this.getIrsQB().addRequiredAlias(View.SPRAY_VIEW, Alias.AGGREGATION_LEVEL);
   }
 
   protected String dateGroupJoin(String joinTable, String joinDate)
@@ -289,8 +295,11 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
 
   public String setAggregationLevel(Alias alias)
   {
-
-    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : set("'"+this.getLevel()+"'", alias);
+  }
+  
+  public String getLevel() {
+    throw new UnsupportedOperationException();
   }
 
   public String setGeoEntity(Alias alias)

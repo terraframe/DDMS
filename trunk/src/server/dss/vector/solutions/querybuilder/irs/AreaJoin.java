@@ -5,6 +5,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 
+/**
+ * Generates the code responsible for creating the SprayView containing Area target data.
+ * 
+ * @author Justin Naifeh, Richard Rowlands
+ */
 public class AreaJoin extends TargetJoin implements Reloadable
 {
 
@@ -24,6 +29,10 @@ public class AreaJoin extends TargetJoin implements Reloadable
   @Override
   public void loadDependencies()
   {
+    // HEY! THIS CODE NEVER GETS EXECUTED.
+    // The reason is because the AreaJoin is used in the SprayView and this only gets new instanced when the SQL gets generated,
+    // which is far too late for the dependencies to be loaded. If you want to modify the dependencies do it in the SprayView.
+    
     super.loadDependencies();
 
     // Load aliases that will be in the JOIN clause
@@ -88,6 +97,10 @@ public class AreaJoin extends TargetJoin implements Reloadable
     {
       return a + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias()) + this.GROUP_BY();
     }
+  }
+  
+  public String getLevel() {
+    return "3";
   }
 
   // JN change

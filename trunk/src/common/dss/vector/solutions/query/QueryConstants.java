@@ -72,6 +72,8 @@ public class QueryConstants implements Reloadable
   public static final String  CORRECTED_MORTALITY                     = "corrected_mortality";
 
   public static final String  PERCENT_PAROUS                          = "percent_parous";
+  
+  public static final String  POPULATION                              = "population";
 
   /*
    * BEGIN InterventionControl query builder constants.

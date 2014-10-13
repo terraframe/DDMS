@@ -16,12 +16,20 @@ public class TeamJoin extends TargetJoin implements Reloadable
   @Override
   public void loadDependencies()
   {
+    // HEY! THIS CODE NEVER GETS EXECUTED.
+    // The reason is because the TeamJoin is used in the SprayView and this only gets new instanced when the SQL gets generated,
+    // which is far too late for the dependencies to be loaded. If you want to modify the dependencies do it in the SprayView.
+    
     super.loadDependencies();
     
     // Load aliases that will be in the JOIN clause
     Alias[] joinAliases = new Alias[]{Alias.TARGET, Alias.SPRAY_SEASON, Alias.SPRAY_TEAM_DEFAULT_LOCALE, Alias.DISEASE};
     this.irsQB.addRequiredAlias(View.ALL_ACTUALS, joinAliases);
     this.irsQB.addRequiredAlias(View.PLANNED_TEAM, joinAliases);
+  }
+  
+  public String getLevel() {
+    return "2";
   }
   
   public final String FROM()

@@ -138,6 +138,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       calc.setSQL(sql);
     }
 
+    calculatePopulation(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
+    
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 10000, diagnosisAliases);
@@ -156,17 +158,28 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     return valueQuery;
   }
   
-  private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
+  private void calculatePopulation(ValueQuery valueQ, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml)
   {
-    SelectableSQLFloat calc;
-    if (valueQuery.hasSelectableRef("incidence_" + multiplier))
-    {
-      calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
-    }
-    else
+    if (!valueQ.hasSelectableRef(QueryConstants.POPULATION))
     {
       return;
     }
+    
+    SelectableSQLFloat popSel = (SelectableSQLFloat) valueQ.getSelectableRef(QueryConstants.POPULATION);
+    
+//    String sql = "";
+//    
+//    popSel.setSQL(sql);
+  }
+  
+  private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
+  {
+    if (!valueQuery.hasSelectableRef("incidence_" + multiplier))
+    {
+      return;
+    }
+    
+    SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
 
     String geoType = null;
     try

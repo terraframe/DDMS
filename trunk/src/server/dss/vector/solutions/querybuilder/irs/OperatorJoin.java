@@ -69,6 +69,10 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     }
   }
   
+  public String getLevel() {
+    return "1";
+  }
+  
   @Override
   public String setSprayDate(Alias alias)
   {

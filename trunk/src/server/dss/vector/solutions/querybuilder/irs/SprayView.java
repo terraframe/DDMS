@@ -43,6 +43,7 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
       this.irsQB.addRequiredAlias(View.SPRAY_VIEW, activity);
     }
     
+    this.getIrsQB().addRequiredAlias(View.SPRAY_VIEW, Alias.AGGREGATION_LEVEL);
     
     if(this.irsQB.needsAreaPlanned())
     {
@@ -54,10 +55,6 @@ public class SprayView extends AbstractSQLProvider implements Reloadable
       this.irsQB.addRequiredView(IRSQB.View.PLANNED_TEAM);
       this.irsQB.addRequiredView(IRSQB.View.PLANNED_TEAM_ROLLUP);
       this.irsQB.addRequiredView(IRSQB.View.PLANNED_TEAM_RESULTS);
-    }
-    
-    if(this.irsQB.needsTeamsPlanned())
-    {
       this.irsQB.addRequiredView(IRSQB.View.PLANNED_OPERATOR);
     }
   }
