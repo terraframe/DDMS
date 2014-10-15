@@ -14,6 +14,9 @@
   <mjl:dt attribute="remove">
     <mjl:boolean param="remove" />
   </mjl:dt>
+  <mjl:dt attribute="showOnViewAll">
+    <mjl:boolean param="showOnViewAll" />
+  </mjl:dt>
 <c:if test="${isComposite}">
   <mjl:dt attribute="fieldOrder">
     <mjl:input param="fieldOrder" type="text" />

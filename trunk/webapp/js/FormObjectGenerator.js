@@ -1581,7 +1581,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     OPTION_BREAK : 'OptionBreak'
   },
   Instance : {
-    initialize : function(prefix, mdFormId, mdClassType, fields){
+    initialize : function(prefix, mdFormId, mdClassType, fields, viewAllFields){
       this.$initialize();
       this._mdFormId = mdFormId;
       this._mdClassType = mdClassType;
@@ -1598,7 +1598,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         formatter: Mojo.Util.bind(this, this.viewColumnFormatter)
       });
       
-      this._table = this.getFactory().newDataTable(this._mdClassType, {preColumns:[col], columns: this._fields});
+      var filter = function(columnName){
+        return (viewAllFields.indexOf(columnName) != -1);
+      }
+      
+      this._table = this.getFactory().newDataTable(this._mdClassType, {preColumns:[col], columns: fields, filter: filter});
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeDateDTO', Mojo.Util.bind(this, this.dateColumnFormatter));
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeNumberDTO', Mojo.Util.bind(this, this.numberColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);

@@ -414,13 +414,13 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
   Implements : UI.DataTableIF,
   Extends : YUI3WidgetBase,
   Instance : {
-    initialize : function(type, addedColumns){
+    initialize : function(type, config){
     
       this.$initialize();
       
       if(Mojo.Util.isString(type))
       {
-        this._dataSource = new RunwayDataSource(type, this);
+        this._dataSource = new RunwayDataSource(type, this, config.filter);
       }
       else
       {
@@ -449,7 +449,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       this._dataTable.delegate('click', this._thClickHandler, 'th', this);
 
       // extra columns to add to the end of the table
-      this._addedColumns = addedColumns || [];
+      this._config = config;
+      this._config.columns =  this._config.columns || [];
       
       this._typeFormatters = {};
     },
@@ -552,6 +553,11 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         var attrs = e.attributes;
         var cols = [];
         
+        if(this._config.preColumns != null)
+        {          
+          cols = cols.concat(this._config.preColumns);          
+        }
+        
         for(var i=0; i<attrs.length; i++)
         {
           var attr = attrs[i];
@@ -559,16 +565,17 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           var label = attr.getAttributeMdDTO().getDisplayLabel();
           var key = attr.getName();
           
-          cols.push(new Column({
-            key : key,
-            label : label,
-            sortable : true,
-            formatter : (this._typeFormatters[attr.getType()] || null)
-          }));
+          if(this._config.filter == null || this._config.filter(key))
+          {
+            cols.push(new Column({
+              key : key,
+              label : label,
+              sortable : true,
+              formatter : (this._typeFormatters[attr.getType()] || null)
+            }));            
+          }
         }
         
-        cols = cols.concat(this._addedColumns.preColumns);
-      
         this._columnSet.addColumn(cols);
       }
       
