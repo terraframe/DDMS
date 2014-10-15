@@ -26,6 +26,7 @@ import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.EntityDAO;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.StructDAO;
 import com.runwaysdk.dataaccess.attributes.entity.AttributeStruct;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
@@ -48,37 +49,37 @@ import dss.vector.solutions.InstallProperties;
 
 public class MdssLocalizationImporter implements Reloadable
 {
-  private Sheet  exceptionSheet;
+  private Sheet      exceptionSheet;
 
-  private Sheet  termSheet;
+  private Sheet      termSheet;
 
-  private Sheet  entityLabelSheet;
+  private Sheet      entityLabelSheet;
 
-  private Sheet  labelSheet;
+  private Sheet      labelSheet;
 
-  private Sheet  localPropertySheet;
+  private Sheet      localPropertySheet;
 
-  private Sheet  malariaSeasonSheet;
+  private Sheet      malariaSeasonSheet;
 
-  private Sheet  descriptionSheet;
+  private Sheet      descriptionSheet;
 
-  private Sheet  clientSheet;
+  private Sheet      clientSheet;
 
-  private Sheet  serverSheet;
+  private Sheet      serverSheet;
 
-  private Sheet  commonSheet;
+  private Sheet      commonSheet;
 
-  private Sheet  propertySheet;
+  private Sheet      propertySheet;
 
-  private Sheet  managerSheet;
+  private Sheet      managerSheet;
 
-  private Sheet  synchSheet;
+  private Sheet      synchSheet;
 
-  private Sheet  geoSheet;
+  private Sheet      geoSheet;
 
-  private Sheet  initializerSheet;
+  private Sheet      initializerSheet;
 
-  private Sheet  backupSheet;
+  private Sheet      backupSheet;
 
   private static int modifiedCount = 0;
 
@@ -307,13 +308,13 @@ public class MdssLocalizationImporter implements Reloadable
   {
     try
     {
-      File dir = FileIO.getDirectory(bundle + ".properties");
+      File dir = FileIO.getDirectory("/" + bundle + ".properties");
 
       this.updateProperties(dir, bundle, sheet);
     }
-    catch (URISyntaxException e)
+    catch (Exception e)
     {
-      e.printStackTrace();
+      throw new ProgrammingErrorException("Unable to update [" + bundle + ".properties" + "]", e);
     }
   }
 

@@ -73,7 +73,7 @@ import dss.vector.solutions.util.yui.DataGrid;
 
 public class FormObjectController extends FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long   serialVersionUID = 2036299192;
+  public static final long    serialVersionUID = 2036299192;
 
   private static final String JSP_DIR          = "/WEB-INF/forms/";
 
@@ -105,14 +105,23 @@ public class FormObjectController extends FormObjectControllerBase implements co
 
       // keep a reference to the fields in proper order
       MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(this.getClientRequest(), (MdWebFormDTO) mdForm);
+
       JSONArray fieldsArr = new JSONArray();
-      for(MdWebFieldDTO field : fields)
+      JSONArray viewAllFields = new JSONArray();
+
+      for (MdWebFieldDTO field : fields)
       {
         fieldsArr.put(field.getFieldName());
+
+        if (field.getShowOnViewAll() == null || field.getShowOnViewAll())
+        {
+          viewAllFields.put(field.getFieldName());
+        }
       }
-      
+
       this.req.setAttribute("fields", fieldsArr.toString());
-      
+      this.req.setAttribute("viewAllFields", viewAllFields.toString());
+
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
     catch (Throwable t)
@@ -125,7 +134,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
       }
     }
   }
-  
+
   @Override
   public void failNewInstance(String mdFormId) throws IOException, ServletException
   {
@@ -167,10 +176,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
   // ((WebAttribute)field).getFieldMd().getDefiningMdAttribute();
   // MdAttributeReferenceDTO mdAttr =
   // MdAttributeReferenceDTO.get(this.getClientRequest(), mdAttributeId);
-  //        
+  //
   // String clazz = mdAttr.getDefiningMdClassMd().getReferencedMdBusiness();
   // String name = mdAttr.getAttributeName();
-  //        
+  //
   // BrowserRootViewDTO[] roots =
   // BrowserRootDTO.getAttributeRoots(this.getClientRequest(), clazz, name);
   // JSONArray rootsArr = new JSONArray();
@@ -181,13 +190,13 @@ public class FormObjectController extends FormObjectControllerBase implements co
   // rootJSON.put("selectable", root.getSelectable());
   // rootJSON.put("type", clazz);
   // rootJSON.put("attribute", name);
-  //          
+  //
   // rootsArr.put(rootJSON);
   // }
   // rootsJSON.put(field.getFieldName(), rootsArr);
   // }
   // }
-  //    
+  //
   // return rootsJSON;
   // }
 
@@ -377,7 +386,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
     Locale locale = req.getLocale();
 
     FormatFactory factory = AbstractFormatFactory.getFormatFactory();
-    
+
     for (FieldIF field : fields)
     {
       String setterAttr;
