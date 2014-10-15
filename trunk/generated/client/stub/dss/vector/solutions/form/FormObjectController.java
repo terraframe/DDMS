@@ -55,6 +55,7 @@ import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
+import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
@@ -113,9 +114,14 @@ public class FormObjectController extends FormObjectControllerBase implements co
       {
         fieldsArr.put(field.getFieldName());
 
-        if (field.getShowOnViewAll() == null || field.getShowOnViewAll())
+        if (field instanceof MdWebAttributeDTO)
         {
-          viewAllFields.put(field.getFieldName());
+          MdWebAttributeDTO attribute = (MdWebAttributeDTO) field;
+
+          if (attribute.getShowOnViewAll() == null || attribute.getShowOnViewAll())
+          {
+            viewAllFields.put(field.getFieldName());
+          }
         }
       }
 
