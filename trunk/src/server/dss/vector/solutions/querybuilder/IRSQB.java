@@ -1540,7 +1540,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " RIGHT JOIN " + operatorAggregation + " ON "
+      FROM += " FULL OUTER JOIN " + operatorAggregation + " ON "
           + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName() + " \n"
           + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = " + operatorAggregation + "." + disease._getAttributeName() + " \n"
           + "AND " + originalVQ + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
@@ -1723,7 +1723,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " LEFT JOIN " + teamAggregation + " ON "
+      FROM += " FULL OUTER JOIN " + teamAggregation + " ON "
           + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + teamAggregation + "." + season._getAttributeName() + " \n"
           + "AND " + originalVQ + "." + diseaseJoin.getColumnAlias() + " = " + teamAggregation + "." + disease._getAttributeName() + " \n"
           + "AND " + originalVQ + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = " + teamAggregation + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " \n";

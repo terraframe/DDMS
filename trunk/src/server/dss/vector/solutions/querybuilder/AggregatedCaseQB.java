@@ -95,6 +95,8 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
       calc.setSQL(sql);
     }
 
+    calculatePopulation(valueQuery, aggregatedCaseQuery, config, xml);
+    
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 100);
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 1000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 10000);
@@ -115,6 +117,74 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     return valueQuery;
   }
 
+  private void calculatePopulation(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml)
+  {
+    if (!valueQuery.hasSelectableRef(QueryConstants.POPULATION))
+    {
+      return;
+    }
+    
+    SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
+
+    String geoType = null;
+    try
+    {
+      String attributeKey = null;
+      String[] selectedUniversals = null;
+
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
+        {
+          selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+          }
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
+        }
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
+    String timePeriod = "yearly";
+
+    if (xml.indexOf("season") > 0)
+    {
+      timePeriod = "seasonal";
+    }
+
+    Selectable s;
+    try
+    {
+      s = valueQuery.getSelectableRef(geoType);
+    }
+    catch (QueryException e)
+    {
+      throw new IncidencePopulationException(e);
+    }
+
+    String geoColumn = s.getDbQualifiedName();
+    
+    String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
+
+    String sql = "get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + startDateCol + ")";
+    
+    popSel.setSQL(sql);
+  }
+  
   private void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)
   {
     SelectableSQLFloat calc;

@@ -167,9 +167,64 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     
     SelectableSQLFloat popSel = (SelectableSQLFloat) valueQ.getSelectableRef(QueryConstants.POPULATION);
     
-//    String sql = "";
-//    
-//    popSel.setSQL(sql);
+    String geoType = null;
+    try
+    {
+      String attributeKey = null;
+
+      String[] selectedUniversals = null;
+
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
+        {
+          selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+          }
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
+        }
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    String timePeriod = "yearly";
+
+    if (xml.indexOf("season") > 0)
+    {
+      timePeriod = "seasonal";
+    }
+    
+    Selectable s;
+    try
+    {
+      s = valueQ.getSelectableRef(geoType);
+    }
+    catch (QueryException e)
+    {
+      throw new IncidenceProbableSourceException();
+    }
+
+    String geoColumn = s.getDbQualifiedName();
+    
+    String date = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
+
+    String sql = "get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + date + ")";
+    
+    popSel.setSQL(sql);
   }
   
   private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)

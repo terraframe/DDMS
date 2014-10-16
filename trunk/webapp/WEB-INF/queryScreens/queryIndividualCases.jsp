@@ -10,6 +10,7 @@
 <%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
+<%@page import="dss.vector.solutions.query.QueryConstants"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
@@ -166,12 +167,19 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                           },
                           {
-                           
                            key:"deaths",
                            type:"sqlinteger",
                            attributeName:"deaths",
                            isAggregate:true
-                          },                       
+                          },
+                          {
+                            key:"<%= QueryConstants.POPULATION %>",
+                            attributeName:"<%= QueryConstants.POPULATION %>",
+                            displayLabel:MDSS.localize('population'),
+                            description:MDSS.localize('population'),
+                            type:'sqlfloat',
+                            isAggregate:false
+                          },
                           {
                             
                             key:"incidence_100",
