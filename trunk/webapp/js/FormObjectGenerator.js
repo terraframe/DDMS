@@ -1783,7 +1783,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      * dereferencing.
      */
     viewColumnFormatter : function(o){
-      return '<span id="'+o.data.id+'" class="generatedViewCommand">'+MDSS.localize('View')+'</span>';
+      return '<span id="'+o.data.id+'" class="generatedViewCommand clickable">'+MDSS.localize('View')+'</span>';
     },
     clearFormContainer : function(){
       // clear the form container
