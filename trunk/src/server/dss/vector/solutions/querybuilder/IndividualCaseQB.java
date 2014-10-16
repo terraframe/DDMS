@@ -138,8 +138,6 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       calc.setSQL(sql);
     }
 
-    calculatePopulation(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
-    
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 10000, diagnosisAliases);
@@ -154,19 +152,42 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     Disease disease = Disease.getCurrent();
     valueQuery.AND(caseQuery.getDisease().EQ(disease));
-
+    
+//    injectPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
+    if (valueQuery.hasSelectableRef(QueryConstants.POPULATION)) {
+      SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
+      String popSQL = getPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
+      popSel.setSQL(popSQL);
+    }
+    
     return valueQuery;
   }
   
-  private void calculatePopulation(ValueQuery valueQ, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml)
+  /**
+   * Because the calculated population field can be used in both the 'population' and also instance calculations we're adding it to the FROM clause
+   * where it can be referenced by both. This is a performance enhancement that enables us to only calculate it once and reference it twice.
+   */
+//  private void injectPopulationSQL(ValueQuery vq, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml) {
+//    if (!(vq.hasSelectableRef(QueryConstants.POPULATION) || vq.hasSelectableRef("incidence_100")  || vq.hasSelectableRef("incidence_1000")
+//        || vq.hasSelectableRef("incidence_10000")  || vq.hasSelectableRef("incidence_100000") || vq.hasSelectableRef("incidence_1000000")))
+//    {
+//      return;
+//    }
+//    
+//    String popSQL = getPopulationSQL(vq, caseQuery, instanceQuery, queryConfig, xml);
+//    
+//    String FROM = "(SELECT " + popSQL + " AS population FROM ??)";
+//    
+//    vq.FROM(FROM, "popCalc");
+//    
+//    if (valueQ.hasSelectableRef(QueryConstants.POPULATION)) {
+//      SelectableSQLFloat popSel = (SelectableSQLFloat) valueQ.getSelectableRef(QueryConstants.POPULATION);
+//      popSel.setSQL(popSQL);
+//    }
+//  }
+  
+  private String getPopulationSQL(ValueQuery valueQ, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml)
   {
-    if (!valueQ.hasSelectableRef(QueryConstants.POPULATION))
-    {
-      return;
-    }
-    
-    SelectableSQLFloat popSel = (SelectableSQLFloat) valueQ.getSelectableRef(QueryConstants.POPULATION);
-    
     String geoType = null;
     try
     {
@@ -220,11 +241,15 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     String geoColumn = s.getDbQualifiedName();
     
-    String date = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
-
-    String sql = "get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + date + ")";
+    String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
+    String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
     
-    popSel.setSQL(sql);
+    // If the Symptom Onset Date is null, we use the Diagnosis Date instead (which is a required field).
+    String coalesceDate = "COALESCE(" + symptomOnsetDate + ", " + diagnosisDate + ")";
+
+    String sql = "get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + coalesceDate + ")";
+    
+    return sql;
   }
   
   private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
@@ -287,19 +312,16 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       throw new IncidenceProbableSourceException();
     }
 
-    String columnAlias = s.getDbQualifiedName();
+    String geoColumn = s.getDbQualifiedName();
 
-    // String tableAlias = caseQuery.getTableAlias();
-
-    // MdEntityDAOIF mdIndInst =
-    // MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
-    // String tableName = mdIndInst.getTableName();
-    // String indCaseCol = QueryUtil.getColumnName(mdIndInst,
-    // IndividualInstance.INDIVIDUALCASE);
-    String onset = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
+    String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
+    String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
+    
+    // If the Symptom Onset Date is null, we use the Diagnosis Date instead (which is a required field).
+    String coalesceDate = "COALESCE(" + symptomOnsetDate + ", " + diagnosisDate + ")";
 
     String sql = "(" + getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases) + ")";
-    sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + onset + ")),0.0)*" + multiplier;
+    sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + coalesceDate + ")),0.0)*" + multiplier;
 
     calc.setSQL(sql);
   }
