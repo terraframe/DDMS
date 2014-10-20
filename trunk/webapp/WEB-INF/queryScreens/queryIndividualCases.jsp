@@ -247,6 +247,29 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryIndividualCases(selectableGroups, queryList);
     query.render();
 
+    var dm = query.getDependencyManager();
+    
+    var dateGroupsArr = ['dategroup_year', 'dategroup_season'];
+    var targetIds = ['population','incidence_100', 'incidence_1000', 'incidence_10000', 'incidence_100000'];
+    var targets = new MDSS.Set(targetIds);
+    var dateGroups = new MDSS.Set(dateGroupsArr);
+    
+    dm.includes({
+      independent: targetIds,
+      dependent: [],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: dateGroupsArr,
+      dependent: [],
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false,
+      name: MDSS.QueryIRS.DATE_GROUP
+    });
+    
+    var handler = Mojo.Util.bind(query, query.ensureDateGroupChecked, targets, dateGroups);
+    dm.addAllTransactionsFinishListener(handler);
 });
 
 </script>

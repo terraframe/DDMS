@@ -1174,8 +1174,10 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     List<WITHEntry> entries = new LinkedList<WITHEntry>();
     ValueQuery toReturn = null;
+    ValueQuery aggVQ = null;
 
     String originalVQ = "original_vq";
+    String aggregateAlias = null;
     String FROM = originalVQ;
 
     // Push the original query into the FROM clause of the outer query
@@ -1205,6 +1207,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       Set<String> toCoalesce = new HashSet<String>();
       
       String areaAggregation = "areaAggregation";
+      aggregateAlias = areaAggregation;
 
       if (toReturn == null)
       {
@@ -1237,7 +1240,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // null at this point).
       String aggAlias = qb.getQueryMap().get(AbstractSpray.CLASS).getTableAlias();
 
-      ValueQuery aggVQ = qb.getValueQuery();
+      aggVQ = qb.getValueQuery();
 
       HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
       Selectable smallestUni = aggVQ.getSelectableRef(this.smallestUniversalSelectable);
@@ -1345,12 +1348,12 @@ public class IRSQB extends AbstractQB implements Reloadable
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       valueQuery.SELECT(parentGeo);
 
-      boolean hasAPC = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
-      boolean hasAPT = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+//      boolean hasAPC = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
+//      boolean hasAPT = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
       
       // Coverage requires activity and APT, meaning unless the user also selects
       // APT there will be empty rows for every APT result for which there's no activity.
-      String joinType = hasAPC && !hasAPT ? "LEFT JOIN" : "FULL OUTER JOIN";
+      String joinType = "FULL OUTER JOIN";
       
       FROM += " " + joinType + " " + areaAggregation + " ON "
           + originalVQ + "." + seasonJoin.getColumnAlias() + " = " + areaAggregation + "." + season._getAttributeName() + " \n"
@@ -1457,6 +1460,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       String operatorAggregation = "operatorAggregation";
+      aggregateAlias = operatorAggregation;
 
       // create a new IRS Query that aggregates the area targets for the
       // universals selected.
@@ -1472,7 +1476,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // null at this point).
       String aggAlias = qb.getQueryMap().get(AbstractSpray.CLASS).getTableAlias();
 
-      ValueQuery aggVQ = qb.getValueQuery();
+      aggVQ = qb.getValueQuery();
 
       HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>(); // We're using a HashMap here so as to guarantee no duplicates
       
@@ -1645,6 +1649,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       String teamAggregation = "teamAggregation";
+      aggregateAlias = teamAggregation;
 
       // create a new IRS Query that aggregates the area targets for the
       // universals selected.
@@ -1659,7 +1664,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // null at this point).
       String aggAlias = qb.getQueryMap().get(AbstractSpray.CLASS).getTableAlias();
 
-      ValueQuery aggVQ = qb.getValueQuery();
+      aggVQ = qb.getValueQuery();
       
       HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
       Selectable opt = aggVQ.aSQLAggregateInteger(Alias.TEAM_PLANNED_TARGET.getAlias(),
@@ -1804,6 +1809,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       valueQuery.SELECT(seasonJoin, diseaseJoin);
       this.setWITHClause(entries, false, toReturn);
       toReturn.FROM("(" + valueQuery.getSQL() + ")", FROM);
+      
+      coalesceSelects(toReturn, aggVQ, originalVQ, aggregateAlias);
     }
     else
     {
@@ -1811,6 +1818,31 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
 
     return toReturn;
+  }
+  
+  /**
+   * Helper method for post processing.
+   * 
+   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two.
+   * Some of these rows may only have data in one of the columns in one of the tables, but since the columns are the same
+   * we can coalesce the data and select it from any of the columns where the data exists.
+   */
+  private void coalesceSelects(ValueQuery original, ValueQuery aggregate, String originalAlias, String aggregateAlias)
+  {
+    // 1. Loop over all selectables in the originalVQ
+    List<Selectable> aggSels = aggregate.getSelectableRefs();
+    List<Selectable> origSels = original.getSelectableRefs();
+    for (Selectable origSel : origSels) {
+      
+      // 2. If the aggregate also contains this selectable
+//      String alias = origSel.getUserDefinedAlias();
+      String selName = origSel.getDbColumnName();
+      if(aggregate.hasSelectableRef(selName))
+      {
+        // 3. Coalesce it
+        ((SelectableSQL) origSel).setSQL("COALESCE(" + originalAlias + "." + selName + ", " + aggregateAlias + "." + selName + ")");
+      }
+    }
   }
 
   private Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix,
