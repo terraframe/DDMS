@@ -23,6 +23,8 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Physician;
 import dss.vector.solutions.PhysicianQuery;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -39,7 +41,9 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCaseQB extends AbstractQB implements Reloadable
 {
-
+  private static String[] requiresGeoColumn = new String[]{QueryConstants.POPULATION, QueryConstants.THRESHOLD,
+                                                           "incidence_100", "incidence_1000", "incidence_10000", "incidence_100000", "incidence_1000000"};
+  
   public IndividualCaseQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
     super(xml, config, layer, pageSize, pageSize);
@@ -55,6 +59,9 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    // geoColumn will be null if the query does not contain any selectables in the 'requiresGeoColumn' array.
+    String geoColumn = getGeoColumn(valueQuery, queryConfig);
+    
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
     IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
@@ -137,12 +144,12 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       String sql = "(" + deathSum + "::float/NULLIF((" + adjustedCases + "),0))*100.0";
       calc.setSQL(sql);
     }
-
-    calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100, diagnosisAliases);
-    calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000, diagnosisAliases);
-    calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 10000, diagnosisAliases);
-    calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100000, diagnosisAliases);
-    calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000000, diagnosisAliases);
+    
+    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 100, diagnosisAliases);
+    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 1000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 10000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 100000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 1000000, diagnosisAliases);
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
 
@@ -156,11 +163,88 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 //    injectPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
     if (valueQuery.hasSelectableRef(QueryConstants.POPULATION)) {
       SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
-      String popSQL = getPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
+      String popSQL = getPopulationSQL(valueQuery, geoColumn, caseQuery, instanceQuery, xml);
       popSel.setSQL(popSQL);
     }
     
+    setThresholdSQL(valueQuery, geoColumn, caseQuery, instanceQuery, xml);
+    
     return valueQuery;
+  }
+  
+  private String getGeoColumn(ValueQuery vq, JSONObject queryConfig) {
+    // Do we have any selectables that require a geo column?
+    boolean needsGeoColumn = false;
+    for (String geoSel : requiresGeoColumn) {
+      if (vq.hasSelectableRef(geoSel)) {
+        needsGeoColumn = true;
+        break;
+      }
+    }
+    if (!needsGeoColumn) { return null; }
+    
+    String geoType = null;
+    try
+    {
+      String attributeKey = null;
+
+      String[] selectedUniversals = null;
+
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
+        {
+          selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+          }
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
+        }
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    Selectable s;
+    try
+    {
+      s = vq.getSelectableRef(geoType);
+    }
+    catch (QueryException e)
+    {
+      throw new IncidenceProbableSourceException(e);
+    }
+
+    return s.getDbQualifiedName();
+  }
+  
+  private void setThresholdSQL(ValueQuery vq, String geoColumn, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, String xml) {
+    if (!vq.hasSelectableRef(QueryConstants.THRESHOLD)) {
+      return;
+    }
+    
+    String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
+    String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
+    
+    // If the Symptom Onset Date is null, we use the Diagnosis Date instead (which is a required field).
+    String dateCol = "COALESCE(" + symptomOnsetDate + ", " + diagnosisDate + ")";
+    
+    String sql = "get_threshold_by_geoid_and_epiweek(" + geoColumn + ", " + dateCol + ", '" + Disease.getCurrent().getId() +  "')";
+    
+    SelectableSQLFloat threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD);
+    threshSel.setSQL(sql);
   }
   
   /**
@@ -186,60 +270,14 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 //    }
 //  }
   
-  private String getPopulationSQL(ValueQuery valueQ, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml)
+  private String getPopulationSQL(ValueQuery valueQ, String geoColumn, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, String xml)
   {
-    String geoType = null;
-    try
-    {
-      String attributeKey = null;
-
-      String[] selectedUniversals = null;
-
-      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      Iterator<?> keys = selectedUniMap.keys();
-      while (keys.hasNext())
-      {
-        attributeKey = (String) keys.next();
-
-        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
-        {
-          selectedUniversals = new String[universals.length()];
-          for (int i = 0; i < universals.length(); i++)
-          {
-            selectedUniversals[i] = universals.getString(i);
-          }
-          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
-          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
-          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
-          geoType = geoType.replace('.', '_');
-        }
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-    
     String timePeriod = "yearly";
 
     if (xml.indexOf("season") > 0)
     {
       timePeriod = "seasonal";
     }
-    
-    Selectable s;
-    try
-    {
-      s = valueQ.getSelectableRef(geoType);
-    }
-    catch (QueryException e)
-    {
-      throw new IncidenceProbableSourceException();
-    }
-
-    String geoColumn = s.getDbQualifiedName();
     
     String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
     String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
@@ -252,7 +290,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     return sql;
   }
   
-  private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
+  private void calculateIncidence(ValueQuery valueQuery, String geoColumn, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
   {
     if (!valueQuery.hasSelectableRef("incidence_" + multiplier))
     {
@@ -261,58 +299,12 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     
     SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
 
-    String geoType = null;
-    try
-    {
-      String attributeKey = null;
-
-      String[] selectedUniversals = null;
-
-      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      Iterator<?> keys = selectedUniMap.keys();
-      while (keys.hasNext())
-      {
-        attributeKey = (String) keys.next();
-
-        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
-        {
-          selectedUniversals = new String[universals.length()];
-          for (int i = 0; i < universals.length(); i++)
-          {
-            selectedUniversals[i] = universals.getString(i);
-          }
-          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
-          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
-          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
-          geoType = geoType.replace('.', '_');
-        }
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-
     String timePeriod = "yearly";
 
     if (xml.indexOf("season") > 0)
     {
       timePeriod = "seasonal";
     }
-
-    Selectable s;
-    try
-    {
-      s = valueQuery.getSelectableRef(geoType);
-    }
-    catch (QueryException e)
-    {
-      throw new IncidenceProbableSourceException();
-    }
-
-    String geoColumn = s.getDbQualifiedName();
 
     String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
     String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);

@@ -167,6 +167,14 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                           },
                           {
+                            key:"<%= QueryConstants.THRESHOLD %>",
+                            attributeName:"<%= QueryConstants.THRESHOLD %>",
+                            displayLabel:MDSS.localize("<%=QueryConstants.THRESHOLD%>"),
+                            description:MDSS.localize("<%=QueryConstants.THRESHOLD%>"),
+                            type:'sqlfloat',
+                            isAggregate:false
+                          },
+                          {
                            key:"deaths",
                            type:"sqlinteger",
                            attributeName:"deaths",
@@ -175,8 +183,8 @@ YAHOO.util.Event.onDOMReady(function(){
                           {
                             key:"<%= QueryConstants.POPULATION %>",
                             attributeName:"<%= QueryConstants.POPULATION %>",
-                            displayLabel:MDSS.localize('population'),
-                            description:MDSS.localize('population'),
+                            displayLabel:MDSS.localize("<%= QueryConstants.POPULATION %>"),
+                            description:MDSS.localize("<%= QueryConstants.POPULATION %>"),
                             type:'sqlfloat',
                             isAggregate:false
                           },
@@ -249,6 +257,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var dm = query.getDependencyManager();
     
+    // Population & Incidence Check Dependencies:
     var dateGroupsArr = ['dategroup_year', 'dategroup_season'];
     var targetIds = ['population','incidence_100', 'incidence_1000', 'incidence_10000', 'incidence_100000'];
     var targets = new MDSS.Set(targetIds);
@@ -270,6 +279,9 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var handler = Mojo.Util.bind(query, query.ensureDateGroupChecked, targets, dateGroups);
     dm.addAllTransactionsFinishListener(handler);
+    
+    // Threshold Check Dependencies:
+    // epiweek, transmission season
 });
 
 </script>
