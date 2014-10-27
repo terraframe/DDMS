@@ -1,8 +1,11 @@
 package dss.vector.solutions.query;
 
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.FileItem;
@@ -16,6 +19,7 @@ import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.controller.MultipartFileParameter;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.util.FileIO;
@@ -24,7 +28,9 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
+import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.sld.SLDWriter;
+import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
 
@@ -35,6 +41,8 @@ public class MappingController extends MappingControllerBase implements com.runw
   private static final String JSP_DIR          = "/WEB-INF/mapScreens/";
 
   private static final String ADD_TEXT_JSP     = JSP_DIR + "addText.jsp";
+  
+  private static final String EXPORT_MAP_JSP     = JSP_DIR + "exportMap.jsp";
 
   public static final String  GENERATE_MAPS    = JSP_DIR + "generateMaps.jsp";
 
@@ -131,7 +139,7 @@ public class MappingController extends MappingControllerBase implements com.runw
     {
       ClientRequestIF request = this.getClientRequest();
 
-      // Gets the default map instance
+      // Gets the default map instance 
       // savedMapId is actually the default map id (as passed in from javascript)
       SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
 
@@ -223,6 +231,30 @@ public class MappingController extends MappingControllerBase implements com.runw
       message = JSONObject.quote(message);
       resp.setContentType("text/html");
       resp.getWriter().write("{\"success\":" + success + ", \"message\":" + message + ", \"id\":" + "\"" + imageId + "\"" + "}");
+    }
+  }
+  
+  
+  @Override
+  public void mapExport(String mapId, String outFileName, String outFileFormat, String mapBounds, String mapSize) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+    SavedMapDTO map = SavedMapDTO.get(request, mapId);
+    
+    if(outFileName == null || outFileName.length() == 0)
+    {
+      outFileName = "default";
+    }
+    
+    try
+    {
+      InputStream mapImageInStream = map.generateMapImageExport(outFileFormat, mapBounds, mapSize);
+      FileDownloadUtil.writeFile(resp, outFileName, outFileFormat, mapImageInStream, "application/"+outFileFormat);
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req, resp, false);
+      this.failMapExport(mapId, outFileName, outFileFormat, mapBounds, mapSize);
     }
   }
 

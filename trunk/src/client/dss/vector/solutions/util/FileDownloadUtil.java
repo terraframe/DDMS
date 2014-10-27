@@ -39,7 +39,7 @@ public class FileDownloadUtil
     writeFile(resp, filename, "zip", inputStream, type);
   }
 
-  private static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream, String type) throws IOException
+  public static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream, String type) throws IOException
   {
     Cookie cookie = new Cookie("downloadToken", "true");
     // 10 minute cookie expiration

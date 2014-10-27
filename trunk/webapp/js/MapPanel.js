@@ -117,8 +117,37 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
       YAHOO.util.Event.on('imageIframe', 'load', this._handleImageUpload, null, this);
       
+      YAHOO.util.Event.on('mapExportIframe', 'load', this._handleMapExportUpload, null, this);
+      
       this._drawLineControl = null;
       this._measureControle = null;
+    },
+    
+    /**
+     * Handler for mapExportIframe event listener
+     * 
+     */
+    _handleMapExportUpload : function(e)
+    {
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var mapId = this.constructor.getCurrentMap();
+      
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+    	var that = this;  
+        var obj = Mojo.Util.getObject(text);
+        if(obj.success)
+        {
+          that._renderImages(obj.message, obj.id);
+          this._destroyModal();
+        }
+        else
+        {
+          new MDSS.ErrorModal(obj.message);
+        }
+      }
     },
     
     /**
@@ -928,11 +957,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       saveAsButton.set('id', "saveAsQueryButton");
       saveAsButton.addClass('queryButton');
       saveAsButton.on('click', this._saveMapAs, {}, this);
+      
+      var exportButton = new YAHOO.util.Element(document.createElement('input'));
+      exportButton.set('type', 'button');
+      exportButton.set('value', MDSS.localize("Export_Map"));
+      exportButton.set('id', "exportMapButton");
+      exportButton.addClass('queryButton');
+      exportButton.on('click', this._exportMap, {}, this);
 
       var deleteButton = new YAHOO.util.Element(document.createElement('input'));
       deleteButton.set('type', 'button');
       deleteButton.set('value', MDSS.localize("Delete_Map"));
-      deleteButton.set('id', this.LOAD_QUERY_BUTTON);
+      deleteButton.set('id', this.LOAD_QUERY_BUTTON);  
       deleteButton.addClass('queryButton');
       deleteButton.on('click', this._deleteMap, {}, this);
       
@@ -941,6 +977,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       loadingDiv.appendChild(mapList);
       loadingDiv.appendChild(saveButton);
       loadingDiv.appendChild(saveAsButton);
+      loadingDiv.appendChild(exportButton);
       loadingDiv.appendChild(deleteButton);
     
       var annotationsDiv = new YAHOO.util.Element(document.createElement('div'));
@@ -1382,6 +1419,45 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateMapImageStatus : function(mapId)
     {
+    	//COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVEMAPIMAGES(). DELETE AFTER TESTS PASS
+//        var activeMapImages = document.getElementsByClassName("mapImage");
+//        
+//        var imagesJSONArr = [];
+//        for(var i=0; i<activeMapImages.length; i++){
+//        	var img = activeMapImages[i];
+//        	var imgId = img.id;
+//        	
+//	        var style = window.getComputedStyle(img);
+//	        var top = style.getPropertyValue('top');
+//	        var left = style.getPropertyValue('left');
+//        	
+//	        var imgInfo = { "imageId":imgId, "top":top, "left":left };
+//	        imagesJSONArr.push(imgInfo);
+//        }
+//        
+//        var imagesJSON = { "images" : imagesJSONArr };
+    	
+    	var imagesJSON = this._getActiveMapImages();
+        
+        var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(query)
+            {
+              // No callback necessary
+            }
+          });  	
+        
+        Mojo.$.dss.vector.solutions.query.SavedMap.updateImageLocations(request, mapId, imagesJSON);
+    },
+    
+    /**
+     * Build a json object containing all visible images from the map.
+     * This is for getting visible map images and has no notion of saved images
+     * 
+     * @return 
+     */
+    _getActiveMapImages : function()
+    {
         var activeMapImages = document.getElementsByClassName("mapImage");
         
         var imagesJSONArr = [];
@@ -1399,15 +1475,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         var imagesJSON = { "images" : imagesJSONArr };
         
-        var request = new MDSS.Request({
-            that : this,
-            onSuccess : function(query)
-            {
-              // No callback necessary
-            }
-          });  	
-        
-        Mojo.$.dss.vector.solutions.query.SavedMap.updateImageLocations(request, mapId, imagesJSON);
+        return imagesJSON;
     },
     
     
@@ -1427,7 +1495,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 	    	mapBounds.top = this._map.getExtent().top;
 	    	
 	    	
-	    	var zoomLevel = this._map.getZoom()
+	    	var zoomLevel = this._map.getZoom();
 	    	
 	        var request = new MDSS.Request({
 	            that : this,
@@ -1449,6 +1517,45 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _updateTextElementState : function(mapId)
     {
     	
+    	//COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVETEXTELEMENTS(). DELETE AFTER TESTS PASS
+//    	var activeText = document.getElementsByClassName("ddmsTextElement");
+//    	
+//        var textJSONArr = [];
+//        for(var i=0; i<activeText.length; i++){
+//        	var text = activeText[i];
+//        	var textId = text.id;
+//        	
+//	        var style = window.getComputedStyle(text);
+//	        var top = style.getPropertyValue('top');
+//	        var left = style.getPropertyValue('left');
+//        	
+//	        var textInfo = { "textId":textId, "top":top, "left":left };
+//	        textJSONArr.push(textInfo);
+//        }
+//        
+//        var textJSON = { "textElements" : textJSONArr };
+    	
+    	var textJSON = this._getActiveTextElements();
+    	
+        var request = new MDSS.Request({
+            that : this,
+            onSuccess : function(query)
+            {
+              // No callback necessary
+            }
+          });  
+        
+        Mojo.$.dss.vector.solutions.query.SavedMap.updateTextElements(request, mapId, textJSON);
+    },
+    
+    /**
+     * Build a json object containing all visible user defined text elements from the map.
+     * This is for getting visible text elements and has no notion of saved text elements
+     * 
+     * @return 
+     */
+    _getActiveTextElements : function()
+    {
     	var activeText = document.getElementsByClassName("ddmsTextElement");
     	
         var textJSONArr = [];
@@ -1465,16 +1572,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         }
         
         var textJSON = { "textElements" : textJSONArr };
-    	
-        var request = new MDSS.Request({
-            that : this,
-            onSuccess : function(query)
-            {
-              // No callback necessary
-            }
-          });  
         
-        Mojo.$.dss.vector.solutions.query.SavedMap.updateTextElements(request, mapId, textJSON);
+        return textJSON;
     },
     
     
@@ -1508,6 +1607,71 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var doDel = Mojo.Util.bind(this, this._doDeleteMap, mapId);
         MDSS.confirmModal(MDSS.localize('Confirm_Delete_Map'), doDel, function(){});
       }
+    },
+    
+    _exportMapModal : function(mapId, mapBounds, mapSize, outFileName)
+    {
+    	
+    	var html = '';
+    	html += '<form id="exportMap" target="mapExportIframe" method="POST" action="dss.vector.solutions.query.MappingController.mapExport.mojo">';
+    	html += '<input type="hidden" id="mapId" name="mapId" value=\'' + mapId + '\' />';
+    	html += '<input type="hidden" id="mapBounds" name="mapBounds" value=\'' + mapBounds+ '\' />';
+    	html += '<input type="hidden" id="mapSize" name="mapSize" value=\'' + mapSize + '\' />';    	
+    	html += '<input type="hidden" id="outFileName" name="outFileName" value=\'' + outFileName + '\' />';    	    	
+    	html += '<dl>';
+    	html += '	<dt>'+ MDSS.localize('File_Format') +'	</dt>';
+    	html += '	<dd>';
+    	html += '		<select name="outFileFormat">';
+    	html += '			<option value="png">' + MDSS.localize('PNG') + '</option>';
+    	html += '			<option value="jpg">' + MDSS.localize('JPG') + '</option>';
+    	html += '			<option value="bmp">' + MDSS.localize('BMP') + '</option>';
+    	html += '			<option value="gif">' + MDSS.localize('GIF') + '</option>';
+    	html += '		</select>';
+    	html += '	</dd>';
+    	html += '</dl>';
+
+    	html += '<input type="submit" value="' + MDSS.localize("Export_Map") + '" />';
+    	html += '</form>';
+    	
+    	this._createModal(html, MDSS.localize("Export_Map"), true, true);
+    },
+    
+    _exportMap : function()
+    {
+    	var outFileName = "test_image";
+    	var outFilePath = "/home/jlewis/development/scratch/";
+    	var outFileFormat = "png";  // gif, png, jpg, bmp
+    	
+    	var mapBounds = {};
+    	var mapExtent = this._map.getExtent();
+    	mapBounds.left = mapExtent.left;
+    	mapBounds.bottom = mapExtent.bottom;
+    	mapBounds.right = mapExtent.right;
+    	mapBounds.top = mapExtent.top;
+    	mapBoundsStr = JSON.stringify(mapBounds);
+    	
+    	var mapSize = {};
+    	mapSize.width = document.getElementById("mapContainer").offsetWidth;
+    	mapSize.height = document.getElementById("mapContainer").offsetHeight;
+    	mapSizeStr = JSON.stringify(mapSize);
+    	
+    	var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
+        var mapId = select.value;
+        
+        var mapId = select.value;
+        var defaultMapId = select.options[0].value;
+        
+//        var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+//        document.getElementById('mapId').value = defaultMapId;
+//        document.getElementById('outFileName').value = outFileName;
+//        document.getElementById('outFileFormat').value = outFileFormat;
+//        document.getElementById('mapBounds').value = mapBoundsStr;
+//        document.getElementById('mapSize').value = mapSizeStr;
+        
+        this._exportMapModal(defaultMapId, mapBoundsStr, mapSizeStr, select.text);
+        
+//        var form = document.getElementById('exportMap');
+//        form.submit();
     },
     
     _addSavedMap : function(mapId, mapName)

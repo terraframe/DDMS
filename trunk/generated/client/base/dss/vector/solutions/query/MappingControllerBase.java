@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -700351356)
+@com.runwaysdk.business.ClassSignature(hash = -1219441020)
 public class MappingControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -203,6 +203,34 @@ public class MappingControllerBase implements com.runwaysdk.generation.loader.Re
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapEntomologyQuery");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize", post=true)
+  public void mapExport(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapExport");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize", post=true)
+  public void failMapExport(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapExport");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void mapExportModal() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapExportModal");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void failMapExportModal() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapExportModal");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)

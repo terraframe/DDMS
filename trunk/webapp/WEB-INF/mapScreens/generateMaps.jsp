@@ -61,6 +61,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <iframe id="exportIframe" name="exportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
 <iframe id="imageIframe" name="imageIframe" style="display: none; width: 1px; height: 1px;"></iframe>
+<iframe id="mapExportIframe" name="mapExportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
 
 <div style="display: none">
   <form id="exportShapefile" target="exportIframe" method="POST" action="dss.vector.solutions.query.MappingController.exportShapefile.mojo">

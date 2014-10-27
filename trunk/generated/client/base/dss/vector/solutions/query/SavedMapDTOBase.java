@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -933023236)
+@com.runwaysdk.business.ClassSignature(hash = -1153115686)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = -933023236;
+  private static final long serialVersionUID = -1153115686;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -849,6 +849,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final void exportMapToImage(java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{outFileName, outFilePath, outFileFormat, mapBounds, mapSize};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportMapToImage", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void exportMapToImage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, outFileName, outFilePath, outFileFormat, mapBounds, mapSize};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportMapToImage", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final java.io.InputStream exportShapefile()
   {
     String[] _declaredTypes = new String[]{};
@@ -862,6 +878,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportShapefile", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.io.InputStream generateMapImageExport(java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{outFileFormat, mapBounds, mapSize};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "generateMapImageExport", _declaredTypes);
+    return (java.io.InputStream) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.io.InputStream generateMapImageExport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, outFileFormat, mapBounds, mapSize};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "generateMapImageExport", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

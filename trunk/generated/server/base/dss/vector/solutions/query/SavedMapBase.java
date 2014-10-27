@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -217657220)
+@com.runwaysdk.business.ClassSignature(hash = 869993306)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String ZOOMLEVEL = "zoomLevel";
-  private static final long serialVersionUID = -217657220;
+  private static final long serialVersionUID = 869993306;
   
   public SavedMapBase()
   {
@@ -780,6 +780,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     _instance.deleteLayerFromMap(layerId);
   }
   
+  public void exportMapToImage(java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void exportMapToImage(java.lang.String id, java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    _instance.exportMapToImage(outFileName, outFilePath, outFileFormat, mapBounds, mapSize);
+  }
+  
   public java.io.InputStream exportShapefile()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
@@ -790,6 +802,18 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   {
     SavedMap _instance = SavedMap.get(id);
     return _instance.exportShapefile();
+  }
+  
+  public java.io.InputStream generateMapImageExport(java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.io.InputStream generateMapImageExport(java.lang.String id, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
+  {
+    SavedMap _instance = SavedMap.get(id);
+    return _instance.generateMapImageExport(outFileFormat, mapBounds, mapSize);
   }
   
   public dss.vector.solutions.query.LayerViewQuery getAllLayers()

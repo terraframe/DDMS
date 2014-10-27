@@ -1,0 +1,31 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.query.SavedMap">
+        <create>
+          <mdMethod name="generateMapImageExport" label="generateMapImageExport" returnType="java.io.InputStream" static="false">
+          	  <mdParameter name="outFileFormat" label="outFileFormat" order="0" type="java.lang.String"/>
+          	  <mdParameter name="mapBounds" label="mapBounds" order="1" type="java.lang.String"/>	
+          	  <mdParameter name="mapSize" label="mapSize" order="2" type="java.lang.String"/>
+          </mdMethod> 	 
+        </create>
+      </mdBusiness>
+            <mdController name="dss.vector.solutions.query.MappingController">
+      	<create>
+      		<mdAction name="mapExport" label="Map Export" isPost="true">
+			  <mdParameter name="mapId" label="mapId" order="0" type="java.lang.String"/>
+          	  <mdParameter name="outFileName" label="outFileName" order="1" type="java.lang.String"/>		
+          	  <mdParameter name="outFileFormat" label="outFileFormat" order="2" type="java.lang.String"/>
+          	  <mdParameter name="mapBounds" label="mapBounds" order="3" type="java.lang.String"/>	
+          	  <mdParameter name="mapSize" label="mapSize" order="4" type="java.lang.String"/>
+	        </mdAction>
+			<mdAction name="mapExportModal" label="Map Export Modal" isPost="true"></mdAction>
+      	</create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
