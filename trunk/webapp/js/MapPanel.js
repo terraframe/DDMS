@@ -152,7 +152,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       text = MDSS.util.stripWhitespace(text);
       if(text.length > 0)
       {
-    	var that = this;  
+       	var that = this;  
         var obj = Mojo.Util.getObject(text);
         if(obj.success)
         {
@@ -234,7 +234,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
         
         var dd = this.addDragDrop(div);
-        dd.endDrag = Mojo.Util.bind(this, this._handleImageDragEnd);
+        dd.endDrag = Mojo.Util.bind(this, this._updateDefaultMapImageStatus);
         
         this.position(div);
         
@@ -243,15 +243,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         this._ddDivs.push({div:div, dd:dd});
         
         return div;
-    },
-    
-    _handleImageDragEnd : function (e)
-    {
-      // We need to update the image locations of the default map
-      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-      var defaultMapId = mapList.options[0].value;
-      
-      this._updateMapImageStatus(defaultMapId)
     },
     
     /**
@@ -292,7 +283,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         div.insertBefore(closeDiv, div.firstChild)
         
         var dd = this.addDragDrop(div);
-        dd.endDrag = Mojo.Util.bind(this, this._handleTextDragEnd);
+        dd.endDrag = Mojo.Util.bind(this, this._updateDefaultTextElementState);
 
         this.position(div);
 
@@ -316,15 +307,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           div.style.top = topPosition + "px";
         }
     },
-    
-    _handleTextDragEnd : function (e)
-    {
-      // We need to update the text locations of the default map
-      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-      var defaultMapId = mapList.options[0].value;
-      
-      this._updateTextElementState(defaultMapId)
-    },    
     
     /**
      * Remove the image from the browser and the database (instance of MapImage)
@@ -1190,7 +1172,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         scaleDiv = document.createElement('div');
         scaleDiv.id = 'scaleDiv';
   
-        this.addDragDrop(scaleDiv);
+        var dd = this.addDragDrop(scaleDiv);
+        dd.endDrag = Mojo.Util.bind(this, this._updateDefaultScaleBarStatus);
       }
   
       // always clear the div just to be safe
@@ -1226,14 +1209,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         arrowDiv.id = 'arrowDiv';
         arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
   
-        this.addDragDrop(arrowDiv);
+        var dd = this.addDragDrop(arrowDiv);
+        dd.endDrag = Mojo.Util.bind(this, this._updateDefaultNorthArrowStatus);
       }
   
       this.position(arrowDiv);
       
       this._northArrow = true;
     },
-  
+    
     _hideArrow : function()
     {
       var arrowDiv = document.getElementById('arrowDiv');
@@ -1259,7 +1243,10 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         this._showScale();
         this._markOn(btn);
       }
-    },
+      
+      // Persist the change to the default map, so that it is rendered on the exported map and on map refresh
+      this._updateDefaultScaleBarStatus();
+    },    
     
     _toggleArrow : function(e)
     {
@@ -1275,8 +1262,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         this._showArrow();
         this._markOn(btn);
       }
+      
+      // Persist the change to the default map, so that it is rendered on the exported map and on map refresh
+      this._updateDefaultNorthArrowStatus();
     },
-    
+        
     _exportShapefile : function()
     {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
@@ -1343,9 +1333,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             
             // Persist map elements status (active or inactive) and well as
             // location
-            this.that._updateNorthArrowStatus(mapId); 
-            this.that._updateScaleBarStatus(mapId);
-            this.that._updateLegendStatus(mapId);
+//            this.that._updateNorthArrowStatus(mapId); 
+//            this.that._updateScaleBarStatus(mapId);
+//            this.that._updateLegendStatus(mapId);
             this.that._updateMapState(mapId);
             
             this.that._saveCycleJob();
@@ -1387,9 +1377,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           // Persist map elements status (active or inactive) and well as
           // location
-          that._updateNorthArrowStatus(mapId);  
-          that._updateScaleBarStatus(mapId); 
-          that._updateLegendStatus(mapId);
+//          that._updateNorthArrowStatus(mapId);  
+//          that._updateScaleBarStatus(mapId); 
+//          that._updateLegendStatus(mapId);
           that._updateMapState(mapId);
           
           that._destroyModal();
@@ -1448,6 +1438,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           Mojo.$.dss.vector.solutions.query.SavedMap.updateNorthArrow(request, mapId, left, top, northArrowIsActive);
       }
     },
+        
+    _updateDefaultNorthArrowStatus : function ()
+    {
+      // We need to update the north arrow status of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateNorthArrowStatus(defaultMapId);  
+    },
+
     
     /**
      * Persist scale bar status (active or inactive) and well as location
@@ -1480,6 +1480,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           Mojo.$.dss.vector.solutions.query.SavedMap.updateScaleBar(request, mapId, left, top, scaleBarIsActive);
       }
     },
+    
+    _updateDefaultScaleBarStatus : function ()
+    {
+      // We need to update the scale bar status of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateScaleBarStatus(defaultMapId);  
+    },    
     
     /**
      * Persist scale bar status (active or inactive) and well as location
@@ -1517,6 +1526,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
         Mojo.$.dss.vector.solutions.query.SavedMap.updateLegendLocations(request, mapId, legendsJSON);
     },
+        
+    _updateDefaultLegendStatus : function ()
+    {
+      // We need to update the image locations of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateLegendStatus(defaultMapId);  
+    },    
+
     
     /**
      * Persist map image status (active or inactive) as well as location
@@ -1556,6 +1575,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         Mojo.$.dss.vector.solutions.query.SavedMap.updateImageLocations(request, mapId, imagesJSON);
     },
+    
+    _updateDefaultMapImageStatus : function ()
+    {
+      // We need to update the image locations of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateMapImageStatus(defaultMapId);  
+    },  
+    
+    
     
     /**
      * Build a json object containing all visible images from the map. This is
@@ -1614,7 +1644,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           Mojo.$.dss.vector.solutions.query.SavedMap.updateMapState(request, mapId, zoomLevel, mapBounds);
       }
-    },
+    },    
+    
+    _updateDefaultMapState : function ()
+    {
+      // We need to update the zoom state of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateMapState(defaultMapId);  
+    },        
+    
     
     /**
      * Persist user added text element positions
@@ -1655,6 +1695,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         Mojo.$.dss.vector.solutions.query.SavedMap.updateTextElements(request, mapId, textJSON);
     },
+    
+    
+    _updateDefaultTextElementState : function ()
+    {
+      // We need to update the text locations of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateTextElementState(defaultMapId);  
+    },                
     
     /**
      * Build a json object containing all visible user defined text elements
@@ -2368,6 +2418,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           div.innerHTML = table;
           var dd = this.addDragDrop(div);
+          dd.endDrag = Mojo.Util.bind(this, this._updateDefaultLegendStatus);
+
           this.position(div);
                     
           // Assign saved legend position after creating the legend div
@@ -2379,6 +2431,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           this._ddDivs.push({div:div, dd:dd});
         }
       }
+      
+      this._updateDefaultLegendStatus();
     },
     
     _destroyModal : function()

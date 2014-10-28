@@ -3,7 +3,6 @@ package dss.vector.solutions.query;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.constants.EnumerationMasterInfo;
 import com.runwaysdk.dataaccess.BusinessDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -75,7 +74,7 @@ public class Styles extends StylesBase implements com.runwaysdk.generation.loade
 
     for (BusinessDAOIF item : items)
     {
-      list.add(item.getValue(EnumerationMasterInfo.NAME));
+      list.add(item.getId());
     }
 
     return list;

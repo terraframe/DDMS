@@ -456,7 +456,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       for (TextElement text : this.getAllHasTextElement().getAll())
       {
         text.delete();
-      }
+      }      
     }
 
     // copy the layers from the existing map
@@ -566,7 +566,23 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       HasTextElement newHasText = this.addHasTextElement(newTextElement);
       newHasText.apply();
     }
+    
+    this.appLock();
+    // Copy over the map scale bar information    
+    this.setScaleBarXPosition(existingMap.getScaleBarXPosition());
+    this.setScaleBarYPosition(existingMap.getScaleBarYPosition());
+    this.setScaleBarActive(existingMap.getScaleBarActive());
 
+    // Copy over the map north arrow information
+    this.setNorthArrowXPosition(existingMap.getNorthArrowXPosition());
+    this.setNorthArrowYPosition(existingMap.getNorthArrowYPosition());
+    this.setNorthArrowActive(existingMap.getNorthArrowActive());
+    
+    // Copy the map zoom information
+    this.setZoomLevel(existingMap.getZoomLevel());
+    this.setMapCenter(existingMap.getMapCenter());
+    this.apply();
+    
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
