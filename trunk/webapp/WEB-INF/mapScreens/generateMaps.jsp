@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.query.CycleJobController"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 
@@ -40,7 +41,7 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 String[] types = new String[]{DefaultSavedMapDTO.CLASS, SavedMapController.CLASS, LayerViewDTO.CLASS, LayerDTO.CLASS,
     ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS,
     NonRangeCategoryController.CLASS, MappingController.CLASS, LayerController.CLASS, AbstractCategoryController.CLASS, SavedSearchDTO.CLASS,
-    AttributeGeoHierarchyDTO.CLASS, MapImage.CLASS};
+    AttributeGeoHierarchyDTO.CLASS, MapImage.CLASS, CycleJobController.CLASS};
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);

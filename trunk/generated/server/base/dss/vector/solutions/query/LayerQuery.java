@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 228673488)
+@com.runwaysdk.business.ClassSignature(hash = -399541752)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -677,6 +677,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.SAVEDSEARCH, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getSemanticId()
+  {
+    return getSemanticId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SEMANTICID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SEMANTICID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -1311,6 +1328,9 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch();
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias);
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSemanticId();
+    public com.runwaysdk.query.SelectableChar getSemanticId(String alias);
+    public com.runwaysdk.query.SelectableChar getSemanticId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -1992,6 +2012,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.SAVEDSEARCH,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getSemanticId()
+  {
+    return getSemanticId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SEMANTICID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SEMANTICID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -2597,6 +2634,9 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch();
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias);
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSemanticId();
+    public com.runwaysdk.query.SelectableChar getSemanticId(String alias);
+    public com.runwaysdk.query.SelectableChar getSemanticId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -3273,6 +3313,23 @@ public  class LayerQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getSavedSearch(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.SAVEDSEARCH,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSemanticId()
+  {
+    return getSemanticId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SEMANTICID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSemanticId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SEMANTICID, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()

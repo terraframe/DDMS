@@ -1,11 +1,8 @@
 package dss.vector.solutions.query;
 
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.FileItem;
@@ -13,22 +10,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.runwaysdk.ClientException;
-import com.runwaysdk.ClientRequest;
 import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.controller.MultipartFileParameter;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.session.Session;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
-import dss.vector.solutions.MDSSUser;
-import dss.vector.solutions.UserSettings;
-import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
@@ -144,7 +134,7 @@ public class MappingController extends MappingControllerBase implements com.runw
       SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
 
       // Regenerate the database views
-      String mapData = map.refreshMap(currentMapId);
+      String mapData = map.refreshMap("");
 
       // Re-print all SLD files for the layers
       for (LayerDTO layer : map.getAllLayer())

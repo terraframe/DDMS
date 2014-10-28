@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.json.JSONObject;
+
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ValueObjectDTO;
 import com.runwaysdk.business.ValueQueryDTO;
@@ -14,8 +16,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
-public class LayerController extends LayerControllerBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class LayerController extends LayerControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/query/Layer/";
 
@@ -27,8 +28,7 @@ public class LayerController extends LayerControllerBase implements
 
   private static final long  serialVersionUID = 1240900964253L;
 
-  public LayerController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public LayerController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -75,8 +75,7 @@ public class LayerController extends LayerControllerBase implements
         String ssId = ssView.getSavedQueryId();
 
         // Add any of available universal geometries
-        AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer
-            .getRequest(), ssId);
+        AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(), ssId);
         req.setAttribute("attrGeos", attrGeos);
 
         if (attrGeos.length > 0)
@@ -89,8 +88,7 @@ public class LayerController extends LayerControllerBase implements
         }
 
         // Add any thematic variables defined by the SavedSearch
-        ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(),
-            ssId);
+        ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(), ssId);
         req.setAttribute("thematicVars", thematicVars);
       }
       else
@@ -105,8 +103,7 @@ public class LayerController extends LayerControllerBase implements
     {
       currentLegendColor = layer.getValue(LayerDTO.LEGENDCOLOR);
 
-      req.setAttribute("hasThematic", layer.getThematicUserAlias() != null
-          && layer.getThematicUserAlias().length() > 0);
+      req.setAttribute("hasThematic", layer.getThematicUserAlias() != null && layer.getThematicUserAlias().length() > 0);
       String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
 
       mdAttributeId = layer.getValue(LayerDTO.MDATTRIBUTE);
@@ -117,12 +114,10 @@ public class LayerController extends LayerControllerBase implements
 
       req.setAttribute("categories", categories);
 
-      AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(
-          layer.getRequest(), ssId);
+      AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(), ssId);
       req.setAttribute("attrGeos", attrGeos);
 
-      String currAttrGeo = layer.getValue(LayerDTO.MDATTRIBUTE) + ":"
-          + layer.getValue(LayerDTO.GEOHIERARCHY);
+      String currAttrGeo = layer.getValue(LayerDTO.MDATTRIBUTE) + ":" + layer.getValue(LayerDTO.GEOHIERARCHY);
       req.setAttribute("currentAttributeGeoHierarchy", currAttrGeo);
 
       ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(request, ssId);
@@ -135,14 +130,12 @@ public class LayerController extends LayerControllerBase implements
   }
 
   @Override
-  public void generateCategories(CategoryGenDTO categoryGen, LayerDTO layer) throws IOException,
-      ServletException
+  public void generateCategories(CategoryGenDTO categoryGen, LayerDTO layer) throws IOException, ServletException
   {
     try
     {
       String layerId = categoryGen.getLayerId();
-      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId,
-          categoryGen, layer);
+      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId, categoryGen, layer);
 
       for (AbstractCategoryDTO category : categories)
       {
@@ -267,14 +260,17 @@ public class LayerController extends LayerControllerBase implements
   }
 
   @Override
-  public void saveLayer(LayerDTO layer, StylesDTO styles, String savedMapId) throws IOException,
-      ServletException
+  public void saveLayer(LayerDTO layer, StylesDTO styles, String savedMapId) throws IOException, ServletException
   {
     try
     {
       layer.applyWithStyles(styles, savedMapId);
 
-      resp.getWriter().print(layer.getId());
+      JSONObject object = new JSONObject();
+      object.put("layerId", layer.getId());
+      object.put("semanticId", layer.getSemanticId());
+
+      resp.getWriter().print(object.toString());
     }
     catch (ProblemExceptionDTO e)
     {
@@ -316,8 +312,7 @@ public class LayerController extends LayerControllerBase implements
     }
   }
 
-  public void delete(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void delete(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -330,21 +325,16 @@ public class LayerController extends LayerControllerBase implements
     }
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.query.LayerQueryDTO query = dss.vector.solutions.query.LayerDTO
-        .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.query.LayerQueryDTO query = dss.vector.solutions.query.LayerDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All LayerController Objects");
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -362,8 +352,7 @@ public class LayerController extends LayerControllerBase implements
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.query.LayerQueryDTO query = dss.vector.solutions.query.LayerDTO
-        .getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.query.LayerQueryDTO query = dss.vector.solutions.query.LayerDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All LayerController Objects");
     render("viewAllComponent.jsp");
@@ -379,8 +368,7 @@ public class LayerController extends LayerControllerBase implements
     this.viewAll();
   }
 
-  public void cancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -400,14 +388,12 @@ public class LayerController extends LayerControllerBase implements
     }
   }
 
-  public void failCancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
 
-  public void update(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void update(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -420,8 +406,7 @@ public class LayerController extends LayerControllerBase implements
     }
   }
 
-  public void create(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void create(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {

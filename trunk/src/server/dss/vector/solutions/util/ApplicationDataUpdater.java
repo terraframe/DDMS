@@ -13,6 +13,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.entomology.BiochemicalAssay;
 import dss.vector.solutions.entomology.DiagnosticAssay;
@@ -36,13 +37,15 @@ import dss.vector.solutions.general.DiseaseView;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.LayerQuery;
 
 public class ApplicationDataUpdater implements Reloadable, Runnable
 {
   @Transaction
   public void run()
   {
-    // Force the cache to boot so it's not included in our timing
+    // // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
 
     this.updateMalariaSeasonLabels();
@@ -59,6 +62,35 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     // Fort Ticket #3072
     this.updateSystemAlerts();
+
+    // For ticket #3050
+    this.updateLayerSemanticId();
+  }
+
+  private void updateLayerSemanticId()
+  {
+    LayerQuery query = new LayerQuery(new QueryFactory());
+    query.WHERE(query.getSemanticId().EQ((String) null));
+
+    OIterator<? extends Layer> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        Layer layer = it.next();
+
+        if (layer.getSemanticId() == null || layer.getSemanticId().length() == 0)
+        {
+          layer.setSemanticId(IDGenerator.nextID());
+          layer.apply();
+        }
+      }
+    }
+    finally
+    {
+      it.close();
+    }
   }
 
   private void updateSystemAlerts()

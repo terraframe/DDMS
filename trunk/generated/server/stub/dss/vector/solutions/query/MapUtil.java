@@ -50,11 +50,11 @@ import dss.vector.solutions.geo.GeoServerReloadException;
 
 public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1242080109170L;
-  
-  private static Set<String> workspaceSet;
-  
-  private static final ReentrantLock lock = new ReentrantLock();
+  private static final long          serialVersionUID = 1242080109170L;
+
+  private static Set<String>         workspaceSet;
+
+  private static final ReentrantLock lock             = new ReentrantLock();
 
   public MapUtil()
   {
@@ -62,8 +62,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   }
 
   /**
-   * Attempts to delete the view with the given name. A database level cascade
-   * is also used to remove any dependencies on other views.
+   * Attempts to delete the view with the given name. A database level cascade is also used to remove any dependencies on other views.
    * 
    * @param viewName
    */
@@ -75,16 +74,13 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   }
 
   /**
-   * Creates database views for each layer provided and returns a JSON string
-   * with the correct mapping information for use with OpenLayers/GeoServer. The
-   * returned Map maintains insertion order so it can be safely iterated over to
-   * get the layers starting with the base layer and up.
+   * Creates database views for each layer provided and returns a JSON string with the correct mapping information for use with OpenLayers/GeoServer. The returned Map maintains insertion order so it can be safely iterated over to get the layers starting with the base layer and up.
    * 
    * @param layers
    * @return
    */
   @Transaction
-  public static Map<Layer, ValueQuery> createDBViews(Layer[] layers, boolean infoOnly)
+  public static Map<Layer, ValueQuery> createDBViews(Layer[] layers, boolean infoOnly, MapConfiguration configuration)
   {
     if (!infoOnly && layers.length == 0)
     {
@@ -110,21 +106,20 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       String queryClass = QueryConstants.getQueryClass(queryType);
 
       ValueQuery valueQuery;
+
       try
       {
         valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer, null, null);
-        
+
         // Format any decimal thematic variable to two decimal places
-        if(layer.hasThematicVariable())
+        if (layer.hasThematicVariable())
         {
           Selectable thematicSel = valueQuery.getSelectableRef(layer.getThematicUserAlias());
-          
-          if(thematicSel instanceof SelectableDouble
-              || thematicSel instanceof SelectableFloat
-              || thematicSel instanceof SelectableDecimal)
+
+          if (thematicSel instanceof SelectableDouble || thematicSel instanceof SelectableFloat || thematicSel instanceof SelectableDecimal)
           {
             SelectableSQLDouble newSel;
-            if(thematicSel.isAggregateFunction())
+            if (thematicSel.isAggregateFunction())
             {
               newSel = valueQuery.aSQLAggregateDouble(thematicSel.getDbColumnName(), "");
             }
@@ -132,10 +127,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
             {
               newSel = valueQuery.aSQLDouble(thematicSel.getDbColumnName(), "");
             }
-            newSel.setSQL(thematicSel.getSQL()+"::decimal(20,2)");
+            newSel.setSQL(thematicSel.getSQL() + "::decimal(20,2)");
             newSel.setColumnAlias(thematicSel.getColumnAlias());
             newSel.setUserDefinedAlias(thematicSel.getUserDefinedAlias());
-            
+
             valueQuery.replaceSelectable(newSel);
           }
         }
@@ -144,16 +139,15 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       {
         String layerName = layer.getLayerName();
         String queryName = layer.getSavedSearch().getQueryName();
-        
-        String error = "The map could not be generated while getting the query ["
-          + queryName + "] for layer [" + layerName + "]";
-        
+
+        String error = "The map could not be generated while getting the query [" + queryName + "] for layer [" + layerName + "]";
+
         if (e.getCause() instanceof InvocationTargetException)
         {
           InvocationTargetException ex = (InvocationTargetException) e.getCause();
           if (ex.getCause() instanceof QueryException)
           {
-            if(i == 0)
+            if (i == 0)
             {
               BaseLayerQueryChangedException changeEx = new BaseLayerQueryChangedException();
               changeEx.setLayerName(layerName);
@@ -166,13 +160,13 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
               info.setLayerName(layerName);
               info.setQueryName(queryName);
               info.throwIt();
-              
+
               layers[i] = null;
               continue;
             }
           }
         }
-        
+
         GeoServerReloadException gsEX = new GeoServerReloadException(error, e.getCause());
         throw gsEX;
       }
@@ -197,46 +191,53 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
-      if(layer == null)
+      if (layer == null)
       {
         continue; // The layer failed the first pass
       }
-      
-      
+
       // Remove the old layer
       try
       {
-        String viewName = layer.getViewName();
-        deleteMapView(viewName);
+        if (!configuration.hasOverride(layer))
+        {
+          String viewName = layer.getViewName();
+          deleteMapView(viewName);
+        }
       }
       catch (DatabaseException e)
       {
         // View doesn't exist, but that's okay. It may have never
         // been created or a cleanup task has removed it.
       }
-      
-      
+
       String layerName = layer.getLayerName();
 
       // Update the view name on the layer for this refresh cycle
       String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-      if(!infoOnly)
+
+      if (configuration.hasOverride(layer))
+      {
+        newViewName = configuration.getViewName(layer);
+      }
+
+      if (!infoOnly)
       {
         layer.appLock();
       }
-        
+
       layer.setViewName(newViewName);
-      
-      if(!infoOnly)
+
+      if (!infoOnly)
       {
         layer.apply();
       }
-      
-      if(i == 0)
+
+      if (i == 0)
       {
         baseView = newViewName;
       }
-      
+
       ValueQuery valueQuery = layerValueQueries.get(layer.getId());
 
       // Any empty non-base layer will be omitted from the map to
@@ -251,50 +252,52 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       }
 
       String sql;
-      if(i !=0 && layer.getClipToBaseLayer())
+      if (i != 0 && layer.getClipToBaseLayer())
       {
         List<Selectable> selectables = valueQuery.getSelectableRefs();
         Selectable geoSelectable = null;
         int count = 0;
         int removeInd = 0;
-        for(Selectable selectable : selectables)
+        for (Selectable selectable : selectables)
         {
-          if(selectable.getColumnAlias().equals(QueryConstants.GEOMETRY_NAME_COLUMN))
+          if (selectable.getColumnAlias().equals(QueryConstants.GEOMETRY_NAME_COLUMN))
           {
             geoSelectable = selectable;
             removeInd = count;
           }
-          
+
           count++;
         }
-        
+
         selectables.remove(removeInd);
-        
-        String geoAttr = geoSelectable.getDefiningTableAlias()+"."+geoSelectable.getDbColumnName();
-        
+
+        String geoAttr = geoSelectable.getDefiningTableAlias() + "." + geoSelectable.getDbColumnName();
+
         String clippingAlias = "geoentity_clipping";
         String clippingColumnAlias = "clipping_column";
-        String clippingColumn = clippingAlias+"."+clippingColumnAlias;
-        
-        SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN,
-          "collect(intersection("+geoAttr+", "+clippingColumn+"))");
+        String clippingColumn = clippingAlias + "." + clippingColumnAlias;
+
+        SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN, "collect(intersection(" + geoAttr + ", " + clippingColumn + "))");
         selectables.add(geoS);
-        
+
         valueQuery.clearSelectClause();
         valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-        
-        valueQuery.FROM("(SELECT "+QueryConstants.GEOMETRY_NAME_COLUMN+" AS "+clippingColumnAlias+" FROM "+baseView+")", clippingAlias);
-        
+
+        valueQuery.FROM("(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS " + clippingColumnAlias + " FROM " + baseView + ")", clippingAlias);
+
         sql = valueQuery.getSQL();
       }
       else
       {
         sql = valueQuery.getSQL();
       }
-      
-      // Create a new view that will reflect the current state of the query.
-      Database.createView(newViewName, sql);
-      
+
+      if (!configuration.hasOverride(layer))
+      {
+        // Create a new view that will reflect the current state of the query.
+        Database.createView(newViewName, sql);
+      }
+
       // make sure there are no duplicate geo entities
       String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + newViewName;
       countSQL += " GROUP BY " + QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
@@ -318,7 +321,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
             LayerOmittedDuplicateDataInformation info = new LayerOmittedDuplicateDataInformation();
             info.setLayerName(layerName);
             info.throwIt();
-            
+
             continue;
           }
         }
@@ -349,8 +352,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   }
 
   /**
-   * Formats the SLD file (pathing and filename concatenation) for the given
-   * layer.
+   * Formats the SLD file (pathing and filename concatenation) for the given layer.
    * 
    * @param layer
    * @return
@@ -368,8 +370,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     {
       webDir = webDir.substring(1);
     }
-    String filePath = webDir + "/" + QueryConstants.SLD_WEB_DIR + QueryConstants.createSLDName(layer.getId()) + "."
-        + QueryConstants.SLD_EXTENSION;
+    String filePath = webDir + "/" + QueryConstants.SLD_WEB_DIR + QueryConstants.createSLDName(layer.getId()) + "." + QueryConstants.SLD_EXTENSION;
 
     // Generated a random query string to force GeoServer to not cache the SLD
     String random = String.valueOf(Math.random());
@@ -378,9 +379,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     return filePath + "?a=" + random;
   }
 
-  private static final ResourceBundle bundle             = UTF8ResourceBundle.getBundle("GeoServer", Locale
-                                                             .getDefault(), Business.class
-                                                             .getClassLoader());
+  private static final ResourceBundle bundle = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
 
   /**
    * Returns the url to access GeoServer locally.
@@ -391,16 +390,16 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   {
     return bundle.getString("geoserver.local.path");
   }
-  
-//  public static final String getGeoserverUsername()
-//  {
-//    return bundle.getString("geoserver.username");
-//  }
-//
-//  public static final String getGeoserverPassword()
-//  {
-//    return bundle.getString("geoserver.password");
-//  }
+
+  // public static final String getGeoserverUsername()
+  // {
+  // return bundle.getString("geoserver.username");
+  // }
+  //
+  // public static final String getGeoserverPassword()
+  // {
+  // return bundle.getString("geoserver.password");
+  // }
 
   /**
    * Returns the url to access GeoServer remotely.
@@ -411,13 +410,13 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   {
     return bundle.getString("geoserver.remote.path");
   }
-  
-//  public static final String getSLD_URL()
-//  {
-//    return bundle.getString("geoserver.sld.path");
-//  }
 
-  public static void reload(String sessionId, Map<Layer, ValueQuery> reloads)
+  // public static final String getSLD_URL()
+  // {
+  // return bundle.getString("geoserver.sld.path");
+  // }
+
+  public static void reload(Map<Layer, ValueQuery> reloads, MapConfiguration configuration)
   {
     try
     {
@@ -438,22 +437,22 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       {
         lock.unlock();
       }
-      
-//      String username = getGeoserverUsername();
-//      String password = getGeoserverPassword();
+
+      // String username = getGeoserverUsername();
+      // String password = getGeoserverPassword();
       GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-      
+
       // reload the catalog (this will force GeoServer to dump any cached
       // features in memory and avoid slowdown over time)
       publisher.reload();
 
       // Create each layer as a feature on GeoServer
       Iterator<Layer> iter = reloads.keySet().iterator();
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         Layer reload = iter.next();
-        
-        String viewName = reload.getViewName();
+
+        String viewName = configuration.getViewName(reload);
         String defaultStyle = reload.getRenderAs().get(0) == AllRenderTypes.POINT ? "point" : "polygon";
         publisher.publishDBLayer(CommonProperties.getDeployAppName(), QueryConstants.getNamespacedDataStore(), viewName, "EPSG:4326", defaultStyle);
       }
@@ -465,7 +464,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       throw ex;
     }
   }
-  
+
   public static void createWorkspaceAndDatastore()
   {
     try
@@ -473,7 +472,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       String appName = CommonProperties.getDeployAppName();
       String geoserverPath = getGeoServerLocalURL();
       GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-      
+
       publisher.createWorkspace(appName);
       GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder();
       datastore.setPort(5444);
@@ -483,7 +482,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       datastore.setValidateConnections(false);
       datastore.setMaxConnections(10);
       datastore.setDatabase(appName.toLowerCase());
-      datastore.setNamespace("http://"+appName+".terraframe.com");
+      datastore.setNamespace("http://" + appName + ".terraframe.com");
       datastore.setSchema(DatabaseProperties.getNamespace());
       datastore.setLooseBBox(true);
       datastore.setPreparedStatements(false);
@@ -492,7 +491,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       datastore.setMinConnections(4);
       datastore.setEnabled(true);
       datastore.setName(QueryConstants.getNamespacedDataStore());
-      
+
       publisher.createPostGISDatastore(appName, datastore);
     }
     catch (Exception e)
@@ -508,7 +507,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
    * 
    * @return
    */
-  public static JSONArray getThematicBBox(List<Layer> layers)
+  public static JSONArray getThematicBBox(List<Layer> layers, MapConfiguration configuration)
   {
     JSONArray bboxArr = new JSONArray();
     if (layers.size() > 0)
@@ -518,11 +517,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       if (layers.size() == 1)
       {
         Layer layer = layers.get(0);
-        String viewName = layer.getViewName();
+        String viewName = configuration.getViewName(layer);
         layerNames[0] = layer.getLayerName();
 
-        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN
-            + ")) AS bbox FROM " + viewName;
+        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName;
       }
       else
       {
@@ -532,11 +530,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         for (int i = 0; i < layers.size(); i++)
         {
           Layer layer = layers.get(i);
-          String viewName = layer.getViewName();
+          String viewName = configuration.getViewName(layer);
           layerNames[i] = layer.getLayerName();
 
-          sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName
-              + ") \n";
+          sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName + ") \n";
 
           if (i != layers.size() - 1)
           {
@@ -614,8 +611,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
               }
               else
               {
-                String error = "The database view(s) [" + StringUtils.join(layerNames, ",")
-                    + "] could not be used to create a valid bounding box";
+                String error = "The database view(s) [" + StringUtils.join(layerNames, ",") + "] could not be used to create a valid bounding box";
                 throw new GeoServerReloadException(error);
               }
             }

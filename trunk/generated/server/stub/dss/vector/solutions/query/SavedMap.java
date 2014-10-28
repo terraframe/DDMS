@@ -5,24 +5,19 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Rectangle;
-import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -31,12 +26,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-
-
-
-
-
-// import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,11 +53,15 @@ import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.util.ShapefileExporter;
-import dss.vector.solutions.query.MappingController;
 
 public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1252823927;
+  private static final long   serialVersionUID          = 1252823927;
+
+  /**
+   * Prefix for the generated map views
+   */
+  private static final String GENERATED_MAP_VIEW_PREFIX = "m_";
 
   public SavedMap()
   {
@@ -82,13 +75,27 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   }
 
   @Override
+  @Transaction
   public void delete()
   {
-    List<? extends MapImage> savedImages = this.getAllHasImage().getAll();
-    for (MapImage image : savedImages)
-    {
-      image.removeMapImage(image.getId(), this.getId());
-    }
+    /*
+     * Delete all of the saved images
+     */
+    this.deleteSavedImages();
+
+    /*
+     * Delete the cycle job corresponding to the map
+     */
+    this.deleteCycleJob();
+
+    /*
+     * Delete the generated maps
+     */
+    this.deleteGeneratedMapsAndView();
+
+    /*
+     * Delete the actual map
+     */
     super.delete();
   }
 
@@ -119,14 +126,19 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Authenticate
   public String refreshMap(String currentMapId)
   {
+    return this.refreshMap(currentMapId, new MapConfiguration());
+  }
+
+  public String refreshMap(String currentMapId, MapConfiguration configuration)
+  {
     JSONObject mapData;
     JSONArray layersJSON;
     JSONArray savedImagesJSON;
     JSONArray savedTextJSON;
 
-    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false);
-    String sessionId = Session.getCurrentSession().getId();
-    MapUtil.reload(sessionId, layersVQ);
+    Layer[] layers = this.getOrderedLayers();
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(layers, false, configuration);
+    MapUtil.reload(layersVQ, configuration);
     String appName = CommonProperties.getDeployAppName();
     try
     {
@@ -162,7 +174,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       Layer layer = iter.next();
 
-      String namespacedView = appName + ":" + layer.getViewName();
+      String namespacedView = appName + ":" + configuration.getViewName(layer);
       String sldFile = MapUtil.formatSLD(layer);
 
       JSONObject layerJSON = new JSONObject();
@@ -245,13 +257,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
 
-    SavedMap currentMap = SavedMap.get(currentMapId);
-
     // restrict the map bounds to the applicable layers
     // unless a saved map has a saved bounding box
     try
     {
-      String mapCenter = currentMap.getMapCenter();
+      String mapCenter = this.getMapCenter();
       if (mapCenter != "")
       {
         JSONObject mapCenterObj = new JSONObject(mapCenter);
@@ -262,11 +272,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         mapBounds.put(mapCenterObj.getString("top"));
         mapData.put("bbox", mapBounds);
 
-        mapData.put("zoomLevel", currentMap.getZoomLevel());
+        mapData.put("zoomLevel", this.getZoomLevel());
       }
       else
       {
-        mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers));
+        mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers, configuration));
       }
     }
     catch (JSONException e)
@@ -275,7 +285,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       throw new ProgrammingErrorException(error, e);
     }
 
-    List<? extends MapImage> mapImages = currentMap.getAllHasImage().getAll();
+    List<? extends MapImage> mapImages = this.getAllHasImage().getAll();
 
     // Build json for all instances of image related to this map
     for (MapImage image : mapImages)
@@ -297,7 +307,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
 
-    List<? extends TextElement> textElements = currentMap.getAllHasTextElement().getAll();
+    List<? extends TextElement> textElements = this.getAllHasTextElement().getAll();
 
     // Build json for all instances of image related to this map
     for (TextElement text : textElements)
@@ -323,14 +333,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     return mapData.toString();
-  };
+  }
 
   /**
    * Returns the layers of this map in order of position on map, starting with the base layer at index 0.
    * 
    * @return
    */
-  private Layer[] getOrderedLayers()
+  public Layer[] getOrderedLayers()
   {
     QueryFactory f = new QueryFactory();
     HasLayersQuery hasQ = new HasLayersQuery(f);
@@ -355,32 +365,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     return ordered;
   }
 
-  /**
-   * Returns the instances of MapImage for this map
-   * 
-   * @return
-   */
-  public MapImage[] getMapImages()
-  {
-
-    QueryFactory f = new QueryFactory();
-    MapImageQuery q = new MapImageQuery(f);
-    OIterator<? extends MapImage> iterator = q.getIterator();
-
-    try
-    {
-      List<? extends MapImage> all = iterator.getAll();
-      MapImage[] array = all.toArray(new MapImage[all.size()]);
-
-      return array;
-    }
-    finally
-    {
-      iterator.close();
-    }
-
-  }
-
   @Override
   public InputStream exportShapefile()
   {
@@ -391,7 +375,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       throw new NoLayersInExportException(error);
     }
 
-    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false);
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false, new MapConfiguration());
     Iterator<Layer> iter = layersVQ.keySet().iterator();
     List<Layer> layersInMap = new LinkedList<Layer>();
     while (iter.hasNext())
@@ -441,14 +425,21 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     SavedMap existingMap = SavedMap.get(existingMapId);
 
-    boolean returnExisting = true;
     if (this.isNew())
     {
       this.apply();
     }
     else
     {
-      returnExisting = false;
+      // Ensure that the saved map is not currently being used in a running cycle job
+      CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+      query.WHERE(query.getSavedMap().EQ(this));
+      query.AND(query.getRunning().EQ(true));
+
+      if (query.getCount() > 0)
+      {
+        throw new MapInUseException();
+      }
 
       // If saved elements exist for the saved map delete them so they can be
       // copied from the default without being duplicated
@@ -499,6 +490,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       copyStyles(existingStyles, styles);
       styles.apply();
 
+      layer.setSemanticId(existingLayer.getSemanticId());
       layer.setDefaultStyles(styles);
       layer.apply();
 
@@ -588,9 +580,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    */
   @Override
   @Transaction
-  public void deleteLayerFromMap(String layerId)
+  public String deleteLayerFromMap(String layerId)
   {
     Layer layer = Layer.get(layerId);
+
+    String semanticId = layer.getSemanticId();
     layer.delete();
 
     QueryFactory f = new QueryFactory();
@@ -616,6 +610,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       iter.close();
     }
+
+    return semanticId;
   }
 
   /**
@@ -919,14 +915,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Transaction
   public String addMapImage(String savedMapId, String imageName, String imagePath)
   {
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
-    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
-
-    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
-    DefaultSavedMap defaultMap = settings.getDefaultMap();
-
-    SavedMap savedMap = SavedMap.get(savedMapId);
-
     String newImageCustomId = "image_" + IDGenerator.nextID();
 
     MapImage newImage = new MapImage();
@@ -935,25 +923,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     newImage.setCustomImageId(newImageCustomId);
     newImage.apply();
 
-    // The SavedMap instance and relationship is being added to allow for
-    // retention
-    // of the element when a user adds an element and hits refresh before
-    // saving.
-    if (!defaultMap.equals(savedMap))
-    {
-      MapImage newImage2 = new MapImage();
-      newImage2.setImageName(imageName);
-      newImage2.setImageFilePath(imagePath);
-      newImage2.setCustomImageId(newImageCustomId);
-      newImage2.apply();
-
-      HasImage savedMapHasImage = savedMap.addHasImage(newImage2);
-      savedMapHasImage.apply();
-    }
-
     // The relationship to the default map is most important because it will
     // later be passed to the saved map when the user saves
-    HasImage defaultHasImage = defaultMap.addHasImage(newImage);
+    HasImage defaultHasImage = this.addHasImage(newImage);
     defaultHasImage.apply();
 
     return newImageCustomId;
@@ -964,9 +936,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     String mdImageId = "";
     List<? extends MapImage> childImages = this.getAllHasImage().getAll();
+
     for (MapImage childImage : childImages)
     {
       String currCustomImageid = childImage.getCustomImageId();
+
       if (currCustomImageid.equals(customImageId))
       {
         mdImageId = childImage.getId();
@@ -1027,15 +1001,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Transaction
   public String addTextElement(String savedMapId, String textValue, String fontColor, String fontFamily, Integer fontSize, String fontStyle, String customTextElementId)
   {
-
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
-    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
-
-    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
-    DefaultSavedMap defaultMap = settings.getDefaultMap();
-
-    SavedMap savedMap = SavedMap.get(savedMapId);
-
     TextElement newTextElem = new TextElement();
     newTextElem.setTextValue(textValue);
     newTextElem.setFontColor(fontColor);
@@ -1046,26 +1011,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     newTextElem.apply();
 
-    // The SavedMap instance and relationship is being added to allow for retention of the element when a user adds
-    // an element and hits refresh before saving.
-    if (!defaultMap.equals(savedMap))
-    {
-      TextElement newTextElem2 = new TextElement();
-      newTextElem2.setTextValue(textValue);
-      newTextElem2.setFontColor(fontColor);
-      newTextElem2.setFontFamily(fontFamily);
-      newTextElem2.setFontSize(fontSize);
-      newTextElem2.setFontStyle(fontStyle);
-      newTextElem2.setCustomTextElementId(customTextElementId);
-      newTextElem2.apply();
-
-      HasTextElement savedMapHasText = savedMap.addHasTextElement(newTextElem2);
-      savedMapHasText.apply();
-    }
-
     // The relationship to the default map is most important because it will
     // later be passed to the saved map when the user saves
-    HasTextElement defaultHasText = defaultMap.addHasTextElement(newTextElem);
+    HasTextElement defaultHasText = this.addHasTextElement(newTextElem);
     defaultHasText.apply();
 
     return customTextElementId;
@@ -1129,6 +1077,55 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     return mdTextId;
   }
 
+  @Override
+  public CycleJobView getCycleJobView()
+  {
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+    query.WHERE(query.getSavedMap().EQ(this));
+    OIterator<? extends CycleJob> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        CycleJob job = it.next();
+        return job.getView();
+      }
+
+      CycleJobView view = new CycleJobView();
+      view.setSavedMap(this);
+
+      return view;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  public void deleteSavedImages()
+  {
+    OIterator<? extends MapImage> imageIterator = this.getAllHasImage();
+
+    try
+    {
+      for (MapImage image : imageIterator)
+      {
+        image.removeMapImage(image.getId(), this.getId());
+      }
+    }
+    finally
+    {
+      imageIterator.close();
+    }
+  }
+
+  public void deleteCycleJob()
+  {
+    CycleJobView view = this.getCycleJobView();
+    view.delete();
+  }
+
   /**
    * Makes a getMap request to geoserver and returns the response as a ByteArrayOutputStream
    * 
@@ -1164,7 +1161,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
     finally
     {
-      if(inStream != null)
+      if (inStream != null)
       {
         try
         {
@@ -1176,8 +1173,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           throw new ProgrammingErrorException(error, e);
         }
       }
-      
-      if(outStream != null)
+
+      if (outStream != null)
       {
         try
         {
@@ -1193,8 +1190,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return outStream.toByteArray();
   }
-  
-  
+
   /**
    * Builds a map export input stream of all the map elements in a SavedMap.
    * 
@@ -1205,8 +1201,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Override
   public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize)
   {
+    return this.generateMapImageExport(outFileFormat, mapBounds, mapSize, new MapConfiguration());
+  }
+
+  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, MapConfiguration configuration)
+  {
     InputStream inStream = null;
-    
+
     int leftOffset = 305;
     int topOffset = 125;
     String width;
@@ -1225,7 +1226,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       throw new ProgrammingErrorException(error, e);
     }
 
-    List<? extends Layer> layers = this.getAllLayer().getAll();
 
     // Setup the base canvas to which we will add layers and map elements
     BufferedImage base = null;
@@ -1249,11 +1249,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
       // Ordering the layers from the default map
       List<Layer> orderedLayers = Arrays.asList(this.getOrderedLayers());
-      
+
       // Add layers to the base canvas
-      BufferedImage layerCanvas = getLayersExportCanvas(Integer.parseInt(width), Integer.parseInt(height), orderedLayers, mapBounds);
+      BufferedImage layerCanvas = getLayersExportCanvas(Integer.parseInt(width), Integer.parseInt(height), orderedLayers, mapBounds, configuration);
       mapBaseGraphic.drawImage(layerCanvas, 0, 0, null);
-      
+
       // Add layers to the base canvas
       BufferedImage legendCanvas = getLegendExportCanvas(Integer.parseInt(width), Integer.parseInt(height));
       mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
@@ -1304,7 +1304,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
       finally
       {
-        if(outStream != null)
+        if (outStream != null)
         {
           try
           {
@@ -1317,16 +1317,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           }
         }
       }
-      
+
       if (mapBaseGraphic != null)
       {
         mapBaseGraphic.dispose();
       }
     }
-    
+
     return inStream;
   }
-
 
   /**
    * Builds an image layer of all the layers in a SavedMap.
@@ -1336,7 +1335,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    * @orderedLayers
    * @mapBounds
    */
-  private BufferedImage getLayersExportCanvas(int mapWidth, int mapHeight, List<Layer> orderedLayers, String mapBounds)
+  private BufferedImage getLayersExportCanvas(int mapWidth, int mapHeight, List<Layer> orderedLayers, String mapBounds, MapConfiguration configuration)
   {
     String bottom;
     String top;
@@ -1375,7 +1374,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         Graphics2D newOverlayBaseGraphic = null;
         Graphics2D mapLayerGraphic2d = null;
 
-        String layersString = appName + ":" + layer.getViewName();
+        String layersString = appName + ":" + configuration.getViewName(layer);
         String fileName = QueryConstants.createSLDName(layer.getId());
         String sldString = "http://127.0.0.1:8080/" + appName + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
 
@@ -1416,7 +1415,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
           // Read the just created image file from the file system
           BufferedImage thisLayerImg = ImageIO.read(layerInput);
-          
+
           // Add transparency to the layerGraphic
           // This is set in JavaScript in the app so we are replicating browser side transparency settings that are applied to the whole layer
           AlphaComposite thisLayerComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.getOpacity().floatValue());
@@ -1426,7 +1425,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           // Add the current layerGraphic to the base image
           newOverlayBaseGraphic.drawImage(thisLayerImg, 0, 0, null);
           mapBaseGraphic.drawImage(newOverlayBase, 0, 0, null);
-          
+
         }
         catch (IOException e)
         {
@@ -1467,8 +1466,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return base;
   }
-  
-  
+
   /**
    * Builds an image layer of all the layers in a SavedMap.
    * 
@@ -1477,12 +1475,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    */
   private BufferedImage getLegendExportCanvas(int mapWidth, int mapHeight)
   {
-    
+
     int leftOffset = 300;
     int topOffset = 125;
     BufferedImage base = null;
     Graphics mapBaseGraphic = null;
-    
+
     List<? extends Layer> layers = this.getAllLayer().getAll();
 
     try
@@ -1509,71 +1507,70 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             int iconHeight = 20;
             int iconHorizontalPadding = 4;
             int iconVerticalPadding = 4;
-            int paddedIconWidth = iconWidth + (iconHorizontalPadding*2);
-            int paddedIconHeight = iconHeight + (iconVerticalPadding*2);
+            int paddedIconWidth = iconWidth + ( iconHorizontalPadding * 2 );
+            int paddedIconHeight = iconHeight + ( iconVerticalPadding * 2 );
             int borderWidth = 2;
             int paddedTextHeight;
             int paddedTextWidth;
             BufferedImage newLegendBase;
             Font titleFont = null;
             Font bodyFont = null;
-            
+
             int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
-            int fontSize = (int)Math.round(layer.getLegendTitleFontSize() * screenRes / 72.0);
-            
+            int fontSize = (int) Math.round(layer.getLegendTitleFontSize() * screenRes / 72.0);
+
             // Build the Font object
             if (layer.getLegendTitleFontStyles().get(0).toString().equals("NORMAL"))
             {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.PLAIN, fontSize );
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.PLAIN, fontSize ); 
+              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.PLAIN, fontSize);
+              bodyFont = new Font(layer.getLegendFontFamily(), Font.PLAIN, fontSize);
             }
             else if (layer.getLegendTitleFontStyles().get(0).toString().equals("BOLD"))
             {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.BOLD, fontSize );
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.BOLD, fontSize );
+              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.BOLD, fontSize);
+              bodyFont = new Font(layer.getLegendFontFamily(), Font.BOLD, fontSize);
             }
             else if (layer.getLegendTitleFontStyles().get(0).toString().equals("ITALIC"))
             {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.ITALIC, fontSize );
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.ITALIC, fontSize );
+              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.ITALIC, fontSize);
+              bodyFont = new Font(layer.getLegendFontFamily(), Font.ITALIC, fontSize);
             }
-            
+
             // Build variables for legend graphic construction
             try
             {
               newLegendBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
               newLegendBaseGraphic = newLegendBase.createGraphics();
-              
+
               newLegendBaseGraphic.setFont(titleFont);
-              
+
               fm = newLegendBaseGraphic.getFontMetrics();
               textWidth = fm.stringWidth(layer.getLegendTitle());
               textHeight = fm.getHeight();
-              paddedTextHeight = textHeight + (textBoxVerticalPadding*2) + (borderWidth*2);
+              paddedTextHeight = textHeight + ( textBoxVerticalPadding * 2 ) + ( borderWidth * 2 );
               // make sure there's enough room for the icon graphic
-              if(paddedTextHeight < paddedIconHeight)
+              if (paddedTextHeight < paddedIconHeight)
               {
                 paddedTextHeight = paddedIconHeight;
               }
-              paddedTextWidth = textWidth + (textBoxHorizontalPadding*2) + (borderWidth*2);
+              paddedTextWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
             }
             finally
             {
               // dispose of temporary graphics context
               newLegendBaseGraphic.dispose();
             }
-            
+
             // build the style icon that represents the feature fill color
-            if(layer.getCreateRawLegend())
+            if (layer.getCreateRawLegend())
             {
               paddedTextWidth = paddedTextWidth + paddedIconWidth;
             }
-            
 
             newLegendBase = new BufferedImage(paddedTextWidth + 1, paddedTextHeight + 1, BufferedImage.TYPE_INT_ARGB);
             newLegendBaseGraphic = newLegendBase.createGraphics();
             newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
-            
+
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -1582,78 +1579,78 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-            newLegendBaseGraphic.setFont(titleFont);  
+            newLegendBaseGraphic.setFont(titleFont);
 
             // draw legend background
             newLegendBaseGraphic.setColor(Color.white);
             newLegendBaseGraphic.fillRect(0, 0, paddedTextWidth, paddedTextHeight);
-            
+
             // draw legend border
-            if(layer.getShowLegendBorder())
+            if (layer.getShowLegendBorder())
             {
               newLegendBaseGraphic.setColor(Color.black);
               newLegendBaseGraphic.drawRect(0, 0, paddedTextWidth, paddedTextHeight);
               newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
             }
-            
+
             // draw legend text
             fm = newLegendBaseGraphic.getFontMetrics();
             newLegendBaseGraphic.setColor(Color.decode(layer.getLegendTitleFontFill()));
             newLegendBaseGraphic.drawString(layer.getLegendTitle(), textBoxHorizontalPadding, fm.getAscent() + textBoxVerticalPadding);
-            
+
             newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
-            
-          // build the style icon that represents the feature fill color
-          if(layer.getCreateRawLegend())
-          {
-            int iconLeftPadding = paddedTextWidth - paddedIconWidth + 4;
-            int internalGraphicTopPadding = (int) Math.round((paddedTextHeight - iconHeight)/2);
-            Color featureFill = Color.decode(layer.getDefaultStyles().getPolygonFill());
-//            Color featureBorder = Color.decode(layer.getDefaultStyles().getPolygonStroke());
-                
-            newLegendBaseGraphic.setColor(featureFill);  
-            newLegendBaseGraphic.fillRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
-            
-            newLegendBaseGraphic.setColor(Color.black);
-            newLegendBaseGraphic.drawRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
-            newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
-            
-            newLegendBaseGraphic.setColor(Color.black);
-            newLegendBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTextHeight);
-            newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
-            
-            newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
-          }
-            
-//            // build the style icon that represents the feature fill color
-//            if(layer.getCreateRawLegend())
-//            {
-//              
-//              BufferedImage iconBase = new BufferedImage(iconWidth + 1, paddedTextHeight + 1, BufferedImage.TYPE_INT_ARGB);
-//              Graphics2D iconBaseGraphic = iconBase.createGraphics();
-//              
-//              // draw the outer container
-//              iconBaseGraphic.setColor(Color.white);
-//              iconBaseGraphic.fillRect(0, 0, iconWidth, paddedTextHeight);
-//              
-//              iconBaseGraphic.setColor(Color.black);
-//              iconBaseGraphic.drawRect(0, 0, iconWidth, paddedTextHeight);
-//              iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
-//              
-//              // draw the colored icon
-//              int internalGraphicTopPadding = (int) Math.round(((paddedTextHeight)-(iconWidth - textBoxVerticalPadding))/2);
-//              iconBaseGraphic.drawRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
-//              iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
-//              
-//              iconBaseGraphic.setColor(Color.green);  // Color.decode(layer.getLegendColor())
-//              iconBaseGraphic.fillRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
-//              
-//              iconBaseGraphic.drawImage(iconBase, 0, 0, null);  
-//              mapBaseGraphic.drawImage(iconBase, layer.getLegendXPosition() - leftOffset + textWidth, layer.getLegendYPosition() - topOffset, null);
-//              
-//              iconBaseGraphic.dispose();
-//            }
-            
+
+            // build the style icon that represents the feature fill color
+            if (layer.getCreateRawLegend())
+            {
+              int iconLeftPadding = paddedTextWidth - paddedIconWidth + 4;
+              int internalGraphicTopPadding = (int) Math.round( ( paddedTextHeight - iconHeight ) / 2);
+              Color featureFill = Color.decode(layer.getDefaultStyles().getPolygonFill());
+              // Color featureBorder = Color.decode(layer.getDefaultStyles().getPolygonStroke());
+
+              newLegendBaseGraphic.setColor(featureFill);
+              newLegendBaseGraphic.fillRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
+
+              newLegendBaseGraphic.setColor(Color.black);
+              newLegendBaseGraphic.drawRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
+              newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
+
+              newLegendBaseGraphic.setColor(Color.black);
+              newLegendBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTextHeight);
+              newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
+
+              newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
+            }
+
+            // // build the style icon that represents the feature fill color
+            // if(layer.getCreateRawLegend())
+            // {
+            //
+            // BufferedImage iconBase = new BufferedImage(iconWidth + 1, paddedTextHeight + 1, BufferedImage.TYPE_INT_ARGB);
+            // Graphics2D iconBaseGraphic = iconBase.createGraphics();
+            //
+            // // draw the outer container
+            // iconBaseGraphic.setColor(Color.white);
+            // iconBaseGraphic.fillRect(0, 0, iconWidth, paddedTextHeight);
+            //
+            // iconBaseGraphic.setColor(Color.black);
+            // iconBaseGraphic.drawRect(0, 0, iconWidth, paddedTextHeight);
+            // iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
+            //
+            // // draw the colored icon
+            // int internalGraphicTopPadding = (int) Math.round(((paddedTextHeight)-(iconWidth - textBoxVerticalPadding))/2);
+            // iconBaseGraphic.drawRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
+            // iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
+            //
+            // iconBaseGraphic.setColor(Color.green); // Color.decode(layer.getLegendColor())
+            // iconBaseGraphic.fillRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
+            //
+            // iconBaseGraphic.drawImage(iconBase, 0, 0, null);
+            // mapBaseGraphic.drawImage(iconBase, layer.getLegendXPosition() - leftOffset + textWidth, layer.getLegendYPosition() - topOffset, null);
+            //
+            // iconBaseGraphic.dispose();
+            // }
+
             mapBaseGraphic.drawImage(newLegendBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, textWidth, textHeight, null);
           }
           finally
@@ -1673,7 +1670,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return base;
   }
-  
 
   /**
    * Builds an image layer of the saved MapImages in a SavedMap.
@@ -1827,6 +1823,42 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     return styleConstant;
+  }
+
+  @Transaction
+  public void deleteGeneratedMapsAndView()
+  {
+    GeneratedMapQuery query = new GeneratedMapQuery(new QueryFactory());
+    query.WHERE(query.getSavedMap().EQ(this));
+
+    OIterator<? extends GeneratedMap> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        GeneratedMap generatedMap = it.next();
+        generatedMap.delete();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    MapUtil.deleteMapView(this.getGeneratedMapViewName());
+  }
+
+  public String getGeneratedMapViewName()
+  {
+    String viewName = GENERATED_MAP_VIEW_PREFIX + this.getMapName() + "_" + this.getDisease().getKey();
+
+    // Postgres creates tables/views in lowercase, so enforce that convention
+    // here as well so we don't get into trouble with mixed casing.
+    viewName = viewName.toLowerCase();
+    viewName = viewName.replaceAll("\\s", "_");
+
+    return viewName;
   }
 
 }

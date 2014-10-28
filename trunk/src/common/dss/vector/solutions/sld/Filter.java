@@ -2,13 +2,13 @@ package dss.vector.solutions.sld;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.query.LayerDTO;
+import dss.vector.solutions.query.LayerIF;
 
 public abstract class Filter implements Reloadable
 {
-  protected LayerDTO layer;
+  protected LayerIF layer;
   
-  protected Filter(LayerDTO layer)
+  protected Filter(LayerIF layer)
   {
     this.layer = layer;
   }

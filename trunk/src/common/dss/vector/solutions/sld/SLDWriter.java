@@ -7,40 +7,46 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 
-import com.runwaysdk.business.BusinessDTO;
-import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.io.MarkupWriter;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.util.FileIO;
 
-import dss.vector.solutions.query.AbstractCategoryDTO;
-import dss.vector.solutions.query.AllRenderTypesDTO;
-import dss.vector.solutions.query.LayerDTO;
-import dss.vector.solutions.query.NonRangeCategoryDTO;
+import dss.vector.solutions.query.AbstractCategoryIF;
+import dss.vector.solutions.query.LayerIF;
+import dss.vector.solutions.query.MapConfigurationIF;
+import dss.vector.solutions.query.NonRangeCategoryIF;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.RangeCategoryDTO;
-import dss.vector.solutions.query.StylesDTO;
+import dss.vector.solutions.query.RangeCategoryIF;
+import dss.vector.solutions.query.RequestFacadeIF;
+import dss.vector.solutions.query.StylesIF;
 
 public class SLDWriter extends MarkupWriter implements Reloadable
 {
-  private LayerDTO layer;
+  private LayerIF            layer;
+
+  private MapConfigurationIF configuration;
 
   /**
    * Constructs a new SLDWriter for the given Layer.
    * 
    * @param layer
    */
-  public SLDWriter(LayerDTO layer)
+  public SLDWriter(LayerIF layer)
+  {
+    this(layer, null);
+  }
+
+  public SLDWriter(LayerIF layer, MapConfigurationIF configuration)
   {
     super(new StringWriter());
 
     this.layer = layer;
+    this.configuration = configuration;
   }
 
-  protected LayerDTO getLayer()
+  protected LayerIF getLayer()
   {
     return layer;
   }
@@ -58,7 +64,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
    * @param categoryStyle
    * @param defaultStyle
    */
-  private void mergeStyles(StylesDTO mergedStyle, StylesDTO categoryStyle, StylesDTO defaultStyle)
+  private void mergeStyles(StylesIF mergedStyle, StylesIF categoryStyle, StylesIF defaultStyle)
   {
     for (String name : mergedStyle.getAttributeNames())
     {
@@ -67,7 +73,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
         String styleName = name.substring(QueryConstants.CATEGORY_OVERRIDE_PREPEND.length());
         Boolean doOverride = Boolean.parseBoolean(categoryStyle.getValue(name));
 
-        if (mergedStyle.getAttributeMd(styleName) instanceof AttributeEnumerationMdDTO)
+        if (mergedStyle.isEnumerationAttribute(styleName))
         {
           String enumName = doOverride ? categoryStyle.getEnumNames(styleName).get(0) : defaultStyle.getEnumNames(styleName).get(0);
           mergedStyle.addEnumItem(styleName, enumName);
@@ -83,34 +89,38 @@ public class SLDWriter extends MarkupWriter implements Reloadable
 
   private void writeSequence()
   {
-    writeHeader(this.layer.getViewName());
+    writeHeader(this.getViewName());
 
-    boolean asPoint = this.layer.getRenderAs().get(0).equals(AllRenderTypesDTO.POINT);
+    boolean asPoint = this.layer.isPoint();
 
     if (layer.hasThematicVariable())
     {
       // The layer is thematic, so write all the category styles/ranges.
-      StylesDTO defaultStyle = layer.getDefaultStyles();
+      StylesIF defaultStyle = layer.getDefaultStyles();
 
       // This mergedStyle object will be reused to represent the styles
       // defined by the layer (the default) and the overridden styles on
       // the category.
-      StylesDTO mergedStyle = new StylesDTO(defaultStyle.getRequest());
-      List<? extends AbstractCategoryDTO> categories = this.layer.getAllHasCategory();
-      for (AbstractCategoryDTO category : categories)
+
+      StylesIF mergedStyle = defaultStyle.createMergedStyle();
+
+      List<AbstractCategoryIF> categories = this.layer.getAllCategories();
+
+      for (AbstractCategoryIF category : categories)
       {
-        StylesDTO categoryStyle = category.getStyles();
+        StylesIF categoryStyle = category.getStyles();
         mergeStyles(mergedStyle, categoryStyle, defaultStyle);
 
         Filter tFilter = new ThematicLabelFilter(layer);
         Filter filter;
-        if (category instanceof RangeCategoryDTO)
+
+        if (category instanceof RangeCategoryIF)
         {
-          filter = new RangeFilter(layer, (RangeCategoryDTO) category);
+          filter = new RangeFilter(layer, (RangeCategoryIF) category);
         }
         else
         {
-          filter = new NonRangeFilter(layer, (NonRangeCategoryDTO) category);
+          filter = new NonRangeFilter(layer, (NonRangeCategoryIF) category);
         }
         Filter cFilter = new CompositeFilter(layer, tFilter, filter);
 
@@ -159,7 +169,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
     else
     {
       // Default layer styles
-      StylesDTO defaultStyle = layer.getDefaultStyles();
+      StylesIF defaultStyle = layer.getDefaultStyles();
       Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
 
       Rule rule = new Rule(null, sym, new TextSymbolizer(defaultStyle));
@@ -169,7 +179,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
     writeFooter();
   }
 
-  private Symbolizer getSymbolizer(boolean asPoint, StylesDTO style)
+  private Symbolizer getSymbolizer(boolean asPoint, StylesIF style)
   {
     if (asPoint)
     {
@@ -183,7 +193,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
 
   public void write()
   {
-    ClientRequestIF requestIF = this.layer.getRequest();
+    RequestFacadeIF requestIF = this.layer.getRequestFacade();
 
     writeSequence();
 
@@ -196,13 +206,13 @@ public class SLDWriter extends MarkupWriter implements Reloadable
     byte[] bytes = getWriter().toString().getBytes();
 
     ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
-    BusinessDTO webFile = requestIF.newFile(QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, stream);
+    String fileId = requestIF.newFile(QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, stream);
 
     // Lock this layer. This lock all objects used by this layer
-    this.layer.updateSLDFile(webFile.getId());
+    this.layer.updateFile(fileId);
   }
 
-  private void deleteExistingSLD(ClientRequestIF requestIF, String path, String fileName, String extension, String oldFileId)
+  private void deleteExistingSLD(RequestFacadeIF requestIF, String path, String fileName, String extension, String oldFileId)
   {
     if (oldFileId != null && oldFileId.trim().length() > 0)
     {
@@ -228,7 +238,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
       }
     }
   }
-  
+
   public void writeEmptyTagWithValue(String tag, String value)
   {
     writeTagSingleValue(tag, value);
@@ -238,7 +248,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
   {
     writeTagSingleValue(tag, value, attributes);
   }
-  
+
   public void writeTagWithValue(String tag, String attributeName, String attributeValue, String value)
   {
     HashMap<String, String> attributes = new HashMap<String, String>();
@@ -246,7 +256,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
 
     writeTagWithValue(tag, attributes, value);
   }
-  
+
   private void writeHeader(String viewName)
   {
     this.writeValue("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
@@ -267,7 +277,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
     writeEmptyTagWithValue("Abstract", "Layer Style for " + viewName);
     openTag("FeatureTypeStyle");
   }
-  
+
   private void writeFooter()
   {
     // Close FeatureTypeStyle
@@ -284,5 +294,17 @@ public class SLDWriter extends MarkupWriter implements Reloadable
   protected void throwIOException(IOException e)
   {
     throw new RuntimeException(e);
+  }
+
+  public String getViewName()
+  {
+    String viewName = this.layer.getViewName();
+
+    if (this.configuration != null)
+    {
+      viewName = this.configuration.getViewName(this.layer);
+    }
+
+    return viewName;
   }
 }

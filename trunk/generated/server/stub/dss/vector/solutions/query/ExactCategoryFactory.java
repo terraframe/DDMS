@@ -9,63 +9,76 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
 
-public class ExactCategoryFactory extends ExactCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
-	private static final long serialVersionUID = 207120471;
-	private static final long TOO_MANY_VALUES = 50l;
+public class ExactCategoryFactory extends ExactCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable
+{
+  private static final long serialVersionUID = 207120471;
 
-	public ExactCategoryFactory() {
-		super();
-	}
+  private static final long TOO_MANY_VALUES  = 50l;
 
-	@Override
-	protected String[] getRequiredAttributes() {
-		return new String[] {};
-	}
+  public ExactCategoryFactory()
+  {
+    super();
+  }
 
-	@Override
-	protected List<AbstractCategory> createInternal(Layer layer, CategoryGen categoryGen) {
-		ArrayList<AbstractCategory> categories = new ArrayList<AbstractCategory>();
+  @Override
+  protected String[] getRequiredAttributes()
+  {
+    return new String[] {};
+  }
 
-		//QueryInfo info = layer.calculateQueryInfo();
-		//if(info.hasThematicVariable() && info.isThematicNumeric())
+  @Override
+  protected List<AbstractCategory> createInternal(Layer layer, CategoryGen categoryGen)
+  {
+    ArrayList<AbstractCategory> categories = new ArrayList<AbstractCategory>();
 
-		ValueQuery values = this.getLayerValueQuery(layer);
-		int i = 0;
-		int count = (int) values.getCount();
+    // QueryInfo info = layer.calculateQueryInfo();
+    // if(info.hasThematicVariable() && info.isThematicNumeric())
 
-		if (count > TOO_MANY_VALUES) {
+    ValueQuery values = this.getLayerValueQuery(layer);
+    int i = 0;
+    int count = (int) values.getCount();
 
-		} else {
-			OIterator<ValueObject> iter = values.getIterator();
-			try {
-				while (iter.hasNext()) {
-					String value = iter.next().getValue("layer_value");
-					categories.add(this.createExact(layer, value, categoryGen, i++, count));
-				}
-			} finally {
-				iter.close();
-			}
-		}
+    if (count > TOO_MANY_VALUES)
+    {
 
-		return categories;
-	}
+    }
+    else
+    {
+      OIterator<ValueObject> iter = values.getIterator();
+      try
+      {
+        while (iter.hasNext())
+        {
+          String value = iter.next().getValue("layer_value");
+          categories.add(this.createExact(layer, value, categoryGen, i++, count));
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
 
-	private ValueQuery getLayerValueQuery(Layer layer) {
-		// SQL distinct to avoid dups and smallest to largest
-		Map<Layer, ValueQuery> layerVQs = MapUtil.createDBViews(new Layer[] { layer }, true);
-		ValueQuery layerVQ = layerVQs.get(layer);
-		ValueQuery wrapper = new ValueQuery(layerVQ.getQueryFactory());
+    return categories;
+  }
 
-		wrapper.FROM(layer.getViewName(), "layer_values_view");
+  private ValueQuery getLayerValueQuery(Layer layer)
+  {
+    // SQL distinct to avoid dups and smallest to largest
+    Map<Layer, ValueQuery> layerVQs = MapUtil.createDBViews(new Layer[] { layer }, true, new MapConfiguration());
+    ValueQuery layerVQ = layerVQs.get(layer);
+    ValueQuery wrapper = new ValueQuery(layerVQ.getQueryFactory());
 
-		SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT " + layer.getThematicColumnAlias());
+    wrapper.FROM(layer.getViewName(), "layer_values_view");
 
-		wrapper.SELECT_DISTINCT(layerValues);
+    SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT " + layer.getThematicColumnAlias());
 
-		wrapper.WHERE(layerValues.NE((Double) null));
+    wrapper.SELECT_DISTINCT(layerValues);
 
-		wrapper.ORDER_BY_ASC(layerValues);
+    wrapper.WHERE(layerValues.NE((Double) null));
 
-		return wrapper;
-	}
+    wrapper.ORDER_BY_ASC(layerValues);
+
+    return wrapper;
+  }
 }

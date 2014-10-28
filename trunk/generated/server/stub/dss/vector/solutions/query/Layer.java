@@ -12,6 +12,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -19,8 +20,11 @@ import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.WebFile;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.IDGenerator;
 
-public class Layer extends LayerBase implements com.runwaysdk.generation.loader.Reloadable, LayerIF
+import dss.vector.solutions.ServerRequestFacade;
+
+public class Layer extends LayerBase implements Reloadable, LayerIF
 {
   private static final long  serialVersionUID = 1240900978895L;
 
@@ -49,7 +53,7 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
     QueryInfo info = new QueryInfo();
 
     // Create the DB view for this layer
-    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(new Layer[] { this }, true);
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(new Layer[] { this }, true, new MapConfiguration());
 
     // Query on that view
     QueryFactory f = new QueryFactory();
@@ -196,9 +200,7 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
   }
 
   /**
-   * Validates that this Layer's name is unique on the map (but it doesn't have
-   * to be unique across the system). This should be called after this Layer has
-   * been applied.
+   * Validates that this Layer's name is unique on the map (but it doesn't have to be unique across the system). This should be called after this Layer has been applied.
    * 
    * @param savedMapId
    */
@@ -241,6 +243,11 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
     if ( ( legendTitle == null || legendTitle.length() == 0 ) && layerName != null && layerName.length() > 0)
     {
       this.setLegendTitle(layerName);
+    }
+
+    if (this.getSemanticId() == null || this.getSemanticId().length() == 0)
+    {
+      this.setSemanticId(IDGenerator.nextID());
     }
 
     super.apply();
@@ -340,17 +347,60 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
   @Authenticate
   public void updateSLDFile(String fileId)
   {
-    this.lock();
-
-    this.setSldFile(fileId);
-
-    this.apply();
+    this.updateFile(fileId);
   }
 
   public String toString()
   {
     String name = this.getLayerName();
     return name != null ? name : this.getId();
+  }
+
+  @Override
+  public boolean isPoint()
+  {
+    List<AllRenderTypes> renderAs = this.getRenderAs();
+
+    return renderAs.get(0).equals(AllRenderTypes.POINT);
+  }
+
+  @Override
+  public RequestFacadeIF getRequestFacade()
+  {
+    return new ServerRequestFacade();
+  }
+
+  @Override
+  public List<AbstractCategoryIF> getAllCategories()
+  {
+    List<AbstractCategoryIF> list = new LinkedList<AbstractCategoryIF>();
+    OIterator<? extends AbstractCategory> categories = this.getAllHasCategory();
+
+    try
+    {
+      while (categories.hasNext())
+      {
+        AbstractCategory category = categories.next();
+
+        list.add(category);
+      }
+    }
+    finally
+    {
+      categories.close();
+    }
+
+    return list;
+  }
+
+  @Override
+  public void updateFile(String fileId)
+  {
+    this.lock();
+
+    this.setSldFile(fileId);
+
+    this.apply();
   }
 
 }

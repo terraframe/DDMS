@@ -2,11 +2,11 @@ package dss.vector.solutions.sld;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.query.LayerDTO;
+import dss.vector.solutions.query.LayerIF;
 
 public class ElseFilter extends Filter implements Reloadable
 {
-  public ElseFilter(LayerDTO layer)
+  public ElseFilter(LayerIF layer)
   {
     super(layer);
   }

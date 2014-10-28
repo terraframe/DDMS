@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -950679257)
+@com.runwaysdk.business.ClassSignature(hash = 496923345)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -44,6 +44,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String OWNER = "owner";
   public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
+  public static java.lang.String SEMANTICID = "semanticId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SHOWLEGENDBORDER = "showLegendBorder";
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
@@ -55,7 +56,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -950679257;
+  private static final long serialVersionUID = 496923345;
   
   public LayerBase()
   {
@@ -1064,6 +1065,34 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
   }
   
+  public String getSemanticId()
+  {
+    return getValue(SEMANTICID);
+  }
+  
+  public void validateSemanticId()
+  {
+    this.validateAttribute(SEMANTICID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSemanticIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(SEMANTICID);
+  }
+  
+  public void setSemanticId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SEMANTICID, "");
+    }
+    else
+    {
+      setValue(SEMANTICID, value);
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -1472,6 +1501,18 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   {
     Layer _instance = Layer.get(id);
     return _instance.getAttributeGeoHierarchies();
+  }
+  
+  public java.lang.Boolean isUsedForCycleJob()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.Boolean isUsedForCycleJob(java.lang.String id)
+  {
+    Layer _instance = Layer.get(id);
+    return _instance.isUsedForCycleJob();
   }
   
   public void updateSLDFile(java.lang.String fileId)

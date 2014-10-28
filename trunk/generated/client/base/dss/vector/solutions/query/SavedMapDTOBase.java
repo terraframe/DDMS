@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1153115686)
+@com.runwaysdk.business.ClassSignature(hash = -91394223)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = -1153115686;
+  private static final long serialVersionUID = -91394223;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -833,36 +833,20 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (dss.vector.solutions.query.LayerViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final void deleteLayerFromMap(java.lang.String layerId)
+  public final java.lang.String deleteLayerFromMap(java.lang.String layerId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{layerId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "deleteLayerFromMap", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteLayerFromMap(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String layerId)
+  public static final java.lang.String deleteLayerFromMap(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String layerId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, layerId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "deleteLayerFromMap", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final void exportMapToImage(java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{outFileName, outFilePath, outFileFormat, mapBounds, mapSize};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportMapToImage", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final void exportMapToImage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String outFileName, java.lang.String outFilePath, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, outFileName, outFilePath, outFileFormat, mapBounds, mapSize};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "exportMapToImage", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.io.InputStream exportShapefile()
@@ -935,6 +919,22 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getAllSavedMaps", _declaredTypes);
     return (dss.vector.solutions.query.SavedMapQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.query.CycleJobViewDTO getCycleJobView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getCycleJobView", _declaredTypes);
+    return (dss.vector.solutions.query.CycleJobViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.query.CycleJobViewDTO getCycleJobView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "getCycleJobView", _declaredTypes);
+    return (dss.vector.solutions.query.CycleJobViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.String getImageByCustomImageId(java.lang.String customImageId)

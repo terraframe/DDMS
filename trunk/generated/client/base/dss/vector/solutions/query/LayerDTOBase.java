@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 428218279)
+@com.runwaysdk.business.ClassSignature(hash = -432024495)
 public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 428218279;
+  private static final long serialVersionUID = -432024495;
   
   protected LayerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -60,6 +60,7 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
   public static java.lang.String OWNER = "owner";
   public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
+  public static java.lang.String SEMANTICID = "semanticId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SHOWLEGENDBORDER = "showLegendBorder";
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
@@ -1342,6 +1343,43 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SAVEDSEARCH).getAttributeMdDTO();
   }
   
+  public String getSemanticId()
+  {
+    return getValue(SEMANTICID);
+  }
+  
+  public void setSemanticId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SEMANTICID, "");
+    }
+    else
+    {
+      setValue(SEMANTICID, value);
+    }
+  }
+  
+  public boolean isSemanticIdWritable()
+  {
+    return isWritable(SEMANTICID);
+  }
+  
+  public boolean isSemanticIdReadable()
+  {
+    return isReadable(SEMANTICID);
+  }
+  
+  public boolean isSemanticIdModified()
+  {
+    return isModified(SEMANTICID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSemanticIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEMANTICID).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -1762,6 +1800,22 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.Boolean isUsedForCycleJob()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "isUsedForCycleJob", _declaredTypes);
+    return (java.lang.Boolean) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.Boolean isUsedForCycleJob(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "isUsedForCycleJob", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void updateSLDFile(java.lang.String fileId)

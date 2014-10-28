@@ -35,6 +35,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
       var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
       var pHeight = (window.innerHeight - 160) > minHeight ? (window.innerHeight -160) : minHeight;
+      
+      var that = this;
     
       this._mapLayout = new YAHOO.widget.Layout(mapPanelId, {
         height: pHeight,
@@ -46,17 +48,29 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         ]
       });
       
-      // The button that adds a new layer when clicked
-      this._addLayerButton = null;
-    
+      this._mapLayout.on('render', function() {
+        var c = that._mapLayout.getUnitByPosition('left');
+        
+        //Apply the new layout to the body element of the first layout        
+        that._leftLayout = new YAHOO.widget.Layout(c.body, {
+          parent: that._mapLayout,
+          units: [
+            { position: 'center', body: '', gutter: '2 2 0 0', resize: false, scroll: true },
+            { position: 'bottom', height: 400, body: '', gutter: '2', resize: false}
+          ]
+        });
+        
+        that._leftLayout.render();
+      });      
+      
+          
       // a map of ThematicVariable objects
       this._thematicVariables = {};
       this._thematicLayers = [];
     
   
       // The current ThematicVarible object that is used for mapping.
-      this._currentThematicVariable = null;
-      
+      this._currentThematicVariable = null;      
   
       // the current layers in the map. If this._currentSavedSearch
       // is not null, then these layers belong to that SavedSearch.
@@ -163,7 +177,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       text = MDSS.util.stripWhitespace(text);
       if(text.length > 0)
       {
-    	var that = this;  
+         var that = this;  
         var obj = Mojo.Util.getObject(text);
         if(obj.success)
         {
@@ -202,16 +216,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
         
         var mouseEnterHandler = function(e){
-       	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-       		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-       			YAHOO.util.Dom.setStyle(closeDiv, "display", "");
-       		}
+             var child = YAHOO.util.Dom.getFirstChild(e.target);
+           if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+             YAHOO.util.Dom.setStyle(closeDiv, "display", "");
+           }
         }
         var mouseLeaveHandler = function(e){
-       	    var child = YAHOO.util.Dom.getFirstChild(e.target);
-       		if(YAHOO.util.Dom.hasClass(child, "closeButton")){
-       			YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
-       		}
+             var child = YAHOO.util.Dom.getFirstChild(e.target);
+           if(YAHOO.util.Dom.hasClass(child, "closeButton")){
+             YAHOO.util.Dom.setStyle(closeDiv, "display", "none");
+           }
         }
         
         YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
@@ -241,7 +255,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _renderTextElements : function(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text)
     {
-    	
+      
         var div = document.createElement('div');
         div.id = textId;
         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
@@ -268,11 +282,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         this.position(div);
 
         var mouseEnterHandler = function(e){
-       	 e.target.firstChild.style.display="";
+          e.target.firstChild.style.display="";
         }
         
         var mouseLeaveHandler = function(e){
-       	 e.target.firstChild.style.display="none";
+          e.target.firstChild.style.display="none";
         }
         
         YAHOO.util.Event.on(div, 'mouseenter', mouseEnterHandler);
@@ -281,11 +295,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         YAHOO.util.Event.on(closeDiv, 'click', this._removeTextElement, null, this);
         
         this._ddDivs.push({div:div, dd:dd});
-	 
-   	 	if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
-   	 		div.style.left = leftPosition + "px";
-   	 		div.style.top = topPosition + "px";
-   	 	}
+   
+        if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
+          div.style.left = leftPosition + "px";
+          div.style.top = topPosition + "px";
+        }
     },
     
     /**
@@ -298,27 +312,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             that: this,
             onSuccess : function(deletedMapImageId)
             {
-            	// remove the containing div
-            	var imageContainerDiv = document.getElementById(deletedMapImageId);
-            	imageContainerDiv.remove();
-            	
-            	// remove the entry from the ddDivs cache
-            	var dragNDropDivs = this.that._ddDivs;
-            	var toDelete;
-            	for(var i=0; i<dragNDropDivs.length; i++){
-            		if(this.that._ddDivs[i].div.id === deletedMapImageId){
-            			toDelete = this.that._ddDivs[i];
-            		}
-            	}
-            	var index = dragNDropDivs.indexOf(toDelete);
-            	this.that._ddDivs.splice(index, 1);
+              // remove the containing div
+              var imageContainerDiv = document.getElementById(deletedMapImageId);
+              imageContainerDiv.remove();
+              
+              // remove the entry from the ddDivs cache
+              var dragNDropDivs = this.that._ddDivs;
+              var toDelete;
+              for(var i=0; i<dragNDropDivs.length; i++){
+                if(this.that._ddDivs[i].div.id === deletedMapImageId){
+                  toDelete = this.that._ddDivs[i];
+            }
+              }
+              var index = dragNDropDivs.indexOf(toDelete);
+              this.that._ddDivs.splice(index, 1);
             }
           });
         
         var imageId = e.target.parentElement.id;
         var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-        var mapId = mapList.value;
-        Mojo.$.dss.vector.solutions.query.SavedMap.removeMapImage(request, mapId, imageId);
+        var defaultMapId = mapList.options[0].value;
+        Mojo.$.dss.vector.solutions.query.SavedMap.removeMapImage(request, defaultMapId, imageId);
     },
     
     /**
@@ -331,27 +345,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             that: this,
             onSuccess : function(deletedTextElementId)
             {
-            	// remove the containing div
-            	var textContainerDiv = document.getElementById(deletedTextElementId);
-            	textContainerDiv.remove();
-            	
-            	// remove the entry from the ddDivs cache
-            	var dragNDropDivs = this.that._ddDivs;
-            	var toDelete;
-            	for(var i=0; i<dragNDropDivs.length; i++){
-            		if(this.that._ddDivs[i].div.id === deletedTextElementId){
-            			toDelete = this.that._ddDivs[i];
-            		}
-            	}
-            	var index = dragNDropDivs.indexOf(toDelete);
-            	this.that._ddDivs.splice(index, 1);
+              // remove the containing div
+              var textContainerDiv = document.getElementById(deletedTextElementId);
+              textContainerDiv.remove();
+              
+              // remove the entry from the ddDivs cache
+              var dragNDropDivs = this.that._ddDivs;
+              var toDelete;
+              for(var i=0; i<dragNDropDivs.length; i++){
+                if(this.that._ddDivs[i].div.id === deletedTextElementId){
+                  toDelete = this.that._ddDivs[i];
+                }
+              }
+              var index = dragNDropDivs.indexOf(toDelete);
+              this.that._ddDivs.splice(index, 1);
             }
           });
         
         var textId = e.target.parentElement.id;
         var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-        var mapId = mapList.value;
-        Mojo.$.dss.vector.solutions.query.SavedMap.removeTextElement(request, mapId, textId);
+        var defaultMapId = mapList.options[0].value;
+        Mojo.$.dss.vector.solutions.query.SavedMap.removeTextElement(request, defaultMapId, textId);
     },
     
     _handleExport : function(e)
@@ -388,6 +402,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
           select.options[0].value = defaultMap.getId();
           select.selectedIndex = 0;
+                    
+          this.that._loadCycleJob(defaultMap.getId());
         }
       });
       
@@ -396,10 +412,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _createLeftColumn : function()
     {
+      /*
+       * CREATE THE LAYERS PANE
+       */
       var html = '';
       html += '<div id="'+MDSS.MapPanel.LEFT_COLUMN+'">';
       
-      // Add query button
+      // Add add layer button
       html += MDSS.localize('Available_Layers')+':&nbsp;';
       html += '<input type="button" id="'+MDSS.MapPanel.ADD_LAYER_BUTTON+'" value="'+MDSS.localize('Add_Layer')+'">';
       html += '<br />';
@@ -412,13 +431,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       html += '</div>';
       html += '</div>';
     
-      var left = this._mapLayout.getUnitByPosition('left');
+      var left = this._leftLayout.getUnitByPosition('center');
       left.body.innerHTML = html;
       
-      // Event to add a query to the selected queries
+      // Event to add a layer to the map
       YAHOO.util.Event.on(MDSS.MapPanel.ADD_LAYER_BUTTON, 'click', this._addLayer, null, this);
       
-      // Make the selected queries a drag target and use it as a
+      // Make the selected layer a drag target and use it as a
       // click event delegater since the drag and drop operations
       // force HTML replacement so registered events can be lost.
       new YAHOO.util.DDTarget(MDSS.MapPanel.AVAILABLE_LAYERS);
@@ -439,12 +458,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var layerId = id.replace(MDSS.MapPanel.DELETE_SUFFIX, '');
         
         var request = new MDSS.Request({
-          onSuccess : function()
+          onSuccess : function(semanticId)
           {
+            /*
+             * Remove the layer from the list of layers
+             */
             var li = document.getElementById(layerId);
             li.parentNode.removeChild(li);
         
             MDSS.MapPanel.toggleBaseLayer();
+            
+            /*
+             * Remove the layer from the options in the cycle job pane
+             */
+            var select = document.getElementById('job-layer-id');
+
+            for (i=0;i<select.length;  i++)
+            {
+               if (select.options[i].value == semanticId)
+               {
+                 select.remove(i);
+               }
+            }
           }
         });
         
@@ -882,9 +917,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         isNew : (params['layer.isNew'] === 'true'),
         that : this,
         layerName : params['layer.layerName'],
-        onSuccess : function(layerId)
+        onSuccess : function(response)
         {
           var that = this.that;
+          
+          var resObject = JSON.parse(response);
+          
+          var layerId = resObject.layerId;
+          var semanticId = resObject.semanticId;
+          
           that._destroyModal();
           
           // add a draggable list item for the new layer
@@ -901,6 +942,36 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           else
           {
             document.getElementById(layerId+MDSS.MapPanel.LAYER_NAME_SUFFIX).innerHTML = this.layerName;
+          }
+          
+          if(this.isNew)
+          {            
+            /*
+             * A new layer has been added, we need to add the option to the cycle pane
+             */
+   
+            var option = document.createElement("option");
+            option.text = this.layerName;
+            option.value = semanticId;
+            
+            var select = document.getElementById('job-layer-id');
+            select.appendChild(option);
+          }
+          else
+          {
+            /*
+             * The layer name might have been changed, we need to update the existing options of the cycle pane
+             */
+            var select = document.getElementById('job-layer-id');
+            
+            for(var i=0; i < select.options.length; i++)
+            {
+              if(select.options[i].value == semanticId)
+              {
+                select.options[i].text = this.layerName;
+              }
+            }
+
           }
         }
       });
@@ -957,7 +1028,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       saveAsButton.set('id', "saveAsQueryButton");
       saveAsButton.addClass('queryButton');
       saveAsButton.on('click', this._saveMapAs, {}, this);
-      
+
       var exportButton = new YAHOO.util.Element(document.createElement('input'));
       exportButton.set('type', 'button');
       exportButton.set('value', MDSS.localize("Export_Map"));
@@ -968,7 +1039,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var deleteButton = new YAHOO.util.Element(document.createElement('input'));
       deleteButton.set('type', 'button');
       deleteButton.set('value', MDSS.localize("Delete_Map"));
-      deleteButton.set('id', this.LOAD_QUERY_BUTTON);  
+      deleteButton.set('id', this.LOAD_QUERY_BUTTON);
       deleteButton.addClass('queryButton');
       deleteButton.on('click', this._deleteMap, {}, this);
       
@@ -1071,12 +1142,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _addImage : function()
     {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-      var mapId = mapList.value;
+      var defaultMapId = mapList.options[0].value;
       
       var html = '<form action="dss.vector.solutions.query.MappingController.uploadMapImage.mojo"'
         +' method="POST" enctype="multipart/form-data" target="imageIframe">';
       html += '<input type="file" name="imageFile" />';
-      html += '<input type="hidden" name="mapId" id="mapId" value="'+ mapId +'" />';
+      html += '<input type="hidden" name="mapId" id="mapId" value="'+ defaultMapId +'" />';
       html += '<input type="submit" value="'+MDSS.localize('Submit')+'" />';
       html += '</form>';
       
@@ -1249,6 +1320,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             this.that._updateMapImageStatus(mapId);
             this.that._updateMapState(mapId);
             this.that._updateTextElementState(mapId);
+            
+            this.that._saveCycleJob();
           }
         });        
         
@@ -1263,7 +1336,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         onSuccess: function(html)
         {
           var that = this.that;
-          that._createModal(html, MDSS.localize('Save_Map_As'));
+          that._createModal(html, MDSS.localize('Save_Map_As'));          
         }
       });
   
@@ -1294,6 +1367,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._updateTextElementState(mapId);
           
           that._destroyModal();
+          
+          /*
+           * Save the cycle job
+           */
+          that._saveCycleJob(mapId);
         }
       });
 
@@ -1320,28 +1398,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateNorthArrowStatus : function(mapId)
     {
-    	if(typeof arrowDiv !== "undefined"){
-	        var request = new MDSS.Request({
-	            that : this,
-	            onSuccess : function(query)
-	            {
-	              // No callback necessary
-	            }
-	          });  
-	        
-	        // Set the location of the north arrow. 
-	        // if the north arrow is not visible the left/top values will be set to 0
-	        var northArrowIsActive = false;
-	        if(arrowDiv.style.display !== 'none'){
-	        	northArrowIsActive = true;
-	        }
-	        
-	        var style = window.getComputedStyle(arrowDiv);
-	        var top = style.getPropertyValue('top');
-	        var left = style.getPropertyValue('left');
-	        
-	        Mojo.$.dss.vector.solutions.query.SavedMap.updateNorthArrow(request, mapId, left, top, northArrowIsActive);
-    	}
+      if(typeof arrowDiv !== "undefined"){
+          var request = new MDSS.Request({
+              that : this,
+              onSuccess : function(query)
+              {
+                // No callback necessary
+              }
+            });  
+          
+          // Set the location of the north arrow. 
+          // if the north arrow is not visible the left/top values will be set to 0
+          var northArrowIsActive = false;
+          if(arrowDiv.style.display !== 'none'){
+            northArrowIsActive = true;
+          }
+          
+          var style = window.getComputedStyle(arrowDiv);
+          var top = style.getPropertyValue('top');
+          var left = style.getPropertyValue('left');
+          
+          Mojo.$.dss.vector.solutions.query.SavedMap.updateNorthArrow(request, mapId, left, top, northArrowIsActive);
+      }
     },
     
     /**
@@ -1351,28 +1429,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateScaleBarStatus : function(mapId)
     {
-    	if(typeof scaleDiv !== "undefined"){
-	        var request = new MDSS.Request({
-	            that : this,
-	            onSuccess : function(query)
-	            {
-	              // No callback necessary
-	            }
-	          });  
-	        
-	        // Set the location of the north arrow. 
-	        // if the north arrow is not visible the left/top values will be set to 0
-	        var scaleBarIsActive = false;
-	        if(scaleDiv.style.display !== 'none'){
-	        	scaleBarIsActive = true;
-	        }
-	        
-	        var style = window.getComputedStyle(scaleDiv);
-	        var top = style.getPropertyValue('top');
-	        var left = style.getPropertyValue('left');
-	        
-	        Mojo.$.dss.vector.solutions.query.SavedMap.updateScaleBar(request, mapId, left, top, scaleBarIsActive);
-    	}
+      if(typeof scaleDiv !== "undefined"){
+          var request = new MDSS.Request({
+              that : this,
+              onSuccess : function(query)
+              {
+                // No callback necessary
+              }
+            });  
+          
+          // Set the location of the north arrow. 
+          // if the north arrow is not visible the left/top values will be set to 0
+          var scaleBarIsActive = false;
+          if(scaleDiv.style.display !== 'none'){
+            scaleBarIsActive = true;
+          }
+          
+          var style = window.getComputedStyle(scaleDiv);
+          var top = style.getPropertyValue('top');
+          var left = style.getPropertyValue('left');
+          
+          Mojo.$.dss.vector.solutions.query.SavedMap.updateScaleBar(request, mapId, left, top, scaleBarIsActive);
+      }
     },
     
     /**
@@ -1382,20 +1460,20 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateLegendStatus : function(mapId)
     {
-    	
+      
         var activeLegends = document.getElementsByClassName("ddmsLegend");
         
         var legendsJSONArr = [];
         for(var i=0; i<activeLegends.length; i++){
-        	var legend = activeLegends[i];
-        	var legendId = legend.id;
-        	
-	        var style = window.getComputedStyle(legend);
-	        var top = style.getPropertyValue('top');
-	        var left = style.getPropertyValue('left');
-        	
-	        var legendInfo = { "legendId":legendId, "top":top, "left":left };
-	        legendsJSONArr.push(legendInfo);
+          var legend = activeLegends[i];
+          var legendId = legend.id;
+          
+          var style = window.getComputedStyle(legend);
+          var top = style.getPropertyValue('top');
+          var left = style.getPropertyValue('left');
+          
+          var legendInfo = { "legendId":legendId, "top":top, "left":left };
+          legendsJSONArr.push(legendInfo);
         }
         
         var legendsJSON = { "legends" : legendsJSONArr };
@@ -1408,7 +1486,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             }
           });  
         
-    	
+      
         Mojo.$.dss.vector.solutions.query.SavedMap.updateLegendLocations(request, mapId, legendsJSON);
     },
     
@@ -1462,15 +1540,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         var imagesJSONArr = [];
         for(var i=0; i<activeMapImages.length; i++){
-        	var img = activeMapImages[i];
-        	var imgId = img.id;
-        	
-	        var style = window.getComputedStyle(img);
-	        var top = style.getPropertyValue('top');
-	        var left = style.getPropertyValue('left');
-        	
-	        var imgInfo = { "imageId":imgId, "top":top, "left":left };
-	        imagesJSONArr.push(imgInfo);
+          var img = activeMapImages[i];
+          var imgId = img.id;
+          
+          var style = window.getComputedStyle(img);
+          var top = style.getPropertyValue('top');
+          var left = style.getPropertyValue('left');
+          
+          var imgInfo = { "imageId":imgId, "top":top, "left":left };
+          imagesJSONArr.push(imgInfo);
         }
         
         var imagesJSON = { "images" : imagesJSONArr };
@@ -1486,27 +1564,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateMapState : function(mapId)
     {
-    	// if trying to save an empty default map the _map object won't exist yet. 
-    	if(this._map){
-	    	var mapBounds ={};
-	    	mapBounds.left = this._map.getExtent().left;
-	    	mapBounds.bottom = this._map.getExtent().bottom;
-	    	mapBounds.right = this._map.getExtent().right;
-	    	mapBounds.top = this._map.getExtent().top;
-	    	
-	    	
+      // if trying to save an empty default map the _map object won't exist yet. 
+      if(this._map){
+        var mapBounds ={};
+        mapBounds.left = this._map.getExtent().left;
+        mapBounds.bottom = this._map.getExtent().bottom;
+        mapBounds.right = this._map.getExtent().right;
+        mapBounds.top = this._map.getExtent().top;
+        
+        
 	    	var zoomLevel = this._map.getZoom();
-	    	
-	        var request = new MDSS.Request({
-	            that : this,
-	            onSuccess : function(query)
-	            {
-	              // No callback necessary
-	            }
-	          });  
-	        
-	        Mojo.$.dss.vector.solutions.query.SavedMap.updateMapState(request, mapId, zoomLevel, mapBounds);
-    	}
+        
+          var request = new MDSS.Request({
+              that : this,
+              onSuccess : function(query)
+              {
+                // No callback necessary
+              }
+            });  
+          
+          Mojo.$.dss.vector.solutions.query.SavedMap.updateMapState(request, mapId, zoomLevel, mapBounds);
+      }
     },
     
     /**
@@ -1516,7 +1594,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateTextElementState : function(mapId)
     {
-    	
+      
     	//COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVETEXTELEMENTS(). DELETE AFTER TESTS PASS
 //    	var activeText = document.getElementsByClassName("ddmsTextElement");
 //    	
@@ -1556,23 +1634,23 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _getActiveTextElements : function()
     {
-    	var activeText = document.getElementsByClassName("ddmsTextElement");
-    	
+      var activeText = document.getElementsByClassName("ddmsTextElement");
+      
         var textJSONArr = [];
         for(var i=0; i<activeText.length; i++){
-        	var text = activeText[i];
-        	var textId = text.id;
-        	
-	        var style = window.getComputedStyle(text);
-	        var top = style.getPropertyValue('top');
-	        var left = style.getPropertyValue('left');
-        	
-	        var textInfo = { "textId":textId, "top":top, "left":left };
-	        textJSONArr.push(textInfo);
+          var text = activeText[i];
+          var textId = text.id;
+          
+          var style = window.getComputedStyle(text);
+          var top = style.getPropertyValue('top');
+          var left = style.getPropertyValue('left');
+          
+          var textInfo = { "textId":textId, "top":top, "left":left };
+          textJSONArr.push(textInfo);
         }
         
         var textJSON = { "textElements" : textJSONArr };
-        
+      
         return textJSON;
     },
     
@@ -1710,11 +1788,61 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           {
             // repopulate the map list with the layers
             this.that._setLayers(query.getResultSet());
+            
+            this.that._loadCycleJob(mapId);
           }
         });
 
         Mojo.$.dss.vector.solutions.query.SavedMap.createFromExisting(request, defaultMapId, mapId);
       }
+    },
+    
+    _loadCycleJob : function(mapId)
+    {
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess: function(html)
+        {
+          this.that._setJobHtml(html);
+        }
+      });
+  
+      Mojo.$.dss.vector.solutions.query.CycleJobController.getJobForMap(request, mapId);
+    },
+    
+    _setJobHtml : function(html)
+    {
+      var left = this._leftLayout.getUnitByPosition('bottom');
+      left.body.innerHTML = html;
+    },
+    
+    _saveCycleJob : function(mapId)
+    {
+      var params = Mojo.Util.collectFormValues('job-form');
+      
+      if(params["view.layerId"] != null && params["view.layerId"].length > 0)
+      {
+        params["view.layerId"] = params["view.layerId"][0];        
+      }
+      else
+      {
+        params["view.layerId"] = '';
+      }
+      
+      if(mapId != null)
+      {
+        params["view.savedMap"] = mapId;
+      }
+      
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess: function(html)
+        {
+          this.that._setJobHtml(html);
+        }
+      });
+      
+      Mojo.$.dss.vector.solutions.query.CycleJobController.saveMap(request, params);
     },
     
     _setLayers : function(layerViews)
@@ -1759,8 +1887,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _refreshMap : function()
     {
+      var mapId = MDSS.MapPanel.getCurrentMap();
+
       var request = new MDSS.Request({
         that : this,
+        mapId : mapId,
         onSuccess : function(retJSON)
         {
           var retObj = Mojo.Util.getObject(retJSON);
@@ -1936,79 +2067,75 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           // OpenLayers doesn't always fit the saved map bounds to the zoom level that was saved 
           // so we will ensure the correct zoom level is used
           if(mapData.zoomLevel){
-        	  that._map.zoomTo(mapData.zoomLevel);
+            that._map.zoomTo(mapData.zoomLevel);
           }
           
           that._addLegends(layers);
           
           that._enableAnnotations();
           
-	      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-	      var mapId = mapList.value;
-          
-	      // render saved images
+           // render saved images
           var savedImages = mapData.savedImages;
+          
           for(var i=0; i<savedImages.length; i++){
-        	 var savedImage = savedImages[i];
-        	 var leftPosition = savedImage.imageXPosition;
-    		 var topPosition = savedImage.imageYPosition;
-        	 
-        	 var div = that._renderImages(savedImage.filePath, savedImage.imageId);
-        	 if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
-        		 div.style.left = leftPosition + "px";
-        		 div.style.top = topPosition + "px";
-        	 }
+            var savedImage = savedImages[i];
+            var leftPosition = savedImage.imageXPosition;
+            var topPosition = savedImage.imageYPosition;
+           
+            var div = that._renderImages(savedImage.filePath, savedImage.imageId);
+            
+            if(parseInt(leftPosition) > 0 && parseInt(topPosition) > 0){
+              div.style.left = leftPosition + "px";
+              div.style.top = topPosition + "px";
+            }
           }
           
           // render saved text elements
           var textElements = mapData.savedTextElements;
           for(var i=0; i<textElements.length; i++){
-        	 var textElement = textElements[i];
-        	 var leftPosition = textElement.textXPosition;
-    		 var topPosition = textElement.textYPosition;
-    		 
-    	     var text = textElement.textValue;
-    	     if(text.length > 0)
-    	     {
-    	    	 var fontColor = textElement.fontColor;
-    	    	 var fontFamily = textElement.fontFamily;
-    	    	 var fontSize = textElement.fontSize;
-    	    	 var fontStyle = textElement.fontStyle;
-    	    	 var textId = textElement.textId;
-    	    	 
-    	    	// render the text element to the map
-    	    	 that._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);
-    	    	  
-    	      }
+            var textElement = textElements[i];
+            var leftPosition = textElement.textXPosition;
+            var topPosition = textElement.textYPosition;
+         
+            var text = textElement.textValue;
+            if(text.length > 0)
+            {
+              var fontColor = textElement.fontColor;
+              var fontFamily = textElement.fontFamily;
+              var fontSize = textElement.fontSize;
+              var fontStyle = textElement.fontStyle;
+              var textId = textElement.textId;
+              
+              // render the text element to the map
+              that._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);               
+            }
           }
-          
-//          var mapId = mapList.value;
           
           var request = new MDSS.Request({
             that : this,
             onSuccess : function(map)
             {
-            	if(map.getNorthArrowActive()){
-            		var leftPosition = map.getNorthArrowXPosition().toString() + "px";
-            		var topPosition = map.getNorthArrowYPosition().toString() + "px";
-            		
-            		that._showArrow();
-            		arrowDiv.style.left = leftPosition;
-            		arrowDiv.style.top = topPosition;
-            		
-            		that._markOn(document.getElementById("northArrowBtn"));  
-            	}
-            	
-            	if(map.getScaleBarActive()){
-            		var leftPosition = map.getScaleBarXPosition().toString() + "px";
-            		var topPosition = map.getScaleBarYPosition().toString() + "px";
-            		
-            		that._showScale();
-            		scaleDiv.style.left = leftPosition;
-            		scaleDiv.style.top = topPosition;
-            		
-            		that._markOn(document.getElementById("scaleBarBtn"));  
-            	}
+              if(map.getNorthArrowActive()){
+                var leftPosition = map.getNorthArrowXPosition().toString() + "px";
+                var topPosition = map.getNorthArrowYPosition().toString() + "px";
+                
+                that._showArrow();
+                arrowDiv.style.left = leftPosition;
+                arrowDiv.style.top = topPosition;
+                
+                that._markOn(document.getElementById("northArrowBtn"));  
+              }
+              
+              if(map.getScaleBarActive()){
+                var leftPosition = map.getScaleBarXPosition().toString() + "px";
+                var topPosition = map.getScaleBarYPosition().toString() + "px";
+                
+                that._showScale();
+                scaleDiv.style.left = leftPosition;
+                scaleDiv.style.top = topPosition;
+                
+                that._markOn(document.getElementById("scaleBarBtn"));  
+              }
             }
           });  
           
@@ -2019,9 +2146,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._removeDragNDropDivs();
       this._disableAnnotations();
       
-      var mapId = MDSS.MapPanel.getCurrentMap();
-      var currentMapId = document.getElementById("mapList").value;
-      this._MappingController.refreshMap(request, mapId, currentMapId);
+      this._MappingController.refreshMap(request, mapId, '');
     },
     
     _handleMeasurements : function(event)
@@ -2110,31 +2235,33 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var text = Mojo.Util.trim(params['freeText.customText']);
       if(text.length > 0)
       {
-    	  
-    	 var fontColor = params['freeText.textFontFill'];
-    	 var fontFamily = params['freeText.textFontFamily'][0];
-    	 var fontSize = params['freeText.textFontSize'];
-    	 var fontStyle = this._getFontStyle(params['freeText.textFontStyles'][0]);
-    	 var leftPosition = 0;
-    	 var topPosition = 0;
-    	 
-    	 var textId = "text_" + Mojo.Util.generateId();
-    	  
-         var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-         var mapId = mapList.value;
-         
-         // render the text element to the map
-         this._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);
+         var fontColor = params['freeText.textFontFill'];
+         var fontFamily = params['freeText.textFontFamily'][0];
+         var fontSize = params['freeText.textFontSize'];
+         var fontStyle = this._getFontStyle(params['freeText.textFontStyles'][0]);
+         var leftPosition = 0;
+         var topPosition = 0;
+        
+         var textId = "text_" + Mojo.Util.generateId();
+        
+        var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+        var defaultMapId = mapList.options[0].value;
           
-       
-         var request = new MDSS.Request({
-             that : this,
-             onSuccess : function(){
-               // no success callback
-             }
-           });
+        // render the text element to the map
+        this._renderTextElements(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text);
          
-         Mojo.$.dss.vector.solutions.query.SavedMap.addTextElement(request, mapId, mapId, text, fontColor, fontFamily, fontSize, fontStyle, textId);
+         
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(){
+             // no success callback
+          },
+          onFailure : function (e) {
+            alert(e.getLocalizedMessage());
+          }
+         });
+         
+         Mojo.$.dss.vector.solutions.query.SavedMap.addTextElement(request, defaultMapId, '', text, fontColor, fontFamily, fontSize, fontStyle, textId);
       }
       
       this._destroyModal();
@@ -2149,7 +2276,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       else
       {
         return 'font-style: '+fontStyle+'; font-weight: normal;';
-      }              	
+      }                
     },        
     
     _addLegends : function(layers)
@@ -2211,8 +2338,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                     
           // Assign saved legend position after creating the legend div
           if(legend.legendXPosition > 0 && legend.legendYPosition > 0){
-        	  div.style.left = legend.legendXPosition+"px";
-        	  div.style.top = legend.legendYPosition+"px";
+            div.style.left = legend.legendXPosition+"px";
+            div.style.top = legend.legendYPosition+"px";
           }
           
           this._ddDivs.push({div:div, dd:dd});

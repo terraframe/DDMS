@@ -2,13 +2,12 @@ package dss.vector.solutions.sld;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.query.StylesDTO;
-import dss.vector.solutions.query.WellKnownNamesDTO;
+import dss.vector.solutions.query.StylesIF;
 
 public class PointSymbolizer extends Symbolizer implements Reloadable
 {
 
-  protected PointSymbolizer(StylesDTO style)
+  protected PointSymbolizer(StylesIF style)
   {
     super(style);
   }
@@ -16,12 +15,11 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
   @Override
   protected void write(SLDWriter writer)
   {
-    StylesDTO style = this.getStyles();
-    
+    StylesIF style = this.getStyles();
+
     String stroke = style.getPointStroke();
     String strokeWidth = style.getPointWidth().toString();
-    WellKnownNamesDTO wknDTO = style.getPointMarker().get(0);
-    String wkn = wknDTO.name().toLowerCase();
+    String wkn = style.getPointMarkerName();
     String strokeOpacity = style.getPointStrokeOpacity().toString();
     String pointSize = style.getPointSize().toString();
     String rotation = style.getPointRotation().toString();
@@ -37,12 +35,12 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     writer.writeTagWithValue("CssParameter", "name", "stroke-width", strokeWidth);
     writer.writeTagWithValue("CssParameter", "name", "opacity", strokeOpacity);
     writer.closeTag();
-    
+
     writer.closeTag();
-    
+
     writer.writeEmptyTagWithValue("Size", pointSize);
     writer.writeEmptyTagWithValue("Rotation", rotation);
-    
+
     writer.closeTag();
     writer.closeTag();
   }

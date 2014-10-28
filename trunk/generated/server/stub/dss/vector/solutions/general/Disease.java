@@ -16,7 +16,6 @@ import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF;
-import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.MenuGenerator;
 
 public class Disease extends DiseaseBase implements com.runwaysdk.generation.loader.Reloadable

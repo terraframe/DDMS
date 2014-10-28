@@ -30,6 +30,10 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
       {
         return 'dss.vector.solutions.entomology.MosquitoCollectionView';
       }
+      else if(attribute.getKey() === 'collectionType')
+      {
+        return 'dss.vector.solutions.entomology.MosquitoCollectionView';
+      }
       else if(attribute.getKey() === 'taxon')
       {
         return 'dss.vector.solutions.entomology.SubCollectionView';
@@ -44,6 +48,10 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
       if(attribute.getKey() === 'collectionRound')
       {
         return this._mosquitoCollection.getCollectionRoundMd().getName()
+      }
+      else if(attribute.getKey() === 'collectionType')
+      {
+        return this._mosquitoCollection.getCollectionTypeMd().getName()
       }
       
       return attribute.getKey() === 'taxon' ? 'taxon' : 
