@@ -7,6 +7,7 @@ import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -202,7 +203,13 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         if (!configuration.hasOverride(layer))
         {
           String viewName = layer.getViewName();
+
           deleteMapView(viewName);
+
+          /*
+           *  If geoserver has a published layer dependent upon the map view then it will also need to be removed.
+           */
+          MapUtil.removeLayers(viewName);
         }
       }
       catch (DatabaseException e)
@@ -463,6 +470,26 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       GeoServerReloadException ex = new GeoServerReloadException(error, e);
       throw ex;
     }
+  }
+
+  public static void removeLayers(String... layerNames)
+  {
+    try
+    {
+      String geoserverPath = getGeoServerLocalURL();
+      GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
+
+      for (String layerName : layerNames)
+      {
+        publisher.removeLayer(CommonProperties.getDeployAppName(), layerName);
+      }
+    }
+    catch (Exception e)
+    {
+      // Do nothing
+      e.printStackTrace();
+    }
+
   }
 
   public static void createWorkspaceAndDatastore()

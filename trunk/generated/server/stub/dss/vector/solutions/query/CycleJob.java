@@ -400,7 +400,6 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
           try
           {
             ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-            // OutputStream ostream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
 
             try
             {
@@ -418,12 +417,12 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-//              /*
-//              * This is for testing
-//              */
-//              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-//
-//              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+              /*
+              * This is for testing
+              */
+              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+
+              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
             }
             finally
             {
@@ -452,7 +451,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
             MapUtil.deleteMapView(viewName);
           }
 
-          // TODO Possible to delete the geoserver layer
+          MapUtil.removeLayers(viewNames.toArray(new String[viewNames.size()]));
         }
       }
 

@@ -771,6 +771,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           {
             // This is okay
           }
+          
+          MapUtil.removeLayers(viewName);
         }
       }
       catch (NumberFormatException e)
