@@ -167,10 +167,18 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                           },
                           {
-                            key:"<%= QueryConstants.THRESHOLD %>",
-                            attributeName:"<%= QueryConstants.THRESHOLD %>",
-                            displayLabel:MDSS.localize("<%=QueryConstants.THRESHOLD%>"),
-                            description:MDSS.localize("<%=QueryConstants.THRESHOLD%>"),
+                            key:"<%= QueryConstants.THRESHOLD_IDENTIFICATION %>",
+                            attributeName:"<%= QueryConstants.THRESHOLD_IDENTIFICATION %>",
+                            displayLabel:MDSS.localize("<%=QueryConstants.THRESHOLD_IDENTIFICATION%>"),
+                            description:MDSS.localize("<%=QueryConstants.THRESHOLD_IDENTIFICATION%>"),
+                            type:'sqlfloat',
+                            isAggregate:false
+                          },
+                          {
+                            key:"<%= QueryConstants.THRESHOLD_NOTIFICATION %>",
+                            attributeName:"<%= QueryConstants.THRESHOLD_NOTIFICATION %>",
+                            displayLabel:MDSS.localize("<%=QueryConstants.THRESHOLD_NOTIFICATION%>"),
+                            description:MDSS.localize("<%=QueryConstants.THRESHOLD_NOTIFICATION%>"),
                             type:'sqlfloat',
                             isAggregate:false
                           },

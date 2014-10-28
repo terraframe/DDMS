@@ -75,7 +75,9 @@ public class QueryConstants implements Reloadable
   
   public static final String  POPULATION                              = "population";
   
-  public static final String  THRESHOLD                               = "threshold";
+  public static final String  THRESHOLD_NOTIFICATION                  = "threshold_notification";
+  
+  public static final String  THRESHOLD_IDENTIFICATION                = "threshold_identification";
 
   /*
    * BEGIN InterventionControl query builder constants.

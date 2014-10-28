@@ -24,7 +24,10 @@ import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
+import com.runwaysdk.query.AttributeDate;
+import com.runwaysdk.query.AttributeDateTime;
 import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.AttributeTime;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
@@ -41,13 +44,19 @@ import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableDecimal;
+import com.runwaysdk.query.SelectableDouble;
+import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDate;
+import com.runwaysdk.query.SelectableSQLDateTime;
 import com.runwaysdk.query.SelectableSQLLong;
+import com.runwaysdk.query.SelectableSQLTime;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
@@ -252,6 +261,10 @@ public abstract class AbstractQB implements Reloadable
   {
     withEntries.add(entry);
   }
+  
+  protected List<WITHEntry> getWITHEntries() {
+    return withEntries;
+  }
 
   protected String getXml()
   {
@@ -313,6 +326,29 @@ public abstract class AbstractQB implements Reloadable
 
     return finalQuery;
   }
+  
+  /**
+   * Helper method for post processing.
+   * 
+   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two.
+   * Some of these rows may only have data in one of the columns in one of the tables, but since the columns are the same
+   * we can coalesce the data and select it from any of the columns where the data exists.
+   */
+  protected void coalesceSelects(ValueQuery finalVQ, ValueQuery aggregate, String originalAlias, String aggregateAlias)
+  {
+    // 1. Loop over all selectables in the originalVQ
+    List<Selectable> finalSels = finalVQ.getSelectableRefs();
+    for (Selectable finalSel : finalSels) {
+      
+      // 2. If the aggregate also contains this selectable
+      String selName = finalSel.getDbColumnName();
+      if(aggregate.hasSelectableRef(selName))
+      {
+        // 3. Coalesce it
+        ((SelectableSQL) finalSel).setSQL("COALESCE(" + originalAlias + "." + selName + ", " + aggregateAlias + "." + selName + ")");
+      }
+    }
+  }
 
   /**
    * Generates a ValueQuery based on the query this builder represents.
@@ -338,6 +374,122 @@ public abstract class AbstractQB implements Reloadable
   protected ValueQuery postProcess(ValueQuery valueQuery)
   {
     return valueQuery;
+  }
+  
+  /**
+   * Copies all selectables and returns them.
+   */
+  protected Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix,
+      boolean preserveAggregates, ValueQuery original)
+  {
+    Selectable[] replacements = new Selectable[sels.size()];
+
+    SelectableSQL newSel;
+    int count = 0;
+    for (Selectable sel : sels)
+    {
+      String alias = sel.getUserDefinedAlias();
+      // create a new Selectable based off the original type (because they are
+      // custom formatted later on)
+      String qualifiedCol = prefix != null ? prefix + "." + sel.getColumnAlias() : sel.getColumnAlias();
+      if (sel instanceof SelectableInteger)
+      {
+        if (preserveAggregates && original.hasSelectableRef(alias)
+            && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateInteger(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLInteger(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+      }
+      else if (sel instanceof SelectableLong)
+      {
+        if (preserveAggregates && original.hasSelectableRef(alias)
+            && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+      }
+      else if (sel instanceof SelectableFloat)
+      {
+        if (preserveAggregates && original.hasSelectableRef(alias)
+            && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+      }
+      else if (sel instanceof SelectableDecimal)
+      {
+        if (preserveAggregates && original.hasSelectableRef(alias)
+            && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateDecimal(sel.getColumnAlias(), qualifiedCol,
+              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLDecimal(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+      }
+      else if (sel instanceof SelectableDouble)
+      {
+        if (preserveAggregates && original.hasSelectableRef(alias)
+            && original.getSelectableRef(alias).isAggregateFunction())
+        {
+          newSel = vq.aSQLAggregateDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+        else
+        {
+          newSel = vq.aSQLDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+              sel.getUserDefinedDisplayLabel());
+        }
+      }
+      else if (sel instanceof AttributeDate || sel instanceof SelectableSQLDate)
+      {
+        newSel = vq.aSQLDate(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+            sel.getUserDefinedDisplayLabel());
+      }
+      else if (sel instanceof AttributeDateTime || sel instanceof SelectableSQLDateTime)
+      {
+        newSel = vq.aSQLDateTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+            sel.getUserDefinedDisplayLabel());
+      }
+      else if (sel instanceof AttributeTime || sel instanceof SelectableSQLTime)
+      {
+        newSel = vq.aSQLTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+            sel.getUserDefinedDisplayLabel());
+      }
+      else
+      {
+        // use character as the final default because it's flexible
+        newSel = vq.aSQLCharacter(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
+            sel.getUserDefinedDisplayLabel());
+      }
+
+      newSel.setColumnAlias(sel.getColumnAlias());
+
+      replacements[count++] = newSel;
+    }
+
+    return replacements;
   }
 
   /**

@@ -1,7 +1,9 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -16,15 +18,15 @@ import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Physician;
 import dss.vector.solutions.PhysicianQuery;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -41,8 +43,16 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCaseQB extends AbstractQB implements Reloadable
 {
-  private static String[] requiresGeoColumn = new String[]{QueryConstants.POPULATION, QueryConstants.THRESHOLD,
+  private static String[] requiresGeoColumn = new String[]{QueryConstants.POPULATION, QueryConstants.THRESHOLD_IDENTIFICATION, QueryConstants.THRESHOLD_NOTIFICATION,
                                                            "incidence_100", "incidence_1000", "incidence_10000", "incidence_100000", "incidence_1000000"};
+  
+  private String mostChildishGeoType = null;
+  
+  private Selectable geoIdSelectable = null;
+  
+  private static final String dateGroupCol = "dategroup_epiweek";
+  
+  private String thresholdType = null;
   
   public IndividualCaseQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
@@ -59,8 +69,12 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) { thresholdType = "notification"; }
+    else if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) { thresholdType = "identification"; }
+    
     // geoColumn will be null if the query does not contain any selectables in the 'requiresGeoColumn' array.
-    String geoColumn = getGeoColumn(valueQuery, queryConfig);
+    geoIdSelectable = getGeoColumn(valueQuery, queryConfig);
+    String geoIdColumn = geoIdSelectable.getDbColumnName();
     
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
     IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
@@ -145,11 +159,11 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       calc.setSQL(sql);
     }
     
-    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 100, diagnosisAliases);
-    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 1000, diagnosisAliases);
-    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 10000, diagnosisAliases);
-    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 100000, diagnosisAliases);
-    calculateIncidence(valueQuery, geoColumn, caseQuery, instanceQuery, xml, 1000000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml, 100, diagnosisAliases);
+    calculateIncidence(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml, 1000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml, 10000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml, 100000, diagnosisAliases);
+    calculateIncidence(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml, 1000000, diagnosisAliases);
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
 
@@ -163,16 +177,14 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 //    injectPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
     if (valueQuery.hasSelectableRef(QueryConstants.POPULATION)) {
       SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
-      String popSQL = getPopulationSQL(valueQuery, geoColumn, caseQuery, instanceQuery, xml);
+      String popSQL = getPopulationSQL(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml);
       popSel.setSQL(popSQL);
     }
-    
-    setThresholdSQL(valueQuery, geoColumn, caseQuery, instanceQuery, xml);
     
     return valueQuery;
   }
   
-  private String getGeoColumn(ValueQuery vq, JSONObject queryConfig) {
+  private Selectable getGeoColumn(ValueQuery vq, JSONObject queryConfig) {
     // Do we have any selectables that require a geo column?
     boolean needsGeoColumn = false;
     for (String geoSel : requiresGeoColumn) {
@@ -206,6 +218,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
           geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          mostChildishGeoType = geoType;
           geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
           geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
           geoType = geoType.replace('.', '_');
@@ -227,24 +240,22 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       throw new IncidenceProbableSourceException(e);
     }
 
-    return s.getDbQualifiedName();
+    return s;
   }
   
-  private void setThresholdSQL(ValueQuery vq, String geoColumn, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, String xml) {
-    if (!vq.hasSelectableRef(QueryConstants.THRESHOLD)) {
+  private void setThresholdSQL(ValueQuery vq) {
+    SelectableSQLFloat threshSel;
+    if (vq.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) {
+      threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION);
+    }
+    else if (vq.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) {
+      threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION);
+    }
+    else {
       return;
     }
     
-    String diagnosisDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.DIAGNOSISDATE);
-    String symptomOnsetDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
-    
-    // If the Symptom Onset Date is null, we use the Diagnosis Date instead (which is a required field).
-    String dateCol = "COALESCE(" + symptomOnsetDate + ", " + diagnosisDate + ")";
-    
-    String sql = "get_threshold_by_geoid_and_epiweek(" + geoColumn + ", " + dateCol + ", '" + Disease.getCurrent().getId() +  "')";
-    
-    SelectableSQLFloat threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD);
-    threshSel.setSQL(sql);
+    threshSel.setSQL("threshold");
   }
   
   /**
@@ -389,5 +400,154 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     sql += " END";
     return sql;
   }
-
+  
+  /**
+   * We need to JOIN the thresholds view with the original query, which means we have to wrap the original query in a "final" query, just like in IRS.
+   */
+  @Override
+  protected ValueQuery postProcess(ValueQuery originalVQ)
+  {
+    if (!(originalVQ.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION) || originalVQ.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION))) {
+      return originalVQ;
+    }
+    
+    String ovq = "original_vq";
+    
+    ValueQuery finalVQ = new ValueQuery(originalVQ.getQueryFactory());
+    
+    // Remove the Threshold selectable from the originalVQ, as it doesn't exist on that side
+    List<Selectable> origSels = originalVQ.getSelectableRefs();
+    Iterator<Selectable> it = origSels.iterator();
+    Selectable threshSel = null;
+    while (it.hasNext()) {
+      threshSel = it.next();
+      if (threshSel.getResultAttributeName().contains("threshold")) {
+        it.remove();
+        break;
+      }
+    }
+    originalVQ.clearSelectClause();
+    originalVQ.SELECT(origSels.toArray(new Selectable[origSels.size()]));
+    origSels.add(threshSel);
+    
+    // Select all of the columns from the original
+    Selectable[] copies = this.copyAll(originalVQ, origSels, ovq, false, null);
+    finalVQ.SELECT(copies);
+    
+    this.setThresholdSQL(finalVQ);
+    
+    // Take the WITHs from the originalVQ and put them as finalVQ's WITH. Also add originalVQ as a WITH of finalVQ.
+    List<WITHEntry> withs = this.getWITHEntries();
+    withs.addAll(this.getWITH(finalVQ));
+    originalVQ.setSqlPrefix("");
+    withs.add(new WITHEntry(ovq, originalVQ.getSQL()));
+    this.setWITHClause(withs, false, finalVQ);
+    
+    // JOIN thresholds and originalVQ in the FROM clause.
+    String epi_week = finalVQ.getSelectableRef(dateGroupCol).getResultAttributeName();
+    String geo_id = finalVQ.getSelectableRef(geoIdSelectable.getResultAttributeName()).getDbColumnName();
+    finalVQ.FROM(ovq + " FULL OUTER JOIN summedThresholds", " ON summedThresholds.epi_week = " + ovq + "." + epi_week + " AND summedThresholds.geo_id = " + ovq + "." + geo_id);
+    
+    // COALESCE the selectables that are common between thresholds and originalVQ.
+    List<Selectable> finalSels = finalVQ.getSelectableRefs();
+    for (Selectable finalSel : finalSels) {
+      String sumSel = null;
+      
+      // Ugh this is a total hack, but I don't have time at this point to rewrite that view SQL in our query stack.
+      if (finalSel.getResultAttributeName().contains("entityLabel")) {
+        sumSel = "geo_label";
+      }
+      else if (finalSel.getResultAttributeName().contains("geoId")) {
+        sumSel = "geo_id";
+      }
+      else if (finalSel.getResultAttributeName().equals(dateGroupCol)) {
+        sumSel = "epi_week";
+      }
+      
+      if (sumSel != null) {
+        String ovqSel = finalSel.getDbColumnName();
+        ((SelectableSQL) finalSel).setSQL("COALESCE(" + ovq + "." + ovqSel + ", summedThresholds." + sumSel + ")");
+      }
+    }
+    
+    return finalVQ;
+  }
+  
+  /**
+   *  If we're calculating Thresholds then we need to define some views at the top of the SQL.
+   */
+  private List<WITHEntry> getWITH(ValueQuery vq) {
+    List<WITHEntry> entries = new ArrayList<WITHEntry>();
+    
+    String universalId = MdBusiness.getMdBusiness(mostChildishGeoType).getId(); // "i73lfwvitbq7u9itwhdwl94c78x268nb00000000000000000000000000000001"; // Id of District
+    
+    
+    entries.add(new WITHEntry("dateExtrapolationView",
+        "SELECT \n" + 
+        " year_of_week AS year_of_week, \n" + 
+        " period AS period, \n" + 
+        " (get_epistart(year_of_week, 0) + (to_char((period)*7, '999')||' days')::interval)::date AS planned_date \n" + 
+        "FROM epi_week \n"));
+    
+    entries.add(new WITHEntry("geoThresholdView",
+        "  SELECT \n" + 
+        "    wt.id id,\n" + 
+        "    wt." + thresholdType + " threshold,\n" + 
+        "    apg.parent_geo_entity geo_entity,\n" + 
+        "    ew.period epi_week,\n" + 
+        "    ew.year_of_week epi_year,\n" + 
+        "    de.planned_date AS threshold_date,\n" + 
+        "    td.season season,\n" + 
+        "    ms.disease disease\n" + 
+        "  FROM\n" + 
+        "    weekly_threshold wt\n" + 
+        "    INNER JOIN threshold_data td ON wt.parent_id=td.id\n" + 
+        "    INNER JOIN epi_week ew ON wt.child_id=ew.id\n" + 
+        "    INNER JOIN malaria_season ms ON td.season=ms.id\n" + 
+        "    CROSS JOIN dateExtrapolationView de\n" + 
+        "    INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + 
+        "  WHERE \n" + 
+        "    wt." + thresholdType + " IS NOT NULL\n" + 
+        "    AND ew.period = de.period\n" + 
+        "    AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + 
+        "    AND apg.parent_universal = '" + universalId + "'\n" + 
+        "  GROUP BY wt.id, apg.parent_geo_entity, de.planned_date, wt." + thresholdType + ", td.season, ms.disease, ew.period, ew.year_of_week\n"));
+    
+    entries.add(new WITHEntry("rolledThresholds",
+        "SELECT \n" + 
+        "  get_threshold_by_geoid_and_epiweek('" + thresholdType + "', '" + universalId + "', ValueQuery_2.parentGeoEntity, epi_week, disease, season) threshold,\n" + 
+        "  epi_week,\n" + 
+        "  geo_entity,\n" + 
+        "  geo_id\n" + 
+        "FROM \n" + 
+        "  geoThresholdView,\n" + 
+        "  geo_entity geo_entity_22 LEFT JOIN\n" + 
+        "  (SELECT \n" + 
+        "       geo_entity_3.geo_id AS geo_id_10,\n" + 
+        "       allpaths_geo_11.child_geo_entity AS child_geo_entity_13,\n" + 
+        "       (geo_entity_3.id) AS parentGeoEntity\n" + 
+        "  FROM geo_entity geo_entity_3,\n" + 
+        "       allpaths_geo allpaths_geo_11 \n" + 
+        "  WHERE ((allpaths_geo_11.parent_universal = '" + universalId + "'\n" + 
+        "  AND allpaths_geo_11.parent_geo_entity = geo_entity_3.id))\n" + 
+        "  ) ValueQuery_2 ON geo_entity_22.id = ValueQuery_2.child_geo_entity_13\n" + 
+        "WHERE\n" + 
+        "  (geoThresholdView.geo_entity = geo_entity_22.id\n" + 
+        "  AND (EXISTS (SELECT \n" + 
+        "       (1) AS geoExistsConstant\n" + 
+        "  FROM allpaths_geo allpaths_geo_28 \n" + 
+        "  WHERE allpaths_geo_28.child_geo_entity = (geo_entity_22.id)\n" + 
+        "  ) AND true) = (true))\n" + 
+        "  GROUP BY ValueQuery_2.parentGeoEntity, geo_entity, geo_id, epi_week, disease, season\n"));
+    
+    entries.add(new WITHEntry("summedThresholds", "SELECT DISTINCT\n" + 
+        "  ((SUM(threshold) OVER(PARTITION BY rolledThresholds.epi_week, rolledThresholds.geo_id, rolledThresholds.geo_entity))) AS threshold,\n" + 
+        "  rolledThresholds.epi_week,\n" + 
+        "  rolledThresholds.geo_id,\n" + 
+        "  rolledThresholds.geo_entity,\n" + 
+        "  geo_displayLabel.label AS geo_label\n" +
+        "FROM rolledThresholds INNER JOIN geo_displayLabel ON geo_displayLabel.geo_id = rolledThresholds.geo_id"));
+    
+    return entries;
+  }
 }
