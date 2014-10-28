@@ -418,12 +418,12 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-              /*
-              * This is for testing
-              */
-              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-
-              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+//              /*
+//              * This is for testing
+//              */
+//              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//
+//              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
             }
             finally
             {
