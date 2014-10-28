@@ -25,7 +25,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     initialize : function(mapPanelId, mapList)
     {
-      // Force the image path so the images can be located when JAWR is not in debug mode
+      // Force the image path so the images can be located when JAWR is not in
+      // debug mode
       OpenLayers.ImgPath = "js/OpenLayers/img/";
     
       this._mapList = mapList;
@@ -51,7 +52,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._mapLayout.on('render', function() {
         var c = that._mapLayout.getUnitByPosition('left');
         
-        //Apply the new layout to the body element of the first layout        
+        // Apply the new layout to the body element of the first layout
         that._leftLayout = new YAHOO.widget.Layout(c.body, {
           parent: that._mapLayout,
           units: [
@@ -125,7 +126,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._northArrow = false;
       this._scale = false;
       
-      // attach load listener to Iframe to receive message when error occurs during
+      // attach load listener to Iframe to receive message when error occurs
+      // during
       // export operations
       YAHOO.util.Event.on('exportIframe', 'load', this._handleExport, null, this);
     
@@ -134,7 +136,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Event.on('mapExportIframe', 'load', this._handleMapExportUpload, null, this);
       
       this._drawLineControl = null;
-      this._measureControle = null;
+      this._measureControle = null;      
     },
     
     /**
@@ -232,6 +234,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         YAHOO.util.Event.on(div, 'mouseleave', mouseLeaveHandler);
         
         var dd = this.addDragDrop(div);
+        dd.endDrag = Mojo.Util.bind(this, this._handleImageDragEnd);
+        
         this.position(div);
         
         YAHOO.util.Event.on(closeDiv, 'click', this._removeImage, null, this);
@@ -241,21 +245,30 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         return div;
     },
     
+    _handleImageDragEnd : function (e)
+    {
+      // We need to update the image locations of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateMapImageStatus(defaultMapId)
+    },
+    
     /**
      * Renders a text element on the map
      * 
-     * @textId = id of the text element 
+     * @textId = id of the text element
      * @fontColor = hex code (#000000)
      * @fontSize = integer size of font
-     * @fontStyle = css font style text ("font-style: NORMAL; font-weight: normal;")
+     * @fontStyle = css font style text ("font-style: NORMAL; font-weight:
+     *            normal;")
      * @fontFamily = string name of font family ("Times New Roman")
      * @leftPosition = Integer position for the css left param
      * @topPosition = Integer position for the css top param
-     * @text = the value of the text element 
+     * @text = the value of the text element
      */
     _renderTextElements : function(textId, fontColor, fontSize, fontStyle, fontFamily, leftPosition, topPosition, text)
-    {
-      
+    {      
         var div = document.createElement('div');
         div.id = textId;
         YAHOO.util.Dom.addClass(div, 'ddmsTextElement');
@@ -279,6 +292,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         div.insertBefore(closeDiv, div.firstChild)
         
         var dd = this.addDragDrop(div);
+        dd.endDrag = Mojo.Util.bind(this, this._handleTextDragEnd);
+
         this.position(div);
 
         var mouseEnterHandler = function(e){
@@ -301,6 +316,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           div.style.top = topPosition + "px";
         }
     },
+    
+    _handleTextDragEnd : function (e)
+    {
+      // We need to update the text locations of the default map
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      var defaultMapId = mapList.options[0].value;
+      
+      this._updateTextElementState(defaultMapId)
+    },    
     
     /**
      * Remove the image from the browser and the database (instance of MapImage)
@@ -336,7 +360,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Remove the text element from the browser and the database (instance of TextElement)
+     * Remove the text element from the browser and the database (instance of
+     * TextElement)
      * 
      */
     _removeTextElement : function(e)
@@ -551,8 +576,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Toggles the show/hide status of either the point or polygon
-     * styles depending on the selected value of Layer.renderAs.
+     * Toggles the show/hide status of either the point or polygon styles
+     * depending on the selected value of Layer.renderAs.
      */
     _toggleStylesAfterRender : function(forCategory)
     {
@@ -582,7 +607,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Toggles the show/hide status of the entire styles div (the advanced options).
+     * Toggles the show/hide status of the entire styles div (the advanced
+     * options).
      */
     _toggleLayerStylesAfterRender : function()
     {
@@ -636,8 +662,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Changes listener for when a new SavedSearch is selected. The SavedSearch's attribute and
-     * universal options are refreshed.
+     * Changes listener for when a new SavedSearch is selected. The
+     * SavedSearch's attribute and universal options are refreshed.
      * 
      */
     _attachSearchChangeListener : function(e)
@@ -678,8 +704,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Loads the thematic variables into the select list
-     * after a new saved search is selected.
+     * Loads the thematic variables into the select list after a new saved
+     * search is selected.
      */
     _resetThematicVariables : function()
     {
@@ -712,8 +738,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Change listener to set the value of the MdAttribute and GeoHierarchy
-     * on the Layer inputs.
+     * Change listener to set the value of the MdAttribute and GeoHierarchy on
+     * the Layer inputs.
      */
     _attachAttrGeoChangeListener : function(e)
     {
@@ -871,9 +897,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * The value of savedSearch legendColor is submitted as an array
-     * because from select lists on the form. But we want to submit it as 
-     * a single value because they are just a reference attribute.
+     * The value of savedSearch legendColor is submitted as an array because
+     * from select lists on the form. But we want to submit it as a single value
+     * because they are just a reference attribute.
      */
     _convertRefSelectParams : function(params)
     {
@@ -947,7 +973,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           if(this.isNew)
           {            
             /*
-             * A new layer has been added, we need to add the option to the cycle pane
+             * A new layer has been added, we need to add the option to the
+             * cycle pane
              */
    
             var option = document.createElement("option");
@@ -960,7 +987,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           else
           {
             /*
-             * The layer name might have been changed, we need to update the existing options of the cycle pane
+             * The layer name might have been changed, we need to update the
+             * existing options of the cycle pane
              */
             var select = document.getElementById('job-layer-id');
             
@@ -1313,13 +1341,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             // repopulate the map list with the layers
             this.that._setLayers(query.getResultSet());
             
-            // Persist map elements status (active or inactive) and well as location
+            // Persist map elements status (active or inactive) and well as
+            // location
             this.that._updateNorthArrowStatus(mapId); 
             this.that._updateScaleBarStatus(mapId);
             this.that._updateLegendStatus(mapId);
-            this.that._updateMapImageStatus(mapId);
             this.that._updateMapState(mapId);
-            this.that._updateTextElementState(mapId);
             
             this.that._saveCycleJob();
           }
@@ -1358,13 +1385,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           that._addSavedMap(mapId, savedMap.getMapName());
           
-          // Persist map elements status (active or inactive) and well as location
+          // Persist map elements status (active or inactive) and well as
+          // location
           that._updateNorthArrowStatus(mapId);  
           that._updateScaleBarStatus(mapId); 
           that._updateLegendStatus(mapId);
-          that._updateMapImageStatus(mapId);
           that._updateMapState(mapId);
-          that._updateTextElementState(mapId);
           
           that._destroyModal();
           
@@ -1394,7 +1420,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     /**
      * Persist north arrow status (active or inactive) and well as location
      * 
-     * @mapId = mapId of the map to persist north arrow status 
+     * @mapId = mapId of the map to persist north arrow status
      */
     _updateNorthArrowStatus : function(mapId)
     {
@@ -1407,8 +1433,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               }
             });  
           
-          // Set the location of the north arrow. 
-          // if the north arrow is not visible the left/top values will be set to 0
+          // Set the location of the north arrow.
+          // if the north arrow is not visible the left/top values will be set
+          // to 0
           var northArrowIsActive = false;
           if(arrowDiv.style.display !== 'none'){
             northArrowIsActive = true;
@@ -1425,7 +1452,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     /**
      * Persist scale bar status (active or inactive) and well as location
      * 
-     * @mapId = mapId of the map to persist scale bar status 
+     * @mapId = mapId of the map to persist scale bar status
      */
     _updateScaleBarStatus : function(mapId)
     {
@@ -1438,8 +1465,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
               }
             });  
           
-          // Set the location of the north arrow. 
-          // if the north arrow is not visible the left/top values will be set to 0
+          // Set the location of the north arrow.
+          // if the north arrow is not visible the left/top values will be set
+          // to 0
           var scaleBarIsActive = false;
           if(scaleDiv.style.display !== 'none'){
             scaleBarIsActive = true;
@@ -1497,23 +1525,24 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateMapImageStatus : function(mapId)
     {
-    	//COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVEMAPIMAGES(). DELETE AFTER TESTS PASS
-//        var activeMapImages = document.getElementsByClassName("mapImage");
+    	// COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVEMAPIMAGES(). DELETE
+      // AFTER TESTS PASS
+// var activeMapImages = document.getElementsByClassName("mapImage");
 //        
-//        var imagesJSONArr = [];
-//        for(var i=0; i<activeMapImages.length; i++){
-//        	var img = activeMapImages[i];
-//        	var imgId = img.id;
+// var imagesJSONArr = [];
+// for(var i=0; i<activeMapImages.length; i++){
+// var img = activeMapImages[i];
+// var imgId = img.id;
 //        	
-//	        var style = window.getComputedStyle(img);
-//	        var top = style.getPropertyValue('top');
-//	        var left = style.getPropertyValue('left');
+// var style = window.getComputedStyle(img);
+// var top = style.getPropertyValue('top');
+// var left = style.getPropertyValue('left');
 //        	
-//	        var imgInfo = { "imageId":imgId, "top":top, "left":left };
-//	        imagesJSONArr.push(imgInfo);
-//        }
+// var imgInfo = { "imageId":imgId, "top":top, "left":left };
+// imagesJSONArr.push(imgInfo);
+// }
 //        
-//        var imagesJSON = { "images" : imagesJSONArr };
+// var imagesJSON = { "images" : imagesJSONArr };
     	
     	var imagesJSON = this._getActiveMapImages();
         
@@ -1529,10 +1558,10 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Build a json object containing all visible images from the map.
-     * This is for getting visible map images and has no notion of saved images
+     * Build a json object containing all visible images from the map. This is
+     * for getting visible map images and has no notion of saved images
      * 
-     * @return 
+     * @return
      */
     _getActiveMapImages : function()
     {
@@ -1564,7 +1593,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _updateMapState : function(mapId)
     {
-      // if trying to save an empty default map the _map object won't exist yet. 
+      // if trying to save an empty default map the _map object won't exist yet.
       if(this._map){
         var mapBounds ={};
         mapBounds.left = this._map.getExtent().left;
@@ -1590,28 +1619,29 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     /**
      * Persist user added text element positions
      * 
-     * @mapId = mapId of the map to persist all 
+     * @mapId = mapId of the map to persist all
      */
     _updateTextElementState : function(mapId)
     {
       
-    	//COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVETEXTELEMENTS(). DELETE AFTER TESTS PASS
-//    	var activeText = document.getElementsByClassName("ddmsTextElement");
+    	// COMMENTED FOR TESTING AFTER BREAKING OUT GETACTIVETEXTELEMENTS().
+      // DELETE AFTER TESTS PASS
+// var activeText = document.getElementsByClassName("ddmsTextElement");
 //    	
-//        var textJSONArr = [];
-//        for(var i=0; i<activeText.length; i++){
-//        	var text = activeText[i];
-//        	var textId = text.id;
+// var textJSONArr = [];
+// for(var i=0; i<activeText.length; i++){
+// var text = activeText[i];
+// var textId = text.id;
 //        	
-//	        var style = window.getComputedStyle(text);
-//	        var top = style.getPropertyValue('top');
-//	        var left = style.getPropertyValue('left');
+// var style = window.getComputedStyle(text);
+// var top = style.getPropertyValue('top');
+// var left = style.getPropertyValue('left');
 //        	
-//	        var textInfo = { "textId":textId, "top":top, "left":left };
-//	        textJSONArr.push(textInfo);
-//        }
+// var textInfo = { "textId":textId, "top":top, "left":left };
+// textJSONArr.push(textInfo);
+// }
 //        
-//        var textJSON = { "textElements" : textJSONArr };
+// var textJSON = { "textElements" : textJSONArr };
     	
     	var textJSON = this._getActiveTextElements();
     	
@@ -1627,10 +1657,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Build a json object containing all visible user defined text elements from the map.
-     * This is for getting visible text elements and has no notion of saved text elements
+     * Build a json object containing all visible user defined text elements
+     * from the map. This is for getting visible text elements and has no notion
+     * of saved text elements
      * 
-     * @return 
+     * @return
      */
     _getActiveTextElements : function()
     {
@@ -1739,17 +1770,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var mapId = select.value;
         var defaultMapId = select.options[0].value;
         
-//        var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-//        document.getElementById('mapId').value = defaultMapId;
-//        document.getElementById('outFileName').value = outFileName;
-//        document.getElementById('outFileFormat').value = outFileFormat;
-//        document.getElementById('mapBounds').value = mapBoundsStr;
-//        document.getElementById('mapSize').value = mapSizeStr;
+// var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+// document.getElementById('mapId').value = defaultMapId;
+// document.getElementById('outFileName').value = outFileName;
+// document.getElementById('outFileFormat').value = outFileFormat;
+// document.getElementById('mapBounds').value = mapBoundsStr;
+// document.getElementById('mapSize').value = mapSizeStr;
         
         this._exportMapModal(defaultMapId, mapBoundsStr, mapSizeStr, select.text);
         
-//        var form = document.getElementById('exportMap');
-//        form.submit();
+// var form = document.getElementById('exportMap');
+// form.submit();
     },
     
     _addSavedMap : function(mapId, mapName)
@@ -1775,7 +1806,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       if(select.selectedIndex == 0)
       {
-        this._loadDefaultMap(); // this will reset the current default map and set the current map to the default
+        this._loadDefaultMap(); // this will reset the current default map and
+                                // set the current map to the default
       }
       else
       {
@@ -1950,7 +1982,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                             0.1142578125, 
                             0.087890625, 
                             0.05712890625, 
-                            // all resolutions below are 1.3 x increase/decrease from each other
+                            // all resolutions below are 1.3 x increase/decrease
+                            // from each other
                             0.04922315513,
                             0.03786396549,
                             0.0291261273,
@@ -1980,13 +2013,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                             0.000069757,
                             0.000053659,
                             0.000041276
-//                            0.000031751
-//                            0.000024424
+// 0.000031751
+// 0.000024424
                             // end of 1/3 intervals
                             ],
               minResolution: "auto",
               maxResolution: "auto"
-//              numZoomLevels : 20
+// numZoomLevels : 20
           };
       
       
@@ -2064,7 +2097,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           that._map.zoomToExtent(bounds);  
           
-          // OpenLayers doesn't always fit the saved map bounds to the zoom level that was saved 
+          // OpenLayers doesn't always fit the saved map bounds to the zoom
+          // level that was saved
           // so we will ensure the correct zoom level is used
           if(mapData.zoomLevel){
             that._map.zoomTo(mapData.zoomLevel);
@@ -2434,8 +2468,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Creates a modal with the given HTML as its body and the given title
-     * as the modal title, wrapped in an H3.
+     * Creates a modal with the given HTML as its body and the given title as
+     * the modal title, wrapped in an H3.
      */
     _createModal : function(html, title, useContentModal, closeIt)
     {
@@ -2484,25 +2518,25 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var region = YAHOO.util.Region.getRegion(mapDiv);
       xy = YAHOO.util.Dom.getXY(div);
   
-      //Set left to x minus left
+      // Set left to x minus left
       var left = xy[0] - region.left;
   
-      //Set right to right minus x minus width
+      // Set right to right minus x minus width
       var right = region.right - xy[0] - dWidth;
   
-      //Set top to y minus top
+      // Set top to y minus top
       var top = xy[1] - region.top;
   
-      //Set bottom to bottom minus y minus height
+      // Set bottom to bottom minus y minus height
       var bottom = region.bottom - xy[1] - dHeight;
   
-      //Set the constraints based on the above calculations
+      // Set the constraints based on the above calculations
       var dd = YAHOO.util.DragDropMgr.getDDById(div.id);
-      //dd.setXConstraint(left, right);
-      //dd.setYConstraint(top, bottom);
+      // dd.setXConstraint(left, right);
+      // dd.setYConstraint(top, bottom);
     },
   
-    addDragDrop : function(div)
+    addDragDrop : function(div, handler)
     {
       var mapDiv = document.getElementById('mapPanel');
       var region = YAHOO.util.Region.getRegion(mapDiv);
@@ -2769,8 +2803,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Shows/hides point and polygon styles based
-     * on the current selection for Layer.renderAs.
+     * Shows/hides point and polygon styles based on the current selection for
+     * Layer.renderAs.
      */
     toggleGeoStyles : function(value)
     {
@@ -2787,9 +2821,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
-     * Called after any insert, delete, or move is done on the
-     * list of available layers. This method resets the base layer
-     * and re-numbers all other layers.
+     * Called after any insert, delete, or move is done on the list of available
+     * layers. This method resets the base layer and re-numbers all other
+     * layers.
      */
     toggleBaseLayer : function()
     {
@@ -2835,9 +2869,9 @@ var Event = YAHOO.util.Event;
 var DDM = YAHOO.util.DragDropMgr;
 
 
-//////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////
 // custom drag and drop implementation
-//////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////
 
 MDSS.SelectedQueryDD = function(id, sGroup, config) {
 
@@ -2900,7 +2934,8 @@ YAHOO.extend(MDSS.SelectedQueryDD, YAHOO.util.DDProxy, {
             YAHOO.util.Easing.easeOut
         )
 
-        // Hide the proxy and show the source element when finished with the animation
+        // Hide the proxy and show the source element when finished with the
+        // animation
         var that = this;
         a.onComplete.subscribe(function() {
         
@@ -2942,18 +2977,22 @@ YAHOO.extend(MDSS.SelectedQueryDD, YAHOO.util.DDProxy, {
 
     onDragDrop: function(e, id) {
 
-        // If there is one drop interaction, the li was dropped either on the list,
+        // If there is one drop interaction, the li was dropped either on the
+        // list,
         // or it was dropped on the current location of the source element.
         if (DDM.interactionInfo.drop.length === 1) {
 
-            // The position of the cursor at the time of the drop (YAHOO.util.Point)
+            // The position of the cursor at the time of the drop
+            // (YAHOO.util.Point)
             var pt = DDM.interactionInfo.point;
 
             // The region occupied by the source element at the time of the drop
             var region = DDM.interactionInfo.sourceRegion;
 
-            // Check to see if we are over the source element's location.  We will
-            // append to the bottom of the list once we are sure it was a drop in
+            // Check to see if we are over the source element's location. We
+            // will
+            // append to the bottom of the list once we are sure it was a drop
+            // in
             // the negative space (the area of the list without any list items)
             if (!region.intersect(pt)) {
                 var destEl = Dom.get(id);
@@ -3016,8 +3055,8 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
     },
     
     /**
-     * Attaches the picker to the element of the given id such
-     * that a click event on the element will render the picker.
+     * Attaches the picker to the element of the given id such that a click
+     * event on the element will render the picker.
      */
     attach : function(openerId, inputId)
     {
@@ -3033,8 +3072,7 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
     },
   
     /**
-     * Handles the submit click after
-     * selecting a color.
+     * Handles the submit click after selecting a color.
      */
     _handleSubmit: function()
     {
@@ -3048,8 +3086,7 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
     },
   
     /**
-     * Cancels selecting a color and
-     * closes the dialog.
+     * Cancels selecting a color and closes the dialog.
      */
     _handleCancel: function()
     {
