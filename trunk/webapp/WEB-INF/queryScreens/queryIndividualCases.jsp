@@ -289,7 +289,31 @@ YAHOO.util.Event.onDOMReady(function(){
     dm.addAllTransactionsFinishListener(handler);
     
     // Threshold Check Dependencies:
-    // epiweek, transmission season
+    // epiweek
+    dm.includes({
+      independent: '<%= QueryConstants.THRESHOLD_IDENTIFICATION %>',
+      dependent: "dategroup_epiweek",
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: '<%= QueryConstants.THRESHOLD_NOTIFICATION %>',
+      dependent: "dategroup_epiweek",
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: "dategroup_epiweek",
+      dependent: '<%= QueryConstants.THRESHOLD_IDENTIFICATION %>',
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: "dategroup_epiweek",
+      dependent: '<%= QueryConstants.THRESHOLD_NOTIFICATION %>',
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
 });
 
 </script>

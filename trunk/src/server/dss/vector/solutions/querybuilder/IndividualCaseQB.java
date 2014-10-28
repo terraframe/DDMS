@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +53,11 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
   
   private static final String dateGroupCol = "dategroup_epiweek";
   
-  private String thresholdType = null;
+  /**
+   * Are these columns included in the query?
+   */
+  private boolean thresholdIdent = false;
+  private boolean thresholdNot = false;
   
   public IndividualCaseQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
   {
@@ -69,8 +74,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
-    if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) { thresholdType = "notification"; }
-    else if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) { thresholdType = "identification"; }
+    if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) { thresholdNot = true; }
+    if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) { thresholdIdent = true; }
     
     // geoColumn will be null if the query does not contain any selectables in the 'requiresGeoColumn' array.
     geoIdSelectable = getGeoColumn(valueQuery, queryConfig);
@@ -247,15 +252,12 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     SelectableSQLFloat threshSel;
     if (vq.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) {
       threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION);
+      threshSel.setSQL("threshold_notification");
     }
-    else if (vq.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) {
+    if (vq.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) {
       threshSel = (SelectableSQLFloat) vq.getSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION);
+      threshSel.setSQL("threshold_identification");
     }
-    else {
-      return;
-    }
-    
-    threshSel.setSQL("threshold");
   }
   
   /**
@@ -418,17 +420,27 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     // Remove the Threshold selectable from the originalVQ, as it doesn't exist on that side
     List<Selectable> origSels = originalVQ.getSelectableRefs();
     Iterator<Selectable> it = origSels.iterator();
-    Selectable threshSel = null;
+    Selectable threshIdentSel = null;
+    Selectable threshNotifSel = null;
     while (it.hasNext()) {
-      threshSel = it.next();
-      if (threshSel.getResultAttributeName().contains("threshold")) {
+      Selectable sel = it.next();
+      if (sel.getResultAttributeName().contains("identification")) {
         it.remove();
-        break;
+        threshIdentSel = sel;
+      }
+      else if (sel.getResultAttributeName().contains("notification")) {
+        it.remove();
+        threshNotifSel = sel;
       }
     }
     originalVQ.clearSelectClause();
     originalVQ.SELECT(origSels.toArray(new Selectable[origSels.size()]));
-    origSels.add(threshSel);
+    if (threshNotifSel != null) {
+      origSels.add(threshNotifSel);
+    }
+    if (threshIdentSel != null) {
+      origSels.add(threshIdentSel);
+    }
     
     // Select all of the columns from the original
     Selectable[] copies = this.copyAll(originalVQ, origSels, ovq, false, null);
@@ -453,7 +465,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     for (Selectable finalSel : finalSels) {
       String sumSel = null;
       
-      // Ugh this is a total hack, but I don't have time at this point to rewrite that view SQL in our query stack.
+      // Ugh this is a total hack, but I don't have time at this point to rewrite that view SQL to use our query stack.
       if (finalSel.getResultAttributeName().contains("entityLabel")) {
         sumSel = "geo_label";
       }
@@ -481,7 +493,9 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     
     String universalId = MdBusiness.getMdBusiness(mostChildishGeoType).getId(); // "i73lfwvitbq7u9itwhdwl94c78x268nb00000000000000000000000000000001"; // Id of District
     
-    
+    /*
+     * Build DateExtrapolationView
+     */
     entries.add(new WITHEntry("dateExtrapolationView",
         "SELECT \n" + 
         " year_of_week AS year_of_week, \n" + 
@@ -489,10 +503,34 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
         " (get_epistart(year_of_week, 0) + (to_char((period)*7, '999')||' days')::interval)::date AS planned_date \n" + 
         "FROM epi_week \n"));
     
+    /*
+     * Build GeoThresholdView
+     */
+    String selects = "";
+    ArrayList<String> groupBy = new ArrayList<String>();
+    if (thresholdIdent) {
+      selects += "    wt.identification identification,\n";
+      groupBy.add("wt.identification");
+    }
+    if (thresholdNot) {
+      selects += "    wt.notification notification,\n";
+      groupBy.add("wt.notification");
+    }
+    String andNotNull = "";
+    if (thresholdIdent && !thresholdNot) {
+      andNotNull = "    AND wt.notification IS NOT NULL\n";
+    }
+    else if (thresholdNot && !thresholdIdent) {
+      andNotNull = "    AND wt.identification IS NOT NULL\n";
+    }
+    else {
+      andNotNull = "    AND (wt.identification IS NOT NULL OR wt.notification IS NOT NULL)";
+    }
+    
     entries.add(new WITHEntry("geoThresholdView",
         "  SELECT \n" + 
+        selects +
         "    wt.id id,\n" + 
-        "    wt." + thresholdType + " threshold,\n" + 
         "    apg.parent_geo_entity geo_entity,\n" + 
         "    ew.period epi_week,\n" + 
         "    ew.year_of_week epi_year,\n" + 
@@ -506,16 +544,26 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
         "    INNER JOIN malaria_season ms ON td.season=ms.id\n" + 
         "    CROSS JOIN dateExtrapolationView de\n" + 
         "    INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + 
-        "  WHERE \n" + 
-        "    wt." + thresholdType + " IS NOT NULL\n" + 
-        "    AND ew.period = de.period\n" + 
+        "  WHERE \n" +
+        "    ew.period = de.period\n" + 
+        andNotNull +
         "    AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + 
         "    AND apg.parent_universal = '" + universalId + "'\n" + 
-        "  GROUP BY wt.id, apg.parent_geo_entity, de.planned_date, wt." + thresholdType + ", td.season, ms.disease, ew.period, ew.year_of_week\n"));
+        "  GROUP BY wt.id, apg.parent_geo_entity, de.planned_date, " + StringUtils.join(groupBy, ",") +  ", td.season, ms.disease, ew.period, ew.year_of_week\n"));
     
+    /*
+     * Build RolledThresholdsView
+     */
+    selects = "";
+    if (thresholdIdent) {
+      selects += "  get_threshold_by_geoid_and_epiweek('identification', '" + universalId + "', ValueQuery_2.parentGeoEntity, epi_week, disease, season) identification,\n";
+    }
+    if (thresholdNot) {
+      selects += "  get_threshold_by_geoid_and_epiweek('notification', '" + universalId + "', ValueQuery_2.parentGeoEntity, epi_week, disease, season) notification,\n";
+    }
     entries.add(new WITHEntry("rolledThresholds",
         "SELECT \n" + 
-        "  get_threshold_by_geoid_and_epiweek('" + thresholdType + "', '" + universalId + "', ValueQuery_2.parentGeoEntity, epi_week, disease, season) threshold,\n" + 
+        selects + 
         "  epi_week,\n" + 
         "  geo_entity,\n" + 
         "  geo_id\n" + 
@@ -540,9 +588,19 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
         "  ) AND true) = (true))\n" + 
         "  GROUP BY ValueQuery_2.parentGeoEntity, geo_entity, geo_id, epi_week, disease, season\n"));
     
+    /*
+     * Build SummedThresholdsView
+     */
+    selects = "";
+    if (thresholdIdent) {
+      selects += "  ((SUM(identification) OVER(PARTITION BY rolledThresholds.epi_week, rolledThresholds.geo_id, rolledThresholds.geo_entity))) AS threshold_identification,\n";
+    }
+    if (thresholdNot) {
+      selects += "  ((SUM(notification) OVER(PARTITION BY rolledThresholds.epi_week, rolledThresholds.geo_id, rolledThresholds.geo_entity))) AS threshold_notification,\n";
+    }
     entries.add(new WITHEntry("summedThresholds", "SELECT DISTINCT\n" + 
-        "  ((SUM(threshold) OVER(PARTITION BY rolledThresholds.epi_week, rolledThresholds.geo_id, rolledThresholds.geo_entity))) AS threshold,\n" + 
-        "  rolledThresholds.epi_week,\n" + 
+        selects +
+        "  rolledThresholds.epi_week + 1 AS epi_week, -- User wants epi_week displayed from 1 up, but its stored from 0 up in the DB\n" + 
         "  rolledThresholds.geo_id,\n" + 
         "  rolledThresholds.geo_entity,\n" + 
         "  geo_displayLabel.label AS geo_label\n" +

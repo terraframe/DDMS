@@ -805,8 +805,6 @@ public class ServerContext
      * 
      * Eclipse has an option so that copy-paste of multi-line text into String literals will result in quoted newlines:
      * Preferences/Java/Editor/Typing/ "Escape text when pasting into a string literal"
-     * 
-     * I feel sorry for you guys manually coding those functions in ;)
      */
     sql += "-- _thresholdType can be either 'notification' or 'identification' and indicates the type of threshold to calculate.\n" + 
         "CREATE OR REPLACE FUNCTION ddms.get_threshold_by_geoid_and_epiweek(_thresholdType character varying, _universalId character varying, _geo_target_id character varying, _epi_week integer, _disease character varying, _season character varying)\n" + 
@@ -825,17 +823,18 @@ public class ServerContext
         "    WHERE  c.relname = 'apt_cached' \n" + 
         "    ) THEN \n" + 
         "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + 
-        "  id varchar(64),  \n" + 
-        "  target integer,  \n" + 
-        "  week integer,  \n" + 
+        "  id varchar(64),\n" + 
+        "  thresholdType varchar(64),\n" + 
+        "  target integer,\n" + 
+        "  week integer,\n" + 
         "  season varchar(64),  \n" + 
-        "  disease varchar(64)  \n" + 
+        "  disease varchar(64)\n" + 
         "  ) ON COMMIT DROP'; \n" + 
         "  EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + 
         "END IF; \n" + 
         "  _week = _epi_week::integer; \n" + 
         "  \n" + 
-        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n" + 
+        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease AND thresholdType = _thresholdType INTO _target; \n" + 
         "    IF _target IS NOT NULL THEN \n" + 
         "      RETURN _target; \n" + 
         "    END IF; \n" + 
@@ -874,6 +873,7 @@ public class ServerContext
         "  )\n" + 
         "\n" + 
         "  SELECT threshold FROM geoThresholdView WHERE geo_entity = ' || quote_literal(_geo_target_id) || '\n" + 
+        "    AND epi_week = ' || _week || '\n" + 
         "    AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) || ';' INTO _target;\n" + 
         "  \n" + 
         "  IF _target IS NULL THEN\n" + 
@@ -883,7 +883,7 @@ public class ServerContext
         "      _target = _target + get_threshold_by_geoid_and_epiweek(_thresholdType, _universalId, rec.child_id, _week, _disease, _season); \n" + 
         "    END LOOP;\n" + 
         "  END IF;\n" + 
-        "  INSERT INTO apt_cached (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n" + 
+        "  INSERT INTO apt_cached (id, thresholdType, target, week, season, disease) VALUES (_geo_target_id, _thresholdType, _target, _week, _season, _disease); \n" + 
         "  RETURN _target; \n" + 
         "END; \n" + 
         "$BODY$\n" + 
