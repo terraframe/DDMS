@@ -56,8 +56,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         that._leftLayout = new YAHOO.widget.Layout(c.body, {
           parent: that._mapLayout,
           units: [
-            { position: 'center', body: '', gutter: '2 2 0 0', resize: false, scroll: true },
-            { position: 'bottom', height: 400, body: '', gutter: '2', resize: false}
+            { position: 'center', body: '', gutter: '2', resize: false, scroll: true },
+            { position: 'bottom', height: 200, body: '', gutter: '2', resize: false}
           ]
         });
         
