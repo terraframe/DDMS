@@ -456,7 +456,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       for (TextElement text : this.getAllHasTextElement().getAll())
       {
         text.delete();
-      }      
+      }
     }
 
     // copy the layers from the existing map
@@ -566,9 +566,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       HasTextElement newHasText = this.addHasTextElement(newTextElement);
       newHasText.apply();
     }
-    
+
     this.appLock();
-    // Copy over the map scale bar information    
+    // Copy over the map scale bar information
     this.setScaleBarXPosition(existingMap.getScaleBarXPosition());
     this.setScaleBarYPosition(existingMap.getScaleBarYPosition());
     this.setScaleBarActive(existingMap.getScaleBarActive());
@@ -577,12 +577,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     this.setNorthArrowXPosition(existingMap.getNorthArrowXPosition());
     this.setNorthArrowYPosition(existingMap.getNorthArrowYPosition());
     this.setNorthArrowActive(existingMap.getNorthArrowActive());
-    
+
     // Copy the map zoom information
     this.setZoomLevel(existingMap.getZoomLevel());
     this.setMapCenter(existingMap.getMapCenter());
     this.apply();
-    
+
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
@@ -771,8 +771,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           {
             // This is okay
           }
-          
-          MapUtil.removeLayers(viewName);
         }
       }
       catch (NumberFormatException e)
@@ -1002,6 +1000,23 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     this.setZoomLevel(zoomLevel);
     this.setMapCenter(mapCenter);
     this.apply();
+
+    /*
+     * Hack work around: We need to apply the zoomLevel and mapCenter to the default map as well as this map.
+     */
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
+
+    if (!this.getId().equals(defaultMap.getId()))
+    {
+      defaultMap.appLock();
+      defaultMap.setZoomLevel(zoomLevel);
+      defaultMap.setMapCenter(mapCenter);
+      defaultMap.apply();
+    }
   }
 
   /**
@@ -1243,7 +1258,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       String error = "Could not parse map size.";
       throw new ProgrammingErrorException(error, e);
     }
-
 
     // Setup the base canvas to which we will add layers and map elements
     BufferedImage base = null;
