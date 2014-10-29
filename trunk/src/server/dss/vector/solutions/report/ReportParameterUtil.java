@@ -59,6 +59,16 @@ public class ReportParameterUtil implements Reloadable
 
   public static final String CHECK_BOX        = "Check Box";
 
+  /**
+   * String value of true boolean parameters
+   */
+  public static final String TRUE             = "True";
+
+  /**
+   * String value of false boolean parameters
+   */
+  public static final String FALSE            = "False";
+
   public Map<String, Object> convertParameters(InputStream stream, Map<String, String> map) throws BirtException
   {
     IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
@@ -258,8 +268,10 @@ public class ReportParameterUtil implements Reloadable
   @SuppressWarnings("unchecked")
   private JSONObject getParameterDetails(IGetParameterDefinitionTask task, IScalarParameterDefn scalar, IReportRunnable report, IParameterGroupDefn group) throws JSONException
   {
-    JSONObject parameter = new JSONObject();
+    Object defaultValue = task.getDefaultValue(scalar);
+    String convertedValue = this.getDefaultValue(scalar, defaultValue);
 
+    JSONObject parameter = new JSONObject();
     parameter.put("parameterGroup", ( group == null ? "none" : group.getName() ));
     parameter.put("name", scalar.getName());
     parameter.put("helpText", scalar.getHelpText());
@@ -270,7 +282,7 @@ public class ReportParameterUtil implements Reloadable
     parameter.put("isValueConcealed", scalar.isValueConcealed());
     parameter.put("type", scalar.getControlType());
     parameter.put("dataType", scalar.getDataType());
-    parameter.put("defaultValue", this.getDefaultValue(task, scalar));
+    parameter.put("defaultValue", convertedValue);
     parameter.put("promptText", scalar.getPromptText());
     parameter.put("scalarParameterType", scalar.getScalarParameterType());
     parameter.put("allowNewValues", scalar.allowNewValues());
@@ -297,7 +309,41 @@ public class ReportParameterUtil implements Reloadable
 
         if (collection != null)
         {
+
           JSONArray options = new JSONArray();
+
+          if (scalar.getDataType() != IScalarParameterDefn.TYPE_BOOLEAN)
+          {
+            if (defaultValue != null)
+            {
+              if (defaultValue.getClass().isArray())
+              {
+                Object[] values = (Object[]) defaultValue;
+
+                for (int i = 0; i < values.length; i++)
+                {
+                  String defaultValueString = this.getDefaultValue(scalar, values[i]);
+
+                  if (!this.containsDefaultValue(collection, defaultValueString))
+                  {
+                    JSONObject option = new JSONObject();
+                    option.put("label", defaultValueString);
+                    option.put("value", defaultValueString);
+
+                    options.put(option);
+                  }
+                }
+              }
+              else if (!this.containsDefaultValue(collection, convertedValue))
+              {
+                JSONObject option = new JSONObject();
+                option.put("label", convertedValue);
+                option.put("value", convertedValue);
+
+                options.put(option);
+              }
+            }
+          }
 
           for (IParameterSelectionChoice selectionItem : collection)
           {
@@ -319,11 +365,46 @@ public class ReportParameterUtil implements Reloadable
     return parameter;
   }
 
-  public String getDefaultValue(IGetParameterDefinitionTask task, IScalarParameterDefn scalar)
+  private boolean containsDefaultValue(Collection<IParameterSelectionChoice> collection, String defaultValue)
   {
-    Object value = task.getDefaultValue(scalar);
+    for (IParameterSelectionChoice selectionItem : collection)
+    {
+      Object value = selectionItem.getValue();
 
-    if (value instanceof Date)
+      if (value.equals(defaultValue))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public String getDefaultValue(IScalarParameterDefn scalar, Object value)
+  {
+    if (value != null && value.getClass().isArray())
+    {
+      Object[] values = (Object[]) value;
+      JSONArray array = new JSONArray();
+
+      for (int i = 0; i < values.length; i++)
+      {
+        array.put(this.getDefaultValue(scalar, values[i]));
+      }
+
+      return array.toString();
+    }
+
+    if (value instanceof Boolean)
+    {
+      if (value.equals(true))
+      {
+        return TRUE;
+      }
+
+      return FALSE;
+    }
+    else if (value instanceof Date)
     {
       if (scalar.getDataType() == IScalarParameterDefn.TYPE_DATE)
       {
