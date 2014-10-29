@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,7 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
@@ -162,10 +164,27 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   @Transaction
   public Layer[] setupTemplateLayers(SavedMap map)
   {
-    Layer[] layers = map.getOrderedLayers();
-    MapUtil.createDBViews(layers, false, new MapConfiguration());
+    Map<Layer, ValueQuery> layers = MapUtil.createDBViews(map.getOrderedLayers(), false, new MapConfiguration());
 
-    return layers;
+    List<Layer> list = new LinkedList<Layer>();
+
+    // Remove all layers which do not have any data
+    Set<Layer> keySet = layers.keySet();
+    int i = 0;
+
+    for (Layer layer : keySet)
+    {
+      ValueQuery valueQuery = layers.get(layer);
+
+      if (i == 0 || valueQuery.getCount() > 0)
+      {
+        list.add(layer);
+      }
+
+      i++;
+    }
+
+    return list.toArray(new Layer[list.size()]);
   }
 
   /**
@@ -417,12 +436,12 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-//              /*
-//              * This is for testing
-//              */
-//              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-//
-//              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+              /*
+              * This is for testing
+              */
+              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+
+              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
             }
             finally
             {
