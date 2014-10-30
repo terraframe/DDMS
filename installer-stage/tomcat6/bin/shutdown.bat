@@ -21,7 +21,7 @@ rem
 rem $Id: shutdown.bat 562770 2007-08-04 22:13:58Z markt $
 rem ---------------------------------------------------------------------------
 
-set JAVA_HOME=C:\MDSS\Java\jdk1.6.0_16
+set JAVA_HOME=JAVA_HOME_VALUE
 set CATALINA_HOME=C:\MDSS\tomcat6
 
 rem Guess CATALINA_HOME if not defined

@@ -21,7 +21,7 @@ rem
 rem $Id: startup.bat 562770 2007-08-04 22:13:58Z markt $
 rem ---------------------------------------------------------------------------
 
-set JAVA_HOME=C:\MDSS\Java\jdk1.6.0_16
+set JAVA_HOME=JAVA_HOME_VALUE
 set CATALINA_HOME=C:\MDSS\tomcat6
 set JAVA_OPTS=-Xmx512M -XX:MaxPermSize=256M -Dfile.encoding=UTF8
 set CATALINA_OPTS=-Djavax.rmi.ssl.client.enabledProtocols=TLSv1 -Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5 -Djavax.net.ssl.trustStorePassword=1206b6579Acb3 -Djavax.net.ssl.trustStore=C:\MDSS\manager\keystore\ddms.ts -Djavax.net.ssl.keyStorePassword=4b657920666fZ -Djavax.net.ssl.keyStore=C:\MDSS\manager\keystore\ddms.ks

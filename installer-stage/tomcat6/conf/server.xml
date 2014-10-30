@@ -69,7 +69,8 @@
                connectionTimeout="20000" 
                redirectPort="8443"
                maxPostSize="-1"
-               maxSavePostSize="-1" />
+               maxSavePostSize="-1"
+			   URIEncoding="UTF-8"  />
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
