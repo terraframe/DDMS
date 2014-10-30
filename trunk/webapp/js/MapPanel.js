@@ -1333,12 +1333,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             
             // Persist map elements status (active or inactive) and well as
             // location
-//            this.that._updateNorthArrowStatus(mapId); 
-//            this.that._updateScaleBarStatus(mapId);
-//            this.that._updateLegendStatus(mapId);
-            this.that._updateMapState(mapId);
-            
-            this.that._saveCycleJob();
+            this.that._updateMapState(mapId);            
+            this.that._saveCycleJob(mapId);
           }
         });        
         
@@ -1377,9 +1373,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           // Persist map elements status (active or inactive) and well as
           // location
-//          that._updateNorthArrowStatus(mapId);  
-//          that._updateScaleBarStatus(mapId); 
-//          that._updateLegendStatus(mapId);
           that._updateMapState(mapId);
           
           that._destroyModal();
