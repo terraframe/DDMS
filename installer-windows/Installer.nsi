@@ -138,7 +138,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6149
+    StrCpy $PatchVersion 6231
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
@@ -246,7 +246,7 @@ Section -Main SEC0000
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update terraframe.properties
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $InstallationNumber $Master_Value`
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp 'C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\lib\*' dss.vector.solutions.util.PostInstallSetup -a -n$InstallationNumber -i$Master_Value`
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\blank" App $PatchVersion
@@ -343,7 +343,7 @@ Function .onInit
     # LogSet On
     SetOverwrite try
     InitPluginsDir
-    SetRebootFlag true
+    SetRebootFlag false
     # Initialize the value of the text string
     StrCpy $InstallationNumber "1"
     StrCpy $Master_Value "init"
