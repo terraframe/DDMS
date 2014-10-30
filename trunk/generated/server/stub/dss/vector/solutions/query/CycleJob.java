@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -465,7 +466,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               */
               try
               {
-                OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
 
                 FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
               }
