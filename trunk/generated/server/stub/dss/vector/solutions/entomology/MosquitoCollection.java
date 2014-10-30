@@ -165,13 +165,14 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
       p.throwIt();
     }
   }
+
   @Override
   public void validateDateLastSprayed()
   {
     if (this.getDateLastSprayed() != null && this.getDateLastSprayed().after(new Date()))
     {
       String msg = "It is impossible to have a test date after the current date";
-      
+
       CurrentDateProblem p = new CurrentDateProblem(msg);
       p.setGivenDate(this.getDateLastSprayed());
       p.setCurrentDate(new Date());
@@ -180,7 +181,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
       p.throwIt();
     }
   }
-  
+
   private void populateLifeStageName()
   {
     for (LifeStage stage : this.getLifeStage())
@@ -242,15 +243,14 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    MosquitoCollectionQB query = new MosquitoCollectionQB(xml, config, layer, pageSize, pageSize);
+    MosquitoCollectionQB query = new MosquitoCollectionQB(xml, config, layer, pageSize, pageSize, disease);
     return query.construct();
   }
 

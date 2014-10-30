@@ -16,6 +16,7 @@ import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.RefusedResponse;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.intervention.monitor.Household;
 import dss.vector.solutions.intervention.monitor.HouseholdQuery;
 import dss.vector.solutions.intervention.monitor.ITNInstance;
@@ -31,9 +32,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class SurveyQB extends AbstractQB implements Reloadable
 {
 
-  public SurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public SurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
   }
   
   @Override

@@ -487,8 +487,8 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new IndividualCaseQB(xml, config, layer, pageSize, pageSize).construct();
+    return new IndividualCaseQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

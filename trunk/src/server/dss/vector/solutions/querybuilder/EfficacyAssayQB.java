@@ -24,6 +24,7 @@ import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultAgeRangeQuery;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.query.Layer;
@@ -33,9 +34,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class EfficacyAssayQB extends AbstractQB implements Reloadable
 {
 
-  public EfficacyAssayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public EfficacyAssayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
 
   @Override

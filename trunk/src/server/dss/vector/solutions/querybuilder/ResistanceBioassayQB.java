@@ -21,6 +21,7 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.TimeResponseAssayQuery;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.Layer;
@@ -29,9 +30,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class ResistanceBioassayQB extends AbstractQB implements Reloadable
 {
 
-  public ResistanceBioassayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public ResistanceBioassayQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
   }
 
   @Override

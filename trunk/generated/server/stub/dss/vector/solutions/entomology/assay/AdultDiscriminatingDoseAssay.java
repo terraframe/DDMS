@@ -13,6 +13,7 @@ import com.runwaysdk.session.Session;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.ResistanceProperty;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.ResistanceQB;
@@ -381,15 +382,14 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new ResistanceQB(xml, config, layer, pageSize, pageSize).construct();
+    return new ResistanceQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 
 }

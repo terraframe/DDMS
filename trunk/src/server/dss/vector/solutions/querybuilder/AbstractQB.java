@@ -66,6 +66,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.Metadata;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
@@ -84,23 +85,22 @@ import dss.vector.solutions.util.Restriction;
 
 public abstract class AbstractQB implements Reloadable
 {
-  public static final String WINDOW_COUNT_ALIAS = "dss_vector_solutions__window_count";
+  public static final String WINDOW_COUNT_ALIAS  = "dss_vector_solutions__window_count";
 
-  public static final String IMPORTED_DATETIME  = "imported_datetime";
+  public static final String IMPORTED_DATETIME   = "imported_datetime";
 
   public static final String PARENT_UNIVERSAL_ID = "parentUniversalId";
-  
+
   /**
-   * Class to help with the structure of the join criteria for GeoEntity data
-   * and mapping.
+   * Class to help with the structure of the join criteria for GeoEntity data and mapping.
    */
   private class GeoEntityJoinData implements Reloadable
   {
 
     private String                        entityNameAlias;
 
-    private String idAlias;
-    
+    private String                        idAlias;
+
     private String                        geoIdAlias;
 
     private String                        geoThematicAlias;
@@ -185,8 +185,8 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected GeoEntityJoinData geoEntityJoinData;
-  
+  protected GeoEntityJoinData               geoEntityJoinData;
+
   private String                            xml;
 
   private String                            config;
@@ -217,7 +217,9 @@ public abstract class AbstractQB implements Reloadable
 
   private Map<String, GeneratedEntityQuery> queryMap;
 
-  public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  private Disease                           disease;
+
+  public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
     this.queryConfig = null;
     this.hasUniversal = false;
@@ -235,6 +237,22 @@ public abstract class AbstractQB implements Reloadable
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.geoEntityJoinData = new GeoEntityJoinData();
+    this.disease = disease;
+  }
+
+  public synchronized Disease getDisease()
+  {
+    if (this.disease == null)
+    {
+      this.disease = Disease.getCurrent();
+    }
+
+    return this.disease;
+  }
+
+  public synchronized void setDisease(Disease disease)
+  {
+    this.disease = disease;
   }
 
   public boolean hasUniversal()
@@ -261,8 +279,9 @@ public abstract class AbstractQB implements Reloadable
   {
     withEntries.add(entry);
   }
-  
-  protected List<WITHEntry> getWITHEntries() {
+
+  protected List<WITHEntry> getWITHEntries()
+  {
     return withEntries;
   }
 
@@ -326,34 +345,31 @@ public abstract class AbstractQB implements Reloadable
 
     return finalQuery;
   }
-  
+
   /**
    * Helper method for post processing.
    * 
-   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two.
-   * Some of these rows may only have data in one of the columns in one of the tables, but since the columns are the same
-   * we can coalesce the data and select it from any of the columns where the data exists.
+   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two. Some of these rows may only have data in one of the columns in one of the tables, but since the columns are the same we can coalesce the data and select it from any of the columns where the data exists.
    */
   protected void coalesceSelects(ValueQuery finalVQ, ValueQuery aggregate, String originalAlias, String aggregateAlias)
   {
     // 1. Loop over all selectables in the originalVQ
     List<Selectable> finalSels = finalVQ.getSelectableRefs();
-    for (Selectable finalSel : finalSels) {
-      
+    for (Selectable finalSel : finalSels)
+    {
+
       // 2. If the aggregate also contains this selectable
       String selName = finalSel.getDbColumnName();
-      if(aggregate.hasSelectableRef(selName))
+      if (aggregate.hasSelectableRef(selName))
       {
         // 3. Coalesce it
-        ((SelectableSQL) finalSel).setSQL("COALESCE(" + originalAlias + "." + selName + ", " + aggregateAlias + "." + selName + ")");
+        ( (SelectableSQL) finalSel ).setSQL("COALESCE(" + originalAlias + "." + selName + ", " + aggregateAlias + "." + selName + ")");
       }
     }
   }
 
   /**
-   * Generates a ValueQuery based on the query this builder represents.
-   * Subclasses may override any of the individual steps in the query
-   * construction for finer grained control.
+   * Generates a ValueQuery based on the query this builder represents. Subclasses may override any of the individual steps in the query construction for finer grained control.
    */
   public final ValueQuery construct()
   {
@@ -365,8 +381,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * By default there is no post-processing, but QBs can override this behavior
-   * to return whatever they want (I'm looking at you, IRS).
+   * By default there is no post-processing, but QBs can override this behavior to return whatever they want (I'm looking at you, IRS).
    * 
    * @param valueQuery
    * @return
@@ -375,12 +390,11 @@ public abstract class AbstractQB implements Reloadable
   {
     return valueQuery;
   }
-  
+
   /**
    * Copies all selectables and returns them.
    */
-  protected Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix,
-      boolean preserveAggregates, ValueQuery original)
+  protected Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix, boolean preserveAggregates, ValueQuery original)
   {
     Selectable[] replacements = new Selectable[sels.size()];
 
@@ -394,94 +408,75 @@ public abstract class AbstractQB implements Reloadable
       String qualifiedCol = prefix != null ? prefix + "." + sel.getColumnAlias() : sel.getColumnAlias();
       if (sel instanceof SelectableInteger)
       {
-        if (preserveAggregates && original.hasSelectableRef(alias)
-            && original.getSelectableRef(alias).isAggregateFunction())
+        if (preserveAggregates && original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
         {
-          newSel = vq.aSQLAggregateInteger(sel.getColumnAlias(), qualifiedCol,
-              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLAggregateInteger(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
         else
         {
-          newSel = vq.aSQLInteger(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLInteger(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
       }
       else if (sel instanceof SelectableLong)
       {
-        if (preserveAggregates && original.hasSelectableRef(alias)
-            && original.getSelectableRef(alias).isAggregateFunction())
+        if (preserveAggregates && original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
         {
-          newSel = vq.aSQLAggregateLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLAggregateLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
         else
         {
-          newSel = vq.aSQLLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLLong(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
       }
       else if (sel instanceof SelectableFloat)
       {
-        if (preserveAggregates && original.hasSelectableRef(alias)
-            && original.getSelectableRef(alias).isAggregateFunction())
+        if (preserveAggregates && original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
         {
-          newSel = vq.aSQLAggregateFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLAggregateFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
         else
         {
-          newSel = vq.aSQLFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLFloat(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
       }
       else if (sel instanceof SelectableDecimal)
       {
-        if (preserveAggregates && original.hasSelectableRef(alias)
-            && original.getSelectableRef(alias).isAggregateFunction())
+        if (preserveAggregates && original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
         {
-          newSel = vq.aSQLAggregateDecimal(sel.getColumnAlias(), qualifiedCol,
-              sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLAggregateDecimal(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
         else
         {
-          newSel = vq.aSQLDecimal(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLDecimal(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
       }
       else if (sel instanceof SelectableDouble)
       {
-        if (preserveAggregates && original.hasSelectableRef(alias)
-            && original.getSelectableRef(alias).isAggregateFunction())
+        if (preserveAggregates && original.hasSelectableRef(alias) && original.getSelectableRef(alias).isAggregateFunction())
         {
-          newSel = vq.aSQLAggregateDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLAggregateDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
         else
         {
-          newSel = vq.aSQLDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-              sel.getUserDefinedDisplayLabel());
+          newSel = vq.aSQLDouble(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
         }
       }
       else if (sel instanceof AttributeDate || sel instanceof SelectableSQLDate)
       {
-        newSel = vq.aSQLDate(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-            sel.getUserDefinedDisplayLabel());
+        newSel = vq.aSQLDate(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
       else if (sel instanceof AttributeDateTime || sel instanceof SelectableSQLDateTime)
       {
-        newSel = vq.aSQLDateTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-            sel.getUserDefinedDisplayLabel());
+        newSel = vq.aSQLDateTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
       else if (sel instanceof AttributeTime || sel instanceof SelectableSQLTime)
       {
-        newSel = vq.aSQLTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-            sel.getUserDefinedDisplayLabel());
+        newSel = vq.aSQLTime(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
       else
       {
         // use character as the final default because it's flexible
-        newSel = vq.aSQLCharacter(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(),
-            sel.getUserDefinedDisplayLabel());
+        newSel = vq.aSQLCharacter(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
 
       newSel.setColumnAlias(sel.getColumnAlias());
@@ -493,8 +488,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Returns the alias of the class in the query map from which the createdBy
-   * and lastUpdatedBy values will be pulled.
+   * Returns the alias of the class in the query map from which the createdBy and lastUpdatedBy values will be pulled.
    * 
    * @return
    */
@@ -673,8 +667,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Subclasses can use this to add any GeneratedEntityQuery objects whose geo
-   * entity attributes need to join on their display labels.
+   * Subclasses can use this to add any GeneratedEntityQuery objects whose geo entity attributes need to join on their display labels.
    * 
    * @param query
    */
@@ -684,8 +677,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * This can be used to replicate the alias build process in JavaScript for
-   * AllPaths terms. (See: QueryBaseNew.constructQuery()).
+   * This can be used to replicate the alias build process in JavaScript for AllPaths terms. (See: QueryBaseNew.constructQuery()).
    * 
    * @param attr
    * @param klass
@@ -698,9 +690,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Extracts a class and attribute pair from the entity alias for dereferencing
-   * term criteria. If the alias is not a valid string for term criteria then
-   * null is returned.
+   * Extracts a class and attribute pair from the entity alias for dereferencing term criteria. If the alias is not a valid string for term criteria then null is returned.
    * 
    * @param entityAlias
    * @return
@@ -722,10 +712,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * This allows subclasses to provide a list of aliases for tables and
-   * attributes. This is useful when the QueryAPI assumes one table/alias when
-   * another should be used (in the case of custom SQL). Ah, who am I kidding?
-   * This is only for the IRS QB.
+   * This allows subclasses to provide a list of aliases for tables and attributes. This is useful when the QueryAPI assumes one table/alias when another should be used (in the case of custom SQL). Ah, who am I kidding? This is only for the IRS QB.
    * 
    * @return
    */
@@ -924,8 +911,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Joins all selected geo entity attributes with their localized display
-   * labels.
+   * Joins all selected geo entity attributes with their localized display labels.
    * 
    * @param valueQuery
    * @param queryMap
@@ -949,8 +935,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Returns all ParseInterceptors. Subclasses may override this method to
-   * append other interceptors.
+   * Returns all ParseInterceptors. Subclasses may override this method to append other interceptors.
    * 
    * @return
    */
@@ -1123,8 +1108,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Recreates the entity alias for the geo AllPath entries sent in the by the
-   * client.
+   * Recreates the entity alias for the geo AllPath entries sent in the by the client.
    * 
    * @param attributeKey
    * @return
@@ -1188,7 +1172,7 @@ public abstract class AbstractQB implements Reloadable
       Selectable selectableId = geoEntityVQ.aSQLCharacter(PARENT_UNIVERSAL_ID, selectable6.getDbQualifiedName(), PARENT_UNIVERSAL_ID, selectable6.getUserDefinedAlias());
       selectableId.setColumnAlias(PARENT_UNIVERSAL_ID);
       selectables.add(selectableId);
-      
+
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
       GeoEntityQuery geoEntityQuery2 = null;
       if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
@@ -1348,8 +1332,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Ensures that the ValueQuery contains more than the start and end date
-   * criteria.
+   * Ensures that the ValueQuery contains more than the start and end date criteria.
    * 
    * @param valueQuery
    */
@@ -1396,8 +1379,7 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Sets a selectable that represents the total count of the result set with
-   * Postgres's window function.
+   * Sets a selectable that represents the total count of the result set with Postgres's window function.
    * 
    * @param v
    */
@@ -1490,11 +1472,9 @@ public abstract class AbstractQB implements Reloadable
 
     return map;
   }
-  
+
   /**
-   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql
-   * aggregates that use custom aggreation logic (eg, SUM(unique_column,
-   * sum_column).
+   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql aggregates that use custom aggreation logic (eg, SUM(unique_column, sum_column).
    * 
    * @param aliases
    * @param id
@@ -1633,7 +1613,7 @@ public abstract class AbstractQB implements Reloadable
   {
     return setAttributesAsAggregated(aliases, id, valueQuery, tableAlias, allowNonAggregateDefault, false);
   }
-  
+
   protected String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     return QueryUtil.SUM_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";

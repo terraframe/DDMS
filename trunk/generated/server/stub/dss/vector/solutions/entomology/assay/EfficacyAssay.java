@@ -13,6 +13,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.entomology.ControlMortalityException;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.irs.InsecticideBrandUse;
@@ -271,9 +272,9 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new EfficacyAssayQB(xml, config, layer, pageSize, pageSize).construct();
+    return new EfficacyAssayQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 
   /**

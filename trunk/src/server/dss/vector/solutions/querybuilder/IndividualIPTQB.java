@@ -23,9 +23,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class IndividualIPTQB extends AbstractQB implements Reloadable
 {
 
-  public IndividualIPTQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public IndividualIPTQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
   
   @Override
@@ -82,8 +82,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, individualIPTCaseQuery.getDisease());
     
-    Disease disease = Disease.getCurrent();
-    valueQuery.AND(individualIPTCaseQuery.getDisease().EQ(disease));
+    valueQuery.AND(individualIPTCaseQuery.getDisease().EQ(this.getDisease()));
     
     return valueQuery;
 

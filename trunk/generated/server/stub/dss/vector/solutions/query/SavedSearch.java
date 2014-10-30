@@ -52,19 +52,17 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   private static final long    serialVersionUID = 1241158161320L;
 
   /**
-   * The prefix for the database view names that represent saved searches
-   * (queries).
+   * The prefix for the database view names that represent saved searches (queries).
    */
   public static final String   VIEW_PREFIX      = "q_";
 
   private static Log           log              = LogFactory.getLog(SavedSearch.class);
 
   /**
-   * Regex to detect an invalid postgres identifier, which cannot start with a
-   * digit.
+   * Regex to detect an invalid postgres identifier, which cannot start with a digit.
    */
   private static final Pattern INVALID_PREFIX   = Pattern.compile("^\\d.*$");
-  
+
   /**
    * An identifier with an invalid prefix can be fixed by adding an underscore.
    */
@@ -91,15 +89,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     QueryFactory f = new QueryFactory();
     DefaultSavedMapQuery m = new DefaultSavedMapQuery(f);
     LayerQuery l = new LayerQuery(f);
-    
+
     l.WHERE(l.getSavedSearch().EQ(this));
     l.AND(l.map(m));
 
     OIterator<? extends Layer> iter = l.getIterator();
-    
+
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
@@ -108,15 +106,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     {
       iter.close();
     }
-    
+
     super.delete();
-    
+
     this.deleteDatabaseViewIfExists();
   }
 
   /**
-   * Apply method that also checks if this SavedSearch object is mappable or
-   * not.
+   * Apply method that also checks if this SavedSearch object is mappable or not.
    */
   @SuppressWarnings("unchecked")
   public void apply()
@@ -154,8 +151,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks that a search name is unique for a user on a given SavedSearch
-   * subclass.
+   * Checks that a search name is unique for a user on a given SavedSearch subclass.
    * 
    * @param searchName
    * @param user
@@ -181,8 +177,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Generates the database view name for this SavedSearch, which follows a
-   * simple naming convention:
+   * Generates the database view name for this SavedSearch, which follows a simple naming convention:
    * 
    * VIEW_PREFIX + query name [sanitized] + _ + disease
    * 
@@ -190,8 +185,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * Q_my_query_malaria
    * 
-   * There is no need to persist this as an attribute because it can be
-   * predictably generated as the query name is immutable.
+   * There is no need to persist this as an attribute because it can be predictably generated as the query name is immutable.
    * 
    * @return
    */
@@ -328,9 +322,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates the database view for this query or updates (replaces) it if one
-   * already exists. If the query is invalid because it has no columns then the
-   * database view is deleted, if one exists.
+   * Creates the database view for this query or updates (replaces) it if one already exists. If the query is invalid because it has no columns then the database view is deleted, if one exists.
    */
   @AbortIfProblem
   private void createOrReplaceDatabaseView()
@@ -349,16 +341,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     String queryClass = QueryConstants.getQueryClass(queryType);
     Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
-    
+
     try
     {
-      // This ideally should be a parameter for the next method we're about to invoke, but... I don't want to change all that metadata. It's okay though, because this is only used on server initialization, so there's no threading issues here.
-      Disease.SYSTEM_DISEASE = this.getDiseaseId();
-      
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null);
-      
-      Disease.SYSTEM_DISEASE = null;
-      
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null, this.getDisease());
+
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
@@ -366,11 +353,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       for (Selectable s : valueQuery.getSelectableRefs())
       {
-        if(s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+        if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
         {
           continue; // used only for queries as an optimization
         }
-        
+
         // convert the user display label into something a user-friendly column.
         // use SQL character because it's generic enough to handle all cases.
         Selectable c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
@@ -533,8 +520,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates and applies this SavedSearch object with the given information in
-   * the SavedSearchView.
+   * Creates and applies this SavedSearch object with the given information in the SavedSearchView.
    * 
    * @param view
    * @param savedQuery
@@ -722,9 +708,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks if the given view exists in the database. For some reason
-   * Database.tableExists(table) was not working consistently, so this is a
-   * different check that does a direct query.
+   * Checks if the given view exists in the database. For some reason Database.tableExists(table) was not working consistently, so this is a different check that does a direct query.
    * 
    * @param viewName
    * @return
@@ -844,8 +828,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Returns any available thematic variables (Selectables) available on this
-   * query this SavedSearch encapsulates.
+   * Returns any available thematic variables (Selectables) available on this query this SavedSearch encapsulates.
    */
   @Override
   public ThematicVariable[] getThematicVariables()
@@ -884,7 +867,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // reflection.
       // TODO pass in queryType and have getValueQuery deref the class
       String queryClass = QueryConstants.getQueryClass(queryType);
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null);
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null, this.getDisease());
 
       List<Selectable> selectables = valueQuery.getSelectableRefs();
       ThematicVariable[] thematicVars = new ThematicVariable[selectables.size()];

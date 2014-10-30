@@ -29,6 +29,7 @@ import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
@@ -69,9 +70,9 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
   private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
-  public MosquitoCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public MosquitoCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
 
     this.universalClass = Country.CLASS;
     this.forceUniversal = false;

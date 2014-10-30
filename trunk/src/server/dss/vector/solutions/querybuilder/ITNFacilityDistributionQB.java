@@ -13,6 +13,7 @@ import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionQuery;
 import dss.vector.solutions.query.Layer;
@@ -21,9 +22,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class ITNFacilityDistributionQB extends AbstractQB implements Reloadable
 {
 
-  public ITNFacilityDistributionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public ITNFacilityDistributionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
   }
   
   @Override

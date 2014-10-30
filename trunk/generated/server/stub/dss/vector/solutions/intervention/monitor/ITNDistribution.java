@@ -111,15 +111,14 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new ITNFacilityDistributionQB(xml, config, layer, pageSize, pageSize).construct();
+    return new ITNFacilityDistributionQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 
   @Override
@@ -145,10 +144,11 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
     // Validate the amount of currency recieved
     this.validateCurrencyReceived();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
   }
 }

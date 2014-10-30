@@ -9,6 +9,7 @@ import java.util.Map;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.StaleEntityException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -315,7 +316,14 @@ public class Layer extends LayerBase implements Reloadable, LayerIF
       String fileName = webFile.getFileName();
       String extension = webFile.getFileExtension();
 
-      webFile.delete();
+      try
+      {
+        webFile.delete();
+      }
+      catch (StaleEntityException e)
+      {
+        // Do nothing the web file has already been deleted
+      }
 
       // remove the SLD artifact
       String rootPath = LocalProperties.getWebDirectory();

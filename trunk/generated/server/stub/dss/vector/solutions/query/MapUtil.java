@@ -7,7 +7,6 @@ import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -49,6 +48,7 @@ import com.vividsolutions.jts.geom.Envelope;
 import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoServerReloadException;
 
+@SuppressWarnings("deprecation")
 public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long          serialVersionUID = 1242080109170L;
@@ -110,7 +110,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
 
       try
       {
-        valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer, null, null);
+        valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer, null, null, configuration.getDisease());
 
         // Format any decimal thematic variable to two decimal places
         if (layer.hasThematicVariable())

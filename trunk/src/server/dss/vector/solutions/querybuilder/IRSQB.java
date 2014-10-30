@@ -1,7 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,27 +20,16 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
-import com.runwaysdk.query.AttributeDate;
-import com.runwaysdk.query.AttributeDateTime;
-import com.runwaysdk.query.AttributeTime;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableDecimal;
-import com.runwaysdk.query.SelectableDouble;
-import com.runwaysdk.query.SelectableFloat;
-import com.runwaysdk.query.SelectableInteger;
-import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
-import com.runwaysdk.query.SelectableSQLDate;
-import com.runwaysdk.query.SelectableSQLDateTime;
 import com.runwaysdk.query.SelectableSQLLong;
-import com.runwaysdk.query.SelectableSQLTime;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
@@ -116,9 +104,9 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private Map<String, GeneratedEntityQuery> mainQueryMap;
 
-//  private Map<String, GeneratedEntityQuery> insecticideQueryMap;
+  // private Map<String, GeneratedEntityQuery> insecticideQueryMap;
 
-//  private Map<String, GeneratedEntityQuery> abtractSprayQueryMap;
+  // private Map<String, GeneratedEntityQuery> abtractSprayQueryMap;
 
   /**
    * Set to true if any of the planned targets are included in the query.
@@ -127,7 +115,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private ValueQuery                        irsVQ;
 
-//  private ValueQuery                        sprayVQ;
+  // private ValueQuery sprayVQ;
 
   private JSONObject                        queryConfig;
 
@@ -165,7 +153,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private String                            sprayedUnits;
 
-//  private ValueQuery                        insecticideVQ;
+  // private ValueQuery insecticideVQ;
 
   private String                            targeter;
 
@@ -176,8 +164,6 @@ public class IRSQB extends AbstractQB implements Reloadable
   private String                            periodCol;
 
   private int                               startDay;
-
-  private String                            diseaseId;
 
   private QueryFactory                      queryFactory;
 
@@ -216,8 +202,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   private boolean                           hasActivity;
 
   /**
-   * Views required for area planned targets/coverage that will be on the
-   * outside of the main query.
+   * Views required for area planned targets/coverage that will be on the outside of the main query.
    */
   // JN change
   // private List<Pair<String, SQLProvider>> areaPairs;
@@ -225,8 +210,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   // private boolean needUniqueSprayId;
 
   /**
-   * True if any part of the query required spray_unit, thus the insecticide
-   * view.
+   * True if any part of the query required spray_unit, thus the insecticide view.
    */
   private boolean                           needsSprayedUnits;
 
@@ -238,24 +222,12 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * All views in the query. PRESERVE THE ORDER as values() returns them as
-   * declared, which is helpful for keeping the order deterministic.
+   * All views in the query. PRESERVE THE ORDER as values() returns them as declared, which is helpful for keeping the order deterministic.
    */
   public enum View implements Reloadable {
 
-    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class),
-    RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.class),
-    GEO_TARGET_VIEW("geoTargetView", GeoTargetView.class),
-    SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class),
-    INSECTICIDE_VIEW("insecticideView", InsecticideView.class),
-    PLANNED_OPERATOR("plannedOperator",PlannedOperatorTarget.class),
-    PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class),
-    PLANNED_TEAM_ROLLUP("plannedTeamRollup", PlannedSprayTeamRollup.class),
-    PLANNED_TEAM_RESULTS("plannedTeamResults", PlannedSprayTeamResults.class),
-    PLANNED_AREA("plannedArea", PlannedAreaTarget.class),
-    DATE_GROUPS("dateGroups", DateGroups.class),
-    ALL_ACTUALS("allActuals", ActivityUnion.class),
-    SPRAY_VIEW("sprayView", SprayView.class);
+    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class), RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.class), GEO_TARGET_VIEW("geoTargetView", GeoTargetView.class), SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class), INSECTICIDE_VIEW("insecticideView", InsecticideView.class), PLANNED_OPERATOR("plannedOperator", PlannedOperatorTarget.class), PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class), PLANNED_TEAM_ROLLUP("plannedTeamRollup",
+        PlannedSprayTeamRollup.class), PLANNED_TEAM_RESULTS("plannedTeamResults", PlannedSprayTeamResults.class), PLANNED_AREA("plannedArea", PlannedAreaTarget.class), DATE_GROUPS("dateGroups", DateGroups.class), ALL_ACTUALS("allActuals", ActivityUnion.class), SPRAY_VIEW("sprayView", SprayView.class);
 
     private String                       view;
 
@@ -383,23 +355,20 @@ public class IRSQB extends AbstractQB implements Reloadable
   private AggregationQueryType   aggType;
 
   /**
-   * Name of the sub-query that aggregates activity values ahead of time to
-   * avoid cross-products when joining on relationships.
+   * Name of the sub-query that aggregates activity values ahead of time to avoid cross-products when joining on relationships.
    */
   private static final String    PRE_AGGREGATION = "preAggregation";
 
   /**
-   * Denotes what type of aggregation this query will be used for (eg, as a
-   * query in a WITH clause to aggregate area planned targets).
+   * Denotes what type of aggregation this query will be used for (eg, as a query in a WITH clause to aggregate area planned targets).
    */
   public enum AggregationQueryType implements Reloadable {
     AREA, OPERATOR, TEAM
   }
 
-  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize,
-      AggregationQueryType aggType)
+  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, AggregationQueryType aggType, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
 
     this.aggType = aggType;
 
@@ -447,8 +416,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     this.smallestUnivesal = null;
 
-    diseaseId = Disease.getCurrent().getId();
-
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
     this.parentAggregates = new HashSet<Alias>();
@@ -476,9 +443,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     // this.areaPairs = new LinkedList<Pair<String, SQLProvider>>();
 
     queryFactory = new QueryFactory();
-//    this.sprayVQ = new ValueQuery(queryFactory);
+    // this.sprayVQ = new ValueQuery(queryFactory);
     this.irsVQ = new ValueQuery(queryFactory);
-//    this.insecticideVQ = new ValueQuery(queryFactory);
+    // this.insecticideVQ = new ValueQuery(queryFactory);
 
     // this.needUniqueSprayId = false;
 
@@ -506,9 +473,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.criteriaInterceptor = new CriteriaInterceptor(this.irsVQ);
   }
 
-  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public IRSQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    this(xml, config, layer, pageNumber, pageSize, null);
+    this(xml, config, layer, pageNumber, pageSize, null, disease);
 
   }
 
@@ -516,17 +483,14 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     return this.aggType;
   }
-  
+
   public String getSprayViewAlias()
   {
     return sprayViewAlias;
   }
 
   /**
-   * Activity is assumed if there are no planned targets (what else would the
-   * user select?) or if activity has been explicitly requested. Activity MUST
-   * be false if this query is used for aggregation (WITH clause in a larger
-   * query).
+   * Activity is assumed if there are no planned targets (what else would the user select?) or if activity has been explicitly requested. Activity MUST be false if this query is used for aggregation (WITH clause in a larger query).
    * 
    * @return
    */
@@ -534,8 +498,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     // Add actuals (spray activity) if it has explicitly been specified or if
     // COUNT or RATIO exists
-    return this.requiredViews.contains(View.ALL_ACTUALS) || this.hasActivity && this.aggType == null
-        || ( this.selectAliases.contains(Alias.COUNT) || this.selectAliases.contains(Alias.RATIO) );
+    return this.requiredViews.contains(View.ALL_ACTUALS) || this.hasActivity && this.aggType == null || ( this.selectAliases.contains(Alias.COUNT) || this.selectAliases.contains(Alias.RATIO) );
   }
 
   public boolean hasPlanned()
@@ -600,11 +563,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     return this.irsVQ;
   }
 
-  public String getDiseaseId()
-  {
-    return this.diseaseId;
-  }
-
   public String getGeoEntity()
   {
     return this.geoEntity;
@@ -649,10 +607,12 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     return this.criteriaInterceptor.hasLevel1();
   }
+
   public boolean hasLevel2()
   {
     return this.criteriaInterceptor.hasLevel2();
   }
+
   public boolean hasLevel3()
   {
     return this.criteriaInterceptor.hasLevel3();
@@ -685,20 +645,16 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     // The sex attribute across supervisor, leader, and operator require custom
     // overrides
-    String operatorSex = this.createAllPathsEntityAlias(Alias.SPRAY_OPERATOR_SEX.getAlias(),
-        Person.CLASS, Alias.SPRAY_OPERATOR_SEX.getAlias());
+    String operatorSex = this.createAllPathsEntityAlias(Alias.SPRAY_OPERATOR_SEX.getAlias(), Person.CLASS, Alias.SPRAY_OPERATOR_SEX.getAlias());
     AliasPair operatorSexPair = new AliasPair(this.sprayViewAlias, Alias.SPRAY_OPERATOR_SEX.getAlias());
     pairs.put(operatorSex, operatorSexPair);
 
-    String leaderSex = this.createAllPathsEntityAlias(Alias.SPRAY_LEADER_SEX.getAlias(), Person.CLASS,
-        Alias.SPRAY_LEADER_SEX.getAlias());
+    String leaderSex = this.createAllPathsEntityAlias(Alias.SPRAY_LEADER_SEX.getAlias(), Person.CLASS, Alias.SPRAY_LEADER_SEX.getAlias());
     AliasPair leaderSexPair = new AliasPair(this.sprayViewAlias, Alias.SPRAY_LEADER_SEX.getAlias());
     pairs.put(leaderSex, leaderSexPair);
 
-    String supervisorSex = this.createAllPathsEntityAlias(Alias.ZONE_SUPERVISOR_SEX.getAlias(),
-        Person.CLASS, Alias.ZONE_SUPERVISOR_SEX.getAlias());
-    AliasPair supervisorSexPair = new AliasPair(this.sprayViewAlias,
-        Alias.ZONE_SUPERVISOR_SEX.getAlias());
+    String supervisorSex = this.createAllPathsEntityAlias(Alias.ZONE_SUPERVISOR_SEX.getAlias(), Person.CLASS, Alias.ZONE_SUPERVISOR_SEX.getAlias());
+    AliasPair supervisorSexPair = new AliasPair(this.sprayViewAlias, Alias.ZONE_SUPERVISOR_SEX.getAlias());
     pairs.put(supervisorSex, supervisorSexPair);
 
     return pairs;
@@ -706,8 +662,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   public boolean hasAreaCalcs()
   {
-    return this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias())
-        || this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
+    return this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias()) || this.irsVQ.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
   }
 
   public QueryFactory getQueryFactory()
@@ -729,16 +684,15 @@ public class IRSQB extends AbstractQB implements Reloadable
   protected ValueQueryParser createParser(ValueQuery valueQuery, List<ParseInterceptor> interceptors)
   {
     this.irsParser = super.createParser(this.irsVQ, this.createParseInterceptors(this.irsVQ));
-//    this.insecticideParser = super.createParser(this.insecticideVQ,
-//        this.createParseInterceptors(this.insecticideVQ));
-//    this.sprayParser = super.createParser(this.sprayVQ, this.createParseInterceptors(this.sprayVQ));
+    // this.insecticideParser = super.createParser(this.insecticideVQ,
+    // this.createParseInterceptors(this.insecticideVQ));
+    // this.sprayParser = super.createParser(this.sprayVQ, this.createParseInterceptors(this.sprayVQ));
 
     return this.irsParser;
   }
 
   /**
-   * Adds a custom Interceptor to the this.irsVQ to look for aggregation level
-   * restrictions.
+   * Adds a custom Interceptor to the this.irsVQ to look for aggregation level restrictions.
    */
   @Override
   protected List<ParseInterceptor> createParseInterceptors(ValueQuery valueQuery)
@@ -754,37 +708,34 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
-      QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
   {
     QBInterceptor qbInterceptor = this.getQBInterceptor(this.irsParser);
     super.setTermCriteria(irsVQ, this.mainQueryMap, qbInterceptor);
 
-//    if (insecticideQuery != null)
-//    {
-//      qbInterceptor = this.getQBInterceptor(this.insecticideParser);
-//      super.setTermCriteria(insecticideVQ, insecticideQueryMap, qbInterceptor);
-//    }
-//
-//    if (this.hasSprayEnumOrTerm)
-//    {
-//      qbInterceptor = this.getQBInterceptor(this.sprayParser);
-//      super.setTermCriteria(sprayVQ, abtractSprayQueryMap, qbInterceptor);
-//    }
+    // if (insecticideQuery != null)
+    // {
+    // qbInterceptor = this.getQBInterceptor(this.insecticideParser);
+    // super.setTermCriteria(insecticideVQ, insecticideQueryMap, qbInterceptor);
+    // }
+    //
+    // if (this.hasSprayEnumOrTerm)
+    // {
+    // qbInterceptor = this.getQBInterceptor(this.sprayParser);
+    // super.setTermCriteria(sprayVQ, abtractSprayQueryMap, qbInterceptor);
+    // }
   }
 
   @Override
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
-      ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
-    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer,
-        this.irsParser);
+    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer, this.irsParser);
 
-//    this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig,
-//        null, this.insecticideParser);
-//
-//    this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null,
-//        this.sprayParser);
+    // this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig,
+    // null, this.insecticideParser);
+    //
+    // this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null,
+    // this.sprayParser);
 
     return this.mainQueryMap;
   }
@@ -796,30 +747,24 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Populates the ValueQuery with the necessary selects, joins, and criteria to
-   * make the IRS query work correctly. ORDER IS IMPORTANT. Do not change the
-   * calls within this method unless you know what you are doing! There are many
-   * boolean flags set within those calls that dictate how the query will
-   * behave.
+   * Populates the ValueQuery with the necessary selects, joins, and criteria to make the IRS query work correctly. ORDER IS IMPORTANT. Do not change the calls within this method unless you know what you are doing! There are many boolean flags set within those calls that dictate how the query will behave.
    */
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     queryFactory = this.irsVQ.getQueryFactory();
-    
+
     this.sprayViewAlias = this.mainQueryMap.get(AbstractSpray.CLASS).getTableAlias();
     this.abstractSprayQuery = (AbstractSprayQuery) this.mainQueryMap.get(AbstractSpray.CLASS);
-//    this.abstractSprayQuery = (AbstractSprayQuery) this.abtractSprayQueryMap.get(AbstractSpray.CLASS);
+    // this.abstractSprayQuery = (AbstractSprayQuery) this.abtractSprayQueryMap.get(AbstractSpray.CLASS);
     this.insecticideQuery = (InsecticideBrandQuery) this.mainQueryMap.get(InsecticideBrand.CLASS);
     this.outerInsecticideQuery = (InsecticideBrandQuery) this.mainQueryMap.get(InsecticideBrand.CLASS);
-//    this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);
-    
+    // this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);
+
     // Two of the insecticide selectables are not on the InsecticideBrand class,
     // so
     // manually include the proper objects to make everything else work
-    if ( ( valueQuery.hasSelectableRef(Alias.ACTIVE_INGREDIENT_PER_CAN.getAlias()) || valueQuery
-        .hasSelectableRef(Alias.UNITS_PER_CAN.getAlias()) ) && this.insecticideQuery == null)
+    if ( ( valueQuery.hasSelectableRef(Alias.ACTIVE_INGREDIENT_PER_CAN.getAlias()) || valueQuery.hasSelectableRef(Alias.UNITS_PER_CAN.getAlias()) ) && this.insecticideQuery == null)
     {
       this.outerInsecticideQuery = new InsecticideBrandQuery(this.irsVQ);
       this.insecticideQuery = new InsecticideBrandQuery(this.irsVQ);
@@ -842,10 +787,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery,    this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions());
       this.setNumericRestrictions(irsVQ, queryConfig);
     }
-    else {
+    else
+    {
       setNumericRestrictions(irsVQ, queryConfig);
     }
 
@@ -855,8 +801,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // Geo Entity
     if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
     {
-      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) irsVQ
-          .getSelectableRef(AbstractSpray.GEOENTITY);
+      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) irsVQ.getSelectableRef(AbstractSpray.GEOENTITY);
       subGeo.setSQL(QueryUtil.GEO_DISPLAY_LABEL + "." + QueryUtil.LABEL_COLUMN);
 
       // The subselect was incredibly slow
@@ -866,48 +811,30 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
 
     // NOTE: for backwards compatibility use the XMLAlias() instead of alias()
-    if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) 
-        || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
+    if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, abstractSprayQuery,
-          this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, abstractSprayQuery, this.getTermRestrictions());
     }
 
-    sprayedUnits = "(CASE WHEN "+Alias.SPRAY_UNIT+" = 'ROOM' THEN "+Alias.SPRAYED_ROOMS+"  WHEN "
-        +Alias.SPRAY_UNIT+" = 'STRUCTURE' THEN "+Alias.SPRAYED_STRUCTURES
-        +" WHEN "+Alias.SPRAY_UNIT+" = 'HOUSEHOLD' THEN "+Alias.SPRAYED_HOUSEHOLDS+" END )";
-
+    sprayedUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN " + Alias.SPRAYED_ROOMS + "  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN " + Alias.SPRAYED_STRUCTURES + " WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN " + Alias.SPRAYED_HOUSEHOLDS + " END )";
 
     // make sure if we have a calculation that the right columns are included
-    Alias[] calcs = new Alias[]{
-        Alias.SPRAYED_UNITS,
-        Alias.UNITS_UNSPRAYED,
-        Alias.UNIT_APPLICATION_RATE,
-        Alias.UNIT_APPLICATION_RATE_MG,
-        Alias.UNIT_APPLICATION_RATIO,
-        Alias.UNIT_OPERATIONAL_COVERAGE,
-        Alias.CALCULATED_ROOMS_SPRAYED,
-        Alias.CALCULATED_STRUCTURES_SPRAYED,
-        Alias.CALCULATED_HOUSEHOLDS_SPRAYED
-    };
-    
-    for(Alias calc : calcs)
+    Alias[] calcs = new Alias[] { Alias.SPRAYED_UNITS, Alias.UNITS_UNSPRAYED, Alias.UNIT_APPLICATION_RATE, Alias.UNIT_APPLICATION_RATE_MG, Alias.UNIT_APPLICATION_RATIO, Alias.UNIT_OPERATIONAL_COVERAGE, Alias.CALCULATED_ROOMS_SPRAYED, Alias.CALCULATED_STRUCTURES_SPRAYED, Alias.CALCULATED_HOUSEHOLDS_SPRAYED };
+
+    for (Alias calc : calcs)
     {
-      if(this.irsVQ.hasSelectableRef(calc.getAlias()))
+      if (this.irsVQ.hasSelectableRef(calc.getAlias()))
       {
         this.needsSprayedUnits = true;
       }
     }
 
-
     setTargetManagmentCalculations();
 
     // Modify the Date sql for both SELECT and WHERE
     // ---- START DATE CRITERIA ----
-    Condition dateCond = addDateCriteria(this.sprayViewAlias, this.hasPlannedTargets,
-        Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias(), Alias.SPRAY_LEADER_BIRTHDATE.getAlias(),
-        Alias.ZONE_SUPERVISOR_BIRTHDATE.getAlias());
+    Condition dateCond = addDateCriteria(this.sprayViewAlias, this.hasPlannedTargets, Alias.SPRAY_OPERATOR_BIRTHDATE.getAlias(), Alias.SPRAY_LEADER_BIRTHDATE.getAlias(), Alias.ZONE_SUPERVISOR_BIRTHDATE.getAlias());
     this.irsVQ.AND(dateCond);
 
     if (this.dateCriteria == DateCriteria.PERSON_BIRTHDATE)
@@ -935,8 +862,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       else
       {
         String attrName = QueryUtil.getDateAttributeFromConfig(queryConfig);
-        
-        if (xml.contains(attrName)) { // This IF statement is a fix for IRS ticket 2979.
+
+        if (xml.contains(attrName))
+        { // This IF statement is a fix for IRS ticket 2979.
           QueryUtil.setQueryDates(xml, irsVQ, queryConfig, this.mainQueryMap, true, wrapper);
         }
       }
@@ -982,111 +910,94 @@ public class IRSQB extends AbstractQB implements Reloadable
     setWithQuerySQL();
 
     setCalculations();
-    
+
     joinMainQueryTables();
 
     return this.irsVQ;
   }
-  
+
   private void setCalculations()
   {
-    
-    String unsprayedRooms = "SUM("+Alias.ROOMS+") - SUM("+Alias.SPRAYED_ROOMS+")";
-    String unsprayedHouseholds = "SUM("+Alias.HOUSEHOLDS+") - SUM("+Alias.SPRAYED_HOUSEHOLDS+")";
-    String unsprayedStructures = "SUM("+Alias.STRUCTURES+") - SUM("+Alias.SPRAYED_STRUCTURES+")";
-    
-    if(irsVQ.hasSelectableRef(Alias.ROOMS_UNSPRAYED.getAlias()))
+
+    String unsprayedRooms = "SUM(" + Alias.ROOMS + ") - SUM(" + Alias.SPRAYED_ROOMS + ")";
+    String unsprayedHouseholds = "SUM(" + Alias.HOUSEHOLDS + ") - SUM(" + Alias.SPRAYED_HOUSEHOLDS + ")";
+    String unsprayedStructures = "SUM(" + Alias.STRUCTURES + ") - SUM(" + Alias.SPRAYED_STRUCTURES + ")";
+
+    if (irsVQ.hasSelectableRef(Alias.ROOMS_UNSPRAYED.getAlias()))
     {
       Selectable s = irsVQ.getSelectableRef(Alias.ROOMS_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedRooms, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.ROOMS_UNSPRAYED.getAlias());
-      
+
       irsVQ.replaceSelectable(r);
     }
-    
-    if(irsVQ.hasSelectableRef(Alias.HOUSEHOLDS_UNSPRAYED.getAlias()))
+
+    if (irsVQ.hasSelectableRef(Alias.HOUSEHOLDS_UNSPRAYED.getAlias()))
     {
       Selectable s = irsVQ.getSelectableRef(Alias.HOUSEHOLDS_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedHouseholds, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.HOUSEHOLDS_UNSPRAYED.getAlias());
-      
+
       irsVQ.replaceSelectable(r);
     }
-    
-    if(irsVQ.hasSelectableRef(Alias.STRUCTURES_UNSPRAYED.getAlias()))
+
+    if (irsVQ.hasSelectableRef(Alias.STRUCTURES_UNSPRAYED.getAlias()))
     {
       Selectable s = irsVQ.getSelectableRef(Alias.STRUCTURES_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedStructures, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.STRUCTURES_UNSPRAYED.getAlias());
-      
+
       irsVQ.replaceSelectable(r);
     }
-    
-    
-    String availableUnits = "(CASE WHEN "+Alias.SPRAY_UNIT+" = 'ROOM' THEN rooms  WHEN "+Alias.SPRAY_UNIT+" = 'STRUCTURE' THEN structures WHEN "+Alias.SPRAY_UNIT+" = 'HOUSEHOLD' THEN households END )";
-    String unsprayedUnits = "(CASE WHEN "+Alias.SPRAY_UNIT+" = 'ROOM' THEN ("+unsprayedRooms+")  WHEN "+Alias.SPRAY_UNIT+" = 'STRUCTURE' THEN ("+unsprayedStructures+") WHEN "+Alias.SPRAY_UNIT+" = 'HOUSEHOLD' THEN ("+unsprayedHouseholds+")  END )";
-    String shareOfCans = "(CASE WHEN "+Alias.SPRAY_UNIT+" = 'ROOM' THEN (sprayedrooms_share)  WHEN "+Alias.SPRAY_UNIT+" = 'STRUCTURE' THEN (sprayedstructures_share) WHEN "+Alias.SPRAY_UNIT+" = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
-    
-    
+    String availableUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN rooms  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN structures WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN households END )";
+    String unsprayedUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN (" + unsprayedRooms + ")  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN (" + unsprayedStructures + ") WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN (" + unsprayedHouseholds + ")  END )";
+    String shareOfCans = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN (sprayedrooms_share)  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN (sprayedstructures_share) WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
+
     String uniqueSprayId = this.getUniqueSprayDetailsId();
 
-    String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + availableUnits
-        + "),0)";
-    
+    String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + availableUnits + "),0)";
+
     // #2868 - instead of -refills- we now sum on sachets -used-
     // FIXME SUM FIX
     String used = Alias.USED.getAlias();
-//    String used = this.needsPreAggregation() ? PRE_AGGREGATION+"."+Alias.USED : Alias.USED.getAlias();
-    String unit_application_rate = "SUM(" + used + "::FLOAT * " + shareOfCans + " * "
-        + Alias.ACTIVE_INGREDIENT_PER_CAN + ") / nullif(SUM(" + sprayedUnits + " * " + Alias.UNIT_AREA
-        + "),0)";
-    String unit_application_ratio = "((" + unit_application_rate + ") / AVG("
-        + Alias.STANDARD_APPLICATION_RATE + "))";
+    // String used = this.needsPreAggregation() ? PRE_AGGREGATION+"."+Alias.USED : Alias.USED.getAlias();
+    String unit_application_rate = "SUM(" + used + "::FLOAT * " + shareOfCans + " * " + Alias.ACTIVE_INGREDIENT_PER_CAN + ") / nullif(SUM(" + sprayedUnits + " * " + Alias.UNIT_AREA + "),0)";
+    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(" + Alias.STANDARD_APPLICATION_RATE + "))";
 
-
-    
-    if(QueryUtil.setSelectabeSQL(irsVQ, Alias.SPRAYED_UNITS.getAlias(), sprayedUnits))
+    if (QueryUtil.setSelectabeSQL(irsVQ, Alias.SPRAYED_UNITS.getAlias(), sprayedUnits))
     {
-      setAttributesAsAggregated(new String[] { Alias.SPRAYED_UNITS.getAlias() }, uniqueSprayId, irsVQ,
-          this.sprayViewAlias, true, true);
+      setAttributesAsAggregated(new String[] { Alias.SPRAYED_UNITS.getAlias() }, uniqueSprayId, irsVQ, this.sprayViewAlias, true, true);
     }
 
-    if(irsVQ.hasSelectableRef(Alias.UNITS_UNSPRAYED.getAlias()))
+    if (irsVQ.hasSelectableRef(Alias.UNITS_UNSPRAYED.getAlias()))
     {
       Selectable s = irsVQ.getSelectableRef(Alias.UNITS_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedUnits, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.UNITS_UNSPRAYED.getAlias());
-      
+
       irsVQ.replaceSelectable(r);
       irsVQ.GROUP_BY(irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias()));
     }
 
-    if(QueryUtil.setSelectabeSQL(irsVQ, Alias.REFILLS + " * " + shareOfCans, unsprayedUnits))
+    if (QueryUtil.setSelectabeSQL(irsVQ, Alias.REFILLS + " * " + shareOfCans, unsprayedUnits))
     {
       irsVQ.GROUP_BY(irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias()));
     }
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE.getAlias(), "("
-        + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE.getAlias(), "(" + unit_application_rate + ")");
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE_MG.getAlias(), "1000.0 *" + "("
-        + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE_MG.getAlias(), "1000.0 *" + "(" + unit_application_rate + ")");
 
-    QueryUtil
-        .setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATIO.getAlias(), unit_application_ratio);
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATIO.getAlias(), unit_application_ratio);
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_OPERATIONAL_COVERAGE.getAlias(),
-        unit_operational_coverage + " * 100.0");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_OPERATIONAL_COVERAGE.getAlias(), unit_operational_coverage + " * 100.0");
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_ROOMS_SPRAYED.getAlias(), "("
-        + unit_operational_coverage + ") * SUM(" + Alias.ROOMS.getAlias() + ")");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_ROOMS_SPRAYED.getAlias(), "(" + unit_operational_coverage + ") * SUM(" + Alias.ROOMS.getAlias() + ")");
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_STRUCTURES_SPRAYED.getAlias(), "("
-        + unit_operational_coverage + ") * SUM(" + Alias.STRUCTURES.getAlias() + ")");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_STRUCTURES_SPRAYED.getAlias(), "(" + unit_operational_coverage + ") * SUM(" + Alias.STRUCTURES.getAlias() + ")");
 
-    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_HOUSEHOLDS_SPRAYED.getAlias(), "("
-        + unit_operational_coverage + ") * SUM(" + Alias.HOUSEHOLDS.getAlias() + ")");
+    QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_HOUSEHOLDS_SPRAYED.getAlias(), "(" + unit_operational_coverage + ") * SUM(" + Alias.HOUSEHOLDS.getAlias() + ")");
   }
 
   /**
@@ -1094,9 +1005,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void discoverDateGroups()
   {
-    String[] groups = new String[] { QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_MONTH,
-        QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_CALENDARYEAR,
-        QueryUtil.DATEGROUP_SEASON };
+    String[] groups = new String[] { QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_MONTH, QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_CALENDARYEAR, QueryUtil.DATEGROUP_SEASON };
 
     for (String group : groups)
     {
@@ -1108,8 +1017,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * The sex attributes on operator, leader, and supervisor in the team details
-   * requires custom logic.
+   * The sex attributes on operator, leader, and supervisor in the team details requires custom logic.
    * 
    * FIXME push these into a join instead of subselect
    */
@@ -1138,8 +1046,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Custom deviation from QueryUtil.leftJoinTermDisplayLabels() to accommodate
-   * IRS.
+   * Custom deviation from QueryUtil.leftJoinTermDisplayLabels() to accommodate IRS.
    * 
    * @param sexSel
    * @param p
@@ -1160,11 +1067,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * If the original query contains planned targets (operator planned target, team planned target, or area planned target), then 
-   * we join the planned target aggregation results with the original query. This is done by creating a new IRSQB, running it,
-   * and then printing it at the top of our SQL output in a 'with' clause ( i.e. with teamAggregation as ( ... ) ). We then create
-   * another value query (finalVQ) and select from originalVQ FULL OUTER JOIN teamAggregation. originalVQ is the (this) value query
-   * and it queries the actuals.
+   * If the original query contains planned targets (operator planned target, team planned target, or area planned target), then we join the planned target aggregation results with the original query. This is done by creating a new IRSQB, running it, and then printing it at the top of our SQL output in a 'with' clause ( i.e. with teamAggregation as ( ... ) ). We then create another value query (finalVQ) and select from originalVQ FULL OUTER JOIN teamAggregation. originalVQ is the (this) value query and it queries the actuals.
    */
   @Override
   protected ValueQuery postProcess(ValueQuery originalVQ)
@@ -1175,7 +1078,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       return super.postProcess(originalVQ);
     }
-    
+
     List<WITHEntry> entries = new LinkedList<WITHEntry>();
     ValueQuery finalVQ = null; // This value query is the one that gets returned from this function
     ValueQuery aggVQ = null; // The aggregate value query gets printed at the top in a 'with' statement
@@ -1187,29 +1090,24 @@ public class IRSQB extends AbstractQB implements Reloadable
     // Push the original query into the FROM clause of the outer query
     // and join on the aggregation. Make sure to include every selectable that
     // is required for the join
-    SelectableSQL seasonJoin = originalVQ.aSQLCharacter(
-        this.sprayViewAlias + "_" + Alias.SPRAY_SEASON.getAlias(), this.sprayViewAlias + "."
-            + Alias.SPRAY_SEASON.getAlias(), Alias.SPRAY_SEASON.getAlias());
+    SelectableSQL seasonJoin = originalVQ.aSQLCharacter(this.sprayViewAlias + "_" + Alias.SPRAY_SEASON.getAlias(), this.sprayViewAlias + "." + Alias.SPRAY_SEASON.getAlias(), Alias.SPRAY_SEASON.getAlias());
     seasonJoin.setColumnAlias(this.sprayViewAlias + "_" + Alias.SPRAY_SEASON.getAlias());
 
-    Selectable diseaseJoin = originalVQ.aSQLCharacter(
-        this.sprayViewAlias + "_" + Alias.DISEASE.getAlias(),
-        this.sprayViewAlias + "." + Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
+    Selectable diseaseJoin = originalVQ.aSQLCharacter(this.sprayViewAlias + "_" + Alias.DISEASE.getAlias(), this.sprayViewAlias + "." + Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
     diseaseJoin.setColumnAlias(this.sprayViewAlias + "_" + Alias.DISEASE.getAlias());
-    
+
     List<String> partitionBy = new LinkedList<String>();
-    for(String group : this.dategroups.values())
+    for (String group : this.dategroups.values())
     {
       partitionBy.add(group);
     }
     partitionBy.add(seasonJoin.getColumnAlias());
     partitionBy.add(seasonJoin.getColumnAlias());
-    
 
     if (this.needsAreaPlanned)
     {
       Set<String> toCoalesce = new HashSet<String>();
-      
+
       String areaAggregation = "areaAggregation";
       aggregateAlias = areaAggregation;
 
@@ -1217,11 +1115,10 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         finalVQ = new ValueQuery(originalVQ.getQueryFactory());
         // Select all of the columns from the original
-        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias,
-            false, null);
+        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias, false, null);
         finalVQ.SELECT(copies);
       }
-      
+
       // We need to aggregate targets based on the lowest universal. In the original query we need
       // to set the parent geo entity to the id of the universal it was joined with
       // Grab the id column of the smallest universal (used for aggreation later on). This is tricky,
@@ -1235,7 +1132,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps
       // the original.
-      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.AREA);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.AREA, this.getDisease());
 
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -1248,41 +1145,37 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
       Selectable smallestUni = aggVQ.getSelectableRef(this.smallestUniversalSelectable);
-      Selectable apt = aggVQ.aSQLAggregateInteger(Alias.AREA_PLANNED_TARGET.getAlias(),
-           Alias.AREA_PLANNED_TARGET.getAlias());
-      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
-          + "." + Alias.SPRAY_SEASON.getAlias());
-      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
-          + Alias.DISEASE.getAlias());
+      Selectable apt = aggVQ.aSQLAggregateInteger(Alias.AREA_PLANNED_TARGET.getAlias(), Alias.AREA_PLANNED_TARGET.getAlias());
+      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias + "." + Alias.SPRAY_SEASON.getAlias());
+      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "." + Alias.DISEASE.getAlias());
 
-      Selectable parentGeo = aggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(),
-          parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
+      Selectable parentGeo = aggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(), parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
-      
-      for(Universal u : this.universals.values())
+
+      for (Universal u : this.universals.values())
       {
         String geoId = u.getGeoIdAlias();
         String entityName = u.getEntityNameAlias();
-        
+
         Selectable geoIdSel = originalVQ.getSelectableRef(geoId);
         Selectable entityNameSel = originalVQ.getSelectableRef(entityName);
-        
-        if(!geoId.equals(smallestUni.getUserDefinedAlias()))
+
+        if (!geoId.equals(smallestUni.getUserDefinedAlias()))
         {
           Selectable s = aggVQ.aSQLCharacter(geoIdSel._getAttributeName(), geoIdSel.getSQL(), geoIdSel.getUserDefinedAlias());
           s.setColumnAlias(originalVQ.getSelectableRef(geoId).getColumnAlias());
-          
+
           toAdd.put(s.getResultAttributeName(), s);
         }
-      
+
         Selectable s = aggVQ.aSQLCharacter(entityNameSel._getAttributeName(), entityNameSel.getSQL(), entityNameSel.getUserDefinedAlias());
         s.setColumnAlias(originalVQ.getSelectableRef(entityName).getColumnAlias());
         toAdd.put(s.getResultAttributeName(), s);
-        
+
         toCoalesce.add(geoId);
         toCoalesce.add(entityName);
       }
-      
+
       toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
       toAdd.put(smallestUni.getResultAttributeName(), smallestUni);
       toAdd.put(apt.getResultAttributeName(), apt);
@@ -1298,8 +1191,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // Group by the universal column that is the parent geo entity
       // Create a new selectable to group by the universal id
-      SelectableSQL universalGroup = aggVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
-          PARENT_UNIVERSAL_ID);
+      SelectableSQL universalGroup = aggVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
       universalGroup.setColumnAlias(universalGroup.getSQL());
       aggVQ.GROUP_BY(universalGroup);
 
@@ -1319,12 +1211,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       qb.resetSelectAliases(resetAliases);
-      
+
       // Make sure we preserve any relevant planning selectables from the original query.
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
-      for (Selectable sel : sels) {
+      for (Selectable sel : sels)
+      {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias != null && (alias.hasView(View.PLANNED_AREA) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
+        if (alias != null && ( alias.hasView(View.PLANNED_AREA) || alias.hasView(View.RESOURCE_TARGET_VIEW) ))
+        {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
@@ -1337,58 +1231,47 @@ public class IRSQB extends AbstractQB implements Reloadable
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
       qb.finishConstruct();
 
-      
       // Create a new selectable to group by the universal
-      if(originalVQ.isGrouping())
+      if (originalVQ.isGrouping())
       {
-        SelectableSQL targetGroup = irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId,
-            PARENT_UNIVERSAL_ID);
+        SelectableSQL targetGroup = irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
         targetGroup.setColumnAlias(targetGroup.getSQL());
 
         irsVQ.GROUP_BY(targetGroup);
       }
-      
+
       parentGeo = originalVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(), parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
       originalVQ.SELECT(parentGeo);
 
-//      boolean hasAPC = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
-//      boolean hasAPT = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
-      
+      // boolean hasAPC = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
+      // boolean hasAPT = valueQuery.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+
       // Coverage requires activity and APT, meaning unless the user also selects
       // APT there will be empty rows for every APT result for which there's no activity.
       String joinType = "FULL OUTER JOIN";
-      
-      FROM += " " + joinType + " " + areaAggregation + " ON "
-          + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + areaAggregation + "." + season._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "." + disease._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + Alias.PARENT_GEO_ENTITY + " = " + areaAggregation + "." + Alias.PARENT_GEO_ENTITY + " \n";
+
+      FROM += " " + joinType + " " + areaAggregation + " ON " + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + areaAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + areaAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalAlias + "." + Alias.PARENT_GEO_ENTITY + " = " + areaAggregation + "." + Alias.PARENT_GEO_ENTITY + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
-        FROM += "AND " + originalAlias + "." + dateGroup + " = " + areaAggregation + "." + dateGroup
-            + " \n";
+        FROM += "AND " + originalAlias + "." + dateGroup + " = " + areaAggregation + "." + dateGroup + " \n";
       }
 
       // The aggregation query needs to sum the area planned targets
-      SelectableSQL aptSel = (SelectableSQL) aggVQ
-          .getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
-      String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId
-          + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "."
-          + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
+      SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+      String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "." + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
       aptSel.setSQL(func);
-      
-      String targetGroupName = "grouping_"+Alias.TARGET_WEEK;
-      SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, aggAlias+"."+Alias.TARGET_WEEK,
-          targetGroupName);
+
+      String targetGroupName = "grouping_" + Alias.TARGET_WEEK;
+      SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, aggAlias + "." + Alias.TARGET_WEEK, targetGroupName);
       targetGroup.setColumnAlias(targetGroup.getSQL());
       aggVQ.GROUP_BY(targetGroup);
-      
+
       // Now that everything is joined, grab the area planned target value from
       // the aggregation query
       if (finalVQ.hasSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias()))
       {
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET
-            .getAlias());
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
         aptReplace.setSQL(areaAggregation + "." + Alias.AREA_PLANNED_TARGET);
       }
 
@@ -1399,52 +1282,49 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!originalVQ.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
-          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
-              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sumSprayedUnits = "SUM(" + this.sprayedUnits + ")";
+          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(), sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           originalVQ.SELECT(sprayedUnits);
         }
 
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.AREA_PLANNED_COVERAGE
-            .getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + areaAggregation + "."
-            + Alias.AREA_PLANNED_TARGET + ",0)*100.0");
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + areaAggregation + "." + Alias.AREA_PLANNED_TARGET + ",0)*100.0");
       }
-      
+
       // Set the aggregation as a subquery in the WITH clause
-      
+
       ValueQuery uniqueSum = queryFactory.valueQuery();
-      
+
       Selectable[] originals = this.copyAll(aggVQ, aggVQ.getSelectableRefs(), null, false, null);
       List<SelectablePrimitive> distincts = new LinkedList<SelectablePrimitive>();
-      for(Selectable original : originals)
+      for (Selectable original : originals)
       {
         // Target week is required for the APT calculation but unless it's also
         // selected as a field don't include it to avoid splitting the rows.
         distincts.add((SelectablePrimitive) original);
       }
       uniqueSum.SELECT_DISTINCT(distincts.toArray(new SelectablePrimitive[distincts.size()]));
-      
+
       partitionBy.add(smallestUniversal.getColumnAlias());
       String overWindow = StringUtils.join(partitionBy, ",");
-      
+
       SelectableSQL aptOver = (SelectableSQL) uniqueSum.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
-      String over = "SUM("+Alias.AREA_PLANNED_TARGET+") OVER(PARTITION BY "+overWindow+")";
+      String over = "SUM(" + Alias.AREA_PLANNED_TARGET + ") OVER(PARTITION BY " + overWindow + ")";
       aptOver.setSQL(over);
-      
-      uniqueSum.FROM("("+aggVQ.getSQL()+")", "uniqueSum");
-      
-      for(Selectable sel : finalVQ.getSelectableRefs())
+
+      uniqueSum.FROM("(" + aggVQ.getSQL() + ")", "uniqueSum");
+
+      for (Selectable sel : finalVQ.getSelectableRefs())
       {
         String alias = sel.getUserDefinedAlias();
-        if(toCoalesce.contains(alias))
+        if (toCoalesce.contains(alias))
         {
           String col = sel.getColumnAlias();
           SelectableSQL selSQL = (SelectableSQL) sel;
-          selSQL.setSQL("COALESCE("+areaAggregation+"."+col+", "+originalAlias+"."+col+")");
+          selSQL.setSQL("COALESCE(" + areaAggregation + "." + col + ", " + originalAlias + "." + col + ")");
         }
       }
-      
+
       entries.add(new WITHEntry(areaAggregation, uniqueSum.getSQL()));
       this.setWITHClause(entries, false, finalVQ);
     }
@@ -1453,13 +1333,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (this.needsOperatorPlanned)
     {
       Set<String> toCoalesce = new HashSet<String>();
-      
+
       if (finalVQ == null)
       {
         finalVQ = new ValueQuery(originalVQ.getQueryFactory());
         // Select all of the columns from the original
-        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias,
-            false, null);
+        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias, false, null);
         finalVQ.SELECT(copies);
       }
 
@@ -1470,8 +1349,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps
       // the original.
-      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null,
-          AggregationQueryType.OPERATOR);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.OPERATOR, this.getDisease());
 
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -1483,19 +1361,13 @@ public class IRSQB extends AbstractQB implements Reloadable
       aggVQ = qb.getValueQuery();
 
       HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>(); // We're using a HashMap here so as to guarantee no duplicates
-      
+
       // Add the selectables required for joining our inner IRSQB table with the outer.
-      Selectable opt = aggVQ.aSQLAggregateInteger(Alias.OPERATOR_PLANNED_TARGET.getAlias(),
-          Alias.OPERATOR_PLANNED_TARGET.getAlias());
-      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
-          + "." + Alias.SPRAY_SEASON.getAlias());
-      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
-          + Alias.DISEASE.getAlias());
-      
-      Selectable parentGeo = aggVQ
-          .aSQLCharacter(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(),
-              Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(),
-              Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
+      Selectable opt = aggVQ.aSQLAggregateInteger(Alias.OPERATOR_PLANNED_TARGET.getAlias(), Alias.OPERATOR_PLANNED_TARGET.getAlias());
+      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias + "." + Alias.SPRAY_SEASON.getAlias());
+      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "." + Alias.DISEASE.getAlias());
+
+      Selectable parentGeo = aggVQ.aSQLCharacter(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
       parentGeo.setColumnAlias(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
       toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
       toAdd.put(opt.getResultAttributeName(), opt);
@@ -1508,8 +1380,6 @@ public class IRSQB extends AbstractQB implements Reloadable
         toAdd.put(sel.getResultAttributeName(), sel);
         toCoalesce.add(group);
       }
-      
-      
 
       // set the user defined alias to the attribute name
       Iterator<Selectable> iter = toAdd.values().iterator();
@@ -1528,13 +1398,15 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // Make sure we preserve any relevant planning selectables from the original query.
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
-      for (Selectable sel : sels) {
+      for (Selectable sel : sels)
+      {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias != null && (alias.hasView(View.PLANNED_OPERATOR) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
+        if (alias != null && ( alias.hasView(View.PLANNED_OPERATOR) || alias.hasView(View.RESOURCE_TARGET_VIEW) ))
+        {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
-      
+
       qb.resetSelectAliases(resetAliases);
 
       // replace the selectables
@@ -1544,33 +1416,26 @@ public class IRSQB extends AbstractQB implements Reloadable
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), aggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
       qb.finishConstruct();
-      
+
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " FULL OUTER JOIN " + operatorAggregation + " ON "
-          + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + operatorAggregation + "." + disease._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
+      FROM += " FULL OUTER JOIN " + operatorAggregation + " ON " + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + operatorAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalAlias + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
-        FROM += "AND " + originalAlias + "." + dateGroup + " = " + operatorAggregation + "." + dateGroup
-            + " \n";
+        FROM += "AND " + originalAlias + "." + dateGroup + " = " + operatorAggregation + "." + dateGroup + " \n";
       }
 
       // The aggregation query needs to sum the operator planned targets
-      SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET
-          .getAlias());
-      String sum = sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias,
-          Alias.OPERATOR_PLANNED_TARGET.getAlias());
+      SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias());
+      String sum = sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias, Alias.OPERATOR_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
       // Now that everything is joined, grab the area planned target value from
       // the aggregation query
       if (finalVQ.hasSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias()))
       {
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ
-            .getSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias());
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias());
         aptReplace.setSQL(operatorAggregation + "." + Alias.OPERATOR_PLANNED_TARGET);
       }
 
@@ -1581,16 +1446,13 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!originalVQ.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
-          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
-              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sumSprayedUnits = "SUM(" + this.sprayedUnits + ")";
+          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(), sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           originalVQ.SELECT(sprayedUnits);
         }
 
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ
-            .getSelectableRef(Alias.OPERATOR_PLANNED_COVERAGE.getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + operatorAggregation + "."
-            + Alias.OPERATOR_PLANNED_TARGET + ",0)*100.0");
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.OPERATOR_PLANNED_COVERAGE.getAlias());
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + operatorAggregation + "." + Alias.OPERATOR_PLANNED_TARGET + ",0)*100.0");
       }
 
       if (finalVQ.hasSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias()))
@@ -1598,43 +1460,40 @@ public class IRSQB extends AbstractQB implements Reloadable
         if (!originalVQ.hasSelectableRef(Alias.OPERATOR_ACTUAL_TARGET.getAlias()))
         {
           String sql = this.sumOperatorActualTargets();
-          SelectableSQL actual = originalVQ.aSQLInteger(Alias.OPERATOR_ACTUAL_TARGET.getAlias(), sql,
-              Alias.OPERATOR_ACTUAL_TARGET.getAlias());
+          SelectableSQL actual = originalVQ.aSQLInteger(Alias.OPERATOR_ACTUAL_TARGET.getAlias(), sql, Alias.OPERATOR_ACTUAL_TARGET.getAlias());
           originalVQ.SELECT(actual);
         }
 
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ
-            .getSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias());
-        String sql = "(" + Alias.OPERATOR_ACTUAL_TARGET + "/NULLIF(" + operatorAggregation + "."
-            + Alias.OPERATOR_PLANNED_TARGET + ",0))*100.0";
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias());
+        String sql = "(" + Alias.OPERATOR_ACTUAL_TARGET + "/NULLIF(" + operatorAggregation + "." + Alias.OPERATOR_PLANNED_TARGET + ",0))*100.0";
         aptReplace.setSQL(sql);
       }
-      
+
       // Because we're doing a right join, which makes the planned operator targets more important,
       // just grab the default locale from operatorAggregation as it will always have a value
-      for(Selectable aggSel : aggVQ.getSelectableRefs())
+      for (Selectable aggSel : aggVQ.getSelectableRefs())
       {
         String alias = aggSel.getUserDefinedAlias();
-        if(originalVQ.hasSelectableRef(alias) && finalVQ.hasSelectableRef(alias))
+        if (originalVQ.hasSelectableRef(alias) && finalVQ.hasSelectableRef(alias))
         {
           SelectableSQL swap = (SelectableSQL) finalVQ.getSelectableRef(alias);
           String col = swap.getColumnAlias();
-          String c = "COALESCE("+operatorAggregation+"."+swap.getColumnAlias()+", "+originalAlias+"."+col+")";
+          String c = "COALESCE(" + operatorAggregation + "." + swap.getColumnAlias() + ", " + originalAlias + "." + col + ")";
           swap.setSQL(c);
         }
       }
 
-      for(Selectable sel : finalVQ.getSelectableRefs())
+      for (Selectable sel : finalVQ.getSelectableRefs())
       {
         String alias = sel.getUserDefinedAlias();
-        if(toCoalesce.contains(alias))
+        if (toCoalesce.contains(alias))
         {
           String col = sel.getColumnAlias();
           SelectableSQL selSQL = (SelectableSQL) sel;
-          selSQL.setSQL("COALESCE("+operatorAggregation+"."+col+", "+originalAlias+"."+col+")");
+          selSQL.setSQL("COALESCE(" + operatorAggregation + "." + col + ", " + originalAlias + "." + col + ")");
         }
       }
-      
+
       // Set the aggregation as a subquery in the WITH clause
       entries.add(new WITHEntry(operatorAggregation, aggVQ.getSQL()));
     }
@@ -1642,13 +1501,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (this.needsTeamsPlanned)
     {
       Set<String> toCoalesce = new HashSet<String>();
-      
+
       if (finalVQ == null)
       {
         finalVQ = new ValueQuery(originalVQ.getQueryFactory());
         // Select all of the columns from the original
-        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias,
-            false, null);
+        Selectable[] copies = this.copyAll(originalVQ, originalVQ.getSelectableRefs(), originalAlias, false, null);
         finalVQ.SELECT(copies);
       }
 
@@ -1659,7 +1517,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // universals selected.
       // The new query will be a WITH clause entry on the outer query that wraps
       // the original.
-      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.TEAM);
+      IRSQB qb = new IRSQB(this.getXml(), this.getConfig(), null, null, null, AggregationQueryType.TEAM, this.getDisease());
 
       // modify the value query to remove unwanted Selectables
       qb.initialConstruct();
@@ -1669,19 +1527,15 @@ public class IRSQB extends AbstractQB implements Reloadable
       String aggAlias = qb.getQueryMap().get(AbstractSpray.CLASS).getTableAlias();
 
       aggVQ = qb.getValueQuery();
-      
-      HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
-      Selectable opt = aggVQ.aSQLAggregateInteger(Alias.TEAM_PLANNED_TARGET.getAlias(),
-          Alias.TEAM_PLANNED_TARGET.getAlias());
-      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias
-          + "." + Alias.SPRAY_SEASON.getAlias());
-      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "."
-          + Alias.DISEASE.getAlias());
 
-      Selectable parentGeo = aggVQ.aSQLCharacter(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(),
-          Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
+      HashMap<String, Selectable> toAdd = new HashMap<String, Selectable>();
+      Selectable opt = aggVQ.aSQLAggregateInteger(Alias.TEAM_PLANNED_TARGET.getAlias(), Alias.TEAM_PLANNED_TARGET.getAlias());
+      Selectable season = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias + "." + Alias.SPRAY_SEASON.getAlias());
+      Selectable disease = aggVQ.aSQLCharacter(aggAlias + "_" + Alias.DISEASE.getAlias(), aggAlias + "." + Alias.DISEASE.getAlias());
+
+      Selectable parentGeo = aggVQ.aSQLCharacter(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias(), Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
       parentGeo.setColumnAlias(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
-      
+
       toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
       toAdd.put(opt.getResultAttributeName(), opt);
       toAdd.put(season.getResultAttributeName(), season);
@@ -1711,12 +1565,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       qb.resetSelectAliases(resetAliases);
-      
+
       // Make sure we preserve any relevant planning selectables from the original query.
       List<Selectable> sels = qb.getValueQuery().getSelectableRefs();
-      for (Selectable sel : sels) {
+      for (Selectable sel : sels)
+      {
         Alias alias = AliasLookup.get(sel.getResultAttributeName());
-        if (alias != null && (alias.hasView(View.PLANNED_TEAM) || alias.hasView(View.RESOURCE_TARGET_VIEW))) {
+        if (alias != null && ( alias.hasView(View.PLANNED_TEAM) || alias.hasView(View.RESOURCE_TARGET_VIEW) ))
+        {
           toAdd.put(sel.getResultAttributeName(), sel);
         }
       }
@@ -1732,29 +1588,22 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " FULL OUTER JOIN " + teamAggregation + " ON "
-          + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + teamAggregation + "." + season._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + teamAggregation + "." + disease._getAttributeName() + " \n"
-          + "AND " + originalAlias + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = " + teamAggregation + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " \n";
+      FROM += " FULL OUTER JOIN " + teamAggregation + " ON " + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + teamAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + teamAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalAlias + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " = " + teamAggregation + "." + Alias.SPRAY_TEAM_DEFAULT_LOCALE + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
-        FROM += "AND " + originalAlias + "." + dateGroup + " = " + teamAggregation + "." + dateGroup
-            + " \n";
+        FROM += "AND " + originalAlias + "." + dateGroup + " = " + teamAggregation + "." + dateGroup + " \n";
       }
 
       // The aggregation query needs to sum the team planned targets
-      SelectableSQL aptSel = (SelectableSQL) aggVQ
-          .getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
-      String sum = this.sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(),
-          sprayViewAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
+      SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
+      String sum = this.sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
       // Now that everything is joined, grab the area planned target value from
       // the aggregation query
       if (finalVQ.hasSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias()))
       {
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.TEAM_PLANNED_TARGET
-            .getAlias());
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
         aptReplace.setSQL(teamAggregation + "." + Alias.TEAM_PLANNED_TARGET);
       }
 
@@ -1765,16 +1614,13 @@ public class IRSQB extends AbstractQB implements Reloadable
         // so the outer query can reference it
         if (!originalVQ.hasSelectableRef(Alias.SPRAYED_UNITS.getAlias()))
         {
-          String sumSprayedUnits = "SUM("+this.sprayedUnits+")";
-          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(),
-              sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
+          String sumSprayedUnits = "SUM(" + this.sprayedUnits + ")";
+          SelectableSQL sprayedUnits = originalVQ.aSQLAggregateInteger(Alias.SPRAYED_UNITS.getAlias(), sumSprayedUnits, Alias.SPRAYED_UNITS.getAlias());
           originalVQ.SELECT(sprayedUnits);
         }
 
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.TEAM_PLANNED_COVERAGE
-            .getAlias());
-        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + teamAggregation + "."
-            + Alias.TEAM_PLANNED_TARGET + ",0)*100.0");
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.TEAM_PLANNED_COVERAGE.getAlias());
+        aptReplace.setSQL(Alias.SPRAYED_UNITS.getAlias() + "/NULLIF(" + teamAggregation + "." + Alias.TEAM_PLANNED_TARGET + ",0)*100.0");
       }
 
       if (finalVQ.hasSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias()))
@@ -1782,15 +1628,12 @@ public class IRSQB extends AbstractQB implements Reloadable
         if (!originalVQ.hasSelectableRef(Alias.TEAM_ACTUAL_TARGET.getAlias()))
         {
           String sql = this.sumTeamActualTargets();
-          SelectableSQL actual = originalVQ.aSQLInteger(Alias.TEAM_ACTUAL_TARGET.getAlias(), sql,
-              Alias.TEAM_ACTUAL_TARGET.getAlias());
+          SelectableSQL actual = originalVQ.aSQLInteger(Alias.TEAM_ACTUAL_TARGET.getAlias(), sql, Alias.TEAM_ACTUAL_TARGET.getAlias());
           originalVQ.SELECT(actual);
         }
 
-        SelectableSQL aptReplace = (SelectableSQL) finalVQ
-            .getSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias());
-        String sql = "(" + Alias.TEAM_ACTUAL_TARGET + "/NULLIF(" + teamAggregation + "."
-            + Alias.TEAM_PLANNED_TARGET + ",0))*100.0";
+        SelectableSQL aptReplace = (SelectableSQL) finalVQ.getSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias());
+        String sql = "(" + Alias.TEAM_ACTUAL_TARGET + "/NULLIF(" + teamAggregation + "." + Alias.TEAM_PLANNED_TARGET + ",0))*100.0";
         aptReplace.setSQL(sql);
       }
 
@@ -1802,9 +1645,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       // Set the window count (the total result set).
       String windowCount = "count(*) over()";
-      SelectableSQLLong c = finalVQ.isGrouping() ? finalVQ.aSQLAggregateLong(WINDOW_COUNT_ALIAS,
-          windowCount, WINDOW_COUNT_ALIAS) : finalVQ.aSQLLong(WINDOW_COUNT_ALIAS, windowCount,
-          WINDOW_COUNT_ALIAS);
+      SelectableSQLLong c = finalVQ.isGrouping() ? finalVQ.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) : finalVQ.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
 
       finalVQ.SELECT(c);
       finalVQ.setCountSelectable(c);
@@ -1813,7 +1654,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       originalVQ.SELECT(seasonJoin, diseaseJoin);
       this.setWITHClause(entries, false, finalVQ);
       finalVQ.FROM("(" + originalVQ.getSQL() + ")", FROM);
-      
+
       coalesceSelects(finalVQ, aggVQ, originalAlias, aggregateAlias);
     }
     else
@@ -1823,13 +1664,13 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     return finalVQ;
   }
-  
+
   protected String sumDistinctColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
     return "SUM(DISTINCT " + col + ")";
   }
-  
+
   protected String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
@@ -1875,23 +1716,19 @@ public class IRSQB extends AbstractQB implements Reloadable
     String[] insecticideAliases = new String[] {
 
         // insecticide usage
-        Alias.RECEIVED.getAlias(), Alias.USED.getAlias(), Alias.REFILLS.getAlias(),
-        Alias.RETURNED.getAlias() };
+        Alias.RECEIVED.getAlias(), Alias.USED.getAlias(), Alias.REFILLS.getAlias(), Alias.RETURNED.getAlias() };
 
     if (this.setAttributesAsAggregated(insecticideAliases, idCol, irsVQ, sprayViewAlias, true) > 0)
     {
       // JN change: might not need sprayed units based on the above aliases
-      //this.needsSprayedUnits = true;
+      // this.needsSprayedUnits = true;
       // needUniqueSprayId = true;
     }
 
     String[] sprayDetails = new String[] {
 
         // spray details (attributes defined by HouseholdSprayStatus)
-        Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(),
-        Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(),
-        Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(),
-        Alias.WRONG_SURFACE.getAlias(), Alias.PEOPLE.getAlias() };
+        Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(), Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(), Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(), Alias.WRONG_SURFACE.getAlias(), Alias.PEOPLE.getAlias() };
 
     // spray details are unique by the household and structure id
     String detailUniqueId = this.getUniqueSprayDetailsId();
@@ -1916,8 +1753,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   /**
    * Adds the custom date criteria.
    */
-  public Condition addDateCriteria(String tableAlias, boolean addPlanned, String operatorDOB,
-      String leaderDOB, String supervisorDOB)
+  public Condition addDateCriteria(String tableAlias, boolean addPlanned, String operatorDOB, String leaderDOB, String supervisorDOB)
   {
     try
     {
@@ -1948,13 +1784,11 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
         else
         {
-          throw new ProgrammingErrorException("The class [" + klass
-              + "] is not supported as IRS date criteria.");
+          throw new ProgrammingErrorException("The class [" + klass + "] is not supported as IRS date criteria.");
         }
 
         Condition cond1 = null;
-        if (dateObj.has(QueryUtil.DATE_START) && !dateObj.isNull(QueryUtil.DATE_START)
-            && !dateObj.getString(QueryUtil.DATE_START).equals("null"))
+        if (dateObj.has(QueryUtil.DATE_START) && !dateObj.isNull(QueryUtil.DATE_START) && !dateObj.getString(QueryUtil.DATE_START).equals("null"))
         {
           String startValue = dateObj.getString(QueryUtil.DATE_START);
           SelectableMoment startCrit = v.aSQLDate("start_val", "'" + startValue + "'");
@@ -1966,20 +1800,15 @@ public class IRSQB extends AbstractQB implements Reloadable
             {
               // FIXME this is a hack for Level 3, which doesn't have operators.
               // Refactor with selectable dependencies
-              cond1 = AND.get(v.aSQLDate("leader_birthdate_start", prepend + leaderDOB).GE(startCrit), v
-                  .aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
+              cond1 = AND.get(v.aSQLDate("leader_birthdate_start", prepend + leaderDOB).GE(startCrit), v.aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
 
             }
             else
             {
-              cond1 = AND.get(v.aSQLDate("operator_birthdate_start", prepend + operatorDOB)
-                  .GE(startCrit), v.aSQLDate("leader_birthdate_start", prepend + leaderDOB)
-                  .GE(startCrit),
-                  v.aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
+              cond1 = AND.get(v.aSQLDate("operator_birthdate_start", prepend + operatorDOB).GE(startCrit), v.aSQLDate("leader_birthdate_start", prepend + leaderDOB).GE(startCrit), v.aSQLDate("supervisor_birthdate_start", prepend + supervisorDOB).GE(startCrit));
             }
 
-            Alias[] dates = new Alias[] { Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE,
-                Alias.ZONE_SUPERVISOR_BIRTHDATE };
+            Alias[] dates = new Alias[] { Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE, Alias.ZONE_SUPERVISOR_BIRTHDATE };
             this.addPlannedAlias(dates);
             this.addRequiredAlias(View.ALL_ACTUALS, dates);
           }
@@ -1987,9 +1816,7 @@ public class IRSQB extends AbstractQB implements Reloadable
           {
             if (addPlanned)
             {
-              cond1 = OR.get(v.aSQLDate("planned_start_date", prepend + Alias.PLANNED_DATE)
-                  .GE(startCrit),
-                  v.aSQLDate("spray_start_date", prepend + Alias.SPRAY_DATE).GE(startCrit));
+              cond1 = OR.get(v.aSQLDate("planned_start_date", prepend + Alias.PLANNED_DATE).GE(startCrit), v.aSQLDate("spray_start_date", prepend + Alias.SPRAY_DATE).GE(startCrit));
               this.addPlannedAlias(Alias.PLANNED_DATE);
               this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
@@ -2004,8 +1831,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         }
 
         Condition cond2 = null;
-        if (dateObj.has(QueryUtil.DATE_END) && !dateObj.isNull(QueryUtil.DATE_END)
-            && !dateObj.getString(QueryUtil.DATE_END).equals("null"))
+        if (dateObj.has(QueryUtil.DATE_END) && !dateObj.isNull(QueryUtil.DATE_END) && !dateObj.getString(QueryUtil.DATE_END).equals("null"))
         {
           String endValue = dateObj.getString(QueryUtil.DATE_END);
           SelectableMoment endCrit = irsVQ.aSQLDate("start_val", "'" + endValue + "'");
@@ -2016,18 +1842,14 @@ public class IRSQB extends AbstractQB implements Reloadable
             {
               // FIXME this is a hack for Level 3, which doesn't have operators.
               // Refactor with selectable dependencies
-              cond2 = AND.get(v.aSQLDate("leader_birthdate_end", prepend + leaderDOB).LE(endCrit), v
-                  .aSQLDate("supervisor_birthdate_end", prepend + supervisorDOB).LE(endCrit));
+              cond2 = AND.get(v.aSQLDate("leader_birthdate_end", prepend + leaderDOB).LE(endCrit), v.aSQLDate("supervisor_birthdate_end", prepend + supervisorDOB).LE(endCrit));
             }
             else
             {
-              cond2 = AND.get(v.aSQLDate("operator_birthdate_end", prepend + operatorDOB).LE(endCrit), v
-                  .aSQLDate("leader_birthdate_end", prepend + leaderDOB).LE(endCrit),
-                  v.aSQLDate("supervisor_birthdate_end", prepend + supervisorDOB).LE(endCrit));
+              cond2 = AND.get(v.aSQLDate("operator_birthdate_end", prepend + operatorDOB).LE(endCrit), v.aSQLDate("leader_birthdate_end", prepend + leaderDOB).LE(endCrit), v.aSQLDate("supervisor_birthdate_end", prepend + supervisorDOB).LE(endCrit));
             }
 
-            Alias[] dates = new Alias[] { Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE,
-                Alias.ZONE_SUPERVISOR_BIRTHDATE };
+            Alias[] dates = new Alias[] { Alias.SPRAY_OPERATOR_BIRTHDATE, Alias.SPRAY_LEADER_BIRTHDATE, Alias.ZONE_SUPERVISOR_BIRTHDATE };
             this.addPlannedAlias(dates);
             this.addRequiredAlias(View.ALL_ACTUALS, dates);
           }
@@ -2035,8 +1857,7 @@ public class IRSQB extends AbstractQB implements Reloadable
           {
             if (addPlanned)
             {
-              cond2 = OR.get(v.aSQLDate("planned_end_date", prepend + Alias.PLANNED_DATE).LE(endCrit), v
-                  .aSQLDate("spray_end_date", prepend + Alias.SPRAY_DATE).LE(endCrit));
+              cond2 = OR.get(v.aSQLDate("planned_end_date", prepend + Alias.PLANNED_DATE).LE(endCrit), v.aSQLDate("spray_end_date", prepend + Alias.SPRAY_DATE).LE(endCrit));
               this.addPlannedAlias(Alias.PLANNED_DATE);
               this.addRequiredAlias(View.ALL_ACTUALS, Alias.SPRAY_DATE);
             }
@@ -2064,7 +1885,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     this.parentAggregates.add(alias);
   }
-  
+
   public boolean hasParentAggregate(Alias alias)
   {
     return this.parentAggregates.contains(alias);
@@ -2079,10 +1900,10 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     return this.childAggregates.contains(alias);
   }
-  
+
   public boolean isAggregate(Alias alias)
   {
-    if(this.irsVQ.hasSelectableRef(alias.getAlias()))
+    if (this.irsVQ.hasSelectableRef(alias.getAlias()))
     {
       return this.irsVQ.getSelectableRef(alias.toString()).isAggregateFunction();
     }
@@ -2091,10 +1912,10 @@ public class IRSQB extends AbstractQB implements Reloadable
       return false;
     }
   }
-  
+
   public Selectable get(Alias alias)
   {
-    if(this.irsVQ.hasSelectableRef(alias.getAlias()))
+    if (this.irsVQ.hasSelectableRef(alias.getAlias()))
     {
       return this.irsVQ.getSelectableRef(alias.getAlias());
     }
@@ -2105,8 +1926,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Joins the necessary tables to make the main query work (this also includes
-   * setting the proper WHERE criteria on dates).
+   * Joins the necessary tables to make the main query work (this also includes setting the proper WHERE criteria on dates).
    */
   private void joinMainQueryTables()
   {
@@ -2114,8 +1934,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // more than
     // once when other joins are added.
     String abstractSprayTable = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
-    IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol,
-        abstractSprayTable, this.sprayViewAlias);
+    IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol, abstractSprayTable, this.sprayViewAlias);
     irsVQ.AND(join);
 
     StringBuffer str = new StringBuffer();
@@ -2125,7 +1944,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     String leftTable = View.SPRAY_VIEW.getView();
     String leftAlias = this.sprayViewAlias;
     String insecticideView = View.INSECTICIDE_VIEW.getView();
-
 
     str.append(leftTable + " " + leftAlias);
 
@@ -2140,8 +1958,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
     {
-      str.append(" LEFT JOIN " + QueryUtil.GEO_DISPLAY_LABEL + " ON " + QueryUtil.GEO_DISPLAY_LABEL
-          + "." + idCol + " = " + this.sprayViewAlias + "." + Alias.GEO_ENTITY + " \n");
+      str.append(" LEFT JOIN " + QueryUtil.GEO_DISPLAY_LABEL + " ON " + QueryUtil.GEO_DISPLAY_LABEL + "." + idCol + " = " + this.sprayViewAlias + "." + Alias.GEO_ENTITY + " \n");
     }
 
     // Don't add anything regarding insecticide if the query is used for
@@ -2149,12 +1966,12 @@ public class IRSQB extends AbstractQB implements Reloadable
     // as aggregation has nothing to do with insecticide
     if (this.aggType == null)
     {
-//      System.out.println(insecticideVQ.getSQL());
+      // System.out.println(insecticideVQ.getSQL());
       if (insecticideQuery != null)
       {
-        SelectableSQLCharacter brand = irsVQ.aSQLCharacter("brand_join", this.sprayViewAlias+"."+Alias.BRAND.getAlias());
+        SelectableSQLCharacter brand = irsVQ.aSQLCharacter("brand_join", this.sprayViewAlias + "." + Alias.BRAND.getAlias());
         irsVQ.WHERE(this.insecticideQuery.getId().EQ(brand));
-        
+
         /*
         String insecticideId = insecticideVQ.getSelectableRef(InsecticideBrand.ID).getColumnAlias();
 
@@ -2194,29 +2011,25 @@ public class IRSQB extends AbstractQB implements Reloadable
       if (this.requiredViews.contains(View.INSECTICIDE_VIEW))
       {
         // always join on the insecticide view
-        str.append(" LEFT JOIN " + insecticideView + " " + insecticideView + " ON " + leftAlias + "."
-            + Alias.BRAND + " = " + insecticideView + "." + idCol + " AND \n" + insecticideView + "."
-            + diseaseCol + " = " + leftAlias + "." + Alias.DISEASE + "  \n");
+        str.append(" LEFT JOIN " + insecticideView + " " + insecticideView + " ON " + leftAlias + "." + Alias.BRAND + " = " + insecticideView + "." + idCol + " AND \n" + insecticideView + "." + diseaseCol + " = " + leftAlias + "." + Alias.DISEASE + "  \n");
 
         // restrict by dates
-        str.append("AND ((" + leftAlias + "." + Alias.SPRAY_DATE + ") >= (" + insecticideView
-            + ".start_date) \n");
-        str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView
-            + ".end_date)) \n");
+        str.append("AND ((" + leftAlias + "." + Alias.SPRAY_DATE + ") >= (" + insecticideView + ".start_date) \n");
+        str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView + ".end_date)) \n");
       }
     }
 
     // FIXME trigger this...is it necessary? Maybe push more columns into
     // all-actuals
-//    if (this.hasSprayEnumOrTerm)
-//    {
-//      String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
-//
-//      String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
-//      str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") " + abstractSprayQuery.getTableAlias()
-//          + " ON " + leftAlias + "." + Alias.ID + " = " + abstractSprayQuery.getTableAlias() + "."
-//          + sprayId + " \n");
-//    }
+    // if (this.hasSprayEnumOrTerm)
+    // {
+    // String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
+    //
+    // String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
+    // str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") " + abstractSprayQuery.getTableAlias()
+    // + " ON " + leftAlias + "." + Alias.ID + " = " + abstractSprayQuery.getTableAlias() + "."
+    // + sprayId + " \n");
+    // }
 
     /*
      * removed for #2826 str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE
@@ -2240,8 +2053,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v,
-      Selectable importCreateDate)
+  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
   {
     // do nothing. Custom join logic is in this.joinMainQueryTables()
   }
@@ -2268,8 +2080,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     calculateOperatorTargetedCoverage();
     calculateOperatorTargetDivergence();
 
-    this.hasPlannedTargets = this.needsAreaPlanned || this.needsOperatorPlanned
-        || this.needsTeamsPlanned;
+    this.hasPlannedTargets = this.needsAreaPlanned || this.needsOperatorPlanned || this.needsTeamsPlanned;
 
     if (this.needsOperatorPlanned)
     {
@@ -2305,8 +2116,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (!this.hasPlannedTargets && !v.hasCountSelectable())
     {
       String windowCount = "count(*) over()";
-      SelectableSQLLong c = v.isGrouping() ? v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount,
-          WINDOW_COUNT_ALIAS) : v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
+      SelectableSQLLong c = v.isGrouping() ? v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) : v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
 
       v.SELECT(c);
       v.setCountSelectable(c);
@@ -2333,9 +2143,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   // }
 
   /**
-   * Sets the entire contents of the WITH clause for the query. This method MUST
-   * EXECUTE LAST so that all the flags and column knowledge will be known to do
-   * dependencies.
+   * Sets the entire contents of the WITH clause for the query. This method MUST EXECUTE LAST so that all the flags and column knowledge will be known to do dependencies.
    */
   private void setWithQuerySQL()
   {
@@ -2394,7 +2202,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       this.addRequiredView(View.ALL_ACTUALS);
     }
-    
+
     // JN change
     // if(!this.needsAreaPlanned)
     // {
@@ -2444,8 +2252,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       String userDefinedAlias = s.getUserDefinedAlias(); // alias from incoming
                                                          // XML
 
-      if (!neutral.contains(userDefinedAlias) && !planned.contains(userDefinedAlias)
-          && !this.universalAliases.contains(userDefinedAlias))
+      if (!neutral.contains(userDefinedAlias) && !planned.contains(userDefinedAlias) && !this.universalAliases.contains(userDefinedAlias))
       {
         this.hasActivity = true;
       }
@@ -2456,7 +2263,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         this.selectAliases.add(alias);
       }
     }
-    
+
     if (this.hasActivity())
     {
       this.addRequiredView(View.ALL_ACTUALS);
@@ -2469,13 +2276,15 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     // Additional check for any required aliases that may have slipped through the cracks. We won't need this once we have a better dependency management system in place.
     boolean hasPlanned = this.hasPlannedTargets();
-    for (Alias alias : selectAliases) {
-      if (alias.hasView(View.SPRAY_VIEW) && !hasPlanned) {
+    for (Alias alias : selectAliases)
+    {
+      if (alias.hasView(View.SPRAY_VIEW) && !hasPlanned)
+      {
         this.addRequiredAlias(View.ALL_ACTUALS, alias);
         this.addRequiredView(View.ALL_ACTUALS);
       }
     }
-    
+
     // Invoke each View and load the dependencies.
     View[] views = View.values();
     List<Pair<String, SQLProvider>> viewPairs = new LinkedList<Pair<String, SQLProvider>>();
@@ -2541,16 +2350,16 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private String sumOperatorActualTargets()
   {
-//    return PRE_AGGREGATION + "." + Alias.OPERATOR_ACTUAL_TARGET;
-    return "SUM("+Alias.OPERATOR_ACTUAL_TARGET+")";
+    // return PRE_AGGREGATION + "." + Alias.OPERATOR_ACTUAL_TARGET;
+    return "SUM(" + Alias.OPERATOR_ACTUAL_TARGET + ")";
     // return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias,
     // Alias.OPERATOR_ACTUAL_TARGET.getAlias());
   }
 
   private String sumTeamActualTargets()
   {
-    return "SUM("+Alias.TEAM_ACTUAL_TARGET+")";
-//    return PRE_AGGREGATION + "." + Alias.TEAM_ACTUAL_TARGET;
+    return "SUM(" + Alias.TEAM_ACTUAL_TARGET + ")";
+    // return PRE_AGGREGATION + "." + Alias.TEAM_ACTUAL_TARGET;
     // return this.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias,
     // Alias.TEAM_ACTUAL_TARGET.getAlias());
   }
@@ -2582,8 +2391,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     if (irsVQ.hasSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias()))
     {
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias());
       String sql = sumOperatorPlannedTargets();
       calc.setSQL(sql);
     }
@@ -2609,8 +2417,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.needsOperatorPlanned = true;
 
       // JN change
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_TARGET_DIVERGENCE.getAlias());
       // String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" +
       // sumOperatorPlannedTargets()
       // + ",0))*100.0";
@@ -2627,8 +2434,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       this.needsTeamsPlanned = true;
 
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGET_DIVERGENCE
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGET_DIVERGENCE.getAlias());
 
       // JN change
       // String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" +
@@ -2648,8 +2454,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       String uniqueSprayId = this.getUniqueSprayDetailsId();
       String sum = this.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
 
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_TARGETED_COVERAGE
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_TARGETED_COVERAGE.getAlias());
       String sql = "((" + sum + ")/NULLIF(" + this.sumOperatorActualTargets() + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -2662,8 +2467,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.needsSprayedUnits = true;
       // this.needUniqueSprayId = true;
 
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGETED_COVERAGE
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_TARGETED_COVERAGE.getAlias());
 
       String uniqueSprayId = this.getUniqueSprayDetailsId();
       String sum = this.sumColumnForId(sprayViewAlias, uniqueSprayId, null, this.sprayedUnits);
@@ -2684,8 +2488,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId,
       // null, this.sprayedUnits);
 
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_PLANNED_COVERAGE
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_PLANNED_COVERAGE.getAlias());
       // String sql = "((" + sum + ")/NULLIF(" +
       // this.sumOperatorPlannedTargets() + ",0))*100.0";
       // calc.setSQL(sql);
@@ -2704,8 +2507,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // String sum = QueryUtil.sumColumnForId(sprayViewAlias, uniqueSprayId,
       // null, this.sprayedUnits);
 
-      SelectableSQL calc = (SelectableSQL) irsVQ
-          .getSelectableRef(Alias.TEAM_PLANNED_COVERAGE.getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.TEAM_PLANNED_COVERAGE.getAlias());
       // String sql = "((" + sum + ")/NULLIF(" + this.sumTeamPlannedTargets() +
       // ",0))*100.0";
       // calc.setSQL(sql);
@@ -2722,8 +2524,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         this.needsAreaPlanned = true;
         this.needsSprayedUnits = true;
 
-        SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.AREA_PLANNED_COVERAGE
-            .getAlias());
+        SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.AREA_PLANNED_COVERAGE.getAlias());
         calc.setSQL("NULL::INTEGER");
       }
       else
@@ -2739,8 +2540,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       this.addRequiredView(View.ALL_ACTUALS);
 
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_ACTUAL_TARGET
-          .getAlias());
+      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(Alias.OPERATOR_ACTUAL_TARGET.getAlias());
       String sql = this.sumOperatorActualTargets();
       calc.setSQL(sql);
     }
@@ -2822,10 +2622,8 @@ public class IRSQB extends AbstractQB implements Reloadable
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
           this.smallestUnivesal = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
-          this.smallestUniversalSelectable = this.smallestUnivesal.substring(
-              this.smallestUnivesal.lastIndexOf('.')).toLowerCase();
-          this.smallestUniversalSelectable = attributeKey + '.' + this.smallestUniversalSelectable + '.'
-              + GeoEntity.GEOID;
+          this.smallestUniversalSelectable = this.smallestUnivesal.substring(this.smallestUnivesal.lastIndexOf('.')).toLowerCase();
+          this.smallestUniversalSelectable = attributeKey + '.' + this.smallestUniversalSelectable + '.' + GeoEntity.GEOID;
           this.smallestUniversalSelectable = this.smallestUniversalSelectable.replace('.', '_');
         }
       }

@@ -2,6 +2,7 @@ package dss.vector.solutions.irs;
 
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.IRSQB;
 
@@ -17,33 +18,35 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
   @Override
   public void apply()
   {
-	this.validateBrand();
-	
+    this.validateBrand();
+
     super.apply();
   }
-  
-	@Override
-	public void validateBrand() {
-		super.validateBrand();
-		
-		if (this.getBrand() != null) {
-			if (!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS)) {
-				InvalidInsecticideBrandUseProblem p = new InvalidInsecticideBrandUseProblem();
-				p.setNotification(this, BRAND);
-				p.throwIt();
-			}
-		}
-	}
-	
+
+  @Override
+  public void validateBrand()
+  {
+    super.validateBrand();
+
+    if (this.getBrand() != null)
+    {
+      if (!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS))
+      {
+        InvalidInsecticideBrandUseProblem p = new InvalidInsecticideBrandUseProblem();
+        p.setNotification(this, BRAND);
+        p.throwIt();
+      }
+    }
+  }
+
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new IRSQB(xml, config, layer, pageSize, pageSize).construct();
+    return new IRSQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

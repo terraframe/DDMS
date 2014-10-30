@@ -50,11 +50,11 @@ import dss.vector.solutions.util.QueryUtil;
 public class AggregatedCaseQB extends AbstractQB implements Reloadable
 {
 
-  public AggregatedCaseQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public AggregatedCaseQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -62,20 +62,19 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject config)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject config)
   {
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
     valueQuery.FROM(aggregatedCaseQuery.getMdClassIF().getTableName(), aggregatedCaseQuery.getTableAlias());
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatment.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseTreatment.getTermMd()));
-    
+
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatmentStock.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseTreatmentStock.getTermMd()));
-    
+
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseReferral.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseReferral.getTermMd()));
-    
+
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseStockReferral.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseStockReferral.getTermMd()));
-    
+
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseDiagnostic.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseDiagnostic.getTermMd()));
 
     if (valueQuery.hasSelectableRef("totalCases"))
@@ -96,7 +95,7 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     }
 
     calculatePopulation(valueQuery, aggregatedCaseQuery, config, xml);
-    
+
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 100);
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 1000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, config, xml, 10000);
@@ -110,10 +109,10 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     this.addGeoDisplayLabelQuery(aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate(), aggregatedCaseQuery.getDisease());
 
-    valueQuery.WHERE(aggregatedCaseQuery.getDisease().EQ(Disease.getCurrent()));
+    valueQuery.WHERE(aggregatedCaseQuery.getDisease().EQ(this.getDisease()));
 
     this.setNumericRestrictions(valueQuery, config);
-    
+
     return valueQuery;
   }
 
@@ -123,7 +122,7 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     {
       return;
     }
-    
+
     SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
 
     String geoType = null;
@@ -177,14 +176,14 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     }
 
     String geoColumn = s.getDbQualifiedName();
-    
+
     String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
 
     String sql = "get_" + timePeriod + "_population_by_geoid_and_date(" + geoColumn + ", " + startDateCol + ")";
-    
+
     popSel.setSQL(sql);
   }
-  
+
   private void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)
   {
     SelectableSQLFloat calc;
@@ -274,7 +273,6 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     String posCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.POSITIVECASES);
     String negCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.NEGATIVECASES);
 
-    
     String caseAlias = caseQuery.getTableAlias();
     String idCol = QueryUtil.getIdColumn();
     String casesSum = this.sumColumnForId(caseAlias, idCol, null, casesCol);
@@ -284,26 +282,26 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     // TODO cache this per request
     String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();
 
-    String sql = "CASE WHEN COALESCE("+posSum+") = 0 THEN (COALESCE("+posSum+",0.0) + (COALESCE("+casesSum+",0.0) * "+percentPositive+"/100.00)) ELSE ";
-    sql += "COALESCE("+posSum+",0.0)::float +  \n";
+    String sql = "CASE WHEN COALESCE(" + posSum + ") = 0 THEN (COALESCE(" + posSum + ",0.0) + (COALESCE(" + casesSum + ",0.0) * " + percentPositive + "/100.00)) ELSE ";
+    sql += "COALESCE(" + posSum + ",0.0)::float +  \n";
     sql += "( \n";
-    sql += " COALESCE("+casesSum+",0.0)::float * \n";
+    sql += " COALESCE(" + casesSum + ",0.0)::float * \n";
     sql += " ( \n";
-    sql += "   COALESCE("+posSum+",0.0)::float / \n";
+    sql += "   COALESCE(" + posSum + ",0.0)::float / \n";
     sql += "  ( \n";
     sql += "   NULLIF \n";
     sql += "   ( \n";
-    sql += "     COALESCE("+posSum+",0.0)::float + COALESCE("+negSum+",0.0)::float \n";
+    sql += "     COALESCE(" + posSum + ",0.0)::float + COALESCE(" + negSum + ",0.0)::float \n";
     sql += "     ,0.0 \n";
     sql += "   ) \n";
     sql += "  ) \n";
     sql += " ) \n";
     sql += ") \n";
     sql += "END \n";
-    
+
     return sql;
   }
-  
+
   public static void joinDiagnosisTypes(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
   {
     MdEntityDAOIF patientTypeMd = MdEntityDAO.getMdEntityDAO(CaseDiagnosisType.CLASS);
@@ -403,8 +401,6 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
       valueQuery.AND(aggregatedCaseQuery.getId().EQ(aggregatedCaseQuery.getId()));
     }
   }
-  
-
 
   private void joinPatientTypes(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
   {

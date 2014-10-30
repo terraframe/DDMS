@@ -40,7 +40,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   {
     this.validateStartDate();
     this.validateEndDate();
-    
+
     if (this.isNew() && this.getDisease() == null)
     {
       this.setDisease(Disease.getCurrent());
@@ -48,13 +48,13 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     super.apply();
   }
-  
+
   @Override
   public void validateEndDate()
   {
     Date end = this.getEndDate();
-    
-    if (end!=null && end.after(new Date()))
+
+    if (end != null && end.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(end);
@@ -64,14 +64,14 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateStartDate()
   {
     Date start = this.getStartDate();
     Date end = this.getEndDate();
-    
-    if (start!=null && start.after(new Date()))
+
+    if (start != null && start.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(start);
@@ -81,13 +81,13 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       p.throwIt();
     }
 
-    if(start != null && end != null)
+    if (start != null && end != null)
     {
-      if(start.after(end))
+      if (start.after(end))
       {
         MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
         p.apply();
-        
+
         p.throwIt();
       }
     }
@@ -254,17 +254,14 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new InterventionControlQB(xml, config, layer, pageSize, pageSize).construct();
+    return new InterventionControlQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
-
-
 
 }

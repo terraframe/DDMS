@@ -19,27 +19,27 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getUniqueAssayId() != null)
+    else if (this.getUniqueAssayId() != null)
     {
       return this.getUniqueAssayId();
     }
-    else if(this.getMosquitoId() != null && !this.getMosquitoId().equals(""))
+    else if (this.getMosquitoId() != null && !this.getMosquitoId().equals(""))
     {
       return this.getMosquitoId();
     }
-    else if(this.getSpecies() != null)
+    else if (this.getSpecies() != null)
     {
       return this.getSpecies().getTermDisplayLabel().getValue();
     }
-    
+
     return super.toString();
   }
 
@@ -47,12 +47,13 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
   public void apply()
   {
     UniqueAssayUtil.setUniqueAssayId(this);
-    
+
     validateMosquitoId();
     validateNumberPositive();
-    
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
 
     super.apply();
@@ -73,14 +74,14 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
       }
     }
   }
-  
+
   @Override
   public void validateNumberPositive()
   {
-    if(this.getNumberPositive() != null && this.getNumberTested() != null)
+    if (this.getNumberPositive() != null && this.getNumberTested() != null)
     {
-      if(this.getNumberPositive() > this.getNumberTested())
-      {        
+      if (this.getNumberPositive() > this.getNumberTested())
+      {
         String msg = "Number of tested mosquitos must be GTE to the number of positive mosquitos";
         RangeValueProblem p = new RangeValueProblem(msg);
         p.setNotification(this, NUMBERPOSITIVE);
@@ -88,12 +89,12 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
         p.setUpperLimit(this.getNumberTested());
         p.setInvalidValue(this.getNumberPositive());
         p.apply();
-        
-        p.throwIt();        
+
+        p.throwIt();
       }
     }
   }
-  
+
   private boolean hasMosquitoId()
   {
     return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
@@ -125,17 +126,16 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
 
     return view;
   }
-  
+
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new EntomologyQB(xml, config, layer, pageSize, pageSize).construct();
+    return new EntomologyQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 
 }

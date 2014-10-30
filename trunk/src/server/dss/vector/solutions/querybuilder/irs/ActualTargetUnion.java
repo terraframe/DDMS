@@ -39,7 +39,7 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
         },
         "LEFT JOIN "+ malariaSeasonTable + " AS "+ malariaSeasonTable + " "+
           "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN "+ malariaSeasonTable + "."+startDateCol+
-          " AND "+ malariaSeasonTable + "."+endDateCol+" AND '"+this.irsQB.getDiseaseId()+"' = "+ malariaSeasonTable + "."+seasonDiseaseCol+" \n"
+          " AND "+ malariaSeasonTable + "."+endDateCol+" AND '"+this.irsQB.getDisease().getId()+"' = "+ malariaSeasonTable + "."+seasonDiseaseCol+" \n"
         ));
   }
   

@@ -24,6 +24,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseReason;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
@@ -48,9 +49,9 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class InterventionControlQB extends AbstractQB implements Reloadable
 {
-  public InterventionControlQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public InterventionControlQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
   
   @Override

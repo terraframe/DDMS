@@ -18,11 +18,11 @@ import dss.vector.solutions.util.QueryUtil;
 public class AggregatedIPTQB extends AbstractQB implements Reloadable
 {
 
-  public AggregatedIPTQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public AggregatedIPTQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
-  
+
   @Override
   protected String getAuditClassAlias()
   {
@@ -30,24 +30,21 @@ public class AggregatedIPTQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
-    
-    
-    //this is a hack to force valueQuery to include the aggreated cases table
+
+    // this is a hack to force valueQuery to include the aggreated cases table
     valueQuery.WHERE(aggregatedIPTQuery.id().NE("0"));
-    
+
     this.addGeoDisplayLabelQuery(aggregatedIPTQuery);
-    
-    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
-    
+
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedIPTQuery.getTableAlias());
+
     this.setNumericRestrictions(valueQuery, queryConfig);
-    
-    Disease disease = Disease.getCurrent();
-    valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(disease));
-    
+
+    valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(this.getDisease()));
+
     return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, aggregatedIPTQuery.getStartDate(), aggregatedIPTQuery.getEndDate(), aggregatedIPTQuery.getDisease());
 
   }

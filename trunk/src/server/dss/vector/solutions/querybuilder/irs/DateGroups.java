@@ -163,7 +163,7 @@ public class DateGroups extends AbstractSprayProvider implements Reloadable
       if (selected.contains(Alias.DATEGROUP_SEASON))
       {
         sql += " INNER JOIN ";
-        sql += QueryUtil.getSeasonNameFrom("'"+this.irsQB.getDiseaseId()+"'", djCol+this.overrideDate,
+        sql += QueryUtil.getSeasonNameFrom("'"+this.irsQB.getDisease().getId()+"'", djCol+this.overrideDate,
             djCol+this.overrideDate, false);
       }
       

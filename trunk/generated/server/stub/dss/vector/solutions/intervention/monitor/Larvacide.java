@@ -17,16 +17,17 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
     super();
   }
 
+  @Override
+  public void apply()
+  {
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
 
-	@Override
-	public void apply() {
-		if (this.isNew() && this.getDisease() == null) {
-			this.setDisease(Disease.getCurrent());
-		}
+    super.apply();
+  }
 
-		super.apply();
-	}
-	
   @Override
   public String toString()
   {
@@ -34,7 +35,7 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.getClassDisplayLabel();
   }
 
@@ -54,14 +55,13 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new LarvacideQB(xml, config, layer, pageSize, pageSize).construct();
+    return new LarvacideQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

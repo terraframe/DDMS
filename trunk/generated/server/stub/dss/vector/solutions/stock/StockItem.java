@@ -6,6 +6,7 @@ import java.util.List;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -24,7 +25,7 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
@@ -32,18 +33,21 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.getClassDisplayLabel() + ": " + this.getItemId();
-  }  
+  }
 
   @Override
   protected String buildKey()
   {
-	  if (this.getItemName() != null && this.getUnit() != null) {
-		 return this.getItemName().getKey() + "-" + this.getQuantity() + "-" + this.getUnit().getKey();
-	  } else {
-		  return super.buildKey();
-	  }
+    if (this.getItemName() != null && this.getUnit() != null)
+    {
+      return this.getItemName().getKey() + "-" + this.getQuantity() + "-" + this.getUnit().getKey();
+    }
+    else
+    {
+      return super.buildKey();
+    }
   }
 
   @Override
@@ -110,7 +114,7 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
 
     return query;
   }
-  
+
   public boolean isLeaf()
   {
     return this.getItemName().isLeaf();
@@ -126,7 +130,7 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
 
     return list.toArray(new StockItem[list.size()]);
   }
-  
+
   public static StockItem[] getLeafs(Term item)
   {
     List<StockItem> list = new LinkedList<StockItem>();
@@ -134,9 +138,9 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
 
     StockItemQuery query = getItems(item, factory);
 
-    for(StockItem stock : query.getIterator().getAll())
+    for (StockItem stock : query.getIterator().getAll())
     {
-      if(stock.isLeaf())
+      if (stock.isLeaf())
       {
         list.add(stock);
       }
@@ -144,21 +148,20 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
 
     return list.toArray(new StockItem[list.size()]);
   }
-  
+
   public String getLabel()
   {
     return this.getItemId() + " - " + this.getItemName().getName() + " " + this.getQuantity() + " " + this.getUnit().getName();
   }
-  
+
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new StockQB(xml, config, layer, pageSize, pageSize).construct();
+    return new StockQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

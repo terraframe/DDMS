@@ -48,9 +48,10 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
   public void apply()
   {
     validateSurveyDate();
-    
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
 
     super.apply();
@@ -174,14 +175,13 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new SurveyQB(xml, config, layer, pageSize, pageSize).construct();
+    return new SurveyQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

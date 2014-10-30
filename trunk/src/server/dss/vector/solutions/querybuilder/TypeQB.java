@@ -10,6 +10,7 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
@@ -19,15 +20,16 @@ public class TypeQB extends AbstractQB implements Reloadable
 {
 
   private String auditClass;
-  
-  public TypeQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+
+  public TypeQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
     auditClass = null;
   }
-  
+
   /**
    * Not sure if there's a perfect answer for this, so pull the first key the query map
+   * 
    * @return
    */
   @Override
@@ -48,7 +50,7 @@ public class TypeQB extends AbstractQB implements Reloadable
       if (! ( query instanceof AllPathsQuery ) && ! ( query instanceof dss.vector.solutions.ontology.AllPathsQuery ))
       {
         this.auditClass = query.getMdClassIF().definesType();
-        
+
         this.addGeoDisplayLabelQuery(query);
 
         this.setNumericRestrictions(valueQuery, queryConfig);
@@ -69,14 +71,13 @@ public class TypeQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new TypeQB(xml, config, layer, pageSize, pageSize).construct();
+    return new TypeQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

@@ -12,6 +12,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.stock.EventOption;
 import dss.vector.solutions.stock.StockEvent;
@@ -23,9 +24,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class StockQB extends AbstractQB implements Reloadable
 {
 
-  public StockQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public StockQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
   }
   
   @Override

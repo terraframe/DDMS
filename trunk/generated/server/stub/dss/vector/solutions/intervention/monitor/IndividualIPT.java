@@ -10,6 +10,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.IndividualIPTQB;
 
@@ -20,22 +21,22 @@ public class IndividualIPT extends IndividualIPTBase implements com.runwaysdk.ge
   public IndividualIPT()
   {
     super();
-  }  
-  
+  }
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
     else if (this.getServiceDate() != null && this.getFacility() != null)
-    {      
+    {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
 
       return this.getClassDisplayLabel() + ": (" + this.getFacility().getLabel() + ", " + format.format(this.getServiceDate()) + ")";
     }
-    
+
     return this.buildKey();
   }
 
@@ -133,14 +134,13 @@ public class IndividualIPT extends IndividualIPTBase implements com.runwaysdk.ge
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new IndividualIPTQB(xml, config, layer, pageSize, pageSize).construct();
+    return new IndividualIPTQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

@@ -178,7 +178,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     },
       zoneSprayTable + " AS " + zoneSprayTable + " \n"+
       "INNER JOIN "+ abstractSprayTable + " AS " + abstractSprayTable +" ON "+abstractSprayTable+"."+idCol+" = "+zoneSprayTable+"."+idCol+" \n"+
-      "AND " + zoneSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDiseaseId() + "' \n"
+      "AND " + zoneSprayTable + "." + diseaseCol + " = '" + this.irsQB.getDisease().getId() + "' \n"
     ));   
     
     // spray details

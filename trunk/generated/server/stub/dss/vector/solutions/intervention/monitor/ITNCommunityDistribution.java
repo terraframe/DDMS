@@ -125,10 +125,11 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
     this.validateCurrencyReceived();
     this.validateNumberRetrieved();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
   }
 
@@ -329,15 +330,14 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new ITNCommunityDistributionQB(xml, config, layer, pageSize, pageSize).construct();
+    return new ITNCommunityDistributionQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 
 }

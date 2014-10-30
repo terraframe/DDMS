@@ -1,8 +1,11 @@
 package dss.vector.solutions.query;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -16,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -30,10 +34,12 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.util.FileIO;
 
-import dss.vector.solutions.RequiredAttributeException;
+import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -138,12 +144,34 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     this.setJobId(this.getJobName());
     this.getDescription().setDefaultValue(this.getJobName());
 
-    if (this.getLayerId() == null || this.getLayerId().length() == 0)
+    SavedMap savedMap = this.getSavedMap();
+
+    if (savedMap != null)
     {
-      RequiredAttributeException e = new RequiredAttributeException();
-      e.setAttributeLabel(this.getMdAttributeDAO(LAYERID).getDisplayLabel(Session.getCurrentLocale()));
-      throw e;
+      SessionIF session = Session.getCurrentSession();
+
+      if (session != null)
+      {
+        UserDAOIF userDAO = session.getUser();
+        MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+        UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+        DefaultSavedMap defaultMap = settings.getDefaultMap();
+
+        if (savedMap.getId().equals(defaultMap.getId()))
+        {
+          String msg = "A cycle job cannot be defined on a the default map";
+          throw new ProgrammingErrorException(msg);
+        }
+      }
     }
+    //
+    // if (this.getLayerId() == null || this.getLayerId().length() == 0)
+    // {
+    // RequiredAttributeException e = new RequiredAttributeException();
+    // e.setAttributeLabel(this.getMdAttributeDAO(LAYERID).getDisplayLabel(Session.getCurrentLocale()));
+    // throw e;
+    // }
 
     super.apply();
   }
@@ -160,7 +188,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   @Transaction
   public Layer[] setupTemplateLayers(SavedMap map)
   {
-    Map<Layer, ValueQuery> layers = MapUtil.createDBViews(map.getOrderedLayers(), false, new MapConfiguration());
+    Map<Layer, ValueQuery> layers = MapUtil.createDBViews(map.getOrderedLayers(), false, new MapConfiguration(map.getDisease()));
 
     List<Layer> list = new LinkedList<Layer>();
 
@@ -380,7 +408,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
           /*
            * 2b) Create the map
            */
-          MapConfiguration configuration = new MapConfiguration(views);
+          MapConfiguration configuration = new MapConfiguration(views, map.getDisease());
 
           // Re-print all SLD files for the layers
           this.updateSLDs(layers, configuration);
@@ -431,6 +459,20 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setFilterGeoEntityName(filterEntityName);
               generated.setDisease(disease);
               generated.apply();
+
+              /*
+              * This is for testing
+              */
+              try
+              {
+                OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+
+                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+              }
+              catch (Exception e)
+              {
+                e.printStackTrace();
+              }
             }
             finally
             {

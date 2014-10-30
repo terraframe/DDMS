@@ -14,6 +14,7 @@ import dss.vector.solutions.entomology.InfectionAssay;
 import dss.vector.solutions.entomology.InfectionAssayQuery;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.util.QueryUtil;
@@ -21,9 +22,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class InfectionAssaySubSelectQB extends AbstractQB implements Reloadable
 {
 
-  public InfectionAssaySubSelectQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public InfectionAssaySubSelectQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
 
   @Override

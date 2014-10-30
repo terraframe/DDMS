@@ -22,12 +22,12 @@ import dss.vector.solutions.querybuilder.PupalContainerCollectionQB;
 public class PupalCollection extends PupalCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1932493411;
-  
+
   public PupalCollection()
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
@@ -48,37 +48,37 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
   {
     return this.getCollectionId();
   }
-  
+
   @Transaction
   public void deleteAll()
   {
     // DELETE ALL PupalPremise
     List<PupalPremise> premises = this.getPremises();
-    
-    for(PupalPremise premise : premises)
+
+    for (PupalPremise premise : premises)
     {
       premise.delete();
     }
-    
+
     this.delete();
   }
-  
+
   public boolean hasPremises()
   {
-    return (this.getPremises().size() > 0);
+    return ( this.getPremises().size() > 0 );
   }
 
   private List<PupalPremise> getPremises()
   {
-    PupalPremiseQuery query = new PupalPremiseQuery(new QueryFactory());    
+    PupalPremiseQuery query = new PupalPremiseQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
-    
+
     OIterator<? extends PupalPremise> it = query.getIterator();
-    
+
     try
     {
       List<? extends PupalPremise> premises = it.getAll();
-      
+
       return new LinkedList<PupalPremise>(premises);
     }
     finally
@@ -86,7 +86,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
       it.close();
     }
   }
-  
+
   @Override
   @Transaction
   public void apply()
@@ -95,19 +95,20 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     this.validateStartDate();
     this.validateEndDate();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
   }
-  
+
   @Override
   public void validateEndDate()
   {
     Date end = this.getEndDate();
-    
-    if (end!=null && end.after(new Date()))
+
+    if (end != null && end.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(end);
@@ -117,13 +118,13 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
       p.throwIt();
     }
   }
-  
+
   @Override
   public void validateStartDate()
   {
     Date start = this.getStartDate();
-    
-    if (start!=null && start.after(new Date()))
+
+    if (start != null && start.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(start);
@@ -134,13 +135,13 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     }
 
     Date end = this.getEndDate();
-    if(start != null && end != null)
+    if (start != null && end != null)
     {
-      if(start.after(end))
+      if (start.after(end))
       {
         MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
         p.apply();
-        
+
         p.throwIt();
       }
     }
@@ -152,30 +153,28 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     {
       this.setCollectionId(LocalProperty.getNextId());
     }
-  }  
-  
+  }
+
   public PupalCollectionView getView()
   {
     PupalCollectionView view = new PupalCollectionView();
-    
+
     view.populateView(this, null);
-    
+
     return view;
   }
-  
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new PupalContainerCollectionQB(xml, config, layer, pageSize, pageSize).construct();
+    return new PupalContainerCollectionQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
-  
+
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)
   {
     if (valueQuery.hasSelectableRef(ref))
@@ -187,7 +186,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
         Function f = (Function) s;
         s = f.getSelectable();
       }
-      
+
       ( (SelectableSQL) s ).setSQL(sql);
       return true;
     }

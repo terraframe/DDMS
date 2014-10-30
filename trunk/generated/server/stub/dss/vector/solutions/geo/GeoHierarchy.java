@@ -56,6 +56,7 @@ import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.ThresholdAlertCalculationType;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -79,10 +80,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static final String THEMATIC_SUFFIX     = "_thematic";
 
   public static final String  ALLPATHS_VIEW       = "geohierarchy_allpaths";
-  
-  public static final String GEOHIERARCHY_FLAGS = "geohierarchy_flags"; // FIXME find literal string refernces
 
-  public static final String ALLPATHS_ROLLUP = "recursive_rollup"; // FIXME find literal string refernces
+  public static final String  GEOHIERARCHY_FLAGS  = "geohierarchy_flags";   // FIXME find literal string refernces
+
+  public static final String  ALLPATHS_ROLLUP     = "recursive_rollup";     // FIXME find literal string refernces
 
   public static final String  ALLPATHS_CHILD_TYPE = "child_type";
 
@@ -96,7 +97,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     super();
   }
-  
+
   public static String getAllPathsSQL()
   {
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
@@ -149,7 +150,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return sql;
   }
 
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
     JSONObject queryConfig;
     try
@@ -169,11 +170,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       Selectable localizedLabel = geoQuery.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
       Selectable geoId = geoQuery.getGeoId(GeoEntity.GEOID);
       Selectable type = geoQuery.getType(GeoEntity.TYPE);
-      
+
       selectables.add(localizedLabel);
       selectables.add(geoId);
       selectables.add(type);
-      
+
       // If we're mapping then include the geometry column
       if (layer != null)
       {
@@ -278,8 +279,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns a JSON object representing the allowed GeoEntity types within the
-   * GeoEntity of the given id.
+   * Returns a JSON object representing the allowed GeoEntity types within the GeoEntity of the given id.
    * 
    * @param geoEntityId
    * @return
@@ -325,8 +325,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the GeoHiearachy representative of the given type (a GeoEntity
-   * subtype).
+   * Returns the GeoHiearachy representative of the given type (a GeoEntity subtype).
    * 
    * @param mdType
    * @return
@@ -480,8 +479,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the GeoHierarchy representative of the given MdBusiness (a
-   * GeoEntity subtype).
+   * Returns the GeoHierarchy representative of the given MdBusiness (a GeoEntity subtype).
    * 
    * @param md
    * @return
@@ -509,8 +507,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Recursive function to build a tree structure denoting what GeoHierarchy
-   * types are allowed in one another.
+   * Recursive function to build a tree structure denoting what GeoHierarchy types are allowed in one another.
    * 
    * @param types
    * @param imports
@@ -558,10 +555,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns a Set of type names included in the hierarchy for which the given
-   * type is a member. Abstract types will be recursed through but the type
-   * itself will not be added to the list. Although a Set is returned, the order
-   * of insertion is preserved to as closely mimic a flattened tree as possible.
+   * Returns a Set of type names included in the hierarchy for which the given type is a member. Abstract types will be recursed through but the type itself will not be added to the list. Although a Set is returned, the order of insertion is preserved to as closely mimic a flattened tree as possible.
    * 
    * @param type
    * @return
@@ -618,8 +612,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the concatenated package and type name of the underlying MdBusiness
-   * this GeoHierarchy represents.
+   * Returns the concatenated package and type name of the underlying MdBusiness this GeoHierarchy represents.
    * 
    * @return
    */
@@ -630,8 +623,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the concatenated package and type name of the underlying MdBusiness
-   * this GeoHierarchy represents.
+   * Returns the concatenated package and type name of the underlying MdBusiness this GeoHierarchy represents.
    * 
    * @return
    */
@@ -694,7 +686,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     // Move all orphaned children under Earth
     GeoHierarchy geoEntityGH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
     GeoHierarchy earthGH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
-    
+
     QueryFactory f = new QueryFactory();
     GeoHierarchyQuery children = new GeoHierarchyQuery(f);
     AllowedInQuery rel = new AllowedInQuery(f);
@@ -702,12 +694,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     children.WHERE(children.SUBSELECT_NOT_IN_allowedInGeoEntity(rel));
     children.AND(children.getId().NI(earthGH.getId(), geoEntityGH.getId()));
 
-    for(GeoHierarchy child : children.getIterator().getAll())
+    for (GeoHierarchy child : children.getIterator().getAll())
     {
       earthGH.addAcceptsGeoEntity(child).apply();
       ids.add(child.getId());
     }
-    
+
     return ids;
   }
 
@@ -717,8 +709,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Deletes this GeoHierarchy and its associated MdBusiness that defines a
-   * GeoEntity subtype. All children are deleted recursively.
+   * Deletes this GeoHierarchy and its associated MdBusiness that defines a GeoEntity subtype. All children are deleted recursively.
    */
   @Transaction
   private void deleteInternal()
@@ -830,8 +821,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
-   * returns it. If no MdAttributeGeometry is defined this method returns null.
+   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns null.
    * 
    * @param mdBusiness
    * @return
@@ -863,8 +853,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
-   * returns it. If no MdAttributeGeometry is defined this method returns null.
+   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns null.
    * 
    * @param mdBusiness
    * @return
@@ -876,8 +865,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Defines a new GeoEntity type. This method will error out if there are any
-   * problems.
+   * Defines a new GeoEntity type. This method will error out if there are any problems.
    * 
    * @param definition
    * @param allowedInIds
@@ -1064,8 +1052,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Unlocks this object and the MdBusiness which represents a GeoEntity
-   * subtype.
+   * Unlocks this object and the MdBusiness which represents a GeoEntity subtype.
    */
   @Override
   @Transaction
@@ -1093,8 +1080,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Ensures that the political and spray hierarchy don't have gaps and that
-   * those hierarchies do not branch.
+   * Ensures that the political and spray hierarchy don't have gaps and that those hierarchies do not branch.
    * 
    * @throws HierarchyGapException
    *           if there is a gap in the political or spray hierarchy.
@@ -1138,10 +1124,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
           urbanParent = true;
         }
       }
-      
+
       // To avoid branching, we must check the immediate children of each
       // parent and see if the political/spray hierarchy continues.
-      for(GeoHierarchy parent : parents)
+      for (GeoHierarchy parent : parents)
       {
         for (GeoHierarchy child : parent.getImmediateChildren())
         {
@@ -1280,8 +1266,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Adds the given childGeoHierarchyId as a child of the given
-   * parentGeoHierarchyId in the {@link AllowedIn} relationship.
+   * Adds the given childGeoHierarchyId as a child of the given parentGeoHierarchyId in the {@link AllowedIn} relationship.
    * 
    * @param childId
    * @param parentId
@@ -1371,9 +1356,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks that the GeoHierarchy can be modified, which is only possible if no
-   * GeoEntity instances have been created for any types except the single Earth
-   * instance.
+   * Checks that the GeoHierarchy can be modified, which is only possible if no GeoEntity instances have been created for any types except the single Earth instance.
    * 
    * @throws ModifyHierarchyWithInstancesException
    */
@@ -1408,9 +1391,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns all GeoHierarchy views that fit the following critiera. Note that a
-   * GeoHierarchy that maps to an abstract GeoEntity subtype will not be
-   * included, for those are used internally only.
+   * Returns all GeoHierarchy views that fit the following critiera. Note that a GeoHierarchy that maps to an abstract GeoEntity subtype will not be included, for those are used internally only.
    * 
    * @param sortAttribute
    * @param ascending
@@ -1521,8 +1502,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns all immediate children of the AllowedIn relationship for this
-   * GeoHieararchy. The children are respresented as GeoHierarchyViews.
+   * Returns all immediate children of the AllowedIn relationship for this GeoHieararchy. The children are respresented as GeoHierarchyViews.
    */
   @Override
   public GeoHierarchyViewQuery getOrderedChildren()
@@ -1534,9 +1514,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Collects and returns all GeoHierarchy objects (parents and children) that
-   * are of the type of GeoEntity of the given id. The collection is restricted
-   * by the political and sprayZoneAllowed flag on each GeoHierarchy.
+   * Collects and returns all GeoHierarchy objects (parents and children) that are of the type of GeoEntity of the given id. The collection is restricted by the political and sprayZoneAllowed flag on each GeoHierarchy.
    * 
    * 
    * @param rootGeoEntityId
@@ -1641,8 +1619,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns all GeoHierarchy views starting with the GeoHierarchy that
-   * represents the given GeoEntity.
+   * Returns all GeoHierarchy views starting with the GeoHierarchy that represents the given GeoEntity.
    * 
    * @param parameter
    *          TODO
@@ -1721,8 +1698,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * This GeoHierarchy is equal to the given object if the object is the same
-   * object reference or if the ids match.
+   * This GeoHierarchy is equal to the given object if the object is the same object reference or if the ids match.
    */
   @Override
   public boolean equals(Object obj)
@@ -1902,11 +1878,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the display label of this GeoHierarchy, which is actually the
-   * display label of the underlying MdBusiness that this instance references.
-   * NOTE: this should only be called after this GeoHierarchy has been
-   * successfully applied because then the required MdBusiness reference will be
-   * available.
+   * Returns the display label of this GeoHierarchy, which is actually the display label of the underlying MdBusiness that this instance references. NOTE: this should only be called after this GeoHierarchy has been successfully applied because then the required MdBusiness reference will be available.
    * 
    * @return
    */
@@ -1972,8 +1944,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Gets GeoHierarchy views that are immediate children of the given
-   * GeoHierarchy.
+   * Gets GeoHierarchy views that are immediate children of the given GeoHierarchy.
    */
   private class OrderedGeoHiearchyQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
@@ -2113,13 +2084,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     return getSystemName(description, "Universal", true);
   }
-  
+
   /**
    * 
    * @param description
    * @param suffix
    * @param isClassName
-   * @param partDelimiter The character used between the split segments (words) of the name.
+   * @param partDelimiter
+   *          The character used between the split segments (words) of the name.
    * @return
    */
   public static String getSystemName(String description, String suffix, boolean isClassName, String partDelimiter)
@@ -2163,13 +2135,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
             sb.append(part.substring(0, 1).toUpperCase());
             sb.append(part.substring(1).toLowerCase());
           }
-          
-          if(i < parts.length-1)
+
+          if (i < parts.length - 1)
           {
             sb.append(partDelimiter);
           }
         }
-        
+
       }
       systemName = sb.toString();
 

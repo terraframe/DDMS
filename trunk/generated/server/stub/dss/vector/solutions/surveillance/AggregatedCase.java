@@ -535,15 +535,14 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    AggregatedCaseQB query = new AggregatedCaseQB(xml, config, layer, pageSize, pageSize);
+    AggregatedCaseQB query = new AggregatedCaseQB(xml, config, layer, pageSize, pageSize, disease);
     return query.construct();
   }
 

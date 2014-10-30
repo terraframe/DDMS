@@ -19,15 +19,16 @@ import dss.vector.solutions.entomology.ImmatureCollection;
 import dss.vector.solutions.entomology.ImmatureCollectionQuery;
 import dss.vector.solutions.entomology.PremiseTaxon;
 import dss.vector.solutions.entomology.PremiseTaxonQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ImmatureContainerCollectionQB extends AbstractQB implements Reloadable
 {
 
-  public ImmatureContainerCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public ImmatureContainerCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
 
   @Override

@@ -174,86 +174,89 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       Layer layer = iter.next();
 
-      String namespacedView = appName + ":" + configuration.getViewName(layer);
-      String sldFile = MapUtil.formatSLD(layer);
-
-      JSONObject layerJSON = new JSONObject();
-      try
+      if (configuration.includeLayer(layer))
       {
-        layerJSON.put("view", namespacedView);
-        layerJSON.put("sld", sldFile);
-        layerJSON.put("opacity", layer.getOpacity());
-        layerJSON.put("id", layer.getId());
+        String namespacedView = appName + ":" + configuration.getViewName(layer);
+        String sldFile = MapUtil.formatSLD(layer);
 
-        // Always add the base layer to the bounding box
-        if (count == 0 || layer.getAddToBBox())
+        JSONObject layerJSON = new JSONObject();
+        try
         {
-          bboxLayers.add(layer);
-        }
+          layerJSON.put("view", namespacedView);
+          layerJSON.put("sld", sldFile);
+          layerJSON.put("opacity", layer.getOpacity());
+          layerJSON.put("id", layer.getId());
 
-        // Add the legend if enabled
-        if (layer.getEnableLegend())
-        {
-          JSONObject legend = new JSONObject();
-          legend.put("title", layer.getLegendTitle());
-          legend.put("showLegendBorder", layer.getShowLegendBorder());
-          legend.put("fontTitleFamily", layer.getLegendTitleFontFamily());
-          legend.put("fontTitleFill", layer.getLegendTitleFontFill());
-          legend.put("fontTitleSize", layer.getLegendTitleFontSize());
-          legend.put("fontTitleStyle", layer.getLegendTitleFontStyles().get(0).name().toLowerCase());
-          legend.put("fontFamily", layer.getLegendFontFamily());
-          legend.put("fontFill", layer.getLegendFontFill());
-          legend.put("fontSize", layer.getLegendFontSize());
-          legend.put("fontStyle", layer.getLegendFontStyles().get(0).name().toLowerCase());
-          legend.put("legendXPosition", layer.getLegendXPosition());
-          legend.put("legendYPosition", layer.getLegendYPosition());
-
-          MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
-          String colorAttribute = md.definesAttribute();
-
-          if (layer.getCreateRawLegend())
+          // Always add the base layer to the bounding box
+          if (count == 0 || layer.getAddToBBox())
           {
-            legend.put("createRawLegend", true);
-            legend.put("color", layer.getDefaultStyles().getValue(colorAttribute));
+            bboxLayers.add(layer);
+          }
+
+          // Add the legend if enabled
+          if (layer.getEnableLegend())
+          {
+            JSONObject legend = new JSONObject();
+            legend.put("title", layer.getLegendTitle());
+            legend.put("showLegendBorder", layer.getShowLegendBorder());
+            legend.put("fontTitleFamily", layer.getLegendTitleFontFamily());
+            legend.put("fontTitleFill", layer.getLegendTitleFontFill());
+            legend.put("fontTitleSize", layer.getLegendTitleFontSize());
+            legend.put("fontTitleStyle", layer.getLegendTitleFontStyles().get(0).name().toLowerCase());
+            legend.put("fontFamily", layer.getLegendFontFamily());
+            legend.put("fontFill", layer.getLegendFontFill());
+            legend.put("fontSize", layer.getLegendFontSize());
+            legend.put("fontStyle", layer.getLegendFontStyles().get(0).name().toLowerCase());
+            legend.put("legendXPosition", layer.getLegendXPosition());
+            legend.put("legendYPosition", layer.getLegendYPosition());
+
+            MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
+            String colorAttribute = md.definesAttribute();
+
+            if (layer.getCreateRawLegend())
+            {
+              legend.put("createRawLegend", true);
+              legend.put("color", layer.getDefaultStyles().getValue(colorAttribute));
+            }
+            else
+            {
+              JSONArray categories = new JSONArray();
+              legend.put("categories", categories);
+
+              List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
+              CategorySorter.sort(cats);
+
+              for (AbstractCategory cat : cats)
+              {
+                JSONObject category = new JSONObject();
+
+                if (cat instanceof RangeCategory)
+                {
+                  category.put("lower", ( (RangeCategory) cat ).getLowerBoundStr());
+                  category.put("upper", ( (RangeCategory) cat ).getUpperBoundStr());
+                }
+                else
+                {
+                  category.put("exact", ( (NonRangeCategory) cat ).getExactValueStr());
+                }
+                category.put("color", cat.getStyles().getValue(colorAttribute));
+                categories.put(category);
+              }
+            }
+            layerJSON.put("legend", legend);
           }
           else
           {
-            JSONArray categories = new JSONArray();
-            legend.put("categories", categories);
-
-            List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
-            CategorySorter.sort(cats);
-
-            for (AbstractCategory cat : cats)
-            {
-              JSONObject category = new JSONObject();
-
-              if (cat instanceof RangeCategory)
-              {
-                category.put("lower", ( (RangeCategory) cat ).getLowerBoundStr());
-                category.put("upper", ( (RangeCategory) cat ).getUpperBoundStr());
-              }
-              else
-              {
-                category.put("exact", ( (NonRangeCategory) cat ).getExactValueStr());
-              }
-              category.put("color", cat.getStyles().getValue(colorAttribute));
-              categories.put(category);
-            }
+            layerJSON.put("legend", JSONObject.NULL);
           }
-          layerJSON.put("legend", legend);
+          layersJSON.put(layerJSON);
+          count++;
         }
-        else
+        catch (JSONException e)
         {
-          layerJSON.put("legend", JSONObject.NULL);
+          String error = "Could not produce the information for the layer [" + layer.getLayerName() + "]";
+          throw new ProgrammingErrorException(error, e);
         }
-        layersJSON.put(layerJSON);
-        count++;
-      }
-      catch (JSONException e)
-      {
-        String error = "Could not produce the information for the layer [" + layer.getLayerName() + "]";
-        throw new ProgrammingErrorException(error, e);
       }
     }
 
@@ -1402,90 +1405,94 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       // Generates map overlays and combines them into a single map image
       for (Layer layer : orderedLayers)
       {
-        ByteArrayInputStream layerInput = null;
-        Graphics2D newOverlayBaseGraphic = null;
-        Graphics2D mapLayerGraphic2d = null;
-
-        String layersString = appName + ":" + configuration.getViewName(layer);
-        String fileName = QueryConstants.createSLDName(layer.getId());
-        String sldString = "http://127.0.0.1:8080/" + appName + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
-
-        StringBuffer requestURL = new StringBuffer();
-        requestURL.append(MapUtil.getGeoServerLocalURL() + "/wms?");
-        requestURL.append("LAYERS=" + layersString);
-        requestURL.append("&");
-        requestURL.append("STYLES="); // there are no geoserver styles being added. sld's are used instead
-        requestURL.append("&");
-        requestURL.append("SLD=" + sldString);
-        requestURL.append("&");
-        requestURL.append("SRS=EPSG%3A4326");
-        requestURL.append("&");
-        requestURL.append("TRANSPARENT=true");
-        requestURL.append("&");
-        requestURL.append("ISBASELAYER=false"); // in the browser the baselayer prop is set for the 1st layer in the map.
-        requestURL.append("&");
-        requestURL.append("SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&EXCEPTIONS=application%2Fvnd.ogc.se_inimage");
-        requestURL.append("&");
-        requestURL.append("FORMAT=image%2F" + processingFormat);
-        requestURL.append("&");
-        requestURL.append("BBOX=" + left + "," + bottom + "," + right + "," + top);
-        requestURL.append("&");
-        requestURL.append("WIDTH=" + Integer.toString(mapWidth));
-        requestURL.append("&");
-        requestURL.append("HEIGHT=" + Integer.toString(mapHeight));
-
-        // Make the getMap request to geoserver for this layer
-        // and return a byte[] of the returned image
-        byte[] layerOutput = getMapRequestToImage(requestURL.toString());
-
-        try
+        if (configuration.includeLayer(layer))
         {
-          layerInput = new ByteArrayInputStream(layerOutput);
-          BufferedImage newOverlayBase = new BufferedImage(mapWidth, mapHeight, BufferedImage.TYPE_INT_ARGB);
 
-          newOverlayBaseGraphic = newOverlayBase.createGraphics();
+          ByteArrayInputStream layerInput = null;
+          Graphics2D newOverlayBaseGraphic = null;
+          Graphics2D mapLayerGraphic2d = null;
 
-          // Read the just created image file from the file system
-          BufferedImage thisLayerImg = ImageIO.read(layerInput);
+          String layersString = appName + ":" + configuration.getViewName(layer);
+          String fileName = QueryConstants.createSLDName(layer.getId());
+          String sldString = "http://127.0.0.1:8080/" + appName + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
 
-          // Add transparency to the layerGraphic
-          // This is set in JavaScript in the app so we are replicating browser side transparency settings that are applied to the whole layer
-          AlphaComposite thisLayerComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.getOpacity().floatValue());
-          mapLayerGraphic2d = thisLayerImg.createGraphics();
-          newOverlayBaseGraphic.setComposite(thisLayerComposite);
+          StringBuffer requestURL = new StringBuffer();
+          requestURL.append(MapUtil.getGeoServerLocalURL() + "/wms?");
+          requestURL.append("LAYERS=" + layersString);
+          requestURL.append("&");
+          requestURL.append("STYLES="); // there are no geoserver styles being added. sld's are used instead
+          requestURL.append("&");
+          requestURL.append("SLD=" + sldString);
+          requestURL.append("&");
+          requestURL.append("SRS=EPSG%3A4326");
+          requestURL.append("&");
+          requestURL.append("TRANSPARENT=true");
+          requestURL.append("&");
+          requestURL.append("ISBASELAYER=false"); // in the browser the baselayer prop is set for the 1st layer in the map.
+          requestURL.append("&");
+          requestURL.append("SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&EXCEPTIONS=application%2Fvnd.ogc.se_inimage");
+          requestURL.append("&");
+          requestURL.append("FORMAT=image%2F" + processingFormat);
+          requestURL.append("&");
+          requestURL.append("BBOX=" + left + "," + bottom + "," + right + "," + top);
+          requestURL.append("&");
+          requestURL.append("WIDTH=" + Integer.toString(mapWidth));
+          requestURL.append("&");
+          requestURL.append("HEIGHT=" + Integer.toString(mapHeight));
 
-          // Add the current layerGraphic to the base image
-          newOverlayBaseGraphic.drawImage(thisLayerImg, 0, 0, null);
-          mapBaseGraphic.drawImage(newOverlayBase, 0, 0, null);
+          // Make the getMap request to geoserver for this layer
+          // and return a byte[] of the returned image
+          byte[] layerOutput = getMapRequestToImage(requestURL.toString());
 
-        }
-        catch (IOException e)
-        {
-          String error = "Could not read the map request image from the map server.";
-          throw new ProgrammingErrorException(error, e);
-        }
-        finally
-        {
-          if (newOverlayBaseGraphic != null)
+          try
           {
-            newOverlayBaseGraphic.dispose();
+            layerInput = new ByteArrayInputStream(layerOutput);
+            BufferedImage newOverlayBase = new BufferedImage(mapWidth, mapHeight, BufferedImage.TYPE_INT_ARGB);
+
+            newOverlayBaseGraphic = newOverlayBase.createGraphics();
+
+            // Read the just created image file from the file system
+            BufferedImage thisLayerImg = ImageIO.read(layerInput);
+
+            // Add transparency to the layerGraphic
+            // This is set in JavaScript in the app so we are replicating browser side transparency settings that are applied to the whole layer
+            AlphaComposite thisLayerComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.getOpacity().floatValue());
+            mapLayerGraphic2d = thisLayerImg.createGraphics();
+            newOverlayBaseGraphic.setComposite(thisLayerComposite);
+
+            // Add the current layerGraphic to the base image
+            newOverlayBaseGraphic.drawImage(thisLayerImg, 0, 0, null);
+            mapBaseGraphic.drawImage(newOverlayBase, 0, 0, null);
+
           }
-
-          if (mapLayerGraphic2d != null)
+          catch (IOException e)
           {
-            mapLayerGraphic2d.dispose();
+            String error = "Could not read the map request image from the map server.";
+            throw new ProgrammingErrorException(error, e);
           }
-
-          if (layerInput != null)
+          finally
           {
-            try
+            if (newOverlayBaseGraphic != null)
             {
-              layerInput.close();
+              newOverlayBaseGraphic.dispose();
             }
-            catch (IOException e)
+
+            if (mapLayerGraphic2d != null)
             {
-              String error = "Could not close the stream.";
-              throw new ProgrammingErrorException(error, e);
+              mapLayerGraphic2d.dispose();
+            }
+
+            if (layerInput != null)
+            {
+              try
+              {
+                layerInput.close();
+              }
+              catch (IOException e)
+              {
+                String error = "Could not close the stream.";
+                throw new ProgrammingErrorException(error, e);
+              }
             }
           }
         }

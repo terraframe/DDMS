@@ -25,13 +25,6 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
   public static final String MALARIA          = "MALARIA";
 
   public static final String DENGUE           = "DENGUE";
-  
-  /**
-   * This only has a value during system initialization and is used in restoring query builder views, so we know there's no threading issues.
-   * Ideally this should be a parameter passed in when we invoke QueryBuilder.getValueQuery in SavedSearch.java, but I don't really want to
-   * change all the Metadata that would be required to make that happen since I would have to change MdMethods.
-   */
-  public static String SYSTEM_DISEASE = null;
 
   public Disease()
   {
@@ -53,11 +46,11 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
       ex.setAttributeLabel(Disease.getMenuRootMd().getDisplayLabel(Session.getCurrentLocale()));
       throw ex;
     }
-    
-    if(this.isNew())
+
+    if (this.isNew())
     {
       // Add a default case period with a new disease #3026
-       Property.getAllByPackage(PropertyInfo.MONITOR_PACKAGE);
+      Property.getAllByPackage(PropertyInfo.MONITOR_PACKAGE);
     }
 
     super.apply();
@@ -86,9 +79,6 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
       String name = user.getDiseaseName();
       disease = Disease.getByKey(name);
-    }
-    else if (SYSTEM_DISEASE != null) {
-      return Disease.get(SYSTEM_DISEASE);
     }
     else
     {

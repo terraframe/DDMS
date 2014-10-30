@@ -39,6 +39,7 @@ import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeAssay;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideQuery;
 import dss.vector.solutions.localization.MultiBundle;
@@ -49,9 +50,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class ResistanceQB extends AbstractQB implements Reloadable
 {
 
-  public ResistanceQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public ResistanceQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
 
   @Override

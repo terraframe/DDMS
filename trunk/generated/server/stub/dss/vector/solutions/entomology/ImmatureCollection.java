@@ -16,8 +16,7 @@ import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.ImmatureContainerCollectionQB;
 
-public class ImmatureCollection extends ImmatureCollectionBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class ImmatureCollection extends ImmatureCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 746053127;
 
@@ -160,14 +159,13 @@ public class ImmatureCollection extends ImmatureCollectionBase implements
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new ImmatureContainerCollectionQB(xml, config, layer, pageSize, pageSize).construct();
+    return new ImmatureContainerCollectionQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

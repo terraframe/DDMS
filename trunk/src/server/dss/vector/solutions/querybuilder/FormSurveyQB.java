@@ -27,6 +27,7 @@ import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormPersonQuery;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.form.business.FormSurveyQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -34,9 +35,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class FormSurveyQB extends AbstractQB implements Reloadable
 {
 
-  public FormSurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public FormSurveyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageSize, pageSize);
+    super(xml, config, layer, pageSize, pageSize, disease);
   }
 
   @Override
@@ -182,9 +183,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Gets the grid attributes for the given GeneratedEntityQuery. This also
-   * checks that the given query actually defines the grid, whereas the version
-   * defined in QueryUtil doesn't do that.
+   * Gets the grid attributes for the given GeneratedEntityQuery. This also checks that the given query actually defines the grid, whereas the version defined in QueryUtil doesn't do that.
    * 
    * @param valueQuery
    * @param query
@@ -260,14 +259,13 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
+   * Takes in an XML string and returns a ValueQuery representing the structured query in the XML.
    * 
    * @param xml
    * @return
    */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    return new FormSurveyQB(xml, config, layer, pageSize, pageSize).construct();
+    return new FormSurveyQB(xml, config, layer, pageSize, pageSize, disease).construct();
   }
 }

@@ -22,6 +22,7 @@ import dss.vector.solutions.entomology.PupalContainerQuery;
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.entomology.PupalPremise;
 import dss.vector.solutions.entomology.PupalPremiseQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.Layer;
@@ -30,9 +31,9 @@ import dss.vector.solutions.util.QueryUtil;
 public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
 {
 
-  public PupalContainerCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize)
+  public PupalContainerCollectionQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
-    super(xml, config, layer, pageNumber, pageNumber);
+    super(xml, config, layer, pageNumber, pageNumber, disease);
   }
   
   @Override
