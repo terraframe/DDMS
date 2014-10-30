@@ -79,7 +79,10 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     
     // geoColumn will be null if the query does not contain any selectables in the 'requiresGeoColumn' array.
     geoIdSelectable = getGeoColumn(valueQuery, queryConfig);
-    String geoIdColumn = geoIdSelectable.getDbColumnName();
+    String geoIdColumn = null;
+    if (geoIdSelectable != null) {
+      geoIdColumn = geoIdSelectable.getDbColumnName();
+    }
     
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
     IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
