@@ -50,7 +50,7 @@ Var ManagerLibDir
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile patch.exe
+OutFile runway-patch.exe
 InstallDir C:\MDSS
 CRCCheck on
 XPStyle on
