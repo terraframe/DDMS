@@ -183,8 +183,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, caseQuery.getDisease());
 
-    Disease disease = Disease.getCurrent();
-    valueQuery.AND(caseQuery.getDisease().EQ(disease));
+    valueQuery.AND(caseQuery.getDisease().EQ(this.getDisease()));
 
     // injectPopulationSQL(valueQuery, caseQuery, instanceQuery, queryConfig, xml);
     if (valueQuery.hasSelectableRef(QueryConstants.POPULATION))
@@ -367,7 +366,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       innerQuery.SELECT(positiveColumn);
       innerQuery.SELECT(negativeColumn);
       innerQuery.SELECT(clinicalColumn);
-      innerQuery.WHERE(iQuery.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
+      innerQuery.WHERE(iQuery.getIndividualCase().getDisease().EQ(this.getDisease()));
 
       ValueQuery vQuery = new ValueQuery(factory);
       vQuery.SELECT(F.SUM(vQuery.aSQLLong("positive", "(case when " + positiveColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), posCases));
