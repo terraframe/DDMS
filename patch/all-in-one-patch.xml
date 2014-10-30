@@ -18,8 +18,11 @@
 			</fileset>
 		</classpath>
 	</typedef>
-	<target name="build" depends="setup-files">
-	
+
+<!--	
+	<target name="build" >
+-->	
+	<target name="build" depends="setup-files">	
 		<!-- Get revision info from svn -->
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
 			<info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
@@ -29,7 +32,7 @@
 			<info target="${doc.dir}/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
 			<info target="${doc.dir}/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
 			<info target="${doc.dir}/localization" verbose="true" propPrefix="localization.svn." />
-			<info target="${doc.dir}/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />	
+			<info target="${trunk.dir}/profiles/Permissions.xls" verbose="true" propPrefix="permissions.svn." />	
 			<info target="${project.dir}/installer-stage/birt" verbose="true" propPrefix="birt.svn." />	  
 			<info target="${project.dir}/installer-stage/tomcat6/webapps" verbose="true" propPrefix="webapps.svn." />	 			
 			<info target="${project.dir}/installer-stage/Java" verbose="true" propPrefix="java.svn." />	  	  				  

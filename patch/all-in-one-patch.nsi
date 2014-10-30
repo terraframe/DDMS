@@ -33,6 +33,56 @@ RequestExecutionLevel highest
 !macroend
 !define StrTrimNewLines "!insertmacro StrTrimNewLines"
 
+; StrContains
+; This function does a case sensitive searches for an occurrence of a substring in a string. 
+; It returns the substring if it is found. 
+; Otherwise it returns null(""). 
+; Written by kenglish_hi
+; Adapted from StrReplace written by dandaman32
+ 
+ 
+Var STR_HAYSTACK
+Var STR_NEEDLE
+Var STR_CONTAINS_VAR_1
+Var STR_CONTAINS_VAR_2
+Var STR_CONTAINS_VAR_3
+Var STR_CONTAINS_VAR_4
+Var STR_RETURN_VAR
+ 
+Function StrContains
+  Exch $STR_NEEDLE
+  Exch 1
+  Exch $STR_HAYSTACK
+  ; Uncomment to debug
+  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK '
+    StrCpy $STR_RETURN_VAR ""
+    StrCpy $STR_CONTAINS_VAR_1 -1
+    StrLen $STR_CONTAINS_VAR_2 $STR_NEEDLE
+    StrLen $STR_CONTAINS_VAR_4 $STR_HAYSTACK
+    loop:
+      IntOp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_1 + 1
+      StrCpy $STR_CONTAINS_VAR_3 $STR_HAYSTACK $STR_CONTAINS_VAR_2 $STR_CONTAINS_VAR_1
+      StrCmp $STR_CONTAINS_VAR_3 $STR_NEEDLE found
+      StrCmp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_4 done
+      Goto loop
+    found:
+      StrCpy $STR_RETURN_VAR $STR_NEEDLE
+      Goto done
+    done:
+   Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
+   Exch $STR_RETURN_VAR  
+FunctionEnd
+ 
+!macro _StrContainsConstructor OUT NEEDLE HAYSTACK
+  Push `${HAYSTACK}`
+  Push `${NEEDLE}`
+  Call StrContains
+  Pop `${OUT}`
+!macroend
+ 
+!define StrContains '!insertmacro "_StrContainsConstructor"'
+
+
 # Variables
 Var Java
 Var JavaOpts
@@ -61,6 +111,7 @@ Var Params                  # Variable for storing all of the params
 Var JavaHome                # Location of the Java JDK depending on the system OS version
 Var JvmType                 # Flag indicating if the jvm is 32-bit or not
 Var MaxMem                  # Max amount of memory to give Tomcat
+Var PermMem                 # Amount of perm gen memory to give to Tomcat
 Var TomcatExec              # Path of the tomcat service executable
 
 # Installer pages
@@ -93,39 +144,41 @@ ShowUninstDetails show
 # Installer sections
 Section -Main SEC0000
 
-  # Determine the location of java home.	
+  # Determine the location of java home.  
   ${IfNot} ${RunningX64}
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
     StrCpy $JvmType true
-    StrCpy $MaxMem 768	  
-    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
+    StrCpy $MaxMem 768    
+    StrCpy $PermMem 256      
+    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe    
   ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16    
     StrCpy $JvmType false
-    StrCpy $MaxMem 1512
-    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
+    StrCpy $MaxMem 3072
+    StrCpy $PermMem 512        
+    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe        
   ${EndIf}
 
   SetOutPath $INSTDIR
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7232
-  StrCpy $ManagerVersion 7294
-  StrCpy $PatchVersion 7293
-  StrCpy $TermsVersion 6644
-  StrCpy $RootsVersion 5432
-  StrCpy $MenuVersion 6655
-  StrCpy $LocalizationVersion 7225
-  StrCpy $PermissionsVersion 7290
-  StrCpy $BirtVersion 7149
-  StrCpy $WebappsVersion 7194
+  StrCpy $RunwayVersion 7584
+  StrCpy $ManagerVersion 7589
+  StrCpy $PatchVersion 7612
+  StrCpy $TermsVersion 7455
+  StrCpy $RootsVersion 7504
+  StrCpy $MenuVersion 7427
+  StrCpy $LocalizationVersion 7604
+  StrCpy $PermissionsVersion 7601
+  StrCpy $BirtVersion 7497
+  StrCpy $WebappsVersion 7501
   StrCpy $JavaVersion 7202  
     
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
   StrCpy $AgentDir "$PatchDir\output"
-  StrCpy $JavaOpts "$ExtraOpts -Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
+  StrCpy $JavaOpts "$ExtraOpts -Xmx$MaxMemM -XX:MaxPermSize=$PermMemM -javaagent:$PatchDir\OutputAgent.jar"
   StrCpy $Java "$JavaHome\bin\javaw.exe"
   
   # Extract the logging libs
@@ -159,7 +212,7 @@ Section -Main SEC0000
   SetOutPath $INSTDIR
   RMDir /r $INSTDIR\tomcat6\work\Catalina 
   
-  # Update the pathing for java	
+  # Update the pathing for java  
   LogEx::Write "Updating java pathing"
 
   # Update startup.bat
@@ -177,7 +230,7 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push $INSTDIR\tomcat6\bin\shutdown.bat # file to replace in
   Call AdvReplaceInFile
-	
+  
   # Update manager.bat
   Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
   Push $JavaHome                         # replace with
@@ -185,6 +238,24 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push $INSTDIR\manager\manager.bat      # file to replace in
   Call AdvReplaceInFile  
+
+  # Update manager.bat
+  Push JAVA_HOME_VALUE                   # text to be replaced
+  Push $JavaHome                         # replace with
+  Push all                               # replace all occurrences
+  Push all                               # replace all occurrences
+  Push $INSTDIR\manager\manager.bat      # file to replace in
+  Call AdvReplaceInFile  
+  
+  # Update the birt shortcut
+  SetOutPath $INSTDIR\birt
+  CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED  
+  
+  # Update postgres.conf
+  LogEx::Write "Updating postgres settings"  
+
+  SetOutPath $INSTDIR\PostgreSql\9.1\data
+  File ..\installer-stage\postgresql.conf
   
   # Clean-up the logging libs
   Delete $PatchDir\*  
@@ -256,14 +327,17 @@ Function patchApplication
     ${If} $PatchVersion > $0     
       MessageBox MB_YESNO "Patch application $AppName?" IDYES true IDNO false  
       true:
-	  
+    
       # Update the classpath to reference the particular application being patched
       StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
 
       # Remove any old log files that may be laying around
       Delete $AgentDir\*.out
       Delete $AgentDir\*.err
-	          
+	  
+	  # Remove old lib files
+      Delete $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*.*
+            
       # Copy web files
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
       SetOutPath $INSTDIR\tomcat6\webapps\$AppName
@@ -272,8 +346,13 @@ Function patchApplication
 
       # We need to clear the old cache
       Delete $INSTDIR\tomcat6\$AppName.index
-      Delete $INSTDIR\tomcat6\$AppName.data  	  
-	  
+      Delete $INSTDIR\tomcat6\$AppName.data    
+
+      # Build any dimensional metadata with the Master domain
+      !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
+      ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
+      Call JavaAbort
+    
       # Import Most Recent
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
       SetOutPath $PatchDir\schema
@@ -318,7 +397,7 @@ Function patchApplication
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
       ${If} $RootsVersion > $0
         StrCpy $Phase "Post ontology setup"
-        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls` $JavaError
+        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls false` $JavaError
         Call JavaAbort
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
       ${Else}
@@ -332,7 +411,7 @@ Function patchApplication
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
       ${If} $MenuVersion > $0
         StrCpy $Phase "Importing menu items"
-        ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls` $JavaError
+        ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls false` $JavaError
         Call JavaAbort
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
       ${Else}
@@ -356,24 +435,24 @@ Function patchApplication
       # Permissions
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
       SetOutPath $PatchDir\doc
-      File ..\trunk\doc\permissions\Permissions.xls
+      File ..\trunk\profiles\Permissions.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
       ${If} $PermissionsVersion > $0
         StrCpy $Phase "Updating permissions"
-        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
+        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\Permissions.xls` $JavaError
         Call JavaAbort
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
       ${Else}
         DetailPrint "Skipping Permissions because they are already up to date"
-      ${EndIf}	  
-	      
-      # Season labels and mosqito collections
+      ${EndIf}    
+        
+      # Update any application data which needs to be updated
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
       SetOutPath $PatchDir\doc
       StrCpy $Phase "Updating application data"
       ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
       Call JavaAbort
-	  	  	      
+                
    
       # Switch back to the deploy environment
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
@@ -444,9 +523,9 @@ Function patchMetadata
     Delete $INSTDIR\tomcat6\$AppName.data
   
     # Build any dimensional metadata with the Master domain
-    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
-    ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
-    Call JavaAbort
+    #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
+    #ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
+    #Call JavaAbort
 
     # Build any dimensional metadata with the Master domain
     #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Recompiling $AppName..."
@@ -463,19 +542,19 @@ FunctionEnd
 
 Function patchManager
   !insertmacro MUI_HEADER_TEXT "Patching manager" "Patching manager"
-
+  
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
   ${If} $ManagerVersion > $0    
   
-	# Delete the existing SWT jars, the SWT jar has been moved into the jre
-    Delete $INSTDIR\manager\backup-manager-1.0.0\lib\swt.jar	
-    Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar	
-    Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar	
-    Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar	
-    Delete $INSTDIR\manager\synch-manager-1.0.0\lib\swt.jar	
-	
-    SetOutPath $INSTDIR
+  # Delete the existing SWT jars, the SWT jar has been moved into the jre
+  	RMDir /r $INSTDIR\manager\backup-manager-1.0.0\lib
+    Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar  
+    Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar  
+    Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar  
+    Delete $INSTDIR\manager\synch-manager-1.0.0\lib\swt.jar  
+  
+    SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
     File ..\standalone\patch\manager.ico  
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
@@ -490,7 +569,30 @@ Function patchManager
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
-		      
+  
+    ################################################################################
+    # Update the manager memory settings for 64-bit installs
+    ################################################################################
+  
+    ${If} ${RunningX64}    
+    
+    # Update max memory
+    Push process.memory.max=1024M                                       # text to be replaced
+    Push process.memory.max=3072M                                       # replace with
+    Push all                                                            # replace all occurrences
+    Push all                                                            # replace all occurrences
+    Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
+    Call AdvReplaceInFile  
+    
+    # Update perm gen memory
+    Push process.perm.size=256M                                         # text to be replaced
+    Push process.perm.size=512M                                         # replace with
+    Push all                                                            # replace all occurrences
+    Push all                                                            # replace all occurrences
+    Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
+    Call AdvReplaceInFile  
+  ${EndIF}  
+          
     ################################################################################
     # Copy any updated runway properties to all of the backedup profile directories
     ################################################################################
@@ -535,14 +637,14 @@ Function patchInstallerStage
   # Before we start, check the versions to make sure this is actually a patch.  
   ReadRegStr $0 HKLM "${REGKEY}\Components" Java
   ${If} $JavaVersion > $0    
-	
+  
     # Remove the existing java install
     RMDir /r $INSTDIR\Java
-	
+  
     # Copy over the new java install
     SetOutPath $INSTDIR\Java
     File /r /x .svn ..\installer-stage\Java\*
-	
+  
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion  
 
   ${Else}
@@ -558,10 +660,16 @@ Function patchInstallerStage
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Birt
   ${If} $BirtVersion > $0    
-    # Copy over the new birt files, however do not delete the current birt because it will have some config files
+    
+	# Remove the existing birt install
+	RMDir /r $INSTDIR\birt\configuration
+	RMDir /r $INSTDIR\birt\p2
+	RMDir /r $INSTDIR\birt\plugins
+  
+    # Copy over the new birt files
     SetOutPath $INSTDIR\birt
     File /r /x .svn ..\installer-stage\birt\*  
-	
+  
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion  
   ${Else}
     DetailPrint "Birt is already up to date"  
@@ -576,10 +684,17 @@ Function patchInstallerStage
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Webapps
   ${If} $WebappsVersion > $0    
+    # Delete the existing birt web app files
+	RMDir /r $INSTDIR\tomcat6\webapps\birt\logs
+	RMDir /r $INSTDIR\tomcat6\webapps\birt\report
+	RMDir /r $INSTDIR\tomcat6\webapps\birt\scriptlib
+	RMDir /r $INSTDIR\tomcat6\webapps\birt\webcontent
+	RMDir /r $INSTDIR\tomcat6\webapps\birt\WEB-INF 
+  
     # Copy over the new webapp files
     SetOutPath $INSTDIR\tomcat6\webapps
     File /r /x .svn /x .war ..\installer-stage\tomcat6\webapps\*  
-	
+  
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
   ${Else}
     DetailPrint "Webapps directory is already up to date"  
@@ -603,17 +718,21 @@ Function patchInstallerStage
   Pop $0
   
   ${If} $0 <> 0        
-  	# Install tomcat as a service	
+    # Install tomcat as a service  
     LogEx::Write "Configuring Tomcat as a service"
     ExecWait `$TomcatExec //IS//Tomcat6 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
-	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
-	
-	# Update tomcat service parameters
+  LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+  
+  # Update tomcat service parameters
     LogEx::Write "Update tomcat service parameters"
-    ExecWait `$TomcatExec //US//Tomcat6 --Startup=auto --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=256M;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
-	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"		
+    ExecWait `$TomcatExec //US//Tomcat6 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`  
+  LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
   ${EndIf}
   
+  # Update tomcat memory parameters
+  LogEx::Write "Update tomcat memory parameters"
+  ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`  
+  LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
 FunctionEnd
 
 
@@ -627,6 +746,86 @@ Function JavaAbort
     Abort "to function properly."
   ${EndIf}
 FunctionEnd
+
+Function DeleteFoldersWithExclusion
+ Exch $R0 ; exclude dir
+ Exch
+ Exch $R1 ; route dir
+ Push $R2
+ Push $R3
+ 
+ 
+  ClearErrors
+  FindFirst $R3 $R2 "$R1\*.*"
+ 
+ 
+  Top:
+   StrCmp $R2 "." Next
+   StrCmp $R2 ".." Next
+   
+   ${StrContains} $0 $R2 $R0
+   StrCmp $0 "" Exit
+   
+   IfFileExists "$R1\$R2\*.*" Jump DeleteFile
+ 
+   Jump:
+    Push '$R1\$R2'
+    Push '$R0'
+    Call DeleteFoldersWithExclusion
+ 
+    Push "$R1\$R2" 
+    Call isEmptyDir
+    Pop $0    
+    StrCmp $0 1 RmD Next
+ 
+   RmD:
+    RMDir /r $R1\$R2
+    Goto Next
+ 
+   DeleteFile:
+    Delete '$R1\$R2'
+ 
+   Next:
+    ClearErrors
+    FindNext $R3 $R2
+    IfErrors Exit
+   Goto Top
+ 
+  Exit:
+  FindClose $R3
+ 
+ Pop $R3
+ Pop $R2
+ Pop $R1
+ Pop $R0
+ 
+FunctionEnd
+ 
+ 
+Function isEmptyDir
+  # Stack ->                    # Stack: <directory>
+  Exch $0                       # Stack: $0
+  Push $1                       # Stack: $1, $0
+  FindFirst $0 $1 "$0\*.*"
+  strcmp $1 "." 0 _notempty
+    FindNext $0 $1
+    strcmp $1 ".." 0 _notempty
+      ClearErrors
+      FindNext $0 $1
+      IfErrors 0 _notempty
+        FindClose $0
+        Pop $1                  # Stack: $0
+        StrCpy $0 1
+        Exch $0                 # Stack: 1 (true)
+        goto _end
+     _notempty:
+       FindClose $0
+       Pop $1                   # Stack: $0
+       StrCpy $0 0
+       Exch $0                  # Stack: 0 (false)
+  _end:
+FunctionEnd
+
 
 Function AdvReplaceInFile
 Exch $0 ;file to replace in
@@ -736,6 +935,7 @@ Pop $3
 Pop $4
 FunctionEnd
 
+
 Function StrTrimNewLines
 /*After this point:
   ------------------------------------------
@@ -786,7 +986,7 @@ SectionEnd
 # Installer functions
 Function .onInit
     InitPluginsDir
-	
+  
     # Initialize the value of the text string
     StrCpy $ExtraOpts ""
     
@@ -795,11 +995,11 @@ Function .onInit
     # Check for the presence of the -master flag
     ${GetOptions} "$Params" "-opts=" $R0
  
-	IfErrors optsDone copyOpts
+  IfErrors optsDone copyOpts
     copyOpts:
       StrCpy $ExtraOpts $R0
     optsDone:
-      ClearErrors	
+      ClearErrors  
 FunctionEnd
 
 # Macro for selecting uninstaller sections
@@ -818,28 +1018,46 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
 
-    # Determine the location of java home.	
+    SimpleSC::ServiceIsRunning "Tomcat6"
+  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+  Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
+  
+  ${If} $1 <> 0  
+  
+    # Try to stop the service
+      SimpleSC::StopService "Tomcat6" 1 60
+    Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+    
+    ${If} $0 <> 0        
+        MessageBox MB_OK "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        Abort
+    ${EndIf}
+    
+  ${EndIf}
+
+
+    # Determine the location of java home.  
     ${IfNot} ${RunningX64}
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe    
     ${Else}
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe        
     ${EndIf}
 
     CreateDirectory $DESKTOP\temp_uninstall_files
     CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
-	
-	################################################################################
-	# Uninstall the tomcat service
-	################################################################################  
+  
+  ################################################################################
+  # Uninstall the tomcat service
+  ################################################################################  
     SimpleSC::ExistsService "Tomcat6"
-	Pop $0
+  Pop $0
   
     ${If} $0 == 0        
-      # Service exists, we need to delete it	
+      # Service exists, we need to delete it  
       LogEx::Write "Deleting tomcat service"
       ExecWait `$TomcatExec //DS//Tomcat6`
     ${EndIf}
-	
+  
     DeleteRegValue HKLM "${REGKEY}\Components" Main
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
@@ -881,6 +1099,6 @@ SectionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
-	SetRebootFlag true
+  SetRebootFlag true
 FunctionEnd
 
