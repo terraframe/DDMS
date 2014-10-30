@@ -1,11 +1,8 @@
 package dss.vector.solutions.query;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -24,7 +21,6 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
@@ -435,13 +431,6 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setFilterGeoEntityName(filterEntityName);
               generated.setDisease(disease);
               generated.apply();
-
-              /*
-              * This is for testing
-              */
-              OutputStream tstream = new FileOutputStream("/home/jsmethie/Documents/Terraframe/DDMS/Test/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-
-              FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
             }
             finally
             {
