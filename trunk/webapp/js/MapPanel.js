@@ -1790,9 +1790,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _exportMap : function()
     {
-    	var outFileName = "test_image";
-    	var outFilePath = "/home/jlewis/development/scratch/";
-    	var outFileFormat = "png";  // gif, png, jpg, bmp
     	
     	var mapBounds = {};
     	var mapExtent = this._map.getExtent();
@@ -1808,22 +1805,20 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     	mapSizeStr = JSON.stringify(mapSize);
     	
     	var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
-        var mapId = select.value;
         
         var mapId = select.value;
         var defaultMapId = select.options[0].value;
+        var mapName = "";
         
-// var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-// document.getElementById('mapId').value = defaultMapId;
-// document.getElementById('outFileName').value = outFileName;
-// document.getElementById('outFileFormat').value = outFileFormat;
-// document.getElementById('mapBounds').value = mapBoundsStr;
-// document.getElementById('mapSize').value = mapSizeStr;
+        for(var i=0; i<select.options.length; i++) {
+    	  if ( select.options[i].value == mapId ) {
+    	    select.selectedIndex = i;
+    	    mapName = select.options[i].text;
+    	    break;
+    	  }
+        }
         
-        this._exportMapModal(defaultMapId, mapBoundsStr, mapSizeStr, select.text);
-        
-// var form = document.getElementById('exportMap');
-// form.submit();
+        this._exportMapModal(defaultMapId, mapBoundsStr, mapSizeStr, mapName);
     },
     
     _addSavedMap : function(mapId, mapName)
@@ -2056,13 +2051,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                             0.000069757,
                             0.000053659,
                             0.000041276
-// 0.000031751
-// 0.000024424
+                            // 0.000031751
+                            // 0.000024424
                             // end of 1/3 intervals
                             ],
-              minResolution: "auto",
-              maxResolution: "auto"
-// numZoomLevels : 20
+                            minResolution: "auto",
+                            maxResolution: "auto"
+            	  			// numZoomLevels : 20
           };
       
       

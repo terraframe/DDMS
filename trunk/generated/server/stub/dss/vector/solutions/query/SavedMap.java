@@ -874,8 +874,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         JSONObject legendObj = legendsArr.getJSONObject(i);
         String legendId = legendObj.getString("legendId");
         String layerId = legendId.replace("legend_", "");
-        Integer legendTopPos = Math.round(Float.parseFloat(legendObj.getString("top").replace("px", "")));
-        Integer legendLeftPos = Math.round(Float.parseFloat(legendObj.getString("left").replace("px", "")));
+        Integer legendTopPos = (int) Math.round(Float.parseFloat(legendObj.getString("top").replace("px", "")));
+        Integer legendLeftPos = (int) Math.round(Float.parseFloat(legendObj.getString("left").replace("px", "")));
 
         Layer layer = Layer.get(layerId);
 
@@ -904,8 +904,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
         JSONObject imageObj = imagesArr.getJSONObject(i);
         String imageId = imageObj.getString("imageId");
-        Integer imageTopPos = Math.round(Float.parseFloat(imageObj.getString("top").replace("px", "")));
-        Integer imageLeftPos = Math.round(Float.parseFloat(imageObj.getString("left").replace("px", "")));
+        Integer imageTopPos = (int) Math.round(Float.parseFloat(imageObj.getString("top").replace("px", "")));
+        Integer imageLeftPos = (int) Math.round(Float.parseFloat(imageObj.getString("left").replace("px", "")));
 
         String mdImageId = getImageByCustomImageId(imageId);
 
@@ -1069,8 +1069,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
         JSONObject textObj = textArr.getJSONObject(i);
         String textId = textObj.getString("textId");
-        Integer textTopPos = Math.round(Float.parseFloat(textObj.getString("top").replace("px", "")));
-        Integer textLeftPos = Math.round(Float.parseFloat(textObj.getString("left").replace("px", "")));
+        Integer textTopPos = (int) Math.round(Float.parseFloat(textObj.getString("top").replace("px", "")));
+        Integer textLeftPos = (int) Math.round(Float.parseFloat(textObj.getString("left").replace("px", "")));
 
         String mdTextId = getTextByCustomTextElementId(textId);
 
@@ -1533,170 +1533,58 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       {
         if (layer.getEnableLegend())
         {
-          Graphics2D newLegendBaseGraphic = null;
-          Graphics2D newLegendBaseGraphicContainer = null;
+          int iconSize = 16;
+          int iconPadding = 4;
+          int paddedIconWidth = iconSize + ( iconPadding * 2 );
+          int borderWidth = 2;
+          Graphics2D newLegendTitleBaseGraphic = null;
+          
           try
           {
-            FontMetrics fm;
-            int textWidth;
-            int textHeight;
-            int textBoxHorizontalPadding = 4;
-            int textBoxVerticalPadding = 4;
-            int iconWidth = 20;
-            int iconHeight = 20;
-            int iconHorizontalPadding = 4;
-            int iconVerticalPadding = 4;
-            int paddedIconWidth = iconWidth + ( iconHorizontalPadding * 2 );
-            int paddedIconHeight = iconHeight + ( iconVerticalPadding * 2 );
-            int borderWidth = 2;
-            int paddedTextHeight;
-            int paddedTextWidth;
-            BufferedImage newLegendBase;
-            Font titleFont = null;
-            Font bodyFont = null;
-
-            int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
-            int fontSize = (int) Math.round(layer.getLegendTitleFontSize() * screenRes / 72.0);
-
-            // Build the Font object
-            if (layer.getLegendTitleFontStyles().get(0).toString().equals("NORMAL"))
-            {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.PLAIN, fontSize);
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.PLAIN, fontSize);
-            }
-            else if (layer.getLegendTitleFontStyles().get(0).toString().equals("BOLD"))
-            {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.BOLD, fontSize);
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.BOLD, fontSize);
-            }
-            else if (layer.getLegendTitleFontStyles().get(0).toString().equals("ITALIC"))
-            {
-              titleFont = new Font(layer.getLegendTitleFontFamily(), Font.ITALIC, fontSize);
-              bodyFont = new Font(layer.getLegendFontFamily(), Font.ITALIC, fontSize);
-            }
-
-            // Build variables for legend graphic construction
-            try
-            {
-              newLegendBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-              newLegendBaseGraphic = newLegendBase.createGraphics();
-
-              newLegendBaseGraphic.setFont(titleFont);
-
-              fm = newLegendBaseGraphic.getFontMetrics();
-              textWidth = fm.stringWidth(layer.getLegendTitle());
-              textHeight = fm.getHeight();
-              paddedTextHeight = textHeight + ( textBoxVerticalPadding * 2 ) + ( borderWidth * 2 );
-              // make sure there's enough room for the icon graphic
-              if (paddedTextHeight < paddedIconHeight)
-              {
-                paddedTextHeight = paddedIconHeight;
-              }
-              paddedTextWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
-            }
-            finally
-            {
-              // dispose of temporary graphics context
-              newLegendBaseGraphic.dispose();
-            }
-
-            // build the style icon that represents the feature fill color
+            // handle color graphics and categories
             if (layer.getCreateRawLegend())
             {
-              paddedTextWidth = paddedTextWidth + paddedIconWidth;
+              BufferedImage newLegendTitleBase = getLegendTitleImage(layer, 0);
+              
+              newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
+              int paddedTitleWidth = newLegendTitleBase.getWidth();
+              int paddedTitleHeight = newLegendTitleBase.getHeight();
+              
+              // draw color icon to the right of the title
+              int iconLeftPadding = paddedTitleWidth - paddedIconWidth + 4;
+              int internalGraphicTopPadding = (int) Math.round( ( paddedTitleHeight - iconSize ) / 2);
+              
+              newLegendTitleBaseGraphic.setColor(Color.black);
+              newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
+              newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
+              
+              BufferedImage icon = getLegendIcon(iconSize, iconSize, iconPadding, borderWidth, layer.getDefaultStyles().getPolygonFill());
+
+              newLegendTitleBaseGraphic.drawImage(icon, iconLeftPadding, internalGraphicTopPadding, null);
+              mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
             }
-
-            newLegendBase = new BufferedImage(paddedTextWidth + 1, paddedTextHeight + 1, BufferedImage.TYPE_INT_ARGB);
-            newLegendBaseGraphic = newLegendBase.createGraphics();
-            newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
-
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            newLegendBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-            newLegendBaseGraphic.setFont(titleFont);
-
-            // draw legend background
-            newLegendBaseGraphic.setColor(Color.white);
-            newLegendBaseGraphic.fillRect(0, 0, paddedTextWidth, paddedTextHeight);
-
-            // draw legend border
-            if (layer.getShowLegendBorder())
+            else if(layer.getAllHasCategory().getAll().size() > 0)
             {
-              newLegendBaseGraphic.setColor(Color.black);
-              newLegendBaseGraphic.drawRect(0, 0, paddedTextWidth, paddedTextHeight);
-              newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
+              // draw categories with title
+              BufferedImage categoryLegend = getLegendCategoryImage(layer);
+              mapBaseGraphic.drawImage(categoryLegend, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, null);
             }
-
-            // draw legend text
-            fm = newLegendBaseGraphic.getFontMetrics();
-            newLegendBaseGraphic.setColor(Color.decode(layer.getLegendTitleFontFill()));
-            newLegendBaseGraphic.drawString(layer.getLegendTitle(), textBoxHorizontalPadding, fm.getAscent() + textBoxVerticalPadding);
-
-            newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
-
-            // build the style icon that represents the feature fill color
-            if (layer.getCreateRawLegend())
+            else
             {
-              int iconLeftPadding = paddedTextWidth - paddedIconWidth + 4;
-              int internalGraphicTopPadding = (int) Math.round( ( paddedTextHeight - iconHeight ) / 2);
-              Color featureFill = Color.decode(layer.getDefaultStyles().getPolygonFill());
-              // Color featureBorder = Color.decode(layer.getDefaultStyles().getPolygonStroke());
-
-              newLegendBaseGraphic.setColor(featureFill);
-              newLegendBaseGraphic.fillRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
-
-              newLegendBaseGraphic.setColor(Color.black);
-              newLegendBaseGraphic.drawRect(iconLeftPadding, internalGraphicTopPadding, iconWidth, iconHeight);
-              newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
-
-              newLegendBaseGraphic.setColor(Color.black);
-              newLegendBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTextHeight);
-              newLegendBaseGraphic.setStroke(new BasicStroke(borderWidth));
-
-              newLegendBaseGraphic.drawImage(newLegendBase, 0, 0, null);
+              BufferedImage newLegendTitleBase = getLegendTitleImage(layer, 0);
+              
+              newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
+              int paddedTitleWidth = newLegendTitleBase.getWidth();
+              int paddedTitleHeight = newLegendTitleBase.getHeight();
+              
+              mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
             }
-
-            // // build the style icon that represents the feature fill color
-            // if(layer.getCreateRawLegend())
-            // {
-            //
-            // BufferedImage iconBase = new BufferedImage(iconWidth + 1, paddedTextHeight + 1, BufferedImage.TYPE_INT_ARGB);
-            // Graphics2D iconBaseGraphic = iconBase.createGraphics();
-            //
-            // // draw the outer container
-            // iconBaseGraphic.setColor(Color.white);
-            // iconBaseGraphic.fillRect(0, 0, iconWidth, paddedTextHeight);
-            //
-            // iconBaseGraphic.setColor(Color.black);
-            // iconBaseGraphic.drawRect(0, 0, iconWidth, paddedTextHeight);
-            // iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
-            //
-            // // draw the colored icon
-            // int internalGraphicTopPadding = (int) Math.round(((paddedTextHeight)-(iconWidth - textBoxVerticalPadding))/2);
-            // iconBaseGraphic.drawRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
-            // iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
-            //
-            // iconBaseGraphic.setColor(Color.green); // Color.decode(layer.getLegendColor())
-            // iconBaseGraphic.fillRect(textBoxHorizontalPadding/2, internalGraphicTopPadding, iconWidth - textBoxHorizontalPadding, iconWidth - textBoxVerticalPadding);
-            //
-            // iconBaseGraphic.drawImage(iconBase, 0, 0, null);
-            // mapBaseGraphic.drawImage(iconBase, layer.getLegendXPosition() - leftOffset + textWidth, layer.getLegendYPosition() - topOffset, null);
-            //
-            // iconBaseGraphic.dispose();
-            // }
-
-            mapBaseGraphic.drawImage(newLegendBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, textWidth, textHeight, null);
           }
           finally
           {
-            if (newLegendBaseGraphic != null)
+            if (newLegendTitleBaseGraphic != null)
             {
-              newLegendBaseGraphic.dispose();
+              newLegendTitleBaseGraphic.dispose();
             }
           }
         }
@@ -1708,6 +1596,438 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     return base;
+  }
+  
+  
+  private BufferedImage getLegendTitleImage(Layer layer, int widthOverride)
+  {
+    
+    FontMetrics fm;
+    int textWidth;
+    int textHeight;
+    int textBoxHorizontalPadding = 4;
+    int textBoxVerticalPadding = 4;
+    int iconWidth = 20;
+    int iconHeight = 20;
+    int iconHorizontalPadding = 4;
+    int iconVerticalPadding = 4;
+    int paddedIconWidth = iconWidth + ( iconHorizontalPadding * 2 );
+    int paddedIconHeight = iconHeight + ( iconVerticalPadding * 2 );
+    int borderWidth = 2;
+    int paddedTitleHeight;
+    int paddedTitleWidth;
+    int titleLeftPadding = textBoxHorizontalPadding;
+    BufferedImage newLegendTitleBase;
+    Graphics2D newLegendTitleBaseGraphic = null;
+    
+    try
+    {
+      // Build the Font object
+      Font titleFont = getLegendFontObject(layer.getLegendTitleFontFamily(), layer.getLegendTitleFontSize(), layer.getLegendTitleFontStyles().get(0).toString());
+
+      // Build variables for base legend graphic construction
+      try
+      {
+        newLegendTitleBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
+
+        newLegendTitleBaseGraphic.setFont(titleFont);
+
+        fm = newLegendTitleBaseGraphic.getFontMetrics();
+        textHeight = fm.getHeight();
+        textWidth = fm.stringWidth(layer.getLegendTitle());
+        
+        if(widthOverride > 0)
+        {
+          paddedTitleWidth = widthOverride;
+        }
+        else
+        {
+          paddedTitleWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
+        }
+        
+        paddedTitleHeight = textHeight + ( textBoxVerticalPadding * 2 ) + ( borderWidth * 2 );
+//        paddedTitleWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
+      }
+      finally
+      {
+        // dispose of temporary graphics context
+        if(newLegendTitleBaseGraphic != null){
+          newLegendTitleBaseGraphic.dispose();
+        }
+      }
+
+      // make sure there's enough room for the icon graphic
+      if (layer.getCreateRawLegend())
+      {
+        if (paddedTitleHeight < paddedIconHeight)
+        {
+          paddedTitleHeight = paddedIconHeight;
+        }
+        paddedTitleWidth = paddedTitleWidth + paddedIconWidth;
+      }
+      else
+      {
+        titleLeftPadding = (( paddedTitleWidth / 2 ) - ((textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 )) / 2 )) + textBoxHorizontalPadding;
+      }
+
+      newLegendTitleBase = new BufferedImage(paddedTitleWidth, paddedTitleHeight, BufferedImage.TYPE_INT_ARGB);
+      newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
+      newLegendTitleBaseGraphic.drawImage(newLegendTitleBase, 0, 0, null);
+
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+      newLegendTitleBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+      newLegendTitleBaseGraphic.setFont(titleFont);
+
+      // draw legend background
+      newLegendTitleBaseGraphic.setColor(Color.white);  
+      newLegendTitleBaseGraphic.fillRect(0, 0, paddedTitleWidth, paddedTitleHeight);
+
+      // draw legend border
+      if (layer.getShowLegendBorder())
+      {
+        newLegendTitleBaseGraphic.setColor(Color.black);
+        newLegendTitleBaseGraphic.drawRect(0, 0, paddedTitleWidth, paddedTitleHeight);
+        newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
+      }
+
+      // draw title text
+      fm = newLegendTitleBaseGraphic.getFontMetrics();
+      newLegendTitleBaseGraphic.setColor(Color.decode(layer.getLegendTitleFontFill()));
+      newLegendTitleBaseGraphic.drawString(layer.getLegendTitle(), titleLeftPadding, fm.getAscent() + textBoxVerticalPadding);
+
+      newLegendTitleBaseGraphic.drawImage(newLegendTitleBase, 0, 0, null);
+    }
+    finally
+    {
+      if(newLegendTitleBaseGraphic != null){
+        newLegendTitleBaseGraphic.dispose();
+      }
+    }
+    
+    return newLegendTitleBase;
+  }
+  
+  private BufferedImage getLegendIcon(int iconWidth, int iconHeight, int iconPadding, int borderWidth, String fillColor)
+  {
+    int paddedIconWidth = iconWidth + ( iconPadding * 2 );
+    int paddedIconHeight = iconHeight + ( iconPadding * 2 );
+    Graphics2D iconBaseGraphic = null;
+    BufferedImage iconBase;
+
+    try
+    {
+      iconBase = new BufferedImage(paddedIconWidth + 1, paddedIconHeight + 1, BufferedImage.TYPE_INT_ARGB);
+      iconBaseGraphic = iconBase.createGraphics();
+      iconBaseGraphic.drawImage(iconBase, 0, 0, null);
+
+      // draw background color
+      Color featureFill = Color.decode(fillColor);
+      iconBaseGraphic.setColor(featureFill);
+      iconBaseGraphic.fillRect(0, 0, iconWidth, iconHeight);
+
+      // draw border
+      iconBaseGraphic.setColor(Color.black);
+      iconBaseGraphic.drawRect(0, 0, iconWidth, iconHeight);
+      iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
+
+      iconBaseGraphic.drawImage(iconBase, 0, 0, null);
+    }
+    finally
+    {
+      if (iconBaseGraphic != null)
+      {
+        iconBaseGraphic.dispose();
+      }
+    }
+
+    return iconBase;
+  }
+  
+  
+  @SuppressWarnings("deprecation")
+  private BufferedImage getLegendCategoryImage(Layer layer)
+  {
+    BufferedImage newCategoryBase;
+    Graphics2D newCategoryBaseGraphic = null;
+    FontMetrics fm;
+    int borderWidth = 1;
+    int titleWidth;
+    int titleHeight;
+    int textWidth;
+    int textPadding = 2;
+    int paddedTextWidth;
+    int paddedTitleHeight;
+    int paddedTitleWidth;
+    int iconWidth = 16;
+    int iconHeight = 16;
+    int iconPadding = 4;
+    int paddedIconWidth = iconWidth + ( iconPadding * 2 );
+    int paddedIconHeight = iconHeight + ( iconPadding * 2 );
+    int catBaseContainerHeight;
+    int legendMaxWidth = 0;
+    BufferedImage newLegendTitleBase;
+    Graphics2D newLegendTitleBaseGraphic = null;
+    BufferedImage catBaseContainer;
+    
+    List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
+    CategorySorter.sort(cats);
+    
+    
+    // Get the title with the default title size
+    try
+    {
+      newLegendTitleBase = getLegendTitleImage(layer, 0);
+      newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
+
+      paddedTitleWidth = newLegendTitleBase.getWidth() - 1;
+      paddedTitleHeight = newLegendTitleBase.getHeight() - 1;
+      titleWidth = paddedTitleWidth - ( textPadding * 2 );
+      titleHeight = paddedTitleHeight - ( textPadding * 2 );
+    }
+    finally
+    {
+      if (newLegendTitleBaseGraphic != null)
+      {
+        newLegendTitleBaseGraphic.dispose();
+      }
+    }
+
+
+    // get the widest category label to set the base category image to the correct size
+    Font widestLabel = getLayerWidestCategoryLabel(layer);
+
+    // determine the width of the legend which should be the width of the widest of either the title or widest category
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    FontMetrics widestLabelFM = toolkit.getFontMetrics(widestLabel);
+    
+    // calculate the category base container height
+    int widestLabelHeight = (int) Math.round( widestLabelFM.getHeight() + ( borderWidth * 2 ) + ( textPadding * 2 ));
+    if (widestLabelHeight < paddedIconHeight)
+    {
+      // make sure there's enough room for the icon graphic
+      widestLabelHeight = paddedIconHeight;
+    }
+    catBaseContainerHeight = ( cats.size() * widestLabelHeight ) + paddedTitleHeight;
+    
+    // calculate the category base container width
+    int widestLabelWidth = (int) Math.round(widestLabelFM.stringWidth(widestLabel.getName()) + paddedIconWidth + ( borderWidth * 2 ) + ( textPadding * 2 ));
+    if (titleWidth < widestLabelWidth)
+    {
+      legendMaxWidth = widestLabelWidth + textPadding + iconPadding;
+      
+      // get a new legend title with an overridden width
+      newLegendTitleBase = getLegendTitleImage(layer, legendMaxWidth);
+    }
+    else
+    {
+      legendMaxWidth = titleWidth;
+    }
+
+    Graphics2D catBaseContainerGraphic = null;
+    try
+    {
+      catBaseContainer = new BufferedImage(legendMaxWidth + 1, catBaseContainerHeight + 1, BufferedImage.TYPE_INT_ARGB);
+      catBaseContainerGraphic = catBaseContainer.createGraphics();
+      
+      catBaseContainerGraphic.drawImage(catBaseContainer, 0, 0, null);
+      catBaseContainerGraphic.drawImage(newLegendTitleBase, 0, 0, legendMaxWidth, paddedTitleHeight, null);
+
+      String catLabel;
+      int catNum = 0;
+      for (AbstractCategory cat : cats)
+      {
+        if (cat instanceof RangeCategory)
+        {
+          String lowerBounds = ( (RangeCategory) cat ).getLowerBoundStr();
+          String upperBounds = ( (RangeCategory) cat ).getUpperBoundStr();
+          catLabel = lowerBounds + " < " + upperBounds;
+        }
+        else
+        {
+          catLabel = ( (NonRangeCategory) cat ).getExactValueStr();
+        }
+
+        Font categoryFont = getLegendFontObject(catLabel, layer.getLegendFontSize(), layer.getLegendFontStyles().get(0).toString());
+
+        // Build variables for legend graphic construction
+        try
+        {
+          newCategoryBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+          newCategoryBaseGraphic = newCategoryBase.createGraphics();
+
+          newCategoryBaseGraphic.setFont(categoryFont);
+
+          fm = newCategoryBaseGraphic.getFontMetrics();
+          textWidth = fm.stringWidth(categoryFont.getName());
+          paddedTextWidth = textWidth + ( textPadding * 2 ) + ( borderWidth * 2 ) + paddedIconWidth;
+        }
+        finally
+        {
+          // dispose of temporary graphics context
+          if (newCategoryBaseGraphic != null)
+          {
+            newCategoryBaseGraphic.dispose();
+          }
+        }
+
+        try
+        {
+          newCategoryBase = new BufferedImage(legendMaxWidth, widestLabelHeight, BufferedImage.TYPE_INT_ARGB);
+          newCategoryBaseGraphic = newCategoryBase.createGraphics();
+          newCategoryBaseGraphic.drawImage(newCategoryBase, 0, 0, null);
+
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+          newCategoryBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+          newCategoryBaseGraphic.setFont(categoryFont);
+
+          // draw legend category background
+          newCategoryBaseGraphic.setColor(Color.white);
+          newCategoryBaseGraphic.fillRect(0, 0, legendMaxWidth, widestLabelHeight);
+
+          // draw legend category border
+          if (layer.getShowLegendBorder())
+          {
+            newCategoryBaseGraphic.setColor(Color.black);
+            newCategoryBaseGraphic.drawRect(0, 0, legendMaxWidth, widestLabelHeight);
+            newCategoryBaseGraphic.setStroke(new BasicStroke(borderWidth));
+          }
+
+          int iconLeftPadding = legendMaxWidth - (paddedIconWidth + borderWidth + iconPadding);
+          int internalGraphicTopPadding = (int) Math.round(( widestLabelHeight) / 2) - ((paddedIconHeight) / 2) + iconPadding;
+
+          // draw separator bar
+          newCategoryBaseGraphic.setColor(Color.black);
+          newCategoryBaseGraphic.drawLine(iconLeftPadding, 0, iconLeftPadding, widestLabelHeight);
+          newCategoryBaseGraphic.setStroke(new BasicStroke(borderWidth));
+
+          // draw the colored icon
+          MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
+          String colorAttribute = md.definesAttribute();
+          String color = cat.getStyles().getValue(colorAttribute);
+
+          BufferedImage icon = getLegendIcon(iconWidth, iconHeight, iconPadding, borderWidth, color);
+          newCategoryBaseGraphic.drawImage(icon, iconLeftPadding + iconPadding + borderWidth, internalGraphicTopPadding, null);
+
+          // draw category text
+          fm = newCategoryBaseGraphic.getFontMetrics();
+          newCategoryBaseGraphic.setColor(Color.decode(layer.getLegendFontFill()));
+          int fontVertPos = ((widestLabelHeight + 1) / 2) - ((fm.getAscent() + fm.getDescent()) / 2) + fm.getAscent();
+          newCategoryBaseGraphic.drawString(catLabel, ((legendMaxWidth / 2) - (paddedTextWidth / 2)) + textPadding, fontVertPos);
+
+          newCategoryBaseGraphic.drawImage(newCategoryBase, 0, 0, null);
+          catBaseContainerGraphic.drawImage(newCategoryBase, 0, paddedTitleHeight + (widestLabelHeight * catNum), null);
+
+          catNum++;
+        }
+        finally
+        {
+          if (newCategoryBaseGraphic != null)
+          {
+            newCategoryBaseGraphic.dispose();
+          }
+        }
+      }
+    }
+    finally
+    {
+      if (catBaseContainerGraphic != null)
+      {
+        catBaseContainerGraphic.dispose();
+      }
+    }
+
+    return catBaseContainer;
+  }
+  
+  
+  /**
+   * Gets the widest label of all the legend items in a layers legend
+   * 
+   * @layer
+   */
+  private Font getLayerWidestCategoryLabel(Layer layer)
+  {
+    String label = "";
+    int longest = 0;
+    
+    List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
+    CategorySorter.sort(cats);
+
+    for (AbstractCategory cat : cats)
+    {
+      if (cat instanceof RangeCategory)
+      {
+        String lowerBounds = ( (RangeCategory) cat ).getLowerBoundStr();
+        String upperBounds = ( (RangeCategory) cat ).getUpperBoundStr();
+        String exactValue = lowerBounds + " < " + upperBounds;
+        if (exactValue.length() > longest)
+        {
+          longest = exactValue.length();
+          label = exactValue;
+        }
+      }
+      else
+      {
+        String exactValue = ( (NonRangeCategory) cat ).getExactValueStr();
+        if (exactValue.length() > longest)
+        {
+          longest = exactValue.length();
+          label = exactValue;
+        }
+      }
+    }
+    
+    // Build the Font object
+    Font labelFont = getLegendFontObject(label, layer.getLegendFontSize(), layer.getLegendFontStyles().get(0).toString());
+    
+    return labelFont;
+  }
+  
+  /*
+   * Get the Font object 
+   * 
+   * @text
+   * @fontSize
+   * @style
+   */
+  private Font getLegendFontObject(String text, int fontSize, String style)
+  {
+    Font font = null;
+    
+    // This conversion could be used to better replicate screen pixels as point based pixels
+    // but is unneeded at this time.  Keeping just in case.
+    //int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
+    //int convertedFontSize = (int) Math.round((fontSize * screenRes / 72.0) * 0.95);
+    
+    int convertedFontSize = fontSize;
+    
+    if (style.equals("NORMAL"))
+    {
+      font = new Font(text, Font.PLAIN, convertedFontSize);
+    }
+    else if (style.equals("BOLD"))
+    {
+      font = new Font(text, Font.BOLD, convertedFontSize);
+    }
+    else if (style.equals("ITALIC"))
+    {
+      font = new Font(text, Font.ITALIC, convertedFontSize);
+    }
+    
+    return font;
   }
 
   /**
