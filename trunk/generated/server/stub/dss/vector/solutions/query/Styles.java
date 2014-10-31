@@ -34,7 +34,10 @@ public class Styles extends StylesBase implements com.runwaysdk.generation.loade
   @Override
   public String getFontStylesName()
   {
-    return this.getFontStyles().get(0).name().toLowerCase();
+    List<FontStyles> fontStyles = this.getFontStyles();
+    FontStyles fontStyle = fontStyles.get(0);
+
+    return fontStyle.name().toLowerCase();
   }
 
   @Override

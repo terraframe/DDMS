@@ -411,4 +411,12 @@ public class Layer extends LayerBase implements Reloadable, LayerIF
     this.apply();
   }
 
+  /**
+   * This accessor lowercases the column alias to match actual column alias which is lowercased by the Query API prior to building the SQL.
+   */
+  public String getThematicColumnAlias()
+  {
+    return super.getThematicColumnAlias().toLowerCase();
+  }
+
 }

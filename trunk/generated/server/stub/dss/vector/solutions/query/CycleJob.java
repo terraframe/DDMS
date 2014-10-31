@@ -1,11 +1,8 @@
 package dss.vector.solutions.query;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -20,7 +17,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -38,6 +34,7 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
@@ -295,7 +292,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     // Regex is dumb, but its the only way to perform a "SELECT *"
     sql = sql.replaceAll("\\(" + LAYER_VIEW_ALIAS + "." + QueryConstants.GEO_ID_COLUMN + "\\) AS " + GEO_ID_ALIAS + "", LAYER_VIEW_ALIAS + ".*");
 
-    String viewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+    String viewName = Layer.GEO_VIEW_PREFIX + IDGenerator.nextID();
 
     Database.createView(viewName, sql);
 
@@ -461,19 +458,19 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-              /*
-              * This is for testing
-              */
-              try
-              {
-                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-
-                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
-              }
-              catch (Exception e)
-              {
-                e.printStackTrace();
-              }
+//              /*
+//              * This is for testing
+//              */
+//              try
+//              {
+//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//
+//                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+//              }
+//              catch (Exception e)
+//              {
+//                e.printStackTrace();
+//              }
             }
             finally
             {
