@@ -32,6 +32,15 @@ public class CycleJobView extends CycleJobViewBase implements com.runwaysdk.gene
     else
     {
       this.delete();
+
+      /*
+       * Clear all of the values
+       */
+      this.setJobName(null);
+      this.setLayerId(null);
+      this.setImageWidth(null);
+      this.setImageHeight(null);
+      this.setConcreteId(null);
     }
   }
 
