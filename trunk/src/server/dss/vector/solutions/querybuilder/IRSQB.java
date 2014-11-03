@@ -913,7 +913,57 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     joinMainQueryTables();
 
+    coalesceTeamGeoEntity();
+    
     return this.irsVQ;
+  }
+  
+  /*
+   * Ticket 2925
+   * Since team planned targets don't contain geo entities less than spray area, spray zone could potentially end up empty.
+   * We're doing a coalesce here just in case.
+   */
+  private void coalesceTeamGeoEntity() {
+    if ( (this.needsTeamsPlanned || this.needsOperatorPlanned) && smallestUniversalSelectable != null && this.getValueQuery().hasSelectableRef(this.smallestUniversalSelectable) ) {
+      /*
+       * We'll be pulling the data from this default_geos temp table (which really just grabs the GeoEntity from the SprayView, which in turn comes from SprayTeam)
+       */
+//      ValueQuery vq = new ValueQuery(this.queryFactory);
+//      SelectableSQL geoIdSel = vq.aSQLCharacter(GeoEntity.GEOID, "ge.geo_id", GeoEntity.GEOID);
+//      SelectableSQL labelSel = vq.aSQLCharacter(GeoEntity.ENTITYLABEL, "gdl.label", GeoEntity.ENTITYLABEL);
+//      vq.SELECT(labelSel, geoIdSel);
+//      vq.FROM("sprayView", "sv INNER JOIN geo_entity ge ON sv.geo_entity=ge.id\n" + 
+//          "  INNER JOIN geo_displayLabel gdl on gdl.geo_id=ge.geo_id");
+//      vq.GROUP_BY(labelSel, geoIdSel);
+//      this.getValueQuery().FROM("(" + vq.getSQL() + ")", "default_geos");
+      
+      /*
+       * COALESCE the geoId
+       */
+//      Selectable geoId = this.getValueQuery().getSelectableRef(this.smallestUniversalSelectable);
+//      this.getValueQuery().removeSelectable(geoId);
+//      
+//      SelectableSQLCharacter selectGeoIdFromDefault = this.getValueQuery().aSQLCharacter(GeoEntity.GEOID, "default_geos." + GeoEntity.GEOID);
+//      Coalesce geoIdCoal = F.COALESCE(geoId.getUserDefinedAlias(), geoId.getUserDefinedDisplayLabel(), (SelectableSingle) geoId, (SelectableSingle) selectGeoIdFromDefault);
+//      geoIdCoal.setColumnAlias(geoId.getColumnAlias());
+//      
+//      this.getValueQuery().SELECT(geoIdCoal);
+//      this.getValueQuery().GROUP_BY(selectGeoIdFromDefault);
+      
+      /*
+       * COALESCE the entity label (geo display label)
+       */
+//      String attrName = this.smallestUniversalSelectable.replace(GeoEntity.GEOID, GeoEntity.ENTITYLABEL);
+//      Selectable entityLabel = this.getValueQuery().getSelectableRef(attrName);
+//      this.getValueQuery().removeSelectable(entityLabel);
+//      
+//      SelectableSQLCharacter selectLabelFromDefault = this.getValueQuery().aSQLCharacter(GeoEntity.ENTITYLABEL, "default_geos." + GeoEntity.ENTITYLABEL);
+//      Coalesce entityLabelCoal = F.COALESCE(entityLabel.getUserDefinedAlias(), entityLabel.getUserDefinedDisplayLabel(), (SelectableSingle) entityLabel, (SelectableSingle) selectLabelFromDefault);
+//      entityLabelCoal.setColumnAlias(entityLabel.getColumnAlias());
+//      
+//      this.getValueQuery().SELECT(entityLabelCoal);
+//      this.getValueQuery().GROUP_BY(selectLabelFromDefault);
+    }
   }
 
   private void setCalculations()
