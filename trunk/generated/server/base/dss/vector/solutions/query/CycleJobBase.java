@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 477199407)
+@com.runwaysdk.business.ClassSignature(hash = -938691288)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,14 +11,72 @@ package dss.vector.solutions.query;
 public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.ExecutableJob implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.CycleJob";
+  public static java.lang.String IMAGEHEIGHT = "imageHeight";
+  public static java.lang.String IMAGEWIDTH = "imageWidth";
   public static java.lang.String JOBNAME = "jobName";
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String SAVEDMAP = "savedMap";
-  private static final long serialVersionUID = 477199407;
+  private static final long serialVersionUID = -938691288;
   
   public CycleJobBase()
   {
     super();
+  }
+  
+  public Integer getImageHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEHEIGHT));
+  }
+  
+  public void validateImageHeight()
+  {
+    this.validateAttribute(IMAGEHEIGHT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageHeightMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
+    return mdClassIF.definesAttribute(IMAGEHEIGHT);
+  }
+  
+  public void setImageHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEHEIGHT, "");
+    }
+    else
+    {
+      setValue(IMAGEHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getImageWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEWIDTH));
+  }
+  
+  public void validateImageWidth()
+  {
+    this.validateAttribute(IMAGEWIDTH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageWidthMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
+    return mdClassIF.definesAttribute(IMAGEWIDTH);
+  }
+  
+  public void setImageWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEWIDTH, "");
+    }
+    else
+    {
+      setValue(IMAGEWIDTH, java.lang.Integer.toString(value));
+    }
   }
   
   public String getJobName()

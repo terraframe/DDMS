@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -755185612)
+@com.runwaysdk.business.ClassSignature(hash = -672480430)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,10 +14,12 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String CREATEJOB = "createJob";
   public static java.lang.String ID = "id";
+  public static java.lang.String IMAGEHEIGHT = "imageHeight";
+  public static java.lang.String IMAGEWIDTH = "imageWidth";
   public static java.lang.String JOBNAME = "jobName";
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String SAVEDMAP = "savedMap";
-  private static final long serialVersionUID = -755185612;
+  private static final long serialVersionUID = -672480430;
   
   public CycleJobViewBase()
   {
@@ -94,6 +96,62 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Integer getImageHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEHEIGHT));
+  }
+  
+  public void validateImageHeight()
+  {
+    this.validateAttribute(IMAGEHEIGHT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageHeightMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
+    return mdClassIF.definesAttribute(IMAGEHEIGHT);
+  }
+  
+  public void setImageHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEHEIGHT, "");
+    }
+    else
+    {
+      setValue(IMAGEHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getImageWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEWIDTH));
+  }
+  
+  public void validateImageWidth()
+  {
+    this.validateAttribute(IMAGEWIDTH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageWidthMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
+    return mdClassIF.definesAttribute(IMAGEWIDTH);
+  }
+  
+  public void setImageWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEWIDTH, "");
+    }
+    else
+    {
+      setValue(IMAGEWIDTH, java.lang.Integer.toString(value));
+    }
   }
   
   public String getJobName()

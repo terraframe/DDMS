@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -712062289)
+@com.runwaysdk.business.ClassSignature(hash = -47311192)
 public abstract class CycleJobDTOBase extends com.runwaysdk.system.scheduler.ExecutableJobDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.CycleJob";
-  private static final long serialVersionUID = -712062289;
+  private static final long serialVersionUID = -47311192;
   
   protected CycleJobDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,9 +27,85 @@ public abstract class CycleJobDTOBase extends com.runwaysdk.system.scheduler.Exe
     return CLASS;
   }
   
+  public static java.lang.String IMAGEHEIGHT = "imageHeight";
+  public static java.lang.String IMAGEWIDTH = "imageWidth";
   public static java.lang.String JOBNAME = "jobName";
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String SAVEDMAP = "savedMap";
+  public Integer getImageHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEHEIGHT));
+  }
+  
+  public void setImageHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEHEIGHT, "");
+    }
+    else
+    {
+      setValue(IMAGEHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isImageHeightWritable()
+  {
+    return isWritable(IMAGEHEIGHT);
+  }
+  
+  public boolean isImageHeightReadable()
+  {
+    return isReadable(IMAGEHEIGHT);
+  }
+  
+  public boolean isImageHeightModified()
+  {
+    return isModified(IMAGEHEIGHT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getImageHeightMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IMAGEHEIGHT).getAttributeMdDTO();
+  }
+  
+  public Integer getImageWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMAGEWIDTH));
+  }
+  
+  public void setImageWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(IMAGEWIDTH, "");
+    }
+    else
+    {
+      setValue(IMAGEWIDTH, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isImageWidthWritable()
+  {
+    return isWritable(IMAGEWIDTH);
+  }
+  
+  public boolean isImageWidthReadable()
+  {
+    return isReadable(IMAGEWIDTH);
+  }
+  
+  public boolean isImageWidthModified()
+  {
+    return isModified(IMAGEWIDTH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getImageWidthMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IMAGEWIDTH).getAttributeMdDTO();
+  }
+  
   public String getJobName()
   {
     return getValue(JOBNAME);

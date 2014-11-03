@@ -13,6 +13,10 @@ public class MapConfiguration implements Reloadable, MapConfigurationIF
 
   private Disease             disease;
 
+  private Integer             layerWidth;
+
+  private Integer             layerHeight;
+
   public MapConfiguration()
   {
     this(new HashMap<String, String>(), null);
@@ -63,4 +67,35 @@ public class MapConfiguration implements Reloadable, MapConfigurationIF
   {
     this.disease = disease;
   }
+
+  public void setLayerWidth(int layerWidth)
+  {
+    this.layerWidth = layerWidth;
+  }
+
+  public Integer getLayerWidth(int layerWidth)
+  {
+    if (this.layerWidth != null)
+    {
+      return this.layerWidth;
+    }
+
+    return layerWidth;
+  }
+
+  public void setLayerHeight(int layerHeight)
+  {
+    this.layerHeight = layerHeight;
+  }
+
+  public Integer getLayerHeight(int layerHeight)
+  {
+    if (this.layerHeight != null)
+    {
+      return this.layerHeight;
+    }
+
+    return layerHeight;
+  }
+
 }

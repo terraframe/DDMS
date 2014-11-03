@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1207609387)
+@com.runwaysdk.business.ClassSignature(hash = 626837641)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -76,6 +76,42 @@ public  abstract  class CycleJobViewQueryBase extends com.runwaysdk.query.Genera
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.CycleJobView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight()
+  {
+    return getImageHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.query.CycleJobView.IMAGEHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.query.CycleJobView.IMAGEHEIGHT, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth()
+  {
+    return getImageWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.query.CycleJobView.IMAGEWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.query.CycleJobView.IMAGEWIDTH, alias, displayLabel);
 
   }
  

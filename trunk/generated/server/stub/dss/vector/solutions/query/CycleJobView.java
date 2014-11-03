@@ -56,6 +56,8 @@ public class CycleJobView extends CycleJobViewBase implements com.runwaysdk.gene
     this.setJobName(job.getJobName());
     this.setSavedMap(job.getSavedMap());
     this.setLayerId(job.getLayerId());
+    this.setImageWidth(job.getImageWidth());
+    this.setImageHeight(job.getImageHeight());
 
     if (job.isAppliedToDB())
     {

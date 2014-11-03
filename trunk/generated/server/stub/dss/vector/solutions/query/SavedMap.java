@@ -1246,15 +1246,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     int leftOffset = 305;
     int topOffset = 125;
-    String width;
-    String height;
+    int width;
+    int height;
 
     // Get dimensions of the map window (<div>)
     try
     {
       JSONObject mapSizeObj = new JSONObject(mapSize);
-      width = mapSizeObj.getString("width");
-      height = mapSizeObj.getString("height");
+      width = mapSizeObj.getInt("width");
+      height = mapSizeObj.getInt("height");
     }
     catch (JSONException e)
     {
@@ -1269,36 +1269,41 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       if (outFileFormat.toLowerCase().equals("png") || outFileFormat.toLowerCase().equals("gif"))
       {
-        base = new BufferedImage(Integer.parseInt(width), Integer.parseInt(height), BufferedImage.TYPE_INT_ARGB);
+        base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
       }
       else if (outFileFormat.equals("jpg") || outFileFormat.toLowerCase().equals("bmp"))
       {
-        base = new BufferedImage(Integer.parseInt(width), Integer.parseInt(height), BufferedImage.TYPE_INT_RGB);
+        base = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       }
 
       // Create the base canvas that all other map elements will be draped on top of
       mapBaseGraphic = base.getGraphics();
       mapBaseGraphic.setColor(Color.white);
-      mapBaseGraphic.fillRect(0, 0, Integer.parseInt(width), Integer.parseInt(height));
+      mapBaseGraphic.fillRect(0, 0, width, height);
       mapBaseGraphic.drawImage(base, 0, 0, null);
 
       // Ordering the layers from the default map
       List<Layer> orderedLayers = Arrays.asList(this.getOrderedLayers());
 
       // Add layers to the base canvas
-      BufferedImage layerCanvas = getLayersExportCanvas(Integer.parseInt(width), Integer.parseInt(height), orderedLayers, mapBounds, configuration);
-      mapBaseGraphic.drawImage(layerCanvas, 0, 0, null);
+      BufferedImage layerCanvas = getLayersExportCanvas(width, height, orderedLayers, mapBounds, configuration);
+
+      // Offset the layerCanvas so that it is center
+      int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
+      int heightOffset = (int) ( ( height - layerCanvas.getHeight() ) / 2 );
+
+      mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
 
       // Add layers to the base canvas
-      BufferedImage legendCanvas = getLegendExportCanvas(Integer.parseInt(width), Integer.parseInt(height));
+      BufferedImage legendCanvas = getLegendExportCanvas(width, height);
       mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
 
       // Add saved TextElements to the base canvas
-      BufferedImage imageCanvas = getSavedImageExportCanvas(Integer.parseInt(width), Integer.parseInt(height));
+      BufferedImage imageCanvas = getSavedImageExportCanvas(width, height);
       mapBaseGraphic.drawImage(imageCanvas, 0, 0, null);
 
       // Add saved TextElements to the base canvas
-      BufferedImage textCanvas = getTextElementExportCanvas(Integer.parseInt(width), Integer.parseInt(height));
+      BufferedImage textCanvas = getTextElementExportCanvas(width, height);
       mapBaseGraphic.drawImage(textCanvas, 0, 0, null);
 
       // Add the north arrow to the base canvas
@@ -1380,6 +1385,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     String appName = CommonProperties.getDeployAppName();
     Graphics mapBaseGraphic = null;
     BufferedImage base = null;
+
+    mapWidth = configuration.getLayerWidth(mapWidth);
+    mapHeight = configuration.getLayerHeight(mapHeight);
 
     try
     {
@@ -1538,32 +1546,32 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           int paddedIconWidth = iconSize + ( iconPadding * 2 );
           int borderWidth = 2;
           Graphics2D newLegendTitleBaseGraphic = null;
-          
+
           try
           {
             // handle color graphics and categories
             if (layer.getCreateRawLegend())
             {
               BufferedImage newLegendTitleBase = getLegendTitleImage(layer, 0);
-              
+
               newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
               int paddedTitleWidth = newLegendTitleBase.getWidth();
               int paddedTitleHeight = newLegendTitleBase.getHeight();
-              
+
               // draw color icon to the right of the title
               int iconLeftPadding = paddedTitleWidth - paddedIconWidth + 4;
               int internalGraphicTopPadding = (int) Math.round( ( paddedTitleHeight - iconSize ) / 2);
-              
+
               newLegendTitleBaseGraphic.setColor(Color.black);
               newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
               newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
-              
+
               BufferedImage icon = getLegendIcon(iconSize, iconSize, iconPadding, borderWidth, layer.getDefaultStyles().getPolygonFill());
 
               newLegendTitleBaseGraphic.drawImage(icon, iconLeftPadding, internalGraphicTopPadding, null);
               mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
             }
-            else if(layer.getAllHasCategory().getAll().size() > 0)
+            else if (layer.getAllHasCategory().getAll().size() > 0)
             {
               // draw categories with title
               BufferedImage categoryLegend = getLegendCategoryImage(layer);
@@ -1572,11 +1580,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             else
             {
               BufferedImage newLegendTitleBase = getLegendTitleImage(layer, 0);
-              
+
               newLegendTitleBaseGraphic = newLegendTitleBase.createGraphics();
               int paddedTitleWidth = newLegendTitleBase.getWidth();
               int paddedTitleHeight = newLegendTitleBase.getHeight();
-              
+
               mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
             }
           }
@@ -1597,11 +1605,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return base;
   }
-  
-  
+
   private BufferedImage getLegendTitleImage(Layer layer, int widthOverride)
   {
-    
+
     FontMetrics fm;
     int textWidth;
     int textHeight;
@@ -1619,7 +1626,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     int titleLeftPadding = textBoxHorizontalPadding;
     BufferedImage newLegendTitleBase;
     Graphics2D newLegendTitleBaseGraphic = null;
-    
+
     try
     {
       // Build the Font object
@@ -1636,8 +1643,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         fm = newLegendTitleBaseGraphic.getFontMetrics();
         textHeight = fm.getHeight();
         textWidth = fm.stringWidth(layer.getLegendTitle());
-        
-        if(widthOverride > 0)
+
+        if (widthOverride > 0)
         {
           paddedTitleWidth = widthOverride;
         }
@@ -1645,14 +1652,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         {
           paddedTitleWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
         }
-        
+
         paddedTitleHeight = textHeight + ( textBoxVerticalPadding * 2 ) + ( borderWidth * 2 );
-//        paddedTitleWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
+        // paddedTitleWidth = textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 );
       }
       finally
       {
         // dispose of temporary graphics context
-        if(newLegendTitleBaseGraphic != null){
+        if (newLegendTitleBaseGraphic != null)
+        {
           newLegendTitleBaseGraphic.dispose();
         }
       }
@@ -1668,7 +1676,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
       else
       {
-        titleLeftPadding = (( paddedTitleWidth / 2 ) - ((textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 )) / 2 )) + textBoxHorizontalPadding;
+        titleLeftPadding = ( ( paddedTitleWidth / 2 ) - ( ( textWidth + ( textBoxHorizontalPadding * 2 ) + ( borderWidth * 2 ) ) / 2 ) ) + textBoxHorizontalPadding;
       }
 
       newLegendTitleBase = new BufferedImage(paddedTitleWidth, paddedTitleHeight, BufferedImage.TYPE_INT_ARGB);
@@ -1686,7 +1694,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       newLegendTitleBaseGraphic.setFont(titleFont);
 
       // draw legend background
-      newLegendTitleBaseGraphic.setColor(Color.white);  
+      newLegendTitleBaseGraphic.setColor(Color.white);
       newLegendTitleBaseGraphic.fillRect(0, 0, paddedTitleWidth, paddedTitleHeight);
 
       // draw legend border
@@ -1706,14 +1714,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
     finally
     {
-      if(newLegendTitleBaseGraphic != null){
+      if (newLegendTitleBaseGraphic != null)
+      {
         newLegendTitleBaseGraphic.dispose();
       }
     }
-    
+
     return newLegendTitleBase;
   }
-  
+
   private BufferedImage getLegendIcon(int iconWidth, int iconHeight, int iconPadding, int borderWidth, String fillColor)
   {
     int paddedIconWidth = iconWidth + ( iconPadding * 2 );
@@ -1749,8 +1758,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return iconBase;
   }
-  
-  
+
   @SuppressWarnings("deprecation")
   private BufferedImage getLegendCategoryImage(Layer layer)
   {
@@ -1775,11 +1783,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     BufferedImage newLegendTitleBase;
     Graphics2D newLegendTitleBaseGraphic = null;
     BufferedImage catBaseContainer;
-    
+
     List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
     CategorySorter.sort(cats);
-    
-    
+
     // Get the title with the default title size
     try
     {
@@ -1799,29 +1806,28 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
 
-
     // get the widest category label to set the base category image to the correct size
     Font widestLabel = getLayerWidestCategoryLabel(layer);
 
     // determine the width of the legend which should be the width of the widest of either the title or widest category
     Toolkit toolkit = Toolkit.getDefaultToolkit();
     FontMetrics widestLabelFM = toolkit.getFontMetrics(widestLabel);
-    
+
     // calculate the category base container height
-    int widestLabelHeight = (int) Math.round( widestLabelFM.getHeight() + ( borderWidth * 2 ) + ( textPadding * 2 ));
+    int widestLabelHeight = (int) Math.round(widestLabelFM.getHeight() + ( borderWidth * 2 ) + ( textPadding * 2 ));
     if (widestLabelHeight < paddedIconHeight)
     {
       // make sure there's enough room for the icon graphic
       widestLabelHeight = paddedIconHeight;
     }
     catBaseContainerHeight = ( cats.size() * widestLabelHeight ) + paddedTitleHeight;
-    
+
     // calculate the category base container width
     int widestLabelWidth = (int) Math.round(widestLabelFM.stringWidth(widestLabel.getName()) + paddedIconWidth + ( borderWidth * 2 ) + ( textPadding * 2 ));
     if (titleWidth < widestLabelWidth)
     {
       legendMaxWidth = widestLabelWidth + textPadding + iconPadding;
-      
+
       // get a new legend title with an overridden width
       newLegendTitleBase = getLegendTitleImage(layer, legendMaxWidth);
     }
@@ -1835,7 +1841,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       catBaseContainer = new BufferedImage(legendMaxWidth + 1, catBaseContainerHeight + 1, BufferedImage.TYPE_INT_ARGB);
       catBaseContainerGraphic = catBaseContainer.createGraphics();
-      
+
       catBaseContainerGraphic.drawImage(catBaseContainer, 0, 0, null);
       catBaseContainerGraphic.drawImage(newLegendTitleBase, 0, 0, legendMaxWidth, paddedTitleHeight, null);
 
@@ -1905,8 +1911,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             newCategoryBaseGraphic.setStroke(new BasicStroke(borderWidth));
           }
 
-          int iconLeftPadding = legendMaxWidth - (paddedIconWidth + borderWidth + iconPadding);
-          int internalGraphicTopPadding = (int) Math.round(( widestLabelHeight) / 2) - ((paddedIconHeight) / 2) + iconPadding;
+          int iconLeftPadding = legendMaxWidth - ( paddedIconWidth + borderWidth + iconPadding );
+          int internalGraphicTopPadding = (int) Math.round( ( widestLabelHeight ) / 2) - ( ( paddedIconHeight ) / 2 ) + iconPadding;
 
           // draw separator bar
           newCategoryBaseGraphic.setColor(Color.black);
@@ -1924,11 +1930,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           // draw category text
           fm = newCategoryBaseGraphic.getFontMetrics();
           newCategoryBaseGraphic.setColor(Color.decode(layer.getLegendFontFill()));
-          int fontVertPos = ((widestLabelHeight + 1) / 2) - ((fm.getAscent() + fm.getDescent()) / 2) + fm.getAscent();
-          newCategoryBaseGraphic.drawString(catLabel, ((legendMaxWidth / 2) - (paddedTextWidth / 2)) + textPadding, fontVertPos);
+          int fontVertPos = ( ( widestLabelHeight + 1 ) / 2 ) - ( ( fm.getAscent() + fm.getDescent() ) / 2 ) + fm.getAscent();
+          newCategoryBaseGraphic.drawString(catLabel, ( ( legendMaxWidth / 2 ) - ( paddedTextWidth / 2 ) ) + textPadding, fontVertPos);
 
           newCategoryBaseGraphic.drawImage(newCategoryBase, 0, 0, null);
-          catBaseContainerGraphic.drawImage(newCategoryBase, 0, paddedTitleHeight + (widestLabelHeight * catNum), null);
+          catBaseContainerGraphic.drawImage(newCategoryBase, 0, paddedTitleHeight + ( widestLabelHeight * catNum ), null);
 
           catNum++;
         }
@@ -1951,8 +1957,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return catBaseContainer;
   }
-  
-  
+
   /**
    * Gets the widest label of all the legend items in a layers legend
    * 
@@ -1962,7 +1967,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     String label = "";
     int longest = 0;
-    
+
     List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
     CategorySorter.sort(cats);
 
@@ -1989,13 +1994,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         }
       }
     }
-    
+
     // Build the Font object
     Font labelFont = getLegendFontObject(label, layer.getLegendFontSize(), layer.getLegendFontStyles().get(0).toString());
-    
+
     return labelFont;
   }
-  
+
   /*
    * Get the Font object 
    * 
@@ -2006,14 +2011,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   private Font getLegendFontObject(String text, int fontSize, String style)
   {
     Font font = null;
-    
+
     // This conversion could be used to better replicate screen pixels as point based pixels
-    // but is unneeded at this time.  Keeping just in case.
-    //int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
-    //int convertedFontSize = (int) Math.round((fontSize * screenRes / 72.0) * 0.95);
-    
+    // but is unneeded at this time. Keeping just in case.
+    // int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
+    // int convertedFontSize = (int) Math.round((fontSize * screenRes / 72.0) * 0.95);
+
     int convertedFontSize = fontSize;
-    
+
     if (style.equals("NORMAL"))
     {
       font = new Font(text, Font.PLAIN, convertedFontSize);
@@ -2026,7 +2031,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       font = new Font(text, Font.ITALIC, convertedFontSize);
     }
-    
+
     return font;
   }
 

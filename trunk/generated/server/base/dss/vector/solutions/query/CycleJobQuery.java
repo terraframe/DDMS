@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1176792280)
+@com.runwaysdk.business.ClassSignature(hash = -23937953)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,6 +37,40 @@ public  class CycleJobQuery extends com.runwaysdk.system.scheduler.ExecutableJob
   public String getClassType()
   {
     return dss.vector.solutions.query.CycleJob.CLASS;
+  }
+  public com.runwaysdk.query.SelectableInteger getImageHeight()
+  {
+    return getImageHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getImageWidth()
+  {
+    return getImageWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableChar getJobName()
   {
@@ -141,6 +175,12 @@ public  class CycleJobQuery extends com.runwaysdk.system.scheduler.ExecutableJob
   public interface CycleJobQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.scheduler.ExecutableJobQuery.ExecutableJobQueryReferenceIF
   {
 
+    public com.runwaysdk.query.SelectableInteger getImageHeight();
+    public com.runwaysdk.query.SelectableInteger getImageHeight(String alias);
+    public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getImageWidth();
+    public com.runwaysdk.query.SelectableInteger getImageWidth(String alias);
+    public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getJobName();
     public com.runwaysdk.query.SelectableChar getJobName(String alias);
     public com.runwaysdk.query.SelectableChar getJobName(String alias, String displayLabel);
@@ -185,6 +225,40 @@ public  class CycleJobQuery extends com.runwaysdk.system.scheduler.ExecutableJob
       return this.NE(cycleJob.getId());
     }
 
+  public com.runwaysdk.query.SelectableInteger getImageHeight()
+  {
+    return getImageHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getImageWidth()
+  {
+    return getImageWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getJobName()
   {
     return getJobName(null);
@@ -259,6 +333,12 @@ public  class CycleJobQuery extends com.runwaysdk.system.scheduler.ExecutableJob
   public interface CycleJobQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.scheduler.ExecutableJobQuery.ExecutableJobQueryMultiReferenceIF
   {
 
+    public com.runwaysdk.query.SelectableInteger getImageHeight();
+    public com.runwaysdk.query.SelectableInteger getImageHeight(String alias);
+    public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getImageWidth();
+    public com.runwaysdk.query.SelectableInteger getImageWidth(String alias);
+    public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getJobName();
     public com.runwaysdk.query.SelectableChar getJobName(String alias);
     public com.runwaysdk.query.SelectableChar getJobName(String alias, String displayLabel);
@@ -351,6 +431,40 @@ public  class CycleJobQuery extends com.runwaysdk.system.scheduler.ExecutableJob
       }
 
       return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableInteger getImageHeight()
+  {
+    return getImageHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEHEIGHT, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getImageWidth()
+  {
+    return getImageWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getImageWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.CycleJob.IMAGEWIDTH, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableChar getJobName()
   {

@@ -1,8 +1,11 @@
 package dss.vector.solutions.query;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -17,6 +20,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -28,6 +32,9 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableBlob;
+import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
@@ -49,9 +56,13 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   private static final long   serialVersionUID        = -1179434183;
 
   /**
-   * Default width for generated maps. The height of the map will be calculated from this width and the aspect ratio of the bounding box of all the layers.
+   * Default width & height for generated maps. The height of the map will be calculated from this width and the aspect ratio of the bounding box of all the layers.
    */
-  private static final int    DEFAULT_WIDTH           = 1225;
+  private static final int    DEFAULT_WIDTH           = 773;
+
+  private static final int    DEFAULT_HEIGHT          = 1000;
+
+  private static final int    MARGIN                  = 100;
 
   /**
    * Layer view alias
@@ -106,6 +117,8 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     this.setJobName(view.getJobName());
     this.setSavedMap(view.getSavedMap());
     this.setLayerId(view.getLayerId());
+    this.setImageHeight(view.getImageHeight());
+    this.setImageWidth(view.getImageWidth());
   }
 
   public Layer getLayer()
@@ -163,13 +176,6 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
         }
       }
     }
-    //
-    // if (this.getLayerId() == null || this.getLayerId().length() == 0)
-    // {
-    // RequiredAttributeException e = new RequiredAttributeException();
-    // e.setAttributeLabel(this.getMdAttributeDAO(LAYERID).getDisplayLabel(Session.getCurrentLocale()));
-    // throw e;
-    // }
 
     super.apply();
   }
@@ -226,7 +232,35 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     GeneratedMapQuery gmQuery = new GeneratedMapQuery(factory);
     SavedMapQuery smQuery = new SavedMapQuery(factory);
 
-    query.SELECT(smQuery.getMapName(), gmQuery.getCycleLayerName(), gmQuery.getCycleUniversal(), gmQuery.getFilterGeoId(), gmQuery.getFilterGeoEntityName(), gmQuery.getCreateDate(), gmQuery.getMapImage());
+    SelectableChar mapName = smQuery.getMapName();
+    mapName.setUserDefinedAlias("map_name");
+    mapName.setColumnAlias("map_name");
+
+    SelectableChar cycleLayerName = gmQuery.getCycleLayerName();
+    cycleLayerName.setUserDefinedAlias("cycle_layer_name");
+    cycleLayerName.setColumnAlias("cycle_layer_name");
+
+    SelectableChar cycleUniversal = gmQuery.getCycleUniversal();
+    cycleUniversal.setUserDefinedAlias("cycle_universal");
+    cycleUniversal.setColumnAlias("cycle_universal");
+
+    SelectableChar filterGeoId = gmQuery.getFilterGeoId();
+    filterGeoId.setUserDefinedAlias("filter_geo_id");
+    filterGeoId.setColumnAlias("filter_geo_id");
+
+    SelectableChar filterGeoEntityName = gmQuery.getFilterGeoEntityName();
+    filterGeoEntityName.setUserDefinedAlias("filter_geo_entity");
+    filterGeoEntityName.setColumnAlias("filter_geo_entity");
+
+    SelectableMoment createDate = gmQuery.getCreateDate();
+    createDate.setUserDefinedAlias("create_date");
+    createDate.setColumnAlias("create_date");
+
+    SelectableBlob mapImage = gmQuery.getMapImage();
+    mapImage.setUserDefinedAlias("map_image");
+    mapImage.setColumnAlias("map_image");
+
+    query.SELECT(mapName, cycleLayerName, cycleUniversal, filterGeoId, filterGeoEntityName, createDate, mapImage);
     query.WHERE(smQuery.getId().EQ(map.getId()));
     query.AND(gmQuery.getSavedMap().EQ(smQuery));
 
@@ -426,12 +460,18 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
           mapBounds.put("right", right);
           mapBounds.put("top", top);
 
-          long width = DEFAULT_WIDTH;
-          long height = Math.round( ( ( ( top - bottom ) / ( right - left ) ) * width ));
+          int defaultWidth = this.getImageWidth() - MARGIN;
+          int defaultHeight = this.getImageHeight() - MARGIN;
+
+          int layerWidth = (int) Math.min(defaultWidth, Math.round( ( ( ( right - left ) / ( top - bottom ) ) * defaultHeight )));
+          int layerHeight = (int) Math.min(defaultHeight, Math.round( ( ( ( top - bottom ) / ( right - left ) ) * defaultWidth )));
 
           JSONObject mapSize = new JSONObject();
-          mapSize.put("width", width);
-          mapSize.put("height", height);
+          mapSize.put("width", this.getImageWidth());
+          mapSize.put("height", this.getImageHeight());
+
+          configuration.setLayerWidth(layerWidth);
+          configuration.setLayerHeight(layerHeight);
 
           InputStream istream = map.generateMapImageExport("png", mapBounds.toString(), mapSize.toString(), configuration);
 
@@ -458,19 +498,19 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-//              /*
-//              * This is for testing
-//              */
-//              try
-//              {
-//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-//
-//                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
-//              }
-//              catch (Exception e)
-//              {
-//                e.printStackTrace();
-//              }
+              /*
+              * This is for testing
+              */
+              try
+              {
+                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + "/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+
+                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+              }
+              catch (Exception e)
+              {
+                e.printStackTrace();
+              }
             }
             finally
             {
@@ -516,6 +556,28 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
         MapUtil.deleteMapView(layer.getViewName());
       }
     }
+  }
+
+  @Override
+  public Integer getImageWidth()
+  {
+    if (super.getImageWidth() != null)
+    {
+      return super.getImageWidth();
+    }
+
+    return DEFAULT_WIDTH;
+  }
+
+  @Override
+  public Integer getImageHeight()
+  {
+    if (super.getImageHeight() != null)
+    {
+      return super.getImageHeight();
+    }
+
+    return DEFAULT_HEIGHT;
   }
 
   @Authenticate
