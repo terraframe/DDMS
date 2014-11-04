@@ -1,0 +1,26 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    	<mdBusiness name="dss.vector.solutions.query.SavedMap">
+    		<mdMethod name="updateMapState">
+    			<create>
+    				<mdParameter name="mapPanelWidth" label="mapPanelWidth" order="2" type="java.lang.Integer"/>
+    				<mdParameter name="mapPanelHeight" label="mapPanelHeight" order="3" type="java.lang.Integer"/>
+    			</create>
+    		</mdMethod>
+    	</mdBusiness>
+    	  	<mdBusiness name="dss.vector.solutions.query.SavedMap">
+    			<create>
+    				<attributes>
+    					<integer name="mapWidth" label="map container width" required="false" defaultValue="1450"/>
+        				<integer name="mapHeight" label="map container height" required="false" defaultValue="650"/>
+        			</attributes>
+    			</create>
+    		</mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
