@@ -997,11 +997,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   }
 
   @Override
-  public void updateMapState(Integer zoomLevel, String mapCenter)
+  public void updateMapState(Integer zoomLevel, String mapCenter, Integer mapWidth, Integer mapHeight)
   {
     this.appLock();
     this.setZoomLevel(zoomLevel);
     this.setMapCenter(mapCenter);
+    this.setMapWidth(mapWidth);
+    this.setMapHeight(mapHeight);
     this.apply();
 
     /*
@@ -1018,6 +1020,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       defaultMap.appLock();
       defaultMap.setZoomLevel(zoomLevel);
       defaultMap.setMapCenter(mapCenter);
+      defaultMap.setMapWidth(mapWidth);
+      defaultMap.setMapHeight(mapHeight);
       defaultMap.apply();
     }
   }
@@ -1527,6 +1531,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     int topOffset = 125;
     BufferedImage base = null;
     Graphics mapBaseGraphic = null;
+    int savedMapWidth = this.getMapWidth();
+    int savedMapHeight = this.getMapHeight();
 
     List<? extends Layer> layers = this.getAllLayer().getAll();
 
@@ -1546,6 +1552,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           int paddedIconWidth = iconSize + ( iconPadding * 2 );
           int borderWidth = 2;
           Graphics2D newLegendTitleBaseGraphic = null;
+          int layerXPositionPercentBased = (int) Math.round( ((double)(layer.getLegendXPosition() - leftOffset)) / savedMapWidth * mapWidth );
+          int layerYPositionPercentBased = (int) Math.round( ((double)(layer.getLegendYPosition() - topOffset)) / savedMapHeight * mapHeight );
+
 
           try
           {
@@ -1561,7 +1570,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               // draw color icon to the right of the title
               int iconLeftPadding = paddedTitleWidth - paddedIconWidth + 4;
               int internalGraphicTopPadding = (int) Math.round( ( paddedTitleHeight - iconSize ) / 2);
-
+              
               newLegendTitleBaseGraphic.setColor(Color.black);
               newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
               newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
@@ -1569,13 +1578,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               BufferedImage icon = getLegendIcon(iconSize, iconSize, iconPadding, borderWidth, layer.getDefaultStyles().getPolygonFill());
 
               newLegendTitleBaseGraphic.drawImage(icon, iconLeftPadding, internalGraphicTopPadding, null);
-              mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
+              mapBaseGraphic.drawImage(newLegendTitleBase, layerXPositionPercentBased, layerYPositionPercentBased, paddedTitleWidth, paddedTitleHeight, null);
             }
             else if (layer.getAllHasCategory().getAll().size() > 0)
             {
               // draw categories with title
               BufferedImage categoryLegend = getLegendCategoryImage(layer);
-              mapBaseGraphic.drawImage(categoryLegend, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, null);
+              mapBaseGraphic.drawImage(categoryLegend, layerXPositionPercentBased, layerYPositionPercentBased, null);
             }
             else
             {
@@ -1585,7 +1594,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               int paddedTitleWidth = newLegendTitleBase.getWidth();
               int paddedTitleHeight = newLegendTitleBase.getHeight();
 
-              mapBaseGraphic.drawImage(newLegendTitleBase, layer.getLegendXPosition() - leftOffset, layer.getLegendYPosition() - topOffset, paddedTitleWidth, paddedTitleHeight, null);
+              mapBaseGraphic.drawImage(newLegendTitleBase, layerXPositionPercentBased, layerYPositionPercentBased, paddedTitleWidth, paddedTitleHeight, null);
             }
           }
           finally
