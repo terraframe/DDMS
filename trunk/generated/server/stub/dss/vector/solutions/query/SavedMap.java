@@ -1318,11 +1318,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         String imagesDir = deploy + "/imgs";
         String northArrowPath = imagesDir + "/" + "northArrow.png";
         File northArrow = new File(northArrowPath);
+        int savedMapWidth = this.getMapWidth();
+        int savedMapHeight = this.getMapHeight();
+        int arrowXPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowXPosition() - leftOffset)) / savedMapWidth * width );
+        int arrowYPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowYPosition() - topOffset)) / savedMapHeight * height );
+
 
         try
         {
           BufferedImage northArrowImg = ImageIO.read(northArrow);
-          mapBaseGraphic.drawImage(northArrowImg, this.getNorthArrowXPosition() - leftOffset, this.getNorthArrowYPosition() - topOffset, 50, 50, null);
+          mapBaseGraphic.drawImage(northArrowImg, arrowXPositionPercentBased, arrowYPositionPercentBased, 50, 50, null);
         }
         catch (IOException e)
         {
@@ -2057,6 +2062,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     int topOffset = 125;
     Graphics mapBaseGraphic = null;
     BufferedImage base = null;
+    int savedMapWidth = this.getMapWidth();
+    int savedMapHeight = this.getMapHeight();
 
     try
     {
@@ -2067,6 +2074,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends MapImage> allImage = this.getAllHasImage().getAll();
       for (MapImage image : allImage)
       {
+        
+        int imageXPositionPercentBased = (int) Math.round( ((double)(image.getImageXPosition() - leftOffset)) / savedMapWidth * mapWidth );
+        int imageYPositionPercentBased = (int) Math.round( ((double)(image.getImageYPosition() - topOffset)) / savedMapHeight * mapHeight );
+
 
         String deploy = DeployProperties.getDeployPath();
         String thisImagePath = deploy + "/" + image.getImageFilePath();
@@ -2076,7 +2087,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         try
         {
           BufferedImage thisImage = ImageIO.read(thisImageFile);
-          mapBaseGraphic.drawImage(thisImage, image.getImageXPosition() - leftOffset, image.getImageYPosition() - topOffset, thisImage.getWidth(), thisImage.getHeight(), null);
+          mapBaseGraphic.drawImage(thisImage, imageXPositionPercentBased, imageYPositionPercentBased, thisImage.getWidth(), thisImage.getHeight(), null);
 
         }
         catch (IOException e)
@@ -2110,6 +2121,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     int topOffset = 125;
     BufferedImage base = null;
     Graphics mapBaseGraphic = null;
+    int savedMapWidth = this.getMapWidth();
+    int savedMapHeight = this.getMapHeight();
 
     try
     {
@@ -2120,7 +2133,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends TextElement> allText = this.getAllHasTextElement().getAll();
       for (TextElement text : allText)
       {
+        int textXPositionPercentBased = (int) Math.round( ((double)(text.getTextXPosition() - leftOffset)) / savedMapWidth * mapWidth );
+        int textYPositionPercentBased = (int) Math.round( ((double)(text.getTextYPosition() - topOffset)) / savedMapHeight * mapHeight );
         Graphics2D newTextBaseGraphic = null;
+        
         try
         {
           BufferedImage newTextBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -2150,7 +2166,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           fm = newTextBaseGraphic.getFontMetrics();
           newTextBaseGraphic.drawString(text.getTextValue(), 0, fm.getAscent());
 
-          mapBaseGraphic.drawImage(newTextBase, text.getTextXPosition() - leftOffset, text.getTextYPosition() - topOffset, textWidth, textHeight, null);
+          mapBaseGraphic.drawImage(newTextBase, textXPositionPercentBased, textYPositionPercentBased, textWidth, textHeight, null);
         }
         finally
         {
