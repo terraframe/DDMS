@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1130676015)
+@com.runwaysdk.business.ClassSignature(hash = -1332600235)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,9 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPCENTER = "mapCenter";
+  public static java.lang.String MAPHEIGHT = "mapHeight";
   public static java.lang.String MAPNAME = "mapName";
+  public static java.lang.String MAPWIDTH = "mapWidth";
   public static java.lang.String NORTHARROWACTIVE = "northArrowActive";
   public static java.lang.String NORTHARROWXPOSITION = "northArrowXPosition";
   public static java.lang.String NORTHARROWYPOSITION = "northArrowYPosition";
@@ -33,7 +35,7 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String ZOOMLEVEL = "zoomLevel";
-  private static final long serialVersionUID = -1130676015;
+  private static final long serialVersionUID = -1332600235;
   
   public SavedMapBase()
   {
@@ -308,6 +310,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     }
   }
   
+  public Integer getMapHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAPHEIGHT));
+  }
+  
+  public void validateMapHeight()
+  {
+    this.validateAttribute(MAPHEIGHT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapHeightMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(MAPHEIGHT);
+  }
+  
+  public void setMapHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(MAPHEIGHT, "");
+    }
+    else
+    {
+      setValue(MAPHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
   public String getMapName()
   {
     return getValue(MAPNAME);
@@ -333,6 +363,34 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     else
     {
       setValue(MAPNAME, value);
+    }
+  }
+  
+  public Integer getMapWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAPWIDTH));
+  }
+  
+  public void validateMapWidth()
+  {
+    this.validateAttribute(MAPWIDTH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapWidthMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
+    return mdClassIF.definesAttribute(MAPWIDTH);
+  }
+  
+  public void setMapWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(MAPWIDTH, "");
+    }
+    else
+    {
+      setValue(MAPWIDTH, java.lang.Integer.toString(value));
     }
   }
   
@@ -954,16 +1012,16 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     _instance.updateLegendLocations(legendLocations);
   }
   
-  public void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  public void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter, java.lang.Integer mapPanelWidth, java.lang.Integer mapPanelHeight)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedMap.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final void updateMapState(java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  public static final void updateMapState(java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter, java.lang.Integer mapPanelWidth, java.lang.Integer mapPanelHeight)
   {
     SavedMap _instance = SavedMap.get(id);
-    _instance.updateMapState(zoomLevel, mapCenter);
+    _instance.updateMapState(zoomLevel, mapCenter, mapPanelWidth, mapPanelHeight);
   }
   
   public void updateNorthArrow(java.lang.Integer northArrowXPosition, java.lang.Integer northArrowYPosition, java.lang.Boolean northArrowActive)
