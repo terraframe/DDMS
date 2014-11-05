@@ -267,8 +267,8 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     filterGeoId.setColumnAlias("filter_geo_id");
 
     SelectableChar filterGeoEntityName = gmQuery.getFilterGeoEntityName();
-    filterGeoEntityName.setUserDefinedAlias("filter_geo_entity");
-    filterGeoEntityName.setColumnAlias("filter_geo_entity");
+    filterGeoEntityName.setUserDefinedAlias("filter_geo_entity_name");
+    filterGeoEntityName.setColumnAlias("filter_geo_entity_name");
 
     SelectableMoment createDate = gmQuery.getCreateDate();
     createDate.setUserDefinedAlias("create_date");
@@ -516,19 +516,19 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setDisease(disease);
               generated.apply();
 
-//              /*
-//              * This is for testing
-//              */
-//              try
-//              {
-//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + "/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-//
-//                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
-//              }
-//              catch (Exception e)
-//              {
-//                e.printStackTrace();
-//              }
+              /*
+              * This is for testing
+              */
+              try
+              {
+                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + "/" + map.getMapName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+
+                FileIO.write(tstream, new ByteArrayInputStream(generated.getMapImage()));
+              }
+              catch (Exception e)
+              {
+                e.printStackTrace();
+              }
             }
             finally
             {
