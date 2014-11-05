@@ -20,7 +20,9 @@ import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
@@ -29,15 +31,13 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
+import dss.vector.solutions.query.CycleJob;
+import dss.vector.solutions.query.CycleJobQuery;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 /**
- * IMPORTANT: THIS CLASS CAN NOT BE RELOADABLE. THIS IS DUE TO THE FACT THAT IT
- * IS A SINGLETON CLASS, AND WHEN A CLASSLOADER IS DROPPED ALL OF THE STATIC
- * FIELDS ON ALL OF THE CLASSES WHICH BELONG TO THAT CLASSLOADER ARE ALSO LOST.
- * AS SUCH, IN THIS CLASS ANY ACCESS TO A RELOADABLE CLASS MUST BE ACCOMPLISHED
- * THROUGH REFLECTION. THIS BREAKS THE RELOADABLE INFECTION.
+ * IMPORTANT: THIS CLASS CAN NOT BE RELOADABLE. THIS IS DUE TO THE FACT THAT IT IS A SINGLETON CLASS, AND WHEN A CLASSLOADER IS DROPPED ALL OF THE STATIC FIELDS ON ALL OF THE CLASSES WHICH BELONG TO THAT CLASSLOADER ARE ALSO LOST. AS SUCH, IN THIS CLASS ANY ACCESS TO A RELOADABLE CLASS MUST BE ACCOMPLISHED THROUGH REFLECTION. THIS BREAKS THE RELOADABLE INFECTION.
  * 
  * @author jsmethie
  */
@@ -61,6 +61,9 @@ public class ServerContext
     // Clean up all database map views
     this.cleanupViews();
 
+    // Clean up the generated map views
+    this.deleteGeneratedMapViews();
+
     runSql(this.getDropSql());
   }
 
@@ -73,9 +76,68 @@ public class ServerContext
     runSql(getIndexSql());
     runSql(getGeohierarchyAllpathsSQL());
     runSql(getFunctionSql());
-    
+
     // Load all saved query views
     this.createViews();
+
+    // Create the generated map views
+    this.createGeneratedMapViews();
+  }
+
+  private void createGeneratedMapViews()
+  {
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+
+    OIterator<? extends CycleJob> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        CycleJob job = iterator.next();
+
+        try
+        {
+          job.createDatabaseView();
+        }
+        catch (Exception e)
+        {
+          // Do nothing
+        }
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  private void deleteGeneratedMapViews()
+  {
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+
+    OIterator<? extends CycleJob> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        CycleJob job = iterator.next();
+
+        try
+        {
+          job.deleteDatabaseView();
+        }
+        catch (Exception e)
+        {
+          // Do nothing
+        }
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
   private String getDropSql()
@@ -643,19 +705,19 @@ public class ServerContext
     sql += "IF NOT EXISTS ( \n";
     sql += "    SELECT 1 \n";
     sql += "    FROM   pg_class c \n";
-    sql += "    WHERE  c.relname = '"+aptCache+"' \n";
+    sql += "    WHERE  c.relname = '" + aptCache + "' \n";
     sql += "    ) THEN \n";
-    sql += "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS "+aptCache+" (  \n";
+    sql += "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS " + aptCache + " (  \n";
     sql += "  id varchar(64),  \n";
     sql += "  target integer,  \n";
     sql += "  week integer,  \n";
     sql += "  season varchar(64),  \n";
     sql += "  disease varchar(64)  \n";
     sql += "  ) ON COMMIT DROP'; \n";
-    sql += "  EXECUTE 'CREATE INDEX cached_apt_index ON "+aptCache+" (id, week, season, disease)'; \n";
+    sql += "  EXECUTE 'CREATE INDEX cached_apt_index ON " + aptCache + " (id, week, season, disease)'; \n";
     sql += "END IF; \n";
     sql += "  _week = _target_column::integer; \n";
-    sql += "  SELECT target FROM "+aptCache+" WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n";
+    sql += "  SELECT target FROM " + aptCache + " WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n";
     sql += "  IF _target IS NOT NULL THEN \n";
     sql += "    RETURN _target; \n";
     sql += "  END IF; \n";
@@ -670,7 +732,7 @@ public class ServerContext
     sql += "      _target = _target + " + QueryConstants.SUM_AREA_TARGETS + "(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ", _target_column, _disease, _season); \n";
     sql += "    END LOOP;\n";
     sql += "  END IF;\n";
-    sql += "  INSERT INTO "+aptCache+" (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n";
+    sql += "  INSERT INTO " + aptCache + " (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n";
     sql += "  RETURN _target; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql VOLATILE; \n";
@@ -796,7 +858,7 @@ public class ServerContext
     sql += " SELECT parent::varchar, depth::int FROM parents; \n";
     sql += "$BODY$ \n";
     sql += "LANGUAGE sql VOLATILE; \n";
-    
+
     /*
      * THRESHOLD CALCULATOR
      * 
@@ -806,88 +868,14 @@ public class ServerContext
      * Eclipse has an option so that copy-paste of multi-line text into String literals will result in quoted newlines:
      * Preferences/Java/Editor/Typing/ "Escape text when pasting into a string literal"
      */
-    sql += "-- _thresholdType can be either 'notification' or 'identification' and indicates the type of threshold to calculate.\n" + 
-        "CREATE OR REPLACE FUNCTION ddms.get_threshold_by_geoid_and_epiweek(_thresholdType character varying, _universalId character varying, _geo_target_id character varying, _epi_week integer, _disease character varying, _season character varying)\n" + 
-        "  RETURNS float AS\n" + 
-        "$BODY$ \n" + 
-        "DECLARE \n" + 
-        "  _target  float;\n" + 
-        " _child_Count FLOAT;\n" + 
-        " _sql VARCHAR;\n" + 
-        " rec record;\n" + 
-        " _week INT;\n" + 
-        "BEGIN \n" + 
-        "IF NOT EXISTS ( \n" + 
-        "    SELECT 1 \n" + 
-        "    FROM   pg_class c \n" + 
-        "    WHERE  c.relname = 'apt_cached' \n" + 
-        "    ) THEN \n" + 
-        "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + 
-        "  id varchar(64),\n" + 
-        "  thresholdType varchar(64),\n" + 
-        "  target integer,\n" + 
-        "  week integer,\n" + 
-        "  season varchar(64),  \n" + 
-        "  disease varchar(64)\n" + 
-        "  ) ON COMMIT DROP'; \n" + 
-        "  EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + 
-        "END IF; \n" + 
-        "  _week = _epi_week::integer; \n" + 
-        "  \n" + 
-        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease AND thresholdType = _thresholdType INTO _target; \n" + 
-        "    IF _target IS NOT NULL THEN \n" + 
-        "      RETURN _target; \n" + 
-        "    END IF; \n" + 
-        "\n" + 
-        "  EXECUTE E'WITH dateExtrapolationView AS (\n" + 
-        "    SELECT \n" + 
-        "     year_of_week AS year_of_week, \n" + 
-        "     period AS period, \n" + 
-        "     (get_epistart(year_of_week, 0) + (to_char((period)*7, \\'999\\')||\\' days\\')::interval)::date AS planned_date \n" + 
-        "    FROM epi_week \n" + 
-        "  ),\n" + 
-        "\n" + 
-        "  geoThresholdView AS (\n" + 
-        "    SELECT \n" + 
-        "      wt.id id,\n" + 
-        "      wt.' || _thresholdType || ' threshold,\n" + 
-        "      td.geo_entity geo_entity,\n" + 
-        "      ew.period epi_week,\n" + 
-        "      ew.year_of_week epi_year,\n" + 
-        "      de.planned_date AS threshold_date,\n" + 
-        "      td.season season,\n" + 
-        "      ms.disease disease\n" + 
-        "    FROM\n" + 
-        "      weekly_threshold wt\n" + 
-        "      INNER JOIN threshold_data td ON wt.parent_id=td.id\n" + 
-        "      INNER JOIN epi_week ew ON wt.child_id=ew.id\n" + 
-        "      INNER JOIN malaria_season ms ON td.season=ms.id\n" + 
-        "      CROSS JOIN dateExtrapolationView de\n" + 
-        "      INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + 
-        "    WHERE \n" + 
-        "      wt.' || _thresholdType || ' IS NOT NULL\n" + 
-        "      AND ew.period = de.period\n" + 
-        "      AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + 
-        "      AND apg.parent_universal = ' || quote_literal(_universalId) || '\n" + 
-        "    GROUP BY wt.id, td.geo_entity, de.planned_date, wt.' || _thresholdType || ', td.season, ms.disease, ew.period, ew.year_of_week\n" + 
-        "  )\n" + 
-        "\n" + 
-        "  SELECT threshold FROM geoThresholdView WHERE geo_entity = ' || quote_literal(_geo_target_id) || '\n" + 
-        "    AND epi_week = ' || _week || '\n" + 
-        "    AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) || ';' INTO _target;\n" + 
-        "  \n" + 
-        "  IF _target IS NULL THEN\n" + 
-        "    _target := 0;\n" + 
-        "    _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_target_id); \n" + 
-        "    FOR  rec IN EXECUTE _sql LOOP \n" + 
-        "      _target = _target + get_threshold_by_geoid_and_epiweek(_thresholdType, _universalId, rec.child_id, _week, _disease, _season); \n" + 
-        "    END LOOP;\n" + 
-        "  END IF;\n" + 
-        "  INSERT INTO apt_cached (id, thresholdType, target, week, season, disease) VALUES (_geo_target_id, _thresholdType, _target, _week, _season, _disease); \n" + 
-        "  RETURN _target; \n" + 
-        "END; \n" + 
-        "$BODY$\n" + 
-        "  LANGUAGE plpgsql VOLATILE;";
+    sql += "-- _thresholdType can be either 'notification' or 'identification' and indicates the type of threshold to calculate.\n" + "CREATE OR REPLACE FUNCTION ddms.get_threshold_by_geoid_and_epiweek(_thresholdType character varying, _universalId character varying, _geo_target_id character varying, _epi_week integer, _disease character varying, _season character varying)\n" + "  RETURNS float AS\n" + "$BODY$ \n" + "DECLARE \n" + "  _target  float;\n" + " _child_Count FLOAT;\n"
+        + " _sql VARCHAR;\n" + " rec record;\n" + " _week INT;\n" + "BEGIN \n" + "IF NOT EXISTS ( \n" + "    SELECT 1 \n" + "    FROM   pg_class c \n" + "    WHERE  c.relname = 'apt_cached' \n" + "    ) THEN \n" + "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + "  id varchar(64),\n" + "  thresholdType varchar(64),\n" + "  target integer,\n" + "  week integer,\n" + "  season varchar(64),  \n" + "  disease varchar(64)\n" + "  ) ON COMMIT DROP'; \n"
+        + "  EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + "END IF; \n" + "  _week = _epi_week::integer; \n" + "  \n" + "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease AND thresholdType = _thresholdType INTO _target; \n" + "    IF _target IS NOT NULL THEN \n" + "      RETURN _target; \n" + "    END IF; \n" + "\n" + "  EXECUTE E'WITH dateExtrapolationView AS (\n" + "    SELECT \n"
+        + "     year_of_week AS year_of_week, \n" + "     period AS period, \n" + "     (get_epistart(year_of_week, 0) + (to_char((period)*7, \\'999\\')||\\' days\\')::interval)::date AS planned_date \n" + "    FROM epi_week \n" + "  ),\n" + "\n" + "  geoThresholdView AS (\n" + "    SELECT \n" + "      wt.id id,\n" + "      wt.' || _thresholdType || ' threshold,\n" + "      td.geo_entity geo_entity,\n" + "      ew.period epi_week,\n" + "      ew.year_of_week epi_year,\n"
+        + "      de.planned_date AS threshold_date,\n" + "      td.season season,\n" + "      ms.disease disease\n" + "    FROM\n" + "      weekly_threshold wt\n" + "      INNER JOIN threshold_data td ON wt.parent_id=td.id\n" + "      INNER JOIN epi_week ew ON wt.child_id=ew.id\n" + "      INNER JOIN malaria_season ms ON td.season=ms.id\n" + "      CROSS JOIN dateExtrapolationView de\n" + "      INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + "    WHERE \n"
+        + "      wt.' || _thresholdType || ' IS NOT NULL\n" + "      AND ew.period = de.period\n" + "      AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + "      AND apg.parent_universal = ' || quote_literal(_universalId) || '\n" + "    GROUP BY wt.id, td.geo_entity, de.planned_date, wt.' || _thresholdType || ', td.season, ms.disease, ew.period, ew.year_of_week\n" + "  )\n" + "\n"
+        + "  SELECT threshold FROM geoThresholdView WHERE geo_entity = ' || quote_literal(_geo_target_id) || '\n" + "    AND epi_week = ' || _week || '\n" + "    AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) || ';' INTO _target;\n" + "  \n" + "  IF _target IS NULL THEN\n" + "    _target := 0;\n" + "    _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_target_id); \n" + "    FOR  rec IN EXECUTE _sql LOOP \n"
+        + "      _target = _target + get_threshold_by_geoid_and_epiweek(_thresholdType, _universalId, rec.child_id, _week, _disease, _season); \n" + "    END LOOP;\n" + "  END IF;\n" + "  INSERT INTO apt_cached (id, thresholdType, target, week, season, disease) VALUES (_geo_target_id, _thresholdType, _target, _week, _season, _disease); \n" + "  RETURN _target; \n" + "END; \n" + "$BODY$\n" + "  LANGUAGE plpgsql VOLATILE;";
 
     return sql;
   }
@@ -909,13 +897,13 @@ public class ServerContext
     catch (RuntimeException e)
     {
       throw e;
-    }    
+    }
     catch (Exception e)
     {
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   public void createViews()
   {
     /*
@@ -929,7 +917,7 @@ public class ServerContext
     catch (RuntimeException e)
     {
       throw e;
-    }    
+    }
     catch (Exception e)
     {
       throw new ProgrammingErrorException(e);

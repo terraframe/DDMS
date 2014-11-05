@@ -233,6 +233,28 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     return list.toArray(new Layer[list.size()]);
   }
 
+  public void createDatabaseView()
+  {
+    SavedMap map = this.getSavedMap();
+
+    if (map != null)
+    {
+      Disease disease = map.getDisease();
+
+      this.createGenereatedMapDatabaseView(map, disease);
+    }
+  }
+
+  public void deleteDatabaseView()
+  {
+    SavedMap map = this.getSavedMap();
+
+    if (map != null)
+    {
+      map.deleteMapView();
+    }
+  }
+
   /**
    * Creates a new database view which restricts the output of the layer database view to only include the geo entities within or containing the supplied geo entity.
    * 

@@ -2238,6 +2238,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       it.close();
     }
 
+    this.deleteMapView();
+  }
+
+  public void deleteMapView()
+  {
     MapUtil.deleteMapView(this.getGeneratedMapViewName());
   }
 
