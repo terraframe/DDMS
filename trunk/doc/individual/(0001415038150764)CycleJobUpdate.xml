@@ -17,6 +17,7 @@
           </attributes>
         </create>
       </mdView>
+      <mdException name="dss.vector.solutions.query.MapInUseException" message="The map cannot be modified because it is currently in use by an active cycle job." />      
     </update>
   </doIt>
   <undoIt>

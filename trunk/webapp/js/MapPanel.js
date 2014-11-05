@@ -57,7 +57,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           parent: that._mapLayout,
           units: [
             { position: 'center', body: '', gutter: '2', resize: false, scroll: true },
-            { position: 'bottom', height: 200, body: '', gutter: '2', resize: false}
+            { position: 'bottom', height: 250, body: '', gutter: '2', resize: false}
           ]
         });
         
@@ -1334,7 +1334,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             // Persist map elements status (active or inactive) and well as
             // location
             this.that._updateMapState(mapId);            
-            this.that._saveCycleJob(mapId);
+            this.that._saveCycleJob(mapId, false);
           }
         });        
         
@@ -1380,7 +1380,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           /*
            * Save the cycle job
            */
-          that._saveCycleJob(mapId);
+          that._saveCycleJob(mapId, true);
         }
       });
 
@@ -1854,7 +1854,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       left.body.innerHTML = html;
     },
     
-    _saveCycleJob : function(mapId)
+    _saveCycleJob : function(mapId, clearConcreteId)
     {
       var params = Mojo.Util.collectFormValues('job-form');
       
@@ -1870,6 +1870,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       if(mapId != null)
       {
         params["view.savedMap"] = mapId;
+      }
+      
+      if(clearConcreteId != undefined && clearConcreteId)
+      {
+        params["view.concreteId"] = '';        
       }
       
       var request = new MDSS.Request({

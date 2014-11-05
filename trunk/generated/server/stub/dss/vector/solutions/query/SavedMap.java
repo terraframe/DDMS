@@ -78,6 +78,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
+    // Ensure that the saved map is not currently being used in a running cycle job
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+    query.WHERE(query.getSavedMap().EQ(this));
+    query.AND(query.getRunning().EQ(true));
+
+    if (query.getCount() > 0)
+    {
+      throw new MapInUseException();
+    }
+    
     /*
      * Delete all of the saved images
      */
@@ -87,11 +97,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
      * Delete the cycle job corresponding to the map
      */
     this.deleteCycleJob();
-
-    /*
-     * Delete the generated maps
-     */
-    this.deleteGeneratedMapsAndView();
 
     /*
      * Delete the actual map
@@ -1781,7 +1786,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     FontMetrics fm;
     int borderWidth = 1;
     int titleWidth;
-    int titleHeight;
     int textWidth;
     int textPadding = 2;
     int paddedTextWidth;
@@ -1810,7 +1814,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       paddedTitleWidth = newLegendTitleBase.getWidth() - 1;
       paddedTitleHeight = newLegendTitleBase.getHeight() - 1;
       titleWidth = paddedTitleWidth - ( textPadding * 2 );
-      titleHeight = paddedTitleHeight - ( textPadding * 2 );
     }
     finally
     {

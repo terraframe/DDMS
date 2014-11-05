@@ -38,8 +38,8 @@ public class CycleJobView extends CycleJobViewBase implements com.runwaysdk.gene
        */
       this.setJobName(null);
       this.setLayerId(null);
-      this.setImageWidth(null);
-      this.setImageHeight(null);
+      this.setImageWidth(CycleJob.DEFAULT_WIDTH);
+      this.setImageHeight(CycleJob.DEFAULT_HEIGHT);
       this.setConcreteId(null);
     }
   }

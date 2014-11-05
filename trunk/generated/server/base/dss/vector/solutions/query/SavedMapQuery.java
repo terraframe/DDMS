@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1760848838)
+@com.runwaysdk.business.ClassSignature(hash = 1575106558)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -238,6 +238,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getMapHeight()
+  {
+    return getMapHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -253,6 +270,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getMapWidth()
+  {
+    return getMapWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()
@@ -893,9 +927,15 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getMapCenter();
     public com.runwaysdk.query.SelectableChar getMapCenter(String alias);
     public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getMapHeight();
+    public com.runwaysdk.query.SelectableInteger getMapHeight(String alias);
+    public com.runwaysdk.query.SelectableInteger getMapHeight(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMapName();
     public com.runwaysdk.query.SelectableChar getMapName(String alias);
     public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getMapWidth();
+    public com.runwaysdk.query.SelectableInteger getMapWidth(String alias);
+    public com.runwaysdk.query.SelectableInteger getMapWidth(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive();
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias);
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel);
@@ -1218,6 +1258,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getMapHeight()
+  {
+    return getMapHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -1233,6 +1290,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getMapWidth()
+  {
+    return getMapWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()
@@ -1844,9 +1918,15 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getMapCenter();
     public com.runwaysdk.query.SelectableChar getMapCenter(String alias);
     public com.runwaysdk.query.SelectableChar getMapCenter(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getMapHeight();
+    public com.runwaysdk.query.SelectableInteger getMapHeight(String alias);
+    public com.runwaysdk.query.SelectableInteger getMapHeight(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMapName();
     public com.runwaysdk.query.SelectableChar getMapName(String alias);
     public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getMapWidth();
+    public com.runwaysdk.query.SelectableInteger getMapWidth(String alias);
+    public com.runwaysdk.query.SelectableInteger getMapWidth(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive();
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias);
     public com.runwaysdk.query.SelectableBoolean getNorthArrowActive(String alias, String displayLabel);
@@ -2134,6 +2214,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPCENTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getMapHeight()
+  {
+    return getMapHeight(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapHeight(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPHEIGHT, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getMapName()
   {
     return getMapName(null);
@@ -2149,6 +2246,23 @@ public  class SavedMapQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getMapName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedMap.MAPNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getMapWidth()
+  {
+    return getMapWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getMapWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.SavedMap.MAPWIDTH, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getNorthArrowActive()

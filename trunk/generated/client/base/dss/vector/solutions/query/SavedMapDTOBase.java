@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -91394223)
+@com.runwaysdk.business.ClassSignature(hash = 747892949)
 public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedMap";
-  private static final long serialVersionUID = -91394223;
+  private static final long serialVersionUID = 747892949;
   
   protected SavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,7 +37,9 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPCENTER = "mapCenter";
+  public static java.lang.String MAPHEIGHT = "mapHeight";
   public static java.lang.String MAPNAME = "mapName";
+  public static java.lang.String MAPWIDTH = "mapWidth";
   public static java.lang.String NORTHARROWACTIVE = "northArrowActive";
   public static java.lang.String NORTHARROWXPOSITION = "northArrowXPosition";
   public static java.lang.String NORTHARROWYPOSITION = "northArrowYPosition";
@@ -382,6 +384,43 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MAPCENTER).getAttributeMdDTO();
   }
   
+  public Integer getMapHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAPHEIGHT));
+  }
+  
+  public void setMapHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(MAPHEIGHT, "");
+    }
+    else
+    {
+      setValue(MAPHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isMapHeightWritable()
+  {
+    return isWritable(MAPHEIGHT);
+  }
+  
+  public boolean isMapHeightReadable()
+  {
+    return isReadable(MAPHEIGHT);
+  }
+  
+  public boolean isMapHeightModified()
+  {
+    return isModified(MAPHEIGHT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMapHeightMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MAPHEIGHT).getAttributeMdDTO();
+  }
+  
   public String getMapName()
   {
     return getValue(MAPNAME);
@@ -417,6 +456,43 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMapNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MAPNAME).getAttributeMdDTO();
+  }
+  
+  public Integer getMapWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAPWIDTH));
+  }
+  
+  public void setMapWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(MAPWIDTH, "");
+    }
+    else
+    {
+      setValue(MAPWIDTH, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isMapWidthWritable()
+  {
+    return isWritable(MAPWIDTH);
+  }
+  
+  public boolean isMapWidthReadable()
+  {
+    return isReadable(MAPWIDTH);
+  }
+  
+  public boolean isMapWidthModified()
+  {
+    return isModified(MAPWIDTH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMapWidthMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MAPWIDTH).getAttributeMdDTO();
   }
   
   public Boolean getNorthArrowActive()
@@ -1081,18 +1157,18 @@ public abstract class SavedMapDTOBase extends com.runwaysdk.business.BusinessDTO
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  public final void updateMapState(java.lang.Integer zoomLevel, java.lang.String mapCenter, java.lang.Integer mapPanelWidth, java.lang.Integer mapPanelHeight)
   {
-    String[] _declaredTypes = new String[]{"java.lang.Integer", "java.lang.String"};
-    Object[] _parameters = new Object[]{zoomLevel, mapCenter};
+    String[] _declaredTypes = new String[]{"java.lang.Integer", "java.lang.String", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{zoomLevel, mapCenter, mapPanelWidth, mapPanelHeight};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateMapState", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void updateMapState(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter)
+  public static final void updateMapState(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Integer zoomLevel, java.lang.String mapCenter, java.lang.Integer mapPanelWidth, java.lang.Integer mapPanelHeight)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, zoomLevel, mapCenter};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer", "java.lang.String", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{id, zoomLevel, mapCenter, mapPanelWidth, mapPanelHeight};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedMapDTO.CLASS, "updateMapState", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }

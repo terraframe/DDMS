@@ -58,9 +58,9 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   /**
    * Default width & height for generated maps. The height of the map will be calculated from this width and the aspect ratio of the bounding box of all the layers.
    */
-  private static final int    DEFAULT_WIDTH           = 773;
+  public static final int     DEFAULT_WIDTH           = 773;
 
-  private static final int    DEFAULT_HEIGHT          = 1000;
+  public static final int     DEFAULT_HEIGHT          = 1000;
 
   private static final int    MARGIN                  = 100;
 
@@ -152,13 +152,16 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   @Override
   public void apply()
   {
-    this.setJobId(this.getJobName());
-    this.getDescription().setDefaultValue(this.getJobName());
-
     SavedMap savedMap = this.getSavedMap();
 
     if (savedMap != null)
     {
+      String jobName = savedMap.getMapName() + " " + savedMap.getDisease().getDisplayLabel();
+
+      this.setJobName(jobName);
+      this.setJobId(jobName);
+      this.getDescription().setDefaultValue(jobName);
+
       SessionIF session = Session.getCurrentSession();
 
       if (session != null)
@@ -169,6 +172,9 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
         UserSettings settings = UserSettings.createIfNotExists(mdssUser);
         DefaultSavedMap defaultMap = settings.getDefaultMap();
 
+        /*
+         * This should never happen.  It should be prevented from the front-end.
+         */
         if (savedMap.getId().equals(defaultMap.getId()))
         {
           String msg = "A cycle job cannot be defined on a the default map";
@@ -178,6 +184,18 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     }
 
     super.apply();
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    /*
+     * Delete the generated maps
+     */
+    this.getSavedMap().deleteGeneratedMapsAndView();
+
+    super.delete();
   }
 
   @Transaction
