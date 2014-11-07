@@ -318,7 +318,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
    * @param layer
    * @return
    */
-  private String createDatabaseView(String geoId, Layer layer)
+  private void createDatabaseView(String geoId, Layer layer, String viewName)
   {
     /*   select *
     FROM ddms."geo$1413984777140" AS v,
@@ -366,11 +366,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
     // Regex is dumb, but its the only way to perform a "SELECT *"
     sql = sql.replaceAll("\\(" + LAYER_VIEW_ALIAS + "." + QueryConstants.GEO_ID_COLUMN + "\\) AS " + GEO_ID_ALIAS + "", LAYER_VIEW_ALIAS + ".*");
 
-    String viewName = Layer.GEO_VIEW_PREFIX + IDGenerator.nextID();
-
     Database.createView(viewName, sql);
-
-    return viewName;
   }
 
   private List<FilterInfo> getFilterInfo()
@@ -453,6 +449,15 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
 
     try
     {
+      Map<String, String> views = this.generateViewNames(layers);
+
+      /*
+       * 2a) Create the map
+       */
+      MapConfiguration configuration = new MapConfiguration(views, map.getDisease());
+
+      // Re-print all SLD files for the layers
+      this.updateSLDs(layers, configuration);
 
       List<FilterInfo> list = this.getFilterInfo();
 
@@ -463,27 +468,17 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
 
         // For every layer in the map create a new database view restricting the output to
         // geo entities which contain or are contained by the current geoId
-        Map<String, String> views = new LinkedHashMap<String, String>();
-
         try
         {
           /*
-           * 2a) Create the database views which will be used for mapping
+           * 2b) Create the database views which will be used for mapping
            */
           for (Layer layer : layers)
           {
-            String viewName = this.createDatabaseView(filterGeoId, layer);
+            String viewName = views.get(layer.getId());
 
-            views.put(layer.getId(), viewName);
+            this.createDatabaseView(filterGeoId, layer, viewName);
           }
-
-          /*
-           * 2b) Create the map
-           */
-          MapConfiguration configuration = new MapConfiguration(views, map.getDisease());
-
-          // Re-print all SLD files for the layers
-          this.updateSLDs(layers, configuration);
 
           map.refreshMap(map.getId(), configuration);
 
@@ -537,7 +532,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setFilterGeoEntityName(filterEntityName);
               generated.setDisease(disease);
               generated.apply();
-
+//
 //              /*
 //              * This is for testing
 //              */
@@ -596,6 +591,20 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
         MapUtil.deleteMapView(layer.getViewName());
       }
     }
+  }
+
+  private Map<String, String> generateViewNames(Layer[] layers)
+  {
+    Map<String, String> map = new LinkedHashMap<String, String>();
+
+    for (Layer layer : layers)
+    {
+      String viewName = Layer.GEO_VIEW_PREFIX + IDGenerator.nextID();
+
+      map.put(layer.getId(), viewName);
+    }
+
+    return map;
   }
 
   @Override

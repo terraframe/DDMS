@@ -80,6 +80,9 @@ public class ServerContext
     // Load all saved query views
     this.createViews();
 
+    // Delete any views which might not have be deleted
+    this.deleteGeneratedMapViews();
+
     // Create the generated map views
     this.createGeneratedMapViews();
   }

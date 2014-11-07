@@ -1198,6 +1198,18 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         {
           return image;
         }
+        else
+        {
+          // Wait a couple seconds and try again
+          try
+          {
+            Thread.sleep(2000);
+          }
+          catch (InterruptedException e)
+          {
+            // Do nothing
+          }
+        }
       }
       catch (IOException e)
       {
@@ -1218,9 +1230,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
     }
 
-    // Geoserver sent a response that was not an image
-    // TODO return a localized exception
-    throw new ProgrammingErrorException("Geoserver is not responding with an image");
+    throw new GeoserverResponseException();
   }
 
   /**
