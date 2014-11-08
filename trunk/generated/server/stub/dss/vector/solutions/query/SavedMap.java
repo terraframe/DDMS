@@ -59,11 +59,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   private static final long   serialVersionUID          = 1252823927;
 
   /**
-   * Max number of requests attempts to geoserver for producing images server side
-   */
-  private static final int    MAX_ATTEMPTS              = 10;
-
-  /**
    * Prefix for the generated map views
    */
   private static final String GENERATED_MAP_VIEW_PREFIX = "m_";
@@ -83,16 +78,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
-    // Ensure that the saved map is not currently being used in a running cycle job
-    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
-    query.WHERE(query.getSavedMap().EQ(this));
-    query.AND(query.getRunning().EQ(true));
-
-    if (query.getCount() > 0)
-    {
-      throw new MapInUseException();
-    }
-
     /*
      * Delete all of the saved images
      */
@@ -102,6 +87,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
      * Delete the cycle job corresponding to the map
      */
     this.deleteCycleJob();
+
+    /*
+     * Delete the generated maps
+     */
+    this.deleteGeneratedMapsAndView();
 
     /*
      * Delete the actual map
@@ -1176,69 +1166,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     view.delete();
   }
 
-  private BufferedImage getLayerImageFromGeoserver(String _requestURL)
-  {
-    for (int i = 0; i < MAX_ATTEMPTS; i++)
-    {
-      // Make the getMap request to geoserver for this layer
-      // and return a byte[] of the returned image
-      byte[] response = this.requestMapImage(_requestURL);
-
-      ByteArrayInputStream istream = new ByteArrayInputStream(response);
-
-      try
-      {
-        // Convert the response into an image.
-        // Note that the reponse may not be a valid image
-        // If this is the case then ImageIO.read will return
-        // a null BufferedImage.
-        BufferedImage image = ImageIO.read(istream);
-
-        if (image != null)
-        {
-          return image;
-        }
-        else
-        {
-          // Wait a couple seconds and try again
-          try
-          {
-            Thread.sleep(2000);
-          }
-          catch (InterruptedException e)
-          {
-            // Do nothing
-          }
-        }
-      }
-      catch (IOException e)
-      {
-        String error = "Could not read the map request image from the map server.";
-        throw new ProgrammingErrorException(error, e);
-      }
-      finally
-      {
-        try
-        {
-          istream.close();
-        }
-        catch (IOException e)
-        {
-          String error = "Could not close stream.";
-          throw new ProgrammingErrorException(error, e);
-        }
-      }
-    }
-
-    throw new GeoserverResponseException();
-  }
-
   /**
    * Makes a getMap request to geoserver and returns the response as a ByteArrayOutputStream
    * 
    * @requestURL = geoserver getMap() request url
    */
-  private byte[] requestMapImage(String requestURL)
+  private byte[] getMapRequestToImage(String requestURL)
   {
     InputStream inStream = null;
     ByteArrayOutputStream outStream = null;
@@ -1380,15 +1313,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       // Add the north arrow to the base canvas
       if (this.getNorthArrowActive())
       {
-
         String deploy = DeployProperties.getDeployPath();
         String imagesDir = deploy + "/imgs";
         String northArrowPath = imagesDir + "/" + "northArrow.png";
         File northArrow = new File(northArrowPath);
         int savedMapWidth = this.getMapWidth();
         int savedMapHeight = this.getMapHeight();
-        int arrowXPositionPercentBased = (int) Math.round( ( (double) ( this.getNorthArrowXPosition() - leftOffset ) ) / savedMapWidth * width);
-        int arrowYPositionPercentBased = (int) Math.round( ( (double) ( this.getNorthArrowYPosition() - topOffset ) ) / savedMapHeight * height);
+        int arrowXPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowXPosition() - leftOffset)) / savedMapWidth * width );
+        int arrowYPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowYPosition() - topOffset)) / savedMapHeight * height );
 
         try
         {
@@ -1401,6 +1333,185 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           throw new ProgrammingErrorException(error, e);
         }
 
+      }
+      // Add the scale bar to the base canvas
+      if (this.getScaleBarActive())
+      {
+        int scaleBarHeight = 32;
+        int maxScaleBarWidth = 100;
+        String topOutUnits = "km";
+        String topInUnits = "m";
+        String bottomOutUnits = "mi";
+        String bottomInUnits = "ft";
+        
+        // lookup for unit conversions
+        HashMap<String, Double> INCHES_PER_UNIT_MAP = new HashMap<String, Double>();
+        INCHES_PER_UNIT_MAP.put("inches", 1.0);
+        INCHES_PER_UNIT_MAP.put("ft", 12.0);
+        INCHES_PER_UNIT_MAP.put("mi", 63360.0);
+        INCHES_PER_UNIT_MAP.put("m", 39.3701); 
+        INCHES_PER_UNIT_MAP.put("km", 39370.1); 
+        INCHES_PER_UNIT_MAP.put("dd", 4374754.0);
+        INCHES_PER_UNIT_MAP.put("yd", 36.0);
+        
+        double northBound;
+        double southBound;
+        try
+        {
+          JSONObject mapBoundsObj = new JSONObject(mapBounds);
+          northBound = mapBoundsObj.getDouble("top");
+          southBound = mapBoundsObj.getDouble("bottom");
+        }
+        catch (JSONException e)
+        {
+          String error = "Could not parse map bounds.";
+          throw new ProgrammingErrorException(error, e);
+        }
+        
+        double north = northBound * Math.PI/180;  //convert from degrees to radians
+        double south = southBound * Math.PI/180;  //convert from degrees to radians
+        int polarCircumference = 360;
+        double lengthNorthSouthInDegrees = (north - south) * (polarCircumference/(2*Math.PI));  
+        double degreePerPixel = lengthNorthSouthInDegrees / height;
+        
+        int maxSizeData = (int) Math.round(maxScaleBarWidth * degreePerPixel * (Integer) INCHES_PER_UNIT_MAP.get("dd").intValue() );
+        
+        String topUnits;
+        String bottomUnits;
+        if (maxSizeData > 100000) 
+        {
+          topUnits = topOutUnits;
+          bottomUnits = bottomOutUnits;
+        } 
+        else 
+        {
+          topUnits = topInUnits;
+          bottomUnits = bottomInUnits;
+        }
+     
+        double topMax = maxSizeData / INCHES_PER_UNIT_MAP.get(topUnits);
+        double bottomMax = maxSizeData / INCHES_PER_UNIT_MAP.get(bottomUnits);
+        int topRounded = getBarLen(topMax);
+        int bottomRounded = getBarLen(bottomMax);
+        topMax = (double) ((double) topRounded / (double) INCHES_PER_UNIT_MAP.get("dd").intValue() * (double) Math.round( INCHES_PER_UNIT_MAP.get(topUnits)));
+        bottomMax = (double) bottomRounded / (double) INCHES_PER_UNIT_MAP.get("dd").intValue() * (double) Math.round( INCHES_PER_UNIT_MAP.get(bottomUnits));
+        int topScaleBarLengthInPixels = (int) Math.round(topMax / degreePerPixel);
+        int bottomScaleBarLengthInPixels = (int) Math.round(bottomMax / degreePerPixel);
+        
+        int savedMapWidth = this.getMapWidth();
+        int savedMapHeight = this.getMapHeight();
+        int scaleXPositionPercentBased = (int) Math.round( ((double)(this.getScaleBarXPosition() - leftOffset)) / savedMapWidth * width );
+        int scaleYPositionPercentBased = (int) Math.round( ((double)(this.getScaleBarYPosition() - topOffset)) / savedMapHeight * height );
+        
+        Graphics2D scaleBarBaseGraphic = null;
+        try
+        {
+          BufferedImage scaleBarBase = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+          scaleBarBaseGraphic = scaleBarBase.createGraphics();
+          scaleBarBaseGraphic.setColor(Color.black);
+          
+          ////
+          // draw the top of the scale bar
+          ////
+
+          scaleBarBaseGraphic.setStroke(new BasicStroke(2));
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased, scaleYPositionPercentBased, scaleXPositionPercentBased + topScaleBarLengthInPixels, scaleYPositionPercentBased);
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased, scaleYPositionPercentBased - ( scaleBarHeight / 2 ), scaleXPositionPercentBased, scaleYPositionPercentBased);
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased + topScaleBarLengthInPixels, scaleYPositionPercentBased - ( scaleBarHeight / 2 ), scaleXPositionPercentBased + topScaleBarLengthInPixels, scaleYPositionPercentBased);
+          
+          String scaleTopText = Integer.toString(topRounded) + " " + topUnits;
+          Font scaleTopFont = new Font(scaleTopText, Font.PLAIN, 12);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+          scaleBarBaseGraphic.setFont(scaleTopFont);
+          
+          FontMetrics fmTop = scaleBarBaseGraphic.getFontMetrics();
+          int textWidthTop = (int) fmTop.stringWidth(scaleTopText);
+          if(textWidthTop >= topScaleBarLengthInPixels - 4)
+          {
+            String trimmedText = scaleTopText.replace(" "+topUnits, "");
+            int timmedTextWidth = fmTop.stringWidth(trimmedText);
+            
+            String trimmedOffUnits = " "+topUnits;
+            int trimmedOffUnitsWidth = fmTop.stringWidth(trimmedOffUnits);
+            
+            int fontHorizontalPosTopVal = (int) ( (int) scaleXPositionPercentBased + ((topScaleBarLengthInPixels / 2) - (timmedTextWidth / 2)) );
+            int fontHorizontalPosTopUnits = (int) ( (int) scaleXPositionPercentBased + ((topScaleBarLengthInPixels / 2) - (trimmedOffUnitsWidth / 2)) );
+
+            scaleBarBaseGraphic.drawString(trimmedText, fontHorizontalPosTopVal, scaleYPositionPercentBased - fmTop.getHeight() - 2);
+            scaleBarBaseGraphic.drawString(trimmedOffUnits, fontHorizontalPosTopUnits, scaleYPositionPercentBased - fmTop.getDescent() - 2);
+          }
+          else
+          {
+            int fontHorizontalPosTop = (int) ( (int) scaleXPositionPercentBased + ((topScaleBarLengthInPixels / 2) - (textWidthTop / 2)) );
+            scaleBarBaseGraphic.drawString(scaleTopText, fontHorizontalPosTop, scaleYPositionPercentBased - fmTop.getDescent() - 2);
+
+          }
+          
+          scaleBarBaseGraphic.drawImage(scaleBarBase, 0, 0, null);
+          
+          ////
+          // draw the bottom of the scale bar
+          ////
+          
+          scaleBarBaseGraphic.setStroke(new BasicStroke(2));
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased, scaleYPositionPercentBased, scaleXPositionPercentBased + bottomScaleBarLengthInPixels, scaleYPositionPercentBased);
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased, scaleYPositionPercentBased + ( scaleBarHeight / 2 ), scaleXPositionPercentBased, scaleYPositionPercentBased);
+          scaleBarBaseGraphic.drawLine(scaleXPositionPercentBased + bottomScaleBarLengthInPixels, scaleYPositionPercentBased + ( scaleBarHeight / 2 ), scaleXPositionPercentBased + bottomScaleBarLengthInPixels, scaleYPositionPercentBased);
+ 
+          String scaleBottomText = Integer.toString(bottomRounded) + " " + bottomUnits;
+          Font scaleBottomFont = new Font(scaleBottomText, Font.PLAIN, 12);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+          scaleBarBaseGraphic.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+          scaleBarBaseGraphic.setFont(scaleBottomFont);
+          
+          FontMetrics fmBottom = scaleBarBaseGraphic.getFontMetrics();
+          float textWidthBottom = fmBottom.stringWidth(scaleBottomText);
+          
+          if(textWidthBottom >= bottomScaleBarLengthInPixels - 4)
+          {
+            String trimmedTextBottom = scaleTopText.replace(" "+topUnits, "");
+            int timmedTextBottomWidth = fmTop.stringWidth(trimmedTextBottom);
+            
+            String trimmedOffUnitsBottom = " "+topUnits;
+            int trimmedOffUnitsBottomWidth = fmTop.stringWidth(trimmedOffUnitsBottom);
+            
+            int fontHorizontalPosBottomVal = (int) ( (int) scaleXPositionPercentBased + ((bottomScaleBarLengthInPixels / 2) - (timmedTextBottomWidth / 2)) );
+            int fontHorizontalPosBottomUnits = (int) ( (int) scaleXPositionPercentBased + ((bottomScaleBarLengthInPixels / 2) - (trimmedOffUnitsBottomWidth / 2)) );
+
+            scaleBarBaseGraphic.drawString(trimmedTextBottom, fontHorizontalPosBottomVal, scaleYPositionPercentBased + fmBottom.getAscent() + fmBottom.getLeading() + 2 );
+            scaleBarBaseGraphic.drawString(trimmedOffUnitsBottom, fontHorizontalPosBottomUnits, scaleYPositionPercentBased + fmBottom.getHeight() + fmBottom.getAscent() + fmBottom.getLeading() );
+          }
+          else
+          {
+            int fontHorizontalPosBottom = (int) ((int) scaleXPositionPercentBased + ((bottomScaleBarLengthInPixels / 2) - ( textWidthBottom / 2 )) );
+            scaleBarBaseGraphic.drawString(scaleBottomText, fontHorizontalPosBottom, scaleYPositionPercentBased + fmBottom.getAscent() + fmBottom.getLeading() + 2 );
+          }
+
+          scaleBarBaseGraphic.drawImage(scaleBarBase, 0, 0, null);
+
+          mapBaseGraphic.drawImage(scaleBarBase, 0, 0, null);
+        }
+        finally
+        {
+          if(scaleBarBaseGraphic != null)
+          {
+            scaleBarBaseGraphic.dispose();
+          }
+        }
+        
       }
     }
     finally
@@ -1440,6 +1551,31 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     return inStream;
+  }
+  
+  
+  /*
+   * Get the bucket option that is closest to the input value
+   */
+  private int getBarLen(double maxLen)
+  {
+    int digits = (int) (Math.log(maxLen) / Math.log(10)); // truncates decimals
+    int pow10 = (int) Math.pow(10, digits);
+    int firstChar = (int) maxLen / pow10;
+    int barLen;
+    if (firstChar > 5) 
+    {
+      barLen = 5;
+    } 
+    else if (firstChar > 2) 
+    {
+      barLen = 2;
+    } 
+    else 
+    {
+      barLen = 1;
+    }
+    return barLen * pow10;
   }
 
   /**
@@ -1491,6 +1627,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         if (configuration.includeLayer(layer))
         {
 
+          ByteArrayInputStream layerInput = null;
           Graphics2D newOverlayBaseGraphic = null;
           Graphics2D mapLayerGraphic2d = null;
 
@@ -1522,23 +1659,35 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           requestURL.append("&");
           requestURL.append("HEIGHT=" + Integer.toString(mapHeight));
 
+          // Make the getMap request to geoserver for this layer
+          // and return a byte[] of the returned image
+          byte[] layerOutput = getMapRequestToImage(requestURL.toString());
+
           try
           {
-            BufferedImage layerImg = this.getLayerImageFromGeoserver(requestURL.toString());
+            layerInput = new ByteArrayInputStream(layerOutput);
             BufferedImage newOverlayBase = new BufferedImage(mapWidth, mapHeight, BufferedImage.TYPE_INT_ARGB);
 
             newOverlayBaseGraphic = newOverlayBase.createGraphics();
 
+            // Read the just created image file from the file system
+            BufferedImage thisLayerImg = ImageIO.read(layerInput);
+
             // Add transparency to the layerGraphic
             // This is set in JavaScript in the app so we are replicating browser side transparency settings that are applied to the whole layer
             AlphaComposite thisLayerComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.getOpacity().floatValue());
-            mapLayerGraphic2d = layerImg.createGraphics();
+            mapLayerGraphic2d = thisLayerImg.createGraphics();
             newOverlayBaseGraphic.setComposite(thisLayerComposite);
 
             // Add the current layerGraphic to the base image
-            newOverlayBaseGraphic.drawImage(layerImg, 0, 0, null);
+            newOverlayBaseGraphic.drawImage(thisLayerImg, 0, 0, null);
             mapBaseGraphic.drawImage(newOverlayBase, 0, 0, null);
 
+          }
+          catch (IOException e)
+          {
+            String error = "Could not read the map request image from the map server.";
+            throw new ProgrammingErrorException(error, e);
           }
           finally
           {
@@ -1550,6 +1699,19 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             if (mapLayerGraphic2d != null)
             {
               mapLayerGraphic2d.dispose();
+            }
+
+            if (layerInput != null)
+            {
+              try
+              {
+                layerInput.close();
+              }
+              catch (IOException e)
+              {
+                String error = "Could not close the stream.";
+                throw new ProgrammingErrorException(error, e);
+              }
             }
           }
         }
@@ -1597,8 +1759,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           int paddedIconWidth = iconSize + ( iconPadding * 2 );
           int borderWidth = 2;
           Graphics2D newLegendTitleBaseGraphic = null;
-          int layerXPositionPercentBased = (int) Math.round( ( (double) ( layer.getLegendXPosition() - leftOffset ) ) / savedMapWidth * mapWidth);
-          int layerYPositionPercentBased = (int) Math.round( ( (double) ( layer.getLegendYPosition() - topOffset ) ) / savedMapHeight * mapHeight);
+          int layerXPositionPercentBased = (int) Math.round( ((double)(layer.getLegendXPosition() - leftOffset)) / savedMapWidth * mapWidth ) + 2;
+          int layerYPositionPercentBased = (int) Math.round( ((double)(layer.getLegendYPosition() - topOffset)) / savedMapHeight * mapHeight ) + 2;
+
 
           try
           {
@@ -1614,10 +1777,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               // draw color icon to the right of the title
               int iconLeftPadding = paddedTitleWidth - paddedIconWidth + 4;
               int internalGraphicTopPadding = (int) Math.round( ( paddedTitleHeight - iconSize ) / 2);
-
+              
               newLegendTitleBaseGraphic.setColor(Color.black);
-              newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
               newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
+              newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
 
               BufferedImage icon = getLegendIcon(iconSize, iconSize, iconPadding, borderWidth, layer.getDefaultStyles().getPolygonFill());
 
@@ -1754,8 +1917,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       if (layer.getShowLegendBorder())
       {
         newLegendTitleBaseGraphic.setColor(Color.black);
-        newLegendTitleBaseGraphic.drawRect(0, 0, paddedTitleWidth, paddedTitleHeight);
         newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
+        newLegendTitleBaseGraphic.drawRect(0, 0, paddedTitleWidth, paddedTitleHeight);
       }
 
       // draw title text
@@ -1796,8 +1959,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
       // draw border
       iconBaseGraphic.setColor(Color.black);
-      iconBaseGraphic.drawRect(0, 0, iconWidth, iconHeight);
       iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
+      iconBaseGraphic.drawRect(0, 0, iconWidth, iconHeight);
 
       iconBaseGraphic.drawImage(iconBase, 0, 0, null);
     }
@@ -1820,6 +1983,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     FontMetrics fm;
     int borderWidth = 1;
     int titleWidth;
+    int titleHeight;
     int textWidth;
     int textPadding = 2;
     int paddedTextWidth;
@@ -1848,6 +2012,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       paddedTitleWidth = newLegendTitleBase.getWidth() - 1;
       paddedTitleHeight = newLegendTitleBase.getHeight() - 1;
       titleWidth = paddedTitleWidth - ( textPadding * 2 );
+      titleHeight = paddedTitleHeight - ( textPadding * 2 );
     }
     finally
     {
@@ -1958,8 +2123,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           if (layer.getShowLegendBorder())
           {
             newCategoryBaseGraphic.setColor(Color.black);
-            newCategoryBaseGraphic.drawRect(0, 0, legendMaxWidth, widestLabelHeight);
             newCategoryBaseGraphic.setStroke(new BasicStroke(borderWidth));
+            newCategoryBaseGraphic.drawRect(0, 0, legendMaxWidth, widestLabelHeight);
           }
 
           int iconLeftPadding = legendMaxWidth - ( paddedIconWidth + borderWidth + iconPadding );
@@ -1967,8 +2132,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
           // draw separator bar
           newCategoryBaseGraphic.setColor(Color.black);
-          newCategoryBaseGraphic.drawLine(iconLeftPadding, 0, iconLeftPadding, widestLabelHeight);
           newCategoryBaseGraphic.setStroke(new BasicStroke(borderWidth));
+          newCategoryBaseGraphic.drawLine(iconLeftPadding, 0, iconLeftPadding, widestLabelHeight);
 
           // draw the colored icon
           MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
@@ -2111,9 +2276,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends MapImage> allImage = this.getAllHasImage().getAll();
       for (MapImage image : allImage)
       {
+        
+        int imageXPositionPercentBased = (int) Math.round( ((double)(image.getImageXPosition() - leftOffset)) / savedMapWidth * mapWidth );
+        int imageYPositionPercentBased = (int) Math.round( ((double)(image.getImageYPosition() - topOffset)) / savedMapHeight * mapHeight );
 
-        int imageXPositionPercentBased = (int) Math.round( ( (double) ( image.getImageXPosition() - leftOffset ) ) / savedMapWidth * mapWidth);
-        int imageYPositionPercentBased = (int) Math.round( ( (double) ( image.getImageYPosition() - topOffset ) ) / savedMapHeight * mapHeight);
 
         String deploy = DeployProperties.getDeployPath();
         String thisImagePath = deploy + "/" + image.getImageFilePath();
@@ -2169,10 +2335,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends TextElement> allText = this.getAllHasTextElement().getAll();
       for (TextElement text : allText)
       {
-        int textXPositionPercentBased = (int) Math.round( ( (double) ( text.getTextXPosition() - leftOffset ) ) / savedMapWidth * mapWidth);
-        int textYPositionPercentBased = (int) Math.round( ( (double) ( text.getTextYPosition() - topOffset ) ) / savedMapHeight * mapHeight);
+        int textXPositionPercentBased = (int) Math.round( ((double)(text.getTextXPosition() - leftOffset)) / savedMapWidth * mapWidth );
+        int textYPositionPercentBased = (int) Math.round( ((double)(text.getTextYPosition() - topOffset)) / savedMapHeight * mapHeight );
         Graphics2D newTextBaseGraphic = null;
-
+        
         try
         {
           BufferedImage newTextBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -2271,11 +2437,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       it.close();
     }
 
-    this.deleteMapView();
-  }
-
-  public void deleteMapView()
-  {
     MapUtil.deleteMapView(this.getGeneratedMapViewName());
   }
 
