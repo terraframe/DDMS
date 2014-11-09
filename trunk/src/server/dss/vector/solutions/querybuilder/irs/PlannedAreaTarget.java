@@ -52,6 +52,8 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     
     this.irsQB.addRequiredView(View.GEO_TARGET_VIEW);
     
+    this.irsQB.addRequiredAlias(View.PLANNED_AREA, Alias.CHILD_GEO_ENTITY);
+    
     Set<Alias> select = this.irsQB.getSelectAliases();
     if(select.contains(Alias.AUDIT_IMPORTED))
     {
@@ -220,6 +222,11 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   {
     return set(parentGeoEntity, alias);
   }
+  
+  public String setChildGeoEntity(Alias alias)
+  {
+    return set(childGeoEntity, alias);
+  }
 
   @Override
   public String setAreaPlannedTarget(Alias alias)
@@ -283,8 +290,12 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     {
       String parentMd = QueryUtil.getColumnName(AllPaths.getParentUniversalMd());
 
-      sql += parentMd + " = '" + MdEntity.getMdEntity(universal).getId() + "'";
+      sql += parentMd + " = '" + MdEntity.getMdEntity(universal).getId() + "'\n";
     }
+    
+    /*
+     * GROUP BY
+     */
     sql += "\n";
     sql += "GROUP BY ";
     
@@ -324,7 +335,7 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
       sql += GTV_ALIAS + "." +Alias.AUDIT_LAST_UPDATED_BY + ", ";
     }
     
-    sql += GTV_ALIAS + "." + idCol + ", " + parentGeoEntity + ", "
+    sql += GTV_ALIAS + "." + idCol + ", " + parentGeoEntity + ", " + childGeoEntity + ", "
         + Alias.PLANNED_DATE.getAlias() + ", " + Alias.TARGET_WEEK.getAlias() + ", "
         + IRSQB.MALARIA_SEASON + ", " + IRSQB.PLANNED_TARGET_DISEASE + 
         // JN change

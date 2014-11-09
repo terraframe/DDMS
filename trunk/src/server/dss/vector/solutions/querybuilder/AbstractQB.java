@@ -218,6 +218,8 @@ public abstract class AbstractQB implements Reloadable
   private Map<String, GeneratedEntityQuery> queryMap;
 
   private Disease                           disease;
+  
+  protected Condition                         geoIncludesCondition;
 
   public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
@@ -1283,13 +1285,13 @@ public abstract class AbstractQB implements Reloadable
       valueQuery.AND(sel.EQ(geQ.getId()));
 
       // Restrict by geo entity if applicable for the current attribute
-      Condition cond = interceptor.getGeoCondition(getGeoAllPathsAlias(attributeKey));
+      geoIncludesCondition = interceptor.getGeoCondition(getGeoAllPathsAlias(attributeKey));
       ValueQuery existsVQ = new ValueQuery(valueQuery.getQueryFactory());
       existsVQ.SELECT(existsVQ.aSQLInteger("geoExistsConstant", "1"));
       existsVQ.FROM(allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias());
-      if (cond != null)
+      if (geoIncludesCondition != null)
       {
-        existsVQ.WHERE(cond);
+        existsVQ.WHERE(geoIncludesCondition);
       }
       existsVQ.AND(allPathsQuery.getChildGeoEntity().EQ(existsVQ.aSQLCharacter("childId", geQ.getId().getDbQualifiedName())));
 

@@ -99,7 +99,33 @@ public class AreaJoin extends TargetJoin implements Reloadable
     }
   }
   
-  public String getLevel() {
+  /*
+   * This code was implemented as part of ticket 2975.
+   * I don't know why the SQL was using the parent_geo_entity (in reference to the allpaths table), but in the case of planned area targets I know we want the child_geo_entity.
+   */
+  @Override
+  public String setGeoEntity(Alias useless)
+  {
+    String columnName = Alias.CHILD_GEO_ENTITY.getAlias();
+    String alias = "geo_entity";
+    
+    if (hasActual && hasPlanned)
+    {
+      return "COALESCE(" + ACTUAL_ALIAS + "." + alias + ", " + PLANNED_ALIAS + "." + columnName + ") AS " + alias;
+    }
+    else if (hasActual)
+    {
+      // Remember that the actuals table doesn't have any notion of child vs parent geo entity.
+      return super.setGeoEntity(useless);
+    }
+    else
+    {
+      return PLANNED_ALIAS + "." + columnName + " AS " + alias;
+    }
+  }
+  
+  public String getLevel()
+  {
     return "3";
   }
 

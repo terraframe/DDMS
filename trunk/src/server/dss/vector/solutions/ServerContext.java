@@ -884,14 +884,164 @@ public class ServerContext
      * Eclipse has an option so that copy-paste of multi-line text into String literals will result in quoted newlines:
      * Preferences/Java/Editor/Typing/ "Escape text when pasting into a string literal"
      */
-    sql += "-- _thresholdType can be either 'notification' or 'identification' and indicates the type of threshold to calculate.\n" + "CREATE OR REPLACE FUNCTION ddms.get_threshold_by_geoid_and_epiweek(_thresholdType character varying, _universalId character varying, _geo_target_id character varying, _epi_week integer, _disease character varying, _season character varying)\n" + "  RETURNS float AS\n" + "$BODY$ \n" + "DECLARE \n" + "  _target  float;\n" + " _child_Count FLOAT;\n"
-        + " _sql VARCHAR;\n" + " rec record;\n" + " _week INT;\n" + "BEGIN \n" + "IF NOT EXISTS ( \n" + "    SELECT 1 \n" + "    FROM   pg_class c \n" + "    WHERE  c.relname = 'apt_cached' \n" + "    ) THEN \n" + "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + "  id varchar(64),\n" + "  thresholdType varchar(64),\n" + "  target integer,\n" + "  week integer,\n" + "  season varchar(64),  \n" + "  disease varchar(64)\n" + "  ) ON COMMIT DROP'; \n"
-        + "  EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + "END IF; \n" + "  _week = _epi_week::integer; \n" + "  \n" + "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease AND thresholdType = _thresholdType INTO _target; \n" + "    IF _target IS NOT NULL THEN \n" + "      RETURN _target; \n" + "    END IF; \n" + "\n" + "  EXECUTE E'WITH dateExtrapolationView AS (\n" + "    SELECT \n"
-        + "     year_of_week AS year_of_week, \n" + "     period AS period, \n" + "     (get_epistart(year_of_week, 0) + (to_char((period)*7, \\'999\\')||\\' days\\')::interval)::date AS planned_date \n" + "    FROM epi_week \n" + "  ),\n" + "\n" + "  geoThresholdView AS (\n" + "    SELECT \n" + "      wt.id id,\n" + "      wt.' || _thresholdType || ' threshold,\n" + "      td.geo_entity geo_entity,\n" + "      ew.period epi_week,\n" + "      ew.year_of_week epi_year,\n"
-        + "      de.planned_date AS threshold_date,\n" + "      td.season season,\n" + "      ms.disease disease\n" + "    FROM\n" + "      weekly_threshold wt\n" + "      INNER JOIN threshold_data td ON wt.parent_id=td.id\n" + "      INNER JOIN epi_week ew ON wt.child_id=ew.id\n" + "      INNER JOIN malaria_season ms ON td.season=ms.id\n" + "      CROSS JOIN dateExtrapolationView de\n" + "      INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + "    WHERE \n"
-        + "      wt.' || _thresholdType || ' IS NOT NULL\n" + "      AND ew.period = de.period\n" + "      AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + "      AND apg.parent_universal = ' || quote_literal(_universalId) || '\n" + "    GROUP BY wt.id, td.geo_entity, de.planned_date, wt.' || _thresholdType || ', td.season, ms.disease, ew.period, ew.year_of_week\n" + "  )\n" + "\n"
-        + "  SELECT threshold FROM geoThresholdView WHERE geo_entity = ' || quote_literal(_geo_target_id) || '\n" + "    AND epi_week = ' || _week || '\n" + "    AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) || ';' INTO _target;\n" + "  \n" + "  IF _target IS NULL THEN\n" + "    _target := 0;\n" + "    _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_target_id); \n" + "    FOR  rec IN EXECUTE _sql LOOP \n"
-        + "      _target = _target + get_threshold_by_geoid_and_epiweek(_thresholdType, _universalId, rec.child_id, _week, _disease, _season); \n" + "    END LOOP;\n" + "  END IF;\n" + "  INSERT INTO apt_cached (id, thresholdType, target, week, season, disease) VALUES (_geo_target_id, _thresholdType, _target, _week, _season, _disease); \n" + "  RETURN _target; \n" + "END; \n" + "$BODY$\n" + "  LANGUAGE plpgsql VOLATILE;";
+    sql += "-- _thresholdType can be either 'notification' or 'identification' and indicates the type of threshold to calculate.\n" + 
+        "CREATE OR REPLACE FUNCTION ddms.get_threshold_by_geoid_and_epiweek(_thresholdType character varying, _universalId character varying, _geo_target_id character varying, _epi_week integer, _disease character varying, _season character varying)\n" + 
+        "  RETURNS float AS\n" + 
+        "$BODY$ \n" + 
+        "DECLARE \n" + 
+        "  _target  float;\n" + 
+        " _child_Count FLOAT;\n" + 
+        " _sql VARCHAR;\n" + 
+        " rec record;\n" + 
+        " _week INT;\n" + 
+        "BEGIN \n" + 
+        "IF NOT EXISTS ( \n" + 
+        "    SELECT 1 \n" + 
+        "    FROM   pg_class c \n" + 
+        "    WHERE  c.relname = 'apt_cached' \n" + 
+        "    ) THEN \n" + 
+        "  EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + 
+        "  id varchar(64),\n" + 
+        "  thresholdType varchar(64),\n" + 
+        "  target integer,\n" + 
+        "  week integer,\n" + 
+        "  season varchar(64),  \n" + 
+        "  disease varchar(64)\n" + 
+        "  ) ON COMMIT DROP'; \n" + 
+        "  EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + 
+        "END IF; \n" + 
+        "  _week = _epi_week::integer; \n" + 
+        "  \n" + 
+        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease AND thresholdType = _thresholdType INTO _target; \n" + 
+        "    IF _target IS NOT NULL THEN \n" + 
+        "      RETURN _target; \n" + 
+        "    END IF; \n" + 
+        "\n" + 
+        "  EXECUTE E'WITH dateExtrapolationView AS (\n" + 
+        "    SELECT \n" + 
+        "     year_of_week AS year_of_week, \n" + 
+        "     period AS period, \n" + 
+        "     (get_epistart(year_of_week, 0) + (to_char((period)*7, \\'999\\')||\\' days\\')::interval)::date AS planned_date \n" + 
+        "    FROM epi_week \n" + 
+        "  ),\n" + 
+        "\n" + 
+        "  geoThresholdView AS (\n" + 
+        "    SELECT \n" + 
+        "      wt.id id,\n" + 
+        "      wt.' || _thresholdType || ' threshold,\n" + 
+        "      td.geo_entity geo_entity,\n" + 
+        "      ew.period epi_week,\n" + 
+        "      ew.year_of_week epi_year,\n" + 
+        "      de.planned_date AS threshold_date,\n" + 
+        "      td.season season,\n" + 
+        "      ms.disease disease\n" + 
+        "    FROM\n" + 
+        "      weekly_threshold wt\n" + 
+        "      INNER JOIN threshold_data td ON wt.parent_id=td.id\n" + 
+        "      INNER JOIN epi_week ew ON wt.child_id=ew.id\n" + 
+        "      INNER JOIN malaria_season ms ON td.season=ms.id\n" + 
+        "      CROSS JOIN dateExtrapolationView de\n" + 
+        "      INNER JOIN allpaths_geo apg ON apg.child_geo_entity = td.geo_entity\n" + 
+        "    WHERE \n" + 
+        "      wt.' || _thresholdType || ' IS NOT NULL\n" + 
+        "      AND ew.period = de.period\n" + 
+        "      AND de.planned_date BETWEEN ms.start_date AND ms.end_date\n" + 
+        "      AND apg.parent_universal = ' || quote_literal(_universalId) || '\n" + 
+        "    GROUP BY wt.id, td.geo_entity, de.planned_date, wt.' || _thresholdType || ', td.season, ms.disease, ew.period, ew.year_of_week\n" + 
+        "  )\n" + 
+        "\n" + 
+        "  SELECT threshold FROM geoThresholdView WHERE geo_entity = ' || quote_literal(_geo_target_id) || '\n" + 
+        "    AND epi_week = ' || _week || '\n" + 
+        "    AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) || ';' INTO _target;\n" + 
+        "  \n" + 
+        "  IF _target IS NULL THEN\n" + 
+        "    _target := 0;\n" + 
+        "    _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_target_id); \n" + 
+        "    FOR  rec IN EXECUTE _sql LOOP \n" + 
+        "      _target = _target + get_threshold_by_geoid_and_epiweek(_thresholdType, _universalId, rec.child_id, _week, _disease, _season); \n" + 
+        "    END LOOP;\n" + 
+        "  END IF;\n" + 
+        "  INSERT INTO apt_cached (id, thresholdType, target, week, season, disease) VALUES (_geo_target_id, _thresholdType, _target, _week, _season, _disease); \n" + 
+        "  RETURN _target; \n" + 
+        "END; \n" + 
+        "$BODY$\n" + 
+        "  LANGUAGE plpgsql VOLATILE;\n";
+    
+    /*
+     * SUMMING AREA PLANNED TARGETS WITH GEO INCLUDES
+     */
+    sql += "-- geoIncludes is an array specifying which geo entities to include in the rollup.\n" + 
+        "-- These geoentities must be in the descendants heirarchy and only data contained\n" + 
+        "-- within them will be rolled into the target.\n" + 
+        "CREATE OR REPLACE FUNCTION ddms.get_area_target_by_id_tar_geos(_geo_target_id character varying,\n" + 
+        "                                                       _target_column character varying, _disease character varying,\n" + 
+        "                                                       _season character varying, _geoIncludes character[])\n" + 
+        "  RETURNS integer AS\n" + 
+        "$BODY$ \n" + 
+        "DECLARE \n" + 
+        "  _target  INT;\n" + 
+        " _child_Count FLOAT;\n" + 
+        " _sql VARCHAR;\n" + 
+        " rec record;\n" + 
+        " _week INT;\n" + 
+        " _shouldAdd BOOLEAN;\n" + 
+        "BEGIN \n" + 
+        "\n" + 
+        "  -- Create us a temp table if we don't have one\n" + 
+        "  IF NOT EXISTS ( \n" + 
+        "      SELECT 1 \n" + 
+        "      FROM   pg_class c \n" + 
+        "      WHERE  c.relname = 'apt_cached' \n" + 
+        "      ) THEN \n" + 
+        "    EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS apt_cached (  \n" + 
+        "    id varchar(64),  \n" + 
+        "    target integer,  \n" + 
+        "    week integer,  \n" + 
+        "    season varchar(64),  \n" + 
+        "    disease varchar(64)  \n" + 
+        "    ) ON COMMIT DROP'; \n" + 
+        "    EXECUTE 'CREATE INDEX cached_apt_index ON apt_cached (id, week, season, disease)'; \n" + 
+        "  END IF; \n" + 
+        "\n" + 
+        "  _week = _target_column::integer; \n" + 
+        "  \n" + 
+        "  -- Get the value from the cache if it exists\n" + 
+        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n" + 
+        "  IF _target IS NOT NULL THEN \n" + 
+        "    RETURN _target; \n" + 
+        "  END IF; \n" + 
+        "  \n" + 
+        "  -- Get the value directly from the geo_target table, if it exists\n" + 
+        "  EXECUTE 'SELECT target_'|| _target_Column ||' FROM geo_target WHERE geo_entity = '|| quote_literal(_geo_target_id) \n" + 
+        "    || ' AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) \n" + 
+        "  INTO _target;\n" + 
+        "  \n" + 
+        "  -- Calculate the value as the sum of its children\n" + 
+        "  IF _target IS NULL THEN\n" + 
+        "    _target := 0;\n" + 
+        "    \n" + 
+        "    -- loop over all the children\n" + 
+        "    _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_target_id); \n" + 
+        "    FOR  rec IN EXECUTE _sql LOOP\n" + 
+        "      _shouldAdd = false;\n" + 
+        "      \n" + 
+        "      IF _geoIncludes @> ARRAY[rec.child_id] THEN\n" + 
+        "        _shouldAdd = true;\n" + 
+        "      ELSIF (EXISTS (SELECT (1) AS geoExistsConstant FROM allpaths_geo ap\n" + 
+        "        WHERE ap.child_geo_entity = rec.child_id AND _geoIncludes @> ARRAY[ap.parent_geo_entity])) THEN\n" + 
+        "        _shouldAdd = true;\n" + 
+        "      END IF;\n" + 
+        "      \n" + 
+        "      IF _shouldAdd THEN\n" + 
+        "        _target = _target + get_area_target_by_id_tar_geos(rec.child_id, _target_column, _disease, _season, _geoIncludes);\n" + 
+        "      END IF;\n" + 
+        "    END LOOP;\n" + 
+        "  END IF;\n" + 
+        "  INSERT INTO apt_cached (id, target, week, season, disease) VALUES (_geo_target_id, _target, _week, _season, _disease); \n" + 
+        "  RETURN _target; \n" + 
+        "END; \n" + 
+        "$BODY$\n" + 
+        "  LANGUAGE plpgsql VOLATILE\n";
 
     return sql;
   }

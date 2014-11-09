@@ -1,6 +1,7 @@
 package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,6 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -1116,6 +1119,37 @@ public class IRSQB extends AbstractQB implements Reloadable
     sexSel.setSQL(sql);
   }
 
+  private String[] getGeoIncludes()
+  {
+    if (geoIncludesCondition != null)
+    {
+      ArrayList<String> geoIncludes = new ArrayList<String>();
+      
+      String haystack = geoIncludesCondition.getSQL();
+      
+      String needle = "allpaths_geo.*\\.parent_geo_entity.*=.*'(.*)'";
+      
+      Pattern pattern = Pattern.compile(needle);
+      Matcher matcher = pattern.matcher(haystack);
+      while (matcher.find())
+      {
+        geoIncludes.add(matcher.group(1));
+      }
+      
+      return geoIncludes.toArray(new String[geoIncludes.size()]);
+    }
+    
+    return null;
+  }
+  private String geoGeoIncludesSQL()
+  {
+    String[] geoIncludes = getGeoIncludes();
+    
+    if (geoIncludes == null) { return null; }
+    
+    return "{" + StringUtils.join(geoIncludes, ", ") + "}";
+  }
+  
   /**
    * If the original query contains planned targets (operator planned target, team planned target, or area planned target), then we join the planned target aggregation results with the original query. This is done by creating a new IRSQB, running it, and then printing it at the top of our SQL output in a 'with' clause ( i.e. with teamAggregation as ( ... ) ). We then create another value query (finalVQ) and select from originalVQ FULL OUTER JOIN teamAggregation. originalVQ is the (this) value query and it queries the actuals.
    */
@@ -1306,11 +1340,21 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         FROM += "AND " + originalAlias + "." + dateGroup + " = " + areaAggregation + "." + dateGroup + " \n";
       }
-
+      
       // The aggregation query needs to sum the area planned targets
-      SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
-      String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "." + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
-      aptSel.setSQL(func);
+      String geoIncludes = geoGeoIncludesSQL();
+      if (geoIncludes == null)
+      {
+        SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+        String func = QueryConstants.SUM_AREA_TARGETS + "(" + parentUniversalId + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "." + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ")";
+        aptSel.setSQL(func);
+      }
+      else
+      {
+        SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.AREA_PLANNED_TARGET.getAlias());
+        String func = QueryConstants.SUM_AREA_TARGETS_WITH_GEOINCLUDES + "(" + parentUniversalId + ", to_char(" + aggAlias + "." + Alias.TARGET_WEEK + "-1, 'FM99'), " + aggAlias + "." + Alias.DISEASE + ", " + aggAlias + "." + Alias.SPRAY_SEASON + ", '" + geoIncludes + "')";
+        aptSel.setSQL(func);
+      }
 
       String targetGroupName = "grouping_" + Alias.TARGET_WEEK;
       SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, aggAlias + "." + Alias.TARGET_WEEK, targetGroupName);
@@ -1470,7 +1514,12 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Push the original query into the FROM clause of the outer query
       // and join on the aggregation. Make sure to include every selectable that
       // is required for the join
-      FROM += " FULL OUTER JOIN " + operatorAggregation + " ON " + originalAlias + "." + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName() + " \n" + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = " + operatorAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalAlias + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
+      FROM += " FULL OUTER JOIN " + operatorAggregation + " ON " + originalAlias + "."
+          + seasonJoin.getColumnAlias() + " = " + operatorAggregation + "." + season._getAttributeName()
+          + " \n" + "AND " + originalAlias + "." + diseaseJoin.getColumnAlias() + " = "
+          + operatorAggregation + "." + disease._getAttributeName() + " \n" + "AND " + originalAlias
+          + "." + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " = " + operatorAggregation + "."
+          + Alias.SPRAY_OPERATOR_DEFAULT_LOCALE + " \n";
       for (String dateGroup : this.dategroups.keySet())
       {
         FROM += "AND " + originalAlias + "." + dateGroup + " = " + operatorAggregation + "." + dateGroup + " \n";

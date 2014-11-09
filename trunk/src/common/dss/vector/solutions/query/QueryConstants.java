@@ -62,6 +62,8 @@ public class QueryConstants implements Reloadable
   public static final String  AGE_HIGHEST                             = "age_highest";
 
   public static final String  SUM_AREA_TARGETS                        = "get_area_spray_target_by_id_and_tar";
+  
+  public static final String  SUM_AREA_TARGETS_WITH_GEOINCLUDES       = "get_area_target_by_id_tar_geos";
 
   public static final String  ASSAY_TYPE                              = "assay_type";
 

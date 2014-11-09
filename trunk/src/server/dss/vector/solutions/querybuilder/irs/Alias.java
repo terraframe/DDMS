@@ -25,6 +25,7 @@ public enum Alias implements Reloadable, AliasIF
   TARGET("target", "setTarget", SQLProvider.VARCHAR, new View[]{View.ALL_ACTUALS}),
   AGGREGATION_LEVEL("aggregation_level", "setAggregationLevel", SQLProvider.VARCHAR),
   GEO_ENTITY("geo_entity", "setGeoEntity", SQLProvider.VARCHAR, AbstractSpray.GEOENTITY),
+  CHILD_GEO_ENTITY("child_geo_entity", "setChildGeoEntity", SQLProvider.VARCHAR),
   PARENT_GEO_ENTITY("parent_geo_entity", "setParentGeoEntity", SQLProvider.VARCHAR),
   SPRAY_OPERATOR("spray_operator", "setSprayOperator", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
   SPRAY_TEAM("spray_team", "setSprayTeam", SQLProvider.TEXT, new View[]{View.SPRAY_VIEW}),
