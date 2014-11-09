@@ -59,6 +59,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   private static final long   serialVersionUID          = 1252823927;
 
   /**
+   * Max number of requests attempts to geoserver for producing images server side
+   */
+  private static final int    MAX_ATTEMPTS              = 10;
+
+  /**
    * Prefix for the generated map views
    */
   private static final String GENERATED_MAP_VIEW_PREFIX = "m_";
@@ -78,6 +83,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
+    // Ensure that the saved map is not currently being used in a running cycle job
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+    query.WHERE(query.getSavedMap().EQ(this));
+    query.AND(query.getRunning().EQ(true));
+
+    if (query.getCount() > 0)
+    {
+      throw new MapInUseException();
+    }
+
     /*
      * Delete all of the saved images
      */
@@ -87,11 +102,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
      * Delete the cycle job corresponding to the map
      */
     this.deleteCycleJob();
-
-    /*
-     * Delete the generated maps
-     */
-    this.deleteGeneratedMapsAndView();
 
     /*
      * Delete the actual map
@@ -1166,12 +1176,69 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     view.delete();
   }
 
+  private BufferedImage getLayerImageFromGeoserver(String _requestURL)
+  {
+    for (int i = 0; i < MAX_ATTEMPTS; i++)
+    {
+      // Make the getMap request to geoserver for this layer
+      // and return a byte[] of the returned image
+      byte[] response = this.requestMapImage(_requestURL);
+
+      ByteArrayInputStream istream = new ByteArrayInputStream(response);
+
+      try
+      {
+        // Convert the response into an image.
+        // Note that the reponse may not be a valid image
+        // If this is the case then ImageIO.read will return
+        // a null BufferedImage.
+        BufferedImage image = ImageIO.read(istream);
+
+        if (image != null)
+        {
+          return image;
+        }
+        else
+        {
+          // Wait a couple seconds and try again
+          try
+          {
+            Thread.sleep(2000);
+          }
+          catch (InterruptedException e)
+          {
+            // Do nothing
+          }
+        }
+      }
+      catch (IOException e)
+      {
+        String error = "Could not read the map request image from the map server.";
+        throw new ProgrammingErrorException(error, e);
+      }
+      finally
+      {
+        try
+        {
+          istream.close();
+        }
+        catch (IOException e)
+        {
+          String error = "Could not close stream.";
+          throw new ProgrammingErrorException(error, e);
+        }
+      }
+    }
+
+    throw new GeoserverResponseException();
+  }
+
   /**
    * Makes a getMap request to geoserver and returns the response as a ByteArrayOutputStream
    * 
    * @requestURL = geoserver getMap() request url
    */
-  private byte[] getMapRequestToImage(String requestURL)
+  private byte[] requestMapImage(String requestURL)
   {
     InputStream inStream = null;
     ByteArrayOutputStream outStream = null;
@@ -1313,14 +1380,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       // Add the north arrow to the base canvas
       if (this.getNorthArrowActive())
       {
+
         String deploy = DeployProperties.getDeployPath();
         String imagesDir = deploy + "/imgs";
         String northArrowPath = imagesDir + "/" + "northArrow.png";
         File northArrow = new File(northArrowPath);
         int savedMapWidth = this.getMapWidth();
         int savedMapHeight = this.getMapHeight();
-        int arrowXPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowXPosition() - leftOffset)) / savedMapWidth * width );
-        int arrowYPositionPercentBased = (int) Math.round( ((double)(this.getNorthArrowYPosition() - topOffset)) / savedMapHeight * height );
+        int arrowXPositionPercentBased = (int) Math.round( ( (double) ( this.getNorthArrowXPosition() - leftOffset ) ) / savedMapWidth * width);
+        int arrowYPositionPercentBased = (int) Math.round( ( (double) ( this.getNorthArrowYPosition() - topOffset ) ) / savedMapHeight * height);
 
         try
         {
@@ -1334,6 +1402,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         }
 
       }
+      
       // Add the scale bar to the base canvas
       if (this.getScaleBarActive())
       {
@@ -1513,6 +1582,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         }
         
       }
+      
     }
     finally
     {
@@ -1553,7 +1623,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     return inStream;
   }
   
-  
   /*
    * Get the bucket option that is closest to the input value
    */
@@ -1577,6 +1646,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
     return barLen * pow10;
   }
+
 
   /**
    * Builds an image layer of all the layers in a SavedMap.
@@ -1627,7 +1697,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         if (configuration.includeLayer(layer))
         {
 
-          ByteArrayInputStream layerInput = null;
           Graphics2D newOverlayBaseGraphic = null;
           Graphics2D mapLayerGraphic2d = null;
 
@@ -1659,35 +1728,23 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           requestURL.append("&");
           requestURL.append("HEIGHT=" + Integer.toString(mapHeight));
 
-          // Make the getMap request to geoserver for this layer
-          // and return a byte[] of the returned image
-          byte[] layerOutput = getMapRequestToImage(requestURL.toString());
-
           try
           {
-            layerInput = new ByteArrayInputStream(layerOutput);
+            BufferedImage layerImg = this.getLayerImageFromGeoserver(requestURL.toString());
             BufferedImage newOverlayBase = new BufferedImage(mapWidth, mapHeight, BufferedImage.TYPE_INT_ARGB);
 
             newOverlayBaseGraphic = newOverlayBase.createGraphics();
 
-            // Read the just created image file from the file system
-            BufferedImage thisLayerImg = ImageIO.read(layerInput);
-
             // Add transparency to the layerGraphic
             // This is set in JavaScript in the app so we are replicating browser side transparency settings that are applied to the whole layer
             AlphaComposite thisLayerComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.getOpacity().floatValue());
-            mapLayerGraphic2d = thisLayerImg.createGraphics();
+            mapLayerGraphic2d = layerImg.createGraphics();
             newOverlayBaseGraphic.setComposite(thisLayerComposite);
 
             // Add the current layerGraphic to the base image
-            newOverlayBaseGraphic.drawImage(thisLayerImg, 0, 0, null);
+            newOverlayBaseGraphic.drawImage(layerImg, 0, 0, null);
             mapBaseGraphic.drawImage(newOverlayBase, 0, 0, null);
 
-          }
-          catch (IOException e)
-          {
-            String error = "Could not read the map request image from the map server.";
-            throw new ProgrammingErrorException(error, e);
           }
           finally
           {
@@ -1699,19 +1756,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
             if (mapLayerGraphic2d != null)
             {
               mapLayerGraphic2d.dispose();
-            }
-
-            if (layerInput != null)
-            {
-              try
-              {
-                layerInput.close();
-              }
-              catch (IOException e)
-              {
-                String error = "Could not close the stream.";
-                throw new ProgrammingErrorException(error, e);
-              }
             }
           }
         }
@@ -1762,7 +1806,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           int layerXPositionPercentBased = (int) Math.round( ((double)(layer.getLegendXPosition() - leftOffset)) / savedMapWidth * mapWidth ) + 2;
           int layerYPositionPercentBased = (int) Math.round( ((double)(layer.getLegendYPosition() - topOffset)) / savedMapHeight * mapHeight ) + 2;
 
-
           try
           {
             // handle color graphics and categories
@@ -1777,7 +1820,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
               // draw color icon to the right of the title
               int iconLeftPadding = paddedTitleWidth - paddedIconWidth + 4;
               int internalGraphicTopPadding = (int) Math.round( ( paddedTitleHeight - iconSize ) / 2);
-              
+
               newLegendTitleBaseGraphic.setColor(Color.black);
               newLegendTitleBaseGraphic.setStroke(new BasicStroke(borderWidth));
               newLegendTitleBaseGraphic.drawLine(iconLeftPadding - 4, 0, iconLeftPadding - 4, paddedTitleHeight);
@@ -1961,7 +2004,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       iconBaseGraphic.setColor(Color.black);
       iconBaseGraphic.setStroke(new BasicStroke(borderWidth));
       iconBaseGraphic.drawRect(0, 0, iconWidth, iconHeight);
-
+      
       iconBaseGraphic.drawImage(iconBase, 0, 0, null);
     }
     finally
@@ -1983,7 +2026,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     FontMetrics fm;
     int borderWidth = 1;
     int titleWidth;
-    int titleHeight;
     int textWidth;
     int textPadding = 2;
     int paddedTextWidth;
@@ -2012,7 +2054,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       paddedTitleWidth = newLegendTitleBase.getWidth() - 1;
       paddedTitleHeight = newLegendTitleBase.getHeight() - 1;
       titleWidth = paddedTitleWidth - ( textPadding * 2 );
-      titleHeight = paddedTitleHeight - ( textPadding * 2 );
     }
     finally
     {
@@ -2276,10 +2317,9 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends MapImage> allImage = this.getAllHasImage().getAll();
       for (MapImage image : allImage)
       {
-        
-        int imageXPositionPercentBased = (int) Math.round( ((double)(image.getImageXPosition() - leftOffset)) / savedMapWidth * mapWidth );
-        int imageYPositionPercentBased = (int) Math.round( ((double)(image.getImageYPosition() - topOffset)) / savedMapHeight * mapHeight );
 
+        int imageXPositionPercentBased = (int) Math.round( ( (double) ( image.getImageXPosition() - leftOffset ) ) / savedMapWidth * mapWidth);
+        int imageYPositionPercentBased = (int) Math.round( ( (double) ( image.getImageYPosition() - topOffset ) ) / savedMapHeight * mapHeight);
 
         String deploy = DeployProperties.getDeployPath();
         String thisImagePath = deploy + "/" + image.getImageFilePath();
@@ -2335,10 +2375,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       List<? extends TextElement> allText = this.getAllHasTextElement().getAll();
       for (TextElement text : allText)
       {
-        int textXPositionPercentBased = (int) Math.round( ((double)(text.getTextXPosition() - leftOffset)) / savedMapWidth * mapWidth );
-        int textYPositionPercentBased = (int) Math.round( ((double)(text.getTextYPosition() - topOffset)) / savedMapHeight * mapHeight );
+        int textXPositionPercentBased = (int) Math.round( ( (double) ( text.getTextXPosition() - leftOffset ) ) / savedMapWidth * mapWidth);
+        int textYPositionPercentBased = (int) Math.round( ( (double) ( text.getTextYPosition() - topOffset ) ) / savedMapHeight * mapHeight);
         Graphics2D newTextBaseGraphic = null;
-        
+
         try
         {
           BufferedImage newTextBase = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -2437,6 +2477,11 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       it.close();
     }
 
+    this.deleteMapView();
+  }
+
+  public void deleteMapView()
+  {
     MapUtil.deleteMapView(this.getGeneratedMapViewName());
   }
 

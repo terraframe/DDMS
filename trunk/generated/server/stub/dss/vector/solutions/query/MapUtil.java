@@ -1,23 +1,13 @@
 package dss.vector.solutions.query;
 
-import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
-import it.geosolutions.geoserver.rest.GeoServerRESTReader;
-import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
-
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,9 +15,6 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.runwaysdk.business.Business;
-import com.runwaysdk.constants.CommonProperties;
-import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
@@ -41,21 +28,17 @@ import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
-import com.terraframe.utf8.UTF8ResourceBundle;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
 import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoServerReloadException;
 
-@SuppressWarnings("deprecation")
 public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long          serialVersionUID = 1242080109170L;
+  private static final long            serialVersionUID = 1242080109170L;
 
-  private static Set<String>         workspaceSet;
-
-  private static final ReentrantLock lock             = new ReentrantLock();
+  private static final GeoserverFacade instance         = new GeoserverFacade();
 
   public MapUtil()
   {
@@ -386,148 +369,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     return filePath + "?a=" + random;
   }
 
-  private static final ResourceBundle bundle = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
-
-  /**
-   * Returns the url to access GeoServer locally.
-   * 
-   * @return
-   */
-  public static final String getGeoServerLocalURL()
-  {
-    return bundle.getString("geoserver.local.path");
-  }
-
-  // public static final String getGeoserverUsername()
-  // {
-  // return bundle.getString("geoserver.username");
-  // }
-  //
-  // public static final String getGeoserverPassword()
-  // {
-  // return bundle.getString("geoserver.password");
-  // }
-
-  /**
-   * Returns the url to access GeoServer remotely.
-   * 
-   * @return
-   */
-  public static final String getGeoServerRemoteURL()
-  {
-    return bundle.getString("geoserver.remote.path");
-  }
-
   // public static final String getSLD_URL()
   // {
   // return bundle.getString("geoserver.sld.path");
-  // }
-
-  public static void reload(Map<Layer, ValueQuery> reloads, MapConfiguration configuration)
-  {
-    try
-    {
-      String geoserverPath = getGeoServerLocalURL();
-      GeoServerRESTReader reader = new GeoServerRESTReader(geoserverPath, "admin", "geoserver");
-      try
-      {
-        lock.lock();
-        if (workspaceSet == null)
-          workspaceSet = new HashSet<String>(reader.getWorkspaceNames());
-        if (!workspaceSet.contains(CommonProperties.getDeployAppName()))
-        {
-          createWorkspaceAndDatastore();
-          workspaceSet = new HashSet<String>(reader.getWorkspaceNames());
-        }
-      }
-      finally
-      {
-        lock.unlock();
-      }
-
-      // String username = getGeoserverUsername();
-      // String password = getGeoserverPassword();
-      GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-
-      // reload the catalog (this will force GeoServer to dump any cached
-      // features in memory and avoid slowdown over time)
-      publisher.reload();
-
-      // Create each layer as a feature on GeoServer
-      Iterator<Layer> iter = reloads.keySet().iterator();
-      while (iter.hasNext())
-      {
-        Layer reload = iter.next();
-
-        String viewName = configuration.getViewName(reload);
-        String defaultStyle = reload.getRenderAs().get(0) == AllRenderTypes.POINT ? "point" : "polygon";
-        publisher.publishDBLayer(CommonProperties.getDeployAppName(), QueryConstants.getNamespacedDataStore(), viewName, "EPSG:4326", defaultStyle);
-      }
-    }
-    catch (Exception e)
-    {
-      String error = "Could not reload GeoServer.";
-      GeoServerReloadException ex = new GeoServerReloadException(error, e);
-      throw ex;
-    }
-  }
-
-  public static void removeLayers(String... layerNames)
-  {
-    try
-    {
-      String geoserverPath = getGeoServerLocalURL();
-      GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-
-      for (String layerName : layerNames)
-      {
-        publisher.removeLayer(CommonProperties.getDeployAppName(), layerName);
-      }
-    }
-    catch (Exception e)
-    {
-      // Do nothing
-      e.printStackTrace();
-    }
-
-  }
-
-  public static void createWorkspaceAndDatastore()
-  {
-    try
-    {
-      String appName = CommonProperties.getDeployAppName();
-      String geoserverPath = getGeoServerLocalURL();
-      GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-
-      publisher.createWorkspace(appName);
-      GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder();
-      datastore.setPort(5444);
-      datastore.setPassword("mdssdeploy");
-      datastore.setDatabaseType("postgis");
-      datastore.setHost("localhost");
-      datastore.setValidateConnections(false);
-      datastore.setMaxConnections(10);
-      datastore.setDatabase(appName.toLowerCase());
-      datastore.setNamespace("http://" + appName + ".terraframe.com");
-      datastore.setSchema(DatabaseProperties.getNamespace());
-      datastore.setLooseBBox(true);
-      datastore.setPreparedStatements(false);
-      datastore.setExposePrimaryKeys(false);
-      datastore.setUser("mdssdeploy");
-      datastore.setMinConnections(4);
-      datastore.setEnabled(true);
-      datastore.setName(QueryConstants.getNamespacedDataStore());
-
-      publisher.createPostGISDatastore(appName, datastore);
-    }
-    catch (Exception e)
-    {
-      String error = "Could not create Geoserver artifacts";
-      GeoServerReloadException ex = new GeoServerReloadException(error);
-      throw ex;
-    }
-  }
+  // }'
 
   /**
    * Gets the bounding box of the thematic layer.
@@ -681,6 +526,41 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     }
 
     return bboxArr;
+  }
+
+  public static void reload(Map<Layer, ValueQuery> reloads, MapConfiguration configuration)
+  {
+    instance.reload(reloads, configuration);
+  }
+
+  public static void removeLayers(String... layerNames)
+  {
+    instance.removeLayers(layerNames);
+  }
+
+  public static List<String> getLayerNames()
+  {
+    return instance.getLayerNames();
+  }
+
+  public static void cleanupLayers()
+  {
+    instance.cleanupLayers();
+  }
+
+  public static void createWorkspaceAndDatastore()
+  {
+    instance.createWorkspaceAndDatastore();
+  }
+
+  public static String getGeoServerLocalURL()
+  {
+    return instance.getGeoServerLocalURL();
+  }
+
+  public static String getGeoServerRemoteURL()
+  {
+    return instance.getGeoServerRemoteURL();
   }
 
 }

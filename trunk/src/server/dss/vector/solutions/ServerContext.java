@@ -20,9 +20,7 @@ import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
-import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
@@ -31,8 +29,6 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
-import dss.vector.solutions.query.CycleJob;
-import dss.vector.solutions.query.CycleJobQuery;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -85,61 +81,78 @@ public class ServerContext
 
     // Create the generated map views
     this.createGeneratedMapViews();
+
+    // Delete geo server layers
+    this.deleteGeoserverLayers();
+  }
+
+  private void deleteGeoserverLayers()
+  {
+    Thread t = new Thread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        /*
+         * Must use reflection in order to break the reloadable infectionious.
+         */
+        try
+        {
+          Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.query.MapUtil");
+          clazz.getMethod("cleanupLayers").invoke(null);
+        }
+        catch (RuntimeException e)
+        {
+          throw e;
+        }
+        catch (Exception e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
+      }
+    });
+    t.setDaemon(true);
+    t.start();
+
   }
 
   private void createGeneratedMapViews()
   {
-    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
-
-    OIterator<? extends CycleJob> iterator = query.getIterator();
-
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
     try
     {
-      while (iterator.hasNext())
-      {
-        CycleJob job = iterator.next();
-
-        try
-        {
-          job.createDatabaseView();
-        }
-        catch (Exception e)
-        {
-          // Do nothing
-        }
-      }
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.query.CycleJob");
+      savedSearch.getMethod("createGeneratedMapViews").invoke(null);
     }
-    finally
+    catch (RuntimeException e)
     {
-      iterator.close();
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
 
   private void deleteGeneratedMapViews()
   {
-    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
-
-    OIterator<? extends CycleJob> iterator = query.getIterator();
-
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
     try
     {
-      while (iterator.hasNext())
-      {
-        CycleJob job = iterator.next();
-
-        try
-        {
-          job.deleteDatabaseView();
-        }
-        catch (Exception e)
-        {
-          // Do nothing
-        }
-      }
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.query.CycleJob");
+      savedSearch.getMethod("deleteGeneratedMapViews").invoke(null);
     }
-    finally
+    catch (RuntimeException e)
     {
-      iterator.close();
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
 

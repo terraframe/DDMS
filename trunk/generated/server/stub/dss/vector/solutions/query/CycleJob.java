@@ -532,7 +532,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
               generated.setFilterGeoEntityName(filterEntityName);
               generated.setDisease(disease);
               generated.apply();
-//
+
 //              /*
 //              * This is for testing
 //              */
@@ -657,6 +657,62 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   public void resume()
   {
     super.resume();
+  }
+
+  public static void createGeneratedMapViews()
+  {
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+
+    OIterator<? extends CycleJob> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        CycleJob job = iterator.next();
+
+        try
+        {
+          job.createDatabaseView();
+        }
+        catch (Exception e)
+        {
+          // Do nothing
+        }
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  public static void deleteGeneratedMapViews()
+  {
+    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
+
+    OIterator<? extends CycleJob> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        CycleJob job = iterator.next();
+
+        try
+        {
+          job.deleteDatabaseView();
+        }
+        catch (Exception e)
+        {
+          // Do nothing
+        }
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
 }
