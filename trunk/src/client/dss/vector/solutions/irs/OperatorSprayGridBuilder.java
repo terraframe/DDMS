@@ -32,7 +32,7 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
 
     String[] keys = this.getKeys();
 
-    Map<String, ColumnSetup> map = getColumns(keys, 3, false);
+    Map<String, ColumnSetup> map = getColumns(keys, 2, false);
 
     List<SprayMethodDTO> method = dto.getSprayMethod();
 

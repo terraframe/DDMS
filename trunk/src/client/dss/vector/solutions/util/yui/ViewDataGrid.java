@@ -78,12 +78,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
     for (String key : _keys)
     {
-      ColumnSetup setup = new ColumnSetup();
-
-      if (map.containsKey(key))
-      {
-        setup = map.get(key);
-      }
+      ColumnSetup setup = ( map.containsKey(key) ? map.get(key) : new ColumnSetup() );
 
       yuiColumns.put(key, new YUIColumn(setup, view, key, postfix));
     }
