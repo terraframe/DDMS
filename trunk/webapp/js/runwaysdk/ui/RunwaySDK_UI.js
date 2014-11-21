@@ -1920,6 +1920,7 @@ var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
       this._id = obj.id;
       this._dataId = obj.dataId;
       this._newInstance = obj.newInstance;
+      this._disconnected = obj.disconnected;
       this._readable = obj.readable;
       this._writable = obj.writable;
       this._type = obj.type;

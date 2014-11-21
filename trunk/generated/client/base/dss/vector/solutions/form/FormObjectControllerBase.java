@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 552569075)
+@com.runwaysdk.business.ClassSignature(hash = 1398041162)
 public class FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.FormObjectController";
@@ -9,8 +9,6 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 552569075;
   
   public FormObjectControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -95,6 +93,34 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failCreateInstance");
   }
   
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:mdFormId", post=true)
+  public void createNewInstance(com.runwaysdk.form.FormObject criteria, java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.createNewInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:mdFormId", post=true)
+  public void failCreateNewInstance(com.runwaysdk.form.FormObject criteria, java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failCreateNewInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:type", post=true)
+  public void deleteAll(com.runwaysdk.form.FormObject criteria, java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.deleteAll");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:type", post=true)
+  public void failDeleteAll(com.runwaysdk.form.FormObject criteria, java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failDeleteAll");
+  }
+  
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId, java.lang.String:dataId", post=true)
   public void deleteInstance(java.lang.String mdFormId, java.lang.String dataId) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -149,6 +175,34 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failNewInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId", post=true)
+  public void searchForm(java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.searchForm");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId", post=true)
+  public void failSearchForm(java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failSearchForm");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:type, java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=true)
+  public void searchInstance(com.runwaysdk.form.FormObject criteria, java.lang.String type, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.searchInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:criteria, java.lang.String:type, java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=true)
+  public void failSearchInstance(com.runwaysdk.form.FormObject criteria, java.lang.String type, java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failSearchInstance");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:formObject", post=true)

@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1279698048)
+@com.runwaysdk.business.ClassSignature(hash = 362164827)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -1279698048;
+  private static final long serialVersionUID = 362164827;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -102,6 +102,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm"};
     Object[] _parameters = new Object[]{mdForm};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "delete", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteAll(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO criteria, java.lang.String type)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String"};
+    Object[] _parameters = new Object[]{criteria, type};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "deleteAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -273,6 +281,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final void isAvailable(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String type, java.lang.String oid)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{type, oid};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "isAvailable", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON, java.lang.String singleTermGridJSON)
   {
     String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String", "java.lang.String"};
@@ -295,6 +311,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{ids};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "reorderFields", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.business.ComponentQueryDTO searchObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO criteria, java.lang.String type, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{criteria, type, sortAttribute, isAscending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "searchObject", _declaredTypes);
+    return (com.runwaysdk.business.ComponentQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdWebPrimitiveDTO updateFieldForComposite(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebPrimitiveDTO mdField)

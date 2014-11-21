@@ -17,6 +17,7 @@ import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MDSSUserDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
@@ -338,18 +339,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       utility.checkURL(this.getClass().getSimpleName(), "search");
 
       ClientRequestIF request = this.getClientRequest();
-
-      MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
       SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
-      List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS, SentinelSiteDTO.CLASS });
-
-      this.setupReferences(view);
-
-      req.setAttribute("entityUniversals", entityUniversals);
-      req.setAttribute("query", query);
-      req.setAttribute("item", view);
-
-      render("searchComponent.jsp");
+      search(view);
     }
     catch (Throwable t)
     {
@@ -360,6 +351,21 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
         this.failSearch();
       }
     }
+  }
+
+  private void search(SearchMosquitoCollectionViewDTO view) throws IOException, ServletException
+  {
+    MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(this.getClientRequest());
+    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS, SentinelSiteDTO.CLASS });
+
+    this.setupReferences(view);
+
+    req.setAttribute("entityUniversals", entityUniversals);
+    req.setAttribute("query", query);
+    req.setAttribute("item", view);
+    req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(this.getClientRequest()));
+
+    render("searchComponent.jsp");
   }
 
   @Override
@@ -385,8 +391,30 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("query", query);
     req.setAttribute("item", dto);
+    req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(request));
 
     render("searchComponent.jsp");
+  }
+
+  @Override
+  public void deleteAllCollections(SearchMosquitoCollectionViewDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      MosquitoCollectionViewDTO.deleteAllCollections(this.getClientRequest(), dto);
+
+      this.search(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.search(dto);
+      }
+    }
+
   }
 
   @Override

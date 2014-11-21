@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 611885365)
+@com.runwaysdk.business.ClassSignature(hash = -1551934187)
 public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = 611885365;
+  private static final long serialVersionUID = -1551934187;
   
   protected MosquitoCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -720,6 +720,14 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     Object[] _parameters = new Object[]{id, subCollections};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteAllCollections(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO criteria)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.entomology.SearchMosquitoCollectionView"};
+    Object[] _parameters = new Object[]{criteria};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "deleteAllCollections", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void deleteConcrete()

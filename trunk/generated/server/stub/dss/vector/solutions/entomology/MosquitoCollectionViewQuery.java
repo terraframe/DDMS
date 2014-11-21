@@ -73,13 +73,13 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
 
   }
 
-  private static class SearchQueryBuilder extends DefaultMosquitoCollectionViewBuilder implements Reloadable
+  public static class SearchQueryBuilder extends DefaultMosquitoCollectionViewBuilder implements Reloadable
   {
     private SearchMosquitoCollectionView view;
 
     private Condition                    condition;
 
-    protected SearchQueryBuilder(QueryFactory queryFactory, SearchMosquitoCollectionView view)
+    public SearchQueryBuilder(QueryFactory queryFactory, SearchMosquitoCollectionView view)
     {
       super(queryFactory);
 

@@ -167,6 +167,11 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
         this._resultsQueryDTO.clearOrderByList();
       }
     },
+    
+    setCriteria : function(criteria)
+    {
+      // Do nothing
+    },    
 
     setPageNumber : function(pageNumber){
       this._pageNumber = pageNumber;
@@ -225,7 +230,8 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
             // TODO Custom filter needed. Should only allow primitives based on IF
             if(!(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)
               && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'
-              && attrDTO.isReadable()){
+              && attrDTO.isReadable())
+            {
                 thisDS._attributeNames.push(name);
                 attrs.push(attrDTO);
             }
@@ -370,6 +376,200 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
     }
 });
 
+// YUI specific implementations and subclasses
+// DataSource
+// TODO can this be a plugin?
+var RunwayMethodDataSource = function(type, method, containingWidget) {
+  RunwayMethodDataSource.superclass.constructor.apply(this);
+  this._containingWidget = containingWidget;
+  
+  this._type = type;
+  this._method = method;
+  this._taskQueue = new STRUCT.TaskQueue();
+  this._requestEvent = null;
+  this._metadataLoaded = false;
+  
+  // query attributes
+  this._pageNumber = 1;
+  this._pageSize = 20;
+  this._sortAttribute = null;
+  this._ascending = true;
+  
+  // A business object containing the criteria
+  this._criteria = null;
+};
+
+Y.mix(RunwayMethodDataSource, {
+  NAME: "DataSourceRunwayMethodQuery",
+  ATTRS: {
+    source: {
+    }
+  }
+});
+
+Y.extend(RunwayMethodDataSource, Y.DataSource.Local, {
+  
+  resetQuery : function(){
+    this._pageNumber = 1;
+    this._pageSize = 20;
+    this._sortAttribute = null;
+    this._ascending = true;
+  },
+  
+  setCriteria : function(criteria)
+  {
+    this._criteria = criteria;
+  },
+  
+  setPageNumber : function(pageNumber){
+    this._pageNumber = pageNumber;
+  },
+  
+  setPageSize : function(pageSize){
+    this._pageSize = pageSize;
+  },
+  getSortAttribute : function(){
+    return this._sortAttribute;
+  },
+  setSortAttribute : function(sortAttribute){
+    this._sortAttribute = sortAttribute;
+  },
+  
+  toggleAscending : function(){
+    this.setAscending(!this.isAscending());
+  },
+  
+  setAscending : function(ascending){
+    this._ascending = ascending;
+  },
+  
+  isAscending : function(){
+    return this._ascending;
+  },  
+  metadataLoaded : function(){
+    return this._metadataLoaded;
+  },  
+  _getResultSet : function(){
+    
+    var clientRequest = new Mojo.ClientRequest({
+      that : this,
+      onSuccess : function(response)
+      {        
+        if(Mojo.Util.isString(response))
+        {          
+          var json = Mojo.Util.getObject(response);
+          var results = com.runwaysdk.DTOUtil.convertToType(json.returnValue);
+          this.that._finalizeRequest(results);
+        }
+        else
+        {
+          this.that._finalizeRequest(response);          
+        }
+        
+      },
+      onFailure : function(e){
+        this.that._requestEvent.error = e;
+        this.that.fire("data", this.that._requestEvent);
+      }
+    });
+        
+    this._containingWidget.dispatchEvent(new PreLoadEvent(null));      
+    
+    this._method(clientRequest, this._criteria, this._type, this._sortAttribute, this._ascending, this._pageSize, this._pageNumber);
+  },
+  
+  _finalizeRequest : function(results){    
+    var RefDTO = com.runwaysdk.transport.attributes.AttributeReferenceDTO;
+    var StructDTO = com.runwaysdk.transport.attributes.AttributeStructDTO;    
+    
+    // convert each DTO into an object literal
+    var json = [];
+    
+    var names = results.getAttributeNames();    
+    var resultSet = results.getResultSet();
+    
+    if(this._metadataLoaded == false)
+    {
+      var attrs = [];
+      
+      for(var i=0; i < names.length; i++)
+      {
+        var name = names[i];
+        var attrDTO = results.getAttributeDTO(name);
+        
+        // TODO Custom filter needed. Should only allow primitives based on IF
+        if( !(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)
+          && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'
+          && attrDTO.isReadable())
+        {
+          attrs.push(attrDTO);
+        }
+      }
+      
+      var metadata = {
+        attributes : attrs
+      };
+      
+      this.fire('runwaysdk:MetaDataLoaded', metadata);
+      this._metadataLoaded = true;      
+    }
+    
+    for(var i=0; i< resultSet.length; i++)
+    {
+      var result = resultSet[i];
+      // always include the id and type for dereferencing
+      var obj = {
+          id:result.getId(),
+          type:result.getType()
+      };
+      
+      for(var j=0; j<names.length; j++)
+      {
+        var name = names[j];
+        var attrDTO = results.getAttributeDTO(name);
+        
+        // TODO Custom filter needed. Should only allow primitives based on IF
+        if( !(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)
+          && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'
+          && attrDTO.isReadable())
+        {
+          var value = result.getAttributeDTO(name).getValue();
+          value = value !== null ? value : '';
+          obj[name] = value;
+        }
+      }
+      
+      json.push(obj);
+    }
+    
+    this.fire("data", Y.mix({data:json}, this._requestEvent));
+    
+    // FIXME pass in as extra params instead of mixed in
+    var pagination = {
+        pageNumber : this._pageNumber,
+        pageSize : this._pageSize,
+        count : results.getCount()
+    }
+    this.fire('runwaysdk:pagination', pagination);
+  },
+  
+  _defRequestFn: function(evt) {
+    this._requestEvent = evt;
+    var thisDS = this;
+        
+    // 3. Perform the query and get a result set
+    this._taskQueue.addTask(new STRUCT.TaskIF({
+      start : function(){
+        thisDS._getResultSet();
+      }
+    }));
+    
+    this._taskQueue.start();
+    
+    return this._requestEvent.tId; // transaction id
+  }  
+});
+
 /**
  * Base class of YUI3 wrapped widgets that contains YUI boilerplate code and
  * lifecycle management.
@@ -418,7 +618,11 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
     
       this.$initialize();
       
-      if(Mojo.Util.isString(type))
+      if(Mojo.Util.isString(type) && Mojo.Util.isFunction(config.method))
+      {
+        this._dataSource = new RunwayMethodDataSource(type, config.method, this, config.filter);
+      }
+      else if(Mojo.Util.isString(type))
       {
         this._dataSource = new RunwayDataSource(type, this, config.filter);
       }
@@ -457,6 +661,10 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
     _renderHandler : function(e){
       this._setRendered(true);
     },
+    setCriteria : function(criteria)
+    {
+      this._dataSource.setCriteria(criteria);
+    },    
     resetDataTable : function(){
       this._dataSource.resetQuery();
       this.load();
@@ -491,7 +699,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         var page = pages[i];
   
         var span = this.getFactory().newElement('span');
-				span.addClassName("form-gen-available-pages");
+        span.addClassName("form-gen-available-pages");
         this._pages.put(span, page);
   
         if(page.isLeft() || page.isRight())
@@ -510,7 +718,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         this._paginationDiv.appendChild(span);
       }
       var countSpan = this.getFactory().newElement('span');
-			countSpan.addClassName("form-gen-total-pages");
+      countSpan.addClassName("form-gen-total-pages");
       var max = (pageNumber * pageSize);
       if(max > count) max = count;
       countSpan.setInnerHTML(" " + (((pageNumber-1) * pageSize)+1)+ "-" +max+" / "+ count);
@@ -558,7 +766,33 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           cols = cols.concat(this._config.preColumns);          
         }
         
-        for(var i=0; i<attrs.length; i++)
+        // Sort the attributes so that the column order in the table is the same
+        // as the attribute order on the generated form.
+        if(this._config.columns != null)
+        {
+          var that = this;
+          attrs.sort(function(a, b)
+          {
+            var name1 = a.getName();
+            var name2 = b.getName();
+            
+            var index1 =  that._config.columns.indexOf(name1)
+            var index2 =  that._config.columns.indexOf(name2)
+            
+            if(index1 < index2)
+            {
+              return -1;
+            }            
+            else if(index1 === index2)
+            {
+              return 0;
+            }
+            
+            return 1;
+          });
+        }
+        
+        for(var i=0; i < attrs.length; i++)
         {
           var attr = attrs[i];
           

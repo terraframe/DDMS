@@ -19,8 +19,10 @@ import org.json.JSONObject;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
+import com.runwaysdk.business.ComponentQueryDTO;
 import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.business.generation.json.JSONFacade;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.Constants;
 import com.runwaysdk.constants.TypeGeneratorInfo;
@@ -53,16 +55,24 @@ import com.runwaysdk.format.FormatFactory;
 import com.runwaysdk.format.ParseException;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
 import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 import com.runwaysdk.transport.attributes.AttributeDTO;
+import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
+import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.form.business.FormBedNetDTO;
+import dss.vector.solutions.form.business.FormHouseholdDTO;
+import dss.vector.solutions.form.business.FormPersonDTO;
+import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.generator.GenericGridBuilder;
 import dss.vector.solutions.generator.MdFormUtilDTO;
@@ -75,6 +85,8 @@ import dss.vector.solutions.util.yui.DataGrid;
 public class FormObjectController extends FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final long    serialVersionUID = 2036299192;
+
+  private static final String OID              = "oid";
 
   private static final String JSP_DIR          = "/WEB-INF/forms/";
 
@@ -104,29 +116,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
       String formDisplayLabel = mdForm.getDisplayLabel().toString();
       this.req.setAttribute("localized_page_title", formDisplayLabel);
 
-      // keep a reference to the fields in proper order
-      MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(this.getClientRequest(), (MdWebFormDTO) mdForm);
+      Boolean canDeleteAll = MDSSUserDTO.canDeleteAll(this.getClientRequest());
+      this.req.setAttribute("canDeleteAll", canDeleteAll);
 
-      JSONArray fieldsArr = new JSONArray();
-      JSONArray viewAllFields = new JSONArray();
-
-      for (MdWebFieldDTO field : fields)
-      {
-        fieldsArr.put(field.getFieldName());
-
-        if (field instanceof MdWebAttributeDTO)
-        {
-          MdWebAttributeDTO attribute = (MdWebAttributeDTO) field;
-
-          if (attribute.getShowOnViewAll() == null || attribute.getShowOnViewAll())
-          {
-            viewAllFields.put(field.getFieldName());
-          }
-        }
-      }
-
-      this.req.setAttribute("fields", fieldsArr.toString());
-      this.req.setAttribute("viewAllFields", viewAllFields.toString());
+      this.loadFieldData(mdForm);
 
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
@@ -139,6 +132,43 @@ public class FormObjectController extends FormObjectControllerBase implements co
         this.failNewInstance(mdFormId);
       }
     }
+  }
+
+  public void loadFieldData(MdFormDTO mdForm)
+  {
+    // keep a reference to the fields in proper order
+    MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(this.getClientRequest(), (MdWebFormDTO) mdForm);
+
+    JSONArray fieldsArr = new JSONArray();
+    JSONArray viewAllFields = new JSONArray();
+    JSONArray searchFields = new JSONArray();
+
+    for (MdWebFieldDTO field : fields)
+    {
+      fieldsArr.put(field.getFieldName());
+
+      if (field instanceof MdWebAttributeDTO)
+      {
+        MdWebAttributeDTO attribute = (MdWebAttributeDTO) field;
+
+        if (attribute.getShowOnViewAll() == null || attribute.getShowOnViewAll())
+        {
+          MdAttributeConcreteDTO definingMdAttribute = (MdAttributeConcreteDTO) attribute.getDefiningMdAttribute();
+          String attributeName = definingMdAttribute.getAttributeName();
+
+          viewAllFields.put(attributeName);
+        }
+
+        if ( ( attribute.getShowOnSearch() == null || attribute.getShowOnSearch() ) && ! ( field instanceof MdWebMultipleTermDTO ) && ! ( field instanceof MdWebSingleTermGridDTO ))
+        {
+          searchFields.put(field.getFieldName());
+        }
+      }
+    }
+
+    this.req.setAttribute("fields", fieldsArr.toString());
+    this.req.setAttribute("viewAllFields", viewAllFields.toString());
+    this.req.setAttribute("searchFields", searchFields.toString());
   }
 
   @Override
@@ -628,4 +658,120 @@ public class FormObjectController extends FormObjectControllerBase implements co
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+
+  @Override
+  public void searchForm(String mdFormId) throws IOException, ServletException
+  {
+    try
+    {
+      MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
+      WebFormObject form = (WebFormObject) WebFormObject.newDisconnectedInstance(mdFormDTO);
+
+      this.convertToJSON(form, true);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
+  @Override
+  public void searchInstance(FormObject criteria, String type, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
+  {
+    try
+    {
+      BusinessDTO dto = (BusinessDTO) this.getClientRequest().newDisconnectedEntity(type);
+
+      if (criteria != null)
+      {
+        this.populate(criteria, dto, new JSONArray(), new JSONArray());
+      }
+
+      ComponentQueryDTO results = MdFormUtilDTO.searchObject(this.getClientRequest(), dto, type, sortAttribute, isAscending, pageSize, pageNumber);
+
+      JSONReturnObject returnJSON = new JSONReturnObject();
+      JSONObject value = JSONFacade.getJSONFromQueryDTO(results, false);
+      returnJSON.setReturnValue(value);
+
+      resp.getWriter().print(returnJSON.toString());
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
+  @Override
+  public void createNewInstance(FormObject criteria, String mdFormId) throws IOException, ServletException
+  {
+    try
+    {
+      MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
+      MdClassDTO mdClass = mdFormDTO.getFormMdClass();
+
+      String type = mdClass.getPackageName() + "." + mdClass.getTypeName();
+      String fieldName = this.getIdFieldName(type);
+
+      String oid = criteria.getValue(fieldName);
+
+      BusinessDTO dto = this.getClientRequest().newBusiness(type);
+
+      if (criteria != null)
+      {
+        MdFormUtilDTO.isAvailable(this.getClientRequest(), type, oid);
+
+        this.populate(criteria, dto, new JSONArray(), new JSONArray());
+      }
+
+      WebFormObject form = (WebFormObject) WebFormObject.newInstance(mdFormDTO, dto);
+
+      this.convertToJSON(form, true);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
+  private String getIdFieldName(String type)
+  {
+    if (type.equals(FormSurveyDTO.CLASS))
+    {
+      return "surveyId";
+    }
+    else if (type.equals(FormHouseholdDTO.CLASS))
+    {
+      return "householdId";
+    }
+    else if (type.equals(FormBedNetDTO.CLASS))
+    {
+      return "netId";
+    }
+    else if (type.equals(FormPersonDTO.CLASS))
+    {
+      return "personId";
+    }
+
+    return OID;
+  }
+
+  public void deleteAll(FormObject criteria, String type) throws IOException, ServletException
+  {
+    try
+    {
+      BusinessDTO dto = (BusinessDTO) this.getClientRequest().newDisconnectedEntity(type);
+
+      if (criteria != null)
+      {
+        this.populate(criteria, dto, new JSONArray(), new JSONArray());
+      }
+
+      MdFormUtilDTO.deleteAll(this.getClientRequest(), dto, type);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
 }

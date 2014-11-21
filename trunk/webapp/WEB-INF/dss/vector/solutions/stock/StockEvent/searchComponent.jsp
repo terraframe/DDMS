@@ -20,7 +20,7 @@
 
 <c:set var="StockItemView" scope="request"><%=StockItemViewDTO.CLASS%></c:set>
 
-<mjl:form name="StockDetail.search.mojo" method="POST">
+<mjl:form name="StockDetail.search.mojo" method="POST" id="searchStockEventForm">
   <dl>
     <dt>
       <label> ${view.stockDepotMd.displayLabel} </label>
@@ -52,5 +52,43 @@
     </dd>    
     <mdss:localize key="Search" var="Localized_Search" />    
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchPage.mojo" name="searchPage" value="${Localized_Search}" id="searchPage" />    
+    
+    <c:if test="${canDeleteAll}">
+      <button class="submitButton" id="delete.all.button">
+        <mdss:localize key="Delete_All"/>
+      </button>      
+    </c:if>    
   </dl>
 </mjl:form>
+
+<script type="text/javascript">
+YAHOO.util.Event.onDOMReady(function(){
+  var buttonEl = document.getElementById("delete.all.button");
+  
+  if(buttonEl != null)
+  {
+    var onclick = function(e)
+    {      
+      if(e != null)
+      {
+        e.preventDefault();        
+      }
+      
+      // Ensure the user wants to delete all of the objects
+      if(confirm(MDSS.localize('confirm_delete_all')))
+      {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent("submit", false, true);
+        
+        var formEl = document.getElementById("searchStockEventForm");
+        formEl.action = "dss.vector.solutions.stock.StockEventController.deleteAll.mojo";
+        formEl.dispatchEvent(evt);
+      }
+    };
+    
+    YAHOO.util.Event.on(buttonEl, 'click', onclick);
+  }
+});
+
+
+</script>

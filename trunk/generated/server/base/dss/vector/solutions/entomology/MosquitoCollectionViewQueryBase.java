@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -2115504290)
+@com.runwaysdk.business.ClassSignature(hash = 1030584382)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN

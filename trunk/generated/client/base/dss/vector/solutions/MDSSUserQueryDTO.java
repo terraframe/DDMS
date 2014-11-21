@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 177488547)
+@com.runwaysdk.business.ClassSignature(hash = -1713584500)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class MDSSUserQueryDTO extends com.runwaysdk.system.UsersQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 177488547;
+private static final long serialVersionUID = -1713584500;
 
   protected MDSSUserQueryDTO(String type)
   {

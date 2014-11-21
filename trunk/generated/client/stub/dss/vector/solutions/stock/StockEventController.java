@@ -15,6 +15,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 
+import dss.vector.solutions.MDSSUserDTO;
 import dss.vector.solutions.entomology.RequiredEndDateProblemDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.StockDepotDTO;
@@ -23,7 +24,7 @@ import dss.vector.solutions.util.ErrorUtility;
 
 public class StockEventController extends StockEventControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long  serialVersionUID = 1257355364287L;
+  public static final long   serialVersionUID = 1257355364287L;
 
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/stock/StockEvent/";
 
@@ -46,6 +47,8 @@ public class StockEventController extends StockEventControllerBase implements co
       this.setupSearchParameters();
 
       req.setAttribute("view", new StockEventViewDTO(this.getClientRequest()));
+      req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(this.getClientRequest()));
+
       render("searchComponent.jsp");
     }
   }
@@ -77,7 +80,7 @@ public class StockEventController extends StockEventControllerBase implements co
     }
 
     Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-    
+
     if (dateString != null && !dateString.equals(""))
     {
       Object date = f.parse(dateString, req.getLocale());
@@ -183,20 +186,20 @@ public class StockEventController extends StockEventControllerBase implements co
     StockEventViewDTO view = new StockEventViewDTO(request);
     StockEventViewDTO[] data = StockEventViewDTO.getViews(request, geoId, item, date, option);
     StockStaffDTO[] staff = StockStaffDTO.getAll(request);
-    
+
     // We must refresh the term in order to get the term display label
     item = TermDTO.get(request, item.getId());
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
     this.req.setAttribute("term", item);
-    
+
     // fix #2716 ... let JavaScript format the ${date} NOT here in Java.
     // However, the link back to search expects a specific format which we put
     // in ${searchDate}
     this.req.setAttribute("date", date);
     Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
     this.req.setAttribute("searchDate", f.format(date, req.getLocale()));
-    
+
     this.req.setAttribute(ITEM, view);
     this.req.setAttribute("grid", new StockEventGridBuilder(view, data).build());
     this.req.setAttribute("staff", Arrays.asList(staff));
@@ -294,14 +297,38 @@ public class StockEventController extends StockEventControllerBase implements co
   }
 
   @Override
+  public void deleteAll(String geoId, TermDTO item, Date date, Date endDate) throws IOException, ServletException
+  {
+    try
+    {
+      validateParameters(geoId, item, date, endDate);
+
+      ClientRequestIF clientRequest = super.getClientRequest();
+      StockEventViewDTO.deleteAll(clientRequest, geoId, item.getId(), date, endDate);
+
+      this.search();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.search();
+      }
+    }
+  }
+
+  @Override
   public void failSearchPage(String geoId, TermDTO item, String date, String endDate) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
-    
-    if (item != null) {
-    	item = TermDTO.get(request, item.getId());
+
+    if (item != null)
+    {
+      item = TermDTO.get(request, item.getId());
     }
-    
+
     this.setupFailParameters(geoId, item, date);
     req.setAttribute("endDate", endDate);
 
@@ -323,7 +350,7 @@ public class StockEventController extends StockEventControllerBase implements co
   private void setupContext(String geoId, String item, Date date, Date endDate)
   {
     Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-    
+
     req.setAttribute("geoId", geoId);
     req.setAttribute("item", item);
     req.setAttribute("startDate", f.format(date, req.getLocale()));

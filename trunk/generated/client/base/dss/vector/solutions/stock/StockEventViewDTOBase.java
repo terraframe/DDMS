@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = -1565215420)
+@com.runwaysdk.business.ClassSignature(hash = 1262163271)
 public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockEventView";
-  private static final long serialVersionUID = -1565215420;
+  private static final long serialVersionUID = 1262163271;
   
   protected StockEventViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -189,6 +189,11 @@ public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewD
     }
   }
   
+  public String getItemId()
+  {
+    return getValue(ITEM);
+  }
+  
   public void setItem(dss.vector.solutions.stock.StockItemDTO value)
   {
     if(value == null)
@@ -344,6 +349,11 @@ public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewD
     }
   }
   
+  public String getStaffId()
+  {
+    return getValue(STAFF);
+  }
+  
   public void setStaff(dss.vector.solutions.stock.StockStaffDTO value)
   {
     if(value == null)
@@ -423,6 +433,11 @@ public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewD
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(STOCKDEPOT));
     }
+  }
+  
+  public String getStockDepotId()
+  {
+    return getValue(STOCKDEPOT);
   }
   
   public void setStockDepot(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -509,6 +524,14 @@ public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewD
     Object[] _parameters = new Object[]{views};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.stock.StockEventViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String item, java.util.Date startDate, java.util.Date endDate)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.util.Date", "java.util.Date"};
+    Object[] _parameters = new Object[]{geoId, item, startDate, endDate};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "deleteAll", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void deleteConcrete()

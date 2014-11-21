@@ -11,10 +11,16 @@
     <%@ include file="searchForm.jsp"%>
 
     <mdss:localize key="Search" var="Localized_Search" />
-
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByDTO.mojo" name="search.button" value="${Localized_Search}" />
+
     <mdss:localize key="Create" var="Localized_Create" />
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" name="create.button" value="${Localized_Create}" />
+    
+    <c:if test="${canDeleteAll}">
+      <button class="submitButton" id="delete.all.button">
+        <mdss:localize key="Delete_All"/>
+      </button>      
+    </c:if>
   </dl>
 </mjl:form>
 
@@ -96,3 +102,33 @@
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.MosquitoCollectionExcelView" name="excelType"/>
 </jsp:include>
+
+<script type="text/javascript">
+YAHOO.util.Event.onDOMReady(function(){
+  var buttonEl = document.getElementById("delete.all.button");
+  
+  if(buttonEl != null)
+  {
+    var onclick = function(e){
+      
+      if(e != null)
+      {
+        e.preventDefault();        
+      }
+      
+      // Ensure the user wants to delete all of the objects
+      if(confirm(MDSS.localize('confirm_delete_all')))
+      {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent("submit", false, true);
+        
+        var formEl = document.getElementById("searchMosquitoCollections");
+        formEl.action = "dss.vector.solutions.entomology.MosquitoCollectionController.deleteAllCollections.mojo";
+        formEl.dispatchEvent(evt);
+      }
+    };
+    
+    YAHOO.util.Event.on(buttonEl, 'click', onclick);
+  }
+});
+</script>

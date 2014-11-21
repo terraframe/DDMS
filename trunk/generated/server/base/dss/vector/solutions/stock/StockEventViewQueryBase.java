@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = 578820269)
+@com.runwaysdk.business.ClassSignature(hash = -1202258370)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.stock;
 public  abstract  class StockEventViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 578820269;
 
   public StockEventViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

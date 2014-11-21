@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1915301165)
+@com.runwaysdk.business.ClassSignature(hash = 1303283831)
 public class MosquitoCollectionControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionController";
@@ -9,8 +9,6 @@ public class MosquitoCollectionControllerBase implements com.runwaysdk.generatio
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 1915301165;
   
   public MosquitoCollectionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -107,6 +105,20 @@ public class MosquitoCollectionControllerBase implements com.runwaysdk.generatio
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failDelete");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO:dto", post=true)
+  public void deleteAllCollections(dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.deleteAllCollections");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO:dto", post=true)
+  public void failDeleteAllCollections(dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failDeleteAllCollections");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)

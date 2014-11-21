@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.generator.MdFormUtilDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
@@ -56,6 +57,7 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 String[] types = new String[]{
 request.getAttribute("mdClassType").toString(),
 FormObjectController.CLASS,
+MdFormUtilDTO.CLASS,
     
 // WebNumber (excluding float)
 MdWebIntegerDTO.CLASS,
@@ -92,7 +94,7 @@ out.print(js);
 %>
 
 YAHOO.util.Event.onDOMReady(function(){
-  var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}', ${fields}, ${viewAllFields});
+  var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}', ${fields}, ${viewAllFields}, ${searchFields}, ${canDeleteAll});
   generator.render();
 });
 </script>
@@ -102,11 +104,8 @@ YAHOO.util.Event.onDOMReady(function(){
 <div class="generatorContent" id="generatorContent">
   <h2 class="pageTitle">${localized_page_title}</h2>
   <div id="SearchContainer">
-    <h2><mdss:localize key="Form_ID_Search" /></h2>
-    <input type="text" id="SearchInput" name="searchInput" />
-    <br /><br /><br />
   </div>
-  <a href="#" id="NewInstanceCommand">
+  <a href="#" id="NewInstanceCommand" style="display:none">
     <mdss:localize key="New_Instance" />
   </a>
   <br id="OptionBreak" />

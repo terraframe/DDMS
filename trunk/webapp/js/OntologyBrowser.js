@@ -855,10 +855,12 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       this._attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
       this._browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;
       this._enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
+      
+      var inputId = (config.inputId != null ? config.inputId : config.attributeName);
         
-      this._attributeEl = document.getElementById(this._attributeName);
-      this._displayEl = document.getElementById(this._attributeName + 'Display');        
-      this._button = document.getElementById(this._attributeName + 'Btn');
+      this._attributeEl = document.getElementById(inputId);
+      this._displayEl = document.getElementById(inputId + 'Display');        
+      this._button = document.getElementById(inputId + 'Btn');
       this._TermSelectedEvent = dss.vector.solutions.ontology.TermSelectedEvent;
       this._roots = [];
        
@@ -867,7 +869,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       this._browser.setHandler(Mojo.Util.bind(this, this.setField));
         
       if(this._enabled) {
-        YAHOO.util.Event.on(this._button, "click", this.openBrowser, {browser:this._browser, attributeName:this._attributeName});
+        YAHOO.util.Event.on(this._button, "click", this.openBrowser, {browser:this._browser, attributeName:inputId});
       }
                
       var dF = Mojo.Util.bind(this, this._displayFunction);

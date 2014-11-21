@@ -11,11 +11,14 @@ import com.runwaysdk.query.AttributeEnumeration;
 import com.runwaysdk.query.AttributeLocal;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
 
+import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.generator.DeleteAllAccessException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.ontology.Term;
@@ -32,7 +35,7 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
   public void populateView(StockEvent concrete)
   {
     StockItem item = concrete.getItem();
-    
+
     Integer stock = StockEvent.getQuantity(concrete.getStockDepot(), item, concrete.getEventDate());
 
     this.setConcreteId(concrete.getId());
@@ -91,7 +94,7 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
     if (this.getQuantity() != null)
     {
       StockEvent concrete = new StockEvent();
-      
+
       if (this.hasConcrete())
       {
         concrete = StockEvent.get(this.getConcreteId());
@@ -127,16 +130,15 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
   public static StockEventView[] getViews(String geoId, Term item, Date date, EventOption transactionType)
   {
     GeoEntity entity = GeoEntity.searchByGeoId(geoId);
-    
-    if(entity != null && !(entity instanceof StockDepot)) 
+
+    if (entity != null && ! ( entity instanceof StockDepot ))
     {
       StockDepotProblem p = new StockDepotProblem();
       p.setGeoId(entity.getGeoId());
       p.apply();
-      
+
       p.throwIt();
     }
-
 
     StockItem[] items = StockEventView.getItems(item, transactionType);
 
@@ -145,7 +147,7 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
     for (StockItem stockItem : items)
     {
       Integer stock = StockEvent.getQuantity(entity, stockItem, date);
-      
+
       if (stockItem.isLeaf() || stock > 0)
       {
         StockEventView view = new StockEventView();
@@ -192,13 +194,13 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
   public static StockEventViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String geoId, String itemId, Date startDate, Date endDate)
   {
     GeoEntity entity = GeoEntity.searchByGeoId(geoId);
-    
-    if(entity != null && !(entity instanceof StockDepot)) 
+
+    if (entity != null && ! ( entity instanceof StockDepot ))
     {
       StockDepotProblem p = new StockDepotProblem();
       p.setGeoId(entity.getGeoId());
       p.apply();
-      
+
       p.throwIt();
     }
 
@@ -237,8 +239,36 @@ public class StockEventView extends StockEventViewBase implements com.runwaysdk.
     {
       query.restrictRows(pageSize, pageNumber);
     }
-    
+
     return query;
+  }
+
+  @Transaction
+  public static void deleteAll(String geoId, String itemId, Date startDate, Date endDate)
+  {
+    if (!MDSSUser.canDeleteAll())
+    {
+      throw new DeleteAllAccessException();
+    }
+
+    StockEventViewQuery query = StockEventView.getQuery(geoId, itemId, startDate, endDate);
+
+    OIterator<? extends StockEventView> iterator = null;
+
+    try
+    {
+      iterator = query.getIterator();
+
+      while (iterator.hasNext())
+      {
+        StockEventView item = iterator.next();
+        item.deleteConcrete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
   private static StockEventViewQuery getQuery(String geoId, String itemId, Date startDate, Date endDate)

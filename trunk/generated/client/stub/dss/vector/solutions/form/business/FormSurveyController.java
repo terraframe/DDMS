@@ -6,9 +6,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.system.metadata.MdWebFormDTO;
+import org.json.JSONArray;
 
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.MdAttributeInfo;
+import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeDTO;
+import com.runwaysdk.system.metadata.MdFormDTO;
+import com.runwaysdk.system.metadata.MdWebAttributeDTO;
+import com.runwaysdk.system.metadata.MdWebFieldDTO;
+import com.runwaysdk.system.metadata.MdWebFormDTO;
+import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
+
+import dss.vector.solutions.MDSSUserDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -18,7 +29,7 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1196476865;
+  public static final long   serialVersionUID = 1196476865;
 
   public FormSurveyController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -189,26 +200,20 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
   {
     try
     {
-      MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormSurveyDTO.FORM_TYPE);
-
       MdWebFormDTO householdForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormHouseholdDTO.FORM_TYPE);
 
       MdWebFormDTO bedNetForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormBedNetDTO.FORM_TYPE);
 
       MdWebFormDTO personForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormPersonDTO.FORM_TYPE);
 
-      this.req.setAttribute("surveyFormId", surveyForm.getId());
-      this.req.setAttribute("surveyClassType", FormSurveyDTO.CLASS);
-      this.req.setAttribute("surveyFormType", FormSurveyDTO.FORM_TYPE);
-      this.req.setAttribute("householdFormId", householdForm.getId());
-      this.req.setAttribute("householdClassType", FormHouseholdDTO.CLASS);
-      this.req.setAttribute("householdFormType", FormHouseholdDTO.FORM_TYPE);
-      this.req.setAttribute("bedNetFormId", bedNetForm.getId());
-      this.req.setAttribute("bedNetClassType", FormBedNetDTO.CLASS);
-      this.req.setAttribute("bedNetFormType", FormBedNetDTO.FORM_TYPE);
-      this.req.setAttribute("personFormId", personForm.getId());
-      this.req.setAttribute("personClassType", FormPersonDTO.CLASS);
-      this.req.setAttribute("personFormType", FormPersonDTO.FORM_TYPE);
+      MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormSurveyDTO.FORM_TYPE);
+
+      this.loadFormData(surveyForm, "survey", FormSurveyDTO.CLASS, FormSurveyDTO.FORM_TYPE);
+      this.loadFormData(householdForm, "household", FormHouseholdDTO.CLASS, FormHouseholdDTO.FORM_TYPE);
+      this.loadFormData(bedNetForm, "bedNet", FormBedNetDTO.CLASS, FormBedNetDTO.FORM_TYPE);
+      this.loadFormData(personForm, "person", FormPersonDTO.CLASS, FormPersonDTO.FORM_TYPE);
+
+      this.req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(this.getClientRequest()));
 
       render("viewAllComponent.jsp");
     }
@@ -221,6 +226,47 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
         this.failViewAll();
       }
     }
+  }
+
+  public void loadFormData(MdFormDTO mdForm, String prefix, String classType, String formType)
+  {
+    this.req.setAttribute(prefix + "FormId", mdForm.getId());
+    this.req.setAttribute(prefix + "ClassType", classType);
+    this.req.setAttribute(prefix + "FormType", formType);
+
+    // keep a reference to the fields in proper order
+    MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(this.getClientRequest(), (MdWebFormDTO) mdForm);
+
+    JSONArray fieldsArr = new JSONArray();
+    JSONArray viewAllFields = new JSONArray();
+    JSONArray searchFields = new JSONArray();
+
+    for (MdWebFieldDTO field : fields)
+    {
+      fieldsArr.put(field.getFieldName());
+
+      if (field instanceof MdWebAttributeDTO)
+      {
+        MdWebAttributeDTO attribute = (MdWebAttributeDTO) field;
+
+        if (attribute.getShowOnViewAll() == null || attribute.getShowOnViewAll())
+        {
+          MdAttributeConcreteDTO definingMdAttribute = (MdAttributeConcreteDTO) attribute.getDefiningMdAttribute();
+          String attributeName = definingMdAttribute.getAttributeName();
+
+          viewAllFields.put(attributeName);
+        }
+
+        if ( ( attribute.getShowOnSearch() == null || attribute.getShowOnSearch() ) && ! ( field instanceof MdWebMultipleTermDTO ) && ! ( field instanceof MdWebSingleTermGridDTO ))
+        {
+          searchFields.put(field.getFieldName());
+        }
+      }
+    }
+
+    this.req.setAttribute(prefix + "Fields", fieldsArr.toString());
+    this.req.setAttribute(prefix + "ViewAllFields", viewAllFields.toString());
+    this.req.setAttribute(prefix + "SearchFields", searchFields.toString());
   }
 
   public void failViewAll() throws IOException, ServletException

@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = -1478122021)
+@com.runwaysdk.business.ClassSignature(hash = -1801818703)
 public class StockEventControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.stock.StockEventController";
@@ -9,8 +9,6 @@ public class StockEventControllerBase implements com.runwaysdk.generation.loader
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = -1478122021;
   
   public StockEventControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -65,6 +63,20 @@ public class StockEventControllerBase implements com.runwaysdk.generation.loader
   public com.runwaysdk.ClientSession getClientSession()
   {
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.ontology.TermDTO:item, java.util.Date:date, java.util.Date:endDate", post=true)
+  public void deleteAll(java.lang.String geoId, dss.vector.solutions.ontology.TermDTO item, java.util.Date date, java.util.Date endDate) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockEventController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.stock.StockEventController.deleteAll");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, dss.vector.solutions.ontology.TermDTO:item, java.lang.String:date, java.lang.String:endDate", post=true)
+  public void failDeleteAll(java.lang.String geoId, dss.vector.solutions.ontology.TermDTO item, java.lang.String date, java.lang.String endDate) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockEventController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.stock.StockEventController.failDeleteAll");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:geoId, java.lang.String:item, java.util.Date:startDate, java.util.Date:endDate", post=false)

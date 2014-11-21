@@ -29,6 +29,63 @@ var NewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent
   }
 });
 
+var CreateNewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.CreateNewInstanceEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function (mdFormId, criteria) {
+      this.$initialize();
+      
+      this._mdFormId = mdFormId;
+      this._criteria = criteria;
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+          target.renderFormWithJSON(formObjectJSON);
+        }
+      });
+      
+      var oldOnFailure = request.onFailure;
+      request.onFailure = function(e)
+      {
+        if(e != null && e.getWrappedException() == 'dss.vector.solutions.generator.DuplicateFormInstanceExceptionDTO')
+        {
+          target.searchInstance();          
+        }
+
+        oldOnFailure.call(this, e);
+      };
+      
+      dss.vector.solutions.form.FormObjectController.createNewInstance(request, this._criteria, this._mdFormId);
+    }
+  }
+});
+
+var DeleteAllEvent = Mojo.Meta.newClass('dss.vector.solutions.DeleteAllEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function (criteria, type) {
+      this.$initialize();
+      
+      this._criteria = criteria;
+      this._type = type;
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          target.renderViewAll(this._criteria);
+        }
+      });
+            
+      dss.vector.solutions.form.FormObjectController.deleteAll(request, this._criteria, this._type);
+    }
+  }
+});
+
 var ViewEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
   Extends : CustomEvent,
   Instance : {
@@ -398,16 +455,43 @@ var CreateEvent = Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
   }
 });
 
-var ViewAllEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
+var SearchEvent = Mojo.Meta.newClass('dss.vector.solutions.SearchEvent', {
   Extends : CustomEvent,
   Instance : {
-    initialize : function () {
+    initialize : function (formObject) {
       this.$initialize();
+      
+      this._formObject = formObject;
+    },    
+    getFormObject : function() {
+      return this._formObject;
     },    
     defaultAction : function() {
       var target = this.getTarget();
       
-      target.renderViewAll();      
+      target._updateValues(this._formObject);
+      
+      target._table.setCriteria(this._formObject)      
+      target._table.resetDataTable();      
+    }
+  }
+});
+
+var ViewAllEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function (formObject) {
+      this.$initialize();
+      
+      this._formObject = formObject;
+    },    
+    getFormObject : function() {
+      return this._formObject;
+    },        
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      target.renderViewAll(this._formObject);      
     }
   }
 });
@@ -608,6 +692,39 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       cond.getFirstCondition().accept(this);
       cond.getSecondCondition().accept(this);
     }
+  }
+});
+
+/**
+ * Renders the read-only view of a FormObject. This creates a form tag wit a structured
+ * definition list to contain the fields.
+ */
+var FormObjectSearchVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjectSearchVisitor', {
+  Extends : FormObjectRenderVisitor,
+  Instance : {
+    initialize : function(formObjectGenerator, editMode, filter){
+      this.$initialize(formObjectGenerator, editMode);      
+      
+      this._filter = filter;
+    },
+    _addField : function(formComponent){
+      var field = formComponent.getField();
+      
+      if(field instanceof FIELD.WebAttribute)
+      {        
+        var attributeName = field.getFieldMd().getFieldName();
+      
+        if(this._filter(attributeName))
+        {
+          this.$_addField(formComponent);        
+        }
+      }
+    },
+    visitSingleTerm : function(field){
+      var com = new SingleTermComponent(field, 'search');
+      com.setDefaultNodes();
+      this._addField(com);
+    },    
   }
 });
 
@@ -1040,9 +1157,15 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
   Extends : FieldComponent,
   Implements : [ValueFieldIF, com.runwaysdk.event.EventListener],
   Instance : {
-    initialize : function(field){
+    initialize : function(field, prefix){
       this.$initialize(field);
       this._inputId = null;
+      this._prefix = prefix;
+      
+      if(this._prefix == null)
+      {
+        this._prefix = '';
+      }
     },
     _getContentNode : function(){
     
@@ -1056,7 +1179,7 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
         'value':this.getValue(),
         'maxlength':64,
         'size':64,
-        'id':this.getField().getFieldMd().getDefiningAttribute()
+        'id': this._prefix + this.getField().getFieldMd().getDefiningAttribute()
       });
       div.appendChild(input);
       this._inputId = input.getId();
@@ -1100,7 +1223,8 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
       {
         var clazz = this.getField().getFieldMd().getDefiningClass();
         var browser = new MDSS.GenericOntologyBrowser(clazz, {
-          attributeName : this._inputId
+          attributeName : this.getField().getFieldMd().getDefiningAttribute(),
+          inputId : this._inputId
         });
         
         browser.addTermSelectedListener(this);
@@ -1529,41 +1653,6 @@ var ButtonComponent = Mojo.Meta.newClass('dss.vector.solutions.ButtonComponent',
 });
 
 /**
- * Adds search functionality to the view all screen.
- */
-var FormIdSearch = Mojo.Meta.newClass('dss.vector.solutions.FormIdSearch', {
-  Instance : {
-    initialize : function(formObjectGenerator, searchId){
-      this._formObjectGenerator = formObjectGenerator;
-      this._searchId = searchId;
-    },
-    listFunction : function(valueObject) {
-
-      return valueObject.getValue('formId') ;
-    },
-    displayFunction : function(valueObject) {
-
-      return valueObject.getValue('formId');
-    },
-    idFunction : function(valueObject) {
-
-      return valueObject.getValue('runwayId');
-    },
-    selectEventHandler : function(selected){
-      
-      this._formObjectGenerator.viewInstanceById(selected.id);
-    },
-    setup : function(){
-      var searchFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getTextAttributeSugestions;
-
-      var boundSEH = Mojo.Util.bind(this, this.selectEventHandler);
-      var search = new MDSS.GenericSearch(this._searchId, null, this.listFunction, this.displayFunction, this.idFunction, searchFunction, boundSEH, {minLength:0});
-      search.addParameter([this._formObjectGenerator.getMdClassType(), "oid"]);
-    }
-  }
-});
-
-/**
  * Primary class to handle control flow in the UI.
  */
 Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
@@ -1581,10 +1670,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     OPTION_BREAK : 'OptionBreak'
   },
   Instance : {
-    initialize : function(prefix, mdFormId, mdClassType, fields, viewAllFields){
+    initialize : function(prefix, mdFormId, mdClassType, fields, viewAllFields, searchFields, canDeleteAll){
       this.$initialize();
       this._mdFormId = mdFormId;
       this._mdClassType = mdClassType;
+      this._canDeleteAll = canDeleteAll;
       this._parentDiv = null;
       
       // an array of the field names in order defined by MdForm
@@ -1602,7 +1692,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         return (viewAllFields.indexOf(columnName) != -1);
       }
       
-      this._table = this.getFactory().newDataTable(this._mdClassType, {preColumns:[col], columns: fields, filter: filter});
+      this._searchFilter = function(columnName){
+        return (searchFields.indexOf(columnName) != -1);
+      }
+      
+      var method = dss.vector.solutions.form.FormObjectController.searchInstance;
+      
+      this._table = this.getFactory().newDataTable(this._mdClassType, {method:method, preColumns:[col], columns: fields, filter: filter});
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeDateDTO', Mojo.Util.bind(this, this.dateColumnFormatter));
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeNumberDTO', Mojo.Util.bind(this, this.numberColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);
@@ -1628,6 +1724,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // Reference to the current form object that is being modified/created.
       // This will be null when viewing all objects.
       this._formObject = null;
+      this._searchObject = null;
       
       this._WebFormObject = com.runwaysdk.form.web.WebFormObject;
       
@@ -1649,10 +1746,6 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._conditions = new com.runwaysdk.structure.HashMap();
       this._fieldComponents = new com.runwaysdk.structure.HashMap();
       
-      if(this._search){
-        this._formIdSearch = new FormIdSearch(this, prefix + this.constructor.SEARCH_INPUT);
-        this._formIdSearch.setup();
-      }
     },
     getMdClassType : function(){
       return this._mdClassType;
@@ -1763,6 +1856,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     createFormObject : function(formObjectJSON) {
       this._formObject = this._WebFormObject.parseFromJSON(formObjectJSON);        
     },
+    getSearchObject : function() {
+      return this._searchObject;
+    },    
+    setSearchObject : function(searchObject) {
+      this._searchObject = searchObject;
+    },    
+    createSearchObject : function(searchObjectJSON) {
+      this.setSearchObject(this._WebFormObject.parseFromJSON(searchObjectJSON));        
+    },    
     /**
      * Formats dates according to the DDMS specification.
      */
@@ -1935,10 +2037,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      * Updates the values on the FormObject with the current values
      * of the HTML form.
      */
-    _updateValues : function()
+    _updateValues : function(formObject)
     {
-      var values = new com.runwaysdk.structure.HashMap(Mojo.Util.collectFormValues(this._formObject.getId()));
-      var fields = this._formObject.getFields();
+      if(formObject == null)
+      {
+        formObject = this._formObject;
+      }
+      
+      var values = new com.runwaysdk.structure.HashMap(Mojo.Util.collectFormValues(formObject.getId()));
+      var fields = formObject.getFields();
       
       for(var i=0, len=fields.length; i<len ; i++)
       {
@@ -2049,9 +2156,49 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         
       this.dispatchEvent(new CancelEvent(this.getFormObject()));
     },
-    newInstance : function(){
+    newInstance : function(e){      
+      if(e != null)
+      {
+        e.preventDefault();        
+      }
+      
       this.dispatchEvent(new NewInstanceEvent(this._mdFormId));
     },
+    createNewInstance : function(e)
+    {
+      if(e != null)
+      {
+        e.preventDefault();        
+      }
+      
+      this._updateValues(this._searchObject);
+
+      this.dispatchEvent(new CreateNewInstanceEvent(this._mdFormId, this._searchObject));
+    },    
+    deleteAll : function(e)
+    {
+      if(e != null)
+      {
+        e.preventDefault();        
+      }
+      
+      // Ensure the user wants to delete all of the objects
+      if(confirm(MDSS.localize('confirm_delete_all')))
+      {
+        this._updateValues(this._searchObject);
+        
+        this.dispatchEvent(new DeleteAllEvent(this._searchObject, this._mdClassType));
+      }
+    },    
+    searchInstance : function(e)
+    {
+      if(e != null)
+      {
+        e.preventDefault();
+      }
+      
+      this.dispatchEvent(new SearchEvent(this._searchObject));      
+    },    
     hideAllInstance : function(){
       this._newInstanceCommand.hide();
       this._tableContainer.hide();
@@ -2077,27 +2224,83 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      * type. Unrelated functionality is hidden.
      */
     viewAllInstance : function(){
-      this.dispatchEvent(new ViewAllEvent());
+      if(this._searchObject != null)
+      {              
+        this.dispatchEvent(new ViewAllEvent(this._searchObject));
+      }
+      else
+      {
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(formObjectJSON){
+            this.that.createSearchObject(formObjectJSON);  
+            
+            var visitor = new FormObjectSearchVisitor(this.that, true, this.that._searchFilter);
+            this.that.getSearchObject().accept(visitor);          
+            
+            // Add the action buttons
+            var searchBtn = this.that.getFactory().newElement('button');
+            searchBtn.setInnerHTML(MDSS.localize('Search'));
+            searchBtn.getImpl().on('click', this.that.searchInstance, this.that);
+            visitor.visitButton(searchBtn);
+
+            var createBtn = this.that.getFactory().newElement('button');
+            createBtn.setInnerHTML(MDSS.localize('Create'));
+            createBtn.getImpl().on('click', this.that.createNewInstance, this.that);
+            visitor.visitButton(createBtn);
+
+            if(this.that._canDeleteAll)
+            {              
+              var deleteAllBtn = this.that.getFactory().newElement('button');
+              deleteAllBtn.setInnerHTML(MDSS.localize('Delete_All'));
+              deleteAllBtn.getImpl().on('click', this.that.deleteAll, this.that);            
+              visitor.visitButton(deleteAllBtn);
+            }
+            
+            var formContent = visitor.getNode();
+            
+            this.that._search.appendChild(formContent.getRawEl());
+            
+            // we are done visiting the form so all fields are constructed.
+            // To initialize the proper show/hide status of the form, check
+            // each value manually as if the value had been changed via the UI.
+            // Show the form when we're done
+            var fields = this.that._fieldComponents.values();
+            for(var i=0; i<fields.length; i++){
+              var field = fields[i];
+              
+              this.that.dispatchEvent(new PostRenderEditFieldEvent(field));
+            }
+            
+            formContent.setStyle('visibility', 'visible');
+            
+            
+            this.that.dispatchEvent(new ViewAllEvent(this.that._searchObject));
+          }
+        });
+      
+        dss.vector.solutions.form.FormObjectController.searchForm(request, this._mdFormId);        
+      }      
     },
-    renderViewAll : function(){
+    renderViewAll : function(criteria){
       this.clearFormContainer();
       this._tableContainer.show();
-      
+                      
       if(this._search != null)
       {
-        this._search.show();
+        this._search.show();          
       }
-      
+        
       if(this._break != null)
       {
         this._break.show();
       }      
-      
+        
       if(this._viewAllCommand != null)
       {
         this._viewAllCommand.hide();
       } 
-      
+        
       if(this._viewParentCommand != null)
       {
         this._viewParentCommand.hide();        
@@ -2107,7 +2310,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         this._parentBreak.hide();
       }          
-      
+        
+      this._table.setCriteria(criteria);
+        
       if(this._table.isRendered())
       {
         this._table.resetDataTable();
@@ -2116,13 +2321,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         this._table.render('#'+this._tableContainer.get('id'));
       }
-      
-      this._newInstanceCommand.show();
-      
+        
+      this._newInstanceCommand.hide();
+        
       if(this._excelButtons != null)
       {
         this._excelButtons.show();
-      }
+      }        
     },
     /**
      * The initial render shows all instances.

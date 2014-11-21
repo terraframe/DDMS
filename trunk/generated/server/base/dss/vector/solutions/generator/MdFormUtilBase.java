@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1583148288)
+@com.runwaysdk.business.ClassSignature(hash = 833414107)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1583148288;
+  private static final long serialVersionUID = 833414107;
   
   public MdFormUtilBase()
   {
@@ -106,6 +106,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static void delete(com.runwaysdk.system.metadata.MdWebForm mdForm)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void deleteAll(com.runwaysdk.business.Business criteria, java.lang.String type)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -237,6 +243,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static void isAvailable(java.lang.String type, java.lang.String oid)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static com.runwaysdk.business.Business persistObject(com.runwaysdk.business.Business busObj, java.lang.String multipleTermJSON, java.lang.String singleTermGridJSON)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
@@ -250,6 +262,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static void reorderFields(java.lang.String[] ids)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static com.runwaysdk.query.GeneratedComponentQuery searchObject(com.runwaysdk.business.Business criteria, java.lang.String type, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

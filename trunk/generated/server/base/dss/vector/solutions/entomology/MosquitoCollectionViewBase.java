@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1460055371)
+@com.runwaysdk.business.ClassSignature(hash = 1355517589)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String NUMBEROFLLINS = "numberOfLLINs";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
   public static java.lang.String WALLTYPE = "wallType";
-  private static final long serialVersionUID = -1460055371;
+  private static final long serialVersionUID = 1355517589;
   
   public MosquitoCollectionViewBase()
   {
@@ -601,6 +601,12 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   {
     MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
     return _instance.applyAll(subCollections);
+  }
+  
+  public static void deleteAllCollections(dss.vector.solutions.entomology.SearchMosquitoCollectionView criteria)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void deleteConcrete()

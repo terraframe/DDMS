@@ -18,10 +18,13 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.entomology.MosquitoCollectionViewQuery.SearchQueryBuilder;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.DeleteAllAccessException;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -421,6 +424,39 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     query.restrictRows(pageSize, pageNumber);
 
     return query;
+  }
+
+  @Transaction
+  public static void deleteAllCollections(SearchMosquitoCollectionView criteria)
+  {
+    if (!MDSSUser.canDeleteAll())
+    {
+      throw new DeleteAllAccessException();
+    }
+
+    QueryFactory factory = new QueryFactory();
+    SearchQueryBuilder builder = new SearchQueryBuilder(factory, criteria);
+    MosquitoCollectionViewQuery query = new MosquitoCollectionViewQuery(factory, builder);
+
+    OIterator<? extends MosquitoCollectionView> iterator = null;
+
+    try
+    {
+      iterator = query.getIterator();
+
+      while (iterator.hasNext())
+      {
+        MosquitoCollectionView view = iterator.next();
+        view.deleteConcrete();
+      }
+    }
+    finally
+    {
+      if (iterator != null)
+      {
+        iterator.close();
+      }
+    }
   }
 
   public static MosquitoCollectionViewQuery searchCollection(String value)

@@ -1,5 +1,7 @@
 package dss.vector.solutions;
 
+import java.util.Map;
+
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
@@ -9,6 +11,7 @@ import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.CreatePermissionException;
 import com.runwaysdk.session.DeletePermissionException;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.Assignments;
@@ -40,20 +43,20 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
 
     super.apply();
 
-    if(isNew)
+    if (isNew)
     {
       UserSettings.createIfNotExists(this);
-    }    
+    }
   }
-  
+
   @Override
   public void delete()
   {
     UserSettings.deleteIfExists(this);
-    
+
     super.delete();
   }
-  
+
   @Transaction
   public void directApply()
   {
@@ -123,28 +126,39 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     mdssUser.setRootGeoEntity(geoEntity);
     mdssUser.apply();
   }
-  
+
   @Override
   @Transaction
   public void changeDisease(String diseaseName)
   {
     UserSettings settings = UserSettings.createIfNotExists(this);
     settings.lock();
-    
+
     Disease disease = Disease.getByKey(diseaseName);
     settings.setDisease(disease);
-    settings.apply();    
+    settings.apply();
   }
-  
+
   @Override
   public String getDiseaseName()
   {
     UserSettings settings = UserSettings.createIfNotExists(this);
     Disease disease = settings.getDisease();
-    if (disease!=null)
+    if (disease != null)
     {
       return disease.getKeyName();
     }
-    return Disease.MALARIA;    
+    return Disease.MALARIA;
+  }
+
+  @Request
+  public static Boolean canDeleteAll()
+  {
+    SessionIF session = Session.getCurrentSession();
+    Map<String, String> roles = session.getUserRoles();
+
+    boolean canDelete = ( roles.containsKey(MDSSRoleInfo.SYSTEM) || roles.containsKey(MDSSRoleInfo.RUNWAY_ADMIN) );
+
+    return canDelete;
   }
 }

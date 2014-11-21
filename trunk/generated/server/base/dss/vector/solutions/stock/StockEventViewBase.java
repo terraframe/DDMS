@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = 841107140)
+@com.runwaysdk.business.ClassSignature(hash = -208694329)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
   public static java.lang.String STAFFLABEL = "staffLabel";
   public static java.lang.String STOCKDEPOT = "stockDepot";
   public static java.lang.String TRANSACTIONTYPE = "transactionType";
-  private static final long serialVersionUID = 841107140;
+  private static final long serialVersionUID = -208694329;
   
   public StockEventViewBase()
   {
@@ -171,6 +171,11 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     }
   }
   
+  public String getItemId()
+  {
+    return getValue(ITEM);
+  }
+  
   public void validateItem()
   {
     this.validateAttribute(ITEM);
@@ -290,6 +295,11 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     }
   }
   
+  public String getStaffId()
+  {
+    return getValue(STAFF);
+  }
+  
   public void validateStaff()
   {
     this.validateAttribute(STAFF);
@@ -351,6 +361,11 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(STOCKDEPOT));
     }
+  }
+  
+  public String getStockDepotId()
+  {
+    return getValue(STOCKDEPOT);
   }
   
   public void validateStockDepot()
@@ -425,6 +440,12 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
   }
   
   public static dss.vector.solutions.stock.StockEventView[] applyAll(dss.vector.solutions.stock.StockEventView[] views)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockEventView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void deleteAll(java.lang.String geoId, java.lang.String item, java.util.Date startDate, java.util.Date endDate)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.stock.StockEventView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

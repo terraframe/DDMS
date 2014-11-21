@@ -208,6 +208,10 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.revokePermission(Operation.CREATE, universal.getId());
         role.revokePermission(Operation.WRITE, universal.getId());
         role.revokePermission(Operation.DELETE, universal.getId());
+        
+        role.grantPermission(Operation.DENY_CREATE, universal.getId());
+        role.grantPermission(Operation.DENY_DELETE, universal.getId());
+        role.grantPermission(Operation.DENY_WRITE, universal.getId());
 
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
 

@@ -85,12 +85,25 @@ YAHOO.util.Event.onDOMReady(function(){
   var params = {
     personFormId : '${personFormId}',
     personClassType : '${personClassType}',
+    personFields : '${personFields}',
+    personViewAllFields : '${personViewAllFields}',
+    personSearchFields : '${personSearchFields}',
     bedNetFormId : '${bedNetFormId}',
     bedNetClassType : '${bedNetClassType}',
+    bedNetFields : '${bedNetFields}',
+    bedNetViewAllFields : '${bedNetViewAllFields}',
+    bedNetSearchFields : '${bedNetSearchFields}',    
     householdFormId : '${householdFormId}',
     householdClassType: '${householdClassType}',
+    householdFields : '${householdFields}',
+    householdViewAllFields : '${householdViewAllFields}',
+    householdSearchFields : '${householdSearchFields}',
     surveyFormId: '${surveyFormId}',
-    surveyClassType: '${surveyClassType}'
+    surveyClassType: '${surveyClassType}',
+    surveyFields : '${surveyFields}',
+    surveyViewAllFields : '${surveyViewAllFields}',
+    surveySearchFields : '${surveySearchFields}',
+    canDeleteAll : ${canDeleteAll}
   };
   
   var generator = new dss.vector.solutions.SurveyFormGenerator(params);
@@ -99,9 +112,6 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 <div class="generatorContent" id="generatorContent">
   <div id="surveySearchContainer">
-    <h2><mdss:localize key="Form_Survey_Search" /></h2>
-    <input type="text" id="surveySearchInput" name="searchInput" />
-    <br /><br /><br />
   </div>
   <a href="#" id="surveyNewInstanceCommand">
     <mdss:localize key="New_Form_Survey" />
@@ -116,9 +126,6 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
 
   <div id="householdSearchContainer">
-    <h2><mdss:localize key="Form_Household_Search" /></h2>
-    <input type="text" id="householdSearchInput" name="searchInput" />
-    <br /><br /><br />
   </div>  
   <a href="#" id="householdNewInstanceCommand">
     <mdss:localize key="New_Form_Household" />
@@ -133,9 +140,6 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
 
   <div id="bedNetSearchContainer">
-    <h2><mdss:localize key="Form_Bed_Net_Search" /></h2>
-    <input type="text" id="bedNetSearchInput" name="searchInput" />
-    <br /><br /><br />
   </div>  
   <a href="#" id="bedNetNewInstanceCommand">
     <mdss:localize key="New_Form_Bed_Net" />
@@ -150,9 +154,6 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
   
   <div id="personSearchContainer">
-    <h2><mdss:localize key="Form_Person_Search" /></h2>
-    <input type="text" id="personSearchInput" name="searchInput" />
-    <br /><br /><br />
   </div>
   <a href="#" id="personNewInstanceCommand">
     <mdss:localize key="New_Form_Person" />

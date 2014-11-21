@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -297624934)
+@com.runwaysdk.business.ClassSignature(hash = -322655229)
 public abstract class MDSSUserDTOBase extends com.runwaysdk.system.UsersDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
-  private static final long serialVersionUID = -297624934;
+  private static final long serialVersionUID = -322655229;
   
   protected MDSSUserDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -79,6 +79,11 @@ public abstract class MDSSUserDTOBase extends com.runwaysdk.system.UsersDTO impl
     }
   }
   
+  public String getPersonId()
+  {
+    return getValue(PERSON);
+  }
+  
   public void setPerson(dss.vector.solutions.PersonDTO value)
   {
     if(value == null)
@@ -123,6 +128,11 @@ public abstract class MDSSUserDTOBase extends com.runwaysdk.system.UsersDTO impl
     }
   }
   
+  public String getRootGeoEntityId()
+  {
+    return getValue(ROOTGEOENTITY);
+  }
+  
   public void setRootGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -153,6 +163,14 @@ public abstract class MDSSUserDTOBase extends com.runwaysdk.system.UsersDTO impl
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getRootGeoEntityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOTGEOENTITY).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.Boolean canDeleteAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "canDeleteAll", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void changeDisease(java.lang.String diseaseName)

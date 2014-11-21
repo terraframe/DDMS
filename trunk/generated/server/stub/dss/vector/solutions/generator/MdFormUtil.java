@@ -2,6 +2,9 @@ package dss.vector.solutions.generator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +19,15 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Relationship;
 import com.runwaysdk.business.RelationshipQuery;
+import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.constants.BusinessInfo;
+import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
@@ -47,8 +55,14 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Attribute;
+import com.runwaysdk.query.AttributePrimitive;
+import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.GeneratedBusinessQuery;
+import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
@@ -88,6 +102,7 @@ import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
 import dss.vector.solutions.form.ConfirmDeleteMdFormException;
@@ -95,11 +110,17 @@ import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.FormNameNotBlankException;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.form.MdFormHasInstancesException;
+import dss.vector.solutions.form.business.FormBedNet;
+import dss.vector.solutions.form.business.FormHousehold;
+import dss.vector.solutions.form.business.FormPerson;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.ontology.TermView;
@@ -253,9 +274,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all fields that are candidates for conditions that this field will
-   * reference. For example, the given field is not allowed in the list to avoid
-   * circular references.
+   * Returns all fields that are candidates for conditions that this field will reference. For
+   * example, the given field is not allowed in the list to avoid circular references.
    */
   public static MdField[] getFieldsForConditions(String mdFieldId)
   {
@@ -318,8 +338,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Adds the MdField to the MdWebGroup and adds the field as the last child of
-   * the group.
+   * Adds the MdField to the MdWebGroup and adds the field as the last child of the group.
    * 
    * @param groupId
    * @param fieldId
@@ -366,8 +385,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns the next highest Order number relative to the object with the given
-   * id, which can be an MdForm or MdWebField.
+   * Returns the next highest Order number relative to the object with the given id, which can be an
+   * MdForm or MdWebField.
    * 
    * @param id
    * @return
@@ -417,8 +436,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
-   * one-to-one.
+   * Creates an MdField and the associated MdAttribute in DDMS. The mapping is one-to-one.
    * 
    * @param mdField
    * @param mdFormId
@@ -558,8 +576,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Populates the given stacks with the primitive field conditions and
-   * composite conditions.
+   * Populates the given stacks with the primitive field conditions and composite conditions.
    * 
    * @param conditions
    * @param composites
@@ -710,8 +727,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns a JSON string representing the tree structure of the form and its
-   * fields.
+   * Returns a JSON string representing the tree structure of the form and its fields.
    * 
    * @param mdFormId
    * @return
@@ -801,8 +817,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all non-group fields in order for the MdWebForm. All groups are
-   * collapsed and their children are returned in relative order.
+   * Returns all non-group fields in order for the MdWebForm. All groups are collapsed and their
+   * children are returned in relative order.
    * 
    * @param form
    * @return
@@ -1512,4 +1528,226 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       iterator.close();
     }
   }
+
+  /**
+   * Returns a query object of the given type, populated from the values specified in the criteria
+   * object. It is assumed that criteria.getType() is equal to type. If criteria is null then all
+   * objects are returned.
+   * 
+   * @param criteria
+   * @param type
+   * @param sortAttribute
+   * @param isAscending
+   * @param pageSize
+   * @param pageNumber
+   * @return
+   */
+  public static GeneratedComponentQuery searchObject(Business criteria, String type, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    GeneratedBusinessQuery query = getAndPopulateQuery(criteria, type);
+
+    String sort = sortAttribute != null ? sortAttribute : OID;
+
+    if (sort != null && sort.length() > 0)
+    {
+      Attribute attribute = query.get(sort);
+
+      if (attribute instanceof AttributePrimitive)
+      {
+        SortOrder order = isAscending != null && isAscending ? SortOrder.ASC : SortOrder.DESC;
+
+        query.ORDER_BY((AttributePrimitive) attribute, order);
+      }
+    }
+
+    if (pageSize != null && pageNumber != null)
+    {
+      query.restrictRows(pageSize, pageNumber);
+    }
+
+    return query;
+  }
+
+  @Transaction
+  public static void deleteAll(Business criteria, String type)
+  {
+    if (!MDSSUser.canDeleteAll())
+    {
+      throw new DeleteAllAccessException();
+    }
+
+    GeneratedBusinessQuery query = getAndPopulateQuery(criteria, type);
+
+    OIterator<? extends Business> iterator = null;
+
+    try
+    {
+      iterator = getIterator(query);
+
+      while (iterator.hasNext())
+      {
+        Business business = iterator.next();
+        business.delete();
+      }
+    }
+    finally
+    {
+      if (iterator != null)
+      {
+        iterator.close();
+      }
+    }
+  }
+
+  private static GeneratedBusinessQuery getAndPopulateQuery(Business criteria, String type)
+  {
+    QueryFactory factory = new QueryFactory();
+    GeneratedBusinessQuery query = getQueryObject(type, factory);
+
+    if (criteria != null)
+    {
+      List<? extends MdAttributeConcreteDAOIF> mdAttributes = criteria.getMdAttributeDAOs();
+
+      for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
+      {
+        if (!mdAttribute.isSystem())
+        {
+          String attributeName = mdAttribute.definesAttribute();
+
+          /*
+           * Skip the key and domain attributes, the are essentially system attributes.
+           */
+          if (! ( attributeName.equals(ComponentInfo.KEY) || attributeName.equals(BusinessInfo.DOMAIN) ))
+          {
+            String value = criteria.getValue(attributeName);
+
+            if (value != null && value.length() > 0)
+            {
+              if (mdAttribute instanceof MdAttributeReferenceDAOIF)
+              {
+                // Possible reference attributes: disease, term, geo-entity
+                MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
+                MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+                String referenceType = referenceMdBusiness.definesType();
+                AttributeReference attribute = (AttributeReference) query.get(attributeName);
+
+                Class<?> referenceClass = LoaderDecorator.load(referenceType);
+
+                /*
+                 * Handle geo entity references
+                 */
+                if (GeoEntity.class.isAssignableFrom(referenceClass))
+                {
+                  dss.vector.solutions.geo.AllPathsQuery apQuery = new dss.vector.solutions.geo.AllPathsQuery(factory);
+                  apQuery.WHERE(apQuery.getParentGeoEntity().EQ(value));
+
+                  query.WHERE(attribute.EQ(apQuery.getChildGeoEntity()));
+                }
+                /*
+                 * Handle term references
+                 */
+                else if (Term.class.isAssignableFrom(referenceClass))
+                {
+                  dss.vector.solutions.ontology.AllPathsQuery apQuery = new dss.vector.solutions.ontology.AllPathsQuery(factory);
+                  apQuery.WHERE(apQuery.getParentTerm().EQ(value));
+
+                  query.WHERE(attribute.EQ(apQuery.getChildTerm()));
+                }
+                /*
+                 * Handle disease, survey, household, bednet, and person references
+                 */
+                else if (Disease.class.isAssignableFrom(referenceClass) || FormSurvey.class.isAssignableFrom(referenceClass) || FormHousehold.class.isAssignableFrom(referenceClass) || FormPerson.class.isAssignableFrom(referenceClass) || FormBedNet.class.isAssignableFrom(referenceClass))
+                {
+                  query.WHERE(attribute.EQ(value));
+                }
+                else
+                {
+                  throw new ProgrammingErrorException("Form search query builder does not know how to handle the reference type [" + type + "]");
+                }
+              }
+              else
+              {
+                Attribute attribute = query.get(attributeName);
+                query.WHERE(attribute.EQ(value));
+              }
+            }
+          }
+        }
+      }
+    }
+    return query;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static GeneratedBusinessQuery getQueryObject(String type, QueryFactory factory)
+  {
+    try
+    {
+      Class<? extends GeneratedBusinessQuery> clazz = (Class<? extends GeneratedBusinessQuery>) LoaderDecorator.load(type + "Query");
+      Constructor<? extends GeneratedBusinessQuery> constructor = clazz.getConstructor(factory.getClass());
+
+      GeneratedBusinessQuery query = constructor.newInstance(factory);
+      return query;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static OIterator<? extends Business> getIterator(GeneratedBusinessQuery query)
+  {
+    Class<? extends GeneratedBusinessQuery> clazz = query.getClass();
+
+    try
+    {
+      Method method = clazz.getMethod(EntityQueryAPIGenerator.ITERATOR_METHOD);
+      OIterator<? extends Business> iterator = (OIterator<? extends Business>) method.invoke(query);
+
+      return iterator;
+    }
+    catch (IllegalArgumentException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (SecurityException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (IllegalAccessException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (NoSuchMethodException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static void isAvailable(String type, String oid)
+  {
+    if (type != null && type.length() > 0 && oid != null && oid.length() > 0)
+    {
+      QueryFactory factory = new QueryFactory();
+
+      BusinessQuery query = factory.businessQuery(type);
+      query.WHERE(query.aCharacter(OID).EQ(oid));
+
+      long count = query.getCount();
+
+      if (count > 0)
+      {
+        DuplicateFormInstanceException e = new DuplicateFormInstanceException();
+        e.setFormId(oid);
+
+        throw e;
+      }
+    }
+  }
+
 }

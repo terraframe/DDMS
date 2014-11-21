@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1752086810)
+@com.runwaysdk.business.ClassSignature(hash = -1090319741)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
-  private static final long serialVersionUID = 1752086810;
+  private static final long serialVersionUID = -1090319741;
   
   public MDSSUserBase()
   {
@@ -61,6 +61,11 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     }
   }
   
+  public String getPersonId()
+  {
+    return getValue(PERSON);
+  }
+  
   public void validatePerson()
   {
     this.validateAttribute(PERSON);
@@ -94,6 +99,11 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(ROOTGEOENTITY));
     }
+  }
+  
+  public String getRootGeoEntityId()
+  {
+    return getValue(ROOTGEOENTITY);
   }
   
   public void validateRootGeoEntity()
@@ -167,6 +177,12 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
   public static MDSSUser getByKey(String key)
   {
     return (MDSSUser) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.Boolean canDeleteAll()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.MDSSUser.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void changeDisease(java.lang.String diseaseName)
