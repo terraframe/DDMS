@@ -2,7 +2,9 @@ package dss.vector.solutions.general;
 
 import java.io.BufferedInputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -422,7 +424,8 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
 
     Map<String, Term> cache = new HashMap<String, Term>();
     Term parent = term.getAllParentTerm().getAll().get(0);
-    this.cloneTerm(concrete, term, parent, this.getDiseaseName(), cache);
+    Set<String> alreadyCloned = new HashSet<String>();
+    this.cloneTerm(concrete, term, parent, this.getDiseaseName(), cache, alreadyCloned);
 
     // First specify the root menu item
     concrete.setMenuRoot(this.getCachedTerm(cache, this.getDiseaseName()));
@@ -463,25 +466,33 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     throw new ProgrammingErrorException("Unable to find a cached term with the term name [" + termName + "]");
   }
 
-  private void cloneTerm(Disease concrete, Term existing, Term parent, String name, Map<String, Term> cache)
+  private void cloneTerm(Disease concrete, Term existing, Term parent, String name, Map<String, Term> cache, Set<String> alreadyCloned)
   {
-    Term term = new Term();
-    term.setTermId(this.getNewTermId(concrete, existing));
-    term.setComment(existing.getComment());
-    term.setDef(existing.getDef());
-    term.setNamespace(existing.getName());
-    term.setObsolete(existing.getObsolete());
-    term.setOntology(existing.getOntology());
-
-    if (name == null)
+    Term term;
+    if (!alreadyCloned.contains(existing.getKeyName()))
     {
-      term.setName(existing.getName());
-      term.getTermDisplayLabel().setValue(existing.getTermDisplayLabel().getValue());
+      term = new Term();
+      term.setTermId(this.getNewTermId(concrete, existing));
+      term.setComment(existing.getComment());
+      term.setDef(existing.getDef());
+      term.setNamespace(existing.getName());
+      term.setObsolete(existing.getObsolete());
+      term.setOntology(existing.getOntology());
+  
+      if (name == null)
+      {
+        term.setName(existing.getName());
+        term.getTermDisplayLabel().setValue(existing.getTermDisplayLabel().getValue());
+      }
+      else
+      {
+        term.setName(name);
+        term.getTermDisplayLabel().setValue(name);
+      }
     }
     else
     {
-      term.setName(name);
-      term.getTermDisplayLabel().setValue(name);
+      term = Term.getByTermId(this.getNewTermId(concrete, existing));
     }
 
     term.applyWithParent(parent.getId(), false, null, false);
@@ -494,7 +505,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       {
         Term child = children.next();
 
-        this.cloneTerm(concrete, child, term, null, cache);
+        this.cloneTerm(concrete, child, term, null, cache, alreadyCloned);
       }
     }
     finally
@@ -502,6 +513,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
       children.close();
     }
 
+    alreadyCloned.add(existing.getKeyName());
     cache.put(term.getName(), term);
   }
 
@@ -510,14 +522,20 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     String termId = existing.getTermId();
 
     int index = termId.indexOf(":");
+    
+    String diseaseName = concrete.getDimension().getName();
 
-    if (index != -1)
+    if (index != -1
+        &&
+        // The old prefix might be the only thing that makes this id unique (ticket 3033). If thats the case we have to include it in the new term id.
+        (termId.substring(0, index).equals(Disease.getMalaria().getDimension().getName()))
+       )
     {
-      termId = concrete.getDimension().getName() + termId.substring(index);
+      termId = diseaseName + termId.substring(index);
     }
     else
     {
-      termId = concrete.getDimension().getName() + ":" + termId;
+      termId = diseaseName + ":" + termId;
     }
 
     if (termId.length() >= 64)
