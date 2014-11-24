@@ -4,6 +4,10 @@
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
+  <mjl:dt attribute="showOnSearch">
+    <mjl:boolean param="showOnSearch" />
+  </mjl:dt>  
+  
   
   <dt><label><mdss:localize key="Date_Restriction"/></label></dt>
   <dd>

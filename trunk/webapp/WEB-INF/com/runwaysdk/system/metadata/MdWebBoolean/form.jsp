@@ -8,6 +8,9 @@
 <mdss:localize key="BOOLEAN_NONE" var="none"/>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
+  <mjl:dt attribute="showOnSearch">
+    <mjl:boolean param="showOnSearch" />
+  </mjl:dt>    
   <mjl:dt attribute="defaultValue">
     <mdss:boolean param="defaultValue" noneLabel="${none}" />
   </mjl:dt>  

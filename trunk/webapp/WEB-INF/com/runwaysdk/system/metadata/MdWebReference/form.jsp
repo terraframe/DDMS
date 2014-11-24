@@ -3,5 +3,5 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
-  <%@include file="../MdWebAttribute/form.jsp" %>
+  <%@include file="../MdWebAttribute/form.jsp" %>  
 </mjl:component>
