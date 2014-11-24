@@ -432,7 +432,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
         WebMultipleTerm wmt = (WebMultipleTerm) field;
 
         // create the relationships between the parent/child objects.
-        JSONArray arr = new JSONArray(field.getValue());
+        JSONArray arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
 
         JSONObject entry = new JSONObject();
         entry.put("mdField", field.getFieldMd().getId());
