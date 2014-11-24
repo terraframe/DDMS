@@ -466,11 +466,11 @@ Y.extend(RunwayMethodDataSource, Y.DataSource.Local, {
           this.that._finalizeRequest(response);          
         }
         
-      },
-      onFailure : function(e){
-        this.that._requestEvent.error = e;
-        this.that.fire("data", this.that._requestEvent);
       }
+//      onFailure : function(e){
+//        this.that._requestEvent.error = e;
+//        this.that.fire("data", this.that._requestEvent);
+//      }
     });
         
     this._containingWidget.dispatchEvent(new PreLoadEvent(null));      
