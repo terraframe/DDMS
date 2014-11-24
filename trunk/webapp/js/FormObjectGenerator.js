@@ -29,6 +29,17 @@ var NewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent
   }
 });
 
+var PostNewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.PostNewInstanceEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function () {
+      this.$initialize();
+    },    
+    defaultAction : function() {
+    }
+  }
+});
+
 var CreateNewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.CreateNewInstanceEvent', {
   Extends : CustomEvent,
   Instance : {
@@ -43,7 +54,7 @@ var CreateNewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.CreateNewI
       
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
-          target.renderFormWithJSON(formObjectJSON);
+          target.newInstanceFromJSON(formObjectJSON);
         }
       });
       
@@ -71,13 +82,16 @@ var DeleteAllEvent = Mojo.Meta.newClass('dss.vector.solutions.DeleteAllEvent', {
       
       this._criteria = criteria;
       this._type = type;
+    },
+    getFormObject : function() {
+      return this._criteria;
     },    
     defaultAction : function() {
       var target = this.getTarget();
       
       var request = new MDSS.Request({
         onSuccess : function(){
-          target.renderViewAll(this._criteria);
+          target.viewAllInstance();
         }
       });
             
@@ -328,6 +342,7 @@ var EditEvent = Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
       
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
+          
           target.renderFormWithJSON(formObjectJSON);
         }        
       });
@@ -1949,7 +1964,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this.createFormObject(formObjectJSON);
       this.renderForm();
     },
-    
+    newInstanceFromJSON : function (formObjectJSON) {     
+      this.dispatchEvent(new PostNewInstanceEvent());
+      
+      this.renderFormWithJSON(formObjectJSON);
+    },       
     /**
      * Renders the create and upate form.
      */
@@ -2144,9 +2163,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this.dispatchEvent(new CreateEvent(this.getFormObject()));
     },
     editInstance : function(e){
-      e.preventDefault(); // prevent a synchronous form submit
-
-      this.dispatchEvent(new EditEvent(this._mdFormId, this.getFormObject()));
+      
+      // prevent a synchronous form submit        
+      if(e != null)
+      {
+        e.preventDefault(); 
+      }
+      
+      this.dispatchEvent(new EditEvent(this._mdFormId, formObject ));
     },
     /**
      * Cancels the creation or update of a FormObject.

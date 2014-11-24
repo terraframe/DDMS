@@ -5,6 +5,7 @@ import java.util.List;
 import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
@@ -40,6 +41,60 @@ public class FormHousehold extends FormHouseholdBase implements com.runwaysdk.ge
     }
 
     return super.buildKey();
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    // Delete all dependent bednets and persons
+    this.deleteBednets();
+
+    this.deletePersons();
+
+    super.delete();
+  }
+
+  private void deletePersons()
+  {
+    FormPersonQuery query = new FormPersonQuery(new QueryFactory());
+    query.WHERE(query.getHousehold().EQ(this));
+
+    OIterator<? extends FormPerson> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        FormPerson person = iterator.next();
+        person.delete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  private void deleteBednets()
+  {
+    FormBedNetQuery query = new FormBedNetQuery(new QueryFactory());
+    query.WHERE(query.getHousehold().EQ(this));
+
+    OIterator<? extends FormBedNet> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        FormBedNet bedNet = iterator.next();
+        bedNet.delete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
   @Override

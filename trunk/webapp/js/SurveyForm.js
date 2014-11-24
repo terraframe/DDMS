@@ -169,49 +169,46 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       this._survey.addEventListener(dss.vector.solutions.RenderFormEvent, Mojo.Util.bind(this, this.surveyRenderFormEvent));
       
       this._household = new dss.vector.solutions.FormObjectGenerator('household', params.householdFormId, params.householdClassType, params.householdFields, params.householdViewAllFields, params.householdSearchFields, params.canDeleteAll);
-      this._household.addEventListener(dss.vector.solutions.NewInstanceEvent, Mojo.Util.bind(this, this.householdNewInstanceEventHandler));  
+      this._household.addEventListener(dss.vector.solutions.PostNewInstanceEvent, Mojo.Util.bind(this, this.householdNewInstanceEventHandler));  
       this._household.addEventListener(dss.vector.solutions.RenderViewEvent, Mojo.Util.bind(this, this.householdRenderViewEventHandler));  
       this._household.addEventListener(dss.vector.solutions.ViewParentEvent, Mojo.Util.bind(this, this.householdViewParentEventHandler));
       this._household.addEventListener(dss.vector.solutions.CreateEvent, Mojo.Util.bind(this, this.householdApplyEventHandler));  
       this._household.addEventListener(dss.vector.solutions.SearchEvent, Mojo.Util.bind(this, this.householdApplyEventHandler));  
       this._household.addEventListener(dss.vector.solutions.UpdateEvent, Mojo.Util.bind(this, this.householdApplyEventHandler));  
-//      this._household.addEventListener(dss.vector.solutions.BeforeQueryEvent, Mojo.Util.bind(this, this.householdBeforeQueryEventHandler));  
+      this._household.addEventListener(dss.vector.solutions.DeleteAllEvent, Mojo.Util.bind(this, this.householdApplyEventHandler));  
       this._household.addEventListener(dss.vector.solutions.DeleteEvent, Mojo.Util.bind(this, this.householdViewParentEventHandler));
       this._household.addEventListener(dss.vector.solutions.CancelEvent, Mojo.Util.bind(this, this.householdCancelEventHandler));
       this._household.addEventListener(dss.vector.solutions.RenderEditFieldEvent, Mojo.Util.bind(this, this.householdRenderEditFieldEventHandler));    
       this._household.addEventListener(dss.vector.solutions.ViewAllEvent, Mojo.Util.bind(this, this.householdViewAllEventHandler));
       this._household.addEventListener(dss.vector.solutions.RenderFormEvent, Mojo.Util.bind(this, this.householdRenderFormEventHandler));  
-      this._household.addEventListener(dss.vector.solutions.PostRenderEditFieldEvent, Mojo.Util.bind(this, this.householdPostRenderEditFieldEventHandler));
       
       this._bedNet = new dss.vector.solutions.FormObjectGenerator('bedNet', params.bedNetFormId, params.bedNetClassType, params.bedNetFields, params.bedNetViewAllFields, params.bedNetSearchFields, params.canDeleteAll);
-      this._bedNet.addEventListener(dss.vector.solutions.NewInstanceEvent, Mojo.Util.bind(this, this.bedNetRenderFormEventHandler));  
+      this._bedNet.addEventListener(dss.vector.solutions.PostNewInstanceEvent, Mojo.Util.bind(this, this.bedNetRenderFormEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.RenderViewEvent, Mojo.Util.bind(this, this.bedNetRenderFormEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.ViewParentEvent, Mojo.Util.bind(this, this.bedNetViewParentEventHandler));
       this._bedNet.addEventListener(dss.vector.solutions.SearchEvent, Mojo.Util.bind(this, this.bedNetApplyEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.CreateEvent, Mojo.Util.bind(this, this.bedNetApplyEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.UpdateEvent, Mojo.Util.bind(this, this.bedNetApplyEventHandler));  
+      this._bedNet.addEventListener(dss.vector.solutions.DeleteAllEvent, Mojo.Util.bind(this, this.bedNetApplyEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.ViewAllEvent, Mojo.Util.bind(this, this.bedNetApplyEventHandler));  
-//      this._bedNet.addEventListener(dss.vector.solutions.BeforeQueryEvent, Mojo.Util.bind(this, this.bedNetBeforeQueryEventHandler));  
       this._bedNet.addEventListener(dss.vector.solutions.DeleteEvent, Mojo.Util.bind(this, this.bedNetViewParentEventHandler));
       this._bedNet.addEventListener(dss.vector.solutions.CancelEvent, Mojo.Util.bind(this, this.bedNetCancelEventHandler));
       this._bedNet.addEventListener(dss.vector.solutions.RenderEditFieldEvent, Mojo.Util.bind(this, this.bedNetRenderEditFieldEventHandler));
       this._bedNet.addEventListener(dss.vector.solutions.RenderViewFieldEvent, Mojo.Util.bind(this, this.bedNetRenderViewFieldEventHandler));
-      this._bedNet.addEventListener(dss.vector.solutions.PostRenderEditFieldEvent, Mojo.Util.bind(this, this.bedNetPostRenderEditFieldEventHandler));  
       
       this._person = new dss.vector.solutions.FormObjectGenerator('person', params.personFormId, params.personClassType, params.personFields, params.personViewAllFields, params.personSearchFields, params.canDeleteAll);
-      this._person.addEventListener(dss.vector.solutions.NewInstanceEvent, Mojo.Util.bind(this, this.personRenderViewEventHandler));  
+      this._person.addEventListener(dss.vector.solutions.PostNewInstanceEvent, Mojo.Util.bind(this, this.personRenderViewEventHandler));  
       this._person.addEventListener(dss.vector.solutions.RenderViewEvent, Mojo.Util.bind(this, this.personRenderViewEventHandler));  
       this._person.addEventListener(dss.vector.solutions.ViewParentEvent, Mojo.Util.bind(this, this.personViewParentEventHandler));
       this._person.addEventListener(dss.vector.solutions.SearchEvent, Mojo.Util.bind(this, this.personApplyEventHandler));  
       this._person.addEventListener(dss.vector.solutions.ViewAllEvent, Mojo.Util.bind(this, this.personApplyEventHandler));  
       this._person.addEventListener(dss.vector.solutions.CreateEvent, Mojo.Util.bind(this, this.personApplyEventHandler));  
       this._person.addEventListener(dss.vector.solutions.UpdateEvent, Mojo.Util.bind(this, this.personApplyEventHandler));  
-//      this._person.addEventListener(dss.vector.solutions.BeforeQueryEvent, Mojo.Util.bind(this, this.personBeforeQueryEventHandler));  
+      this._person.addEventListener(dss.vector.solutions.DeleteAllEvent, Mojo.Util.bind(this, this.personApplyEventHandler));  
       this._person.addEventListener(dss.vector.solutions.DeleteEvent, Mojo.Util.bind(this, this.personViewParentEventHandler));
       this._person.addEventListener(dss.vector.solutions.CancelEvent, Mojo.Util.bind(this, this.personCancelEventHandler));
       this._person.addEventListener(dss.vector.solutions.RenderEditFieldEvent, Mojo.Util.bind(this, this.personRenderEditFieldEventHandler));           
       this._person.addEventListener(dss.vector.solutions.RenderViewFieldEvent, Mojo.Util.bind(this, this.personRenderViewFieldEventHandler));
-      this._person.addEventListener(dss.vector.solutions.PostRenderEditFieldEvent, Mojo.Util.bind(this, this.personPostRenderEditFieldEventHandler));       
     },
     render : function()
     {
@@ -239,19 +236,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       {
         e.preventDefault();
       }      
-    },
-    householdPostRenderEditFieldEventHandler : function(e)
-    {
-      var fieldComponent = e.getFieldComponent();
-      var field = fieldComponent.getField();
-      
-      if(field.getFieldName() == 'householdId')
-      {
-        var inputId = fieldComponent.getInputId();
-        var errorContainerId = fieldComponent.getErrorContainerId();
-      
-        new dss.vector.solutions.FormHouseholdSearch(inputId, errorContainerId);
-      }
     },
     householdViewParentEventHandler : function(e)
     {
@@ -286,19 +270,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
 
       field.setValue(this._survey.getFormObject().getDataId());
     },
-    householdBeforeQueryEventHandler : function(e)
-    {
-      if(this._survey.getFormObject() != null )
-      {
-        var surveyId = this._survey.getFormObject().getDataId();
-        var query = e.getQuery();
-
-        // Reset the existing conditions
-        query.clearConditions();
-      
-        query.addCondition('survey', 'EQ', surveyId);
-      }
-    },
     householdCancelEventHandler : function(e)
     {
       if(e.getFormObject().isNewInstance())
@@ -316,19 +287,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
 
       householdField.setValue(this._household.getFormObject().getDataId());
       surveyField.setValue(this._survey.getFormObject().getDataId());
-    },
-    bedNetBeforeQueryEventHandler : function(e)
-    {
-      if(this._household.getFormObject() != null)
-      {
-        var householdId = this._household.getFormObject().getDataId();
-        var query = e.getQuery();
-
-        // Reset the existing conditions
-        query.clearConditions();
-        
-        query.addCondition('household', 'EQ', householdId);
-      }
     },
     bedNetCancelEventHandler : function(e)
     {
@@ -356,17 +314,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
         e.preventDefault();
       }
     },
-    bedNetPostRenderEditFieldEventHandler : function(e)
-    {
-      var fieldComponent = e.getFieldComponent();
-      var field = fieldComponent.getField();
-      
-      if(field.getFieldName() == 'netId')
-      {
-        // add generic ajax search
-        new dss.vector.solutions.FormBedNetSearch(fieldComponent.getInputId(), fieldComponent.getErrorContainerId());
-      }
-    },    
     bedNetRenderViewFieldEventHandler : function(e)
     {
       var fieldName = e.getField().getFieldName();
@@ -385,19 +332,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
 
       householdField.setValue(this._household.getFormObject().getDataId());
       surveyField.setValue(this._survey.getFormObject().getDataId());
-    },
-    personBeforeQueryEventHandler : function(e)
-    {
-      if(this._household.getFormObject() != null)
-      {
-        var householdId = this._household.getFormObject().getDataId();
-        var query = e.getQuery();
-
-        // Reset the existing conditions
-        query.clearConditions();
-          
-        query.addCondition('household', 'EQ', householdId);
-      }
     },
     personCancelEventHandler : function(e)
     {
@@ -482,17 +416,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
         }
       }
     },
-    personPostRenderEditFieldEventHandler : function(e)
-    {
-      var fieldComponent = e.getFieldComponent();
-      var field = fieldComponent.getField();
-      
-      if(field.getFieldName() == 'personId')
-      {
-        // add generic ajax search
-        new dss.vector.solutions.FormPersonSearch(fieldComponent.getInputId(), fieldComponent.getErrorContainerId());
-      }
-    },    
     personRenderViewFieldEventHandler : function(e)
     {
       var fieldName = e.getField().getFieldName();

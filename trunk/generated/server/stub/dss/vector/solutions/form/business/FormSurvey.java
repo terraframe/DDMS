@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -41,6 +42,31 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
   public FormSurvey()
   {
     super();
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    FormHouseholdQuery query = new FormHouseholdQuery(new QueryFactory());
+    query.WHERE(query.getSurvey().EQ(this));
+
+    OIterator<? extends FormHousehold> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        FormHousehold household = iterator.next();
+        household.delete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    super.delete();
   }
 
   @Override

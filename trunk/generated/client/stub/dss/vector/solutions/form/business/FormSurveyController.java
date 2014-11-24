@@ -9,14 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.constants.MdAttributeInfo;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
-import com.runwaysdk.system.metadata.MdAttributeDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
 import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebReferenceDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 
 import dss.vector.solutions.MDSSUserDTO;
@@ -257,7 +256,7 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
           viewAllFields.put(attributeName);
         }
 
-        if ( ( attribute.getShowOnSearch() == null || attribute.getShowOnSearch() ) && ! ( field instanceof MdWebMultipleTermDTO ) && ! ( field instanceof MdWebSingleTermGridDTO ))
+        if ( ( attribute.getShowOnSearch() == null || attribute.getShowOnSearch() ) && ! ( field instanceof MdWebMultipleTermDTO ) && ! ( field instanceof MdWebSingleTermGridDTO ) && ! ( field instanceof MdWebReferenceDTO ))
         {
           searchFields.put(field.getFieldName());
         }
