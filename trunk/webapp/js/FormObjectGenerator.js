@@ -2170,7 +2170,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         e.preventDefault(); 
       }
       
-      this.dispatchEvent(new EditEvent(this._mdFormId, formObject ));
+      this.dispatchEvent(new EditEvent(this._mdFormId, this.getFormObject() ));
     },
     /**
      * Cancels the creation or update of a FormObject.
