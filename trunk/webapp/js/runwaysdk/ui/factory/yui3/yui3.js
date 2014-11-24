@@ -387,6 +387,7 @@ var RunwayMethodDataSource = function(type, method, containingWidget) {
   this._method = method;
   this._taskQueue = new STRUCT.TaskQueue();
   this._requestEvent = null;
+  this._factory = null;  
   this._metadataLoaded = false;
   
   // query attributes
@@ -414,6 +415,11 @@ Y.extend(RunwayMethodDataSource, Y.DataSource.Local, {
     this._pageSize = 20;
     this._sortAttribute = null;
     this._ascending = true;
+  },
+  
+  setRequestFactory : function (factory)
+  {
+    this._factory = factory;
   },
   
   setCriteria : function(criteria)
@@ -451,7 +457,7 @@ Y.extend(RunwayMethodDataSource, Y.DataSource.Local, {
   },  
   _getResultSet : function(){
     
-    var clientRequest = new Mojo.ClientRequest({
+    var config = {
       that : this,
       onSuccess : function(response)
       {        
@@ -464,14 +470,11 @@ Y.extend(RunwayMethodDataSource, Y.DataSource.Local, {
         else
         {
           this.that._finalizeRequest(response);          
-        }
-        
+        }        
       }
-//      onFailure : function(e){
-//        this.that._requestEvent.error = e;
-//        this.that.fire("data", this.that._requestEvent);
-//      }
-    });
+    };
+    
+    var clientRequest = (this._factory != null) ? this._factory(config) : new Mojo.ClientRequest(config);
         
     this._containingWidget.dispatchEvent(new PreLoadEvent(null));      
     
@@ -668,6 +671,10 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
     resetDataTable : function(){
       this._dataSource.resetQuery();
       this.load();
+    },
+    setRequestFactory : function (factory)
+    {
+      this._dataSource.setRequestFactory(factory);
     },
     _selectPage : function(e){
       var page = this._pages.get(e.target.get('id'));

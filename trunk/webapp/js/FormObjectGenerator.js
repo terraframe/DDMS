@@ -484,8 +484,7 @@ var SearchEvent = Mojo.Meta.newClass('dss.vector.solutions.SearchEvent', {
     defaultAction : function() {
       var target = this.getTarget();
       
-      target._updateValues(this._formObject);
-      
+      target._updateValues(this._formObject);      
       target._table.setCriteria(this._formObject)      
       target._table.resetDataTable();      
     }
@@ -1717,6 +1716,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeDateDTO', Mojo.Util.bind(this, this.dateColumnFormatter));
       this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeNumberDTO', Mojo.Util.bind(this, this.numberColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);
+      this._table.setRequestFactory(function(config) { return new MDSS.Request(config)});
       
       this._Y = YUI().use('*'); // YUI3 reference
       this._newInstanceCommand = this._Y.one('#'+ prefix +this.constructor.NEW_INSTANCE_COMMAND);
