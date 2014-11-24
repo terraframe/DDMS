@@ -1713,8 +1713,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var method = dss.vector.solutions.form.FormObjectController.searchInstance;
       
       this._table = this.getFactory().newDataTable(this._mdClassType, {method:method, preColumns:[col], columns: fields, filter: filter});
-      this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeDateDTO', Mojo.Util.bind(this, this.dateColumnFormatter));
-      this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeNumberDTO', Mojo.Util.bind(this, this.numberColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDate', Mojo.Util.bind(this, this.dateColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDecimal', Mojo.Util.bind(this, this.numberColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDouble', Mojo.Util.bind(this, this.numberColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeFloat', Mojo.Util.bind(this, this.numberColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeLong', Mojo.Util.bind(this, this.numberColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeInteger', Mojo.Util.bind(this, this.numberColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);
       this._table.setRequestFactory(function(config) { return new MDSS.Request(config)});
       
