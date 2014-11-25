@@ -4,6 +4,7 @@
 package dss.vector.solutions.form;
 
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.dataaccess.metadata.MdFieldDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
@@ -75,9 +76,19 @@ public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements
   @Override
   protected void create()
   {
+    boolean isComposite = this.getMdWebForm() == null && this.mdWebSingleTermGrid != null;
+
+    if (isComposite)
+    {
+      this.setupAndValidateMdField();
+
+      MdWebPrimitive mdField = this.getMdField();
+      mdField.setKeyName(MdFieldDAO.buildKey(mdWebSingleTermGrid.getKey(), mdField.getFieldName()));
+    }
+
     super.create();
 
-    if (this.getMdWebForm() == null && this.mdWebSingleTermGrid != null)
+    if (isComposite)
     {
       mdWebSingleTermGrid.addMdFields(this.getMdField()).apply();
     }

@@ -2097,23 +2097,34 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         // grids don't have a standard presense in the form as inputs
         else if(field instanceof FIELD.WebSingleTermGrid)
         {
-          var rows = field.getGrid().getModel().getRows();
-          for(var j=0; j<rows.length; j++)
-          {
-            var row = rows[j];
-            var cols =  Mojo.Util.getKeys(row, true);
-            for(var k=0; k<cols.length; k++)
+          var grid = field.getGrid();
+          
+          if(grid != null)
+          {            
+            var rows = grid.getModel().getRows();
+            for(var j=0; j<rows.length; j++)
             {
-              var col = cols[k];
-              var val = row[col];
-              if(!Mojo.Util.isValid(val) || (Mojo.Util.isNumber(val) && isNaN(val)))
+              var row = rows[j];
+              var cols =  Mojo.Util.getKeys(row, true);
+              for(var k=0; k<cols.length; k++)
               {
-                delete row[col]; // removes it from the row to avoid a "null" string as the value
+                var col = cols[k];
+                var val = row[col];
+                if(!Mojo.Util.isValid(val) || (Mojo.Util.isNumber(val) && isNaN(val)))
+                {
+                  delete row[col]; // removes it from the row to avoid a "null" string as the value
+                }
               }
             }
+            
+            var json = Mojo.Util.toJSON(rows);
+            field.setValue(json);
           }
-          var json = Mojo.Util.toJSON(rows);
-          field.setValue(json);
+          else
+          {
+            var json = Mojo.Util.toJSON([]);
+            field.setValue(json);
+          }
         }
       }
       

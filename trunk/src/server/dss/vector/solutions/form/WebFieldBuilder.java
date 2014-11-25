@@ -85,7 +85,7 @@ public abstract class WebFieldBuilder implements Reloadable
   }
 
   @AbortIfProblem
-  private void convertDisplayLabelToFieldName(MdField mdField)
+  protected void convertDisplayLabelToFieldName(MdField mdField)
   {
     String displayLabel = mdField.getDisplayLabel().getValue();
     String fieldName = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
