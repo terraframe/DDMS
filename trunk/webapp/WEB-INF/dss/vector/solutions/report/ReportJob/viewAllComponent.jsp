@@ -164,6 +164,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
      
      "stopped" : MDSS.localize("Stopped"),
      "status" : MDSS.localize("Status"),
+     "clearHistory" : MDSS.localize("clearHistory")
    });
    
    com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.CronPicker', {

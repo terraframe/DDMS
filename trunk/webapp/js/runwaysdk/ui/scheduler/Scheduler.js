@@ -119,7 +119,7 @@
       
       initialize : function(config, scheduler) {
         
-        this.$initialize("table");
+        this.$initialize("div");
         
         this._config = config;
         this._scheduler = scheduler;
@@ -366,10 +366,14 @@
             } }
           ]
         });
+        this._config.dataSource = ds;
+        
+        // Create the element that will contain the DataTable
+        var tableEl = this.getFactory().newElement("table");
+        this.appendChild(tableEl);
+        this._config.el = tableEl;
         
         // Create the DataTable impl
-        this._config.el = this;
-        this._config.dataSource = ds;
         this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';
         this._table = this.getFactory().newDataTable(this._config);
         
@@ -432,7 +436,7 @@
         
         com.runwaysdk.system.scheduler.JobHistory.clearHistory(new Mojo.ClientRequest({
           onSuccess : function() {
-            
+            that._clearHistoryBusy.addClassName("scheduler_small_busy_spinner");
           },
           onFailure : function(ex) {
             that.handleException(ex);
@@ -442,12 +446,31 @@
       
       createClearHistoryButton : function()
       {
-        var but = this.getFactory().newButton(this.localize("clearHistory"), Mojo.Util.bind(this, this._onClickClearHistory));
+        var container = this.getFactory().newElement("div");
         
-//        but.addClassName("btn btn-primary");
+        var but = this.getFactory().newButton(this._config.language["clearHistory"], Mojo.Util.bind(this, this._onClickClearHistory));
         but.setStyle("margin-bottom", "20px");
+        container.appendChild(but);
         
-        this.appendChild(but);
+        this._clearHistoryBusy = this.getFactory().newElement("div");
+        container.appendChild(this._clearHistoryBusy);
+        
+        this.appendChild(container);
+      },
+      
+      formatDuration : function(view)
+      {
+        var end = view.getEndTime();
+        
+        if (end == null)
+        {
+//          end = new Date();
+          
+          // The dates coming from the server are not in military time, yet we don't know if they're AM or PM.
+          return "";
+        }
+        
+        return ((end - view.getStartTime()) / 1000) + " " + this._config.language["seconds"] + ".";;
       },
       
       render : function(parent)
@@ -464,7 +487,7 @@
                      {queryAttr: "startTime", customFormatter: function(view) { return  MDSS.Calendar.getLocalizedDateTime(view.getStartTime()); }},
                      {queryAttr: "status", customFormatter: function(view){ return view.getStatusLabel(); }},
                      {queryAttr: "jobId"},
-                     {header: that._config.language["duration"], customFormatter: function(view) { return ((view.getEndTime() - view.getStartTime()) / 1000) + " " + that._config.language["seconds"] + "."; }},
+                     {header: that._config.language["duration"], customFormatter: Mojo.Util.bind(that, that.formatDuration)},
                      {queryAttr: "description"},
                      {header: that._config.language["problems"], customFormatter : function(view) {
                        // This may be a workaround to a bug in runway, the value isn't getting set to the localized value.
@@ -473,26 +496,32 @@
                      }}
                     ]
         });
+        this._config.dataSource = ds;
         
         // Sort by descending LastRun time.
         ds.setSortColumn(0);
         ds.setAscending(true);
         
-        // Create the DataTable impl
+        // Create the element that will contain the DataTable
+        var tableEl = this.getFactory().newElement("table");
+        this.appendChild(tableEl);
+        this._config.el = tableEl;
+        
+        // Change some DataTables.net settings
         this._config["iDisplayLength"] = 5;
-        this._config.el = this;
-        this._config.dataSource = ds;
-        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';        
+        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';
+        
+        // Create the DataTable impl
         this._table = this.getFactory().newDataTable(this._config);
         this._table.render(parent);
         
         this._pollingRequest = new com.runwaysdk.ui.PollingRequest({
           callback: {
             onSuccess: function(data) {
-              
+              that._clearHistoryBusy.removeClassName("scheduler_small_busy_spinner");
             },
             onFailure: function(ex) {
-              that.handleException(ex);
+//              that.handleException(ex);
             }
           },
           performRequest : function(callback) {

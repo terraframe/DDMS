@@ -24,16 +24,9 @@ public class ReportJob extends ReportJobBase implements com.runwaysdk.generation
     ReportItem item = this.getReportItem();
     item.lock();
 
-    
     try
     {
-      Thread.sleep(5000); // FIXME : REMOVE THIS LINE!!
-      
       item.generateAndSaveDocument(new ReportParameter[] {});
-    }
-    catch (InterruptedException e)
-    {
-      throw new RuntimeException(e);
     }
     finally
     {
