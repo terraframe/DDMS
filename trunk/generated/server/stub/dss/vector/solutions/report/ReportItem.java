@@ -289,7 +289,6 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
         job.lock();
       }
 
-      job.setPauseable(false);
       job.setJobId(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
       job.getDescription().setValue(this.getReportLabel().getValue() + " [" + this.getOutputFormat().get(0).getDisplayLabel() + "]");
       job.setWorkTotal(1);

@@ -640,19 +640,36 @@ var HtmlElement = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'HTMLElement', {
     getChildren : function()
     {
       var fac = RUNWAY_UI.Manager.getFactory();
-      var ret = [];
+      var compositeNodes = this._components.values();
+      var domNodes = RUNWAY_UI.DOMFacade.getChildren(this.getRawNode());
       
-      var nodes = RUNWAY_UI.DOMFacade.getChildren(this.getRawNode());
-      for (var i = 0; i < nodes.length; ++i) {
-        if (nodes[i].___runwaysdk_wrapper != null) {
-          ret.push(nodes[i].___runwaysdk_wrapper);
-        }
-        else {
-          ret.push(fac.newElement(nodes[i]));
+      // Verify that our composite children are still the same as our DOM children.
+      var areDifferent = compositeNodes.length != domNodes.length;
+      if (!areDifferent) {
+        for (var i = 0; i < domNodes.length; ++i) {
+          if (!(compositeNodes[i] instanceof Element) || !(domNodes[i] === compositeNodes[i].getRawEl())) {
+            areDifferent = true;
+            break;
+          }
         }
       }
       
-      return ret;
+      if (areDifferent) {
+        // Wrap the dom nodes and replace our underlying components.
+        var wrapped = [];
+        for (var i = 0; i < domNodes.length; ++i) {
+          wrapped.push(fac.newElement(domNodes[i]));
+        }
+        
+        this._components = new com.runwaysdk.structure.LinkedHashMap(wrapped);
+        return wrapped;
+      }
+      
+      return compositeNodes;
+    },
+    click : function()
+    {
+      this.getRawNode().click();
     },
     destroy : function()
     {

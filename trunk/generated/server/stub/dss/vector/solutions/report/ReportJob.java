@@ -6,6 +6,7 @@ import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.scheduler.ExecutionContext;
+import com.runwaysdk.system.scheduler.JobHistory;
 
 @DisallowConcurrentExecution
 public class ReportJob extends ReportJobBase implements com.runwaysdk.generation.loader.Reloadable
@@ -23,9 +24,16 @@ public class ReportJob extends ReportJobBase implements com.runwaysdk.generation
     ReportItem item = this.getReportItem();
     item.lock();
 
+    
     try
     {
+      Thread.sleep(5000); // FIXME : REMOVE THIS LINE!!
+      
       item.generateAndSaveDocument(new ReportParameter[] {});
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
     }
     finally
     {
@@ -56,9 +64,9 @@ public class ReportJob extends ReportJobBase implements com.runwaysdk.generation
   }
 
   @Authenticate
-  public synchronized void start()
+  public synchronized JobHistory start()
   {
-    super.start();
+    return super.start();
   }
 
   @Authenticate

@@ -47,6 +47,9 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.scheduler.AllJobStatus;
+import com.runwaysdk.system.scheduler.JobHistoryQuery;
+import com.runwaysdk.system.scheduler.JobHistoryRecordQuery;
 import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.MDSSUser;
@@ -78,20 +81,31 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     return this.getMapName();
   }
+  
+  private void ensureNotBeingUsed()
+  {
+    // Ensure that the saved map is not currently being used in a running cycle job
+    QueryFactory qf = new QueryFactory();
+    CycleJobQuery cjq = new CycleJobQuery(qf);
+    JobHistoryQuery jhq = new JobHistoryQuery(qf);
+    JobHistoryRecordQuery jhrq = new JobHistoryRecordQuery(qf);
+    
+    jhq.WHERE(jhq.getStatus().containsExactly(AllJobStatus.RUNNING));
+    jhrq.WHERE(jhrq.hasChild(jhq));
+    cjq.WHERE(cjq.getSavedMap().EQ(this));
+    cjq.AND(cjq.getId().EQ(jhrq.parentId()));
+    
+    if (cjq.getCount() > 0)
+    {
+      throw new MapInUseException();
+    }
+  }
 
   @Override
   @Transaction
   public void delete()
   {
-    // Ensure that the saved map is not currently being used in a running cycle job
-    CycleJobQuery query = new CycleJobQuery(new QueryFactory());
-    query.WHERE(query.getSavedMap().EQ(this));
-    query.AND(query.getRunning().EQ(true));
-
-    if (query.getCount() > 0)
-    {
-      throw new MapInUseException();
-    }
+    ensureNotBeingUsed();
 
     /*
      * Delete all of the saved images
@@ -444,15 +458,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
     else
     {
-      // Ensure that the saved map is not currently being used in a running cycle job
-      CycleJobQuery query = new CycleJobQuery(new QueryFactory());
-      query.WHERE(query.getSavedMap().EQ(this));
-      query.AND(query.getRunning().EQ(true));
-
-      if (query.getCount() > 0)
-      {
-        throw new MapInUseException();
-      }
+      ensureNotBeingUsed();
 
       // If saved elements exist for the saved map delete them so they can be
       // copied from the default without being duplicated

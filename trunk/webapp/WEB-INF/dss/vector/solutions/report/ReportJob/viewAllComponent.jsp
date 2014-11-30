@@ -1,8 +1,10 @@
 <%@page import="dss.vector.solutions.query.CycleJobDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.JobHistoryViewDTO"%>
+<%@page import="com.runwaysdk.system.scheduler.JobHistoryDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.QualifiedTypeJobDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.ExecutableJobDescriptionDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.ExecutableJobDTO"%>
+<%@page import="com.runwaysdk.system.scheduler.AllJobStatusDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.report.ReportJobDTO"%>
@@ -90,7 +92,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
 </style>
 
 <%
-    String[] types = new String[]{CycleJobDTO.CLASS, ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS, QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS};
+    String[] types = new String[]{AllJobStatusDTO.CLASS, CycleJobDTO.CLASS, ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS, QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS, JobHistoryDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(types));

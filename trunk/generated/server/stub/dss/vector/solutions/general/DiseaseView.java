@@ -514,7 +514,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
     }
 
     alreadyCloned.add(existing.getKeyName());
-    cache.put(term.getName(), term);
+    cache.put(term.getName(), term); // TODO : Why is this cache using term.getName() ? That isn't guaranteed to be unique.
   }
 
   private String getNewTermId(Disease concrete, Term existing)

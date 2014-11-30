@@ -1,11 +1,8 @@
 package dss.vector.solutions.query;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -20,7 +17,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -40,6 +36,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.scheduler.ExecutionContext;
+import com.runwaysdk.system.scheduler.JobHistory;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.util.IDGenerator;
 
@@ -630,9 +627,9 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   }
 
   @Authenticate
-  public synchronized void start()
+  public synchronized JobHistory start()
   {
-    super.start();
+    return super.start();
   }
 
   @Authenticate
