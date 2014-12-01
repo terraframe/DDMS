@@ -27,8 +27,8 @@
   var schedulerPackage = Mojo.Meta.alias("com.runwaysdk.ui.scheduler.*");
   
   // In miliseconds
-  var JOBS_POLLING_INTERVAL = 1000;
-  var HISTORY_POLLING_INTERVAL = 6000;
+  var JOBS_POLLING_INTERVAL = 6000;
+  var HISTORY_POLLING_INTERVAL = 1000;
 
   var JOB_QUERY_TYPE = "com.runwaysdk.system.scheduler.ExecutableJob";
   var HISTORY_QUERY_TYPE = "com.runwaysdk.system.scheduler.JobHistory";
@@ -434,12 +434,15 @@
       {
         var that = this;
         
+        that._clearHistoryBusy.addClassName("scheduler_small_busy_spinner");
+        
         com.runwaysdk.system.scheduler.JobHistory.clearHistory(new Mojo.ClientRequest({
           onSuccess : function() {
-            that._clearHistoryBusy.addClassName("scheduler_small_busy_spinner");
+            
           },
           onFailure : function(ex) {
             that.handleException(ex);
+            that._clearHistoryBusy.removeClassName("scheduler_small_busy_spinner");
           }
         }));
       },
@@ -464,10 +467,10 @@
         
         if (end == null)
         {
-//          end = new Date();
+          end = new Date();
           
           // The dates coming from the server are not in military time, yet we don't know if they're AM or PM.
-          return "";
+//          return "";
         }
         
         return ((end - view.getStartTime()) / 1000) + " " + this._config.language["seconds"] + ".";;
@@ -500,7 +503,7 @@
         
         // Sort by descending LastRun time.
         ds.setSortColumn(0);
-        ds.setAscending(true);
+        ds.setAscending(false);
         
         // Create the element that will contain the DataTable
         var tableEl = this.getFactory().newElement("table");
@@ -508,7 +511,7 @@
         this._config.el = tableEl;
         
         // Change some DataTables.net settings
-        this._config["iDisplayLength"] = 5;
+//        this._config["iDisplayLength"] = 5;
         this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';
         
         // Create the DataTable impl
