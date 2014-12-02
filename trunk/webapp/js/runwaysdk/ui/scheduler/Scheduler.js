@@ -468,9 +468,6 @@
         if (end == null)
         {
           end = new Date();
-          
-          // The dates coming from the server are not in military time, yet we don't know if they're AM or PM.
-//          return "";
         }
         
         return ((end - view.getStartTime()) / 1000) + " " + this._config.language["seconds"] + ".";;

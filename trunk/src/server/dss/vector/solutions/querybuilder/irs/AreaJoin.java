@@ -126,7 +126,14 @@ public class AreaJoin extends TargetJoin implements Reloadable
   
   public String getLevel()
   {
-    return "3";
+    if (hasActual)
+    {
+      return null; // Default behavior is to grab it from the actuals
+    }
+    else
+    {
+      return "3";
+    }
   }
 
   // JN change

@@ -69,8 +69,16 @@ public class OperatorJoin extends TargetJoin implements Reloadable
     }
   }
   
-  public String getLevel() {
-    return "1";
+  public String getLevel()
+  {
+    if (hasActual)
+    {
+      return null; // Default behavior is to grab it from the actuals
+    }
+    else
+    {
+      return "1";
+    }
   }
   
   @Override

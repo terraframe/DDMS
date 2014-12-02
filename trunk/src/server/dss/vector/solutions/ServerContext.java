@@ -970,13 +970,13 @@ public class ServerContext
     /*
      * SUMMING AREA PLANNED TARGETS WITH GEO INCLUDES
      */
-    sql += "-- geoIncludes is an array specifying which geo entities to include in the rollup.\n" + 
+    sql += "CREATE OR REPLACE FUNCTION ddms.get_area_target_by_id_tar_geos(_geo_target_id character varying, _target_column character varying, _disease character varying, _season character varying, _geoincludes character[])\n" + 
+        "  RETURNS integer AS\n" + 
+        "  \n" + 
+        "-- geoIncludes is an array specifying which geo entities to include in the rollup.\n" + 
         "-- These geoentities must be in the descendants heirarchy and only data contained\n" + 
         "-- within them will be rolled into the target.\n" + 
-        "CREATE OR REPLACE FUNCTION ddms.get_area_target_by_id_tar_geos(_geo_target_id character varying,\n" + 
-        "                                                       _target_column character varying, _disease character varying,\n" + 
-        "                                                       _season character varying, _geoIncludes character[])\n" + 
-        "  RETURNS integer AS\n" + 
+        "\n" + 
         "$BODY$ \n" + 
         "DECLARE \n" + 
         "  _target  INT;\n" + 
@@ -984,6 +984,7 @@ public class ServerContext
         " _sql VARCHAR;\n" + 
         " rec record;\n" + 
         " _week INT;\n" + 
+        " _matchesGeoIncludes BOOLEAN;\n" + 
         " _shouldAdd BOOLEAN;\n" + 
         "BEGIN \n" + 
         "\n" + 
@@ -1005,16 +1006,19 @@ public class ServerContext
         "\n" + 
         "  _week = _target_column::integer; \n" + 
         "  \n" + 
-        "  -- Get the value from the cache if it exists\n" + 
-        "  SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n" + 
-        "  IF _target IS NOT NULL THEN \n" + 
-        "    RETURN _target; \n" + 
-        "  END IF; \n" + 
-        "  \n" + 
-        "  -- Get the value directly from the geo_target table, if it exists\n" + 
-        "  EXECUTE 'SELECT target_'|| _target_Column ||' FROM geo_target WHERE geo_entity = '|| quote_literal(_geo_target_id) \n" + 
-        "    || ' AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) \n" + 
-        "  INTO _target;\n" + 
+        "  -- Is the provided GeoEntity a match with our geoIncludes?\n" + 
+        "  IF EXISTS (SELECT (1) AS geoExistsConstant FROM allpaths_geo ap WHERE ap.child_geo_entity = _geo_target_id AND _geoIncludes @> ARRAY[ap.parent_geo_entity]) THEN\n" + 
+        "        -- Get the value from the cache if it exists\n" + 
+        "        SELECT target FROM apt_cached WHERE id = _geo_target_id AND week = _week AND season = _season AND disease = _disease INTO _target; \n" + 
+        "        IF _target IS NOT NULL THEN \n" + 
+        "            RETURN _target; \n" + 
+        "        END IF; \n" + 
+        "    \n" + 
+        "        -- Get the value directly from the geo_target table, if it exists\n" + 
+        "        EXECUTE 'SELECT target_'|| _target_Column ||' FROM geo_target WHERE geo_entity = '|| quote_literal(_geo_target_id) \n" + 
+        "            || ' AND season = ' || quote_literal(_season) || ' AND disease = ' || quote_literal(_disease) \n" + 
+        "        INTO _target;\n" + 
+        "  END IF;\n" + 
         "  \n" + 
         "  -- Calculate the value as the sum of its children\n" + 
         "  IF _target IS NULL THEN\n" + 
@@ -1025,10 +1029,15 @@ public class ServerContext
         "    FOR  rec IN EXECUTE _sql LOOP\n" + 
         "      _shouldAdd = false;\n" + 
         "      \n" + 
+        "      -- We need to decide whether or not this child should be summed into the APT or not, based on the geo includes\n" + 
+        "      -- 1) child is a geoInclude : add it to the APT\n" + 
         "      IF _geoIncludes @> ARRAY[rec.child_id] THEN\n" + 
         "        _shouldAdd = true;\n" + 
-        "      ELSIF (EXISTS (SELECT (1) AS geoExistsConstant FROM allpaths_geo ap\n" + 
-        "        WHERE ap.child_geo_entity = rec.child_id AND _geoIncludes @> ARRAY[ap.parent_geo_entity])) THEN\n" + 
+        "      -- 2) child is a child of a geoInclude : add it to the APT\n" + 
+        "      ELSIF (EXISTS (SELECT (1) AS geoExistsConstant FROM allpaths_geo ap WHERE ap.child_geo_entity = rec.child_id AND _geoIncludes @> ARRAY[ap.parent_geo_entity])) THEN\n" + 
+        "        _shouldAdd = true;\n" + 
+        "      -- 3) geoInclude is a child of our child (rec). We don't want to add the APT of child to the APT, but we may be adding some of its children to the APT. Loop over its children.\n" + 
+        "      ELSIF (EXISTS (SELECT (1) AS geoExistsConstant FROM allpaths_geo ap WHERE ap.parent_geo_entity = rec.child_id AND _geoIncludes @> ARRAY[ap.child_geo_entity])) THEN\n" + 
         "        _shouldAdd = true;\n" + 
         "      END IF;\n" + 
         "      \n" + 
@@ -1041,7 +1050,7 @@ public class ServerContext
         "  RETURN _target; \n" + 
         "END; \n" + 
         "$BODY$\n" + 
-        "  LANGUAGE plpgsql VOLATILE\n";
+        "  LANGUAGE plpgsql VOLATILE";
 
     return sql;
   }

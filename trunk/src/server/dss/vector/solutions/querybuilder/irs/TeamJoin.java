@@ -28,8 +28,16 @@ public class TeamJoin extends TargetJoin implements Reloadable
     this.irsQB.addRequiredAlias(View.PLANNED_TEAM, joinAliases);
   }
   
-  public String getLevel() {
-    return "2";
+  public String getLevel()
+  {
+    if (hasActual)
+    {
+      return null; // Default behavior is to grab it from the actuals
+    }
+    else
+    {
+      return "2";
+    }
   }
   
   public final String FROM()
