@@ -39,7 +39,30 @@ public class EntomologyQB extends AbstractQB implements Reloadable
   @Override
   protected String getAuditClassAlias()
   {
-    return InfectionAssay.CLASS;
+    if (this.getQueryMap().containsKey(InfectionAssay.CLASS))
+    {
+      return InfectionAssay.CLASS;
+    }
+    else if (this.getQueryMap().containsKey(PooledInfectionAssay.CLASS))
+    {
+      return PooledInfectionAssay.CLASS;
+    }
+    else if (this.getQueryMap().containsKey(MolecularAssay.CLASS))
+    {
+      return MolecularAssay.CLASS;
+    }
+    else if (this.getQueryMap().containsKey(MosquitoCollection.CLASS))
+    {
+      return MosquitoCollection.CLASS;
+    }
+    else if (this.getQueryMap().containsKey(BiochemicalAssay.CLASS))
+    {
+      return BiochemicalAssay.CLASS;
+    }
+    else
+    {
+      return this.getQueryMap().keySet().iterator().next();
+    }
   }
 
   @Override
