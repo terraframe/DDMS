@@ -1393,7 +1393,7 @@ public abstract class AbstractQB implements Reloadable
     {
       String windowCount = "count(*) over()";
       SelectableSQLLong c = v.isGrouping() ? v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) : v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
-
+      
       v.SELECT(c);
       v.setCountSelectable(c);
     }

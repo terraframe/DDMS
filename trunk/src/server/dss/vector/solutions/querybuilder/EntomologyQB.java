@@ -30,6 +30,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class EntomologyQB extends AbstractQB implements Reloadable
 {
+  
+  private boolean dontAddCount = false;
 
   public EntomologyQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
@@ -118,10 +120,19 @@ public class EntomologyQB extends AbstractQB implements Reloadable
     if (unionQueries.size() > 1)
     {
       valueQuery = new ValueQuery(queryFactory);
+      dontAddCount = true;
       valueQuery.UNION(unionQueries.toArray(new ValueQuery[unionQueries.size()]));
     }
-
+    
     return valueQuery;
+  }
+  
+  @Override
+  protected void addCountSelectable(ValueQuery v)
+  {
+    if (dontAddCount) { return; }
+    
+    super.addCountSelectable(v);
   }
 
 }
