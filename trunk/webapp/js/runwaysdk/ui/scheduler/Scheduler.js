@@ -434,11 +434,12 @@
       {
         var that = this;
         
+        that._hasClearHistoryRequestReturned = false;
         that._clearHistoryBusy.addClassName("scheduler_small_busy_spinner");
         
         com.runwaysdk.system.scheduler.JobHistory.clearHistory(new Mojo.ClientRequest({
           onSuccess : function() {
-            
+            that._hasClearHistoryRequestReturned = true;
           },
           onFailure : function(ex) {
             that.handleException(ex);
@@ -509,7 +510,7 @@
         
         // Change some DataTables.net settings
 //        this._config["iDisplayLength"] = 5;
-        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">';
+        this._config.sDom = '<"top"i>rt<"bottom"lp><"clear">'; // TODO : This statement hides a (datatables.net) search bar that isn't hooked up yet.
         
         // Create the DataTable impl
         this._table = this.getFactory().newDataTable(this._config);
@@ -518,7 +519,10 @@
         this._pollingRequest = new com.runwaysdk.ui.PollingRequest({
           callback: {
             onSuccess: function(data) {
-              that._clearHistoryBusy.removeClassName("scheduler_small_busy_spinner");
+              if (that._hasClearHistoryRequestReturned)
+              {
+                that._clearHistoryBusy.removeClassName("scheduler_small_busy_spinner");
+              }
             },
             onFailure: function(ex) {
 //              that.handleException(ex);
