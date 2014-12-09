@@ -40,3 +40,7 @@
 <mjl:commandLink action="dss.vector.solutions.irs.SprayTeamController.newInstance.mojo" name="SprayTeamController.newInstance">
 <mdss:localize key="Create_a_new_Spray_Team" />
 </mjl:commandLink>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.irs.SprayTeamExcelView" name="excelType"/>
+</jsp:include>

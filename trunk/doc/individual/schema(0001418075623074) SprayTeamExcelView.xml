@@ -1,0 +1,20 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView name="dss.vector.solutions.irs.SprayTeamExcelView">
+        <attributes>
+          <virtual concrete="teamId" type="dss.vector.solutions.irs.SprayTeam" required="true" />
+          <reference name="sprayZone" label="Geo Entity" type="dss.vector.solutions.geo.generated.SprayZone" required="false" />
+          <char name="teamLeaderId" label="Team Leader Id" size="255" required="false" />
+          <char name="operatorId" label="Operator Id" size="255" required="false" />
+        </attributes>
+      </mdView>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.irs.SprayTeamExcelView" type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+  </undoIt>
+</version>
