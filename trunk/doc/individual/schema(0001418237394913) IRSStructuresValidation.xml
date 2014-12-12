@@ -1,0 +1,64 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <object
+        type="dss.vector.solutions.Property"
+        key="irsValidateMultipleStructures">
+        <attribute
+          name="propertyName"
+          value="irsValidateMultipleStructures" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Allow multiple structures per row?" />
+        </attributeStruct>
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.irs" />
+        <attribute
+          name="propertyValue"
+          value="false" />
+        <attribute
+          name="propertyType"
+          value="Boolean" />
+        <attribute
+          name="propertyValidator"
+          value="^(true|false)$" />
+        <attribute
+          name="validValues"
+          value="true,false" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="If set to true, structures and structures sprayed can be any positive number. If set to false they can only be 0 or 1." />
+        </attributeStruct>
+      </object>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.irs.HouseholdSprayStatus">
+        <create>
+          <mdMethod name="setProperty" static="true" label="setProperty" returnType="void">
+            <mdParameter order="0" name="key" type="java.lang.String" label="key"/>
+            <mdParameter order="1" name="value" type="java.lang.String" label="value"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      
+      <mdController name="dss.vector.solutions.irs.ApplicationRateController">
+        <create>
+          <mdAction name="validationSubmit">
+            <mdParameter order="0" name="multipleStructuresPerRow" label="Multiple Structures Per Row? [MdAction]" type="java.lang.Boolean"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.setProperty" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.irs.ApplicationRateController.validationSubmit" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

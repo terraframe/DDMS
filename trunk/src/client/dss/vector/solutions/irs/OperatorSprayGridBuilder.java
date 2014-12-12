@@ -64,8 +64,10 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
     }
     else
     {
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURES, "validateStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.SPRAYEDSTRUCTURES, "validateStructures");
+      
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.SPRAYEDHOUSEHOLDS, "validateValue");
-      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.SPRAYEDSTRUCTURES, "validateValue");
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS, "validateValue");
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES, "validateValue");
     }

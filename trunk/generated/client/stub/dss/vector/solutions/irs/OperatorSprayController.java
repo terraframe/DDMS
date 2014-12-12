@@ -15,6 +15,7 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -114,10 +115,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     InsecticideBrandDTO brand = dto.getBrand();
 
     this.setupReferences(dto);
+    
+    PropertyDTO prop = PropertyDTO.getByPackageAndName(getClientRequest(), "dss.vector.solutions.irs", "irsValidateMultipleStructures");
+    Boolean allowMultipleStructures = Boolean.parseBoolean(prop.getPropertyValue());
 
     req.setAttribute("grid", new OperatorSprayGridBuilder(request, dto).build());
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
+    req.setAttribute("allowMultipleStructures", allowMultipleStructures);
 
     render("viewComponent.jsp");
   }

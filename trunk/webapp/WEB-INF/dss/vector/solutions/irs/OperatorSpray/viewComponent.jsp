@@ -148,28 +148,42 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
     
     var validateValue = function(oData) {
         var re = /^[0-1]$/;
+        if (re.test(oData) || oData === "") {
+          return oData;
+        }
+        else {
+          alert(MDSS.localize("Value_Not_0_1"));
+          return undefined;
+        }
+    }
+    
+    var validateStructures = function(oData) {
+      <c:choose>
+	      <c:when test="${!allowMultipleStructures}">
+	        var re = /^[0-1]$/;
+	        if (re.test(oData) || oData === "") {
+	      </c:when>
+	
+	      <c:otherwise>
+	        if (oData >= 0 || oData === "") {
+	      </c:otherwise>
+			</c:choose>
         
-        // Validate
-        if(re.test(oData) || oData === "") {
             return oData;
         }
         else {
-            alert(MDSS.localize("Value_Not_0_1"));
+          <c:choose>
+	          <c:when test="${allowMultipleStructures}">
+	            alert(MDSS.localize("irs_validation_gte_zero"));
+	          </c:when>
+	    
+	          <c:otherwise>
+	            alert(MDSS.localize("Value_Not_0_1"));
+	          </c:otherwise>
+	        </c:choose>
+          
             return undefined;
         }
-    }
-
-    var validateStructure = function(oData) {
-      var re = /^[1]$/;
-        
-      // Validate
-      if(re.test(oData) || oData === "") {
-        return oData;
-      }
-      else {
-        alert(MDSS.localize("Value_Not_1"));
-        return undefined;
-      }
     }
 
     var beforeRowHandler = function() {

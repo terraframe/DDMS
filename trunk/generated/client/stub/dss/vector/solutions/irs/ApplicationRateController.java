@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.ColumnSetup;
@@ -29,6 +31,10 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
   @Override
   public void view() throws IOException, ServletException
   {
+    this.view(Boolean.FALSE);
+  }
+  private void view(Boolean showCheckmark) throws IOException, ServletException
+  {
     ClientRequestIF clientRequest = this.getClientRequest();
 
     AreaStandardsViewDTO dto = AreaStandardsViewDTO.getMostRecent(clientRequest);
@@ -38,10 +44,13 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
       dto = new AreaStandardsViewDTO(clientRequest);
     }
 
-    view(dto);
+    view(dto, showCheckmark);
   }
-
   private void view(AreaStandardsViewDTO dto) throws IOException, ServletException
+  {
+    this.view(dto, Boolean.FALSE);
+  }
+  private void view(AreaStandardsViewDTO dto, Boolean showCheckmark) throws IOException, ServletException
   {
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
@@ -51,9 +60,15 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
     this.setupNozzleGrid();
     this.setupConfigurationGrid();
-
+    
+    PropertyDTO prop = PropertyDTO.getByPackageAndName(getClientRequest(), "dss.vector.solutions.irs", "irsValidateMultipleStructures");
+    Boolean allowMultipleStructures = Boolean.parseBoolean(prop.getPropertyValue());
+    
     req.setAttribute("targetUnits", TargetUnitDTO.allItems(this.getClientRequest()));
     req.setAttribute("dto", dto);
+    req.setAttribute("property", prop);
+    req.setAttribute("allowMultipleStructures", allowMultipleStructures);
+    req.setAttribute("showCheckmark", showCheckmark);
     render("viewComponent.jsp");
   }
 
@@ -135,5 +150,30 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
   public void failUpdate(AreaStandardsViewDTO dto) throws IOException, ServletException
   {
     this.view(dto);
+  }
+  
+  public void validationSubmit(Boolean multipleStructuresPerRow) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try {
+      if (multipleStructuresPerRow == null) { multipleStructuresPerRow = Boolean.FALSE; }
+      
+      HouseholdSprayStatusDTO.setProperty(this.getClientRequest(), "allow_multiple_structures", String.valueOf(multipleStructuresPerRow));
+      
+      this.view(true);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failValidationSubmit(null);
+      }
+    }
+  }
+  
+  public void failValidationSubmit(java.lang.String multiple_structures_per_row) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view();
   }
 }

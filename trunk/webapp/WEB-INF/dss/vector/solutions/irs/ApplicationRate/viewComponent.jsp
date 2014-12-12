@@ -67,7 +67,24 @@
    </dl>
   </mjl:form>
   <mjl:commandLink name="history" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo"><mdss:localize key="Area_History"/></mjl:commandLink>
-
+  
+  <mjl:form name="standards.form.name.validation" id="standards.form.validation" method="POST">
+    <h2><mdss:localize key="irs_validation_section_title"/></h2>
+    <dl>
+      <dt>
+        <label title="<mdss:localize key="irs_validation_structures"/>" />
+      </dt>
+      <dd>
+        <input type="checkbox" name="multipleStructuresPerRow" value="true"
+          <c:if test="${allowMultipleStructures}">checked="checked"</c:if>
+        /> ${property.displayLabel.value}
+        <c:if test="${showCheckmark}"><span style="width:32px; height:32px; background-image:url('.././../../../imgs/checkMark.png')" /></c:if>
+      </dd>
+    </dl>
+    <mdss:localize key="irs_validation_submit" var="irs_validation_submit" />
+    <mjl:command value="${irs_validation_submit}" id="validation.submit.id" action="dss.vector.solutions.irs.ApplicationRateController.validationSubmit.mojo" name="validation.submit.button" />
+  </mjl:form>
+  
   <%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideBrandViewDTO.CLASS, NozzleViewDTO.CLASS, InsecticideNozzleViewDTO.CLASS}))%>
 
 <%

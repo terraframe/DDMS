@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1430877996)
+@com.runwaysdk.business.ClassSignature(hash = 900525080)
 public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatus";
-  private static final long serialVersionUID = -1430877996;
+  private static final long serialVersionUID = 900525080;
   
   protected HouseholdSprayStatusDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1529,6 +1529,14 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.HouseholdSprayStatusDTO.CLASS, "lockView", _declaredTypes);
     return (dss.vector.solutions.irs.HouseholdSprayStatusViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void setProperty(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String key, java.lang.String value)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{key, value};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.HouseholdSprayStatusDTO.CLASS, "setProperty", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.irs.HouseholdSprayStatusViewDTO unlockView()

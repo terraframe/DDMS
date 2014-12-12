@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -989086849)
+@com.runwaysdk.business.ClassSignature(hash = 1636941116)
 public class ApplicationRateControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.ApplicationRateController";
@@ -9,8 +9,6 @@ public class ApplicationRateControllerBase implements com.runwaysdk.generation.l
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = -989086849;
   
   public ApplicationRateControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -93,6 +91,20 @@ public class ApplicationRateControllerBase implements com.runwaysdk.generation.l
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.ApplicationRateController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.ApplicationRateController.failUpdate");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.Boolean:multipleStructuresPerRow", post=false)
+  public void validationSubmit(java.lang.Boolean multipleStructuresPerRow) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.ApplicationRateController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.ApplicationRateController.validationSubmit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:multipleStructuresPerRow", post=false)
+  public void failValidationSubmit(java.lang.String multipleStructuresPerRow) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.ApplicationRateController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.ApplicationRateController.failValidationSubmit");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -2117576108)
+@com.runwaysdk.business.ClassSignature(hash = -2030543464)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -52,7 +52,7 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -2117576108;
+  private static final long serialVersionUID = -2030543464;
   
   public HouseholdSprayStatusBase()
   {
@@ -1215,6 +1215,12 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
   {
     HouseholdSprayStatus _instance = HouseholdSprayStatus.get(id);
     return _instance.lockView();
+  }
+  
+  public static void setProperty(java.lang.String key, java.lang.String value)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.HouseholdSprayStatus.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public dss.vector.solutions.irs.HouseholdSprayStatusView unlockView()

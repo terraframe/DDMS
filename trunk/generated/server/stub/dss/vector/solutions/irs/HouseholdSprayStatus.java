@@ -8,13 +8,20 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.general.UniqueValueProblem;
 
 public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long    serialVersionUID = 1240860647013L;
+  private static final long    serialVersionUID                        = 1240860647013L;
 
-  private static ReentrantLock lock             = new ReentrantLock();
+  private static ReentrantLock lock                                    = new ReentrantLock();
+  
+//  private static final String PROPERTY_PACKAGE                         = HouseholdSprayStatus.class.getPackage().getName();
+  private static final String PROPERTY_PACKAGE                         = "dss.vector.solutions.irs";
+  
+  private static final String PROPERTY_KEY_ALLOW_MULTIPLE_STRUCTURES   = "irsValidateMultipleStructures";
 
   public HouseholdSprayStatus()
   {
@@ -150,7 +157,18 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
 
-      if (value != 1 && this.getStructures() != 0)
+      Boolean irsValidateMultipleStructures = Boolean.parseBoolean(Property.getByPackageAndName(PROPERTY_PACKAGE, PROPERTY_KEY_ALLOW_MULTIPLE_STRUCTURES).getPropertyValue());
+      if (irsValidateMultipleStructures && value < 0)
+      {
+        String msg = "Structure value cannot be less than 0.";
+        StructureValueProblem p = new StructureValueProblem(msg);
+        p.setHouseholdId(this.getHouseholdId());
+        p.setStructureId(this.getStructureId());
+        p.setNotification(this, STRUCTURES);
+        p.apply();
+        p.throwIt();
+      }
+      if (value != 1 && value != 0 && irsValidateMultipleStructures == false)
       {
         String msg = "Structure value may only be 0 or 1";
         StructureValueProblem p = new StructureValueProblem(msg);
@@ -202,6 +220,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   @Override
   public void validateSprayedStructures()
   {
+    Integer sprayed = this.getSprayedStructures();
+    
     if (this.getStructures() != null && this.getSprayedStructures() != null && this.getStructures() < this.getSprayedStructures())
     {
       String msg = "The number of sprayed structures cannot be greater than the number of structures";
@@ -217,18 +237,16 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
 
-    if (this.getSprayedStructures() != null)
+    Boolean irsValidateMultipleStructures = Boolean.parseBoolean(Property.getByPackageAndName(PROPERTY_PACKAGE, PROPERTY_KEY_ALLOW_MULTIPLE_STRUCTURES).getPropertyValue());
+    if (sprayed != null && sprayed != 1 && sprayed != 0 && irsValidateMultipleStructures == false)
     {
-      if (this.getSprayedStructures() != 1 && this.getSprayedStructures() != 0)
-      {
-        String msg = "Sprayed Structure value may only be 0 or 1";
-        SprayedStructureValueProblem p = new SprayedStructureValueProblem(msg);
-        p.setNotification(this, SPRAYEDSTRUCTURES);
-        p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());
-        p.apply();
-        p.throwIt();
-      }
+      String msg = "Sprayed Structure value may only be 0 or 1";
+      SprayedStructureValueProblem p = new SprayedStructureValueProblem(msg);
+      p.setNotification(this, SPRAYEDSTRUCTURES);
+      p.setHouseholdId(this.getHouseholdId());
+      p.setStructureId(this.getStructureId());
+      p.apply();
+      p.throwIt();
     }
   }
 
@@ -594,20 +612,33 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
+  
+  public static void setProperty(java.lang.String key, java.lang.String value)
+  {
+    Property prop = Property.getByKey("irsValidateMultipleStructures");
+    prop.appLock();
+    prop.setPropertyValue(value);
+    prop.apply();
+  }
 
   @Transaction
   public void apply()
   {
     SprayMethod method = this.getSprayMethod();
 
-    if (!method.equals(SprayMethod.MOP_UP))
+    Property prop = Property.getByPackageAndName(HouseholdSprayStatus.PROPERTY_PACKAGE, HouseholdSprayStatus.PROPERTY_KEY_ALLOW_MULTIPLE_STRUCTURES);
+    Boolean allowMultipleStructures = Boolean.parseBoolean(prop.getPropertyValue());
+    if (!allowMultipleStructures)
     {
-      this.setStructures(1);
-    }
-    else
-    {
-      this.setHouseholds(null);
-      this.setStructures(null);
+      if (!method.equals(SprayMethod.MOP_UP))
+      {
+        this.setStructures(1);
+      }
+      else
+      {
+        this.setHouseholds(null);
+        this.setStructures(null);
+      }
     }
 
     validateStructureId();
