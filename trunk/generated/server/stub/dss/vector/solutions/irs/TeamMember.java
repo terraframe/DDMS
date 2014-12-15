@@ -30,7 +30,10 @@ public class TeamMember extends TeamMemberBase implements com.runwaysdk.generati
   @Override
   protected String buildKey()
   {
-    return this.getMemberId();
+    // This prefix was added so that spray team names do not conflict with team member names (ticket 3146)
+    String teamMemberPrefix = "TMÈ";
+    
+    return teamMemberPrefix + this.getMemberId();
   }
 
   @Override

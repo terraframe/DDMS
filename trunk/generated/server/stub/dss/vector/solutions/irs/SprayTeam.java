@@ -46,7 +46,7 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   }
 
 
-@Override
+  @Override
   public String toString()
   {
     if (this.isNew())
@@ -62,7 +62,10 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   @Override
   protected String buildKey()
   {
-    return this.getTeamId();
+    // This prefix was added so that spray team names do not conflict with team member names (ticket 3146)
+    String sprayTeamPrefix = "STÈ";
+    
+    return sprayTeamPrefix + this.getTeamId();
   }
 
   @Override
