@@ -87,8 +87,8 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   }
 
   /**
-   * Fetches the default root, which is the Term without a parent. The query
-   * WILL NOT include terms that are marked as obsolete.
+   * Fetches the default root, which is the Term without a parent. The query WILL NOT include terms
+   * that are marked as obsolete.
    * 
    * @return
    */
@@ -188,7 +188,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     {
       fieldQuery = new BrowserFieldQuery(factory);
 
-      fieldQuery.WHERE(fieldQuery.getMdAttribute().EQ(attribute));
+      fieldQuery.WHERE(fieldQuery.getMdAttribute().getId().EQ(attribute));
     }
     // restricted by list of parents term ids
     else
@@ -204,10 +204,9 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   }
 
   /**
-   * Gets all roots for the given class name and attribute name. Because
-   * overloading isn't supported with MdMethods, this method can also take an
-   * empty string as the class name which means the attribute param is the id of
-   * an MdAttribute.
+   * Gets all roots for the given class name and attribute name. Because overloading isn't supported
+   * with MdMethods, this method can also take an empty string as the class name which means the
+   * attribute param is the id of an MdAttribute.
    * 
    * @param className
    * @param attributeName

@@ -96,6 +96,7 @@ import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.QueryBuilder;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.QueryUtil;
@@ -105,8 +106,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   private static final long serialVersionUID   = 1234288139462L;
 
   /**
-   * The maximum number of children allowed for UI display under one parent
-   * node.
+   * The maximum number of children allowed for UI display under one parent node.
    */
   public static final int   OVERFLOW_THRESHOLD = 40;
 
@@ -125,15 +125,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     applyInternal();
   }
-  
+
   public void directApply()
   {
     super.apply();
   }
 
   /**
-   * Applies this GeoEntity and recursively sets the activated status of all
-   * children if the status has changed on the parent.
+   * Applies this GeoEntity and recursively sets the activated status of all children if the status
+   * has changed on the parent.
    * 
    * @return
    * @throws ParseException
@@ -217,12 +217,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     super.apply();
 
+    SavedSearch.updateSavedSearchIds(this);
+
     return ids;
   }
 
   /**
-   * Updates this GeoEntity and its children if its activated attribute has been
-   * modified.
+   * Updates this GeoEntity and its children if its activated attribute has been modified.
    * 
    * @return
    */
@@ -469,8 +470,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Throws an exception to alert the user before they change an entity's
-   * parent.
+   * Throws an exception to alert the user before they change an entity's parent.
    */
   @Override
   public void confirmChangeParent(String parentId)
@@ -484,9 +484,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Throws an exception to alert the user before they try to delete an entity
-   * with more than one parent. If the entity only has one parent, then entity
-   * is deleted as normal.
+   * Throws an exception to alert the user before they try to delete an entity with more than one
+   * parent. If the entity only has one parent, then entity is deleted as normal.
    */
   @Override
   public void confirmDeleteEntity(String parentId)
@@ -587,8 +586,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * This GeoEntity is equal to the given object if the object is the same
-   * object reference or if the ids match.
+   * This GeoEntity is equal to the given object if the object is the same object reference or if
+   * the ids match.
    */
   @Override
   public boolean equals(Object obj)
@@ -604,8 +603,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Searches for the GeoEntity with the given geoId and returns itself and its
-   * children and parents.
+   * Searches for the GeoEntity with the given geoId and returns itself and its children and
+   * parents.
    * 
    * @param geoId
    * @param filter
@@ -635,8 +634,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Collects all children and parents (optional) for the located in
-   * relationship.
+   * Collects all children and parents (optional) for the located in relationship.
    */
   @Override
   public GeoEntityView[] collectAllLocatedIn(Boolean includeParents, String filter)
@@ -859,8 +857,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy
-   *         which allows political areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows
+   *         political areas
    */
   public GeoEntity[] getPoliticalChildren()
   {
@@ -905,8 +903,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy
-   *         which allows spray areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows spray
+   *         areas
    */
   public GeoEntity[] getSprayChildren()
   {
@@ -922,8 +920,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy
-   *         which allows both political and populated areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows both
+   *         political and populated areas
    */
   public GeoEntity[] getPopulationChildren()
   {
@@ -931,8 +929,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this Geo Entity ancestors which are both political and allow
-   *         populated areas
+   * @return All of this Geo Entity ancestors which are both political and allow populated areas
    */
   public GeoEntity[] getPopulationAncestors()
   {
@@ -943,8 +940,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    * @param parameter
    *          The search criteria
    * 
-   * @return All of this Geo Entity ancestors or decendants which meet the
-   *         search criteria
+   * @return All of this Geo Entity ancestors or decendants which meet the search criteria
    */
   public GeoEntity[] getFamily(SearchParameter parameter)
   {
@@ -968,8 +964,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    * @param parameter
    *          The search criteria
    * 
-   * @return Query for all of this Geo Entity ancestors or decendants which meet
-   *         the search criteria
+   * @return Query for all of this Geo Entity ancestors or decendants which meet the search criteria
    */
   public GeoEntityQuery getFamily(QueryFactory factory, SearchParameter parameter)
   {
@@ -1005,8 +1000,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when
-   * it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
+   * which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
   {
@@ -1021,8 +1016,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when
-   * it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
+   * which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(String... types)
   {
@@ -1035,8 +1030,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when
-   * it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
+   * which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
@@ -1123,8 +1118,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Sets all children of the parent GeoEntity to the given activated status. If
-   * a child has more than one parent then nothing is changed for that child.
+   * Sets all children of the parent GeoEntity to the given activated status. If a child has more
+   * than one parent then nothing is changed for that child.
    * 
    * @param activated
    * @param parent
@@ -1154,9 +1149,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Checks if this GoeEntity is eligible to have its active status changed. The
-   * general rule is as follows: A child with more than one parent set to active
-   * cannot be deactivated. All other cases are allowed.
+   * Checks if this GoeEntity is eligible to have its active status changed. The general rule is as
+   * follows: A child with more than one parent set to active cannot be deactivated. All other cases
+   * are allowed.
    * 
    * @param activated
    *          The active status of the parent.
@@ -1185,9 +1180,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Adds this GeoEntity as a child of the given parent for the
-   * {@link LocatedIn} relationship. If this is not for a clone operation then
-   * all prior parent relationships will be removed.
+   * Adds this GeoEntity as a child of the given parent for the {@link LocatedIn} relationship. If
+   * this is not for a clone operation then all prior parent relationships will be removed.
    * 
    */
   @Override
@@ -1498,8 +1492,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Returns a list of all LocatedIn children for which this GeoEntity is a
-   * parent. The list is ordered by the entity name.
+   * Returns a list of all LocatedIn children for which this GeoEntity is a parent. The list is
+   * ordered by the entity name.
    */
   @Override
   public GeoEntityViewQuery getOrderedChildren(String filter)
@@ -1608,8 +1602,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Given a filter (a GeoEntity class), this method returns all parents and
-   * children and the filter type itself that's allowed in the hierarchy.
+   * Given a filter (a GeoEntity class), this method returns all parents and children and the filter
+   * type itself that's allowed in the hierarchy.
    * 
    * @param type
    * @return
@@ -2159,9 +2153,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Checks if the list of children are located_in the parents. This method
-   * returns a list of ids that are valid children and sets an MdWarning on the
-   * call for all entities that were not children.
+   * Checks if the list of children are located_in the parents. This method returns a list of ids
+   * that are valid children and sets an MdWarning on the call for all entities that were not
+   * children.
    * 
    * @param childIds
    * @param parentIds

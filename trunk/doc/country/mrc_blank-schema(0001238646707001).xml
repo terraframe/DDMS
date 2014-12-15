@@ -9,7 +9,8 @@
         label="Country"
         description="Country"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -17,7 +18,8 @@
         label="Spray Zone"
         description="Spray Zone"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -25,7 +27,8 @@
         label="Health Facility"
         description="Health Facility"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -33,7 +36,8 @@
         label="Stock Depot"
         description="Stock Depot"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -41,7 +45,8 @@
         label="Sentinel Site"
         description="Sentinel Site"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -49,7 +54,8 @@
         label="Surface"
         description="Surface"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
       <mdBusiness
@@ -57,7 +63,8 @@
         label="Collection Site"
         description="Collection Site"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true"
+        >
       </mdBusiness>
 
     </create>

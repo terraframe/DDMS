@@ -58,7 +58,8 @@
       <enumerationMaster
         name="dss.vector.solutions.irs.InsecticideBrandUseMaster"
         label="Insecticide Brand Use Master"
-        generateController="false">
+        generateController="false"
+        hasDeterministicId="true">
       </enumerationMaster>
 
       <object
@@ -152,7 +153,8 @@
       <enumerationMaster
         name="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster"
         label="Insecticide Brand Concentration Qualifier Master"
-        generateController="false">
+        generateController="false"
+        hasDeterministicId="true">
       </enumerationMaster>
 
       <object
@@ -337,7 +339,8 @@
       <enumerationMaster
         name="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster"
         label="Insecticide Brand Unit Qualifier Master"
-        generateController="false">
+        generateController="false"
+        hasDeterministicId="true">
       </enumerationMaster>
       <object
         key="GRAMS"

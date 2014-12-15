@@ -62,14 +62,13 @@ import dss.vector.solutions.util.ReadableAttributeView;
 public class FormSystemURLBuilder implements Reloadable
 {
   /**
-   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
-   * form survey query url
+   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the form survey query url
    */
   public static final String  FORM_SURVEY_QUERY_URL = "dss.vector.solutions.query.QueryController.queryFormSurvey.mojo";
 
   /**
-   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
-   * form survey view all url
+   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the form survey view all
+   * url
    */
   public static final String  FORM_SURVEY_CRUD_URL  = "dss.vector.solutions.form.business.FormSurveyController.viewAll.mojo";
 
@@ -167,20 +166,26 @@ public class FormSystemURLBuilder implements Reloadable
   public void generate()
   {
     // Create the system url for the CRUD screen
-    SystemURL crudURL = new SystemURL();
-    crudURL.setUrl(this.getCrudURLKey());
-    crudURL.getDisplayLabel().setValue("defaultLocale", CRUD_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
-    crudURL.setUrlName(CRUD_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
-    crudURL.apply();
+    if (this.getCrudURL() == null)
+    {
+      SystemURL crudURL = new SystemURL();
+      crudURL.setUrl(this.getCrudURLKey());
+      crudURL.getDisplayLabel().setValue("defaultLocale", CRUD_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      crudURL.setUrlName(CRUD_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      crudURL.apply();
+    }
 
     // Create the system url for the query screen
-    SystemURL queryURL = new SystemURL();
-    queryURL.setUrl(this.getQueryURLKey());
-    queryURL.getDisplayLabel().setValue("defaultLocale", QUERY_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
-    queryURL.setUrlName(QUERY_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
-    queryURL.apply();
+    if (this.getQueryURL() == null)
+    {
+      SystemURL queryURL = new SystemURL();
+      queryURL.setUrl(this.getQueryURLKey());
+      queryURL.getDisplayLabel().setValue("defaultLocale", QUERY_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      queryURL.setUrlName(QUERY_URL_PREFIX + " " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      queryURL.apply();
+    }
 
-    this.addPermissions(crudURL, queryURL, Disease.getAllDiseases());
+    this.addPermissions(Disease.getAllDiseases());
   }
 
   public void addPermissions(Disease... diseases)
@@ -261,12 +266,12 @@ public class FormSystemURLBuilder implements Reloadable
     }
   }
 
-  private SystemURL getCrudURL()
+  public SystemURL getCrudURL()
   {
     return SystemURL.getByURL(this.getCrudURLKey());
   }
 
-  private SystemURL getQueryURL()
+  public SystemURL getQueryURL()
   {
     return SystemURL.getByURL(this.getQueryURLKey());
   }

@@ -212,7 +212,7 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
       this.loadFormData(bedNetForm, "bedNet", FormBedNetDTO.CLASS, FormBedNetDTO.FORM_TYPE);
       this.loadFormData(personForm, "person", FormPersonDTO.CLASS, FormPersonDTO.FORM_TYPE);
 
-      this.req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(this.getClientRequest()));
+      this.req.setAttribute("canDeleteAll", MDSSUserDTO.canDeleteAll(this.getClientRequest())); 
 
       render("viewAllComponent.jsp");
     }

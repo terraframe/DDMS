@@ -187,8 +187,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   }
 
   /**
-   * Loads information common to query screens, including the Earth node for 061
-   * and all available queries for the given query screen.
+   * Loads information common to query screens, including the Earth node for 061 and all available
+   * queries for the given query screen.
    * 
    * @param queryClass
    * @param queryType
@@ -197,19 +197,6 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   private void loadQuerySpecifics(String queryClass, QueryConstants.QueryType queryType) throws JSONException
   {
     this.loadQuerySpecifics(QueryConstants.namespaceQuery(queryClass, queryType));
-  }
-
-  /**
-   * Loads information common to query screens, including the Earth node for 061
-   * and all available queries for the given query screen.
-   * 
-   * @param queryClass
-   * @param queryType
-   * @throws JSONException
-   */
-  private void loadQuerySpecifics(String type, String typeName) throws JSONException
-  {
-    this.loadQuerySpecifics(QueryConstants.namespaceQuery(type, typeName));
   }
 
   private void loadQuerySpecifics(String namespacedType) throws JSONException
@@ -797,12 +784,13 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
 
-      // Product names for MosquitoCollection (copied from Efficacy Assay as the behavior is the same).
+      // Product names for MosquitoCollection (copied from Efficacy Assay as the behavior is the
+      // same).
       InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(this.getClientRequest());
       insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
 
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
-      
+
       req.getRequestDispatcher(QUERY_MOSQUITO_COLLECTIONS).forward(req, resp);
 
     }
@@ -1617,4 +1605,50 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       }
     }
   }
+
+  @Override
+  public void exportQuery(String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+      InputStream istream = search.exportQuery();
+
+      FileDownloadUtil.writeFile(resp, search.getQueryName(), "xml", istream, "application/xml");
+    }
+    catch (Exception e)
+    {
+      this.writeMessage(e.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void importQuery(MultipartFileParameter queryFile) throws IOException, ServletException
+  {
+    try
+    {
+      if (queryFile != null)
+      {
+        SavedSearchDTO.importQuery(this.getClientRequest(), queryFile.getInputStream());
+
+        this.writeMessage(LocalizationFacadeDTO.getFromBundles(this.getClientRequest(), "File_Upload_Success"));
+      }
+      else
+      {
+        this.writeMessage(LocalizationFacadeDTO.getFromBundles(this.getClientRequest(), "Required_import_file"));
+      }
+    }
+    catch (Throwable e)
+    {
+      this.writeMessage(e.getLocalizedMessage());
+    }
+  }
+
+  public void writeMessage(String message) throws IOException
+  {
+    this.resp.setContentType("text/html;charset=UTF-8");
+    this.resp.setCharacterEncoding("UTF-8");
+    this.resp.getWriter().write(message);
+  }
+
 }

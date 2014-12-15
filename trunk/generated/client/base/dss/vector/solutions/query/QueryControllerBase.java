@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 898759870)
+@com.runwaysdk.business.ClassSignature(hash = 1235808820)
 public class QueryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.QueryController";
@@ -205,6 +205,20 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failExportIRSQueryToExcel");
   }
   
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
+  public void exportQuery(java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.exportQuery");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
+  public void failExportQuery(java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failExportQuery");
+  }
+  
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryClass, java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
   public void exportQueryToCSV(java.lang.String queryClass, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -287,6 +301,20 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failExportSurveyQueryToExcel");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:queryFile", post=true)
+  public void importQuery(com.runwaysdk.controller.MultipartFileParameter queryFile) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.importQuery");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:queryFile", post=true)
+  public void failImportQuery(com.runwaysdk.controller.MultipartFileParameter queryFile) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failImportQuery");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

@@ -1,6 +1,7 @@
 package dss.vector.solutions.form;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
+import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -44,6 +46,7 @@ import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
+import dss.vector.solutions.RequiredAttributeExceptionDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
@@ -51,6 +54,8 @@ import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 
 public class MdFormAdminController extends MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -781,8 +786,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   /**
-   * Formats the value on the condition if it contains a number. Request
-   * parameters are set for use in EL.
+   * Formats the value on the condition if it contains a number. Request parameters are set for use
+   * in EL.
    * 
    * @param cond
    */
@@ -810,8 +815,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   /**
    * Prepares the request with the proper condition information.
    * 
-   * // FIXME push attributes/constants/methods to common superclass instead of
-   * using type-unsafety and type-specific constants OR create a ConditionView
+   * // FIXME push attributes/constants/methods to common superclass instead of using type-unsafety
+   * and type-specific constants OR create a ConditionView
    * 
    * @param req
    * @param condition
@@ -1020,5 +1025,65 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         this.failViewAll();
       }
     }
+  }
+
+  @Override
+  public void exportDefinition(String mdFormId) throws IOException, ServletException
+  {
+    try
+    {
+      MdWebFormDTO form = MdWebFormDTO.get(getClientRequest(), mdFormId);
+
+      InputStream istream = MdFormUtilDTO.exportDefinition(this.getClientRequest(), mdFormId);
+
+      FileDownloadUtil.writeFile(resp, form.getFormName(), "xml", istream, "application/xml");
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req, resp, false);
+
+      this.failExportDefinition(mdFormId);
+    }
+  }
+
+  @Override
+  public void failExportDefinition(String mdFormId) throws IOException, ServletException
+  {
+    this.view(mdFormId);
+  }
+
+  @Override
+  public void importDefinition(MultipartFileParameter definition) throws IOException, ServletException
+  {
+    try
+    {
+      if (definition != null)
+      {
+        MdFormUtilDTO.importDefinition(this.getClientRequest(), definition.getInputStream());
+
+        this.writeMessage(LocalizationFacadeDTO.getFromBundles(this.getClientRequest(), "File_Upload_Success"));
+      }
+      else
+      {
+        this.writeMessage(LocalizationFacadeDTO.getFromBundles(this.getClientRequest(), "Required_import_file"));
+      }
+    }
+    catch (Throwable e)
+    {
+      this.writeMessage(e.getLocalizedMessage());
+    }
+  }
+
+  public void writeMessage(String message) throws IOException
+  {
+    this.resp.setContentType("text/html;charset=UTF-8");
+    this.resp.setCharacterEncoding("UTF-8");
+    this.resp.getWriter().write(message);
+  }
+
+  @Override
+  public void failImportDefinition(MultipartFileParameter definition) throws IOException, ServletException
+  {
+    this.mdFormAdmin();
   }
 }

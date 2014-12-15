@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 63467846)
+@com.runwaysdk.business.ClassSignature(hash = 29547739)
 public abstract class SavedSearchDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearch";
-  private static final long serialVersionUID = 63467846;
+  private static final long serialVersionUID = 29547739;
   
   protected SavedSearchDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -691,6 +691,22 @@ public abstract class SavedSearchDTOBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.transport.metadata.AttributeFileMdDTO) getAttributeDTO(TEMPLATEFILE).getAttributeMdDTO();
   }
   
+  public final java.io.InputStream exportQuery()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "exportQuery", _declaredTypes);
+    return (java.io.InputStream) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.io.InputStream exportQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "exportQuery", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final dss.vector.solutions.query.SavedSearchViewDTO getAsView(java.lang.Boolean includeXML, java.lang.Boolean includeConfig)
   {
     String[] _declaredTypes = new String[]{"java.lang.Boolean", "java.lang.Boolean"};
@@ -785,6 +801,14 @@ public abstract class SavedSearchDTOBase extends com.runwaysdk.business.Business
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getThematicVariables", _declaredTypes);
     return (dss.vector.solutions.query.ThematicVariableDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void importQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream queryFile)
+  {
+    String[] _declaredTypes = new String[]{"java.io.InputStream"};
+    Object[] _parameters = new Object[]{queryFile};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "importQuery", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedSearchViewDTO loadDefaultSearch(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.query.SavedSearchViewDTO savedSearchView)

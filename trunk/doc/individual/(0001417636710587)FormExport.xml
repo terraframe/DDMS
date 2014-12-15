@@ -1,0 +1,35 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+          <mdAction name="exportDefinition" label="Export definition" isPost="true">
+            <mdParameter name="mdFormId" label="MdForm id" order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="importDefinition" label="Import definition" isPost="true">
+            <mdParameter name="definition" label="Form definition" order="1" type="com.runwaysdk.controller.MultipartFileParameter" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="exportDefinition" label="Export definition" static="true" returnType="java.io.InputStream">
+            <mdParameter name="mdFormId" label="MdForm id" order="0" type="java.lang.String" />
+          </mdMethod>
+          <mdMethod name="importDefinition" label="Import definition" static="true" returnType="void">
+            <mdParameter name="definition" label="Definition" order="0" type="java.io.InputStream" />
+          </mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.form.MdFormAdminController.exportDefinition" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.generator.MdFormUtil.exportDefinition" type="com.runwaysdk.system.metadata.MdMethod" />
+      
+      <object key="dss.vector.solutions.form.MdFormAdminController.importDefinition" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.generator.MdFormUtil.importDefinition" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

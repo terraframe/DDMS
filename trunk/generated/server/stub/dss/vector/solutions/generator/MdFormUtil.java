@@ -1,6 +1,7 @@
 package dss.vector.solutions.generator;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,11 +9,15 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.tools.ant.filters.StringInputStream;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
@@ -24,7 +29,9 @@ import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.MdWebFormInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -38,6 +45,7 @@ import com.runwaysdk.dataaccess.MdWebFieldDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
+import com.runwaysdk.dataaccess.MdWebSingleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
@@ -45,10 +53,18 @@ import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
+import com.runwaysdk.dataaccess.io.ImportManager;
+import com.runwaysdk.dataaccess.io.StringMarkupWriter;
+import com.runwaysdk.dataaccess.io.StringStreamSource;
+import com.runwaysdk.dataaccess.io.XMLParseException;
+import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
+import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
+import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -116,9 +132,13 @@ import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
+import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.FieldRoot;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -136,6 +156,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static final String OID               = "oid";
 
   public static final String DEFAULT_OID_LABEL = "Form ID";
+
+  public static final String XSD_LOCATION      = "classpath:/datatype_gis.xsd";
 
   public MdFormUtil()
   {
@@ -1750,4 +1772,148 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
+  public static InputStream exportDefinition(String mdFormId)
+  {
+    MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
+    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+
+    ExportMetadata metadata = new ExportMetadata();
+    metadata.addCreateOrUpdate(mdClass);
+
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebGeoDAOIF)
+      {
+        GeoField geoField = GeoField.getGeoFieldForMdWebGeo(mdField.getId());
+        metadata.addCreateOrUpdate(geoField);
+
+        OIterator<? extends ExtraFieldUniversal> iterator = geoField.getAllGeoHierarchiesRel();
+
+        try
+        {
+          while (iterator.hasNext())
+          {
+            ExtraFieldUniversal hierarchy = iterator.next();
+            metadata.addCreateOrUpdate(hierarchy);
+          }
+        }
+        finally
+        {
+          iterator.close();
+        }
+      }
+      else if (mdField instanceof MdWebSingleTermDAOIF)
+      {
+        MdAttributeDAOIF mdAttribute = ( (MdWebSingleTermDAOIF) mdField ).getDefiningMdAttribute();
+
+        exportBrowserRoots(metadata, mdAttribute);
+      }
+      if (mdField instanceof MdWebSingleTermGridDAOIF)
+      {
+        MdAttributeDAOIF mdAttribute = ( (MdWebSingleTermGridDAOIF) mdField ).getDefiningMdAttribute();
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+        MdRelationshipDAOIF mdRelationshipDAO = MdRelationshipDAO.get(mdRelationship.getId());
+
+        metadata.addCreateOrUpdate(mdRelationshipDAO);
+
+        exportBrowserRoots(metadata, mdAttribute);
+      }
+      else if (mdField instanceof MdWebMultipleTermDAOIF)
+      {
+        MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+        MdRelationshipDAOIF mdRelationshipDAO = MdRelationshipDAO.get(mdRelationship.getId());
+
+        metadata.addCreateOrUpdate(mdRelationshipDAO);
+        exportBrowserRoots(metadata, mdAttribute);
+      }
+    }
+    metadata.addCreateOrUpdate(mdForm);
+
+    StringMarkupWriter writer = new StringMarkupWriter();
+
+    SAXExporter exporter = new SAXExporter(writer, XSD_LOCATION, metadata);
+    exporter.export();
+
+    String xml = writer.getOutput();
+
+    return new StringInputStream(xml);
+  }
+
+  public static void exportBrowserRoots(ExportMetadata metadata, MdAttributeDAOIF mdAttribute)
+  {
+    BrowserField field = BrowserField.getBrowserField(mdAttribute);
+
+    metadata.addCreateOrUpdate(field);
+
+    // OIterator<? extends FieldRoot> it = field.getAllrootRel();
+    //
+    // try
+    // {
+    // List<? extends FieldRoot> roots = it.getAll();
+    //
+    // for (FieldRoot root : roots)
+    // {
+    // BrowserRoot child = root.getChild();
+    //
+    // metadata.addCreateOrUpdate(child);
+    // metadata.addCreateOrUpdate(root);
+    // }
+    // }
+    // finally
+    // {
+    // it.close();
+    // }
+  }
+
+  @Transaction
+  public static void importDefinition(InputStream definition)
+  {
+    try
+    {
+      String xml = IOUtils.toString(definition, "UTF-8");
+
+      StringStreamSource source = new StringStreamSource(xml);
+
+      SAXImporter importer = new SAXImporter(source, XSD_LOCATION);
+      importer.begin();
+
+      // The form permissions cannot be exported because they are specific to the diseases specified
+      // on the destination system. The diesease of the destination system will likely be different.
+      // Thus we need to define/re-define the permissions for any imported form as part of the
+      // import process.
+      ImportManager manager = importer.getManager();
+      Set<String> types = manager.getImportedTypes();
+
+      for (String type : types)
+      {
+        if (type.startsWith(MDSSInfo.GENERATED_FORM_PACKAGE) && !type.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE) && !type.startsWith(MDSSInfo.GENERATED_FORM_TREE_PACKAGE))
+        {
+          MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdWebFormDAO.get(MdWebFormInfo.CLASS, type);
+
+          new FormSystemURLBuilder(mdForm).generate();
+        }
+      }
+
+    }
+    catch (XMLParseException e)
+    {
+      if (e.getCause() != null && ( e.getCause() instanceof RuntimeException ))
+      {
+        throw ( (RuntimeException) e.getCause() );
+      }
+
+      throw e;
+    }
+    catch (SAXException e)
+    {
+      throw new XMLParseException(e);
+    }
+    catch (IOException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
 }

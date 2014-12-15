@@ -1,6 +1,10 @@
 package dss.vector.solutions.query;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,18 +12,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tools.ant.filters.StringInputStream;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
+import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.io.StringMarkupWriter;
+import com.runwaysdk.dataaccess.io.StringStreamSource;
+import com.runwaysdk.dataaccess.io.XMLParseException;
+import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
+import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
+import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.TransactionCache;
+import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
@@ -41,6 +61,7 @@ import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
@@ -76,8 +97,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @Override
   protected String buildKey()
   {
-    // Ask Naifeh if this is a valid key
-    // return this.getQueryType() + "-" + this.getQueryName();
+    if (this.getDiseaseId() != null && this.getDiseaseId().length() > 0)
+    {
+      return this.getDisease().getKey() + ":" + this.getQueryName();
+    }
+    else if (this.getQueryName() != null && this.getQueryName().length() > 0)
+    {
+      return "#NONE#:" + this.getQueryName();
+    }
+
     return this.getId();
   }
 
@@ -177,7 +205,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Generates the database view name for this SavedSearch, which follows a simple naming convention:
+   * Generates the database view name for this SavedSearch, which follows a simple naming
+   * convention:
    * 
    * VIEW_PREFIX + query name [sanitized] + _ + disease
    * 
@@ -185,7 +214,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * Q_my_query_malaria
    * 
-   * There is no need to persist this as an attribute because it can be predictably generated as the query name is immutable.
+   * There is no need to persist this as an attribute because it can be predictably generated as the
+   * query name is immutable.
    * 
    * @return
    */
@@ -322,7 +352,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates the database view for this query or updates (replaces) it if one already exists. If the query is invalid because it has no columns then the database view is deleted, if one exists.
+   * Creates the database view for this query or updates (replaces) it if one already exists. If the
+   * query is invalid because it has no columns then the database view is deleted, if one exists.
    */
   @AbortIfProblem
   private void createOrReplaceDatabaseView()
@@ -708,7 +739,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks if the given view exists in the database. For some reason Database.tableExists(table) was not working consistently, so this is a different check that does a direct query.
+   * Checks if the given view exists in the database. For some reason Database.tableExists(table)
+   * was not working consistently, so this is a different check that does a direct query.
    * 
    * @param viewName
    * @return
@@ -828,7 +860,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Returns any available thematic variables (Selectables) available on this query this SavedSearch encapsulates.
+   * Returns any available thematic variables (Selectables) available on this query this SavedSearch
+   * encapsulates.
    */
   @Override
   public ThematicVariable[] getThematicVariables()
@@ -997,4 +1030,90 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     return null;
   }
+
+  @Override
+  public InputStream exportQuery()
+  {
+    ExportMetadata metadata = new ExportMetadata();
+    metadata.addCreateOrUpdate(this);
+
+    StringMarkupWriter writer = new StringMarkupWriter();
+
+    SAXExporter exporter = new SAXExporter(writer, MdFormUtil.XSD_LOCATION, metadata);
+    exporter.export();
+
+    String xml = writer.getOutput();
+
+    return new StringInputStream(xml);
+  }
+
+  public static void importQuery(InputStream queryFile)
+  {
+    try
+    {
+      String xml = IOUtils.toString(queryFile, "UTF-8");
+
+      StringStreamSource source = new StringStreamSource(xml);
+
+      SAXImporter importer = new SAXImporter(source, MdFormUtil.XSD_LOCATION);
+      importer.begin();
+    }
+    catch (XMLParseException e)
+    {
+      if (e.getCause() != null && ( e.getCause() instanceof RuntimeException ))
+      {
+        throw ( (RuntimeException) e.getCause() );
+      }
+
+      throw e;
+    }
+    catch (SAXException e)
+    {
+      throw new XMLParseException(e);
+    }
+    catch (IOException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static void updateSavedSearchIds(Entity entity)
+  {
+    if (entity.isModified(KEYNAME))
+    {
+      TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
+
+      String oldId = cache.getOriginalId(entity.getId());
+
+      if (oldId != null)
+      {
+        MdBusinessDAOIF mdSavedSearch = MdBusinessDAO.getMdBusinessDAO(SavedSearch.CLASS);
+        MdAttributeConcreteDAOIF queryXml = mdSavedSearch.definesAttribute(SavedSearch.QUERYXML);
+        MdAttributeConcreteDAOIF config = mdSavedSearch.definesAttribute(SavedSearch.CONFIG);
+
+        StringBuffer sqlStmt = new StringBuffer();
+        sqlStmt.append("UPDATE " + mdSavedSearch.getTableName());
+        sqlStmt.append(" SET " + queryXml.getColumnName() + " = replace(" + queryXml.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
+        sqlStmt.append(", " + config.getColumnName() + " = replace(" + config.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
+
+        Connection conn = Database.getConnection();
+        PreparedStatement prepared = null;
+
+        try
+        {
+          prepared = conn.prepareStatement(sqlStmt.toString());
+        }
+        catch (SQLException e)
+        {
+          throw new DatabaseException(e);
+        }
+
+        List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+        preparedStatementList.add(prepared);
+
+        Database.executeStatementBatch(preparedStatementList);
+      }
+    }
+  }
+
 }

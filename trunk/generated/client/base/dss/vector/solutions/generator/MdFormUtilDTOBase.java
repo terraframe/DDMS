@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 362164827)
+@com.runwaysdk.business.ClassSignature(hash = -1168382064)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 362164827;
+  private static final long serialVersionUID = -1168382064;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -161,6 +161,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final java.io.InputStream exportDefinition(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFormId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{mdFormId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "exportDefinition", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.metadata.MdWebFieldDTO[] getAllFields(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFormDTO form)
   {
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm"};
@@ -279,6 +287,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{mdWebMultipleTerm, parentId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getTermsForMultiTermField", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void importDefinition(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream definition)
+  {
+    String[] _declaredTypes = new String[]{"java.io.InputStream"};
+    Object[] _parameters = new Object[]{definition};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "importDefinition", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void isAvailable(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String type, java.lang.String oid)

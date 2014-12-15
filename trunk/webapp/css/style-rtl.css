@@ -1294,6 +1294,23 @@ div.groupDropTarget {
 .create-new-form-button:hover {
   background-position: 0px -50px;
 }
+/* Buttons */
+.import-form-button {
+  display: block;
+  height: 31px;
+  width: 203px;
+  background: url('/DDMS/imgs/import-button-background-rtl.png') no-repeat 0px 0px;
+  text-decoration: none;  
+  color: #4e4e4e;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 14px 45px 0px 0px;
+  margin: 0px;
+  border: solid 1px #d5d6d7;
+}
+.import-form-button:hover {
+  background-position: 0px -50px;
+}
 .form-standard-button {
   background: url('/DDMS/imgs/standard-button-back.png') repeat-x 0px 0px;
   display: block;

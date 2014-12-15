@@ -1,24 +1,48 @@
 package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
+
+import com.runwaysdk.ComponentIF;
 import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.business.Entity;
+import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.constants.MdEntityInfo;
+import com.runwaysdk.dataaccess.EntityDAO;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.util.IDGenerator;
 
+import dss.vector.solutions.MonthOfYearMaster;
+import dss.vector.solutions.ResponseMaster;
+import dss.vector.solutions.SurfacePositionMaster;
 import dss.vector.solutions.entomology.BiochemicalAssay;
+import dss.vector.solutions.entomology.ContainerShapeMaster;
 import dss.vector.solutions.entomology.DiagnosticAssay;
 import dss.vector.solutions.entomology.InfectionAssay;
 import dss.vector.solutions.entomology.LifeStage;
+import dss.vector.solutions.entomology.LifeStageMaster;
 import dss.vector.solutions.entomology.MolecularAssay;
 import dss.vector.solutions.entomology.PooledInfectionAssay;
 import dss.vector.solutions.entomology.SubCollection;
@@ -37,13 +61,151 @@ import dss.vector.solutions.general.DiseaseView;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
+import dss.vector.solutions.general.OutbreakCalculationMaster;
+import dss.vector.solutions.general.SystemAlertTypeMaster;
+import dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster;
+import dss.vector.solutions.general.ThresholdCalculationMethodMaster;
+import dss.vector.solutions.geo.ExtraFieldUniversal;
+import dss.vector.solutions.geo.GeoField;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.intervention.monitor.DiagnosisTypeMaster;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster;
+import dss.vector.solutions.irs.InsecticideBrandUseMaster;
+import dss.vector.solutions.irs.SprayMethodMaster;
+import dss.vector.solutions.irs.SurfaceTypeMaster;
+import dss.vector.solutions.irs.TargetUnitMaster;
+import dss.vector.solutions.ontology.FieldRoot;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.LayerQuery;
+import dss.vector.solutions.query.RenderTypes;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.WellKnownNamesMaster;
+import dss.vector.solutions.report.OutputFormatMaster;
+import dss.vector.solutions.surveillance.PeriodTypeMaster;
 
 public class ApplicationDataUpdater implements Reloadable, Runnable
 {
-  @Transaction
+  private boolean updateKeys;
+
+  public ApplicationDataUpdater(boolean _updateKeys)
+  {
+    this.updateKeys = _updateKeys;
+  }
+
   public void run()
+  {
+//    if (this.updateKeys)
+//    {
+//      this.updateKeys();
+//
+//      this.updateDeterminsticIdsMetadata();
+//    }
+//    else
+//    {
+//      updateBasicData();
+//    }
+    
+    // DELETE THIS LINE AFTER UNCOMMENTING THE ABOVE CODE
+    updateBasicData();
+  }
+
+  @Transaction
+  public void updateKeys()
+  {
+    String[] types = new String[] { GeoField.CLASS, ExtraFieldUniversal.CLASS, FieldRoot.CLASS, SavedSearch.CLASS };
+
+    for (String type : types)
+    {
+      MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO(type);
+      EntityQuery query = new QueryFactory().entityQuery(mdEntity);
+      OIterator<? extends ComponentIF> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          Entity entity = (Entity) iterator.next();
+          entity.apply();
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+  }
+
+  @Transaction
+  public void updateDeterminsticIdsMetadata()
+  {
+    List<String> types = new LinkedList<String>();
+    types.add(GeoEntity.CLASS);
+    types.add(Term.CLASS);
+    types.add(LifeStageMaster.CLASS);
+    types.add(Disease.CLASS);
+    types.add(ContainerShapeMaster.CLASS);
+    types.add(DiagnosisTypeMaster.CLASS);
+    types.add(InsecticideBrandConcentrationQualifierMaster.CLASS);
+    types.add(InsecticideBrandUnitQualifierMaster.CLASS);
+    types.add(InsecticideBrandUseMaster.CLASS);
+    types.add(MonthOfYearMaster.CLASS);
+    types.add(OrientationTypeMaster.CLASS);
+    types.add(OutbreakCalculationMaster.CLASS);
+    types.add(OutputFormatMaster.CLASS);
+    types.add(PeriodTypeMaster.CLASS);
+    types.add(RenderTypes.CLASS);
+    types.add(ResponseMaster.CLASS);
+    types.add(SprayMethodMaster.CLASS);
+    types.add(SurfacePositionMaster.CLASS);
+    types.add(SurfaceTypeMaster.CLASS);
+    types.add(SystemAlertTypeMaster.CLASS);
+    types.add(TargetUnitMaster.CLASS);
+    types.add(ThresholdCalculationCaseTypesMaster.CLASS);
+    types.add(ThresholdCalculationMethodMaster.CLASS);
+    types.add(WellKnownNamesMaster.CLASS);
+
+    for (String type : types)
+    {
+      MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
+
+      List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
+
+      for (MdEntityDAOIF subClass : subClasses)
+      {
+        this.updateDeterministicIdsMetadata(subClass);
+      }
+
+      EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
+      OIterator<? extends ComponentIF> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          Entity entity = (Entity) iterator.next();
+          EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
+          entityDAO.getAttribute(BusinessInfo.KEY).setModified(true);
+          entity.apply();
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+  }
+
+  public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF)
+  {
+    MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+    mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
+    mdEntity.apply();
+  }
+
+  @Transaction
+  public void updateBasicData()
   {
     // // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
@@ -266,9 +428,23 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public static void main(String[] args) throws FileNotFoundException
   {
+    Options options = new Options();
+    options.addOption(new Option("k", "update-keys", false, "Run the update keys routine"));
+
     try
     {
-      ApplicationDataUpdater.start(args);
+      CommandLineParser parser = new PosixParser();
+      CommandLine cmd = parser.parse(options, args);
+
+      boolean updateKeys = ( cmd.hasOption("k") ? new Boolean(cmd.getOptionValue("k")) : false );
+
+      System.out.println(updateKeys);
+
+      ApplicationDataUpdater.start(updateKeys);
+    }
+    catch (ParseException e)
+    {
+
     }
     finally
     {
@@ -277,8 +453,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Request
-  private static void start(String[] args)
+  private static void start(boolean updateDeterministicIds)
   {
-    new ApplicationDataUpdater().run();
+    new ApplicationDataUpdater(updateDeterministicIds).run();
   }
 }

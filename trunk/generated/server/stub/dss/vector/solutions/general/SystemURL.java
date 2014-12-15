@@ -137,26 +137,29 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
 
   public static SystemURL getByURL(String url)
   {
-    QueryFactory factory = new QueryFactory();
-    SystemURLQuery query = new SystemURLQuery(factory);
-
-    query.WHERE(query.getUrl().EQ(url));
-
-    OIterator<? extends SystemURL> it = query.getIterator();
-
-    try
+    if (url != null && url.length() > 0)
     {
-      if (it.hasNext())
+      QueryFactory factory = new QueryFactory();
+      SystemURLQuery query = new SystemURLQuery(factory);
+
+      query.WHERE(query.getUrl().EQ(url));
+
+      OIterator<? extends SystemURL> it = query.getIterator();
+
+      try
       {
-        return it.next();
+        if (it.hasNext())
+        {
+          return it.next();
+        }
       }
+      finally
+      {
+        it.close();
+      }
+    }
 
-      return null;
-    }
-    finally
-    {
-      it.close();
-    }
+    return null;
   }
 
   public static SystemURL getByName(String urlName)

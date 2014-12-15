@@ -808,11 +808,13 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           
           if(this._config.filter == null || this._config.filter(key))
           {
+            var formatter = this._typeFormatters[attr.getType()];
+            
             cols.push(new Column({
               key : key,
               label : label,
               sortable : true,
-              formatter : (this._typeFormatters[attr.getType()] || null)
+              formatter : ( formatter || null)
             }));            
           }
         }

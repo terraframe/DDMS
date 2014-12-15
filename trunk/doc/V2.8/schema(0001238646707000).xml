@@ -741,7 +741,7 @@
         label="Earth"
         description="Earth"
         removable="false"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true">
         <mdMethod
           name="getEarthInstance"
           label="get Earth Instance"

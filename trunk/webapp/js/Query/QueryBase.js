@@ -24,6 +24,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         exportXLS : this.exportXLS,
         exportCSV : this.exportCSV,
         exportReport : this.exportReport,
+        exportQuery : this.exportQuery,
         paginationHandler : this.paginationHandler,
         postRender : this.postRender
       }, renderDateRange);
@@ -320,6 +321,25 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       form.submit();
     },
   
+    exportQuery : function(form, searchIdInput)
+    {
+      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+      
+      if(savedSearchView != null && savedSearchView.getQueryName() != '__DEFAULT__')
+      {        
+        var savedSearchId = savedSearchView.getSavedQueryId();
+        searchIdInput.value = savedSearchId;
+      
+        var action = this._getExportQueryAction();      
+        form.action = action;      
+        form.submit();
+      }
+      else
+      {
+        alert(MDSS.localize("Export_Saved_Query_Only"))
+      }
+    },
+    
     /**
      * Handler to export the current query to an Excel file as a download.
      */
@@ -518,6 +538,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
     },
   
+    _getExportQueryAction : function()
+    {
+      return 'dss.vector.solutions.query.QueryController.exportQuery.mojo';
+    },
+    
     _getCountDiv : function(that,divName,klass,useRatio){
   
   

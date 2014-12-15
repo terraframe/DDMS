@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 749834065)
+@com.runwaysdk.business.ClassSignature(hash = -1835654250)
 public class MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.MdFormAdminController";
@@ -9,8 +9,6 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 749834065;
   
   public MdFormAdminControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -375,6 +373,20 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failExistingForms");
   }
   
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId", post=true)
+  public void exportDefinition(java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.exportDefinition");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId", post=true)
+  public void failExportDefinition(java.lang.String mdFormId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failExportDefinition");
+  }
+  
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:formId", post=true)
   public void fetchFormAttributes(java.lang.String formId) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -429,6 +441,20 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failGetConditions");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:definition", post=true)
+  public void importDefinition(com.runwaysdk.controller.MultipartFileParameter definition) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.importDefinition");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:definition", post=true)
+  public void failImportDefinition(com.runwaysdk.controller.MultipartFileParameter definition) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failImportDefinition");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

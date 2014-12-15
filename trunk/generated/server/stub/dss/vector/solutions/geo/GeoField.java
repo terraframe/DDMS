@@ -25,6 +25,17 @@ public class GeoField extends GeoFieldBase implements com.runwaysdk.generation.l
   }
 
   @Override
+  protected String buildKey()
+  {
+    if (this.getGeoAttribute() != null)
+    {
+      return this.getGeoAttribute().getKey();
+    }
+
+    return super.buildKey();
+  }
+
+  @Override
   public String getFilterType()
   {
     GeoHierarchy filter = this.getFilter();
@@ -62,10 +73,10 @@ public class GeoField extends GeoFieldBase implements com.runwaysdk.generation.l
       iterator.close();
     }
   }
-  
+
   /**
-   * This method returns the GeoField for the given MdWebGeo. It is expected
-   * that a valid MdWebGeo id is passed in, otherwise this method will error out.
+   * This method returns the GeoField for the given MdWebGeo. It is expected that a valid MdWebGeo
+   * id is passed in, otherwise this method will error out.
    * 
    * @param mdFieldId
    * @return
@@ -73,7 +84,7 @@ public class GeoField extends GeoFieldBase implements com.runwaysdk.generation.l
   public static GeoField getGeoFieldForMdWebGeo(String mdFieldId)
   {
     GeoFieldQuery q = new GeoFieldQuery(new QueryFactory());
-    
+
     MdWebGeo mdGeo = MdWebGeo.get(mdFieldId);
     q.WHERE(q.getGeoAttribute().EQ(mdGeo.getDefiningMdAttributeId()));
     return q.getIterator().getAll().get(0);

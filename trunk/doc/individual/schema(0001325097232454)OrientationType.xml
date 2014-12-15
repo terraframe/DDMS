@@ -9,7 +9,8 @@
       <enumerationMaster
         name="dss.vector.solutions.util.OrientationTypeMaster"
         label="Orientation Type Master"
-        generateController="false" />
+        generateController="false"
+        hasDeterministicId="true" />
 
       <object
         key="RTL"

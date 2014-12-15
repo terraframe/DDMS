@@ -11,7 +11,8 @@
       <enumerationMaster
         name="dss.vector.solutions.intervention.monitor.DiagnosisTypeMaster"
         label="Diagnosis Type Master"
-        generateController="false" />
+        generateController="false"
+        hasDeterministicId="true" />
 
       <object
         key="CLINICAL_DIAGNOSIS"

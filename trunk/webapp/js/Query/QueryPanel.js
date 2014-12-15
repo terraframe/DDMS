@@ -47,7 +47,7 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderD
   this._querySummary = null;
 
   // reference to the reusable modal for file uploading
-  this._uploadModal = null;
+  this._uploadTemplateModal = null;
 
   // array of objects with each element representing a
   // key/value pair of SavedSearch.ID/SavedSearch.QUERYNAME
@@ -710,7 +710,7 @@ MDSS.QueryPanel.prototype = {
       this._config.exportCSV.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
-
+  
   _exportReport : function(e, obj)
   {
     if(Mojo.Util.isFunction(this._config.exportReport))
@@ -720,6 +720,17 @@ MDSS.QueryPanel.prototype = {
       this._config.exportReport.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
+  
+  _exportQuery : function(e, obj)
+  {
+    if(Mojo.Util.isFunction(this._config.exportQuery))
+    {
+      // pass in the form element so the calling process
+      // can modify its action.
+      this._config.exportQuery.apply(this._queryClass, Mojo.Util.getValues(obj));
+    }    
+  },  
+  
 
   /**
    * Builds the form to request to download a CSV list
@@ -824,6 +835,38 @@ MDSS.QueryPanel.prototype = {
    return exportReportButton;
  },
 
+ /**
+  * Builds the form to request to download a saved query
+  */
+ _buildExportQueryForm : function()
+ {
+   var form = document.createElement('form');
+   YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+   YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
+   
+   var searchIdInput = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
+   
+   
+   var obj = {
+       form: form,
+       searchIdInput : searchIdInput
+   };
+   
+   var exportQueryButton = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(exportQueryButton, 'type', 'button');
+   YAHOO.util.Dom.setAttribute(exportQueryButton, 'value', MDSS.localize('Export_Query'));
+   YAHOO.util.Dom.addClass(exportQueryButton, 'queryButton');
+   YAHOO.util.Event.on(exportQueryButton, 'click', this._exportQuery, obj, this);
+   
+   form.appendChild(searchIdInput);
+   
+   document.getElementById('ExportQueryFormContainer').appendChild(form);
+   
+   return exportQueryButton;
+ },
+ 
 
   /**
    * Builds the form to do a synchronous post to the server to
@@ -887,7 +930,7 @@ MDSS.QueryPanel.prototype = {
    */
   _uploadTemplate : function()
   {
-    if(this._uploadModal == null)
+    if(this._uploadTemplateModal == null)
     {
       var formId = 'templateUploadForm';
       var action = 'dss.vector.solutions.query.QueryController.uploadTemplate.mojo';
@@ -900,7 +943,7 @@ MDSS.QueryPanel.prototype = {
       html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
       html += "</form>";
 
-      this._uploadModal = new YAHOO.widget.Panel("uploadTemplateModal", {
+      this._uploadTemplateModal = new YAHOO.widget.Panel("uploadTemplateModal", {
         width:"400px",
         height: "400px",
         fixedcenter:true,
@@ -923,8 +966,8 @@ MDSS.QueryPanel.prototype = {
       contentDiv.innerHTML = html;
       outer.appendChild(contentDiv);
 
-      this._uploadModal.setBody(outer);
-      this._uploadModal.render(document.body);
+      this._uploadTemplateModal.setBody(outer);
+      this._uploadTemplateModal.render(document.body);
 
       YAHOO.util.Event.on('templateFileElementId', 'change', this._clearTemplateFrame, null, this);      
       YAHOO.util.Event.on(formId, 'submit', this._uploadTemplateOnSubmit, null, this);
@@ -932,13 +975,72 @@ MDSS.QueryPanel.prototype = {
     else
     {
       this._clearTemplateFrame();
-      this._uploadModal.show();
+      this._uploadTemplateModal.show();
     }
   },
   
   _clearTemplateFrame : function()
   {
     var frame = document.getElementById('templateIframe');
+    frame.contentDocument.firstChild.innerHTML = '';    
+  },
+  
+  /**
+   * Action to upload a template file.
+   */
+  _importQuery : function()
+  {
+    if(this._importQueryModal == null)
+    {
+      var formId = 'importQueryForm';
+      var action = 'dss.vector.solutions.query.QueryController.importQuery.mojo';
+      
+      var html = MDSS.localize('File_Upload_Status')+":<br />";
+      html += "<iframe name='importQueryIframe' id='importQueryIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
+      html += "<form action='"+action+"' enctype='multipart/form-data' target='importQueryIframe' id='"+formId+"' method='post'>";
+      html += "<input type='file' name='queryFile' id='queryFileElementId'/><br />";
+      html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
+      html += "</form>";
+      
+      this._importQueryModal = new YAHOO.widget.Panel("importQueryModal", {
+        width:"400px",
+        height: "400px",
+        fixedcenter:true,
+        close: true,
+        draggable:false,
+        zindex:8,
+        modal:true,
+        visible:true
+      });
+      this._importQueryModal.subscribe('hide', Mojo.Util.bind(this, this._loadQuery));
+      
+      // wrap content in divs
+      var outer = document.createElement('div');
+      
+      var header = document.createElement('div');
+      header.innerHTML = '<h3>'+MDSS.localize('Import_Query')+'</h3><hr />';
+      outer.appendChild(header);
+      
+      var contentDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+      contentDiv.innerHTML = html;
+      outer.appendChild(contentDiv);
+      
+      this._importQueryModal.setBody(outer);
+      this._importQueryModal.render(document.body);
+      
+      YAHOO.util.Event.on('queryFileElementId', 'change', this._clearImportQueryFrame, null, this);      
+    }
+    else
+    {
+      this._clearImportQueryFrame();
+      this._importQueryModal.show();
+    }
+  },
+  
+  _clearImportQueryFrame : function()
+  {
+    var frame = document.getElementById('importQueryIframe');
     frame.contentDocument.firstChild.innerHTML = '';    
   },
 
@@ -981,7 +1083,14 @@ MDSS.QueryPanel.prototype = {
     deleteButton.set('id', this.LOAD_QUERY_BUTTON);
     deleteButton.addClass('queryButton');
     deleteButton.on('click', this._deleteQuery, {}, this);
-
+    
+    var importQuery = new YAHOO.util.Element(document.createElement('input'));
+    importQuery.set('type', 'button');
+    importQuery.set('value', MDSS.localize('Import_Query'));
+    importQuery.set('id', "importQueryButton");
+    importQuery.addClass('queryButton');
+    importQuery.on('click', this._importQuery, {}, this);
+    
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
     this._queryList.addClass('queryList');
@@ -999,11 +1108,14 @@ MDSS.QueryPanel.prototype = {
     }
     this._queryList.on('change', this._loadQuery, {}, this);
     
+    var exportQueryButton = this._buildExportQueryForm();
+    
     var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
     var exportXLSButton = this._buildXLSForm();
+    
 
     var runButton = new YAHOO.util.Element(document.createElement('input'));
     runButton.set('type', 'button');
@@ -1014,6 +1126,7 @@ MDSS.QueryPanel.prototype = {
 
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
+    rightDiv.appendChild(exportQueryButton);
     rightDiv.appendChild(uploadTemplate);
     rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
@@ -1028,6 +1141,7 @@ MDSS.QueryPanel.prototype = {
     leftDiv.appendChild(saveAsButton);
     leftDiv.appendChild(getDBViewName);
     leftDiv.appendChild(deleteButton);
+    leftDiv.appendChild(importQuery);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);

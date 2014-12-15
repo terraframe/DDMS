@@ -30,6 +30,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     CANCEL_DELETE_BUTTON : 'cancelDeleteButton',
     CONFIRM_DELETE_BUTTON : 'confirmDeleteButton',
     CREATE_NEW_FORM : 'createNewForm',
+    IMPORT_FORM : 'importForm',
     VIEW_FORM : 'viewForm',
     EXISTING_FORMS : 'existingForms',
     FORM_CONTENT : 'formContent',
@@ -74,6 +75,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       var editB = Mojo.Util.bind(this, this.requestEdit);
       this._MdFormAdminController.setEditFormAttributesListener(editB);
+      
+      this._MdFormAdminController.setExportDefinitionListener(Mojo.Util.bind(this, this.requestExport));
       
       var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
       this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
@@ -548,6 +551,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
+      YAHOO.util.Event.on(this.constructor.IMPORT_FORM, 'click', this.importForm, null, this);
       this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdFieldHandler, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editFieldHandler, 'li', this);
@@ -1008,6 +1012,28 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
     },
+    requestEdit : function()
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+          eval(executable);
+        }
+      });
+      
+      this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
+    },
+    requestExport : function()
+    {
+      document.getElementById('export_mdFormId').value = this._currentMdFormId;
+      
+      var form = document.getElementById('exportDefinition');
+      form.submit();      
+    },
     confirmDeleteForm : function(e)
     {
       var that = this;
@@ -1223,6 +1249,60 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        }
       });
       that._MdFormAdminController.newInstance(request);
+    },
+    importForm : function()
+    {
+      if(this._uploadModal == null)
+      {
+        var formId = 'definitionUploadForm';
+        var action = 'dss.vector.solutions.form.MdFormAdminController.importDefinition.mojo';
+
+        var html = MDSS.localize('File_Upload_Status')+":<br />";
+        html += "<iframe name='definitionIframe' id='definitionIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
+        html += "<form action='"+action+"' enctype='multipart/form-data' target='definitionIframe' id='"+formId+"' method='post'>";
+        html += "<input type='file' name='definition' id='definitionId'/><br />";        
+        html += "<input type='submit' name='import' id='form-import-button' value='"+MDSS.localize('Submit')+"' />"
+        html += "</form>";
+
+        this._uploadModal = new YAHOO.widget.Panel("uploadDefinitionModal", {
+          width:"400px",
+          height: "400px",
+          fixedcenter:true,
+          close: true,
+          draggable:false,
+          zindex:8,
+          modal:true,
+          visible:true
+        });
+        this._uploadModal.subscribe('hide', Mojo.Util.bind(this, this.existingForms));
+
+        // wrap content in divs
+        var outer = document.createElement('div');
+
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.localize('Import')+'</h3><hr />';
+        outer.appendChild(header);
+
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        this._uploadModal.setBody(outer);
+        this._uploadModal.render(document.body);
+
+        YAHOO.util.Event.on('definitionId', 'change', this._clearDefinitionFrame, null, this);      
+      }
+      else
+      {
+        this._clearDefinitionFrame();
+        this._uploadModal.show();
+      }
+    },
+    _clearDefinitionFrame : function()
+    {
+      var frame = document.getElementById('definitionIframe');
+      frame.contentDocument.firstChild.innerHTML = '';    
     }
   }
 });

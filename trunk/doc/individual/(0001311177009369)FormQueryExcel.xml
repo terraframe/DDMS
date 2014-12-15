@@ -105,7 +105,8 @@
       <mdBusiness
         name="dss.vector.solutions.geo.GeoField"
         label="Geo Field"
-        generateController="false">
+        generateController="false"
+        >
         <attributes>
           <reference
             name="geoAttribute"

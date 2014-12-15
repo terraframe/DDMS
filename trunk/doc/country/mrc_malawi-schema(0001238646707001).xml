@@ -12,7 +12,7 @@
         label="Country"
         description="Country"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -20,7 +20,7 @@
         label="Region"
         description="Region"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -28,7 +28,7 @@
         label="Railway"
         description="Railway"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -36,7 +36,7 @@
         label="Reserve"
         description="Reserve"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -44,7 +44,7 @@
         label="Road"
         description="Road"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -52,7 +52,7 @@
         label="District"
         description="District"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -60,7 +60,7 @@
         label="Spray Zone"
         description="Spray Zone"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -68,7 +68,7 @@
         label="Spray Area"
         description="Spray Area"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -76,7 +76,7 @@
         label="Traditional Authority"
         description="Traditional Authority"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -84,7 +84,7 @@
         label="Settlement"
         description="Settlement"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -92,7 +92,7 @@
         label="Settlement Subdivision"
         description="Settlement Subdivision"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -100,7 +100,7 @@
         label="Premises"
         description="Premises"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -108,7 +108,7 @@
         label="Building"
         description="Building"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -116,7 +116,7 @@
         label="Health Facility"
         description="Health Facility"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -124,7 +124,7 @@
         label="Stock Depot"
         description="Stock Depot"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -132,7 +132,7 @@
         label="Sentinel Site"
         description="Sentinel Site"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -140,7 +140,7 @@
         label="Water Body"
         description="Water Body"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -148,7 +148,7 @@
         label="Collection Site"
         description="Collection Site"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -156,7 +156,7 @@
         label="Surface"
         description="Surface"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
       <mdBusiness
@@ -164,7 +164,7 @@
         label="Health Facility Catchment Area"
         description="Health Facility Catchment Area"
         removable="true"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true" >
       </mdBusiness>
 
     </create>

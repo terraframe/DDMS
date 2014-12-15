@@ -187,13 +187,13 @@ YAHOO.util.Event.onDOMReady(function(){
 <!-- start side bar for tree -->
 <% %>
 <div class="form-side-bar">
+    <a href="#" class="import-form-button" id="importForm"><mdss:localize key="Import" /></a>
     <a href="#" class="create-new-form-button" id="createNewForm"><mdss:localize key="Forms" /></a>
     
     <!-- start tree control -->
     <ul class="tree" id="existingForms">
     </ul>
     <!-- end tree control -->
-
 </div>
 <!-- end side bar for tree -->
 
@@ -228,5 +228,14 @@ YAHOO.util.Event.onDOMReady(function(){
     </div>
   <!-- end fields -->    
 </div>
+
+<iframe id="exportIframe" name="exportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
+
+<div style="display: none">
+  <form id="exportDefinition" target="exportIframe" method="POST" action="dss.vector.solutions.form.MdFormAdminController.exportDefinition.mojo">
+        <input type="hidden" id="export_mdFormId" name="mdFormId" />
+  </form>
+</div>
+
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"></jsp:include>

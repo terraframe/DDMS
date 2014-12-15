@@ -12,6 +12,7 @@
 
 <mjl:form name="MdFormAdmin.form.name" id="MdWebFormAdmin.form.id" method="POST">
 <mjl:component param="form" item="${form}"/>
+  <input type="hidden" name="mdFormId" value="${form.id}">
 
 			<ul class="form-row">
               <c:if test="${form.formNameReadable}">
@@ -32,6 +33,8 @@
           <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.form.MdFormAdminController.editFormAttributes.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.editFormAttributes.button"/>
 			    <mdss:localize key="Delete" var="Localized_Delete" />
           <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.form.MdFormAdminController.delete.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.delete.button"/>
+			    <mdss:localize key="Export" var="Localized_Export" />
+          <mjl:command value="${Localized_Export}" action="dss.vector.solutions.form.MdFormAdminController.exportDefinition.mojo" name="export.button"/>
 			</div>
 
 </mjl:form>

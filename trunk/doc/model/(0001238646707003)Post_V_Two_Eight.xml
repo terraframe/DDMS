@@ -103,7 +103,8 @@
       <enumerationMaster
          name="dss.vector.solutions.surveillance.PeriodTypeMaster"
          label="Period Type Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
         <attributes>
           <integer name="maximumPeriod" label="Maximum Period" description="The maximum valid period number" required="true" rejectNegative="true" rejectZero="true" />
         </attributes>
@@ -111,61 +112,73 @@
       <enumerationMaster
          name="dss.vector.solutions.query.WellKnownNamesMaster"
          label="Well Known Name"
-         description="The well known name value used for Point Symbolizers">
+         description="The well known name value used for Point Symbolizers"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.irs.SprayMethodMaster"
          label="Spray Method Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.irs.SurfaceTypeMaster"
          label="Surface Type Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.irs.TargetUnitMaster"
          label="Target Unit Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.general.OutbreakCalculationMaster"
          generateController="false"
-         label="Outbreak Calculation">
+         label="Outbreak Calculation"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.stock.EventOptionMaster"
          label="Event Option"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.general.ThresholdCalculationMethodMaster"
          label="Threshold Calculation Method"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.ResponseMaster"
          label="Response Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.MonthOfYearMaster"
          label="Month Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.general.EmailProtocolMaster"
          label="Email Authentication Method"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster"
          label="Threshold Calculation Case Types"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.query.RenderTypes"
-         label="Render Types">
+         label="Render Types"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.query.FontStyle"
@@ -177,7 +190,8 @@
       <enumerationMaster
          name="dss.vector.solutions.general.SystemAlertTypeMaster"
          label="System Alert Type Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
         <attributes>
           <localText name="emailTemplateVariables" label="Template Variables" />
         </attributes>
@@ -185,7 +199,8 @@
       <enumerationMaster
          name="dss.vector.solutions.entomology.ContainerShapeMaster"
          label="Container Shape Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <mdBusiness
          name="dss.vector.solutions.entomology.assay.EfficacyAssay"
@@ -1383,7 +1398,8 @@
       </mdBusiness>
       <mdBusiness
          name="dss.vector.solutions.ontology.BrowserField"
-         label="Ontology Field">
+         label="Ontology Field"
+         >
         <attributes>
           <reference name="mdAttribute" label="MdAttribute" type="com.runwaysdk.system.metadata.MdAttribute" required="true" />
         </attributes>
@@ -1400,7 +1416,8 @@
       </mdBusiness>
       <mdBusiness
          name="dss.vector.solutions.ontology.BrowserRoot"
-         label="Ontology Root">
+         label="Ontology Root"
+         >
         <attributes>
           <boolean name="selectable" required="true" defaultValue="true" label="Selectable" positiveLabel="True" negativeLabel="False" />
           <reference name="disease" label="Disease" required="true" immutable="true" type="dss.vector.solutions.general.Disease" indexType="non-unique index" />
@@ -2292,7 +2309,8 @@
       </mdBusiness>
       <mdBusiness
          name="dss.vector.solutions.general.SystemURL"
-         label="URL">
+         label="URL"
+         >
         <attributes>
           <char name="url" label="URL" size="2048" required="true" />
           <localText name="displayLabel" label="Display Label" />

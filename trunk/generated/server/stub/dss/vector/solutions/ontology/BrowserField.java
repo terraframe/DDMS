@@ -61,10 +61,9 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the BrowserField associated with the given class name and
-   * attribute. This method should only be called if a BrowserField exists that
-   * matches the criteria. Otherwise, this method will error out with a generic
-   * exception.
+   * Returns the BrowserField associated with the given class name and attribute. This method should
+   * only be called if a BrowserField exists that matches the criteria. Otherwise, this method will
+   * error out with a generic exception.
    * 
    * @param className
    * @param attribute

@@ -1,0 +1,33 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController name="dss.vector.solutions.query.QueryController">
+        <create>
+          <mdAction name="exportQuery" label="Export query" isPost="true">
+            <mdParameter name="savedSearchId" label="savedSearchId" order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="importQuery" label="Import query" isPost="true">
+            <mdParameter name="queryFile" label="Query file" order="1" type="com.runwaysdk.controller.MultipartFileParameter" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness name="dss.vector.solutions.query.SavedSearch">
+        <create>
+          <mdMethod name="exportQuery" label="Export query" returnType="java.io.InputStream" />
+          <mdMethod name="importQuery" label="Import query" static="true" returnType="void">
+            <mdParameter name="queryFile" label="Query file" order="0" type="java.io.InputStream" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>  
+    <delete>
+      <object key="dss.vector.solutions.query.QueryController.exportQuery" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.query.SavedSearch.exportQuery" type="com.runwaysdk.system.metadata.MdMethod" />
+      
+      <object key="dss.vector.solutions.query.QueryController.importQuery" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.query.SavedSearch.importQuery" type="com.runwaysdk.system.metadata.MdMethod" />    
+    </delete>
+  </undoIt>
+</version>

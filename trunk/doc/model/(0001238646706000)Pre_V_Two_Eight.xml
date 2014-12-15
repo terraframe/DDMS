@@ -32,13 +32,15 @@
       <enumerationMaster
          name="dss.vector.solutions.entomology.LifeStageMaster"
          label="Life Stage Master"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <enumerationMaster
          name="dss.vector.solutions.SurfacePositionMaster"
          label="Position on surface"
          description="Configurable table of surface positions"
-         generateController="false">
+         generateController="false"
+         hasDeterministicId="true">
       </enumerationMaster>
       <mdStruct
          name="dss.vector.solutions.entomology.assay.AdultAgeRange"
@@ -86,7 +88,8 @@
       <mdBusiness
          name="dss.vector.solutions.ontology.Term"
          label="Term"
-         description="Ontology term">
+         description="Ontology term"
+         hasDeterministicId="true">
         <attributes>
           <char name="termId" label="Term Id" required="true" indexType="unique index" size="64" />
           <char name="name" label="Name" required="true" indexType="non-unique index" size="255" />
@@ -116,7 +119,8 @@
          name="dss.vector.solutions.general.Disease"
          label="Disease"
          generateController="false"
-         cacheAlgorithm="everything">
+         cacheAlgorithm="everything"
+         hasDeterministicId="true">
         <attributes>
           <reference name="dimension" label="Dimension" type="com.runwaysdk.system.metadata.MdDimension" required="true" />
           <reference name="menuRoot" label="Menu Root" required="false" description="A menu term" type="dss.vector.solutions.ontology.Term" />
@@ -126,7 +130,8 @@
       <mdBusiness
          name="dss.vector.solutions.geo.generated.GeoEntity"
          isAbstract="true"
-         label="Geo Entity">
+         label="Geo Entity"
+         hasDeterministicId="true">
         <attributes>
           <char name="geoId" label="Geo Id" required="true" indexType="unique index" size="16" />
           <char name="entityName" required="false" label="Geo Entity Name" size="255" indexType="non-unique index" />
@@ -173,7 +178,8 @@
          name="dss.vector.solutions.geo.GeoHierarchy"
          generateController="false"
          label="Geo Hierarchy"
-         description="Manages which GeoEntity types are allowed to be located in one another">
+         description="Manages which GeoEntity types are allowed to be located in one another"
+         >
         <attributes>
           <boolean name="viewCreated" label="View Created" description="Denotes if the view table has been created" required="true" defaultValue="false" negativeLabel="No" positiveLabel="Yes" />
           <boolean name="political" label="political" description="Denotes if this object is political (e.g., a Country)" required="true" negativeLabel="No" positiveLabel="Yes" defaultValue="false" />
@@ -261,7 +267,7 @@
          label="Earth"
          description="Earth"
          removable="false"
-         extends="dss.vector.solutions.geo.generated.GeoEntity">
+         extends="dss.vector.solutions.geo.generated.GeoEntity" hasDeterministicId="true">
         <mdMethod name="getEarthInstance" label="get Earth Instance" description="Gets the one and only instance of Earth." returnType="dss.vector.solutions.geo.generated.Earth" static="true" />
       </mdBusiness>
       <mdBusiness

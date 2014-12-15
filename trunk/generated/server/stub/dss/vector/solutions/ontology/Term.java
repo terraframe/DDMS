@@ -41,6 +41,7 @@ import com.runwaysdk.system.metadata.MdRelationship;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -75,8 +76,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Throws a localized Exception to alert the user that he is trying to modify
-   * the parent of a Term.
+   * Throws a localized Exception to alert the user that he is trying to modify the parent of a
+   * Term.
    * 
    * @throws ConfirmParentChangeException
    *           always.
@@ -146,9 +147,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Deletes the TermRElationship between this Term and the Term with the given
-   * parent id. This method should only be called if this Term has more than one
-   * parent.
+   * Deletes the TermRElationship between this Term and the Term with the given parent id. This
+   * method should only be called if this Term has more than one parent.
    */
   @Override
   @Transaction
@@ -212,6 +212,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   @Override
+  @Transaction
   public void apply()
   {
     // Use the name as the display label if no value is given
@@ -250,6 +251,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         this.addInactiveProperties(prop).apply();
       }
     }
+
+    SavedSearch.updateSavedSearchIds(this);
   }
 
   /**
@@ -467,10 +470,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns the InactiveProperty associated with this Term for the current
-   * disease of the session. If this Term is a new instance then a new instance
-   * of InactiveProperty is returned, which can be used for metadata purposes
-   * and default values.
+   * Returns the InactiveProperty associated with this Term for the current disease of the session.
+   * If this Term is a new instance then a new instance of InactiveProperty is returned, which can
+   * be used for metadata purposes and default values.
    */
   @Override
   public InactiveProperty getInactiveByDisease()
@@ -545,9 +547,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns all default roots (Terms without parents). This method WILL return
-   * all Terms regardless of obsolete status. To return the terms with obsolete
-   * marked as false, use BrowserRoot.getDefaultRoot().
+   * Returns all default roots (Terms without parents). This method WILL return all Terms regardless
+   * of obsolete status. To return the terms with obsolete marked as false, use
+   * BrowserRoot.getDefaultRoot().
    * 
    * @param filterObsolete
    * @return
@@ -1100,10 +1102,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Gets all selectable Term objects that are the first descendents of the
-   * field described by the given class and attribute names. Inheritance is
-   * already factored into the method such that if B extends A and A defines
-   * attribute m, the following calls are valid:
+   * Gets all selectable Term objects that are the first descendents of the field described by the
+   * given class and attribute names. Inheritance is already factored into the method such that if B
+   * extends A and A defines attribute m, the following calls are valid:
    * 
    * 1) Term.getAllTermsForField("A", "m") 2) Term.getAllTermsForField("B", "m")
    * 
@@ -1178,8 +1179,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns the directly selectable children of the all roots sorted by
-   * (BrowserRoot, TermId)
+   * Returns the directly selectable children of the all roots sorted by (BrowserRoot, TermId)
    * 
    * @param className
    *          Fully qualified class name which defines the MdAttribute
@@ -1231,8 +1231,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   /**
    * @param mdAttribute
-   * @return Returns selectable roots and every roots direct descendants for a
-   *         given MdAttribute
+   * @return Returns selectable roots and every roots direct descendants for a given MdAttribute
    */
   public static Term[] getRootChildren(MdAttributeDAOIF mdAttribute, Boolean returnOnlySelectable)
   {
@@ -1551,10 +1550,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Checks all given terms against one another for the possibility of nested
-   * selections. A nested selection is one in which two terms occupy the same
-   * branch, such as when a selected term is a child of parent term that is also
-   * selected.
+   * Checks all given terms against one another for the possibility of nested selections. A nested
+   * selection is one in which two terms occupy the same branch, such as when a selected term is a
+   * child of parent term that is also selected.
    * 
    * @param termIds
    * @throws NestedTermsException

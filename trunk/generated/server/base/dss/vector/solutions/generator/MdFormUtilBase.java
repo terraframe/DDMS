@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 833414107)
+@com.runwaysdk.business.ClassSignature(hash = 1471404304)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 833414107;
+  private static final long serialVersionUID = 1471404304;
   
   public MdFormUtilBase()
   {
@@ -153,6 +153,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static java.io.InputStream exportDefinition(java.lang.String mdFormId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static com.runwaysdk.system.metadata.MdWebField[] getAllFields(com.runwaysdk.system.metadata.MdWebForm form)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
@@ -238,6 +244,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static dss.vector.solutions.ontology.TermViewQuery getTermsForMultiTermField(com.runwaysdk.system.metadata.MdWebMultipleTerm mdWebMultipleTerm, java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void importDefinition(java.io.InputStream definition)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
