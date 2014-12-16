@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -96,19 +97,18 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void run()
   {
-//    if (this.updateKeys)
-//    {
-//      this.updateKeys();
-//
-//      this.updateDeterminsticIdsMetadata();
-//    }
-//    else
-//    {
-//      updateBasicData();
-//    }
-    
-    // DELETE THIS LINE AFTER UNCOMMENTING THE ABOVE CODE
-    updateBasicData();
+    System.out.println("Settings: " + this.updateKeys);
+
+    if (this.updateKeys)
+    {
+      this.updateKeys();
+
+      this.updateDeterminsticIdsMetadata();
+    }
+    else
+    {
+      this.updateBasicData();
+    }
   }
 
   @Transaction
@@ -428,23 +428,26 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public static void main(String[] args) throws FileNotFoundException
   {
+    Option option = new Option("k", "update-ids", false, "Run the update predictive ids algorithm");
+
     Options options = new Options();
-    options.addOption(new Option("k", "update-keys", false, "Run the update keys routine"));
+    options.addOption(option);
 
     try
     {
       CommandLineParser parser = new PosixParser();
       CommandLine cmd = parser.parse(options, args);
 
-      boolean updateKeys = ( cmd.hasOption("k") ? new Boolean(cmd.getOptionValue("k")) : false );
-
-      System.out.println(updateKeys);
+      boolean updateKeys = cmd.hasOption("k");
 
       ApplicationDataUpdater.start(updateKeys);
     }
     catch (ParseException e)
     {
+      HelpFormatter formatter = new HelpFormatter();
+      formatter.printHelp("setup", options);
 
+      e.printStackTrace();
     }
     finally
     {
