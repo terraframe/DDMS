@@ -64,6 +64,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.report.UndefinedTemplateException;
@@ -1093,8 +1094,23 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
         StringBuffer sqlStmt = new StringBuffer();
         sqlStmt.append("UPDATE " + mdSavedSearch.getTableName());
-        sqlStmt.append(" SET " + queryXml.getColumnName() + " = replace(" + queryXml.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
-        sqlStmt.append(", " + config.getColumnName() + " = replace(" + config.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
+        
+        // IMPORTANT: Multi-term grid query builds use a hash of the first 16 characters of a term
+        // ids. Thus in-order to preserve those ids we need to relpace the first 16 characters as
+        // well.
+        if (entity instanceof Term)
+        {
+          String oldTermAlias = oldId.substring(0, 16);
+          String newTermAlias = entity.getId().substring(0, 16);
+
+          sqlStmt.append(" SET " + queryXml.getColumnName() + " =REPLACE(REPLACE(" + queryXml.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')" + ", '" + oldTermAlias + "', '" + newTermAlias + "')");
+          sqlStmt.append(", " + config.getColumnName() + " =REPLACE(REPLACE(" + config.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')" + ", '" + oldTermAlias + "', '" + newTermAlias + "')");
+        }
+        else
+        {
+          sqlStmt.append(" SET " + queryXml.getColumnName() + " =REPLACE(" + queryXml.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
+          sqlStmt.append(", " + config.getColumnName() + " =REPLACE(" + config.getColumnName() + ", '" + oldId + "', '" + entity.getId() + "')");
+        }
 
         Connection conn = Database.getConnection();
         PreparedStatement prepared = null;
