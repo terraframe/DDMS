@@ -97,8 +97,6 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void run()
   {
-    System.out.println("Settings: " + this.updateKeys);
-
     if (this.updateKeys)
     {
       this.updateKeys();
@@ -137,12 +135,11 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  @Transaction
   public void updateDeterminsticIdsMetadata()
   {
     List<String> types = new LinkedList<String>();
-    types.add(GeoEntity.CLASS);
     types.add(Term.CLASS);
+    types.add(GeoEntity.CLASS);
     types.add(LifeStageMaster.CLASS);
     types.add(Disease.CLASS);
     types.add(ContainerShapeMaster.CLASS);
@@ -168,14 +165,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
-      MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
-
-      List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
-
-      for (MdEntityDAOIF subClass : subClasses)
-      {
-        this.updateDeterministicIdsMetadata(subClass);
-      }
+      MdEntityDAOIF mdEntityIF = updateMetadata(type);
 
       EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
       OIterator<? extends ComponentIF> iterator = query.getIterator();
@@ -184,10 +174,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         while (iterator.hasNext())
         {
-          Entity entity = (Entity) iterator.next();
-          EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
-          entityDAO.getAttribute(BusinessInfo.KEY).setModified(true);
-          entity.apply();
+          updateEntity(iterator);
         }
       }
       finally
@@ -195,6 +182,29 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         iterator.close();
       }
     }
+  }
+
+  @Transaction
+  public void updateEntity(OIterator<? extends ComponentIF> iterator)
+  {
+    Entity entity = (Entity) iterator.next();
+    EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
+    entityDAO.getAttribute(BusinessInfo.KEY).setModified(true);
+    entity.apply();
+  }
+
+  @Transaction
+  public MdEntityDAOIF updateMetadata(String type)
+  {
+    MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
+
+    List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
+
+    for (MdEntityDAOIF subClass : subClasses)
+    {
+      this.updateDeterministicIdsMetadata(subClass);
+    }
+    return mdEntityIF;
   }
 
   public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF)
