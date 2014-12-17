@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdController name="dss.vector.solutions.form.MdFormAdminController">
+        <mdAction name="newMdField">
+          <create>
+            <mdParameter name="formId" label="formId" required="true" size="100" order="2" type="java.lang.String" />
+          </create>
+        </mdAction>
+        <mdAction name="editMdField">
+          <create>
+            <mdParameter name="formId" label="formId" required="true" size="100" order="2" type="java.lang.String" />
+          </create>
+        </mdAction>
+      </mdController>
+      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

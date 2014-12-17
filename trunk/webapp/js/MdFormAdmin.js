@@ -603,13 +603,15 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     newField : function(mdFieldType)
     {
       var that = this;
+      var currentFormId = this._currentMdFormId;
+      
       var request = new MDSS.Request({
         onSuccess : function(html){
           that.newMdFieldDialog(html);
         }
       });
       
-      this._MdFormAdminController.newMdField(request, mdFieldType, false);
+      this._MdFormAdminController.newMdField(request, mdFieldType, false, currentFormId);
     },
     /**
      * Make a request for a new instance of an MdField.
@@ -626,6 +628,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     newMdFieldDialog : function(html)
     {
+    	var that = this;
       // the fields dialog might not have been rendered if we're adding 
       // a new group field.
       if(this._fieldsDialog !== null)
@@ -649,8 +652,80 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog.render();
       }
       
+      // prevent expression helper buttons from being added to input field when hitting enter
+      document.getElementById('expressionInputField').addEventListener('keypress', function(event) {
+          if (event.keyCode == 13) {
+              event.preventDefault();
+          }
+      });
+      
+      // change listener for expression radio buttons
+      YUI().use('node', function (Y) {
+    	  
+    	  Y.one(document.getElementById('expressionBool.positive')).delegate('click', function (e) {
+    	    Y.one("#expressionInputField").show();
+    	    Y.one("#expressionInputFieldLabel").show();
+    	    Y.one("#expressionCalcContainer").show();
+    	  }, 'input[type=radio]');
+    	  
+    	  Y.one(document.getElementById('expressionBool.negative')).delegate('click', function (e) {
+    		  Y.one("#expressionInputField").hide();
+    		  Y.one("#expressionInputFieldLabel").hide();
+    		  Y.one("#expressionCalcContainer").hide();
+    		  
+    		  var targetTextArea = document.getElementById("expressionInputField");
+    		  targetTextArea.value = "";
+    		  
+      	  }, 'input[type=radio]');
+    	  
+    	  // Add attributes to the text area throught the gui
+          Y.all('.expressionAttributeButton').each(function(node) {
+      	     node.on('click', function(e) {
+      	        e.preventDefault();
+      	        
+      	        var attrName = node.getContent();
+      	        var formattedAttrName = attrName;
+      	        var targetTextArea = document.getElementById("expressionInputField");
+      	        
+      	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
+      	        
+      	     });
+      	  });
+          
+          // Add operators to the text area through the gui
+          Y.all('.expressionOperatorButton').each(function(node) {
+       	     node.on('click', function(e) {
+       	        e.preventDefault();
+       	        
+       	        var operator = node.getContent();
+       	        var targetTextArea = document.getElementById("expressionInputFieldSubmit");
+       	        
+       	        that.insertTextAtCursor(targetTextArea, operator)
+       	        
+       	     });
+       	  });
+    	  
+      });
+      
       eval(executable);
     },
+    // Inserts text from an element into the expression field
+    insertTextAtCursor : function(el, text) {
+	    var val = el.value, endIndex, range;
+	    if (typeof el.selectionStart != "undefined" && typeof el.selectionEnd != "undefined") {
+	        endIndex = el.selectionEnd;
+	        el.value = val.slice(0, el.selectionStart).trimRight(" ");
+	        el.value += " " + text + " ";
+	        el.value += val.slice(endIndex).trimLeft(" ");
+	        el.selectionStart = el.selectionEnd = endIndex + text.length + 1; // +1 accounts for the added space
+	    } else if (typeof document.selection != "undefined" && typeof document.selection.createRange != "undefined") {
+	        el.focus();
+	        range = document.selection.createRange();
+	        range.collapse(false);
+	        range.text = text;
+	        range.select();
+	    }
+	},
     updateMdField : function(fieldMap)
     {
       var fieldId = fieldMap['mdField.componentId'];
@@ -1151,13 +1226,14 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     editField : function(fieldId)
     {
       var that = this;
+      var currentFormId = this._currentMdFormId;
       var request = new MDSS.Request({
         onSuccess: function(html){
           that.editMdFieldDialog(html);
         }
       });
       
-      this._MdFormAdminController.editMdField(request, fieldId, false);
+      this._MdFormAdminController.editMdField(request, fieldId, false, currentFormId);
     },
     editFieldHandler : function(e)
     {
@@ -1169,6 +1245,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     editMdFieldDialog : function(html)
     {
+      var that = this;
       var executable = MDSS.util.extractScripts(html);
       var pureHTML = MDSS.util.removeScripts(html);
       
@@ -1184,6 +1261,67 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
+      
+      // prevent expression helper buttons from being added to input field when hitting enter
+      document.getElementById('expressionInputField').addEventListener('keypress', function(event) {
+          if (event.keyCode == 13) {
+              event.preventDefault();
+          }
+      });
+      
+      // change listener for expression radio buttons
+      YUI().use('node', function (Y) {
+    	  
+    	  // show the expression field if active on render
+      	  var expressionTrue = document.getElementById('expressionBool.positive');
+      	  if(expressionTrue){
+      		Y.one("#expressionInputField").show();
+        	Y.one("#expressionCalcContainer").show();
+      	  }
+      	  
+    	  Y.one(document.getElementById('expressionBool.positive')).delegate('click', function (e) {
+    	    Y.one("#expressionInputField").show();
+    	    Y.one("#expressionInputFieldLabel").show();
+    	    Y.one("#expressionCalcContainer").show();
+    	  }, 'input[type=radio]');
+    	  
+    	  Y.one(document.getElementById('expressionBool.negative')).delegate('click', function (e) {
+    		  Y.one("#expressionInputField").hide();
+    		  Y.one("#expressionInputFieldLabel").hide();
+    		  Y.one("#expressionCalcContainer").hide();
+    		  
+    		  var targetTextArea = document.getElementById("expressionInputField");
+    		  targetTextArea.value = "";
+    		  
+      	  }, 'input[type=radio]');
+    	  
+    	  // Add attributes to the text area throught the gui
+          Y.all('.expressionAttributeButton').each(function(node) {
+      	     node.on('click', function(e) {
+      	        e.preventDefault();
+      	        
+      	        var attrName = node.getContent();
+      	        var formattedAttrName = attrName;
+      	        var targetTextArea = document.getElementById("expressionInputField");
+      	        
+      	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
+      	        
+      	     });
+      	  });
+          
+          // Add operators to the text area through the gui
+          Y.all('.expressionOperatorButton').each(function(node) {
+       	     node.on('click', function(e) {
+       	        e.preventDefault();
+       	        
+       	        var operator = node.getContent();
+       	        var targetTextArea = document.getElementById("expressionInputField");
+       	        
+       	        that.insertTextAtCursor(targetTextArea, operator)
+       	        
+       	     });
+       	  });
+       });
       
       eval(executable);
     },
@@ -1392,13 +1530,15 @@ Mojo.Meta.newClass('dss.vector.solutions.GridFieldAdmin',
     newField : function(mdFieldType)
     {
       var that = this;
+      var currentFormId = this._currentMdFormId;
+      
       var request = new MDSS.Request({
         onSuccess : function(html){
           that.newMdFieldDialog(html);
         }
       });
       
-      this._MdFormAdminController.newMdField(request, mdFieldType, true);
+      this._MdFormAdminController.newMdField(request, mdFieldType, true, currentFormId);
     },
     /**
      * Make a request for a new instance of an MdField.

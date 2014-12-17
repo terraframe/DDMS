@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = -1835654250)
+@com.runwaysdk.business.ClassSignature(hash = -658249452)
 public class MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.MdFormAdminController";
@@ -345,15 +345,15 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failEditFormAttributes");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldId, java.lang.Boolean:isComposite", post=true)
-  public void editMdField(java.lang.String mdFieldId, java.lang.Boolean isComposite) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldId, java.lang.Boolean:isComposite, java.lang.String:formId", post=true)
+  public void editMdField(java.lang.String mdFieldId, java.lang.Boolean isComposite, java.lang.String formId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.editMdField");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldId, java.lang.String:isComposite", post=true)
-  public void failEditMdField(java.lang.String mdFieldId, java.lang.String isComposite) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldId, java.lang.String:isComposite, java.lang.String:formId", post=true)
+  public void failEditMdField(java.lang.String mdFieldId, java.lang.String isComposite, java.lang.String formId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failEditMdField");
@@ -499,15 +499,15 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failNewInstance");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldType, java.lang.Boolean:isComposite", post=false)
-  public void newMdField(java.lang.String mdFieldType, java.lang.Boolean isComposite) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldType, java.lang.Boolean:isComposite, java.lang.String:formId", post=false)
+  public void newMdField(java.lang.String mdFieldType, java.lang.Boolean isComposite, java.lang.String formId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.newMdField");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldType, java.lang.String:isComposite", post=false)
-  public void failNewMdField(java.lang.String mdFieldType, java.lang.String isComposite) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFieldType, java.lang.String:isComposite, java.lang.String:formId", post=false)
+  public void failNewMdField(java.lang.String mdFieldType, java.lang.String isComposite, java.lang.String formId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failNewMdField");

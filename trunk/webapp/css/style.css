@@ -1461,6 +1461,35 @@ span.generatedViewCommand:hover {
 	cursor: pointer;
 }
 
+#expressionCalcContainer {
+	width: 300px;
+}
+
+#expressionAttributeButtonConainer {
+	background: none repeat scroll 0% 0% #FFF;
+	width: 100%;
+	border: 1px solid #D3D3D3;
+	padding: 5px;
+	border-radius: 3px;
+/* 	max-width: 300px; */
+}
+
+#expressionOperatorButtonConainer{
+	background: none repeat scroll 0% 0% #FFF;
+	width: 100%;
+	border: 1px solid #D3D3D3;
+	padding: 5px;
+	border-radius: 3px;
+/* 	max-width: 300px; */
+}
+
+#expressionInputField{
+/* 	max-width: 312px; */
+	width: 312px;
+/* 	height: 25px; */
+	padding: 5px;
+}
+
 /*---------------------------------------------------------------*/
 	/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 	/*---------------------------------------------------------------*/

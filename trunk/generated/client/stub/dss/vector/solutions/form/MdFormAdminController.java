@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -217,7 +218,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   @Override
-  public void newMdField(String mdFieldType, Boolean isComposite) throws IOException, ServletException
+  public void newMdField(String mdFieldType, Boolean isComposite, String formId) throws IOException, ServletException
   {
     try
     {
@@ -225,12 +226,23 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       // grab the appropriate MdField
       Class<?> klass = LoaderDecorator.load(mdFieldType + TypeGeneratorInfo.DTO_SUFFIX);
+      
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+      List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
+      Iterator<? extends MdWebFieldDTO> it = fields.iterator();
+      while(it.hasNext()){
+        MdWebFieldDTO field = it.next();
+        if(!(field instanceof MdWebPrimitiveDTO)){
+          it.remove();
+        }
+      }
 
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(clientRequest);
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
-
+      this.req.setAttribute("fields", fields);
+      
       if (dto instanceof MdWebGeoDTO)
       {
         GeoFieldDTO geoField = new GeoFieldDTO(clientRequest);
@@ -354,12 +366,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   @Override
-  public void editMdField(String mdFieldId, Boolean isComposite) throws IOException, ServletException
+  public void editMdField(String mdFieldId, Boolean isComposite, String formId) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
+      
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+      List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
+      Iterator<? extends MdWebFieldDTO> it = fields.iterator();
+      while(it.hasNext()){
+        MdWebFieldDTO field = it.next();
+        if(!(field instanceof MdWebPrimitiveDTO)){
+          it.remove();
+        }
+      }
 
       if (dto instanceof MdWebGeoDTO)
       {
@@ -395,6 +417,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
+      this.req.setAttribute("fields", fields);
 
       this.forwardToFieldPage(dto.getType(), "editComponent.jsp");
     }

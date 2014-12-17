@@ -7,6 +7,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.metadata.MdFieldDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributePrimitive;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 
@@ -93,4 +94,17 @@ public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements
       mdWebSingleTermGrid.addMdFields(this.getMdField()).apply();
     }
   }
+  
+  @Override
+  protected void updateMdAttribute(MdAttributeConcrete mdAttribute)
+  {
+    MdWebPrimitive mdWebPrimitive = this.getMdField();
+    
+    MdAttributePrimitive mdAttributePrimitive = (MdAttributePrimitive) mdAttribute;
+    mdAttributePrimitive.setIsExpression(mdWebPrimitive.getIsExpression());
+    mdAttributePrimitive.setExpression(mdWebPrimitive.getExpression());
+
+    super.updateMdAttribute(mdAttributePrimitive);
+  }
+
 }

@@ -2,37 +2,48 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
-<mjl:component param="dto" item="${item}">
-  <mjl:dt attribute="definingMdAttribute">
-    <mjl:select param="definingMdAttribute" items="${_definingMdAttribute}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.keyName}
-      </mjl:option>
-    </mjl:select>
+<mjl:component param="mdField" item="${item}">
+  <%@include file="../MdWebAttribute/form.jsp" %>
+
+  <mjl:dt attribute="isExpression">
+    <mjl:boolean param="isExpression" id="expressionBool"/>
   </mjl:dt>
-  <mjl:dt attribute="definingMdForm">
-    <mjl:select param="definingMdForm" items="${definingMdForm}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.displayLabel}
-      </mjl:option>
-    </mjl:select>
+
+  <!--   <dd> -->
+<!--     <textarea id="expressionInputField" name="expression" wrap="hard" rows="4" cols="50" style="display:none;"> </textarea> -->
+<!--   </dd> -->
+
+<!-- <dd> -->
+<!--     <input id="expressionInputField" style="" name="mdField.expression" type="textarea" wrap="hard" rows="4" cols="50" style="display:none;" > -->
+<!-- </dd> -->
+  
+  <mjl:dt attribute="expression" id="expressionInputFieldLabel">
+    <mjl:input param="expression" type="textarea" id="expressionInputField" style="display:none;" />
   </mjl:dt>
-  <mjl:dt attribute="displayLabel">
-    <mjl:input param="displayLabel" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="fieldName">
-    <mjl:input param="fieldName" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="fieldOrder">
-    <mjl:input param="fieldOrder" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="required">
-    <mjl:boolean param="required" />
-  </mjl:dt>
-  <mjl:dt attribute="description">
-    <mjl:input param="description" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="remove">
-    <mjl:boolean param="remove" />
-  </mjl:dt>
+  
+  <dd>
+    <div id="expressionCalcContainer" style="display:none;">
+	    <div id="expressionAttributeButtonConainer" >
+	    	<c:forEach items="${fields}" var="field">
+	    		<button class="expressionAttributeButton" value="${field.fieldName}">${field.displayLabel}</button>
+	    	</c:forEach>
+	    </div>
+	    <div id="expressionOperatorButtonConainer" >
+	      <button class="expressionOperatorButton">+</button>
+	      <button class="expressionOperatorButton">-</button>
+	      <button class="expressionOperatorButton">*</button>
+	      <button class="expressionOperatorButton">/</button>
+	      <button class="expressionOperatorButton">==</button>
+	      <button class="expressionOperatorButton">!=</button>
+	      <button class="expressionOperatorButton"><</button>
+	      <button class="expressionOperatorButton"><=</button>
+	      <button class="expressionOperatorButton">></button>
+	      <button class="expressionOperatorButton">>=</button>
+	      <button class="expressionOperatorButton">or</button>
+	      <button class="expressionOperatorButton">and</button>
+	      <button class="expressionOperatorButton">not</button>
+	    </div>
+	</div>
+  </dd>
+
 </mjl:component>
