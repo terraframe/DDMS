@@ -543,22 +543,29 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
     },
     _addField : function(formComponent){
       
-      if(formComponent.getField().isReadable())
+      var field = formComponent.getField();
+      
+      if(field.isReadable())
       {
-        var evt = this._editMode ? new RenderEditFieldEvent(formComponent, this._dl) 
-          : new RenderViewFieldEvent(formComponent, this._dl);
+        var skip = this._editMode && (field instanceof FIELD.WebPrimitive) && field.getFieldMd().getIsExpression();
         
-        // the FormObjectGenerator is the object that dispatches the event, such
-        // that calling code can listen for it.
-        this._formObjectGenerator.dispatchEvent(evt);
+        if(!skip)
+        {          
+          var evt = this._editMode ? new RenderEditFieldEvent(formComponent, this._dl) 
+            : new RenderViewFieldEvent(formComponent, this._dl);
         
-        // if the field was added (i.e., the default action executed) then
-        // visit the condition if one exists.
-        if(!evt.getPreventDefault()){
-          this._formObjectGenerator.addFieldComponent(formComponent);
-          var cond = formComponent.getField().getCondition();
-          if(cond){
-            cond.accept(this);
+          // the FormObjectGenerator is the object that dispatches the event, such
+          // that calling code can listen for it.
+          this._formObjectGenerator.dispatchEvent(evt);
+        
+          // if the field was added (i.e., the default action executed) then
+          // visit the condition if one exists.
+          if(!evt.getPreventDefault()){
+            this._formObjectGenerator.addFieldComponent(formComponent);
+            var cond = formComponent.getField().getCondition();
+            if(cond){
+              cond.accept(this);
+            }
           }
         }
       }
@@ -726,9 +733,7 @@ var FormObjectSearchVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       
       if(field instanceof FIELD.WebAttribute)
       {        
-        var attributeName = field.getFieldMd().getFieldName();
-      
-        if(this._filter(attributeName))
+        if(field.getFieldMd().getShowOnSearch())
         {
           this.$_addField(formComponent);        
         }
