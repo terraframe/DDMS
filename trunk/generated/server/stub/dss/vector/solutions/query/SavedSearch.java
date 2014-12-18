@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
@@ -21,14 +22,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
-import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.attributes.entity.Attribute;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.io.ImportManager;
@@ -1042,14 +1045,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   @Override
-  @Authenticate
   public InputStream exportQuery()
   {
     // Important we don't want to export the template file if there is one
-    this.setTemplateFile("");
+    EntityDAO entityDAO = BusinessFacade.getEntityDAO(this).getEntityDAO();
+    Attribute attribute = entityDAO.getAttribute(TEMPLATEFILE);
+    attribute.setValueNoValidation("");
 
     ExportMetadata metadata = new ExportMetadata();
-    metadata.addCreateOrUpdate(this);
+    metadata.addCreateOrUpdate(entityDAO);
 
     StringMarkupWriter writer = new StringMarkupWriter();
 
@@ -1072,9 +1076,21 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       SAXImporter importer = new SAXImporter(source, MdFormUtil.XSD_LOCATION);
       importer.begin();
-      
+
+      // Ensure the imported queries are valid.
       ImportManager manager = importer.getManager();
-      manager.getImportedTypes();
+      Set<String> objectIds = manager.getImportedObjects();
+
+      for (String objectId : objectIds)
+      {
+        // Applying will validate the query??
+        SavedSearch search = SavedSearch.get(objectId);
+        search.appLock();
+        search.apply();
+
+        // We must replace the database view because the search could have been updated
+        search.createOrReplaceDatabaseView();
+      }
     }
     catch (XMLParseException e)
     {
