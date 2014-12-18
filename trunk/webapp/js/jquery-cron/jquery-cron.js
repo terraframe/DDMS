@@ -184,7 +184,7 @@
         }
 
         // check format of initial cron value
-        var valid_cron = /^((\d{1,2}|\*)\s){4}(\d{1,2}|\*)$/
+        var valid_cron = /^((\d{1,2}|\*)\s){4}(\d{1,2}|\*)$/;
         if (typeof cron_str != "string" || !valid_cron.test(cron_str)) {
             $.error("cron: invalid initial value");
             return undefined;
