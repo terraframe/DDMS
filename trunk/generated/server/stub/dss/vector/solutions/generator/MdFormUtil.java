@@ -1772,6 +1772,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
+  @Authenticate
   public static InputStream exportDefinition(String mdFormId)
   {
     MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
@@ -1869,6 +1870,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static void importDefinition(InputStream definition)
   {
     try

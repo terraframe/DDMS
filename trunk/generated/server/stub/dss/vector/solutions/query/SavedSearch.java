@@ -22,13 +22,16 @@ import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 import com.runwaysdk.business.Entity;
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.io.ImportManager;
 import com.runwaysdk.dataaccess.io.StringMarkupWriter;
 import com.runwaysdk.dataaccess.io.StringStreamSource;
 import com.runwaysdk.dataaccess.io.XMLParseException;
@@ -1039,8 +1042,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   @Override
+  @Authenticate
   public InputStream exportQuery()
   {
+    // Important we don't want to export the template file if there is one
+    this.setTemplateFile("");
+
     ExportMetadata metadata = new ExportMetadata();
     metadata.addCreateOrUpdate(this);
 
@@ -1054,6 +1061,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     return new StringInputStream(xml);
   }
 
+  @Authenticate
   public static void importQuery(InputStream queryFile)
   {
     try
@@ -1064,6 +1072,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       SAXImporter importer = new SAXImporter(source, MdFormUtil.XSD_LOCATION);
       importer.begin();
+      
+      ImportManager manager = importer.getManager();
+      manager.getImportedTypes();
     }
     catch (XMLParseException e)
     {

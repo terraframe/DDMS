@@ -1,7 +1,8 @@
 /**
  * Class to create a Query Panel.
  */
-MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderDateRange)
+MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config,
+    renderDateRange)
 {
 
   this._queryClass = queryClass;
@@ -9,19 +10,53 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderD
   var minWidth = 1250;
   var minHeight = 500;
 
-  var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
-  var pHeight = (window.innerHeight - 160) > minHeight ? (window.innerHeight -160) : minHeight;
+  var pWidth = (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30)
+      : minWidth;
+  var pHeight = (window.innerHeight - 160) > minHeight ? (window.innerHeight - 160)
+      : minHeight;
 
-  this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
-    height: pHeight,
-    width: pWidth,
-    units: [
-        { position: 'top', height: 40, resize: false, body: '', gutter: '2' },
-        { position: 'left', width: 220 , resize: true, body: '', gutter: '0 5 0 2', scroll: true },
-        { position: 'bottom', height: 40, body: '', gutter: '2' },
-        { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div><div id="'+this.PAGINATION_SECTION+'"></div>', gutter: '0 2 0 0', scroll: false},
-        { position: 'right', width: 150, body: '<div style="margin-left: 10px" id="'+this.QUERY_SUMMARY+'"></div>', resize: true, scroll: true, gutter: '0 5 0 2'}
-    ]
+  this._queryLayout = new YAHOO.widget.Layout(queryPanelId,
+  {
+    height : pHeight,
+    width : pWidth,
+    units : [
+        {
+          position : 'top',
+          height : 40,
+          resize : false,
+          body : '',
+          gutter : '2'
+        },
+        {
+          position : 'left',
+          width : 220,
+          resize : true,
+          body : '',
+          gutter : '0 5 0 2',
+          scroll : true
+        },
+        {
+          position : 'bottom',
+          height : 40,
+          body : '',
+          gutter : '2'
+        },
+        {
+          position : 'center',
+          body : '<div id="' + this.QUERY_DATA_TABLE + '"></div><div id="'
+              + this.PAGINATION_SECTION + '"></div>',
+          gutter : '0 2 0 0',
+          scroll : false
+        },
+        {
+          position : 'right',
+          width : 150,
+          body : '<div style="margin-left: 10px" id="' + this.QUERY_SUMMARY
+              + '"></div>',
+          resize : true,
+          scroll : true,
+          gutter : '0 5 0 2'
+        } ]
   });
 
   this._pWidth = pWidth;
@@ -60,30 +95,32 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderD
   this._map = null;
 
   // map between header ids (TH tags) and context menu builder functions
-  this._headerMenuBuilders = {};
+  this._headerMenuBuilders =
+  {};
 
   // map between query list entries (LI tags) and context menu builder functions
-  this._queryMenuBuilders = {};
-  
+  this._queryMenuBuilders =
+  {};
+
   this.waitForRefresh = false;
   this._columnBatch = [];
   this._deleteBatch = [];
-  
+
   // Flag denoting if the date range widget should be rendered
-  if(renderDateRange != null)
+  if (renderDateRange != null)
   {
-    this._renderDateRange = renderDateRange;    
-  }
-  else
+    this._renderDateRange = renderDateRange;
+  } else
   {
     this._renderDateRange = true;
   }
 };
 
-MDSS.QueryPanel.prototype = {
-    
+MDSS.QueryPanel.prototype =
+{
+
   PREPEND_CLASS : 'prependClass',
-    
+
   RUN_QUERY_BUTTON : 'runQueryBtn',
 
   QUERY_ITEMS : "queryItemsList",
@@ -99,30 +136,29 @@ MDSS.QueryPanel.prototype = {
   DATE_GROUP_ID : "dateGroupSelection",
 
   START_DATE_RANGE : "startDateRange",
-  
+
   START_DATE_RANGE_CHECK : "start_date_range",
-  
+
   START_DATE_CURRENT_DATE_CHECK : "start_date_current_date",
 
   END_DATE_RANGE : "endDateRange",
-  
+
   END_DATE_RANGE_CHECK : "end_date_range",
-  
+
   END_DATE_CURRENT_DATE_CHECK : "end_date_current_date",
-  
+
   GEO_ENTITY_PANEL_LIST : "geoEntityPanelList",
 
   COLUMNS_LIST : "columnsList",
 
   QUERY_SUMMARY : "querySummary",
-  
 
   EDIT_VARIABLE_STYLE : "editVariableStyle",
 
   EDIT_DEFAULT_STYLE : "editDefaultStyle",
 
   /**
-   *
+   * 
    */
   setCurrentSavedSearch : function(savedSearch)
   {
@@ -130,44 +166,43 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Returns the current saved search. The
-   * value will be null if there isn't a saved
-   * search.
+   * Returns the current saved search. The value will be null if there isn't a
+   * saved search.
    */
   getCurrentSavedSearch : function()
   {
     return this._currentSavedSearch;
   },
-  
-  setRenderDateRange : function (renderDateRange)
+
+  setRenderDateRange : function(renderDateRange)
   {
     this._renderDateRange = renderDateRange;
   },
-  
+
   getRenderDateRange : function()
   {
     return this._renderDateRange;
   },
 
   /**
-   * Updates the column label on both the YUI column object
-   * and the listing in the right panel query summary.
+   * Updates the column label on both the YUI column object and the listing in
+   * the right panel query summary.
    */
   updateColumnLabel : function(key, prepend)
   {
-    var li = document.getElementById(key+"_summary");
+    var li = document.getElementById(key + "_summary");
     var child = li.firstChild;
-    
-    // Update the prepend text if the prepend element exists, otherwise create a new one
-    if(YAHOO.util.Dom.hasClass(child, this.PREPEND_CLASS))
+
+    // Update the prepend text if the prepend element exists, otherwise create a
+    // new one
+    if (YAHOO.util.Dom.hasClass(child, this.PREPEND_CLASS))
     {
-      child.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
-    }
-    else
+      child.innerHTML = (prepend === '') ? '' : '(' + prepend + ') ';
+    } else
     {
       var prependNode = document.createElement('span');
       YAHOO.util.Dom.addClass(prependNode, this.PREPEND_CLASS);
-      prependNode.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+      prependNode.innerHTML = (prepend === '') ? '' : '(' + prepend + ') ';
       YAHOO.util.Dom.insertBefore(prependNode, child);
     }
   },
@@ -175,79 +210,88 @@ MDSS.QueryPanel.prototype = {
   getSelectedDisplayLabel : function(key)
   {
     // grab the first element which holes an possible aggregate function info
-    // and append its contents to that of its sibling that contains the selectable
+    // and append its contents to that of its sibling that contains the
+    // selectable
     // display.
-    var li = document.getElementById(key+"_summary");
-    var display = li.firstChild.textContent+li.firstChild.nextSibling.textContent;
+    var li = document.getElementById(key + "_summary");
+    var display = li.firstChild.textContent
+        + li.firstChild.nextSibling.textContent;
     return display;
   },
 
   /**
-   * Adds a column to the query summary in
-   * the right panel.
+   * Adds a column to the query summary in the right panel.
    */
   _addSelectedColumn : function(column)
   {
     var ul = document.getElementById(this.COLUMNS_LIST);
 
     var li = document.createElement('li');
-    li.id = column.getKey()+"_summary";
+    li.id = column.getKey() + "_summary";
 
-    if(column.attribute){
-      var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
-          function(a){return('<li id= "'+a.uuid+'_summary" >'+a.text+'</li>');
-          });
-      li.innerHTML = "<span id= '" +column.getKey() + "_summary_label" + "'>"+ column.label + '</span><ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
-    }else{
-      li.innerHTML = "<span id= '" +column.getKey() + "_summary_label" + "'>"+ column.label + '</span><ul id="'+column.getKey()+'_whereValues"></ul>';
+    if (column.attribute)
+    {
+      var whereFilters = column.attribute._whereValues.filter(function(a)
+      {
+        return a.checked;
+      }).map(function(a)
+      {
+        return ('<li id= "' + a.uuid + '_summary" >' + a.text + '</li>');
+      });
+      li.innerHTML = "<span id= '" + column.getKey() + "_summary_label" + "'>"
+          + column.label + '</span><ul id="' + column.getKey()
+          + '_whereValues">' + whereFilters.join('') + '</ul>';
+    } else
+    {
+      li.innerHTML = "<span id= '" + column.getKey() + "_summary_label" + "'>"
+          + column.label + '</span><ul id="' + column.getKey()
+          + '_whereValues"></ul>';
     }
 
     ul.appendChild(li);
   },
-  
-  setTermAggregate : function (attribute, aggregate)
-  { 
-    var el = document.getElementById(attribute.getKey() +"_summary_label");
-    
-    if(aggregate)
+
+  setTermAggregate : function(attribute, aggregate)
+  {
+    var el = document.getElementById(attribute.getKey() + "_summary_label");
+
+    if (aggregate)
     {
-      el.innerHTML = attribute.getDisplayLabel() + " " + MDSS.localize('AG');    
-    }
-    else
+      el.innerHTML = attribute.getDisplayLabel() + " " + MDSS.localize('AG');
+    } else
     {
       el.innerHTML = attribute.getDisplayLabel();
     }
-  },   
-    
-  appendTermAggregate : function (key)
-  { 
-    var el = document.getElementById(key + "_summary_label");    
-    el.innerHTML = el.innerHTML + " " + MDSS.localize('AG');    
-  },   
+  },
+
+  appendTermAggregate : function(key)
+  {
+    var el = document.getElementById(key + "_summary_label");
+    el.innerHTML = el.innerHTML + " " + MDSS.localize('AG');
+  },
 
   clearWhereCriteria : function(key)
   {
-    var whereValues = document.getElementById(key+"_whereValues");
-    if(whereValues)
+    var whereValues = document.getElementById(key + "_whereValues");
+    if (whereValues)
     {
       whereValues.innerHTML = '';
     }
   },
 
   /**
-   * Adds a WHERE criteria label to the attribute with
-   * the given key.
+   * Adds a WHERE criteria label to the attribute with the given key.
    */
   addWhereCriteria : function(key, value, display)
   {
-    var id = key+'-'+value+'-where';
+    var id = key + '-' + value + '-where';
     var li = document.getElementById(id);
-    if(li)
+    if (li)
     {
       return;
     }
 
-    var whereValues = document.getElementById(key+"_whereValues");
+    var whereValues = document.getElementById(key + "_whereValues");
     li = document.createElement('li');
     li.id = id;
     li.innerHTML = display;
@@ -256,78 +300,75 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Removes a single entry in the WHERE criteria for
-   * an attribute with the given key.
+   * Removes a single entry in the WHERE criteria for an attribute with the
+   * given key.
    */
   removeWhereCriteria : function(key, value)
   {
-    var id = key+'-'+value+'-where';
+    var id = key + '-' + value + '-where';
     var li = document.getElementById(id);
-    if(li)
+    if (li)
     {
       li.parentNode.removeChild(li);
     }
   },
 
   /**
-   * Removes a column from the query summary in
-   * the right panel.
+   * Removes a column from the query summary in the right panel.
    */
   _removeSelectedColumn : function(column)
   {
     var ul = document.getElementById(this.COLUMNS_LIST);
-    var li = document.getElementById(column.getKey()+"_summary");
+    var li = document.getElementById(column.getKey() + "_summary");
     ul.removeChild(li);
   },
 
   /**
-   * Adds the list of GeoEntity objects to the list
-   * of criteria entities for the given attribute.
+   * Adds the list of GeoEntity objects to the list of criteria entities for the
+   * given attribute.
    */
   addSelectedGeoEntities : function(attributeKey, displayLabel, geoEntities)
   {
     var parent = document.getElementById(this.GEO_ENTITY_PANEL_LIST);
-        
-    var ulId = attributeKey+'_criteriaEntitiesUl';
-    var spanId = attributeKey+'_criteriaEntitiesSpan';
-    
+
+    var ulId = attributeKey + '_criteriaEntitiesUl';
+    var spanId = attributeKey + '_criteriaEntitiesSpan';
+
     var ul = document.getElementById(ulId);
     var span = document.getElementById(spanId);
-    if(geoEntities.length > 0)
+    if (geoEntities.length > 0)
     {
       // To avoid an ugly diff procedure, just wipe the previous node clean
       // if it already exists.
-      if(ul)
+      if (ul)
       {
         ul.innerHTML = '';
-      }
-      else
+      } else
       {
         ul = document.createElement('ul');
-        ul.id = ulId; 
-        
+        ul.id = ulId;
+
         span = document.createElement('span');
         span.id = spanId;
         span.innerHTML = displayLabel;
-        
+
         parent.appendChild(span);
         parent.appendChild(ul);
       }
-  
+
       var frag = document.createDocumentFragment();
-      for(var i=0; i<geoEntities.length; i++)
+      for (var i = 0; i < geoEntities.length; i++)
       {
         var geoEntityView = geoEntities[i];
-  
+
         var li = document.createElement('li');
         li.innerHTML = MDSS.AbstractSelectSearch.formatDisplay(geoEntityView);
-  
+
         frag.appendChild(li);
       }
-  
+
       ul.appendChild(frag);
-    }
-    else if(ul)
+    } else if (ul)
     {
       parent.removeChild(ul);
       parent.removeChild(span);
@@ -335,15 +376,14 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Adds an available query id and name
-   * as an option to the select list.
+   * Adds an available query id and name as an option to the select list.
    */
   addAvailableQuery : function(obj)
   {
     this._availableQueries.push(obj);
 
     // update the live list
-    if(this._queryList != null)
+    if (this._queryList != null)
     {
       var option = document.createElement('option');
       YAHOO.util.Dom.setAttribute(option, 'value', obj.id);
@@ -353,13 +393,12 @@ MDSS.QueryPanel.prototype = {
 
       var el = document.getElementById(this._queryList.get('id'));
 
-      el.selectedIndex = el.options.length-1;
+      el.selectedIndex = el.options.length - 1;
     }
   },
 
   /**
-   * Returns the start date element wrapped
-   * in a YUI Element object.
+   * Returns the start date element wrapped in a YUI Element object.
    */
   getStartDate : function()
   {
@@ -370,15 +409,14 @@ MDSS.QueryPanel.prototype = {
   {
     return this._startDateRangeCheck;
   },
-  
+
   getStartDateCurrentDateCheck : function()
   {
     return this._startDateCurrentDateCheck;
   },
-  
+
   /**
-   * Returns the end date element wrapped
-   * in a YUI Element object.
+   * Returns the end date element wrapped in a YUI Element object.
    */
   getEndDate : function()
   {
@@ -389,12 +427,12 @@ MDSS.QueryPanel.prototype = {
   {
     return this._endDateRangeCheck;
   },
-  
+
   getEndDateCurrentDateCheck : function()
   {
     return this._endDateCurrentDateCheck;
   },
-  
+
   /**
    * Adds the date range div to the top panel.
    */
@@ -403,8 +441,8 @@ MDSS.QueryPanel.prototype = {
     var dateRange = new YAHOO.util.Element(document.createElement('div'));
     dateRange.set('id', this.DATE_RANGE_DIV);
 
-    if(this.getRenderDateRange())
-    {     
+    if (this.getRenderDateRange())
+    {
       var startLabel = document.createElement('span');
       startLabel.innerHTML = MDSS.localize('Query_Start_Date');
 
@@ -412,24 +450,30 @@ MDSS.QueryPanel.prototype = {
       YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
       this._startDate.id = this.START_DATE_RANGE;
       YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
-      YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
+      YAHOO.util.Event.addListener(this._startDate, "blur",
+          this.disableDateCheck, null, this);
 
       this._startDateRangeCheck = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', this.START_DATE_RANGE_CHECK);
+      YAHOO.util.Dom
+          .setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id',
+          this.START_DATE_RANGE_CHECK);
       YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
-      
+
       var currentStartDateLabel = document.createElement('span');
       currentStartDateLabel.innerHTML = MDSS.localize('Current_Date');
 
       this._startDateCurrentDateCheck = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'id', this.START_DATE_CURRENT_DATE_CHECK);
-      YAHOO.util.Event.addListener(this._startDateCurrentDateCheck, "click", this.disableDateCheck, null, this);
+      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'type',
+          'checkbox');
+      YAHOO.util.Dom.setAttribute(this._startDateCurrentDateCheck, 'id',
+          this.START_DATE_CURRENT_DATE_CHECK);
+      YAHOO.util.Event.addListener(this._startDateCurrentDateCheck, "click",
+          this.disableDateCheck, null, this);
 
       var startSpaceLabel = document.createElement('span');
       startSpaceLabel.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-      
+
       var endLabel = document.createElement('span');
       endLabel.innerHTML = MDSS.localize('Query_End_Date');
 
@@ -437,32 +481,38 @@ MDSS.QueryPanel.prototype = {
       YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
       this._endDate.id = this.END_DATE_RANGE;
       YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
-      YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
+      YAHOO.util.Event.addListener(this._endDate, "blur",
+          this.disableDateCheck, null, this);
 
       this._endDateRangeCheck = document.createElement('input');
       YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', this.END_DATE_RANGE_CHECK);
+      YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id',
+          this.END_DATE_RANGE_CHECK);
       YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
-      
+
       var currentEndDateLabel = document.createElement('span');
       currentEndDateLabel.innerHTML = MDSS.localize('Current_Date');
-      
+
       this._endDateCurrentDateCheck = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'id', this.END_DATE_CURRENT_DATE_CHECK);
-      YAHOO.util.Event.addListener(this._endDateCurrentDateCheck, "click", this.disableDateCheck, null, this);
+      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'type',
+          'checkbox');
+      YAHOO.util.Dom.setAttribute(this._endDateCurrentDateCheck, 'id',
+          this.END_DATE_CURRENT_DATE_CHECK);
+      YAHOO.util.Event.addListener(this._endDateCurrentDateCheck, "click",
+          this.disableDateCheck, null, this);
 
       var endSpaceLabel = document.createElement('span');
-      endSpaceLabel.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'      
+      endSpaceLabel.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 
       var toggleDatesSpan = document.createElement('span');
       toggleDatesSpan.innerHTML = MDSS.localize('Toggle_Show');
-    
+
       // add the date fields
-      if(this._queryClass._dateAttribs){
+      if (this._queryClass._dateAttribs)
+      {
         this._queryClass._buildDateAttributesSelect(dateRange);
       }
-    
+
       dateRange.appendChild(startLabel);
       dateRange.appendChild(this._startDateRangeCheck);
       dateRange.appendChild(this._startDate);
@@ -481,123 +531,121 @@ MDSS.QueryPanel.prototype = {
 
       this._dateGroupBy = document.createElement('select');
       this._dateGroupBy.id = this.DATE_GROUP_ID;
-      var options = [''];
-      var keys = [''];
-      options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts));
+      var options = [ '' ];
+      var keys = [ '' ];
+      options = options
+          .concat(Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts));
       keys = keys.concat(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts));
 
-      for(var j=0; j<options.length; j++)
+      for (var j = 0; j < options.length; j++)
       {
         var optionEl = document.createElement('option');
         optionEl.innerHTML = options[j];
         YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
-        //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+        // YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler,
+        // attribute, this);
         this._dateGroupBy.appendChild(optionEl);
       }
       dateRange.appendChild(dateGroupLabel);
       dateRange.appendChild(this._dateGroupBy);
     }
-    
-    //add geo entity chooser    
-    if(this._queryClass._geoEntityAttribs)
+
+    // add geo entity chooser
+    if (this._queryClass._geoEntityAttribs)
     {
       this._queryClass._addGeoAttributes(dateRange);
-    }   
+    }
 
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
   },
-  
+
   disableDates : function(disableStart, disableEnd)
   {
-  if(this.getRenderDateRange())
-  {
-      if(disableStart !== null)
+    if (this.getRenderDateRange())
+    {
+      if (disableStart !== null)
       {
         this._startDateRangeCheck.disabled = disableStart;
       }
-    
-      if(disableEnd !== null)
+
+      if (disableEnd !== null)
       {
-      this._endDateRangeCheck.disabled = disableEnd;
+        this._endDateRangeCheck.disabled = disableEnd;
       }
-  }
+    }
   },
-  
+
   getDateGroupBy : function()
   {
     return this._dateGroupBy;
   },
-  
+
   /**
    */
   disableDateCheck : function()
   {
-    if(this.getRenderDateRange())
+    if (this.getRenderDateRange())
     {
-      if(this._startDate.value.length == 0 && !this._startDateCurrentDateCheck.checked)
+      if (this._startDate.value.length == 0
+          && !this._startDateCurrentDateCheck.checked)
       {
-        if(this._startDateRangeCheck.checked)
+        if (this._startDateRangeCheck.checked)
         {
           this._startDateRangeCheck.click();
         }
-        this._startDateRangeCheck.disabled = true;        
+        this._startDateRangeCheck.disabled = true;
         this._startDate.disabled = false;
         this._startDateCurrentDateCheck.disabled = false;
-      }
-      else
+      } else
       {
         this._startDateRangeCheck.disabled = false;
-        
-        if(this._startDateCurrentDateCheck.checked)
+
+        if (this._startDateCurrentDateCheck.checked)
         {
           this._startDate.value = '';
           this._startDate.disabled = true;
-        }
-        else
-        {        
+        } else
+        {
           this._startDateCurrentDateCheck.disabled = true;
         }
       }
 
-      if(this._endDate.value.length == 0 && !this._endDateCurrentDateCheck.checked)
+      if (this._endDate.value.length == 0
+          && !this._endDateCurrentDateCheck.checked)
       {
-        if(this._endDateRangeCheck.checked)
+        if (this._endDateRangeCheck.checked)
         {
           this._endDateRangeCheck.click();
         }
-        this._endDateRangeCheck.disabled = true;        
+        this._endDateRangeCheck.disabled = true;
         this._endDate.disabled = false;
         this._endDateCurrentDateCheck.disabled = false;
-      }
-      else
+      } else
       {
         this._endDateRangeCheck.disabled = false;
-        
-        if(this._endDateCurrentDateCheck.checked)
+
+        if (this._endDateCurrentDateCheck.checked)
         {
           this._endDate.value = '';
           this._endDate.disabled = true;
-        }
-        else
-        {        
+        } else
+        {
           this._endDateCurrentDateCheck.disabled = true;
         }
       }
     }
   },
 
-
   /**
-   * Builds the query items/attributes and adds them
-   * to the left panel.
+   * Builds the query items/attributes and adds them to the left panel.
    */
   _buildQueryItems : function()
   {
     var ul = new YAHOO.util.Element(document.createElement('ul'));
     ul.set('id', this.QUERY_ITEMS);
 
-    for(var i=0; i<this._queryItems.length; i++)
+    for (var i = 0; i < this._queryItems.length; i++)
     {
       var queryItem = this._queryItems[i];
 
@@ -605,17 +653,16 @@ MDSS.QueryPanel.prototype = {
       var li = document.createElement('li');
       var liE = new YAHOO.util.Element(li);
 
-      if(Mojo.Util.isString(queryItem.html))
+      if (Mojo.Util.isString(queryItem.html))
       {
         li.innerHTML = queryItem.html;
-      }
-      else
+      } else
       {
         li.appendChild(queryItem.html);
       }
 
       // add click event handler
-      if(Mojo.Util.isObject(queryItem.onclick))
+      if (Mojo.Util.isObject(queryItem.onclick))
       {
         liE.on('click', queryItem.onclick.handler, queryItem.onclick.obj);
       }
@@ -626,7 +673,7 @@ MDSS.QueryPanel.prototype = {
 
       // add the builder function to create an entry
       // specific context menu
-      if(Mojo.Util.isFunction(queryItem.menuBuilder))
+      if (Mojo.Util.isFunction(queryItem.menuBuilder))
       {
         this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
         liE.addClass('contextMenuContainer');
@@ -637,14 +684,21 @@ MDSS.QueryPanel.prototype = {
     body.appendChild(ul);
 
     // add context menu for the query item list
-    var menu = new YAHOO.widget.ContextMenu(this.QUERY_ITEMS+"_menu", {
-      trigger:this.QUERY_ITEMS,
-      lazyload:true,
-      zindex:9999
+    var menu = new YAHOO.widget.ContextMenu(this.QUERY_ITEMS + "_menu",
+    {
+      trigger : this.QUERY_ITEMS,
+      lazyload : true,
+      zindex : 9999
     });
 
-    menu.subscribe("beforeShow", this._queryMenuBeforeShow, {thisRef:this});
-    menu.subscribe("triggerContextMenu", this._queryMenuTrigger, {thisRef:this});
+    menu.subscribe("beforeShow", this._queryMenuBeforeShow,
+    {
+      thisRef : this
+    });
+    menu.subscribe("triggerContextMenu", this._queryMenuTrigger,
+    {
+      thisRef : this
+    });
   },
 
   /**
@@ -661,31 +715,33 @@ MDSS.QueryPanel.prototype = {
     this._buildButtons();
 
     this._buildDateRange();
-    
+
     this._buildQueryItems();
 
     this._buildContentGrid([]);
 
     this._buildQuerySummary();
 
-    YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
+    YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click',
+        this._paginationHandler, null, this);
 
     // let the query panels perform their own post-render logic
-    if(Mojo.Util.isFunction(this._config.postRender))
+    if (Mojo.Util.isFunction(this._config.postRender))
     {
       this._config.postRender.call(this._queryClass);
     }
   },
 
   /**
-   * Builds the right side of the query panel with information
-   * about the query, including the selected columns and restricting
-   * geo entities.
+   * Builds the right side of the query panel with information about the query,
+   * including the selected columns and restricting geo entities.
    */
   _buildQuerySummary : function()
   {
-    var html = '<h3>'+MDSS.localize('Columns')+'</h3><ul id="'+this.COLUMNS_LIST+'"></ul>';
-    html += '<h3>'+MDSS.localize('Selected_Entities') + '</h3><div id="'+this.GEO_ENTITY_PANEL_LIST+'"></div>';
+    var html = '<h3>' + MDSS.localize('Columns') + '</h3><ul id="'
+        + this.COLUMNS_LIST + '"></ul>';
+    html += '<h3>' + MDSS.localize('Selected_Entities') + '</h3><div id="'
+        + this.GEO_ENTITY_PANEL_LIST + '"></div>';
 
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
@@ -693,7 +749,7 @@ MDSS.QueryPanel.prototype = {
 
   _exportXLS : function(e, obj)
   {
-    if(Mojo.Util.isFunction(this._config.exportXLS))
+    if (Mojo.Util.isFunction(this._config.exportXLS))
     {
       // pass in the form element so the calling process
       // can modify its action.
@@ -703,38 +759,39 @@ MDSS.QueryPanel.prototype = {
 
   _exportCSV : function(e, obj)
   {
-    if(Mojo.Util.isFunction(this._config.exportCSV))
+    if (Mojo.Util.isFunction(this._config.exportCSV))
     {
       // pass in the form element so the calling process
       // can modify its action.
       this._config.exportCSV.apply(this._queryClass, Mojo.Util.getValues(obj));
     }
   },
-  
+
   _exportReport : function(e, obj)
   {
-    if(Mojo.Util.isFunction(this._config.exportReport))
+    if (Mojo.Util.isFunction(this._config.exportReport))
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportReport.apply(this._queryClass, Mojo.Util.getValues(obj));
+      this._config.exportReport.apply(this._queryClass, Mojo.Util
+          .getValues(obj));
     }
   },
-  
+
   _exportQuery : function(e, obj)
   {
-    if(Mojo.Util.isFunction(this._config.exportQuery))
+    if (Mojo.Util.isFunction(this._config.exportQuery))
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportQuery.apply(this._queryClass, Mojo.Util.getValues(obj));
-    }    
-  },  
-  
+      this._config.exportQuery
+          .apply(this._queryClass, Mojo.Util.getValues(obj));
+    }
+  },
 
   /**
-   * Builds the form to request to download a CSV list
-   * of the current saved query.
+   * Builds the form to request to download a CSV list of the current saved
+   * query.
    */
   _buildCSVForm : function()
   {
@@ -748,26 +805,28 @@ MDSS.QueryPanel.prototype = {
     var config = document.createElement('input');
     YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(config, 'name', 'config');
-    
+
     var queryClassInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(queryClassInput, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(queryClassInput, 'name', 'queryClass');
-    
+
     var searchIdInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
 
-    var obj = {
-      form: form,
-      xmlInput: xmlInput,
+    var obj =
+    {
+      form : form,
+      xmlInput : xmlInput,
       config : config,
       searchIdInput : searchIdInput,
-      queryClassInput: queryClassInput
+      queryClassInput : queryClassInput
     };
 
     var exportCSVButton = document.createElement('input');
     YAHOO.util.Dom.setAttribute(exportCSVButton, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(exportCSVButton, 'value', MDSS.localize('Export_CSV'));
+    YAHOO.util.Dom.setAttribute(exportCSVButton, 'value', MDSS
+        .localize('Export_CSV'));
     YAHOO.util.Dom.addClass(exportCSVButton, 'queryButton');
     YAHOO.util.Event.on(exportCSVButton, 'click', this._exportCSV, obj, this);
 
@@ -782,95 +841,100 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-  * Builds the form to request to download a pdf of the saved report
-  */
- _buildReportForm : function()
- {
-   var form = document.createElement('form');
-   YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
-   YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
+   * Builds the form to request to download a pdf of the saved report
+   */
+  _buildReportForm : function()
+  {
+    var form = document.createElement('form');
+    YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+    YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
 
-   var xmlInput = document.createElement('textarea');
-   YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
+    var xmlInput = document.createElement('textarea');
+    YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
 
-   var config = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(config, 'name', 'config');
+    var config = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(config, 'name', 'config');
 
-   var searchIdInput = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
+    var searchIdInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
 
-/* Obsolete: query type is grabbed from SavedSearch given by savedSearchId param
-   var queryTypeInput = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'queryType');
+    /*
+     * Obsolete: query type is grabbed from SavedSearch given by savedSearchId
+     * param var queryTypeInput = document.createElement('input');
+     * YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
+     * YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'queryType');
+     * 
+     * var queryTypeInput = document.createElement('input');
+     * YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
+     * YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');
+     */
 
-   var queryTypeInput = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');
-*/
-   
-   var obj = {
-     form: form,
-     xmlInput: xmlInput,
-     config : config,
-     searchIdInput : searchIdInput
-//     queryTypeInput : queryTypeInput
-   };
+    var obj =
+    {
+      form : form,
+      xmlInput : xmlInput,
+      config : config,
+      searchIdInput : searchIdInput
+    // queryTypeInput : queryTypeInput
+    };
 
-   var exportReportButton = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(exportReportButton, 'type', 'button');
-   YAHOO.util.Dom.setAttribute(exportReportButton, 'value', MDSS.localize('Export_Report'));
-   YAHOO.util.Dom.addClass(exportReportButton, 'queryButton');
-   YAHOO.util.Event.on(exportReportButton, 'click', this._exportReport, obj, this);
+    var exportReportButton = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(exportReportButton, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(exportReportButton, 'value', MDSS
+        .localize('Export_Report'));
+    YAHOO.util.Dom.addClass(exportReportButton, 'queryButton');
+    YAHOO.util.Event.on(exportReportButton, 'click', this._exportReport, obj,
+        this);
 
-   form.appendChild(xmlInput);
-   form.appendChild(config);
-   form.appendChild(searchIdInput);
-//   form.appendChild(queryTypeInput);
+    form.appendChild(xmlInput);
+    form.appendChild(config);
+    form.appendChild(searchIdInput);
+    // form.appendChild(queryTypeInput);
 
-   document.getElementById('ReportFormContainer').appendChild(form);
+    document.getElementById('ReportFormContainer').appendChild(form);
 
-   return exportReportButton;
- },
-
- /**
-  * Builds the form to request to download a saved query
-  */
- _buildExportQueryForm : function()
- {
-   var form = document.createElement('form');
-   YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
-   YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
-   
-   var searchIdInput = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
-   
-   
-   var obj = {
-       form: form,
-       searchIdInput : searchIdInput
-   };
-   
-   var exportQueryButton = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(exportQueryButton, 'type', 'button');
-   YAHOO.util.Dom.setAttribute(exportQueryButton, 'value', MDSS.localize('Export_Query'));
-   YAHOO.util.Dom.addClass(exportQueryButton, 'queryButton');
-   YAHOO.util.Event.on(exportQueryButton, 'click', this._exportQuery, obj, this);
-   
-   form.appendChild(searchIdInput);
-   
-   document.getElementById('ExportQueryFormContainer').appendChild(form);
-   
-   return exportQueryButton;
- },
- 
+    return exportReportButton;
+  },
 
   /**
-   * Builds the form to do a synchronous post to the server to
-   * download a Excel file.
+   * Builds the form to request to download a saved query
+   */
+  _buildExportQueryForm : function()
+  {
+    var form = document.createElement('form');
+    YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+    YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
+
+    var searchIdInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
+
+    var obj =
+    {
+      form : form,
+      searchIdInput : searchIdInput
+    };
+
+    var exportQueryButton = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(exportQueryButton, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(exportQueryButton, 'value', MDSS
+        .localize('Export_Query'));
+    YAHOO.util.Dom.addClass(exportQueryButton, 'queryButton');
+    YAHOO.util.Event.on(exportQueryButton, 'click', this._exportQuery, obj,
+        this);
+
+    form.appendChild(searchIdInput);
+
+    document.getElementById('ExportQueryFormContainer').appendChild(form);
+
+    return exportQueryButton;
+  },
+
+  /**
+   * Builds the form to do a synchronous post to the server to download a Excel
+   * file.
    */
   _buildXLSForm : function()
   {
@@ -884,7 +948,7 @@ MDSS.QueryPanel.prototype = {
     var config = document.createElement('input');
     YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(config, 'name', 'config');
-    
+
     var queryClassInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(queryClassInput, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(queryClassInput, 'name', 'queryClass');
@@ -893,17 +957,19 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
 
-    var obj = {
-      form: form,
-      xmlInput: xmlInput,
+    var obj =
+    {
+      form : form,
+      xmlInput : xmlInput,
       config : config,
       searchIdInput : searchIdInput,
-      queryClassInput: queryClassInput
+      queryClassInput : queryClassInput
     };
 
     var exportXLSButton = document.createElement('input');
     YAHOO.util.Dom.setAttribute(exportXLSButton, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(exportXLSButton, 'value', MDSS.localize('Excel_Export_Nav'));
+    YAHOO.util.Dom.setAttribute(exportXLSButton, 'value', MDSS
+        .localize('Excel_Export_Nav'));
     YAHOO.util.Dom.addClass(exportXLSButton, 'queryButton');
     YAHOO.util.Event.on(exportXLSButton, 'click', this._exportXLS, obj, this);
 
@@ -920,7 +986,8 @@ MDSS.QueryPanel.prototype = {
   _uploadTemplateOnSubmit : function()
   {
     var input = document.getElementById('savedSearchIdInput');
-    input.value = this._currentSavedSearch != null ? this._currentSavedSearch.getSavedQueryId() : '';
+    input.value = this._currentSavedSearch != null ? this._currentSavedSearch
+        .getSavedQueryId() : '';
 
     return true;
   },
@@ -930,35 +997,40 @@ MDSS.QueryPanel.prototype = {
    */
   _uploadTemplate : function()
   {
-    if(this._uploadTemplateModal == null)
+    if (this._uploadTemplateModal == null)
     {
       var formId = 'templateUploadForm';
       var action = 'dss.vector.solutions.query.QueryController.uploadTemplate.mojo';
 
-      var html = MDSS.localize('File_Upload_Status')+":<br />";
+      var html = MDSS.localize('File_Upload_Status') + ":<br />";
       html += "<iframe name='templateIframe' id='templateIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
-      html += "<form action='"+action+"' enctype='multipart/form-data' target='templateIframe' id='"+formId+"' method='post'>";
+      html += "<form action='" + action
+          + "' enctype='multipart/form-data' target='templateIframe' id='"
+          + formId + "' method='post'>";
       html += "<input type='hidden' name='savedSearchId' id='savedSearchIdInput' value='' />";
       html += "<input type='file' name='templateFile' id='templateFileElementId'/><br />";
-      html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
+      html += "<input type='submit' name='import' value='"
+          + MDSS.localize('Submit') + "' />"
       html += "</form>";
 
-      this._uploadTemplateModal = new YAHOO.widget.Panel("uploadTemplateModal", {
-        width:"400px",
-        height: "400px",
-        fixedcenter:true,
-        close: true,
-        draggable:false,
-        zindex:8,
-        modal:true,
-        visible:true
+      this._uploadTemplateModal = new YAHOO.widget.Panel("uploadTemplateModal",
+      {
+        width : "400px",
+        height : "400px",
+        fixedcenter : true,
+        close : true,
+        draggable : false,
+        zindex : 8,
+        modal : true,
+        visible : true
       });
 
       // wrap content in divs
       var outer = document.createElement('div');
 
       var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.localize('Upload_Template')+'</h3><hr />';
+      header.innerHTML = '<h3>' + MDSS.localize('Upload_Template')
+          + '</h3><hr />';
       outer.appendChild(header);
 
       var contentDiv = document.createElement('div');
@@ -969,79 +1041,84 @@ MDSS.QueryPanel.prototype = {
       this._uploadTemplateModal.setBody(outer);
       this._uploadTemplateModal.render(document.body);
 
-      YAHOO.util.Event.on('templateFileElementId', 'change', this._clearTemplateFrame, null, this);      
-      YAHOO.util.Event.on(formId, 'submit', this._uploadTemplateOnSubmit, null, this);
-    }
-    else
+      YAHOO.util.Event.on('templateFileElementId', 'change',
+          this._clearTemplateFrame, null, this);
+      YAHOO.util.Event.on(formId, 'submit', this._uploadTemplateOnSubmit, null,
+          this);
+    } else
     {
       this._clearTemplateFrame();
       this._uploadTemplateModal.show();
     }
   },
-  
+
   _clearTemplateFrame : function()
   {
     var frame = document.getElementById('templateIframe');
-    frame.contentDocument.firstChild.innerHTML = '';    
+    frame.contentDocument.firstChild.innerHTML = '';
   },
-  
+
   /**
    * Action to upload a template file.
    */
   _importQuery : function()
   {
-    if(this._importQueryModal == null)
+    if (this._importQueryModal == null)
     {
       var formId = 'importQueryForm';
       var action = 'dss.vector.solutions.query.QueryController.importQuery.mojo';
-      
-      var html = MDSS.localize('File_Upload_Status')+":<br />";
+
+      var html = MDSS.localize('File_Upload_Status') + ":<br />";
       html += "<iframe name='importQueryIframe' id='importQueryIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
-      html += "<form action='"+action+"' enctype='multipart/form-data' target='importQueryIframe' id='"+formId+"' method='post'>";
+      html += "<form action='" + action
+          + "' enctype='multipart/form-data' target='importQueryIframe' id='"
+          + formId + "' method='post'>";
       html += "<input type='file' name='queryFile' id='queryFileElementId'/><br />";
-      html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
+      html += "<input type='submit' name='import' value='"
+          + MDSS.localize('Submit') + "' />"
       html += "</form>";
-      
-      this._importQueryModal = new YAHOO.widget.Panel("importQueryModal", {
-        width:"400px",
-        height: "400px",
-        fixedcenter:true,
-        close: true,
-        draggable:false,
-        zindex:8,
-        modal:true,
-        visible:true
+
+      this._importQueryModal = new YAHOO.widget.Panel("importQueryModal",
+      {
+        width : "400px",
+        height : "400px",
+        fixedcenter : true,
+        close : true,
+        draggable : false,
+        zindex : 8,
+        modal : true,
+        visible : true
       });
-      this._importQueryModal.subscribe('hide', Mojo.Util.bind(this, this._loadQuery));
-      
+      this._importQueryModal.subscribe('hide', function(){location.reload();});
+
       // wrap content in divs
       var outer = document.createElement('div');
-      
+
       var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.localize('Import_Query')+'</h3><hr />';
+      header.innerHTML = '<h3>' + MDSS.localize('Import_Query') + '</h3><hr />';
       outer.appendChild(header);
-      
+
       var contentDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
       contentDiv.innerHTML = html;
       outer.appendChild(contentDiv);
-      
+
       this._importQueryModal.setBody(outer);
       this._importQueryModal.render(document.body);
-      
-      YAHOO.util.Event.on('queryFileElementId', 'change', this._clearImportQueryFrame, null, this);      
-    }
-    else
+
+      YAHOO.util.Event.on('queryFileElementId', 'change',
+          this._clearImportQueryFrame, null, this);
+    } else
     {
       this._clearImportQueryFrame();
       this._importQueryModal.show();
     }
   },
-  
+
   _clearImportQueryFrame : function()
   {
     var frame = document.getElementById('importQueryIframe');
-    frame.contentDocument.firstChild.innerHTML = '';    
+    frame.contentDocument.firstChild.innerHTML = '';
   },
 
   /**
@@ -1054,49 +1131,55 @@ MDSS.QueryPanel.prototype = {
     uploadTemplate.set('value', MDSS.localize('Upload_Template'));
     uploadTemplate.set('id', "uploadTemplateButton");
     uploadTemplate.addClass('queryButton');
-    uploadTemplate.on('click', this._uploadTemplate, {}, this);
+    uploadTemplate.on('click', this._uploadTemplate,
+    {}, this);
 
     var saveButton = new YAHOO.util.Element(document.createElement('input'));
     saveButton.set('type', 'button');
     saveButton.set('value', MDSS.localize('Query_Save'));
     saveButton.set('id', "saveQueryButton");
     saveButton.addClass('queryButton');
-    saveButton.on('click', this._saveQuery, {}, this);
+    saveButton.on('click', this._saveQuery,
+    {}, this);
 
     var saveAsButton = new YAHOO.util.Element(document.createElement('input'));
     saveAsButton.set('type', 'button');
     saveAsButton.set('value', MDSS.localize('Query_Save_As'));
     saveAsButton.set('id', "saveAsQueryButton");
     saveAsButton.addClass('queryButton');
-    saveAsButton.on('click', this._saveQueryAs, {}, this);
-    
+    saveAsButton.on('click', this._saveQueryAs,
+    {}, this);
+
     var getDBViewName = new YAHOO.util.Element(document.createElement('input'));
     getDBViewName.set('type', 'button');
     getDBViewName.set('value', MDSS.localize('get_db_view_name'));
     getDBViewName.set('id', "getDBViewName");
     getDBViewName.addClass('queryButton');
-    getDBViewName.on('click', this._getDBViewName, {}, this);
+    getDBViewName.on('click', this._getDBViewName,
+    {}, this);
 
     var deleteButton = new YAHOO.util.Element(document.createElement('input'));
     deleteButton.set('type', 'button');
     deleteButton.set('value', MDSS.localize("Delete_Query"));
     deleteButton.set('id', this.LOAD_QUERY_BUTTON);
     deleteButton.addClass('queryButton');
-    deleteButton.on('click', this._deleteQuery, {}, this);
-    
+    deleteButton.on('click', this._deleteQuery,
+    {}, this);
+
     var importQuery = new YAHOO.util.Element(document.createElement('input'));
     importQuery.set('type', 'button');
     importQuery.set('value', MDSS.localize('Import_Query'));
     importQuery.set('id', "importQueryButton");
     importQuery.addClass('queryButton');
-    importQuery.on('click', this._importQuery, {}, this);
-    
+    importQuery.on('click', this._importQuery,
+    {}, this);
+
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
     this._queryList.addClass('queryList');
     var defaultOption = document.createElement('option');
     this._queryList.appendChild(defaultOption);
-    for(var i=0; i<this._availableQueries.length; i++)
+    for (var i = 0; i < this._availableQueries.length; i++)
     {
       var obj = this._availableQueries[i];
 
@@ -1106,23 +1189,24 @@ MDSS.QueryPanel.prototype = {
 
       this._queryList.appendChild(option);
     }
-    this._queryList.on('change', this._loadQuery, {}, this);
-    
+    this._queryList.on('change', this._loadQuery,
+    {}, this);
+
     var exportQueryButton = this._buildExportQueryForm();
-    
+
     var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
     var exportXLSButton = this._buildXLSForm();
-    
 
     var runButton = new YAHOO.util.Element(document.createElement('input'));
     runButton.set('type', 'button');
     runButton.set('value', MDSS.localize('Query_Run'));
     runButton.set('id', this.RUN_QUERY_BUTTON);
     runButton.addClass('queryButton');
-    runButton.on('click', this._executeQuery, {}, this);
+    runButton.on('click', this._executeQuery,
+    {}, this);
 
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
@@ -1136,7 +1220,7 @@ MDSS.QueryPanel.prototype = {
     var leftDiv = new YAHOO.util.Element(document.createElement('div'));
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
-    
+
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
     leftDiv.appendChild(getDBViewName);
@@ -1149,50 +1233,47 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Checks if the context menu has been triggered for
-   * a TH tag.
+   * Checks if the context menu has been triggered for a TH tag.
    */
   _tableMenuTrigger : function(a, b, c)
   {
     var oTarget = this.contextEventTarget;
 
-    if(c.thisRef._getHeader(oTarget) == null)
+    if (c.thisRef._getHeader(oTarget) == null)
     {
       this.cancel();
     }
   },
 
   /**
-   * Checks if the context menu has been trigged for
-   * an LI tag.
+   * Checks if the context menu has been trigged for an LI tag.
    */
   _queryMenuTrigger : function(a, b, c)
   {
     var oTarget = this.contextEventTarget;
 
-    if(c.thisRef._getListEntry(oTarget) == null)
+    if (c.thisRef._getListEntry(oTarget) == null)
     {
       this.cancel();
     }
   },
 
   /**
-   * Gets the header element from the given event target.
-   * Null is returned if the header element is not found.
+   * Gets the header element from the given event target. Null is returned if
+   * the header element is not found.
    */
   _getHeader : function(oTarget)
   {
     var nodeName = oTarget.nodeName.toUpperCase();
 
-    if(nodeName === 'TH')
+    if (nodeName === 'TH')
     {
       return oTarget;
-    }
-    else
+    } else
     {
       // check he nodes parents for a TH
       var parent = YAHOO.util.Dom.getAncestorByTagName(oTarget, "TH");
-      if(parent != null)
+      if (parent != null)
       {
         return parent;
       }
@@ -1202,22 +1283,22 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Gets the list element from the given event target.
-   * Null is returned if the header element is not found.
+   * Gets the list element from the given event target. Null is returned if the
+   * header element is not found.
    */
   _getListEntry : function(oTarget)
   {
     var nodeName = oTarget.nodeName.toUpperCase();
 
-    if(YAHOO.util.Dom.hasClass(nodeName, 'contextMenuContainer'))
+    if (YAHOO.util.Dom.hasClass(nodeName, 'contextMenuContainer'))
     {
       return oTarget;
-    }
-    else
+    } else
     {
       // check the node's parents for a TH
-      var parent = YAHOO.util.Dom.getAncestorByClassName(oTarget, "contextMenuContainer");
-      if(parent != null)
+      var parent = YAHOO.util.Dom.getAncestorByClassName(oTarget,
+          "contextMenuContainer");
+      if (parent != null)
       {
         return parent;
       }
@@ -1227,8 +1308,7 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Modifies the table context menu
-   * depending on the state of the QueryPanel.
+   * Modifies the table context menu depending on the state of the QueryPanel.
    */
   _tableMenuBeforeShow : function(a, b, c)
   {
@@ -1238,14 +1318,14 @@ MDSS.QueryPanel.prototype = {
     var header = c.thisRef._getHeader(this.contextEventTarget);
 
     // add items specific to the header
-    if(header != null)
+    if (header != null)
     {
       var column = c.thisRef._dataTable.getColumn(header);
-      var builder = c.thisRef._headerMenuBuilders[column != null ? column.getKey() : ''];
+      var builder = c.thisRef._headerMenuBuilders[column != null ? column
+          .getKey() : ''];
       var menuItems = builder != null ? builder(column) : [];
       this.addItems(menuItems);
-    }
-    else
+    } else
     {
       this.addItems([]);
     }
@@ -1254,15 +1334,15 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Modifies the query items context menu
-   * depending on the state of the QueryPanel.
+   * Modifies the query items context menu depending on the state of the
+   * QueryPanel.
    */
   _queryMenuBeforeShow : function(a, b, c)
   {
     // this.contextEventTarget will be null for menu
     // dimensions > 1. Let render as normal.
     var cet = this.contextEventTarget
-    if(cet != null)
+    if (cet != null)
     {
       // get the li
       var liEntry = c.thisRef._getListEntry(cet);
@@ -1270,13 +1350,12 @@ MDSS.QueryPanel.prototype = {
       this.clearContent();
       // add items specific to the list entry
 
-      if(liEntry != null)
+      if (liEntry != null)
       {
         var builder = c.thisRef._queryMenuBuilders[liEntry.id];
         var menuItems = builder != null ? builder(liEntry, cet) : [];
         this.addItems(menuItems);
-      }
-      else
+      } else
       {
         this.addItems([]);
       }
@@ -1292,54 +1371,59 @@ MDSS.QueryPanel.prototype = {
   {
     // build the DataSource (required)
     var dataSource;
-    if(this._dataTable)
+    if (this._dataTable)
     {
       dataSource = this._dataTable.getDataSource();
       this._dataTable.destroy();
       this._dataTable = null;
-    }
-    else
+    } else
     {
       dataSource = new YAHOO.util.DataSource([]);
       dataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
 
-      dataSource.responseSchema = {
-        fields: []
+      dataSource.responseSchema =
+      {
+        fields : []
       };
     }
 
-    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, columns, dataSource,{draggableColumns:true,resizeableColumns:true});
+    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE,
+        columns, dataSource,
+        {
+          draggableColumns : true,
+          resizeableColumns : true
+        });
 
     this._dataTable.render();
 
-    this._dataTable.subscribe("columnReorderEvent", function(){
-    //can handle column order here
+    this._dataTable.subscribe("columnReorderEvent", function()
+    {
+      // can handle column order here
     }, this, true);
 
-
     // add context menu to table
-    var menu = new YAHOO.widget.ContextMenu(this.QUERY_DATA_TABLE+"_menu", {
-      trigger:this.QUERY_DATA_TABLE,
-      lazyload:true,
-      zindex:9999
+    var menu = new YAHOO.widget.ContextMenu(this.QUERY_DATA_TABLE + "_menu",
+    {
+      trigger : this.QUERY_DATA_TABLE,
+      lazyload : true,
+      zindex : 9999
     });
 
-    menu.subscribe("beforeShow", this._tableMenuBeforeShow, {thisRef:this});
-    menu.subscribe("triggerContextMenu", this._tableMenuTrigger, {thisRef:this});
+    menu.subscribe("beforeShow", this._tableMenuBeforeShow,
+    {
+      thisRef : this
+    });
+    menu.subscribe("triggerContextMenu", this._tableMenuTrigger,
+    {
+      thisRef : this
+    });
   },
 
   /**
-   * Adds a new Query Item to the left column of the panel. The object
-   * must be in the following format (R == required and O == optional):
-   * {
-   *   id (R): [string],
-   *   html (R): [string] or [Element],
-   *   onclick (O): {
-   *     handler (R): [Function],
-   *     obj (O): [Object]
-   *   },
-   *   menuBuilder (O): [Function]
-   * }
+   * Adds a new Query Item to the left column of the panel. The object must be
+   * in the following format (R == required and O == optional): { id (R):
+   * [string], html (R): [string] or [Element], onclick (O): { handler (R):
+   * [Function], obj (O): [Object] }, menuBuilder (O): [Function] }
    */
   addQueryItem : function(menuObj)
   {
@@ -1347,27 +1431,25 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Inserts a new column into the query pane.
-   * Returns an updated column object (the column
-   * argument will be stale).
+   * Inserts a new column into the query pane. Returns an updated column object
+   * (the column argument will be stale).
    */
   insertColumn : function(column, menuBuilder)
   {
     var attrib = column.attribute;
     column.resizeable = true;
-    
-    if(this.waitForRefresh)
+
+    if (this.waitForRefresh)
     {
       this._columnBatch.push(column.getDefinition());
-    }
-    else
+    } else
     {
       column = this._dataTable.insertColumn(column);
     }
-    
+
     column.attribute = attrib;
 
-    if(Mojo.Util.isFunction(menuBuilder))
+    if (Mojo.Util.isFunction(menuBuilder))
     {
       // add mapping between column and menuItems
       this._headerMenuBuilders[column.getKey()] = menuBuilder;
@@ -1377,54 +1459,55 @@ MDSS.QueryPanel.prototype = {
 
     return column;
   },
-  
+
   /**
    * Sorts the column batch in the order given.
    */
   orderColumns : function(order)
   {
-    var columns = {};
-    for(var i=0; i<this._columnBatch.length; i++)
+    var columns =
+    {};
+    for (var i = 0; i < this._columnBatch.length; i++)
     {
       var col = this._columnBatch[i];
       columns[col.key] = col;
     }
-    
+
     this._columnBatch = [];
-    for(var i=0; i<order.length; i++)
+    for (var i = 0; i < order.length; i++)
     {
       var c = columns[order[i]];
-      if(c)
+      if (c)
       {
         this._columnBatch.push(c);
       }
     }
   },
-  
+
   refreshBatch : function()
   {
-    if(this._columnBatch.length > 0 || this._deleteBatch.length > 0)
+    if (this._columnBatch.length > 0 || this._deleteBatch.length > 0)
     {
       var all = this.getColumnSet().getDefinitions().concat(this._columnBatch);
-      if(this._deleteBatch.length > 0)
+      if (this._deleteBatch.length > 0)
       {
         var toExclude = new MDSS.Set(this._deleteBatch);
         var temp = [];
-        for(var i=0; i<all.length; i++)
+        for (var i = 0; i < all.length; i++)
         {
           var c = all[i];
-          if(!toExclude.contains(c.key))
+          if (!toExclude.contains(c.key))
           {
             temp.push(c);
           }
         }
-        
+
         all = temp;
       }
-      
+
       this._buildContentGrid(all);
     }
-    
+
     this._columnBatch = [];
     this._deleteBatch = [];
     this.waitForRefresh = false;
@@ -1435,11 +1518,10 @@ MDSS.QueryPanel.prototype = {
    */
   removeColumn : function(column)
   {
-    if(this.waitForRefresh)
+    if (this.waitForRefresh)
     {
       this._deleteBatch.push(column.getKey());
-    }
-    else
+    } else
     {
       this._dataTable.removeColumn(column);
     }
@@ -1448,8 +1530,8 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Gets the column with given column reference or key or id.
-   * Returns null if the column doesn't exist.
+   * Gets the column with given column reference or key or id. Returns null if
+   * the column doesn't exist.
    */
   getColumn : function(column)
   {
@@ -1457,7 +1539,7 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   *
+   * 
    */
   getColumnSet : function()
   {
@@ -1485,17 +1567,16 @@ MDSS.QueryPanel.prototype = {
    */
   _loadQuery : function()
   {
-    if(Mojo.Util.isFunction(this._config.loadQuery))
+    if (Mojo.Util.isFunction(this._config.loadQuery))
     {
       var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
 
       // ignore the default, empty option
       var savedSearchId = queries.options[queries.selectedIndex].value;
-      if(savedSearchId)
+      if (savedSearchId)
       {
         this._config.loadQuery.call(this._queryClass, savedSearchId);
-      }
-      else
+      } else
       {
         this._queryClass._dm.disable();
         this._queryClass._resetToDefault();
@@ -1504,18 +1585,20 @@ MDSS.QueryPanel.prototype = {
       }
     }
   },
-  
+
   _doDeleteQuery : function(savedSearchId, queries)
   {
-    var request = new MDSS.Request( {
+    var request = new MDSS.Request(
+    {
       queries : queries,
       thisRef : this,
       selectedIndex : queries.selectedIndex,
-      onSuccess : function(deletedRow) {                
+      onSuccess : function(deletedRow)
+      {
         this.queries.options[this.selectedIndex].selected = false;
         this.queries.options[0].selected = true;
         this.queries.options[this.selectedIndex] = null;
-        
+
         this.thisRef._queryClass._resetToDefault();
         this.thisRef._queryClass._loadDefaultSearch();
       }
@@ -1531,33 +1614,36 @@ MDSS.QueryPanel.prototype = {
     var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
     // ignore the default, empty option
     var savedSearchId = queries.options[queries.selectedIndex].value;
-    if(savedSearchId)
+    if (savedSearchId)
     {
-      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
-      MDSS.confirmModal(MDSS.localize('Confirm_Delete_Query'), doDel, function(){});
+      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId,
+          queries);
+      MDSS.confirmModal(MDSS.localize('Confirm_Delete_Query'), doDel,
+          function()
+          {
+          });
     }
   },
-  
+
   /**
    * Saves a query.
    */
   _saveQuery : function()
   {
-     var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
-     // ignore the default, empty option
-     var savedSearchId = queries.options[queries.selectedIndex].value;
-     // if this query has not been saved yet then open save as
-     if(savedSearchId)
-     {
-       if(Mojo.Util.isFunction(this._config.saveQuery))
-       {
-         this._config.saveQuery.call(this._queryClass);
-       }
-     }
-     else
-     {
-       this._saveQueryAs();
-     }
+    var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
+    // ignore the default, empty option
+    var savedSearchId = queries.options[queries.selectedIndex].value;
+    // if this query has not been saved yet then open save as
+    if (savedSearchId)
+    {
+      if (Mojo.Util.isFunction(this._config.saveQuery))
+      {
+        this._config.saveQuery.call(this._queryClass);
+      }
+    } else
+    {
+      this._saveQueryAs();
+    }
   },
 
   /**
@@ -1565,27 +1651,26 @@ MDSS.QueryPanel.prototype = {
    */
   _saveQueryAs : function()
   {
-    if(Mojo.Util.isFunction(this._config.saveQueryAs))
+    if (Mojo.Util.isFunction(this._config.saveQueryAs))
     {
       this._config.saveQueryAs.call(this._queryClass);
     }
   },
-  
+
   _getDBViewName : function()
   {
-    if(Mojo.Util.isFunction(this._config.getDBViewName))
+    if (Mojo.Util.isFunction(this._config.getDBViewName))
     {
       this._config.getDBViewName.call(this._queryClass);
     }
   },
 
   /**
-   * Executes the Query by calling the user-defined
-   * handler.
+   * Executes the Query by calling the user-defined handler.
    */
   _executeQuery : function()
   {
-    if(Mojo.Util.isFunction(this._config.executeQuery))
+    if (Mojo.Util.isFunction(this._config.executeQuery))
     {
       this._config.executeQuery.call(this._queryClass, true);
     }
@@ -1602,10 +1687,9 @@ MDSS.QueryPanel.prototype = {
     var section = document.getElementById(this.PAGINATION_SECTION);
     section.innerHTML = '';
 
-
     var frag = document.createDocumentFragment();
 
-    for(var i=0; i<pages.length; i++)
+    for (var i = 0; i < pages.length; i++)
     {
 
       var page = pages[i];
@@ -1613,32 +1697,31 @@ MDSS.QueryPanel.prototype = {
       var span = document.createElement('span');
       YAHOO.util.Dom.addClass(span, 'page');
 
-      if(page.isLeft())
+      if (page.isLeft())
       {
         span.innerHTML = '...';
-      }
-      else if(page.isRight())
+      } else if (page.isRight())
       {
         span.innerHTML = '...';
-      }
-      else if(page.isCurrentPage())
+      } else if (page.isCurrentPage())
       {
         span.innerHTML = page.getPageNumber();
         YAHOO.util.Dom.addClass(span, 'currentPage');
-      }
-      else
+      } else
       {
         span.innerHTML = page.getPageNumber();
       }
 
       frag.appendChild(span);
-      
+
     }
     var countSpan = document.createElement('span');
     YAHOO.util.Dom.addClass(countSpan, 'resultCount');
     var max = (pageNumber * pageSize);
-    if(max > count) max = count;
-    countSpan.innerHTML = " " + (((pageNumber-1) * pageSize)+1)+ "-" +max+" "+MDSS.localize('Of')+" "+ count;
+    if (max > count)
+      max = count;
+    countSpan.innerHTML = " " + (((pageNumber - 1) * pageSize) + 1) + "-" + max
+        + " " + MDSS.localize('Of') + " " + count;
     frag.appendChild(countSpan);
 
     section.appendChild(frag);
@@ -1649,10 +1732,11 @@ MDSS.QueryPanel.prototype = {
     var section = document.getElementById(this.PAGINATION_SECTION);
     section.innerHTML = '';
   },
-  
+
   _paginationHandler : function(e)
   {
-    if(e.target.nodeName === 'SPAN' && Mojo.Util.isFunction(this._config.paginationHandler))
+    if (e.target.nodeName === 'SPAN'
+        && Mojo.Util.isFunction(this._config.paginationHandler))
     {
       var pageNumber = e.target.innerHTML;
       this._config.paginationHandler.call(this._queryClass, pageNumber);
@@ -1665,7 +1749,7 @@ MDSS.QueryPanel.prototype = {
   render : function()
   {
     this._queryLayout.render();
-    
+
     this._postRender();
   }
 };
@@ -1680,7 +1764,8 @@ MDSS.Pagination = function(pageNumber, pageSize, count)
   this.calculate();
 };
 
-MDSS.Pagination.prototype = {
+MDSS.Pagination.prototype =
+{
   calculate : function()
   {
     // can't paginate an empty result set
@@ -1690,18 +1775,20 @@ MDSS.Pagination.prototype = {
     }
 
     // Calculate the number of links to display
-    if(this._pageSize == 0 || this._pageNumber == 0)
+    if (this._pageSize == 0 || this._pageNumber == 0)
     {
       this._pageSize = this._count;
       this._pageNumber = 1;
     }
 
-    var totalPages = parseInt(Math.ceil(this._count / this._pageSize ));
+    var totalPages = parseInt(Math.ceil(this._count / this._pageSize));
 
     var l = Math.max(this._pageNumber - 4, 1);
     var u = Math.min(this._pageNumber + 4, totalPages);
-    var lowerBound = Math.max(1, Math.min(this._pageNumber-4, u-this.MAX_DISPLAY_PAGES));
-    var upperBound = Math.min(Math.max(this._pageNumber+4, l+this.MAX_DISPLAY_PAGES), totalPages);
+    var lowerBound = Math.max(1, Math.min(this._pageNumber - 4, u
+        - this.MAX_DISPLAY_PAGES));
+    var upperBound = Math.min(Math.max(this._pageNumber + 4, l
+        + this.MAX_DISPLAY_PAGES), totalPages);
 
     if (lowerBound != 1)
     {
@@ -1719,7 +1806,7 @@ MDSS.Pagination.prototype = {
 
     for (var i = lowerBound; i <= upperBound; i++)
     {
-      this._pages.push(new MDSS.Pagination.Page( ( this._pageNumber == i ), i));
+      this._pages.push(new MDSS.Pagination.Page((this._pageNumber == i), i));
     }
 
     if (upperBound != totalPages)
@@ -1751,17 +1838,36 @@ MDSS.Pagination.Page = function(isCurrent, pageNumber)
   this._isRight = false;
 };
 
-MDSS.Pagination.Page.prototype = {
-  markLeft : function() { this._isLeft = true; },
+MDSS.Pagination.Page.prototype =
+{
+  markLeft : function()
+  {
+    this._isLeft = true;
+  },
 
-  markRight : function() { this._isRight = true; },
+  markRight : function()
+  {
+    this._isRight = true;
+  },
 
-  isLeft : function() { return this._isLeft; },
+  isLeft : function()
+  {
+    return this._isLeft;
+  },
 
-  isRight : function() { return this._isRight; },
+  isRight : function()
+  {
+    return this._isRight;
+  },
 
-  isCurrentPage : function() { return this._isCurrent; },
+  isCurrentPage : function()
+  {
+    return this._isCurrent;
+  },
 
-  getPageNumber : function() { return this._pageNumber; },
+  getPageNumber : function()
+  {
+    return this._pageNumber;
+  },
 
 };
