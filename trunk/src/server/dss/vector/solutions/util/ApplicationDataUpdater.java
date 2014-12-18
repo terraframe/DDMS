@@ -82,6 +82,7 @@ import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.LayerQuery;
 import dss.vector.solutions.query.RenderTypes;
 import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchQuery;
 import dss.vector.solutions.query.WellKnownNamesMaster;
 import dss.vector.solutions.report.OutputFormatMaster;
 import dss.vector.solutions.surveillance.PeriodTypeMaster;
@@ -101,6 +102,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     {
       this.updateKeys();
 
+      this.updateSavedSearchKeys();
+
       this.updateDeterminsticIdsMetadata();
     }
     else
@@ -110,9 +113,29 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Transaction
+  public void updateSavedSearchKeys()
+  {
+    SavedSearchQuery query = new SavedSearchQuery(new QueryFactory());
+    OIterator<? extends SavedSearch> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        SavedSearch search = iterator.next();
+        search.directApply();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  @Transaction
   public void updateKeys()
   {
-    String[] types = new String[] { GeoField.CLASS, ExtraFieldUniversal.CLASS, FieldRoot.CLASS, SavedSearch.CLASS };
+    String[] types = new String[] { GeoField.CLASS, ExtraFieldUniversal.CLASS, FieldRoot.CLASS };
 
     for (String type : types)
     {

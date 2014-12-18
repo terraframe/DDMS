@@ -179,6 +179,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.createOrReplaceDatabaseView();
   }
 
+  @Transaction
+  public void directApply()
+  {
+    super.apply();
+  }
+
   /**
    * Checks that a search name is unique for a user on a given SavedSearch subclass.
    * 
@@ -1094,7 +1100,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
         StringBuffer sqlStmt = new StringBuffer();
         sqlStmt.append("UPDATE " + mdSavedSearch.getTableName());
-        
+
         // IMPORTANT: Multi-term grid query builds use a hash of the first 16 characters of a term
         // ids. Thus in-order to preserve those ids we need to relpace the first 16 characters as
         // well.
