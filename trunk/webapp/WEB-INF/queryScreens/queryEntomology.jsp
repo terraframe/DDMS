@@ -92,7 +92,7 @@ YAHOO.util.Event.onDOMReady(function(){
       return this.contains(attrib);
     }, available);
     
-    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection',dropDownMaps:collectionMaps});
+    var collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection',dropDownMaps:collectionMaps});
 
 
     var infectionMaps = {<%=(String) request.getAttribute("infectionMaps")%>};
@@ -106,7 +106,7 @@ YAHOO.util.Event.onDOMReady(function(){
       return this.contains(attrib);
     }, available);
     
-    infectionColumns =   infectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:infectionAssay, suffix:'_infection',dropDownMaps:infectionMaps});
+    var infectionColumns =   infectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:infectionAssay, suffix:'_infection',dropDownMaps:infectionMaps});
 
     infectionColumns = infectionColumns.concat([
                                                       {

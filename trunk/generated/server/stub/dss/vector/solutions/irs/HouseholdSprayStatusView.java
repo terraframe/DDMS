@@ -51,6 +51,8 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     this.setVerandasRefused(concrete.getVerandasRefused());
     this.setCattleShedsRefused(concrete.getCattleShedsRefused());
     this.setWrongSurface(concrete.getWrongSurface());
+    this.setReasonNotSprayed(concrete.getReasonNotSprayed());
+    this.setStructureType(concrete.getStructureType());
   }
 
   protected void populateConcrete(HouseholdSprayStatus concrete)
@@ -84,6 +86,8 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     concrete.setVerandasRefused(this.getVerandasRefused());
     concrete.setCattleShedsRefused(this.getCattleShedsRefused());
     concrete.setWrongSurface(this.getWrongSurface());
+    concrete.setStructureType(this.getStructureType());
+    concrete.setReasonNotSprayed(this.getReasonNotSprayed());
   }
 
   private void populateMapping(HouseholdSprayStatus concrete)
@@ -117,6 +121,8 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.VERANDASREFUSED, this, HouseholdSprayStatusView.VERANDASREFUSED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.CATTLESHEDSREFUSED, this, HouseholdSprayStatusView.CATTLESHEDSREFUSED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.WRONGSURFACE, this, HouseholdSprayStatusView.WRONGSURFACE);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURETYPE, this, HouseholdSprayStatusView.STRUCTURETYPE);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.REASONNOTSPRAYED, this, HouseholdSprayStatusView.REASONNOTSPRAYED);
   }
 
   @Override

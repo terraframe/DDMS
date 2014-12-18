@@ -53,6 +53,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
+  }
+  
   public void validateActiveIngredient()
   {
     this.validateAttribute(ACTIVEINGREDIENT);
@@ -170,6 +175,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -191,6 +201,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -254,6 +269,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -389,6 +409,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -412,6 +437,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -433,6 +463,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -468,6 +503,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.ontology.Term.get(getValue(PRODUCTNAME));
     }
+  }
+  
+  public String getProductNameId()
+  {
+    return getValue(PRODUCTNAME);
   }
   
   public void validateProductName()
@@ -645,6 +685,11 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.ontology.Term.get(getValue(USEDETAIL));
     }
+  }
+  
+  public String getUseDetailId()
+  {
+    return getValue(USEDETAIL);
   }
   
   public void validateUseDetail()

@@ -592,6 +592,16 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     return set(SUPERVISOR_PERSON, this.idCol, alias);
   }
   
+  public String setStructureType(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  public String setReasonNotSprayed(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
   protected String getDateCriteriaSQL()
   {
     String oDOB = column(OPERATOR_PERSON, this.birthdateCol);

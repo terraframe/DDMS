@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1659328551)
+@com.runwaysdk.business.ClassSignature(hash = 733321923)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,6 +27,7 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
+  public static java.lang.String REASONNOTSPRAYED = "reasonNotSprayed";
   public static java.lang.String REFUSED = "refused";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String ROOMSWITHBEDNETS = "roomsWithBedNets";
@@ -35,6 +36,7 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTUREID = "structureId";
+  public static java.lang.String STRUCTURETYPE = "structureType";
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String VERANDAS = "verandas";
   public static java.lang.String VERANDASLOCKED = "verandasLocked";
@@ -42,7 +44,7 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -1659328551;
+  private static final long serialVersionUID = 733321923;
   
   public HouseholdSprayStatusViewBase()
   {
@@ -59,10 +61,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(BEDNETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBedNetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBedNetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(BEDNETS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BEDNETS);
   }
   
   public void setBedNets(Integer value)
@@ -87,10 +89,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CATTLESHEDS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCattleShedsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CATTLESHEDS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CATTLESHEDS);
   }
   
   public void setCattleSheds(Integer value)
@@ -115,10 +117,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CATTLESHEDSLOCKED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsLockedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCattleShedsLockedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CATTLESHEDSLOCKED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CATTLESHEDSLOCKED);
   }
   
   public void setCattleShedsLocked(Integer value)
@@ -143,10 +145,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CATTLESHEDSOTHER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsOtherMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCattleShedsOtherMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CATTLESHEDSOTHER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CATTLESHEDSOTHER);
   }
   
   public void setCattleShedsOther(Integer value)
@@ -171,10 +173,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CATTLESHEDSREFUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsRefusedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCattleShedsRefusedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CATTLESHEDSREFUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CATTLESHEDSREFUSED);
   }
   
   public void setCattleShedsRefused(Integer value)
@@ -199,10 +201,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CATTLESHEDSSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCattleShedsSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCattleShedsSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CATTLESHEDSSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CATTLESHEDSSPRAYED);
   }
   
   public void setCattleShedsSprayed(Integer value)
@@ -227,10 +229,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -255,10 +257,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(HOUSEHOLDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLDID);
   }
   
   public void setHouseholdId(String value)
@@ -283,10 +285,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(HOUSEHOLDS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLDS);
   }
   
   public void setHouseholds(Integer value)
@@ -311,10 +313,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getLocked()
@@ -327,10 +329,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(LOCKED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLockedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(LOCKED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LOCKED);
   }
   
   public void setLocked(Integer value)
@@ -355,10 +357,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBEROFPEOPLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfPeopleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberOfPeopleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFPEOPLE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEROFPEOPLE);
   }
   
   public void setNumberOfPeople(Integer value)
@@ -383,10 +385,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(OTHER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOtherMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOtherMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(OTHER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OTHER);
   }
   
   public void setOther(Integer value)
@@ -411,10 +413,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(PEOPLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeopleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeopleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(PEOPLE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PEOPLE);
   }
   
   public void setPeople(Integer value)
@@ -439,10 +441,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(PREVSPRAYEDHOUSEHOLDS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPrevSprayedHouseholdsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPrevSprayedHouseholdsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(PREVSPRAYEDHOUSEHOLDS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREVSPRAYEDHOUSEHOLDS);
   }
   
   public void setPrevSprayedHouseholds(Integer value)
@@ -467,10 +469,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(PREVSPRAYEDSTRUCTURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPrevSprayedStructuresMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPrevSprayedStructuresMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(PREVSPRAYEDSTRUCTURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREVSPRAYEDSTRUCTURES);
   }
   
   public void setPrevSprayedStructures(Integer value)
@@ -485,6 +487,46 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     }
   }
   
+  public dss.vector.solutions.ontology.Term getReasonNotSprayed()
+  {
+    if (getValue(REASONNOTSPRAYED).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(REASONNOTSPRAYED));
+    }
+  }
+  
+  public String getReasonNotSprayedId()
+  {
+    return getValue(REASONNOTSPRAYED);
+  }
+  
+  public void validateReasonNotSprayed()
+  {
+    this.validateAttribute(REASONNOTSPRAYED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReasonNotSprayedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(REASONNOTSPRAYED);
+  }
+  
+  public void setReasonNotSprayed(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(REASONNOTSPRAYED, "");
+    }
+    else
+    {
+      setValue(REASONNOTSPRAYED, value.getId());
+    }
+  }
+  
   public Integer getRefused()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
@@ -495,10 +537,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(REFUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRefusedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRefusedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(REFUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(REFUSED);
   }
   
   public void setRefused(Integer value)
@@ -523,10 +565,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(ROOMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoomsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoomsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(ROOMS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOMS);
   }
   
   public void setRooms(Integer value)
@@ -551,10 +593,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(ROOMSWITHBEDNETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoomsWithBedNetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoomsWithBedNetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(ROOMSWITHBEDNETS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOMSWITHBEDNETS);
   }
   
   public void setRoomsWithBedNets(Integer value)
@@ -591,10 +633,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(SPRAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(SPRAY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAY);
   }
   
   public void setSpray(dss.vector.solutions.irs.OperatorSpray value)
@@ -619,10 +661,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(SPRAYEDHOUSEHOLDS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayedHouseholdsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayedHouseholdsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYEDHOUSEHOLDS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYEDHOUSEHOLDS);
   }
   
   public void setSprayedHouseholds(Integer value)
@@ -647,10 +689,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(SPRAYEDROOMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayedRoomsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayedRoomsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYEDROOMS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYEDROOMS);
   }
   
   public void setSprayedRooms(Integer value)
@@ -675,10 +717,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(SPRAYEDSTRUCTURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayedStructuresMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayedStructuresMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYEDSTRUCTURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYEDSTRUCTURES);
   }
   
   public void setSprayedStructures(Integer value)
@@ -703,10 +745,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(STRUCTUREID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStructureIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructureIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(STRUCTUREID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTUREID);
   }
   
   public void setStructureId(String value)
@@ -721,6 +763,46 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     }
   }
   
+  public dss.vector.solutions.ontology.Term getStructureType()
+  {
+    if (getValue(STRUCTURETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(STRUCTURETYPE));
+    }
+  }
+  
+  public String getStructureTypeId()
+  {
+    return getValue(STRUCTURETYPE);
+  }
+  
+  public void validateStructureType()
+  {
+    this.validateAttribute(STRUCTURETYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructureTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURETYPE);
+  }
+  
+  public void setStructureType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURETYPE, "");
+    }
+    else
+    {
+      setValue(STRUCTURETYPE, value.getId());
+    }
+  }
+  
   public Integer getStructures()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURES));
@@ -731,10 +813,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(STRUCTURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStructuresMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(STRUCTURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURES);
   }
   
   public void setStructures(Integer value)
@@ -759,10 +841,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(VERANDAS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVerandasMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(VERANDAS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VERANDAS);
   }
   
   public void setVerandas(Integer value)
@@ -787,10 +869,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(VERANDASLOCKED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasLockedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVerandasLockedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(VERANDASLOCKED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VERANDASLOCKED);
   }
   
   public void setVerandasLocked(Integer value)
@@ -815,10 +897,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(VERANDASOTHER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasOtherMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVerandasOtherMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(VERANDASOTHER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VERANDASOTHER);
   }
   
   public void setVerandasOther(Integer value)
@@ -843,10 +925,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(VERANDASREFUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasRefusedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVerandasRefusedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(VERANDASREFUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VERANDASREFUSED);
   }
   
   public void setVerandasRefused(Integer value)
@@ -871,10 +953,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(VERANDASSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVerandasSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVerandasSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(VERANDASSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VERANDASSPRAYED);
   }
   
   public void setVerandasSprayed(Integer value)
@@ -899,10 +981,10 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     this.validateAttribute(WRONGSURFACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWrongSurfaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWrongSurfaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
-    return mdClassIF.definesAttribute(WRONGSURFACE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WRONGSURFACE);
   }
   
   public void setWrongSurface(Integer value)

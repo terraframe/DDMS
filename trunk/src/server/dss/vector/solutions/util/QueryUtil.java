@@ -72,6 +72,8 @@ public class QueryUtil implements Reloadable
 {
 
   public static final String  GEO_DISPLAY_LABEL            = "geo_displayLabel";
+  
+  public static final String  TERM_DISPLAY_LABEL            = "term_displayLabel";
 
   public static final String  LABEL_COLUMN                 = "label";
 
@@ -731,6 +733,42 @@ public class QueryUtil implements Reloadable
     buffer.append("INNER JOIN " + metadataLabelTable + " " + TYPE_DISPLAY_ALIAS + " ON " + MD_TYPE_ALIAS + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
     buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn + " = " + GEO_ALIAS + "." + termColumn + " \n");
     buffer.append("LEFT JOIN " + termLabelTable + " AS " + TERM_DISPLAY_ALIAS + " ON " + TERM_DISPLAY_ALIAS + "." + idColumn + " = " + TERM_ALIAS + "." + termLabelColumn + " \n");
+
+    return buffer.toString();
+  }
+  
+  public static String getTermDisplayLabelSQL()
+  {
+    // Define the aliases
+    String TERM_DISPLAY_ALIAS = "termLabel";
+    String TERM_ALIAS = "term";
+    String MD_TYPE_ALIAS = "md";
+    String TYPE_DISPLAY_ALIAS = "typeLabel";
+
+    // Define the tables
+    String mdTypeTable = MdEntity.getMdEntity(MdType.CLASS).getTableName();
+    String metadataLabelTable = MdEntity.getMdEntity(MetadataDisplayLabel.CLASS).getTableName();
+    String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
+    String termLabelTable = MdEntity.getMdEntity(TermTermDisplayLabel.CLASS).getTableName();
+
+    // Define the columns
+    String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
+    String labelColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.DISPLAYLABEL);
+    String idColumn = TermTermDisplayLabel.ID;
+//    String packageColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.PACKAGENAME);
+//    String typeNameColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.TYPENAME);
+
+    StringBuffer buffer = new StringBuffer();
+
+    buffer.append("SELECT (" + QueryUtil.getLocaleCoalesce(TERM_DISPLAY_ALIAS + ".") + ")");
+    buffer.append(" AS " + QueryUtil.LABEL_COLUMN + ",\n");
+    buffer.append(TERM_ALIAS + "." + idColumn + "\n");
+    buffer.append("FROM  \n");
+    buffer.append(termTable + " " + TERM_ALIAS + " INNER JOIN " + termLabelTable + " " + TERM_DISPLAY_ALIAS + " ON " + TERM_DISPLAY_ALIAS + "." + idColumn + "=" + TERM_ALIAS + "." + termLabelColumn);
+//    buffer.append(mdTypeTable + " " + MD_TYPE_ALIAS + "\n");
+//    buffer.append("INNER JOIN " + metadataLabelTable + " AS " + TYPE_DISPLAY_ALIAS + " ON " + MD_TYPE_ALIAS + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
+//    buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
+//    buffer.append("LEFT JOIN " + termLabelTable + " AS " + TERM_DISPLAY_ALIAS + " ON " + TERM_DISPLAY_ALIAS + "." + idColumn + " = " + TERM_ALIAS + "." + termLabelColumn + " \n");
 
     return buffer.toString();
   }

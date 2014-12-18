@@ -358,7 +358,20 @@ YAHOO.util.Event.onDOMReady(function(){
     
    Spray_Details = Spray_Details.concat([
                                   {
-                                    
+	                                  key:"structureType",
+	                                  type:"dss.vector.solutions.ontology.Term",
+	                                  attributeName:"structureType",
+	                                  dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+	                                  isTerm: true
+	                                },
+	                                {
+                                    key:"reasonNotSprayed",
+                                    type:"dss.vector.solutions.ontology.Term",
+                                    attributeName:"reasonNotSprayed",
+                                    dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+                                    isTerm: true
+                                  },
+                                  {
                                     key:"sprayedunits",
                                     type:"sqlinteger",
                                     attributeName:"sprayedunits",

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 638519641)
+@com.runwaysdk.business.ClassSignature(hash = -352863165)
 public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatusView";
-  private static final long serialVersionUID = 638519641;
+  private static final long serialVersionUID = -352863165;
   
   protected HouseholdSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -32,6 +32,7 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
+  public static java.lang.String REASONNOTSPRAYED = "reasonNotSprayed";
   public static java.lang.String REFUSED = "refused";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String ROOMSWITHBEDNETS = "roomsWithBedNets";
@@ -40,6 +41,7 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTUREID = "structureId";
+  public static java.lang.String STRUCTURETYPE = "structureType";
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String VERANDAS = "verandas";
   public static java.lang.String VERANDASLOCKED = "verandasLocked";
@@ -602,6 +604,55 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getReasonNotSprayed()
+  {
+    if(getValue(REASONNOTSPRAYED) == null || getValue(REASONNOTSPRAYED).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(REASONNOTSPRAYED));
+    }
+  }
+  
+  public String getReasonNotSprayedId()
+  {
+    return getValue(REASONNOTSPRAYED);
+  }
+  
+  public void setReasonNotSprayed(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(REASONNOTSPRAYED, "");
+    }
+    else
+    {
+      setValue(REASONNOTSPRAYED, value.getId());
+    }
+  }
+  
+  public boolean isReasonNotSprayedWritable()
+  {
+    return isWritable(REASONNOTSPRAYED);
+  }
+  
+  public boolean isReasonNotSprayedReadable()
+  {
+    return isReadable(REASONNOTSPRAYED);
+  }
+  
+  public boolean isReasonNotSprayedModified()
+  {
+    return isModified(REASONNOTSPRAYED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getReasonNotSprayedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(REASONNOTSPRAYED).getAttributeMdDTO();
+  }
+  
   public Integer getRefused()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
@@ -908,6 +959,55 @@ public abstract class HouseholdSprayStatusViewDTOBase extends com.runwaysdk.busi
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getStructureIdMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STRUCTUREID).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getStructureType()
+  {
+    if(getValue(STRUCTURETYPE) == null || getValue(STRUCTURETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(STRUCTURETYPE));
+    }
+  }
+  
+  public String getStructureTypeId()
+  {
+    return getValue(STRUCTURETYPE);
+  }
+  
+  public void setStructureType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURETYPE, "");
+    }
+    else
+    {
+      setValue(STRUCTURETYPE, value.getId());
+    }
+  }
+  
+  public boolean isStructureTypeWritable()
+  {
+    return isWritable(STRUCTURETYPE);
+  }
+  
+  public boolean isStructureTypeReadable()
+  {
+    return isReadable(STRUCTURETYPE);
+  }
+  
+  public boolean isStructureTypeModified()
+  {
+    return isModified(STRUCTURETYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getStructureTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STRUCTURETYPE).getAttributeMdDTO();
   }
   
   public Integer getStructures()

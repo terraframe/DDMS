@@ -25,6 +25,10 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
 
   private String sprayCol;
 
+  private String reasonNotSprayedCol;
+
+  private String structureTypeCol;
+  
   private String householdIdCol;
 
   private String structureIdCol;
@@ -174,6 +178,8 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.cattleShedsRefusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSREFUSED);
     this.cattleShedsOtherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.CATTLESHEDSOTHER);
     this.numberOfPeopleCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.NUMBEROFPEOPLE);
+    this.reasonNotSprayedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.REASONNOTSPRAYED);
+    this.structureTypeCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.STRUCTURETYPE);
     
     supervisorTable = MdEntityDAO.getMdEntityDAO(Supervisor.CLASS).getTableName();
     supervisorPersonCol = QueryUtil.getColumnName(Supervisor.getPersonMd());
@@ -248,7 +254,9 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
         Alias.CATTLESHEDS_LOCKED,
         Alias.CATTLESHEDS_REFUSED,
         Alias.CATTLESHEDS_OTHER,
-        Alias.NUMBER_OF_PEOPLE
+        Alias.NUMBER_OF_PEOPLE,
+        Alias.REASON_NOT_SPRAYED,
+        Alias.STRUCTURE_TYPE
     },
       "LEFT JOIN "+householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n"
     ));
@@ -327,6 +335,18 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     return "1";
   }
 
+  @Override
+  public String setStructureType(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, structureTypeCol, alias);
+  }
+  
+  @Override
+  public String setReasonNotSprayed(Alias alias)
+  {
+    return set(this.householdSprayStatusTable, reasonNotSprayedCol, alias);
+  }
+  
   public String setHouseholdId(Alias alias)
   {
     return set(this.householdSprayStatusTable, householdIdCol, alias);

@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AttributeTerm;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
@@ -30,6 +32,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
@@ -785,9 +788,19 @@ public class IRSQB extends AbstractQB implements Reloadable
     swapOutAttributesForAggregates();
 
     joinSexAttributes();
-
+    
     // Add the filters (spray operator id = 123) to the WHERE criteria.
+    String tableName = null;
     if (insecticideQuery != null)
+    {
+      tableName = insecticideQuery.getTableAlias();
+    }
+//    else if (valueQuery.hasSelectableRef(Alias.STRUCTURE_TYPE.getAlias()) || valueQuery.hasSelectableRef(Alias.REASON_NOT_SPRAYED.getAlias()))
+//    {
+//      tableName = "allActuals";
+//    }
+    
+    if (tableName != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
       QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions());
@@ -797,7 +810,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       setNumericRestrictions(irsVQ, queryConfig);
     }
-
+    
     // Spray Date
     QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYDATE, sprayViewAlias + "." + Alias.SPRAY_DATE);
 
@@ -2205,6 +2218,23 @@ public class IRSQB extends AbstractQB implements Reloadable
       this.addRequiredView(View.PLANNED_TEAM_RESULTS);
     }
   }
+  
+  @Override
+  protected ArrayList<SelectableSQL> getTerms(ValueQuery valueQuery)
+  {
+    ArrayList<SelectableSQL> sels = new ArrayList<SelectableSQL>();
+    
+    if (valueQuery.hasSelectableRef(Alias.STRUCTURE_TYPE.getAlias()))
+    {
+      sels.add((SelectableSQL) valueQuery.getSelectableRef(Alias.STRUCTURE_TYPE.getAlias()));
+    }
+    if (valueQuery.hasSelectableRef(Alias.REASON_NOT_SPRAYED.getAlias()))
+    {
+      sels.add((SelectableSQL) valueQuery.getSelectableRef(Alias.REASON_NOT_SPRAYED.getAlias()));
+    }
+    
+    return sels;
+  }
 
   String getAbstractSprayAlias()
   {
@@ -2366,6 +2396,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       Alias alias = AliasLookup.get(userDefinedAlias);
       if (alias != null)
       {
+        if (ArrayUtils.contains(alias.getViews(), View.ALL_ACTUALS))
+        {
+          this.hasActivity = true;
+        }
+        
         this.selectAliases.add(alias);
       }
     }

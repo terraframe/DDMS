@@ -40,8 +40,10 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
     {      
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.HOUSEHOLDS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURES, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURETYPE, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.SPRAYEDHOUSEHOLDS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.SPRAYEDSTRUCTURES, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.REASONNOTSPRAYED, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.ROOMS, false);
@@ -84,8 +86,10 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
         HouseholdSprayStatusViewDTO.STRUCTUREID,
         HouseholdSprayStatusViewDTO.HOUSEHOLDS,
         HouseholdSprayStatusViewDTO.STRUCTURES,
+        HouseholdSprayStatusViewDTO.STRUCTURETYPE,
         HouseholdSprayStatusViewDTO.SPRAYEDHOUSEHOLDS,
         HouseholdSprayStatusViewDTO.SPRAYEDSTRUCTURES,
+        HouseholdSprayStatusViewDTO.REASONNOTSPRAYED,
         HouseholdSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS,
         HouseholdSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES,
         HouseholdSprayStatusViewDTO.ROOMS,

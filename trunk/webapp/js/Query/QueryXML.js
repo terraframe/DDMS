@@ -633,13 +633,14 @@ MDSS.QueryXML.Sqldouble.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate)
+MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate, namespace)
 {
   this._entityAlias = entityAlias;
   this._name = name;
   this._userAlias = userAlias || '';
   this._userDisplayLabel = userDisplayLabel || '';
   this._isAggregate = isAggregate || false;
+//  this._namespace = namespace || ''; // 2927
 }
 MDSS.QueryXML.Sqlcharacter.prototype = {
 
@@ -648,6 +649,8 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
   getEntityAlias : function() { return this._entityAlias; },
 
   getUserAlias : function() { return this._userAlias; },
+  
+  //getNamespace : function() { return this._namespace; }, // 2927
 
   build : function()
   {
@@ -656,8 +659,8 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
         'name': this._name,
         'userAlias': this._userAlias,
         'userDisplayLabel': this._userDisplayLabel,
-        'isaggregate': this._isAggregate
-
+        'isaggregate': this._isAggregate,
+        //'namespace' : this._namespace // 2927
       }
     };
 

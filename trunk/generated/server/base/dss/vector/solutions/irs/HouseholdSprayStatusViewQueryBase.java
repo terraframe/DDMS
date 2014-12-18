@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 226537744)
+@com.runwaysdk.business.ClassSignature(hash = -1483301510)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -313,6 +313,25 @@ public  abstract  class HouseholdSprayStatusViewQueryBase extends com.runwaysdk.
 
   }
  
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed()
+  {
+    return getReasonNotSprayed(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.REASONNOTSPRAYED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.REASONNOTSPRAYED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getRefused()
   {
     return getRefused(null);
@@ -458,6 +477,25 @@ public  abstract  class HouseholdSprayStatusViewQueryBase extends com.runwaysdk.
 
   }
  
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType()
+  {
+    return getStructureType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.STRUCTURETYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.HouseholdSprayStatusView.STRUCTURETYPE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getStructures()
   {
     return getStructures(null);

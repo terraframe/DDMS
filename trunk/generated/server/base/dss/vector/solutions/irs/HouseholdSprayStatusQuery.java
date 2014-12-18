@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1869218497)
+@com.runwaysdk.business.ClassSignature(hash = 1335417551)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -459,6 +459,29 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed()
+  {
+    return getReasonNotSprayed(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getRefused()
   {
     return getRefused(null);
@@ -635,6 +658,29 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType()
+  {
+    return getStructureType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getStructures()
   {
     return getStructures(null);
@@ -795,9 +841,17 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAY)) 
     {
        return new dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -907,6 +961,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures();
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getRefused();
     public com.runwaysdk.query.SelectableInteger getRefused(String alias);
     public com.runwaysdk.query.SelectableInteger getRefused(String alias, String displayLabel);
@@ -937,6 +994,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableChar getStructureId();
     public com.runwaysdk.query.SelectableChar getStructureId(String alias);
     public com.runwaysdk.query.SelectableChar getStructureId(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getStructures();
     public com.runwaysdk.query.SelectableInteger getStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel);
@@ -1387,6 +1447,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed()
+  {
+    return getReasonNotSprayed(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getRefused()
   {
     return getRefused(null);
@@ -1557,6 +1634,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType()
+  {
+    return getStructureType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getStructures()
   {
     return getStructures(null);
@@ -1717,9 +1811,17 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAY)) 
     {
        return new dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -1806,6 +1908,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures();
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getRefused();
     public com.runwaysdk.query.SelectableInteger getRefused(String alias);
     public com.runwaysdk.query.SelectableInteger getRefused(String alias, String displayLabel);
@@ -1836,6 +1941,9 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableChar getStructureId();
     public com.runwaysdk.query.SelectableChar getStructureId(String alias);
     public com.runwaysdk.query.SelectableChar getStructureId(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getStructures();
     public com.runwaysdk.query.SelectableInteger getStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel);
@@ -2335,6 +2443,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed()
+  {
+    return getReasonNotSprayed(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonNotSprayed(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getRefused()
   {
     return getRefused(null);
@@ -2505,6 +2630,23 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType()
+  {
+    return getStructureType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStructureType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getStructures()
   {
     return getStructures(null);
@@ -2665,9 +2807,17 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.REASONNOTSPRAYED)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAY)) 
     {
        return new dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURETYPE)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

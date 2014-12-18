@@ -1,5 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -323,11 +324,38 @@ public abstract class AbstractQB implements Reloadable
     parser = this.createParser(valueQuery, interceptors);
 
     this.setGeoDisplayLabelSQL();
-
+    
     // Universals, mapping, and geo entity criteria
     this.restrictions = this.constructTermRestrictions(queryConfig);
 
     this.queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
+    
+    ArrayList<SelectableSQL> terms = this.getTerms(valueQuery);
+    if (terms.size() > 0)
+    {
+      this.addTermDisplayLabelWithEntry();
+      this.setTermSelectablesSQL(terms);
+    }
+  }
+  
+  protected void setTermSelectablesSQL(ArrayList<SelectableSQL> terms)
+  {
+    for (SelectableSQL term : terms)
+    {
+      term.setSQL("(SELECT " + QueryUtil.LABEL_COLUMN + " from " + QueryUtil.TERM_DISPLAY_LABEL + " WHERE " + QueryUtil.TERM_DISPLAY_LABEL + ".id=" + term.getUserDefinedAlias() + ")");
+    }
+  }
+  
+  protected void addTermDisplayLabelWithEntry()
+  {
+    String sql = QueryUtil.getTermDisplayLabelSQL();
+    this.addWITHEntry(new WITHEntry(QueryUtil.TERM_DISPLAY_LABEL, sql));
+  }
+  
+  // TODO : Override this method in sub classes.
+  protected ArrayList<SelectableSQL> getTerms(ValueQuery valueQuery)
+  {
+    return new ArrayList<SelectableSQL>();
   }
 
   protected ValueQuery finishConstruct()

@@ -62,6 +62,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
+  }
+  
   public void setActiveIngredient(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -214,6 +219,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -244,6 +254,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -325,6 +340,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -479,6 +499,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -511,6 +536,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -541,6 +571,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -585,6 +620,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PRODUCTNAME));
     }
+  }
+  
+  public String getProductNameId()
+  {
+    return getValue(PRODUCTNAME);
   }
   
   public void setProductName(dss.vector.solutions.ontology.TermDTO value)
@@ -799,6 +839,11 @@ public abstract class InsecticideBrandDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(USEDETAIL));
     }
+  }
+  
+  public String getUseDetailId()
+  {
+    return getValue(USEDETAIL);
   }
   
   public void setUseDetail(dss.vector.solutions.ontology.TermDTO value)

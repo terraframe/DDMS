@@ -5,6 +5,7 @@ import org.apache.commons.lang.ArrayUtils;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.AbstractSpray;
+import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 import dss.vector.solutions.util.QueryUtil;
@@ -95,6 +96,8 @@ public enum Alias implements Reloadable, AliasIF
   SPRAYED_ROOMS_SHARE("sprayedrooms_share", "setSprayedRoomsShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
   SPRAYED_STRUCTURES_SHARE("sprayedstructures_share", "setSprayedStructuresShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
   SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share", "setSprayedHouseholdsShare", SQLProvider.FLOAT, new View[]{View.ALL_ACTUALS}),
+  STRUCTURE_TYPE(HouseholdSprayStatus.STRUCTURETYPE, "setStructureType", SQLProvider.TEXT, new View[]{View.ALL_ACTUALS}),
+  REASON_NOT_SPRAYED(HouseholdSprayStatus.REASONNOTSPRAYED, "setReasonNotSprayed", SQLProvider.TEXT, new View[]{View.ALL_ACTUALS}),
   
   /*
    *  CUSTOM (not specified on any level as a column)
