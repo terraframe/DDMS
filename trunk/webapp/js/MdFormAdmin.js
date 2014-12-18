@@ -686,7 +686,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	      	     node.on('click', function(e) {
 	      	        e.preventDefault();
 	      	        
-	      	        var attrName = node.getContent();
+//	      	        var attrName = node.getContent();
+	      	        var attrName = node.get('value'); 
 	      	        var formattedAttrName = attrName;
 	      	        var targetTextArea = document.getElementById("expressionInputField");
 	      	        
@@ -1306,7 +1307,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	      	     node.on('click', function(e) {
 	      	        e.preventDefault();
 	      	        
-	      	        var attrName = node.getContent();
+//	      	        var attrName = node.getContent();
+	      	        var attrName = node.get('value'); 
 	      	        var formattedAttrName = attrName;
 	      	        var targetTextArea = document.getElementById("expressionInputField");
 	      	        
