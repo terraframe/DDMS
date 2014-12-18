@@ -9,15 +9,8 @@
     <mjl:boolean param="isExpression" id="expressionBool"/>
   </mjl:dt>
 
-  <!--   <dd> -->
-<!--     <textarea id="expressionInputField" name="expression" wrap="hard" rows="4" cols="50" style="display:none;"> </textarea> -->
-<!--   </dd> -->
-
-<!-- <dd> -->
-<!--     <input id="expressionInputField" style="" name="mdField.expression" type="textarea" wrap="hard" rows="4" cols="50" style="display:none;" > -->
-<!-- </dd> -->
   
-  <mjl:dt attribute="expression" id="expressionInputFieldLabel">
+  <mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
     <mjl:input param="expression" type="textarea" id="expressionInputField" style="display:none;" />
   </mjl:dt>
   
@@ -28,22 +21,35 @@
 	    		<button class="expressionAttributeButton" value="${field.fieldName}">${field.displayLabel}</button>
 	    	</c:forEach>
 	    </div>
-	    <div id="expressionOperatorButtonConainer" >
-	      <button class="expressionOperatorButton">+</button>
-	      <button class="expressionOperatorButton">-</button>
-	      <button class="expressionOperatorButton">*</button>
-	      <button class="expressionOperatorButton">/</button>
-	      <button class="expressionOperatorButton">==</button>
-	      <button class="expressionOperatorButton">!=</button>
-	      <button class="expressionOperatorButton"><</button>
-	      <button class="expressionOperatorButton"><=</button>
-	      <button class="expressionOperatorButton">></button>
-	      <button class="expressionOperatorButton">>=</button>
-	      <button class="expressionOperatorButton">or</button>
-	      <button class="expressionOperatorButton">and</button>
-	      <button class="expressionOperatorButton">not</button>
-	    </div>
-	</div>
+			<div id="expressionOperatorButtonConainer">
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="additionTooltip"/>'>+</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="subtractionTooltip"/>'>-</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="multiplicationTooltip"/>'>*</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="divisionTooltip"/>'>/</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="remainderTooltip"/>'>%</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="equalityTooltip"/>'>==</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="notEqualTooltip"/>'>!=</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="lessThanTooltip"/>'><</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="lessThanEqualTooltip"/>'><=</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="greaterThanTooltip"/>'>></button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="greaterThanEqualTooltip"/>'>>=</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="orTooltip"/>'>or</button>
+				<button class="expressionOperatorButton"
+					title='<mdss:localize key="andTooltip"/>'>and</button>
+			</div>
+		</div>
   </dd>
 
 </mjl:component>
