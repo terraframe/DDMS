@@ -1271,6 +1271,16 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       
       if(document.getElementById('expressionInputField')){
+          
+    	  // open the expression field ui if expression is active
+    	  if(document.getElementById("expressionBool.positive").checked){
+    		  YUI().use('node', function (Y) {
+    			Y.one("#expressionInputField").show();
+    			Y.one("#expressionInputFieldLabel").show();
+    			Y.one("#expressionCalcContainer").show();
+    		  });
+    	  }
+          
     	  this.setExpressionEventHandlers();
       }
       eval(executable);
