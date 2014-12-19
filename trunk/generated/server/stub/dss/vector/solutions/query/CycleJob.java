@@ -35,8 +35,11 @@ import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
+import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
+import com.runwaysdk.system.scheduler.JobHistoryQuery;
+import com.runwaysdk.system.scheduler.JobHistoryRecordQuery;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.util.IDGenerator;
 
@@ -430,6 +433,33 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
   @Override
   public void execute(ExecutionContext executionContext)
   {
+    // Make sure there's not another instance of this job already running.
+    QueryFactory qf = new QueryFactory();
+    CycleJobQuery cjq = new CycleJobQuery(qf);
+    JobHistoryQuery jhq = new JobHistoryQuery(qf);
+    JobHistoryRecordQuery jhrq = new JobHistoryRecordQuery(qf);
+    
+    jhq.WHERE(jhq.getStatus().containsExactly(AllJobStatus.RUNNING));
+    jhrq.WHERE(jhrq.hasChild(jhq));
+    cjq.AND(cjq.getId().EQ(jhrq.parentId()));
+    cjq.AND(cjq.getId().EQ(this.getId()));
+    jhq.AND(jhq.getId().NE(executionContext.getJobHistory().getId()));
+    
+    if (jhq.getCount() > 0)
+    {
+      // TODO : We should be localizing our exceptions.
+      throw new RuntimeException("Only one instance of a job may be running at a time.");
+    }
+    
+    // REMOVE ME!!!
+    try {
+      Thread.sleep(7000);
+    }
+    catch (Exception e) {
+      
+    }
+    // ONLY FOR DEBUGGING
+    
     SavedMap map = this.getSavedMap();
     Disease disease = map.getDisease();
     Layer cycleLayer = this.getLayer();
