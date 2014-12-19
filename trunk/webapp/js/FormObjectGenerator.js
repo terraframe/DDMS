@@ -733,7 +733,9 @@ var FormObjectSearchVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       
       if(field instanceof FIELD.WebAttribute)
       {        
-        if(field.getFieldMd().getShowOnSearch())
+        var attributeName = field.getFieldMd().getFieldName();
+        
+        if(this._filter(attributeName))
         {
           this.$_addField(formComponent);        
         }
