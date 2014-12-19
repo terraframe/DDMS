@@ -1,7 +1,7 @@
-<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <c:set scope="request" var="page_title" value="View_All_HealthFacility" />
 <mjl:messages>
   <mjl:message />
@@ -11,7 +11,7 @@
   <mjl:columns>
     <mjl:attributeColumn attributeName="activated">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="entityName">
+    <mjl:attributeColumn attributeName="entityLabel">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoData">
     </mjl:attributeColumn>

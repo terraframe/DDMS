@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
-<c:set scope="request" var="page_title" value="View_CollectionSite" />
+<c:set scope="request" var="page_title" value="View_Surface" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <dl>
-  <mjl:form id="dss.vector.solutions.geo.generated.CollectionSite.form.id" name="dss.vector.solutions.geo.generated.CollectionSite.form.name" method="POST">
+  <mjl:form id="dss.vector.solutions.geo.generated.Surface.form.id" name="dss.vector.solutions.geo.generated.Surface.form.name" method="POST">
     <mjl:input param="id" value="${item.id}" type="hidden" />
     <mjl:component param="dto" item="${item}">
       <mjl:dt attribute="activated">
@@ -32,9 +32,9 @@
         ${item.term.displayLabel}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.geo.generated.CollectionSite.form.edit.button" value="Edit" action="dss.vector.solutions.geo.generated.CollectionSiteController.edit.mojo" />
+    <mjl:command name="dss.vector.solutions.geo.generated.Surface.form.edit.button" value="Edit" action="dss.vector.solutions.geo.generated.SurfaceController.edit.mojo" />
   </mjl:form>
 </dl>
-<mjl:commandLink name="dss.vector.solutions.geo.generated.CollectionSite.viewAll.link" action="dss.vector.solutions.geo.generated.CollectionSiteController.viewAll.mojo">
+<mjl:commandLink name="dss.vector.solutions.geo.generated.Surface.viewAll.link" action="dss.vector.solutions.geo.generated.SurfaceController.viewAll.mojo">
   <mdss:localize key="View_All" />
 </mjl:commandLink>

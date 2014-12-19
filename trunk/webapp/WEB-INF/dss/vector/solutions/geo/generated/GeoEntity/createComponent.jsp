@@ -1,6 +1,7 @@
-<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <c:set scope="request" var="page_title" value="Create_GeoEntity" />
 <mjl:messages>
   <mjl:message />
@@ -8,9 +9,9 @@
 <dl>
   <mjl:form id="dss.vector.solutions.geo.generated.GeoEntity.form.id" name="dss.vector.solutions.geo.generated.GeoEntity.form.name" method="POST">
     <%@include file="form.jsp" %>
-    <mdss:localize key="Create" var="Localized_Create" />
-    <mjl:command name="dss.vector.solutions.geo.generated.GeoEntity.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.geo.generated.GeoEntityController.create.mojo" />
-    <mdss:localize key="Cancel" var="Localized_Cancel" />
-    <mjl:command name="dss.vector.solutions.geo.generated.GeoEntity.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.geo.generated.GeoEntityController.cancel.mojo" />
+    <mdss:localize var="Create_Localize" key="Create" />
+    <mjl:command name="dss.vector.solutions.geo.generated.GeoEntity.form.create.button" value="${Create_Localize}" action="dss.vector.solutions.geo.generated.GeoEntityController.create.mojo" />
+    <mdss:localize var="Cancel_Localize" key="Cancel" />
+    <mjl:command name="dss.vector.solutions.geo.generated.GeoEntity.form.cancel.button" value="${Cancel_Localize}" action="dss.vector.solutions.geo.generated.GeoEntityController.cancel.mojo" />
   </mjl:form>
 </dl>

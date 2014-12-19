@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
-<c:set scope="request" var="page_title" value="View_All_CollectionSite" />
+<c:set scope="request" var="page_title" value="View_All_Surface" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
-  <mjl:context action="dss.vector.solutions.geo.generated.CollectionSiteController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.geo.generated.SurfaceController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="activated">
     </mjl:attributeColumn>
@@ -31,7 +31,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink name="view.link" action="dss.vector.solutions.geo.generated.CollectionSiteController.view.mojo">
+        <mjl:commandLink name="view.link" action="dss.vector.solutions.geo.generated.SurfaceController.view.mojo">
           <mdss:localize key="View" />
           <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
@@ -46,6 +46,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink name="CollectionSiteController.newInstance" action="dss.vector.solutions.geo.generated.CollectionSiteController.newInstance.mojo">
-  <mdss:localize key="Create_a_new_Collection_Site" />
+<mjl:commandLink name="SurfaceController.newInstance" action="dss.vector.solutions.geo.generated.SurfaceController.newInstance.mojo">
+  <mdss:localize key="Create_a_new_Surface" />
 </mjl:commandLink>
