@@ -652,66 +652,70 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog.render();
       }
       
-      // prevent expression helper buttons from being added to input field when hitting enter
-      var expFieldInputEL = document.getElementById('expressionInputField');
-      if(expFieldInputEL){
-    	  expFieldInputEL.addEventListener('keypress', function(event) {
-    		  if (event.keyCode == 13) {
-    			  event.preventDefault();
-    		  }
-    	  });
-	      
-	      
-	      // change listener for expression radio buttons
-	      YUI().use('node', function (Y) {
-	    	  
-	    	  Y.one(document.getElementById('expressionBool.positive')).delegate('click', function (e) {
-	    	    Y.one("#expressionInputField").show();
-	    	    Y.one("#expressionInputFieldLabel").show();
-	    	    Y.one("#expressionCalcContainer").show();
-	    	  }, 'input[type=radio]');
-	    	  
-	    	  Y.one(document.getElementById('expressionBool.negative')).delegate('click', function (e) {
-	    		  Y.one("#expressionInputField").hide();
-	    		  Y.one("#expressionInputFieldLabel").hide();
-	    		  Y.one("#expressionCalcContainer").hide();
-	    		  
-	    		  var targetTextArea = document.getElementById("expressionInputField");
-	    		  targetTextArea.value = "";
-	    		  
-	      	  }, 'input[type=radio]');
-	    	  
-	    	  // Add attributes to the text area throught the gui
-	          Y.all('.expressionAttributeButton').each(function(node) {
-	      	     node.on('click', function(e) {
-	      	        e.preventDefault();
-	      	        
-//	      	        var attrName = node.getContent();
-	      	        var attrName = node.get('value'); 
-	      	        var formattedAttrName = attrName;
-	      	        var targetTextArea = document.getElementById("expressionInputField");
-	      	        
-	      	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
-	      	        
-	      	     });
-	      	  });
-	          
-	          // Add operators to the text area through the gui
-	          Y.all('.expressionOperatorButton').each(function(node) {
-	       	     node.on('click', function(e) {
-	       	        e.preventDefault();
-	       	        
-	       	        var operator = node.getContent();
-	       	        var targetTextArea = document.getElementById("expressionInputField");
-	       	        
-	       	        that.insertTextAtCursor(targetTextArea, operator)
-	       	        
-	       	     });
-	       	  });
-	      });
+
+      if(document.getElementById('expressionInputField')){
+    	  this.setExpressionEventHandlers();
       }
       
       eval(executable);
+    },
+    setExpressionEventHandlers : function(){
+      var that = this;
+      var expFieldInputEL = document.getElementById('expressionInputField');
+      
+  	  expFieldInputEL.addEventListener('keypress', function(event) {
+		  if (event.keyCode == 13) {
+			  event.preventDefault();
+		  }
+	  });
+      
+      // change listener for expression radio buttons
+      YUI().use('node', function (Y) {
+    	  
+    	  Y.one(document.getElementById('expressionBool.positive')).delegate('click', function (e) {
+    	    Y.one("#expressionInputField").show();
+    	    Y.one("#expressionInputFieldLabel").show();
+    	    Y.one("#expressionCalcContainer").show();
+    	  }, 'input[type=radio]');
+    	  
+    	  Y.one(document.getElementById('expressionBool.negative')).delegate('click', function (e) {
+    		  Y.one("#expressionInputField").hide();
+    		  Y.one("#expressionInputFieldLabel").hide();
+    		  Y.one("#expressionCalcContainer").hide();
+    		  
+    		  var targetTextArea = document.getElementById("expressionInputField");
+    		  targetTextArea.value = "";
+    		  
+      	  }, 'input[type=radio]');
+    	  
+    	  // Add attributes to the text area throught the gui
+          Y.all('.expressionAttributeButton').each(function(node) {
+      	     node.on('click', function(e) {
+      	        e.preventDefault();
+      	        
+//      	        var attrName = node.getContent();
+      	        var attrName = node.get('value'); 
+      	        var formattedAttrName = attrName;
+      	        var targetTextArea = document.getElementById("expressionInputField");
+      	        
+      	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
+      	        
+      	     });
+      	  });
+          
+          // Add operators to the text area through the gui
+          Y.all('.expressionOperatorButton').each(function(node) {
+       	     node.on('click', function(e) {
+       	        e.preventDefault();
+       	        
+       	        var operator = node.getContent();
+       	        var targetTextArea = document.getElementById("expressionInputField");
+       	        
+       	        that.insertTextAtCursor(targetTextArea, operator)
+       	        
+       	     });
+       	  });
+      });
     },
     // Inserts text from an element into the expression field
     insertTextAtCursor : function(el, text) {
@@ -1266,70 +1270,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog.render();
       }
       
-      // prevent expression helper buttons from being added to input field when hitting enter
-      var expFieldInputEL = document.getElementById('expressionInputField');
-      if(expFieldInputEL){
-    	  expFieldInputEL.addEventListener('keypress', function(event) {
-    		  if (event.keyCode == 13) {
-    			  event.preventDefault();
-    		  }
-    	  });
-      
-	      // change listener for expression radio buttons
-	      YUI().use('node', function (Y) {
-	    	  
-	    	  // show the expression field if active on render
-	      	  var expressionTrue = document.getElementById('expressionBool.positive');
-	      	  if(expressionTrue){
-	      		Y.one("#expressionInputField").show();
-	      		Y.one("#expressionInputFieldLabel").show();
-	        	Y.one("#expressionCalcContainer").show();
-	      	  }
-	      	  
-	    	  Y.one(document.getElementById('expressionBool.positive')).delegate('click', function (e) {
-	    	    Y.one("#expressionInputField").show();
-	    	    Y.one("#expressionInputFieldLabel").show();
-	    	    Y.one("#expressionCalcContainer").show();
-	    	  }, 'input[type=radio]');
-	    	  
-	    	  Y.one(document.getElementById('expressionBool.negative')).delegate('click', function (e) {
-	    		  Y.one("#expressionInputField").hide();
-	    		  Y.one("#expressionInputFieldLabel").hide();
-	    		  Y.one("#expressionCalcContainer").hide();
-	    		  
-	    		  var targetTextArea = document.getElementById("expressionInputField");
-	    		  targetTextArea.value = "";
-	    		  
-	      	  }, 'input[type=radio]');
-	    	  
-	    	  // Add attributes to the text area throught the gui
-	          Y.all('.expressionAttributeButton').each(function(node) {
-	      	     node.on('click', function(e) {
-	      	        e.preventDefault();
-	      	        
-//	      	        var attrName = node.getContent();
-	      	        var attrName = node.get('value'); 
-	      	        var formattedAttrName = attrName;
-	      	        var targetTextArea = document.getElementById("expressionInputField");
-	      	        
-	      	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
-	      	        
-	      	     });
-	      	  });
-	          
-	          // Add operators to the text area through the gui
-	          Y.all('.expressionOperatorButton').each(function(node) {
-	       	     node.on('click', function(e) {
-	       	        e.preventDefault();
-	       	        
-	       	        var operator = node.getContent();
-	       	        var targetTextArea = document.getElementById("expressionInputField");
-	       	        
-	       	        that.insertTextAtCursor(targetTextArea, operator)
-	       	        
-	       	     });
-	       	  });
-	       });
+      if(document.getElementById('expressionInputField')){
+    	  this.setExpressionEventHandlers();
       }
       eval(executable);
     },
