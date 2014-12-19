@@ -4,24 +4,24 @@
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
-
-  <mjl:dt attribute="isExpression">
-    <mjl:boolean param="isExpression" id="expressionBool"/>
-  </mjl:dt>
-
   
-  <mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
-    <mjl:input param="expression" type="textarea" id="expressionInputField" style="display:none;" />
-  </mjl:dt>
+  <c:if test="${fields != null}">  
+    <mjl:dt attribute="isExpression">
+      <mjl:boolean param="isExpression" id="expressionBool"/>
+    </mjl:dt>
   
-  <dd>
-    <div id="expressionCalcContainer" style="display:none;">
-	    <div id="expressionAttributeButtonConainer" >
-	    	<c:forEach items="${fields}" var="field">
+    <mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
+      <mjl:input param="expression" type="textarea" id="expressionInputField" style="display:none;" />
+    </mjl:dt>
+  
+    <dd>
+      <div id="expressionCalcContainer" style="display:none;">
+	      <div id="expressionAttributeButtonConainer" >
+	        <c:forEach items="${fields}" var="field">
 	    		<button class="expressionAttributeButton" value="${field.fieldName}">${field.displayLabel}</button>
 	    	</c:forEach>
-	    </div>
-			<div id="expressionOperatorButtonConainer">
+	      </div>
+			  <div id="expressionOperatorButtonConainer">
 				<button class="expressionOperatorButton"
 					title='<mdss:localize key="additionTooltip"/>'>+</button>
 				<button class="expressionOperatorButton"
@@ -50,6 +50,6 @@
 					title='<mdss:localize key="andTooltip"/>'>and</button>
 			</div>
 		</div>
-  </dd>
-
+    </dd>
+  </c:if>
 </mjl:component>
