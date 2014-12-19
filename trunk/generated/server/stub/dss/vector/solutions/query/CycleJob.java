@@ -451,15 +451,6 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
       throw new RuntimeException("Only one instance of a job may be running at a time.");
     }
     
-    // REMOVE ME!!!
-    try {
-      Thread.sleep(7000);
-    }
-    catch (Exception e) {
-      
-    }
-    // ONLY FOR DEBUGGING
-    
     SavedMap map = this.getSavedMap();
     Disease disease = map.getDisease();
     Layer cycleLayer = this.getLayer();

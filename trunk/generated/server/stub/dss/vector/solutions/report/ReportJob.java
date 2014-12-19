@@ -45,15 +45,6 @@ public class ReportJob extends ReportJobBase implements com.runwaysdk.generation
       throw new RuntimeException("Only one instance of a job may be running at a time.");
     }
     
-    // REMOVE ME!!!
-    try {
-      Thread.sleep(7000);
-    }
-    catch (Exception e) {
-      
-    }
-    // ONLY FOR DEBUGGING
-    
     ReportItem item = this.getReportItem();
     item.lock();
 
