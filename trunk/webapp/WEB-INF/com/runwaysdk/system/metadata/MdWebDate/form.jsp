@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
+<%@include file="../MdWebPrimitive/form.jsp" %>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
   <mjl:dt attribute="showOnSearch">
