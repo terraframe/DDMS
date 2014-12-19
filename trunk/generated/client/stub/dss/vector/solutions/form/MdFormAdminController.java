@@ -226,23 +226,29 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       // grab the appropriate MdField
       Class<?> klass = LoaderDecorator.load(mdFieldType + TypeGeneratorInfo.DTO_SUFFIX);
-      
-      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
-      List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
-      Iterator<? extends MdWebFieldDTO> it = fields.iterator();
-      while(it.hasNext()){
-        MdWebFieldDTO field = it.next();
-        if(!(field instanceof MdWebPrimitiveDTO)){
-          it.remove();
+
+      if (formId != null)
+      {
+        MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+        List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
+        Iterator<? extends MdWebFieldDTO> it = fields.iterator();
+        while (it.hasNext())
+        {
+          MdWebFieldDTO field = it.next();
+          if (! ( field instanceof MdWebPrimitiveDTO ))
+          {
+            it.remove();
+          }
         }
+
+        this.req.setAttribute("fields", fields);
       }
 
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(clientRequest);
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
-      this.req.setAttribute("fields", fields);
-      
+
       if (dto instanceof MdWebGeoDTO)
       {
         GeoFieldDTO geoField = new GeoFieldDTO(clientRequest);
@@ -372,13 +378,15 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
-      
+
       MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
       List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
       Iterator<? extends MdWebFieldDTO> it = fields.iterator();
-      while(it.hasNext()){
+      while (it.hasNext())
+      {
         MdWebFieldDTO field = it.next();
-        if(!(field instanceof MdWebPrimitiveDTO)){
+        if (! ( field instanceof MdWebPrimitiveDTO ))
+        {
           it.remove();
         }
       }
