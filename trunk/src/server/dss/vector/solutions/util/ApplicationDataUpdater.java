@@ -22,6 +22,8 @@ import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdEntityInfo;
+import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.dataaccess.BusinessDAOIF;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -29,11 +31,11 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.BusinessDAOQuery;
 import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.MonthOfYearMaster;
@@ -102,6 +104,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   {
     if (this.updateKeys)
     {
+      this.updateMdEntityIds();
+
       this.updateKeys();
 
       this.updateSavedSearchKeys();
@@ -111,6 +115,31 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     else
     {
       this.updateBasicData();
+    }
+  }
+
+  @Transaction
+  private void updateMdEntityIds()
+  {
+    BusinessDAOQuery query = new QueryFactory().businessDAOQuery(MdEntityInfo.CLASS);
+    query.WHERE(query.aCharacter(MdEntityInfo.PACKAGE).LIKE("dss.vector.solutions%"));
+
+    OIterator<BusinessDAOIF> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        BusinessDAOIF mdEntityIF = iterator.next();
+
+        BusinessDAO mdEntity = mdEntityIF.getBusinessDAO();
+        mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
+        mdEntity.apply();
+      }
+    }
+    finally
+    {
+      iterator.close();
     }
   }
 
@@ -163,7 +192,6 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   public void updateDeterminsticIdsMetadata()
   {
     List<String> types = new LinkedList<String>();
-    types.add(Metadata.CLASS);
     types.add(GeoHierarchy.CLASS);
     types.add(Term.CLASS);
     types.add(GeoEntity.CLASS);
@@ -236,8 +264,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF)
   {
-    if (!mdEntityIF.hasDeterministicIds())
+    System.out.println("Testing: " + mdEntityIF.getKey());
+
+    if (!mdEntityIF.hasDeterministicIds() && mdEntityIF.getSiteMaster().equals(CommonProperties.getDomain()))
     {
+      System.out.println("Updating: " + mdEntityIF.getKey());
+
       MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
       mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
       mdEntity.apply();
