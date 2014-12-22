@@ -1,6 +1,9 @@
 package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,16 +23,35 @@ import com.runwaysdk.business.Entity;
 import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.constants.MdAttributeConcreteInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdEntityInfo;
-import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.BusinessDAOIF;
 import com.runwaysdk.dataaccess.EntityDAO;
+import com.runwaysdk.dataaccess.EntityDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDimensionDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.TransactionCache;
+import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.BusinessDAOQuery;
 import com.runwaysdk.query.EntityQuery;
@@ -121,26 +143,259 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   private void updateMdEntityIds()
   {
-    BusinessDAOQuery query = new QueryFactory().businessDAOQuery(MdEntityInfo.CLASS);
-    query.WHERE(query.aCharacter(MdEntityInfo.PACKAGE).LIKE("dss.vector.solutions%"));
-
-    OIterator<BusinessDAOIF> iterator = query.getIterator();
-
     try
     {
-      while (iterator.hasNext())
-      {
-        BusinessDAOIF mdEntityIF = iterator.next();
+      BusinessDAOQuery query = new QueryFactory().businessDAOQuery(MdEntityInfo.CLASS);
+      query.WHERE(query.aCharacter(MdEntityInfo.PACKAGE).LIKE("dss.vector.solutions%"));
 
-        BusinessDAO mdEntity = mdEntityIF.getBusinessDAO();
-        mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
-        mdEntity.apply();
+      OIterator<BusinessDAOIF> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          MdEntityDAOIF mdEntityIF = (MdEntityDAOIF) iterator.next();
+
+          MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+          mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
+          mdEntity.apply();
+
+          TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
+
+          String oldId = cache.getOriginalId(mdEntity.getId());
+
+          if (oldId != null)
+          {
+            String oldRootId = oldId.substring(0, 32);
+            String newRootId = mdEntity.getId().substring(0, 32);
+
+            this.changeRootId(mdEntityIF, oldRootId, newRootId);
+
+            if (mdEntity instanceof MdBusinessDAOIF)
+            {
+              // Float all of the references
+              this.updateAttributeReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+
+              this.updateCachedAttributeEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+
+              this.updateRelationshipReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+
+              this.updateEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+
+              // Float any custom reference fields the query xml and json references
+              this.updateSavedSearchRootIds(oldRootId, newRootId);
+            }
+          }
+        }
+      }
+      finally
+      {
+        iterator.close();
       }
     }
     finally
     {
-      iterator.close();
+      ObjectCache.refreshTheEntireCache();
     }
+  }
+
+  public void updateSavedSearchRootIds(String oldRootId, String newRootId)
+  {
+    MdBusinessDAOIF mdSavedSearch = MdBusinessDAO.getMdBusinessDAO(SavedSearch.CLASS);
+    MdAttributeConcreteDAOIF queryXml = mdSavedSearch.definesAttribute(SavedSearch.QUERYXML);
+    MdAttributeConcreteDAOIF config = mdSavedSearch.definesAttribute(SavedSearch.CONFIG);
+
+    Connection connection = Database.getConnection();
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+    preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, queryXml.getColumnName(), oldRootId, newRootId));
+    preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, config.getColumnName(), oldRootId, newRootId));
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void changeRootId(MdEntityDAOIF mdEntityDAOIF, String oldRootId, String newRootId)
+  {
+    Connection connection = Database.getConnection();
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+    List<? extends MdEntityDAOIF> superMdEntityList = mdEntityDAOIF.getSuperClasses();
+
+    for (MdEntityDAOIF currMdEntity : superMdEntityList)
+    {
+      PreparedStatement statement = this.getPreparedStatement(connection, currMdEntity, EntityDAOIF.ID_COLUMN, oldRootId, newRootId);
+      preparedStatementList.add(statement);
+    }
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void updateEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  {
+    Connection conn = Database.getConnection();
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+
+    List<MdEnumerationDAOIF> mdEnums = mdBusinessIF.getMdEnumerationDAOs();
+
+    for (MdEnumerationDAOIF mdEnumerationDAOIF : mdEnums)
+    {
+      preparedStatementList.add(this.getPreparedStatement(conn, mdEnumerationDAOIF.getTableName(), MdEnumerationDAOIF.ITEM_ID_COLUMN, oldRootId, newRootId));
+    }
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void updateRelationshipReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  {
+    Connection conn = Database.getConnection();
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+
+    List<MdRelationshipDAOIF> parentMdRelationshipList = mdBusinessIF.getAllParentMdRelationships();
+
+    for (MdRelationshipDAOIF mdRelationshipDAOIF : parentMdRelationshipList)
+    {
+      if (mdRelationshipDAOIF.isAbstract())
+      {
+        continue;
+      }
+
+      List<MdRelationshipDAOIF> superMdRelationshipDAOIF = mdRelationshipDAOIF.getSuperClasses();
+
+      for (MdRelationshipDAOIF parentMdRelationshipDAOIF : superMdRelationshipDAOIF)
+      {
+        preparedStatementList.add(this.getPreparedStatement(conn, parentMdRelationshipDAOIF, RelationshipInfo.PARENT_ID, oldRootId, newRootId));
+      }
+    }
+
+    List<MdRelationshipDAOIF> childMdRelationshipList = mdBusinessIF.getAllChildMdRelationships();
+
+    // Update child ids
+    for (MdRelationshipDAOIF mdRelationshipDAOIF : childMdRelationshipList)
+    {
+      if (mdRelationshipDAOIF.isAbstract())
+      {
+        continue;
+      }
+
+      List<MdRelationshipDAOIF> superMdRelationshipDAOIF = mdRelationshipDAOIF.getSuperClasses();
+
+      for (MdRelationshipDAOIF childMdRelationshipDAOIF : superMdRelationshipDAOIF)
+      {
+        preparedStatementList.add(this.getPreparedStatement(conn, childMdRelationshipDAOIF, RelationshipInfo.CHILD_ID, oldRootId, newRootId));
+      }
+    }
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void updateCachedAttributeEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  {
+    Connection conn = Database.getConnection();
+
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+
+    List<MdAttributeEnumerationDAOIF> mdAttrEnumList = mdBusinessIF.getAllEnumerationAttributes();
+
+    for (MdAttributeEnumerationDAOIF mdAttrEnumDAOIF : mdAttrEnumList)
+    {
+      MdClassDAOIF mdClassDAOIF = mdAttrEnumDAOIF.definedByClass();
+
+      if (mdClassDAOIF instanceof MdEntityDAOIF)
+      {
+        PreparedStatement prepared = this.getPreparedStatement(conn, (MdEntityDAOIF) mdClassDAOIF, mdAttrEnumDAOIF.getCacheColumnName(), oldRootId, newRootId);
+        preparedStatementList.add(prepared);
+      }
+
+      this.updateDefaultValues(conn, preparedStatementList, mdAttrEnumDAOIF, oldRootId, newRootId);
+    }
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void updateAttributeReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  {
+    Connection conn = Database.getConnection();
+
+    List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
+
+    List<MdAttributeReferenceDAOIF> mdAttrRefList = mdBusinessIF.getAllReferenceAttributes();
+
+    for (MdAttributeReferenceDAOIF mdAttrRefDAOIF : mdAttrRefList)
+    {
+      MdAttributeReferenceDAOIF mdAttrRefDAO = (MdAttributeReferenceDAOIF) mdAttrRefDAOIF;
+      MdClassDAOIF mdClassDAOIF = mdAttrRefDAO.definedByClass();
+
+      if (mdClassDAOIF instanceof MdEntityDAOIF)
+      {
+        PreparedStatement prepared = this.getPreparedStatement(conn, (MdEntityDAOIF) mdClassDAOIF, mdAttrRefDAO, oldRootId, newRootId);
+        preparedStatementList.add(prepared);
+      }
+
+      this.updateDefaultValues(conn, preparedStatementList, mdAttrRefDAOIF, oldRootId, newRootId);
+    }
+
+    Database.executeStatementBatch(preparedStatementList);
+  }
+
+  private void updateDefaultValues(Connection conn, List<PreparedStatement> preparedStatementList, MdAttributeDAOIF mdAttribute, String oldRootId, String newRootId)
+  {
+    // Update the default values
+    if (mdAttribute.getDefaultValue() != null && mdAttribute.getDefaultValue().equals(oldRootId))
+    {
+      MdAttributeConcreteDAO mdAttributeConcrete = (MdAttributeConcreteDAO) mdAttribute.getMdAttributeConcrete().getBusinessDAO();
+      MdBusinessDAOIF mdBusinessDAO = mdAttributeConcrete.getMdBusinessDAO();
+      MdAttributeConcreteDAOIF mdDefaultValue = mdBusinessDAO.definesAttribute(MdAttributeConcreteInfo.DEFAULT_VALUE);
+
+      PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
+      preparedStatementList.add(prepared);
+    }
+
+    List<MdAttributeDimensionDAOIF> mdAttributeDimensions = mdAttribute.getMdAttributeDimensions();
+
+    for (MdAttributeDimensionDAOIF mdAttributeDimensionIF : mdAttributeDimensions)
+    {
+      if (mdAttributeDimensionIF.getDefaultValue() != null && mdAttributeDimensionIF.getDefaultValue().equals(oldRootId))
+      {
+        MdAttributeDimensionDAO mdAttributeDimension = (MdAttributeDimensionDAO) mdAttributeDimensionIF.getBusinessDAO();
+        MdBusinessDAOIF mdBusinessDAO = mdAttributeDimension.getMdBusinessDAO();
+        MdAttributeConcreteDAOIF mdDefaultValue = mdBusinessDAO.definesAttribute(MdAttributeConcreteInfo.DEFAULT_VALUE);
+
+        PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
+        preparedStatementList.add(prepared);
+      }
+    }
+  }
+
+  public PreparedStatement getPreparedStatement(Connection conn, MdEntityDAOIF mdEntityDAOIF, MdAttributeConcreteDAOIF mdAttribute, String oldRootId, String newRootId)
+  {
+    return this.getPreparedStatement(conn, mdEntityDAOIF.getTableName(), mdAttribute.getDefinedColumnName(), oldRootId, newRootId);
+  }
+
+  public PreparedStatement getPreparedStatement(Connection conn, MdEntityDAOIF mdEntityDAOIF, String columnName, String oldRootId, String newRootId)
+  {
+    return this.getPreparedStatement(conn, mdEntityDAOIF.getTableName(), columnName, oldRootId, newRootId);
+  }
+
+  public PreparedStatement getPreparedStatement(Connection conn, String tableName, String columnName, String oldRootId, String newRootId)
+  {
+    try
+    {
+      String statement = this.getUpdateStatement(tableName, columnName, oldRootId, newRootId);
+
+      PreparedStatement prepared = conn.prepareStatement(statement);
+      return prepared;
+    }
+    catch (SQLException e)
+    {
+      throw new DatabaseException(e);
+    }
+  }
+
+  public String getUpdateStatement(String tableName, String columnName, String oldRootId, String newRootId)
+  {
+    StringBuffer statement = new StringBuffer();
+    statement.append("UPDATE " + tableName);
+    statement.append(" SET " + columnName + " =REPLACE(" + columnName + ", '" + oldRootId + "', '" + newRootId + "')");
+
+    return statement.toString();
   }
 
   @Transaction
