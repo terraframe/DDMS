@@ -9,47 +9,107 @@
     <mjl:dt attribute="isExpression">
       <mjl:boolean param="isExpression" id="expressionBool"/>
     </mjl:dt>
-  
-    <mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
-      <mjl:input param="expression" type="textarea" id="expressionInputField" style="display:none;" />
-    </mjl:dt>
-  
-    <dd>
-      <div id="expressionCalcContainer" style="display:none;">
-	      <div id="expressionAttributeButtonConainer" >
-	        <c:forEach items="${fields}" var="field">
-	    		<button class="expressionAttributeButton" value="${field.fieldName}">${field.displayLabel}</button>
-	    	</c:forEach>
-	      </div>
-			  <div id="expressionOperatorButtonConainer">
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="additionTooltip"/>'>+</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="subtractionTooltip"/>'>-</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="multiplicationTooltip"/>'>*</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="divisionTooltip"/>'>/</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="remainderTooltip"/>'>%</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="equalityTooltip"/>'>==</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="notEqualTooltip"/>'>!=</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="lessThanTooltip"/>'><</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="lessThanEqualTooltip"/>'><=</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="greaterThanTooltip"/>'>></button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="greaterThanEqualTooltip"/>'>>=</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="orTooltip"/>'>or</button>
-				<button class="expressionOperatorButton"
-					title='<mdss:localize key="andTooltip"/>'>and</button>
+    
+  		<mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
+			<mjl:input param="expression" type="text" id="expressionInputField" style="display:none;" />
+	    </mjl:dt>
+	    
+		<dd>
+			<div id="expressionCalcContainer" style="display: none;">
+<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionFieldAttributeLabel"/></label> --%>
+				<div id="expressionAttributeButtonConainer" class="expressionButtonContainers">
+					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionFieldAttributeLabel"/></label>
+					<c:forEach items="${fields}" var="field">
+						<button class="expressionButton" value="${field.fieldName}">${field.displayLabel}</button>
+					</c:forEach>
+				</div>
+
+<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionOperatorsLabel"/></label> --%>
+				<div id="expressionButtonConainer" class="expressionButtonContainers">
+					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionOperatorsLabel"/></label>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="additionTooltip"/>' value="+" >+</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="subtractionTooltip"/>' value="-" >-</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="multiplicationTooltip"/>' value="*" >*</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="divisionTooltip"/>' value="/" >/</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="remainderTooltip"/>' value="%" >%</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="equalityTooltip"/>' value="==" >==</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="notEqualTooltip"/>' value="!=" >!=</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="lessThanTooltip"/>' value="'<'" >&#60;</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="lessThanEqualTooltip"/>' value="'<='" >&#60;=</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="greaterThanTooltip"/>' value="'>'" >&#62;</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="greaterThanEqualTooltip"/>' value="'>='" >&#62;=</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="orTooltip"/>' value="or" >or</button>
+					<button class="expressionOperatorButton"
+						title='<mdss:localize key="andTooltip"/>' value="and" >and</button>
+				</div>
+
+<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionStringMethodsLabel"/></label> --%>
+				<div id="expressionFunctionButtonConainer" class="expressionButtonContainers">
+					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionStringMethodsLabel"/></label>
+					<button class="expressionButton"
+						title='<mdss:localize key="lowerCaseTooltip"/>' value=".toLowerCase()">toLowerCase</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="upperCaseTooltip"/>' value=".toUpperCase()">toUpperCase</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="lengthTooltip"/>' value=".length()">length</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="replaceTooltip"/>' value=".replace(OLD_CHARACTER, NEW_CHARACTER)">replace</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="replaceAllTooltip"/>' value=".replaceAll(REGX, NEW_CHARACTERS)">replaceAll</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="substringTooltip"/>' value=".substring(BEGIN_INDEX, END_INDEX(OPTIONAL))">substring</button>
+				</div>
+
+<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionConversionMethodsLabel"/></label> --%>
+				<div id="expressionConversionButtonConainer" class="expressionButtonContainers">
+					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionConversionMethodsLabel"/></label>
+					<button class="expressionButton"
+						title='<mdss:localize key="toStringTooltip"/>' value=".toString()">toString</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="intValTooltip"/>' value=".intValue()">intValue</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="doubleValTooltip"/>' value=".doubleValue()">doubleValue</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="floatValTooltip"/>' value=".floatValue()">floatValue</button>
+				</div>
+
+<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionMathFunctionsLabel"/></label> --%>
+				<div id="expressionMathButtonConainer" class="expressionButtonContainers">
+					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionMathFunctionsLabel"/></label>
+					<button class="expressionButton"
+						title='<mdss:localize key="sqrtTooltip"/>' value="@@sqrt(VALUE)">sqrt</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="sinTooltip"/>' value="@@sin(VALUE)">sin</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="cosTooltip"/>' value="@@cos(VALUE)">cos</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="tanTooltip"/>' value="@@tan(VALUE)">tan</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="asinTooltip"/>' value="@@asin(VALUE)">asin</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="acosTooltip"/>' value="@@acos(VALUE)">acos</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="atan2Tooltip"/>' value="@@atan2(VALUE, VALUE)">atan2</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="log10Tooltip"/>' value="@@log10(VALUE)">log1</button>
+<!-- 					<button class="expressionButton" -->
+<%-- 						title='<mdss:localize key="log101Tooltip"/>' value="@@log101(VALUE)">log101</button> --%>
+					<button class="expressionButton"
+						title='<mdss:localize key="logTooltip"/>' value="@@log(VALUE)">log1p</button>
+				</div>
 			</div>
-		</div>
-    </dd>
-  </c:if>
+		</dd>
+	</c:if>
 </mjl:component>

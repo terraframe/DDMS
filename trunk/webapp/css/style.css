@@ -1462,32 +1462,38 @@ span.generatedViewCommand:hover {
 }
 
 #expressionCalcContainer {
-	width: 300px;
+	width: 100%;
+}
+
+.expressionButtonContainers {
+	background: none repeat scroll 0% 0% #FFF;
+	border: 1px solid #D3D3D3;
+	padding: 5px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+}
+
+.expressionContainerLabel{
+	display: block;
+	margin-bottom: 5px;
+	text-align: center;
 }
 
 #expressionAttributeButtonConainer {
-	background: none repeat scroll 0% 0% #FFF;
-	width: 100%;
-	border: 1px solid #D3D3D3;
-	padding: 5px;
-	border-radius: 3px;
-/* 	max-width: 300px; */
+
 }
 
 #expressionOperatorButtonConainer{
-	background: none repeat scroll 0% 0% #FFF;
-	width: 100%;
-	border: 1px solid #D3D3D3;
-	padding: 5px;
-	border-radius: 3px;
-/* 	max-width: 300px; */
+
 }
 
-#expressionInputField{
-/* 	max-width: 312px; */
-	width: 312px;
-/* 	height: 25px; */
+#expressionInputField {
+	width: 100%;
 	padding: 5px;
+}
+
+#expressionInputFieldLabel {
+	width: 100%;
 }
 
 /*---------------------------------------------------------------*/

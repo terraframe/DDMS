@@ -689,11 +689,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       	  }, 'input[type=radio]');
     	  
     	  // Add attributes to the text area throught the gui
-          Y.all('.expressionAttributeButton').each(function(node) {
+          Y.all('.expressionButton').each(function(node) {
       	     node.on('click', function(e) {
       	        e.preventDefault();
       	        
-//      	        var attrName = node.getContent();
       	        var attrName = node.get('value'); 
       	        var formattedAttrName = attrName;
       	        var targetTextArea = document.getElementById("expressionInputField");
@@ -708,7 +707,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        	     node.on('click', function(e) {
        	        e.preventDefault();
        	        
-       	        var operator = node.getContent();
+       	        var operator = " " + node.get('value').replace("'", "") + " "; 
        	        var targetTextArea = document.getElementById("expressionInputField");
        	        
        	        that.insertTextAtCursor(targetTextArea, operator)
@@ -722,9 +721,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	    var val = el.value, endIndex, range;
 	    if (typeof el.selectionStart != "undefined" && typeof el.selectionEnd != "undefined") {
 	        endIndex = el.selectionEnd;
-	        el.value = val.slice(0, el.selectionStart).trimRight(" ");
-	        el.value += " " + text + " ";
-	        el.value += val.slice(endIndex).trimLeft(" ");
+	        el.value = val.slice(0, el.selectionStart);
+	        el.value += text;
+	        el.value += val.slice(endIndex);
 	        el.selectionStart = el.selectionEnd = endIndex + text.length + 1; // +1 accounts for the added space
 	    } else if (typeof document.selection != "undefined" && typeof document.selection.createRange != "undefined") {
 	        el.focus();
