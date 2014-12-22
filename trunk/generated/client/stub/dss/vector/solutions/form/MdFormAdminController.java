@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +22,7 @@ import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
 import com.runwaysdk.system.metadata.DoubleConditionDTO;
@@ -47,7 +50,6 @@ import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
-import dss.vector.solutions.RequiredAttributeExceptionDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
@@ -217,6 +219,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     }
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void newMdField(String mdFieldType, Boolean isComposite, String formId) throws IOException, ServletException
   {
@@ -230,7 +233,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       if (formId != null)
       {
         MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
-        List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
+        List<MdWebFieldDTO> fields = (List<MdWebFieldDTO>) form.getAllMdFields();
+        Collections.sort(fields, new FieldSortOrder());
         Iterator<? extends MdWebFieldDTO> it = fields.iterator();
         while (it.hasNext())
         {
@@ -370,7 +374,16 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     parsed = format.parse(end, Locale.ENGLISH);
     req.setAttribute("endRangeFormatted", format.display(parsed, locale));
   }
+  
+  static class FieldSortOrder implements Reloadable, Comparator<MdWebFieldDTO> {
+    
+    public int compare(MdWebFieldDTO result1, MdWebFieldDTO result2)
+    {
+      return result1.getDisplayLabel().toString().toUpperCase().compareTo(result2.getDisplayLabel().toString().toUpperCase());
+    }
+  }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void editMdField(String mdFieldId, Boolean isComposite, String formId) throws IOException, ServletException
   {
@@ -380,7 +393,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
 
       MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
-      List<? extends MdWebFieldDTO> fields = form.getAllMdFields();
+      List<MdWebFieldDTO> fields = (List<MdWebFieldDTO>) form.getAllMdFields();
+      Collections.sort(fields, new FieldSortOrder());
       Iterator<? extends MdWebFieldDTO> it = fields.iterator();
       while (it.hasNext())
       {
@@ -1117,4 +1131,5 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     this.mdFormAdmin();
   }
+
 }
