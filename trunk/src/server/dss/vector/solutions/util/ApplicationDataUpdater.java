@@ -33,6 +33,7 @@ import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.MonthOfYearMaster;
@@ -68,6 +69,7 @@ import dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster;
 import dss.vector.solutions.general.ThresholdCalculationMethodMaster;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.DiagnosisTypeMaster;
 import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster;
@@ -161,6 +163,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   public void updateDeterminsticIdsMetadata()
   {
     List<String> types = new LinkedList<String>();
+    types.add(Metadata.CLASS);
+    types.add(GeoHierarchy.CLASS);
     types.add(Term.CLASS);
     types.add(GeoEntity.CLASS);
     types.add(LifeStageMaster.CLASS);
@@ -188,7 +192,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
-      MdEntityDAOIF mdEntityIF = updateMetadata(type);
+      MdEntityDAOIF mdEntityIF = this.updateMetadata(type);
 
       EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
       OIterator<? extends ComponentIF> iterator = query.getIterator();
@@ -232,9 +236,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF)
   {
-    MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
-    mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
-    mdEntity.apply();
+    if (!mdEntityIF.hasDeterministicIds())
+    {
+      MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+      mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
+      mdEntity.apply();
+    }
   }
 
   @Transaction
