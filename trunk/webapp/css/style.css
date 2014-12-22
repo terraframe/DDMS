@@ -1479,16 +1479,9 @@ span.generatedViewCommand:hover {
 	text-align: center;
 }
 
-#expressionAttributeButtonConainer {
-
-}
-
-#expressionOperatorButtonConainer{
-
-}
-
 #expressionInputField {
 	width: 100%;
+	max-width: 100%;
 	padding: 5px;
 }
 

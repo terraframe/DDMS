@@ -11,12 +11,11 @@
     </mjl:dt>
     
   		<mjl:dt attribute="expression" id="expressionInputFieldLabel" style="display:none;">
-			<mjl:input param="expression" type="text" id="expressionInputField" style="display:none;" />
+			<mjl:textarea param="expression" rows="3" cols="30" id="expressionInputField" style="display:none;" />
 	    </mjl:dt>
 	    
 		<dd>
 			<div id="expressionCalcContainer" style="display: none;">
-<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionFieldAttributeLabel"/></label> --%>
 				<div id="expressionAttributeButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionFieldAttributeLabel"/></label>
 					<c:forEach items="${fields}" var="field">
@@ -24,7 +23,6 @@
 					</c:forEach>
 				</div>
 
-<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionOperatorsLabel"/></label> --%>
 				<div id="expressionButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionOperatorsLabel"/></label>
 					<button class="expressionOperatorButton"
@@ -55,7 +53,6 @@
 						title='<mdss:localize key="andTooltip"/>' value="and" >and</button>
 				</div>
 
-<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionStringMethodsLabel"/></label> --%>
 				<div id="expressionFunctionButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionStringMethodsLabel"/></label>
 					<button class="expressionButton"
@@ -72,7 +69,6 @@
 						title='<mdss:localize key="substringTooltip"/>' value=".substring(BEGIN_INDEX, END_INDEX(OPTIONAL))">substring</button>
 				</div>
 
-<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionConversionMethodsLabel"/></label> --%>
 				<div id="expressionConversionButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionConversionMethodsLabel"/></label>
 					<button class="expressionButton"
@@ -85,7 +81,6 @@
 						title='<mdss:localize key="floatValTooltip"/>' value=".floatValue()">floatValue</button>
 				</div>
 
-<%-- 				<label class="expressionContainerLabel" title=""><mdss:localize key="expressionMathFunctionsLabel"/></label> --%>
 				<div id="expressionMathButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionMathFunctionsLabel"/></label>
 					<button class="expressionButton"
