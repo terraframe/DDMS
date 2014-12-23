@@ -106,7 +106,7 @@
 					<button class="expressionButton"
 						title='<mdss:localize key="atan2Tooltip"/>' value="@@atan2(VALUE, VALUE)">atan2</button>
 					<button class="expressionButton"
-						title='<mdss:localize key="log10Tooltip"/>' value="@@log10(VALUE)">log1</button>
+						title='<mdss:localize key="log10Tooltip"/>' value="@@log10(VALUE)">log10</button>
 <!-- 					<button class="expressionButton" -->
 <%-- 						title='<mdss:localize key="log101Tooltip"/>' value="@@log101(VALUE)">log101</button> --%>
 					<button class="expressionButton"
