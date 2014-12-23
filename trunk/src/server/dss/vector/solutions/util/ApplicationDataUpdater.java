@@ -177,8 +177,6 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     String oldId = cache.getOriginalId(mdEntity.getId());
 
-    oldId = ( oldId != null ) ? oldId : mdEntity.getId();
-
     if (oldId != null)
     {
       String oldRootId = oldId.substring(0, 32);
