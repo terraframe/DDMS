@@ -140,13 +140,20 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateMdEntityRootIds()
   {
-    List<String> types = getTypes();
+    List<String> types = getTypesToUpdate();
 
     for (String type : types)
     {
       MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
 
-      updateMdEntityRootId(mdEntityIF);
+      List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
+
+      this.updateMdEntityRootId(mdEntityIF);
+
+      for (MdEntityDAOIF subClass : subClasses)
+      {
+        updateMdEntityRootId(subClass);
+      }
     }
   }
 
@@ -434,7 +441,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateDeterminsticIdsMetadata()
   {
-    List<String> types = getTypes();
+    List<String> types = getTypesToUpdate();
 
     for (String type : types)
     {
@@ -457,12 +464,11 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  public List<String> getTypes()
+  public List<String> getTypesToUpdate()
   {
     List<String> types = new LinkedList<String>();
-    types.add(GeoHierarchy.CLASS);
-    types.add(Term.CLASS);
     types.add(GeoEntity.CLASS);
+    types.add(Term.CLASS);
     types.add(LifeStageMaster.CLASS);
     types.add(Disease.CLASS);
     types.add(ContainerShapeMaster.CLASS);
