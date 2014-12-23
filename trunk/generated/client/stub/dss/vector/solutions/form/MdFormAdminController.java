@@ -392,17 +392,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ClientRequestIF clientRequest = this.getClientRequest();
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
 
-      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
-      List<MdWebFieldDTO> fields = (List<MdWebFieldDTO>) form.getAllMdFields();
-      Collections.sort(fields, new FieldSortOrder());
-      Iterator<? extends MdWebFieldDTO> it = fields.iterator();
-      while (it.hasNext())
+      if (formId != null)
       {
-        MdWebFieldDTO field = it.next();
-        if (! ( field instanceof MdWebPrimitiveDTO ))
+        MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+        List<MdWebFieldDTO> fields = (List<MdWebFieldDTO>) form.getAllMdFields();
+        Collections.sort(fields, new FieldSortOrder());
+        Iterator<? extends MdWebFieldDTO> it = fields.iterator();
+        while (it.hasNext())
         {
-          it.remove();
+          MdWebFieldDTO field = it.next();
+          if (! ( field instanceof MdWebPrimitiveDTO ))
+          {
+            it.remove();
+          }
         }
+
+        this.req.setAttribute("fields", fields);
       }
 
       if (dto instanceof MdWebGeoDTO)
@@ -439,7 +444,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
-      this.req.setAttribute("fields", fields);
 
       this.forwardToFieldPage(dto.getType(), "editComponent.jsp");
     }
