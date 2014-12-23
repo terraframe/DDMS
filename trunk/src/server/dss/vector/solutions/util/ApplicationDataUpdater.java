@@ -91,7 +91,6 @@ import dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster;
 import dss.vector.solutions.general.ThresholdCalculationMethodMaster;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.DiagnosisTypeMaster;
 import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster;
@@ -148,18 +147,19 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
 
-      this.updateMdEntityRootId(mdEntityIF);
+      this.updateMdEntityRootId(mdEntityIF.definesType());
 
       for (MdEntityDAOIF subClass : subClasses)
       {
-        updateMdEntityRootId(subClass);
+        updateMdEntityRootId(subClass.definesType());
       }
     }
   }
 
   @Transaction
-  public void updateMdEntityRootId(MdEntityDAOIF mdEntityIF)
+  public void updateMdEntityRootId(String type)
   {
+	  MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
     MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
     mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
     mdEntity.apply();
