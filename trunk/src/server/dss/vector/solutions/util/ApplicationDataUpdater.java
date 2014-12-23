@@ -27,7 +27,6 @@ import com.runwaysdk.constants.MdAttributeConcreteInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdEntityInfo;
 import com.runwaysdk.constants.RelationshipInfo;
-import com.runwaysdk.dataaccess.BusinessDAOIF;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -53,7 +52,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.dataaccess.transaction.TransactionCache;
 import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.BusinessDAOQuery;
 import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -126,7 +124,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   {
     if (this.updateKeys)
     {
-      this.updateMdEntityIds();
+      this.updateMdEntityRootIds();
 
       this.updateKeys();
 
@@ -140,63 +138,53 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  @Transaction
-  private void updateMdEntityIds()
+  private void updateMdEntityRootIds()
   {
-    try
+    List<String> types = getTypes();
+
+    for (String type : types)
     {
-      BusinessDAOQuery query = new QueryFactory().businessDAOQuery(MdEntityInfo.CLASS);
-      query.WHERE(query.aCharacter(MdEntityInfo.PACKAGE).LIKE("dss.vector.solutions%"));
+      MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
 
-      OIterator<BusinessDAOIF> iterator = query.getIterator();
+      updateMdEntityRootId(mdEntityIF);
+    }
+  }
 
-      try
+  @Transaction
+  public void updateMdEntityRootId(MdEntityDAOIF mdEntityIF)
+  {
+    MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+    mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
+    mdEntity.apply();
+
+    TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
+
+    String oldId = cache.getOriginalId(mdEntity.getId());
+
+    if (oldId != null)
+    {
+      String oldRootId = oldId.substring(0, 32);
+      String newRootId = mdEntity.getId().substring(0, 32);
+
+      this.changeRootId(mdEntityIF, oldRootId, newRootId);
+
+      if (mdEntity instanceof MdBusinessDAOIF)
       {
-        while (iterator.hasNext())
-        {
-          MdEntityDAOIF mdEntityIF = (MdEntityDAOIF) iterator.next();
+        // Float all of the references
+        this.updateAttributeReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
 
-          MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
-          mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
-          mdEntity.apply();
+        this.updateCachedAttributeEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
 
-          TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
+        this.updateRelationshipReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
 
-          String oldId = cache.getOriginalId(mdEntity.getId());
+        this.updateEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
 
-          if (oldId != null)
-          {
-            String oldRootId = oldId.substring(0, 32);
-            String newRootId = mdEntity.getId().substring(0, 32);
-
-            this.changeRootId(mdEntityIF, oldRootId, newRootId);
-
-            if (mdEntity instanceof MdBusinessDAOIF)
-            {
-              // Float all of the references
-              this.updateAttributeReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
-
-              this.updateCachedAttributeEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
-
-              this.updateRelationshipReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
-
-              this.updateEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
-
-              // Float any custom reference fields the query xml and json references
-              this.updateSavedSearchRootIds(oldRootId, newRootId);
-            }
-          }
-        }
-      }
-      finally
-      {
-        iterator.close();
+        // Float any custom reference fields the query xml and json references
+        this.updateSavedSearchRootIds(oldRootId, newRootId);
       }
     }
-    finally
-    {
-      ObjectCache.refreshTheEntireCache();
-    }
+
+    ObjectCache.refreshTheEntireCache();
   }
 
   public void updateSavedSearchRootIds(String oldRootId, String newRootId)
@@ -446,6 +434,31 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateDeterminsticIdsMetadata()
   {
+    List<String> types = getTypes();
+
+    for (String type : types)
+    {
+      MdEntityDAOIF mdEntityIF = this.updateMetadata(type);
+
+      EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
+      OIterator<? extends ComponentIF> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          updateEntity(iterator);
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+  }
+
+  public List<String> getTypes()
+  {
     List<String> types = new LinkedList<String>();
     types.add(GeoHierarchy.CLASS);
     types.add(Term.CLASS);
@@ -472,26 +485,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     types.add(ThresholdCalculationCaseTypesMaster.CLASS);
     types.add(ThresholdCalculationMethodMaster.CLASS);
     types.add(WellKnownNamesMaster.CLASS);
-
-    for (String type : types)
-    {
-      MdEntityDAOIF mdEntityIF = this.updateMetadata(type);
-
-      EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
-      OIterator<? extends ComponentIF> iterator = query.getIterator();
-
-      try
-      {
-        while (iterator.hasNext())
-        {
-          updateEntity(iterator);
-        }
-      }
-      finally
-      {
-        iterator.close();
-      }
-    }
+    return types;
   }
 
   @Transaction
