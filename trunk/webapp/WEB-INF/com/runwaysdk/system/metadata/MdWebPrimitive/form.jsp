@@ -79,6 +79,14 @@
 						title='<mdss:localize key="doubleValTooltip"/>' value=".doubleValue()">doubleValue</button>
 					<button class="expressionButton"
 						title='<mdss:localize key="floatValTooltip"/>' value=".floatValue()">floatValue</button>
+					<button class="expressionButton"
+						title='<mdss:localize key="parseBoolTooltip"/>' value="@Boolean@parseBoolean(STRING_VALUE)">parseBoolean</button>	
+					<button class="expressionButton"
+						title='<mdss:localize key="parseIntTooltip"/>' value="@Integer@parseInt(STRING_VALUE)">parseInteger</button>	
+					<button class="expressionButton"
+						title='<mdss:localize key="parseLongTooltip"/>' value="@Long@parseLong(STRING_VALUE)">parseLong</button>	
+					<button class="expressionButton"
+						title='<mdss:localize key="parseFloatTooltip"/>' value="@Float@parseFloat(STRING_VALUE)">parseFloat</button>	
 				</div>
 
 				<div id="expressionMathButtonConainer" class="expressionButtonContainers">
