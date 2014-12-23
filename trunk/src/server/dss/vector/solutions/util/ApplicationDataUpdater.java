@@ -114,24 +114,31 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 {
   private boolean updateKeys;
 
-  public ApplicationDataUpdater(boolean _updateKeys)
+  private boolean updateRootIds;
+
+  public ApplicationDataUpdater(boolean _updateKeys, boolean _updateRootIds)
   {
     this.updateKeys = _updateKeys;
+    this.updateRootIds = _updateRootIds;
   }
 
   public void run()
   {
-    if (this.updateKeys)
+    if (this.updateRootIds)
     {
       this.updateMdEntityRootIds();
+    }
 
+    if (this.updateKeys)
+    {
       this.updateKeys();
 
       this.updateSavedSearchKeys();
 
       this.updateDeterminsticIdsMetadata();
     }
-    else
+
+    if (!this.updateRootIds && !this.updateKeys)
     {
       this.updateBasicData();
     }
@@ -159,7 +166,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   public void updateMdEntityRootId(String type)
   {
-	  MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
+    System.out.println("Updating root ids for type: " + type);
+
+    MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
     MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
     mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
     mdEntity.apply();
@@ -167,6 +176,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
 
     String oldId = cache.getOriginalId(mdEntity.getId());
+
+    oldId = ( oldId != null ) ? oldId : mdEntity.getId();
 
     if (oldId != null)
     {
@@ -631,10 +642,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   private void updateAdultDiscriminatingDoseAssays()
   {
     /*
-     * Default hard-coded control number.  It is 10000 because we most derive
-     * the control test number from the existing control test mortality and
-     * the control number.  Existing control test mortality values have
-     * relevant decimal values up to the hunderth decimal spot.
+     * Default hard-coded control number. It is 10000 because we most derive the control test number from the existing control test mortality and the
+     * control number. Existing control test mortality values have relevant decimal values up to the hunderth decimal spot.
      */
     int controlNumber = 10000;
 
@@ -755,10 +764,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public static void main(String[] args) throws FileNotFoundException
   {
-    Option option = new Option("k", "update-ids", false, "Run the update predictive ids algorithm");
-
     Options options = new Options();
-    options.addOption(option);
+    options.addOption(new Option("k", "update-ids", false, "Run the update predictive ids algorithm"));
+    options.addOption(new Option("r", "update-root-ids", false, "Run the update root ids"));
 
     try
     {
@@ -766,8 +774,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       CommandLine cmd = parser.parse(options, args);
 
       boolean updateKeys = cmd.hasOption("k");
+      boolean updateRootIds = cmd.hasOption("r");
 
-      ApplicationDataUpdater.start(updateKeys);
+      ApplicationDataUpdater.start(updateKeys, updateRootIds);
     }
     catch (ParseException e)
     {
@@ -783,8 +792,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Request
-  private static void start(boolean updateDeterministicIds)
+  private static void start(boolean updateDeterministicIds, boolean updateRootIds)
   {
-    new ApplicationDataUpdater(updateDeterministicIds).run();
+    new ApplicationDataUpdater(updateDeterministicIds, updateRootIds).run();
   }
 }
