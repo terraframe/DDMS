@@ -707,7 +707,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        	     node.on('click', function(e) {
        	        e.preventDefault();
        	        
-       	        var operator = " " + node.get('value').replace("'", "") + " "; 
+       	        var operator = " " + node.get('value').replace(/'/g, "") + " "; 
        	        var targetTextArea = document.getElementById("expressionInputField");
        	        
        	        that.insertTextAtCursor(targetTextArea, operator)
