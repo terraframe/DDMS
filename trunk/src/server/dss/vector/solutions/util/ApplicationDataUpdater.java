@@ -1,6 +1,7 @@
 package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
@@ -105,7 +107,6 @@ import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.LayerQuery;
 import dss.vector.solutions.query.RenderTypes;
 import dss.vector.solutions.query.SavedSearch;
-import dss.vector.solutions.query.SavedSearchQuery;
 import dss.vector.solutions.query.WellKnownNamesMaster;
 import dss.vector.solutions.report.OutputFormatMaster;
 import dss.vector.solutions.surveillance.PeriodTypeMaster;
@@ -124,14 +125,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void run()
   {
-    if (this.updateRootIds)
-    {
-      this.updateMdEntityRootIds();
-    }
+    // if (this.updateRootIds)
+    // {
+    // this.updateMdEntityRootIds();
+    // }
 
     if (this.updateKeys)
     {
-      this.updateKeys();
+      // this.updateKeys();
 
       this.updateSavedSearchKeys();
 
@@ -405,15 +406,24 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   public void updateSavedSearchKeys()
   {
-    SavedSearchQuery query = new SavedSearchQuery(new QueryFactory());
-    OIterator<? extends SavedSearch> iterator = query.getIterator();
+    MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO("dss.vector.solutions.query.SavedSearchQuery");
+    EntityQuery query = new QueryFactory().entityQuery(mdEntity);
+    OIterator<? extends ComponentIF> iterator = query.getIterator();
 
     try
     {
       while (iterator.hasNext())
       {
-        SavedSearch search = iterator.next();
-        search.directApply();
+        try
+        {
+          ComponentIF component = iterator.next();
+          Method method = component.getClass().getMethod("directApply");
+          method.invoke(component);
+        }
+        catch (Exception e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
       }
     }
     finally
