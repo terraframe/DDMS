@@ -81,13 +81,16 @@ Var PatchVersion
 Var TermsVersion
 Var RootsVersion
 Var MenuVersion
+Var IdVersion				# Version of the predictive id change in the install. 
 Var LocalizationVersion
 Var PermissionsVersion
 Var AppName
 Var LowerAppName
+Var JavaOpts               # Memory options for java commands
 Var JavaHome               # Location of the Java JDK depending on the system OS version
 Var JvmType                # Flag indicating if the jvm is 32-bit or not
-Var MaxMem                 # Max amount of memory to give Tomcat
+Var MaxMem                 # Max amount of memory to give Tomcat and the installer
+Var PermMem                # Max amount of perm gen memory to give Tomcat and the installer
 Var TomcatExec             # Path of the tomcat service executable
 
 # Installer pages
@@ -323,30 +326,35 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7293
-    StrCpy $TermsVersion 6644
-    StrCpy $RootsVersion 5432
-    StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 7225
-    StrCpy $PermissionsVersion 7290
-	StrCpy $RunwayVersion 7232
-	StrCpy $ManagerVersion 7294
-	StrCpy $BirtVersion 7149
-	StrCpy $WebappsVersion 7194
+    StrCpy $PatchVersion 7730
+    StrCpy $TermsVersion 7455
+    StrCpy $RootsVersion 7504
+    StrCpy $MenuVersion 7427
+    StrCpy $LocalizationVersion 7723
+    StrCpy $PermissionsVersion 7699
+	StrCpy $RunwayVersion 7688
+	StrCpy $IdVersion 7686	
+	StrCpy $ManagerVersion 7663
+	StrCpy $BirtVersion 7497
+	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7202
-
-	# Determine the location of java home.	
-	${IfNot} ${RunningX64}
-	  StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
-	  StrCpy $JvmType true
-	  StrCpy $MaxMem 768	  
-	  StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
+	
+    # Determine the location of java home.	
+    ${IfNot} ${RunningX64}
+      StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
+      StrCpy $JvmType true
+      StrCpy $MaxMem 768	  
+      StrCpy $PermMem 256	  	
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
     ${Else}
-	  StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
-	  StrCpy $JvmType false
-	  StrCpy $MaxMem 1024
-	  StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
-	${EndIf}
+      StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+      StrCpy $JvmType false
+      StrCpy $MaxMem 3072
+      StrCpy $PermMem 512	  		
+      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
+    ${EndIf}
+	
+    StrCpy $JavaOpts "-Xmx$MaxMemM -XX:MaxPermSize=$PermMemM"
     
     LogEx::Init "$INSTDIR\installer-log.txt"
     StrCmp $Master_Value "true" +1 +2
@@ -357,17 +365,17 @@ Section -Main SEC0000
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
-      LogEx::Write "Installing Firefox 8.0.1"
+      LogEx::Write "Installing Firefox 27.0.1"
       !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
-      File "Firefox Setup 8.0.1.exe"
-      ExecWait `"$INSTDIR\Firefox Setup 8.0.1.exe"`
+      File "Firefox Setup 27.0.1.exe"
+      ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe"`
       Call findFireFox
     doneInstallFireFox:
       
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Verifying Firefox Installation"
     StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
-      LogEx::Write "Firefox 8.0.1 was not found."
+      LogEx::Write "Firefox 27.0.1 was not found."
       MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
       Abort
     
@@ -375,7 +383,7 @@ Section -Main SEC0000
     #Determine if this is a full install or just another app
     ReadRegStr $0 HKLM "${REGKEY}\Components" Main
     StrCmp $0 "" 0 appInstall
-    LogEx::Write "Firefox 8.0.1 is installed."
+    LogEx::Write "Firefox 27.0.1 is installed."
     
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
 #    SetOutPath $INSTDIR
@@ -484,6 +492,25 @@ Section -Main SEC0000
 	# Install tomcat as a service	
     LogEx::Write "Configuring Tomcat as a service"
     ExecWait `$TomcatExec //IS//Tomcat6 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+
+	# Set tomcat service parameters
+    ExecWait `$TomcatExec //US//Tomcat6 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
+	
+	# Update the firewall to allow the tomcat service
+	${IfNot} ${RunningX64}
+#	  SimpleFC::AddApplication "DDMS Tomcat" "$INSTDIR\tomcat6\bin\tomcat6.exe" 0 2 "" 1
+#	  Pop $0 ; return error(1)/success(0)	
+
+      SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat6\bin\tomcat6.exe" "" "@$INSTDIR\tomcat6\bin\tomcat6.exe,-10000" "" "" "" ""
+	  Pop $0 ; return error(1)/success(0)
+    ${Else}
+#	  SimpleFC::AddApplication "DDMS Tomcat" "$INSTDIR\tomcat6\bin\tomcat64.exe" 0 2 "" 1
+#	  Pop $0 ; return error(1)/success(0)		
+	  	  
+      SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat6\bin\tomcat64.exe" "" "@$INSTDIR\tomcat6\bin\tomcat64.exe,-10000" "" "" "" ""
+	  Pop $0 ; return error(1)/success(0)	  	  
+    ${EndIf}
+	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"	
     
     # We jump to this point if only installing a new app
@@ -520,7 +547,7 @@ Section -Main SEC0000
     # Update lots of things	
 	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    ExecWait `$JavaHome\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $MaxMem
+    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $MaxMem
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
 	# delete $INSTDIR\PostInstallSetup.log
     IfErrors postInstallError skipErrorMsg
@@ -559,8 +586,31 @@ Section -Main SEC0000
 	Push $INSTDIR\manager\manager.bat      # file to replace in
 	Call AdvReplaceInFile
 	
+    ################################################################################
+    # Update the manager memory settings for 64-bit installs
+    ################################################################################
+	
+    ${If} ${RunningX64}    
+	  
+	  # Update max memory
+	  Push process.memory.max=1024M                                       # text to be replaced
+	  Push process.memory.max=3072M                                       # replace with
+	  Push all                                                            # replace all occurrences
+	  Push all                                                            # replace all occurrences
+	  Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
+	  Call AdvReplaceInFile  
+	  
+	  # Update perm gen memory
+	  Push process.perm.size=256M                                         # text to be replaced
+	  Push process.perm.size=512M                                         # replace with
+	  Push all                                                            # replace all occurrences
+	  Push all                                                            # replace all occurrences
+	  Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
+	  Call AdvReplaceInFile  
+	${EndIF}	
+	
 	# Update tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat6 --Startup=auto --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=256M;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
+    ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"	
 	
 	
@@ -584,6 +634,7 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
+	WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion	
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
@@ -598,7 +649,7 @@ Section -Main SEC0000
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\birt
-    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
+    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
@@ -637,6 +688,24 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
+    # Only run the uninstall if the service isn't running
+	
+    SimpleSC::ServiceIsRunning "Tomcat6"
+	Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+	Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
+	
+	${If} $1 <> 0        
+	
+	  # Try to stop the service
+      SimpleSC::StopService "Tomcat6" 1 60
+	  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+	  
+	  ${If} $0 <> 0        
+        MessageBox MB_OK "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        Abort
+	  ${EndIf}
+	  
+	${EndIf}
 
 	# Determine the location of TomcatExec home.	
 	${IfNot} ${RunningX64}
