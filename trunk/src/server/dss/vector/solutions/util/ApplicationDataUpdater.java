@@ -125,14 +125,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void run()
   {
-    // if (this.updateRootIds)
-    // {
-    // this.updateMdEntityRootIds();
-    // }
+    if (this.updateRootIds)
+    {
+      this.updateMdEntityRootIds();
+    }
 
     if (this.updateKeys)
     {
-      // this.updateKeys();
+      this.updateKeys();
 
       this.updateSavedSearchKeys();
 
