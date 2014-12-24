@@ -25,14 +25,15 @@ import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeConcreteInfo;
+import com.runwaysdk.constants.MdAttributeDimensionInfo;
+import com.runwaysdk.constants.MdAttributeEnumerationInfo;
+import com.runwaysdk.constants.MdAttributeReferenceInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdEntityInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -45,8 +46,6 @@ import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
-import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
@@ -155,8 +154,6 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       List<? extends MdEntityDAOIF> subClasses = mdEntityIF.getAllSubClasses();
 
-      this.updateMdEntityRootId(mdEntityIF.definesType());
-
       for (MdEntityDAOIF subClass : subClasses)
       {
         updateMdEntityRootId(subClass.definesType());
@@ -176,12 +173,13 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
 
-    String oldId = cache.getOriginalId(mdEntity.getId());
+    String newId = mdEntity.getId();
+    String oldId = cache.getOriginalId(newId);
 
     if (oldId != null)
     {
       String oldRootId = oldId.substring(0, 32);
-      String newRootId = mdEntity.getId().substring(0, 32);
+      String newRootId = newId.substring(0, 32);
 
       this.changeRootId(mdEntityIF, oldRootId, newRootId);
 
@@ -308,9 +306,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         PreparedStatement prepared = this.getPreparedStatement(conn, (MdEntityDAOIF) mdClassDAOIF, mdAttrEnumDAOIF.getCacheColumnName(), oldRootId, newRootId);
         preparedStatementList.add(prepared);
       }
-
-      this.updateDefaultValues(conn, preparedStatementList, mdAttrEnumDAOIF, oldRootId, newRootId);
     }
+
+    this.updateDefaultValues(conn, preparedStatementList, MdAttributeEnumerationInfo.CLASS, oldRootId, newRootId);
 
     Database.executeStatementBatch(preparedStatementList);
   }
@@ -334,38 +332,31 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         preparedStatementList.add(prepared);
       }
 
-      this.updateDefaultValues(conn, preparedStatementList, mdAttrRefDAOIF, oldRootId, newRootId);
     }
+
+    this.updateDefaultValues(conn, preparedStatementList, MdAttributeReferenceInfo.CLASS, oldRootId, newRootId);
 
     Database.executeStatementBatch(preparedStatementList);
   }
 
-  private void updateDefaultValues(Connection conn, List<PreparedStatement> preparedStatementList, MdAttributeDAOIF mdAttribute, String oldRootId, String newRootId)
+  private void updateDefaultValues(Connection conn, List<PreparedStatement> preparedStatementList, String attributeType, String oldRootId, String newRootId)
   {
     // Update the default values
-    if (mdAttribute.getDefaultValue() != null && mdAttribute.getDefaultValue().equals(oldRootId))
     {
-      MdAttributeConcreteDAO mdAttributeConcrete = (MdAttributeConcreteDAO) mdAttribute.getMdAttributeConcrete().getBusinessDAO();
-      MdBusinessDAOIF mdBusinessDAO = mdAttributeConcrete.getMdBusinessDAO();
+      MdBusinessDAOIF mdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(attributeType);
       MdAttributeConcreteDAOIF mdDefaultValue = mdBusinessDAO.definesAttribute(MdAttributeConcreteInfo.DEFAULT_VALUE);
 
       PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
       preparedStatementList.add(prepared);
     }
 
-    List<MdAttributeDimensionDAOIF> mdAttributeDimensions = mdAttribute.getMdAttributeDimensions();
-
-    for (MdAttributeDimensionDAOIF mdAttributeDimensionIF : mdAttributeDimensions)
+    // Update the dimension default values
     {
-      if (mdAttributeDimensionIF.getDefaultValue() != null && mdAttributeDimensionIF.getDefaultValue().equals(oldRootId))
-      {
-        MdAttributeDimensionDAO mdAttributeDimension = (MdAttributeDimensionDAO) mdAttributeDimensionIF.getBusinessDAO();
-        MdBusinessDAOIF mdBusinessDAO = mdAttributeDimension.getMdBusinessDAO();
-        MdAttributeConcreteDAOIF mdDefaultValue = mdBusinessDAO.definesAttribute(MdAttributeConcreteInfo.DEFAULT_VALUE);
+      MdBusinessDAOIF mdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(MdAttributeDimensionInfo.CLASS);
+      MdAttributeConcreteDAOIF mdDefaultValue = mdBusinessDAO.definesAttribute(MdAttributeConcreteInfo.DEFAULT_VALUE);
 
-        PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
-        preparedStatementList.add(prepared);
-      }
+      PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
+      preparedStatementList.add(prepared);
     }
   }
 
@@ -486,10 +477,10 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   public List<String> getTypesToUpdate()
   {
     List<String> types = new LinkedList<String>();
+    types.add(Disease.CLASS);
     types.add(GeoEntity.CLASS);
     types.add(Term.CLASS);
     types.add(LifeStageMaster.CLASS);
-    types.add(Disease.CLASS);
     types.add(ContainerShapeMaster.CLASS);
     types.add(DiagnosisTypeMaster.CLASS);
     types.add(InsecticideBrandConcentrationQualifierMaster.CLASS);
@@ -510,6 +501,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     types.add(ThresholdCalculationCaseTypesMaster.CLASS);
     types.add(ThresholdCalculationMethodMaster.CLASS);
     types.add(WellKnownNamesMaster.CLASS);
+
     return types;
   }
 
