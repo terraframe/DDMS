@@ -95,6 +95,7 @@ Var AppName                 # Temp variable for the name of the current app bein
 Var TargetLoc               # Location of the WEB-INF classes directory on the client install.  Changes depending on $AppName.
 Var Phase
 Var RunwayVersion           # Version of the runway metadata contained in the install.
+Var MetadataVersion         # Runway metadata version which requires a delete.
 Var ManagerVersion          # Version of the manager contained in the install.
 Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
@@ -105,6 +106,7 @@ Var RootsVersion            # Version of the roots contained in the install.
 Var MenuVersion             # Version of the menu structure contained in the install.
 Var LocalizationVersion     # Version of the localization file contained in the install.
 Var PermissionsVersion      # Version of the permissions contained in the install.
+Var IdVersion				# Version of the predictive id change in the install. 
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var Params                  # Variable for storing all of the params
@@ -163,16 +165,18 @@ Section -Main SEC0000
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7584
-  StrCpy $ManagerVersion 7589
-  StrCpy $PatchVersion 7612
+  StrCpy $RunwayVersion 7688
+  StrCpy $MetadataVersion 7688
+  StrCpy $ManagerVersion 7663
+  StrCpy $PatchVersion 7734
   StrCpy $TermsVersion 7455
   StrCpy $RootsVersion 7504
   StrCpy $MenuVersion 7427
-  StrCpy $LocalizationVersion 7604
-  StrCpy $PermissionsVersion 7601
+  StrCpy $LocalizationVersion 7732
+  StrCpy $PermissionsVersion 7699
+  StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7497
-  StrCpy $WebappsVersion 7501
+  StrCpy $WebappsVersion 7616
   StrCpy $JavaVersion 7202  
     
   # Set some constants
@@ -352,6 +356,27 @@ Function patchApplication
       !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
       ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
       Call JavaAbort
+	  
+	  # Predictive id patching
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
+      ${If} $IdVersion > $0
+        StrCpy $Phase "Updating root ids, this process can several hours to complete."		
+		ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r` $JavaError
+        Call JavaAbort
+		
+		# We need to re-clear the old cache
+		Delete $INSTDIR\tomcat6\$AppName.index
+		Delete $INSTDIR\tomcat6\$AppName.data    
+		
+        StrCpy $Phase "Updating system ids, this process can several hours to complete."		
+		ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k` $JavaError
+        Call JavaAbort
+		
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
+      ${Else}
+        DetailPrint "Skipping system id migration because they are already up to date"
+      ${EndIf}	  
     
       # Import Most Recent
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
@@ -431,7 +456,7 @@ Function patchApplication
       ${Else}
         DetailPrint "Skipping Localization because it is already up to date"
       ${EndIf}
-    
+	  
       # Permissions
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
       SetOutPath $PatchDir\doc
@@ -452,7 +477,6 @@ Function patchApplication
       StrCpy $Phase "Updating application data"
       ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
       Call JavaAbort
-                
    
       # Switch back to the deploy environment
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
@@ -512,6 +536,17 @@ Function patchMetadata
   ${If} $RunwayVersion > $0
     StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"    
     StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+	
+	${If} $MetadataVersion > $0
+		# Copy over the updated runway jar
+		SetOutPath $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib
+		File /x .svn ..\trunk\patches\webapp\WEB-INF\lib\*
+	  
+		# Build any dimensional metadata with the Master domain
+		!insertmacro MUI_HEADER_TEXT "Patching metadata" "Preparing dimensional metadata for $AppName..."
+		ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter` $JavaError
+		Call JavaAbort
+	${EndIf}
   
     # Execute patch
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Patching $AppName..."
