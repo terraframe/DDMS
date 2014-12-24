@@ -406,7 +406,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   public void updateSavedSearchKeys()
   {
-    MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO("dss.vector.solutions.query.SavedSearchQuery");
+    MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO("dss.vector.solutions.query.SavedSearch");
     EntityQuery query = new QueryFactory().entityQuery(mdEntity);
     OIterator<? extends ComponentIF> iterator = query.getIterator();
 
