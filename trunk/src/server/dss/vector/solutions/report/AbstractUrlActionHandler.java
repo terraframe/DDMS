@@ -18,6 +18,7 @@ import org.eclipse.birt.report.engine.api.IReportDocument;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.RenderOption;
 import org.eclipse.birt.report.engine.api.script.IReportContext;
+import org.json.JSONArray;
 
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -146,10 +147,8 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
     if (action.getBookmark() != null)
     {
       /*
-       * Important: Not only do we need to append the bookmark to the link we must
-       * also find the page number the bookmark appears on and append the calculated
-       * page number to the link. The only way to find the actual page number is to
-       * process the design and produce a rptdocument file.
+       * Important: Not only do we need to append the bookmark to the link we must also find the page number the bookmark appears on and append the
+       * calculated page number to the link. The only way to find the actual page number is to process the design and produce a rptdocument file.
        */
       try
       {
@@ -307,7 +306,19 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
 
       if (!parameterKey.equals(RenderContext.PAGE_NUMBER))
       {
-        if (parameterValue != null && parameterValue instanceof List)
+        if (parameterValue != null && parameterValue.getClass().isArray())
+        {
+          Object[] values = (Object[]) parameterValue;
+          JSONArray array = new JSONArray();
+
+          for (int i = 0; i < values.length; i++)
+          {
+            array.put(values[i].toString());
+          }
+
+          this.appendParamter(link, parameterKey, array.toString());
+        }
+        else if (parameterValue != null && parameterValue instanceof List)
         {
           List<?> list = (List<?>) parameterValue;
 
