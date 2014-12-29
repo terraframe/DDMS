@@ -27,9 +27,10 @@
       <jwr:style src="/bundles/jqueryStyle.css" useRandomParam="false"/>
       <jwr:script src="/bundles/jqueryBundle.js" useRandomParam="false"/>
       <jwr:script src="/bundles/genericDatatable.js" useRandomParam="false"/>
-      <jwr:script src="/bundles/runwayDatatable.js" useRandomParam="false"/>      
+      <jwr:script src="/bundles/runwayDatatable.js" useRandomParam="false"/>   
+      <jwr:script src="/bundles/reportBundle.js" useRandomParam="false"/>   
+         
       <script type="text/javascript" src="js/Localized.js.jsp" ></script>
-      <script type="text/javascript" src="js/report.js"></script>
     
       <style type="text/css">
           div#navigationBar {

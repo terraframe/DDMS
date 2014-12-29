@@ -308,15 +308,9 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
       {
         if (parameterValue != null && parameterValue.getClass().isArray())
         {
-          Object[] values = (Object[]) parameterValue;
-          JSONArray array = new JSONArray();
+          String value = this.convertArrayParameter(parameterValue);
 
-          for (int i = 0; i < values.length; i++)
-          {
-            array.put(values[i].toString());
-          }
-
-          this.appendParamter(link, parameterKey, array.toString());
+          this.appendParamter(link, parameterKey, value);
         }
         else if (parameterValue != null && parameterValue instanceof List)
         {
@@ -339,6 +333,26 @@ public abstract class AbstractUrlActionHandler extends HTMLActionHandler impleme
     }
 
     return link;
+  }
+
+  private String convertArrayParameter(Object parameterValue)
+  {
+    if (parameterValue != null && parameterValue.getClass().isArray())
+    {
+      Object[] values = (Object[]) parameterValue;
+      JSONArray array = new JSONArray();
+
+      for (int i = 0; i < values.length; i++)
+      {
+        String value = this.convertArrayParameter(values[i]);
+
+        array.put(value);
+      }
+
+      return array.toString();
+    }
+
+    return parameterValue.toString();
   }
 
   /**
