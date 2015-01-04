@@ -239,7 +239,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         while (it.hasNext())
         {
           MdWebFieldDTO field = it.next();
-          if (! ( field instanceof MdWebPrimitiveDTO ))
+          if (! ( field instanceof MdWebPrimitiveDTO || field instanceof MdWebSingleTermDTO || field instanceof MdWebGeoDTO))
           {
             it.remove();
           }
@@ -401,7 +401,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         while (it.hasNext())
         {
           MdWebFieldDTO field = it.next();
-          if (! ( field instanceof MdWebPrimitiveDTO ))
+          if (! ( field instanceof MdWebPrimitiveDTO || field instanceof MdWebSingleTermDTO || field instanceof MdWebGeoDTO ))
           {
             it.remove();
           }
