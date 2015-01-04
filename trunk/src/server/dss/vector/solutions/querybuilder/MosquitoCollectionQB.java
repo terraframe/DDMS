@@ -41,6 +41,7 @@ import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
+import dss.vector.solutions.util.Restriction;
 
 public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 {
@@ -67,6 +68,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private boolean hasRound;
   
   private boolean hasType;
+  
+  private Restriction taxonRestriction;
 
   private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
@@ -133,20 +136,20 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
     super.setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
-
+    
     if (this.forceUniversal)
     {
       // We know there is only one left join universal (Earth)
       ValueQuery earthVQ = leftJoinValueQueries.get(0);
-
+      
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
       String universalName = MdEntity.getMdEntity(this.universalClass).getTypeName();
       String entityNameAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.ENTITYLABEL;
       String geoIdAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.GEOID;
-
+      
       Selectable name = earthVQ.aCharacter(entityNameAlias);
       Selectable geoId = earthVQ.aCharacter(geoIdAlias);
-
+      
       // Due to an unfortunate hack, taxon is forced as the first column but the
       // query only
       // works correctly if the geo columns are after taxon but before
@@ -156,7 +159,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       List<Selectable> selectables = valueQuery.getSelectableRefs();
       selectables.add(0, name);
       selectables.add(1, geoId);
-
+      
       valueQuery.clearSelectClause();
       valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
     }
@@ -186,7 +189,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     
     // protect the user if they're doing abundance calcs without enough columns
     // (the collection method and species columns are not enough)
-    if (!this.hasAbundance && ( valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_ab") ))
+    if (!this.hasAbundance && ( valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_mc") ))
     {
       throw new AbundanceColumnException("Abundance and/or aggregate calculations must be selected when in the Abundance section.");
     }
@@ -194,6 +197,15 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
     InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+    
+    // Species term restrictions must happen at the end, which we do in setTermCriteria. Remove the restriction
+    //  so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
+    if (this.getTermRestrictions().containsKey("taxon"))
+    {
+      Map<String, Restriction> restrictions = this.getTermRestrictions();
+      taxonRestriction = restrictions.get("taxon");
+      restrictions.remove("taxon");
+    }
 
     if (subCollectionQuery != null)
     {
@@ -273,7 +285,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
         if (attributeName.equals("mosquitoCount"))
         {
-          columnName = "abundance_sum";
+          columnName = "CAST(final_abundance AS int)";
         }
         if (attributeName.equals("collectionCount"))
         {
@@ -394,10 +406,10 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
             // #3002 - Apply filtering to the final query
-            if(this.getTermRestrictions().containsKey("taxon"))
+            if(taxonRestriction != null)
             {
               SelectableChar taxon = valueQuery.aSQLCharacter(ABUNDANCE_VIEW+".taxon", ABUNDANCE_VIEW+".taxon");
-              List<String> idsList = this.getTermRestrictions().get("taxon").getRestrictions();
+              List<String> idsList = taxonRestriction.getRestrictions();
               
               valueQuery.WHERE(taxon.IN(idsList.toArray(new String[idsList.size()])));
             }
@@ -481,7 +493,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     String collectionIdCol = QueryUtil.getColumnName(MosquitoCollection.getCollectionIdMd());
     String subCollectionId = QueryUtil.getColumnName(SubCollection.getSubCollectionIdMd());
     String taxonCol = QueryUtil.getColumnName(SubCollection.getTaxonMd());
-    String totalCol = QueryUtil.getColumnName(SubCollection.getTotalMd());
+    String totalCol = QueryUtil.getColumnName(SubCollection.getFemalesTotalMd());
     String parentTermCol = QueryUtil.getColumnName(AllPaths.getParentTermMd());
     String childTermCol = QueryUtil.getColumnName(AllPaths.getChildTermMd());
 

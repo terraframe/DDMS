@@ -144,7 +144,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var insectcideColumns =   insecticideAttrs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideBrandMap});
     
     
-   var abundanceColumns = [{
+   var abundanceColumns = [/* {
      displayLabel:mosquitoCollection.getCollectionMethodMd().getDisplayLabel(),
      description:mosquitoCollection.getCollectionMethodMd().getDescription(),
      dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
@@ -154,7 +154,7 @@ YAHOO.util.Event.onDOMReady(function(){
      isAggregate:false,
      isTerm:true,
      isTermAggregate:true
-   }];
+   } */];
 
    abundanceColumns = abundanceColumns.concat( [     
                                 {
@@ -167,7 +167,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                   isTerm:true,
                                   isTermAggregate:false
                                 },
-                                {
+                                /* {
                                   displayLabel:mosquitoCollection.getCollectionRoundMd().getDisplayLabel(),
                                   description:mosquitoCollection.getCollectionRoundMd().getDescription(),
                                   key:"collectionRound",
@@ -176,8 +176,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                   isAggregate:false,
                                   isTerm:true,
                                   isTermAggregate:false
-                                },
-                                {
+                                }, */
+                                /* {
                                   displayLabel:mosquitoCollection.getCollectionTypeMd().getDisplayLabel(),
                                   description:mosquitoCollection.getCollectionTypeMd().getDescription(),
                                   key:"collectionType",
@@ -186,7 +186,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                   isAggregate:false,
                                   isTerm:true,
                                   isTermAggregate:false
-                                },
+                                }, */
                                 {
                                   
                                   key:"mosquitoCount",
@@ -268,7 +268,7 @@ YAHOO.util.Event.onDOMReady(function(){
                              ]);
 
     
-    var abundanceOnly = abundanceColumns.slice(-8);
+    var abundanceOnly = abundanceColumns.slice(-8); /* the last 8 in the array */
    
 
     var selectableGroups = [
@@ -290,14 +290,14 @@ YAHOO.util.Event.onDOMReady(function(){
     var dm = query.getDependencyManager();
 
     var allCollections = subCollectionColumns.concat(collectionColumns);
-    dm.excludes({
+    /* dm.excludes({
       independent: allCollections,
       dependent:abundanceColumns,
       type: MDSS.Dependent.CHECKED,
       bidirectional: true
-    });
+    }); */
     dm.includes({
-      independent: ['collectionMethod_ab'],
+      independent: ['collectionMethod_mc'],
       dependent:abundanceColumns,
       type: MDSS.Dependent.UNCHECKED,
       bidirectional: false
@@ -310,19 +310,19 @@ YAHOO.util.Event.onDOMReady(function(){
     });
     dm.includes({
       independent: abundanceOnly,
-      dependent: ['taxon','collectionMethod_ab'],
+      dependent: ['taxon','collectionMethod_mc'],
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.includes({
       independent: ['collectionCount', 'subCollectionCount'],
-      dependent:['collectionMethod_ab'],
+      dependent:['collectionMethod_mc'],
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.includes({
       independent: ['mosquitoCount'],
-      dependent:['collectionMethod_ab'],
+      dependent:['collectionMethod_mc'],
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
