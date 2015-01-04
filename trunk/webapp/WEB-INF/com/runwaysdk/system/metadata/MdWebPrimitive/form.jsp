@@ -19,7 +19,17 @@
 				<div id="expressionAttributeButtonConainer" class="expressionButtonContainers">
 					<label class="expressionContainerLabel" title=""><mdss:localize key="expressionFieldAttributeLabel"/></label>
 					<c:forEach items="${fields}" var="field">
-						<button class="expressionButton" value="${field.fieldName}">${field.displayLabel}</button>
+						<c:choose>
+							<c:when test="${field.type=='com.runwaysdk.system.metadata.MdWebSingleTerm'}">
+								<button class="expressionButton" value="${field.displayLabel.value}.toString()">${field.displayLabel}</button>
+							</c:when>
+							<c:when test="${field.type=='com.runwaysdk.system.metadata.MdWebGeo'}">
+								<button class="expressionButton" value="${field.displayLabel.value}.toString()">${field.displayLabel}</button>
+							</c:when>
+							<c:otherwise>
+								<button class="expressionButton" value="${field.fieldName}">${field.displayLabel}</button>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
 
