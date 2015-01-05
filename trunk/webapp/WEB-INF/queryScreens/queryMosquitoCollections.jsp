@@ -290,12 +290,12 @@ YAHOO.util.Event.onDOMReady(function(){
     var dm = query.getDependencyManager();
 
     var allCollections = subCollectionColumns.concat(collectionColumns);
-    /* dm.excludes({
-      independent: allCollections,
+    dm.excludes({
+      independent: subCollectionColumns,
       dependent:abundanceColumns,
       type: MDSS.Dependent.CHECKED,
       bidirectional: true
-    }); */
+    });
     dm.includes({
       independent: ['collectionMethod_mc'],
       dependent:abundanceColumns,
@@ -326,6 +326,7 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
+    
 
     Mojo.GLOBAL.query = query;
 });

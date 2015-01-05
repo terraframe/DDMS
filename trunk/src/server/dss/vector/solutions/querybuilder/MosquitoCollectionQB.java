@@ -186,13 +186,6 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     this.hasRound = valueQuery.hasSelectableRef("collectionRound");
     this.hasType = valueQuery.hasSelectableRef("collectionType");
-    
-    // protect the user if they're doing abundance calcs without enough columns
-    // (the collection method and species columns are not enough)
-    if (!this.hasAbundance && ( valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_mc") ))
-    {
-      throw new AbundanceColumnException("Abundance and/or aggregate calculations must be selected when in the Abundance section.");
-    }
 
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
