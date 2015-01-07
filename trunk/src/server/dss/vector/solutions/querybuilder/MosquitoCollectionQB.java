@@ -288,54 +288,54 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         }
         if (attributeName.equals("collectionCount"))
         {
-          columnName = "array_length(allCollectionIds,1)";
+          columnName = "array_length(collectionIds,1)";
           hasCol = true;
         }
         if (attributeName.equals("subCollectionCount"))
         {
-          columnName = "coalesce(array_length(allSubCollectionIds,1))";
+          columnName = "coalesce(array_length(subCollectionIds,1))";
           hasSubCol = true;
         }
 
         if (attributeName.equals("abundance_1"))
         {
-          columnName = "1.0*(final_abundance/array_length(allCollectionIds,1))";
+          columnName = "1.0*(final_abundance/array_length(collectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_10"))
         {
-          columnName = "10.0*(final_abundance/array_length(allCollectionIds,1))";
+          columnName = "10.0*(final_abundance/array_length(collectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_100"))
         {
-          columnName = "100.0*(final_abundance/array_length(allCollectionIds,1))";
+          columnName = "100.0*(final_abundance/array_length(collectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_1000"))
         {
-          columnName = "1000.0*(final_abundance/array_length(allCollectionIds,1))";
+          columnName = "1000.0*(final_abundance/array_length(collectionIds,1))";
           hasCol = true;
         }
 
         if (attributeName.equals("abundance_subcol_1"))
         {
-          columnName = "1.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          columnName = "1.0*(final_abundance/array_length(subCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_10"))
         {
-          columnName = "10.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          columnName = "10.0*(final_abundance/array_length(subCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_100"))
         {
-          columnName = "100.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          columnName = "100.0*(final_abundance/array_length(subCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_1000"))
         {
-          columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          columnName = "1000.0*(final_abundance/array_length(subCollectionIds,1))";
           hasSubCol = true;
         }
         
@@ -360,18 +360,18 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         if (sel != null)
         {
           overrideQuery.SELECT(sel);
-          overrideQuery.GROUP_BY(sel);
+//          overrideQuery.GROUP_BY(sel);
         }
       }
       
-      overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("final_abundance", "final_abundance"));
+//      overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("final_abundance", "final_abundance"));
       if (hasCol)
       {
-        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allCollectionIds", "allCollectionIds"));
+//        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allCollectionIds", "allCollectionIds"));
       }
       if (hasSubCol)
       {
-        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allSubCollectionIds", "allSubCollectionIds"));
+//        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allSubCollectionIds", "allSubCollectionIds"));
       }
       
       overrideQuery.FROM(ABUNDANCE_VIEW, ABUNDANCE_VIEW);
