@@ -262,8 +262,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       setAbundance(valueQuery, 100, "100");
       setAbundance(valueQuery, 1000, "1000");
 
-      this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
-      valueQuery.SELECT(collectionMethod);
+//      this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
+//      valueQuery.SELECT(collectionMethod);
 
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
@@ -288,54 +288,54 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         }
         if (attributeName.equals("collectionCount"))
         {
-          columnName = "array_length(collectionIds,1)";
+          columnName = "array_length(allCollectionIds,1)";
           hasCol = true;
         }
         if (attributeName.equals("subCollectionCount"))
         {
-          columnName = "coalesce(array_length(subCollectionIds,1))";
+          columnName = "coalesce(array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
 
         if (attributeName.equals("abundance_1"))
         {
-          columnName = "1.0*(final_abundance/array_length(collectionIds,1))";
+          columnName = "1.0*(final_abundance/array_length(allCollectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_10"))
         {
-          columnName = "10.0*(final_abundance/array_length(collectionIds,1))";
+          columnName = "10.0*(final_abundance/array_length(allCollectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_100"))
         {
-          columnName = "100.0*(final_abundance/array_length(collectionIds,1))";
+          columnName = "100.0*(final_abundance/array_length(allCollectionIds,1))";
           hasCol = true;
         }
         if (attributeName.equals("abundance_1000"))
         {
-          columnName = "1000.0*(final_abundance/array_length(collectionIds,1))";
+          columnName = "1000.0*(final_abundance/array_length(allCollectionIds,1))";
           hasCol = true;
         }
 
         if (attributeName.equals("abundance_subcol_1"))
         {
-          columnName = "1.0*(final_abundance/array_length(subCollectionIds,1))";
+          columnName = "1.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_10"))
         {
-          columnName = "10.0*(final_abundance/array_length(subCollectionIds,1))";
+          columnName = "10.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_100"))
         {
-          columnName = "100.0*(final_abundance/array_length(subCollectionIds,1))";
+          columnName = "100.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_1000"))
         {
-          columnName = "1000.0*(final_abundance/array_length(subCollectionIds,1))";
+          columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
         
