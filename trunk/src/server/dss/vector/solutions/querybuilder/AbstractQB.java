@@ -946,7 +946,7 @@ public abstract class AbstractQB implements Reloadable
    * @param valueQuery
    * @param queryMap
    */
-  private void joinGeoDisplayLabels(ValueQuery valueQuery)
+  protected void joinGeoDisplayLabels(ValueQuery valueQuery)
   {
     for (GeneratedEntityQuery query : this.geoDisplayLabelQueries)
     {

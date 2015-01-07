@@ -22,6 +22,7 @@ import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdEntity;
 
@@ -266,10 +267,15 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
+      super.joinGeoDisplayLabels(valueQuery);
+      
       setWithQuerySQL(ABUNDANCE_VIEW, valueQuery);
 
       ValueQuery overrideQuery = new ValueQuery(queryFactory);
 
+      boolean hasSubCol = false;
+      boolean hasCol = false;
+      
       for (Selectable s : valueQuery.getSelectableRefs())
       {
         String attributeName = s.getDbColumnName();
@@ -283,71 +289,106 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         if (attributeName.equals("collectionCount"))
         {
           columnName = "array_length(allCollectionIds,1)";
+          hasCol = true;
         }
         if (attributeName.equals("subCollectionCount"))
         {
           columnName = "coalesce(array_length(allSubCollectionIds,1))";
+          hasSubCol = true;
         }
 
         if (attributeName.equals("abundance_1"))
         {
           columnName = "1.0*(final_abundance/array_length(allCollectionIds,1))";
+          hasCol = true;
         }
         if (attributeName.equals("abundance_10"))
         {
           columnName = "10.0*(final_abundance/array_length(allCollectionIds,1))";
+          hasCol = true;
         }
         if (attributeName.equals("abundance_100"))
         {
           columnName = "100.0*(final_abundance/array_length(allCollectionIds,1))";
+          hasCol = true;
         }
         if (attributeName.equals("abundance_1000"))
         {
           columnName = "1000.0*(final_abundance/array_length(allCollectionIds,1))";
+          hasCol = true;
         }
 
         if (attributeName.equals("abundance_subcol_1"))
         {
           columnName = "1.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_10"))
         {
           columnName = "10.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_100"))
         {
           columnName = "100.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          hasSubCol = true;
         }
         if (attributeName.equals("abundance_subcol_1000"))
         {
           columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
+          hasSubCol = true;
         }
-
+        
+        SelectableSingle sel = null;
         if (s instanceof SelectableSQLFloat)
         {
-          overrideQuery.SELECT(overrideQuery.aSQLFloat(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
+          sel = overrideQuery.aSQLFloat(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
         else if (s instanceof SelectableSQLInteger)
         {
-          overrideQuery.SELECT(overrideQuery.aSQLInteger(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
+          sel = overrideQuery.aSQLInteger(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
         else if (s instanceof AttributeMoment)
         {
-          overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
+          sel = overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
         else if (!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
         {
-          overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
+          sel = overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
-
+        
+        if (sel != null)
+        {
+          overrideQuery.SELECT(sel);
+          overrideQuery.GROUP_BY(sel);
+        }
       }
-
+      
+      overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("final_abundance", "final_abundance"));
+      if (hasCol)
+      {
+        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allCollectionIds", "allCollectionIds"));
+      }
+      if (hasSubCol)
+      {
+        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allSubCollectionIds", "allSubCollectionIds"));
+      }
+      
       overrideQuery.FROM(ABUNDANCE_VIEW, ABUNDANCE_VIEW);
+      
       return overrideQuery;
-
     }
 
     return valueQuery;
+  }
+  
+  protected void joinGeoDisplayLabels(ValueQuery valueQuery)
+  {
+    if (this.hasAbundance)
+    {
+      return;
+    }
+    super.joinGeoDisplayLabels(valueQuery);
   }
 
   private void setAbundance(ValueQuery valueQuery, Integer multiplier, String sql)
@@ -553,13 +594,12 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     this.addWITHEntry(new WITHEntry("percent_view", percentViewSQL));
 
-    String rollupView = " SELECT " + (hasRound ? ROUND_DISPLAY_LABEL+", ":"")+" "+ (hasType ? TYPE_DISPLAY_LABEL+", ":"") + " "+ GEO_ID_COALESCE_ALIAS + ", areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
+    String rollupView = " SELECT *, abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     rollupView += "     FROM percent_view\n";
     rollupView += "     WHERE depth = 0\n";
     rollupView += " UNION\n";
-    rollupView += " SELECT "+(hasRound ? "child_v."+ROUND_DISPLAY_LABEL+", ":"") + " " +(hasType ? "child_v."+TYPE_DISPLAY_LABEL+", ":"")+  " child_v." + GEO_ID_COALESCE_ALIAS + ", child_v.areagroup, child_v." + taxonCol + ", child_v.parent, child_v.depth ,child_v.my_share, \n";
-    rollupView += "  parent_v.final_abundance * child_v.my_share \n";
-    rollupView += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." 
+    rollupView += " SELECT child_v.*, parent_v.final_abundance * child_v.my_share \n";
+    rollupView += " FROM " + viewName + " parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." 
       + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS;
     
     if(this.hasRound)
@@ -573,24 +613,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     }
     
     rollupView += " \n";
-    this.addWITHEntry(new WITHEntry("rollup_view", rollupView));
-
-    String viewSQL = "SELECT pv.*, final_abundance\n";
-    viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol 
-        + " AND rv." + GEO_ID_COALESCE_ALIAS + " = pv." + GEO_ID_COALESCE_ALIAS;
-    
-    if(this.hasRound)
-    {
-      viewSQL += " AND rv." + ROUND_DISPLAY_LABEL + " = pv." + ROUND_DISPLAY_LABEL;
-    }
-    
-    if(this.hasType)
-    {
-      viewSQL += " AND rv." + TYPE_DISPLAY_LABEL + " = pv." + TYPE_DISPLAY_LABEL;
-    }
-    
-    viewSQL += " \n";
-    this.addWITHEntry(new WITHEntry(viewName, viewSQL));
+    this.addWITHEntry(new WITHEntry(viewName, rollupView));
   }
 
 }
