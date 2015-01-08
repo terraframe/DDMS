@@ -491,7 +491,13 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     {
       this.abundanceCols.add(s.getColumnAlias());
 
-      if (s.getUserDefinedAlias().equals("collectionRound") || s.getUserDefinedAlias().equals("collectionType") || s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
+      // This list of aliases is the list that defines what "The Group" is. The Group contains all restrictive terms/criteria that the number of collections is grouped by and it EXCLUDES species/taxon.
+      // If a new term is added to this QueryBuilder you'll need to add it to this list.
+      if ( s.getDbColumnName().startsWith("collectionRound") || s.getDbColumnName().startsWith("collectionType") ||
+          s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") ||
+          s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP") ||
+          s.getDbColumnName().equals("geoEntity_displayLabel") || s.getDbColumnName().startsWith("wallType")
+        )
       {
         joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " AND ss." + GEO_ID_COALESCE_ALIAS + " = mainQuery." + GEO_ID_COALESCE_ALIAS;
         areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
