@@ -13,18 +13,18 @@
   <target name="compile_generated"/>
 -->
 <project name="MDSS" default="build" basedir=".">
-  <property name="project.root" location="C:/cruisecontrol-bin-2.8.3/projects/mdss" />
+  <property name="project.root" location="C:/svn/ddms" />
   <property name="local.root" location="../trunk" />
   <property name="country" value="blank" />
-  <property name="geodata.db" value="mrc_${country}" />
+  <property name="geodata.db" value="mrc_blank" />
   <property name="deploy.db" value="mdssdeploy" />
   <property name="develop.db" value="mdssdevelop" />
   <property name="nsis.dir" location="C:/Program Files (x86)/NSIS" />
   <property name="postgres.bin" location="C:/Program Files (x86)/PostgreSQL/9.1/bin"/>
   <property name="profile.root" location="${local.root}/profiles" />
-  <property name="install.dir" location="../installer-windows" />
-  <property name="stage.dir" location="." />
-  <property name="stage.webapp" location = "./webapp"/>
+  <property name="install.dir" location="${project.root}/installer-windows" />
+  <property name="stage.dir" location="${project.root}/installer-stage" />
+  <property name="stage.webapp" location = "${stage.dir}/webapp"/>
   <property name="stage.classes" location = "${stage.webapp}/WEB-INF/classes"/>
   <property name="root.user" value="postgres" />
   <property name="root.pass" value="postgres" />
@@ -33,13 +33,8 @@
   <property name="domain" value="0.mdss.ivcc.com" />
   <property name="deploy.root" location="${stage.dir}/tomcat6" />
   <property name="manager.dest" location="${stage.dir}/manager" />
-  <property name="manager.dest.lib" location="${manager.dest}/lib" />
-  <property name="manager.dest.bin" location="${manager.dest}/bin" />  
-  <property name="manager.dest.profiles" location="${manager.dest}/profiles" />  
-  <property name="manager.source" location="../standalone" />
-  <property name="manager.source.lib" location="${manager.source}/lib" />
-  <property name="manager.source.profiles" location="${manager.source}/profiles" />    
-  <property name="manager.src" location="${manager.source}/src" />
+  <property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />  
+  <property name="manager.dir" value="${project.root}/standalone" />  
   
   <!-- SVN task definitions -->
   <taskdef resource="org/tigris/subversion/svnant/svnantlib.xml">
@@ -54,6 +49,14 @@
   </classpath>
   </taskdef>
   
+  <svnSetting  
+    svnkit="false"  
+    javahl="false"  
+	username="cruisecontrol@terraframe.com" 
+	password="Mr.Sparkle"
+	failonerror="true"		
+    id="svn.settings"/>   
+  
   <!-- ANT Contrib task defitions -->
   <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="C:/cruisecontrol-bin-2.8.3/lib/ant-contrib-1.0b3.jar" />
   
@@ -65,49 +68,32 @@
       </fileset>
     </classpath>
   </taskdef>
+<!--  
+  <target name="build" depends="build_installer_exe"/> 
+ -->  
+  <target name="build" depends="build-database, build_installer_exe"/>
   
-  <path id="manager.classpath">
-    <fileset dir="${manager.source.lib}">
-      <include name="**/*.jar" />
-    </fileset>
-  </path>
-
-
-  <target name="testes">
-  <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
-      <property name="root.user" value="${root.user}" />
-      <property name="root.pass" value="${root.pass}" />
-      <property name="root.db" value="${root.db}" />
-      <property name="geodata.db" value="${geodata.db}" />
-      <property name="profile.root" value="${profile.root}" />
-      <property name="profile.name" value="installer" />
-      <property name="deploy.path" value="${stage.webapp}" />
-      <target name="deploy_all_files"/>    
-    </ant>
-  </target>
-  <target name="build">
-    <!--
-      <antcall target="write_revision" />
-    <delete includeemptydirs="true">
-        <fileset dir="bin" includes="**/*"/>       
-      </delete>
-      <delete dir="src/test" />       
-    -->
-  
+  <target name="build-database">
     <echo message="Deleting directory: ${stage.webapp}/" />
-    <delete dir="${stage.webapp}" />
+    <delete dir="${stage.webapp}" verbose="false" />
+  
+    <echo message="Rewriting terraframe.properties values local.root, deploy.root, deploy.appname, and domain/" />	
     <propertyfile file="${profile.root}/default/common/terraframe.properties">
       <entry key="local.root" value="${local.root}" />
       <entry key="deploy.root" value="${deploy.root}" />
       <entry key="deploy.appname" value="DDMS" />
       <entry key="domain" value="${domain}" />
     </propertyfile>
+
+    <echo message="Rewriting server.properties values logTransactions/" />		
     <propertyfile file="${profile.root}/default/server/server.properties">
       <entry key="logTransactions" value="false" />
     </propertyfile>
+	
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\:' replace=":" />
 
+    <echo message="Compiling/" />		
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
@@ -116,7 +102,7 @@
 
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
-  
+	
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="root.user" value="${root.user}" />
       <property name="root.pass" value="${root.pass}" />
@@ -136,43 +122,25 @@
       <target name="import_geodata" />
       <target name="build_all_paths_geodata" />
       <target name="create_universal_queries"/>
+      <target name="import_localization_disease_defaults"/>
+      <target name="load_permissions"/>    	  
     </ant>
-  
-    <!-- Multi-install Localization requires some property manipulation -->
-    <copy file="${profile.root}/install.properties" tofile="${profile.root}/install.properties.bak" />
-  
-    <trycatch property="foo" reference="bar">
-      <try>
-        <copy file="./install-stage.properties" tofile="${profile.root}/install.properties" />
-        <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
-          <property name="profile.root" value="${profile.root}" />
-          <property name="profile.name" value="installer" />
-          <target name="import_localization_disease_defaults"/>
-        </ant>
-      </try>
-      <finally>
-        <copy file="${profile.root}/install.properties.bak" tofile="${profile.root}/install.properties" />
-        <delete file="${profile.root}/install.properties.bak" />
-      </finally>
-    </trycatch>
-
+	
     <!-- We deploy all files after localization because we need to push the updated MDSS.properties files -->  
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
 
-      <target name="load_permissions"/>    
       <target name="deploy_all_files"/>    
     </ant>
   
     <!-- We need to update the deploy database with the source and class. -->  
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
-    <antcall target="deploy_update_db_source_and_classes" />  
-  
+    <antcall target="deploy_update_db_source_and_classes" />    
+	
     <antcall target="set_vital_properties" />
-    <antcall target="dump_db" />
-    <antcall target="build_installer_exe" />
+    <antcall target="dump_db" />	
   </target>
 
   <target name="deploy_update_db_source_and_classes" depends="" description="Update DB Source and Classes">
@@ -202,12 +170,7 @@
       <entry key="dataDumpExecutable" value="pg_dump" />
       <entry key="dataImportExecutable" value="pg_restore" />
     </propertyfile>
-
-    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
-    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat6/" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat6/" />
-
+	
     <propertyfile file="${stage.classes}/jawr.properties">
       <entry key="jawr.debug.on" value="false" />
     </propertyfile>
@@ -218,10 +181,17 @@
     <propertyfile file="${stage.classes}/install.properties">
       <entry key="master" value="false" />
     </propertyfile>
-    <propertyfile file="${stage.classes}/MdssControlPanel.properties">
-      <entry key="command.start" value="cmd /c C:/MDSS/tomcat6/bin/startup.bat" />
-      <entry key="command.stop" value="cmd /c C:/MDSS/tomcat6/bin/shutdown.bat" />
-    </propertyfile>
+	
+	<!-- 
+	  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property 
+	  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
+	  through regex.
+	-->
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat6/" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat6/" />	
   </target>
   
   <target name="dump_db" depends="">
@@ -248,17 +218,22 @@
   
   <target name="build_installer_exe">
     <!-- Copy in cache files -->
-  <copy file="${local.root}/DDMS.data" todir="${stage.dir}"/>
-  <copy file="${local.root}/DDMS.index" todir="${stage.dir}"/>
+    <copy file="${local.root}/DDMS.data" todir="${stage.dir}"/>
+    <copy file="${local.root}/DDMS.index" todir="${stage.dir}"/>
   
     <!-- Get revision info from svn -->
-    <svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+    <svn refid="svn.settings">
       <info target="${project.root}/trunk" verbose="true" propPrefix="svn.info." />
       <info target="${project.root}/trunk/doc/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
       <info target="${project.root}/trunk/doc/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
       <info target="${project.root}/trunk/doc/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
       <info target="${project.root}/trunk/doc/localization" verbose="true" propPrefix="localization.svn." />
-      <info target="${project.root}/trunk/doc/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
+      <info target="${project.root}/trunk/profiles/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
+	  <info target="${runway-patch.dir}" verbose="true" propPrefix="runway-patch.info." />	
+	  <info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
+      <info target="${project.root}/installer-stage/birt" verbose="true" propPrefix="birt.svn." />	  
+	  <info target="${project.root}/installer-stage/tomcat6/webapps" verbose="true" propPrefix="webapps.svn." />	  	  			
+	  <info target="${project.root}/installer-stage/Java" verbose="true" propPrefix="java.svn." />	  	  				  
     </svn>
     
     <!-- Write revision info into Installer.nsi -->
@@ -268,6 +243,11 @@
     <replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+	<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+	<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+	<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+	<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
     
     <exec executable="${nsis.dir}/makensis" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
       <arg line="Installer.nsi" />
@@ -311,7 +291,7 @@
   </target>
   <target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
     <echo message="Switching to country: ${geodata.db}" />
-    <copy file="${local.root}/doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="doc/individual/schema(0001238646707001).xml" overwrite="true" />
+    <copy file="${local.root}/doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="${local.root}/doc/individual/schema(0001238646707001).xml" overwrite="true" />
     <copy file="${local.root}/webapp/imgs/flags/${geodata.db}.gif" tofile="${local.root}/webapp/imgs/flags/current" overwrite="true" />
   </target>
   <target name="svn_update"  description="Writes the current svn revision info to an html file">

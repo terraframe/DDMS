@@ -326,13 +326,13 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7730
+    StrCpy $PatchVersion 7754
     StrCpy $TermsVersion 7455
     StrCpy $RootsVersion 7504
     StrCpy $MenuVersion 7427
-    StrCpy $LocalizationVersion 7723
+    StrCpy $LocalizationVersion 7747
     StrCpy $PermissionsVersion 7699
-	StrCpy $RunwayVersion 7688
+	StrCpy $RunwayVersion 7743
 	StrCpy $IdVersion 7686	
 	StrCpy $ManagerVersion 7663
 	StrCpy $BirtVersion 7497
