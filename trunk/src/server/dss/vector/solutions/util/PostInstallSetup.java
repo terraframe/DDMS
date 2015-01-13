@@ -148,9 +148,9 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
-    File startup = new File(tomcatDirectory + "/bin/startup.bat");
     int totalMemory = getTotalMemory(appCount);
-    logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
+    logger.info("Updating Tomcat RAM in " + tomcatDirectory + "/bin/startup.bat to use " + totalMemory + "M");
+    File startup = new File(tomcatDirectory + "/bin/startup.bat");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
     logger.info("Updating firefox preferences.");
