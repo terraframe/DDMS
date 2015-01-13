@@ -153,6 +153,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
+    logger.info("Updating firefox preferences.");
     this.updateFirefoxPreferences();
 
     return totalMemory;
@@ -564,17 +565,17 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
       HelpFormatter formatter = new HelpFormatter();
       formatter.printHelp("setup", options);
 
-      logger.severe(exp.getLocalizedMessage());
+      logger.log(Level.SEVERE, exp.getLocalizedMessage(), exp);
       throw new RuntimeException(exp);
     }
     catch (RuntimeException e)
     {
-      logger.severe(e.getLocalizedMessage());
+      logger.log(Level.SEVERE, e.getLocalizedMessage(), e);
       throw e;
     }
     catch (Exception e)
     {
-      logger.severe(e.getLocalizedMessage());
+      logger.log(Level.SEVERE, e.getLocalizedMessage(), e);
       throw new RuntimeException(e);
     }
   }
