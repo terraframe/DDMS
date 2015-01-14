@@ -1610,7 +1610,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   public static void importTerms(InputStream importFile)
   {
-    OntologyExcelImporter importer = new OntologyExcelImporter();
+    OntologyExcelImporter importer = new OntologyExcelImporter("InputStream");
     importer.read(new BufferedInputStream(importFile));
   }
 }

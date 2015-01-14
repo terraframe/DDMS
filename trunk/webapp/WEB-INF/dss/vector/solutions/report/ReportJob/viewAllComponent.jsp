@@ -146,8 +146,8 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
      "jobs" : MDSS.localize("Jobs"),
      "history" : MDSS.localize("History"),
      
-     "editJobTitle" : MDSS.localize("Edit Job"),
-     "scheduledRun" : MDSS.localize("Scheduled Run"),
+     "editJobTitle" : MDSS.localize("EditJob"),
+     "scheduledRun" : MDSS.localize("ScheduledRun"),
      "submit" : MDSS.localize("Submit"),
      "cancel" : MDSS.localize("Cancel"),
      "never" : MDSS.localize("Never"),
@@ -155,7 +155,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
      
      "duration" : MDSS.localize("Duration"),
      "problems" : MDSS.localize("Problems"),
-     "seconds" : MDSS.localize("seconds"),
+     "seconds" : MDSS.localize("Seconds"),
       
      "start" : MDSS.localize("Start"),
      "stop" : MDSS.localize("Stop"),
@@ -164,7 +164,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
      
      "stopped" : MDSS.localize("Stopped"),
      "status" : MDSS.localize("Status"),
-     "clearHistory" : MDSS.localize("clearHistory")
+     "clearHistory" : MDSS.localize("ClearHistory")
    });
    
    com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.CronPicker', {
@@ -174,25 +174,25 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
    
    com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.CronUtil', {
      "never" : MDSS.localize("Never"),
-     "everyMinute" : MDSS.localize("everyMinute"),
-     "everyHour" : MDSS.localize("everyHour"),
-     "everyDay" : MDSS.localize("everyDay"),
-     "everyWeek" : MDSS.localize("everyWeek"),
-     "everyMonth" : MDSS.localize("everyMonth"),
+     "everyMinute" : MDSS.localize("EveryMinute"),
+     "everyHour" : MDSS.localize("EveryHour"),
+     "everyDay" : MDSS.localize("EveryDay"),
+     "everyWeek" : MDSS.localize("EveryWeek"),
+     "everyMonth" : MDSS.localize("EveryMonth"),
      
-     "minute" : MDSS.localize("minute"),
-     "hour" : MDSS.localize("hour"),
-     "day" : MDSS.localize("day"),
-     "week" : MDSS.localize("week"),
-     "month" : MDSS.localize("month"),
+     "minute" : MDSS.localize("Minute"),
+     "hour" : MDSS.localize("Hour"),
+     "day" : MDSS.localize("Day"),
+     "week" : MDSS.localize("Week"),
+     "month" : MDSS.localize("Month"),
      
-     "sunday" : MDSS.localize("sunday"),
-     "monday" : MDSS.localize("monday"),
-     "tuesday" : MDSS.localize("tuesday"),
-     "wednesday" : MDSS.localize("wednesday"),
-     "thursday" : MDSS.localize("thursday"),
-     "friday" : MDSS.localize("friday"),
-     "saturday" : MDSS.localize("saturday")
+     "sunday" : MDSS.localize("Sunday"),
+     "monday" : MDSS.localize("Monday"),
+     "tuesday" : MDSS.localize("Tuesday"),
+     "wednesday" : MDSS.localize("Wednesday"),
+     "thursday" : MDSS.localize("Thursday"),
+     "friday" : MDSS.localize("Friday"),
+     "saturday" : MDSS.localize("Saturday")
    });
    
    com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.PollingRequest', {

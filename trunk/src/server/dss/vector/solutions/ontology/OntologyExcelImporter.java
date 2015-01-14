@@ -44,6 +44,8 @@ public class OntologyExcelImporter
   private static Ontology             ontology;
 
   private static OntologyRelationship ontologyRelationship;
+  
+  private String fileName;
 
   public static void main(String[] args) throws FileNotFoundException
   {
@@ -85,14 +87,15 @@ public class OntologyExcelImporter
   @Request
   public static void readRequest(File file) throws FileNotFoundException
   {
-    OntologyExcelImporter importer = new OntologyExcelImporter();
+    OntologyExcelImporter importer = new OntologyExcelImporter(file.getAbsolutePath());
     importer.read(new BufferedInputStream(new FileInputStream(file)));
   }
 
-  public OntologyExcelImporter()
+  public OntologyExcelImporter(String fileName)
   {
     terms = new HashMap<String, TermNode>();
     stack = new LinkedList<TermNode>();
+    this.fileName = fileName;
   }
 
   @Transaction
@@ -252,7 +255,7 @@ public class OntologyExcelImporter
     }
     catch (NoSuchElementException e)
     {
-      throw new TermImportInvalidRowException(e);
+      throw new TermImportInvalidRowException(this.fileName, row.getRowNum(), cell.getColumnIndex(), e);
     }
   }
 

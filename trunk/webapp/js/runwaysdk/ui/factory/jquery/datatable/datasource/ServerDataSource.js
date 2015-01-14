@@ -51,7 +51,8 @@
           "bServerSide": true,
           "sAjaxSource": "",
           "fnServerData": Util.bind(this, this.__fnServerData),
-          aoColumns: this.getColumns()
+          aoColumns: this.getColumns(),
+          "order": [[ this.getSortColumn(), this.isAscending() ? "asc" : "desc" ]]
         };
       },
       
