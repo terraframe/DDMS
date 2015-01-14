@@ -1,9 +1,7 @@
 package dss.vector.solutions.irs;
 
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 
@@ -46,11 +44,6 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
       team.setTeamId(this.getTeamId());
       team.setSprayZone(zone);
       team.apply();
-      
-      if (leaderId != null && !leaderId.equals(""))
-      {
-        team.addTeamLeader(TeamMember.getMemberById(leaderId)).apply();
-      }
     }
     // Edit an existing team.
     else
@@ -58,25 +51,44 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
       // Override existing values
       if (zone != null)
       {
+        team.appLock();
         team.setSprayZone(zone);
+        team.apply();
       }
-      if (leaderId != null && !leaderId.equals(""))
+    }
+    
+    if (leaderId != null && !leaderId.equals(""))
+    {
+      // Integrity check: a team can only have 1 leader
+      OIterator<? extends LeadTeam> rels = team.getAllTeamLeaderRel();
+      try
       {
-        // Integrity check: a team can only have 1 leader
-        OIterator<? extends LeadTeam> rels = team.getAllTeamLeaderRel();
-        try {
-          for (LeadTeam rel : rels)
-          {
-            rel.delete();
-          }
-        }
-        finally
+        for (LeadTeam rel : rels)
         {
-          rels.close();
+          rel.delete();
         }
-        
-        team.addTeamLeader(TeamMember.getMemberById(leaderId)).apply();
       }
+      finally
+      {
+        rels.close();
+      }
+      
+      // Integrity check: A TeamMember can only be the leader of one team.
+      TeamMember leader = TeamMember.getMemberById(leaderId);
+      OIterator<? extends LeadTeam> leaderRels = leader.getAllLeadsTeamRel();
+      try
+      {
+        for (LeadTeam rel : leaderRels)
+        {
+          rel.delete();
+        }
+      }
+      finally
+      {
+        leaderRels.close();
+      }
+      
+      team.addTeamLeader(leader).apply();
     }
 
     // If there's an operatorId then add the operator to the team.
@@ -87,7 +99,8 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
       
       // Integrity check: operators can only be assigned to one team.
       OIterator<? extends InTeam> rels = operator.getAllSprayTeamRel();
-      try {
+      try
+      {
         for (InTeam rel : rels)
         {
           rel.delete();
