@@ -57,8 +57,11 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
       }
     }
     
+    // Set the team leader
     if (leaderId != null && !leaderId.equals(""))
     {
+      TeamMember leader = TeamMember.getMemberById(leaderId);
+      
       // Integrity check: a team can only have 1 leader
       OIterator<? extends LeadTeam> rels = team.getAllTeamLeaderRel();
       try
@@ -74,7 +77,6 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
       }
       
       // Integrity check: A TeamMember can only be the leader of one team.
-      TeamMember leader = TeamMember.getMemberById(leaderId);
       OIterator<? extends LeadTeam> leaderRels = leader.getAllLeadsTeamRel();
       try
       {
