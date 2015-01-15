@@ -388,7 +388,7 @@
               
             },
             onFailure: function(ex) {
-              that.handleException(ex);
+              
             }
           },
           performRequest : function(callback) {

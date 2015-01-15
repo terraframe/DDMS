@@ -134,6 +134,39 @@ Mojo.Util = (function(){
       return dest;
     },
     
+    /**
+     * Returns a new javascript object (or array) with all the same properties. Nested objects (or arrays) will also be cloned.
+     */
+    clone : function(source)
+    {
+      var dest = {};
+      
+      if(Util.isObject(source))
+      {
+        for(var i in source)
+        {
+          if(source.hasOwnProperty(i))
+          {
+            if (Util.isObject(source[i])) {
+              dest[i] = {};
+              this.copy(source[i], dest[i]);
+            }
+            else {
+              dest[i] = source[i];
+            }
+          }
+        }
+      }
+      else if (Util.isArray(source)) {
+        dest = [];
+        for (var i = 0; i < source.length; ++i) {
+          dest[i] = source[i];
+        }
+      }
+      
+      return dest;
+    },
+    
     generateId : function(idSize)
     {
       var result = '';
@@ -158,13 +191,50 @@ Mojo.Util = (function(){
         return retval;
       };
     },
+
+    /**
+     * The replace method on string only replaces the first occurance. This method will replace all occurances.
+     * 
+     * @param haystack The string to perform find/replace on.
+     * @param needle The needle to search for in the haystack.
+     * @param replace A replacement string for matches found.
+     * @returns The string with all occurances replaced.
+     */
+    replaceAll : function(haystack, needle, replace) {
+      // Escape special regex characters because the end user doesn't have to know that we're using regex.
+      needle = needle.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      
+      return haystack.replace(new RegExp(needle, 'g'), replace);
+    },
     
+    /**
+     * 
+     * @param func
+     * @returns {Function}
+     */
     curry : function(func)
     {
       var args = [].splice.call(arguments, 1, arguments.length);
       return function(){
         return func.apply(this, args.concat([].splice.call(arguments, 0, arguments.length)));
       };
+    },
+    
+    invokeControllerAction : function(type, action, params, request) {
+      Util.requireParameter("type", type, "string");
+      Util.requireParameter("action", action, "string");
+      Util.requireParameter("params", params);
+      Util.requireParameter("request", request, "object");
+      
+      if (params.dto != null) {
+        params["dto.componentId"] = params.dto.getId();
+        params["dto.isNew"] = params.dto.isNewInstance();
+        params["#dto.actualType"] = params.dto.getType();
+      }
+      
+//      var strParams = Mojo.Util.convertMapToQueryString(params);
+      
+      Mojo.$.com.runwaysdk.Facade._controllerWrapper(type + "Controller" + "." + action + ".mojax", request, params);
     },
     
     /**
@@ -586,13 +656,16 @@ Mojo.Util = (function(){
   
     })(),
     
-    merge : function(source, dest, hasOwnProp)
+    /**
+     * Copys all properties in source over to dest. Properties that already exist in dest will only be overwritten if overwrite = true.
+     */
+    merge : function(source, dest, hasOwnProp, overwrite)
     {
       if(Util.isObject(source))
       {
         for(var i in source)
         {
-          if((!hasOwnProp || source.hasOwnProperty(i)) && !(i in dest))
+          if((!hasOwnProp || source.hasOwnProperty(i)) && (overwrite == null ? !(i in dest) : true))
           {
             dest[i] = source[i];
           }
@@ -600,6 +673,43 @@ Mojo.Util = (function(){
       }
       
       return dest;
+    },
+    
+    /**
+     * Merges the objects and any nested structures. The result is returned as a new object and source and dest are unmodified.
+     */
+    deepMerge : function(source, dest, overwrite, dontHasOwnProp)
+    {
+      var retObj = this.clone(dest);
+      var hasOwnProp = !dontHasOwnProp;
+      
+      if(Util.isObject(source) && Util.isObject(retObj))
+      {
+        for(var i in source)
+        {
+          if (!hasOwnProp || source.hasOwnProperty(i))
+          {
+            if ((Util.isObject(source[i]) && Util.isObject(retObj[i])) || (Util.isArray(retObj[i]) && Util.isArray(source[i]))) {
+              retObj[i] = this.deepMerge(source[i], retObj[i], overwrite, dontHasOwnProp);
+            }
+            else if (overwrite == null ? !(i in retObj) : true) {
+              retObj[i] = source[i];
+            }
+          }
+        }
+      }
+      else if (Util.isArray(source) && Util.isArray(retObj)) {
+        for (var i = 0; i < source.length; ++i) {
+          if ((Util.isObject(source[i]) && Util.isObject(retObj[i])) || (Util.isArray(retObj[i]) && Util.isArray(source[i]))) {
+            retObj[i] = this.deepMerge(source[i], retObj[i], overwrite, dontHasOwnProp);
+          }
+          else if (overwrite == null ? !(i in retObj) : true) {
+            retObj[i] = source[i];
+          }
+        }
+      }
+      
+      return retObj;
     },
   
     toObject : function(json, reviver)
@@ -650,9 +760,7 @@ Mojo.Util = (function(){
     {
       return Util.toJSON(obj, replacer);
     },
-    
-    
-    // FIXME : this doesn't belong here
+        
     collectFormValues : function(formId)
     {
       var keyValues = {};
@@ -717,6 +825,24 @@ Mojo.Util = (function(){
   
       return keyValues;
     },
+    
+    collectFormData : function(formId)
+    {
+    	var form = Util.isString(formId) ? document.getElementById(formId) : formId;
+    	var formData = new FormData(form);
+    	
+    	return formData;
+    },
+    
+    arrayContains : function(array, value) {
+      for (var i = 0; i < array.length; ++i) {
+        if (array[i] === value) {
+          return true;
+        }
+      }
+      
+      return false;
+    },
   
     convertMapToQueryString : function(map)
     {
@@ -733,12 +859,12 @@ Mojo.Util = (function(){
         {
           for(var i=0; i<entry.length; i++)
           {
-            params.push(encodeURIComponent(key) + "[]=" + encodeURIComponent(entry[i]));
+            params.push(this.encodeURIComponent(key) + "[]=" + this.encodeURIComponent(entry[i]));
           }
         }
         else
         {
-          params.push(encodeURIComponent(key) + "=" + encodeURIComponent(entry));
+          params.push(this.encodeURIComponent(key) + "=" + this.encodeURIComponent(entry));
         }
       }
   
@@ -746,10 +872,43 @@ Mojo.Util = (function(){
       return queryString;
     },
     
-    requireParameter : function(name, value) {
+    encodeURIComponent : function(comp) {
+      var retval = encodeURIComponent(comp);
+      
+      if (retval === "null") {
+        return "\0null\0";
+      }
+      
+      return retval;
+    },
+    
+    requireParameter : function(name, value, type) {
       if (value == null || value == undefined) {
         var ex = new com.runwaysdk.Exception("Parameter [" + name + "] is required.");
-        this.__handleException(ex);
+        throw ex;
+      }
+      
+      if (type != null) {
+        if (type === "string" && !Mojo.Util.isString(value)) {
+          var ex = new com.runwaysdk.Exception("Parameter [" + name + "] must be of type " + type + ".");
+          throw ex;
+        }
+        else if (type === "function" && !Mojo.Util.isFunction(value)) {
+          var ex = new com.runwaysdk.Exception("Parameter [" + name + "] must be of type " + type + ".");
+          throw ex;
+        }
+        else if (type === "array" && !Mojo.Util.isArray(value)) {
+          var ex = new com.runwaysdk.Exception("Parameter [" + name + "] must be of type " + type + ".");
+          throw ex;
+        }
+        else if (type === "object" && !Mojo.Util.isObject(value)) {
+          var ex = new com.runwaysdk.Exception("Parameter [" + name + "] must be of type " + type + ".");
+          throw ex;
+        }
+        else if (type instanceof com.runwaysdk.Base && !(value instanceof type)) {
+          var ex = new com.runwaysdk.Exception("Parameter [" + name + "] must be of type " + type.getMetaClass().getQualifiedName() + ".");
+          throw ex;
+        }
       }
     }
   };
