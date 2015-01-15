@@ -15,7 +15,6 @@
    */
   com.runwaysdk.Localize.defineLanguage(widgetName, {
     "username" : "Username",
-    "inactive" : "Inactive",
     "locale" : "Locale"
   });
   
@@ -33,15 +32,14 @@
       
       render : function(parent) {
         
-        var ds = new JSONDataSource({
+        var ds = new com.runwaysdk.ui.datatable.datasource.MdMethodDataSource({
           method : function(clientRequest) {
-            Util.invokeControllerAction("dss.vector.solutions.WhoIsOnline", "getUpdateJSON", [], clientRequest);
+            dss.vector.solutions.WhoIsOnlineView.getViews(clientRequest);
           },
-          columns: [
-            { header: this.localize("username") },
-            { header: this.localize("inactive") },
-            { header: this.localize("locale") }
-          ]
+          columns : [
+                     { header: this.localize("username"), queryAttr: "username" },
+                     { header: this.localize("locale"), queryAttr: "locale" }
+                    ]
         });
         this._config.dataSource = ds;
         

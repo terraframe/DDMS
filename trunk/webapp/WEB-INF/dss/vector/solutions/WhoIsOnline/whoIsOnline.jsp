@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.WhoIsOnlineViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
@@ -83,14 +84,14 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
 
 </style>
 
-<%-- <%
-    String[] types = new String[]{};
+<%
+    String[] types = new String[]{WhoIsOnlineViewDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(types));
 %>
 
-<%=Halp.loadTypes(loadables)%> --%>
+<%=Halp.loadTypes(loadables)%>
 
 <mjl:messages>
   <mjl:message />

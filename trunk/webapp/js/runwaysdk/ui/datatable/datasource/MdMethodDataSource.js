@@ -71,14 +71,21 @@
             callback.onSuccess(that._onQuerySuccess(view));
           },
           onFailure : function(ex) {
-            that.handleException(ex);
             callback.onFailure(ex);
           }
         }));
       },
       
-      _onQuerySuccess : function(view) {
-        var resultSet = view.getResultSet();
+      _onQuerySuccess : function(response) {
+        var resultSet = null;
+        if (Mojo.Util.isArray(response))
+        {
+          resultSet = response
+        }
+        else
+        {
+          resultSet = response.getResultSet();
+        }
         
         var retVal = [];
         var colArr = [];
@@ -92,7 +99,7 @@
             colArr.push(this._config.columns[i].header);
           }
           else if (queryAttr != null) {
-            var attrDTO = view.getAttributeDTO(queryAttr);
+            var attrDTO = response.getAttributeDTO(queryAttr);
             if (attrDTO == null) {
               var ex = new com.runwaysdk.Exception("[MdMethodDataSource] The type '" + this._type + "' has no attribute named '" + queryAttr + "'.");
               callback.onFailure(ex);
@@ -114,22 +121,30 @@
           var result = resultSet[i];
           
           var row = [];
-          for (var j=0; j < this._config.columns.length; ++j) {
+          for (var j=0; j < this._config.columns.length; ++j)
+          {
             var queryAttr = this._config.columns[j].queryAttr;
             var customFormatter = this._config.columns[j].customFormatter;
             
             var value = "";
-            if (customFormatter != null) {
+            if (customFormatter != null)
+            {
               value = customFormatter(result);
             }
-            else if (queryAttr != null) {
-              
-              if (queryAttr === "displayLabel") {
+            else if (queryAttr != null)
+            {
+              if (queryAttr === "displayLabel")
+              {
                 value = result.getDisplayLabel().getLocalizedValue();
               }
-              else {
+              else
+              {
                 value = result.getAttributeDTO(queryAttr).getValue();
               }
+            }
+            else
+            {
+              throw new com.runwaysdk.Exception("Columns configuration [" + j + "] must contain either a customFormatter or a queryAttr.");
             }
             
             value = value != null ? value : '';
@@ -139,7 +154,16 @@
           retVal.push(row);
         }
         
-        this.setTotalResults(view.getCount());
+        var count = null;
+        if (Mojo.Util.isArray(response))
+        {
+          count = response.length;
+        }
+        else
+        {
+          count = response.getCount();
+        }
+        this.setTotalResults(count);
         
         return retVal;
       }

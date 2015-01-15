@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1033952670)
+@com.runwaysdk.business.ClassSignature(hash = -1272792387)
 public class WhoIsOnlineControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.WhoIsOnlineController";
@@ -63,20 +63,6 @@ public class WhoIsOnlineControllerBase implements com.runwaysdk.generation.loade
   public com.runwaysdk.ClientSession getClientSession()
   {
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void getUpdateJSON() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.WhoIsOnlineController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.WhoIsOnlineController.getUpdateJSON");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failGetUpdateJSON() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.WhoIsOnlineController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.WhoIsOnlineController.failGetUpdateJSON");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

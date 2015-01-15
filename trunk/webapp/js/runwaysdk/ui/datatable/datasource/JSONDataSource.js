@@ -41,6 +41,8 @@
    *     ]
    *     
    *     In this example, column 1 is the name of the object and column 2 is its color.
+   *     
+   *     Note: Be careful when using this because it may be tough to integrate into Runway's permissions model.
    * 
    * @constructs
    * @param obj
@@ -81,7 +83,6 @@
             callback.onSuccess(that._onQuerySuccess(view));
           },
           onFailure : function(ex) {
-            that.handleException(ex);
             callback.onFailure(ex);
           }
         }));
@@ -119,31 +120,9 @@
         }
         this.setColumns(colArr);
 
-        // Calculate the length of the result set.
-        var resultLength = this._calculateNested(resultSet);
-        
-        this.setTotalResults(resultLength);
+        this.setTotalResults(resultSet.length);
         
         return resultSet;
-      },
-      
-      _calculateNested : function(array)
-      {
-        if (Mojo.Util.isArray(array))
-        {
-          var length = 0;
-
-          for (var i = 0; i < array.length; ++i)
-          {
-            length += this._calculateNested(array[i]);
-          }
-
-          return length;
-        }
-        else
-        {
-          return 1;
-        }
       }
     }
   });

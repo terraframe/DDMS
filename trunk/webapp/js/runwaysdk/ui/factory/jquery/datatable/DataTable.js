@@ -136,11 +136,9 @@
         this.appendChild(tbody);
         var tr = new Row({isHeader: false, parentTable: this});
         tbody.appendChild(tr);
-        for (var i = 0; i < headRow.getChildren().length; ++i) {
-          var td = tr.addData("Loading data from server.");
-          td.addClassName("dataTables_empty");
-          td.setAttribute("colspan", "5");
-        }
+        var td = tr.addData("Loading data from server.");
+        td.addClassName("dataTables_empty");
+        td.setAttribute("colspan", "5");
       },
       
       refresh : function(callback) {
