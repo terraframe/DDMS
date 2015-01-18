@@ -603,7 +603,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     String rollupView = " SELECT *, abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     rollupView += "     FROM percent_view\n";
     rollupView += "     WHERE depth = 0\n";
-    rollupView += " UNION\n";
+    rollupView += " UNION ALL\n";
     rollupView += " SELECT child_v.*, parent_v.final_abundance * child_v.my_share \n";
     rollupView += " FROM " + viewName + " parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." 
       + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS;
