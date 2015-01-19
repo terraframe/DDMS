@@ -190,6 +190,10 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
       if (view.getPermission() != null && view.getPermission())
       {
+        role.revokePermission(Operation.DENY_CREATE, universal.getId());
+        role.revokePermission(Operation.DENY_WRITE, universal.getId());
+        role.revokePermission(Operation.DENY_DELETE, universal.getId());
+        
         role.grantPermission(Operation.CREATE, universal.getId());
         role.grantPermission(Operation.WRITE, universal.getId());
         role.grantPermission(Operation.DELETE, universal.getId());
