@@ -101,7 +101,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
             // Don't bother to delete the node we want to end up under
             if (!l.getParentId().equals(pid))
             {
-              l.delete();
+              entity.deleteRelationship(l.getParentId());
             }
           }
         }
