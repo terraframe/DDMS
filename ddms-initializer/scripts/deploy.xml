@@ -4,47 +4,55 @@
 	<!-- =================================================================== -->
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
+	
+	<!-- IMPORTANT: This ant script should be run with a base directory set to the root of the project! -->
+	
+	<!-- Launch Properties: -->
+	<!-- mdss.root, mdss.admin -->
+	<!-- (Set these in the launch configuration) -->
+	
+	<property name="mdss.root" value="/Users/terraframe/Documents/workspace2/mdss root/trunk" />
 
-	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<property name="profile.root" value="${mdss.root}/profiles" />
 	<property name="system.password" value="mdsstest2" />
-	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};/home/jsmethie/workspace/MDSS/scripts/ant/deploy/runwayProperties.jar" />
+	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};${mdss.root}/scripts/ant/deploy/runwayProperties.jar" />
 	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
 
-	<!-- Add in AspectJ task definitions -->
-	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
-		<classpath>
-			<fileset dir="${local.lib}">
-				<include name="**/*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>
-
-
-	<!-- execution path -->
-	<path id="framework.classpath">
-		<fileset dir="${local.lib}">
-			<include name="**/*.jar" />
-		</fileset>
-		<pathelement location="${profile.root}" />
-		<pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
-		<pathelement path="/home/jsmethie/workspace/org.eclipse.swt/swt.jar" />
-		<pathelement location="${local.bin}" />
-		<pathelement location="${client.bin}" />
-		<pathelement location="${server.bin}" />
-		<pathelement location="${common.bin}" />
-	</path>
-
 	<property name="ddms-initializer.version" value="1.0.0" />
-	<property name="ddms-initializer.root" value="/home/jsmethie/workspace/ddms-initializer" />
+	<property name="ddms-initializer.root" value="${basedir}" />
 
 	<property name="ddms-initializer.lib" value="${ddms-initializer.root}/lib/" />
 	<property name="ddms-initializer.java" value="${ddms-initializer.root}/src/main/java" />
 	<property name="ddms-initializer.resources" value="${ddms-initializer.root}/src/main/resources" />
 
 	<property name="target.dir" value="${ddms-initializer.root}/target" />
-	<property name="deploy.dir" value="/home/jsmethie/workspace/applications/ddms-initializer-${ddms-initializer.version}" />
+	<property name="deploy.dir" value="${mdss.admin}/ddms-initializer-${ddms-initializer.version}" />
 
+	<!-- Add in AspectJ task definitions -->
+  <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+    <classpath>
+      <fileset dir="${local.lib}">
+        <include name="**/*.jar" />
+      </fileset>
+    </classpath>
+  </taskdef>
+
+
+  <!-- execution path -->
+  <path id="framework.classpath">
+    <fileset dir="${local.lib}">
+      <include name="**/*.jar" />
+    </fileset>
+    <pathelement location="${profile.root}" />
+    <pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
+    <pathelement path="/home/jsmethie/workspace/org.eclipse.swt/swt.jar" />
+    <pathelement location="${local.bin}" />
+    <pathelement location="${client.bin}" />
+    <pathelement location="${server.bin}" />
+    <pathelement location="${common.bin}" />
+  </path>
+	
 	<path id="ddms-initializer.classpath">
 		<fileset dir="${ddms-initializer.lib}">
 			<include name="**/*" />
@@ -90,7 +98,7 @@
 		</jar>
 	</target>
 
-	<target name="deploy" depends="package">
+	<target name="deploy" depends="package" description="Builds and deploys to the MDSSAdmin project">
 		<mkdir dir="${deploy.dir}" />
 
 		<copy todir="${deploy.dir}/lib" overwrite="true">
