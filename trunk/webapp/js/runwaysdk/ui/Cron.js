@@ -98,7 +98,7 @@
         this._minutePicker = this._generateNumberPicker(0, 59, function(index){if (index < 10) {return "0"+index;} return index; });
         this._hourPicker = this._generateNumberPicker(0, 23);
         this._dayOfWeekPicker = this._generateNumberPicker(1, 7, function(index){return CronUtil.convertDayOfWeekNumberToLocalizedWeek(index)});
-        this._dayOfWeekPicker.setValue(0);
+        this._dayOfWeekPicker.setValue(1);
         this._dayPicker = this._generateNumberPicker(1, 31, CronUtil.formatDayValue);
         this._dayPicker.setValue(1);
       },
@@ -160,12 +160,11 @@
         if (this.isRendered()) {
           if (this._cronStr == null) {
             this._onClickDisable();
+            this._writeCronHtml();
           }
           else {
             this._onClickEnable();
           }
-          
-          this._writeCronHtml();
         }
       },
       
@@ -197,12 +196,11 @@
         
         if (this._cronStr == null) {
           this._onClickDisable();
+          this._writeCronHtml();
         }
         else {
           this._onClickEnable();
         }
-        
-        this._writeCronHtml();
       },
       
       _calcCronStr : function(minute, hour, dayNum, month, dayOfTheWeek) {
@@ -232,7 +230,7 @@
         else if (everyStrName == "everyWeek") {
           minute = minute || 0;
           hour = hour || 0;
-          dayOfTheWeek = dayOfTheWeek || 0;
+          dayOfTheWeek = dayOfTheWeek || 1;
           dayNum = null;
           month = null;
         }
