@@ -735,9 +735,27 @@ var FormObjectSearchVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       {        
         var attributeName = field.getFieldMd().getFieldName();
         
-        if(this._filter(attributeName))
+        if(this._filter(attributeName) && field.isReadable())
         {
-          this.$_addField(formComponent);        
+          var evt = new RenderEditFieldEvent(formComponent, this._dl);
+              
+          // the FormObjectGenerator is the object that dispatches the event, such
+          // that calling code can listen for it.
+          this._formObjectGenerator.dispatchEvent(evt);
+              
+          // if the field was added (i.e., the default action executed) then
+          // visit the condition if one exists.
+          if(!evt.getPreventDefault())
+          {
+            this._formObjectGenerator.addFieldComponent(formComponent);
+              
+            var cond = formComponent.getField().getCondition();
+              
+            if(cond)
+            {
+              cond.accept(this);
+            }
+          }
         }
       }
     },
@@ -1117,7 +1135,7 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
     },
     _setupGeoWidget : function(geoId){
       var geoField = this.getField().getGeoField();
-    	
+      
       var geoInput = document.getElementById(this._inputId);
       geoInput.value = geoId;
       
