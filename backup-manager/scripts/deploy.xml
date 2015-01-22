@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="geo-manager" default="deploy">
+
+	<!-- =================================================================== -->
+	<!-- Set up our properties                                               -->
+	<!-- =================================================================== -->
+
+	<property name="manager.root" value="/home/jsmethie/workspace/backup-manager/" />
+	<property name="manager.version" value="1.0.0" />
+	<property name="manager.lib" value="${manager.root}/lib" />
+	<property name="manager.resources" value="${manager.root}/src/main/resources" />
+	<property name="target.dir" value="${manager.root}/target" />
+	<property name="deploy.dir" value="/home/jsmethie/workspace/MDSSAdmin/backup-manager-1.0.0" />
+
+
+	<target name="deploy">
+		<mkdir dir="${deploy.dir}" />
+
+		<copy todir="${deploy.dir}/lib" overwrite="true">
+			<fileset dir="${manager.lib}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${target.dir}">
+				<include name="**/backup-manager-${manager.version}.jar" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${deploy.dir}/classes" overwrite="true">
+			<fileset dir="${manager.resources}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+</project>
