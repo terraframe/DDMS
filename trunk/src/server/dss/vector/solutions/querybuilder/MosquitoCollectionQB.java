@@ -192,6 +192,13 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
     InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
     
+    // Taxon is a special case that is selected from the sub collection
+    if (subCollectionQuery == null && valueQuery.hasSelectableRef("taxon"))
+    {
+      subCollectionQuery = new SubCollectionQuery(valueQuery);
+      queryMap.put(SubCollection.CLASS, subCollectionQuery);
+    }
+    
     // Species term restrictions must happen at the end, which we do in setTermCriteria. Remove the restriction
     //  so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
     if (this.getTermRestrictions().containsKey("taxon"))
