@@ -530,7 +530,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       iter.close();
 
-      buildAllPathsFast();
+      if (this.isSingleLeafNode())
+      {
+        deleteLeafFromAllPaths(this.getId());
+      }
+      else
+      {
+        buildAllPathsFast();
+      }
     }
   }
 
