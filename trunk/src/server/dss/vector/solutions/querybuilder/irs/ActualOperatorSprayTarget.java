@@ -400,6 +400,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setHouseholds(Alias alias)
   {
+    this.irsQB.addChildAggregate(alias);
     return set(householdSprayStatusTable, householdsCol, alias);
   }
 
