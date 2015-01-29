@@ -11,6 +11,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
@@ -55,6 +56,11 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     if (operator != null)
     {
       operatorId = operator.getId();
+    }
+    
+    if (this.getSprayMethod() == null || this.getSprayMethod().equals(""))
+    {
+      throw new RequiredAttributeException("SprayMethod is required.");
     }
 
     OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
@@ -132,13 +138,15 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setVerandasRefused(this.getVerandasRefused());
       view.setCattleShedsRefused(this.getCattleShedsRefused());
       view.setWrongSurface(this.getWrongSurface());
+      if (this.getStructureType() != null && !this.getStructureType().equals("")) { view.setStructureType(Term.getByTermId(this.getStructureType())); }
+      if (this.getReasonNotSprayed() != null && !this.getReasonNotSprayed().equals("")) { view.setReasonNotSprayed(Term.getByTermId(this.getReasonNotSprayed())); }
       view.apply();
     }
   }
 
   private boolean hasHouseholdSprayValues()
   {
-    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, NUMBEROFPEOPLE, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE };
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, NUMBEROFPEOPLE, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE, SURFACETYPE, REASONNOTSPRAYED };
 
     for (String attributeName : attributeNames)
     {
@@ -231,6 +239,9 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(VERANDASOTHER);
     list.add(CATTLESHEDSOTHER);
     list.add(WRONGSURFACE);
+    list.add(REASONNOTSPRAYED);
+    list.add(SURFACETYPE);
+    
     return list;
   }
 

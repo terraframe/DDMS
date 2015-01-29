@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1717404889)
+@com.runwaysdk.business.ClassSignature(hash = 1789864725)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -404,6 +404,24 @@ public  abstract  class OperatorSprayExcelViewQueryBase extends com.runwaysdk.qu
 
   }
  
+  public com.runwaysdk.query.SelectableChar getReasonNotSprayed()
+  {
+    return getReasonNotSprayed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReasonNotSprayed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.REASONNOTSPRAYED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReasonNotSprayed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.REASONNOTSPRAYED, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getReceived()
   {
     return getReceived(null);
@@ -635,6 +653,24 @@ public  abstract  class OperatorSprayExcelViewQueryBase extends com.runwaysdk.qu
   public com.runwaysdk.query.SelectableChar getStructureId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.STRUCTUREID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getStructureType()
+  {
+    return getStructureType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getStructureType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.STRUCTURETYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getStructureType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.STRUCTURETYPE, alias, displayLabel);
 
   }
  
