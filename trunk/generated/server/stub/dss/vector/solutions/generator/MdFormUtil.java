@@ -60,6 +60,7 @@ import com.runwaysdk.dataaccess.io.XMLParseException;
 import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
+import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
@@ -94,6 +95,7 @@ import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
+import com.runwaysdk.system.metadata.MdForm;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebAttributeQuery;
@@ -130,6 +132,7 @@ import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
+import dss.vector.solutions.form.business.HumanBloodIndex;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
@@ -137,8 +140,6 @@ import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.BrowserField;
-import dss.vector.solutions.ontology.BrowserRoot;
-import dss.vector.solutions.ontology.FieldRoot;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -189,6 +190,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static Business persistObject(Business busObj, String mutipleTermJSON, String singleTermGridJSON)
   {
     String sessionId = Session.getCurrentSession().getId();
+    
+    // A quick hack for ticket 3188. We can extend this mdForm stuff with listeners or something later if we find ourselves doing this a lot.
+    if (busObj.hasAttribute(HumanBloodIndex.COLLECTIONID))
+    {
+      new CollectionIdValidationListener().beforeApply(busObj);
+    }
+    
     busObj.apply();
 
     try
@@ -1325,6 +1333,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return listeners;
   }
+  
+  public static List<ImportApplyListener> getImportApplyListeners(MdFormDAOIF mdForm)
+  {
+    List<ImportApplyListener> listeners = new LinkedList<ImportApplyListener>();
+
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField.getFieldName().equals(HumanBloodIndex.COLLECTIONID)) // quick hack for ticket 3188
+      {
+        listeners.add(new CollectionIdValidationListener());
+      }
+    }
+
+    return listeners;
+  }
 
   public static void addGridContexts(MdWebFormDAOIF mdForm, ContextBuilderFacade builder)
   {
@@ -1549,6 +1574,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       iterator.close();
     }
+  }
+  
+  /**
+   * MdMethod
+   * Returns the id of the MdForm specified by formKey.
+   * 
+   * @param formKey The key of the MdForm.
+   * @return The id of the specified MdForm.
+   */
+  public static String getFormByKey(String formKey)
+  {
+    return MdForm.getByKey(formKey).getId();
   }
 
   /**

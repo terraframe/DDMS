@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1168382064)
+@com.runwaysdk.business.ClassSignature(hash = -1337219319)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -1168382064;
+  private static final long serialVersionUID = -1337219319;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -255,6 +255,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{type};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getForm", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getFormByKey(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String formKey)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{formKey};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getFormByKey", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String getFormTree(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFormId)

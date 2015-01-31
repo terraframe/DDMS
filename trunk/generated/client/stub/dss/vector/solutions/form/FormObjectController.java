@@ -96,6 +96,12 @@ public class FormObjectController extends FormObjectControllerBase implements co
   {
     super(req, resp, isAsynchronous);
   }
+  
+  @Override
+  public void formGeneratorKey(String key) throws IOException, ServletException
+  {
+    formGenerator(MdFormUtilDTO.getFormByKey(this.getClientRequest(), key));
+  }
 
   @Override
   public void formGenerator(String mdFormId) throws IOException, ServletException

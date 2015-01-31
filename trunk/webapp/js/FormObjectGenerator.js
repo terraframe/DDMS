@@ -284,6 +284,12 @@ var PostRenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.PostRend
     defaultAction : function() {
       this._fieldComponent.forceValueChangeEvent();
       this._fieldComponent.postRender(true);
+      
+      if (this._fieldComponent.getField().getFieldName() === "collectionId")
+      {
+        var input = this._fieldComponent.getContentNode().getId();
+        MDSS.collectionSearch({search:input, concrete:'collectionId', handler:MDSS.ValidationBridge.getInstance(), type:'dss.vector.solutions.entomology.MosquitoCollection'});
+      }
     }
   }
 });

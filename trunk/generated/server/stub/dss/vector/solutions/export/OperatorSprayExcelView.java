@@ -11,6 +11,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.PersonView;
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -138,8 +139,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setVerandasRefused(this.getVerandasRefused());
       view.setCattleShedsRefused(this.getCattleShedsRefused());
       view.setWrongSurface(this.getWrongSurface());
-      if (this.getStructureType() != null && !this.getStructureType().equals("")) { view.setStructureType(Term.getByTermId(this.getStructureType())); }
-      if (this.getReasonNotSprayed() != null && !this.getReasonNotSprayed().equals("")) { view.setReasonNotSprayed(Term.getByTermId(this.getReasonNotSprayed())); }
+      view.setStructureType(Term.validateByDisplayLabel(this.getStructureType(), HouseholdSprayStatusView.getStructureTypeMd()));
+      view.setReasonNotSprayed(Term.validateByDisplayLabel(this.getReasonNotSprayed(), HouseholdSprayStatusView.getReasonNotSprayedMd()));
       view.apply();
     }
   }

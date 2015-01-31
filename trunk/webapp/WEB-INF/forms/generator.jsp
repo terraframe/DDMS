@@ -44,6 +44,8 @@
 
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
+
 <jsp:include page="../templates/header.jsp" />
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
@@ -86,12 +88,47 @@ GeoEntityTreeController.CLASS,
 GeoEntityDTO.CLASS,
 GeoEntityViewDTO.CLASS,
 
-QueryBuilderDTO.CLASS
+QueryBuilderDTO.CLASS,
+
+MosquitoCollectionViewDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
 %>
+
+Mojo.Meta.newClass("MDSS.ValidationBridge", {
+
+  IsSingleton : true,
+  
+  Instance : {
+  
+    initialize : function()
+    {
+    },
+    
+    setHandler : function(handler) {
+      this._handler = handler;
+    },
+
+    handleEvent : function(evt){      
+      if(this._handler != null)
+      {
+        if(evt instanceof dss.vector.solutions.ontology.TermSelectedEvent)
+        {        
+          if(!evt.getOnOpen())
+          {
+            this._handler.validate(evt);          
+          }
+        }
+        else
+        {        
+          this._handler.validate(evt);
+        }
+      }
+    }    
+  },
+});
 
 YAHOO.util.Event.onDOMReady(function(){
   var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}', ${fields}, ${viewAllFields}, ${searchFields}, ${canDeleteAll});

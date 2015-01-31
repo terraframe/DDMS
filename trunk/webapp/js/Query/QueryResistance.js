@@ -49,10 +49,13 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       //we overide the xmlToValueQueryClass since it is not the same as the mainQueryClass for this page 
       this._xmlToValueQueryClass = dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
       
-      var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
-      picker.setSprayTargetAllowed(false);
- 
+        var picker = this.getGeoPicker();
+        picker.setPolitical(true);
+        picker.setPopulated(false);
+        picker.setSprayTargetAllowed(false);
+        picker.setUrban(false);
+        picker.addExtraUniversal('dss.vector.solutions.geo.generated.CollectionSite');
+        picker.addExtraUniversal('dss.vector.solutions.geo.generated.SentinelSite');
       },
       
       _getBrowserRootClass : function(attribute)

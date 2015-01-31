@@ -1,0 +1,62 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdWebForm name="dss.vector.solutions.form.HumanBloodIndex"
+          mdClass="dss.vector.solutions.form.business.HumanBloodIndex"
+          formName="HBI"
+          label="HBI">
+        <fields>
+          <char name="oid" label="HBI assay ID" displayLength="16" maxLength="255" order="0" mdAttribute="oid" unique="true" required="true" />
+          <char name="collectionId" label="Collection ID" displayLength="16" maxLength="255" order="1" mdAttribute="collectionId" unique="true" required="true" removable="false" showOnSearch="true" />
+          <!-- <reference name="collectionId" label="Collection ID" mdAttribute="collectionId" order="1" required="true"/> -->
+        </fields>
+      </mdWebForm>
+      
+      <mdBusiness name="dss.vector.solutions.form.business.HumanBloodIndex"
+          label="Human Blood Index"
+          description="Denotes the amount of human blood found in a collection"
+          generateController="false">
+        <attributes>
+          <char name="oid" label="HBI assay ID" size="255" indexType="unique index" />
+          <reference name="disease" label="Disease" type="dss.vector.solutions.general.Disease" />
+          <char name="collectionId" label="Collection ID" size="255" indexType="unique index" removable="false" required="true" />
+          <!-- <reference name="collectionId" label="Collection ID" required="true" type="dss.vector.solutions.entomology.MosquitoCollection"/> -->
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update>
+      <!-- <mdController
+         name="dss.vector.solutions.query.QueryController">
+        <create>
+          <mdAction name="queryHBI" label="Query HBI" description="Query human blood index." />
+        </create>
+      </mdController> -->
+      
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="getFormByKey" label="getFormByKey" static="true" returnType="java.lang.String">
+            <mdParameter name="formKey" label="formKey" order="0" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdUtil>
+      
+      <mdController
+         name="dss.vector.solutions.form.FormObjectController">
+        <create>
+          <mdAction name="formGeneratorKey" label="formGeneratorKey">
+            <mdParameter name="formKey" order="0" type="java.lang.String" label="formKey"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.form.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdWebForm"/>
+      <object key="dss.vector.solutions.form.business.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdBusiness"/>
+      <object key="dss.vector.solutions.query.QueryController.queryHBI" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getFormByKey" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.form.FormObjectController.formGeneratorKey" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1471404304)
+@com.runwaysdk.business.ClassSignature(hash = 664044937)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1471404304;
+  private static final long serialVersionUID = 664044937;
   
   public MdFormUtilBase()
   {
@@ -29,10 +29,10 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.MdFormUtil.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()
@@ -220,6 +220,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static com.runwaysdk.system.metadata.MdWebForm getForm(java.lang.String type)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String getFormByKey(java.lang.String formKey)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

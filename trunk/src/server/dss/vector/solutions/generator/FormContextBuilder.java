@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.UnexpectedTypeException;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilder;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
+import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.io.excel.MdFieldFilter;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -54,13 +55,19 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
 
     List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
     List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
-
+    List<ImportApplyListener> applyListeners = MdFormUtil.getImportApplyListeners(mdForm);
+ 
     for (DynamicGeoColumnListener listener : geoListeners) 
     {
       context.addListener(listener);
     }
 
     for (MultiTermListener listener : multiTermListeners)
+    {
+      context.addListener(listener);
+    }
+    
+    for (ImportApplyListener listener : applyListeners)
     {
       context.addListener(listener);
     }

@@ -42,10 +42,14 @@ Mojo.Meta.newClass('MDSS.QueryEntomology', {
       //we overide the xmlToValueQueryClass since it is not the same as the mainQueryClass for this page 
       this._xmlToValueQueryClass = dss.vector.solutions.entomology.InfectionAssay.CLASS;
       
-      var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
+      var picker = this.getGeoPicker();
+      picker.setPolitical(true);
+      picker.setPopulated(false);
       picker.setSprayTargetAllowed(false);
- 
+      picker.setUrban(false);
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.CollectionSite');
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.SentinelSite');
+      
       }
 				
       

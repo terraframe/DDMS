@@ -1516,10 +1516,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Collects and returns all GeoHierarchy objects (parents and children) that are of the type of GeoEntity of the given id. The collection is restricted by the political and sprayZoneAllowed flag on each GeoHierarchy.
    * 
-   * 
    * @param rootGeoEntityId
-   * @param political
-   * @param sprayZoneAllowed
+   * @param flags:
+   *             flags[0] = political
+   *             flags[1] = sprayZoneAllowed
+   *             flags[2] = urban
    * @param extraUniversals
    *          Any extra univerals to append to the final list.
    * @return

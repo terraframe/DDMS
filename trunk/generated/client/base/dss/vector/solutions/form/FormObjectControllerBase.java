@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 1398041162)
+@com.runwaysdk.business.ClassSignature(hash = -655385477)
 public class FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.FormObjectController";
@@ -161,6 +161,20 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failFormGenerator");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:formKey", post=false)
+  public void formGeneratorKey(java.lang.String formKey) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.formGeneratorKey");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:formKey", post=false)
+  public void failFormGeneratorKey(java.lang.String formKey) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failFormGeneratorKey");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mdFormId", post=true)
