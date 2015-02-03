@@ -26,7 +26,7 @@
       <label> ${view.stockDepotMd.displayLabel} </label>
     </dt>
     <dd>
-      <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" value="${geoId}" filter="${StockDepot}"  />      
+      <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" value="${geoId}" /> <!-- filter="${StockDepot}" -->      
     </dd>
     <dt>
       <label> ${view.itemMd.displayLabel} </label>

@@ -23,7 +23,7 @@
     </dd>
     <dt><label> ${view.sprayZoneMd.displayLabel} </label></dt>
     <dd>
-      <mdss:geo param="geoId" concrete="false" value="${item.sprayZone}" political="false" spray="true" filter="${SprayZone}" />
+      <mdss:geo param="geoId" concrete="false" value="${item.sprayZone}" political="false" spray="true" /> <!-- filter="${SprayZone}" -->
     </dd>
     <c:if test="${view.isTeamLeaderReadable}">
       <dt><label> <mdss:localize key="Spray_Team_Leader" /> </label></dt>
