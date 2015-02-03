@@ -181,7 +181,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
   }
-
+  
+  public static com.runwaysdk.system.metadata.MdBusiness getMdBusinessByType(java.lang.String bizType)
+  {
+    return MdBusiness.getMdBusiness(bizType);
+  }
+  
   /**
    * Creates or updates an existing
    * 

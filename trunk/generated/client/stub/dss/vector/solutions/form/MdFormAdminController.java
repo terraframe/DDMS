@@ -59,6 +59,7 @@ import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
 import com.runwaysdk.system.metadata.MdWebNumberDTO;
 import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
+import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 

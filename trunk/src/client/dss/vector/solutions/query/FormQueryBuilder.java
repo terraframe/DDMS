@@ -17,6 +17,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDTO;
+import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdRelationshipDTO;
 import com.runwaysdk.system.metadata.MdWebAttributeDTO;
@@ -29,6 +30,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
@@ -99,7 +101,7 @@ public class FormQueryBuilder implements Reloadable
 
     this.queryList = queryList;
   }
-
+  
   public void addForm(MdWebFormDTO form, String groupName)
   {
     MdClassDTO formMdClass = form.getFormMdClass();
@@ -126,11 +128,19 @@ public class FormQueryBuilder implements Reloadable
     group.setGroup(groupName);
 
     this.groups.add(group);
+    
+    // If the form has an attribute named 'collectionId' then we join on MosquitoCollection
+    boolean hasCollectionId = false;
 
     for (MdWebFieldDTO field : readableFields)
     {
       String fieldName = field.getFieldName();
       String fieldLabel = field.getDisplayLabel().getValue();
+      
+      if (fieldName.equals("collectionId"))
+      {
+        hasCollectionId = true;
+      }
 
       MdAttributeConcreteDTO mdAttribute = readableFieldMap.get(field);
       String attributeName = mdAttribute.getAttributeName();
@@ -211,8 +221,39 @@ public class FormQueryBuilder implements Reloadable
         new SelectableOptionFactory(group, form.getFormName()).create(mdAttribute);
       }
     }
+    
+    if (hasCollectionId)
+    {
+      addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName);
+    }
   }
 
+  public void addType(MdBusinessDTO type, String groupName)
+  {
+    String classType = type.getPackageName() + "." + type.getTypeName();
+
+    if (this.mainType == null)
+    {
+      this.mainType = classType;
+    }
+
+    this.typesToLoad.add(classType);
+
+    List<? extends MdAttributeConcreteDTO> attrs = this.filterReadable(type.getAllAttribute(), classType);
+
+    SelectableGroup group = new SelectableGroup();
+    group.setClassType(classType);
+    group.setLabel(type.getDisplayLabel().getValue());
+    group.setGroup(groupName);
+
+    this.groups.add(group);
+
+    for (MdAttributeConcreteDTO attr : attrs)
+    {
+      new SelectableOptionFactory(group, groupName).create(attr);
+    }
+  }
+  
   private Map<MdWebFieldDTO, MdAttributeConcreteDTO> getReadableFieldMap(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
   {
     // use a linked hash map to ensure order is preserved. This is a little hacky. (maybe rework the data structures?)
@@ -237,6 +278,29 @@ public class FormQueryBuilder implements Reloadable
     }
 
     return map;
+  }
+  
+  private List<MdAttributeConcreteDTO> filterReadable(List<? extends MdAttributeDTO> attrs, String classType)
+  {
+    Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
+    
+    // use a linked hash map to ensure order is preserved. This is a little hacky. (maybe rework the data structures?)
+    List<MdAttributeConcreteDTO> list = new LinkedList<MdAttributeConcreteDTO>();
+
+    for (MdAttributeDTO attr : attrs)
+    {
+      if (attr instanceof MdAttributeConcreteDTO)
+      {
+        MdAttributeConcreteDTO mdAttributeConcrete = (MdAttributeConcreteDTO) attr;
+
+        if (readableAttributeNames.contains(mdAttributeConcrete.getAttributeName()))
+        {
+          list.add(mdAttributeConcrete);
+        }
+      }
+    }
+
+    return list;
   }
 
   public void populateRequest(HttpServletRequest req)

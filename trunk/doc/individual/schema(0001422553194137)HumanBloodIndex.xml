@@ -49,6 +49,10 @@
             <mdParameter name="mdFields" label="mdFields" order="2" type="com.runwaysdk.system.metadata.MdWebField[]"/>
             <mdParameter name="mdAttrs" label="mdAttrs" order="3" type="com.runwaysdk.system.metadata.MdAttributeConcrete[]"/>
           </mdMethod>
+          
+          <mdMethod name="getMdBusinessByType" label="getMdBusinessByType" static="true" returnType="com.runwaysdk.system.metadata.MdBusiness">
+            <mdParameter name="bizType" label="bizType" order="1" type="java.lang.String"/>
+          </mdMethod>
         </create>
       </mdUtil>
       
@@ -79,6 +83,7 @@
       <object key="dss.vector.solutions.form.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdWebForm"/>
       <object key="dss.vector.solutions.form.business.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdBusiness"/>
       <object key="dss.vector.solutions.generator.MdFormUtil.getFormByKey" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getMdBusinessByKey" type="com.runwaysdk.system.metadata.MdMethod"/>
       <object key="dss.vector.solutions.generator.MdFormUtil.clone" type="com.runwaysdk.system.metadata.MdMethod"/>
       <object key="dss.vector.solutions.form.MdFormAdminController.viewClone" type="com.runwaysdk.system.metadata.MdAction"/>
       <object key="dss.vector.solutions.form.MdFormAdminController.clone" type="com.runwaysdk.system.metadata.MdAction"/>
