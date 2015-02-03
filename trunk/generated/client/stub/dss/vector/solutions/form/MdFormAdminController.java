@@ -3,6 +3,7 @@ package dss.vector.solutions.form;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,9 +15,14 @@ import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
+import com.runwaysdk.business.ComponentDTOIFCopier;
+import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.format.AbstractFormatFactory;
@@ -29,6 +35,12 @@ import com.runwaysdk.system.metadata.DoubleConditionDTO;
 import com.runwaysdk.system.metadata.FieldConditionDTO;
 import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeDTO;
+import com.runwaysdk.system.metadata.MdAttributeLocalCharacterDTO;
+import com.runwaysdk.system.metadata.MdAttributeLocalDTO;
+import com.runwaysdk.system.metadata.MdAttributeLocalTextDTO;
+import com.runwaysdk.system.metadata.MdAttributeStructDTO;
+import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdWebAttributeDTO;
@@ -77,6 +89,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String FETCH_FORM_FIELDS_JSP      = JSP_DIR + "fetchFormFields.jsp";
 
   public static final String EDIT_FORM_ATTRIBUTES_JSP   = JSP_DIR + "editFormAttributes.jsp";
+  
+  public static final String CLONE_FORM_JSP   = JSP_DIR + "cloneForm.jsp";
 
   public static final String CONFIRM_DELETE_FORM_JSP    = JSP_DIR + "editFormAttributes.jsp";
 
@@ -178,8 +192,25 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
       req.setAttribute("form", form);
-
+      
       this.req.getRequestDispatcher(EDIT_FORM_ATTRIBUTES_JSP).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void viewClone(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
+      req.setAttribute("form", form);
+
+      this.req.getRequestDispatcher(CLONE_FORM_JSP).forward(req, resp);
     }
     catch (Throwable t)
     {
@@ -653,7 +684,91 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+  
+  private String[] skipAttrs = new String[]{
+      MdBusinessDTO.CACHEALGORITHM, MdBusinessDTO.TABLENAME, MdBusinessDTO.KEYNAME,
+      MdBusinessDTO.BASECLASS, MdBusinessDTO.BASESOURCE, MdBusinessDTO.DTOCLASS, MdBusinessDTO.DTOSOURCE, MdBusinessDTO.STUBCLASS, MdBusinessDTO.STUBDTOCLASS, MdBusinessDTO.STUBDTOSOURCE, MdBusinessDTO.STUBSOURCE,
+      MdAttributeConcreteDTO.GETTERVISIBILITY, MdAttributeConcreteDTO.INDEXTYPE, MdAttributeConcreteDTO.INDEXNAME, MdAttributeConcreteDTO.COLUMNNAME,
+      MdAttributeConcreteDTO.DEFININGMDCLASS, MdAttributeConcreteDTO.ENTITYDOMAIN, MdAttributeConcreteDTO.OWNER, MdAttributeConcreteDTO.SETTERVISIBILITY, MdAttributeConcreteDTO.SITEMASTER
+    };
+  @Override
+  public void clone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      MdWebFormDTO clonedForm = (MdWebFormDTO) ComponentDTOIFCopier.create(getClientRequest(), form, true, true);
+      modifyAttrs(clonedForm);
+      
+      List<MdFieldDTO> clonedFields = new ArrayList<MdFieldDTO>();
+      List<? extends MdFieldDTO> fields = form.getAllMdFields();
+      for (MdFieldDTO field : fields)
+      {
+        MdFieldDTO clonedField = ((MdFieldDTO) ComponentDTOIFCopier.create(getClientRequest(), field, true, true));
+        modifyAttrs(clonedField);
+        clonedFields.add(clonedField);
+      }
+      
+      List<MdAttributeConcreteDTO> clonedAttrs = new ArrayList<MdAttributeConcreteDTO>();
+      List<? extends MdAttributeDTO> attrs = form.getFormMdClass().getAllAttribute();
+      for (MdAttributeDTO attr : attrs)
+      {
+        if (attr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+              !ArrayUtils.contains(skipAttrs, attr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+            )
+        {
+          MdAttributeConcreteDTO clonedAttr = ((MdAttributeConcreteDTO) ComponentDTOIFCopier.create(getClientRequest(), attr, true, true));
+          modifyAttrs(clonedAttr);
+          clonedAttrs.add(clonedAttr);
+        }
+      }
+      
+      MdClassDTO clonedBiz = (MdClassDTO) ComponentDTOIFCopier.create(getClientRequest(), form.getFormMdClass(), true, true);
+      modifyAttrs(clonedBiz);
+      
+      MdWebFormDTO updatedForm = MdFormUtilDTO.clone(this.getClientRequest(), clonedForm, clonedBiz, clonedFields.toArray(new MdWebFieldDTO[clonedFields.size()]), clonedAttrs.toArray(new MdAttributeConcreteDTO[clonedAttrs.size()]));
+      
+      this.fetchFormAttributes(updatedForm.getId());
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  /**
+   * Sets all the values to modified so that they'll be sent to the server.
+   */
+  private void modifyAttrs(MutableDTO dto)
+  {
+    ComponentDTOFacade.setCommonProperties(true, dto.isReadable(), dto.isWritable(), true, dto.toString(), dto);
+    
+    List<String> attrs = dto.getAttributeNames();
+    for (String attr : attrs)
+    {
+      if (!ArrayUtils.contains(skipAttrs, attr))
+      {
+        dto.setValue(attr, dto.getValue(attr));
+        
+        if (ArrayUtils.contains(new String[]{MdAttributeLocalCharacterDTO.CLASS, MdAttributeStructDTO.CLASS, MdAttributeLocalDTO.CLASS, MdAttributeLocalTextDTO.CLASS}, dto.getAttributeType(attr)))
+        {
+          modifyAttrs(ComponentDTOFacade.getAttributeStructDTO(dto, attr).getStructDTO());
+        }
+      }
+    }
+  }
 
+  @Override
+  public void failViewClone(String id) throws IOException
+  {
+    resp.sendError(500);
+  }
+  
+  @Override
+  public void failClone(MdWebFormDTO form) throws IOException, ServletException
+  {
+    req.setAttribute("item", form);
+    render("editComponent.jsp");
+  }
+  
   @Override
   public void failUpdate(MdWebFormDTO form) throws IOException, ServletException
   {

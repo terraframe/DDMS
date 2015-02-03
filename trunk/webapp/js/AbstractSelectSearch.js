@@ -771,6 +771,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       // the root won't have a default root entry
       var firstInd = selectIndex == 0 ? 0 : this._getStartIndex();
       var firstEntry = select.options[firstInd];
+      
       var geoEntityView = this._geoEntityViewCache[firstEntry.id];
       this._notifySelectHandler(geoEntityView, true);
     },

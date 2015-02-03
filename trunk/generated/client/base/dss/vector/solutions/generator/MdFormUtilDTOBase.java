@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1337219319)
+@com.runwaysdk.business.ClassSignature(hash = -1814160089)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -1337219319;
+  private static final long serialVersionUID = -1814160089;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm"};
     Object[] _parameters = new Object[]{mdForm};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "apply", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebFormDTO clone(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFormDTO mdForm, com.runwaysdk.system.metadata.MdClassDTO mdClass, com.runwaysdk.system.metadata.MdWebFieldDTO[] mdFields, com.runwaysdk.system.metadata.MdAttributeConcreteDTO[] mdAttrs)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm", "com.runwaysdk.system.metadata.MdClass", "[Lcom.runwaysdk.system.metadata.MdWebField;", "[Lcom.runwaysdk.system.metadata.MdAttributeConcrete;"};
+    Object[] _parameters = new Object[]{mdForm, mdClass, mdFields, mdAttrs};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "clone", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

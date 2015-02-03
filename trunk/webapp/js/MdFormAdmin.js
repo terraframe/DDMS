@@ -73,6 +73,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var deleteB = Mojo.Util.bind(this, this.confirmDeleteForm);
       this._MdFormAdminController.setDeleteListener(deleteB);
       
+      var viewCloneB = Mojo.Util.bind(this, this.viewCloneListener);
+      this._MdFormAdminController.setViewCloneListener(viewCloneB);
+      
+      var cloneB = Mojo.Util.bind(this, this.cloneListener);
+      this._MdFormAdminController.setCloneListener(cloneB);
+      
       var editB = Mojo.Util.bind(this, this.requestEdit);
       this._MdFormAdminController.setEditFormAttributesListener(editB);
       
@@ -1094,7 +1100,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
     },
-    requestEdit : function()
+    viewCloneListener : function()
     {
       var that = this;
       var request = new MDSS.Request({
@@ -1107,7 +1113,26 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       });
       
-      this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
+      this._MdFormAdminController.viewClone(request, this._currentMdFormId);
+    },
+    cloneListener : function(form)
+    {
+      var that = this;
+      var display = form['form.displayLabel'];
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+          eval(executable);
+          
+          that._tree.getRoot().children[0].setHtml(display);
+          that.existingForms();
+        }
+      });
+      
+      return request;
     },
     requestExport : function()
     {
@@ -1120,11 +1145,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       var that = this;
       var request = new MDSS.Request({        
-    	onMdFormHasInstancesException : function(e)
-    	{
-    	  new MDSS.ErrorModal(e.getLocalizedMessage());
-    	},
-    	onConfirmDeleteMdFormException : function(e)
+      	onMdFormHasInstancesException : function(e)
+      	{
+      	  new MDSS.ErrorModal(e.getLocalizedMessage());
+      	},
+      	onConfirmDeleteMdFormException : function(e)
         {
           var wrapperDiv = that._Factory.newElement('div');
           

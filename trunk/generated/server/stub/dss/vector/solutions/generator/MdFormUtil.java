@@ -47,6 +47,7 @@ import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
+import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -88,6 +89,7 @@ import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
+import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeIndices;
@@ -1023,6 +1025,54 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
 
     return definedAttributes.toArray(new MdAttributeConcrete[definedAttributes.size()]);
+  }
+  
+  @Transaction
+  public static com.runwaysdk.system.metadata.MdWebForm clone(MdWebForm mdForm, MdClass mdClass, MdWebField[] fields, MdAttributeConcrete[] mdAttrs)
+  {
+    InstallProperties.validateMasterOperation();
+    
+    String typeName = GeoHierarchy.getSystemName(mdForm.getFormName(), "Business", true);
+    if (typeName == null || typeName.trim().length() == 0)
+    {
+      throw new FormNameNotBlankException();
+    }
+    mdClass.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
+    mdClass.setTypeName(typeName);
+    mdClass.apply();
+    mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
+    mdForm.setTypeName(typeName);
+    mdForm.setFormMdClass(mdClass);
+    mdForm.apply();
+    
+    for (MdAttributeConcrete attr : mdAttrs)
+    {
+      attr.setDefiningMdClass(mdClass);
+      attr.apply();
+    }
+    
+    for (MdWebField field : fields)
+    {
+      field.setDefiningMdForm(mdForm);
+      if (field instanceof MdWebAttribute)
+      {
+        boolean found = false;
+        for (int i = 0; i < mdAttrs.length; ++i)
+        {
+          if (mdAttrs[i].getAttributeName().equals(field.getFieldName()))
+          {
+            ((MdWebAttribute)field).setDefiningMdAttribute(mdAttrs[i]);
+            found = true;
+          }
+        }
+        if (!found) { throw new DataNotFoundException("There is no corresponding MdAttribute for the MdWebField [" + field.getKeyName() + "].", (MetadataDAOIF) field); }
+      }
+      field.apply();
+    }
+    
+    new FormSystemURLBuilder(mdForm).generate();
+    
+    return mdForm;
   }
 
   @Transaction
