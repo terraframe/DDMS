@@ -35,7 +35,7 @@
           <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.form.MdFormAdminController.delete.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.delete.button"/>
 			    <mdss:localize key="Export" var="Localized_Export" />
           <mjl:command value="${Localized_Export}" action="dss.vector.solutions.form.MdFormAdminController.exportDefinition.mojo" name="export.button"/>
-          <c:if test="${form.keyName != "dss.vector.solutions.form.FormHousehold" && form.keyName != "dss.vector.solutions.form.FormSurvey" && form.keyName != "dss.vector.solutions.form.FormPerson" && form.keyName != "dss.vector.solutions.form.FormBedNet"}">
+          <c:if test="${form.keyName != \"dss.vector.solutions.form.FormHousehold\" && form.keyName != \"dss.vector.solutions.form.FormSurvey\" && form.keyName != \"dss.vector.solutions.form.FormPerson\" && form.keyName != \"dss.vector.solutions.form.FormBedNet\"}">
             <mdss:localize key="Clone" var="Localized_Clone" />
             <mjl:command value="${Localized_Clone}" action="dss.vector.solutions.form.MdFormAdminController.viewClone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.viewClone.button"/>
           </c:if>
