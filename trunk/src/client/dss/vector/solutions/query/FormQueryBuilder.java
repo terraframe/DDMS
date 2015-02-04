@@ -30,6 +30,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
@@ -224,11 +225,11 @@ public class FormQueryBuilder implements Reloadable
     
     if (hasCollectionId)
     {
-      addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName);
+      addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName, 0);
     }
   }
 
-  public void addType(MdBusinessDTO type, String groupName)
+  public void addType(MdBusinessDTO type, String groupName, Integer insertIndex)
   {
     String classType = type.getPackageName() + "." + type.getTypeName();
 
@@ -246,11 +247,21 @@ public class FormQueryBuilder implements Reloadable
     group.setLabel(type.getDisplayLabel().getValue());
     group.setGroup(groupName);
 
-    this.groups.add(group);
+    if (insertIndex == null)
+    {
+      this.groups.add(group);
+    }
+    else
+    {
+      this.groups.add(insertIndex, group);
+    }
 
     for (MdAttributeConcreteDTO attr : attrs)
     {
-      new SelectableOptionFactory(group, groupName).create(attr);
+      if (!attr.getAttributeName().equals(MosquitoCollection.DISEASE))
+      {
+        new SelectableOptionFactory(group, groupName).create(attr);
+      }
     }
   }
   

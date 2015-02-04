@@ -6,10 +6,14 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AmbiguousAttributeException;
+import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -37,7 +41,6 @@ public class TypeQB extends AbstractQB implements Reloadable
   {
     return this.auditClass;
   }
-
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
@@ -62,7 +65,36 @@ public class TypeQB extends AbstractQB implements Reloadable
         QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
 
         valueQuery.FROM(query.getMdClassIF().getTableName(), query.getTableAlias());
-
+        
+        if (queryMap.containsKey(MosquitoCollection.CLASS))
+        {
+          GeneratedEntityQuery mosQ = queryMap.get(MosquitoCollection.CLASS);
+          GeneratedEntityQuery typeQ = null;
+          for (String key : queryMap.keySet())
+          {
+            if (!key.equals(MosquitoCollection.CLASS))
+            {
+              typeQ = queryMap.get(key);
+              break;
+            }
+          }
+          
+          Attribute mosQcolId = null;
+          Attribute typeQcolId = null;
+          try {
+            mosQcolId = mosQ.get(MosquitoCollection.COLLECTIONID);
+            valueQuery.SELECT(mosQcolId);
+          }
+          catch (AmbiguousAttributeException e) { }
+          try {
+            typeQcolId = typeQ.get(MosquitoCollection.COLLECTIONID);
+            valueQuery.SELECT(typeQcolId);
+          }
+          catch (AmbiguousAttributeException e) {}
+          
+          valueQuery.WHERE(new InnerJoinEq(mosQcolId, typeQcolId));
+        }
+        
         return valueQuery;
       }
     }
