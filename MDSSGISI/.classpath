@@ -5,8 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ddms"/>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/IDSLite"/>
-	<classpathentry kind="lib" path="/IDSLite/profiles"/>
 	<classpathentry kind="lib" path="lib/app-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/beans-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/commands-3.5.0.jar"/>
@@ -46,104 +44,7 @@
 	<classpathentry kind="lib" path="lib/vecmath-1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/workbench-3.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.4.0.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/commons-fileupload-1.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/commons-io-1.3.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/fileupload-progress.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/jawr-3.2.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/jsp-api.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/jstl.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/runwaysdk-client-1.0.1-src.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/runwaysdk-client.jar" sourcepath="/runwaysdk">
-		<attributes>
-			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/runwaysdk-gis-client.jar" sourcepath="/runwaysdk_gis"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/standard.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/taglibs-string.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/client/yuicompressor-2.4.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/activation.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/ant.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/asm-3.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/aspectjrt.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/aspectjtools.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/axis.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/commons-configuration-1.4-sources.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/commons-configuration-1.9.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/commons-i18n-20050525.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/commons-lang-2.3-sources.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/ehcache-core-2.4.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/guice-1.0.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/jaxrpc.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/json.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/mail.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/opencsv-1.8.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/poi-3.2-FINAL-20081019.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/rmiio-2.0.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/runwaysdk-common.jar" sourcepath="/runwaysdk/trunk/src">
-		<attributes>
-			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/runwaysdk-gis-common.jar" sourcepath="/runwaysdk_gis"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/servlet-api-2.5-6.1.3.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/slf4j-api-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/slf4j-jdk14-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/common/UTF8Resource.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/aspectjweaver.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/axis-ant.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/cactus-1.7.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/catalina.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-beanutils-modoracle.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-dbcp-1.2.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-discovery-0.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-email-1.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-math-1.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/commons-pool-1.3.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/drej.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/ecj.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/geoserver-manager-1.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/geoserver-manager-1.5.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/groovy-all-1.5.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/guice-1.0.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/hsqldb.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/jdom-1.1.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/jtds-1.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/junit.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/mailapi.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/mdssaspect.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/mysql-connector-java-5.0.4-bin.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/ojdbc14.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/org.eclipse.equinox.common_3.3.0.v20070426.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/paypal_base.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/postgis_jts_1.5.3.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/postgresql-9.1-901.jdbc4.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/relaxngDatatype.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/runwaysdk-gis-server.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/runwaysdk-server.jar" sourcepath="/runwaysdk/trunk/src">
-		<attributes>
-			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/saaj.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/serializer.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/sqljdbc.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/tools.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/vecmath.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/velocity-1.6.2.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/wsdl4j-1.5.1.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/xalan.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/xml-apis.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/xsom.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/server/xstream-1.1.3.jar"/>
-	<classpathentry kind="lib" path="/IDSLite/lib/mac_swt/swt.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MDSS"/>
+	<classpathentry kind="lib" path="swt/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
