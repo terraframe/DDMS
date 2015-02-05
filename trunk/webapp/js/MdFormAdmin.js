@@ -1129,6 +1129,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           
           that._tree.getRoot().children[0].setHtml(display);
           that.existingForms();
+          
+          that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
+          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
+          
+          that.fetchFormFields(true);
         }
       });
       
