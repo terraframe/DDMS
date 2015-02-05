@@ -152,10 +152,10 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
 
     if (newLocatedIn)
     {
-//      entity.applyWithParent(pid, false, null); // we don't want to call this because it may rebuild the allpaths table, which we've already done.
+      entity.applyWithParent(pid, true, null); // we don't want to call this because it may rebuild the allpaths table, which we've already done.
       
-      entity.addLocatedInGeoEntity(GeoEntity.get(pid)).apply();
-      GeoEntity.copyTermFast(pid, entity.getId());
+//      entity.addLocatedInGeoEntity(GeoEntity.get(pid)).apply();
+//      GeoEntity.copyTermFast(pid, entity.getId());
     }
     else
     {
