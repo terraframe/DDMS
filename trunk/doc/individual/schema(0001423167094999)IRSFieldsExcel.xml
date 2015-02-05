@@ -1,0 +1,16 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdView name="dss.vector.solutions.export.OperatorSprayExcelView">
+        <attributes>
+          <char name="structureType" size="255" label="Structure Type" required="false"/>
+          <char name="reasonNotSprayed" size="255" label="Reason Not Sprayed" required="false"/>
+        </attributes>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

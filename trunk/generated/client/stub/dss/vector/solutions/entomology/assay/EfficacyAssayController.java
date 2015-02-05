@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -237,6 +238,9 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("item", dto);
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(dto.getRequest())));
 
+    List<String> entityUniversals = Arrays.asList(new String[] { SurfaceDTO.CLASS });
+    req.setAttribute("entityUniversals", entityUniversals);
+    
     render("createComponent.jsp");
   }
 

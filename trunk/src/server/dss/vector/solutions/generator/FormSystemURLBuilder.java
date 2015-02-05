@@ -268,7 +268,14 @@ public class FormSystemURLBuilder implements Reloadable
 
   public SystemURL getCrudURL()
   {
-    return SystemURL.getByURL(this.getCrudURLKey());
+    SystemURL url = SystemURL.getByURL(this.getCrudURLKey());
+    
+    if (url == null)
+    {
+      url = SystemURL.getByURL(this.getCrudURLFetchByKey());
+    }
+    
+    return url;
   }
 
   public SystemURL getQueryURL()
@@ -300,6 +307,13 @@ public class FormSystemURLBuilder implements Reloadable
     }
 
     return "dss.vector.solutions.form.FormObjectController.formGenerator.mojo?mdFormId=" + mdForm.getId();
+  }
+  
+  private String getCrudURLFetchByKey()
+  {
+    String formType = mdForm.definesType();
+
+    return "dss.vector.solutions.form.FormObjectController.formGeneratorKey.mojo?formKey=" + formType;
   }
 
   @Request
