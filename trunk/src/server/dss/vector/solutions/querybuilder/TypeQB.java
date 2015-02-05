@@ -50,7 +50,7 @@ public class TypeQB extends AbstractQB implements Reloadable
     {
       GeneratedEntityQuery query = it.next();
 
-      if (! ( query instanceof AllPathsQuery ) && ! ( query instanceof dss.vector.solutions.ontology.AllPathsQuery ))
+      if (! ( query instanceof AllPathsQuery ) && ! ( query instanceof dss.vector.solutions.ontology.AllPathsQuery ) && !(query.getClassType().equals(MosquitoCollection.CLASS)))
       {
         this.auditClass = query.getMdClassIF().definesType();
 
@@ -69,15 +69,6 @@ public class TypeQB extends AbstractQB implements Reloadable
         if (queryMap.containsKey(MosquitoCollection.CLASS))
         {
           GeneratedEntityQuery mosQ = queryMap.get(MosquitoCollection.CLASS);
-          GeneratedEntityQuery typeQ = null;
-          for (String key : queryMap.keySet())
-          {
-            if (!key.equals(MosquitoCollection.CLASS))
-            {
-              typeQ = queryMap.get(key);
-              break;
-            }
-          }
           
           Attribute mosQcolId = null;
           Attribute typeQcolId = null;
@@ -87,10 +78,12 @@ public class TypeQB extends AbstractQB implements Reloadable
           }
           catch (AmbiguousAttributeException e) { }
           try {
-            typeQcolId = typeQ.get(MosquitoCollection.COLLECTIONID);
+            typeQcolId = query.get(MosquitoCollection.COLLECTIONID);
             valueQuery.SELECT(typeQcolId);
           }
           catch (AmbiguousAttributeException e) {}
+          
+          QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions());
           
           valueQuery.WHERE(new InnerJoinEq(mosQcolId, typeQcolId));
         }

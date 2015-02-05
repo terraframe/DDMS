@@ -258,7 +258,7 @@ public class FormQueryBuilder implements Reloadable
 
     for (MdAttributeConcreteDTO attr : attrs)
     {
-      if (!attr.getAttributeName().equals(MosquitoCollection.DISEASE))
+      if (!attr.getAttributeName().equals(MosquitoCollection.DISEASE) && !attr.getAttributeName().equals(MosquitoCollection.KEYNAME))
       {
         new SelectableOptionFactory(group, groupName).create(attr);
       }
