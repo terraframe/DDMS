@@ -85,6 +85,8 @@ public class TypeQB extends AbstractQB implements Reloadable
           
           QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions());
           
+          this.addGeoDisplayLabelQuery(mosQ);
+          
           valueQuery.WHERE(new InnerJoinEq(mosQcolId, typeQcolId));
         }
         
