@@ -21,6 +21,6 @@
     <mdss:localize key="Clone" var="Localized_Clone" />
     <mjl:command value="${Localized_Clone}" action="dss.vector.solutions.form.MdFormAdminController.clone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.clone.button"/>
     <mdss:localize key="Cancel" var="Localized_Cancel" />
-    <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.form.MdFormAdminController.cancel.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.cancel.button" />
+    <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.form.MdFormAdminController.cancelViewClone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.cancelViewClone.button" />
 	</div>
 </mjl:form>

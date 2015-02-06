@@ -207,6 +207,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
+      
       req.setAttribute("form", form);
 
       this.req.getRequestDispatcher(CLONE_FORM_JSP).forward(req, resp);
@@ -216,7 +219,19 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-
+  
+  public void cancelViewClone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      this.fetchFormAttributes(form.getId());
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
   @Override
   public void availableFields() throws IOException, ServletException
   {

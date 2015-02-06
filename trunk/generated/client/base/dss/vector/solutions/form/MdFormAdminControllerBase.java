@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 1147218957)
+@com.runwaysdk.business.ClassSignature(hash = -781442779)
 public class MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.MdFormAdminController";
@@ -161,6 +161,20 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failCancelMdField");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebFormDTO:form", post=true)
+  public void cancelViewClone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.cancelViewClone");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebFormDTO:form", post=true)
+  public void failCancelViewClone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failCancelViewClone");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebFormDTO:form", post=true)

@@ -63,6 +63,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
       var cancelB = Mojo.Util.bind(this, this._cancelListener);
       this._MdFormAdminController.setCancelListener(cancelB);
+      this._MdFormAdminController.setCancelViewCloneListener(cancelB);
       
       var updateB = Mojo.Util.bind(this, this._updateListener);
       this._MdFormAdminController.setUpdateListener(updateB);
