@@ -207,8 +207,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      ClientRequestIF clientRequest = getClientRequest();
-      MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
       req.setAttribute("form", form);
 
       this.req.getRequestDispatcher(CLONE_FORM_JSP).forward(req, resp);
