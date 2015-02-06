@@ -9,6 +9,13 @@
         </attributes>
       </mdView>
     </update>
+    <permissions>
+      <method
+         methodName="clone"
+         type="dss.vector.solutions.generator.MdFormUtil">
+        <assignedRole roleName="Administrator" />
+      </method>
+    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

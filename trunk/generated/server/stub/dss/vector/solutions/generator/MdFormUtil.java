@@ -1033,6 +1033,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
   
   @Transaction
+  @Authenticate
   public static com.runwaysdk.system.metadata.MdWebForm clone(MdWebForm mdForm, MdClass mdClass, MdWebField[] fields, MdAttributeConcrete[] mdAttrs)
   {
     InstallProperties.validateMasterOperation();
