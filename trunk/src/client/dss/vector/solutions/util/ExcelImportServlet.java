@@ -1,6 +1,9 @@
 package dss.vector.solutions.util;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -16,13 +19,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 import com.runwaysdk.business.ViewDTO;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.logging.LogLevel;
+import com.runwaysdk.logging.RunwayLogUtil;
 import com.runwaysdk.util.FileIO;
 
 public class ExcelImportServlet extends HttpServlet
@@ -68,6 +76,7 @@ public class ExcelImportServlet extends HttpServlet
       HashMap<String, String> fields = new HashMap<String, String>();
       InputStream sourceStream = null;
       long size = 0;
+      String fileName = "";
 
       for (FileItem item : items)
       {
@@ -81,6 +90,11 @@ public class ExcelImportServlet extends HttpServlet
         {
           size = item.getSize();
           sourceStream = item.getInputStream();
+          
+          fileName = item.getName();
+          if (fileName != null) {
+            fileName = FilenameUtils.getName(fileName);
+          }
         }
       }
 
@@ -122,6 +136,8 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
+          writeErrorFiles(errorStream, fileName);
+          
           res.setContentType("application/xls");
           res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
           ServletOutputStream outputStream = res.getOutputStream();
@@ -142,6 +158,8 @@ public class ExcelImportServlet extends HttpServlet
 
           if (errorStream.available() > 0)
           {
+            writeErrorFiles(errorStream, fileName);
+            
             res.setContentType("application/xls");            
             res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
             ServletOutputStream outputStream = res.getOutputStream();
@@ -180,7 +198,35 @@ public class ExcelImportServlet extends HttpServlet
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
   }
-
+  
+  // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
+  //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
+  private void writeErrorFiles(InputStream errorStream, String filename)
+  {
+    String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
+    try
+    {
+      File fDir = new File(errorDir);
+      
+      if (!fDir.exists())
+      {
+        fDir.mkdirs();
+      }
+      
+      File errorFile = new File(fDir, filename);
+      
+      FileOutputStream fos = new FileOutputStream(errorFile);
+      BufferedOutputStream buffer = new BufferedOutputStream(fos);
+      FileIO.write(buffer, errorStream);
+      buffer.flush();
+      buffer.close();
+    }
+    catch (Exception e)
+    {
+      RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
+    }
+  }
+  
   private InputStream importExcelFile(ClientRequestIF clientRequest, byte[] bytes, String type, String[] params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     Class<?> facadeClass = LoaderDecorator.load("dss.vector.solutions.util.FacadeDTO");

@@ -1,6 +1,9 @@
 package dss.vector.solutions.generator;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,7 +13,10 @@ import javax.servlet.ServletOutputStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.controller.MultipartFileParameter;
+import com.runwaysdk.logging.LogLevel;
+import com.runwaysdk.logging.RunwayLogUtil;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.form.business.FormSurveyDTO;
@@ -93,7 +99,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     if (ServletFileUpload.isMultipartContent(req))
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-
+      
       try
       {
         if (upfile != null && upfile.getSize() > 0)
@@ -115,6 +121,31 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
 
               if (errorStream.available() > 0)
               {
+                // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
+                //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
+                String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
+                try
+                {
+                  File fDir = new File(errorDir);
+                  
+                  if (!fDir.exists())
+                  {
+                    fDir.mkdirs();
+                  }
+                  
+                  File errorFile = new File(fDir, upfile.getFilename());
+                  
+                  FileOutputStream fos = new FileOutputStream(errorFile);
+                  BufferedOutputStream buffer = new BufferedOutputStream(fos);
+                  FileIO.write(buffer, errorStream);
+                  buffer.flush();
+                  buffer.close();
+                }
+                catch (Exception e)
+                {
+                  RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
+                }
+                
                 resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
                 ServletOutputStream outputStream = resp.getOutputStream();
                 FileIO.write(outputStream, errorStream);
