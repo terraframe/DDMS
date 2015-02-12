@@ -256,7 +256,24 @@ public class ResistanceQB extends AbstractQB implements Reloadable
       overall.setSQL(sql);
     }
 
+    // Ticket 3200. This kind of a hack, but basically we just want to make sure setQueryDates uses the AbstractAssay and not any of the subclasses.
+    GeneratedEntityQuery colAs = queryMap.get(CollectionAssay.CLASS);
+    GeneratedEntityQuery adultAs = queryMap.get(AdultAssay.CLASS);
+    GeneratedEntityQuery adultDisc = queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
+    if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY) || valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
+    {
+      queryMap.remove(CollectionAssay.CLASS);
+      queryMap.remove(AdultAssay.CLASS);
+      queryMap.remove(AdultDiscriminatingDoseAssay.CLASS);
+    }
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
+    if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY) || valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
+    {
+      queryMap.put(CollectionAssay.CLASS, colAs);
+      queryMap.put(AdultAssay.CLASS, adultAs);
+      queryMap.put(AdultDiscriminatingDoseAssay.CLASS, adultDisc);
+    }
+    
     return valueQuery;
 
   }
