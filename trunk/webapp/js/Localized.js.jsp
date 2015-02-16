@@ -77,9 +77,32 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
 }
 
 /**
- * Constants used for localization in javascript.
+ * Load the localization keys by populating com.runwaysdk.Localize while also supporting backwards compatibility with MDSS.Localized.
  */
-MDSS.Localized = <%= LocalizationFacadeDTO.getAllLocalizedText(clientRequest) %>;
+var localjson = <%=LocalizationFacadeDTO.getJSON(clientRequest)%>;
+com.runwaysdk.Localize.addLanguages(localjson, true);
+var all = {};
+for (var key in localjson)
+{
+  if (localjson.hasOwnProperty(key))
+  {
+    var val = localjson[key];
+    
+    if (Mojo.Util.isObject(val))
+    {
+      for (var key2 in val)
+      {
+        all[key + "." + key2] = val[key2];
+      }
+    }
+    else
+    {
+      all[key] = val
+    }
+  }
+}
+MDSS.Localized = all;
+
 
 MDSS.FLOAT_PRECISION = 2;
 

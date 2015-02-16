@@ -505,19 +505,11 @@ var Event = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Event', {
     {
       var target = this._evt.target;
       
-      if (target != null && target.___runwaysdk_wrapper != null) {
-        return target.___runwaysdk_wrapper;
-      }
-      
       return target;
     },
     getCurrentTarget : function()
     {
       var target = this._evt.currentTarget;
-      
-      if (target != null && target.___runwaysdk_wrapper != null) {
-        return target.___runwaysdk_wrapper;
-      }
       
       return target;
     },
@@ -1401,8 +1393,14 @@ var Registry = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Registry', {
       var listenerObj = new ListenerEntry(type, listener, wrapper, obj, context, capture);
       if(this._listeners.containsKey(target))
       {
-        // discard duplicates
         var listeners = this._listeners.get(target);
+        
+        var max = 1000;
+        if (listeners.length+1 > max) {
+          throw new com.runwaysdk.Exception("Too many listeners bound to [" + target + "] for event type [" + type + "] (max is " + max + ").");
+        }
+        
+        // discard duplicates
         for(var i=0, len=listeners.length; i<len; i++)
         {
           var entry = listeners[i];
@@ -1894,15 +1892,45 @@ var TFinishEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TFinishEvent', {
   }
 });
 
+var ClientRequestSendEvent = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ClientRequestSendEvent', {
+  Extends : com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(xhr) {
+      this.$initialize();
+      this._xhr = xhr;
+    },
+    getXHR : function() {
+      return this._xhr;
+    }
+  }
+});
+
+var ClientRequestCompleteEvent = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ClientRequestCompleteEvent', {
+  Extends : com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(xhr) {
+      this.$initialize();
+      this._xhr = xhr;
+    },
+    getTransport : function() {
+      return this._xhr;
+    }
+  }
+});
+
 var ClientRequestSuccessEvent = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ClientRequestSuccessEvent', {
   Extends : com.runwaysdk.event.CustomEvent,
   Instance : {
-    initialize : function(rv) {
+    initialize : function(rv, resp) {
       this.$initialize();
       this._rv = rv;
+      this._resp = resp;
     },
-    getReturnValue : function() {
+    getTransport : function() {
       return this._rv;
+    },
+    getResponse : function() {
+      return this._resp;
     }
   }
 });
@@ -1923,8 +1951,49 @@ var ClientRequestFailureEvent = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ClientRequ
   }
 });
 
+var ClientRequestIF = Mojo.Meta.newInterface('Mojo.ClientRequestIF', {
+  
+  Instance : {
+    
+    addOnSendListener : function(listener){},
+    
+    addOnCompleteListener : function(listener){},
+    
+    addOnSuccessListener : function(listener){},
+    
+    addOnFailureListener : function(listener){},
+    
+    getMessages : function(){},
+    
+    setWarnings : function(warnings){},
+    
+    getWarnings : function(){},
+    
+    setInformation : function(information){},
+    
+    getInformation : function(){},
+    
+    getTransport : function(){},
+    
+    setTransport : function(transport){},
+    
+    performOnSuccess : function(retVal, response){},
+    
+    performOnSend : function(){},
+    
+    performOnComplete : function(){},
+    
+    performOnFailure : function(ex, exType){},
+    
+    hasResponseType : function(type){}
+  }
+  
+});
+
 Mojo.Meta.newClass('Mojo.ClientRequest', {
 
+  Implements : ClientRequestIF,
+  
   Instance : {
   
     initialize : function(handler){
@@ -1938,6 +2007,14 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
       this._transport = null;
     },
     
+    addOnSendListener : function(listener) {
+      this.addEventListener(ClientRequestSendEvent, {handleEvent: listener});
+    },
+
+    addOnCompleteListener : function(listener) {
+      this.addEventListener(ClientRequestCompleteEvent, {handleEvent: listener});
+    },
+    
     addOnSuccessListener : function(listener) {
       this.addEventListener(ClientRequestSuccessEvent, {handleEvent: listener});
     },
@@ -1946,12 +2023,28 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
       this.addEventListener(ClientRequestFailureEvent, {handleEvent: listener});
     },
     
-    performOnSuccess : function(retVal) {
+    performOnSuccess : function(retVal, response) {
       if(Mojo.Util.isFunction(this.onSuccess))
       {
-        this.onSuccess(retVal);
+        this.onSuccess(retVal, response);
       }
-      this.dispatchEvent(new ClientRequestSuccessEvent(retVal));
+      this.dispatchEvent(new ClientRequestSuccessEvent(retVal, response));
+    },
+    
+    performOnSend : function(retVal){
+      if(Mojo.Util.isFunction(this.onSend))
+      {
+        this.onSend(retVal);
+      }
+      this.dispatchEvent(new ClientRequestSendEvent(this.getTransport()));
+    },
+    
+    performOnComplete : function(retVal){
+      if(Mojo.Util.isFunction(this.onComplete))
+      {
+        this.onComplete(retVal);
+      }
+      this.dispatchEvent(new ClientRequestCompleteEvent(this.getTransport()));
     },
     
     performOnFailure : function(ex, exType) {
@@ -1979,7 +2072,9 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
     
     getTransport : function() { return this._transport; },
     
-    setTransport : function(transport) { this._transport = transport; }
+    setTransport : function(transport) { this._transport = transport; },
+    
+    hasResponseType : function(type) { return this._transport.hasResponseType(type); }
   }
 });
 
@@ -2032,12 +2127,16 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
       
       // encode the parameters if given a map
       this.paramStr = '';
-      if(Mojo.Util.isObject(parameters))
+      if (parameters instanceof FormData)
+      {
+        this.paramStr = parameters; 
+      }      
+      else if(Mojo.Util.isObject(parameters))
       {
         var paramArray = [];
         for(var i in parameters)
         {
-          paramArray.push(encodeURIComponent(i)+'='+encodeURIComponent(parameters[i]));
+          paramArray.push(Mojo.Util.encodeURIComponent(i)+'='+Mojo.Util.encodeURIComponent(parameters[i]));
         }
         this.paramStr = paramArray.join('&');
       }
@@ -2091,10 +2190,12 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
         {
           this._xhr.open(this.options.method, this._url, this.options.asynchronous);
           this._xhr.onreadystatechange = bound;
-          this._xhr.setRequestHeader("Content-type", this.options.contentType + "; charset="+this.options.encoding);
-//          this._xhr.setRequestHeader("Content-length", this.paramStr.length);
-//          this._xhr.setRequestHeader("Connection", "close");
-  
+    
+    if(!(this.paramStr instanceof FormData))
+    {
+            this._xhr.setRequestHeader("Content-type", this.options.contentType + "; charset="+this.options.encoding);
+    }
+    
           this._xhr.send(this.paramStr);
         }
         else
@@ -2164,6 +2265,55 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
   }
 });
 
+var AjaxResponse = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxResponse', {
+
+  Instance : {
+    
+    initialize: function (xhr, retVal)
+    {
+      this._xhr = xhr;
+      this._retVal = retVal;
+    },
+    
+    isHTML : function() {
+      return this.hasResponseType("text/html");
+    },
+    
+    isJSON : function() {
+      return this.hasResponseType("application/json");
+    },
+    
+    setReturnValue : function(rv) {
+      this._retVal = rv;
+    },
+    
+    getReturnValue : function() {
+      return this._retVal;
+    },
+    
+    getMessages : function() { return this._warnings.concat(this._information); },
+    
+    setWarnings : function(warnings) { this._warnings = warnings; },
+    
+    getWarnings : function() { return this._warnings; },
+    
+    setInformation : function(information) { this._information = information; },
+    
+    getInformation : function() { return this._information; },
+    
+    hasResponseType : function(type) {
+      var contentType = this._xhr.getResponseHeader("content-type");
+      
+      if (contentType != null) {
+        contentType = contentType.split(";");
+        
+        return Mojo.Util.arrayContains(contentType, type);
+      }
+      
+      return false;
+    }
+  }
+});
 
 /**
  * Class that formats and parses numeric instances. This class can be instantiated directly
@@ -2351,88 +2501,165 @@ var NumberFormat = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'NumberFormat', {
 });
 
 var Localize = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Localize', {   
-	  IsSingleton : true,
-	   
-	  Instance : {
-	    initialize : function(obj)
-	    {
-	      this.$initialize();
-	      this._map = new Mojo.$.com.runwaysdk.structure.HashMap(obj);
-	      this._mapOMaps = new Mojo.$.com.runwaysdk.structure.HashMap(obj);
-	    },
-	   
-	    get : function(key)
-	    {
-	      var value = this._map.get(key);
-	      
-	      return this._map.get(key);
-	    },
-	    
-	    defineLanguage : function(className, map) {
-	      this._mapOMaps.put(className, map);
-	    },
-	    
-	    getLanguage : function(className) {
-	      return this._mapOMaps.get(className);
-	    },
-	   
-	    put : function(key, value)
-	    {
-	      return this._map.put(key, value);
-	    },
-	   
-	    putAll : function(obj)
-	    {
-	      this._map.putAll(obj);
-	    }
-	  },   
-	   
-	  Static : {
-	    get : function(key, defaultValue)
-	    { 
-	      var text = Localize.getInstance().get(key)
-	      
-	      if(text !== null && text !== undefined)
-	      {
-	        return text;
-	      }
-	      
-	      if(defaultValue !== null && defaultValue !== undefined)
-	      {
-	        return defaultValue;
-	      }
-	      
-	      return "???" + key + "???";
-	    },
-	    
-	    put : function(key, value)
-	    {
-	      return Localize.getInstance().put(key, value);
-	    },
-	   
-	    putAll : function(obj)
-	    {
-	     return Localize.getInstance().putAll(obj);
-	    },
-	    
-	    defineLanguage : function(className, map) {
-	      Localize.getInstance().defineLanguage(className, map);
-	      
-	      var newMap = {};
-	      
-	      for (var key in map) {
-	        if(map.hasOwnProperty(key)){
-	          newMap[className + "." + key] = map[key];
-	        }
-	      }
-	      
-	      return Localize.putAll(newMap);
-	    },
-	    
-	    getLanguage : function(key) {
-	      return Localize.getInstance().getLanguage(key);
-	    }
-	  }
-	});
+  IsSingleton : true,
+  Constants : {
+    DEFAULT : 'Default'
+  },
+   
+  Instance : {
+    initialize : function(obj)
+    {
+      this.$initialize();
+      this._map = new Mojo.$.com.runwaysdk.structure.HashMap(obj);
+      this._map.put(this.constructor.DEFAULT, new Mojo.$.com.runwaysdk.structure.HashMap());
+    },
+    
+    _addAll : function(existing, map, overwrite)
+    {
+      overwrite = (overwrite == null ? false : overwrite);
+      
+      for (var key in map)
+      {
+        if(overwrite || !existing.containsKey(key))
+        {
+          existing.put(key, map[key]);       
+        }
+      }        
+    },
+   
+    get : function(key)
+    {
+      return this.localize(this.constructor.DEFAULT, key);
+    },
+    
+    localize : function(language, key)
+    { 
+      var map = this._map.get(language);
+      
+      if(map != null)
+      {
+        return map.get(key);
+      }
+      
+      return null;
+    },
+    
+    defineLanguage : function(className, map, overwrite)
+    {
+      if(!this._map.containsKey(className))
+      {
+        this._map.put(className, new Mojo.$.com.runwaysdk.structure.HashMap(map));
+      }
+      
+      var existing = this._map.get(className);
+      
+      this._addAll(existing, map, overwrite);      
+    },
+    
+    getLanguage : function(className) {
+      return this._map.get(className);
+    },
+    
+    hasLanguage : function(className) {
+      return this._map.containsKey(className);
+    },
+   
+    put : function(key, value, overwrite)
+    {
+      overwrite = (overwrite == null ? false : overwrite);
+
+      var map = this._map.get(this.constructor.DEFAULT);
+
+      if(overwrite || !map.containsKey(key))
+      {
+        map.put(key, value);
+      }
+    },
+   
+    putAll : function(obj, overwrite)
+    {
+      var map = this._map.get(this.constructor.DEFAULT);
+      
+      this._addAll(map, obj, overwrite);
+    },
+    
+    addLanguages : function(map, overwrite)
+    {
+      for (var key in map)
+      {
+        var value = map[key];
+      
+        if(Mojo.Util.isString(value))
+        {
+          this.put(key, value, overwrite);       
+        }
+        else 
+        {
+          this.defineLanguage(key, value, overwrite);
+        }
+      }
+    }
+  },   
+   
+  Static : {
+    get : function(key, defaultValue)
+    {
+      return com.runwaysdk.Localize.localize(com.runwaysdk.Localize.DEFAULT, key, defaultValue);
+    },
+    
+    localize : function(language, key, defaultValue)
+    { 
+      var text = Localize.getInstance().localize(language, key)
+      
+      if(text !== null && text !== undefined)
+      {
+        return text;
+      }
+      
+      if(defaultValue !== null && defaultValue !== undefined)
+      {
+        return defaultValue;
+      }
+      
+      return null;
+    },
+    
+    put : function(key, value, overwrite)
+    {
+      return Localize.getInstance().put(key, value, overwrite);
+    },
+   
+    putAll : function(obj, overwrite)
+    {
+     return Localize.getInstance().putAll(obj, overwrite);
+    },
+    
+    defineLanguage : function(className, map, overwrite) {
+      Localize.getInstance().defineLanguage(className, map, overwrite);
+      
+      var newMap = {};
+      
+      for (var key in map) {
+        if(map.hasOwnProperty(key)){
+          newMap[className + "." + key] = map[key];
+        }
+      }
+      
+      return Localize.putAll(newMap);
+    },
+    
+    getLanguage : function(key) {
+      return Localize.getInstance().getLanguage(key);
+    }, 
+    
+    hasLanguage : function(key) {
+      return Localize.getInstance().hasLanguage(key);
+    }, 
+    
+    addLanguages : function(map, overwrite) { 
+      Localize.getInstance().addLanguages(map, overwrite);
+    }
+  }
+});
 
 })();

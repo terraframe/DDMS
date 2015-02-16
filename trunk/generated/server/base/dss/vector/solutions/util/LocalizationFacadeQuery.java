@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 1643125401)
+@com.runwaysdk.business.ClassSignature(hash = 368450255)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN

@@ -21,6 +21,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       
       // Set this.selectHandler as the default handler
       this.setSelectHandler(Mojo.Util.bind(this, this.selectHandler));
+      this.setOkHandler(Mojo.Util.bind(this, this.okHandler));
       this.setTreeSelectHandler(Mojo.Util.bind(this, this.selectHandler));
     },
     
@@ -80,8 +81,28 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
 
           valid = givenKlass.getMetaClass().isSubClassOf(expectedKlass);
         }
-
       }
+      
+      // Notify the user that their selection is invalid.
+//      if(valid)
+//      {
+//        YAHOO.util.Dom.removeClass(geoInfo,'alert');
+//      }
+//      else
+//      {
+//        YAHOO.util.Dom.addClass(geoInfo,'alert');
+//      }
+      this._bOK.setEnabled(valid);
+      
+      if (valid)
+      {
+        this._currentSelection = selected;
+      }
+    },
+    
+    okHandler : function()
+    {
+      var selected = this._currentSelection;
       
       // Some pages also have a field that takes the geoentity id.
       // Those fields are namespaced as the geo id field+"_geoEntityId",
@@ -95,14 +116,14 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       {
         geoInput.value = '';
         geoInfo.innerHTML = '';
-        if(currentgeoEntityIdInput) currentgeoEntityIdInput.value ='';
+        if(currentgeoEntityIdInput) { currentgeoEntityIdInput.value =''; }
       }
       else
       {
-        if(!ignoreSetting)
-        {
+//        if(!ignoreSetting)
+//        {
           MDSS.GeoSearch.currentGeoIdInput.value = selected.getGeoId();
-        }
+//        }
       
         if(currentgeoEntityIdInput) {
           currentgeoEntityIdInput.value = selected.getGeoEntityId();
@@ -110,23 +131,19 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       
         geoInfo.innerHTML = this.constructor.formatDisplay(selected);
       }
-
-      if(valid)
-      {
-        YAHOO.util.Dom.removeClass(geoInfo,'alert');
-      }
-      else
-      {
-        YAHOO.util.Dom.addClass(geoInfo,'alert');
-      }
       
-      // FIXME: global (and absurdly hacky) method callback
-      if(valid && typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
+//    FIXME: global (and absurdly hacky) method callback
+      if(typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
       {
         onValidGeoEntitySelected();
       }
       
       this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected}));
+    },
+    
+    validateSelection : function()
+    {
+      
     },
     
     addListener : function(listener)
@@ -154,7 +171,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
         div.innerHTML = this.constructor.formatDisplay(geoEntityView);    	  
       }
 
-      this._currentSelection = geoEntityView;
+//      this._currentSelection = geoEntityView;
     },
 
     /**
@@ -216,7 +233,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       else
       {
         // Fetch the system default root.
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, this._selectSearchRootId, false, this._filterType);
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, this._selectSearchRootId, false, "");
       }
     },
 

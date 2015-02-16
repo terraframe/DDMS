@@ -5,14 +5,19 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.configuration.ProfileManager;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -159,6 +164,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     return Session.getCurrentLocale().toString();
   }
   
+  @Deprecated
   public static String getAllLocalizedText()
   {
     Map<String, String> all = MultiBundle.getAll();
@@ -166,5 +172,56 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     JSONObject json = new JSONObject(all);
     
     return json.toString();
+  }
+  
+  public static String getJSON()
+  {
+    Map<String, String> properties = MultiBundle.getAll();
+
+    try
+    {
+      JSONObject object = new JSONObject();
+      
+      Set<Entry<String, String>> entries = properties.entrySet();
+
+      Iterator<Entry<String, String>> it = entries.iterator();
+
+      while (it.hasNext())
+      {
+        Entry<String, String> entry = it.next();
+
+        String key = entry.getKey();
+        String value = entry.getValue();
+
+        if (key.contains("."))
+        {
+          int index = key.lastIndexOf(".");
+
+          if (index != -1)
+          {
+            String language = key.substring(0, index);
+            String subKey = key.substring(index + 1);
+
+            if (!object.has(language))
+            {
+              object.put(language, new JSONObject());
+            }
+
+            JSONObject subMap = object.getJSONObject(language);
+            subMap.put(subKey, value);
+          }
+        }
+        else
+        {
+          object.put(key, value);
+        }
+      }
+
+      return object.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException("Error occured creating the localized JSON map", e);
+    }
   }
 }

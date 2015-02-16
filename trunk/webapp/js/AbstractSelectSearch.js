@@ -144,6 +144,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._selectHandler = handler;
     },
     
+    setOkHandler : function(handler)
+    {
+      this._okHandler = handler;
+    },
+    
     getSelectHandler : function()
     {
       return this._selectHandler;
@@ -222,17 +227,46 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      */
     render : function()
     {
+      var that = this;
+      
       var request = new MDSS.Request({
-        that: this,
         onSuccess : function(hierarchies)
         {
-          this.that._renderHierarchies(hierarchies);
+          that._renderHierarchies(hierarchies);
         }
       });
   
       var method = this._getControllerAction();
       
       method(request, this._selectSearchRootId, this.getFlags(), this.getExtraUniversals());
+    },
+    
+    /**
+     * Creates the OK, Cancel buttons.
+     */
+    _renderButtons : function(parent)
+    {
+      var fac = com.runwaysdk.ui.Manager.getFactory();
+      var that = this;
+      
+      var ok = com.runwaysdk.Localize.get("OK");
+      var cancel = com.runwaysdk.Localize.get("Cancel");
+      
+      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px"});
+      this._bOK = fac.newButton(ok, function() {
+        if (that._okHandler != null)
+        {
+          that._okHandler();
+        }
+        that.hide();
+      });
+      this._bOK.setStyle("margin-right", "5px");
+      this._bOK.setEnabled(false);
+      this._bContainer.appendChild(this._bOK);
+      this._bCancel = fac.newButton(cancel, function() {that.hide()});
+      this._bContainer.appendChild(this._bCancel);
+      
+      this._bContainer.render(parent);
     },
     
     _renderHierarchies : function(hierarchies)
@@ -288,14 +322,50 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       selectionDiv.appendChild(factory.newElement('hr'));
       selectionDiv.appendChild(this._renderCurrentSelection(factory));
       
-      var outerDiv = factory.newElement('div');
-      outerDiv.setStyle('width', '695px');
-      outerDiv.setStyle('margin-top', '15px');     
-      outerDiv.appendChild(componentDiv);      
-      outerDiv.appendChild(selectionDiv);
+      this._outerDiv = factory.newElement('div');
+      this._outerDiv.setStyle('width', '695px');
+      this._outerDiv.setStyle('margin-top', '15px');
+      
+      this._outerDiv.appendChild(componentDiv);      
+      this._outerDiv.appendChild(selectionDiv);
+      
+      this._renderButtons(this._outerDiv);
       
       var panelDiv = factory.newElement('div');
-      panelDiv.appendChild(outerDiv);
+      
+      var titleSpan = factory.newElement("div", null, {"font-size":"20px", width:"300px", "margin-left":"auto", "margin-right":"auto"});
+      
+      var geoLabel = "";
+//      try
+//      {
+        if (!(this._filterType == null || this._filterType === '' || (Mojo.Util.isArray(this._filterType) && this._filterType.length === 0)))
+        {
+          if (Mojo.Util.isArray(this._filterType))
+          {
+            for (var i = 0; i < this._filterType.length; ++i)
+            {
+              geoLabel = geoLabel + eval("new " + this._filterType[i] + "().getMd().getDisplayLabel()");
+              if (i < this._filterType.length-1)
+              {
+                geoLabel = geoLabel + ", ";
+              }
+            }
+          }
+          else
+          {
+            geoLabel = eval("new " + this._filterType + "().getMd().getDisplayLabel()");
+          }
+        }
+//      }
+//      catch (ex) {}
+      if (geoLabel == null || geoLabel === "")
+      {
+        geoLabel = com.runwaysdk.Localize.get("Geo_Entity");
+      }
+      titleSpan.setInnerHTML(com.runwaysdk.Localize.get("SelectAValid") + " " + geoLabel);
+      panelDiv.appendChild(titleSpan);
+      
+      panelDiv.appendChild(this._outerDiv);
       
       this._searchModal.appendToBody(panelDiv.getRawEl());
       this._searchModal.render(document.body);
@@ -793,7 +863,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         }
       });
   
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, geoEntityId, true, this._filterType);
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, geoEntityId, true, "");
     },
     
     populateSelections : function(geoId)
@@ -808,7 +878,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         }
       });
       
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedInByGeoId(request, geoId, true, this._filterType);    
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedInByGeoId(request, geoId, true, "");    
     },
   
     /**
@@ -849,7 +919,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         }
       });
   
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), this._filterType);
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), "");
     },
   
     /**
