@@ -13,7 +13,7 @@
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />
   <mjl:input type="hidden" param="person" value="${item.person.id}" />
   <mjl:dt attribute="facility">
-    <mdss:geo param="facility" concrete="false" value="${item.facility}" /> <!-- filter="${healthFacility}" -->
+    <mdss:geo param="facility" concrete="false" value="${item.facility}" filter="${healthFacility}" />
   </mjl:dt>
   <mjl:dt attribute="distributionDate" >
     <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>

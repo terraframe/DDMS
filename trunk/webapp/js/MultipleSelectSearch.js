@@ -25,6 +25,8 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       
       // optional function handler that will be called before adding an entity as criteria
       this._validator = null;
+      
+      this.setOkHandler(Mojo.Util.bind(this, this.okHandler));
     },
     
     _renderHierarchyHeader : function(factory, hierarchy, index, rootId)
@@ -181,6 +183,29 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       }
     },
     
+    okHandler : function()
+    {
+      if(Mojo.Util.isFunction(this._hideHandler))
+      {
+        var entities = Mojo.Util.getValues(this._criteriaMap);
+        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+        var selected = [];
+        for(var i=0; i<checkboxes.length; i++)
+        {
+          var check = checkboxes[i];
+          if(check.checked)
+          {
+            var type = check.value;
+            selected.push(type);
+          }
+        }
+        
+        this._hideHandler(entities, selected);
+        
+        this._bOK.setEnabled(false);
+      }
+    },
+    
     _updateSelection2 : function(geoEntityView, updateList)
     {
       var id = geoEntityView.getGeoEntityId();
@@ -217,6 +242,8 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
   
       var selections = document.getElementById(this._CURRENT_SELECTIONS + this._suffix);
       selections.appendChild(li);
+      
+      this._bOK.setEnabled(true);
     },
     
     _doCreateRoot : function(request)
@@ -246,23 +273,23 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
   
     _notifyHideHandler : function()
     {
-      if(Mojo.Util.isFunction(this._hideHandler))
-      {
-        var entities = Mojo.Util.getValues(this._criteriaMap);
-        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-        var selected = [];
-        for(var i=0; i<checkboxes.length; i++)
-        {
-          var check = checkboxes[i];
-          if(check.checked)
-          {
-            var type = check.value;
-            selected.push(type);
-          }
-        }
-  
-        this._hideHandler(entities, selected);
-      }
+//      if(Mojo.Util.isFunction(this._hideHandler))
+//      {
+//        var entities = Mojo.Util.getValues(this._criteriaMap);
+//        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+//        var selected = [];
+//        for(var i=0; i<checkboxes.length; i++)
+//        {
+//          var check = checkboxes[i];
+//          if(check.checked)
+//          {
+//            var type = check.value;
+//            selected.push(type);
+//          }
+//        }
+//        
+//        this._hideHandler(entities, selected);
+//      }
     },
   
     /**

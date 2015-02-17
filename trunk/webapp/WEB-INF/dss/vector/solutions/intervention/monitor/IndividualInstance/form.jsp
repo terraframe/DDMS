@@ -22,7 +22,7 @@
   </mjl:dt>
   <div class="healthFacility">
     <mjl:dt attribute="healthFacility">
-      <mdss:geo param="healthFacility" value="${healthFacility}" /> <!-- filter="${HEALTH_FACILITY}" -->
+      <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}" />
     </mjl:dt>
   </div>
   <div class="caseIdentifier">

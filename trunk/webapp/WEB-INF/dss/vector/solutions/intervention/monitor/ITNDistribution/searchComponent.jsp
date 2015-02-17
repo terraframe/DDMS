@@ -23,7 +23,7 @@
   <mjl:form name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.name" id="dss.vector.solutions.intervention.monitor.ITNDistribution.form.id" method="POST">
     <mjl:component item="${item}" param="view">
       <mjl:dt attribute="facility">
-        <mdss:geo param="facility" concrete="false" value="${item.facility}" /> <!-- filter="${healthFacility}" -->
+        <mdss:geo param="facility" concrete="false" value="${item.facility}" filter="${healthFacility}" />
       </mjl:dt>
       <mjl:dt attribute="distributionDate" >
         <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>

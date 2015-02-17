@@ -23,7 +23,7 @@
 <mjl:component param="instance" item="${instance}">
   <mjl:input type="hidden" param="concreteId" value="${instance.concreteId}"/>
   <mjl:dt attribute="facility">
-    <mdss:geo param="facility" concrete="false" /> <!-- filter="${healthFacility}" -->
+    <mdss:geo param="facility" concrete="false" filter="${healthFacility}" />
   </mjl:dt>
   <mjl:dt attribute="serviceDate" classes="DatePick" id="serviceDate" type="text"/>  
   <mjl:dt attribute="patientType">
