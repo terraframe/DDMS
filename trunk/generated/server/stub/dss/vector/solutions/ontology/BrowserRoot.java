@@ -41,7 +41,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   @Override
   public void apply()
   {
-    boolean applied = ( !this.isNew() || this.isAppliedToDB() );
+    boolean firstApply = ( this.isNew() || !this.isAppliedToDB() );
 
     if (this.getDisease() == null && this.isNew())
     {
@@ -49,10 +49,26 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     }
 
     super.apply();
-
+    
     // We must apply the browser root before we can create the relationship
-    if (!applied)
+    if (firstApply)
     {
+      this.addfield(this.getBrowserField()).apply();
+    }
+    else if (this.isModified(BrowserRoot.TERM)) // Ticket 3214.
+    {
+      OIterator<? extends FieldRoot> it = this.getAllfieldRel();
+      try
+      {
+        while (it.hasNext())
+        {
+          it.next().delete();
+        }
+      }
+      finally
+      {
+        it.close();
+      }
       this.addfield(this.getBrowserField()).apply();
     }
   }

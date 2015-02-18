@@ -17,6 +17,8 @@ public class FieldRoot extends FieldRootBase implements com.runwaysdk.generation
   @Override
   protected String buildKey()
   {
+    // If you're changing this method make sure you're aware of ticket 3214. Its a nasty bug and last time this source was changed it caused that bug.  
+    
     if (this.getParentId() != null && this.getChildId() != null)
     {
       BrowserRoot child = BrowserRoot.get(this.getChildId());
