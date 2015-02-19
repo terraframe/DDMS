@@ -158,7 +158,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
    * @param xml
    * @throws Throwable
    */
-  @Transaction
   @Authenticate
   public static com.runwaysdk.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
