@@ -207,7 +207,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   }
 
   @Authenticate
-  @Transaction
   public static ValueQuery getTextAttributeSugestions(String match, String klass, String attribute)
   {
     QueryFactory queryFactory = new QueryFactory();
