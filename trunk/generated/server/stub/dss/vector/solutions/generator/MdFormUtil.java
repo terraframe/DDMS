@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,7 +90,6 @@ import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeIndices;
@@ -114,6 +114,7 @@ import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
+import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGridField;
 import com.runwaysdk.system.metadata.WebGridFieldQuery;
@@ -130,6 +131,9 @@ import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.FormNameNotBlankException;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.form.MdFormHasInstancesException;
+import dss.vector.solutions.form.WebMultipleTermBuilder;
+import dss.vector.solutions.form.WebSingleTermBuilder;
+import dss.vector.solutions.form.WebSingleTermGridBuilder;
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
@@ -1034,9 +1038,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   
   @Transaction
   @Authenticate
-  public static com.runwaysdk.system.metadata.MdWebForm clone(MdWebForm mdForm, MdClass mdClass, MdWebField[] fields, MdAttributeConcrete[] mdAttrs)
+  public static com.runwaysdk.system.metadata.MdWebForm clone(MdWebForm mdForm, MdClass mdClass, MdWebField[] fields, MdAttributeConcrete[] mdAttrs, String oldFormId)
   {
     InstallProperties.validateMasterOperation();
+    
+    MdWebForm oldWebForm = MdWebForm.get(oldFormId);
     
     String typeName = GeoHierarchy.getSystemName(mdForm.getFormName(), "Business", true);
     if (typeName == null || typeName.trim().length() == 0)
@@ -1051,32 +1057,77 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     mdForm.setFormMdClass(mdClass);
     mdForm.apply();
     
-    for (MdAttributeConcrete attr : mdAttrs)
-    {
-      attr.setDefiningMdClass(mdClass);
-      attr.apply();
-    }
+//    for (MdAttributeConcrete attr : mdAttrs)
+//    {
+//      attr.setDefiningMdClass(mdClass);
+//      attr.apply();
+//    }
+    
+    new FormSystemURLBuilder(mdForm).generate();
     
     for (MdWebField field : fields)
     {
       field.setDefiningMdForm(mdForm);
-      if (field instanceof MdWebAttribute)
+      
+      if (field instanceof MdWebGeo)
       {
-        boolean found = false;
-        for (int i = 0; i < mdAttrs.length; ++i)
+        String fieldName = field.getFieldName();
+        
+        MdWebGeo oldWebGeo = (MdWebGeo) oldWebForm.getField(fieldName);
+        GeoField oldGeoField = GeoField.getGeoFieldForMdWebGeo(oldWebGeo.getId());
+        
+        GeoField clonedGeoField = new GeoField();
+        clonedGeoField.setIsPoliticalHierarchy(oldGeoField.getIsPoliticalHierarchy());
+        clonedGeoField.setIsPopulationHierarchy(oldGeoField.getIsPopulationHierarchy());
+        clonedGeoField.setIsSprayHierarchy(oldGeoField.getIsSprayHierarchy());
+        clonedGeoField.setIsUnderSystemRoot(oldGeoField.getIsUnderSystemRoot());
+        clonedGeoField.setIsUrbanHierarchy(oldGeoField.getIsUrbanHierarchy());
+        clonedGeoField.setFilter(oldGeoField.getFilter());
+        
+        ArrayList<String> extraUniversals = new ArrayList<String>();
+        OIterator<? extends GeoHierarchy> hierIt = clonedGeoField.getAllGeoHierarchies();
+        try
         {
-          if (mdAttrs[i].getAttributeName().equals(field.getFieldName()))
+          while (hierIt.hasNext())
           {
-            ((MdWebAttribute)field).setDefiningMdAttribute(mdAttrs[i]);
-            found = true;
+            GeoHierarchy hier = hierIt.next();
+            extraUniversals.add(hier.getId());
           }
         }
-        if (!found) { throw new DataNotFoundException("There is no corresponding MdAttribute for the MdWebField [" + field.getKeyName() + "].", (MetadataDAOIF) field); }
+        finally
+        {
+          hierIt.close();
+        }
+        
+        DDMSFieldBuilders.createGeoField((MdWebGeo)field, mdForm.getId(), clonedGeoField, extraUniversals.toArray(new String[extraUniversals.size()]));
       }
-      field.apply();
+      else if (field instanceof MdWebMultipleTerm || field instanceof MdWebSingleTerm || field instanceof MdWebSingleTermGrid)
+      {
+        DDMSFieldBuilders.create(field, mdForm.getId());
+      }
+      else
+      {
+        if (field instanceof MdWebAttribute)
+        {
+          boolean found = false;
+          for (int i = 0; i < mdAttrs.length; ++i)
+          {
+            if (mdAttrs[i].getAttributeName().equals(field.getFieldName()))
+            {
+              MdAttributeConcrete attr = mdAttrs[i];
+              attr.setDefiningMdClass(mdClass);
+              attr.apply();
+              
+              ((MdWebAttribute)field).setDefiningMdAttribute(mdAttrs[i]);
+              found = true;
+            }
+          }
+          if (!found) { throw new DataNotFoundException("There is no corresponding MdAttribute for the MdWebField [" + field.getKeyName() + "].", (MetadataDAOIF) field); }
+        }
+        
+        field.apply();
+      }
     }
-    
-    new FormSystemURLBuilder(mdForm).generate();
     
     return mdForm;
   }

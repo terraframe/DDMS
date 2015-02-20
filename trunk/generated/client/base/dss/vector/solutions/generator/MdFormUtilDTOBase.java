@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -821395043)
+@com.runwaysdk.business.ClassSignature(hash = 480224469)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -821395043;
+  private static final long serialVersionUID = 480224469;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -33,10 +33,10 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.runwaysdk.system.metadata.MdWebFormDTO clone(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFormDTO mdForm, com.runwaysdk.system.metadata.MdClassDTO mdClass, com.runwaysdk.system.metadata.MdWebFieldDTO[] mdFields, com.runwaysdk.system.metadata.MdAttributeConcreteDTO[] mdAttrs)
+  public static final com.runwaysdk.system.metadata.MdWebFormDTO clone(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFormDTO mdForm, com.runwaysdk.system.metadata.MdClassDTO mdClass, com.runwaysdk.system.metadata.MdWebFieldDTO[] mdFields, com.runwaysdk.system.metadata.MdAttributeConcreteDTO[] mdAttrs, java.lang.String oldMdForm)
   {
-    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm", "com.runwaysdk.system.metadata.MdClass", "[Lcom.runwaysdk.system.metadata.MdWebField;", "[Lcom.runwaysdk.system.metadata.MdAttributeConcrete;"};
-    Object[] _parameters = new Object[]{mdForm, mdClass, mdFields, mdAttrs};
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm", "com.runwaysdk.system.metadata.MdClass", "[Lcom.runwaysdk.system.metadata.MdWebField;", "[Lcom.runwaysdk.system.metadata.MdAttributeConcrete;", "java.lang.String"};
+    Object[] _parameters = new Object[]{mdForm, mdClass, mdFields, mdAttrs, oldMdForm};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "clone", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

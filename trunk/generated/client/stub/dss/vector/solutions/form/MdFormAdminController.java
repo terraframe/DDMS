@@ -739,7 +739,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       MdClassDTO clonedBiz = (MdClassDTO) ComponentDTOIFCopier.create(getClientRequest(), form.getFormMdClass(), true, true);
       modifyAttrs(clonedBiz);
       
-      MdWebFormDTO updatedForm = MdFormUtilDTO.clone(this.getClientRequest(), clonedForm, clonedBiz, clonedFields.toArray(new MdWebFieldDTO[clonedFields.size()]), clonedAttrs.toArray(new MdAttributeConcreteDTO[clonedAttrs.size()]));
+      MdWebFormDTO updatedForm = MdFormUtilDTO.clone(this.getClientRequest(), clonedForm, clonedBiz, clonedFields.toArray(new MdWebFieldDTO[clonedFields.size()]), clonedAttrs.toArray(new MdAttributeConcreteDTO[clonedAttrs.size()]), form.getId());
       
       this.fetchFormAttributes(updatedForm.getId());
     }

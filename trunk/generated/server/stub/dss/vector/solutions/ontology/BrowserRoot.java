@@ -76,6 +76,8 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   @Override
   protected String buildKey()
   {
+    // If you're changing this method make sure you're aware of ticket 3214. Its a nasty bug that could reappear if you change this source.
+    
     if (this.getTerm() == null || this.getDisease() == null || this.getBrowserField() == null)
     {
       return this.getId(); // object not properly constructed.

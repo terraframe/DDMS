@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 801447965)
+@com.runwaysdk.business.ClassSignature(hash = -436616363)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 801447965;
+  private static final long serialVersionUID = -436616363;
   
   public MdFormUtilBase()
   {
@@ -57,7 +57,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.runwaysdk.system.metadata.MdWebForm clone(com.runwaysdk.system.metadata.MdWebForm mdForm, com.runwaysdk.system.metadata.MdClass mdClass, com.runwaysdk.system.metadata.MdWebField[] mdFields, com.runwaysdk.system.metadata.MdAttributeConcrete[] mdAttrs)
+  public static com.runwaysdk.system.metadata.MdWebForm clone(com.runwaysdk.system.metadata.MdWebForm mdForm, com.runwaysdk.system.metadata.MdClass mdClass, com.runwaysdk.system.metadata.MdWebField[] mdFields, com.runwaysdk.system.metadata.MdAttributeConcrete[] mdAttrs, java.lang.String oldMdForm)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
