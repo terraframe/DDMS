@@ -8,10 +8,11 @@
 	<!-- IMPORTANT: This ant script should be run with a base directory set to the root of the project! -->
 	
 	<!-- Launch Properties: -->
-	<!-- mdss.root, mdss.admin -->
+	<!-- mdss.root, mdss.admin, swt.jar -->
 	<!-- (Set these in the launch configuration) -->
 	
 	<property name="mdss.root" value="/Users/terraframe/Documents/workspace2/mdss root/trunk" />
+	<property name="swt.jar" value="/Users/terraframe/.m2/repository/org/eclipse/swt-macosx64/4.3/swt-macosx64-4.3.jar" />
 
 	<property name="profile.root" value="${mdss.root}/profiles" />
 	<property name="system.password" value="mdsstest2" />
@@ -46,7 +47,7 @@
     </fileset>
     <pathelement location="${profile.root}" />
     <pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
-    <pathelement path="/home/jsmethie/workspace/org.eclipse.swt/swt.jar" />
+    <pathelement path="${swt.jar}" />
     <pathelement location="${local.bin}" />
     <pathelement location="${client.bin}" />
     <pathelement location="${server.bin}" />
