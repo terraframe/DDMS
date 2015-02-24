@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -31,6 +37,20 @@ public class RestoreAction extends Action
 
   public static String     DEFAULT_MANAGER = ROOT_DIRECTORY+"/manager/";
   
+  @SuppressWarnings("static-access")
+  public static void main(String[] args) throws ParseException
+  {
+    Options options = new Options();
+    options.addOption(OptionBuilder.withDescription("NAME of webapp.").hasArg().withArgName("NAME").create("appName"));
+    options.addOption(OptionBuilder.withDescription("The path to the file to save the backup to.").hasArg().withArgName("FILE").create("file"));
+    options.addOption(OptionBuilder.withDescription("Flag indicating the process should NOT backup and restore the registry.").create("noRegistry"));
+
+    CommandLineParser parser = new PosixParser();
+    CommandLine cmd = parser.parse(options, args);
+
+    doRestore(new File(cmd.getOptionValue("file")), System.out, !cmd.hasOption("noRegistry"), cmd.getOptionValue("appName"));
+  }
+  
   public RestoreAction(BackupManagerWindow window)
   {
     super(Localizer.getMessage("RESTORE"), ImageDescriptor.createFromURL(Object.class.getResource("/icons/restore.png")));
@@ -38,7 +58,7 @@ public class RestoreAction extends Action
     
     this.window = window;
   }
-
+  
   @Override
   public void run()
   {
@@ -80,17 +100,7 @@ public class RestoreAction extends Action
 
               try
               {
-                Restore restore = new Restore(print, file.getAbsolutePath());
-
-                if (window.getRegistry())
-                {
-                  restore.addAgent(new RegistryAgent(window.getAppName()));
-                }
-                
-                // All this does for now is make sure the RMI port is not in use
-                restore.addAgent(new PropertiesAgent(window.getAppName()));
-
-                restore.restore();
+                doRestore(file, print, window.getRegistry(), window.getAppName());
               }
               finally
               {
@@ -117,5 +127,20 @@ public class RestoreAction extends Action
         this.window.error(e);
       }
     }
+  }
+  
+  private static void doRestore(final File file, PrintStream print, boolean doRegistry, String appName)
+  {
+    Restore restore = new Restore(print, file.getAbsolutePath());
+
+    if (doRegistry)
+    {
+      restore.addAgent(new RegistryAgent(appName));
+    }
+    
+    // All this does for now is make sure the RMI port is not in use
+    restore.addAgent(new PropertiesAgent(appName));
+
+    restore.restore();
   }
 }

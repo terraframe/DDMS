@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -27,6 +33,20 @@ public class BackupAction extends Action
 
   private BackupManagerWindow window;
 
+  @SuppressWarnings("static-access")
+  public static void main(String[] args) throws ParseException
+  {
+    Options options = new Options();
+    options.addOption(OptionBuilder.withDescription("NAME of webapp.").hasArg().withArgName("NAME").create("appName"));
+    options.addOption(OptionBuilder.withDescription("The path to the file to save the backup to.").hasArg().withArgName("FILE").create("file"));
+    options.addOption(OptionBuilder.withDescription("Flag indicating the process should NOT backup and restore the registry.").create("noRegistry"));
+
+    CommandLineParser parser = new PosixParser();
+    CommandLine cmd = parser.parse(options, args);
+
+    doBackup(new File(cmd.getOptionValue("file")), System.out, !cmd.hasOption("noRegistry"), cmd.getOptionValue("appName"));
+  }
+  
   public BackupAction(BackupManagerWindow window)
   {
     super(Localizer.getMessage("BACKUP"), ImageDescriptor.createFromURL(Object.class.getResource("/icons/backup.png")));
@@ -74,13 +94,7 @@ public class BackupAction extends Action
               EventOutputStream out = new EventOutputStream(monitor);
               PrintStream print = new PrintStream(out, true);
 
-              Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
-
-              if (window.getRegistry())
-              {
-                backup.addAgents(new RegistryAgent(window.getAppName()));
-              }
-              backup.backup();
+              doBackup(file, print, window.getRegistry(), window.getAppName());
 
               print.close();
             }
@@ -100,5 +114,16 @@ public class BackupAction extends Action
         }
       }
     }
+  }
+
+  private static void doBackup(final File file, PrintStream print, boolean doRegistry, String appName)
+  {
+    Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
+
+    if (doRegistry)
+    {
+      backup.addAgents(new RegistryAgent(appName));
+    }
+    backup.backup();
   }
 }
