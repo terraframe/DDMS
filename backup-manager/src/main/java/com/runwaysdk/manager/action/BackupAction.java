@@ -33,18 +33,24 @@ public class BackupAction extends Action
 
   private BackupManagerWindow window;
 
+  /**
+   * This function is used by the DDMS CLI (ticket 3180)
+   * 
+   * @param args
+   * @throws ParseException
+   */
   @SuppressWarnings("static-access")
   public static void main(String[] args) throws ParseException
   {
     Options options = new Options();
-    options.addOption(OptionBuilder.withDescription("NAME of webapp.").hasArg().withArgName("NAME").create("appName"));
-    options.addOption(OptionBuilder.withDescription("The path to the file to save the backup to.").hasArg().withArgName("FILE").create("file"));
-    options.addOption(OptionBuilder.withDescription("Flag indicating the process should NOT backup and restore the registry.").create("noRegistry"));
+    options.addOption("a", "appName", true, "Name of the webapp.");
+    options.addOption("f", "file", true, "The path to the file in which to save the backup.");
+    options.addOption("r", "noRegistry", true, "Flag indicating the process should NOT backup and restore the registry.");
 
     CommandLineParser parser = new PosixParser();
     CommandLine cmd = parser.parse(options, args);
 
-    doBackup(new File(cmd.getOptionValue("file")), System.out, !cmd.hasOption("noRegistry"), cmd.getOptionValue("appName"));
+    doBackup(new File(cmd.getOptionValue("f")), System.out, !cmd.hasOption("r"), cmd.getOptionValue("a"));
   }
   
   public BackupAction(BackupManagerWindow window)
