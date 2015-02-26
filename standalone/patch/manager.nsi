@@ -84,6 +84,7 @@ Section -Main SEC0000
     
     SetOutPath $INSTDIR
     File manager.bat
+    File manager.ps1
     File manager.ico	
     SetOutPath $INSTDIR\backup-manager-1.0.0
     File /r /x .svn ..\backup-manager-1.0.0\*
