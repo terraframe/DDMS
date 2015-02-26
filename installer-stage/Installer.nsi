@@ -92,11 +92,13 @@ Var JvmType                # Flag indicating if the jvm is 32-bit or not
 Var MaxMem                 # Max amount of memory to give Tomcat and the installer
 Var PermMem                # Max amount of perm gen memory to give Tomcat and the installer
 Var TomcatExec             # Path of the tomcat service executable
+Var execReturn             # Contains the return value from running an executable.
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
 Page custom appNameInputPage appNameUniquenessCheck
 Page custom userInputPage exitUserInputPage
+#Page directory locationInputPage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -267,6 +269,12 @@ Function sanitizeName
   
 FunctionEnd
 
+Function locationInputPage
+  StrCpy $R8 3 ;This is the third page
+  
+  !insertmacro MUI_HEADER_TEXT "Installation Folder" "Specify the installation folder"
+FunctionEnd
+
 Function stopPostgres
   LogEx::Write "Stopping PostgreSQL"
   ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data"
@@ -326,15 +334,15 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7754
-    StrCpy $TermsVersion 7455
-    StrCpy $RootsVersion 7504
-    StrCpy $MenuVersion 7427
-    StrCpy $LocalizationVersion 7747
-    StrCpy $PermissionsVersion 7699
-	StrCpy $RunwayVersion 7743
+    StrCpy $PatchVersion 7801
+    StrCpy $TermsVersion 7764
+    StrCpy $RootsVersion 7759
+    StrCpy $MenuVersion 7786
+    StrCpy $LocalizationVersion 7786
+    StrCpy $PermissionsVersion 7799
+	StrCpy $RunwayVersion 7774
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7663
+	StrCpy $ManagerVersion 7791
 	StrCpy $BirtVersion 7497
 	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7202
@@ -405,6 +413,7 @@ Section -Main SEC0000
     LogEx::Write "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
+	File ..\standalone\patch\manager.ps1
     File ..\standalone\patch\manager.ico	
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
@@ -446,9 +455,9 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
     File "postgresql-9.1.2-1-windows.exe"
-    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\9.1 --datadir C:\MDSS\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\PostgreSql\9.1 --datadir $INSTDIR\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
     #IfErrors PostgresInstallError PostgressInstallSuccess
-	#IfFileExists C:\MDSS\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
+	#IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
 	#MessageBox MB_OK "Postgres failed to install correctly" 
@@ -463,21 +472,21 @@ Section -Main SEC0000
     LogEx::Write "Installing custom pg_hba.conf"
     # Version 5 means XP.  No IPv6
     ${If} $0 == 5
-      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv4.conf"
+      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv4.conf"
     
     # Version 5 means Vista or Seven.  IPv6 enabled
     ${ElseIf} $0 == 6
-      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     
     # Who knows what version we're on.
     ${Else}
       MessageBox MB_OK "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
-      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
     
     # Copy the tweaked postgres config
     LogEx::Write "Installing custom postgresql.conf"
-    File "/oname=C:\MDSS\PostgreSql\9.1\data\postgresql.conf" "postgresql.conf"
+    File "/oname=$INSTDIR\PostgreSql\9.1\data\postgresql.conf" "postgresql.conf"
 	
 	Sleep 2000    
 	DetailPrint "The database is initializing. This may take a few minutes."
@@ -526,30 +535,35 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
-    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
-    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
+    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
 
     # Update the installation number
     LogEx::Write "Updating the installation number"
-    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
-    # takeown /f C:\MDSS\PostgreSql /r /d y
-    # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
+    # takeown /f $INSTDIR\PostgreSql /r /d y
+    # icalcs $INSTDIR\PostgreSql /grant administrators:F /t
     
     # Update lots of things	
 	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $MaxMem
+    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $execReturn
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
-	# delete $INSTDIR\PostInstallSetup.log
+	
+	${If} $execReturn == 1 #Our PostInstall process returned 1. This isn't a memory option, its an error code.
+	  SetErrors
+	${Else}
+	  StrCpy $MaxMem $execReturn #PostInstall returned a calculated memory value for us to use.
+	${EndIf}
     IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
@@ -610,9 +624,8 @@ Section -Main SEC0000
 	${EndIF}	
 	
 	# Update tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
-	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"	
-	
+    ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp" --LogPath="$INSTDIR\logs"`	
+	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
 	
     # Copy the profile to the backup manager
     LogEx::Write "Copying profile to backup manager"
@@ -649,7 +662,8 @@ Section -Main SEC0000
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\birt
-    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
+    #CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
+	CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat"
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
