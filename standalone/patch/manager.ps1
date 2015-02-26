@@ -6,6 +6,7 @@ param (
   [switch]$stopTomcat,
   [switch]$getTomcatStatus,
   [string]$backup = $null,
+  [string]$backupAll = $null,
   [string]$restore = $null,
   [string]$filename = $null
 )
@@ -54,6 +55,10 @@ function main()
   
     backup
   }
+  elseif ($backupAll -ne $null -and $backupAll -ne "")
+  {
+    backupAll
+  }
   elseif ($restore -ne $null -and $restore -ne "")
   {
     if ($filename -eq $null -or $filename -eq "")
@@ -67,6 +72,32 @@ function main()
   else
   {
     help
+  }
+}
+
+function backupAll()
+{
+  $managerLoc = getManagerPath "manager"
+  $appStr = Get-Content "$($managerLoc)\classes\applications.txt"
+  $apps = ($appStr -split '[\r\n]') |? {$_} 
+  
+  echo "`n---Backing up DDMS applications:`---`n"
+  echo $appStr
+  
+  $webclient = logIn
+  
+  foreach ($app in $apps) {
+    echo "`n---Beginning backup of $($app)---`n"
+    
+    $stopApp = $app
+    stopApp $webclient
+    
+    $backup = $app
+    $filename = $backupAll
+    backup
+    
+    $startApp = $app
+    startApp $webclient
   }
 }
 
@@ -191,7 +222,7 @@ function startApp($webclient)
   }
   else
   {
-    echo "Tomcat must be fully started before you start or stop an app. Your command has been ignored."
+    echo "Tomcat must be fully started before you can start an app. Your command has been ignored."
   }
 }
 
@@ -217,7 +248,7 @@ function stopApp($webclient)
   }
   else
   {
-    echo "Tomcat must be fully started before you start or stop an app. Your command has been ignored."
+    echo "Tomcat must be fully started before you can stop an app. Your command has been ignored."
   }
 }
 
@@ -272,11 +303,12 @@ function getClasspath($manager, $appName)
 function help()
 {
   echo "The following commands are supported:"
-  echo "-start <appName>   Starts the DDMS application by name <appName>."
-  echo "-stop <appName>    Stops the DDMS application by name <appName>."
+  echo "-start <appName>                        Starts the DDMS application by name <appName>."
+  echo "-stop <appName>                         Stops the DDMS application by name <appName>."
   echo "-restore <appName> -filename <filePath> Starts a restore on <appName> from file <filePath>. This path can be either absolute or relative."
   echo "-backup <appName> -filename <filePath>  Starts backing up the DDMS application <appName> to a file <filePath>. This path can be either absolute or relative."
-  echo "-getTomcatStatus   Returns the current status of tomcat."
+  echo "-backupAll <directory>                  Backs up all applications to the specified directory."
+  echo "-getTomcatStatus                        Returns the current status of tomcat."
 }
 
 main
