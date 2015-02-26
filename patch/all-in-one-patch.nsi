@@ -118,6 +118,7 @@ Var TomcatExec              # Path of the tomcat service executable
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
+#Page directory locationInputPage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -143,6 +144,12 @@ VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 ShowUninstDetails show
 
+Function locationInputPage
+  StrCpy $R8 1 ;This is the first page
+  
+  !insertmacro MUI_HEADER_TEXT "Installation Folder" "Specify the folder that contains your DDMS install."
+FunctionEnd
+
 # Installer sections
 Section -Main SEC0000
 
@@ -165,15 +172,15 @@ Section -Main SEC0000
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7688
+  StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 7663
-  StrCpy $PatchVersion 7734
-  StrCpy $TermsVersion 7455
-  StrCpy $RootsVersion 7504
-  StrCpy $MenuVersion 7427
-  StrCpy $LocalizationVersion 7732
-  StrCpy $PermissionsVersion 7699
+  StrCpy $ManagerVersion 7791
+  StrCpy $PatchVersion 7801
+  StrCpy $TermsVersion 7764
+  StrCpy $RootsVersion 7759
+  StrCpy $MenuVersion 7786
+  StrCpy $LocalizationVersion 7786
+  StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7497
   StrCpy $WebappsVersion 7616
@@ -483,7 +490,7 @@ Function patchApplication
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
   
       # Update the .css file with the correct pathing
-      ExecWait `$Java -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
+      ExecWait `$Java -cp "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
     
       # Copy the profile to the backup manager
       CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
@@ -591,6 +598,7 @@ Function patchManager
   
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
+	File ..\standalone\patch\manager.ps1
     File ..\standalone\patch\manager.ico  
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
