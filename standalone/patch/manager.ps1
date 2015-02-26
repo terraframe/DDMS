@@ -99,6 +99,8 @@ function backupAll()
     $startApp = $app
     startApp $webclient
   }
+  
+  echo "`n---DDMS backup complete---`n"
 }
 
 function getTomcatStatus()
