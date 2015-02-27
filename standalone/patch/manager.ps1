@@ -84,19 +84,19 @@ function backupAll()
   echo "`n---Backing up DDMS applications:`---`n"
   echo $appStr
   
-  $webclient = logIn
-  
   foreach ($app in $apps) {
     echo "`n---Beginning backup of $($app)---`n"
     
     $stopApp = $app
+    $webclient = logIn
     stopApp $webclient
     
     $backup = $app
-    $filename = $backupAll
+    $filename = "$($backupAll)\$app"
     backup
     
     $startApp = $app
+    $webclient = logIn
     startApp $webclient
   }
   
