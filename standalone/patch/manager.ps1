@@ -43,7 +43,7 @@ function main()
   }
   elseif ($getTomcatStatus.IsPresent)
   {
-    getTomcatStatus
+    getTomcatStatus > $null
   }
   elseif ($backup -ne $null -and $backup -ne "")
   {
@@ -105,6 +105,8 @@ function backupAll()
 
 function getTomcatStatus()
 {
+  Write-Host "Checking server status..."
+
   $classpath = getClasspath "manager" $null
   $cmd = "$($java) $($memory) $($ssl) -classpath `"$($classpath)`" dss.vector.solutions.manager.server.ServerStatus -g"
   
@@ -128,13 +130,12 @@ function getTomcatStatus()
     $status = "stopping"
   }
   
-  echo $status
+  Write-Host "Server is $($status)"
+  return $status
 }
 
 function startTomcat()
 {
-  echo "Checking server status..."
-
   $status = getTomcatStatus
   
   if ($status -eq "stopped")
@@ -165,8 +166,6 @@ function startTomcat()
 
 function stopTomcat()
 {
-  echo "Checking server status..."
-
   $status = getTomcatStatus
   
   if ($status -eq "started")
@@ -204,12 +203,12 @@ function logIn()
 
 function startApp($webclient)
 {
-  echo "Checking server status..."
-
   $status = getTomcatStatus
   
   if ($status -eq "started")
   {
+  echo "Starting app $($startApp)..."
+  
     try
     {
       $output = $webclient.DownloadString($url + "start?path=/" + $startApp)
@@ -230,12 +229,12 @@ function startApp($webclient)
 
 function stopApp($webclient)
 {
-  echo "Checking server status..."
-
   $status = getTomcatStatus
   
   if ($status -eq "started")
   {
+  echo "Stopping app $($stopApp)..."
+  
     try
     {
       $output = $webclient.DownloadString($url + "stop?path=/" + $stopApp)
