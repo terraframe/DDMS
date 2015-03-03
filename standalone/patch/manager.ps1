@@ -1,15 +1,28 @@
 # Parameters read from the user calling our program
 param (
-    [string]$startApp = $null,
+  [string]$startApp = $null,
   [string]$stopApp = $null,
+  [string]$backup = $null,
+  [string]$restore = $null,
+  [string]$backupAll = $null,
   [switch]$startTomcat,
   [switch]$stopTomcat,
   [switch]$getTomcatStatus,
-  [string]$backup = $null,
-  [string]$backupAll = $null,
-  [string]$restore = $null,
+  
   [string]$filename = $null
 )
+function help()
+{
+  echo "The following commands are supported:"
+  echo "-startApp <appName>                     Starts the DDMS application by name <appName>."
+  echo "-stopApp <appName>                      Stops the DDMS application by name <appName>."
+  echo "-backup <appName> -filename <filePath>  Starts backing up the DDMS application <appName> to a file <filePath>. This path can be either absolute or relative."
+  echo "-restore <appName> -filename <filePath> Starts a restore on <appName> from file <filePath>. This path can be either absolute or relative."
+  echo "-backupAll <directory>                  Backs up all applications to the specified directory."
+  echo "-startTomcat                            Starts Tomcat and all DDMS applications."
+  echo "-stopTomcat                             Stops Tomcat and all DDMS applications."
+  echo "-getTomcatStatus                        Returns the current status of Tomcat."
+}
 
 # Define some variables that we'll use for this script.
 $basedir = split-path -parent $MyInvocation.MyCommand.Definition
@@ -299,17 +312,6 @@ function getClasspath($manager, $appName)
   }
   
   return $cp
-}
-
-function help()
-{
-  echo "The following commands are supported:"
-  echo "-start <appName>                        Starts the DDMS application by name <appName>."
-  echo "-stop <appName>                         Stops the DDMS application by name <appName>."
-  echo "-restore <appName> -filename <filePath> Starts a restore on <appName> from file <filePath>. This path can be either absolute or relative."
-  echo "-backup <appName> -filename <filePath>  Starts backing up the DDMS application <appName> to a file <filePath>. This path can be either absolute or relative."
-  echo "-backupAll <directory>                  Backs up all applications to the specified directory."
-  echo "-getTomcatStatus                        Returns the current status of tomcat."
 }
 
 main
