@@ -18,7 +18,7 @@
 	</ul>
 	
 	<div class="form-action-row" id="formActionRow">
-    <mdss:localize key="save" var="localized_clone_save" />
+    <mdss:localize key="SaveClone" var="localized_clone_save" />
     <mjl:command value="${localized_clone_save}" action="dss.vector.solutions.form.MdFormAdminController.clone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.clone.button"/>
     <mdss:localize key="Cancel" var="Localized_Cancel" />
     <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.form.MdFormAdminController.cancelViewClone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.cancelViewClone.button" />

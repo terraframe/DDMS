@@ -101,17 +101,25 @@ import com.runwaysdk.system.metadata.MdForm;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebAttributeQuery;
+import com.runwaysdk.system.metadata.MdWebBoolean;
 import com.runwaysdk.system.metadata.MdWebBreak;
 import com.runwaysdk.system.metadata.MdWebCharacter;
 import com.runwaysdk.system.metadata.MdWebComment;
+import com.runwaysdk.system.metadata.MdWebDec;
+import com.runwaysdk.system.metadata.MdWebDecimal;
+import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFieldQuery;
+import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
+import com.runwaysdk.system.metadata.MdWebInteger;
+import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
+import com.runwaysdk.system.metadata.MdWebNumber;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
@@ -131,9 +139,6 @@ import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.FormNameNotBlankException;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.form.MdFormHasInstancesException;
-import dss.vector.solutions.form.WebMultipleTermBuilder;
-import dss.vector.solutions.form.WebSingleTermBuilder;
-import dss.vector.solutions.form.WebSingleTermGridBuilder;
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
@@ -514,7 +519,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     DDMSFieldBuilders.create(mdField, mdWebSingleTermGrid);
 
     return mdField;
-
   }
 
   private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
@@ -1057,12 +1061,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     mdForm.setFormMdClass(mdClass);
     mdForm.apply();
     
-//    for (MdAttributeConcrete attr : mdAttrs)
-//    {
-//      attr.setDefiningMdClass(mdClass);
-//      attr.apply();
-//    }
-    
     new FormSystemURLBuilder(mdForm).generate();
     
     for (MdWebField field : fields)
@@ -1085,7 +1083,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         clonedGeoField.setFilter(oldGeoField.getFilter());
         
         ArrayList<String> extraUniversals = new ArrayList<String>();
-        OIterator<? extends GeoHierarchy> hierIt = clonedGeoField.getAllGeoHierarchies();
+        OIterator<? extends GeoHierarchy> hierIt = oldGeoField.getAllGeoHierarchies();
         try
         {
           while (hierIt.hasNext())
@@ -1101,7 +1099,33 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         
         DDMSFieldBuilders.createGeoField((MdWebGeo)field, mdForm.getId(), clonedGeoField, extraUniversals.toArray(new String[extraUniversals.size()]));
       }
-      else if (field instanceof MdWebMultipleTerm || field instanceof MdWebSingleTerm || field instanceof MdWebSingleTermGrid)
+      else if (field instanceof MdWebSingleTermGrid)
+      {
+        MdWebSingleTermGrid mdGrid = ( (MdWebSingleTermGrid) field );
+        
+        String fieldName = field.getFieldName();
+        MdWebSingleTermGrid oldField = (MdWebSingleTermGrid) oldWebForm.getField(fieldName);
+        
+        DDMSFieldBuilders.create(field, mdForm.getId());
+        
+        OIterator<? extends MdWebPrimitive> it = oldField.getAllMdFields();
+        try
+        {
+          while (it.hasNext())
+          {
+            MdWebPrimitive mdColumn = it.next();
+            
+            MdWebPrimitive cloned = primitiveClone(mdColumn);
+            
+            DDMSFieldBuilders.create(cloned, mdGrid);
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+      }
+      else if (field instanceof MdWebMultipleTerm || field instanceof MdWebSingleTerm)
       {
         DDMSFieldBuilders.create(field, mdForm.getId());
       }
@@ -1130,6 +1154,63 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
     
     return mdForm;
+  }
+  /**
+   * This method is used only for composites. Cloning for all the other types happens in the controller.
+   */
+  private static MdWebPrimitive primitiveClone(MdWebPrimitive input)
+  {
+    MdWebPrimitive cloned;
+    if (input instanceof MdWebBoolean)
+    {
+      cloned = new MdWebBoolean();
+      ( (MdWebBoolean) cloned ).setDefaultValue(( (MdWebBoolean) input ).getDefaultValue());
+    }
+    else if (input instanceof MdWebDecimal)
+    {
+      cloned = new MdWebDecimal();
+    }
+    else if (input instanceof MdWebDouble)
+    {
+      cloned = new MdWebDouble();
+    }
+    else if (input instanceof MdWebFloat)
+    {
+      cloned = new MdWebFloat();
+    }
+    else if (input instanceof MdWebInteger)
+    {
+      cloned = new MdWebInteger();
+    }
+    else if (input instanceof MdWebLong)
+    {
+      cloned = new MdWebLong();
+    }
+    else
+    {
+      throw new UnsupportedOperationException();
+    }
+    
+    if (input instanceof MdWebNumber)
+    {
+      ( (MdWebNumber) cloned ).setStartRange(( (MdWebNumber) input ).getStartRange());
+      ( (MdWebNumber) cloned ).setEndRange(( (MdWebNumber) input ).getEndRange());
+    }
+    if (input instanceof MdWebDec)
+    {
+      ( (MdWebDec) cloned ).setDecPrecision(( (MdWebDec) input ).getDecPrecision());
+      ( (MdWebDec) cloned ).setDecScale(( (MdWebDec) input ).getDecScale());
+    }
+    
+    cloned.getDisplayLabel().setValue(input.getDisplayLabel().getValue());
+    cloned.getDescription().setValue(input.getDescription().getValue());
+    cloned.setRequired(input.getRequired());
+    cloned.setRemove(input.getRemove());
+    cloned.setFieldOrder(input.getFieldOrder());
+    cloned.setShowOnViewAll(input.getShowOnViewAll());
+    cloned.setShowOnSearch(input.getShowOnSearch());
+    
+    return cloned;
   }
 
   @Transaction
