@@ -307,7 +307,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates database views for queries.
+   * Creates database views for queries. This is called on server initialization by ServerContext.
    */
   public static void createDatabaseViews()
   {
@@ -322,7 +322,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          search.createOrReplaceDatabaseView();
+          search.createDatabaseView(false);
         }
         catch (Throwable t)
         {
@@ -379,6 +379,16 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // remove the existing database view
     this.deleteDatabaseViewIfExists();
 
+    createDatabaseView(true);
+  }
+  
+  private void createDatabaseView(boolean replaceExisting)
+  {
+    if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
+    {
+      return;
+    }
+    
     String queryType = this.getQueryType();
     String xml = this.getQueryXml();
     String config = this.getConfig();
@@ -453,7 +463,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // create the database view
       String viewName = this.generateViewName();
       String sql = "(" + outer.getSQL() + ")";
-      Database.createView(viewName, sql);
+      Database.createView(viewName, sql, replaceExisting);
     }
     catch (NoColumnsAddedException e)
     {
