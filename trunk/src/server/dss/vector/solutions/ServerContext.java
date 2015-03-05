@@ -41,6 +41,14 @@ public class ServerContext
 {
   private static ServerContext instance = null;
 
+  public ServerContext(boolean skipStartup)
+  {
+    if (!skipStartup)
+    {
+      this.contextInitialized();
+    }
+  }
+  
   private ServerContext()
   {
     this.contextInitialized();
@@ -48,11 +56,11 @@ public class ServerContext
 
   public synchronized void contextDestroyed()
   {
-    doCleanup();
+//    doCleanup();
   }
 
   @Request
-  private void doCleanup()
+  public void doCleanup()
   {
     // Clean up all database map views
     this.cleanupViews();
@@ -66,9 +74,9 @@ public class ServerContext
   @Request
   private void contextInitialized()
   {
-    cleanupViews();
+//    cleanupViews();
 
-    runSql(getDropSql());
+//    runSql(getDropSql());
     runSql(getIndexSql());
     runSql(getGeohierarchyAllpathsSQL());
     runSql(getFunctionSql());
@@ -77,7 +85,7 @@ public class ServerContext
     this.createViews();
 
     // Delete any views which might not have be deleted
-    this.deleteGeneratedMapViews();
+//    this.deleteGeneratedMapViews();
 
     // Create the generated map views
     this.createGeneratedMapViews();
