@@ -1,5 +1,7 @@
 package dss.vector.solutions.util;
 
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+
 import dss.vector.solutions.ServerContext;
 
 /**
@@ -9,6 +11,13 @@ public class DatabaseViewCleanerPatcher
 {
   public static void main(String[] args)
   {
-    new ServerContext(true).doCleanup();
+    try
+    {
+      new ServerContext(true).doCleanup();
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
   }
 }
