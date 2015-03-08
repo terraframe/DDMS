@@ -1,6 +1,5 @@
 package dss.vector.solutions.querybuilder.irs;
 
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.querybuilder.IRSQB;

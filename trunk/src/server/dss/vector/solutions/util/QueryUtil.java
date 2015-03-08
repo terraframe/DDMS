@@ -14,25 +14,36 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.EnumerationMasterInfo;
+import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Coalesce;
+import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.InnerJoinEq;
+import com.runwaysdk.query.LeftJoin;
+import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
@@ -119,9 +130,15 @@ public class QueryUtil implements Reloadable
 
   public static final String  AVG_FUNCTION                 = "avg_stringified_id_int_pairs";
 
-  public static final String TABLE_ALIAS = "ms";
+  public static final String TABLE_ALIAS                   = "ms";
   
-  public static final String LABEL_ALIAS = "la";
+  public static final String LABEL_ALIAS                   = "la";
+  
+  public static final String ALLPATHS_ONTOLOGY_TABLE       = "allpaths_ontology";
+  
+  public static final String ALLPATHS_CHILD_TERM_COLUMN    = "child_term";
+
+  public static final String ALLPATHS_PARENT_TERM_COLUMN   = "parent_term";
   
   /**
    * Builds a unique DB alias based on the given terms.
@@ -286,43 +303,169 @@ public class QueryUtil implements Reloadable
 
   }
 
-//  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
-//  {
-//
-//    String tableAlias = query.getTableAlias();
-//
-//    return joinTermAllpaths(valueQuery, klass, tableAlias);
-//  }
-
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, Map<String, Restriction> restrictions)
   {
     String tableAlias = query.getTableAlias();
 
     return joinTermAllpaths(valueQuery, klass, tableAlias, restrictions);
   }
-//
-//  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
-//  {
-//
-//    String[] termAttributes = filterSelectedAttributes(valueQuery, Term.getTermAttributes(klass));
-//
-//    // optimization: do nothing if there are no terms selected
-//    if (termAttributes.length > 0)
-//    {
-//      String id = getIdColumn();
-//
-//      String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
-//      // String subSelect = klass.replace('.', '_') + "TermSubSel";
-//      String subSelect = tableAlias + "_TermSubSel";
-//      String table = MdEntity.getMdEntity(klass).getTableName();
-//      valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
-//
-//      return true;
-//    }
-//    return false;
-//
-//  }
 
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
+  {
+    // This operation is expensive, so only do it once.
+    List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
+
+    boolean found = false;
+
+    LeftJoin rootLeftJoin = null;
+    LeftJoin previousLeftJoin = null;
+    
+    List<Condition> termConditions = new LinkedList<Condition>();
+    
+    // make a list of terms that are included as selectables
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String dbColumnName = s.getDbColumnName();
+        int ind = dbColumnName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
+      
+        if (ind != -1)
+        {
+          String attr = dbColumnName.substring(0, ind);
+          for (String termAttrib : termAttributes)
+          {
+            // Only join for term attributes
+            if (termAttrib.equals(attr))
+            {
+              found = true;
+
+//              StringBuffer sql = new StringBuffer("(" + "\n");
+
+              MdEntityDAOIF mdEntityTerm = MdEntityDAO.getMdEntityDAO(Term.CLASS);
+              String termTable = mdEntityTerm.getTableName();
+              
+              MdAttributeConcreteDAOIF mdAttributeTermName = mdEntityTerm.definesAttribute(Term.NAME);
+              String termNameColumn = mdAttributeTermName.getColumnName();
+              
+              MdEntityDAOIF targetMdBusiness = MdEntityDAO.getMdEntityDAO(klass);
+              MdAttributeConcreteDAOIF mdAttribute = targetMdBusiness.definesAttribute(attr);
+
+              String tableName = targetMdBusiness.getTableName();
+              String columnName = mdAttribute.getColumnName();
+
+//              sql.append("       SELECT " + tableName + ".id AS id, term0.name AS " + attr + "_displayLabel" + "\n");
+//              sql.append("       FROM " + tableName + " AS " + tableName + "\n");
+
+              String columnAlias = s.getUserDefinedAlias();
+
+              LeftJoinEq currleftJoinEq;
+              
+              // Used for calculating new table aliases for the query
+              String namespace = tableAlias+"."+columnName;
+              
+              String newTermTableAlias = valueQuery.getQueryFactory().getTableAlias(namespace, termTable); // namedspaced term 
+              // change the table alias hardcoded flag to the table alias created in the left join claus
+              ((SelectableSQL)s).setSQL(newTermTableAlias+"."+termNameColumn); 
+              
+              if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
+              {
+                
+                String allPathsAlias = valueQuery.getQueryFactory().getTableAlias(namespace, ALLPATHS_ONTOLOGY_TABLE);
+                
+//                sql.append("       LEFT JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
+                currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias);
+                if (rootLeftJoin == null)
+                {
+                  rootLeftJoin = currleftJoinEq;
+                }
+                else
+                {
+                  previousLeftJoin.nest(currleftJoinEq);
+                }
+                previousLeftJoin = currleftJoinEq;
+                
+                Restriction aggregation = aggregations.get(columnAlias);
+
+                if (aggregation.getAggregate())
+                {
+//                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.parent_term = term0.id" + "\n");
+                  currleftJoinEq = new LeftJoinEq(ALLPATHS_PARENT_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
+                  previousLeftJoin.nest(currleftJoinEq);
+                  previousLeftJoin = currleftJoinEq;
+                }
+                else
+                {
+//                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.child_term = term0.id" + "\n");        
+                  currleftJoinEq = new LeftJoinEq(ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
+                  previousLeftJoin.nest(currleftJoinEq);
+                  previousLeftJoin = currleftJoinEq;
+                }
+
+                List<String> restrictions = aggregation.getRestrictions();
+
+                if (restrictions.size() > 0)
+                {
+                  for (int i = 0; i < restrictions.size(); i++)
+                  {
+//                    if (i == 0)
+//                    {
+//                      sql.append("       WHERE ");
+//                    }
+//                    else
+//                    {
+//                      sql.append("       OR ");
+//                    }
+//
+//                    sql.append("allpaths_ontology_6.parent_term = '" + restrictions.get(i) + "'" + "\n");
+//                    sql.append(ALLPATHS_ONTOLOGY_TABLE+"."+ALLPATHS_PARENT_TERM_COLUMN + " = '" + restrictions.get(i) + "'" + "\n");
+                    SelectableSQLCharacter selectableSQLCharacter = valueQuery.aSQLCharacter(allPathsAlias+"_"+ALLPATHS_PARENT_TERM_COLUMN, allPathsAlias+"."+ALLPATHS_PARENT_TERM_COLUMN); 
+                    termConditions.add(selectableSQLCharacter.EQ(restrictions.get(i)));
+                  }
+                }
+              } // if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
+              else
+              {
+//                sql.append("       LEFT JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");           
+                currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
+                if (rootLeftJoin == null)
+                {
+                  rootLeftJoin = currleftJoinEq;
+                }
+                else
+                {
+                  previousLeftJoin.nest(currleftJoinEq);
+                }
+                previousLeftJoin = currleftJoinEq;
+              }
+//              String subSelect = klass.replace('.', '_') + "TermSubSel";
+//              sql.append("     )");
+
+
+            } // if (termAttrib.equals(attr))
+         } // for (String termAttrib : termAttributes)
+        } // if (ind != -1)
+      } // if (s instanceof SelectableSQL)
+    } // for (Selectable s : valueQuery.getSelectableRefs())
+    
+    if (rootLeftJoin != null)
+    {
+      valueQuery.AND(rootLeftJoin);
+      if (termConditions.size() >= 1)
+      {        
+        valueQuery.AND(OR.get(termConditions.toArray(new Condition[termConditions.size()])));
+      }
+    }
+
+   return found;
+  }
+/*
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
   {
     // This operation is expensive, so only do it once.
@@ -341,24 +484,22 @@ public class QueryUtil implements Reloadable
 
       if (s instanceof SelectableSQL)
       {
-        String attributeName = s.getDbColumnName();
+        String dbColumnName = s.getDbColumnName();
 
 
         for (String termAttrib : termAttributes)
         {
-          int ind = attributeName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
+          int ind = dbColumnName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
           if (ind != -1)
           {
-            String attr = attributeName.substring(0, ind);
+            String attr = dbColumnName.substring(0, ind);
 
-            /*
-             * Only join for term attributes
-             */
+            // Only join for term attributes
             if (termAttrib.equals(attr))
             {
               found = true;
 
-              String id = getIdColumn();
+              String idColumn = getIdColumn();
 
               StringBuffer sql = new StringBuffer("(" + "\n");
 
@@ -408,7 +549,7 @@ public class QueryUtil implements Reloadable
                     sql.append("allpaths_ontology_6.parent_term = '" + restrictions.get(i) + "'" + "\n");
                   }
                 }
-              }
+              } // if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               else
               {
                 sql.append("       LEFT JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");
@@ -419,16 +560,16 @@ public class QueryUtil implements Reloadable
 
               String subSelect = tableAlias + "_" + columName;
               String table = MdEntity.getMdEntity(klass).getTableName();
-              valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql.toString(), subSelect));
-            }
-          }
-        }
+              valueQuery.AND(new InnerJoinEq(idColumn, table, tableAlias, idColumn, sql.toString(), subSelect));
+            } // if (termAttrib.equals(attr))
+          } // if (ind != -1)
+        } // for (String termAttrib : termAttributes)
       }
     }
 
     return found;
   }
-
+  */
   public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query, String attributeId)
   {
 
@@ -472,6 +613,79 @@ public class QueryUtil implements Reloadable
   {
     if (query != null)
     {
+      String queryTableAlias = query.getTableAlias();
+      
+      String[] enumAttributes = filterSelectedAttributes(valueQuery, QueryUtil.getEnumAttributes(klass));
+      
+      MdEntityDAOIF targetMdBusiness = MdEntityDAO.getMdEntityDAO(klass);
+      String queryTable = targetMdBusiness.getTableName();
+      MdBusinessDAOIF enumMasterMdBusiness = MdBusinessDAO.getMdBusinessDAO(EnumerationMasterInfo.CLASS);
+      MdAttributeLocalDAOIF mdAttrDisplayLabel = (MdAttributeLocalDAOIF)enumMasterMdBusiness.getMdAttributeDAO(EnumerationMasterInfo.DISPLAY_LABEL);
+      MdLocalStructDAOIF mdLocalStruct = mdAttrDisplayLabel.getMdStructDAOIF();
+      
+      // make a list of terms that are included as selectables
+      for (Selectable s : valueQuery.getSelectableRefs())
+      {
+        while (s instanceof Function)
+        {
+          Function f = (Function) s;
+          s = f.getSelectable();
+        }
+        
+        if (s instanceof SelectableSQL)
+        {
+          String dbColumnName = s.getDbColumnName();
+          int ind = dbColumnName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
+      
+          if (ind != -1)
+          {
+            String attr = dbColumnName.substring(0, ind);
+          
+            for (String enumAttrib : enumAttributes)
+            {
+              // Only join for term attributes
+              if (enumAttrib.equals(attr))
+              {
+                MdAttributeEnumerationDAOIF mdAttrEnum = (MdAttributeEnumerationDAOIF)targetMdBusiness.definesAttribute(enumAttrib);
+                MdEnumerationDAOIF mdEnumeration = mdAttrEnum.getMdEnumerationDAO();
+                String mdEnumTable = mdEnumeration.getTableName();
+                String klassColumnName = mdAttrEnum.getColumnName();
+                
+                // Used for calculating new table aliases for the query
+                String mdEnumNamespace = queryTableAlias+"."+klassColumnName+"."+mdEnumTable;
+                String newEnumTableAlias = valueQuery.getQueryFactory().getTableAlias(mdEnumNamespace, mdEnumTable); 
+                LeftJoinEq mdEnumLeftJoin = new LeftJoinEq(klassColumnName, queryTable, queryTableAlias, MdEnumerationDAOIF.SET_ID_COLUMN, mdEnumTable, newEnumTableAlias);
+                
+                String enumMasterTable = EnumerationMasterInfo.TABLE;
+                String enumMasterNamespace = mdEnumNamespace+"."+enumMasterTable;
+                String enumMasterTableAlias = valueQuery.getQueryFactory().getTableAlias(enumMasterNamespace, enumMasterTable);  
+                LeftJoinEq enumMasterLeftJoin = new LeftJoinEq(MdEnumerationDAOIF.ITEM_ID_COLUMN, mdEnumNamespace, newEnumTableAlias, EntityDAOIF.ID_COLUMN, enumMasterTable, enumMasterTableAlias);
+                
+                String mdLocalTable = mdLocalStruct.getTableName();
+                String mdLocalNamespace = enumMasterNamespace+"."+mdLocalTable;
+                String mdLocalTalbeAlias = valueQuery.getQueryFactory().getTableAlias(mdLocalNamespace, mdLocalTable);                  
+                LeftJoinEq mdLocalLeftJoin = new LeftJoinEq(mdAttrDisplayLabel.getColumnName(), enumMasterTable, enumMasterTableAlias, EntityDAOIF.ID_COLUMN, mdLocalTable, mdLocalTalbeAlias);
+
+                mdEnumLeftJoin.nest(enumMasterLeftJoin.nest(mdLocalLeftJoin));                
+                valueQuery.AND(mdEnumLeftJoin);
+                
+                String coalesceString =  getLocaleCoalesce(mdLocalTalbeAlias+".");
+                
+                ((SelectableSQL)s).setSQL(coalesceString); 
+              } // if (enumAttrib.equals(attr))
+            } // for (String enumAttrib : enumAttributes)
+          } // if (ind != -1)
+        } // if (s instanceof SelectableSQL)
+      } // for (Selectable s : valueQuery.getSelectableRefs())
+    } // if (query != null)
+
+    return valueQuery;
+  }
+/*
+  public static ValueQuery joinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  {
+    if (query != null)
+    {
       String[] enumAttributes = filterSelectedAttributes(valueQuery, QueryUtil.getEnumAttributes(klass));
       if (enumAttributes.length > 0)
       {
@@ -486,7 +700,7 @@ public class QueryUtil implements Reloadable
     return valueQuery;
 
   }
-
+*/
   public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
   {
     MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
@@ -862,7 +1076,7 @@ public class QueryUtil implements Reloadable
 
     return coalesce;
   }
-
+/*
   public static String getEnumerationDisplayLabelSubSelect(String className, String... attributes)
   {
     MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
@@ -897,7 +1111,7 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-  
+*/  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
       boolean ignoreCriteria, Selectable diseaseSel)
   {
