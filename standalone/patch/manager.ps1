@@ -8,6 +8,7 @@ param (
   [switch]$startTomcat,
   [switch]$stopTomcat,
   [switch]$getTomcatStatus,
+  [switch]$scheduler,
   
   [string]$filename = $null
 )
@@ -22,6 +23,7 @@ function help()
   echo "-startTomcat                            Starts Tomcat and all DDMS applications."
   echo "-stopTomcat                             Stops Tomcat and all DDMS applications."
   echo "-getTomcatStatus                        Returns the current status of Tomcat."
+  echo "-scheduler                              Prints some information about running scripts in the Windows scheduler."
 }
 
 # Define some variables that we'll use for this script.
@@ -82,10 +84,20 @@ function main()
   
     restore
   }
+  elseif ($scheduler.IsPresent)
+  {
+    helpScheduler
+  }
   else
   {
     help
   }
+}
+
+function helpScheduler
+{
+  echo "Here's an example of how to run a backupAll in the Windows scheduler:"
+  echo "powershell -Command `"powershell -ExecutionPolicy ByPass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File C:\MDSS\manager\manager.ps1 -backupAll C:\MDSS\backups > C:\MDSS\backups\backup.log`""
 }
 
 function backupAll()
