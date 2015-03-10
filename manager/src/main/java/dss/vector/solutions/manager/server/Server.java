@@ -22,13 +22,13 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
   /**
    * Amount of time to wait before calling the status call back function
    */
-  private static final long               WAIT_TIME    = 5000L;
+  static final long               WAIT_TIME    = 5000L;
 
   /**
    * The maximum number of attempts to try to connect to tomcat before
    * determining that it is not up.
    */
-  private static final int                MAX_ATTEMPTS = 5;
+  static final int                MAX_ATTEMPTS = 5;
 
   /**
    * Name of the service
@@ -56,7 +56,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
     }
   }
 
-  private final void registerServer() throws RemoteException, NotBoundException, AccessException
+  final void registerServer() throws RemoteException, NotBoundException, AccessException
   {
     int port = ManagerProperties.getListenerPort();
 
@@ -122,6 +122,8 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
         @Override
         public void run()
         {
+          long start = System.currentTimeMillis();
+          
           // Tomcat needs time to start the remote RMI server, before we can
           // connect to it.
 
@@ -164,6 +166,13 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
             Server.this.fireServerChange(ServerStatus.STOPPED);
 
             throw new RuntimeException(Localizer.getMessage("RMI_FAILED_TO_START"));
+          }
+          else
+          {
+            long end = System.currentTimeMillis();
+            
+            String msg = "Server bootup in " + (end - start) + ".";
+            System.out.println(msg);
           }
         }
       });
