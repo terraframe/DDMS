@@ -322,7 +322,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          search.createDatabaseView(false);
+          if (!Database.tableExists(search.generateViewName()))
+          {
+            search.createDatabaseView(false);
+          }
         }
         catch (Throwable t)
         {
