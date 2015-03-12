@@ -40,13 +40,11 @@ function main()
 {
   if ($startApp -ne $null -and $startApp -ne "")
   {
-    $webclient = logIn
-    startApp $webclient
+    startApp
   }
   elseif ($stopApp -ne $null -and $stopApp -ne "")
   {
-    $webclient = logIn
-    stopApp $webclient
+    stopApp
   }
   elseif ($startTomcat.IsPresent)
   {
@@ -113,16 +111,14 @@ function backupAll()
     echo "`n---Beginning backup of $($app)---`n"
     
     $stopApp = $app
-    $webclient = logIn
-    stopApp $webclient
+    stopApp
     
     $backup = $app
     $filename = "$($backupAll)\$app"
     backup
     
     $startApp = $app
-    $webclient = logIn
-    startApp $webclient
+    startApp
   }
   
   echo "`n---DDMS backup complete---`n"
@@ -176,7 +172,7 @@ function startTomcat()
     
     if ($LASTEXITCODE -ne 0)
     {
-      echo "Either a problem occurred that prevented tomcat from starting or we timed out waiting for it. Please contact your technical support staff."
+      echo "Either a problem occurred that prevented tomcat from starting or we timed out waiting for it. Please contact your technical support staff (exit code $($LASTEXITCODE))."
     }
     else
     {
@@ -185,12 +181,14 @@ function startTomcat()
   }
   else
   {
-    echo "Tomcat must be stopped before you can start it. Your command has been ignored."
+    echo "Tomcat must be stopped before you can start it."
   }
 }
 
 function stopTomcat()
 {
+  echo "stop tomcat"
+
   $status = getTomcatStatus
   
   if ($status -eq "started")
@@ -205,7 +203,7 @@ function stopTomcat()
     
     if ($LASTEXITCODE -ne 0)
     {
-      echo "Either a problem occurred that prevented tomcat from stopping or we timed out waiting for it. Please contact your technical support staff."
+      echo "Either a problem occurred that prevented tomcat from stopping or we timed out waiting for it. Please contact your technical support staff (exit code $($LASTEXITCODE))."
     }
     else
     {
@@ -214,84 +212,157 @@ function stopTomcat()
   }
   else
   {
-    echo "Tomcat must be fully started before you can stop it. Your command has been ignored."
+    echo "Tomcat must be fully started before you can stop it."
   }
 }
 
-function logIn()
+function getAppStatus($appName)
 {
-  $webclient = new-object System.Net.WebClient
-  $webclient.Credentials = new-object System.Net.NetworkCredential($username, $password)
+  Write-Host "Getting status of app $($appName)..."
+
+  $resp = downloadUrl "$($url)list"
   
-  return $webclient
+  $likeStr = "*"
+  $likeStr += "$($appName)"
+  $likeStr += ":running*"
+  
+  if ($resp -eq -1)
+  {
+    return -1
+  }
+  elseif ($resp -like $likeStr)
+  {
+    Write-Host "$($appName) is started."
+    return 1
+  }
+  else
+  {
+    $notMatchStr = ".*"
+    $notMatchStr += "$($appName)"
+    $notMatchStr += ":.*"
+    if ($resp -notMatch $notMatchStr)
+    {
+      Write-Host "The app name ($($appName)) is invalid. There is no app by that name on the server."
+      return -2
+    }
+    else
+    {
+      Write-Host "$($appName) is not started."
+      return 0
+    }
+  }
+}
+
+function downloadUrl($urlParam)
+{
+  try
+  {
+    $uri = New-Object "System.Uri" "$urlParam" 
+    $request = [System.Net.HttpWebRequest]::Create($uri) 
+    $request.Credentials = new-object System.Net.NetworkCredential($username, $password)
+    $request.set_Timeout(60000) #60 second timeout 
+    $response = $request.GetResponse()
+    $totalLength = [System.Math]::Floor($response.get_ContentLength()/1024) 
+    $responseStream = $response.GetResponseStream() 
+    $targetStream = New-Object System.IO.MemoryStream
+    $buffer = new-object byte[] 10KB 
+    $count = $responseStream.Read($buffer,0,$buffer.length) 
+    $downloadedBytes = $count 
+    while ($count -gt 0) 
+    {
+      $targetStream.Write($buffer, 0, $count) 
+      $count = $responseStream.Read($buffer,0,$buffer.length) 
+      $downloadedBytes = $downloadedBytes + $count 
+    }
+    $targetStream.Flush()
+    
+    $targetStream.Position = 0;
+    $sr = New-Object System.IO.StreamReader($targetStream)
+    $str = $sr.ReadToEnd()
+    
+    $targetStream.Close() 
+    $targetStream.Dispose() 
+    $responseStream.Dispose() 
+    
+    return $str
+  }
+  Catch [System.Net.WebException] 
+  {
+    if ($_.Exception.Status -eq "ConnectFailure")
+    {
+      Write-Host "Unable to connect to the server, it may not be started."
+    }
+    else
+    {
+      #$statusCode = [int]$_.Exception.Response.StatusCode
+      #$output = $_.Exception|format-list -force
+      #Write-Host $output
+      echo $_.Exception
+    }
+  }
+  Catch
+  {
+    #$statusCode = [int]$_.Exception.Response.StatusCode
+    #$output = $_.Exception|format-list -force
+    #Write-Host $output
+    echo $_.Exception
+  }
+  
+  return -1
 }
 
 function startApp($webclient)
 {
-  $status = getTomcatStatus
-  
-  if ($status -eq "started")
-  {
   echo "Starting app $($startApp)..."
   
-    try
-    {
-      $output = $webclient.DownloadString($url + "start?path=/" + $startApp)
-    }
-    catch [System.Net.WebException] 
-    {
-      $statusCode = [int]$_.Exception.Response.StatusCode
-      $output = "Error [" + $statusCode + "]: " + $_.Exception.Response.StatusDescription
-    }
-
-    echo $output
-  }
-  else
-  {
-    echo "Tomcat must be fully started before you can start an app. Your command has been ignored."
-  }
+  $out = downloadUrl($url + "start?path=/" + $startApp)
+  echo $out
 }
 
 function stopApp($webclient)
 {
-  $status = getTomcatStatus
-  
-  if ($status -eq "started")
-  {
   echo "Stopping app $($stopApp)..."
   
-    try
-    {
-      $output = $webclient.DownloadString($url + "stop?path=/" + $stopApp)
-    }
-    catch [System.Net.WebException] 
-    {
-      $statusCode = [int]$_.Exception.Response.StatusCode
-      $output = "Error [" + $statusCode + "]: " + $_.Exception.Response.StatusDescription
-    }
-
-    echo $output
-  }
-  else
-  {
-    echo "Tomcat must be fully started before you can stop an app. Your command has been ignored."
-  }
+  $out = downloadUrl($url + "stop?path=/" + $stopApp)
+  echo $out
 }
 
 function backup()
 {
-  $classpath = getClasspath "backup-manager" $backup
-  $cmd = "$($java) $($memory) -cp `"$($classpath)`" com.runwaysdk.manager.action.BackupAction  --appName `"$($backup)`" --file `"$($filename)`""
+  $status = getAppStatus $backup
   
-  Invoke-Expression $cmd
+  if ($status -eq 0 -or $status -eq -1)
+  {
+    echo "Starting backup of app $($backup)..."
+  
+    $classpath = getClasspath "backup-manager" $backup
+    $cmd = "$($java) $($memory) -cp `"$($classpath)`" com.runwaysdk.manager.action.BackupAction  --appName `"$($backup)`" --file `"$($filename)`""
+    
+    Invoke-Expression $cmd
+  }
+  elseif ($status -ne -2)
+  {
+    echo "The app ($($backup)) must be stopped before backing up."
+  }
 }
 
 function restore()
 {
-  $classpath = getClasspath "backup-manager" $restore
-  $cmd = "$($java) $($memory) -cp `"$($classpath)`" com.runwaysdk.manager.action.RestoreAction --appName `"$($restore)`" --file `"$($filename)`""
+  $status = getAppStatus $restore
   
-  Invoke-Expression $cmd
+  if ($status -eq 0 -or $status -eq -1)
+  {
+    echo "Starting restore of app $($restore)..."
+  
+    $classpath = getClasspath "backup-manager" $restore
+    $cmd = "$($java) $($memory) -cp `"$($classpath)`" com.runwaysdk.manager.action.RestoreAction --appName `"$($restore)`" --file `"$($filename)`""
+    
+    Invoke-Expression $cmd
+  }
+  elseif ($status -ne -2)
+  {
+    echo "The app ($($restore)) must be stopped before restoring."
+  }
 }
 
 # Searches to find the path to the manager
