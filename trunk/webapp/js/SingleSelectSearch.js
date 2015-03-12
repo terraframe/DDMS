@@ -48,11 +48,6 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       // do nothing
     },
     
-    _notifyHideHandler : function()
-    {
-      // do nothing
-    },    
-    
     selectHandler : function(selected, ignoreSetting)
     {
       var valid = true;

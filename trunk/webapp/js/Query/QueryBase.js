@@ -56,10 +56,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
   
-      var hideBound = Mojo.Util.bind(this, this._hideHandler);
-  
-      this._selectSearch = new MDSS.MultipleSelectSearch();
-      this._selectSearch.setHideHandler(hideBound);
+      this._selectSearch = new MDSS.MultipleSelectSearch(this);
       this._selectSearch.setFilter('');
   
       // list of all elements and default settings

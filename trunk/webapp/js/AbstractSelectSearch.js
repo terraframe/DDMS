@@ -149,6 +149,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._okHandler = handler;
     },
     
+    setCancelHandler : function(handler)
+    {
+      this._cancelHandler = handler;
+    },
+    
     getSelectHandler : function()
     {
       return this._selectHandler;
@@ -263,7 +268,13 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._bOK.setStyle("margin-right", "5px");
       this._bOK.setEnabled(false);
       this._bContainer.appendChild(this._bOK);
-      this._bCancel = fac.newButton(cancel, function() {that.hide()});
+      this._bCancel = fac.newButton(cancel, function() {
+        if (that._cancelHandler != null)
+        {
+          that._cancelHandler();
+        }
+        that.hide();
+      });
       this._bContainer.appendChild(this._bCancel);
       
       this._bContainer.render(parent);
@@ -300,7 +311,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
           this._geoTreePanel.hide();
         }
   
-        this._notifyHideHandler();
+        this._hideHandler();
   
       }, null, this);
       
@@ -523,14 +534,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
         this._geoEntityViewCache[geoEntityView.getGeoEntityId()] = geoEntityView;
       }
-    },
-  
-    /**
-     * Calls the handler when the user hides the search modal.
-     */
-    _notifyHideHandler :
-    {
-      IsAbstract : true
     },
   
     /**

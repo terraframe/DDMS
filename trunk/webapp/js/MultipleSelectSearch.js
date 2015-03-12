@@ -10,9 +10,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     /**
      * Constructor.
      */
-    initialize : function()
+    initialize : function(queryBase)
     {
       this.$initialize(true);
+      
+      this._queryBase = queryBase;
   
       // map of currently selected objects
       this._criteriaMap = {};
@@ -23,10 +25,16 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       // A mapping between type - checkbox element id
       this._checkboxMap = {};
       
+      // Create a list of what values are on the QB so we can diff it with what the user is selecting so we know when to enable/disable the ok button.
+      this._applied = new com.runwaysdk.structure.HashSet();
+      this._unsaved = new com.runwaysdk.structure.HashSet();
+      
       // optional function handler that will be called before adding an entity as criteria
       this._validator = null;
       
       this.setOkHandler(Mojo.Util.bind(this, this.okHandler));
+      this.setCancelHandler(Mojo.Util.bind(this, this.cancelHandler));
+      this.setHideHandler(Mojo.Util.bind(this, this.cancelHandler));
     },
     
     _renderHierarchyHeader : function(factory, hierarchy, index, rootId)
@@ -38,18 +46,31 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       {
         var checkbox = factory.newElement('input', {'type':'checkbox', 'value':type, 'id':type + '_selectUniversalType', 'class':'selectUniversalType'})
 
-        YAHOO.util.Event.on(checkbox.getRawEl(), 'click', this._notifySelectUniversalTypeHandler, checkbox.getRawEl().value, this);
         dt.appendChild(checkbox);
-        dt.appendInnerHTML('&nbsp;');        
+        dt.appendInnerHTML('&nbsp;');
         
         this._checkboxMap[type] = checkbox.getId();
       }
-        
+      
       dt.appendInnerHTML(hierarchy.getDisplayLabel());
       
       return dt;
     },
 
+    _onClickCheckbox : function(event, checkbox)
+    {
+      if ( (checkbox.checked && this._applied.contains(checkbox.id)) || (!checkbox.checked && !this._applied.contains(checkbox.id)) )
+      {
+        this._unsaved.remove(checkbox.id);
+      }
+      else if ( (!checkbox.checked && this._applied.contains(checkbox.id)) || (checkbox.checked && !this._applied.contains(checkbox.id)) )
+      {
+        this._unsaved.add(checkbox.id);
+      }
+      
+      this._bOK.setEnabled(this._unsaved.size() > 0);
+    },
+    
     _renderCurrentSelection : function(factory)
     {
       return factory.newElement('ul', {'id':this._CURRENT_SELECTIONS + this._suffix});
@@ -150,7 +171,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     
         for(var i=0; i<criteria.length; i++)
         {
-          this._updateSelection(criteria[i], this._rendered);
+          this._updateSelection(criteria[i], this._rendered, true);
         }
       }
     },
@@ -162,7 +183,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     /**
      * Adds the given GeoEntity to the list of current selections.
      */
-    _updateSelection : function(geoEntityView, updateList)
+    _updateSelection : function(geoEntityView, updateList, reopen)
     {
       var id = geoEntityView.getGeoEntityId();
   
@@ -179,48 +200,58 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       }
       else
       {
-        this._updateSelection2(geoEntityView, updateList);
+        this._updateSelection2(geoEntityView, updateList, reopen);
       }
     },
     
     okHandler : function()
     {
-      if(Mojo.Util.isFunction(this._hideHandler))
+      this._applied = new com.runwaysdk.structure.HashSet();
+      var entities = Mojo.Util.getValues(this._criteriaMap);
+      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+      var selected = [];
+      for(var i = 0; i < entities.length; i++)
       {
-        var entities = Mojo.Util.getValues(this._criteriaMap);
-        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-        var selected = [];
-        for(var i=0; i<checkboxes.length; i++)
-        {
-          var check = checkboxes[i];
-          if(check.checked)
-          {
-            var type = check.value;
-            selected.push(type);
-          }
-        }
-        
-        this._hideHandler(entities, selected);
-        
-        this._bOK.setEnabled(false);
+         this._applied.add(entities[i].getGeoEntityId());
       }
+      for(var i = 0; i < checkboxes.length; i++)
+      {
+        var check = checkboxes[i];
+        if(check.checked)
+        {
+          var type = check.value;
+          selected.push(type);
+          this._applied.add(check.id);
+        }
+      }
+      
+      this._queryBase._hideHandler(entities, selected);
+      
+      this._bOK.setEnabled(false);
+      this._unsaved.removeAll();
     },
     
-    _updateSelection2 : function(geoEntityView, updateList)
+    cancelHandler : function()
+    {
+      this._bOK.setEnabled(false);
+      this._unsaved.removeAll();
+    },
+    
+    _updateSelection2 : function(geoEntityView, updateList, reopen)
     {
       var id = geoEntityView.getGeoEntityId();
       this._criteriaMap[id] = geoEntityView;
   
       if(updateList)
       {
-        this._updateSelectionList(geoEntityView);
+        this._updateSelectionList(geoEntityView, reopen);
       }
     },
     
     /**
      * 
      */
-    _updateSelectionList : function(geoEntityView)
+    _updateSelectionList : function(geoEntityView, reopen)
     {
       var liId = geoEntityView.getGeoEntityId()+"_selected";
   
@@ -243,7 +274,19 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       var selections = document.getElementById(this._CURRENT_SELECTIONS + this._suffix);
       selections.appendChild(li);
       
-      this._bOK.setEnabled(true);
+      if (!reopen)
+      {
+        // All this code just to figure out if the ok button is enabled/disabled
+        if (this._applied.contains(geoEntityView.getGeoEntityId()))
+        {
+          this._unsaved.remove(geoEntityView.getGeoEntityId());
+        }
+        else
+        {
+          this._unsaved.add(geoEntityView.getGeoEntityId());
+        }
+        this._bOK.setEnabled(this._unsaved.size() > 0);
+      }
     },
     
     _doCreateRoot : function(request)
@@ -264,32 +307,22 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       var li = document.getElementById(liId);
       var ul = li.parentNode;
       ul.removeChild(li);
+      
+      // All this code just to figure out if the ok button is enabled/disabled
+      if (this._applied.contains(id))
+      {
+        this._unsaved.add(id);
+      }
+      else
+      {
+        this._unsaved.remove(id);
+      }
+      this._bOK.setEnabled(this._unsaved.size() > 0);
     },
     
     _notifySelectHandler : function()
     {
       // do nothing
-    },
-  
-    _notifyHideHandler : function()
-    {
-//      if(Mojo.Util.isFunction(this._hideHandler))
-//      {
-//        var entities = Mojo.Util.getValues(this._criteriaMap);
-//        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-//        var selected = [];
-//        for(var i=0; i<checkboxes.length; i++)
-//        {
-//          var check = checkboxes[i];
-//          if(check.checked)
-//          {
-//            var type = check.value;
-//            selected.push(type);
-//          }
-//        }
-//        
-//        this._hideHandler(entities, selected);
-//      }
     },
   
     /**
@@ -344,10 +377,12 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     _postRender : function()
     {
       // create toggle events to display selectable types
+      this._applied = new com.runwaysdk.structure.HashSet();
       var views = Mojo.Util.getValues(this._criteriaMap);
       for(var i=0; i<views.length; i++)
       {
         this._updateSelectionList(views[i]);
+        this._applied.add(views[i].getGeoEntityId());
       }
       
       for(var i=0; i<this._initSelectedUniversals.length; i++)
@@ -356,7 +391,15 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
         if(check)
         {
           check.checked = true;
+          this._applied.add(check.id);
         }
+      }
+      
+      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+      for(var i = 0; i < checkboxes.length; i++)
+      {
+        var check = checkboxes[i];
+        YAHOO.util.Event.on(check, 'click', this._onClickCheckbox, check, this);
       }
     },
   
