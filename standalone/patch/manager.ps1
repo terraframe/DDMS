@@ -297,7 +297,7 @@ function downloadUrl($urlParam)
       #$statusCode = [int]$_.Exception.Response.StatusCode
       #$output = $_.Exception|format-list -force
       #Write-Host $output
-      echo $_.Exception
+      Write-Host $_.Exception
     }
   }
   Catch
@@ -305,7 +305,7 @@ function downloadUrl($urlParam)
     #$statusCode = [int]$_.Exception.Response.StatusCode
     #$output = $_.Exception|format-list -force
     #Write-Host $output
-    echo $_.Exception
+    Write-Host $_.Exception
   }
   
   return -1
