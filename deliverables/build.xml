@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
+
 	<property name="mdss.root" value="../trunk" />
+    <property name="build.ftp.user" value="terraframe@terraframe.com" />
+	<property name="build.ftp.pass" value="_Terra4Frame" />
+	<property name="build.ftp.path" value="/ddms/installers" />
+	
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
 			<fileset dir="${mdss.root}/lib/ant">
@@ -25,7 +30,7 @@
 	<target name="test">
 		<ftp server="terraframe.com"
 			 port="21"
-		     remotedir="/var/www/html/ivcc"
+		     remotedir="${build.ftp.path}"
 		     userid="terraframe"
 		     password="terrasite2010"
 		     passive="yes"
@@ -37,7 +42,7 @@
 	</target>
 	
 	<target name="build" depends="update,set-properties,build-all" />
-
+	
 	<target name="build-installer-only" depends="update,set-properties,build-installer" />
 	
 	<target name="build-patch-only" depends="update,set-properties,build-patch" />
@@ -54,6 +59,15 @@
 			<update dir="../standalone" recurse="true" />
 			<update dir="../installer-stage" recurse="true" />
 			<update dir="../ddms-runway-patcher" recurse="true" />			
+		</svn>
+	</target>
+	
+	<target name="cleanup">
+		<svn refid="svn.settings" >
+			<cleanup dir="${mdss.root}" />
+			<cleanup dir="../standalone" />
+			<cleanup dir="../installer-stage" />
+			<cleanup dir="../ddms-runway-patcher" />			
 		</svn>
 	</target>
 
@@ -124,23 +138,25 @@
 		<echo message="${file.patch}" />	
 
 		<!-- ftp upload -->
+		<!--
 		<ftp server="ftp.terraframe.com"
 			 port="21"
-		     remotedir="/var/www/html/ivcc"
-		     userid="terraframe"
-		     password="terrasite2010"
+		     remotedir="${build.ftp.path}"
+		     userid="${build.ftp.user}"
+		     password="${build.ftp.pass}"
 		     passive="yes"
 		     binary="yes"
 			 verbose="yes">
 			<fileset dir=".">
 		    </fileset>
-		</ftp>		
+		</ftp>
+		-->
 		
 		<ftp server="ftp.terraframe.com"
 			 port="21"
-		     remotedir="/var/www/html/ivcc"
-		     userid="terraframe"
-		     password="terrasite2010"
+		     remotedir="${build.ftp.path}"
+		     userid="${build.ftp.user}"
+		     password="${build.ftp.pass}"
 		     passive="yes"
 		     binary="yes"
 			 verbose="yes">

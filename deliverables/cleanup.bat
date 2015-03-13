@@ -10,4 +10,4 @@ SET JRE_HOME=C:\Program Files\Java\jre6
 
 rem "%ANT_HOME%\bin\ant" -buildfile cc-build.xml -Dpostgres.bin="C:/Program Files/PostgreSQL/8.4/bin"  build_installer_exe
 cls
-cmd /c "%ANT_HOME%\bin\ant" -buildfile build.xml upload-and-email
+cmd /c "%ANT_HOME%\bin\ant" -buildfile build.xml cleanup
