@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
 	<property name="nsis.dir" value="C:/Program Files (x86)/NSIS" />
-	<property name="project.dir" value="C:/cruisecontrol-bin-2.8.3/projects/mdss" />
+	<property name="project.dir" value="C:/svn/ddms" />
 	<property name="svnant.dir" value="${project.dir}/trunk/lib/ant" />
 	<property name="manager.dir" value="${project.dir}/standalone" />
 	<property name="runway-patch.dir" value="${project.dir}/ddms-runway-patcher" />
@@ -18,13 +18,23 @@
 			</fileset>
 		</classpath>
 	</typedef>
+	
+	<svnSetting  
+		svnkit="false"  
+		javahl="false"
+		username="cruisecontrol@terraframe.com" 
+		password="Mr.Sparkle"
+		failonerror="true"		
+		id="svn.settings"/> 	
 
 <!--	
 	<target name="build" >
--->	
+	<target name="build" depends="setup-files">	
+	
+-->		
 	<target name="build" depends="setup-files">	
 		<!-- Get revision info from svn -->
-		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+		<svn refid="svn.settings">
 			<info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
 			<info target="${runway-patch.dir}" verbose="true" propPrefix="runway-patch.info." />			
 			<info target="${trunk.dir}" verbose="true" propPrefix="svn.info." />
@@ -64,20 +74,23 @@
 	
 	<target name="setup-files">
 		<delete dir="${patches.dir}/webapp" includeemptydirs="true" />
-				
+		
 		<!-- Compile -->
 		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
-
+		
 		<!-- Generate an up to date localization spread sheet -->		
+<!--	
+		
 		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
-		
+-->
 		<!-- Get a copy of all web files -->
+		
 		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
 			<property name="profile.name" value="patch" />
 			<property name="geodata.db" value="${geodata.db}" />
@@ -101,11 +114,35 @@
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
 		<delete file="${patches.dir}/webapp/imgs/flags/current" />
 		
-		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->
-		<delete dir="${patches.dir}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" />		
-		<delete dir="${patches.dir}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" />
+
+		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->		
+		<delete>
+          <fileset dir="${patches.dir}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.class"/>
+			<exclude name="**/*FormSurveyController*.class"/>
+			<exclude name="**/*FormSurvey.class"/>
+			<exclude name="**/*FormHousehold.class"/>						
+		  </fileset>
+		</delete>					
+		<delete>
+          <fileset dir="${patches.dir}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurvey.java"/>
+			<exclude name="**/*FormHousehold.java"/>			
+		  </fileset>
+		</delete>									
 		<delete dir="${patches.dir}/webapp/WEB-INF/source/server/base/dss/vector/solutions/form/business" />		
-		<delete dir="${patches.dir}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" />		
-		<delete dir="${patches.dir}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" />		
+		<delete>
+          <fileset dir="${patches.dir}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurveyController*.java"/>
+		  </fileset>
+		</delete>					
+		<delete>
+          <fileset dir="${patches.dir}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurveyController*.java"/>
+		  </fileset>
+		</delete>				
 	</target>
 </project>

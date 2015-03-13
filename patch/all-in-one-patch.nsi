@@ -174,17 +174,17 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 7791
-  StrCpy $PatchVersion 7801
+  StrCpy $ManagerVersion 7847
+  StrCpy $PatchVersion 7846
   StrCpy $TermsVersion 7764
-  StrCpy $RootsVersion 7759
+  StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
-  StrCpy $LocalizationVersion 7786
+  StrCpy $LocalizationVersion 7831
   StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7497
   StrCpy $WebappsVersion 7616
-  StrCpy $JavaVersion 7202  
+  StrCpy $JavaVersion 7802  
     
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
@@ -482,8 +482,12 @@ Function patchApplication
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
       SetOutPath $PatchDir\doc
       StrCpy $Phase "Updating application data"
-      ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
+      ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
       Call JavaAbort
+   
+   		# Delete all database views and sql functions because the QB source / function source may have changed
+   		StrCpy $Phase "Deleting existing database views and functions."
+      ExecWait `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
    
       # Switch back to the deploy environment
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
