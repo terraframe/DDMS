@@ -334,18 +334,18 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7801
+    StrCpy $PatchVersion 7846
     StrCpy $TermsVersion 7764
-    StrCpy $RootsVersion 7759
+    StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
-    StrCpy $LocalizationVersion 7786
+    StrCpy $LocalizationVersion 7831
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7774
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7791
+	StrCpy $ManagerVersion 7847
 	StrCpy $BirtVersion 7497
 	StrCpy $WebappsVersion 7616
-	StrCpy $JavaVersion 7202
+	StrCpy $JavaVersion 7802
 	
     # Determine the location of java home.	
     ${IfNot} ${RunningX64}
@@ -409,24 +409,6 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\birt
     File /r /x .svn birt\*
     
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
-    LogEx::Write "Installing DDMS Managers"
-    SetOutPath $INSTDIR\manager
-    File ..\standalone\patch\manager.bat
-	File ..\standalone\patch\manager.ps1
-    File ..\standalone\patch\manager.ico	
-    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
-    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
-    File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
-    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
-    File /r /x .svn ..\standalone\geo-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\manager-1.0.0
-    File /r /x .svn ..\standalone\manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
-    File /r /x .svn ..\standalone\synch-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\keystore
-    File /r /x .svn ..\standalone\doc\keystore\*
     
     # Add the special elevation command for backup/restore
     LogEx::Write "Adding special elevation command for backup/restore"
@@ -525,6 +507,26 @@ Section -Main SEC0000
     # We jump to this point if only installing a new app
     appInstall:
     
+	# Update the DDMS Manager
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
+    LogEx::Write "Installing DDMS Managers"
+    SetOutPath $INSTDIR\manager
+    File ..\standalone\patch\manager.bat
+	File ..\standalone\patch\manager.ps1
+    File ..\standalone\patch\manager.ico	
+    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
+    File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
+    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
+    File /r /x .svn ..\standalone\geo-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\manager-1.0.0
+    File /r /x .svn ..\standalone\manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
+    File /r /x .svn ..\standalone\synch-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\keystore
+    File /r /x .svn ..\standalone\doc\keystore\*
+	
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat6\webapps\$AppName"
