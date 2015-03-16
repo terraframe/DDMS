@@ -260,7 +260,7 @@ function downloadUrl($urlParam)
     $uri = New-Object "System.Uri" "$urlParam" 
     $request = [System.Net.HttpWebRequest]::Create($uri) 
     $request.Credentials = new-object System.Net.NetworkCredential($username, $password)
-    $request.set_Timeout(60000) #60 second timeout 
+    $request.set_Timeout(180000) #3 minute timeout 
     $response = $request.GetResponse()
     $totalLength = [System.Math]::Floor($response.get_ContentLength()/1024) 
     $responseStream = $response.GetResponseStream() 
