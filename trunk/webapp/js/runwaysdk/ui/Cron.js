@@ -88,11 +88,11 @@
         var fac = this.getFactory();
         
         this._rangePicker = fac.newElement("select");
-        this._rangePicker.appendChild(fac.newElement("option", {value: "everyMinute", innerHTML: utilLang["minute"]}));
-        this._rangePicker.appendChild(fac.newElement("option", {value: "everyHour", innerHTML: utilLang["hour"]}));
-        this._rangePicker.appendChild(fac.newElement("option", {value: "everyDay", innerHTML: utilLang["day"]}));
-        this._rangePicker.appendChild(fac.newElement("option", {value: "everyWeek", innerHTML: utilLang["week"]}));
-        this._rangePicker.appendChild(fac.newElement("option", {value: "everyMonth", innerHTML: utilLang["month"]}));
+        this._rangePicker.appendChild(fac.newElement("option", {value: "everyMinute", innerHTML: utilLang.get("minute")}));
+        this._rangePicker.appendChild(fac.newElement("option", {value: "everyHour", innerHTML: utilLang.get("hour")}));
+        this._rangePicker.appendChild(fac.newElement("option", {value: "everyDay", innerHTML: utilLang.get("day")}));
+        this._rangePicker.appendChild(fac.newElement("option", {value: "everyWeek", innerHTML: utilLang.get("week")}));
+        this._rangePicker.appendChild(fac.newElement("option", {value: "everyMonth", innerHTML: utilLang.get("month")}));
         this._rangePicker.setValue(CronUtil.getEveryStrFromCron(this.getCronString() || "0 * * * * ?"));
         
         this._minutePicker = this._generateNumberPicker(0, 59, function(index){if (index < 10) {return "0"+index;} return index; });
@@ -258,7 +258,7 @@
           this._cron.setInnerHTML("");
           
           var everyStrName = this._rangePicker.getValue();
-          var everyStr = this._utilLang[everyStrName];
+          var everyStr = this._utilLang.get(everyStrName);
           
           var cronStrParts = this.getCronString().split(" ");
           
@@ -399,12 +399,12 @@
         var language = com.runwaysdk.Localize.getLanguage(cronUtilName);
         
         if (cronStr == null || cronStr == "") {
-          return language["never"];
+          return language.get("never");
         }
         
         var everyStrName = CronUtil.getEveryStrFromCron(cronStr);
         if (everyStrName == null) { return cronStr; }
-        var everyStr = language[everyStrName];
+        var everyStr = language.get(everyStrName);
         
         var cronStrParts = cronStr.split(" ");
         
@@ -413,21 +413,21 @@
         }
         
         if (everyStrName == "everyMinute") {
-          return everyStr.replace("${minute}", language["minute"]);
+          return everyStr.replace("${minute}", language.get("minute"));
         }
         else if (everyStrName == "everyHour") {
-          return everyStr.replace("${hour}", language["hour"]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
+          return everyStr.replace("${hour}", language.get("hour")).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyDay") {
-          return everyStr.replace("${day}", language["day"]).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
+          return everyStr.replace("${day}", language.get("day")).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyWeek") {
           var actualWeek = CronUtil.convertDayOfWeekNumberToLocalizedWeek(cronStrParts[com.runwaysdk.ui.CronPicker.DOW]);
-          return everyStr.replace("${week}", language["week"]).replace("${actualDayOfWeek}", actualWeek).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
+          return everyStr.replace("${week}", language.get("week")).replace("${actualDayOfWeek}", actualWeek).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else if (everyStrName == "everyMonth") {
           var day = this.formatDayValue(cronStrParts[com.runwaysdk.ui.CronPicker.DOM]);
-          return everyStr.replace("${month}", language["month"]).replace("${actualDay}", day).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
+          return everyStr.replace("${month}", language.get("month")).replace("${actualDay}", day).replace("${actualHour}", cronStrParts[com.runwaysdk.ui.CronPicker.HOURS]).replace("${actualMinute}", cronStrParts[com.runwaysdk.ui.CronPicker.MINUTES]);
         }
         else {
           return cronStr;
@@ -454,25 +454,25 @@
         var language = com.runwaysdk.Localize.getLanguage(cronUtilName);
         
         if (weekNum == 1) {
-          return language["sunday"];
+          return language.get("sunday");
         }
         else if (weekNum == 2) {
-          return language["monday"];
+          return language.get("monday");
         }
         else if (weekNum == 3) {
-          return language["tuesday"];
+          return language.get("tuesday");
         }
         else if (weekNum == 4) {
-          return language["wednesday"];
+          return language.get("wednesday");
         }
         else if (weekNum == 5) {
-          return language["thursday"];
+          return language.get("thursday");
         }
         else if (weekNum == 6) {
-          return language["friday"];
+          return language.get("friday");
         }
         else if (weekNum == 7) {
-          return language["saturday"];
+          return language.get("saturday");
         }
       }
     }
