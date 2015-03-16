@@ -917,7 +917,7 @@ public abstract class AbstractQB implements Reloadable
                 conditions.add(original instanceof AggregateFunction ? ( (SelectableNumber) sel ).LE(range2) : ( (SelectableNumber) original ).LE(range2));
               }
             }
-            else
+            else if (range.length == 1)
             {
               String lowerBound = range[0].trim();
               // Just the GE criteria was specified (e.g., "7-")
