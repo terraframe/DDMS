@@ -1,107 +1,106 @@
 package com.runwaysdk.manager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 public class Logger
 {
   // Made final so the Log is read-only
-  private static final Log log;
+  private static final org.slf4j.Logger logger;
 
   // Static initialization happens on load in the vm
   static
   {
-    log = LogFactory.getLog("developer");
+    logger = LoggerFactory.getLogger("developer");
   }
 
-  public static void debug(Object message, Throwable t)
+  public static void debug(String message, Throwable t)
   {
-    log.debug(message, t);
+    logger.debug(message, t);
   }
 
-  public static void debug(Object message)
+  public static void debug(String message)
   {
-    log.debug(message);
+    logger.debug(message);
   }
 
-  public static void error(Object message, Throwable t)
+  public static void error(String message, Throwable t)
   {
-    log.error(message, t);
+    logger.error(message, t);
   }
 
-  public static void error(Object message)
+  public static void error(String message)
   {
-    log.error(message);
+    logger.error(message);
   }
 
-  public static void fatal(Object message, Throwable t)
+  public static void fatal(String message, Throwable t)
   {
-    log.fatal(message, t);
+    logger.fatal(message, t);
   }
 
-  public static void fatal(Object message)
+  public static void fatal(String message)
   {
-    log.fatal(message);
+    logger.fatal(message);
   }
 
-  public static void info(Object message, Throwable t)
+  public static void info(String message, Throwable t)
   {
-    log.info(message, t);
+    logger.info(message, t);
   }
 
-  public static void info(Object message)
+  public static void info(String message)
   {
-    log.info(message);
+    logger.info(message);
   }
 
   public boolean isDebugEnabled()
   {
-    return log.isDebugEnabled();
+    return logger.isDebugEnabled();
   }
 
   public boolean isErrorEnabled()
   {
-    return log.isErrorEnabled();
+    return logger.isErrorEnabled();
   }
 
   public boolean isFatalEnabled()
   {
-    return log.isFatalEnabled();
+    return logger.isFatalEnabled();
   }
 
   public boolean isInfoEnabled()
   {
-    return log.isInfoEnabled();
+    return logger.isInfoEnabled();
   }
 
   public boolean isTraceEnabled()
   {
-    return log.isTraceEnabled();
+    return logger.isTraceEnabled();
   }
 
   public boolean isWarnEnabled()
   {
-    return log.isWarnEnabled();
+    return logger.isWarnEnabled();
   }
 
-  public static void trace(Object message, Throwable t)
+  public static void trace(String message, Throwable t)
   {
-    log.trace(message, t);
+    logger.trace(message, t);
   }
 
-  public static void trace(Object message)
+  public static void trace(String message)
   {
-    log.trace(message);
+    logger.trace(message);
   }
 
-  public static void warn(Object message, Throwable t)
+  public static void warn(String message, Throwable t)
   {
-    log.warn(message, t);
+    logger.warn(message, t);
   }
 
-  public static void warn(Object message)
+  public static void warn(String message)
   {
-    log.warn(message);
+    logger.warn(message);
   }
 
 }
