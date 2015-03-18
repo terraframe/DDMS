@@ -35,12 +35,12 @@ public class Logger
 
   public static void fatal(String message, Throwable t)
   {
-    logger.fatal(message, t);
+    logger.error(message, t);
   }
 
   public static void fatal(String message)
   {
-    logger.fatal(message);
+    logger.error(message);
   }
 
   public static void info(String message, Throwable t)
@@ -65,7 +65,7 @@ public class Logger
 
   public boolean isFatalEnabled()
   {
-    return logger.isFatalEnabled();
+    return logger.isErrorEnabled();
   }
 
   public boolean isInfoEnabled()

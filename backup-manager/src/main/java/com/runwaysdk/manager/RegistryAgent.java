@@ -103,7 +103,7 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
 
   private void execWait(String command) throws IOException
   {
-    System.out.println("Exec " + command);
+    Logger.info("Exec " + command);
     try
     {
       Process exec = Runtime.getRuntime().exec(command);
