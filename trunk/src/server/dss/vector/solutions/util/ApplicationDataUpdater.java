@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -115,36 +116,100 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   private boolean updateKeys;
 
   private boolean updateRootIds;
-
+  
+  /**
+   * This updater will first do a "dry run" in which it will count how many records need to be updated.
+   */
+  private int total = 0;
+  
+  /**
+   * A running tally of how many records we've updated so far.
+   */
+  private int count = 0;
+  
+  private long lastProgressTimestamp = 0L;
+  
+  private int lastProgressRecords = 0;
+  
+  /**
+   * The progress interval controls how many progress updates will be printed. When set to 100, it means 100 "processing record" updates will be printed throughout the lifecycle of the program. 
+   */
+  private static final int PROGRESS_INTERVAL = 100;
+  
   public ApplicationDataUpdater(boolean _updateKeys, boolean _updateRootIds)
   {
     this.updateKeys = _updateKeys;
     this.updateRootIds = _updateRootIds;
   }
 
+  private void logIt(String msg)
+  {
+    System.out.println(msg);
+  }
+  
   public void run()
+  {
+    logIt("Performing dry run to calculate total records...");
+    
+    performUpdate(true);
+    total = count;
+    count = 0;
+    logIt("Dry run completed. A total of [" + total + "] records will be processed.");
+    
+    performUpdate(false);
+  }
+  
+  public void onRecordUpdate(boolean dryRun)
+  {
+    count++;
+    
+    if (!dryRun)
+    {
+      if (count % (total / PROGRESS_INTERVAL) == 0)
+      {
+        int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
+        
+        float elapsed = (System.nanoTime() * 1000000000) - lastProgressTimestamp;
+        
+        int recordsProcessed = count - lastProgressRecords;
+        
+        float velocity = (((float)recordsProcessed) / (elapsed));
+        
+        int secLeft = (int) ( 1.0F / (velocity / ((float)(recordsProcessed))) );
+        
+        String msg = "Processing record " + count + " of " + total + ". Total progress: " + progressPercent + "%. Current velocity: " + velocity + ". Estimated seconds remaining: " + secLeft;
+        
+        logIt(msg);
+        
+        lastProgressTimestamp = System.nanoTime() * 1000000000;
+        lastProgressRecords = count;
+      }
+    }
+  }
+  
+  private void performUpdate(boolean dryRun)
   {
     if (this.updateRootIds)
     {
-      this.updateMdEntityRootIds();
+      this.updateMdEntityRootIds(dryRun);
     }
 
     if (this.updateKeys)
     {
-      this.updateKeys();
+      this.updateKeys(dryRun);
 
-      this.updateSavedSearchKeys();
+      this.updateSavedSearchKeys(dryRun);
 
-      this.updateDeterminsticIdsMetadata();
+      this.updateDeterminsticIdsMetadata(dryRun);
     }
 
     if (!this.updateRootIds && !this.updateKeys)
     {
-      this.updateBasicData();
+      this.updateBasicData(dryRun);
     }
   }
 
-  private void updateMdEntityRootIds()
+  private void updateMdEntityRootIds(boolean dryRun)
   {
     List<String> types = getTypesToUpdate();
 
@@ -156,20 +221,24 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       for (MdEntityDAOIF subClass : subClasses)
       {
-        updateMdEntityRootId(subClass.definesType());
+        updateMdEntityRootId(subClass.definesType(), dryRun);
       }
     }
   }
 
   @Transaction
-  public void updateMdEntityRootId(String type)
+  public void updateMdEntityRootId(String type, boolean dryRun)
   {
     System.out.println("Updating root ids for type: " + type);
 
     MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
     MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
-    mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
-    mdEntity.apply();
+    if (!dryRun)
+    {
+      mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
+      mdEntity.apply();
+    }
+    onRecordUpdate(dryRun);
 
     TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
 
@@ -181,28 +250,28 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       String oldRootId = oldId.substring(0, 32);
       String newRootId = newId.substring(0, 32);
 
-      this.changeRootId(mdEntityIF, oldRootId, newRootId);
+      this.changeRootId(mdEntityIF, oldRootId, newRootId, dryRun);
 
       if (mdEntity instanceof MdBusinessDAOIF)
       {
         // Float all of the references
-        this.updateAttributeReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+        this.updateAttributeReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId, dryRun);
 
-        this.updateCachedAttributeEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+        this.updateCachedAttributeEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId, dryRun);
 
-        this.updateRelationshipReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+        this.updateRelationshipReferences((MdBusinessDAOIF) mdEntity, oldRootId, newRootId, dryRun);
 
-        this.updateEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId);
+        this.updateEnumerations((MdBusinessDAOIF) mdEntity, oldRootId, newRootId, dryRun);
 
         // Float any custom reference fields the query xml and json references
-        this.updateSavedSearchRootIds(oldRootId, newRootId);
+        this.updateSavedSearchRootIds(oldRootId, newRootId, dryRun);
       }
     }
 
     ObjectCache.refreshTheEntireCache();
   }
 
-  public void updateSavedSearchRootIds(String oldRootId, String newRootId)
+  public void updateSavedSearchRootIds(String oldRootId, String newRootId, boolean dryRun)
   {
     MdBusinessDAOIF mdSavedSearch = MdBusinessDAO.getMdBusinessDAO(SavedSearch.CLASS);
     MdAttributeConcreteDAOIF queryXml = mdSavedSearch.definesAttribute(SavedSearch.QUERYXML);
@@ -213,10 +282,16 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, queryXml.getColumnName(), oldRootId, newRootId));
     preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, config.getColumnName(), oldRootId, newRootId));
 
-    Database.executeStatementBatch(preparedStatementList);
+    count++;
+    onRecordUpdate(dryRun);
+    
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
-  private void changeRootId(MdEntityDAOIF mdEntityDAOIF, String oldRootId, String newRootId)
+  private void changeRootId(MdEntityDAOIF mdEntityDAOIF, String oldRootId, String newRootId, boolean dryRun)
   {
     Connection connection = Database.getConnection();
     List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
@@ -226,12 +301,19 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     {
       PreparedStatement statement = this.getPreparedStatement(connection, currMdEntity, EntityDAOIF.ID_COLUMN, oldRootId, newRootId);
       preparedStatementList.add(statement);
+      count++;
     }
+    
+    count--;
+    onRecordUpdate(dryRun);
 
-    Database.executeStatementBatch(preparedStatementList);
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
-  private void updateEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  private void updateEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId, boolean dryRun)
   {
     Connection conn = Database.getConnection();
     List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
@@ -241,12 +323,19 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     for (MdEnumerationDAOIF mdEnumerationDAOIF : mdEnums)
     {
       preparedStatementList.add(this.getPreparedStatement(conn, mdEnumerationDAOIF.getTableName(), MdEnumerationDAOIF.ITEM_ID_COLUMN, oldRootId, newRootId));
+      count++;
     }
+    
+    count--;
+    onRecordUpdate(dryRun);
 
-    Database.executeStatementBatch(preparedStatementList);
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
-  private void updateRelationshipReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  private void updateRelationshipReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId, boolean dryRun)
   {
     Connection conn = Database.getConnection();
     List<PreparedStatement> preparedStatementList = new LinkedList<PreparedStatement>();
@@ -265,6 +354,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       for (MdRelationshipDAOIF parentMdRelationshipDAOIF : superMdRelationshipDAOIF)
       {
         preparedStatementList.add(this.getPreparedStatement(conn, parentMdRelationshipDAOIF, RelationshipInfo.PARENT_ID, oldRootId, newRootId));
+        count++;
       }
     }
 
@@ -283,13 +373,20 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       for (MdRelationshipDAOIF childMdRelationshipDAOIF : superMdRelationshipDAOIF)
       {
         preparedStatementList.add(this.getPreparedStatement(conn, childMdRelationshipDAOIF, RelationshipInfo.CHILD_ID, oldRootId, newRootId));
+        count++;
       }
     }
 
-    Database.executeStatementBatch(preparedStatementList);
+    count--;
+    onRecordUpdate(dryRun);
+    
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
-  private void updateCachedAttributeEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  private void updateCachedAttributeEnumerations(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId, boolean dryRun)
   {
     Connection conn = Database.getConnection();
 
@@ -309,11 +406,15 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
 
     this.updateDefaultValues(conn, preparedStatementList, MdAttributeEnumerationInfo.CLASS, oldRootId, newRootId);
-
-    Database.executeStatementBatch(preparedStatementList);
+    onRecordUpdate(dryRun);
+    
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
-  private void updateAttributeReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId)
+  private void updateAttributeReferences(MdBusinessDAOIF mdBusinessIF, String oldRootId, String newRootId, boolean dryRun)
   {
     Connection conn = Database.getConnection();
 
@@ -335,8 +436,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
 
     this.updateDefaultValues(conn, preparedStatementList, MdAttributeReferenceInfo.CLASS, oldRootId, newRootId);
-
-    Database.executeStatementBatch(preparedStatementList);
+    onRecordUpdate(dryRun);
+    
+    if (!dryRun)
+    {
+      Database.executeStatementBatch(preparedStatementList);
+    }
   }
 
   private void updateDefaultValues(Connection conn, List<PreparedStatement> preparedStatementList, String attributeType, String oldRootId, String newRootId)
@@ -348,6 +453,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       PreparedStatement prepared = this.getPreparedStatement(conn, mdBusinessDAO, mdDefaultValue, oldRootId, newRootId);
       preparedStatementList.add(prepared);
+      
+      count++;
     }
 
     // Update the dimension default values
@@ -391,11 +498,13 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     statement.append("UPDATE " + tableName);
     statement.append(" SET " + columnName + " =REPLACE(" + columnName + ", '" + oldRootId + "', '" + newRootId + "')");
 
+    count++;
+    
     return statement.toString();
   }
 
   @Transaction
-  public void updateSavedSearchKeys()
+  public void updateSavedSearchKeys(boolean dryRun)
   {
     MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO("dss.vector.solutions.query.SavedSearch");
     EntityQuery query = new QueryFactory().entityQuery(mdEntity);
@@ -408,8 +517,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         try
         {
           ComponentIF component = iterator.next();
-          Method method = component.getClass().getMethod("directApply");
-          method.invoke(component);
+          
+          onRecordUpdate(dryRun);
+          
+          if (!dryRun)
+          {
+            Method method = component.getClass().getMethod("directApply");
+            method.invoke(component);
+          }
         }
         catch (Exception e)
         {
@@ -424,7 +539,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Transaction
-  public void updateKeys()
+  public void updateKeys(boolean dryRun)
   {
     String[] types = new String[] { GeoField.CLASS, ExtraFieldUniversal.CLASS, FieldRoot.CLASS };
 
@@ -439,7 +554,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         while (iterator.hasNext())
         {
           Entity entity = (Entity) iterator.next();
-          entity.apply();
+          
+          onRecordUpdate(dryRun);
+          if (!dryRun)
+          {
+            entity.apply();
+          }
         }
       }
       finally
@@ -449,13 +569,13 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  public void updateDeterminsticIdsMetadata()
+  public void updateDeterminsticIdsMetadata(boolean dryRun)
   {
     List<String> types = getTypesToUpdate();
 
     for (String type : types)
     {
-      MdEntityDAOIF mdEntityIF = this.updateMetadata(type);
+      MdEntityDAOIF mdEntityIF = this.updateMetadata(type, dryRun);
 
       EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
       OIterator<? extends ComponentIF> iterator = query.getIterator();
@@ -464,7 +584,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         while (iterator.hasNext())
         {
-          updateEntity(iterator);
+          updateEntity(iterator, dryRun);
         }
       }
       finally
@@ -506,16 +626,21 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Transaction
-  public void updateEntity(OIterator<? extends ComponentIF> iterator)
+  public void updateEntity(OIterator<? extends ComponentIF> iterator, boolean dryRun)
   {
     Entity entity = (Entity) iterator.next();
-    EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
-    entityDAO.getAttribute(BusinessInfo.KEY).setModified(true);
-    entity.apply();
+   
+    onRecordUpdate(dryRun);
+    if (!dryRun)
+    {
+      EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
+      entityDAO.getAttribute(BusinessInfo.KEY).setModified(true);
+      entity.apply();
+    }
   }
 
   @Transaction
-  public MdEntityDAOIF updateMetadata(String type)
+  public MdEntityDAOIF updateMetadata(String type, boolean dryRun)
   {
     MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
 
@@ -523,51 +648,56 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (MdEntityDAOIF subClass : subClasses)
     {
-      this.updateDeterministicIdsMetadata(subClass);
+      this.updateDeterministicIdsMetadata(subClass, dryRun);
     }
     return mdEntityIF;
   }
 
-  public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF)
+  public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF, boolean dryRun)
   {
     System.out.println("Testing: " + mdEntityIF.getKey());
 
     if (!mdEntityIF.hasDeterministicIds() && mdEntityIF.getSiteMaster().equals(CommonProperties.getDomain()))
     {
-      System.out.println("Updating: " + mdEntityIF.getKey());
-
-      MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
-      mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
-      mdEntity.apply();
+      onRecordUpdate(dryRun);
+      
+      if (!dryRun)
+      {
+        System.out.println("Updating: " + mdEntityIF.getKey());
+  
+        MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+        mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
+        mdEntity.apply();
+      }
     }
   }
 
   @Transaction
-  public void updateBasicData()
+  public void updateBasicData(boolean dryRun)
   {
     // // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
 
-    this.updateMalariaSeasonLabels();
+    this.updateMalariaSeasonLabels(dryRun);
 
-    this.updateSubCollections();
+    this.updateSubCollections(dryRun);
 
-    this.updateAssayIds();
+    this.updateAssayIds(dryRun);
 
     // For ticket #2922
-    this.updateAdultDiscriminatingDoseAssays();
+    this.updateAdultDiscriminatingDoseAssays(dryRun);
 
     // Update the case period
-    this.updateCasePeriod();
+    this.updateCasePeriod(dryRun);
 
     // Fort Ticket #3072
-    this.updateSystemAlerts();
+    this.updateSystemAlerts(dryRun);
 
     // For ticket #3050
-    this.updateLayerSemanticId();
+    this.updateLayerSemanticId(dryRun);
   }
 
-  private void updateLayerSemanticId()
+  private void updateLayerSemanticId(boolean dryRun)
   {
     LayerQuery query = new LayerQuery(new QueryFactory());
     query.WHERE(query.getSemanticId().EQ((String) null));
@@ -580,10 +710,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         Layer layer = it.next();
 
-        if (layer.getSemanticId() == null || layer.getSemanticId().length() == 0)
+        onRecordUpdate(dryRun);
+        if (!dryRun)
         {
-          layer.setSemanticId(IDGenerator.nextID());
-          layer.apply();
+          if (layer.getSemanticId() == null || layer.getSemanticId().length() == 0)
+          {
+            layer.setSemanticId(IDGenerator.nextID());
+            layer.apply();
+          }
         }
       }
     }
@@ -593,7 +727,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  private void updateSystemAlerts()
+  private void updateSystemAlerts(boolean dryRun)
   {
     DiseaseQuery q = new DiseaseQuery(new QueryFactory());
     OIterator<? extends Disease> iter = q.getIterator();
@@ -603,9 +737,13 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iter.hasNext())
       {
         Disease d = iter.next();
-        DiseaseView v = d.getView();
-
-        v.addSystemAlerts(d);
+        
+        onRecordUpdate(dryRun);
+        if (!dryRun)
+        {
+          DiseaseView v = d.getView();
+          v.addSystemAlerts(d);
+        }
       }
     }
     finally
@@ -617,7 +755,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   /**
    * Makes sure all diseases
    */
-  private void updateCasePeriod()
+  private void updateCasePeriod(boolean dryRun)
   {
     DiseaseQuery q = new DiseaseQuery(new QueryFactory());
     OIterator<? extends Disease> iter = q.getIterator();
@@ -627,10 +765,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iter.hasNext())
       {
         Disease d = iter.next();
-        DiseaseView v = d.getView();
-
-        v.addDefaultCasePeriod(d);
-        v.addThresholdAlertCalcType(d);
+        
+        onRecordUpdate(dryRun);
+        if (!dryRun)
+        {
+          DiseaseView v = d.getView();
+          v.addDefaultCasePeriod(d);
+          v.addThresholdAlertCalcType(d);
+        }
       }
     }
     finally
@@ -639,7 +781,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  private void updateAdultDiscriminatingDoseAssays()
+  private void updateAdultDiscriminatingDoseAssays(boolean dryRun)
   {
     /*
      * Default hard-coded control number. It is 10000 because we most derive the control test number from the existing control test mortality and the
@@ -660,10 +802,15 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iterator.hasNext())
       {
         AdultDiscriminatingDoseAssay assay = iterator.next();
-        assay.appLock();
-        assay.setControlTestNumberExposed(controlNumber);
-        assay.setControlTestNumberDead((int) ( controlNumber * assay.getControlTestMortality() / 100 ));
-        assay.apply();
+        
+        onRecordUpdate(dryRun);
+        if (!dryRun)
+        {
+          assay.appLock();
+          assay.setControlTestNumberExposed(controlNumber);
+          assay.setControlTestNumberDead((int) ( controlNumber * assay.getControlTestMortality() / 100 ));
+          assay.apply();
+        }
       }
     }
     finally
@@ -672,7 +819,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  private void updateAssayIds()
+  private void updateAssayIds(boolean dryRun)
   {
     String[] types = new String[] { EfficacyAssay.CLASS, InfectionAssay.CLASS, PooledInfectionAssay.CLASS, MolecularAssay.CLASS, BiochemicalAssay.CLASS, KnockDownAssay.CLASS, AdultDiscriminatingDoseAssay.CLASS, LarvaeDiscriminatingDoseAssay.CLASS, DiagnosticAssay.CLASS, TimeResponseAssay.CLASS };
 
@@ -690,10 +837,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         while (iter.hasNext())
         {
           Business b = iter.next();
-
-          b.appLock();
-          UniqueAssayUtil.setUniqueAssayId((UniqueAssay) b);
-          b.apply();
+          
+          onRecordUpdate(dryRun);
+          if (!dryRun)
+          {
+            b.appLock();
+            UniqueAssayUtil.setUniqueAssayId((UniqueAssay) b);
+            b.apply();
+          }
         }
       }
       finally
@@ -704,7 +855,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   }
 
-  private void updateMalariaSeasonLabels()
+  private void updateMalariaSeasonLabels(boolean dryRun)
   {
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
     query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
@@ -722,11 +873,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
         if (season.getSeasonName() != null && ( defaultValue == null || defaultValue.length() == 0 ))
         {
-          season.appLock();
-
-          seasonLabel.setDefaultValue(season.getSeasonName());
-
-          season.apply();
+          onRecordUpdate(dryRun);
+          
+          if (!dryRun)
+          {
+            season.appLock();
+            seasonLabel.setDefaultValue(season.getSeasonName());
+            season.apply();
+          }
         }
       }
     }
@@ -736,7 +890,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  private void updateSubCollections()
+  private void updateSubCollections(boolean dryRun)
   {
     SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
     query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
@@ -750,10 +904,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iterator.hasNext())
       {
         SubCollection collection = iterator.next();
-        collection.appLock();
-
-        collection.populateTotal();
-        collection.apply();
+        
+        onRecordUpdate(dryRun);
+        if (!dryRun)
+        {
+          collection.appLock();
+          collection.populateTotal();
+          collection.apply();
+        }
       }
     }
     finally
