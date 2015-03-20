@@ -205,31 +205,40 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   
   public void onRecordUpdate(boolean dryRun, String old_id, String new_id)
   {
-    count++;
-    
-    if (!dryRun)
+    try
     {
-      executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
+      count++;
       
-      if (count % (total / PROGRESS_INTERVAL) == 0)
+      if (!dryRun)
       {
-        int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
+        executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
         
-        float elapsed = (System.nanoTime() * 1000000000) - lastProgressTimestamp;
-        
-        int recordsProcessed = count - lastProgressRecords;
-        
-        float velocity = (((float)recordsProcessed) / (elapsed));
-        
-        int secLeft = (int) ( 1.0F / (velocity / ((float)(recordsProcessed))) );
-        
-        String msg = "Processing record " + count + " of " + total + ". Total progress: " + progressPercent + "%. Current velocity: " + velocity + ". Estimated seconds remaining: " + secLeft;
-        
-        logIt(msg);
-        
-        lastProgressTimestamp = System.nanoTime() * 1000000000;
-        lastProgressRecords = count;
+        if (count != 0 && (count % (total / PROGRESS_INTERVAL) == 0))
+        {
+          int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
+          
+          float elapsed = (System.nanoTime() * 1000000000) - lastProgressTimestamp;
+          if (elapsed == 0) { elapsed = 0.1F; } // Safeguard against divide by 0.
+          
+          int recordsProcessed = count - lastProgressRecords;
+          if (recordsProcessed == 0) { recordsProcessed = 1; } // Safeguard against divide by 0.
+          
+          float velocity = (((float)recordsProcessed) / (elapsed));
+          
+          int secLeft = (int) ( 1.0F / (velocity / ((float)(recordsProcessed))) );
+          
+          String msg = "Processing record " + count + " of " + total + ". Total progress: " + progressPercent + "%. Current velocity: " + velocity + ". Estimated seconds remaining: " + secLeft;
+          
+          logIt(msg);
+          
+          lastProgressTimestamp = System.nanoTime() * 1000000000;
+          lastProgressRecords = count;
+        }
       }
+    }
+    catch (Exception ex)
+    {
+      ex.printStackTrace();
     }
   }
   
