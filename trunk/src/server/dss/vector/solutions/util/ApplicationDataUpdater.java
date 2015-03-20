@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +56,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import java.sql.Statement;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.util.IDGenerator;
 
@@ -152,8 +152,25 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   public void run()
   {
     logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
-    Database.query("CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
-    Database.query("INSERT INTO " + LOG_TABLE_NAME + " values ('', '')");
+    
+    String sql1 = "CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )";
+    String sql2 = "INSERT INTO " + LOG_TABLE_NAME + " values ('', '')";
+    try
+    {
+      Connection conn = Database.getDDLConnection();
+      
+      Statement statement = conn.createStatement();
+      statement.executeUpdate(sql1);
+      statement.executeUpdate(sql2);
+      statement.close();
+
+      conn.commit();
+    }
+    catch (Exception ex)
+    {
+      String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "\n" + sql2 + "].";
+      logIt(error);
+    }
     
     logIt("Performing dry run to calculate total records...");
     
@@ -164,7 +181,22 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     
     performUpdate(false);
     
-    Database.query("DROP TABLE " + LOG_TABLE_NAME);
+    sql1 = "DROP TABLE " + LOG_TABLE_NAME;
+    try
+    {
+      Connection conn = Database.getDDLConnection();
+      
+      Statement statement = conn.createStatement();
+      statement.executeUpdate(sql1);
+      statement.close();
+
+      conn.commit();
+    }
+    catch (Exception ex)
+    {
+      String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "].";
+      logIt(error);
+    }
   }
   
   public void onRecordUpdate(boolean dryRun, String old_id, String new_id)
@@ -173,7 +205,22 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     
     if (!dryRun)
     {
-      Database.query("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
+      String sql1 = "UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'";
+      try
+      {
+        Connection conn = Database.getDDLConnection();
+        
+        Statement statement = conn.createStatement();
+        statement.executeUpdate(sql1);
+        statement.close();
+
+        conn.commit();
+      }
+      catch (Exception ex)
+      {
+        String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "].";
+        logIt(error);
+      }
       
       if (count % (total / PROGRESS_INTERVAL) == 0)
       {
