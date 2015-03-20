@@ -131,6 +131,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   
   private int lastProgressRecords = 0;
   
+  private static final String LOG_TABLE_NAME = "id_migration_log";
+  
   /**
    * The progress interval controls how many progress updates will be printed. When set to 100, it means 100 "processing record" updates will be printed throughout the lifecycle of the program. 
    */
@@ -149,22 +151,30 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   
   public void run()
   {
+    logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
+    Database.query("CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
+    Database.query("INSERT INTO " + LOG_TABLE_NAME + " values ('', '')");
+    
     logIt("Performing dry run to calculate total records...");
     
     performUpdate(true);
     total = count;
-    count = 0;
+    count = 0; 
     logIt("Dry run completed. A total of [" + total + "] records will be processed.");
     
     performUpdate(false);
+    
+    Database.query("DROP TABLE " + LOG_TABLE_NAME);
   }
   
-  public void onRecordUpdate(boolean dryRun)
+  public void onRecordUpdate(boolean dryRun, String old_id, String new_id)
   {
     count++;
     
     if (!dryRun)
     {
+      Database.query("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
+      
       if (count % (total / PROGRESS_INTERVAL) == 0)
       {
         int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
@@ -233,12 +243,13 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
     MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
+    
+    onRecordUpdate(dryRun, mdEntity.getId(), "0");
     if (!dryRun)
     {
       mdEntity.getAttribute(BusinessInfo.KEY).setModified(true);
       mdEntity.apply();
     }
-    onRecordUpdate(dryRun);
 
     TransactionCacheIF cache = TransactionCache.getCurrentTransactionCache();
 
@@ -273,6 +284,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateSavedSearchRootIds(String oldRootId, String newRootId, boolean dryRun)
   {
+    count++;
+    onRecordUpdate(dryRun, oldRootId, newRootId);
+    
     MdBusinessDAOIF mdSavedSearch = MdBusinessDAO.getMdBusinessDAO(SavedSearch.CLASS);
     MdAttributeConcreteDAOIF queryXml = mdSavedSearch.definesAttribute(SavedSearch.QUERYXML);
     MdAttributeConcreteDAOIF config = mdSavedSearch.definesAttribute(SavedSearch.CONFIG);
@@ -282,9 +296,6 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, queryXml.getColumnName(), oldRootId, newRootId));
     preparedStatementList.add(this.getPreparedStatement(connection, mdSavedSearch, config.getColumnName(), oldRootId, newRootId));
 
-    count++;
-    onRecordUpdate(dryRun);
-    
     if (!dryRun)
     {
       Database.executeStatementBatch(preparedStatementList);
@@ -305,7 +316,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
     
     count--;
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, oldRootId, newRootId);
 
     if (!dryRun)
     {
@@ -327,7 +338,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
     
     count--;
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, oldRootId, newRootId);
 
     if (!dryRun)
     {
@@ -378,7 +389,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
 
     count--;
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, oldRootId, newRootId);
     
     if (!dryRun)
     {
@@ -406,7 +417,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
 
     this.updateDefaultValues(conn, preparedStatementList, MdAttributeEnumerationInfo.CLASS, oldRootId, newRootId);
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, oldRootId, newRootId);
     
     if (!dryRun)
     {
@@ -436,7 +447,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
 
     this.updateDefaultValues(conn, preparedStatementList, MdAttributeReferenceInfo.CLASS, oldRootId, newRootId);
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, oldRootId, newRootId);
     
     if (!dryRun)
     {
@@ -518,7 +529,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         {
           ComponentIF component = iterator.next();
           
-          onRecordUpdate(dryRun);
+          onRecordUpdate(dryRun, component.getId(), "0");
           
           if (!dryRun)
           {
@@ -555,7 +566,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         {
           Entity entity = (Entity) iterator.next();
           
-          onRecordUpdate(dryRun);
+          onRecordUpdate(dryRun, entity.getId(), "0");
           if (!dryRun)
           {
             entity.apply();
@@ -630,7 +641,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   {
     Entity entity = (Entity) iterator.next();
    
-    onRecordUpdate(dryRun);
+    onRecordUpdate(dryRun, entity.getId(), "0");
     if (!dryRun)
     {
       EntityDAO entityDAO = (EntityDAO) BusinessFacade.getEntityDAO(entity);
@@ -659,7 +670,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     if (!mdEntityIF.hasDeterministicIds() && mdEntityIF.getSiteMaster().equals(CommonProperties.getDomain()))
     {
-      onRecordUpdate(dryRun);
+      onRecordUpdate(dryRun, mdEntityIF.getId(), "0");
       
       if (!dryRun)
       {
@@ -710,7 +721,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         Layer layer = it.next();
 
-        onRecordUpdate(dryRun);
+        onRecordUpdate(dryRun, layer.getId(), "0");
         if (!dryRun)
         {
           if (layer.getSemanticId() == null || layer.getSemanticId().length() == 0)
@@ -738,7 +749,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         Disease d = iter.next();
         
-        onRecordUpdate(dryRun);
+        onRecordUpdate(dryRun, d.getId(), "0");
         if (!dryRun)
         {
           DiseaseView v = d.getView();
@@ -766,7 +777,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         Disease d = iter.next();
         
-        onRecordUpdate(dryRun);
+        onRecordUpdate(dryRun, d.getId(), "0");
         if (!dryRun)
         {
           DiseaseView v = d.getView();
@@ -803,7 +814,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         AdultDiscriminatingDoseAssay assay = iterator.next();
         
-        onRecordUpdate(dryRun);
+        onRecordUpdate(dryRun, assay.getId(), "0");
         if (!dryRun)
         {
           assay.appLock();
@@ -838,7 +849,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         {
           Business b = iter.next();
           
-          onRecordUpdate(dryRun);
+          onRecordUpdate(dryRun, b.getId(), "0");
           if (!dryRun)
           {
             b.appLock();
@@ -873,7 +884,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
         if (season.getSeasonName() != null && ( defaultValue == null || defaultValue.length() == 0 ))
         {
-          onRecordUpdate(dryRun);
+          onRecordUpdate(dryRun, season.getId(), "0");
           
           if (!dryRun)
           {
@@ -905,7 +916,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         SubCollection collection = iterator.next();
         
-        onRecordUpdate(dryRun);
+        onRecordUpdate(dryRun, collection.getId(), "0");
         if (!dryRun)
         {
           collection.appLock();
