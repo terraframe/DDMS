@@ -185,12 +185,20 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     {
       String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql + "].";
       logIt(error);
+      ex.printStackTrace();
     }
     finally
     {
       if (conn != null)
       {
-        conn.close();
+        try
+        {
+          conn.close();
+        }
+        catch (SQLException e)
+        {
+          e.printStackTrace();
+        }
       }
     }
   }
@@ -267,7 +275,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   public void updateMdEntityRootId(String type, boolean dryRun)
   {
-    System.out.println("Updating root ids for type: " + type);
+    logIt("Updating root ids for type: " + type);
 
     MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
     MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
@@ -548,7 +556,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO("dss.vector.solutions.query.SavedSearch");
     EntityQuery query = new QueryFactory().entityQuery(mdEntity);
     OIterator<? extends ComponentIF> iterator = query.getIterator();
-
+    
     try
     {
       while (iterator.hasNext())
@@ -556,6 +564,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         try
         {
           ComponentIF component = iterator.next();
+          
+          logIt("Updating saved search key of component [" + component.getId() + "].");
           
           onRecordUpdate(dryRun, component.getId(), "0");
           
@@ -584,6 +594,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
+      logIt("Updating keys for type: " + type);
+      
       MdEntityDAOIF mdEntity = MdEntityDAO.getMdEntityDAO(type);
       EntityQuery query = new QueryFactory().entityQuery(mdEntity);
       OIterator<? extends ComponentIF> iterator = query.getIterator();
@@ -614,6 +626,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
+      logIt("Updating deterministic ids for type: " + type);
+      
       MdEntityDAOIF mdEntityIF = this.updateMetadata(type, dryRun);
 
       EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
@@ -694,7 +708,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public void updateDeterministicIdsMetadata(MdEntityDAOIF mdEntityIF, boolean dryRun)
   {
-    System.out.println("Testing: " + mdEntityIF.getKey());
+    logIt("Testing: " + mdEntityIF.getKey());
 
     if (!mdEntityIF.hasDeterministicIds() && mdEntityIF.getSiteMaster().equals(CommonProperties.getDomain()))
     {
@@ -702,7 +716,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       
       if (!dryRun)
       {
-        System.out.println("Updating: " + mdEntityIF.getKey());
+        logIt("Updating: " + mdEntityIF.getKey());
   
         MdEntityDAO mdEntity = mdEntityIF.getBusinessDAO();
         mdEntity.setValue(MdEntityInfo.HAS_DETERMINISTIC_IDS, MdAttributeBooleanInfo.TRUE);
@@ -714,6 +728,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   @Transaction
   public void updateBasicData(boolean dryRun)
   {
+    logIt("Updating basic data...");
+    
     // // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
 
@@ -738,6 +754,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateLayerSemanticId(boolean dryRun)
   {
+    logIt("Updating layer semantic ids.");
+    
     LayerQuery query = new LayerQuery(new QueryFactory());
     query.WHERE(query.getSemanticId().EQ((String) null));
 
@@ -768,6 +786,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateSystemAlerts(boolean dryRun)
   {
+    logIt("Updating system alerts.");
+    
     DiseaseQuery q = new DiseaseQuery(new QueryFactory());
     OIterator<? extends Disease> iter = q.getIterator();
 
@@ -796,6 +816,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
    */
   private void updateCasePeriod(boolean dryRun)
   {
+    logIt("Updating case period.");
+    
     DiseaseQuery q = new DiseaseQuery(new QueryFactory());
     OIterator<? extends Disease> iter = q.getIterator();
 
@@ -822,6 +844,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateAdultDiscriminatingDoseAssays(boolean dryRun)
   {
+    logIt("Updating AdultDiscriminatingDoseAssays.");
+    
     /*
      * Default hard-coded control number. It is 10000 because we most derive the control test number from the existing control test mortality and the
      * control number. Existing control test mortality values have relevant decimal values up to the hunderth decimal spot.
@@ -864,6 +888,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
+      logIt("Updating assay type [" + type + "].");
+      
       QueryFactory f = new QueryFactory();
       BusinessQuery q = f.businessQuery(type);
 
@@ -896,6 +922,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateMalariaSeasonLabels(boolean dryRun)
   {
+    logIt("Updating malaria season labels.");
+    
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
     query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
 
@@ -931,6 +959,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   private void updateSubCollections(boolean dryRun)
   {
+    logIt("Updating sub collections.");
+    
     SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
     query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
     query.AND(query.getFemalesTotal().EQ((Integer) null));
