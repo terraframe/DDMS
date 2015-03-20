@@ -153,24 +153,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   {
     logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
     
-    String sql1 = "CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )";
-    String sql2 = "INSERT INTO " + LOG_TABLE_NAME + " values ('', '')";
-    try
-    {
-      Connection conn = Database.getDDLConnection();
-      
-      Statement statement = conn.createStatement();
-      statement.executeUpdate(sql1);
-      statement.executeUpdate(sql2);
-      statement.close();
-
-      conn.commit();
-    }
-    catch (Exception ex)
-    {
-      String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "\n" + sql2 + "].";
-      logIt(error);
-    }
+    executeArbitrarySQL("CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
+    executeArbitrarySQL("INSERT INTO " + LOG_TABLE_NAME + " values ('', '')");
     
     logIt("Performing dry run to calculate total records...");
     
@@ -181,21 +165,33 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     
     performUpdate(false);
     
-    sql1 = "DROP TABLE " + LOG_TABLE_NAME;
+    executeArbitrarySQL("DROP TABLE " + LOG_TABLE_NAME);
+  }
+  
+  private void executeArbitrarySQL(String sql)
+  {
+    Connection conn = null;
     try
     {
-      Connection conn = Database.getDDLConnection();
+      conn = Database.getDDLConnection();
       
       Statement statement = conn.createStatement();
-      statement.executeUpdate(sql1);
+      statement.executeUpdate(sql);
       statement.close();
 
       conn.commit();
     }
     catch (Exception ex)
     {
-      String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "].";
+      String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql + "].";
       logIt(error);
+    }
+    finally
+    {
+      if (conn != null)
+      {
+        conn.close();
+      }
     }
   }
   
@@ -205,22 +201,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     
     if (!dryRun)
     {
-      String sql1 = "UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'";
-      try
-      {
-        Connection conn = Database.getDDLConnection();
-        
-        Statement statement = conn.createStatement();
-        statement.executeUpdate(sql1);
-        statement.close();
-
-        conn.commit();
-      }
-      catch (Exception ex)
-      {
-        String error = ex.getMessage() + " - SQL Statement That caused the error: [" + sql1 + "].";
-        logIt(error);
-      }
+      executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
       
       if (count % (total / PROGRESS_INTERVAL) == 0)
       {
