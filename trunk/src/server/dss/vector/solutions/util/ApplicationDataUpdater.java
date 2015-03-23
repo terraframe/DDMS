@@ -149,6 +149,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     System.out.println(msg);
   }
   
+  @Request
   public void run()
   {
     logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
@@ -193,7 +194,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         try
         {
-          conn.close();
+          Database.closeConnection(conn);
         }
         catch (SQLException e)
         {
@@ -217,7 +218,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
         {
           int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
           
-          float elapsed = (System.nanoTime() * 1000000000) - lastProgressTimestamp;
+          float elapsed = (System.nanoTime() - lastProgressTimestamp) / 1000000000;
           if (elapsed == 0) { elapsed = 0.1F; } // Safeguard against divide by 0.
           
           int recordsProcessed = count - lastProgressRecords;
@@ -231,7 +232,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
           
           logIt(msg);
           
-          lastProgressTimestamp = System.nanoTime() * 1000000000;
+          lastProgressTimestamp = System.nanoTime();
           lastProgressRecords = count;
         }
       }
@@ -453,11 +454,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     for (MdAttributeEnumerationDAOIF mdAttrEnumDAOIF : mdAttrEnumList)
     {
       MdClassDAOIF mdClassDAOIF = mdAttrEnumDAOIF.definedByClass();
-
+      
       if (mdClassDAOIF instanceof MdEntityDAOIF)
       {
         PreparedStatement prepared = this.getPreparedStatement(conn, (MdEntityDAOIF) mdClassDAOIF, mdAttrEnumDAOIF.getCacheColumnName(), oldRootId, newRootId);
         preparedStatementList.add(prepared);
+        count++;
       }
     }
 
@@ -487,8 +489,9 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         PreparedStatement prepared = this.getPreparedStatement(conn, (MdEntityDAOIF) mdClassDAOIF, mdAttrRefDAO, oldRootId, newRootId);
         preparedStatementList.add(prepared);
+        
+        count++;
       }
-
     }
 
     this.updateDefaultValues(conn, preparedStatementList, MdAttributeReferenceInfo.CLASS, oldRootId, newRootId);
