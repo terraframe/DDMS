@@ -154,7 +154,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   {
     logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
     
-    executeArbitrarySQL("CREATE TABLE " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
+    executeArbitrarySQL("CREATE TABLE IF NOT EXISTS " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
     executeArbitrarySQL("INSERT INTO " + LOG_TABLE_NAME + " values ('', '')");
     
     logIt("Performing dry run to calculate total records...");
@@ -162,7 +162,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     performUpdate(true);
     total = count;
     count = 0; 
-    logIt("Dry run completed. A total of [" + total + "] records will be processed.");
+    logIt("\nDry run completed. A total of [" + total + "] records will be processed.\n--------------------------------\n");
     
     performUpdate(false);
     

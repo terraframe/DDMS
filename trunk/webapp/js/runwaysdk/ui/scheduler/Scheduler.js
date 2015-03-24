@@ -490,7 +490,6 @@
         
         this.createClearHistoryButton();
         
-        // Allow them to specify a custom date formatter in our config, this is used for DDMS.
         var dateFormatter = Mojo.Util.bind(that, that.startTimeFormatter);
         if (Mojo.Util.isFunction(this._config.startTimeFormatter)) { dateFormatter = this._config.startTimeFormatter; }
         
