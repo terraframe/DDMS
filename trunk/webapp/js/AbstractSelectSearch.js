@@ -202,21 +202,35 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      * Closes all the result panels.
      */
     eventHandler : function(e) {
-      if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
+      if(e.getType() == MDSS.Event.BEFORE_SEARCH)
+      {
         var autocomplete = e.getValue().autocomplete;
     
         var searchedId = autocomplete.getDisplayElement().id;
           
         // When a new value is inputed we want to hide all
         // the other visible search results
-        for(var i=0; i < this._autocompletes.length; i++) {
+        for(var i=0; i < this._autocompletes.length; i++)
+        {
           var element = this._autocompletes[i];
           var elementId = element.getDisplayElement().id;
         
           if(searchedId != elementId) {
             element.hide();
           }
-        }      
+        }
+      }
+      else if (e.getType() == MDSS.Event.AFTER_SELECTION && e.getValue().autoComplete != null)
+      {
+        // Clear all the input elements because the ids that used to be there are no longer valid
+        for (var i = 0; i < this._autocompletes.length; ++i)
+        {
+          if (this._autocompletes[i].getHashCode() !== e.getValue().autoComplete.getHashCode())
+          {
+            this._autocompletes[i]._hasSelection = true;
+            this._autocompletes[i].setOption({})
+          }
+        }
       }
     },
     

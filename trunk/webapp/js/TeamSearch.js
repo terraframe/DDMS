@@ -993,7 +993,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
           this._selectEventHandler(selected);
         }
         
-        this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected})); // old
+        this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected, autoComplete:this})); // old
         this.dispatchEvent(new MDSS.ExitResults());
       }
         
