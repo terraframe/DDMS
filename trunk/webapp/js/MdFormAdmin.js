@@ -670,12 +670,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var that = this;
       var expFieldInputEL = document.getElementById('expressionInputField');
       
-  	  expFieldInputEL.addEventListener('keypress', function(event) {
-		  if (event.keyCode == 13) {
-			  event.preventDefault();
-		  }
-	  });
-      
       // change listener for expression radio buttons
       YUI().use('node', function (Y) {
     	  
