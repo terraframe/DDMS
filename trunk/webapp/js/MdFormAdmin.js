@@ -705,7 +705,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       	        var targetTextArea = document.getElementById("expressionInputField");
       	        
       	        that.insertTextAtCursor(targetTextArea, formattedAttrName)
-      	        
+      	        targetTextArea.focus();
       	     });
       	  });
           
@@ -718,7 +718,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        	        var targetTextArea = document.getElementById("expressionInputField");
        	        
        	        that.insertTextAtCursor(targetTextArea, operator)
-       	        
+       	        targetTextArea.focus();
        	     });
        	  });
       });
@@ -731,7 +731,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	        el.value = val.slice(0, el.selectionStart);
 	        el.value += text;
 	        el.value += val.slice(endIndex);
-	        el.selectionStart = el.selectionEnd = endIndex + text.length + 1; // +1 accounts for the added space
+	        el.selectionStart = el.selectionEnd = endIndex + text.length;
 	    } else if (typeof document.selection != "undefined" && typeof document.selection.createRange != "undefined") {
 	        el.focus();
 	        range = document.selection.createRange();
