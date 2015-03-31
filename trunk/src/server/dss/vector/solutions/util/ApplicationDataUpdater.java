@@ -1,10 +1,15 @@
 package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,19 +51,21 @@ import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.database.ServerIDGenerator;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.dataaccess.transaction.TransactionCache;
 import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import java.sql.Statement;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.util.IDGenerator;
+import com.runwaysdk.util.IdParser;
 
 import dss.vector.solutions.MonthOfYearMaster;
 import dss.vector.solutions.ResponseMaster;
@@ -103,6 +110,7 @@ import dss.vector.solutions.irs.SurfaceTypeMaster;
 import dss.vector.solutions.irs.TargetUnitMaster;
 import dss.vector.solutions.ontology.FieldRoot;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.LayerQuery;
 import dss.vector.solutions.query.RenderTypes;
@@ -116,6 +124,10 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   private boolean updateKeys;
 
   private boolean updateRootIds;
+  
+  private boolean countTermsRemaining;
+  
+  private boolean customRun;
   
   /**
    * This updater will first do a "dry run" in which it will count how many records need to be updated.
@@ -136,12 +148,15 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   /**
    * The progress interval controls how many progress updates will be printed. When set to 100, it means 100 "processing record" updates will be printed throughout the lifecycle of the program. 
    */
-  private static final int PROGRESS_INTERVAL = 100;
+  // This was commented out because I ran into a werid bug where it got reset to 0 somehow. I don't have time to troubleshoot how a private static final is getting changed/reset to 0 (yet the LOG_TABLE_NAME works just fine)
+//  private static final int PROGRESS_INTERVAL = 6000;
   
-  public ApplicationDataUpdater(boolean _updateKeys, boolean _updateRootIds)
+  public ApplicationDataUpdater(boolean _updateKeys, boolean _updateRootIds, boolean _countTermsRemaining, boolean _customRun)
   {
     this.updateKeys = _updateKeys;
     this.updateRootIds = _updateRootIds;
+    this.countTermsRemaining = _countTermsRemaining;
+    this.customRun = _customRun;
   }
 
   private void logIt(String msg)
@@ -149,22 +164,103 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     System.out.println(msg);
   }
   
+  private void countRemaining()
+  {
+    List<String> types = getTypesToUpdate();
+
+    count = 0;
+    
+    System.out.println("Counting remaining terms...");
+    TermQuery tq = new TermQuery(new QueryFactory());
+    OIterator<? extends Term> it = tq.getIterator();
+    
+    try
+    {
+      while (it.hasNext())
+      {
+        Term t = it.next();
+        
+        String mdTypeRootId = IdParser.parseMdTypeRootIdFromId(t.getId());
+        String newRootId = ServerIDGenerator.hashedId(t.getKey());
+        String newId = IdParser.buildId(newRootId, mdTypeRootId);
+        String currentId = t.getId();
+        
+        if (!newId.equals(currentId))
+        {
+          count++;
+        }
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    System.out.println(count + " terms still need updating.");
+    
+    int typesLeft = 0;
+    System.out.println("Counting remaining types..");
+    for (String type : types)
+    {
+      MdEntityDAOIF typeMdEntityIF = MdEntityDAO.getMdEntityDAO(type);
+
+      List<? extends MdEntityDAOIF> subClasses = typeMdEntityIF.getAllSubClasses();
+
+      for (MdEntityDAOIF subClass : subClasses)
+      {
+        String checkMe = subClass.definesType();
+        MdEntityDAOIF mdEntityIF = MdEntityDAO.getMdEntityDAO(checkMe);
+        
+        String mdTypeRootId = IdParser.parseMdTypeRootIdFromId(mdEntityIF.getId());
+        String newRootId = ServerIDGenerator.hashedId(mdEntityIF.getKey());
+        String newId = IdParser.buildId(newRootId, mdTypeRootId);
+        String currentId = mdEntityIF.getId();
+        
+        if (!newId.equals(currentId))
+        {
+          typesLeft++;
+        }
+      }
+    }
+    System.out.println(typesLeft + " types still need updating.");
+  }
+  
   @Request
   public void run()
   {
+    if (this.countTermsRemaining)
+    {
+      countRemaining();
+      return;
+    }
+    
     logIt("Creating a logging database table by name '" + LOG_TABLE_NAME + "'. This table contains information about the currently running task.");
     
-    executeArbitrarySQL("CREATE TABLE IF NOT EXISTS " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255) )");
-    executeArbitrarySQL("INSERT INTO " + LOG_TABLE_NAME + " values ('', '')");
+    executeArbitrarySQL("CREATE TABLE IF NOT EXISTS " + LOG_TABLE_NAME + " ( old_id varchar(255), new_id varchar(255), record_number varchar(255) )");
+    executeArbitrarySQL("INSERT INTO " + LOG_TABLE_NAME + " values ('', '', '')");
     
-    logIt("Performing dry run to calculate total records...");
+    logIt("Performing dry run to calculate total records, on larger databases this will take a few hours...");
     
-    performUpdate(true);
+    if (this.customRun)
+    {
+      logIt("Custom run enabled.");
+      updateDeterminsticIdsMetadata(true);
+    }
+    else
+    {
+      performUpdate(true);
+    }
     total = count;
     count = 0; 
     logIt("\nDry run completed. A total of [" + total + "] records will be processed.\n--------------------------------\n");
     
-    performUpdate(false);
+    if (this.customRun)
+    {
+      updateDeterminsticIdsMetadata(false);
+    }
+    else
+    {
+      performUpdate(false);
+    }
     
     executeArbitrarySQL("DROP TABLE " + LOG_TABLE_NAME);
   }
@@ -212,23 +308,50 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       
       if (!dryRun)
       {
-        executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "'");
+        executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "', record_number='" + count + "'");
         
-        if (count != 0 && (count % (total / PROGRESS_INTERVAL) == 0))
+        // This 6000 here is the PROGRESS_INTERVAL
+        if (count != 0 && (count % (total / 6000) == 0))
         {
           int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
           
-          float elapsed = (System.nanoTime() - lastProgressTimestamp) / 1000000000;
+          double elapsed = (System.nanoTime() - lastProgressTimestamp) / 1000000000;
           if (elapsed == 0) { elapsed = 0.1F; } // Safeguard against divide by 0.
           
           int recordsProcessed = count - lastProgressRecords;
           if (recordsProcessed == 0) { recordsProcessed = 1; } // Safeguard against divide by 0.
           
-          float velocity = (((float)recordsProcessed) / (elapsed));
+          double velocity = (((double)recordsProcessed) / (elapsed));
           
-          int secLeft = (int) ( 1.0F / (velocity / ((float)(recordsProcessed))) );
+          int remainingRecords = total - count;
           
-          String msg = "Processing record " + count + " of " + total + ". Total progress: " + progressPercent + "%. Current velocity: " + velocity + ". Estimated seconds remaining: " + secLeft;
+          String timeLeft = "";
+          int secLeft = (int) (remainingRecords / velocity);
+          if (secLeft > 100)
+          {
+            int minLeft = secLeft / 60;
+            
+            if (minLeft > 100)
+            {
+              int hourLeft = minLeft / 60;
+
+              timeLeft = hourLeft + " hours";
+            }
+            else
+            {
+              timeLeft = minLeft + " minutes.";
+            }
+          }
+          else
+          {
+            timeLeft = secLeft + " seconds.";
+          }
+          
+          Date date = new Date();
+          SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+          String formattedDate = sdf.format(date);
+          
+          String msg = "Processing record " + count + " of " + total + ". Start time: " +  formattedDate + ". Total progress: " + progressPercent + "%. Current velocity: " + velocity + ". Estimated time remaining: " + timeLeft;
           
           logIt(msg);
           
@@ -638,9 +761,17 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     for (String type : types)
     {
-      logIt("Updating deterministic ids for type: " + type);
+      MdEntityDAOIF mdEntityIF = null;
+      if (!this.customRun)
+      {
+        mdEntityIF = this.updateMetadata(type, dryRun);
+      }
+      else
+      {
+        mdEntityIF = MdEntityDAO.getMdEntityDAO(type);
+      }
       
-      MdEntityDAOIF mdEntityIF = this.updateMetadata(type, dryRun);
+      logIt("Updating deterministic ids for type: " + type);
 
       EntityQuery query = new QueryFactory().entityQuery(mdEntityIF);
       OIterator<? extends ComponentIF> iterator = query.getIterator();
@@ -661,6 +792,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
   public List<String> getTypesToUpdate()
   {
+    if (this.customRun) { return Arrays.asList(new String[]{Term.CLASS}); }
+    
     List<String> types = new LinkedList<String>();
     types.add(Disease.CLASS);
     types.add(GeoEntity.CLASS);
@@ -1001,12 +1134,14 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  public static void main(String[] args) throws FileNotFoundException
+  public static void main(String[] args) throws FileNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
   {
     Options options = new Options();
+    options.addOption(new Option("c", "custom-run", false, "Custom run"));
     options.addOption(new Option("k", "update-ids", false, "Run the update predictive ids algorithm"));
     options.addOption(new Option("r", "update-root-ids", false, "Run the update root ids"));
-
+    options.addOption(new Option("v", "validate", false, "Counts the number of unpatched records. Useful for validating that the data updater ran successfully."));
+    
     try
     {
       CommandLineParser parser = new PosixParser();
@@ -1014,8 +1149,12 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       boolean updateKeys = cmd.hasOption("k");
       boolean updateRootIds = cmd.hasOption("r");
-
-      ApplicationDataUpdater.start(updateKeys, updateRootIds);
+      boolean countTermsRemaining = cmd.hasOption("n");
+      boolean customRun = cmd.hasOption("c");
+      
+      // I ran into a classloader issue, this seems to fix it.
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.util.ApplicationDataUpdater");
+      clazz.getMethod("start", new Class<?>[]{Boolean.class, Boolean.class, Boolean.class, Boolean.class}).invoke(null, new Object[]{updateKeys, updateRootIds, countTermsRemaining, customRun});
     }
     catch (ParseException e)
     {
@@ -1031,8 +1170,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   }
 
   @Request
-  private static void start(boolean updateDeterministicIds, boolean updateRootIds)
+  public static void start(Boolean updateDeterministicIds, Boolean updateRootIds, Boolean countTermsRemaining, Boolean customRun)
   {
-    new ApplicationDataUpdater(updateDeterministicIds, updateRootIds).run();
+    new ApplicationDataUpdater(updateDeterministicIds, updateRootIds, countTermsRemaining, customRun).run();
   }
 }
