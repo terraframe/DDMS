@@ -1149,7 +1149,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
       boolean updateKeys = cmd.hasOption("k");
       boolean updateRootIds = cmd.hasOption("r");
-      boolean countTermsRemaining = cmd.hasOption("n");
+      boolean countTermsRemaining = cmd.hasOption("v");
       boolean customRun = cmd.hasOption("c");
       
       // I ran into a classloader issue, this seems to fix it.
