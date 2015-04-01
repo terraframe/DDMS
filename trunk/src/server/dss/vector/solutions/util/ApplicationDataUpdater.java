@@ -309,6 +309,8 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "', record_number='" + count + "'");
         
+        if (total == 0) { total = 1; } // Protect against divide by 0;
+        
         int dividend = Math.round(((float)total) / ((float)PROGRESS_INTERVAL));
         if (dividend == 0) { dividend = 1; } // Protect against divide by 0.
         
