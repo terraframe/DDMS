@@ -148,8 +148,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   /**
    * The progress interval controls how many progress updates will be printed. When set to 100, it means 100 "processing record" updates will be printed throughout the lifecycle of the program. 
    */
-  // This was commented out because I ran into a werid bug where it got reset to 0 somehow. I don't have time to troubleshoot how a private static final is getting changed/reset to 0 (yet the LOG_TABLE_NAME works just fine)
-//  private static final int PROGRESS_INTERVAL = 6000;
+  private static final int PROGRESS_INTERVAL = 6000;
   
   public ApplicationDataUpdater(boolean _updateKeys, boolean _updateRootIds, boolean _countTermsRemaining, boolean _customRun)
   {
@@ -310,8 +309,10 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         executeArbitrarySQL("UPDATE " + LOG_TABLE_NAME + " SET old_id='" + old_id + "', new_id='" + new_id + "', record_number='" + count + "'");
         
-        // This 6000 here is the PROGRESS_INTERVAL
-        if (count != 0 && (count % (total / 6000) == 0))
+        int dividend = Math.round(((float)total) / ((float)PROGRESS_INTERVAL));
+        if (dividend == 0) { dividend = 1; } // Protect against divide by 0.
+        
+        if (count != 0 && (count % dividend == 0))
         {
           int progressPercent = (int) ( (((float) count) / ((float) total)) * 100 );
           
