@@ -174,15 +174,15 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 7847
-  StrCpy $PatchVersion 7846
+  StrCpy $ManagerVersion 7884
+  StrCpy $PatchVersion 7883
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
   StrCpy $LocalizationVersion 7831
   StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
-  StrCpy $BirtVersion 7497
+  StrCpy $BirtVersion 7851
   StrCpy $WebappsVersion 7616
   StrCpy $JavaVersion 7802  
     
@@ -369,7 +369,7 @@ Function patchApplication
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
       ${If} $IdVersion > $0
         StrCpy $Phase "Updating root ids, this process can several hours to complete."		
-		ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r` $JavaError
+		ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_roots -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r` $JavaError
         Call JavaAbort
 		
 		# We need to re-clear the old cache
@@ -377,7 +377,7 @@ Function patchApplication
 		Delete $INSTDIR\tomcat6\$AppName.data    
 		
         StrCpy $Phase "Updating system ids, this process can several hours to complete."		
-		ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k` $JavaError
+		ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_keys -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k` $JavaError
         Call JavaAbort
 		
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
@@ -482,7 +482,7 @@ Function patchApplication
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
       SetOutPath $PatchDir\doc
       StrCpy $Phase "Updating application data"
-      ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
+      ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_app -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
       Call JavaAbort
    
    		# Delete all database views and sql functions because the QB source / function source may have changed
