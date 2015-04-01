@@ -74,7 +74,7 @@
  -->
  
   <target name="build" depends="build-database, build_installer_exe"/>
-  	
+  
   <target name="build-database">
     <echo message="Deleting directory: ${stage.webapp}/" />
     <delete dir="${stage.webapp}" verbose="false" />

@@ -334,7 +334,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7846
+    StrCpy $PatchVersion 7883
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -342,8 +342,8 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7774
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7847
-	StrCpy $BirtVersion 7497
+	StrCpy $ManagerVersion 7884
+	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7802
 	
@@ -520,12 +520,18 @@ Section -Main SEC0000
     File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
     SetOutPath $INSTDIR\manager\geo-manager-1.0.0
     File /r /x .svn ..\standalone\geo-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\manager-1.0.0
-    File /r /x .svn ..\standalone\manager-1.0.0\*
     SetOutPath $INSTDIR\manager\synch-manager-1.0.0
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
+	
+	# Update the manager, but don't overwrite the applications.txt if it already exists.
+	SetOutPath $INSTDIR\manager\manager-1.0.0
+	File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
+	SetOverwrite off
+	SetOutPath $INSTDIR\manager\manager-1.0.0\classes
+	File ..\standalone\manager-1.0.0\classes\applications.txt
+	SetOverwrite on
 	
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
