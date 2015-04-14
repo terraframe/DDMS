@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.output.TeeOutputStream;
 
 import com.runwaysdk.business.ViewDTO;
 import com.runwaysdk.constants.ClientConstants;
@@ -136,12 +137,7 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
-          writeErrorFiles(errorStream, fileName);
-          
-          res.setContentType("application/xls");
-          res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-          ServletOutputStream outputStream = res.getOutputStream();
-          FileIO.write(outputStream, errorStream);
+          respondError(errorStream, fileName, res);
           return;
         }
       }
@@ -158,12 +154,7 @@ public class ExcelImportServlet extends HttpServlet
 
           if (errorStream.available() > 0)
           {
-            writeErrorFiles(errorStream, fileName);
-            
-            res.setContentType("application/xls");            
-            res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-            ServletOutputStream outputStream = res.getOutputStream();
-            FileIO.write(outputStream, errorStream);
+            respondError(errorStream, fileName, res);
             return;
           }
         }
@@ -201,7 +192,7 @@ public class ExcelImportServlet extends HttpServlet
   
   // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
   //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
-  private void writeErrorFiles(InputStream errorStream, String filename)
+  private void respondError(InputStream errorStream, String filename, HttpServletResponse res)
   {
     String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
     try
@@ -217,9 +208,15 @@ public class ExcelImportServlet extends HttpServlet
       
       FileOutputStream fos = new FileOutputStream(errorFile);
       BufferedOutputStream buffer = new BufferedOutputStream(fos);
-      FileIO.write(buffer, errorStream);
-      buffer.flush();
-      buffer.close();
+      
+      res.setContentType("application/xls");
+      res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+      ServletOutputStream outputStream = res.getOutputStream();
+      
+      TeeOutputStream tee = new TeeOutputStream(buffer, outputStream); // The tee allows us to write to 2 different places at once.
+      FileIO.write(tee, errorStream);
+      tee.flush();
+      tee.close();
     }
     catch (Exception e)
     {

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.output.TeeOutputStream;
 
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
@@ -137,18 +138,19 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
                   
                   FileOutputStream fos = new FileOutputStream(errorFile);
                   BufferedOutputStream buffer = new BufferedOutputStream(fos);
-                  FileIO.write(buffer, errorStream);
-                  buffer.flush();
-                  buffer.close();
+                  
+                  resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+                  ServletOutputStream outputStream = resp.getOutputStream();
+                  
+                  TeeOutputStream tee = new TeeOutputStream(buffer, outputStream); // The tee allows us to write to 2 different places at once.
+                  FileIO.write(tee, errorStream);
+                  tee.flush();
+                  tee.close();
                 }
                 catch (Exception e)
                 {
                   RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
                 }
-                
-                resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-                ServletOutputStream outputStream = resp.getOutputStream();
-                FileIO.write(outputStream, errorStream);
               }
               else
               {
