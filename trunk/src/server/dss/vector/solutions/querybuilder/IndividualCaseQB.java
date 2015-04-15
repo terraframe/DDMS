@@ -23,6 +23,7 @@ import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
@@ -186,6 +187,21 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       SelectableSQLFloat popSel = (SelectableSQLFloat) valueQuery.getSelectableRef(QueryConstants.POPULATION);
       String popSQL = getPopulationSQL(valueQuery, geoIdColumn, caseQuery, instanceQuery, xml);
       popSel.setSQL(popSQL);
+    }
+    
+    // Add a group by
+    if (!(valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION) || valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION))) {
+      List<Selectable> refs = new ArrayList<Selectable>(valueQuery.getSelectableRefs());
+      Iterator<Selectable> it = refs.iterator();
+      while (it.hasNext())
+      {
+        Selectable next = it.next();
+        if (next.isAggregateFunction())
+        {
+          it.remove();
+        }
+      }
+      valueQuery.GROUP_BY(refs.toArray(new SelectableSingle[refs.size()]));
     }
     
     return valueQuery;
@@ -415,6 +431,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       return originalVQ;
     }
     
+    List<Selectable> extraGroupBys = new ArrayList<Selectable>();
+    
     String ovq = "original_vq";
     
     ValueQuery finalVQ = new ValueQuery(originalVQ.getQueryFactory());
@@ -447,15 +465,17 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     for (Selectable finalSel : finalSels) {
       String sumSel = null;
       
-      // Ugh this is a total hack, but I don't have time at this point to rewrite that view SQL to use our query stack.
       if (finalSel.getResultAttributeName().contains("entityLabel")) {
         sumSel = "geo_label";
+        extraGroupBys.add(originalVQ.aSQLCharacter(sumSel, "summedThresholds." + sumSel));
       }
       else if (finalSel.getResultAttributeName().contains("geoId")) {
         sumSel = "geo_id";
+        extraGroupBys.add(originalVQ.aSQLCharacter(sumSel, "summedThresholds." + sumSel));
       }
       else if (finalSel.getResultAttributeName().equals(dateGroupCol)) {
         sumSel = "epi_week";
+        extraGroupBys.add(originalVQ.aSQLDate(sumSel, "summedThresholds." + sumSel));
       }
       
       if (sumSel != null) {
@@ -463,6 +483,19 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
         ((SelectableSQL) finalSel).setSQL("COALESCE(" + ovq + "." + ovqSel + ", summedThresholds." + sumSel + ")");
       }
     }
+    
+    // Add a group by
+    List<Selectable> refs = new ArrayList<Selectable>(finalVQ.getSelectableRefs());
+    Iterator<Selectable> it = refs.iterator();
+    while (it.hasNext())
+    {
+      if (it.next().isAggregateFunction())
+      {
+        it.remove();
+      }
+    }
+    refs.addAll(extraGroupBys);
+    finalVQ.GROUP_BY(refs.toArray(new SelectableSingle[refs.size()]));
     
     return finalVQ;
   }
