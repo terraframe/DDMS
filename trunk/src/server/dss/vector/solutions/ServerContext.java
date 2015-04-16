@@ -577,26 +577,44 @@ public class ServerContext
 
     String geoIdCol = QueryUtil.getColumnName(this.getMdAttribute(GEO_ENTITY_CLASS, "getGeoIdMd"));
 
-    sql += "CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date \n";
-    sql += "( \n";
-    sql += "  _geo_Id         VARCHAR, \n";
-    sql += "  _date             DATE \n";
-    sql += ") \n";
-    sql += "RETURNS FLOAT AS $$ \n";
-    sql += "DECLARE \n";
-    sql += "  _population      FLOAT; \n";
-    sql += "  _geo_Entity_Id  VARCHAR; \n";
-    sql += "  _year             INT; \n";
-    sql += "BEGIN \n";
-    sql += "  SELECT id FROM " + geoEntityTable + " WHERE " + geoIdCol + " = _geo_Id \n";
-    sql += "    INTO _geo_Entity_Id; \n";
-    sql += "   _year := EXTRACT(year FROM _date); \n";
-    sql += "  SELECT get_adjusted_population(_geo_Entity_Id, _year,183) \n";
-    sql += "    INTO _population; \n";
-    sql += "     \n";
-    sql += "    RETURN _population; \n";
-    sql += "END; \n";
-    sql += "$$ LANGUAGE plpgsql; \n";
+    sql += "CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date(_geo_id character varying, _date date)\n" + 
+        "  RETURNS double precision AS\n" + 
+        "$BODY$ \n" + 
+        "DECLARE \n" + 
+        "  _population      FLOAT; \n" + 
+        "  _geo_Entity_Id  VARCHAR; \n" + 
+        "  _year             INT; \n" + 
+        "BEGIN\n" + 
+        "  IF NOT EXISTS (\n" + 
+        "      SELECT 1 \n" + 
+        "      FROM   pg_class c \n" + 
+        "      WHERE  c.relname = 'pop_cached' \n" + 
+        "    ) THEN\n" + 
+        "    \n" + 
+        "    EXECUTE 'CREATE TEMP TABLE IF NOT EXISTS pop_cached (\n" + 
+        "    _cache_geo_id varchar(64),\n" + 
+        "    _cache_year integer,\n" + 
+        "    _cache_pop float\n" + 
+        "    ) ON COMMIT DROP'; \n" + 
+        "    EXECUTE 'CREATE INDEX cached_pop_index ON pop_cached (_cache_geo_id, _cache_year, _cache_pop)'; \n" + 
+        "  END IF;\n" + 
+        "  \n" + 
+        "  _year := EXTRACT(year FROM _date); \n" + 
+        "  \n" + 
+        "  SELECT _cache_pop FROM pop_cached WHERE _geo_id = _cache_geo_id AND _year = _cache_year INTO _population; \n" + 
+        "  IF _population IS NOT NULL THEN \n" + 
+        "    RETURN _population; \n" + 
+        "  END IF;\n" + 
+        "  \n" + 
+        "  SELECT id FROM geo_entity WHERE geo_id = _geo_Id INTO _geo_Entity_Id; \n" + 
+        "  SELECT get_adjusted_population(_geo_Entity_Id, _year,183) INTO _population; \n" + 
+        "  \n" + 
+        "  INSERT INTO pop_cached (_cache_geo_id, _cache_year, _cache_pop) VALUES (_geo_id, _year, _population); \n" + 
+        "  RETURN _population; \n" + 
+        "END; \n" + 
+        "$BODY$\n" + 
+        "  LANGUAGE plpgsql; \n";
+    
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_population_by_geoid_and_date \n";
     sql += "( \n";
     sql += "  _geo_Id         VARCHAR, \n";
