@@ -190,7 +190,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     }
     
     // Add a group by
-    if (!(valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION) || valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION))) {
+    if (!(valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION) || valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) && valueQuery.hasSelectableRef(QueryConstants.POPULATION)) {
       List<Selectable> refs = new ArrayList<Selectable>(valueQuery.getSelectableRefs());
       Iterator<Selectable> it = refs.iterator();
       while (it.hasNext())
@@ -485,17 +485,20 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     }
     
     // Add a group by
-    List<Selectable> refs = new ArrayList<Selectable>(finalVQ.getSelectableRefs());
-    Iterator<Selectable> it = refs.iterator();
-    while (it.hasNext())
+    if (originalVQ.hasSelectableRef(QueryConstants.POPULATION))
     {
-      if (it.next().isAggregateFunction())
+      List<Selectable> refs = new ArrayList<Selectable>(finalVQ.getSelectableRefs());
+      Iterator<Selectable> it = refs.iterator();
+      while (it.hasNext())
       {
-        it.remove();
+        if (it.next().isAggregateFunction())
+        {
+          it.remove();
+        }
       }
+      refs.addAll(extraGroupBys);
+      finalVQ.GROUP_BY(refs.toArray(new SelectableSingle[refs.size()]));
     }
-    refs.addAll(extraGroupBys);
-    finalVQ.GROUP_BY(refs.toArray(new SelectableSingle[refs.size()]));
     
     return finalVQ;
   }

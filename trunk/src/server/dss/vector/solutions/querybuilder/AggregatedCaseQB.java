@@ -1,6 +1,8 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -16,6 +18,7 @@ import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLFloat;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
@@ -113,6 +116,21 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
 
     this.setNumericRestrictions(valueQuery, config);
 
+    // Add a group by
+    if (valueQuery.hasSelectableRef(QueryConstants.POPULATION))
+    {
+      List<Selectable> refs = new ArrayList<Selectable>(valueQuery.getSelectableRefs());
+      Iterator<Selectable> it = refs.iterator();
+      while (it.hasNext())
+      {
+        if (it.next().isAggregateFunction())
+        {
+          it.remove();
+        }
+      }
+      valueQuery.GROUP_BY(refs.toArray(new SelectableSingle[refs.size()]));
+    }
+    
     return valueQuery;
   }
 
