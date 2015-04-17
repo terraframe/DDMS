@@ -92,6 +92,7 @@ Var PatchDir                # Location of the temp patch directory on the client
 Var AgentDir                # Location of the logging agent directory on the client install.
 Var isMaster                # Temp flag denoting if the current app is a master or not.
 Var AppName                 # Temp variable for the name of the current app being patched.
+Var AppsToPatch             # This variable is (optionally) set from the command line, during a silent install. Its a (comma delimited) list of apps which will get patched.
 Var TargetLoc               # Location of the WEB-INF classes directory on the client install.  Changes depending on $AppName.
 Var Phase
 Var RunwayVersion           # Version of the runway metadata contained in the install.
@@ -106,7 +107,7 @@ Var RootsVersion            # Version of the roots contained in the install.
 Var MenuVersion             # Version of the menu structure contained in the install.
 Var LocalizationVersion     # Version of the localization file contained in the install.
 Var PermissionsVersion      # Version of the permissions contained in the install.
-Var IdVersion				# Version of the predictive id change in the install. 
+Var IdVersion			        	# Version of the predictive id change in the install. 
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var Params                  # Variable for storing all of the params
@@ -175,7 +176,7 @@ Section -Main SEC0000
   StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
   StrCpy $ManagerVersion 7884
-  StrCpy $PatchVersion 7883
+  StrCpy $PatchVersion 7896
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -336,7 +337,7 @@ Function patchApplication
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} $PatchVersion > $0     
-      MessageBox MB_YESNO "Patch application $AppName?" IDYES true IDNO false  
+      MessageBox MB_YESNO "Patch application $AppName?" /SD IDYES IDYES true IDNO false  
       true:
     
       # Update the classpath to reference the particular application being patched
@@ -1032,21 +1033,21 @@ SectionEnd
 
 # Installer functions
 Function .onInit
-    InitPluginsDir
+  InitPluginsDir
+
+  # Initialize the value of the text string
+  StrCpy $ExtraOpts ""
   
-    # Initialize the value of the text string
-    StrCpy $ExtraOpts ""
-    
-    # Read the command-line parameters
-    ${GetParameters} $Params
-    # Check for the presence of the -master flag
-    ${GetOptions} "$Params" "-opts=" $R0
+  # Read the command-line parameters
+  ${GetParameters} $Params
+  # Check for the presence of the -master flag
+  ${GetOptions} "$Params" "-opts=" $R0
  
   IfErrors optsDone copyOpts
     copyOpts:
       StrCpy $ExtraOpts $R0
     optsDone:
-      ClearErrors  
+      ClearErrors
 FunctionEnd
 
 # Macro for selecting uninstaller sections
@@ -1076,7 +1077,7 @@ Section /o -un.Main UNSEC0000
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     
     ${If} $0 <> 0        
-        MessageBox MB_OK "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
         Abort
     ${EndIf}
     
