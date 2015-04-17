@@ -222,7 +222,7 @@ Function appNameUniquenessCheck
     StrCmp $AppName $1 appNameCollision appNameFileReadLoop
     
     appNameCollision:
-    MessageBox MB_OK "$1 already exists.  Please choose another name."
+    MessageBox MB_OK|MB_ICONSTOP "$1 already exists.  Please choose another name."
 	FileClose $0
     Abort
     
@@ -293,7 +293,7 @@ Function stopPostgres
 	${If} $0 > 50
   	# Goto PostgresDown
     LogEx::Write "PostgreSQL failed to stop."
-	  MessageBox MB_OK "Postgres failed to stop." 
+	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." 
 	  #Abort
     ${EndIf}	
 	
@@ -319,7 +319,7 @@ Function startPostgres
 	${If} $0 > 50
 	  Goto PostgresDown
     LogEx::Write "PostgreSQL failed to start."
-	  MessageBox MB_OK "Postgres failed to start." 
+	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." 
 	  #Abort
     ${EndIf}	
 	
@@ -334,7 +334,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7883
+    StrCpy $PatchVersion 7896
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -384,8 +384,7 @@ Section -Main SEC0000
     StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
       LogEx::Write "Firefox 27.0.1 was not found."
-      MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
-      Abort
+      MessageBox MB_OK|MB_ICONEXCLAMATION "Could not find FireFox. The installer can continue, but you may need to install Firefox yourself." /SD IDOK
     
     fireFoxFound:
     #Determine if this is a full install or just another app
@@ -462,7 +461,7 @@ Section -Main SEC0000
     
     # Who knows what version we're on.
     ${Else}
-      MessageBox MB_OK "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
+      MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
       File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
     
@@ -477,8 +476,8 @@ Section -Main SEC0000
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
     LogEx::Write "Installing PostGIS"
-    File "postgis-pg91-setup-1.5.3-2.exe"
-    ExecWait `"$INSTDIR\postgis-pg91-setup-1.5.3-2.exe" /S`
+    File "postgis-pg91-setup-1.5.5-1.exe"
+    ExecWait `"$INSTDIR\postgis-pg91-setup-1.5.5-1.exe" /S`
 
 	# Install tomcat as a service	
     LogEx::Write "Configuring Tomcat as a service"
@@ -576,7 +575,7 @@ Section -Main SEC0000
 	
 	postInstallError:
     LogEx::Write "Post Install Setup Failed"
-	MessageBox MB_OK "Post install process failed." 
+	MessageBox MB_OK|MB_ICONSTOP "Post install process failed." 
 	ClearErrors
 	
 	skipErrorMsg:
@@ -723,7 +722,7 @@ Section /o -un.Main UNSEC0000
 	  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
 	  
 	  ${If} $0 <> 0        
-        MessageBox MB_OK "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
         Abort
 	  ${EndIf}
 	  
@@ -736,30 +735,30 @@ Section /o -un.Main UNSEC0000
 	  StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
 	${EndIf}
 	
-    CreateDirectory $DESKTOP\temp_uninstall_files
-    CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
-    DeleteRegValue HKLM "${REGKEY}\Components" Main
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
-    DeleteRegValue HKLM "${REGKEY}\Components" Manager
-    DeleteRegValue HKLM "${REGKEY}\Components" Java
-    DeleteRegValue HKLM "${REGKEY}\Components" Birt
-    DeleteRegValue HKLM "${REGKEY}\Components" Webapps	
-    DeleteRegValue HKLM "${REGKEY}\Components" Runway
+  CreateDirectory $DESKTOP\temp_uninstall_files
+  CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
+  DeleteRegValue HKLM "${REGKEY}\Components" Main
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
+  DeleteRegValue HKLM "${REGKEY}\Components" Manager
+  DeleteRegValue HKLM "${REGKEY}\Components" Java
+  DeleteRegValue HKLM "${REGKEY}\Components" Birt
+  DeleteRegValue HKLM "${REGKEY}\Components" Webapps	
+  DeleteRegValue HKLM "${REGKEY}\Components" Runway
 		
 	#Uninstall Tomcat as a service
 	ExecWait `$TomcatExec //DS//Tomcat6`
 	
-    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
-    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
-    RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
-    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
-    RmDir /r /REBOOTOK $INSTDIR
-    UserMgr::DeleteAccount "ddmspostgres"
+  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
+  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
+  RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
+  RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+  RmDir /r /REBOOTOK $INSTDIR
+  UserMgr::DeleteAccount "ddmspostgres"
 SectionEnd
 
 Section -un.post UNSEC0001
@@ -781,20 +780,19 @@ SectionEnd
 
 # Installer functions
 Function .onInit
-    # LogSet On
-    SetOverwrite try
-    InitPluginsDir
-    SetRebootFlag true
-    # Initialize the value of the text string
-    StrCpy $InstallationNumber "1"
-    StrCpy $AppName "Name"
-    StrCpy $Master_Value "init"
-    
-    # Read the command-line parameters
-    ${GetParameters} $Params
-    # Check for the presence of the -master flag
-    ${GetOptions} "$Params" "-master" $R0
- 
+  # LogSet On
+  SetOverwrite try
+  InitPluginsDir
+  SetRebootFlag true
+  # Initialize the value of the text string
+  StrCpy $InstallationNumber "1"
+  StrCpy $AppName "Name"
+  StrCpy $Master_Value "init"
+  
+  # Read the command-line parameters
+  ${GetParameters} $Params
+  ${GetOptions} "$Params" "-master" $R0
+
 	IfErrors masterFalse masterTrue
    masterFalse:
       StrCpy $Master_Value "false"
@@ -805,6 +803,9 @@ Function .onInit
     masterDone:
       ClearErrors
     
+  ${GetOptions} "$Params" "-install_number" $InstallationNumber
+  ${GetOptions} "$Params" "-app_name" $AppName
+  ClearErrors
 FunctionEnd
 
 # Finds the firefox executable by checking an assortment of registry keys and stores the path in $FPath
