@@ -26,10 +26,19 @@ function help()
   echo "-scheduler                              Prints some information about running scripts in the Windows scheduler."
 }
 
+if ([System.Environment]::Is64BitOperatingSystem)
+{
+  $javaDir = "jdk1.6.0_16"
+}
+else
+{
+  $javaDir = "jdk_32_bit"
+}
+
 # Define some variables that we'll use for this script.
 $basedir = split-path -parent $MyInvocation.MyCommand.Definition
 $ddmsLoc = "$($basedir)\..\"
-$java = $ddmsLoc + "Java\jdk1.6.0_16\bin\java.exe"
+$java = "$($ddmsLoc)\Java\$($javaDir)\bin\java.exe"
 $username = "ddms"
 $password = "ddms"
 $url = "http://127.0.0.1:8080/manager/"
@@ -349,7 +358,7 @@ function backup()
 function restore()
 {
   $status = getAppStatus $restore
-  
+
   if ($status -eq 0 -or $status -eq -1)
   {
     echo "Starting restore of app $($restore)..."
