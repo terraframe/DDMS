@@ -346,8 +346,6 @@ public class QueryUtil implements Reloadable
             {
               found = true;
 
-//              StringBuffer sql = new StringBuffer("(" + "\n");
-
               MdEntityDAOIF mdEntityTerm = MdEntityDAO.getMdEntityDAO(Term.CLASS);
               String termTable = mdEntityTerm.getTableName();
               
@@ -359,9 +357,6 @@ public class QueryUtil implements Reloadable
 
               String tableName = targetMdBusiness.getTableName();
               String columnName = mdAttribute.getColumnName();
-
-//              sql.append("       SELECT " + tableName + ".id AS id, term0.name AS " + attr + "_displayLabel" + "\n");
-//              sql.append("       FROM " + tableName + " AS " + tableName + "\n");
 
               String columnAlias = s.getUserDefinedAlias();
 
@@ -379,7 +374,6 @@ public class QueryUtil implements Reloadable
                 
                 String allPathsAlias = valueQuery.getQueryFactory().getTableAlias(namespace, ALLPATHS_ONTOLOGY_TABLE);
                 
-//                sql.append("       LEFT JOIN allpaths_ontology AS allpaths_ontology_6 ON " + tableName + "." + columName + "  = allpaths_ontology_6.child_term" + "\n");
                 currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias);
                 if (rootLeftJoin == null)
                 {
@@ -395,14 +389,12 @@ public class QueryUtil implements Reloadable
 
                 if (aggregation.getAggregate())
                 {
-//                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.parent_term = term0.id" + "\n");
                   currleftJoinEq = new LeftJoinEq(ALLPATHS_PARENT_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
                   previousLeftJoin.nest(currleftJoinEq);
                   previousLeftJoin = currleftJoinEq;
                 }
                 else
-                {
-//                  sql.append("       LEFT JOIN " + termTable + " AS term0 on allpaths_ontology_6.child_term = term0.id" + "\n");        
+                {      
                   currleftJoinEq = new LeftJoinEq(ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
                   previousLeftJoin.nest(currleftJoinEq);
                   previousLeftJoin = currleftJoinEq;
@@ -414,17 +406,6 @@ public class QueryUtil implements Reloadable
                 {
                   for (int i = 0; i < restrictions.size(); i++)
                   {
-//                    if (i == 0)
-//                    {
-//                      sql.append("       WHERE ");
-//                    }
-//                    else
-//                    {
-//                      sql.append("       OR ");
-//                    }
-//
-//                    sql.append("allpaths_ontology_6.parent_term = '" + restrictions.get(i) + "'" + "\n");
-//                    sql.append(ALLPATHS_ONTOLOGY_TABLE+"."+ALLPATHS_PARENT_TERM_COLUMN + " = '" + restrictions.get(i) + "'" + "\n");
                     SelectableSQLCharacter selectableSQLCharacter = valueQuery.aSQLCharacter(allPathsAlias+"_"+ALLPATHS_PARENT_TERM_COLUMN, allPathsAlias+"."+ALLPATHS_PARENT_TERM_COLUMN); 
                     termConditions.add(selectableSQLCharacter.EQ(restrictions.get(i)));
                   }
@@ -432,7 +413,6 @@ public class QueryUtil implements Reloadable
               } // if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               else
               {
-//                sql.append("       LEFT JOIN " + termTable + " AS term0 ON " + tableName + "." + columName + " = term0.id" + "\n");           
                 currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
                 if (rootLeftJoin == null)
                 {
@@ -444,10 +424,6 @@ public class QueryUtil implements Reloadable
                 }
                 previousLeftJoin = currleftJoinEq;
               }
-//              String subSelect = klass.replace('.', '_') + "TermSubSel";
-//              sql.append("     )");
-
-
             } // if (termAttrib.equals(attr))
          } // for (String termAttrib : termAttributes)
         } // if (ind != -1)

@@ -189,7 +189,7 @@ var MDSS = {
   /**
    * Provides a default request implementation that wraps a standard client request.
    */
-  Request : function(handler)
+  Request : function(handler, _overrideMsg)
   {
     this.createModal = function(content)
     {
@@ -198,15 +198,17 @@ var MDSS = {
 
     this.onSend = function()
     {
-        // Show a modal wait screen to prevent user from clicking an ajax link
-    // twice
-        if(MDSS.util.wait_for_ajax != null)
-        {
-          MDSS.util.wait_for_ajax.show();
-          MDSS.util.wait_for_ajax.bringToTop();
-        }
-        else
-        {
+      if (_overrideMsg == null) { _overrideMsg = 'Ajax_Loading'; }
+      
+      // Show a modal wait screen to prevent user from clicking an ajax link twice
+      if(MDSS.util.wait_for_ajax != null)
+      {
+        MDSS.util.wait_for_ajax.setHeader(MDSS.localize(_overrideMsg));
+        MDSS.util.wait_for_ajax.show();
+        MDSS.util.wait_for_ajax.bringToTop();
+      }
+      else
+      {
         MDSS.util.wait_for_ajax =
           new YAHOO.widget.Panel("wait_for_ajax",
             { width:"240px",
@@ -219,7 +221,7 @@ var MDSS = {
             }
           );
 
-        MDSS.util.wait_for_ajax.setHeader(MDSS.localize('Ajax_Loading'));
+        MDSS.util.wait_for_ajax.setHeader(MDSS.localize(_overrideMsg));
         MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
         MDSS.util.wait_for_ajax.render(document.body);
         MDSS.util.wait_for_ajax.bringToTop();

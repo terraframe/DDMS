@@ -10,10 +10,12 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.attributes.ImmutableAttributeProblem;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributePrimitiveDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributePrimitive;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -97,8 +99,19 @@ public abstract class WebAttributeBuilder extends WebFieldBuilder implements Rel
 
     MdWebAttribute mdWebAttribute = this.getMdField();
     mdWebAttribute.setValue(MdWebPrimitive.DEFININGMDATTRIBUTE, mdAttribute.getId());
-
+    
     super.create();
+    
+    /*
+     * This code is a little strange, but essentially we need to run through all the existing instances and set the value for this new calculated field.
+     * This doesn't happen on the earlier MdAttribute apply because it only works AFTER the MdWebAttribute is assigned to the MdAttribute (weird ordering dependencies).
+     * We also can't move the update logic to the MdWebAttribute apply method because we need to know if the calculated field was modified, and the only one
+     * who knows that is the MdAttribute.
+     */
+    if (mdAttribute instanceof MdAttributePrimitive)
+    {
+      ((MdAttributePrimitiveDAO)MdAttributePrimitiveDAO.get(mdAttribute.getId())).updateExistingCalculatedAttrs();
+    }
   }
 
   protected abstract MdAttributeConcrete newMdAttribute();

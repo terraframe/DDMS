@@ -721,17 +721,18 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     insertTextAtCursor : function(el, text) {
 	    var val = el.value, endIndex, range;
 	    if (typeof el.selectionStart != "undefined" && typeof el.selectionEnd != "undefined") {
-	        endIndex = el.selectionEnd;
-	        el.value = val.slice(0, el.selectionStart);
-	        el.value += text;
-	        el.value += val.slice(endIndex);
-	        el.selectionStart = el.selectionEnd = endIndex + text.length;
+	      var startIndex = el.selectionStart;
+        endIndex = el.selectionEnd;
+        el.value = val.slice(0, el.selectionStart);
+        el.value += text;
+        el.value += val.slice(endIndex);
+        el.selectionStart = el.selectionEnd = startIndex + text.length;
 	    } else if (typeof document.selection != "undefined" && typeof document.selection.createRange != "undefined") {
-	        el.focus();
-	        range = document.selection.createRange();
-	        range.collapse(false);
-	        range.text = text;
-	        range.select();
+        el.focus();
+        range = document.selection.createRange();
+        range.collapse(false);
+        range.text = text;
+        range.select();
 	    }
 	},
     updateMdField : function(fieldMap)
@@ -783,7 +784,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           that._fieldFormDialog.hide();
           that._postCreateMdField(newFieldId);
         }
-      });
+      }, "Ajax_Loading_UpdateCalculatedForms");
       
       // manually set the MdForm id because it is not in the actual form.
       fieldMap['mdFormId'] = this._currentMdFormId;
@@ -1574,7 +1575,7 @@ Mojo.Meta.newClass('dss.vector.solutions.GridFieldAdmin',
           
           this.that.refreshFields();
         }
-      });
+      }, "Ajax_Loading_UpdateCalculatedForms");
       
       params['mdCompositeFieldId'] = this._compositeFieldId;
       
