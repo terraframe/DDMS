@@ -20,12 +20,14 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
@@ -713,14 +715,15 @@ public class QueryUtil implements Reloadable
    */
   public static String[] getEnumAttributes(String className)
   {
-    MdBusiness md = MdBusiness.getMdBusiness(className);
+    MdEntityDAOIF mdEntityDAO = MdEntityDAO.getMdEntityDAO(className);
+    List<? extends MdAttributeConcreteDAOIF> mdAttrDAOs = mdEntityDAO.getAllDefinedMdAttributes();
     List<String> list = new LinkedList<String>();
-
-    for (MdAttribute mdAttr : md.getAllAttribute())
+    
+    for (MdAttributeConcreteDAOIF mdAttrDAO : mdAttrDAOs)
     {
-      if (mdAttr instanceof MdAttributeEnumeration)
+      if (mdAttrDAO instanceof MdAttributeEnumerationDAOIF)
       {
-        list.add( ( (MdAttributeEnumeration) mdAttr ).getAttributeName());
+        list.add( ( (MdAttributeEnumerationDAOIF) mdAttrDAO ).definesAttribute());
       }
     }
 

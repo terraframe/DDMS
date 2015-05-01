@@ -14,12 +14,18 @@ import org.json.JSONArray;
 
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.BasicCondition;
@@ -33,10 +39,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
-import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdEntity;
-import com.runwaysdk.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
@@ -1263,20 +1266,21 @@ public class Term extends TermBase implements Reloadable, OptionIF
    */
   public static String[] getTermAttributes(String className)
   {
-    MdEntity md = MdEntity.getMdEntity(className);
+    MdEntityDAOIF mdEntityDAO = MdEntityDAO.getMdEntityDAO(className);
+    List<? extends MdAttributeConcreteDAOIF> mdAttrDAOs = mdEntityDAO.getAllDefinedMdAttributes();
     List<String> list = new LinkedList<String>();
-
-    for (MdAttribute mdAttr : md.getAllAttribute())
+    
+    for (MdAttributeConcreteDAOIF mdAttrDAO : mdAttrDAOs)
     {
-      if (mdAttr instanceof MdAttributeReference && ( (MdAttributeReference) mdAttr ).getMdBusiness().definesType().equals(Term.CLASS))
+      if (mdAttrDAO instanceof MdAttributeReferenceDAOIF && ( (MdAttributeReferenceDAOIF) mdAttrDAO ).getMdBusinessDAO().definesType().equals(Term.CLASS))
       {
-        list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
+        list.add( ( (MdAttributeReferenceDAOIF) mdAttrDAO ).definesAttribute());
       }
     }
 
-    if (md instanceof MdRelationship)
+    if (mdEntityDAO instanceof MdRelationshipDAOIF)
     {
-      MdBusiness childMd = ( (MdRelationship) md ).getChildMdBusiness();
+      MdBusinessDAOIF childMd = ( (MdRelationshipDAOIF) mdEntityDAO ).getChildMdBusiness();
       if (childMd.definesType().equals(Term.CLASS))
       {
         list.add("childId");
