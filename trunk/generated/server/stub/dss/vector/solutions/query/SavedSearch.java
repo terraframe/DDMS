@@ -217,6 +217,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
   }
 
+  private boolean hasDatabaseView()
+  {
+    if (this instanceof DefaultSavedSearch || this.getDisease() == null) { return false; }
+    
+    return true;
+  }
+  
   /**
    * Generates the database view name for this SavedSearch, which follows a simple naming
    * convention:
@@ -234,6 +241,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   @AbortIfProblem
   private String generateViewName()
+  {
+    return generateViewNameNoAbortIfProblem();
+  }
+  
+  private String generateViewNameNoAbortIfProblem()
   {
     if (this instanceof DefaultSavedSearch)
     {
@@ -322,7 +334,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          if (!Database.tableExists(search.generateViewName()))
+          if ( search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem()) )
           {
             search.createDatabaseView(false);
           }
