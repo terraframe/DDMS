@@ -219,7 +219,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
   private boolean hasDatabaseView()
   {
-    if (this instanceof DefaultSavedSearch || this.getDisease() == null) { return false; }
+    if (this instanceof DefaultSavedSearch || this.getQueryType().equals(GeoHierarchy.getQueryType()) || this.getDisease() == null) { return false; }
     
     return true;
   }
