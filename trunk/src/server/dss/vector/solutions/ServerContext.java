@@ -68,7 +68,7 @@ public class ServerContext
     // Clean up the generated map views
     this.deleteGeneratedMapViews();
 
-    runSql(this.getDropSql());
+//    runSql(this.getDropSql());
   }
 
   @Request
