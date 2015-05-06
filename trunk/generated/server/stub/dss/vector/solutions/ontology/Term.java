@@ -39,6 +39,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
@@ -1272,7 +1273,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     
     for (MdAttributeConcreteDAOIF mdAttrDAO : mdAttrDAOs)
     {
-      if (mdAttrDAO instanceof MdAttributeReferenceDAOIF && ( (MdAttributeReferenceDAOIF) mdAttrDAO ).getMdBusinessDAO().definesType().equals(Term.CLASS))
+      if (mdAttrDAO instanceof MdAttributeReferenceDAOIF && ( (MdAttributeReferenceDAOIF) mdAttrDAO ).getReferenceMdBusinessDAO().definesType().equals(Term.CLASS))
       {
         list.add( ( (MdAttributeReferenceDAOIF) mdAttrDAO ).definesAttribute());
       }
