@@ -548,6 +548,8 @@ public class QueryUtil implements Reloadable
     return found;
   }
   */
+  
+  @Deprecated
   public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query, String attributeId)
   {
 

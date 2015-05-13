@@ -111,7 +111,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         valueQuery.WHERE(leftJoin);
 
         this.addGeoDisplayLabelQuery(bedNetQuery);
-        QueryUtil.leftJoinTermDisplayLabels(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinTermDisplayLabels(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias()); // TODO : Use joinTermAllpaths instead, its faster
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
         this.getSingleAttributeGridSql(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
       }

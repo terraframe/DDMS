@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -28,15 +29,18 @@ import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.MdWebFormInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
@@ -50,6 +54,7 @@ import com.runwaysdk.dataaccess.MdWebSingleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
@@ -60,10 +65,13 @@ import com.runwaysdk.dataaccess.io.StringMarkupWriter;
 import com.runwaysdk.dataaccess.io.StringStreamSource;
 import com.runwaysdk.dataaccess.io.XMLParseException;
 import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
+import com.runwaysdk.dataaccess.io.dataDefinition.PermissionComponent;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDimensionDAO;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -96,6 +104,7 @@ import com.runwaysdk.system.metadata.MdAttributeIndices;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdDimension;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdForm;
 import com.runwaysdk.system.metadata.MdRelationship;
@@ -131,6 +140,7 @@ import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
@@ -2002,14 +2012,29 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
     MdClassDAOIF mdClass = mdForm.getFormMdClass();
-
+    
     ExportMetadata metadata = new ExportMetadata();
     metadata.addCreateOrUpdate(mdClass);
-
+    
+    RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
+    metadata.grantAllPermissions(guiVisibility, false, (MdBusinessDAOIF)mdClass);
+    
     List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
-
+    
     for (MdFieldDAOIF mdField : mdFields)
     {
+//      if (mdField instanceof MdWebAttributeDAOIF)
+//      {
+//        MdWebAttributeDAOIF webAttr = (MdWebAttributeDAOIF) mdField;
+//        MdAttributeDAOIF definingMdAttribute = webAttr.getDefiningMdAttribute();
+//        List<MdAttributeDimensionDAOIF> mdAttributeDimensions = definingMdAttribute.getMdAttributeDimensions();
+//        
+//        for(MdAttributeDimensionDAOIF mdAttributeDimension : mdAttributeDimensions)
+//        {
+//          
+//        }
+//      }
+      
       if (mdField instanceof MdWebGeoDAOIF)
       {
         GeoField geoField = GeoField.getGeoFieldForMdWebGeo(mdField.getId());

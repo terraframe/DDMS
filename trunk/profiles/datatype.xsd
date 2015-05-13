@@ -1428,27 +1428,32 @@
 	</xs:complexType>
 
 	<xs:simpleType name="allOperations">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="CREATE" />
-			<xs:enumeration value="DELETE" />
-			<xs:enumeration value="READ" />
-			<xs:enumeration value="WRITE" />
-			<xs:enumeration value="PROMOTE" />
-			<xs:enumeration value="ADD_PARENT" />
-			<xs:enumeration value="ADD_CHILD" />
-			<xs:enumeration value="DELETE_PARENT" />
-			<xs:enumeration value="DELETE_CHILD" />
-			<xs:enumeration value="READ_PARENT" />
-			<xs:enumeration value="READ_CHILD" />
-			<xs:enumeration value="WRITE_PARENT" />
-			<xs:enumeration value="WRITE_CHILD" />
-			<xs:enumeration value="GRANT" />
-			<xs:enumeration value="REVOKE" />
-			<xs:enumeration value="EXECUTE" />
-			<xs:enumeration value="READ_ALL_ATTRIBUTES" />
-			<xs:enumeration value="WRITE_ALL_ATTRIBUTES" />
-		</xs:restriction>
-	</xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CREATE" />
+      <xs:enumeration value="DELETE" />
+      <xs:enumeration value="READ" />
+      <xs:enumeration value="WRITE" />
+      <xs:enumeration value="PROMOTE" />
+      <xs:enumeration value="ADD_PARENT" />
+      <xs:enumeration value="ADD_CHILD" />
+      <xs:enumeration value="DELETE_PARENT" />
+      <xs:enumeration value="DELETE_CHILD" />
+      <xs:enumeration value="READ_PARENT" />
+      <xs:enumeration value="READ_CHILD" />
+      <xs:enumeration value="WRITE_PARENT" />
+      <xs:enumeration value="WRITE_CHILD" />
+      <xs:enumeration value="GRANT" />
+      <xs:enumeration value="REVOKE" />
+      <xs:enumeration value="EXECUTE" />
+      <xs:enumeration value="READ_ALL_ATTRIBUTES" />
+      <xs:enumeration value="WRITE_ALL_ATTRIBUTES" />
+      <xs:enumeration value="DENY_READ" />
+      <xs:enumeration value="DENY_WRITE" />
+      <xs:enumeration value="DENY_CREATE" />
+      <xs:enumeration value="DENY_DELETE" />
+      <xs:enumeration value="ALL" />
+    </xs:restriction>
+  </xs:simpleType>
 
 	<xs:simpleType name="associationTypes">
 		<xs:restriction base="xs:string">
@@ -1469,6 +1474,8 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="READ"></xs:enumeration>
 			<xs:enumeration value="WRITE"></xs:enumeration>
+			<xs:enumeration value="DENY_READ" />
+      <xs:enumeration value="DENY_WRITE" />
 		</xs:restriction>
 	</xs:simpleType>
 

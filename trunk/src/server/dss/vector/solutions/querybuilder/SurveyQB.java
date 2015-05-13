@@ -112,7 +112,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
         // left join against the person if person is in this query
         LeftJoinEq leftJoin = personQuery.getSleptUnderNet().LEFT_JOIN_EQ(itnQuery);
         valueQuery.WHERE(leftJoin);
-        QueryUtil.leftJoinTermDisplayLabels(valueQuery, itnQuery, itnQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinTermDisplayLabels(valueQuery, itnQuery, itnQuery.getId().getColumnAlias());  // TODO : Use joinTermAllpaths instead, its faster
         QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery, itnQuery.getId().getColumnAlias());
       }
 

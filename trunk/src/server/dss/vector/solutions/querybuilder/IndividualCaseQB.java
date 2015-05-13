@@ -104,9 +104,9 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     this.addGeoDisplayLabelQuery(personQuery);
 
     String idCol = QueryUtil.getIdColumn();
-    QueryUtil.leftJoinTermDisplayLabels(valueQuery, instanceQuery, instanceQuery.getTableAlias() + "." + idCol);
-    QueryUtil.leftJoinTermDisplayLabels(valueQuery, caseQuery, caseQuery.getTableAlias() + "." + idCol);
-
+    
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualCase.CLASS, caseQuery, this.getTermRestrictions());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery);
 
