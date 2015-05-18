@@ -1670,6 +1670,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     String left;
     String processingFormat = "png"; // needed to allow transparency on each overlay before combining to a single map/format
     String appName = CommonProperties.getDeployAppName();
+    String appUrl = DeployProperties.getApplicationURL();
     Graphics mapBaseGraphic = null;
     BufferedImage base = null;
 
@@ -1708,8 +1709,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
           String layersString = appName + ":" + configuration.getViewName(layer);
           String fileName = QueryConstants.createSLDName(layer.getId());
-          String sldString = "http://127.0.0.1:8080/" + appName + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
-
+          String sldString = appUrl + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
+          
           StringBuffer requestURL = new StringBuffer();
           requestURL.append(MapUtil.getGeoServerLocalURL() + "/wms?");
           requestURL.append("LAYERS=" + layersString);
