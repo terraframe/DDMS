@@ -214,6 +214,14 @@ public class ReportParameterUtil implements Reloadable
     }
   }
 
+  /**
+   * Reads the BIRT report parameters from the report document.
+   * 
+   * @param stream The rptdesign file as a stream.
+   * @return A JSONArray of report parameters, read from the rptdesign file stream.
+   * @throws BirtException
+   * @throws JSONException
+   */
   @SuppressWarnings("unchecked")
   public JSONArray getParameterDefinitions(InputStream stream) throws BirtException, JSONException
   {
@@ -371,7 +379,7 @@ public class ReportParameterUtil implements Reloadable
     {
       Object value = selectionItem.getValue();
 
-      if (value.equals(defaultValue))
+      if (value != null && value.equals(defaultValue))
       {
         return true;
       }
