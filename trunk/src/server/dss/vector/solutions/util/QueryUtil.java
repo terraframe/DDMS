@@ -407,11 +407,13 @@ public class QueryUtil implements Reloadable
 
                 if (restrictions.size() > 0)
                 {
+                  List<Condition> orConditions = new LinkedList<Condition>();
                   for (int i = 0; i < restrictions.size(); i++)
                   {
-                    SelectableSQLCharacter selectableSQLCharacter = valueQuery.aSQLCharacter(allPathsAlias+"_"+ALLPATHS_PARENT_TERM_COLUMN, allPathsAlias+"."+ALLPATHS_PARENT_TERM_COLUMN); 
-                    termConditions.add(selectableSQLCharacter.EQ(restrictions.get(i)));
+                    SelectableSQLCharacter selectableSQLCharacter = valueQuery.aSQLCharacter(allPathsAlias+"_"+ALLPATHS_PARENT_TERM_COLUMN, allPathsAlias+"."+ALLPATHS_PARENT_TERM_COLUMN);
+                    orConditions.add(selectableSQLCharacter.EQ(restrictions.get(i)));
                   }
+                  termConditions.add(OR.get(orConditions.toArray(new Condition[orConditions.size()])));
                 }
               } // if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               else
