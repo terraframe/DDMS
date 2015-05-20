@@ -35,6 +35,7 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Coalesce;
@@ -437,7 +438,7 @@ public class QueryUtil implements Reloadable
       valueQuery.AND(rootLeftJoin);
       if (termConditions.size() >= 1)
       {        
-        valueQuery.AND(OR.get(termConditions.toArray(new Condition[termConditions.size()])));
+        valueQuery.AND(AND.get(termConditions.toArray(new Condition[termConditions.size()])));
       }
     }
 
