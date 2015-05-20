@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.sql.Savepoint;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +40,6 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
-import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
@@ -1260,7 +1260,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns all attributes that reference the Term class.
+   * Returns all attributes on the given className that reference the Term class. This does not include the attributes of the super MdClass's.
    * 
    * @param className
    * @return
@@ -1268,7 +1268,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   public static String[] getTermAttributes(String className)
   {
     MdEntityDAOIF mdEntityDAO = MdEntityDAO.getMdEntityDAO(className);
-    List<? extends MdAttributeConcreteDAOIF> mdAttrDAOs = mdEntityDAO.getAllDefinedMdAttributes();
+    Collection<? extends MdAttributeConcreteDAOIF> mdAttrDAOs = mdEntityDAO.getDefinedMdAttributeMap().values(); // don't grab attributes from supers!
     List<String> list = new LinkedList<String>();
     
     for (MdAttributeConcreteDAOIF mdAttrDAO : mdAttrDAOs)
