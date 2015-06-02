@@ -350,7 +350,6 @@ public class FormObjectController extends FormObjectControllerBase implements co
     // data structures.
     JSONArray fieldsArr = json.getJSONArray(JSONWebFieldConstants.FIELDS);
     FieldIF[] fields = formObject.getFields();
-    JSONObject terms = new JSONObject();
     for (int i = 0; i < fields.length; i++)
     {
       FieldIF field = fields[i];
@@ -363,6 +362,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
         MdWebMultipleTermDTO mdField = MdWebMultipleTermDTO.get(this.getClientRequest(), mTerm.getFieldMd().getId());
         TermViewQueryDTO query = MdFormUtilDTO.getTermsForMultiTermField(this.getClientRequest(), mdField, parentId);
 
+        JSONObject terms = new JSONObject();
         for (TermViewDTO term : query.getResultSet())
         {
           terms.put(term.getTermId(), term.getTermName());

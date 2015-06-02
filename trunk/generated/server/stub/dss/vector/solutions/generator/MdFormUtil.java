@@ -1066,9 +1066,20 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     mdClass.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
     mdClass.setTypeName(typeName);
     mdClass.apply();
+    
     mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
     mdForm.setTypeName(typeName);
     mdForm.setFormMdClass(mdClass);
+    
+    // Create the disease attribute
+    MdAttributeReference disease = new MdAttributeReference();
+    disease.setDefiningMdClass(mdClass);
+    disease.setAttributeName(MdFormUtil.DISEASE);
+    disease.getDisplayLabel().setValue("Disease");
+    disease.setRequired(true);
+    disease.setMdBusiness(MdBusiness.getMdBusiness(Disease.CLASS));
+    disease.apply();
+    
     mdForm.apply();
     
     new FormSystemURLBuilder(mdForm).generate();
