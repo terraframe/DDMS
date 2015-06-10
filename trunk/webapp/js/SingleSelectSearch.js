@@ -48,12 +48,21 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       // do nothing
     },
     
-    selectHandler : function(selected, ignoreSetting)
+    /**
+     * This function is called in 2 very different contexts.
+     * 1) the user selects a value from the dropdown on the CRUD form, the geopicker is never even opened or used.
+     * 2) The user selects a value from one of the downdowns in the geopicker.
+     * For situation #1 the user has actually selected a value, but for #2 they're just playing around in the geopicker.
+     * A value is not set until they hit the okay button.
+     * 
+     * @param selected Either the select input element or a GeoEntityView, depending on how this method was called.
+     * @param updateGoeSelect This is only set to true in context #1
+     */
+    selectHandler : function(selected, updateGeoSelect)
     {
       var valid = true;
       if(selected != null)
       {
-
         if(typeof selected == 'string'){
           var request = new MDSS.Request({
               that: this,
@@ -61,7 +70,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
               onComplete: function(){},
               onFailure: function(){},
               onSuccess : function(result){
-                this.that.selectHandler(result); // recalls this method
+                this.that.selectHandler(result, updateGeoSelect); // recalls this method
             }
           });
           Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getView(request, selected);
@@ -87,11 +96,19 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
 //      {
 //        YAHOO.util.Dom.addClass(geoInfo,'alert');
 //      }
-      this._bOK.setEnabled(valid);
+      if (this._bOK != null)
+      {
+        this._bOK.setEnabled(valid);
+      }
       
       if (valid)
       {
         this._currentSelection = selected;
+      }
+      
+      if (updateGeoSelect)
+      {
+        this.okHandler();
       }
     },
     
@@ -115,10 +132,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       }
       else
       {
-//        if(!ignoreSetting)
-//        {
-          MDSS.GeoSearch.currentGeoIdInput.value = selected.getGeoId();
-//        }
+        MDSS.GeoSearch.currentGeoIdInput.value = selected.getGeoId();
       
         if(currentgeoEntityIdInput) {
           currentgeoEntityIdInput.value = selected.getGeoEntityId();
@@ -402,6 +416,9 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       return valueObj.getValue(this._idAttr);
     },
     
+    /**
+     * Select handler for when they select a value in the autocomplete dropdown in the input field on the CRUD form.
+     */
     _selectEventHandler : function(selected)
     {
       var geoEntityId = selected.id;
@@ -409,7 +426,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       handler(geoEntityId, true);
       
-      this._validateSelection(selected);      
+      this._validateSelection(selected);
     },
     
     _searchFunction : function(request, value)

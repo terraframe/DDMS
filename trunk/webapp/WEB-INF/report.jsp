@@ -13,6 +13,13 @@
   String webappRoot = request.getContextPath() + "/";
 %>
 
+<!-- Tell Runway what the application context path is. -->
+<script>
+window.com = window.com || {};
+window.com.runwaysdk = window.com.runwaysdk || {};
+window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
+</script>
+
 <html>
   <head>
     <title>${pageTitle}</title>
