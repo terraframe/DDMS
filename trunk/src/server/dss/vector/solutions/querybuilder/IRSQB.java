@@ -2,6 +2,7 @@ package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,7 +25,6 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
-import com.runwaysdk.query.AttributeTerm;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OR;
@@ -32,7 +32,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectablePrimitive;
-import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
@@ -84,6 +83,7 @@ import dss.vector.solutions.querybuilder.irs.SpraySummaryView;
 import dss.vector.solutions.querybuilder.irs.SprayView;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
+import dss.vector.solutions.util.Restriction;
 
 public class IRSQB extends AbstractQB implements Reloadable
 {
@@ -1087,6 +1087,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    * 
    * FIXME push these into a join instead of subselect
    */
+  @SuppressWarnings("unchecked")
   private void joinSexAttributes()
   {
     if (irsVQ.hasSelectableRef(Alias.SPRAY_OPERATOR_SEX.getAlias()))
@@ -1124,7 +1125,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     MdEntityDAOIF md = p.getMdClassIF();
     String tableName = md.getTableName();
     String sexCol = QueryUtil.getColumnName(md, Person.SEX);
-
+    
+//    String sql = "SELECT " + Session.getCurrentLocale().getDisplayCountry() + " FROM term t INNER JOIN term_term_display_label tdl ON t.term_display_label=tdl.id";
+    
     String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t";
     sql += " LEFT JOIN " + termTable + " as term  on t." + sexCol + " = term." + idCol;
     sql += " WHERE t." + this.idCol + " = " + joinAlias + "";
@@ -1288,7 +1291,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // Group by the universal column that is the parent geo entity
       // Create a new selectable to group by the universal id
-      SelectableSQL universalGroup = areaAggVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
+      SelectableSQL universalGroup = universalVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
       universalGroup.setColumnAlias(universalGroup.getSQL());
       areaAggVQ.GROUP_BY(universalGroup);
 
@@ -1338,7 +1341,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Create a new selectable to group by the universal
       if (originalVQ.isGrouping())
       {
-        SelectableSQL targetGroup = irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
+        SelectableSQL targetGroup = universalVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
         targetGroup.setColumnAlias(targetGroup.getSQL());
 
         irsVQ.GROUP_BY(targetGroup);
@@ -1377,7 +1380,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
 
       String targetGroupName = "grouping_" + Alias.TARGET_WEEK;
-      SelectableSQL targetGroup = irsVQ.aSQLInteger(targetGroupName, aggAlias + "." + Alias.TARGET_WEEK, targetGroupName);
+      SelectableSQL targetGroup = areaAggVQ.aSQLInteger(Alias.TARGET_WEEK.toString(), aggAlias + "." + Alias.TARGET_WEEK, targetGroupName);
+      targetGroup.setAttributeNameSpace(aggAlias);
       targetGroup.setColumnAlias(targetGroup.getSQL());
       areaAggVQ.GROUP_BY(targetGroup);
 
