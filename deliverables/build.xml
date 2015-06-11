@@ -5,10 +5,10 @@
     <property name="build.ftp.user" value="terraframe@terraframe.com" />
 	<property name="build.ftp.pass" value="_Terra4Frame" />
 	<property name="build.ftp.path" value="/ddms/installers" />
-	
+
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
-			<fileset dir="${mdss.root}/lib/ant">
+			<fileset dir="${mdss.root}\lib\ant">
 				<include name="*.jar" />
 			</fileset>
 		</classpath>
@@ -113,8 +113,13 @@
 		</echo>	
 	</target>
 	
+  
+  
 	<target name="build-all" depends="build-installer,build-patch" />
 	
+
+
+
 	<target name="build-installer" depends="update-about">
 
 		<!-- Installer -->
@@ -169,19 +174,21 @@
 	
 	<target name="email">
 		 <!-- Email peeps -->
-	
+		
         <mail
             mailhost="box737.bluehost.com"
             mailport="465"
+		    ssl="true"
             subject="${date} build complete"
             user="builder@terraframe.com"
-            password="p6s7r9ZT">
-            <from address="cruisecontrol@terraframe.com" />
-			<to address="jsmethie@terraframe.com" />
+            password="p6s7r9ZT"
+			tolist="rrowlands@terraframe.com, dinfiesto@terraframe.com, nmceachen@terraframe.com, jsmethie@terraframe.com, jlewis@terraframe.com, miguel.orlans@gmail.com"
+			>
+            <from address="builder@terraframe.com" />
+			<replyto address="rrowlands@terraframe.com" />
 			
-            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download at http://www.terraframe.com/ivcc/
-
-You may reply to this e-mail directly with any questions.</message>
+            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.
+			</message>
         </mail>	
 	</target>
 	
