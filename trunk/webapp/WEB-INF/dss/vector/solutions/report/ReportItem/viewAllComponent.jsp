@@ -45,7 +45,7 @@
 </mjl:commandLink>
 <br />
 <mdss:localize key="Title_Upload_A_Resource" var="RPT_RES_Title" />
-<dt>
+<dt style="padding-top: 40px;">
   <label>${RPT_RES_Title}</label> <!-- Upload a Resource -->
 </dt>
 <dd>
@@ -55,3 +55,9 @@
   <mjl:command value="${Localized_Upload}" action="dss.vector.solutions.report.ReportItemController.uploadResources.mojo" name="dss.vector.solutions.report.ReportItemController.uploadResources.submitButton" />
 </mjl:form>
 </dd>
+<c:if test="${not empty resourcesSuccess}">
+  <label style="color: green;">${resourcesSuccess}</label>
+</c:if>
+<c:if test="${not empty resourcesFail}">
+  <label style="color: red;">${resourcesFail}</label>
+</c:if>

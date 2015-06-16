@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Files;
+import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -143,7 +144,7 @@ public class ReportResourceManager implements Reloadable
     }
     catch (ZipException e)
     {
-      throw new ReportResourcesException(e);
+      throw new FileReadException(new File(nameOfResource), e);
     }
     catch (IOException e)
     {

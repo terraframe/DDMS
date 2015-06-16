@@ -11,6 +11,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class ReportItemController extends ReportItemControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -37,12 +38,26 @@ public class ReportItemController extends ReportItemControllerBase implements co
 
   public void uploadResources(com.runwaysdk.controller.MultipartFileParameter resourcesMFP) throws java.io.IOException, javax.servlet.ServletException
   {
-    if (resourcesMFP != null)
+    try
     {
-      ReportItemDTO.uploadResources(this.getClientRequest(), resourcesMFP.getInputStream(), resourcesMFP.getFilename());
+      if (resourcesMFP != null)
+      {
+        ReportItemDTO.uploadResources(this.getClientRequest(), resourcesMFP.getInputStream(), resourcesMFP.getFilename());
+      }
+      
+      if (this.getClientSession() != null)
+      {
+        ClientRequestIF request = this.getClientSession().getRequest();
+        String localizedValue = LocalizationFacadeDTO.getFromBundles(request, "ResourcesUploadSuccess");
+        this.getRequest().setAttribute("resourcesSuccess", localizedValue);
+      }
+      this.viewAll();
     }
-    
-    this.viewAll();
+    catch (Throwable t)
+    {
+      this.getRequest().setAttribute("resourcesFail", t.getLocalizedMessage());
+      this.viewAll();
+    }
   }
   
   @Override
@@ -51,7 +66,6 @@ public class ReportItemController extends ReportItemControllerBase implements co
     try
     {
       InputStream designIS = null;
-      InputStream resourcesIS = null;
       
       if (designMFP != null)
       {

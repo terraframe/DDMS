@@ -29,7 +29,7 @@
     <delete>
       <object key="dss.vector.solutions.report.ReportItem.uploadResources" type="com.runwaysdk.system.metadata.MdMethod"/>
       <object key="dss.vector.solutions.report.ReportItemController.uploadResources" type="com.runwaysdk.system.metadata.MdAction"/>
-      <object key="dss.vector.solutions.report.ReportResourcesException" type="com.runwaysdk.system.metadata.MdException"/>
+      <!-- <object key="dss.vector.solutions.report.ReportResourcesException" type="com.runwaysdk.system.metadata.MdException"/> -->
     </delete>
   </undoIt>
 </version>
