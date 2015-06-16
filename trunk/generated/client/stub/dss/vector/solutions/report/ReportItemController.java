@@ -1,6 +1,7 @@
 package dss.vector.solutions.report;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,20 +35,31 @@ public class ReportItemController extends ReportItemControllerBase implements co
     this.edit(dto);
   }
 
+  public void uploadResources(com.runwaysdk.controller.MultipartFileParameter resourcesMFP) throws java.io.IOException, javax.servlet.ServletException
+  {
+    if (resourcesMFP != null)
+    {
+      ReportItemDTO.uploadResources(this.getClientRequest(), resourcesMFP.getInputStream(), resourcesMFP.getFilename());
+    }
+    
+    this.viewAll();
+  }
+  
   @Override
-  public void create(ReportItemDTO dto, MultipartFileParameter design) throws IOException, ServletException
+  public void create(ReportItemDTO dto, MultipartFileParameter designMFP) throws IOException, ServletException
   {
     try
     {
-      if (design != null)
+      InputStream designIS = null;
+      InputStream resourcesIS = null;
+      
+      if (designMFP != null)
       {
-        dto.setReportName(design.getFilename());
-        dto.applyWithFile(design.getInputStream());
+        dto.setReportName(designMFP.getFilename());
+        designIS = designMFP.getInputStream();
       }
-      else
-      {
-        dto.applyWithFile(null);
-      }
+      
+      dto.applyWithFile(designIS);
 
       this.view(dto.getId());
     }
@@ -56,7 +68,7 @@ public class ReportItemController extends ReportItemControllerBase implements co
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
       if (!redirect)
       {
-        this.failCreate(dto, design);
+        this.failCreate(dto, designMFP);
       }
     }
   }
@@ -171,20 +183,20 @@ public class ReportItemController extends ReportItemControllerBase implements co
   }
 
   @Override
-  public void update(ReportItemDTO dto, MultipartFileParameter design) throws IOException, ServletException
+  public void update(ReportItemDTO dto, MultipartFileParameter designMFP) throws IOException, ServletException
   {
     try
     {
-      if (design != null)
+      InputStream designIS = null;
+      
+      if (designMFP != null)
       {
-        dto.setReportName(design.getFilename());
-        dto.applyWithFile(design.getInputStream());
+        dto.setReportName(designMFP.getFilename());
+        designIS = designMFP.getInputStream();
       }
-      else
-      {
-        dto.applyWithFile(null);
-      }
-
+      
+      dto.applyWithFile(designIS);
+      
       this.view(dto.getId());
     }
     catch (Throwable t)
@@ -193,13 +205,13 @@ public class ReportItemController extends ReportItemControllerBase implements co
 
       if (!redirect)
       {
-        this.failUpdate(dto, design);
+        this.failUpdate(dto, designMFP);
       }
     }
   }
 
   @Override
-  public void failUpdate(ReportItemDTO dto, MultipartFileParameter design) throws IOException, ServletException
+  public void failUpdate(ReportItemDTO dto, MultipartFileParameter designMFP) throws IOException, ServletException
   {
     this.edit(dto);
   }

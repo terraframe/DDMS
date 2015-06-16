@@ -48,6 +48,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.CreatePermissionException;
+import com.runwaysdk.session.LocaleManager;
 import com.runwaysdk.session.ReadPermissionException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
@@ -73,6 +74,8 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
   private static final String TEMP_REPORT_PREFIX    = "birt-temp-doc-archive";
 
   public static final String  RPTDESIGN_EXTENSION   = "rptdesign";
+  
+  public static final String  RESOURCES_BUNDLE_EXT   = "zip";
 
   public static final String  RPTDOCUMENT_EXTENSION = "rptdoc";
 
@@ -161,6 +164,18 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     super.delete();
   }
 
+  /**
+   * MdMethod
+   * Allows the user to upload BIRT report resource files. If the file is a zip it will be unzipped. Otherwise it will be available as a resource for BIRT reports.
+   * 
+   * @param resourcesIS
+   * @param nameOfResource
+   */
+  public static void uploadResources(java.io.InputStream resourcesIS, java.lang.String nameOfResource)
+  {
+    ReportResourceManager.getInstance().uploadResource(resourcesIS, nameOfResource);
+  }
+  
   @Override
   public void apply()
   {
@@ -171,7 +186,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
   @Override
   @Transaction
-  public void applyWithFile(InputStream fileStream)
+  public void applyWithFile(InputStream designIS)
   {
     boolean isNew = this.isNew() && !this.isAppliedToDB();
 
@@ -180,18 +195,17 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
      */
     if (isNew)
     {
-      /*
-       * Create a new vault file
-       */
-      if (fileStream != null)
+      if (designIS != null)
       {
-        VaultFile entity = new VaultFile();
-        VaultFileDAO file = (VaultFileDAO) BusinessFacade.getEntityDAO(entity);
+        /*
+         * Save the rptdesign to the vault.
+         */
+        VaultFile designVF = new VaultFile();
+        VaultFileDAO designVFDAO = (VaultFileDAO) BusinessFacade.getEntityDAO(designVF);
 
-        this.checkVaultPermissions(entity, Operation.CREATE);
+        this.checkVaultPermissions(designVF, Operation.CREATE);
 
         String reportName = this.getReportName();
-
         int index = reportName.lastIndexOf('.');
 
         String filename = reportName.substring(0, index);
@@ -199,14 +213,14 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
         if (extension != null && extension.equals(RPTDESIGN_EXTENSION))
         {
-          entity.setValue(VaultFileInfo.FILE_NAME, filename);
-          entity.setValue(VaultFileInfo.EXTENSION, extension);
+          designVF.setValue(VaultFileInfo.FILE_NAME, filename);
+          designVF.setValue(VaultFileInfo.EXTENSION, extension);
 
-          file.setSize(0);
-          entity.apply();
-          file.putFile(fileStream);
+          designVFDAO.setSize(0);
+          designVF.apply();
+          designVFDAO.putFile(designIS);
 
-          this.setDesign(entity.getId());
+          this.setDesign(designVF.getId());
         }
         else
         {
@@ -221,9 +235,9 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     else
     {
       /*
-       * Update the existing vault file
+       * Update the existing rptdesign vault file
        */
-      if (fileStream != null)
+      if (designIS != null)
       {
         VaultFile entity = VaultFile.lock(this.getDesign());
         VaultFileDAO file = (VaultFileDAO) BusinessFacade.getEntityDAO(entity);
@@ -244,16 +258,13 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
           file.setSize(0);
           entity.apply();
-          file.putFile(fileStream);
+          file.putFile(designIS);
         }
         else
         {
           throw new ReportItemException("Report design must have the rptdesign extension");
         }
 
-        /*
-         *  This invalidates all cached report documents so we need to delete
-         */
         new CacheDocumentManager().run();
       }
     }
@@ -473,6 +484,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       IRenderTask task = engine.createRenderTask(document);
       try
       {
+        task.setLocale(Session.getCurrentLocale());
         task.setAppContext(contextMap);
         task.setRenderOption(this.getRenderOptions(outputStream, document, context));
 
@@ -618,6 +630,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       try
       {
+        task.setLocale(Session.getCurrentLocale());
         task.setAppContext(contextMap);
         task.setParameterValues(context.getParameters());
         task.validateParameters();
@@ -740,7 +753,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       options.setHtmlTitle(this.getReportLabel().getValue());
       options.setEmbeddable(true);
       options.setHtmlPagination(true);
-
+      
       return options;
     }
 

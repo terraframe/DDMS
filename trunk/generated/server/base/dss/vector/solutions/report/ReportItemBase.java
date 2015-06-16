@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 405251600)
+@com.runwaysdk.business.ClassSignature(hash = 806532858)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 405251600;
+  private static final long serialVersionUID = 806532858;
   
   public ReportItemBase()
   {
@@ -50,10 +50,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(CACHEDOCUMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCacheDocumentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getCacheDocumentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(CACHEDOCUMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CACHEDOCUMENT);
   }
   
   public void setCacheDocument(Boolean value)
@@ -78,10 +78,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -106,10 +106,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public String getDesign()
@@ -122,10 +122,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(DESIGN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDesignMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFileDAOIF getDesignMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(DESIGN);
+    return (com.runwaysdk.dataaccess.MdAttributeFileDAOIF)mdClassIF.definesAttribute(DESIGN);
   }
   
   public void setDesign(String value)
@@ -150,10 +150,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(DOCUMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDocumentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFileDAOIF getDocumentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(DOCUMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeFileDAOIF)mdClassIF.definesAttribute(DOCUMENT);
   }
   
   public void setDocument(String value)
@@ -190,10 +190,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -218,10 +218,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -234,10 +234,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -262,10 +262,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -290,10 +290,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -318,10 +318,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   @SuppressWarnings("unchecked")
@@ -356,10 +356,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(OUTPUTFORMAT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutputFormatMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getOutputFormatMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(OUTPUTFORMAT);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(OUTPUTFORMAT);
   }
   
   public String getOutputFormatIndex()
@@ -372,10 +372,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(OUTPUTFORMATINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutputFormatIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getOutputFormatIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(OUTPUTFORMATINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OUTPUTFORMATINDEX);
   }
   
   public void setOutputFormatIndex(String value)
@@ -412,10 +412,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -440,10 +440,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(REPORTLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReportLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF getReportLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(REPORTLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF)mdClassIF.definesAttribute(REPORTLABEL);
   }
   
   public String getReportName()
@@ -456,10 +456,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(REPORTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReportNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getReportNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(REPORTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(REPORTNAME);
   }
   
   public void setReportName(String value)
@@ -484,10 +484,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -500,10 +500,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -516,10 +516,10 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportItem.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()
@@ -626,6 +626,24 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   {
     ReportItem _instance = ReportItem.get(id);
     return _instance.render(outputStream, parameters, baseURL, reportURL);
+  }
+  
+  public void saveResourcesBundle(java.io.InputStream fileStream)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItem.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void saveResourcesBundle(java.lang.String id, java.io.InputStream fileStream)
+  {
+    ReportItem _instance = ReportItem.get(id);
+    _instance.saveResourcesBundle(fileStream);
+  }
+  
+  public static void uploadResources(java.io.InputStream resourcesIS, java.lang.String nameOfResource)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItem.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void validatePermissions()

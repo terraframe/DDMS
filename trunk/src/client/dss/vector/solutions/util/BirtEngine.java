@@ -10,6 +10,8 @@ import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.report.BIRTVaultResourceResolver;
+
 public class BirtEngine implements Reloadable
 {
   private enum LogLevel implements Reloadable {
@@ -36,6 +38,7 @@ public class BirtEngine implements Reloadable
     {
       EngineConfig config = new EngineConfig();
       config.setLogConfig(logDirectory, LogLevel.SEVERE.getLevel());
+      config.setResourceLocator(new BIRTVaultResourceResolver());
 
       Platform.startup(config);
 

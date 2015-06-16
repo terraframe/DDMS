@@ -43,3 +43,15 @@
 <mjl:commandLink name="ReportItemController.newInstance" action="dss.vector.solutions.report.ReportItemController.newInstance.mojo">
   <mdss:localize key="Create_a_new_Report_item" />
 </mjl:commandLink>
+<br />
+<mdss:localize key="Title_Upload_A_Resource" var="RPT_RES_Title" />
+<dt>
+  <label>${RPT_RES_Title}</label> <!-- Upload a Resource -->
+</dt>
+<dd>
+<mdss:localize key="Upload" var="Localized_Upload" />
+<mjl:form name="dss.vector.solutions.report.ReportItemController.uploadResources.formId" method="POST" enctype="multipart/form-data">
+  <mjl:input param="resourcesMFP" type="file" />
+  <mjl:command value="${Localized_Upload}" action="dss.vector.solutions.report.ReportItemController.uploadResources.mojo" name="dss.vector.solutions.report.ReportItemController.uploadResources.submitButton" />
+</mjl:form>
+</dd>

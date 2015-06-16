@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 176267395)
+@com.runwaysdk.business.ClassSignature(hash = 1135791089)
 public class ReportItemControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.report.ReportItemController";
@@ -147,6 +147,20 @@ public class ReportItemControllerBase implements com.runwaysdk.generation.loader
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItemController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportItemController.failUpdate");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:resourcesMFP", post=true)
+  public void uploadResources(com.runwaysdk.controller.MultipartFileParameter resourcesMFP) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItemController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportItemController.uploadResources");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:resourcesMFP", post=true)
+  public void failUploadResources(com.runwaysdk.controller.MultipartFileParameter resourcesMFP) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItemController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportItemController.failUploadResources");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)

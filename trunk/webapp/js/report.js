@@ -469,7 +469,7 @@
         this._div = this.getFactory().newElement('div');
         this._div.setAttribute('class', 'field-row clearfix');
         
-        this._widget = new com.runwaysdk.ui.factory.runway.Select(model.getName(), {id:model.getId()});
+        this._widget = new com.runwaysdk.ui.factory.runway.Select(model.getName(), {multiple:model.isMultiple(), id:model.getId()});
         
         if(!model.allowNewValues())
         {
@@ -847,7 +847,10 @@
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
         
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        if (results == null) { return ""; }
+        
+        var decoded = decodeURIComponent(results[1].replace(/\+/g, " "));
+        
       },
       formatForUrl : function()
       {
