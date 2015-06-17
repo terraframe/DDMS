@@ -45,19 +45,19 @@
 </mjl:commandLink>
 <br />
 <mdss:localize key="Title_Upload_A_Resource" var="RPT_RES_Title" />
-<dt style="padding-top: 40px;">
-  <label>${RPT_RES_Title}</label> <!-- Upload a Resource -->
-</dt>
-<dd>
+<div style="padding-top: 40px;">
+  <span style="font-size: 18px;">${RPT_RES_Title}</span> <!-- Upload a Resource -->
+</div>
+<!-- <dd> -->
 <mdss:localize key="Upload" var="Localized_Upload" />
 <mjl:form name="dss.vector.solutions.report.ReportItemController.uploadResources.formId" method="POST" enctype="multipart/form-data">
   <mjl:input param="resourcesMFP" type="file" />
   <mjl:command value="${Localized_Upload}" action="dss.vector.solutions.report.ReportItemController.uploadResources.mojo" name="dss.vector.solutions.report.ReportItemController.uploadResources.submitButton" />
 </mjl:form>
-</dd>
+<!-- </dd> -->
 <c:if test="${not empty resourcesSuccess}">
-  <label style="color: green;">${resourcesSuccess}</label>
+  <span style="color: green;">${resourcesSuccess}</span>
 </c:if>
 <c:if test="${not empty resourcesFail}">
-  <label style="color: red;">${resourcesFail}</label>
+  <span style="color: red;">${resourcesFail}</span>
 </c:if>

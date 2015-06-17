@@ -44,6 +44,10 @@ public class ReportItemController extends ReportItemControllerBase implements co
       {
         ReportItemDTO.uploadResources(this.getClientRequest(), resourcesMFP.getInputStream(), resourcesMFP.getFilename());
       }
+      else
+      {
+        ReportItemDTO.uploadResources(this.getClientRequest(), null, null);
+      }
       
       if (this.getClientSession() != null)
       {

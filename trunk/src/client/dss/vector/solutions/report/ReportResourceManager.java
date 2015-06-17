@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
+import javax.xml.bind.DatatypeConverter;
+
 import net.jawr.web.resource.bundle.IOUtils;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -26,6 +28,8 @@ import com.runwaysdk.system.VaultFileQuery;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.vault.VaultFileDAO;
 
+import dss.vector.solutions.FileRequiredException;
+
 /**
  * This class is responsible for merging uploaded report resource documents.
  */
@@ -38,6 +42,11 @@ public class ReportResourceManager implements Reloadable
   private File tempDir;
   
   private Logger logger = LoggerFactory.getLogger(ReportResourceManager.class);
+  
+  /**
+   * This is the hex string for an "empty" zip file. I say empty in quotes because it contains a folder (named __VAULT_RESOURCES_DEFAULT_FOLDER__) because its impossible to create a truly empty zip file. This should suit our needs though.
+   */
+  private static final String emptyZipHex = "504B03040A0000000000995AD146000000000000000000000000230010005F5F5641554C545F5245534F55524345535F44454641554C545F464F4C4445525F5F2F55580C0072AC815572AC8155F5011400504B010215030A0000000000995AD14600000000000000000000000023000C000000000000000040ED41000000005F5F5641554C545F5245534F55524345535F44454641554C545F464F4C4445525F5F2F5558080072AC815572AC8155504B050600000000010001005D000000510000000000";
   
   /**
    * We follow the singleton pattern.
@@ -56,6 +65,7 @@ public class ReportResourceManager implements Reloadable
       resources.setExtension("zip");
       resources.setSize(0); // Not sure why its required if you're allowed to just set it to 0 and walk away
       resources.apply();
+      resources.putFile(DatatypeConverter.parseHexBinary(emptyZipHex));
     }
     else
     {
@@ -104,6 +114,11 @@ public class ReportResourceManager implements Reloadable
    */
   public void uploadResource(InputStream IS, String nameOfResource)
   {
+    if (IS == null || nameOfResource == null)
+    {
+      throw new FileRequiredException();
+    }
+    
     try
     {
       // Ensure that our temp directory contains the current global resource bundle.
