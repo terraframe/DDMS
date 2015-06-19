@@ -9,6 +9,7 @@ import dss.vector.solutions.querybuilder.IRSQB;
 
 public class PlannedSprayTeamRollup extends PlannedSprayTeamTarget implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.PlannedSprayTeamRollup";
 
   private String inTeamTable;
 

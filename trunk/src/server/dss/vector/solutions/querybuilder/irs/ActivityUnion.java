@@ -13,6 +13,7 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
  */
 public class ActivityUnion extends AbstractSQLProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.ActivityUnion";
 
   private List<SQLProvider> union;
   

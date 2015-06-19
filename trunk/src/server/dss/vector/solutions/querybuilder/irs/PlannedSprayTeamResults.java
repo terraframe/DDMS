@@ -7,7 +7,8 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class PlannedSprayTeamResults extends AbstractSQLProvider implements Reloadable
 {
-
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.PlannedSprayTeamResults";
+  
   public PlannedSprayTeamResults(IRSQB irsQB)
   {
     super(irsQB);

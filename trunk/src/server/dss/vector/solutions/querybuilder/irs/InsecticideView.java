@@ -17,6 +17,7 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class InsecticideView extends AuxiliaryProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.InsecticideView";
 
   public InsecticideView(IRSQB irsQB)
   {

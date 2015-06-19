@@ -7,6 +7,7 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class ResourceTargetView extends AbstractTargetView implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.ResourceTargetView";
 
   public ResourceTargetView(IRSQB irsQB)
   {

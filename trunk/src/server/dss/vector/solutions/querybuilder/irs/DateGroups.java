@@ -15,6 +15,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class DateGroups extends AbstractSprayProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.DateGroups";
+  
   private static final String dateJoined = "date_joined";
   private static final String djCol = dateJoined+".";
   

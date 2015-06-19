@@ -9,6 +9,7 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class DateExtrapolationView extends AuxiliaryProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.DateExtrapolationView";
 
   public DateExtrapolationView(IRSQB irsQB)
   {

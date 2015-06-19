@@ -2,7 +2,6 @@ package dss.vector.solutions.querybuilder.irs;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -11,6 +10,7 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class SprayView extends AbstractSQLProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.SprayView";
   
   public SprayView(IRSQB irsQB)
   {

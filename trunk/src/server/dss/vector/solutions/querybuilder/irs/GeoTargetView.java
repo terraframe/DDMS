@@ -15,6 +15,7 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class GeoTargetView extends AbstractTargetView implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.GeoTargetView";
 
   public GeoTargetView(IRSQB irsQB)
   {

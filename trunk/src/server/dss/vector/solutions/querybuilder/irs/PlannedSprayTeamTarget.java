@@ -15,6 +15,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.PlannedSprayTeamTarget";
+  
   // private String teamSprayTable;
   //
   // private String sprayTeamCol;

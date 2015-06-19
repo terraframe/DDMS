@@ -330,6 +330,7 @@ public abstract class AbstractQB implements Reloadable
 
     this.queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
     
+    // TODO : Delete this shitty code.
     ArrayList<SelectableSQL> terms = this.getTerms(valueQuery);
     if (terms.size() > 0)
     {
@@ -337,7 +338,7 @@ public abstract class AbstractQB implements Reloadable
       this.setTermSelectablesSQL(terms);
     }
   }
-  
+  //  TODO : Delete this shitty code.
   protected void setTermSelectablesSQL(ArrayList<SelectableSQL> terms)
   {
     for (SelectableSQL term : terms)
@@ -345,14 +346,13 @@ public abstract class AbstractQB implements Reloadable
       term.setSQL("(SELECT " + QueryUtil.LABEL_COLUMN + " from " + QueryUtil.TERM_DISPLAY_LABEL + " WHERE " + QueryUtil.TERM_DISPLAY_LABEL + ".id=" + term.getUserDefinedAlias() + ")");
     }
   }
-  
+  // TODO : Delete this shitty code.
   protected void addTermDisplayLabelWithEntry()
   {
     String sql = QueryUtil.getTermDisplayLabelSQL();
     this.addWITHEntry(new WITHEntry(QueryUtil.TERM_DISPLAY_LABEL, sql));
   }
-  
-  // TODO : Override this method in sub classes.
+  // TODO : Delete this shitty code.
   protected ArrayList<SelectableSQL> getTerms(ValueQuery valueQuery)
   {
     return new ArrayList<SelectableSQL>();

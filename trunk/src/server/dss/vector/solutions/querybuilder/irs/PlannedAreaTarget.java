@@ -15,6 +15,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.PlannedAreaTarget";
+  
   private static final String GTV_ALIAS = "gt";
 
   private String              childGeoEntity;

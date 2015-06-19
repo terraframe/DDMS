@@ -11,6 +11,7 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class SpraySummaryView extends AuxiliaryProvider implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.SpraySummaryView";
 
   public SpraySummaryView(IRSQB irsQB)
   {

@@ -9,6 +9,8 @@ import dss.vector.solutions.querybuilder.IRSQB.View;
 
 public class PlannedOperatorTarget extends PlannedResourceTarget implements Reloadable
 {
+  public static final String CLASS = "dss.vector.solutions.querybuilder.irs.PlannedOperatorTarget";
+  
   // private String operSprayTable;
   // private String targetCol;
   // private String sprayOperatorCol;

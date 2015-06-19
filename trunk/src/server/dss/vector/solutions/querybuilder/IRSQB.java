@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
@@ -87,6 +88,7 @@ import dss.vector.solutions.util.Restriction;
 
 public class IRSQB extends AbstractQB implements Reloadable
 {
+  private static final String CLASS = "dss.vector.solutions.querybuilder.IRSQB";
 
   private Map<String, String>               dategroups;
 
@@ -232,17 +234,28 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   public enum View implements Reloadable {
 
-    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.class), RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.class), GEO_TARGET_VIEW("geoTargetView", GeoTargetView.class), SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.class), INSECTICIDE_VIEW("insecticideView", InsecticideView.class), PLANNED_OPERATOR("plannedOperator", PlannedOperatorTarget.class), PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.class), PLANNED_TEAM_ROLLUP("plannedTeamRollup",
-        PlannedSprayTeamRollup.class), PLANNED_TEAM_RESULTS("plannedTeamResults", PlannedSprayTeamResults.class), PLANNED_AREA("plannedArea", PlannedAreaTarget.class), DATE_GROUPS("dateGroups", DateGroups.class), ALL_ACTUALS("allActuals", ActivityUnion.class), SPRAY_VIEW("sprayView", SprayView.class);
+    DATE_EXTRAPOLATION_VIEW("dateExtrapolationView", DateExtrapolationView.CLASS),
+    RESOURCE_TARGET_VIEW("resourceTargetView", ResourceTargetView.CLASS),
+    GEO_TARGET_VIEW("geoTargetView", GeoTargetView.CLASS),
+    SPRAY_SUMMARY_VIEW("spraySummaryView", SpraySummaryView.CLASS),
+    INSECTICIDE_VIEW("insecticideView", InsecticideView.CLASS),
+    PLANNED_OPERATOR("plannedOperator", PlannedOperatorTarget.CLASS),
+    PLANNED_TEAM("plannedTeam", PlannedSprayTeamTarget.CLASS),
+    PLANNED_TEAM_ROLLUP("plannedTeamRollup", PlannedSprayTeamRollup.CLASS),
+    PLANNED_TEAM_RESULTS("plannedTeamResults", PlannedSprayTeamResults.CLASS),
+    PLANNED_AREA("plannedArea", PlannedAreaTarget.CLASS),
+    DATE_GROUPS("dateGroups", DateGroups.CLASS),
+    ALL_ACTUALS("allActuals", ActivityUnion.CLASS),
+    SPRAY_VIEW("sprayView", SprayView.CLASS);
 
     private String                       view;
 
-    private Class<? extends SQLProvider> klass;
+    private String CLASS;
 
-    private View(String view, Class<? extends SQLProvider> klass)
+    private View(String view, String _CLASS)
     {
       this.view = view;
-      this.klass = klass;
+      this.CLASS = _CLASS;
     }
 
     @Override
@@ -256,9 +269,24 @@ public class IRSQB extends AbstractQB implements Reloadable
       return view;
     }
 
-    public Class<? extends SQLProvider> getSQLProviderClass()
+    public SQLProvider newInstance(IRSQB irs)
     {
-      return klass;
+      @SuppressWarnings("unchecked")
+      Class<? extends SQLProvider> klass = (Class<? extends SQLProvider>) LoaderDecorator.load(this.CLASS);
+      Class<?> irsqbKlass = LoaderDecorator.load(IRSQB.CLASS);
+      
+      try
+      {
+        Constructor<? extends SQLProvider> c = klass.getConstructor(irsqbKlass);
+        SQLProvider p = c.newInstance(irs);
+        
+        return p;
+      }
+      catch (Throwable t)
+      {
+        String msg = "IRS QB: Unable to invoke SQLProvider [" + this + "] with class [" + klass + "].";
+        throw new ProgrammingErrorException(msg, t);
+      }
     }
   }
 
@@ -2442,42 +2470,31 @@ public class IRSQB extends AbstractQB implements Reloadable
       View view = views[i];
       if (this.requiredViews.contains(view))
       {
-        Class<? extends SQLProvider> klass = view.getSQLProviderClass();
+        SQLProvider p = view.newInstance(this);
 
-        try
+        // load dependencies except for the SprayView (that's done later).
+        if (view == View.SPRAY_VIEW)
         {
-          Constructor<? extends SQLProvider> c = klass.getConstructor(IRSQB.class);
-          SQLProvider p = c.newInstance(this);
-
-          // load dependencies except for the SprayView (that's done later).
-          if (view == View.SPRAY_VIEW)
-          {
-            sprayView = p;
-          }
-          else
-          {
-            p.loadDependencies();
-          }
-
-          Pair<String, SQLProvider> pair = new Pair<String, SQLProvider>(view.getView(), p);
-
-          // JN change
-          // if(this.needsAreaPlanned && (view == View.PLANNED_AREA
-          // || view == View.GEO_TARGET_VIEW
-          // || view == View.DATE_EXTRAPOLATION_VIEW))
-          // {
-          // this.areaPairs.add(pair);
-          // }
-          // else
-          // {
-          viewPairs.add(pair);
-          // }
+          sprayView = p;
         }
-        catch (Throwable t)
+        else
         {
-          String msg = "IRS QB: Unable to invoke SQLProvider [" + view + "] with class [" + klass + "].";
-          throw new ProgrammingErrorException(msg, t);
+          p.loadDependencies();
         }
+
+        Pair<String, SQLProvider> pair = new Pair<String, SQLProvider>(view.getView(), p);
+
+        // JN change
+        // if(this.needsAreaPlanned && (view == View.PLANNED_AREA
+        // || view == View.GEO_TARGET_VIEW
+        // || view == View.DATE_EXTRAPOLATION_VIEW))
+        // {
+        // this.areaPairs.add(pair);
+        // }
+        // else
+        // {
+        viewPairs.add(pair);
+        // }
       }
     }
 
