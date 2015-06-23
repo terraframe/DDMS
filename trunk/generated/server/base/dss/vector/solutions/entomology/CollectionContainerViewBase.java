@@ -41,10 +41,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -69,10 +69,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberContainers()
@@ -85,10 +85,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERCONTAINERS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberContainersMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberContainersMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERCONTAINERS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERCONTAINERS);
   }
   
   public void setNumberContainers(Integer value)
@@ -113,10 +113,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERDESTROYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberDestroyedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberDestroyedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERDESTROYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERDESTROYED);
   }
   
   public void setNumberDestroyed(Integer value)
@@ -141,10 +141,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERIMMATURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberImmaturesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberImmaturesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERIMMATURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERIMMATURES);
   }
   
   public void setNumberImmatures(Integer value)
@@ -169,10 +169,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERLARVAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberLarvaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberLarvaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERLARVAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERLARVAE);
   }
   
   public void setNumberLarvae(Integer value)
@@ -197,10 +197,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERLARVAECOLLECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberLarvaeCollectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberLarvaeCollectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERLARVAECOLLECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERLARVAECOLLECTED);
   }
   
   public void setNumberLarvaeCollected(Integer value)
@@ -225,10 +225,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERPUPAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPupaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPupaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPUPAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPUPAE);
   }
   
   public void setNumberPupae(Integer value)
@@ -253,10 +253,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERPUPAECOLLECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPupaeCollectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPupaeCollectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPUPAECOLLECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPUPAECOLLECTED);
   }
   
   public void setNumberPupaeCollected(Integer value)
@@ -281,10 +281,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERWITHLARVICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithLarvicideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithLarvicideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHLARVICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHLARVICIDE);
   }
   
   public void setNumberWithLarvicide(Integer value)
@@ -309,10 +309,10 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     this.validateAttribute(NUMBERWITHWATER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithWaterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithWaterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHWATER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHWATER);
   }
   
   public void setNumberWithWater(Integer value)
@@ -339,15 +339,20 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getTaxonId()
+  {
+    return getValue(TAXON);
+  }
+  
   public void validateTaxon()
   {
     this.validateAttribute(TAXON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTaxonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTaxonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(TAXON);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TAXON);
   }
   
   public void setTaxon(dss.vector.solutions.entomology.PremiseTaxon value)
@@ -374,15 +379,20 @@ public abstract class CollectionContainerViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void validateTerm()
   {
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionContainerView.CLASS);
-    return mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)

@@ -35,10 +35,10 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdValueProblem.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -63,10 +63,10 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
     this.validateAttribute(THRESHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getThresholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdValueProblem.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(THRESHOLD);
   }
   
   public void setThreshold(Double value)

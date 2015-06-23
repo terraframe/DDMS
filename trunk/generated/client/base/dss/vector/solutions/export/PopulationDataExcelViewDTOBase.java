@@ -33,6 +33,11 @@ public abstract class PopulationDataExcelViewDTOBase extends com.runwaysdk.busin
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)

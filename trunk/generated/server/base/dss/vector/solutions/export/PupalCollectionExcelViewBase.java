@@ -55,10 +55,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -83,10 +83,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(CONTAINERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getContainerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTAINERID);
   }
   
   public void setContainerId(String value)
@@ -111,10 +111,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(CONTAINERLENGTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerLengthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getContainerLengthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERLENGTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTAINERLENGTH);
   }
   
   public void setContainerLength(java.math.BigDecimal value)
@@ -139,10 +139,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(CONTAINERTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getContainerTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONTAINERTYPE);
   }
   
   public void setContainerType(String value)
@@ -167,10 +167,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DIAMETER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiameterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDiameterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DIAMETER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DIAMETER);
   }
   
   public void setDiameter(java.math.BigDecimal value)
@@ -195,10 +195,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DRAWDOWNFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDrawdownFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDrawdownFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DRAWDOWNFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DRAWDOWNFREQUENCY);
   }
   
   public void setDrawdownFrequency(String value)
@@ -223,10 +223,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DRAWDOWNPERCENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDrawdownPercentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDrawdownPercentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DRAWDOWNPERCENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DRAWDOWNPERCENT);
   }
   
   public void setDrawdownPercent(Integer value)
@@ -251,10 +251,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -279,10 +279,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(FILLFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFillFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFillFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(FILLFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILLFREQUENCY);
   }
   
   public void setFillFrequency(String value)
@@ -307,10 +307,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(FILLMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFillMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFillMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(FILLMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILLMETHOD);
   }
   
   public void setFillMethod(String value)
@@ -337,15 +337,20 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -370,10 +375,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(HEIGHT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHeightMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(HEIGHT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HEIGHT);
   }
   
   public void setHeight(java.math.BigDecimal value)
@@ -398,10 +403,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLid()
@@ -414,10 +419,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(LID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(LID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LID);
   }
   
   public void setLid(String value)
@@ -442,10 +447,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(NOTES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NOTES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTES);
   }
   
   public void setNotes(String value)
@@ -470,10 +475,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBEREXAMINED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberExaminedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberExaminedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEREXAMINED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEREXAMINED);
   }
   
   public void setNumberExamined(Integer value)
@@ -498,10 +503,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBERINHABITANTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberInhabitantsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberInhabitantsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERINHABITANTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERINHABITANTS);
   }
   
   public void setNumberInhabitants(Integer value)
@@ -526,10 +531,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(OPENINGDIAMETER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningDiameterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningDiameterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGDIAMETER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGDIAMETER);
   }
   
   public void setOpeningDiameter(java.math.BigDecimal value)
@@ -554,10 +559,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(OPENINGLENGTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningLengthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningLengthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGLENGTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGLENGTH);
   }
   
   public void setOpeningLength(java.math.BigDecimal value)
@@ -582,10 +587,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(OPENINGWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGWIDTH);
   }
   
   public void setOpeningWidth(java.math.BigDecimal value)
@@ -610,10 +615,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(PREMISESIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremiseSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISESIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISESIZE);
   }
   
   public void setPremiseSize(java.math.BigDecimal value)
@@ -638,10 +643,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(PREMISETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPremiseTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PREMISETYPE);
   }
   
   public void setPremiseType(String value)
@@ -666,10 +671,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(ROOF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRoofMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ROOF);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ROOF);
   }
   
   public void setRoof(String value)
@@ -694,10 +699,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(SHADING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShadingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getShadingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(SHADING);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SHADING);
   }
   
   public void setShading(String value)
@@ -722,10 +727,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(SHAPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShapeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getShapeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(SHAPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SHAPE);
   }
   
   public void setShape(String value)
@@ -750,10 +755,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -778,10 +783,10 @@ public abstract class PupalCollectionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(WIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PupalCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(WIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WIDTH);
   }
   
   public void setWidth(java.math.BigDecimal value)

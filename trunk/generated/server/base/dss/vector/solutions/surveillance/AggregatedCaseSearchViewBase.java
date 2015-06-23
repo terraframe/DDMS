@@ -32,10 +32,10 @@ public abstract class AggregatedCaseSearchViewBase extends dss.vector.solutions.
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -82,10 +82,10 @@ public abstract class AggregatedCaseSearchViewBase extends dss.vector.solutions.
     this.validateAttribute(PERIODTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getPeriodTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
-    return mdClassIF.definesAttribute(PERIODTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(PERIODTYPE);
   }
   
   public Integer getPeriodYear()
@@ -98,10 +98,10 @@ public abstract class AggregatedCaseSearchViewBase extends dss.vector.solutions.
     this.validateAttribute(PERIODYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
-    return mdClassIF.definesAttribute(PERIODYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIODYEAR);
   }
   
   public void setPeriodYear(Integer value)
@@ -126,10 +126,10 @@ public abstract class AggregatedCaseSearchViewBase extends dss.vector.solutions.
     this.validateAttribute(SEARCHTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSearchTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getSearchTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
-    return mdClassIF.definesAttribute(SEARCHTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SEARCHTYPE);
   }
   
   public void setSearchType(Boolean value)

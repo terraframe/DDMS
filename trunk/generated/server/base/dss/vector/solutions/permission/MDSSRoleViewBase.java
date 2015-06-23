@@ -32,10 +32,10 @@ public abstract class MDSSRoleViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.MDSSRoleView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -60,10 +60,10 @@ public abstract class MDSSRoleViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.MDSSRoleView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -88,10 +88,10 @@ public abstract class MDSSRoleViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.MDSSRoleView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getRoleName()
@@ -104,10 +104,10 @@ public abstract class MDSSRoleViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(ROLENAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoleNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRoleNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.MDSSRoleView.CLASS);
-    return mdClassIF.definesAttribute(ROLENAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ROLENAME);
   }
   
   public void setRoleName(String value)

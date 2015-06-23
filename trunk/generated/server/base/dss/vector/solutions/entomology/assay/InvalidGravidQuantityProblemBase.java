@@ -34,10 +34,10 @@ public abstract class InvalidGravidQuantityProblemBase extends dss.vector.soluti
     this.validateAttribute(GRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(GRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(GRAVID);
   }
   
   public void setGravid(Integer value)

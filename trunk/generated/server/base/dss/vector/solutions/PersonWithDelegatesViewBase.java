@@ -38,15 +38,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getIptRecipientDelegateId()
+  {
+    return getValue(IPTRECIPIENTDELEGATE);
+  }
+  
   public void validateIptRecipientDelegate()
   {
     this.validateAttribute(IPTRECIPIENTDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIptRecipientDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIptRecipientDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(IPTRECIPIENTDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IPTRECIPIENTDELEGATE);
   }
   
   public void setIptRecipientDelegate(dss.vector.solutions.intervention.monitor.IPTRecipient value)
@@ -73,15 +78,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getItnRecipientDelegateId()
+  {
+    return getValue(ITNRECIPIENTDELEGATE);
+  }
+  
   public void validateItnRecipientDelegate()
   {
     this.validateAttribute(ITNRECIPIENTDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItnRecipientDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getItnRecipientDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(ITNRECIPIENTDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ITNRECIPIENTDELEGATE);
   }
   
   public void setItnRecipientDelegate(dss.vector.solutions.intervention.monitor.ITNRecipient value)
@@ -108,15 +118,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getPatientDelegateId()
+  {
+    return getValue(PATIENTDELEGATE);
+  }
+  
   public void validatePatientDelegate()
   {
     this.validateAttribute(PATIENTDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPatientDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PATIENTDELEGATE);
   }
   
   public void setPatientDelegate(dss.vector.solutions.Patient value)
@@ -143,15 +158,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getPhysicianDelegateId()
+  {
+    return getValue(PHYSICIANDELEGATE);
+  }
+  
   public void validatePhysicianDelegate()
   {
     this.validateAttribute(PHYSICIANDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPhysicianDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(PHYSICIANDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PHYSICIANDELEGATE);
   }
   
   public void setPhysicianDelegate(dss.vector.solutions.Physician value)
@@ -178,15 +198,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getStockStaffDelegateId()
+  {
+    return getValue(STOCKSTAFFDELEGATE);
+  }
+  
   public void validateStockStaffDelegate()
   {
     this.validateAttribute(STOCKSTAFFDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStockStaffDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStockStaffDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(STOCKSTAFFDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STOCKSTAFFDELEGATE);
   }
   
   public void setStockStaffDelegate(dss.vector.solutions.stock.StockStaff value)
@@ -213,15 +238,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getSupervisorDelegateId()
+  {
+    return getValue(SUPERVISORDELEGATE);
+  }
+  
   public void validateSupervisorDelegate()
   {
     this.validateAttribute(SUPERVISORDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSupervisorDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISORDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SUPERVISORDELEGATE);
   }
   
   public void setSupervisorDelegate(dss.vector.solutions.irs.Supervisor value)
@@ -248,15 +278,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getTeamMemberDelegateId()
+  {
+    return getValue(TEAMMEMBERDELEGATE);
+  }
+  
   public void validateTeamMemberDelegate()
   {
     this.validateAttribute(TEAMMEMBERDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamMemberDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTeamMemberDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(TEAMMEMBERDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TEAMMEMBERDELEGATE);
   }
   
   public void setTeamMemberDelegate(dss.vector.solutions.irs.TeamMember value)
@@ -283,15 +318,20 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
+  public String getUserDelegateId()
+  {
+    return getValue(USERDELEGATE);
+  }
+  
   public void validateUserDelegate()
   {
     this.validateAttribute(USERDELEGATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUserDelegateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUserDelegateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(USERDELEGATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(USERDELEGATE);
   }
   
   public void setUserDelegate(dss.vector.solutions.MDSSUser value)

@@ -46,10 +46,10 @@ public abstract class DuplicateRootExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(BROWSERFIELD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrowserFieldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrowserFieldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateRootException.CLASS);
-    return mdClassIF.definesAttribute(BROWSERFIELD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BROWSERFIELD);
   }
   
   public void setBrowserField(String value)
@@ -74,10 +74,10 @@ public abstract class DuplicateRootExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(BROWSERROOT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrowserRootMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrowserRootMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateRootException.CLASS);
-    return mdClassIF.definesAttribute(BROWSERROOT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BROWSERROOT);
   }
   
   public void setBrowserRoot(String value)
@@ -102,10 +102,10 @@ public abstract class DuplicateRootExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateRootException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

@@ -35,10 +35,10 @@ public abstract class InvalidDiagnosisTypeProblemBase extends com.runwaysdk.busi
     this.validateAttribute(DIAGNOSISTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDiagnosisTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidDiagnosisTypeProblem.CLASS);
-    return mdClassIF.definesAttribute(DIAGNOSISTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DIAGNOSISTYPE);
   }
   
   public void setDiagnosisType(String value)
@@ -63,10 +63,10 @@ public abstract class InvalidDiagnosisTypeProblemBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidDiagnosisTypeProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

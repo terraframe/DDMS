@@ -32,10 +32,10 @@ public abstract class PupalContainerAmountViewBase extends com.runwaysdk.busines
     this.validateAttribute(AMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerAmountView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AMOUNT);
   }
   
   public void setAmount(Integer value)
@@ -62,15 +62,20 @@ public abstract class PupalContainerAmountViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getContainerId()
+  {
+    return getValue(CONTAINER);
+  }
+  
   public void validateContainer()
   {
     this.validateAttribute(CONTAINER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getContainerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerAmountView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CONTAINER);
   }
   
   public void setContainer(dss.vector.solutions.entomology.PupalContainer value)
@@ -95,10 +100,10 @@ public abstract class PupalContainerAmountViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerAmountView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getTerm()
@@ -113,15 +118,20 @@ public abstract class PupalContainerAmountViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void validateTerm()
   {
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerAmountView.CLASS);
-    return mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)

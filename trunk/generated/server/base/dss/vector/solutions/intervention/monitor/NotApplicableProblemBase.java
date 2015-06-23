@@ -35,10 +35,10 @@ public abstract class NotApplicableProblemBase extends dss.vector.solutions.Noti
     this.validateAttribute(INPUTATTRIBUTE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInputAttributeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInputAttributeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NotApplicableProblem.CLASS);
-    return mdClassIF.definesAttribute(INPUTATTRIBUTE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INPUTATTRIBUTE);
   }
   
   public void setInputAttribute(String value)
@@ -63,10 +63,10 @@ public abstract class NotApplicableProblemBase extends dss.vector.solutions.Noti
     this.validateAttribute(INPUTVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInputValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInputValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NotApplicableProblem.CLASS);
-    return mdClassIF.definesAttribute(INPUTVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INPUTVALUE);
   }
   
   public void setInputValue(String value)

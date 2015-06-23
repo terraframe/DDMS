@@ -10,7 +10,6 @@ package dss.vector.solutions.surveillance;
  */
 public  class IndividualCaseSymptomQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -545133619;
 
   public IndividualCaseSymptomQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

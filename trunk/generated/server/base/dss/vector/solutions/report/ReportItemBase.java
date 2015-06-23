@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 806532858)
+@com.runwaysdk.business.ClassSignature(hash = 1359478541)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 806532858;
+  private static final long serialVersionUID = 1359478541;
   
   public ReportItemBase()
   {
@@ -626,18 +626,6 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   {
     ReportItem _instance = ReportItem.get(id);
     return _instance.render(outputStream, parameters, baseURL, reportURL);
-  }
-  
-  public void saveResourcesBundle(java.io.InputStream fileStream)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItem.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void saveResourcesBundle(java.lang.String id, java.io.InputStream fileStream)
-  {
-    ReportItem _instance = ReportItem.get(id);
-    _instance.saveResourcesBundle(fileStream);
   }
   
   public static void uploadResources(java.io.InputStream resourcesIS, java.lang.String nameOfResource)

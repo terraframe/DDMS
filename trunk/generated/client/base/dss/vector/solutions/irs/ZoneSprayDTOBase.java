@@ -45,6 +45,11 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     }
   }
   
+  public String getBrandForIndexId()
+  {
+    return getValue(BRANDFORINDEX);
+  }
+  
   public void setBrandForIndex(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
@@ -89,6 +94,11 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -131,6 +141,11 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITYFORINDEX));
     }
+  }
+  
+  public String getGeoEntityForIndexId()
+  {
+    return getValue(GEOENTITYFORINDEX);
   }
   
   public void setGeoEntityForIndex(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -249,6 +264,11 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     {
       return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISOR));
     }
+  }
+  
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
   }
   
   public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)

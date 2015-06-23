@@ -45,10 +45,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(ABUNDANCE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAbundanceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAbundanceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(ABUNDANCE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ABUNDANCE);
   }
   
   public void setAbundance(Boolean value)
@@ -73,10 +73,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLLECTIONDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONDATE);
   }
   
   public void setCollectionDate(java.util.Date value)
@@ -101,10 +101,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -141,10 +141,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLLECTIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONMETHOD);
   }
   
   public void setCollectionMethod(dss.vector.solutions.ontology.Term value)
@@ -181,10 +181,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLLECTIONROUND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionRoundMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionRoundMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONROUND);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONROUND);
   }
   
   public void setCollectionRound(dss.vector.solutions.ontology.Term value)
@@ -221,10 +221,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLLECTIONTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONTYPE);
   }
   
   public void setCollectionType(dss.vector.solutions.ontology.Term value)
@@ -249,10 +249,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -277,10 +277,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(DATELASTSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateLastSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDateLastSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(DATELASTSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DATELASTSPRAYED);
   }
   
   public void setDateLastSprayed(java.util.Date value)
@@ -317,10 +317,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -345,10 +345,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.irs.InsecticideBrand getInsecticideBrand()
@@ -373,10 +373,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(INSECTICIDEBRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInsecticideBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEBRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INSECTICIDEBRAND);
   }
   
   public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrand value)
@@ -423,10 +423,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(LIFESTAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLifeStageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLifeStageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(LIFESTAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LIFESTAGE);
   }
   
   public Integer getNumberOfAnimalOccupants()
@@ -439,10 +439,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBEROFANIMALOCCUPANTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfAnimalOccupantsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberOfAnimalOccupantsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFANIMALOCCUPANTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEROFANIMALOCCUPANTS);
   }
   
   public void setNumberOfAnimalOccupants(Integer value)
@@ -467,10 +467,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBEROFHUMANOCCUPANTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfHumanOccupantsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberOfHumanOccupantsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFHUMANOCCUPANTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEROFHUMANOCCUPANTS);
   }
   
   public void setNumberOfHumanOccupants(Integer value)
@@ -495,10 +495,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBEROFLLINS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfLLINsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberOfLLINsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFLLINS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEROFLLINS);
   }
   
   public void setNumberOfLLINs(Integer value)
@@ -523,10 +523,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(RESISTANCEASSAYCOMMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResistanceAssayCommentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getResistanceAssayCommentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(RESISTANCEASSAYCOMMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RESISTANCEASSAYCOMMENTS);
   }
   
   public void setResistanceAssayComments(String value)
@@ -563,10 +563,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     this.validateAttribute(WALLTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWallTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(WALLTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WALLTYPE);
   }
   
   public void setWallType(dss.vector.solutions.ontology.Term value)

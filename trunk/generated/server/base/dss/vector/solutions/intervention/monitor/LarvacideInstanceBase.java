@@ -48,15 +48,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getControlMethodId()
+  {
+    return getValue(CONTROLMETHOD);
+  }
+  
   public void validateControlMethod()
   {
     this.validateAttribute(CONTROLMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getControlMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(CONTROLMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CONTROLMETHOD);
   }
   
   public void setControlMethod(dss.vector.solutions.ontology.Term value)
@@ -81,10 +86,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -99,15 +104,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
@@ -122,15 +132,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -155,10 +170,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -171,10 +186,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -199,10 +214,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -217,15 +232,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -240,15 +260,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -263,15 +288,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -296,10 +326,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -312,10 +342,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public dss.vector.solutions.ontology.Term getSubstance()
@@ -330,15 +360,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getSubstanceId()
+  {
+    return getValue(SUBSTANCE);
+  }
+  
   public void validateSubstance()
   {
     this.validateAttribute(SUBSTANCE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSubstanceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSubstanceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(SUBSTANCE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SUBSTANCE);
   }
   
   public void setSubstance(dss.vector.solutions.ontology.Term value)
@@ -365,15 +400,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getTargetId()
+  {
+    return getValue(TARGET);
+  }
+  
   public void validateTarget()
   {
     this.validateAttribute(TARGET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTargetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TARGET);
   }
   
   public void setTarget(dss.vector.solutions.ontology.Term value)
@@ -398,10 +438,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(TREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(TREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TREATED);
   }
   
   public void setTreated(Integer value)
@@ -426,10 +466,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public dss.vector.solutions.ontology.Term getUnit()
@@ -444,15 +484,20 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getUnitId()
+  {
+    return getValue(UNIT);
+  }
+  
   public void validateUnit()
   {
     this.validateAttribute(UNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(UNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.Term value)
@@ -477,10 +522,10 @@ public abstract class LarvacideInstanceBase extends com.runwaysdk.business.Busin
     this.validateAttribute(UNITSUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitsUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUnitsUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.LarvacideInstance.CLASS);
-    return mdClassIF.definesAttribute(UNITSUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(UNITSUSED);
   }
   
   public void setUnitsUsed(Integer value)

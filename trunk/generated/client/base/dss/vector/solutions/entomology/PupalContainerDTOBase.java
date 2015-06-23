@@ -143,6 +143,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getContainerTypeId()
+  {
+    return getValue(CONTAINERTYPE);
+  }
+  
   public void setContainerType(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -212,6 +217,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -279,6 +289,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DRAWDOWNFREQUENCY));
     }
+  }
+  
+  public String getDrawdownFrequencyId()
+  {
+    return getValue(DRAWDOWNFREQUENCY);
   }
   
   public void setDrawdownFrequency(dss.vector.solutions.ontology.TermDTO value)
@@ -362,6 +377,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -406,6 +426,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getFillFrequencyId()
+  {
+    return getValue(FILLFREQUENCY);
+  }
+  
   public void setFillFrequency(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -448,6 +473,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(FILLMETHOD));
     }
+  }
+  
+  public String getFillMethodId()
+  {
+    return getValue(FILLMETHOD);
   }
   
   public void setFillMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -593,6 +623,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -623,6 +658,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(LID));
     }
+  }
+  
+  public String getLidId()
+  {
+    return getValue(LID);
   }
   
   public void setLid(dss.vector.solutions.ontology.TermDTO value)
@@ -667,6 +707,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -812,6 +857,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -856,6 +906,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getPremiseId()
+  {
+    return getValue(PREMISE);
+  }
+  
   public void setPremise(dss.vector.solutions.entomology.PupalPremiseDTO value)
   {
     if(value == null)
@@ -898,6 +953,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ROOF));
     }
+  }
+  
+  public String getRoofId()
+  {
+    return getValue(ROOF);
   }
   
   public void setRoof(dss.vector.solutions.ontology.TermDTO value)
@@ -967,6 +1027,11 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SHADING));
     }
+  }
+  
+  public String getShadingId()
+  {
+    return getValue(SHADING);
   }
   
   public void setShading(dss.vector.solutions.ontology.TermDTO value)

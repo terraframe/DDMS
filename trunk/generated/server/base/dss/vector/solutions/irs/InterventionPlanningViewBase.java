@@ -33,10 +33,10 @@ public abstract class InterventionPlanningViewBase extends com.runwaysdk.busines
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -63,15 +63,20 @@ public abstract class InterventionPlanningViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -96,10 +101,10 @@ public abstract class InterventionPlanningViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.general.MalariaSeason getSeason()
@@ -114,15 +119,20 @@ public abstract class InterventionPlanningViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
+  }
+  
   public void validateSeason()
   {
     this.validateAttribute(SEASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSeasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(SEASON);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SEASON);
   }
   
   public void setSeason(dss.vector.solutions.general.MalariaSeason value)
@@ -147,10 +157,10 @@ public abstract class InterventionPlanningViewBase extends com.runwaysdk.busines
     this.validateAttribute(TARGETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTargetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(TARGETS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TARGETS);
   }
   
   public void setTargets(Integer value)

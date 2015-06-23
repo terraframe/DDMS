@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class IndividualPremiseVisitMethodQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 704393334;
 
   public IndividualPremiseVisitMethodQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -35,10 +35,10 @@ public abstract class InvalidIntervalTimeProblemBase extends dss.vector.solution
     this.validateAttribute(EXPOSURETIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExposureTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getExposureTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem.CLASS);
-    return mdClassIF.definesAttribute(EXPOSURETIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(EXPOSURETIME);
   }
   
   public void setExposureTime(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidIntervalTimeProblemBase extends dss.vector.solution
     this.validateAttribute(INTERVALTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getIntervalTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem.CLASS);
-    return mdClassIF.definesAttribute(INTERVALTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(INTERVALTIME);
   }
   
   public void setIntervalTime(Integer value)

@@ -70,10 +70,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(COLLECTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCollectionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(COLLECTION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollection value)
@@ -98,10 +98,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -126,10 +126,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public Integer getDisected()
@@ -142,10 +142,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(DISECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getDisectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(DISECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(DISECTED);
   }
   
   public void setDisected(Integer value)
@@ -170,10 +170,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(EGGS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEggsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getEggsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(EGGS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(EGGS);
   }
   
   public void setEggs(Integer value)
@@ -210,10 +210,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -238,10 +238,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESFED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesFedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesFedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESFED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESFED);
   }
   
   public void setFemalesFed(Integer value)
@@ -266,10 +266,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESGRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESGRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESGRAVID);
   }
   
   public void setFemalesGravid(Integer value)
@@ -294,10 +294,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESHALFGRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesHalfGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesHalfGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESHALFGRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESHALFGRAVID);
   }
   
   public void setFemalesHalfGravid(Integer value)
@@ -322,10 +322,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESTOTAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesTotalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesTotalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESTOTAL);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESTOTAL);
   }
   
   public void setFemalesTotal(Integer value)
@@ -350,10 +350,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESUNFED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesUnfedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesUnfedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESUNFED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESUNFED);
   }
   
   public void setFemalesUnfed(Integer value)
@@ -378,10 +378,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(FEMALESUNKNOWN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesUnknownMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFemalesUnknownMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALESUNKNOWN);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FEMALESUNKNOWN);
   }
   
   public void setFemalesUnknown(Integer value)
@@ -406,10 +406,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getIdentMethod()
@@ -434,10 +434,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(IDENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getIdentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(IDENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.Term value)
@@ -462,10 +462,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -490,10 +490,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(LARVAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLarvaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLarvaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(LARVAE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LARVAE);
   }
   
   public void setLarvae(Integer value)
@@ -518,10 +518,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -546,10 +546,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -574,10 +574,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public Integer getMale()
@@ -590,10 +590,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(MALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(MALE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MALE);
   }
   
   public void setMale(Integer value)
@@ -630,10 +630,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -658,10 +658,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(PAROUS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParousMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getParousMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(PAROUS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PAROUS);
   }
   
   public void setParous(Integer value)
@@ -686,10 +686,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(PUPAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPupaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPupaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(PUPAE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PUPAE);
   }
   
   public void setPupae(Integer value)
@@ -714,10 +714,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -730,10 +730,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getSubCollectionId()
@@ -746,10 +746,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(SUBCOLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSubCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSubCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(SUBCOLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUBCOLLECTIONID);
   }
   
   public void setSubCollectionId(String value)
@@ -786,10 +786,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(TAXON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTaxonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTaxonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(TAXON);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TAXON);
   }
   
   public void setTaxon(dss.vector.solutions.ontology.Term value)
@@ -814,10 +814,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(TOTAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTotalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTotalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(TOTAL);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TOTAL);
   }
   
   public void setTotal(Integer value)
@@ -842,10 +842,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public Integer getUnknowns()
@@ -858,10 +858,10 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     this.validateAttribute(UNKNOWNS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnknownsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUnknownsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(UNKNOWNS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(UNKNOWNS);
   }
   
   public void setUnknowns(Integer value)

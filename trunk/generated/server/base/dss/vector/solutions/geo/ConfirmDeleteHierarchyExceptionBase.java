@@ -45,10 +45,10 @@ public abstract class ConfirmDeleteHierarchyExceptionBase extends com.runwaysdk.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ConfirmDeleteHierarchyException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentDisplayLabel()
@@ -61,10 +61,10 @@ public abstract class ConfirmDeleteHierarchyExceptionBase extends com.runwaysdk.
     this.validateAttribute(PARENTDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ConfirmDeleteHierarchyException.CLASS);
-    return mdClassIF.definesAttribute(PARENTDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTDISPLAYLABEL);
   }
   
   public void setParentDisplayLabel(String value)

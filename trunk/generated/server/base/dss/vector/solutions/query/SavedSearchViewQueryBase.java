@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2138496587;
 
   public SavedSearchViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

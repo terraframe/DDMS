@@ -47,10 +47,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -75,10 +75,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public String getCycleLayerName()
@@ -91,10 +91,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(CYCLELAYERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCycleLayerNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCycleLayerNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(CYCLELAYERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CYCLELAYERNAME);
   }
   
   public void setCycleLayerName(String value)
@@ -119,10 +119,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(CYCLEUNIVERSAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCycleUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCycleUniversalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(CYCLEUNIVERSAL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CYCLEUNIVERSAL);
   }
   
   public void setCycleUniversal(String value)
@@ -159,10 +159,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -199,10 +199,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -227,10 +227,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(FILTERGEOENTITYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFilterGeoEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFilterGeoEntityNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(FILTERGEOENTITYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILTERGEOENTITYNAME);
   }
   
   public void setFilterGeoEntityName(String value)
@@ -255,10 +255,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(FILTERGEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFilterGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFilterGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(FILTERGEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILTERGEOID);
   }
   
   public void setFilterGeoId(String value)
@@ -283,10 +283,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -299,10 +299,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -327,10 +327,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -355,10 +355,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -383,10 +383,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public byte[] getMapImage()
@@ -399,10 +399,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(MAPIMAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapImageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBlobDAOIF getMapImageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(MAPIMAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeBlobDAOIF)mdClassIF.definesAttribute(MAPIMAGE);
   }
   
   public void setMapImage(byte[] value)
@@ -439,10 +439,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -479,10 +479,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(SAVEDMAP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSavedMapMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSavedMapMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(SAVEDMAP);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SAVEDMAP);
   }
   
   public void setSavedMap(dss.vector.solutions.query.SavedMap value)
@@ -507,10 +507,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -523,10 +523,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -539,10 +539,10 @@ public abstract class GeneratedMapBase extends com.runwaysdk.business.Business i
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeneratedMap.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

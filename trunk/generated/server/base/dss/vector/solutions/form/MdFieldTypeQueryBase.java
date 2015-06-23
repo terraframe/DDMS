@@ -11,7 +11,6 @@ package dss.vector.solutions.form;
 public  abstract  class MdFieldTypeQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1928910269;
 
   public MdFieldTypeQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

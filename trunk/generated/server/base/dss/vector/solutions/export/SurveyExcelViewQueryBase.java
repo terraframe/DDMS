@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class SurveyExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1280102735;
 
   public SurveyExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

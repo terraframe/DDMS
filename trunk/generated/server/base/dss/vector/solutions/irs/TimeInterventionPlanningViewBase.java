@@ -30,10 +30,10 @@ public abstract class TimeInterventionPlanningViewBase extends dss.vector.soluti
     this.validateAttribute(OPERATORS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOperatorsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TimeInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(OPERATORS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OPERATORS);
   }
   
   public void setOperators(Integer value)
@@ -58,10 +58,10 @@ public abstract class TimeInterventionPlanningViewBase extends dss.vector.soluti
     this.validateAttribute(REQUIREDDAYS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRequiredDaysMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRequiredDaysMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TimeInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(REQUIREDDAYS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(REQUIREDDAYS);
   }
   
   public void setRequiredDays(Integer value)

@@ -56,10 +56,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(BRANDFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getBrandForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(BRANDFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(BRANDFORINDEX);
   }
   
   public void setBrandForIndex(dss.vector.solutions.irs.InsecticideBrand value)
@@ -96,10 +96,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -136,10 +136,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(GEOENTITYFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITYFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITYFORINDEX);
   }
   
   public void setGeoEntityForIndex(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -164,10 +164,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(NOZZLESUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzlesUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNozzlesUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(NOZZLESUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NOZZLESUSED);
   }
   
   public void setNozzlesUsed(Integer value)
@@ -192,10 +192,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(PUMPSUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPumpsUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPumpsUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(PUMPSUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PUMPSUSED);
   }
   
   public void setPumpsUsed(Integer value)
@@ -220,10 +220,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(RECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(RECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(RECEIVED);
   }
   
   public void setReceived(Integer value)
@@ -248,10 +248,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(REFILLS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRefillsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRefillsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(REFILLS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(REFILLS);
   }
   
   public void setRefills(Integer value)
@@ -276,10 +276,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(RETURNED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReturnedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getReturnedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(RETURNED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(RETURNED);
   }
   
   public void setReturned(Integer value)
@@ -304,10 +304,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(SPRAYDATEFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayDateForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getSprayDateForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYDATEFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(SPRAYDATEFORINDEX);
   }
   
   public void setSprayDateForIndex(java.util.Date value)
@@ -332,10 +332,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(SPRAYMETHODFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMethodForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayMethodForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYMETHODFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYMETHODFORINDEX);
   }
   
   public void setSprayMethodForIndex(String value)
@@ -372,10 +372,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(SPRAYOPERATOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayOperatorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSprayOperatorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYOPERATOR);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SPRAYOPERATOR);
   }
   
   public void setSprayOperator(dss.vector.solutions.irs.TeamMember value)
@@ -412,10 +412,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(SPRAYTEAM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayTeamMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSprayTeamMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYTEAM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SPRAYTEAM);
   }
   
   public void setSprayTeam(dss.vector.solutions.irs.SprayTeam value)
@@ -452,10 +452,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(SUPERVISOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSupervisorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISOR);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SUPERVISOR);
   }
   
   public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
@@ -480,10 +480,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(TARGET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTargetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TARGET);
   }
   
   public void setTarget(Integer value)
@@ -520,10 +520,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(TEAMLEADER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamLeaderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTeamLeaderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(TEAMLEADER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TEAMLEADER);
   }
   
   public void setTeamLeader(dss.vector.solutions.irs.TeamMember value)
@@ -548,10 +548,10 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     this.validateAttribute(USED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(USED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(USED);
   }
   
   public void setUsed(Integer value)

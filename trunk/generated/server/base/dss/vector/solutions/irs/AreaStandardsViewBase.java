@@ -37,10 +37,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(AREASTANDARDSID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAreaStandardsIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAreaStandardsIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(AREASTANDARDSID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(AREASTANDARDSID);
   }
   
   public void setAreaStandardsId(String value)
@@ -65,10 +65,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -93,10 +93,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(HOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLD);
   }
   
   public void setHousehold(Float value)
@@ -121,10 +121,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Float getRoom()
@@ -137,10 +137,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ROOM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoomMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoomMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(ROOM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOM);
   }
   
   public void setRoom(Float value)
@@ -165,10 +165,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -193,10 +193,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(STRUCTUREAREA);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStructureAreaMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructureAreaMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(STRUCTUREAREA);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTUREAREA);
   }
   
   public void setStructureArea(Float value)
@@ -243,10 +243,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(TARGETUNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTargetUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(TARGETUNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGETUNIT);
   }
   
   public Float getUnitNozzleAreaCoverage()
@@ -259,10 +259,10 @@ public abstract class AreaStandardsViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(UNITNOZZLEAREACOVERAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitNozzleAreaCoverageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitNozzleAreaCoverageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
-    return mdClassIF.definesAttribute(UNITNOZZLEAREACOVERAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNITNOZZLEAREACOVERAGE);
   }
   
   public void setUnitNozzleAreaCoverage(Float value)

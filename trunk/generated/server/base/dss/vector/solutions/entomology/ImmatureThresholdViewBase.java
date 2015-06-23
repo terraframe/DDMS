@@ -36,10 +36,10 @@ public abstract class ImmatureThresholdViewBase extends com.runwaysdk.business.V
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThresholdView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -64,10 +64,10 @@ public abstract class ImmatureThresholdViewBase extends com.runwaysdk.business.V
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThresholdView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public String getId()
@@ -80,10 +80,10 @@ public abstract class ImmatureThresholdViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThresholdView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getThresholdIndex()
@@ -96,10 +96,10 @@ public abstract class ImmatureThresholdViewBase extends com.runwaysdk.business.V
     this.validateAttribute(THRESHOLDINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getThresholdIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThresholdView.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(THRESHOLDINDEX);
   }
   
   public void setThresholdIndex(String value)
@@ -124,10 +124,10 @@ public abstract class ImmatureThresholdViewBase extends com.runwaysdk.business.V
     this.validateAttribute(THRESHOLDVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getThresholdValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThresholdView.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(THRESHOLDVALUE);
   }
   
   public void setThresholdValue(java.math.BigDecimal value)

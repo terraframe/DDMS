@@ -35,10 +35,10 @@ public abstract class InvalidAgeGroupProblemBase extends dss.vector.solutions.No
     this.validateAttribute(ENDAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getEndAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.InvalidAgeGroupProblem.CLASS);
-    return mdClassIF.definesAttribute(ENDAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ENDAGE);
   }
   
   public void setEndAge(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidAgeGroupProblemBase extends dss.vector.solutions.No
     this.validateAttribute(STARTAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getStartAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.InvalidAgeGroupProblem.CLASS);
-    return mdClassIF.definesAttribute(STARTAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(STARTAGE);
   }
   
   public void setStartAge(Integer value)

@@ -350,6 +350,11 @@ public abstract class HouseholdViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getRoofId()
+  {
+    return getValue(ROOF);
+  }
+  
   public void setRoof(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -468,6 +473,11 @@ public abstract class HouseholdViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getSurveyPointId()
+  {
+    return getValue(SURVEYPOINT);
+  }
+  
   public void setSurveyPoint(dss.vector.solutions.intervention.monitor.SurveyPointDTO value)
   {
     if(value == null)
@@ -549,6 +559,11 @@ public abstract class HouseholdViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getWallId()
+  {
+    return getValue(WALL);
+  }
+  
   public void setWall(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -628,6 +643,11 @@ public abstract class HouseholdViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(WINDOWTYPE));
     }
+  }
+  
+  public String getWindowTypeId()
+  {
+    return getValue(WINDOWTYPE);
   }
   
   public void setWindowType(dss.vector.solutions.ontology.TermDTO value)

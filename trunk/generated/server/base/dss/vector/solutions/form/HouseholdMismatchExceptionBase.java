@@ -47,10 +47,10 @@ public abstract class HouseholdMismatchExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(HOUSEHOLDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getHouseholdIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.HouseholdMismatchException.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(HOUSEHOLDID);
   }
   
   public void setHouseholdId(String value)
@@ -75,10 +75,10 @@ public abstract class HouseholdMismatchExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.HouseholdMismatchException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNetId()
@@ -91,10 +91,10 @@ public abstract class HouseholdMismatchExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(NETID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getNetIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.HouseholdMismatchException.CLASS);
-    return mdClassIF.definesAttribute(NETID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(NETID);
   }
   
   public void setNetId(String value)
@@ -119,10 +119,10 @@ public abstract class HouseholdMismatchExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(PERSONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getPersonIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.HouseholdMismatchException.CLASS);
-    return mdClassIF.definesAttribute(PERSONID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(PERSONID);
   }
   
   public void setPersonId(String value)

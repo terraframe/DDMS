@@ -163,6 +163,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -193,6 +198,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -239,6 +249,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -281,6 +296,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     {
       return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(EPIDEMICUNIVERSAL));
     }
+  }
+  
+  public String getEpidemicUniversalId()
+  {
+    return getValue(EPIDEMICUNIVERSAL);
   }
   
   public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
@@ -389,6 +409,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -421,6 +446,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -451,6 +481,11 @@ public abstract class ThresholdAlertCalculationTypeDTOBase extends com.runwaysdk
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

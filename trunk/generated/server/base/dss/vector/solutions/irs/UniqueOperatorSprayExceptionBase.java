@@ -44,10 +44,10 @@ public abstract class UniqueOperatorSprayExceptionBase extends dss.vector.soluti
     this.validateAttribute(SPRAYOPERATOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayOperatorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayOperatorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueOperatorSprayException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYOPERATOR);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYOPERATOR);
   }
   
   public void setSprayOperator(String value)

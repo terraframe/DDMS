@@ -10,7 +10,6 @@ package dss.vector.solutions.ontology;
  */
 public  class TermRelationshipQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1811204269;
 
   public TermRelationshipQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

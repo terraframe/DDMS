@@ -38,15 +38,20 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
+  }
+  
   public void validateCollection()
   {
     this.validateAttribute(COLLECTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCollectionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(COLLECTION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollection value)
@@ -71,10 +76,10 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     this.validateAttribute(EXPOSURETIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExposureTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getExposureTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(EXPOSURETIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(EXPOSURETIME);
   }
   
   public void setExposureTime(Integer value)
@@ -101,15 +106,20 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
+  public String getGenerationId()
+  {
+    return getValue(GENERATION);
+  }
+  
   public void validateGeneration()
   {
     this.validateAttribute(GENERATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGenerationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGenerationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(GENERATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GENERATION);
   }
   
   public void setGeneration(dss.vector.solutions.ontology.Term value)
@@ -136,15 +146,20 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void validateIdentificationMethod()
   {
     this.validateAttribute(IDENTIFICATIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentificationMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getIdentificationMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(IDENTIFICATIONMETHOD);
   }
   
   public void setIdentificationMethod(dss.vector.solutions.ontology.Term value)
@@ -171,15 +186,20 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void validateInsecticide()
   {
     this.validateAttribute(INSECTICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInsecticideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.general.Insecticide value)
@@ -204,10 +224,10 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     this.validateAttribute(ISOFEMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsofemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsofemaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(ISOFEMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISOFEMALE);
   }
   
   public void setIsofemale(Boolean value)
@@ -232,10 +252,10 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     this.validateAttribute(QUANTITYTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYTESTED);
   }
   
   public void setQuantityTested(Integer value)
@@ -262,15 +282,20 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void validateTestMethod()
   {
     this.validateAttribute(TESTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTestMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TESTMETHOD);
   }
   
   public void setTestMethod(dss.vector.solutions.ontology.Term value)

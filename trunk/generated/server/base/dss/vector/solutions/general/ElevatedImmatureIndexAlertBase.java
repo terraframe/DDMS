@@ -39,10 +39,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(ACTUALVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getActualValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(ACTUALVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(ACTUALVALUE);
   }
   
   public void setActualValue(java.math.BigDecimal value)
@@ -67,10 +67,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(ALERTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAlertTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(ALERTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ALERTTYPE);
   }
   
   public void setAlertType(String value)
@@ -95,10 +95,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(EMAILFAILURE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailFailureMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEmailFailureMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILFAILURE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(EMAILFAILURE);
   }
   
   public void setEmailFailure(Boolean value)
@@ -123,10 +123,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -151,10 +151,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(String value)
@@ -179,10 +179,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getPremiseType()
@@ -195,10 +195,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(PREMISETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPremiseTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(PREMISETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PREMISETYPE);
   }
   
   public void setPremiseType(String value)
@@ -223,10 +223,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -251,10 +251,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(TAXON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTaxonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTaxonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(TAXON);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TAXON);
   }
   
   public void setTaxon(String value)
@@ -279,10 +279,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(THRESHOLDTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getThresholdTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(THRESHOLDTYPE);
   }
   
   public void setThresholdType(String value)
@@ -307,10 +307,10 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     this.validateAttribute(THRESHOLDVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getThresholdValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(THRESHOLDVALUE);
   }
   
   public void setThresholdValue(java.math.BigDecimal value)

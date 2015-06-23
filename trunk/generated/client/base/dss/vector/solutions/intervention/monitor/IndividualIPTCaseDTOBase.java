@@ -79,6 +79,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -109,6 +114,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -153,6 +163,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -261,6 +276,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -293,6 +313,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -323,6 +348,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -369,6 +399,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
+  }
+  
   public void setPatient(dss.vector.solutions.intervention.monitor.IPTRecipientDTO value)
   {
     if(value == null)
@@ -411,6 +446,11 @@ public abstract class IndividualIPTCaseDTOBase extends com.runwaysdk.business.Bu
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(RESIDENTIALLOCATION));
     }
+  }
+  
+  public String getResidentialLocationId()
+  {
+    return getValue(RESIDENTIALLOCATION);
   }
   
   public void setResidentialLocation(dss.vector.solutions.geo.generated.GeoEntityDTO value)

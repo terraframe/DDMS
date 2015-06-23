@@ -34,10 +34,10 @@ public abstract class InvalidPercentageProblemBase extends dss.vector.solutions.
     this.validateAttribute(INVALIDPERCENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInvalidPercentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getInvalidPercentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.InvalidPercentageProblem.CLASS);
-    return mdClassIF.definesAttribute(INVALIDPERCENT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(INVALIDPERCENT);
   }
   
   public void setInvalidPercent(Integer value)

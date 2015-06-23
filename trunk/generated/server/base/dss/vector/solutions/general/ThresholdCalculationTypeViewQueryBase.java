@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdCalculationTypeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1842489235;
 
   public ThresholdCalculationTypeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -65,6 +65,11 @@ public abstract class UndefinedLethalTimePropertyExceptionDTOBase extends com.ru
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
   {
     if(value == null)

@@ -37,10 +37,10 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -65,10 +65,10 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -95,15 +95,20 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -128,10 +133,10 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getInterventionMethod()
@@ -146,15 +151,20 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     }
   }
   
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
+  }
+  
   public void validateInterventionMethod()
   {
     this.validateAttribute(INTERVENTIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInterventionMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(INTERVENTIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.Term value)
@@ -181,15 +191,20 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     }
   }
   
+  public String getPointId()
+  {
+    return getValue(POINT);
+  }
+  
   public void validatePoint()
   {
     this.validateAttribute(POINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(POINT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POINT);
   }
   
   public void setPoint(dss.vector.solutions.intervention.monitor.ControlIntervention value)
@@ -216,15 +231,20 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     }
   }
   
+  public String getReasonsForNotTreatedId()
+  {
+    return getValue(REASONSFORNOTTREATED);
+  }
+  
   public void validateReasonsForNotTreated()
   {
     this.validateAttribute(REASONSFORNOTTREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReasonsForNotTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReasonsForNotTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(REASONSFORNOTTREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(REASONSFORNOTTREATED);
   }
   
   public void setReasonsForNotTreated(dss.vector.solutions.ontology.Term value)
@@ -249,10 +269,10 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     this.validateAttribute(TREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(TREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TREATED);
   }
   
   public void setTreated(Boolean value)
@@ -277,10 +297,10 @@ public abstract class IndividualPremiseVisitViewBase extends com.runwaysdk.busin
     this.validateAttribute(VISITED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVisitedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVisitedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(VISITED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VISITED);
   }
   
   public void setVisited(Boolean value)

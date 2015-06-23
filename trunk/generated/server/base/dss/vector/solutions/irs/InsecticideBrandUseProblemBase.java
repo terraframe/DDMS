@@ -37,10 +37,10 @@ public abstract class InsecticideBrandUseProblemBase extends dss.vector.solution
     this.validateAttribute(ATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandUseProblem.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ATTRIBUTELABEL);
   }
   
   public void setAttributeLabel(String value)
@@ -65,10 +65,10 @@ public abstract class InsecticideBrandUseProblemBase extends dss.vector.solution
     this.validateAttribute(ATTRIBUTEVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAttributeValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandUseProblem.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTEVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ATTRIBUTEVALUE);
   }
   
   public void setAttributeValue(String value)
@@ -93,10 +93,10 @@ public abstract class InsecticideBrandUseProblemBase extends dss.vector.solution
     this.validateAttribute(INSECTICIDEUSELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideUseLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getInsecticideUseLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandUseProblem.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEUSELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(INSECTICIDEUSELABEL);
   }
   
   public void setInsecticideUseLabel(String value)
@@ -121,10 +121,10 @@ public abstract class InsecticideBrandUseProblemBase extends dss.vector.solution
     this.validateAttribute(INSECTICIDEUSEVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideUseValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getInsecticideUseValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandUseProblem.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEUSEVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(INSECTICIDEUSEVALUE);
   }
   
   public void setInsecticideUseValue(String value)

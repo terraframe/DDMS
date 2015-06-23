@@ -31,10 +31,10 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     this.validateAttribute(GEOROOT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoRootMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoRootMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
-    return mdClassIF.definesAttribute(GEOROOT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOROOT);
   }
   
   public void setGeoRoot(String value)
@@ -71,10 +71,10 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     this.validateAttribute(PERSON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPersonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
-    return mdClassIF.definesAttribute(PERSON);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PERSON);
   }
   
   public void setPerson(dss.vector.solutions.Person value)
@@ -111,10 +111,10 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     this.validateAttribute(ROOTGEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRootGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getRootGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
-    return mdClassIF.definesAttribute(ROOTGEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ROOTGEOENTITY);
   }
   
   public void setRootGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)

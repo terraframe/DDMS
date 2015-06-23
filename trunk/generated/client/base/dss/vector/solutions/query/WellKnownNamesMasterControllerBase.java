@@ -10,8 +10,6 @@ public class WellKnownNamesMasterControllerBase implements com.runwaysdk.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 456875773;
-  
   public WellKnownNamesMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

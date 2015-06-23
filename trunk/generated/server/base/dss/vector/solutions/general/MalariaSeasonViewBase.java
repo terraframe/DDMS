@@ -35,15 +35,20 @@ public abstract class MalariaSeasonViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonView.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -68,10 +73,10 @@ public abstract class MalariaSeasonViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -96,10 +101,10 @@ public abstract class MalariaSeasonViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getSeasonName()
@@ -112,10 +117,10 @@ public abstract class MalariaSeasonViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(SEASONNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSeasonNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonView.CLASS);
-    return mdClassIF.definesAttribute(SEASONNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEASONNAME);
   }
   
   public void setSeasonName(String value)
@@ -140,10 +145,10 @@ public abstract class MalariaSeasonViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

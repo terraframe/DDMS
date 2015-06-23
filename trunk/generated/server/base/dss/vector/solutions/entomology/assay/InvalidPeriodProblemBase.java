@@ -34,10 +34,10 @@ public abstract class InvalidPeriodProblemBase extends dss.vector.solutions.Noti
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidPeriodProblem.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)

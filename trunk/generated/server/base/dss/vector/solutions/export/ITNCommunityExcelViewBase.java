@@ -46,10 +46,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(AGENTFIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgentFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAgentFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(AGENTFIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGENTFIRSTNAME);
   }
   
   public void setAgentFirstName(String value)
@@ -74,10 +74,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(AGENTSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgentSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAgentSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(AGENTSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGENTSURNAME);
   }
   
   public void setAgentSurname(String value)
@@ -102,10 +102,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(BATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(BATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BATCHNUMBER);
   }
   
   public void setBatchNumber(String value)
@@ -130,10 +130,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(CURRENCYRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrencyReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCurrencyReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(CURRENCYRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CURRENCYRECEIVED);
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -160,15 +160,20 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getDistributionLocationId()
+  {
+    return getValue(DISTRIBUTIONLOCATION);
+  }
+  
   public void validateDistributionLocation()
   {
     this.validateAttribute(DISTRIBUTIONLOCATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDistributionLocationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDistributionLocationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(DISTRIBUTIONLOCATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISTRIBUTIONLOCATION);
   }
   
   public void setDistributionLocation(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -193,10 +198,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -221,10 +226,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ENTRYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntryTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEntryTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENTRYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENTRYTYPE);
   }
   
   public void setEntryType(Boolean value)
@@ -251,15 +256,20 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getHouseholdAddressId()
+  {
+    return getValue(HOUSEHOLDADDRESS);
+  }
+  
   public void validateHouseholdAddress()
   {
     this.validateAttribute(HOUSEHOLDADDRESS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdAddressMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getHouseholdAddressMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDADDRESS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(HOUSEHOLDADDRESS);
   }
   
   public void setHouseholdAddress(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -284,10 +294,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(HOUSEHOLDNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLDNAME);
   }
   
   public void setHouseholdName(String value)
@@ -312,10 +322,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(HOUSEHOLDSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLDSURNAME);
   }
   
   public void setHouseholdSurname(String value)
@@ -340,10 +350,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getItnsReceived()
@@ -356,10 +366,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ITNSRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItnsReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getItnsReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ITNSRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ITNSRECEIVED);
   }
   
   public void setItnsReceived(Integer value)
@@ -384,10 +394,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(NUMBERRETRIEVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberRetrievedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRetrievedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERRETRIEVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERRETRIEVED);
   }
   
   public void setNumberRetrieved(Integer value)
@@ -412,10 +422,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(PRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPretreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPretreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(PRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PRETREATED);
   }
   
   public void setPretreated(Boolean value)
@@ -440,10 +450,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(RESIDENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResidentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getResidentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(RESIDENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RESIDENTS);
   }
   
   public void setResidents(Integer value)
@@ -468,10 +478,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(RETRIEVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRetrievedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRetrievedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(RETRIEVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RETRIEVED);
   }
   
   public void setRetrieved(Boolean value)
@@ -496,10 +506,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(SOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSoldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSoldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(SOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SOLD);
   }
   
   public void setSold(Boolean value)
@@ -524,10 +534,10 @@ public abstract class ITNCommunityExcelViewBase extends com.runwaysdk.business.V
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNCommunityExcelView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

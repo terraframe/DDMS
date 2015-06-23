@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class LarvacideExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 171173917;
 
   public LarvacideExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

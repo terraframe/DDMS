@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -365733766)
+@com.runwaysdk.business.ClassSignature(hash = 1774726541)
 public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.ReportItem";
-  private static final long serialVersionUID = -365733766;
+  private static final long serialVersionUID = 1774726541;
   
   protected ReportItemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -758,22 +758,6 @@ public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessD
     Object[] _parameters = new Object[]{id, outputStream, parameters, baseURL, reportURL};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "render", _declaredTypes);
     return (java.lang.Long) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final void saveResourcesBundle(java.io.InputStream fileStream)
-  {
-    String[] _declaredTypes = new String[]{"java.io.InputStream"};
-    Object[] _parameters = new Object[]{fileStream};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "saveResourcesBundle", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final void saveResourcesBundle(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.InputStream fileStream)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.io.InputStream"};
-    Object[] _parameters = new Object[]{id, fileStream};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.ReportItemDTO.CLASS, "saveResourcesBundle", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void uploadResources(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream resourcesIS, java.lang.String nameOfResource)

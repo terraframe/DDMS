@@ -10,7 +10,6 @@ package dss.vector.solutions.irs;
  */
 public  class InTeamQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 534627605;
 
   public InTeamQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

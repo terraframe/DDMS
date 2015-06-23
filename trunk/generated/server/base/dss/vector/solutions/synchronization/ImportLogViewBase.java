@@ -31,10 +31,10 @@ public abstract class ImportLogViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getLastExportSeq()
@@ -47,10 +47,10 @@ public abstract class ImportLogViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(LASTEXPORTSEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastExportSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLastExportSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
-    return mdClassIF.definesAttribute(LASTEXPORTSEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LASTEXPORTSEQ);
   }
   
   public void setLastExportSeq(Integer value)
@@ -75,10 +75,10 @@ public abstract class ImportLogViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(SOURCESITE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSourceSiteMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSourceSiteMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
-    return mdClassIF.definesAttribute(SOURCESITE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SOURCESITE);
   }
   
   public void setSourceSite(String value)

@@ -35,10 +35,10 @@ public abstract class RelativeValueProblemBase extends dss.vector.solutions.Noti
     this.validateAttribute(RELATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRelationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getRelationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.RelativeValueProblem.CLASS);
-    return mdClassIF.definesAttribute(RELATION);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(RELATION);
   }
   
   public void setRelation(String value)
@@ -63,10 +63,10 @@ public abstract class RelativeValueProblemBase extends dss.vector.solutions.Noti
     this.validateAttribute(RELATIVEATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRelativeAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getRelativeAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.RelativeValueProblem.CLASS);
-    return mdClassIF.definesAttribute(RELATIVEATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(RELATIVEATTRIBUTELABEL);
   }
   
   public void setRelativeAttributeLabel(String value)

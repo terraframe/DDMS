@@ -226,6 +226,11 @@ public abstract class IndividualCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
+  }
+  
   public void setPatient(dss.vector.solutions.PatientDTO value)
   {
     if(value == null)
@@ -268,6 +273,11 @@ public abstract class IndividualCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(PROBABLESOURCE));
     }
+  }
+  
+  public String getProbableSourceId()
+  {
+    return getValue(PROBABLESOURCE);
   }
   
   public void setProbableSource(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -351,6 +361,11 @@ public abstract class IndividualCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getResidenceId()
+  {
+    return getValue(RESIDENCE);
+  }
+  
   public void setResidence(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -430,6 +445,11 @@ public abstract class IndividualCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKPLACE));
     }
+  }
+  
+  public String getWorkplaceId()
+  {
+    return getValue(WORKPLACE);
   }
   
   public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntityDTO value)

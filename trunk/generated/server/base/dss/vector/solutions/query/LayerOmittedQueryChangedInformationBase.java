@@ -31,10 +31,10 @@ public abstract class LayerOmittedQueryChangedInformationBase extends com.runway
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerOmittedQueryChangedInformation.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLayerName()
@@ -47,10 +47,10 @@ public abstract class LayerOmittedQueryChangedInformationBase extends com.runway
     this.validateAttribute(LAYERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerOmittedQueryChangedInformation.CLASS);
-    return mdClassIF.definesAttribute(LAYERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERNAME);
   }
   
   public void setLayerName(String value)
@@ -75,10 +75,10 @@ public abstract class LayerOmittedQueryChangedInformationBase extends com.runway
     this.validateAttribute(QUERYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQueryNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getQueryNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerOmittedQueryChangedInformation.CLASS);
-    return mdClassIF.definesAttribute(QUERYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(QUERYNAME);
   }
   
   public void setQueryName(String value)

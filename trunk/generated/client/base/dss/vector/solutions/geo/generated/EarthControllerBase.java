@@ -10,8 +10,6 @@ public class EarthControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -733793854;
-  
   public EarthControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

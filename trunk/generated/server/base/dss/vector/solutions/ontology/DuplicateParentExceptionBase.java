@@ -46,10 +46,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(CHILDTERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getChildTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getChildTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(CHILDTERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CHILDTERM);
   }
   
   public void setChildTerm(String value)
@@ -74,10 +74,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentTerm()
@@ -90,10 +90,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(PARENTTERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(PARENTTERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTTERM);
   }
   
   public void setParentTerm(String value)

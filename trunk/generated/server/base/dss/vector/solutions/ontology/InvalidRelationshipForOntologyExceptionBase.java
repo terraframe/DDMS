@@ -46,10 +46,10 @@ public abstract class InvalidRelationshipForOntologyExceptionBase extends com.ru
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.InvalidRelationshipForOntologyException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getOntology()
@@ -62,10 +62,10 @@ public abstract class InvalidRelationshipForOntologyExceptionBase extends com.ru
     this.validateAttribute(ONTOLOGY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOntologyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getOntologyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.InvalidRelationshipForOntologyException.CLASS);
-    return mdClassIF.definesAttribute(ONTOLOGY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ONTOLOGY);
   }
   
   public void setOntology(String value)
@@ -90,10 +90,10 @@ public abstract class InvalidRelationshipForOntologyExceptionBase extends com.ru
     this.validateAttribute(RELATIONSHIP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRelationshipMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRelationshipMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.InvalidRelationshipForOntologyException.CLASS);
-    return mdClassIF.definesAttribute(RELATIONSHIP);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RELATIONSHIP);
   }
   
   public void setRelationship(String value)

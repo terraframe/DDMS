@@ -86,6 +86,11 @@ public abstract class ResourceTargetViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
+  }
+  
   public void setSeason(dss.vector.solutions.general.MalariaSeasonDTO value)
   {
     if(value == null)
@@ -2126,6 +2131,11 @@ public abstract class ResourceTargetViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.irs.TargeterDTO.get(getRequest(), getValue(TARGETER));
     }
+  }
+  
+  public String getTargeterId()
+  {
+    return getValue(TARGETER);
   }
   
   public void setTargeter(dss.vector.solutions.irs.TargeterDTO value)

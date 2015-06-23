@@ -186,6 +186,11 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void setInsecticide(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
@@ -230,6 +235,11 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
     }
   }
   
+  public String getInterventionId()
+  {
+    return getValue(INTERVENTION);
+  }
+  
   public void setIntervention(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)
   {
     if(value == null)
@@ -272,6 +282,11 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(INTERVENTIONMETHOD));
     }
+  }
+  
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -353,6 +368,11 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(UNIT));
     }
+  }
+  
+  public String getUnitId()
+  {
+    return getValue(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.TermDTO value)

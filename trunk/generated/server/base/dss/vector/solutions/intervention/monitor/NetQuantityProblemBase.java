@@ -35,10 +35,10 @@ public abstract class NetQuantityProblemBase extends dss.vector.solutions.Notifi
     this.validateAttribute(NETCOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetCountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNetCountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NetQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(NETCOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NETCOUNT);
   }
   
   public void setNetCount(Integer value)
@@ -63,10 +63,10 @@ public abstract class NetQuantityProblemBase extends dss.vector.solutions.Notifi
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NetQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)

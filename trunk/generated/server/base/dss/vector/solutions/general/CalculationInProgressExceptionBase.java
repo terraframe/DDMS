@@ -45,10 +45,10 @@ public abstract class CalculationInProgressExceptionBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.CalculationInProgressException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getPercentComplete()
@@ -61,10 +61,10 @@ public abstract class CalculationInProgressExceptionBase extends com.runwaysdk.b
     this.validateAttribute(PERCENTCOMPLETE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPercentCompleteMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPercentCompleteMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.CalculationInProgressException.CLASS);
-    return mdClassIF.definesAttribute(PERCENTCOMPLETE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERCENTCOMPLETE);
   }
   
   public void setPercentComplete(Integer value)

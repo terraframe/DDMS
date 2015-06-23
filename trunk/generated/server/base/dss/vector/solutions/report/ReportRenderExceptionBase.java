@@ -45,10 +45,10 @@ public abstract class ReportRenderExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ERRORMESSAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getErrorMessageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getErrorMessageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportRenderException.CLASS);
-    return mdClassIF.definesAttribute(ERRORMESSAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ERRORMESSAGE);
   }
   
   public void setErrorMessage(String value)
@@ -73,10 +73,10 @@ public abstract class ReportRenderExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportRenderException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

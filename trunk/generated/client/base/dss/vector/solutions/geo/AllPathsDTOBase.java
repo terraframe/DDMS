@@ -55,6 +55,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     }
   }
   
+  public String getChildGeoEntityId()
+  {
+    return getValue(CHILDGEOENTITY);
+  }
+  
   public void setChildGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -97,6 +102,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     {
       return com.runwaysdk.system.metadata.MdBusinessDTO.get(getRequest(), getValue(CHILDUNIVERSAL));
     }
+  }
+  
+  public String getChildUniversalId()
+  {
+    return getValue(CHILDUNIVERSAL);
   }
   
   public void setChildUniversal(com.runwaysdk.system.metadata.MdBusinessDTO value)
@@ -168,6 +178,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -198,6 +213,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -306,6 +326,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -338,6 +363,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -368,6 +398,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -414,6 +449,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     }
   }
   
+  public String getParentGeoEntityId()
+  {
+    return getValue(PARENTGEOENTITY);
+  }
+  
   public void setParentGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -456,6 +496,11 @@ public abstract class AllPathsDTOBase extends com.runwaysdk.business.BusinessDTO
     {
       return com.runwaysdk.system.metadata.MdBusinessDTO.get(getRequest(), getValue(PARENTUNIVERSAL));
     }
+  }
+  
+  public String getParentUniversalId()
+  {
+    return getValue(PARENTUNIVERSAL);
   }
   
   public void setParentUniversal(com.runwaysdk.system.metadata.MdBusinessDTO value)

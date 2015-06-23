@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  abstract  class EpiConfigurationQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 225266757;
 
   public EpiConfigurationQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -36,10 +36,10 @@ public abstract class SystemAlertTypeMasterBase extends com.runwaysdk.system.Enu
     this.validateAttribute(EMAILBODYTEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBodyTextMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF getEmailBodyTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlertTypeMaster.CLASS);
-    return mdClassIF.definesAttribute(EMAILBODYTEXT);
+    return (com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF)mdClassIF.definesAttribute(EMAILBODYTEXT);
   }
   
   public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables getEmailTemplateVariables()
@@ -52,10 +52,10 @@ public abstract class SystemAlertTypeMasterBase extends com.runwaysdk.system.Enu
     this.validateAttribute(EMAILTEMPLATEVARIABLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailTemplateVariablesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF getEmailTemplateVariablesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlertTypeMaster.CLASS);
-    return mdClassIF.definesAttribute(EMAILTEMPLATEVARIABLES);
+    return (com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF)mdClassIF.definesAttribute(EMAILTEMPLATEVARIABLES);
   }
   
   protected String getDeclaredType()

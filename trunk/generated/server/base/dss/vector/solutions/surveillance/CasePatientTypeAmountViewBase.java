@@ -32,10 +32,10 @@ public abstract class CasePatientTypeAmountViewBase extends com.runwaysdk.busine
     this.validateAttribute(AMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.CasePatientTypeAmountView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AMOUNT);
   }
   
   public void setAmount(Integer value)
@@ -60,10 +60,10 @@ public abstract class CasePatientTypeAmountViewBase extends com.runwaysdk.busine
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.CasePatientTypeAmountView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.surveillance.CasePatientType getPatient()
@@ -78,15 +78,20 @@ public abstract class CasePatientTypeAmountViewBase extends com.runwaysdk.busine
     }
   }
   
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
+  }
+  
   public void validatePatient()
   {
     this.validateAttribute(PATIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPatientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.CasePatientTypeAmountView.CLASS);
-    return mdClassIF.definesAttribute(PATIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PATIENT);
   }
   
   public void setPatient(dss.vector.solutions.surveillance.CasePatientType value)
@@ -113,15 +118,20 @@ public abstract class CasePatientTypeAmountViewBase extends com.runwaysdk.busine
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void validateTerm()
   {
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.CasePatientTypeAmountView.CLASS);
-    return mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)

@@ -77,6 +77,11 @@ public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -107,6 +112,11 @@ public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessD
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -252,6 +262,11 @@ public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -284,6 +299,11 @@ public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -314,6 +334,11 @@ public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessD
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

@@ -46,10 +46,10 @@ public abstract class ExportSequenceExceptionBase extends com.runwaysdk.business
     this.validateAttribute(ENDSEQUENCE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndSequenceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getEndSequenceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.standalone.ExportSequenceException.CLASS);
-    return mdClassIF.definesAttribute(ENDSEQUENCE);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(ENDSEQUENCE);
   }
   
   public void setEndSequence(Long value)
@@ -74,10 +74,10 @@ public abstract class ExportSequenceExceptionBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.standalone.ExportSequenceException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Long getStartSequence()
@@ -90,10 +90,10 @@ public abstract class ExportSequenceExceptionBase extends com.runwaysdk.business
     this.validateAttribute(STARTSEQUENCE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartSequenceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getStartSequenceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.standalone.ExportSequenceException.CLASS);
-    return mdClassIF.definesAttribute(STARTSEQUENCE);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(STARTSEQUENCE);
   }
   
   public void setStartSequence(Long value)

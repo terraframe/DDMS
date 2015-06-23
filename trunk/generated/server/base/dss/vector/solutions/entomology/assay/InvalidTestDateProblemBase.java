@@ -35,10 +35,10 @@ public abstract class InvalidTestDateProblemBase extends dss.vector.solutions.No
     this.validateAttribute(COLLECTIONDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getCollectionDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidTestDateProblem.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(COLLECTIONDATE);
   }
   
   public void setCollectionDate(java.util.Date value)
@@ -63,10 +63,10 @@ public abstract class InvalidTestDateProblemBase extends dss.vector.solutions.No
     this.validateAttribute(TESTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getTestDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidTestDateProblem.CLASS);
-    return mdClassIF.definesAttribute(TESTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(TESTDATE);
   }
   
   public void setTestDate(java.util.Date value)

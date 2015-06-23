@@ -69,6 +69,11 @@ public abstract class AggregatedPremiseMethodViewDTOBase extends com.runwaysdk.b
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -111,6 +116,11 @@ public abstract class AggregatedPremiseMethodViewDTOBase extends com.runwaysdk.b
     {
       return dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO.get(getRequest(), getValue(VISIT));
     }
+  }
+  
+  public String getVisitId()
+  {
+    return getValue(VISIT);
   }
   
   public void setVisit(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO value)

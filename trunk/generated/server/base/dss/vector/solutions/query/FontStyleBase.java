@@ -29,10 +29,10 @@ public abstract class FontStyleBase extends com.runwaysdk.system.EnumerationMast
     this.validateAttribute(PRIORITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPriorityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPriorityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FontStyle.CLASS);
-    return mdClassIF.definesAttribute(PRIORITY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PRIORITY);
   }
   
   public void setPriority(Integer value)

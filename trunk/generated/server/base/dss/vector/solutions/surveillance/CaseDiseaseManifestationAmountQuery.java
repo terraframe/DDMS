@@ -10,7 +10,6 @@ package dss.vector.solutions.surveillance;
  */
 public  class CaseDiseaseManifestationAmountQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -235710756;
 
   public CaseDiseaseManifestationAmountQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

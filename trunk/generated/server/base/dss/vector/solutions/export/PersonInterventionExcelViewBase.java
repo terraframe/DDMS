@@ -29,10 +29,10 @@ public abstract class PersonInterventionExcelViewBase extends dss.vector.solutio
     this.validateAttribute(VEHICLEDAYS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVehicleDaysMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVehicleDaysMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonInterventionExcelView.CLASS);
-    return mdClassIF.definesAttribute(VEHICLEDAYS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VEHICLEDAYS);
   }
   
   public void setVehicleDays(Integer value)

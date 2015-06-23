@@ -34,10 +34,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(CUSTOMTEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCustomTextMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCustomTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(CUSTOMTEXT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CUSTOMTEXT);
   }
   
   public void setCustomText(String value)
@@ -62,10 +62,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTextFontFamily()
@@ -78,10 +78,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TEXTFONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextFontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTextFontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(TEXTFONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEXTFONTFAMILY);
   }
   
   public void setTextFontFamily(String value)
@@ -106,10 +106,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TEXTFONTFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextFontFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTextFontFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(TEXTFONTFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEXTFONTFILL);
   }
   
   public void setTextFontFill(String value)
@@ -134,10 +134,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TEXTFONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextFontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTextFontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(TEXTFONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TEXTFONTSIZE);
   }
   
   public void setTextFontSize(Integer value)
@@ -184,10 +184,10 @@ public abstract class FreeTextBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TEXTFONTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextFontStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getTextFontStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.FreeText.CLASS);
-    return mdClassIF.definesAttribute(TEXTFONTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(TEXTFONTSTYLES);
   }
   
   protected String getDeclaredType()

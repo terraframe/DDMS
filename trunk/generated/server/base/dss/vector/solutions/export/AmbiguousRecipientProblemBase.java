@@ -37,10 +37,10 @@ public abstract class AmbiguousRecipientProblemBase extends com.runwaysdk.busine
     this.validateAttribute(DOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDobMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getDobMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AmbiguousRecipientProblem.CLASS);
-    return mdClassIF.definesAttribute(DOB);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(DOB);
   }
   
   public void setDob(java.util.Date value)
@@ -65,10 +65,10 @@ public abstract class AmbiguousRecipientProblemBase extends com.runwaysdk.busine
     this.validateAttribute(FIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AmbiguousRecipientProblem.CLASS);
-    return mdClassIF.definesAttribute(FIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FIRSTNAME);
   }
   
   public void setFirstName(String value)
@@ -93,10 +93,10 @@ public abstract class AmbiguousRecipientProblemBase extends com.runwaysdk.busine
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AmbiguousRecipientProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLastName()
@@ -109,10 +109,10 @@ public abstract class AmbiguousRecipientProblemBase extends com.runwaysdk.busine
     this.validateAttribute(LASTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLastNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AmbiguousRecipientProblem.CLASS);
-    return mdClassIF.definesAttribute(LASTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LASTNAME);
   }
   
   public void setLastName(String value)

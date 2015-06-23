@@ -146,6 +146,11 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.runwaysdk.busines
     }
   }
   
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
+  }
+  
   public void setPatient(dss.vector.solutions.PersonDTO value)
   {
     if(value == null)

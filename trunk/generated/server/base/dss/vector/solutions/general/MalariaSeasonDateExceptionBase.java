@@ -46,10 +46,10 @@ public abstract class MalariaSeasonDateExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonDateException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getSeasonName()
@@ -62,10 +62,10 @@ public abstract class MalariaSeasonDateExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(SEASONNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSeasonNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonDateException.CLASS);
-    return mdClassIF.definesAttribute(SEASONNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEASONNAME);
   }
   
   public void setSeasonName(String value)
@@ -90,10 +90,10 @@ public abstract class MalariaSeasonDateExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(WEEKDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeekDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getWeekDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonDateException.CLASS);
-    return mdClassIF.definesAttribute(WEEKDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(WEEKDATE);
   }
   
   public void setWeekDate(java.util.Date value)

@@ -58,6 +58,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getAggregatedPremiseUniversalId()
+  {
+    return getValue(AGGREGATEDPREMISEUNIVERSAL);
+  }
+  
   public void setAggregatedPremiseUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
   {
     if(value == null)
@@ -164,6 +169,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -194,6 +204,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -277,6 +292,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -321,6 +341,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -363,6 +388,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(INDIVIDULPREMISEUNIVERSAL));
     }
+  }
+  
+  public String getIndividulPremiseUniversalId()
+  {
+    return getValue(INDIVIDULPREMISEUNIVERSAL);
   }
   
   public void setIndividulPremiseUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
@@ -471,6 +501,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -503,6 +538,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -533,6 +573,11 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

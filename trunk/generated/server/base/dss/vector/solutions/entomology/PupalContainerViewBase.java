@@ -49,10 +49,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -77,10 +77,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONTAINERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getContainerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTAINERID);
   }
   
   public void setContainerId(String value)
@@ -105,10 +105,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONTAINERLENGTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerLengthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getContainerLengthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERLENGTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTAINERLENGTH);
   }
   
   public void setContainerLength(java.math.BigDecimal value)
@@ -135,15 +135,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getContainerTypeId()
+  {
+    return getValue(CONTAINERTYPE);
+  }
+  
   public void validateContainerType()
   {
     this.validateAttribute(CONTAINERTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getContainerTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTAINERTYPE);
   }
   
   public void setContainerType(dss.vector.solutions.ontology.Term value)
@@ -168,10 +173,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(DIAMETER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiameterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDiameterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(DIAMETER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DIAMETER);
   }
   
   public void setDiameter(java.math.BigDecimal value)
@@ -198,15 +203,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getDrawdownFrequencyId()
+  {
+    return getValue(DRAWDOWNFREQUENCY);
+  }
+  
   public void validateDrawdownFrequency()
   {
     this.validateAttribute(DRAWDOWNFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDrawdownFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDrawdownFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(DRAWDOWNFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DRAWDOWNFREQUENCY);
   }
   
   public void setDrawdownFrequency(dss.vector.solutions.ontology.Term value)
@@ -231,10 +241,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(DRAWDOWNPERCENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDrawdownPercentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDrawdownPercentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(DRAWDOWNPERCENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DRAWDOWNPERCENT);
   }
   
   public void setDrawdownPercent(Integer value)
@@ -261,15 +271,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getFillFrequencyId()
+  {
+    return getValue(FILLFREQUENCY);
+  }
+  
   public void validateFillFrequency()
   {
     this.validateAttribute(FILLFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFillFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFillFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(FILLFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FILLFREQUENCY);
   }
   
   public void setFillFrequency(dss.vector.solutions.ontology.Term value)
@@ -296,15 +311,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getFillMethodId()
+  {
+    return getValue(FILLMETHOD);
+  }
+  
   public void validateFillMethod()
   {
     this.validateAttribute(FILLMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFillMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFillMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(FILLMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FILLMETHOD);
   }
   
   public void setFillMethod(dss.vector.solutions.ontology.Term value)
@@ -329,10 +349,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(HEIGHT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHeightMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(HEIGHT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HEIGHT);
   }
   
   public void setHeight(java.math.BigDecimal value)
@@ -357,10 +377,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getLid()
@@ -375,15 +395,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getLidId()
+  {
+    return getValue(LID);
+  }
+  
   public void validateLid()
   {
     this.validateAttribute(LID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(LID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LID);
   }
   
   public void setLid(dss.vector.solutions.ontology.Term value)
@@ -408,10 +433,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(OPENINGDIAMETER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningDiameterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningDiameterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGDIAMETER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGDIAMETER);
   }
   
   public void setOpeningDiameter(java.math.BigDecimal value)
@@ -436,10 +461,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(OPENINGLENGTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningLengthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningLengthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGLENGTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGLENGTH);
   }
   
   public void setOpeningLength(java.math.BigDecimal value)
@@ -464,10 +489,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(OPENINGWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpeningWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOpeningWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(OPENINGWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OPENINGWIDTH);
   }
   
   public void setOpeningWidth(java.math.BigDecimal value)
@@ -494,15 +519,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getPremiseId()
+  {
+    return getValue(PREMISE);
+  }
+  
   public void validatePremise()
   {
     this.validateAttribute(PREMISE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremiseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(PREMISE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISE);
   }
   
   public void setPremise(dss.vector.solutions.entomology.PupalPremise value)
@@ -529,15 +559,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getPupaeAmountId()
+  {
+    return getValue(PUPAEAMOUNT);
+  }
+  
   public void validatePupaeAmount()
   {
     this.validateAttribute(PUPAEAMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPupaeAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPupaeAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(PUPAEAMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PUPAEAMOUNT);
   }
   
   public void setPupaeAmount(dss.vector.solutions.ontology.Term value)
@@ -564,15 +599,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getRoofId()
+  {
+    return getValue(ROOF);
+  }
+  
   public void validateRoof()
   {
     this.validateAttribute(ROOF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoofMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(ROOF);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOF);
   }
   
   public void setRoof(dss.vector.solutions.ontology.Term value)
@@ -599,15 +639,20 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getShadingId()
+  {
+    return getValue(SHADING);
+  }
+  
   public void validateShading()
   {
     this.validateAttribute(SHADING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShadingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getShadingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(SHADING);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SHADING);
   }
   
   public void setShading(dss.vector.solutions.ontology.Term value)
@@ -654,10 +699,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SHAPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShapeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getShapeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(SHAPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SHAPE);
   }
   
   public java.math.BigDecimal getWidth()
@@ -670,10 +715,10 @@ public abstract class PupalContainerViewBase extends com.runwaysdk.business.View
     this.validateAttribute(WIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalContainerView.CLASS);
-    return mdClassIF.definesAttribute(WIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WIDTH);
   }
   
   public void setWidth(java.math.BigDecimal value)

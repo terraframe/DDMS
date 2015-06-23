@@ -31,10 +31,10 @@ public abstract class ResistantCollectionBase extends com.runwaysdk.business.Inf
     this.validateAttribute(ACTIVEINGREDIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActiveIngredientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getActiveIngredientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.ResistantCollection.CLASS);
-    return mdClassIF.definesAttribute(ACTIVEINGREDIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(String value)
@@ -59,10 +59,10 @@ public abstract class ResistantCollectionBase extends com.runwaysdk.business.Inf
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.ResistantCollection.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -87,10 +87,10 @@ public abstract class ResistantCollectionBase extends com.runwaysdk.business.Inf
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.ResistantCollection.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

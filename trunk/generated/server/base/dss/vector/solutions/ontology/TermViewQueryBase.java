@@ -11,7 +11,6 @@ package dss.vector.solutions.ontology;
 public  abstract  class TermViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1226590272;
 
   public TermViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

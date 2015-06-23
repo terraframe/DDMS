@@ -10,7 +10,6 @@ package dss.vector.solutions.ontology;
  */
 public  class InactiveByDiseaseQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 273297471;
 
   public InactiveByDiseaseQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

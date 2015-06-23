@@ -34,10 +34,10 @@ public abstract class CurrentYearProblemBase extends dss.vector.solutions.Notifi
     this.validateAttribute(YEAROFDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearOfDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getYearOfDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.CurrentYearProblem.CLASS);
-    return mdClassIF.definesAttribute(YEAROFDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(YEAROFDATE);
   }
   
   public void setYearOfDate(Integer value)

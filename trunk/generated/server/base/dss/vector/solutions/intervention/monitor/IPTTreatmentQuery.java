@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class IPTTreatmentQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1182344203;
 
   public IPTTreatmentQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

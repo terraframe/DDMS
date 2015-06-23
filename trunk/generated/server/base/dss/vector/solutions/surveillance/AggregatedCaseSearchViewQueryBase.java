@@ -11,7 +11,6 @@ package dss.vector.solutions.surveillance;
 public  abstract  class AggregatedCaseSearchViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1449438208;
 
   public AggregatedCaseSearchViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -155,6 +155,11 @@ public abstract class IndividualIPTViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getDoseNumberId()
+  {
+    return getValue(DOSENUMBER);
+  }
+  
   public void setDoseNumber(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -197,6 +202,11 @@ public abstract class IndividualIPTViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DOSETYPE));
     }
+  }
+  
+  public String getDoseTypeId()
+  {
+    return getValue(DOSETYPE);
   }
   
   public void setDoseType(dss.vector.solutions.ontology.TermDTO value)
@@ -317,6 +327,11 @@ public abstract class IndividualIPTViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getIptCaseId()
+  {
+    return getValue(IPTCASE);
+  }
+  
   public void setIptCase(dss.vector.solutions.intervention.monitor.IndividualIPTCaseDTO value)
   {
     if(value == null)
@@ -433,6 +448,11 @@ public abstract class IndividualIPTViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PATIENTTYPE));
     }
+  }
+  
+  public String getPatientTypeId()
+  {
+    return getValue(PATIENTTYPE);
   }
   
   public void setPatientType(dss.vector.solutions.ontology.TermDTO value)
@@ -588,6 +608,11 @@ public abstract class IndividualIPTViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(VISITNUMBER));
     }
+  }
+  
+  public String getVisitNumberId()
+  {
+    return getValue(VISITNUMBER);
   }
   
   public void setVisitNumber(dss.vector.solutions.ontology.TermDTO value)

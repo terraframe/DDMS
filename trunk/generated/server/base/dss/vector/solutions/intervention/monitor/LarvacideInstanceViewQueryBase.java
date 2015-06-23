@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class LarvacideInstanceViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -823038210;
 
   public LarvacideInstanceViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

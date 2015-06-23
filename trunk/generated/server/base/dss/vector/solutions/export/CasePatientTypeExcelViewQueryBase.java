@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class CasePatientTypeExcelViewQueryBase extends dss.vector.solutions.export.AggregatedCaseExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -919865760;
 
   public CasePatientTypeExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

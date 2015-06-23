@@ -32,10 +32,10 @@ public abstract class AggregatedPremiseReasonViewBase extends com.runwaysdk.busi
     this.validateAttribute(AMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AMOUNT);
   }
   
   public void setAmount(Integer value)
@@ -60,10 +60,10 @@ public abstract class AggregatedPremiseReasonViewBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getTerm()
@@ -78,15 +78,20 @@ public abstract class AggregatedPremiseReasonViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void validateTerm()
   {
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView.CLASS);
-    return mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)
@@ -113,15 +118,20 @@ public abstract class AggregatedPremiseReasonViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getVisitId()
+  {
+    return getValue(VISIT);
+  }
+  
   public void validateVisit()
   {
     this.validateAttribute(VISIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVisitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getVisitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView.CLASS);
-    return mdClassIF.definesAttribute(VISIT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(VISIT);
   }
   
   public void setVisit(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit value)

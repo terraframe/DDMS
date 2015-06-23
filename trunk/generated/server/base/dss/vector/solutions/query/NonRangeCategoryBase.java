@@ -29,10 +29,10 @@ public abstract class NonRangeCategoryBase extends dss.vector.solutions.query.Ab
     this.validateAttribute(EXACTVALUESTR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExactValueStrMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getExactValueStrMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.NonRangeCategory.CLASS);
-    return mdClassIF.definesAttribute(EXACTVALUESTR);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(EXACTVALUESTR);
   }
   
   public void setExactValueStr(String value)

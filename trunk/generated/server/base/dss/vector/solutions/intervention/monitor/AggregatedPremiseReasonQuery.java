@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class AggregatedPremiseReasonQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 826370013;
 
   public AggregatedPremiseReasonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

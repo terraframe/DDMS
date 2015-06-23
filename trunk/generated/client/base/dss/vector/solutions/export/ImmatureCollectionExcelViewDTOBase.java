@@ -163,6 +163,11 @@ public abstract class ImmatureCollectionExcelViewDTOBase extends com.runwaysdk.b
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)

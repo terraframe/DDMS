@@ -78,10 +78,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ALERTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getAlertTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(ALERTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(ALERTTYPE);
   }
   
   public java.util.Date getCreateDate()
@@ -94,10 +94,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -122,10 +122,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public dss.vector.solutions.general.Disease getDisease()
@@ -150,10 +150,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -178,10 +178,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILBCCADDRESSES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBccAddressesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getEmailBccAddressesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILBCCADDRESSES);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(EMAILBCCADDRESSES);
   }
   
   public void setEmailBccAddresses(String value)
@@ -206,10 +206,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILBODYTEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBodyTextMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF getEmailBodyTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILBODYTEXT);
+    return (com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF)mdClassIF.definesAttribute(EMAILBODYTEXT);
   }
   
   public String getEmailCcAddresses()
@@ -222,10 +222,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILCCADDRESSES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailCcAddressesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getEmailCcAddressesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILCCADDRESSES);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(EMAILCCADDRESSES);
   }
   
   public void setEmailCcAddresses(String value)
@@ -250,10 +250,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILFROMADDRESS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailFromAddressMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEmailFromAddressMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILFROMADDRESS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(EMAILFROMADDRESS);
   }
   
   public void setEmailFromAddress(String value)
@@ -278,10 +278,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILSUBJECTTEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailSubjectTextMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF getEmailSubjectTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILSUBJECTTEXT);
+    return (com.runwaysdk.dataaccess.MdAttributeLocalTextDAOIF)mdClassIF.definesAttribute(EMAILSUBJECTTEXT);
   }
   
   public String getEmailToAddresses()
@@ -294,10 +294,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(EMAILTOADDRESSES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailToAddressesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getEmailToAddressesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILTOADDRESSES);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(EMAILTOADDRESSES);
   }
   
   public void setEmailToAddresses(String value)
@@ -334,10 +334,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -362,10 +362,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getIsEmailActive()
@@ -378,10 +378,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ISEMAILACTIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsEmailActiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsEmailActiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(ISEMAILACTIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISEMAILACTIVE);
   }
   
   public void setIsEmailActive(Boolean value)
@@ -406,10 +406,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ISONSCREENACTIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsOnscreenActiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsOnscreenActiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(ISONSCREENACTIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISONSCREENACTIVE);
   }
   
   public void setIsOnscreenActive(Boolean value)
@@ -434,10 +434,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -462,10 +462,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -490,10 +490,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -518,10 +518,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -546,10 +546,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -574,10 +574,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -590,10 +590,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -606,10 +606,10 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

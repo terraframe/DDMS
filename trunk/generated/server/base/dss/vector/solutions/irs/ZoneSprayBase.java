@@ -36,15 +36,20 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     }
   }
   
+  public String getBrandForIndexId()
+  {
+    return getValue(BRANDFORINDEX);
+  }
+  
   public void validateBrandForIndex()
   {
     this.validateAttribute(BRANDFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getBrandForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(BRANDFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(BRANDFORINDEX);
   }
   
   public void setBrandForIndex(dss.vector.solutions.irs.InsecticideBrand value)
@@ -71,15 +76,20 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -106,15 +116,20 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     }
   }
   
+  public String getGeoEntityForIndexId()
+  {
+    return getValue(GEOENTITYFORINDEX);
+  }
+  
   public void validateGeoEntityForIndex()
   {
     this.validateAttribute(GEOENTITYFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITYFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITYFORINDEX);
   }
   
   public void setGeoEntityForIndex(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -139,10 +154,10 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     this.validateAttribute(SPRAYDATEFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayDateForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getSprayDateForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYDATEFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(SPRAYDATEFORINDEX);
   }
   
   public void setSprayDateForIndex(java.util.Date value)
@@ -167,10 +182,10 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     this.validateAttribute(SPRAYMETHODFORINDEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMethodForIndexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayMethodForIndexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYMETHODFORINDEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYMETHODFORINDEX);
   }
   
   public void setSprayMethodForIndex(String value)
@@ -197,15 +212,20 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     }
   }
   
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
   public void validateSupervisor()
   {
     this.validateAttribute(SUPERVISOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSupervisorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISOR);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SUPERVISOR);
   }
   
   public void setSupervisor(dss.vector.solutions.irs.Supervisor value)

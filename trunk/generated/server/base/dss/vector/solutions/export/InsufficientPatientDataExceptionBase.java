@@ -50,10 +50,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(DOBLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDobLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDobLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(DOBLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DOBLABEL);
   }
   
   public void setDobLabel(String value)
@@ -78,10 +78,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(FIRSTNAMELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstNameLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFirstNameLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(FIRSTNAMELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FIRSTNAMELABEL);
   }
   
   public void setFirstNameLabel(String value)
@@ -106,10 +106,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getIdentifierLabel()
@@ -122,10 +122,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(IDENTIFIERLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdentifierLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFIERLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(IDENTIFIERLABEL);
   }
   
   public void setIdentifierLabel(String value)
@@ -150,10 +150,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(LASTNAMELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastNameLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLastNameLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(LASTNAMELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LASTNAMELABEL);
   }
   
   public void setLastNameLabel(String value)
@@ -178,10 +178,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(SEXLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSexLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(SEXLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEXLABEL);
   }
   
   public void setSexLabel(String value)
@@ -206,10 +206,10 @@ public abstract class InsufficientPatientDataExceptionBase extends com.runwaysdk
     this.validateAttribute(TYPELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsufficientPatientDataException.CLASS);
-    return mdClassIF.definesAttribute(TYPELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPELABEL);
   }
   
   public void setTypeLabel(String value)

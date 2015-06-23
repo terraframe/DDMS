@@ -87,6 +87,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getDamagedId()
+  {
+    return getValue(DAMAGED);
+  }
+  
   public void setDamaged(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -131,6 +136,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getHangingId()
+  {
+    return getValue(HANGING);
+  }
+  
   public void setHanging(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -173,6 +183,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.intervention.monitor.HouseholdDTO.get(getRequest(), getValue(HOUSEHOLD));
     }
+  }
+  
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLD);
   }
   
   public void setHousehold(dss.vector.solutions.intervention.monitor.HouseholdDTO value)
@@ -348,6 +363,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getNetBrandId()
+  {
+    return getValue(NETBRAND);
+  }
+  
   public void setNetBrand(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -466,6 +486,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getObtainedId()
+  {
+    return getValue(OBTAINED);
+  }
+  
   public void setObtained(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -545,6 +570,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PURPOSE));
     }
+  }
+  
+  public String getPurposeId()
+  {
+    return getValue(PURPOSE);
   }
   
   public void setPurpose(dss.vector.solutions.ontology.TermDTO value)
@@ -737,6 +767,11 @@ public abstract class ITNInstanceViewDTOBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(WASHPERIOD));
     }
+  }
+  
+  public String getWashPeriodId()
+  {
+    return getValue(WASHPERIOD);
   }
   
   public void setWashPeriod(dss.vector.solutions.ontology.TermDTO value)

@@ -54,10 +54,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -72,15 +72,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
@@ -95,15 +100,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -150,10 +160,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(HASBEENSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHasBeenSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getHasBeenSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(HASBEENSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(HASBEENSPRAYED);
   }
   
   public Boolean getHasWindows()
@@ -166,10 +176,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(HASWINDOWS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHasWindowsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getHasWindowsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(HASWINDOWS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(HASWINDOWS);
   }
   
   public void setHasWindows(Boolean value)
@@ -194,10 +204,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(HOUSEHOLDNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLDNAME);
   }
   
   public void setHouseholdName(String value)
@@ -222,10 +232,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -238,10 +248,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -266,10 +276,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(LASTSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLastSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(LASTSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LASTSPRAYED);
   }
   
   public void setLastSprayed(Integer value)
@@ -294,10 +304,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -312,15 +322,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -335,15 +350,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public Integer getNets()
@@ -356,10 +376,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(NETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(NETS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NETS);
   }
   
   public void setNets(Integer value)
@@ -386,15 +406,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -419,10 +444,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(PEOPLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeopleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeopleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(PEOPLE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PEOPLE);
   }
   
   public void setPeople(Integer value)
@@ -449,15 +474,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getRoofId()
+  {
+    return getValue(ROOF);
+  }
+  
   public void validateRoof()
   {
     this.validateAttribute(ROOF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getRoofMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(ROOF);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ROOF);
   }
   
   public void setRoof(dss.vector.solutions.ontology.Term value)
@@ -482,10 +512,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(ROOFINFO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofInfoMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRoofInfoMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(ROOFINFO);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ROOFINFO);
   }
   
   public void setRoofInfo(String value)
@@ -510,10 +540,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(ROOMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoomsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRoomsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(ROOMS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ROOMS);
   }
   
   public void setRooms(Integer value)
@@ -538,10 +568,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -554,10 +584,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public dss.vector.solutions.intervention.monitor.SurveyPoint getSurveyPoint()
@@ -572,15 +602,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getSurveyPointId()
+  {
+    return getValue(SURVEYPOINT);
+  }
+  
   public void validateSurveyPoint()
   {
     this.validateAttribute(SURVEYPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSurveyPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(SURVEYPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SURVEYPOINT);
   }
   
   public void setSurveyPoint(dss.vector.solutions.intervention.monitor.SurveyPoint value)
@@ -605,10 +640,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public Boolean getUrban()
@@ -621,10 +656,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(URBAN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrbanMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getUrbanMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(URBAN);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(URBAN);
   }
   
   public void setUrban(Boolean value)
@@ -651,15 +686,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getWallId()
+  {
+    return getValue(WALL);
+  }
+  
   public void validateWall()
   {
     this.validateAttribute(WALL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getWallMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(WALL);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(WALL);
   }
   
   public void setWall(dss.vector.solutions.ontology.Term value)
@@ -684,10 +724,10 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(WALLINFO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallInfoMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWallInfoMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(WALLINFO);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WALLINFO);
   }
   
   public void setWallInfo(String value)
@@ -714,15 +754,20 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getWindowTypeId()
+  {
+    return getValue(WINDOWTYPE);
+  }
+  
   public void validateWindowType()
   {
     this.validateAttribute(WINDOWTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWindowTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getWindowTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.Household.CLASS);
-    return mdClassIF.definesAttribute(WINDOWTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(WINDOWTYPE);
   }
   
   public void setWindowType(dss.vector.solutions.ontology.Term value)

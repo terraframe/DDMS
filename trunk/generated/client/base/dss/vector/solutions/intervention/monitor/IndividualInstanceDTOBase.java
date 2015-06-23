@@ -234,6 +234,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getClassificationId()
+  {
+    return getValue(CLASSIFICATION);
+  }
+  
   public void setClassification(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -276,6 +281,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CONFIRMEDDIAGNOSIS));
     }
+  }
+  
+  public String getConfirmedDiagnosisId()
+  {
+    return getValue(CONFIRMEDDIAGNOSIS);
   }
   
   public void setConfirmedDiagnosis(dss.vector.solutions.ontology.TermDTO value)
@@ -384,6 +394,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -453,6 +468,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getDetectedById()
+  {
+    return getValue(DETECTEDBY);
+  }
+  
   public void setDetectedBy(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -495,6 +515,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DIAGNOSIS));
     }
+  }
+  
+  public String getDiagnosisId()
+  {
+    return getValue(DIAGNOSIS);
   }
   
   public void setDiagnosis(dss.vector.solutions.ontology.TermDTO value)
@@ -624,6 +649,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -705,6 +735,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getHealthFacilityId()
+  {
+    return getValue(HEALTHFACILITY);
+  }
+  
   public void setHealthFacility(dss.vector.solutions.geo.generated.HealthFacilityDTO value)
   {
     if(value == null)
@@ -747,6 +782,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.intervention.monitor.IndividualCaseDTO.get(getRequest(), getValue(INDIVIDUALCASE));
     }
+  }
+  
+  public String getIndividualCaseId()
+  {
+    return getValue(INDIVIDUALCASE);
   }
   
   public void setIndividualCase(dss.vector.solutions.intervention.monitor.IndividualCaseDTO value)
@@ -828,6 +868,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(LABTEST));
     }
+  }
+  
+  public String getLabTestId()
+  {
+    return getValue(LABTEST);
   }
   
   public void setLabTest(dss.vector.solutions.ontology.TermDTO value)
@@ -936,6 +981,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -968,6 +1018,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -998,6 +1053,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(MALARIATYPE));
     }
+  }
+  
+  public String getMalariaTypeId()
+  {
+    return getValue(MALARIATYPE);
   }
   
   public void setMalariaType(dss.vector.solutions.ontology.TermDTO value)
@@ -1044,6 +1104,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -1088,6 +1153,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getPatientCategoryId()
+  {
+    return getValue(PATIENTCATEGORY);
+  }
+  
   public void setPatientCategory(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1130,6 +1200,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.PhysicianDTO.get(getRequest(), getValue(PHYSICIAN));
     }
+  }
+  
+  public String getPhysicianId()
+  {
+    return getValue(PHYSICIAN);
   }
   
   public void setPhysician(dss.vector.solutions.PhysicianDTO value)
@@ -1213,6 +1288,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getPrimaryInfectionId()
+  {
+    return getValue(PRIMARYINFECTION);
+  }
+  
   public void setPrimaryInfection(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1292,6 +1372,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(REFERRALREASON));
     }
+  }
+  
+  public String getReferralReasonId()
+  {
+    return getValue(REFERRALREASON);
   }
   
   public void setReferralReason(dss.vector.solutions.ontology.TermDTO value)
@@ -1449,6 +1534,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getSampleTypeId()
+  {
+    return getValue(SAMPLETYPE);
+  }
+  
   public void setSampleType(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1543,6 +1633,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getSymptomId()
+  {
+    return getValue(SYMPTOM);
+  }
+  
   public void setSymptom(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1622,6 +1717,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TESTRESULT));
     }
+  }
+  
+  public String getTestResultId()
+  {
+    return getValue(TESTRESULT);
   }
   
   public void setTestResult(dss.vector.solutions.ontology.TermDTO value)
@@ -1705,6 +1805,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getTreatmentId()
+  {
+    return getValue(TREATMENT);
+  }
+  
   public void setTreatment(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1747,6 +1852,11 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TREATMENTMETHOD));
     }
+  }
+  
+  public String getTreatmentMethodId()
+  {
+    return getValue(TREATMENTMETHOD);
   }
   
   public void setTreatmentMethod(dss.vector.solutions.ontology.TermDTO value)

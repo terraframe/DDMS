@@ -70,6 +70,11 @@ public abstract class PersonInterventionViewDTOBase extends com.runwaysdk.busine
     }
   }
   
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
+  }
+  
   public void setInterventionMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -112,6 +117,11 @@ public abstract class PersonInterventionViewDTOBase extends com.runwaysdk.busine
     {
       return dss.vector.solutions.intervention.monitor.ControlInterventionDTO.get(getRequest(), getValue(POINT));
     }
+  }
+  
+  public String getPointId()
+  {
+    return getValue(POINT);
   }
   
   public void setPoint(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)

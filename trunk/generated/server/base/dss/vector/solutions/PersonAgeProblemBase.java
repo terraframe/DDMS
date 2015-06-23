@@ -34,10 +34,10 @@ public abstract class PersonAgeProblemBase extends dss.vector.solutions.Notifica
     this.validateAttribute(AGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonAgeProblem.CLASS);
-    return mdClassIF.definesAttribute(AGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AGE);
   }
   
   public void setAge(Integer value)

@@ -65,6 +65,11 @@ public abstract class UndefinedKnockDownPropertyExceptionDTOBase extends com.run
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
   {
     if(value == null)

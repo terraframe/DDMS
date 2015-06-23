@@ -34,10 +34,10 @@ public abstract class PrevSprayedCountProblemBase extends dss.vector.solutions.N
     this.validateAttribute(HOUSEHOLDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.PrevSprayedCountProblem.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLDID);
   }
   
   public void setHouseholdId(String value)

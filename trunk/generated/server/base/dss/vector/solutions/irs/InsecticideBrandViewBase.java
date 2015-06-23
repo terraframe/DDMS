@@ -42,15 +42,20 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
+  }
+  
   public void validateActiveIngredient()
   {
     this.validateAttribute(ACTIVEINGREDIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActiveIngredientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getActiveIngredientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(ACTIVEINGREDIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(dss.vector.solutions.ontology.Term value)
@@ -97,10 +102,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQualifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getConcentrationQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
   }
   
   public java.math.BigDecimal getConcentrationQuantifier()
@@ -113,10 +118,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(CONCENTRATIONQUANTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQuantifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getConcentrationQuantifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
   }
   
   public void setConcentrationQuantifier(java.math.BigDecimal value)
@@ -141,10 +146,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(ENABLED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnabledMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEnabledMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(ENABLED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENABLED);
   }
   
   public void setEnabled(Boolean value)
@@ -169,10 +174,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getInsecticdeId()
@@ -185,10 +190,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(INSECTICDEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticdeIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInsecticdeIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICDEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INSECTICDEID);
   }
   
   public void setInsecticdeId(String value)
@@ -235,10 +240,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(INSECTICIDEUSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideUseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInsecticideUseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEUSE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INSECTICIDEUSE);
   }
   
   public dss.vector.solutions.ontology.Term getProductName()
@@ -253,15 +258,20 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getProductNameId()
+  {
+    return getValue(PRODUCTNAME);
+  }
+  
   public void validateProductName()
   {
     this.validateAttribute(PRODUCTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getProductNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getProductNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(PRODUCTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PRODUCTNAME);
   }
   
   public void setProductName(dss.vector.solutions.ontology.Term value)
@@ -308,10 +318,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(UNITQUALIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitQualifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(UNITQUALIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNITQUALIFIER);
   }
   
   public java.math.BigDecimal getUnitQuantifier()
@@ -324,10 +334,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(UNITQUANTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitQuantifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitQuantifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(UNITQUANTIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNITQUANTIFIER);
   }
   
   public void setUnitQuantifier(java.math.BigDecimal value)
@@ -352,10 +362,10 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(UNITSPERAPPLICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitsPerApplicationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitsPerApplicationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(UNITSPERAPPLICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNITSPERAPPLICATION);
   }
   
   public void setUnitsPerApplication(Integer value)
@@ -382,15 +392,20 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getUseDetailId()
+  {
+    return getValue(USEDETAIL);
+  }
+  
   public void validateUseDetail()
   {
     this.validateAttribute(USEDETAIL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUseDetailMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUseDetailMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(USEDETAIL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(USEDETAIL);
   }
   
   public void setUseDetail(dss.vector.solutions.ontology.Term value)

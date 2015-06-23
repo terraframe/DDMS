@@ -382,6 +382,11 @@ public abstract class SurveyExcelViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)

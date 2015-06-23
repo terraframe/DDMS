@@ -11,7 +11,6 @@ package dss.vector.solutions.permission;
 public  abstract  class PermissionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 577940292;
 
   public PermissionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

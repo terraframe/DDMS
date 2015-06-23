@@ -10,7 +10,6 @@ package dss.vector.solutions.geo;
  */
 public  class HasSynonymQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 857413355;
 
   public HasSynonymQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

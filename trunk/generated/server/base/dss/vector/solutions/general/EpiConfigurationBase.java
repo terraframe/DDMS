@@ -30,10 +30,10 @@ public abstract class EpiConfigurationBase extends com.runwaysdk.business.View i
     this.validateAttribute(FIRSTDAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstDayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFirstDayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.EpiConfiguration.CLASS);
-    return mdClassIF.definesAttribute(FIRSTDAY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FIRSTDAY);
   }
   
   public void setFirstDay(String value)
@@ -58,10 +58,10 @@ public abstract class EpiConfigurationBase extends com.runwaysdk.business.View i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.EpiConfiguration.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

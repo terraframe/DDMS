@@ -36,10 +36,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(CONTROLTESTMORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getControlTestMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
   }
   
   public void setControlTestMortality(Float value)
@@ -64,10 +64,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(HOLDINGTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHoldingTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getHoldingTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(HOLDINGTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(HOLDINGTIME);
   }
   
   public void setHoldingTime(Integer value)
@@ -92,10 +92,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(LT50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLt50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getLt50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(LT50);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(LT50);
   }
   
   public void setLt50(Double value)
@@ -120,10 +120,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(LT95);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLt95Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getLt95Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(LT95);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(LT95);
   }
   
   public void setLt95(Double value)
@@ -148,10 +148,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(MORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(MORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(MORTALITY);
   }
   
   public void setMortality(Float value)
@@ -176,10 +176,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(QUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYDEAD);
   }
   
   public void setQuantityDead(Integer value)
@@ -204,10 +204,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(QUANTITYLIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityLiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYLIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYLIVE);
   }
   
   public void setQuantityLive(Integer value)
@@ -232,10 +232,10 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

@@ -32,10 +32,10 @@ public abstract class InsecticideInterventionExcelViewBase extends dss.vector.so
     this.validateAttribute(INSECTICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInsecticideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INSECTICIDE);
   }
   
   public void setInsecticide(String value)
@@ -60,10 +60,10 @@ public abstract class InsecticideInterventionExcelViewBase extends dss.vector.so
     this.validateAttribute(INTERVENTIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInterventionMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
-    return mdClassIF.definesAttribute(INTERVENTIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(String value)
@@ -88,10 +88,10 @@ public abstract class InsecticideInterventionExcelViewBase extends dss.vector.so
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)
@@ -116,10 +116,10 @@ public abstract class InsecticideInterventionExcelViewBase extends dss.vector.so
     this.validateAttribute(UNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIT);
   }
   
   public void setUnit(String value)

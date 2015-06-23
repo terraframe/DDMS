@@ -47,10 +47,10 @@ public abstract class YearValueExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.YearValueException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getMaxYear()
@@ -63,10 +63,10 @@ public abstract class YearValueExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(MAXYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMaxYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMaxYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.YearValueException.CLASS);
-    return mdClassIF.definesAttribute(MAXYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MAXYEAR);
   }
   
   public void setMaxYear(Integer value)
@@ -91,10 +91,10 @@ public abstract class YearValueExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(MINYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMinYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMinYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.YearValueException.CLASS);
-    return mdClassIF.definesAttribute(MINYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MINYEAR);
   }
   
   public void setMinYear(Integer value)
@@ -119,10 +119,10 @@ public abstract class YearValueExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(YEARVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getYearValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.YearValueException.CLASS);
-    return mdClassIF.definesAttribute(YEARVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(YEARVALUE);
   }
   
   public void setYearValue(Integer value)

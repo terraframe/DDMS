@@ -35,15 +35,20 @@ public abstract class PopulationDataExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PopulationDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -68,10 +73,10 @@ public abstract class PopulationDataExcelViewBase extends com.runwaysdk.business
     this.validateAttribute(GROWTHRATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGrowthRateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGrowthRateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PopulationDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(GROWTHRATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GROWTHRATE);
   }
   
   public void setGrowthRate(Double value)
@@ -96,10 +101,10 @@ public abstract class PopulationDataExcelViewBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PopulationDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Long getPopulation()
@@ -112,10 +117,10 @@ public abstract class PopulationDataExcelViewBase extends com.runwaysdk.business
     this.validateAttribute(POPULATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPopulationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPopulationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PopulationDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(POPULATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POPULATION);
   }
   
   public void setPopulation(Long value)
@@ -140,10 +145,10 @@ public abstract class PopulationDataExcelViewBase extends com.runwaysdk.business
     this.validateAttribute(YEAROFDATA);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearOfDataMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearOfDataMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PopulationDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(YEAROFDATA);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEAROFDATA);
   }
   
   public void setYearOfData(Integer value)

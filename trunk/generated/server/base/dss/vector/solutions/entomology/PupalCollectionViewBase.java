@@ -40,10 +40,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -68,10 +68,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -96,10 +96,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -126,15 +126,20 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -159,10 +164,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNotes()
@@ -175,10 +180,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(NOTES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NOTES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTES);
   }
   
   public void setNotes(String value)
@@ -203,10 +208,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(NUMBEREXAMINED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberExaminedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberExaminedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEREXAMINED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEREXAMINED);
   }
   
   public void setNumberExamined(Integer value)
@@ -231,10 +236,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(NUMBERINHABITANTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberInhabitantsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberInhabitantsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERINHABITANTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERINHABITANTS);
   }
   
   public void setNumberInhabitants(Integer value)
@@ -259,10 +264,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(PREMISEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPremiseIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(PREMISEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PREMISEID);
   }
   
   public void setPremiseId(String value)
@@ -287,10 +292,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(PREMISESIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremiseSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(PREMISESIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISESIZE);
   }
   
   public void setPremiseSize(java.math.BigDecimal value)
@@ -317,15 +322,20 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getPremiseTypeId()
+  {
+    return getValue(PREMISETYPE);
+  }
+  
   public void validatePremiseType()
   {
     this.validateAttribute(PREMISETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremiseTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(PREMISETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISETYPE);
   }
   
   public void setPremiseType(dss.vector.solutions.ontology.Term value)
@@ -350,10 +360,10 @@ public abstract class PupalCollectionViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PupalCollectionView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

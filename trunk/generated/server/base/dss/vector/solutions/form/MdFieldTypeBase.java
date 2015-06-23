@@ -33,10 +33,10 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     this.validateAttribute(DESCRIPTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDescriptionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getDescriptionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
-    return mdClassIF.definesAttribute(DESCRIPTION);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(DESCRIPTION);
   }
   
   public void setDescription(String value)
@@ -61,10 +61,10 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -89,10 +89,10 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMdFieldId()
@@ -105,10 +105,10 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     this.validateAttribute(MDFIELDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdFieldIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
-    return mdClassIF.definesAttribute(MDFIELDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDFIELDID);
   }
   
   public void setMdFieldId(String value)
@@ -133,10 +133,10 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     this.validateAttribute(MDFIELDTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdFieldTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
-    return mdClassIF.definesAttribute(MDFIELDTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDFIELDTYPE);
   }
   
   public void setMdFieldType(String value)

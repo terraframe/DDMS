@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology.assay;
  */
 public  class AdultAgeRangeQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 310996291;
 
   public AdultAgeRangeQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -179,7 +178,6 @@ private static final long serialVersionUID = 310996291;
  **/
   public static class AdultAgeRangeQueryStruct extends com.runwaysdk.query.AttributeStruct implements AdultAgeRangeQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -149194305;
 
   public AdultAgeRangeQueryStruct(com.runwaysdk.dataaccess.MdAttributeStructDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

@@ -114,6 +114,11 @@ public abstract class AggregatedPremiseVisitViewDTOBase extends com.runwaysdk.bu
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -156,6 +161,11 @@ public abstract class AggregatedPremiseVisitViewDTOBase extends com.runwaysdk.bu
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(INTERVENTIONMETHOD));
     }
+  }
+  
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -202,6 +212,11 @@ public abstract class AggregatedPremiseVisitViewDTOBase extends com.runwaysdk.bu
     }
   }
   
+  public String getNonTreatmentReasonId()
+  {
+    return getValue(NONTREATMENTREASON);
+  }
+  
   public void setNonTreatmentReason(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -244,6 +259,11 @@ public abstract class AggregatedPremiseVisitViewDTOBase extends com.runwaysdk.bu
     {
       return dss.vector.solutions.intervention.monitor.ControlInterventionDTO.get(getRequest(), getValue(POINT));
     }
+  }
+  
+  public String getPointId()
+  {
+    return getValue(POINT);
   }
   
   public void setPoint(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)

@@ -163,6 +163,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -232,6 +237,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -276,6 +286,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getInverseOfId()
+  {
+    return getValue(INVERSEOF);
+  }
+  
   public void setInverseOf(dss.vector.solutions.ontology.OntologyRelationshipDTO value)
   {
     if(value == null)
@@ -318,6 +333,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.ontology.OntologyRelationshipDTO.get(getRequest(), getValue(INVERSEOFONINSTANCELEVEL));
     }
+  }
+  
+  public String getInverseOfOnInstanceLevelId()
+  {
+    return getValue(INVERSEOFONINSTANCELEVEL);
   }
   
   public void setInverseOfOnInstanceLevel(dss.vector.solutions.ontology.OntologyRelationshipDTO value)
@@ -611,6 +631,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -641,6 +666,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -747,6 +777,11 @@ public abstract class OntologyRelationshipDTOBase extends com.runwaysdk.business
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

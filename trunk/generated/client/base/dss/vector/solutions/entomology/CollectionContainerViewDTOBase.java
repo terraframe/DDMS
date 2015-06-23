@@ -411,6 +411,11 @@ public abstract class CollectionContainerViewDTOBase extends com.runwaysdk.busin
     }
   }
   
+  public String getTaxonId()
+  {
+    return getValue(TAXON);
+  }
+  
   public void setTaxon(dss.vector.solutions.entomology.PremiseTaxonDTO value)
   {
     if(value == null)
@@ -453,6 +458,11 @@ public abstract class CollectionContainerViewDTOBase extends com.runwaysdk.busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

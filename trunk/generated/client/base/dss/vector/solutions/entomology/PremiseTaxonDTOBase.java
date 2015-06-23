@@ -78,6 +78,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -108,6 +113,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -216,6 +226,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -248,6 +263,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -278,6 +298,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -322,6 +347,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     {
       return dss.vector.solutions.entomology.CollectionPremiseDTO.get(getRequest(), getValue(PREMISE));
     }
+  }
+  
+  public String getPremiseId()
+  {
+    return getValue(PREMISE);
   }
   
   public void setPremise(dss.vector.solutions.entomology.CollectionPremiseDTO value)
@@ -416,6 +446,11 @@ public abstract class PremiseTaxonDTOBase extends com.runwaysdk.business.Busines
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TAXON));
     }
+  }
+  
+  public String getTaxonId()
+  {
+    return getValue(TAXON);
   }
   
   public void setTaxon(dss.vector.solutions.ontology.TermDTO value)

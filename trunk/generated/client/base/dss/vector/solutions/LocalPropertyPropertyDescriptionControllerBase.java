@@ -10,8 +10,6 @@ public class LocalPropertyPropertyDescriptionControllerBase implements com.runwa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1801649737;
-  
   public LocalPropertyPropertyDescriptionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

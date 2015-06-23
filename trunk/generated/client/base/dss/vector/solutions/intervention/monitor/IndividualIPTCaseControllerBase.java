@@ -10,8 +10,6 @@ public class IndividualIPTCaseControllerBase implements com.runwaysdk.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 100768023;
-  
   public IndividualIPTCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

@@ -4173,6 +4173,11 @@ public abstract class ThresholdDataViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
+  }
+  
   public void setSeason(dss.vector.solutions.general.MalariaSeasonDTO value)
   {
     if(value == null)

@@ -10,8 +10,6 @@ public class AssayControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -534085476;
-  
   public AssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

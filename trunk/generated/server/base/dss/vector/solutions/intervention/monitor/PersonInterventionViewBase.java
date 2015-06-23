@@ -33,10 +33,10 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -61,10 +61,10 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getInterventionMethod()
@@ -79,15 +79,20 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
+  }
+  
   public void validateInterventionMethod()
   {
     this.validateAttribute(INTERVENTIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInterventionMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INTERVENTIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.Term value)
@@ -114,15 +119,20 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getPointId()
+  {
+    return getValue(POINT);
+  }
+  
   public void validatePoint()
   {
     this.validateAttribute(POINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(POINT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POINT);
   }
   
   public void setPoint(dss.vector.solutions.intervention.monitor.ControlIntervention value)
@@ -147,10 +157,10 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     this.validateAttribute(VEHICLEDAYS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVehicleDaysMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVehicleDaysMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(VEHICLEDAYS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VEHICLEDAYS);
   }
   
   public void setVehicleDays(Integer value)

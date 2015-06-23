@@ -47,10 +47,10 @@ public abstract class UnknownValueExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UnknownValueException.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ATTRIBUTELABEL);
   }
   
   public void setAttributeLabel(String value)
@@ -75,10 +75,10 @@ public abstract class UnknownValueExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UnknownValueException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTypeLabel()
@@ -91,10 +91,10 @@ public abstract class UnknownValueExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(TYPELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getTypeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UnknownValueException.CLASS);
-    return mdClassIF.definesAttribute(TYPELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(TYPELABEL);
   }
   
   public void setTypeLabel(String value)
@@ -119,10 +119,10 @@ public abstract class UnknownValueExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(VALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UnknownValueException.CLASS);
-    return mdClassIF.definesAttribute(VALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(VALUE);
   }
   
   public void setValue(String value)

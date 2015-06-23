@@ -33,6 +33,11 @@ public abstract class MalariaSeasonViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)

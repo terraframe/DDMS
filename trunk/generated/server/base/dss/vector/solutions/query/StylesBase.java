@@ -92,10 +92,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ANCHORPOINTX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAnchorPointXMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getAnchorPointXMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ANCHORPOINTX);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(ANCHORPOINTX);
   }
   
   public void setAnchorPointX(java.math.BigDecimal value)
@@ -120,10 +120,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ANCHORPOINTY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAnchorPointYMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getAnchorPointYMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ANCHORPOINTY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(ANCHORPOINTY);
   }
   
   public void setAnchorPointY(java.math.BigDecimal value)
@@ -148,10 +148,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(CONFLICTRESOLUTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConflictResolutionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getConflictResolutionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(CONFLICTRESOLUTION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CONFLICTRESOLUTION);
   }
   
   public void setConflictResolution(Boolean value)
@@ -176,10 +176,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -204,10 +204,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public Integer getDisplacementX()
@@ -220,10 +220,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(DISPLACEMENTX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplacementXMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getDisplacementXMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(DISPLACEMENTX);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(DISPLACEMENTX);
   }
   
   public void setDisplacementX(Integer value)
@@ -248,10 +248,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(DISPLACEMENTY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplacementYMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getDisplacementYMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(DISPLACEMENTY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(DISPLACEMENTY);
   }
   
   public void setDisplacementY(Integer value)
@@ -276,10 +276,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_ANCHORPOINTX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_anchorPointXMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_anchorPointXMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_ANCHORPOINTX);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_ANCHORPOINTX);
   }
   
   public void setEnable_anchorPointX(Boolean value)
@@ -304,10 +304,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_ANCHORPOINTY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_anchorPointYMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_anchorPointYMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_ANCHORPOINTY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_ANCHORPOINTY);
   }
   
   public void setEnable_anchorPointY(Boolean value)
@@ -332,10 +332,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_CONFLICTRESOLUTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_conflictResolutionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_conflictResolutionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_CONFLICTRESOLUTION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_CONFLICTRESOLUTION);
   }
   
   public void setEnable_conflictResolution(Boolean value)
@@ -360,10 +360,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_DISPLACEMENTX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_displacementXMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_displacementXMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_DISPLACEMENTX);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_DISPLACEMENTX);
   }
   
   public void setEnable_displacementX(Boolean value)
@@ -388,10 +388,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_DISPLACEMENTY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_displacementYMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_displacementYMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_DISPLACEMENTY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_DISPLACEMENTY);
   }
   
   public void setEnable_displacementY(Boolean value)
@@ -416,10 +416,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_FILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_fillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_fillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_FILL);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_FILL);
   }
   
   public void setEnable_fill(Boolean value)
@@ -444,10 +444,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_FONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_fontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_fontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_FONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_FONTFAMILY);
   }
   
   public void setEnable_fontFamily(Boolean value)
@@ -472,10 +472,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_FONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_fontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_fontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_FONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_FONTSIZE);
   }
   
   public void setEnable_fontSize(Boolean value)
@@ -500,10 +500,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_FONTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_fontStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_fontStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_FONTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_FONTSTYLES);
   }
   
   public void setEnable_fontStyles(Boolean value)
@@ -528,10 +528,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_GOODNESSOFFIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_goodnessOfFitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_goodnessOfFitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_GOODNESSOFFIT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_GOODNESSOFFIT);
   }
   
   public void setEnable_goodnessOfFit(Boolean value)
@@ -556,10 +556,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_LABELHALOFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_labelHaloFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_labelHaloFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_LABELHALOFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_LABELHALOFILL);
   }
   
   public void setEnable_labelHaloFill(Boolean value)
@@ -584,10 +584,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_LABELHALOOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_labelHaloOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_labelHaloOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_LABELHALOOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_LABELHALOOPACITY);
   }
   
   public void setEnable_labelHaloOpacity(Boolean value)
@@ -612,10 +612,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_LABELHALORADIUS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_labelHaloRadiusMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_labelHaloRadiusMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_LABELHALORADIUS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_LABELHALORADIUS);
   }
   
   public void setEnable_labelHaloRadius(Boolean value)
@@ -640,10 +640,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_LABELROTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_labelRotationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_labelRotationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_LABELROTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_LABELROTATION);
   }
   
   public void setEnable_labelRotation(Boolean value)
@@ -668,10 +668,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTMARKER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointMarkerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointMarkerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTMARKER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTMARKER);
   }
   
   public void setEnable_pointMarker(Boolean value)
@@ -696,10 +696,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTROTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointRotationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointRotationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTROTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTROTATION);
   }
   
   public void setEnable_pointRotation(Boolean value)
@@ -724,10 +724,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTSIZE);
   }
   
   public void setEnable_pointSize(Boolean value)
@@ -752,10 +752,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTSTROKE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointStrokeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointStrokeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTSTROKE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTSTROKE);
   }
   
   public void setEnable_pointStroke(Boolean value)
@@ -780,10 +780,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTSTROKEOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointStrokeOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointStrokeOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTSTROKEOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTSTROKEOPACITY);
   }
   
   public void setEnable_pointStrokeOpacity(Boolean value)
@@ -808,10 +808,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POINTWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_pointWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_pointWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POINTWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POINTWIDTH);
   }
   
   public void setEnable_pointWidth(Boolean value)
@@ -836,10 +836,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POLYGONFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_polygonFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_polygonFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POLYGONFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POLYGONFILL);
   }
   
   public void setEnable_polygonFill(Boolean value)
@@ -864,10 +864,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POLYGONFILLOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_polygonFillOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_polygonFillOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POLYGONFILLOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POLYGONFILLOPACITY);
   }
   
   public void setEnable_polygonFillOpacity(Boolean value)
@@ -892,10 +892,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POLYGONSTROKE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_polygonStrokeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_polygonStrokeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POLYGONSTROKE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POLYGONSTROKE);
   }
   
   public void setEnable_polygonStroke(Boolean value)
@@ -920,10 +920,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POLYGONSTROKEOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_polygonStrokeOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_polygonStrokeOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POLYGONSTROKEOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POLYGONSTROKEOPACITY);
   }
   
   public void setEnable_polygonStrokeOpacity(Boolean value)
@@ -948,10 +948,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_POLYGONWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_polygonWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_polygonWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_POLYGONWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_POLYGONWIDTH);
   }
   
   public void setEnable_polygonWidth(Boolean value)
@@ -976,10 +976,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENABLE_SPACEAROUND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnable_spaceAroundMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnable_spaceAroundMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENABLE_SPACEAROUND);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLE_SPACEAROUND);
   }
   
   public void setEnable_spaceAround(Boolean value)
@@ -1016,10 +1016,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -1044,10 +1044,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(FILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(FILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILL);
   }
   
   public void setFill(String value)
@@ -1072,10 +1072,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(FONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(FONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTFAMILY);
   }
   
   public void setFontFamily(String value)
@@ -1100,10 +1100,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(FONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(FONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FONTSIZE);
   }
   
   public void setFontSize(Integer value)
@@ -1150,10 +1150,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(FONTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getFontStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(FONTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(FONTSTYLES);
   }
   
   public java.math.BigDecimal getGoodnessOfFit()
@@ -1166,10 +1166,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(GOODNESSOFFIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGoodnessOfFitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getGoodnessOfFitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(GOODNESSOFFIT);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(GOODNESSOFFIT);
   }
   
   public void setGoodnessOfFit(java.math.BigDecimal value)
@@ -1194,10 +1194,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -1210,10 +1210,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -1238,10 +1238,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LABELHALOFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelHaloFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLabelHaloFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LABELHALOFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LABELHALOFILL);
   }
   
   public void setLabelHaloFill(String value)
@@ -1266,10 +1266,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LABELHALOOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelHaloOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getLabelHaloOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LABELHALOOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(LABELHALOOPACITY);
   }
   
   public void setLabelHaloOpacity(java.math.BigDecimal value)
@@ -1294,10 +1294,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LABELHALORADIUS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelHaloRadiusMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLabelHaloRadiusMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LABELHALORADIUS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LABELHALORADIUS);
   }
   
   public void setLabelHaloRadius(Integer value)
@@ -1322,10 +1322,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LABELROTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelRotationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLabelRotationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LABELROTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LABELROTATION);
   }
   
   public void setLabelRotation(Integer value)
@@ -1350,10 +1350,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -1378,10 +1378,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -1406,10 +1406,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -1434,10 +1434,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -1484,10 +1484,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTMARKER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointMarkerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getPointMarkerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTMARKER);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(POINTMARKER);
   }
   
   public Integer getPointRotation()
@@ -1500,10 +1500,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTROTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointRotationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPointRotationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTROTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POINTROTATION);
   }
   
   public void setPointRotation(Integer value)
@@ -1528,10 +1528,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPointSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POINTSIZE);
   }
   
   public void setPointSize(Integer value)
@@ -1556,10 +1556,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTSTROKE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointStrokeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPointStrokeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTSTROKE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POINTSTROKE);
   }
   
   public void setPointStroke(String value)
@@ -1584,10 +1584,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTSTROKEOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointStrokeOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getPointStrokeOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTSTROKEOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(POINTSTROKEOPACITY);
   }
   
   public void setPointStrokeOpacity(java.math.BigDecimal value)
@@ -1612,10 +1612,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POINTWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPointWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POINTWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POINTWIDTH);
   }
   
   public void setPointWidth(Integer value)
@@ -1640,10 +1640,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POLYGONFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POLYGONFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONFILL);
   }
   
   public void setPolygonFill(String value)
@@ -1668,10 +1668,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POLYGONFILLOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonFillOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getPolygonFillOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POLYGONFILLOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(POLYGONFILLOPACITY);
   }
   
   public void setPolygonFillOpacity(java.math.BigDecimal value)
@@ -1696,10 +1696,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POLYGONSTROKE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonStrokeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonStrokeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POLYGONSTROKE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONSTROKE);
   }
   
   public void setPolygonStroke(String value)
@@ -1724,10 +1724,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POLYGONSTROKEOPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonStrokeOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getPolygonStrokeOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POLYGONSTROKEOPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(POLYGONSTROKEOPACITY);
   }
   
   public void setPolygonStrokeOpacity(java.math.BigDecimal value)
@@ -1752,10 +1752,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(POLYGONWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPolygonWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(POLYGONWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POLYGONWIDTH);
   }
   
   public void setPolygonWidth(Integer value)
@@ -1780,10 +1780,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -1796,10 +1796,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public Integer getSpaceAround()
@@ -1812,10 +1812,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(SPACEAROUND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpaceAroundMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getSpaceAroundMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(SPACEAROUND);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SPACEAROUND);
   }
   
   public void setSpaceAround(Integer value)
@@ -1840,10 +1840,10 @@ public abstract class StylesBase extends com.runwaysdk.business.Business impleme
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Styles.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

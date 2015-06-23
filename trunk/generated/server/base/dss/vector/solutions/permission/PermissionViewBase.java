@@ -32,10 +32,10 @@ public abstract class PermissionViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.PermissionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLabel()
@@ -48,10 +48,10 @@ public abstract class PermissionViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(LABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.PermissionView.CLASS);
-    return mdClassIF.definesAttribute(LABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LABEL);
   }
   
   public void setLabel(String value)
@@ -98,10 +98,10 @@ public abstract class PermissionViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(PERMISSION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPermissionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getPermissionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.PermissionView.CLASS);
-    return mdClassIF.definesAttribute(PERMISSION);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(PERMISSION);
   }
   
   public String getUrlId()
@@ -114,10 +114,10 @@ public abstract class PermissionViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(URLID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrlIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUrlIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.PermissionView.CLASS);
-    return mdClassIF.definesAttribute(URLID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(URLID);
   }
   
   public void setUrlId(String value)

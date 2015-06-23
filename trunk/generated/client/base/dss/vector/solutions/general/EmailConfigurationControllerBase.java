@@ -10,8 +10,6 @@ public class EmailConfigurationControllerBase implements com.runwaysdk.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1002648926;
-  
   public EmailConfigurationControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

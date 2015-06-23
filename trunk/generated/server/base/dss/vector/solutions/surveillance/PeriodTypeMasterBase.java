@@ -29,10 +29,10 @@ public abstract class PeriodTypeMasterBase extends com.runwaysdk.system.Enumerat
     this.validateAttribute(MAXIMUMPERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMaximumPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMaximumPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.PeriodTypeMaster.CLASS);
-    return mdClassIF.definesAttribute(MAXIMUMPERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MAXIMUMPERIOD);
   }
   
   public void setMaximumPeriod(Integer value)

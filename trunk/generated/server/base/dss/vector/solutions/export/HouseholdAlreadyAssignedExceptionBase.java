@@ -45,10 +45,10 @@ public abstract class HouseholdAlreadyAssignedExceptionBase extends com.runwaysd
     this.validateAttribute(HOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.HouseholdAlreadyAssignedException.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLD);
   }
   
   public void setHousehold(String value)
@@ -73,10 +73,10 @@ public abstract class HouseholdAlreadyAssignedExceptionBase extends com.runwaysd
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.HouseholdAlreadyAssignedException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

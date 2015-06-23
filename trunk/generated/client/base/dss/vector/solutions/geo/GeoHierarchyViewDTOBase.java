@@ -336,6 +336,11 @@ public abstract class GeoHierarchyViewDTOBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)

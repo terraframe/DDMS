@@ -138,6 +138,11 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)

@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  abstract  class WeeklyThresholdViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -355917725;
 
   public WeeklyThresholdViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

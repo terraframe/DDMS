@@ -38,10 +38,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(DESCRIPTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDescriptionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDescriptionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(DESCRIPTION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DESCRIPTION);
   }
   
   public void setDescription(String value)
@@ -66,10 +66,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -94,10 +94,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentGeoHierarchyId()
@@ -110,10 +110,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(PARENTGEOHIERARCHYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentGeoHierarchyIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentGeoHierarchyIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(PARENTGEOHIERARCHYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTGEOHIERARCHYID);
   }
   
   public void setParentGeoHierarchyId(String value)
@@ -138,10 +138,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(POLITICAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPoliticalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPoliticalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(POLITICAL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POLITICAL);
   }
   
   public void setPolitical(Boolean value)
@@ -166,10 +166,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(POPULATIONALLOWED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPopulationAllowedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPopulationAllowedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(POPULATIONALLOWED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POPULATIONALLOWED);
   }
   
   public void setPopulationAllowed(Boolean value)
@@ -194,10 +194,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(SPRAYTARGETALLOWED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayTargetAllowedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayTargetAllowedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(SPRAYTARGETALLOWED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYTARGETALLOWED);
   }
   
   public void setSprayTargetAllowed(Boolean value)
@@ -224,15 +224,20 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void validateTerm()
   {
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)
@@ -257,10 +262,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(TYPENAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTypeNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(TYPENAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TYPENAME);
   }
   
   public void setTypeName(String value)
@@ -285,10 +290,10 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     this.validateAttribute(URBAN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrbanMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUrbanMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(URBAN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(URBAN);
   }
   
   public void setUrban(Boolean value)

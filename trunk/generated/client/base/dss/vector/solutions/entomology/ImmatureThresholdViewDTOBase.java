@@ -78,9 +78,9 @@ public abstract class ImmatureThresholdViewDTOBase extends com.runwaysdk.busines
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getThresholdIndex()

@@ -39,10 +39,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(BATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(BATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BATCHNUMBER);
   }
   
   public void setBatchNumber(String value)
@@ -67,10 +67,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(CURRENCYRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrencyReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCurrencyReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(CURRENCYRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CURRENCYRECEIVED);
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -97,15 +97,20 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -130,10 +135,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberDistributed()
@@ -146,10 +151,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERDISTRIBUTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberDistributedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberDistributedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERDISTRIBUTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERDISTRIBUTED);
   }
   
   public void setNumberDistributed(Integer value)
@@ -174,10 +179,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERSOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberSoldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberSoldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERSOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERSOLD);
   }
   
   public void setNumberSold(Integer value)
@@ -202,10 +207,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -230,10 +235,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIODTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPeriodTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIODTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PERIODTYPE);
   }
   
   public void setPeriodType(String value)
@@ -258,10 +263,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIODYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeriodYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIODYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERIODYEAR);
   }
   
   public void setPeriodYear(Integer value)
@@ -286,10 +291,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedForCommunityResponseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedForCommunityResponseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
   }
   
   public void setReceivedForCommunityResponse(Integer value)
@@ -314,10 +319,10 @@ public abstract class AggregatedITNExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(RECEIVEDFORTARGETGROUPS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedForTargetGroupsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedForTargetGroupsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedITNExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDFORTARGETGROUPS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDFORTARGETGROUPS);
   }
   
   public void setReceivedForTargetGroups(Integer value)

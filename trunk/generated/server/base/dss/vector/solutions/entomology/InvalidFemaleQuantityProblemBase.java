@@ -35,10 +35,10 @@ public abstract class InvalidFemaleQuantityProblemBase extends dss.vector.soluti
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.InvalidFemaleQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidFemaleQuantityProblemBase extends dss.vector.soluti
     this.validateAttribute(QUANTITYFEMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityFemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityFemaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.InvalidFemaleQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYFEMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYFEMALE);
   }
   
   public void setQuantityFemale(Integer value)

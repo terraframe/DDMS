@@ -47,6 +47,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getAgeGroupId()
+  {
+    return getValue(AGEGROUP);
+  }
+  
   public void setAgeGroup(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO value)
   {
     if(value == null)
@@ -89,6 +94,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEDIAGNOSISTYPE));
     }
+  }
+  
+  public String getCaseDiagnosisTypeId()
+  {
+    return getValue(CASEDIAGNOSISTYPE);
   }
   
   public void setCaseDiagnosisType(dss.vector.solutions.ontology.TermDTO value)
@@ -135,6 +145,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getCaseDiagnosticId()
+  {
+    return getValue(CASEDIAGNOSTIC);
+  }
+  
   public void setCaseDiagnostic(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -177,6 +192,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEDISEASEMANIFESTATION));
     }
+  }
+  
+  public String getCaseDiseaseManifestationId()
+  {
+    return getValue(CASEDISEASEMANIFESTATION);
   }
   
   public void setCaseDiseaseManifestation(dss.vector.solutions.ontology.TermDTO value)
@@ -223,6 +243,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getCasePatientTypeId()
+  {
+    return getValue(CASEPATIENTTYPE);
+  }
+  
   public void setCasePatientType(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -265,6 +290,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEREFERRALS));
     }
+  }
+  
+  public String getCaseReferralsId()
+  {
+    return getValue(CASEREFERRALS);
   }
   
   public void setCaseReferrals(dss.vector.solutions.ontology.TermDTO value)
@@ -311,6 +341,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getCaseStockReferralId()
+  {
+    return getValue(CASESTOCKREFERRAL);
+  }
+  
   public void setCaseStockReferral(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -353,6 +388,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASESTOCKS));
     }
+  }
+  
+  public String getCaseStocksId()
+  {
+    return getValue(CASESTOCKS);
   }
   
   public void setCaseStocks(dss.vector.solutions.ontology.TermDTO value)
@@ -399,6 +439,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getCaseTreatmentMethodId()
+  {
+    return getValue(CASETREATMENTMETHOD);
+  }
+  
   public void setCaseTreatmentMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -441,6 +486,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASETREATMENTS));
     }
+  }
+  
+  public String getCaseTreatmentsId()
+  {
+    return getValue(CASETREATMENTS);
   }
   
   public void setCaseTreatments(dss.vector.solutions.ontology.TermDTO value)
@@ -633,6 +683,11 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)

@@ -45,10 +45,10 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MenuItemView.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -73,10 +73,10 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MenuItemView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMenuItemId()
@@ -89,10 +89,10 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(MENUITEMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMenuItemIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMenuItemIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MenuItemView.CLASS);
-    return mdClassIF.definesAttribute(MENUITEMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MENUITEMID);
   }
   
   public void setMenuItemId(String value)
@@ -117,10 +117,10 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(TERMDISPLAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermDisplayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getTermDisplayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MenuItemView.CLASS);
-    return mdClassIF.definesAttribute(TERMDISPLAY);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(TERMDISPLAY);
   }
   
   public void setTermDisplay(String value)
@@ -145,10 +145,10 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(URLDISPLAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrlDisplayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getUrlDisplayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MenuItemView.CLASS);
-    return mdClassIF.definesAttribute(URLDISPLAY);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(URLDISPLAY);
   }
   
   public void setUrlDisplay(String value)

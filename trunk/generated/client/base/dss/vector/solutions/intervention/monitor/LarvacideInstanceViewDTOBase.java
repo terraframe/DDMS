@@ -111,6 +111,11 @@ public abstract class LarvacideInstanceViewDTOBase extends com.runwaysdk.busines
     }
   }
   
+  public String getControlMethodId()
+  {
+    return getValue(CONTROLMETHOD);
+  }
+  
   public void setControlMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -155,6 +160,11 @@ public abstract class LarvacideInstanceViewDTOBase extends com.runwaysdk.busines
     }
   }
   
+  public String getSubstanceId()
+  {
+    return getValue(SUBSTANCE);
+  }
+  
   public void setSubstance(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -197,6 +207,11 @@ public abstract class LarvacideInstanceViewDTOBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TARGET));
     }
+  }
+  
+  public String getTargetId()
+  {
+    return getValue(TARGET);
   }
   
   public void setTarget(dss.vector.solutions.ontology.TermDTO value)
@@ -278,6 +293,11 @@ public abstract class LarvacideInstanceViewDTOBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(UNIT));
     }
+  }
+  
+  public String getUnitId()
+  {
+    return getValue(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.TermDTO value)

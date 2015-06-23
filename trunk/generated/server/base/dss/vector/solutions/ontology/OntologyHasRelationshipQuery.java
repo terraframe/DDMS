@@ -10,7 +10,6 @@ package dss.vector.solutions.ontology;
  */
 public  class OntologyHasRelationshipQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 167549882;
 
   public OntologyHasRelationshipQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

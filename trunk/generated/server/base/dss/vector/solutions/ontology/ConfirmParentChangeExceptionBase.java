@@ -45,10 +45,10 @@ public abstract class ConfirmParentChangeExceptionBase extends com.runwaysdk.bus
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.ConfirmParentChangeException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentTerm()
@@ -61,10 +61,10 @@ public abstract class ConfirmParentChangeExceptionBase extends com.runwaysdk.bus
     this.validateAttribute(PARENTTERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.ConfirmParentChangeException.CLASS);
-    return mdClassIF.definesAttribute(PARENTTERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTTERM);
   }
   
   public void setParentTerm(String value)

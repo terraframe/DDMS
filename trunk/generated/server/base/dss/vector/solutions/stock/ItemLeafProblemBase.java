@@ -34,10 +34,10 @@ public abstract class ItemLeafProblemBase extends dss.vector.solutions.Notificat
     this.validateAttribute(ITEMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItemNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getItemNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.ItemLeafProblem.CLASS);
-    return mdClassIF.definesAttribute(ITEMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ITEMNAME);
   }
   
   public void setItemName(String value)

@@ -30,10 +30,10 @@ public abstract class ReportModuleViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ReportModuleView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getModuleName()
@@ -46,10 +46,10 @@ public abstract class ReportModuleViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(MODULENAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getModuleNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getModuleNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ReportModuleView.CLASS);
-    return mdClassIF.definesAttribute(MODULENAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MODULENAME);
   }
   
   public void setModuleName(String value)

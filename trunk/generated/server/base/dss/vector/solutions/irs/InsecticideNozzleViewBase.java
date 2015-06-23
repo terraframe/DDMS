@@ -38,15 +38,20 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getBrandId()
+  {
+    return getValue(BRAND);
+  }
+  
   public void validateBrand()
   {
     this.validateAttribute(BRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(BRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(BRAND);
   }
   
   public void setBrand(dss.vector.solutions.irs.InsecticideBrand value)
@@ -71,10 +76,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(BRANDLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrandLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(BRANDLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BRANDLABEL);
   }
   
   public void setBrandLabel(String value)
@@ -99,10 +104,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(CONFIGURATIONDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfigurationDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getConfigurationDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(CONFIGURATIONDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONFIGURATIONDATE);
   }
   
   public void setConfigurationDate(java.util.Date value)
@@ -127,10 +132,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ENABLED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnabledMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEnabledMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(ENABLED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENABLED);
   }
   
   public void setEnabled(Boolean value)
@@ -155,10 +160,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getInsecticideNozzleId()
@@ -171,10 +176,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(INSECTICIDENOZZLEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideNozzleIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInsecticideNozzleIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDENOZZLEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INSECTICIDENOZZLEID);
   }
   
   public void setInsecticideNozzleId(String value)
@@ -201,15 +206,20 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getNozzleId()
+  {
+    return getValue(NOZZLE);
+  }
+  
   public void validateNozzle()
   {
     this.validateAttribute(NOZZLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getNozzleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(NOZZLE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(NOZZLE);
   }
   
   public void setNozzle(dss.vector.solutions.irs.Nozzle value)
@@ -234,10 +244,10 @@ public abstract class InsecticideNozzleViewBase extends com.runwaysdk.business.V
     this.validateAttribute(NOZZLELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzleLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNozzleLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzleView.CLASS);
-    return mdClassIF.definesAttribute(NOZZLELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NOZZLELABEL);
   }
   
   public void setNozzleLabel(String value)

@@ -35,10 +35,10 @@ public abstract class InvalidControlQuantityDeadProblemBase extends dss.vector.s
     this.validateAttribute(QUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidControlQuantityDeadProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYDEAD);
   }
   
   public void setQuantityDead(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidControlQuantityDeadProblemBase extends dss.vector.s
     this.validateAttribute(QUANTITYTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidControlQuantityDeadProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYTESTED);
   }
   
   public void setQuantityTested(Integer value)

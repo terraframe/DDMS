@@ -34,10 +34,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getInactive()
@@ -50,10 +50,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(INACTIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getInactiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(INACTIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(INACTIVE);
   }
   
   public void setInactive(Boolean value)
@@ -78,10 +78,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(SELECTABLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSelectableMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSelectableMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(SELECTABLE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SELECTABLE);
   }
   
   public void setSelectable(Boolean value)
@@ -106,10 +106,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TERMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTermIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(TERMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TERMID);
   }
   
   public void setTermId(String value)
@@ -134,10 +134,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TERMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTermNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(TERMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TERMNAME);
   }
   
   public void setTermName(String value)
@@ -162,10 +162,10 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
     this.validateAttribute(TERMONTOLOGYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermOntologyIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTermOntologyIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
-    return mdClassIF.definesAttribute(TERMONTOLOGYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TERMONTOLOGYID);
   }
   
   public void setTermOntologyId(String value)

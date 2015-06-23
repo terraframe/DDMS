@@ -10,7 +10,6 @@ package dss.vector.solutions.query;
  */
 public  class HasCategoriesQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 29632241;
 
   public HasCategoriesQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

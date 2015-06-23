@@ -10,7 +10,6 @@ package dss.vector.solutions.permissions;
  */
 public  class URLRoleQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 776272538;
 
   public URLRoleQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

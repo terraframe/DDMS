@@ -57,10 +57,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(ACTUALFACILITYIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualFacilityIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getActualFacilityIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ACTUALFACILITYIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(ACTUALFACILITYIDENTIFICATION);
   }
   
   public void setActualFacilityIdentification(Double value)
@@ -85,10 +85,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(ACTUALFACILITYNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualFacilityNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getActualFacilityNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ACTUALFACILITYNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(ACTUALFACILITYNOTIFICATION);
   }
   
   public void setActualFacilityNotification(Double value)
@@ -113,10 +113,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(ACTUALIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getActualIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ACTUALIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(ACTUALIDENTIFICATION);
   }
   
   public void setActualIdentification(Double value)
@@ -141,10 +141,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(ACTUALNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getActualNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ACTUALNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(ACTUALNOTIFICATION);
   }
   
   public void setActualNotification(Double value)
@@ -171,15 +171,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getCalculationTypeId()
+  {
+    return getValue(CALCULATIONTYPE);
+  }
+  
   public void validateCalculationType()
   {
     this.validateAttribute(CALCULATIONTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCalculationTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCalculationTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(CALCULATIONTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CALCULATIONTYPE);
   }
   
   public void setCalculationType(dss.vector.solutions.general.ThresholdCalculationType value)
@@ -204,10 +209,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -222,15 +227,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
@@ -245,15 +255,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -278,10 +293,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FACILITYIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getFacilityIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FACILITYIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(FACILITYIDENTIFICATION);
   }
   
   public void setFacilityIdentification(Double value)
@@ -306,10 +321,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FACILITYNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getFacilityNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FACILITYNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(FACILITYNOTIFICATION);
   }
   
   public void setFacilityNotification(Double value)
@@ -334,10 +349,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FIRSTFACILITYIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstFacilityIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getFirstFacilityIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FIRSTFACILITYIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(FIRSTFACILITYIDENTIFICATION);
   }
   
   public void setFirstFacilityIdentification(java.util.Date value)
@@ -362,10 +377,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FIRSTFACILITYNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstFacilityNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getFirstFacilityNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FIRSTFACILITYNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(FIRSTFACILITYNOTIFICATION);
   }
   
   public void setFirstFacilityNotification(java.util.Date value)
@@ -390,10 +405,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FIRSTIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getFirstIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FIRSTIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(FIRSTIDENTIFICATION);
   }
   
   public void setFirstIdentification(java.util.Date value)
@@ -418,10 +433,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(FIRSTNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getFirstNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(FIRSTNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(FIRSTNOTIFICATION);
   }
   
   public void setFirstNotification(java.util.Date value)
@@ -446,10 +461,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Double getIdentification()
@@ -462,10 +477,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(IDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(IDENTIFICATION);
   }
   
   public void setIdentification(Double value)
@@ -490,10 +505,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -520,15 +535,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLastFacilityIdentificationId()
+  {
+    return getValue(LASTFACILITYIDENTIFICATION);
+  }
+  
   public void validateLastFacilityIdentification()
   {
     this.validateAttribute(LASTFACILITYIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastFacilityIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastFacilityIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTFACILITYIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTFACILITYIDENTIFICATION);
   }
   
   public void setLastFacilityIdentification(dss.vector.solutions.general.EpiWeek value)
@@ -555,15 +575,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLastFacilityNotificationId()
+  {
+    return getValue(LASTFACILITYNOTIFICATION);
+  }
+  
   public void validateLastFacilityNotification()
   {
     this.validateAttribute(LASTFACILITYNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastFacilityNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastFacilityNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTFACILITYNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTFACILITYNOTIFICATION);
   }
   
   public void setLastFacilityNotification(dss.vector.solutions.general.EpiWeek value)
@@ -590,15 +615,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLastIdentificationId()
+  {
+    return getValue(LASTIDENTIFICATION);
+  }
+  
   public void validateLastIdentification()
   {
     this.validateAttribute(LASTIDENTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastIdentificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastIdentificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTIDENTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTIDENTIFICATION);
   }
   
   public void setLastIdentification(dss.vector.solutions.general.EpiWeek value)
@@ -625,15 +655,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLastNotificationId()
+  {
+    return getValue(LASTNOTIFICATION);
+  }
+  
   public void validateLastNotification()
   {
     this.validateAttribute(LASTNOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTNOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTNOTIFICATION);
   }
   
   public void setLastNotification(dss.vector.solutions.general.EpiWeek value)
@@ -658,10 +693,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -676,15 +711,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -699,15 +739,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public Double getNotification()
@@ -720,10 +765,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(NOTIFICATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotificationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getNotificationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(NOTIFICATION);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(NOTIFICATION);
   }
   
   public void setNotification(Double value)
@@ -750,15 +795,20 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -783,10 +833,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -799,10 +849,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -815,10 +865,10 @@ public abstract class WeeklyThresholdBase extends com.runwaysdk.business.Relatio
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThreshold.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

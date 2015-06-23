@@ -56,10 +56,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CATEGORYCOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCategoryCountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getCategoryCountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(CATEGORYCOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(CATEGORYCOUNT);
   }
   
   public void setCategoryCount(Integer value)
@@ -84,10 +84,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -102,15 +102,20 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
@@ -125,15 +130,20 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -158,10 +168,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FACTORYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFactoryTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFactoryTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(FACTORYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FACTORYTYPE);
   }
   
   public void setFactoryType(String value)
@@ -186,10 +196,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTFILLEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontFillEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontFillEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(FONTFILLEND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTFILLEND);
   }
   
   public void setFontFillEnd(String value)
@@ -214,10 +224,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTFILLSTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontFillStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontFillStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(FONTFILLSTART);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTFILLSTART);
   }
   
   public void setFontFillStart(String value)
@@ -242,10 +252,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -258,10 +268,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -286,10 +296,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LABELHALOFILLEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelHaloFillEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLabelHaloFillEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LABELHALOFILLEND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LABELHALOFILLEND);
   }
   
   public void setLabelHaloFillEnd(String value)
@@ -314,10 +324,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LABELHALOFILLSTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelHaloFillStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLabelHaloFillStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LABELHALOFILLSTART);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LABELHALOFILLSTART);
   }
   
   public void setLabelHaloFillStart(String value)
@@ -342,10 +352,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -360,15 +370,20 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public String getLayerId()
@@ -381,10 +396,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LAYERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LAYERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERID);
   }
   
   public void setLayerId(String value)
@@ -411,15 +426,20 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -434,15 +454,20 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -467,10 +492,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POINTSIZEEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointSizeEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPointSizeEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POINTSIZEEND);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POINTSIZEEND);
   }
   
   public void setPointSizeEnd(Integer value)
@@ -495,10 +520,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POINTSIZESTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointSizeStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPointSizeStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POINTSIZESTART);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(POINTSIZESTART);
   }
   
   public void setPointSizeStart(Integer value)
@@ -523,10 +548,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POINTSTROKEEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointStrokeEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPointStrokeEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POINTSTROKEEND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POINTSTROKEEND);
   }
   
   public void setPointStrokeEnd(String value)
@@ -551,10 +576,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POINTSTROKESTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointStrokeStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPointStrokeStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POINTSTROKESTART);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POINTSTROKESTART);
   }
   
   public void setPointStrokeStart(String value)
@@ -579,10 +604,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POLYGONFILLEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonFillEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonFillEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POLYGONFILLEND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONFILLEND);
   }
   
   public void setPolygonFillEnd(String value)
@@ -607,10 +632,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POLYGONFILLSTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonFillStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonFillStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POLYGONFILLSTART);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONFILLSTART);
   }
   
   public void setPolygonFillStart(String value)
@@ -635,10 +660,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POLYGONSTROKEEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonStrokeEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonStrokeEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POLYGONSTROKEEND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONSTROKEEND);
   }
   
   public void setPolygonStrokeEnd(String value)
@@ -663,10 +688,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(POLYGONSTROKESTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPolygonStrokeStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPolygonStrokeStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(POLYGONSTROKESTART);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(POLYGONSTROKESTART);
   }
   
   public void setPolygonStrokeStart(String value)
@@ -691,10 +716,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(PRECISIONFIGURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPrecisionFiguresMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPrecisionFiguresMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(PRECISIONFIGURES);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PRECISIONFIGURES);
   }
   
   public void setPrecisionFigures(Integer value)
@@ -719,10 +744,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -735,10 +760,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -751,10 +776,10 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

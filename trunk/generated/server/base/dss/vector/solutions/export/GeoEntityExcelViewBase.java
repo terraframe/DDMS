@@ -37,10 +37,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ACTIVATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActivatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getActivatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ACTIVATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ACTIVATED);
   }
   
   public void setActivated(Boolean value)
@@ -65,10 +65,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -93,10 +93,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -121,10 +121,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GEOTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOTYPE);
   }
   
   public void setGeoType(String value)
@@ -149,10 +149,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GEOMETRYWKT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeometryWKTMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getGeometryWKTMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOMETRYWKT);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(GEOMETRYWKT);
   }
   
   public void setGeometryWKT(String value)
@@ -177,10 +177,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentName()
@@ -193,10 +193,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PARENTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(PARENTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTNAME);
   }
   
   public void setParentName(String value)
@@ -221,10 +221,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PARENTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(PARENTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTTYPE);
   }
   
   public void setParentType(String value)
@@ -249,10 +249,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SUBTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSubTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSubTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
-    return mdClassIF.definesAttribute(SUBTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUBTYPE);
   }
   
   public void setSubType(String value)

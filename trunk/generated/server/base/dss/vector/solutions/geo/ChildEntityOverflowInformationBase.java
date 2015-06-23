@@ -34,10 +34,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getOverflowEnd()
@@ -50,10 +50,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(OVERFLOWEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverflowEndMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOverflowEndMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(OVERFLOWEND);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OVERFLOWEND);
   }
   
   public void setOverflowEnd(Integer value)
@@ -78,10 +78,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(OVERFLOWNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverflowNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOverflowNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(OVERFLOWNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OVERFLOWNUMBER);
   }
   
   public void setOverflowNumber(Integer value)
@@ -106,10 +106,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(OVERFLOWPAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverflowPageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOverflowPageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(OVERFLOWPAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OVERFLOWPAGE);
   }
   
   public void setOverflowPage(Integer value)
@@ -134,10 +134,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(OVERFLOWSTART);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverflowStartMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOverflowStartMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(OVERFLOWSTART);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OVERFLOWSTART);
   }
   
   public void setOverflowStart(Integer value)
@@ -162,10 +162,10 @@ public abstract class ChildEntityOverflowInformationBase extends com.runwaysdk.b
     this.validateAttribute(OVERFLOWTHRESHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverflowThresholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getOverflowThresholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.ChildEntityOverflowInformation.CLASS);
-    return mdClassIF.definesAttribute(OVERFLOWTHRESHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OVERFLOWTHRESHOLD);
   }
   
   public void setOverflowThreshold(Integer value)

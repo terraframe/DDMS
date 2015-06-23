@@ -36,10 +36,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ASSIGNEDOPERATORS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssignedOperatorsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAssignedOperatorsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(ASSIGNEDOPERATORS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ASSIGNEDOPERATORS);
   }
   
   public void setAssignedOperators(String value)
@@ -64,10 +64,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(AVAILABLEOPERATORS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAvailableOperatorsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAvailableOperatorsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(AVAILABLEOPERATORS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(AVAILABLEOPERATORS);
   }
   
   public void setAvailableOperators(String value)
@@ -92,10 +92,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -120,10 +120,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(CURRENTOPERATORS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrentOperatorsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCurrentOperatorsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(CURRENTOPERATORS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CURRENTOPERATORS);
   }
   
   public void setCurrentOperators(String value)
@@ -148,10 +148,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.geo.generated.SprayZone getSprayZone()
@@ -166,15 +166,20 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getSprayZoneId()
+  {
+    return getValue(SPRAYZONE);
+  }
+  
   public void validateSprayZone()
   {
     this.validateAttribute(SPRAYZONE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayZoneMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayZoneMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYZONE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYZONE);
   }
   
   public void setSprayZone(dss.vector.solutions.geo.generated.SprayZone value)
@@ -199,10 +204,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(TEAMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTeamIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(TEAMID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TEAMID);
   }
   
   public void setTeamId(String value)
@@ -227,10 +232,10 @@ public abstract class SprayTeamViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(TEAMLEADER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamLeaderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTeamLeaderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamView.CLASS);
-    return mdClassIF.definesAttribute(TEAMLEADER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEAMLEADER);
   }
   
   public void setTeamLeader(String value)

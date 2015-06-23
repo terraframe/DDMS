@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class AggregatedITNExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 494504473;
 
   public AggregatedITNExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

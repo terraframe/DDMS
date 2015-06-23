@@ -97,6 +97,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -127,6 +132,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DAMAGED));
     }
+  }
+  
+  public String getDamagedId()
+  {
+    return getValue(DAMAGED);
   }
   
   public void setDamaged(dss.vector.solutions.ontology.TermDTO value)
@@ -173,6 +183,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -217,6 +232,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getHangingId()
+  {
+    return getValue(HANGING);
+  }
+  
   public void setHanging(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -259,6 +279,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.intervention.monitor.HouseholdDTO.get(getRequest(), getValue(HOUSEHOLD));
     }
+  }
+  
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLD);
   }
   
   public void setHousehold(dss.vector.solutions.intervention.monitor.HouseholdDTO value)
@@ -367,6 +392,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -397,6 +427,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -523,6 +558,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getNetBrandId()
+  {
+    return getValue(NETBRAND);
+  }
+  
   public void setNetBrand(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -641,6 +681,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getObtainedId()
+  {
+    return getValue(OBTAINED);
+  }
+  
   public void setObtained(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -683,6 +728,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -764,6 +814,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PURPOSE));
     }
+  }
+  
+  public String getPurposeId()
+  {
+    return getValue(PURPOSE);
   }
   
   public void setPurpose(dss.vector.solutions.ontology.TermDTO value)
@@ -1080,6 +1135,11 @@ public abstract class ITNInstanceDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(WASHPERIOD));
     }
+  }
+  
+  public String getWashPeriodId()
+  {
+    return getValue(WASHPERIOD);
   }
   
   public void setWashPeriod(dss.vector.solutions.ontology.TermDTO value)

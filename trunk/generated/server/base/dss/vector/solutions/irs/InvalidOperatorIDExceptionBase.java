@@ -45,10 +45,10 @@ public abstract class InvalidOperatorIDExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidOperatorIDException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getOperatorId()
@@ -61,10 +61,10 @@ public abstract class InvalidOperatorIDExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(OPERATORID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getOperatorIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidOperatorIDException.CLASS);
-    return mdClassIF.definesAttribute(OPERATORID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OPERATORID);
   }
   
   public void setOperatorId(String value)

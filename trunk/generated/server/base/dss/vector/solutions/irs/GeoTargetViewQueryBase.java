@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  abstract  class GeoTargetViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1485305086;
 
   public GeoTargetViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

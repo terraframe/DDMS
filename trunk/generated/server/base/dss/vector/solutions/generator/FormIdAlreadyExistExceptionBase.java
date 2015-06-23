@@ -47,10 +47,10 @@ public abstract class FormIdAlreadyExistExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(ATTRIBUTEDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAttributeDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.FormIdAlreadyExistException.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTEDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ATTRIBUTEDISPLAYLABEL);
   }
   
   public void setAttributeDisplayLabel(String value)
@@ -75,10 +75,10 @@ public abstract class FormIdAlreadyExistExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.FormIdAlreadyExistException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTypeDisplayLabel()
@@ -91,10 +91,10 @@ public abstract class FormIdAlreadyExistExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(TYPEDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getTypeDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.FormIdAlreadyExistException.CLASS);
-    return mdClassIF.definesAttribute(TYPEDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(TYPEDISPLAYLABEL);
   }
   
   public void setTypeDisplayLabel(String value)
@@ -119,10 +119,10 @@ public abstract class FormIdAlreadyExistExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(VALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.FormIdAlreadyExistException.CLASS);
-    return mdClassIF.definesAttribute(VALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(VALUE);
   }
   
   public void setValue(String value)

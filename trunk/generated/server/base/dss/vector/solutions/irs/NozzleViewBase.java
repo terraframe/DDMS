@@ -33,10 +33,10 @@ public abstract class NozzleViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.NozzleView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -61,10 +61,10 @@ public abstract class NozzleViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ENABLED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnabledMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEnabledMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.NozzleView.CLASS);
-    return mdClassIF.definesAttribute(ENABLED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENABLED);
   }
   
   public void setEnabled(Boolean value)
@@ -89,10 +89,10 @@ public abstract class NozzleViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.NozzleView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNozzleId()
@@ -105,10 +105,10 @@ public abstract class NozzleViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(NOZZLEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNozzleIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNozzleIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.NozzleView.CLASS);
-    return mdClassIF.definesAttribute(NOZZLEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NOZZLEID);
   }
   
   public void setNozzleId(String value)
@@ -133,10 +133,10 @@ public abstract class NozzleViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(RATIO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRatioMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRatioMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.NozzleView.CLASS);
-    return mdClassIF.definesAttribute(RATIO);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RATIO);
   }
   
   public void setRatio(java.math.BigDecimal value)

@@ -69,6 +69,11 @@ public abstract class PupalContainerAmountViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getContainerId()
+  {
+    return getValue(CONTAINER);
+  }
+  
   public void setContainer(dss.vector.solutions.entomology.PupalContainerDTO value)
   {
     if(value == null)
@@ -111,6 +116,11 @@ public abstract class PupalContainerAmountViewDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

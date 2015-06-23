@@ -51,10 +51,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(AGERANGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeRangeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAgeRangeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(AGERANGE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGERANGE);
   }
   
   public String getColonyName()
@@ -67,10 +67,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(COLONYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getColonyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getColonyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLONYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLONYNAME);
   }
   
   public void setColonyName(String value)
@@ -95,10 +95,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(CONTROLTESTMORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getControlTestMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
   }
   
   public void setControlTestMortality(Float value)
@@ -123,10 +123,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(EXPOSURETIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExposureTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getExposureTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(EXPOSURETIME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(EXPOSURETIME);
   }
   
   public void setExposureTime(Integer value)
@@ -151,10 +151,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(FED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(FED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FED);
   }
   
   public void setFed(Integer value)
@@ -191,10 +191,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -219,10 +219,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(GRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(GRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GRAVID);
   }
   
   public void setGravid(Integer value)
@@ -247,10 +247,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(HOLDINGTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHoldingTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHoldingTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(HOLDINGTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOLDINGTIME);
   }
   
   public void setHoldingTime(Integer value)
@@ -275,10 +275,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getInsecticideTerm()
@@ -291,10 +291,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(INSECTICIDETERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInsecticideTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDETERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INSECTICIDETERM);
   }
   
   public void setInsecticideTerm(String value)
@@ -319,10 +319,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(QUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITYDEAD);
   }
   
   public void setQuantityDead(Integer value)
@@ -347,10 +347,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(QUANTITYTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITYTESTED);
   }
   
   public void setQuantityTested(Integer value)
@@ -375,10 +375,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(String value)
@@ -403,10 +403,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SPECIE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpecieMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSpecieMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPECIE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPECIE);
   }
   
   public void setSpecie(String value)
@@ -431,10 +431,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SURFACEPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfacePositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSurfacePositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SURFACEPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SURFACEPOSITION);
   }
   
   public void setSurfacePosition(String value)
@@ -459,10 +459,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SURFACETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSurfaceTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SURFACETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SURFACETYPE);
   }
   
   public void setSurfaceType(String value)
@@ -487,10 +487,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(TESTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTestDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TESTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TESTDATE);
   }
   
   public void setTestDate(java.util.Date value)
@@ -515,10 +515,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(TESTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTestMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TESTMETHOD);
   }
   
   public void setTestMethod(String value)
@@ -543,10 +543,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(TIMEONSURFACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTimeOnSurfaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTimeOnSurfaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TIMEONSURFACE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TIMEONSURFACE);
   }
   
   public void setTimeOnSurface(Integer value)
@@ -571,10 +571,10 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

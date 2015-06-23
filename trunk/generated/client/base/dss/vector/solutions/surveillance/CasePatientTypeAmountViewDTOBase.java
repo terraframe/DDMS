@@ -69,6 +69,11 @@ public abstract class CasePatientTypeAmountViewDTOBase extends com.runwaysdk.bus
     }
   }
   
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
+  }
+  
   public void setPatient(dss.vector.solutions.surveillance.CasePatientTypeDTO value)
   {
     if(value == null)
@@ -111,6 +116,11 @@ public abstract class CasePatientTypeAmountViewDTOBase extends com.runwaysdk.bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

@@ -30,10 +30,10 @@ public abstract class RangeCategoryBase extends dss.vector.solutions.query.Abstr
     this.validateAttribute(LOWERBOUNDSTR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLowerBoundStrMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLowerBoundStrMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.RangeCategory.CLASS);
-    return mdClassIF.definesAttribute(LOWERBOUNDSTR);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LOWERBOUNDSTR);
   }
   
   public void setLowerBoundStr(String value)
@@ -58,10 +58,10 @@ public abstract class RangeCategoryBase extends dss.vector.solutions.query.Abstr
     this.validateAttribute(UPPERBOUNDSTR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUpperBoundStrMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUpperBoundStrMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.RangeCategory.CLASS);
-    return mdClassIF.definesAttribute(UPPERBOUNDSTR);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UPPERBOUNDSTR);
   }
   
   public void setUpperBoundStr(String value)

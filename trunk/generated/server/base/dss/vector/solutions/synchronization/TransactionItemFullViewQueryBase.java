@@ -11,7 +11,6 @@ package dss.vector.solutions.synchronization;
 public  abstract  class TransactionItemFullViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1017887330;
 
   public TransactionItemFullViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

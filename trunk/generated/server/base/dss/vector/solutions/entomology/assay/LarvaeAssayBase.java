@@ -32,15 +32,20 @@ public abstract class LarvaeAssayBase extends dss.vector.solutions.entomology.as
     }
   }
   
+  public String getEndPointId()
+  {
+    return getValue(ENDPOINT);
+  }
+  
   public void validateEndPoint()
   {
     this.validateAttribute(ENDPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEndPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeAssay.CLASS);
-    return mdClassIF.definesAttribute(ENDPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENDPOINT);
   }
   
   public void setEndPoint(dss.vector.solutions.ontology.Term value)
@@ -67,15 +72,20 @@ public abstract class LarvaeAssayBase extends dss.vector.solutions.entomology.as
     }
   }
   
+  public String getStartPointId()
+  {
+    return getValue(STARTPOINT);
+  }
+  
   public void validateStartPoint()
   {
     this.validateAttribute(STARTPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getStartPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeAssay.CLASS);
-    return mdClassIF.definesAttribute(STARTPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(STARTPOINT);
   }
   
   public void setStartPoint(dss.vector.solutions.ontology.Term value)

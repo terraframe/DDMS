@@ -46,10 +46,10 @@ public abstract class ReportParameterParseExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportParameterParseException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParameterName()
@@ -62,10 +62,10 @@ public abstract class ReportParameterParseExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(PARAMETERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParameterNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getParameterNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportParameterParseException.CLASS);
-    return mdClassIF.definesAttribute(PARAMETERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(PARAMETERNAME);
   }
   
   public void setParameterName(String value)
@@ -90,10 +90,10 @@ public abstract class ReportParameterParseExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(PARAMETERVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParameterValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getParameterValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportParameterParseException.CLASS);
-    return mdClassIF.definesAttribute(PARAMETERVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(PARAMETERVALUE);
   }
   
   public void setParameterValue(String value)

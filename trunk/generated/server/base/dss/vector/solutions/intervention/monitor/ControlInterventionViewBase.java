@@ -40,15 +40,20 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getAggregatedPremiseUniversalId()
+  {
+    return getValue(AGGREGATEDPREMISEUNIVERSAL);
+  }
+  
   public void validateAggregatedPremiseUniversal()
   {
     this.validateAttribute(AGGREGATEDPREMISEUNIVERSAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAggregatedPremiseUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAggregatedPremiseUniversalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(AGGREGATEDPREMISEUNIVERSAL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGGREGATEDPREMISEUNIVERSAL);
   }
   
   public void setAggregatedPremiseUniversal(dss.vector.solutions.geo.GeoHierarchy value)
@@ -73,10 +78,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(COMMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCommentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCommentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(COMMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COMMENTS);
   }
   
   public void setComments(String value)
@@ -101,10 +106,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -129,10 +134,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -159,15 +164,20 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -192,10 +202,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.geo.GeoHierarchy getIndividulPremiseUniversal()
@@ -210,15 +220,20 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getIndividulPremiseUniversalId()
+  {
+    return getValue(INDIVIDULPREMISEUNIVERSAL);
+  }
+  
   public void validateIndividulPremiseUniversal()
   {
     this.validateAttribute(INDIVIDULPREMISEUNIVERSAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIndividulPremiseUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIndividulPremiseUniversalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INDIVIDULPREMISEUNIVERSAL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INDIVIDULPREMISEUNIVERSAL);
   }
   
   public void setIndividulPremiseUniversal(dss.vector.solutions.geo.GeoHierarchy value)
@@ -245,15 +260,20 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getInsecticideInterventionId()
+  {
+    return getValue(INSECTICIDEINTERVENTION);
+  }
+  
   public void validateInsecticideIntervention()
   {
     this.validateAttribute(INSECTICIDEINTERVENTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideInterventionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInsecticideInterventionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEINTERVENTION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INSECTICIDEINTERVENTION);
   }
   
   public void setInsecticideIntervention(dss.vector.solutions.ontology.Term value)
@@ -278,10 +298,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(PERSONINTERVENTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonInterventionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPersonInterventionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(PERSONINTERVENTION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PERSONINTERVENTION);
   }
   
   public void setPersonIntervention(String value)
@@ -306,10 +326,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

@@ -55,10 +55,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ASSAYMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssayMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAssayMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(ASSAYMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ASSAYMETHOD);
   }
   
   public void setAssayMethod(dss.vector.solutions.ontology.Term value)
@@ -95,10 +95,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(COLLECTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollection value)
@@ -123,10 +123,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -163,10 +163,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GENERATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGenerationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGenerationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(GENERATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GENERATION);
   }
   
   public void setGeneration(dss.vector.solutions.ontology.Term value)
@@ -191,10 +191,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getIdentMethod()
@@ -219,10 +219,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(IDENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(IDENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.Term value)
@@ -247,10 +247,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ISOFEMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsofemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsofemaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(ISOFEMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISOFEMALE);
   }
   
   public void setIsofemale(Boolean value)
@@ -275,10 +275,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(MOSQUITOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMosquitoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMosquitoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(MOSQUITOID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MOSQUITOID);
   }
   
   public void setMosquitoId(String value)
@@ -303,10 +303,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(NUMBERRR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberRRMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRRMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERRR);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERRR);
   }
   
   public void setNumberRR(Integer value)
@@ -331,10 +331,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(NUMBERRS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberRSMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRSMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERRS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERRS);
   }
   
   public void setNumberRS(Integer value)
@@ -359,10 +359,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(NUMBERSS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberSSMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberSSMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERSS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERSS);
   }
   
   public void setNumberSS(Integer value)
@@ -399,10 +399,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)
@@ -439,10 +439,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SPECIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpeciesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSpeciesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(SPECIES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPECIES);
   }
   
   public void setSpecies(dss.vector.solutions.ontology.Term value)
@@ -479,10 +479,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTargetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET);
   }
   
   public void setTarget(dss.vector.solutions.ontology.Term value)
@@ -507,10 +507,10 @@ public abstract class MolecularAssayViewBase extends com.runwaysdk.business.View
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssayView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

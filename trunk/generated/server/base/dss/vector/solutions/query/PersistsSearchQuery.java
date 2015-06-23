@@ -10,7 +10,6 @@ package dss.vector.solutions.query;
  */
 public  class PersistsSearchQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -11027132;
 
   public PersistsSearchQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

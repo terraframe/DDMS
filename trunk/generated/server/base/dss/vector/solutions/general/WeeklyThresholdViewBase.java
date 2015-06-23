@@ -36,10 +36,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(DISEASELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDiseaseLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(DISEASELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISEASELABEL);
   }
   
   public void setDiseaseLabel(String value)
@@ -64,10 +64,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -92,10 +92,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getPeriod()
@@ -108,10 +108,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -136,10 +136,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(THRESHOLDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getThresholdDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(THRESHOLDDATE);
   }
   
   public void setThresholdDate(java.util.Date value)
@@ -164,10 +164,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(THRESHOLDVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getThresholdValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(THRESHOLDVALUE);
   }
   
   public void setThresholdValue(Double value)
@@ -192,10 +192,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(THRESHSOLDTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThreshsoldTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getThreshsoldTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(THRESHSOLDTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(THRESHSOLDTYPE);
   }
   
   public void setThreshsoldType(String value)
@@ -220,10 +220,10 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     this.validateAttribute(YEAROFWEEK);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearOfWeekMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getYearOfWeekMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
-    return mdClassIF.definesAttribute(YEAROFWEEK);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(YEAROFWEEK);
   }
   
   public void setYearOfWeek(Integer value)

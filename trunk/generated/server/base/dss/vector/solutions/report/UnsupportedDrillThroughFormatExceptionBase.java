@@ -45,10 +45,10 @@ public abstract class UnsupportedDrillThroughFormatExceptionBase extends com.run
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.UnsupportedDrillThroughFormatException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getOutputFormat()
@@ -61,10 +61,10 @@ public abstract class UnsupportedDrillThroughFormatExceptionBase extends com.run
     this.validateAttribute(OUTPUTFORMAT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutputFormatMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getOutputFormatMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.UnsupportedDrillThroughFormatException.CLASS);
-    return mdClassIF.definesAttribute(OUTPUTFORMAT);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(OUTPUTFORMAT);
   }
   
   public void setOutputFormat(String value)

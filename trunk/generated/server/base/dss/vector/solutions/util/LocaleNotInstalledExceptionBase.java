@@ -45,10 +45,10 @@ public abstract class LocaleNotInstalledExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.LocaleNotInstalledException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLocaleString()
@@ -61,10 +61,10 @@ public abstract class LocaleNotInstalledExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(LOCALESTRING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLocaleStringMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLocaleStringMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.LocaleNotInstalledException.CLASS);
-    return mdClassIF.definesAttribute(LOCALESTRING);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LOCALESTRING);
   }
   
   public void setLocaleString(String value)

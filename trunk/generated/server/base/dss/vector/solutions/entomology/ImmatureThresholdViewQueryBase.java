@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  abstract  class ImmatureThresholdViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1802166118;
 
   public ImmatureThresholdViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

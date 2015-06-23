@@ -11,7 +11,6 @@ package dss.vector.solutions.synchronization;
 public  abstract  class SynchronizedTypeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1947193296;
 
   public SynchronizedTypeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -45,10 +45,10 @@ public abstract class UnableToUploadFlagExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnableToUploadFlagException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getReason()
@@ -61,10 +61,10 @@ public abstract class UnableToUploadFlagExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(REASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getReasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnableToUploadFlagException.CLASS);
-    return mdClassIF.definesAttribute(REASON);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(REASON);
   }
   
   public void setReason(String value)

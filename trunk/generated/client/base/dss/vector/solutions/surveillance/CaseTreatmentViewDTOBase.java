@@ -33,6 +33,11 @@ public abstract class CaseTreatmentViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getAggregatedCaseId()
+  {
+    return getValue(AGGREGATEDCASE);
+  }
+  
   public void setAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO value)
   {
     if(value == null)
@@ -149,6 +154,11 @@ public abstract class CaseTreatmentViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

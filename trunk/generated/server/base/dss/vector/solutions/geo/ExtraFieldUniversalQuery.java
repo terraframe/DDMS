@@ -10,7 +10,6 @@ package dss.vector.solutions.geo;
  */
 public  class ExtraFieldUniversalQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1680220731;
 
   public ExtraFieldUniversalQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

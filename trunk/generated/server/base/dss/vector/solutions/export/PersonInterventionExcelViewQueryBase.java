@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class PersonInterventionExcelViewQueryBase extends dss.vector.solutions.export.ControlInterventionExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1418136111;
 
   public PersonInterventionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

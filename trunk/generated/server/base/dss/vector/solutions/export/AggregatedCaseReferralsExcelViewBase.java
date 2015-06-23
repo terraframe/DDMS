@@ -32,10 +32,10 @@ public abstract class AggregatedCaseReferralsExcelViewBase extends dss.vector.so
     this.validateAttribute(CASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
-    return mdClassIF.definesAttribute(CASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CASES);
   }
   
   public void setCases(Integer value)
@@ -60,10 +60,10 @@ public abstract class AggregatedCaseReferralsExcelViewBase extends dss.vector.so
     this.validateAttribute(DEATHS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDeathsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
-    return mdClassIF.definesAttribute(DEATHS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DEATHS);
   }
   
   public void setDeaths(Integer value)
@@ -88,10 +88,10 @@ public abstract class AggregatedCaseReferralsExcelViewBase extends dss.vector.so
     this.validateAttribute(NEGATIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNegativeCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNegativeCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
-    return mdClassIF.definesAttribute(NEGATIVECASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NEGATIVECASES);
   }
   
   public void setNegativeCases(Integer value)
@@ -116,10 +116,10 @@ public abstract class AggregatedCaseReferralsExcelViewBase extends dss.vector.so
     this.validateAttribute(POSITIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPositiveCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPositiveCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
-    return mdClassIF.definesAttribute(POSITIVECASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POSITIVECASES);
   }
   
   public void setPositiveCases(Integer value)

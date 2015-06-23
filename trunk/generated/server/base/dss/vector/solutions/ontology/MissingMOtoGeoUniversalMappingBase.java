@@ -45,10 +45,10 @@ public abstract class MissingMOtoGeoUniversalMappingBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTermId()
@@ -61,10 +61,10 @@ public abstract class MissingMOtoGeoUniversalMappingBase extends com.runwaysdk.b
     this.validateAttribute(TERMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTermIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping.CLASS);
-    return mdClassIF.definesAttribute(TERMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TERMID);
   }
   
   public void setTermId(String value)

@@ -72,6 +72,11 @@ public abstract class BrowserFieldViewDTOBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getDefaultValueId()
+  {
+    return getValue(DEFAULTVALUE);
+  }
+  
   public void setDefaultValue(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)

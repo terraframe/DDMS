@@ -94,6 +94,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getAnaemiaTreatmentId()
+  {
+    return getValue(ANAEMIATREATMENT);
+  }
+  
   public void setAnaemiaTreatment(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -138,6 +143,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getBloodslideDetailId()
+  {
+    return getValue(BLOODSLIDEDETAIL);
+  }
+  
   public void setBloodslideDetail(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -180,6 +190,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(BLOODSLIDEREASON));
     }
+  }
+  
+  public String getBloodslideReasonId()
+  {
+    return getValue(BLOODSLIDEREASON);
   }
   
   public void setBloodslideReason(dss.vector.solutions.ontology.TermDTO value)
@@ -300,6 +315,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getDisplayLocationsId()
+  {
+    return getValue(DISPLAYLOCATIONS);
+  }
+  
   public void setDisplayLocations(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -342,6 +362,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYTREATMENTS));
     }
+  }
+  
+  public String getDisplayTreatmentsId()
+  {
+    return getValue(DISPLAYTREATMENTS);
   }
   
   public void setDisplayTreatments(dss.vector.solutions.ontology.TermDTO value)
@@ -554,6 +579,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getHeadOfHouseholdId()
+  {
+    return getValue(HEADOFHOUSEHOLD);
+  }
+  
   public void setHeadOfHousehold(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -598,6 +628,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLD);
+  }
+  
   public void setHousehold(dss.vector.solutions.intervention.monitor.HouseholdDTO value)
   {
     if(value == null)
@@ -640,6 +675,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(IMMUNECOMPROMISED));
     }
+  }
+  
+  public String getImmuneCompromisedId()
+  {
+    return getValue(IMMUNECOMPROMISED);
   }
   
   public void setImmuneCompromised(dss.vector.solutions.ontology.TermDTO value)
@@ -769,6 +809,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getMalariaConformationTechniqueId()
+  {
+    return getValue(MALARIACONFORMATIONTECHNIQUE);
+  }
+  
   public void setMalariaConformationTechnique(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -811,6 +856,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PAYMENT));
     }
+  }
+  
+  public String getPaymentId()
+  {
+    return getValue(PAYMENT);
   }
   
   public void setPayment(dss.vector.solutions.ontology.TermDTO value)
@@ -1014,6 +1064,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getRdtDetailId()
+  {
+    return getValue(RDTDETAIL);
+  }
+  
   public void setRdtDetail(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1095,6 +1150,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getRdtTreatmentId()
+  {
+    return getValue(RDTTREATMENT);
+  }
+  
   public void setRdtTreatment(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1139,6 +1199,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -1181,6 +1246,11 @@ public abstract class SurveyedPersonViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.intervention.monitor.ITNInstanceDTO.get(getRequest(), getValue(SLEPTUNDERNET));
     }
+  }
+  
+  public String getSleptUnderNetId()
+  {
+    return getValue(SLEPTUNDERNET);
   }
   
   public void setSleptUnderNet(dss.vector.solutions.intervention.monitor.ITNInstanceDTO value)

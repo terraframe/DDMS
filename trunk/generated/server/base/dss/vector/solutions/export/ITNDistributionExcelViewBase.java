@@ -42,10 +42,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(BATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(BATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BATCHNUMBER);
   }
   
   public void setBatchNumber(String value)
@@ -70,10 +70,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(CURRENCYRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrencyReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCurrencyReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(CURRENCYRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CURRENCYRECEIVED);
   }
   
   public void setCurrencyReceived(Double value)
@@ -98,10 +98,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DISTRIBUTIONDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDistributionDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDistributionDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DISTRIBUTIONDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISTRIBUTIONDATE);
   }
   
   public void setDistributionDate(java.util.Date value)
@@ -126,10 +126,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DISTRIBUTORNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDistributorNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDistributorNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DISTRIBUTORNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISTRIBUTORNAME);
   }
   
   public void setDistributorName(String value)
@@ -154,10 +154,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(DISTRIBUTORSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDistributorSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDistributorSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(DISTRIBUTORSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISTRIBUTORSURNAME);
   }
   
   public void setDistributorSurname(String value)
@@ -184,15 +184,20 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getFacilityId()
+  {
+    return getValue(FACILITY);
+  }
+  
   public void validateFacility()
   {
     this.validateAttribute(FACILITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFacilityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(FACILITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FACILITY);
   }
   
   public void setFacility(dss.vector.solutions.geo.generated.HealthFacility value)
@@ -217,10 +222,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNet()
@@ -233,10 +238,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(NET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NET);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NET);
   }
   
   public void setNet(String value)
@@ -261,10 +266,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBERSOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberSoldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberSoldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERSOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERSOLD);
   }
   
   public void setNumberSold(Integer value)
@@ -289,10 +294,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(RECIPIENTDOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecipientDOBMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getRecipientDOBMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIPIENTDOB);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(RECIPIENTDOB);
   }
   
   public void setRecipientDOB(java.util.Date value)
@@ -317,10 +322,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(RECIPIENTFIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecipientFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRecipientFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIPIENTFIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RECIPIENTFIRSTNAME);
   }
   
   public void setRecipientFirstName(String value)
@@ -345,10 +350,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(RECIPIENTLASTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecipientLastNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRecipientLastNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIPIENTLASTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RECIPIENTLASTNAME);
   }
   
   public void setRecipientLastName(String value)
@@ -373,10 +378,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(RECIPIENTSEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecipientSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRecipientSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECIPIENTSEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RECIPIENTSEX);
   }
   
   public void setRecipientSex(String value)
@@ -401,10 +406,10 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     this.validateAttribute(SERVICE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getServiceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getServiceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
-    return mdClassIF.definesAttribute(SERVICE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SERVICE);
   }
   
   public void setService(String value)

@@ -300,6 +300,11 @@ public abstract class ITNDistributionViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getNetId()
+  {
+    return getValue(NET);
+  }
+  
   public void setNet(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -381,6 +386,11 @@ public abstract class ITNDistributionViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getPersonId()
+  {
+    return getValue(PERSON);
+  }
+  
   public void setPerson(dss.vector.solutions.PersonDTO value)
   {
     if(value == null)
@@ -425,6 +435,11 @@ public abstract class ITNDistributionViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getServiceId()
+  {
+    return getValue(SERVICE);
+  }
+  
   public void setService(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -467,6 +482,11 @@ public abstract class ITNDistributionViewDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TARGETGROUPS));
     }
+  }
+  
+  public String getTargetGroupsId()
+  {
+    return getValue(TARGETGROUPS);
   }
   
   public void setTargetGroups(dss.vector.solutions.ontology.TermDTO value)

@@ -34,10 +34,10 @@ public abstract class WKTParsingProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(REASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getReasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.WKTParsingProblem.CLASS);
-    return mdClassIF.definesAttribute(REASON);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(REASON);
   }
   
   public void setReason(String value)

@@ -29,10 +29,10 @@ public abstract class InsecticideInterventionPlanningViewBase extends dss.vector
     this.validateAttribute(REQUIREDINSECTICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRequiredInsecticideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getRequiredInsecticideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(REQUIREDINSECTICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(REQUIREDINSECTICIDE);
   }
   
   public void setRequiredInsecticide(Double value)

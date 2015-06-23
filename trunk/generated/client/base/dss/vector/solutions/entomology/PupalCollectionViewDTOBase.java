@@ -151,6 +151,11 @@ public abstract class PupalCollectionViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -378,6 +383,11 @@ public abstract class PupalCollectionViewDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PREMISETYPE));
     }
+  }
+  
+  public String getPremiseTypeId()
+  {
+    return getValue(PREMISETYPE);
   }
   
   public void setPremiseType(dss.vector.solutions.ontology.TermDTO value)

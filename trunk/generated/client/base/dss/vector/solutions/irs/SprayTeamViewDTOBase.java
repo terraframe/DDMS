@@ -184,6 +184,11 @@ public abstract class SprayTeamViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getSprayZoneId()
+  {
+    return getValue(SPRAYZONE);
+  }
+  
   public void setSprayZone(dss.vector.solutions.geo.generated.SprayZoneDTO value)
   {
     if(value == null)

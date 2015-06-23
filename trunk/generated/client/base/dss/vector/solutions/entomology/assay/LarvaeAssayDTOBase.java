@@ -41,6 +41,11 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     }
   }
   
+  public String getEndPointId()
+  {
+    return getValue(ENDPOINT);
+  }
+  
   public void setEndPoint(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -83,6 +88,11 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(STARTPOINT));
     }
+  }
+  
+  public String getStartPointId()
+  {
+    return getValue(STARTPOINT);
   }
   
   public void setStartPoint(dss.vector.solutions.ontology.TermDTO value)

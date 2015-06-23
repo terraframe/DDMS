@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class SurveyPointViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1721966329;
 
   public SurveyPointViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

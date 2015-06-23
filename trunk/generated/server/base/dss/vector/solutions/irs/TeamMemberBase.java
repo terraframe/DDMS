@@ -32,10 +32,10 @@ public abstract class TeamMemberBase extends dss.vector.solutions.irs.Targeter i
     this.validateAttribute(ISSPRAYLEADER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayLeaderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSprayLeaderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMember.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYLEADER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSPRAYLEADER);
   }
   
   public void setIsSprayLeader(Boolean value)
@@ -60,10 +60,10 @@ public abstract class TeamMemberBase extends dss.vector.solutions.irs.Targeter i
     this.validateAttribute(ISSPRAYOPERATOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayOperatorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSprayOperatorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMember.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYOPERATOR);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSPRAYOPERATOR);
   }
   
   public void setIsSprayOperator(Boolean value)
@@ -88,10 +88,10 @@ public abstract class TeamMemberBase extends dss.vector.solutions.irs.Targeter i
     this.validateAttribute(MEMBERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMemberIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMemberIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMember.CLASS);
-    return mdClassIF.definesAttribute(MEMBERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MEMBERID);
   }
   
   public void setMemberId(String value)
@@ -118,15 +118,20 @@ public abstract class TeamMemberBase extends dss.vector.solutions.irs.Targeter i
     }
   }
   
+  public String getPersonId()
+  {
+    return getValue(PERSON);
+  }
+  
   public void validatePerson()
   {
     this.validateAttribute(PERSON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPersonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMember.CLASS);
-    return mdClassIF.definesAttribute(PERSON);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PERSON);
   }
   
   public void setPerson(dss.vector.solutions.Person value)

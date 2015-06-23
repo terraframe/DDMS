@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  abstract  class InterventionPlanningViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -154514851;
 
   public InterventionPlanningViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

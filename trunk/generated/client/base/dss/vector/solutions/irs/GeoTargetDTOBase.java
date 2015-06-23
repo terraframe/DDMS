@@ -132,6 +132,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -162,6 +167,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -208,6 +218,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -250,6 +265,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -358,6 +378,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -390,6 +415,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -420,6 +450,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -464,6 +499,11 @@ public abstract class GeoTargetDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.general.MalariaSeasonDTO.get(getRequest(), getValue(SEASON));
     }
+  }
+  
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
   }
   
   public void setSeason(dss.vector.solutions.general.MalariaSeasonDTO value)

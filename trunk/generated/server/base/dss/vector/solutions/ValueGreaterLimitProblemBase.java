@@ -36,10 +36,10 @@ public abstract class ValueGreaterLimitProblemBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ValueGreaterLimitProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLimitAttributeLabel()
@@ -52,10 +52,10 @@ public abstract class ValueGreaterLimitProblemBase extends com.runwaysdk.busines
     this.validateAttribute(LIMITATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLimitAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLimitAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ValueGreaterLimitProblem.CLASS);
-    return mdClassIF.definesAttribute(LIMITATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LIMITATTRIBUTELABEL);
   }
   
   public void setLimitAttributeLabel(String value)
@@ -80,10 +80,10 @@ public abstract class ValueGreaterLimitProblemBase extends com.runwaysdk.busines
     this.validateAttribute(VALUEATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getValueAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getValueAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ValueGreaterLimitProblem.CLASS);
-    return mdClassIF.definesAttribute(VALUEATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(VALUEATTRIBUTELABEL);
   }
   
   public void setValueAttributeLabel(String value)

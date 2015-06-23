@@ -38,15 +38,20 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getBrandId()
+  {
+    return getValue(BRAND);
+  }
+  
   public void validateBrand()
   {
     this.validateAttribute(BRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(BRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BRAND);
   }
   
   public void setBrand(dss.vector.solutions.irs.InsecticideBrand value)
@@ -71,10 +76,10 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -101,15 +106,20 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -134,10 +144,10 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public java.util.Date getSprayDate()
@@ -150,10 +160,10 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(SPRAYDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYDATE);
   }
   
   public void setSprayDate(java.util.Date value)
@@ -200,10 +210,10 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(SPRAYMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSprayMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPRAYMETHOD);
   }
   
   public dss.vector.solutions.irs.Supervisor getSupervisor()
@@ -218,15 +228,20 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
   public void validateSupervisor()
   {
     this.validateAttribute(SUPERVISOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSupervisorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISOR);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SUPERVISOR);
   }
   
   public void setSupervisor(dss.vector.solutions.irs.Supervisor value)
@@ -253,15 +268,20 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
   public void validateSurfaceType()
   {
     this.validateAttribute(SURFACETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSurfaceTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SURFACETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.Term value)

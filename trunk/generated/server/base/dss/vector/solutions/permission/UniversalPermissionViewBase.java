@@ -32,10 +32,10 @@ public abstract class UniversalPermissionViewBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.UniversalPermissionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLabel()
@@ -48,10 +48,10 @@ public abstract class UniversalPermissionViewBase extends com.runwaysdk.business
     this.validateAttribute(LABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.UniversalPermissionView.CLASS);
-    return mdClassIF.definesAttribute(LABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LABEL);
   }
   
   public void setLabel(String value)
@@ -76,10 +76,10 @@ public abstract class UniversalPermissionViewBase extends com.runwaysdk.business
     this.validateAttribute(PERMISSION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPermissionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getPermissionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.UniversalPermissionView.CLASS);
-    return mdClassIF.definesAttribute(PERMISSION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(PERMISSION);
   }
   
   public void setPermission(Boolean value)
@@ -104,10 +104,10 @@ public abstract class UniversalPermissionViewBase extends com.runwaysdk.business
     this.validateAttribute(UNIVERSALID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniversalIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniversalIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.permission.UniversalPermissionView.CLASS);
-    return mdClassIF.definesAttribute(UNIVERSALID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIVERSALID);
   }
   
   public void setUniversalId(String value)

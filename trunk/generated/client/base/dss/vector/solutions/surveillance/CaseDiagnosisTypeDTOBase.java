@@ -53,6 +53,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getAggregatedCaseId()
+  {
+    return getValue(AGGREGATEDCASE);
+  }
+  
   public void setAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO value)
   {
     if(value == null)
@@ -122,6 +127,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -152,6 +162,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -260,6 +275,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -292,6 +312,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -322,6 +347,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -416,6 +446,11 @@ public abstract class CaseDiagnosisTypeDTOBase extends com.runwaysdk.business.Bu
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

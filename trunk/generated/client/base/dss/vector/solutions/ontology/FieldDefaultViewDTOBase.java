@@ -31,6 +31,11 @@ public abstract class FieldDefaultViewDTOBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getDefaultValueId()
+  {
+    return getValue(DEFAULTVALUE);
+  }
+  
   public void setDefaultValue(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -73,6 +78,11 @@ public abstract class FieldDefaultViewDTOBase extends com.runwaysdk.business.Vie
     {
       return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
     }
+  }
+  
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTE);
   }
   
   public void setMdAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)

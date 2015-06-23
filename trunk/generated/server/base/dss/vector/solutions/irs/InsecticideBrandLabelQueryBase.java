@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  abstract  class InsecticideBrandLabelQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1467992225;
 
   public InsecticideBrandLabelQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

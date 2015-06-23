@@ -29,10 +29,10 @@ public abstract class CaseDiagnosisTypeExcelViewBase extends dss.vector.solution
     this.validateAttribute(DIAGNOSISTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDiagnosisTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.CaseDiagnosisTypeExcelView.CLASS);
-    return mdClassIF.definesAttribute(DIAGNOSISTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DIAGNOSISTYPE);
   }
   
   public void setDiagnosisType(String value)

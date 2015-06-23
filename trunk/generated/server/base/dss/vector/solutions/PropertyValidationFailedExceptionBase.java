@@ -45,10 +45,10 @@ public abstract class PropertyValidationFailedExceptionBase extends com.runwaysd
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PropertyValidationFailedException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getValidValues()
@@ -61,10 +61,10 @@ public abstract class PropertyValidationFailedExceptionBase extends com.runwaysd
     this.validateAttribute(VALIDVALUES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getValidValuesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getValidValuesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PropertyValidationFailedException.CLASS);
-    return mdClassIF.definesAttribute(VALIDVALUES);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(VALIDVALUES);
   }
   
   public void setValidValues(String value)

@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  abstract  class NozzleViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1883013392;
 
   public NozzleViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -11,7 +11,6 @@ package dss.vector.solutions.surveillance;
 public  abstract  class CaseDiagnosisTypeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 726434492;
 
   public CaseDiagnosisTypeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -57,10 +57,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(AGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(AGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AGE);
   }
   
   public void setAge(Integer value)
@@ -87,15 +87,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getAnaemiaTreatmentId()
+  {
+    return getValue(ANAEMIATREATMENT);
+  }
+  
   public void validateAnaemiaTreatment()
   {
     this.validateAttribute(ANAEMIATREATMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAnaemiaTreatmentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAnaemiaTreatmentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(ANAEMIATREATMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ANAEMIATREATMENT);
   }
   
   public void setAnaemiaTreatment(dss.vector.solutions.ontology.Term value)
@@ -122,15 +127,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getBloodslideDetailId()
+  {
+    return getValue(BLOODSLIDEDETAIL);
+  }
+  
   public void validateBloodslideDetail()
   {
     this.validateAttribute(BLOODSLIDEDETAIL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideDetailMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBloodslideDetailMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDEDETAIL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BLOODSLIDEDETAIL);
   }
   
   public void setBloodslideDetail(dss.vector.solutions.ontology.Term value)
@@ -157,15 +167,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getBloodslideReasonId()
+  {
+    return getValue(BLOODSLIDEREASON);
+  }
+  
   public void validateBloodslideReason()
   {
     this.validateAttribute(BLOODSLIDEREASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideReasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBloodslideReasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDEREASON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BLOODSLIDEREASON);
   }
   
   public void setBloodslideReason(dss.vector.solutions.ontology.Term value)
@@ -190,10 +205,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(BLOODSLIDERESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBloodslideResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDERESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BLOODSLIDERESULT);
   }
   
   public void setBloodslideResult(Boolean value)
@@ -218,10 +233,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -248,15 +263,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getDisplayLocationsId()
+  {
+    return getValue(DISPLAYLOCATIONS);
+  }
+  
   public void validateDisplayLocations()
   {
     this.validateAttribute(DISPLAYLOCATIONS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLocationsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayLocationsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLOCATIONS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYLOCATIONS);
   }
   
   public void setDisplayLocations(dss.vector.solutions.ontology.Term value)
@@ -283,15 +303,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getDisplayTreatmentsId()
+  {
+    return getValue(DISPLAYTREATMENTS);
+  }
+  
   public void validateDisplayTreatments()
   {
     this.validateAttribute(DISPLAYTREATMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayTreatmentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayTreatmentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYTREATMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYTREATMENTS);
   }
   
   public void setDisplayTreatments(dss.vector.solutions.ontology.Term value)
@@ -316,10 +341,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(DOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDobMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDobMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(DOB);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DOB);
   }
   
   public void setDob(java.util.Date value)
@@ -366,10 +391,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(FEVER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFeverMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFeverMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(FEVER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FEVER);
   }
   
   public java.math.BigDecimal getHaemoglobin()
@@ -382,10 +407,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(HAEMOGLOBIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHaemoglobinMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHaemoglobinMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(HAEMOGLOBIN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HAEMOGLOBIN);
   }
   
   public void setHaemoglobin(java.math.BigDecimal value)
@@ -432,10 +457,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(HAEMOGLOBINMEASURED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHaemoglobinMeasuredMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHaemoglobinMeasuredMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(HAEMOGLOBINMEASURED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HAEMOGLOBINMEASURED);
   }
   
   public dss.vector.solutions.ontology.Term getHeadOfHousehold()
@@ -450,15 +475,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getHeadOfHouseholdId()
+  {
+    return getValue(HEADOFHOUSEHOLD);
+  }
+  
   public void validateHeadOfHousehold()
   {
     this.validateAttribute(HEADOFHOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHeadOfHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHeadOfHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(HEADOFHOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HEADOFHOUSEHOLD);
   }
   
   public void setHeadOfHousehold(dss.vector.solutions.ontology.Term value)
@@ -485,15 +515,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLD);
+  }
+  
   public void validateHousehold()
   {
     this.validateAttribute(HOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLD);
   }
   
   public void setHousehold(dss.vector.solutions.intervention.monitor.Household value)
@@ -518,10 +553,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getImmuneCompromised()
@@ -536,15 +571,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getImmuneCompromisedId()
+  {
+    return getValue(IMMUNECOMPROMISED);
+  }
+  
   public void validateImmuneCompromised()
   {
     this.validateAttribute(IMMUNECOMPROMISED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImmuneCompromisedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getImmuneCompromisedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(IMMUNECOMPROMISED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IMMUNECOMPROMISED);
   }
   
   public void setImmuneCompromised(dss.vector.solutions.ontology.Term value)
@@ -569,10 +609,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(IRON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIronMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIronMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(IRON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IRON);
   }
   
   public void setIron(Boolean value)
@@ -619,10 +659,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(MALARIA);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMalariaMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMalariaMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(MALARIA);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MALARIA);
   }
   
   public dss.vector.solutions.ontology.Term getMalariaConformationTechnique()
@@ -637,15 +677,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getMalariaConformationTechniqueId()
+  {
+    return getValue(MALARIACONFORMATIONTECHNIQUE);
+  }
+  
   public void validateMalariaConformationTechnique()
   {
     this.validateAttribute(MALARIACONFORMATIONTECHNIQUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMalariaConformationTechniqueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMalariaConformationTechniqueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(MALARIACONFORMATIONTECHNIQUE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MALARIACONFORMATIONTECHNIQUE);
   }
   
   public void setMalariaConformationTechnique(dss.vector.solutions.ontology.Term value)
@@ -672,15 +717,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getPaymentId()
+  {
+    return getValue(PAYMENT);
+  }
+  
   public void validatePayment()
   {
     this.validateAttribute(PAYMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPaymentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPaymentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(PAYMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PAYMENT);
   }
   
   public void setPayment(dss.vector.solutions.ontology.Term value)
@@ -705,10 +755,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PERFORMEDBLOODSLIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPerformedBloodslideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPerformedBloodslideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(PERFORMEDBLOODSLIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERFORMEDBLOODSLIDE);
   }
   
   public void setPerformedBloodslide(Boolean value)
@@ -755,10 +805,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PERFORMEDRDT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPerformedRDTMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPerformedRDTMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(PERFORMEDRDT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERFORMEDRDT);
   }
   
   public String getPersonId()
@@ -771,10 +821,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PERSONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPersonIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(PERSONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERSONID);
   }
   
   public void setPersonId(String value)
@@ -799,10 +849,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PREGNANT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPregnantMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPregnantMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(PREGNANT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREGNANT);
   }
   
   public void setPregnant(Boolean value)
@@ -829,15 +879,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getRdtDetailId()
+  {
+    return getValue(RDTDETAIL);
+  }
+  
   public void validateRdtDetail()
   {
     this.validateAttribute(RDTDETAIL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtDetailMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRdtDetailMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(RDTDETAIL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RDTDETAIL);
   }
   
   public void setRdtDetail(dss.vector.solutions.ontology.Term value)
@@ -862,10 +917,10 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     this.validateAttribute(RDTRESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRdtResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(RDTRESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RDTRESULT);
   }
   
   public void setRdtResult(Boolean value)
@@ -892,15 +947,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getRdtTreatmentId()
+  {
+    return getValue(RDTTREATMENT);
+  }
+  
   public void validateRdtTreatment()
   {
     this.validateAttribute(RDTTREATMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtTreatmentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRdtTreatmentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(RDTTREATMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RDTTREATMENT);
   }
   
   public void setRdtTreatment(dss.vector.solutions.ontology.Term value)
@@ -927,15 +987,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)
@@ -962,15 +1027,20 @@ public abstract class SurveyedPersonViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getSleptUnderNetId()
+  {
+    return getValue(SLEPTUNDERNET);
+  }
+  
   public void validateSleptUnderNet()
   {
     this.validateAttribute(SLEPTUNDERNET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSleptUnderNetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSleptUnderNetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNET);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SLEPTUNDERNET);
   }
   
   public void setSleptUnderNet(dss.vector.solutions.intervention.monitor.ITNInstance value)

@@ -31,10 +31,10 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
     this.validateAttribute(KD50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getKd50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(KD50);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(KD50);
   }
   
   public void setKd50(Double value)
@@ -59,10 +59,10 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
     this.validateAttribute(KD95);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd95Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getKd95Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(KD95);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(KD95);
   }
   
   public void setKd95(Double value)
@@ -87,10 +87,10 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

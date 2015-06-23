@@ -35,10 +35,10 @@ public abstract class NetProblemBase extends com.runwaysdk.business.Problem impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NetProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNetName()
@@ -51,10 +51,10 @@ public abstract class NetProblemBase extends com.runwaysdk.business.Problem impl
     this.validateAttribute(NETNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNetNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.NetProblem.CLASS);
-    return mdClassIF.definesAttribute(NETNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NETNAME);
   }
   
   public void setNetName(String value)

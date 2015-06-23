@@ -10,7 +10,6 @@ package dss.vector.solutions.geo;
  */
 public  class LocatedInQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2072645098;
 
   public LocatedInQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

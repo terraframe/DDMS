@@ -204,6 +204,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -273,6 +278,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -315,6 +325,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -460,6 +475,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -492,6 +512,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -522,6 +547,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ORIGIN));
     }
+  }
+  
+  public String getOriginId()
+  {
+    return getValue(ORIGIN);
   }
   
   public void setOrigin(dss.vector.solutions.ontology.TermDTO value)
@@ -605,6 +635,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -647,6 +682,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.PatientDTO.get(getRequest(), getValue(PATIENT));
     }
+  }
+  
+  public String getPatientId()
+  {
+    return getValue(PATIENT);
   }
   
   public void setPatient(dss.vector.solutions.PatientDTO value)
@@ -730,6 +770,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getProbableSourceId()
+  {
+    return getValue(PROBABLESOURCE);
+  }
+  
   public void setProbableSource(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -809,6 +854,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(RESIDENCE));
     }
+  }
+  
+  public String getResidenceId()
+  {
+    return getValue(RESIDENCE);
   }
   
   public void setResidence(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -977,6 +1027,11 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKPLACE));
     }
+  }
+  
+  public String getWorkplaceId()
+  {
+    return getValue(WORKPLACE);
   }
   
   public void setWorkplace(dss.vector.solutions.geo.generated.GeoEntityDTO value)

@@ -45,10 +45,10 @@ public abstract class CannotDeleteUniversalExceptionBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.CannotDeleteUniversalException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getUniversalLabel()
@@ -61,10 +61,10 @@ public abstract class CannotDeleteUniversalExceptionBase extends com.runwaysdk.b
     this.validateAttribute(UNIVERSALLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniversalLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniversalLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.CannotDeleteUniversalException.CLASS);
-    return mdClassIF.definesAttribute(UNIVERSALLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIVERSALLABEL);
   }
   
   public void setUniversalLabel(String value)

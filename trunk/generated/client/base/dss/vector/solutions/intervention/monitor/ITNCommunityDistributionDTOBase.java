@@ -206,6 +206,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -275,6 +280,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -317,6 +327,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(DISTRIBUTIONLOCATION));
     }
+  }
+  
+  public String getDistributionLocationId()
+  {
+    return getValue(DISTRIBUTIONLOCATION);
   }
   
   public void setDistributionLocation(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -398,6 +413,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -516,6 +536,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(HOUSEHOLDADDRESS));
     }
+  }
+  
+  public String getHouseholdAddressId()
+  {
+    return getValue(HOUSEHOLDADDRESS);
   }
   
   public void setHouseholdAddress(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -735,6 +760,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -765,6 +795,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -834,6 +869,11 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

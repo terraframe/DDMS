@@ -46,10 +46,10 @@ public abstract class UnknownReportExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(FORMAT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFormatMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getFormatMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.UnknownReportException.CLASS);
-    return mdClassIF.definesAttribute(FORMAT);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(FORMAT);
   }
   
   public void setFormat(String value)
@@ -74,10 +74,10 @@ public abstract class UnknownReportExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.UnknownReportException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getReportName()
@@ -90,10 +90,10 @@ public abstract class UnknownReportExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(REPORTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReportNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getReportNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.UnknownReportException.CLASS);
-    return mdClassIF.definesAttribute(REPORTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(REPORTNAME);
   }
   
   public void setReportName(String value)

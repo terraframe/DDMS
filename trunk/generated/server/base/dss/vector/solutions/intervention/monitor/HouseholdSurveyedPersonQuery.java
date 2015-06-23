@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class HouseholdSurveyedPersonQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 459632599;
 
   public HouseholdSurveyedPersonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

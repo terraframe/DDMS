@@ -10,8 +10,6 @@ public class ITNCommunityDistributionControllerBase implements com.runwaysdk.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -83454767;
-  
   public ITNCommunityDistributionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

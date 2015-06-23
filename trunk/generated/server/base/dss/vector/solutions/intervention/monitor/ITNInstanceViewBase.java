@@ -50,10 +50,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -80,15 +80,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getDamagedId()
+  {
+    return getValue(DAMAGED);
+  }
+  
   public void validateDamaged()
   {
     this.validateAttribute(DAMAGED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDamagedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDamagedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(DAMAGED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DAMAGED);
   }
   
   public void setDamaged(dss.vector.solutions.ontology.Term value)
@@ -115,15 +120,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getHangingId()
+  {
+    return getValue(HANGING);
+  }
+  
   public void validateHanging()
   {
     this.validateAttribute(HANGING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHangingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHangingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(HANGING);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HANGING);
   }
   
   public void setHanging(dss.vector.solutions.ontology.Term value)
@@ -150,15 +160,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLD);
+  }
+  
   public void validateHousehold()
   {
     this.validateAttribute(HOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLD);
   }
   
   public void setHousehold(dss.vector.solutions.intervention.monitor.Household value)
@@ -183,10 +198,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getIsNetUsed()
@@ -199,10 +214,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ISNETUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsNetUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsNetUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(ISNETUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISNETUSED);
   }
   
   public void setIsNetUsed(Boolean value)
@@ -249,10 +264,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MONTHRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMonthReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMonthReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MONTHRECEIVED);
   }
   
   @SuppressWarnings("unchecked")
@@ -287,10 +302,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MONTHRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMonthRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMonthRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MONTHRETREATED);
   }
   
   public dss.vector.solutions.ontology.Term getNetBrand()
@@ -305,15 +320,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getNetBrandId()
+  {
+    return getValue(NETBRAND);
+  }
+  
   public void validateNetBrand()
   {
     this.validateAttribute(NETBRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNetBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(NETBRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NETBRAND);
   }
   
   public void setNetBrand(dss.vector.solutions.ontology.Term value)
@@ -338,10 +358,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NETID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNetIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(NETID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NETID);
   }
   
   public void setNetId(String value)
@@ -366,10 +386,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NOTUSEDFORSLEEPING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotUsedForSleepingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotUsedForSleepingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(NOTUSEDFORSLEEPING);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTUSEDFORSLEEPING);
   }
   
   public void setNotUsedForSleeping(Boolean value)
@@ -396,15 +416,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getObtainedId()
+  {
+    return getValue(OBTAINED);
+  }
+  
   public void validateObtained()
   {
     this.validateAttribute(OBTAINED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObtainedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getObtainedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(OBTAINED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OBTAINED);
   }
   
   public void setObtained(dss.vector.solutions.ontology.Term value)
@@ -429,10 +454,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PRICE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPriceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPriceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(PRICE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PRICE);
   }
   
   public void setPrice(java.math.BigDecimal value)
@@ -459,15 +484,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getPurposeId()
+  {
+    return getValue(PURPOSE);
+  }
+  
   public void validatePurpose()
   {
     this.validateAttribute(PURPOSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPurposeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPurposeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(PURPOSE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PURPOSE);
   }
   
   public void setPurpose(dss.vector.solutions.ontology.Term value)
@@ -492,10 +522,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PURPOSECOMMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPurposeCommentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPurposeCommentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(PURPOSECOMMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PURPOSECOMMENTS);
   }
   
   public void setPurposeComments(String value)
@@ -520,10 +550,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(RETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(RETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RETREATED);
   }
   
   public void setRetreated(Boolean value)
@@ -548,10 +578,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SLEPTUNDERNET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSleptUnderNetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSleptUnderNetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNET);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SLEPTUNDERNET);
   }
   
   public void setSleptUnderNet(Long value)
@@ -576,10 +606,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WASHFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWashFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(WASHFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WASHFREQUENCY);
   }
   
   public void setWashFrequency(Integer value)
@@ -606,15 +636,20 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getWashPeriodId()
+  {
+    return getValue(WASHPERIOD);
+  }
+  
   public void validateWashPeriod()
   {
     this.validateAttribute(WASHPERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWashPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(WASHPERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WASHPERIOD);
   }
   
   public void setWashPeriod(dss.vector.solutions.ontology.Term value)
@@ -661,10 +696,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WASHED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWashedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(WASHED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WASHED);
   }
   
   public Integer getYearReceived()
@@ -677,10 +712,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(YEARRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(YEARRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEARRECEIVED);
   }
   
   public void setYearReceived(Integer value)
@@ -705,10 +740,10 @@ public abstract class ITNInstanceViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(YEARRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNInstanceView.CLASS);
-    return mdClassIF.definesAttribute(YEARRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEARRETREATED);
   }
   
   public void setYearRetreated(Integer value)

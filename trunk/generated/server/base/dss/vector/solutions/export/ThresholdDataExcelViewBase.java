@@ -140,15 +140,20 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -173,10 +178,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Double getIdentification_0()
@@ -189,10 +194,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_0);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_0Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_0Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_0);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_0);
   }
   
   public void setIdentification_0(Double value)
@@ -217,10 +222,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_1);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_1Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_1Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_1);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_1);
   }
   
   public void setIdentification_1(Double value)
@@ -245,10 +250,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_10);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_10Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_10Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_10);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_10);
   }
   
   public void setIdentification_10(Double value)
@@ -273,10 +278,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_11);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_11Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_11Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_11);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_11);
   }
   
   public void setIdentification_11(Double value)
@@ -301,10 +306,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_12);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_12Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_12Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_12);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_12);
   }
   
   public void setIdentification_12(Double value)
@@ -329,10 +334,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_13);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_13Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_13Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_13);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_13);
   }
   
   public void setIdentification_13(Double value)
@@ -357,10 +362,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_14);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_14Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_14Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_14);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_14);
   }
   
   public void setIdentification_14(Double value)
@@ -385,10 +390,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_15);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_15Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_15Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_15);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_15);
   }
   
   public void setIdentification_15(Double value)
@@ -413,10 +418,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_16);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_16Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_16Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_16);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_16);
   }
   
   public void setIdentification_16(Double value)
@@ -441,10 +446,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_17);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_17Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_17Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_17);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_17);
   }
   
   public void setIdentification_17(Double value)
@@ -469,10 +474,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_18);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_18Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_18Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_18);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_18);
   }
   
   public void setIdentification_18(Double value)
@@ -497,10 +502,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_19);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_19Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_19Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_19);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_19);
   }
   
   public void setIdentification_19(Double value)
@@ -525,10 +530,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_2);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_2Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_2Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_2);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_2);
   }
   
   public void setIdentification_2(Double value)
@@ -553,10 +558,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_20);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_20Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_20Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_20);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_20);
   }
   
   public void setIdentification_20(Double value)
@@ -581,10 +586,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_21);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_21Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_21Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_21);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_21);
   }
   
   public void setIdentification_21(Double value)
@@ -609,10 +614,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_22);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_22Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_22Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_22);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_22);
   }
   
   public void setIdentification_22(Double value)
@@ -637,10 +642,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_23);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_23Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_23Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_23);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_23);
   }
   
   public void setIdentification_23(Double value)
@@ -665,10 +670,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_24);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_24Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_24Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_24);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_24);
   }
   
   public void setIdentification_24(Double value)
@@ -693,10 +698,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_25);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_25Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_25Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_25);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_25);
   }
   
   public void setIdentification_25(Double value)
@@ -721,10 +726,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_26);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_26Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_26Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_26);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_26);
   }
   
   public void setIdentification_26(Double value)
@@ -749,10 +754,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_27);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_27Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_27Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_27);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_27);
   }
   
   public void setIdentification_27(Double value)
@@ -777,10 +782,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_28);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_28Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_28Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_28);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_28);
   }
   
   public void setIdentification_28(Double value)
@@ -805,10 +810,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_29);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_29Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_29Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_29);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_29);
   }
   
   public void setIdentification_29(Double value)
@@ -833,10 +838,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_3);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_3Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_3Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_3);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_3);
   }
   
   public void setIdentification_3(Double value)
@@ -861,10 +866,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_30);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_30Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_30Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_30);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_30);
   }
   
   public void setIdentification_30(Double value)
@@ -889,10 +894,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_31);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_31Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_31Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_31);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_31);
   }
   
   public void setIdentification_31(Double value)
@@ -917,10 +922,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_32);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_32Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_32Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_32);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_32);
   }
   
   public void setIdentification_32(Double value)
@@ -945,10 +950,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_33);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_33Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_33Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_33);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_33);
   }
   
   public void setIdentification_33(Double value)
@@ -973,10 +978,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_34);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_34Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_34Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_34);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_34);
   }
   
   public void setIdentification_34(Double value)
@@ -1001,10 +1006,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_35);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_35Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_35Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_35);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_35);
   }
   
   public void setIdentification_35(Double value)
@@ -1029,10 +1034,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_36);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_36Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_36Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_36);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_36);
   }
   
   public void setIdentification_36(Double value)
@@ -1057,10 +1062,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_37);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_37Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_37Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_37);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_37);
   }
   
   public void setIdentification_37(Double value)
@@ -1085,10 +1090,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_38);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_38Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_38Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_38);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_38);
   }
   
   public void setIdentification_38(Double value)
@@ -1113,10 +1118,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_39);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_39Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_39Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_39);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_39);
   }
   
   public void setIdentification_39(Double value)
@@ -1141,10 +1146,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_4);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_4Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_4Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_4);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_4);
   }
   
   public void setIdentification_4(Double value)
@@ -1169,10 +1174,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_40);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_40Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_40Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_40);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_40);
   }
   
   public void setIdentification_40(Double value)
@@ -1197,10 +1202,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_41);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_41Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_41Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_41);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_41);
   }
   
   public void setIdentification_41(Double value)
@@ -1225,10 +1230,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_42);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_42Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_42Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_42);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_42);
   }
   
   public void setIdentification_42(Double value)
@@ -1253,10 +1258,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_43);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_43Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_43Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_43);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_43);
   }
   
   public void setIdentification_43(Double value)
@@ -1281,10 +1286,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_44);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_44Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_44Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_44);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_44);
   }
   
   public void setIdentification_44(Double value)
@@ -1309,10 +1314,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_45);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_45Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_45Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_45);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_45);
   }
   
   public void setIdentification_45(Double value)
@@ -1337,10 +1342,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_46);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_46Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_46Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_46);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_46);
   }
   
   public void setIdentification_46(Double value)
@@ -1365,10 +1370,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_47);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_47Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_47Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_47);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_47);
   }
   
   public void setIdentification_47(Double value)
@@ -1393,10 +1398,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_48);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_48Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_48Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_48);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_48);
   }
   
   public void setIdentification_48(Double value)
@@ -1421,10 +1426,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_49);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_49Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_49Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_49);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_49);
   }
   
   public void setIdentification_49(Double value)
@@ -1449,10 +1454,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_5);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_5Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_5Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_5);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_5);
   }
   
   public void setIdentification_5(Double value)
@@ -1477,10 +1482,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_50);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_50);
   }
   
   public void setIdentification_50(Double value)
@@ -1505,10 +1510,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_51);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_51Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_51Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_51);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_51);
   }
   
   public void setIdentification_51(Double value)
@@ -1533,10 +1538,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_52);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_52Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_52Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_52);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_52);
   }
   
   public void setIdentification_52(Double value)
@@ -1561,10 +1566,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_6);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_6Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_6Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_6);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_6);
   }
   
   public void setIdentification_6(Double value)
@@ -1589,10 +1594,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_7);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_7Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_7Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_7);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_7);
   }
   
   public void setIdentification_7(Double value)
@@ -1617,10 +1622,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_8);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_8Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_8Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_8);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_8);
   }
   
   public void setIdentification_8(Double value)
@@ -1645,10 +1650,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(IDENTIFICATION_9);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentification_9Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentification_9Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATION_9);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATION_9);
   }
   
   public void setIdentification_9(Double value)
@@ -1673,10 +1678,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_0);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_0Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_0Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_0);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_0);
   }
   
   public void setOutbreak_0(Double value)
@@ -1701,10 +1706,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_1);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_1Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_1Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_1);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_1);
   }
   
   public void setOutbreak_1(Double value)
@@ -1729,10 +1734,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_10);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_10Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_10Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_10);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_10);
   }
   
   public void setOutbreak_10(Double value)
@@ -1757,10 +1762,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_11);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_11Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_11Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_11);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_11);
   }
   
   public void setOutbreak_11(Double value)
@@ -1785,10 +1790,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_12);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_12Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_12Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_12);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_12);
   }
   
   public void setOutbreak_12(Double value)
@@ -1813,10 +1818,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_13);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_13Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_13Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_13);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_13);
   }
   
   public void setOutbreak_13(Double value)
@@ -1841,10 +1846,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_14);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_14Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_14Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_14);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_14);
   }
   
   public void setOutbreak_14(Double value)
@@ -1869,10 +1874,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_15);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_15Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_15Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_15);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_15);
   }
   
   public void setOutbreak_15(Double value)
@@ -1897,10 +1902,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_16);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_16Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_16Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_16);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_16);
   }
   
   public void setOutbreak_16(Double value)
@@ -1925,10 +1930,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_17);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_17Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_17Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_17);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_17);
   }
   
   public void setOutbreak_17(Double value)
@@ -1953,10 +1958,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_18);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_18Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_18Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_18);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_18);
   }
   
   public void setOutbreak_18(Double value)
@@ -1981,10 +1986,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_19);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_19Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_19Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_19);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_19);
   }
   
   public void setOutbreak_19(Double value)
@@ -2009,10 +2014,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_2);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_2Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_2Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_2);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_2);
   }
   
   public void setOutbreak_2(Double value)
@@ -2037,10 +2042,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_20);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_20Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_20Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_20);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_20);
   }
   
   public void setOutbreak_20(Double value)
@@ -2065,10 +2070,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_21);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_21Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_21Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_21);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_21);
   }
   
   public void setOutbreak_21(Double value)
@@ -2093,10 +2098,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_22);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_22Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_22Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_22);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_22);
   }
   
   public void setOutbreak_22(Double value)
@@ -2121,10 +2126,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_23);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_23Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_23Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_23);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_23);
   }
   
   public void setOutbreak_23(Double value)
@@ -2149,10 +2154,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_24);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_24Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_24Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_24);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_24);
   }
   
   public void setOutbreak_24(Double value)
@@ -2177,10 +2182,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_25);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_25Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_25Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_25);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_25);
   }
   
   public void setOutbreak_25(Double value)
@@ -2205,10 +2210,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_26);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_26Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_26Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_26);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_26);
   }
   
   public void setOutbreak_26(Double value)
@@ -2233,10 +2238,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_27);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_27Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_27Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_27);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_27);
   }
   
   public void setOutbreak_27(Double value)
@@ -2261,10 +2266,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_28);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_28Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_28Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_28);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_28);
   }
   
   public void setOutbreak_28(Double value)
@@ -2289,10 +2294,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_29);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_29Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_29Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_29);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_29);
   }
   
   public void setOutbreak_29(Double value)
@@ -2317,10 +2322,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_3);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_3Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_3Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_3);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_3);
   }
   
   public void setOutbreak_3(Double value)
@@ -2345,10 +2350,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_30);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_30Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_30Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_30);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_30);
   }
   
   public void setOutbreak_30(Double value)
@@ -2373,10 +2378,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_31);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_31Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_31Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_31);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_31);
   }
   
   public void setOutbreak_31(Double value)
@@ -2401,10 +2406,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_32);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_32Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_32Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_32);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_32);
   }
   
   public void setOutbreak_32(Double value)
@@ -2429,10 +2434,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_33);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_33Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_33Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_33);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_33);
   }
   
   public void setOutbreak_33(Double value)
@@ -2457,10 +2462,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_34);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_34Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_34Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_34);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_34);
   }
   
   public void setOutbreak_34(Double value)
@@ -2485,10 +2490,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_35);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_35Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_35Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_35);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_35);
   }
   
   public void setOutbreak_35(Double value)
@@ -2513,10 +2518,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_36);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_36Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_36Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_36);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_36);
   }
   
   public void setOutbreak_36(Double value)
@@ -2541,10 +2546,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_37);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_37Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_37Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_37);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_37);
   }
   
   public void setOutbreak_37(Double value)
@@ -2569,10 +2574,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_38);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_38Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_38Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_38);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_38);
   }
   
   public void setOutbreak_38(Double value)
@@ -2597,10 +2602,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_39);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_39Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_39Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_39);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_39);
   }
   
   public void setOutbreak_39(Double value)
@@ -2625,10 +2630,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_4);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_4Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_4Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_4);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_4);
   }
   
   public void setOutbreak_4(Double value)
@@ -2653,10 +2658,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_40);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_40Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_40Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_40);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_40);
   }
   
   public void setOutbreak_40(Double value)
@@ -2681,10 +2686,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_41);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_41Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_41Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_41);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_41);
   }
   
   public void setOutbreak_41(Double value)
@@ -2709,10 +2714,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_42);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_42Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_42Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_42);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_42);
   }
   
   public void setOutbreak_42(Double value)
@@ -2737,10 +2742,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_43);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_43Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_43Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_43);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_43);
   }
   
   public void setOutbreak_43(Double value)
@@ -2765,10 +2770,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_44);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_44Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_44Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_44);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_44);
   }
   
   public void setOutbreak_44(Double value)
@@ -2793,10 +2798,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_45);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_45Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_45Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_45);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_45);
   }
   
   public void setOutbreak_45(Double value)
@@ -2821,10 +2826,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_46);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_46Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_46Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_46);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_46);
   }
   
   public void setOutbreak_46(Double value)
@@ -2849,10 +2854,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_47);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_47Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_47Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_47);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_47);
   }
   
   public void setOutbreak_47(Double value)
@@ -2877,10 +2882,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_48);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_48Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_48Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_48);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_48);
   }
   
   public void setOutbreak_48(Double value)
@@ -2905,10 +2910,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_49);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_49Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_49Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_49);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_49);
   }
   
   public void setOutbreak_49(Double value)
@@ -2933,10 +2938,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_5);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_5Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_5Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_5);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_5);
   }
   
   public void setOutbreak_5(Double value)
@@ -2961,10 +2966,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_50);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_50);
   }
   
   public void setOutbreak_50(Double value)
@@ -2989,10 +2994,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_51);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_51Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_51Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_51);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_51);
   }
   
   public void setOutbreak_51(Double value)
@@ -3017,10 +3022,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_52);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_52Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_52Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_52);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_52);
   }
   
   public void setOutbreak_52(Double value)
@@ -3045,10 +3050,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_6);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_6Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_6Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_6);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_6);
   }
   
   public void setOutbreak_6(Double value)
@@ -3073,10 +3078,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_7);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_7Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_7Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_7);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_7);
   }
   
   public void setOutbreak_7(Double value)
@@ -3101,10 +3106,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_8);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_8Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_8Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_8);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_8);
   }
   
   public void setOutbreak_8(Double value)
@@ -3129,10 +3134,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(OUTBREAK_9);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutbreak_9Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOutbreak_9Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(OUTBREAK_9);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OUTBREAK_9);
   }
   
   public void setOutbreak_9(Double value)
@@ -3157,10 +3162,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SEASONNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSeasonNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(SEASONNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEASONNAME);
   }
   
   public void setSeasonName(String value)
@@ -3185,10 +3190,10 @@ public abstract class ThresholdDataExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(THRESHOLDTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getThresholdTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ThresholdDataExcelView.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(THRESHOLDTYPE);
   }
   
   public void setThresholdType(Boolean value)

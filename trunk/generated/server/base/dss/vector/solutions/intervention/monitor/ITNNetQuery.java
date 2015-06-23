@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class ITNNetQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 777250753;
 
   public ITNNetQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

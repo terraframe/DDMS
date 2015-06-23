@@ -111,6 +111,11 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -153,6 +158,11 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(INTERVENTIONMETHOD));
     }
+  }
+  
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -199,6 +209,11 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     }
   }
   
+  public String getPointId()
+  {
+    return getValue(POINT);
+  }
+  
   public void setPoint(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)
   {
     if(value == null)
@@ -241,6 +256,11 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(REASONSFORNOTTREATED));
     }
+  }
+  
+  public String getReasonsForNotTreatedId()
+  {
+    return getValue(REASONSFORNOTTREATED);
   }
   
   public void setReasonsForNotTreated(dss.vector.solutions.ontology.TermDTO value)

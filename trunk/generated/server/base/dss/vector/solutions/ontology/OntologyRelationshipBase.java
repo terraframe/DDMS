@@ -53,10 +53,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ALTID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAltIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAltIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ALTID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ALTID);
   }
   
   public void setAltId(String value)
@@ -81,10 +81,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(COMMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCommentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getCommentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(COMMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(COMMENT);
   }
   
   public void setComment(String value)
@@ -109,10 +109,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -127,15 +127,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public String getDef()
@@ -148,10 +153,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(DEF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getDefMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(DEF);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(DEF);
   }
   
   public void setDef(String value)
@@ -178,15 +183,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -211,10 +221,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.OntologyRelationship getInverseOf()
@@ -229,15 +239,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getInverseOfId()
+  {
+    return getValue(INVERSEOF);
+  }
+  
   public void validateInverseOf()
   {
     this.validateAttribute(INVERSEOF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInverseOfMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInverseOfMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(INVERSEOF);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INVERSEOF);
   }
   
   public void setInverseOf(dss.vector.solutions.ontology.OntologyRelationship value)
@@ -264,15 +279,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getInverseOfOnInstanceLevelId()
+  {
+    return getValue(INVERSEOFONINSTANCELEVEL);
+  }
+  
   public void validateInverseOfOnInstanceLevel()
   {
     this.validateAttribute(INVERSEOFONINSTANCELEVEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInverseOfOnInstanceLevelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInverseOfOnInstanceLevelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(INVERSEOFONINSTANCELEVEL);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INVERSEOFONINSTANCELEVEL);
   }
   
   public void setInverseOfOnInstanceLevel(dss.vector.solutions.ontology.OntologyRelationship value)
@@ -297,10 +317,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ISANTISYMMETRIC);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsAntiSymmetricMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsAntiSymmetricMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ISANTISYMMETRIC);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISANTISYMMETRIC);
   }
   
   public void setIsAntiSymmetric(Boolean value)
@@ -325,10 +345,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ISBUILTIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsBuiltInMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsBuiltInMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ISBUILTIN);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISBUILTIN);
   }
   
   public void setIsBuiltIn(Boolean value)
@@ -353,10 +373,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ISOBSOLETE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsObsoleteMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsObsoleteMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ISOBSOLETE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISOBSOLETE);
   }
   
   public void setIsObsolete(Boolean value)
@@ -381,10 +401,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ISREFLEXIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsReflexiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsReflexiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ISREFLEXIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISREFLEXIVE);
   }
   
   public void setIsReflexive(Boolean value)
@@ -409,10 +429,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(ISTRANSITIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsTransitiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsTransitiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(ISTRANSITIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISTRANSITIVE);
   }
   
   public void setIsTransitive(Boolean value)
@@ -437,10 +457,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -465,10 +485,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -483,15 +503,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -506,15 +531,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public String getName()
@@ -527,10 +557,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(NAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(NAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NAME);
   }
   
   public void setName(String value)
@@ -555,10 +585,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(NAMESPACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNamespaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNamespaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(NAMESPACE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NAMESPACE);
   }
   
   public void setNamespace(String value)
@@ -585,15 +615,20 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -618,10 +653,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(RELATIONSHIPID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRelationshipIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRelationshipIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(RELATIONSHIPID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RELATIONSHIPID);
   }
   
   public void setRelationshipId(String value)
@@ -646,10 +681,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -662,10 +697,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -678,10 +713,10 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.OntologyRelationship.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

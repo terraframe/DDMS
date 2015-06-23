@@ -10,8 +10,6 @@ public class LarvaeDiscriminatingDoseAssayControllerBase implements com.runwaysd
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1941449104;
-  
   public LarvaeDiscriminatingDoseAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

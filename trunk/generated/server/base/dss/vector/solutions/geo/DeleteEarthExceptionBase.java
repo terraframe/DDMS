@@ -45,10 +45,10 @@ public abstract class DeleteEarthExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(EARTHNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEarthNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEarthNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.DeleteEarthException.CLASS);
-    return mdClassIF.definesAttribute(EARTHNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(EARTHNAME);
   }
   
   public void setEarthName(String value)
@@ -73,10 +73,10 @@ public abstract class DeleteEarthExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.DeleteEarthException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

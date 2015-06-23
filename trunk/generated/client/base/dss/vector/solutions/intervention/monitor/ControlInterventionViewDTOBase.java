@@ -38,6 +38,11 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     }
   }
   
+  public String getAggregatedPremiseUniversalId()
+  {
+    return getValue(AGGREGATEDPREMISEUNIVERSAL);
+  }
+  
   public void setAggregatedPremiseUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
   {
     if(value == null)
@@ -193,6 +198,11 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -237,6 +247,11 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     }
   }
   
+  public String getIndividulPremiseUniversalId()
+  {
+    return getValue(INDIVIDULPREMISEUNIVERSAL);
+  }
+  
   public void setIndividulPremiseUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
   {
     if(value == null)
@@ -279,6 +294,11 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(INSECTICIDEINTERVENTION));
     }
+  }
+  
+  public String getInsecticideInterventionId()
+  {
+    return getValue(INSECTICIDEINTERVENTION);
   }
   
   public void setInsecticideIntervention(dss.vector.solutions.ontology.TermDTO value)

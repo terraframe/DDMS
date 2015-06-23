@@ -73,10 +73,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(ADDTOBBOX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAddToBBoxMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getAddToBBoxMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(ADDTOBBOX);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ADDTOBBOX);
   }
   
   public void setAddToBBox(Boolean value)
@@ -101,10 +101,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(CLIPTOBASELAYER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClipToBaseLayerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getClipToBaseLayerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(CLIPTOBASELAYER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CLIPTOBASELAYER);
   }
   
   public void setClipToBaseLayer(Boolean value)
@@ -129,10 +129,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public Boolean getCreateRawLegend()
@@ -145,10 +145,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(CREATERAWLEGEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateRawLegendMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getCreateRawLegendMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(CREATERAWLEGEND);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CREATERAWLEGEND);
   }
   
   public void setCreateRawLegend(Boolean value)
@@ -185,10 +185,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public dss.vector.solutions.query.Styles getDefaultStyles()
@@ -213,10 +213,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(DEFAULTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDefaultStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DEFAULTSTYLES);
   }
   
   public void setDefaultStyles(dss.vector.solutions.query.Styles value)
@@ -241,10 +241,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(ENABLELEGEND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnableLegendMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnableLegendMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(ENABLELEGEND);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLELEGEND);
   }
   
   public void setEnableLegend(Boolean value)
@@ -281,10 +281,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -321,10 +321,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(GEOHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(GEOHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOHIERARCHY);
   }
   
   public void setGeoHierarchy(dss.vector.solutions.geo.GeoHierarchy value)
@@ -349,10 +349,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -365,10 +365,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -393,10 +393,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -421,10 +421,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public String getLayerName()
@@ -437,10 +437,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LAYERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LAYERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERNAME);
   }
   
   public void setLayerName(String value)
@@ -477,10 +477,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDCOLOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendColorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLegendColorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDCOLOR);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LEGENDCOLOR);
   }
   
   public void setLegendColor(com.runwaysdk.system.metadata.MdAttribute value)
@@ -505,10 +505,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDFONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendFontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendFontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDFONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDFONTFAMILY);
   }
   
   public void setLegendFontFamily(String value)
@@ -533,10 +533,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDFONTFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendFontFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendFontFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDFONTFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDFONTFILL);
   }
   
   public void setLegendFontFill(String value)
@@ -561,10 +561,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDFONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendFontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLegendFontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDFONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LEGENDFONTSIZE);
   }
   
   public void setLegendFontSize(Integer value)
@@ -611,10 +611,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDFONTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendFontStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getLegendFontStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDFONTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(LEGENDFONTSTYLES);
   }
   
   public String getLegendId()
@@ -627,10 +627,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDID);
   }
   
   public void setLegendId(String value)
@@ -655,10 +655,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDTITLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendTitleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendTitleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDTITLE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDTITLE);
   }
   
   public void setLegendTitle(String value)
@@ -683,10 +683,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDTITLEFONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendTitleFontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendTitleFontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDTITLEFONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDTITLEFONTFAMILY);
   }
   
   public void setLegendTitleFontFamily(String value)
@@ -711,10 +711,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDTITLEFONTFILL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendTitleFontFillMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLegendTitleFontFillMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDTITLEFONTFILL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEGENDTITLEFONTFILL);
   }
   
   public void setLegendTitleFontFill(String value)
@@ -739,10 +739,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDTITLEFONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendTitleFontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLegendTitleFontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDTITLEFONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LEGENDTITLEFONTSIZE);
   }
   
   public void setLegendTitleFontSize(Integer value)
@@ -789,10 +789,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDTITLEFONTSTYLES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendTitleFontStylesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getLegendTitleFontStylesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDTITLEFONTSTYLES);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(LEGENDTITLEFONTSTYLES);
   }
   
   public Integer getLegendXPosition()
@@ -805,10 +805,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDXPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendXPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLegendXPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDXPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LEGENDXPOSITION);
   }
   
   public void setLegendXPosition(Integer value)
@@ -833,10 +833,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LEGENDYPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLegendYPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLegendYPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LEGENDYPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LEGENDYPOSITION);
   }
   
   public void setLegendYPosition(Integer value)
@@ -873,10 +873,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdAttribute getMdAttribute()
@@ -901,10 +901,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(MDATTRIBUTE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdAttributeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getMdAttributeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(MDATTRIBUTE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(MDATTRIBUTE);
   }
   
   public void setMdAttribute(com.runwaysdk.system.metadata.MdAttribute value)
@@ -929,10 +929,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(OPACITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOpacityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getOpacityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(OPACITY);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(OPACITY);
   }
   
   public void setOpacity(java.math.BigDecimal value)
@@ -969,10 +969,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -1019,10 +1019,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(RENDERAS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRenderAsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getRenderAsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(RENDERAS);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(RENDERAS);
   }
   
   public dss.vector.solutions.query.SavedSearch getSavedSearch()
@@ -1047,10 +1047,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SAVEDSEARCH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSavedSearchMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSavedSearchMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SAVEDSEARCH);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SAVEDSEARCH);
   }
   
   public void setSavedSearch(dss.vector.solutions.query.SavedSearch value)
@@ -1075,10 +1075,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SEMANTICID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSemanticIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSemanticIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SEMANTICID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEMANTICID);
   }
   
   public void setSemanticId(String value)
@@ -1103,10 +1103,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public Boolean getShowLegendBorder()
@@ -1119,10 +1119,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SHOWLEGENDBORDER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShowLegendBorderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getShowLegendBorderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SHOWLEGENDBORDER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SHOWLEGENDBORDER);
   }
   
   public void setShowLegendBorder(Boolean value)
@@ -1147,10 +1147,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SHOWTHEMATICVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getShowThematicValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getShowThematicValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SHOWTHEMATICVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SHOWTHEMATICVALUE);
   }
   
   public void setShowThematicValue(Boolean value)
@@ -1175,10 +1175,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getSldFile()
@@ -1191,10 +1191,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(SLDFILE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSldFileMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSldFileMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(SLDFILE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SLDFILE);
   }
   
   public void setSldFile(String value)
@@ -1219,10 +1219,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(THEMATICCOLUMNALIAS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThematicColumnAliasMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getThematicColumnAliasMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(THEMATICCOLUMNALIAS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(THEMATICCOLUMNALIAS);
   }
   
   public void setThematicColumnAlias(String value)
@@ -1247,10 +1247,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(THEMATICUSERALIAS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThematicUserAliasMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getThematicUserAliasMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(THEMATICUSERALIAS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(THEMATICUSERALIAS);
   }
   
   public void setThematicUserAlias(String value)
@@ -1287,10 +1287,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(THEMATICVARIABLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThematicVariableMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getThematicVariableMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(THEMATICVARIABLE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(THEMATICVARIABLE);
   }
   
   public void setThematicVariable(dss.vector.solutions.query.ThematicVariable value)
@@ -1315,10 +1315,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public Boolean getViewCreated()
@@ -1331,10 +1331,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(VIEWCREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getViewCreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getViewCreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(VIEWCREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(VIEWCREATED);
   }
   
   public void setViewCreated(Boolean value)
@@ -1359,10 +1359,10 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     this.validateAttribute(VIEWNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getViewNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getViewNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
-    return mdClassIF.definesAttribute(VIEWNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(VIEWNAME);
   }
   
   public void setViewName(String value)

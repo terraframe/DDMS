@@ -56,6 +56,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
+  }
+  
   public void setCollection(dss.vector.solutions.entomology.PupalCollectionDTO value)
   {
     if(value == null)
@@ -125,6 +130,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -155,6 +165,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -263,6 +278,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -293,6 +313,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -401,6 +426,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -480,6 +510,11 @@ public abstract class PupalPremiseDTOBase extends com.runwaysdk.business.Busines
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PREMISETYPE));
     }
+  }
+  
+  public String getPremiseTypeId()
+  {
+    return getValue(PREMISETYPE);
   }
   
   public void setPremiseType(dss.vector.solutions.ontology.TermDTO value)

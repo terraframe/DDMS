@@ -34,10 +34,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(DESCRIPTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDescriptionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getDescriptionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(DESCRIPTION);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(DESCRIPTION);
   }
   
   public void setDescription(String value)
@@ -62,10 +62,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -90,10 +90,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(EXPORTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExportedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getExportedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(EXPORTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(EXPORTED);
   }
   
   public void setExported(Boolean value)
@@ -118,10 +118,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMdTypeId()
@@ -134,10 +134,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(MDTYPEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdTypeIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdTypeIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(MDTYPEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDTYPEID);
   }
   
   public void setMdTypeId(String value)
@@ -162,10 +162,10 @@ public abstract class SynchronizedTypeViewBase extends com.runwaysdk.business.Vi
     this.validateAttribute(QUALIFIEDTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQualifiedTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getQualifiedTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS);
-    return mdClassIF.definesAttribute(QUALIFIEDTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(QUALIFIEDTYPE);
   }
   
   public void setQualifiedType(String value)

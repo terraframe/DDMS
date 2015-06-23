@@ -122,6 +122,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -152,6 +157,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -196,6 +206,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -277,6 +292,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return dss.vector.solutions.stock.StockItemDTO.get(getRequest(), getValue(ITEM));
     }
+  }
+  
+  public String getItemId()
+  {
+    return getValue(ITEM);
   }
   
   public void setItem(dss.vector.solutions.stock.StockItemDTO value)
@@ -385,6 +405,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -415,6 +440,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -484,6 +514,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -617,6 +652,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     }
   }
   
+  public String getStaffId()
+  {
+    return getValue(STAFF);
+  }
+  
   public void setStaff(dss.vector.solutions.stock.StockStaffDTO value)
   {
     if(value == null)
@@ -659,6 +699,11 @@ public abstract class StockEventDTOBase extends com.runwaysdk.business.BusinessD
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(STOCKDEPOT));
     }
+  }
+  
+  public String getStockDepotId()
+  {
+    return getValue(STOCKDEPOT);
   }
   
   public void setStockDepot(dss.vector.solutions.geo.generated.GeoEntityDTO value)

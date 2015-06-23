@@ -32,10 +32,10 @@ public abstract class SurveyPointViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyPointView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -60,10 +60,10 @@ public abstract class SurveyPointViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyPointView.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -88,10 +88,10 @@ public abstract class SurveyPointViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyPointView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public java.util.Date getSurveyDate()
@@ -104,10 +104,10 @@ public abstract class SurveyPointViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SURVEYDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSurveyDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SurveyPointView.CLASS);
-    return mdClassIF.definesAttribute(SURVEYDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SURVEYDATE);
   }
   
   public void setSurveyDate(java.util.Date value)

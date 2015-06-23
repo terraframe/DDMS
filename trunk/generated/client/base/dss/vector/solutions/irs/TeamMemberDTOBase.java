@@ -154,6 +154,11 @@ public abstract class TeamMemberDTOBase extends dss.vector.solutions.irs.Targete
     }
   }
   
+  public String getPersonId()
+  {
+    return getValue(PERSON);
+  }
+  
   public void setPerson(dss.vector.solutions.PersonDTO value)
   {
     if(value == null)

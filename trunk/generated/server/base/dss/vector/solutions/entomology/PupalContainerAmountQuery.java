@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology;
  */
 public  class PupalContainerAmountQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 390784892;
 
   public PupalContainerAmountQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

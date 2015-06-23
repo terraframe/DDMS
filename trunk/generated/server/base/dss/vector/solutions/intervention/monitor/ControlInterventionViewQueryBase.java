@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ControlInterventionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1956715599;
 
   public ControlInterventionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

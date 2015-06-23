@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology;
  */
 public  class CollectionContainerQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 319912601;
 
   public CollectionContainerQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

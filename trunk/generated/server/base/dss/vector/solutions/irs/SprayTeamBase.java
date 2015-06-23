@@ -33,15 +33,20 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeam.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -68,15 +73,20 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
     }
   }
   
+  public String getSprayZoneId()
+  {
+    return getValue(SPRAYZONE);
+  }
+  
   public void validateSprayZone()
   {
     this.validateAttribute(SPRAYZONE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayZoneMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSprayZoneMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeam.CLASS);
-    return mdClassIF.definesAttribute(SPRAYZONE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SPRAYZONE);
   }
   
   public void setSprayZone(dss.vector.solutions.geo.generated.SprayZone value)
@@ -101,10 +111,10 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
     this.validateAttribute(TEAMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTeamIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeam.CLASS);
-    return mdClassIF.definesAttribute(TEAMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEAMID);
   }
   
   public void setTeamId(String value)

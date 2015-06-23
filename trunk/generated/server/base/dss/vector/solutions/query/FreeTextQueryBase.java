@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  abstract  class FreeTextQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 234136980;
 
   public FreeTextQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -36,15 +36,20 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     }
   }
   
+  public String getPremiseGeoEntityId()
+  {
+    return getValue(PREMISEGEOENTITY);
+  }
+  
   public void validatePremiseGeoEntity()
   {
     this.validateAttribute(PREMISEGEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPremiseGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISEGEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PREMISEGEOENTITY);
   }
   
   public void setPremiseGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -69,10 +74,10 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(PREMISES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremisesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISES);
   }
   
   public void setPremises(Integer value)
@@ -97,10 +102,10 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(PREMISESAVAILABLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesAvailableMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremisesAvailableMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISESAVAILABLE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISESAVAILABLE);
   }
   
   public void setPremisesAvailable(Integer value)
@@ -125,10 +130,10 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(PREMISESINCLUDED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesIncludedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremisesIncludedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISESINCLUDED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISESINCLUDED);
   }
   
   public void setPremisesIncluded(Integer value)
@@ -153,10 +158,10 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(TREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(TREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TREATED);
   }
   
   public void setTreated(Integer value)
@@ -181,10 +186,10 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(VISITED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVisitedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVisitedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(VISITED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VISITED);
   }
   
   public void setVisited(Integer value)

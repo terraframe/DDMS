@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  abstract  class MalariaSeasonViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 48313665;
 
   public MalariaSeasonViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

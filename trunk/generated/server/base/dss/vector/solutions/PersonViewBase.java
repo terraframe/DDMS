@@ -55,10 +55,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(AGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(AGE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AGE);
   }
   
   public void setAge(Integer value)
@@ -83,10 +83,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(BIRTHENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBirthEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(BIRTHENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BIRTHENTITY);
   }
   
   public void setBirthEntity(String value)
@@ -111,10 +111,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(BIRTHLOCATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthLocationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBirthLocationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(BIRTHLOCATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BIRTHLOCATION);
   }
   
   public void setBirthLocation(String value)
@@ -139,10 +139,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(DATEOFBIRTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateOfBirthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDateOfBirthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(DATEOFBIRTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DATEOFBIRTH);
   }
   
   public void setDateOfBirth(java.util.Date value)
@@ -169,15 +169,20 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -202,10 +207,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(FIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(FIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FIRSTNAME);
   }
   
   public void setFirstName(String value)
@@ -230,10 +235,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getIdentifier()
@@ -246,10 +251,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(IDENTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFIER);
   }
   
   public void setIdentifier(String value)
@@ -274,10 +279,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISIPTRECIPIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsIPTRecipientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsIPTRecipientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISIPTRECIPIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISIPTRECIPIENT);
   }
   
   public void setIsIPTRecipient(Boolean value)
@@ -302,10 +307,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISITNRECIPIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsITNRecipientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsITNRecipientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISITNRECIPIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISITNRECIPIENT);
   }
   
   public void setIsITNRecipient(Boolean value)
@@ -330,10 +335,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISMDSSUSER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsMDSSUserMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsMDSSUserMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISMDSSUSER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISMDSSUSER);
   }
   
   public void setIsMDSSUser(Boolean value)
@@ -358,10 +363,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISPATIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsPatientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsPatientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISPATIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISPATIENT);
   }
   
   public void setIsPatient(Boolean value)
@@ -386,10 +391,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISPHYSICIAN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsPhysicianMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsPhysicianMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISPHYSICIAN);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISPHYSICIAN);
   }
   
   public void setIsPhysician(Boolean value)
@@ -414,10 +419,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISSPRAYLEADER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayLeaderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSprayLeaderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYLEADER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSPRAYLEADER);
   }
   
   public void setIsSprayLeader(Boolean value)
@@ -442,10 +447,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISSPRAYOPERATOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayOperatorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSprayOperatorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYOPERATOR);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSPRAYOPERATOR);
   }
   
   public void setIsSprayOperator(Boolean value)
@@ -470,10 +475,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISSTOCKSTAFF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsStockStaffMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsStockStaffMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISSTOCKSTAFF);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSTOCKSTAFF);
   }
   
   public void setIsStockStaff(Boolean value)
@@ -498,10 +503,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(ISSUPERVISOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSupervisorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSupervisorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(ISSUPERVISOR);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSUPERVISOR);
   }
   
   public void setIsSupervisor(Boolean value)
@@ -526,10 +531,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(LASTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLastNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(LASTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LASTNAME);
   }
   
   public void setLastName(String value)
@@ -554,10 +559,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(MEMBERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMemberIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMemberIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(MEMBERID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MEMBERID);
   }
   
   public void setMemberId(String value)
@@ -582,10 +587,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(PASSWORD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPasswordMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPasswordMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(PASSWORD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PASSWORD);
   }
   
   public void setPassword(String value)
@@ -610,10 +615,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(PERSONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPersonIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(PERSONID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PERSONID);
   }
   
   public void setPersonId(String value)
@@ -638,10 +643,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(RESIDENTIALGEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResidentialGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getResidentialGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(RESIDENTIALGEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RESIDENTIALGEOID);
   }
   
   public void setResidentialGeoId(String value)
@@ -666,10 +671,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(RESIDENTIALINFORMATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResidentialInformationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getResidentialInformationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(RESIDENTIALINFORMATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RESIDENTIALINFORMATION);
   }
   
   public void setResidentialInformation(String value)
@@ -696,15 +701,20 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)
@@ -729,10 +739,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(USERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUsernameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUsernameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(USERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(USERNAME);
   }
   
   public void setUsername(String value)
@@ -757,10 +767,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(WORKGEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWorkGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWorkGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(WORKGEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WORKGEOID);
   }
   
   public void setWorkGeoId(String value)
@@ -785,10 +795,10 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     this.validateAttribute(WORKINFORMATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWorkInformationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWorkInformationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(WORKINFORMATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WORKINFORMATION);
   }
   
   public void setWorkInformation(String value)

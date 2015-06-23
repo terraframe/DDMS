@@ -46,10 +46,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(CHILDENTITYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getChildEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getChildEntityNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(CHILDENTITYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CHILDENTITYNAME);
   }
   
   public void setChildEntityName(String value)
@@ -74,10 +74,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentEntityName()
@@ -90,10 +90,10 @@ public abstract class DuplicateParentExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(PARENTENTITYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentEntityNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.DuplicateParentException.CLASS);
-    return mdClassIF.definesAttribute(PARENTENTITYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTENTITYNAME);
   }
   
   public void setParentEntityName(String value)

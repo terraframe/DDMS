@@ -42,6 +42,11 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -84,6 +89,11 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     {
       return dss.vector.solutions.geo.generated.SprayZoneDTO.get(getRequest(), getValue(SPRAYZONE));
     }
+  }
+  
+  public String getSprayZoneId()
+  {
+    return getValue(SPRAYZONE);
   }
   
   public void setSprayZone(dss.vector.solutions.geo.generated.SprayZoneDTO value)

@@ -46,10 +46,10 @@ public abstract class PoliticalHierarchyLengthExceptionBase extends com.runwaysd
     this.validateAttribute(HIERARCHYLENGTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHierarchyLengthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getHierarchyLengthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.PoliticalHierarchyLengthException.CLASS);
-    return mdClassIF.definesAttribute(HIERARCHYLENGTH);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(HIERARCHYLENGTH);
   }
   
   public void setHierarchyLength(Integer value)
@@ -74,10 +74,10 @@ public abstract class PoliticalHierarchyLengthExceptionBase extends com.runwaysd
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.PoliticalHierarchyLengthException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getSlots()
@@ -90,10 +90,10 @@ public abstract class PoliticalHierarchyLengthExceptionBase extends com.runwaysd
     this.validateAttribute(SLOTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSlotsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getSlotsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.PoliticalHierarchyLengthException.CLASS);
-    return mdClassIF.definesAttribute(SLOTS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SLOTS);
   }
   
   public void setSlots(Integer value)

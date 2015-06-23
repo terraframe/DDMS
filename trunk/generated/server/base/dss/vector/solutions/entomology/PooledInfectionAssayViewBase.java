@@ -55,10 +55,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(COLLECTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollection value)
@@ -83,10 +83,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -123,10 +123,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -151,10 +151,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.ontology.Term getIdentMethod()
@@ -179,10 +179,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(IDENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(IDENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.Term value)
@@ -207,10 +207,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(INFECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInfectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInfectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(INFECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INFECTED);
   }
   
   public void setInfected(Boolean value)
@@ -235,10 +235,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(MOSQUITOSTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMosquitosTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMosquitosTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(MOSQUITOSTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MOSQUITOSTESTED);
   }
   
   public void setMosquitosTested(Integer value)
@@ -263,10 +263,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBERPOSITIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPositiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPositiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPOSITIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPOSITIVE);
   }
   
   public void setNumberPositive(Integer value)
@@ -303,10 +303,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(PARASITE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParasiteMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getParasiteMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(PARASITE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PARASITE);
   }
   
   public void setParasite(dss.vector.solutions.ontology.Term value)
@@ -331,10 +331,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(POOLID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPoolIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPoolIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(POOLID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POOLID);
   }
   
   public void setPoolId(String value)
@@ -359,10 +359,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(POOLSTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPoolsTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPoolsTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(POOLSTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POOLSTESTED);
   }
   
   public void setPoolsTested(Integer value)
@@ -399,10 +399,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)
@@ -439,10 +439,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(SPECIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpeciesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSpeciesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(SPECIES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SPECIES);
   }
   
   public void setSpecies(dss.vector.solutions.ontology.Term value)
@@ -479,10 +479,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(TESTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTestMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TESTMETHOD);
   }
   
   public void setTestMethod(dss.vector.solutions.ontology.Term value)
@@ -507,10 +507,10 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

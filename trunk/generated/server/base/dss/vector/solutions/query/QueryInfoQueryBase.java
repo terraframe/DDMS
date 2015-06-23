@@ -11,7 +11,6 @@ package dss.vector.solutions.query;
 public  abstract  class QueryInfoQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1233678890;
 
   public QueryInfoQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

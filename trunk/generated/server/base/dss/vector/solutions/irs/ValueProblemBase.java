@@ -35,10 +35,10 @@ public abstract class ValueProblemBase extends dss.vector.solutions.Notification
     this.validateAttribute(HOUSEHOLDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ValueProblem.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLDID);
   }
   
   public void setHouseholdId(String value)
@@ -63,10 +63,10 @@ public abstract class ValueProblemBase extends dss.vector.solutions.Notification
     this.validateAttribute(STRUCTUREID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStructureIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getStructureIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ValueProblem.CLASS);
-    return mdClassIF.definesAttribute(STRUCTUREID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(STRUCTUREID);
   }
   
   public void setStructureId(String value)

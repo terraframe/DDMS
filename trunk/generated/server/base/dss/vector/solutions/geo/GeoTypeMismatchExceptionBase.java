@@ -46,10 +46,10 @@ public abstract class GeoTypeMismatchExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoTypeMismatchException.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -74,10 +74,10 @@ public abstract class GeoTypeMismatchExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(GEOTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getGeoTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoTypeMismatchException.CLASS);
-    return mdClassIF.definesAttribute(GEOTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(GEOTYPE);
   }
   
   public void setGeoType(String value)
@@ -102,10 +102,10 @@ public abstract class GeoTypeMismatchExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoTypeMismatchException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

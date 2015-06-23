@@ -35,10 +35,10 @@ public abstract class InvalidKnockDownQuantityProblemBase extends dss.vector.sol
     this.validateAttribute(QUANTITYKNOCKDOWN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityKnockDownMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityKnockDownMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYKNOCKDOWN);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYKNOCKDOWN);
   }
   
   public void setQuantityKnockDown(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidKnockDownQuantityProblemBase extends dss.vector.sol
     this.validateAttribute(QUANTITYTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYTESTED);
   }
   
   public void setQuantityTested(Integer value)

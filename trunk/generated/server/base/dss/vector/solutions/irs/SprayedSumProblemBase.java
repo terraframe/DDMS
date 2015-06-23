@@ -37,10 +37,10 @@ public abstract class SprayedSumProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(OBJECTLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObjectLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getObjectLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayedSumProblem.CLASS);
-    return mdClassIF.definesAttribute(OBJECTLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OBJECTLABEL);
   }
   
   public void setObjectLabel(String value)
@@ -65,10 +65,10 @@ public abstract class SprayedSumProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(OBJECTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObjectsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getObjectsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayedSumProblem.CLASS);
-    return mdClassIF.definesAttribute(OBJECTS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(OBJECTS);
   }
   
   public void setObjects(Integer value)
@@ -93,10 +93,10 @@ public abstract class SprayedSumProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(SPRAYEDOBJECTLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayedObjectLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayedObjectLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayedSumProblem.CLASS);
-    return mdClassIF.definesAttribute(SPRAYEDOBJECTLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYEDOBJECTLABEL);
   }
   
   public void setSprayedObjectLabel(String value)
@@ -121,10 +121,10 @@ public abstract class SprayedSumProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(SPRAYEDOBJECTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayedObjectsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getSprayedObjectsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayedSumProblem.CLASS);
-    return mdClassIF.definesAttribute(SPRAYEDOBJECTS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SPRAYEDOBJECTS);
   }
   
   public void setSprayedObjects(Integer value)

@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  abstract  class SprayTeamViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -337498468;
 
   public SprayTeamViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

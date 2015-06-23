@@ -33,15 +33,20 @@ public abstract class FieldDefaultViewBase extends com.runwaysdk.business.View i
     }
   }
   
+  public String getDefaultValueId()
+  {
+    return getValue(DEFAULTVALUE);
+  }
+  
   public void validateDefaultValue()
   {
     this.validateAttribute(DEFAULTVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDefaultValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.FieldDefaultView.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DEFAULTVALUE);
   }
   
   public void setDefaultValue(dss.vector.solutions.ontology.Term value)
@@ -66,10 +71,10 @@ public abstract class FieldDefaultViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.FieldDefaultView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public com.runwaysdk.system.metadata.MdAttribute getMdAttribute()
@@ -84,15 +89,20 @@ public abstract class FieldDefaultViewBase extends com.runwaysdk.business.View i
     }
   }
   
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTE);
+  }
+  
   public void validateMdAttribute()
   {
     this.validateAttribute(MDATTRIBUTE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdAttributeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getMdAttributeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.FieldDefaultView.CLASS);
-    return mdClassIF.definesAttribute(MDATTRIBUTE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(MDATTRIBUTE);
   }
   
   public void setMdAttribute(com.runwaysdk.system.metadata.MdAttribute value)

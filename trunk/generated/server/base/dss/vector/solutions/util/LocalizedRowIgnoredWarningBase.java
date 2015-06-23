@@ -31,10 +31,10 @@ public abstract class LocalizedRowIgnoredWarningBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.LocalizedRowIgnoredWarning.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getRow()
@@ -47,10 +47,10 @@ public abstract class LocalizedRowIgnoredWarningBase extends com.runwaysdk.busin
     this.validateAttribute(ROW);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRowMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRowMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.LocalizedRowIgnoredWarning.CLASS);
-    return mdClassIF.definesAttribute(ROW);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ROW);
   }
   
   public void setRow(Integer value)
@@ -75,10 +75,10 @@ public abstract class LocalizedRowIgnoredWarningBase extends com.runwaysdk.busin
     this.validateAttribute(SHEET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSheetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSheetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.LocalizedRowIgnoredWarning.CLASS);
-    return mdClassIF.definesAttribute(SHEET);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SHEET);
   }
   
   public void setSheet(String value)

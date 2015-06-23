@@ -34,10 +34,10 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -62,10 +62,10 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getItemId()
@@ -78,10 +78,10 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ITEMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItemIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getItemIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(ITEMID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ITEMID);
   }
   
   public void setItemId(String value)
@@ -108,15 +108,20 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getItemNameId()
+  {
+    return getValue(ITEMNAME);
+  }
+  
   public void validateItemName()
   {
     this.validateAttribute(ITEMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItemNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getItemNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(ITEMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ITEMNAME);
   }
   
   public void setItemName(dss.vector.solutions.ontology.Term value)
@@ -141,10 +146,10 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Float value)
@@ -171,15 +176,20 @@ public abstract class StockItemViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public String getUnitId()
+  {
+    return getValue(UNIT);
+  }
+  
   public void validateUnit()
   {
     this.validateAttribute(UNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockItemView.CLASS);
-    return mdClassIF.definesAttribute(UNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.Term value)

@@ -36,10 +36,10 @@ public abstract class InvalidEnumProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(ENUMLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnumLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEnumLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidEnumProblem.CLASS);
-    return mdClassIF.definesAttribute(ENUMLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENUMLABEL);
   }
   
   public void setEnumLabel(String value)
@@ -64,10 +64,10 @@ public abstract class InvalidEnumProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(ENUMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEnumNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEnumNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidEnumProblem.CLASS);
-    return mdClassIF.definesAttribute(ENUMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENUMNAME);
   }
   
   public void setEnumName(String value)
@@ -92,10 +92,10 @@ public abstract class InvalidEnumProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidEnumProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

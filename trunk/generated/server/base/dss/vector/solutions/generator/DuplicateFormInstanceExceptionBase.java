@@ -45,10 +45,10 @@ public abstract class DuplicateFormInstanceExceptionBase extends com.runwaysdk.b
     this.validateAttribute(FORMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFormIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFormIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.DuplicateFormInstanceException.CLASS);
-    return mdClassIF.definesAttribute(FORMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FORMID);
   }
   
   public void setFormId(String value)
@@ -73,10 +73,10 @@ public abstract class DuplicateFormInstanceExceptionBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.DuplicateFormInstanceException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

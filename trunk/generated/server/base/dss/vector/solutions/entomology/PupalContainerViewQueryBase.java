@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  abstract  class PupalContainerViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 582712961;
 
   public PupalContainerViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

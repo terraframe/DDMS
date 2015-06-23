@@ -31,10 +31,10 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     this.validateAttribute(EMAILFAILURE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailFailureMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEmailFailureMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILFAILURE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(EMAILFAILURE);
   }
   
   public void setEmailFailure(Boolean value)
@@ -59,10 +59,10 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMessageText()
@@ -75,10 +75,10 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     this.validateAttribute(MESSAGETEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMessageTextMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getMessageTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(MESSAGETEXT);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(MESSAGETEXT);
   }
   
   public void setMessageText(String value)

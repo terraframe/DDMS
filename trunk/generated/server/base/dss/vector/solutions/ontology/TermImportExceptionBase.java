@@ -46,10 +46,10 @@ public abstract class TermImportExceptionBase extends com.runwaysdk.business.Sma
     this.validateAttribute(EXCEPTIONMESSAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExceptionMessageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getExceptionMessageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermImportException.CLASS);
-    return mdClassIF.definesAttribute(EXCEPTIONMESSAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(EXCEPTIONMESSAGE);
   }
   
   public void setExceptionMessage(String value)
@@ -74,10 +74,10 @@ public abstract class TermImportExceptionBase extends com.runwaysdk.business.Sma
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermImportException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getRow()
@@ -90,10 +90,10 @@ public abstract class TermImportExceptionBase extends com.runwaysdk.business.Sma
     this.validateAttribute(ROW);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRowMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRowMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermImportException.CLASS);
-    return mdClassIF.definesAttribute(ROW);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ROW);
   }
   
   public void setRow(Integer value)

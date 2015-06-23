@@ -35,10 +35,10 @@ public abstract class InvalidPositiveTestProblemBase extends dss.vector.solution
     this.validateAttribute(AMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.InvalidPositiveTestProblem.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AMOUNT);
   }
   
   public void setAmount(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidPositiveTestProblemBase extends dss.vector.solution
     this.validateAttribute(AMOUNTPOSITIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountPositiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAmountPositiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.InvalidPositiveTestProblem.CLASS);
-    return mdClassIF.definesAttribute(AMOUNTPOSITIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AMOUNTPOSITIVE);
   }
   
   public void setAmountPositive(Integer value)

@@ -10,7 +10,6 @@ package dss.vector.solutions.geo.generated;
  */
 public  class GeoEntityEntityLabelQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1263803115;
 
   public GeoEntityEntityLabelQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -199,7 +198,6 @@ private static final long serialVersionUID = 1263803115;
  **/
   public static class GeoEntityEntityLabelQueryStruct extends com.runwaysdk.query.AttributeLocal implements GeoEntityEntityLabelQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 430574319;
 
   public GeoEntityEntityLabelQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

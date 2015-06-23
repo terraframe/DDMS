@@ -33,10 +33,10 @@ public abstract class SprayTeamExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getOperatorId()
@@ -49,10 +49,10 @@ public abstract class SprayTeamExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(OPERATORID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getOperatorIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPERATORID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OPERATORID);
   }
   
   public void setOperatorId(String value)
@@ -89,10 +89,10 @@ public abstract class SprayTeamExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SPRAYZONE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayZoneMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSprayZoneMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYZONE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SPRAYZONE);
   }
   
   public void setSprayZone(dss.vector.solutions.geo.generated.SprayZone value)
@@ -117,10 +117,10 @@ public abstract class SprayTeamExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TEAMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTeamIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamExcelView.CLASS);
-    return mdClassIF.definesAttribute(TEAMID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TEAMID);
   }
   
   public void setTeamId(String value)
@@ -145,10 +145,10 @@ public abstract class SprayTeamExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TEAMLEADERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamLeaderIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTeamLeaderIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeamExcelView.CLASS);
-    return mdClassIF.definesAttribute(TEAMLEADERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEAMLEADERID);
   }
   
   public void setTeamLeaderId(String value)

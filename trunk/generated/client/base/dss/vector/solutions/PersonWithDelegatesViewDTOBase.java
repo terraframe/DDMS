@@ -36,6 +36,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     }
   }
   
+  public String getIptRecipientDelegateId()
+  {
+    return getValue(IPTRECIPIENTDELEGATE);
+  }
+  
   public void setIptRecipientDelegate(dss.vector.solutions.intervention.monitor.IPTRecipientDTO value)
   {
     if(value == null)
@@ -78,6 +83,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     {
       return dss.vector.solutions.intervention.monitor.ITNRecipientDTO.get(getRequest(), getValue(ITNRECIPIENTDELEGATE));
     }
+  }
+  
+  public String getItnRecipientDelegateId()
+  {
+    return getValue(ITNRECIPIENTDELEGATE);
   }
   
   public void setItnRecipientDelegate(dss.vector.solutions.intervention.monitor.ITNRecipientDTO value)
@@ -124,6 +134,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     }
   }
   
+  public String getPatientDelegateId()
+  {
+    return getValue(PATIENTDELEGATE);
+  }
+  
   public void setPatientDelegate(dss.vector.solutions.PatientDTO value)
   {
     if(value == null)
@@ -166,6 +181,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     {
       return dss.vector.solutions.PhysicianDTO.get(getRequest(), getValue(PHYSICIANDELEGATE));
     }
+  }
+  
+  public String getPhysicianDelegateId()
+  {
+    return getValue(PHYSICIANDELEGATE);
   }
   
   public void setPhysicianDelegate(dss.vector.solutions.PhysicianDTO value)
@@ -212,6 +232,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     }
   }
   
+  public String getStockStaffDelegateId()
+  {
+    return getValue(STOCKSTAFFDELEGATE);
+  }
+  
   public void setStockStaffDelegate(dss.vector.solutions.stock.StockStaffDTO value)
   {
     if(value == null)
@@ -254,6 +279,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     {
       return dss.vector.solutions.irs.SupervisorDTO.get(getRequest(), getValue(SUPERVISORDELEGATE));
     }
+  }
+  
+  public String getSupervisorDelegateId()
+  {
+    return getValue(SUPERVISORDELEGATE);
   }
   
   public void setSupervisorDelegate(dss.vector.solutions.irs.SupervisorDTO value)
@@ -300,6 +330,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     }
   }
   
+  public String getTeamMemberDelegateId()
+  {
+    return getValue(TEAMMEMBERDELEGATE);
+  }
+  
   public void setTeamMemberDelegate(dss.vector.solutions.irs.TeamMemberDTO value)
   {
     if(value == null)
@@ -342,6 +377,11 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     {
       return dss.vector.solutions.MDSSUserDTO.get(getRequest(), getValue(USERDELEGATE));
     }
+  }
+  
+  public String getUserDelegateId()
+  {
+    return getValue(USERDELEGATE);
   }
   
   public void setUserDelegate(dss.vector.solutions.MDSSUserDTO value)

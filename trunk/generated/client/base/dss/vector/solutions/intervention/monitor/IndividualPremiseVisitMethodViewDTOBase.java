@@ -32,6 +32,11 @@ public abstract class IndividualPremiseVisitMethodViewDTOBase extends com.runway
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -111,6 +116,11 @@ public abstract class IndividualPremiseVisitMethodViewDTOBase extends com.runway
     {
       return dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO.get(getRequest(), getValue(VISIT));
     }
+  }
+  
+  public String getVisitId()
+  {
+    return getValue(VISIT);
   }
   
   public void setVisit(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO value)

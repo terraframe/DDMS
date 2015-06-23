@@ -35,10 +35,10 @@ public abstract class MalariaSeasonOverlapProblemBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonOverlapProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getOverlap()
@@ -51,10 +51,10 @@ public abstract class MalariaSeasonOverlapProblemBase extends com.runwaysdk.busi
     this.validateAttribute(OVERLAP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOverlapMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getOverlapMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeasonOverlapProblem.CLASS);
-    return mdClassIF.definesAttribute(OVERLAP);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OVERLAP);
   }
   
   public void setOverlap(String value)

@@ -45,10 +45,10 @@ public abstract class UnsupportedImportTypeExceptionBase extends com.runwaysdk.b
     this.validateAttribute(CLASSTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClassTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getClassTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.UnsupportedImportTypeException.CLASS);
-    return mdClassIF.definesAttribute(CLASSTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(CLASSTYPE);
   }
   
   public void setClassType(String value)
@@ -73,10 +73,10 @@ public abstract class UnsupportedImportTypeExceptionBase extends com.runwaysdk.b
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.generator.UnsupportedImportTypeException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

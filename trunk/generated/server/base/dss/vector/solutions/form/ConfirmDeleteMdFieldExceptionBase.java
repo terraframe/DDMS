@@ -46,10 +46,10 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFieldException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMdFieldDisplayLabel()
@@ -62,10 +62,10 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(MDFIELDDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdFieldDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFieldException.CLASS);
-    return mdClassIF.definesAttribute(MDFIELDDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDFIELDDISPLAYLABEL);
   }
   
   public void setMdFieldDisplayLabel(String value)
@@ -90,10 +90,10 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
     this.validateAttribute(MDFORMDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFormDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdFormDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFieldException.CLASS);
-    return mdClassIF.definesAttribute(MDFORMDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDFORMDISPLAYLABEL);
   }
   
   public void setMdFormDisplayLabel(String value)

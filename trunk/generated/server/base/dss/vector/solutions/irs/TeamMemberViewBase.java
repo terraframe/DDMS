@@ -37,10 +37,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ACTORID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActorIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getActorIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(ACTORID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ACTORID);
   }
   
   public void setActorId(String value)
@@ -65,10 +65,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(FIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(FIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FIRSTNAME);
   }
   
   public void setFirstName(String value)
@@ -93,10 +93,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getIsAssigned()
@@ -109,10 +109,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ISASSIGNED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsAssignedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsAssignedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(ISASSIGNED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISASSIGNED);
   }
   
   public void setIsAssigned(Boolean value)
@@ -137,10 +137,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ISSPRAYLEADER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayLeaderMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsSprayLeaderMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYLEADER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISSPRAYLEADER);
   }
   
   public void setIsSprayLeader(Boolean value)
@@ -165,10 +165,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ISSPRAYOPERATOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayOperatorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsSprayOperatorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYOPERATOR);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISSPRAYOPERATOR);
   }
   
   public void setIsSprayOperator(Boolean value)
@@ -193,10 +193,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(LASTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLastNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(LASTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LASTNAME);
   }
   
   public void setLastName(String value)
@@ -221,10 +221,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(MEMBERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMemberIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMemberIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(MEMBERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MEMBERID);
   }
   
   public void setMemberId(String value)
@@ -249,10 +249,10 @@ public abstract class TeamMemberViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(TEAMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTeamIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamMemberView.CLASS);
-    return mdClassIF.definesAttribute(TEAMID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TEAMID);
   }
   
   public void setTeamId(String value)

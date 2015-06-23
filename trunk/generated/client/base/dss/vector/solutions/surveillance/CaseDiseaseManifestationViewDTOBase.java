@@ -33,6 +33,11 @@ public abstract class CaseDiseaseManifestationViewDTOBase extends com.runwaysdk.
     }
   }
   
+  public String getAggregatedCaseId()
+  {
+    return getValue(AGGREGATEDCASE);
+  }
+  
   public void setAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO value)
   {
     if(value == null)
@@ -114,6 +119,11 @@ public abstract class CaseDiseaseManifestationViewDTOBase extends com.runwaysdk.
     }
   }
   
+  public String getDiseaseCategoryId()
+  {
+    return getValue(DISEASECATEGORY);
+  }
+  
   public void setDiseaseCategory(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -156,6 +166,11 @@ public abstract class CaseDiseaseManifestationViewDTOBase extends com.runwaysdk.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

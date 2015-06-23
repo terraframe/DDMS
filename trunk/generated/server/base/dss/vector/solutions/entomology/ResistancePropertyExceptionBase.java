@@ -48,10 +48,10 @@ public abstract class ResistancePropertyExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistancePropertyException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLowerLabel()
@@ -64,10 +64,10 @@ public abstract class ResistancePropertyExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(LOWERLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLowerLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLowerLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistancePropertyException.CLASS);
-    return mdClassIF.definesAttribute(LOWERLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LOWERLABEL);
   }
   
   public void setLowerLabel(String value)
@@ -92,10 +92,10 @@ public abstract class ResistancePropertyExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(LOWERVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLowerValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLowerValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistancePropertyException.CLASS);
-    return mdClassIF.definesAttribute(LOWERVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LOWERVALUE);
   }
   
   public void setLowerValue(Integer value)
@@ -120,10 +120,10 @@ public abstract class ResistancePropertyExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(UPPERLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUpperLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUpperLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistancePropertyException.CLASS);
-    return mdClassIF.definesAttribute(UPPERLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UPPERLABEL);
   }
   
   public void setUpperLabel(String value)
@@ -148,10 +148,10 @@ public abstract class ResistancePropertyExceptionBase extends com.runwaysdk.busi
     this.validateAttribute(UPPERVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUpperValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUpperValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistancePropertyException.CLASS);
-    return mdClassIF.definesAttribute(UPPERVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(UPPERVALUE);
   }
   
   public void setUpperValue(Integer value)

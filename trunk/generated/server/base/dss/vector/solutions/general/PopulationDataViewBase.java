@@ -37,10 +37,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -65,10 +65,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -93,10 +93,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ESTIMATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEstimatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEstimatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(ESTIMATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ESTIMATED);
   }
   
   public void setEstimated(Boolean value)
@@ -121,10 +121,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(String value)
@@ -149,10 +149,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GROWTHRATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGrowthRateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGrowthRateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(GROWTHRATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GROWTHRATE);
   }
   
   public void setGrowthRate(Double value)
@@ -177,10 +177,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Long getPopulation()
@@ -193,10 +193,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(POPULATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPopulationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPopulationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(POPULATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POPULATION);
   }
   
   public void setPopulation(Long value)
@@ -221,10 +221,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(POPULATIONTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPopulationTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getPopulationTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(POPULATIONTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(POPULATIONTYPE);
   }
   
   public void setPopulationType(Boolean value)
@@ -249,10 +249,10 @@ public abstract class PopulationDataViewBase extends com.runwaysdk.business.View
     this.validateAttribute(YEAROFDATA);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearOfDataMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearOfDataMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.PopulationDataView.CLASS);
-    return mdClassIF.definesAttribute(YEAROFDATA);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEAROFDATA);
   }
   
   public void setYearOfData(Integer value)

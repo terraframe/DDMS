@@ -83,6 +83,11 @@ public abstract class AggregatedIPTViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getDisplayDoseId()
+  {
+    return getValue(DISPLAYDOSE);
+  }
+  
   public void setDisplayDose(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -125,6 +130,11 @@ public abstract class AggregatedIPTViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYPATIENTS));
     }
+  }
+  
+  public String getDisplayPatientsId()
+  {
+    return getValue(DISPLAYPATIENTS);
   }
   
   public void setDisplayPatients(dss.vector.solutions.ontology.TermDTO value)
@@ -171,6 +181,11 @@ public abstract class AggregatedIPTViewDTOBase extends com.runwaysdk.business.Vi
     }
   }
   
+  public String getDisplayTreatmentsId()
+  {
+    return getValue(DISPLAYTREATMENTS);
+  }
+  
   public void setDisplayTreatments(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -213,6 +228,11 @@ public abstract class AggregatedIPTViewDTOBase extends com.runwaysdk.business.Vi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYVISITS));
     }
+  }
+  
+  public String getDisplayVisitsId()
+  {
+    return getValue(DISPLAYVISITS);
   }
   
   public void setDisplayVisits(dss.vector.solutions.ontology.TermDTO value)

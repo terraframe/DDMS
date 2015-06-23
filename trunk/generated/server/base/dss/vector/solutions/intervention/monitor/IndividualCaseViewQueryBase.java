@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class IndividualCaseViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -103440977;
 
   public IndividualCaseViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

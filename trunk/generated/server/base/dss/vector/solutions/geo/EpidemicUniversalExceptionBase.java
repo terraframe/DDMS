@@ -45,10 +45,10 @@ public abstract class EpidemicUniversalExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.EpidemicUniversalException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getUniversal()
@@ -61,10 +61,10 @@ public abstract class EpidemicUniversalExceptionBase extends com.runwaysdk.busin
     this.validateAttribute(UNIVERSAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniversalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.EpidemicUniversalException.CLASS);
-    return mdClassIF.definesAttribute(UNIVERSAL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIVERSAL);
   }
   
   public void setUniversal(String value)

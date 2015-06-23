@@ -142,6 +142,11 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)

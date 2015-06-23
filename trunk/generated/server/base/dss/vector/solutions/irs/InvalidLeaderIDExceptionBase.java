@@ -45,10 +45,10 @@ public abstract class InvalidLeaderIDExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidLeaderIDException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLeaderId()
@@ -61,10 +61,10 @@ public abstract class InvalidLeaderIDExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(LEADERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLeaderIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLeaderIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidLeaderIDException.CLASS);
-    return mdClassIF.definesAttribute(LEADERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LEADERID);
   }
   
   public void setLeaderId(String value)

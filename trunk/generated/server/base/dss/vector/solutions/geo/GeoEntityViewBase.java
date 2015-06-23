@@ -36,10 +36,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ACTIVATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActivatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getActivatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(ACTIVATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ACTIVATED);
   }
   
   public void setActivated(Boolean value)
@@ -64,10 +64,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public void setEntityLabel(String value)
@@ -92,10 +92,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ENTITYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYTYPE);
   }
   
   public void setEntityType(String value)
@@ -120,10 +120,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(GEOENTITYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoEntityIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOENTITYID);
   }
   
   public void setGeoEntityId(String value)
@@ -148,10 +148,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -176,10 +176,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMoSubType()
@@ -192,10 +192,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(MOSUBTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMoSubTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMoSubTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(MOSUBTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MOSUBTYPE);
   }
   
   public void setMoSubType(String value)
@@ -220,10 +220,10 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     this.validateAttribute(TYPEDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(TYPEDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPEDISPLAYLABEL);
   }
   
   public void setTypeDisplayLabel(String value)

@@ -47,6 +47,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     }
   }
   
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
+  }
+  
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
   {
     if(value == null)
@@ -128,6 +133,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     }
   }
   
+  public String getGenerationId()
+  {
+    return getValue(GENERATION);
+  }
+  
   public void setGeneration(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -172,6 +182,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void setIdentificationMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -214,6 +229,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     {
       return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
     }
+  }
+  
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
@@ -332,6 +352,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TESTMETHOD));
     }
+  }
+  
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
   }
   
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)

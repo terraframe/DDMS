@@ -51,7 +51,7 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
     return this.getId();
   }
 
-  private String getTargeterId()
+  public String getTargeterId()
   {
     if (this.getTargeter() instanceof TeamMember)
     {

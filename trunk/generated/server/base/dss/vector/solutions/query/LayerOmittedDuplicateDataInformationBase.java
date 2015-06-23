@@ -30,10 +30,10 @@ public abstract class LayerOmittedDuplicateDataInformationBase extends com.runwa
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerOmittedDuplicateDataInformation.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLayerName()
@@ -46,10 +46,10 @@ public abstract class LayerOmittedDuplicateDataInformationBase extends com.runwa
     this.validateAttribute(LAYERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerOmittedDuplicateDataInformation.CLASS);
-    return mdClassIF.definesAttribute(LAYERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERNAME);
   }
   
   public void setLayerName(String value)

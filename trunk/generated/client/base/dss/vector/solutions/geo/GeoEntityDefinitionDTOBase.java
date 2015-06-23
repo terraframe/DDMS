@@ -260,6 +260,11 @@ public abstract class GeoEntityDefinitionDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getTermId()
+  {
+    return getValue(TERM);
+  }
+  
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)

@@ -50,10 +50,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(AGERANGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeRangeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeStructDAOIF getAgeRangeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(AGERANGE);
+    return (com.runwaysdk.dataaccess.MdAttributeStructDAOIF)mdClassIF.definesAttribute(AGERANGE);
   }
   
   public String getColonyName()
@@ -66,10 +66,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(COLONYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getColonyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getColonyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(COLONYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(COLONYNAME);
   }
   
   public void setColonyName(String value)
@@ -94,10 +94,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(CONTROLTESTMORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getControlTestMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
   }
   
   public void setControlTestMortality(Float value)
@@ -122,10 +122,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(EXPOSURETIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getExposureTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getExposureTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(EXPOSURETIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(EXPOSURETIME);
   }
   
   public void setExposureTime(Integer value)
@@ -150,10 +150,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(FED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(FED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FED);
   }
   
   public void setFed(Integer value)
@@ -190,10 +190,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.Surface value)
@@ -218,10 +218,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(GRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(GRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(GRAVID);
   }
   
   public void setGravid(Integer value)
@@ -246,10 +246,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(HOLDINGTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHoldingTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getHoldingTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(HOLDINGTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(HOLDINGTIME);
   }
   
   public void setHoldingTime(Integer value)
@@ -286,10 +286,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(INSECTICIDEBRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInsecticideBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEBRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INSECTICIDEBRAND);
   }
   
   public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrand value)
@@ -314,10 +314,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(MORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(MORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(MORTALITY);
   }
   
   public void setMortality(Float value)
@@ -342,10 +342,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(QUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYDEAD);
   }
   
   public void setQuantityDead(Integer value)
@@ -370,10 +370,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(QUANTITYLIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityLiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYLIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYLIVE);
   }
   
   public void setQuantityLive(Integer value)
@@ -398,10 +398,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(QUANTITYTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYTESTED);
   }
   
   public void setQuantityTested(Integer value)
@@ -438,10 +438,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)
@@ -478,10 +478,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(SURFACEPOSTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfacePostionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSurfacePostionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(SURFACEPOSTION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SURFACEPOSTION);
   }
   
   public void setSurfacePostion(dss.vector.solutions.ontology.Term value)
@@ -518,10 +518,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(SURFACETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSurfaceTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(SURFACETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.Term value)
@@ -558,10 +558,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(TESTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTestMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TESTMETHOD);
   }
   
   public void setTestMethod(dss.vector.solutions.ontology.Term value)
@@ -586,10 +586,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(TIMEONSURFACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTimeOnSurfaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTimeOnSurfaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(TIMEONSURFACE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TIMEONSURFACE);
   }
   
   public void setTimeOnSurface(Integer value)
@@ -614,10 +614,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

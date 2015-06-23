@@ -40,15 +40,20 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -73,10 +78,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberNatalCare()
@@ -89,10 +94,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERNATALCARE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberNatalCareMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberNatalCareMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERNATALCARE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERNATALCARE);
   }
   
   public void setNumberNatalCare(Integer value)
@@ -117,10 +122,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERPREGNANT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANT);
   }
   
   public void setNumberPregnant(Integer value)
@@ -145,10 +150,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERPREGNANTITN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantITNMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantITNMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANTITN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTITN);
   }
   
   public void setNumberPregnantITN(Integer value)
@@ -173,10 +178,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBERPREGNANTIRON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantIronMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantIronMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANTIRON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTIRON);
   }
   
   public void setNumberPregnantIron(Integer value)
@@ -201,10 +206,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -229,10 +234,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIODTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPeriodTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIODTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PERIODTYPE);
   }
   
   public void setPeriodType(String value)
@@ -257,10 +262,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PERIODYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeriodYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERIODYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERIODYEAR);
   }
   
   public void setPeriodYear(Integer value)
@@ -285,10 +290,10 @@ public abstract class AggregatedIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(TOTALITN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTotalITNMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTotalITNMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(TOTALITN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TOTALITN);
   }
   
   public void setTotalITN(Integer value)

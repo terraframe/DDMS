@@ -10,7 +10,6 @@ package dss.vector.solutions.geo;
  */
 public  class AllowedInQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -298507916;
 
   public AllowedInQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

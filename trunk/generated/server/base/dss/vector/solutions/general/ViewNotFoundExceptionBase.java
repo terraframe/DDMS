@@ -45,10 +45,10 @@ public abstract class ViewNotFoundExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ViewNotFoundException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getViewName()
@@ -61,10 +61,10 @@ public abstract class ViewNotFoundExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(VIEWNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getViewNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getViewNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ViewNotFoundException.CLASS);
-    return mdClassIF.definesAttribute(VIEWNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(VIEWNAME);
   }
   
   public void setViewName(String value)

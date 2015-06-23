@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class PupalCollectionExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1222960186;
 
   public PupalCollectionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

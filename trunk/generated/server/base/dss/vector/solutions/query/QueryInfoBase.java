@@ -32,10 +32,10 @@ public abstract class QueryInfoBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.QueryInfo.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMaximum()
@@ -48,10 +48,10 @@ public abstract class QueryInfoBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(MAXIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMaximumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMaximumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.QueryInfo.CLASS);
-    return mdClassIF.definesAttribute(MAXIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MAXIMUM);
   }
   
   public void setMaximum(String value)
@@ -76,10 +76,10 @@ public abstract class QueryInfoBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(MINIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMinimumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMinimumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.QueryInfo.CLASS);
-    return mdClassIF.definesAttribute(MINIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MINIMUM);
   }
   
   public void setMinimum(String value)
@@ -104,10 +104,10 @@ public abstract class QueryInfoBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(TOTALRESULTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTotalResultsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTotalResultsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.QueryInfo.CLASS);
-    return mdClassIF.definesAttribute(TOTALRESULTS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TOTALRESULTS);
   }
   
   public void setTotalResults(Integer value)

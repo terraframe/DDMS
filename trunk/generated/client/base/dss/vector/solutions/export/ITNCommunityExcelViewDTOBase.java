@@ -194,6 +194,11 @@ public abstract class ITNCommunityExcelViewDTOBase extends com.runwaysdk.busines
     }
   }
   
+  public String getDistributionLocationId()
+  {
+    return getValue(DISTRIBUTIONLOCATION);
+  }
+  
   public void setDistributionLocation(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -310,6 +315,11 @@ public abstract class ITNCommunityExcelViewDTOBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(HOUSEHOLDADDRESS));
     }
+  }
+  
+  public String getHouseholdAddressId()
+  {
+    return getValue(HOUSEHOLDADDRESS);
   }
   
   public void setHouseholdAddress(dss.vector.solutions.geo.generated.GeoEntityDTO value)

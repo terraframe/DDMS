@@ -124,6 +124,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -191,6 +196,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -348,6 +358,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -390,6 +405,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.geo.generated.HealthFacilityDTO.get(getRequest(), getValue(FACILITY));
     }
+  }
+  
+  public String getFacilityId()
+  {
+    return getValue(FACILITY);
   }
   
   public void setFacility(dss.vector.solutions.geo.generated.HealthFacilityDTO value)
@@ -498,6 +518,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -530,6 +555,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -560,6 +590,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(NET));
     }
+  }
+  
+  public String getNetId()
+  {
+    return getValue(NET);
   }
   
   public void setNet(dss.vector.solutions.ontology.TermDTO value)
@@ -643,6 +678,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -685,6 +725,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.intervention.monitor.ITNRecipientDTO.get(getRequest(), getValue(RECIPIENT));
     }
+  }
+  
+  public String getRecipientId()
+  {
+    return getValue(RECIPIENT);
   }
   
   public void setRecipient(dss.vector.solutions.intervention.monitor.ITNRecipientDTO value)
@@ -754,6 +799,11 @@ public abstract class ITNDistributionDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SERVICE));
     }
+  }
+  
+  public String getServiceId()
+  {
+    return getValue(SERVICE);
   }
   
   public void setService(dss.vector.solutions.ontology.TermDTO value)

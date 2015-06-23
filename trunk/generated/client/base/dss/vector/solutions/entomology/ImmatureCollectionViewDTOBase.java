@@ -120,6 +120,11 @@ public abstract class ImmatureCollectionViewDTOBase extends com.runwaysdk.busine
     }
   }
   
+  public String getContainerGridId()
+  {
+    return getValue(CONTAINERGRID);
+  }
+  
   public void setContainerGrid(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -199,6 +204,11 @@ public abstract class ImmatureCollectionViewDTOBase extends com.runwaysdk.busine
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -539,6 +549,11 @@ public abstract class ImmatureCollectionViewDTOBase extends com.runwaysdk.busine
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PREMISETYPE));
     }
+  }
+  
+  public String getPremiseTypeId()
+  {
+    return getValue(PREMISETYPE);
   }
   
   public void setPremiseType(dss.vector.solutions.ontology.TermDTO value)

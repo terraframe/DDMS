@@ -45,10 +45,10 @@ public abstract class InsufficentSeasonNumberExceptionBase extends com.runwaysdk
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.InsufficentSeasonNumberException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberOfSeasons()
@@ -61,10 +61,10 @@ public abstract class InsufficentSeasonNumberExceptionBase extends com.runwaysdk
     this.validateAttribute(NUMBEROFSEASONS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfSeasonsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberOfSeasonsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.InsufficentSeasonNumberException.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFSEASONS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBEROFSEASONS);
   }
   
   public void setNumberOfSeasons(Integer value)

@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class InsecticideInterventionExcelViewQueryBase extends dss.vector.solutions.export.ControlInterventionExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 25320404;
 
   public InsecticideInterventionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

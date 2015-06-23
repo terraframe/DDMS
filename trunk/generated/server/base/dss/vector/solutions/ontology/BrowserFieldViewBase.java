@@ -35,10 +35,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(BROWSERFIELDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrowserFieldIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrowserFieldIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(BROWSERFIELDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BROWSERFIELDID);
   }
   
   public void setBrowserFieldId(String value)
@@ -65,15 +65,20 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     }
   }
   
+  public String getDefaultValueId()
+  {
+    return getValue(DEFAULTVALUE);
+  }
+  
   public void validateDefaultValue()
   {
     this.validateAttribute(DEFAULTVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDefaultValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DEFAULTVALUE);
   }
   
   public void setDefaultValue(dss.vector.solutions.ontology.Term value)
@@ -98,10 +103,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMdAttributeId()
@@ -114,10 +119,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(MDATTRIBUTEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdAttributeIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdAttributeIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(MDATTRIBUTEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDATTRIBUTEID);
   }
   
   public void setMdAttributeId(String value)
@@ -142,10 +147,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(MDATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(MDATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDATTRIBUTELABEL);
   }
   
   public void setMdAttributeLabel(String value)
@@ -170,10 +175,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(MDCLASSID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdClassIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdClassIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(MDCLASSID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDCLASSID);
   }
   
   public void setMdClassId(String value)
@@ -198,10 +203,10 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
     this.validateAttribute(MDCLASSLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdClassLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdClassLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserFieldView.CLASS);
-    return mdClassIF.definesAttribute(MDCLASSLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDCLASSLABEL);
   }
   
   public void setMdClassLabel(String value)

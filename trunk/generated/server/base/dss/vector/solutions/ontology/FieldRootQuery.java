@@ -10,7 +10,6 @@ package dss.vector.solutions.ontology;
  */
 public  class FieldRootQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1667931577;
 
   public FieldRootQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

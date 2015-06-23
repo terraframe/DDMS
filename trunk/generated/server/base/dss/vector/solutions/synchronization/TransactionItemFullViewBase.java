@@ -35,10 +35,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(ACTIONLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActionLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getActionLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(ACTIONLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ACTIONLABEL);
   }
   
   public void setActionLabel(String value)
@@ -63,10 +63,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(COMPONENTID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getComponentIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getComponentIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(COMPONENTID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COMPONENTID);
   }
   
   public void setComponentId(String value)
@@ -91,10 +91,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(COMPONENTSEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getComponentSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getComponentSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(COMPONENTSEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COMPONENTSEQ);
   }
   
   public void setComponentSeq(Long value)
@@ -119,10 +119,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(COMPONENTSITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getComponentSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getComponentSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(COMPONENTSITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COMPONENTSITEMASTER);
   }
   
   public void setComponentSiteMaster(String value)
@@ -147,10 +147,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getRecordId()
@@ -163,10 +163,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(RECORDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecordIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRecordIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(RECORDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RECORDID);
   }
   
   public void setRecordId(String value)
@@ -191,10 +191,10 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
     this.validateAttribute(XMLRECORD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getXmlRecordMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getXmlRecordMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemFullView.CLASS);
-    return mdClassIF.definesAttribute(XMLRECORD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(XMLRECORD);
   }
   
   public void setXmlRecord(String value)

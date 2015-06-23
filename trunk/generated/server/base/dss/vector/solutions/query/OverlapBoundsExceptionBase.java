@@ -46,10 +46,10 @@ public abstract class OverlapBoundsExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.OverlapBoundsException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getRangeOne()
@@ -62,10 +62,10 @@ public abstract class OverlapBoundsExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(RANGEONE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRangeOneMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRangeOneMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.OverlapBoundsException.CLASS);
-    return mdClassIF.definesAttribute(RANGEONE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RANGEONE);
   }
   
   public void setRangeOne(String value)
@@ -90,10 +90,10 @@ public abstract class OverlapBoundsExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(RANGETWO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRangeTwoMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRangeTwoMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.OverlapBoundsException.CLASS);
-    return mdClassIF.definesAttribute(RANGETWO);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RANGETWO);
   }
   
   public void setRangeTwo(String value)

@@ -34,10 +34,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(CONFIG);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfigMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getConfigMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(CONFIG);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONFIG);
   }
   
   public void setConfig(String value)
@@ -62,10 +62,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getQueryName()
@@ -78,10 +78,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(QUERYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQueryNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQueryNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(QUERYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUERYNAME);
   }
   
   public void setQueryName(String value)
@@ -106,10 +106,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(QUERYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQueryTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQueryTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(QUERYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUERYTYPE);
   }
   
   public void setQueryType(String value)
@@ -134,10 +134,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(QUERYXML);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQueryXmlMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQueryXmlMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(QUERYXML);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUERYXML);
   }
   
   public void setQueryXml(String value)
@@ -162,10 +162,10 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SAVEDQUERYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSavedQueryIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSavedQueryIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return mdClassIF.definesAttribute(SAVEDQUERYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SAVEDQUERYID);
   }
   
   public void setSavedQueryId(String value)

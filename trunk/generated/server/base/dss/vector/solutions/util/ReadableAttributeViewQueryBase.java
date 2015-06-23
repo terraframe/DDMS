@@ -11,7 +11,6 @@ package dss.vector.solutions.util;
 public  abstract  class ReadableAttributeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2085361866;
 
   public ReadableAttributeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

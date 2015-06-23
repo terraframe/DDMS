@@ -11,7 +11,6 @@ package dss.vector.solutions.ontology;
 public  abstract  class BrowserRootViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1003142823;
 
   public BrowserRootViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

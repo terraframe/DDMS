@@ -40,10 +40,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(ASSAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAssayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ASSAY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ASSAY);
   }
   
   public void setAssay(String value)
@@ -68,10 +68,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -96,10 +96,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(GENERATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGenerationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGenerationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(GENERATION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GENERATION);
   }
   
   public void setGeneration(String value)
@@ -124,10 +124,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getIdentMethod()
@@ -140,10 +140,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(IDENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(IDENTMETHOD);
   }
   
   public void setIdentMethod(String value)
@@ -168,10 +168,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(ISOFEMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsofemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsofemaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ISOFEMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISOFEMALE);
   }
   
   public void setIsofemale(Boolean value)
@@ -196,10 +196,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(MOSQUITOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMosquitoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMosquitoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(MOSQUITOID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MOSQUITOID);
   }
   
   public void setMosquitoId(String value)
@@ -224,10 +224,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(NUMBERELEVATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberElevatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberElevatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERELEVATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERELEVATED);
   }
   
   public void setNumberElevated(Integer value)
@@ -252,10 +252,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(NUMBERTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERTESTED);
   }
   
   public void setNumberTested(Integer value)
@@ -280,10 +280,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(String value)
@@ -308,10 +308,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(SPECIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpeciesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSpeciesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPECIES);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPECIES);
   }
   
   public void setSpecies(String value)
@@ -336,10 +336,10 @@ public abstract class BiochemicalAssayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.BiochemicalAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

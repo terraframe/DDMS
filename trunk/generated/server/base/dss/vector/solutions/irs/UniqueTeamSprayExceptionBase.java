@@ -44,10 +44,10 @@ public abstract class UniqueTeamSprayExceptionBase extends dss.vector.solutions.
     this.validateAttribute(SPRAYTEAM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayTeamMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayTeamMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueTeamSprayException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYTEAM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYTEAM);
   }
   
   public void setSprayTeam(String value)

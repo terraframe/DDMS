@@ -55,6 +55,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getBrowserFieldId()
+  {
+    return getValue(BROWSERFIELD);
+  }
+  
   public void setBrowserField(dss.vector.solutions.ontology.BrowserFieldDTO value)
   {
     if(value == null)
@@ -124,6 +129,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -154,6 +164,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -198,6 +213,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -306,6 +326,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -338,6 +363,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -368,6 +398,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -499,6 +534,11 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

@@ -36,10 +36,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ATTRIBUTEDESCRIPTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeDescriptionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAttributeDescriptionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTEDESCRIPTION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ATTRIBUTEDESCRIPTION);
   }
   
   public void setAttributeDescription(String value)
@@ -64,10 +64,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ATTRIBUTENAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAttributeNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTENAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ATTRIBUTENAME);
   }
   
   public void setAttributeName(String value)
@@ -92,10 +92,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ATTRIBUTEREQUIRED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeRequiredMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getAttributeRequiredMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTEREQUIRED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ATTRIBUTEREQUIRED);
   }
   
   public void setAttributeRequired(Boolean value)
@@ -120,10 +120,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(DISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISPLAYLABEL);
   }
   
   public void setDisplayLabel(String value)
@@ -148,10 +148,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(FIELDID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFieldIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFieldIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(FIELDID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FIELDID);
   }
   
   public void setFieldId(String value)
@@ -176,10 +176,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getNotBlank()
@@ -192,10 +192,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(NOTBLANK);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotBlankMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getNotBlankMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(NOTBLANK);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(NOTBLANK);
   }
   
   public void setNotBlank(Boolean value)
@@ -220,10 +220,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     this.validateAttribute(READPERMISSION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReadPermissionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getReadPermissionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
-    return mdClassIF.definesAttribute(READPERMISSION);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(READPERMISSION);
   }
   
   public void setReadPermission(Boolean value)

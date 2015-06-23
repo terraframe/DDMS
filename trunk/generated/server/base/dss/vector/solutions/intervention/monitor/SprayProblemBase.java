@@ -34,10 +34,10 @@ public abstract class SprayProblemBase extends dss.vector.solutions.Notification
     this.validateAttribute(MONTHS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMonthsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMonthsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.SprayProblem.CLASS);
-    return mdClassIF.definesAttribute(MONTHS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MONTHS);
   }
   
   public void setMonths(Integer value)

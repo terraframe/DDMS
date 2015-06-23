@@ -11,7 +11,6 @@ package dss.vector.solutions;
 public  abstract  class PersonWithDelegatesViewQueryBase extends dss.vector.solutions.PersonViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1187767590;
 
   public PersonWithDelegatesViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

@@ -33,10 +33,10 @@ public abstract class AdultDiscriminatingDoseIntervalViewBase extends com.runway
     this.validateAttribute(AMOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAmountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AMOUNT);
   }
   
   public void setAmount(Integer value)
@@ -73,10 +73,10 @@ public abstract class AdultDiscriminatingDoseIntervalViewBase extends com.runway
     this.validateAttribute(ASSAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAssayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView.CLASS);
-    return mdClassIF.definesAttribute(ASSAY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ASSAY);
   }
   
   public void setAssay(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay value)
@@ -101,10 +101,10 @@ public abstract class AdultDiscriminatingDoseIntervalViewBase extends com.runway
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -129,10 +129,10 @@ public abstract class AdultDiscriminatingDoseIntervalViewBase extends com.runway
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getIntervalTime()
@@ -145,10 +145,10 @@ public abstract class AdultDiscriminatingDoseIntervalViewBase extends com.runway
     this.validateAttribute(INTERVALTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIntervalTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView.CLASS);
-    return mdClassIF.definesAttribute(INTERVALTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INTERVALTIME);
   }
   
   public void setIntervalTime(Integer value)

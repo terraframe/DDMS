@@ -203,6 +203,11 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -874,6 +879,11 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SEX));
     }
+  }
+  
+  public String getSexId()
+  {
+    return getValue(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.TermDTO value)

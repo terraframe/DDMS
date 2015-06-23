@@ -11,7 +11,6 @@ package dss.vector.solutions.synchronization;
 public  abstract  class ImportLogViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1182421269;
 
   public ImportLogViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

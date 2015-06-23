@@ -45,10 +45,10 @@ public abstract class DuplicateAssayExceptionBase extends com.runwaysdk.business
     this.validateAttribute(ASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.DuplicateAssayException.CLASS);
-    return mdClassIF.definesAttribute(ASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ASSAYID);
   }
   
   public void setAssayId(String value)
@@ -73,10 +73,10 @@ public abstract class DuplicateAssayExceptionBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.DuplicateAssayException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

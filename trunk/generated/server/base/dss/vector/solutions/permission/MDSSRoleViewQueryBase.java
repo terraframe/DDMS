@@ -11,7 +11,6 @@ package dss.vector.solutions.permission;
 public  abstract  class MDSSRoleViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1924200846;
 
   public MDSSRoleViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

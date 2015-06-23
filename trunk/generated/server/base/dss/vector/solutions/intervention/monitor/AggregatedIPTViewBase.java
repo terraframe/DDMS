@@ -46,10 +46,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -76,15 +76,20 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getDisplayDoseId()
+  {
+    return getValue(DISPLAYDOSE);
+  }
+  
   public void validateDisplayDose()
   {
     this.validateAttribute(DISPLAYDOSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayDoseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayDoseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYDOSE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYDOSE);
   }
   
   public void setDisplayDose(dss.vector.solutions.ontology.Term value)
@@ -111,15 +116,20 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getDisplayPatientsId()
+  {
+    return getValue(DISPLAYPATIENTS);
+  }
+  
   public void validateDisplayPatients()
   {
     this.validateAttribute(DISPLAYPATIENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayPatientsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayPatientsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYPATIENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYPATIENTS);
   }
   
   public void setDisplayPatients(dss.vector.solutions.ontology.Term value)
@@ -146,15 +156,20 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getDisplayTreatmentsId()
+  {
+    return getValue(DISPLAYTREATMENTS);
+  }
+  
   public void validateDisplayTreatments()
   {
     this.validateAttribute(DISPLAYTREATMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayTreatmentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayTreatmentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYTREATMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYTREATMENTS);
   }
   
   public void setDisplayTreatments(dss.vector.solutions.ontology.Term value)
@@ -181,15 +196,20 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getDisplayVisitsId()
+  {
+    return getValue(DISPLAYVISITS);
+  }
+  
   public void validateDisplayVisits()
   {
     this.validateAttribute(DISPLAYVISITS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayVisitsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayVisitsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYVISITS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYVISITS);
   }
   
   public void setDisplayVisits(dss.vector.solutions.ontology.Term value)
@@ -214,10 +234,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -242,10 +262,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -270,10 +290,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberNatalCare()
@@ -286,10 +306,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(NUMBERNATALCARE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberNatalCareMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberNatalCareMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERNATALCARE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERNATALCARE);
   }
   
   public void setNumberNatalCare(Integer value)
@@ -314,10 +334,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(NUMBERPREGNANT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANT);
   }
   
   public void setNumberPregnant(Integer value)
@@ -342,10 +362,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(NUMBERPREGNANTITN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantITNMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantITNMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANTITN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTITN);
   }
   
   public void setNumberPregnantITN(Integer value)
@@ -370,10 +390,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(NUMBERPREGNANTIRON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPregnantIronMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantIronMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPREGNANTIRON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTIRON);
   }
   
   public void setNumberPregnantIron(Integer value)
@@ -398,10 +418,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -448,10 +468,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(PERIODTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getPeriodTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(PERIODTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(PERIODTYPE);
   }
   
   public Integer getPeriodYear()
@@ -464,10 +484,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(PERIODYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(PERIODYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIODYEAR);
   }
   
   public void setPeriodYear(Integer value)
@@ -492,10 +512,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(SEARCHTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSearchTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getSearchTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(SEARCHTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SEARCHTYPE);
   }
   
   public void setSearchType(Boolean value)
@@ -520,10 +540,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -548,10 +568,10 @@ public abstract class AggregatedIPTViewBase extends com.runwaysdk.business.View 
     this.validateAttribute(TOTALITN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTotalITNMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTotalITNMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
-    return mdClassIF.definesAttribute(TOTALITN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TOTALITN);
   }
   
   public void setTotalITN(Integer value)

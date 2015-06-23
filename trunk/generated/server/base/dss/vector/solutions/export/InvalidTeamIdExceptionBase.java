@@ -45,10 +45,10 @@ public abstract class InvalidTeamIdExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidTeamIdException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTeamId()
@@ -61,10 +61,10 @@ public abstract class InvalidTeamIdExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(TEAMID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTeamIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InvalidTeamIdException.CLASS);
-    return mdClassIF.definesAttribute(TEAMID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEAMID);
   }
   
   public void setTeamId(String value)

@@ -40,6 +40,11 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
+  }
+  
   public void setActiveIngredient(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -287,6 +292,11 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getProductNameId()
+  {
+    return getValue(PRODUCTNAME);
+  }
+  
   public void setProductName(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -449,6 +459,11 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(USEDETAIL));
     }
+  }
+  
+  public String getUseDetailId()
+  {
+    return getValue(USEDETAIL);
   }
   
   public void setUseDetail(dss.vector.solutions.ontology.TermDTO value)

@@ -217,6 +217,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
   }
   
+  public String getCalculationTypeId()
+  {
+    return getValue(CALCULATIONTYPE);
+  }
+  
   public void setCalculationType(dss.vector.solutions.general.ThresholdCalculationTypeDTO value)
   {
     if(value == null)
@@ -286,6 +291,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -316,6 +326,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -658,6 +673,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
   }
   
+  public String getLastFacilityIdentificationId()
+  {
+    return getValue(LASTFACILITYIDENTIFICATION);
+  }
+  
   public void setLastFacilityIdentification(dss.vector.solutions.general.EpiWeekDTO value)
   {
     if(value == null)
@@ -700,6 +720,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     {
       return dss.vector.solutions.general.EpiWeekDTO.get(getRequest(), getValue(LASTFACILITYNOTIFICATION));
     }
+  }
+  
+  public String getLastFacilityNotificationId()
+  {
+    return getValue(LASTFACILITYNOTIFICATION);
   }
   
   public void setLastFacilityNotification(dss.vector.solutions.general.EpiWeekDTO value)
@@ -746,6 +771,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
   }
   
+  public String getLastIdentificationId()
+  {
+    return getValue(LASTIDENTIFICATION);
+  }
+  
   public void setLastIdentification(dss.vector.solutions.general.EpiWeekDTO value)
   {
     if(value == null)
@@ -788,6 +818,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     {
       return dss.vector.solutions.general.EpiWeekDTO.get(getRequest(), getValue(LASTNOTIFICATION));
     }
+  }
+  
+  public String getLastNotificationId()
+  {
+    return getValue(LASTNOTIFICATION);
   }
   
   public void setLastNotification(dss.vector.solutions.general.EpiWeekDTO value)
@@ -859,6 +894,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -889,6 +929,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -958,6 +1003,11 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

@@ -36,6 +36,11 @@ public abstract class InsecticideNozzleViewDTOBase extends com.runwaysdk.busines
     }
   }
   
+  public String getBrandId()
+  {
+    return getValue(BRAND);
+  }
+  
   public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
@@ -226,6 +231,11 @@ public abstract class InsecticideNozzleViewDTOBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.irs.NozzleDTO.get(getRequest(), getValue(NOZZLE));
     }
+  }
+  
+  public String getNozzleId()
+  {
+    return getValue(NOZZLE);
   }
   
   public void setNozzle(dss.vector.solutions.irs.NozzleDTO value)

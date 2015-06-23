@@ -31,10 +31,10 @@ public abstract class DiseaseViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.DiseaseView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -59,10 +59,10 @@ public abstract class DiseaseViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(DISEASENAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDiseaseNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.DiseaseView.CLASS);
-    return mdClassIF.definesAttribute(DISEASENAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISEASENAME);
   }
   
   public void setDiseaseName(String value)
@@ -87,10 +87,10 @@ public abstract class DiseaseViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.DiseaseView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

@@ -49,15 +49,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getAgeGroupId()
+  {
+    return getValue(AGEGROUP);
+  }
+  
   public void validateAgeGroup()
   {
     this.validateAttribute(AGEGROUP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeGroupMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAgeGroupMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(AGEGROUP);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGEGROUP);
   }
   
   public void setAgeGroup(dss.vector.solutions.surveillance.AggregatedAgeGroup value)
@@ -84,15 +89,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseDiagnosisTypeId()
+  {
+    return getValue(CASEDIAGNOSISTYPE);
+  }
+  
   public void validateCaseDiagnosisType()
   {
     this.validateAttribute(CASEDIAGNOSISTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseDiagnosisTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseDiagnosisTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASEDIAGNOSISTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASEDIAGNOSISTYPE);
   }
   
   public void setCaseDiagnosisType(dss.vector.solutions.ontology.Term value)
@@ -119,15 +129,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseDiagnosticId()
+  {
+    return getValue(CASEDIAGNOSTIC);
+  }
+  
   public void validateCaseDiagnostic()
   {
     this.validateAttribute(CASEDIAGNOSTIC);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseDiagnosticMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseDiagnosticMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASEDIAGNOSTIC);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASEDIAGNOSTIC);
   }
   
   public void setCaseDiagnostic(dss.vector.solutions.ontology.Term value)
@@ -154,15 +169,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseDiseaseManifestationId()
+  {
+    return getValue(CASEDISEASEMANIFESTATION);
+  }
+  
   public void validateCaseDiseaseManifestation()
   {
     this.validateAttribute(CASEDISEASEMANIFESTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseDiseaseManifestationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseDiseaseManifestationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASEDISEASEMANIFESTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASEDISEASEMANIFESTATION);
   }
   
   public void setCaseDiseaseManifestation(dss.vector.solutions.ontology.Term value)
@@ -189,15 +209,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCasePatientTypeId()
+  {
+    return getValue(CASEPATIENTTYPE);
+  }
+  
   public void validateCasePatientType()
   {
     this.validateAttribute(CASEPATIENTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasePatientTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCasePatientTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASEPATIENTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASEPATIENTTYPE);
   }
   
   public void setCasePatientType(dss.vector.solutions.ontology.Term value)
@@ -224,15 +249,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseReferralsId()
+  {
+    return getValue(CASEREFERRALS);
+  }
+  
   public void validateCaseReferrals()
   {
     this.validateAttribute(CASEREFERRALS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseReferralsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseReferralsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASEREFERRALS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASEREFERRALS);
   }
   
   public void setCaseReferrals(dss.vector.solutions.ontology.Term value)
@@ -259,15 +289,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseStockReferralId()
+  {
+    return getValue(CASESTOCKREFERRAL);
+  }
+  
   public void validateCaseStockReferral()
   {
     this.validateAttribute(CASESTOCKREFERRAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseStockReferralMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseStockReferralMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASESTOCKREFERRAL);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASESTOCKREFERRAL);
   }
   
   public void setCaseStockReferral(dss.vector.solutions.ontology.Term value)
@@ -294,15 +329,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseStocksId()
+  {
+    return getValue(CASESTOCKS);
+  }
+  
   public void validateCaseStocks()
   {
     this.validateAttribute(CASESTOCKS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseStocksMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseStocksMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASESTOCKS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASESTOCKS);
   }
   
   public void setCaseStocks(dss.vector.solutions.ontology.Term value)
@@ -329,15 +369,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseTreatmentMethodId()
+  {
+    return getValue(CASETREATMENTMETHOD);
+  }
+  
   public void validateCaseTreatmentMethod()
   {
     this.validateAttribute(CASETREATMENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseTreatmentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseTreatmentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASETREATMENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASETREATMENTMETHOD);
   }
   
   public void setCaseTreatmentMethod(dss.vector.solutions.ontology.Term value)
@@ -364,15 +409,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getCaseTreatmentsId()
+  {
+    return getValue(CASETREATMENTS);
+  }
+  
   public void validateCaseTreatments()
   {
     this.validateAttribute(CASETREATMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseTreatmentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCaseTreatmentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASETREATMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CASETREATMENTS);
   }
   
   public void setCaseTreatments(dss.vector.solutions.ontology.Term value)
@@ -397,10 +447,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CASES);
   }
   
   public void setCases(Integer value)
@@ -425,10 +475,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -453,10 +503,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(DEATHS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDeathsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(DEATHS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DEATHS);
   }
   
   public void setDeaths(Integer value)
@@ -481,10 +531,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -511,15 +561,20 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -544,10 +599,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNegativeCases()
@@ -560,10 +615,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(NEGATIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNegativeCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNegativeCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(NEGATIVECASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NEGATIVECASES);
   }
   
   public void setNegativeCases(Integer value)
@@ -588,10 +643,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(POSITIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPositiveCasesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPositiveCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(POSITIVECASES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POSITIVECASES);
   }
   
   public void setPositiveCases(Integer value)
@@ -616,10 +671,10 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

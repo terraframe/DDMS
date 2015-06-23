@@ -30,10 +30,10 @@ public abstract class NestedTermsWarningBase extends com.runwaysdk.business.Warn
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.NestedTermsWarning.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNestedTerms()
@@ -46,10 +46,10 @@ public abstract class NestedTermsWarningBase extends com.runwaysdk.business.Warn
     this.validateAttribute(NESTEDTERMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNestedTermsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getNestedTermsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.NestedTermsWarning.CLASS);
-    return mdClassIF.definesAttribute(NESTEDTERMS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(NESTEDTERMS);
   }
   
   public void setNestedTerms(String value)

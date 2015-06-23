@@ -51,15 +51,20 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -84,10 +89,10 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getInsecticideTerm()
@@ -100,10 +105,10 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     this.validateAttribute(INSECTICIDETERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getInsecticideTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDETERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(INSECTICIDETERM);
   }
   
   public void setInsecticideTerm(String value)
@@ -128,10 +133,10 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     this.validateAttribute(SPRAYDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getSprayDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(SPRAYDATE);
   }
   
   public void setSprayDate(java.util.Date value)
@@ -156,10 +161,10 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     this.validateAttribute(SPRAYMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYMETHOD);
   }
   
   public void setSprayMethod(String value)
@@ -184,10 +189,10 @@ public abstract class DuplicateZoneSprayImportExceptionBase extends com.runwaysd
     this.validateAttribute(SPRAYTEAM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayTeamMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayTeamMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DuplicateZoneSprayImportException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYTEAM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYTEAM);
   }
   
   public void setSprayTeam(String value)

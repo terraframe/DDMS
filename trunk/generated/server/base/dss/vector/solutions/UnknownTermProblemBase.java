@@ -36,10 +36,10 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(ATTRIBUTELABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAttributeLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnknownTermProblem.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTELABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ATTRIBUTELABEL);
   }
   
   public void setAttributeLabel(String value)
@@ -64,10 +64,10 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnknownTermProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTermName()
@@ -80,10 +80,10 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
     this.validateAttribute(TERMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTermNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnknownTermProblem.CLASS);
-    return mdClassIF.definesAttribute(TERMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TERMNAME);
   }
   
   public void setTermName(String value)

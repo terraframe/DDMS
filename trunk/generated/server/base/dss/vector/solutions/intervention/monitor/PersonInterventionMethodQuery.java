@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class PersonInterventionMethodQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1412101349;
 
   public PersonInterventionMethodQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

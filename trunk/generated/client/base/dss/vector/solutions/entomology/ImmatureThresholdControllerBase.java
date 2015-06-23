@@ -10,8 +10,6 @@ public class ImmatureThresholdControllerBase implements com.runwaysdk.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 849550990;
-  
   public ImmatureThresholdControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

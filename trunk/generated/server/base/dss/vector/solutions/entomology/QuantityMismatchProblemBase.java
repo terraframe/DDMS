@@ -36,10 +36,10 @@ public abstract class QuantityMismatchProblemBase extends dss.vector.solutions.N
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.QuantityMismatchProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)
@@ -64,10 +64,10 @@ public abstract class QuantityMismatchProblemBase extends dss.vector.solutions.N
     this.validateAttribute(QUANTITYFEMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityFemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityFemaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.QuantityMismatchProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYFEMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYFEMALE);
   }
   
   public void setQuantityFemale(Integer value)
@@ -92,10 +92,10 @@ public abstract class QuantityMismatchProblemBase extends dss.vector.solutions.N
     this.validateAttribute(QUANTITYMALE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityMaleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.QuantityMismatchProblem.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYMALE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYMALE);
   }
   
   public void setQuantityMale(Integer value)

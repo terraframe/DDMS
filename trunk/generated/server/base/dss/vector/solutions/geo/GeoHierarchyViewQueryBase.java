@@ -11,7 +11,6 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoHierarchyViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 403168826;
 
   public GeoHierarchyViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

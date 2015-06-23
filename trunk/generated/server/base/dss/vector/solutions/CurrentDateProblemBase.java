@@ -35,10 +35,10 @@ public abstract class CurrentDateProblemBase extends dss.vector.solutions.Notifi
     this.validateAttribute(CURRENTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrentDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getCurrentDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.CurrentDateProblem.CLASS);
-    return mdClassIF.definesAttribute(CURRENTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(CURRENTDATE);
   }
   
   public void setCurrentDate(java.util.Date value)
@@ -63,10 +63,10 @@ public abstract class CurrentDateProblemBase extends dss.vector.solutions.Notifi
     this.validateAttribute(GIVENDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGivenDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getGivenDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.CurrentDateProblem.CLASS);
-    return mdClassIF.definesAttribute(GIVENDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(GIVENDATE);
   }
   
   public void setGivenDate(java.util.Date value)

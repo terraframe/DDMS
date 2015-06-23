@@ -69,6 +69,11 @@ public abstract class CaseDiseaseManifestationAmountViewDTOBase extends com.runw
     }
   }
   
+  public String getManifestationId()
+  {
+    return getValue(MANIFESTATION);
+  }
+  
   public void setManifestation(dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO value)
   {
     if(value == null)
@@ -111,6 +116,11 @@ public abstract class CaseDiseaseManifestationAmountViewDTOBase extends com.runw
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.TermDTO value)

@@ -36,10 +36,10 @@ public abstract class PeriodQuarterProblemBase extends com.runwaysdk.business.Pr
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PeriodQuarterProblem.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getMaxPeriod()
@@ -52,10 +52,10 @@ public abstract class PeriodQuarterProblemBase extends com.runwaysdk.business.Pr
     this.validateAttribute(MAXPERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMaxPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMaxPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PeriodQuarterProblem.CLASS);
-    return mdClassIF.definesAttribute(MAXPERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MAXPERIOD);
   }
   
   public void setMaxPeriod(Integer value)
@@ -80,10 +80,10 @@ public abstract class PeriodQuarterProblemBase extends com.runwaysdk.business.Pr
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PeriodQuarterProblem.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)

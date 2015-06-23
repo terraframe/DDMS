@@ -45,10 +45,10 @@ public abstract class UndefinedKnockDownPropertyExceptionBase extends com.runway
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UndefinedKnockDownPropertyException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.general.Insecticide getInsecticide()
@@ -63,15 +63,20 @@ public abstract class UndefinedKnockDownPropertyExceptionBase extends com.runway
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void validateInsecticide()
   {
     this.validateAttribute(INSECTICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getInsecticideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.UndefinedKnockDownPropertyException.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.general.Insecticide value)

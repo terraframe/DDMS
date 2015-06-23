@@ -48,10 +48,10 @@ public abstract class AdultAgeRangeBase extends com.runwaysdk.business.Struct im
     this.validateAttribute(ENDPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getEndPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS);
-    return mdClassIF.definesAttribute(ENDPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ENDPOINT);
   }
   
   public void setEndPoint(Integer value)
@@ -76,10 +76,10 @@ public abstract class AdultAgeRangeBase extends com.runwaysdk.business.Struct im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -92,10 +92,10 @@ public abstract class AdultAgeRangeBase extends com.runwaysdk.business.Struct im
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -120,10 +120,10 @@ public abstract class AdultAgeRangeBase extends com.runwaysdk.business.Struct im
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public Integer getStartPoint()
@@ -136,10 +136,10 @@ public abstract class AdultAgeRangeBase extends com.runwaysdk.business.Struct im
     this.validateAttribute(STARTPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getStartPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS);
-    return mdClassIF.definesAttribute(STARTPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(STARTPOINT);
   }
   
   public void setStartPoint(Integer value)

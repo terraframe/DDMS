@@ -36,10 +36,10 @@ public abstract class RangeValueProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(INVALIDVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInvalidValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getInvalidValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.RangeValueProblem.CLASS);
-    return mdClassIF.definesAttribute(INVALIDVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(INVALIDVALUE);
   }
   
   public void setInvalidValue(Integer value)
@@ -64,10 +64,10 @@ public abstract class RangeValueProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(LOWERLIMIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLowerLimitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getLowerLimitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.RangeValueProblem.CLASS);
-    return mdClassIF.definesAttribute(LOWERLIMIT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(LOWERLIMIT);
   }
   
   public void setLowerLimit(Integer value)
@@ -92,10 +92,10 @@ public abstract class RangeValueProblemBase extends dss.vector.solutions.Notific
     this.validateAttribute(UPPERLIMIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUpperLimitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUpperLimitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.RangeValueProblem.CLASS);
-    return mdClassIF.definesAttribute(UPPERLIMIT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(UPPERLIMIT);
   }
   
   public void setUpperLimit(Integer value)

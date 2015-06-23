@@ -38,10 +38,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(ACTIVEINGREDIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActiveIngredientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getActiveIngredientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ACTIVEINGREDIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(String value)
@@ -66,10 +66,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQualifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcentrationQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
   }
   
   public void setConcentrationQualifier(String value)
@@ -94,10 +94,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(CONCENTRATIONQUANTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQuantifierMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getConcentrationQuantifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
   }
   
   public void setConcentrationQuantifier(java.math.BigDecimal value)
@@ -122,10 +122,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -150,10 +150,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.irs.InsecticideBrand getInsecticide()
@@ -168,15 +168,20 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
   public void validateInsecticide()
   {
     this.validateAttribute(INSECTICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInsecticideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.irs.InsecticideBrand value)
@@ -203,15 +208,20 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getInterventionId()
+  {
+    return getValue(INTERVENTION);
+  }
+  
   public void validateIntervention()
   {
     this.validateAttribute(INTERVENTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInterventionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INTERVENTION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INTERVENTION);
   }
   
   public void setIntervention(dss.vector.solutions.intervention.monitor.ControlIntervention value)
@@ -238,15 +248,20 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getInterventionMethodId()
+  {
+    return getValue(INTERVENTIONMETHOD);
+  }
+  
   public void validateInterventionMethod()
   {
     this.validateAttribute(INTERVENTIONMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInterventionMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(INTERVENTIONMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INTERVENTIONMETHOD);
   }
   
   public void setInterventionMethod(dss.vector.solutions.ontology.Term value)
@@ -271,10 +286,10 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)
@@ -301,15 +316,20 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getUnitId()
+  {
+    return getValue(UNIT);
+  }
+  
   public void validateUnit()
   {
     this.validateAttribute(UNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(UNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.Term value)

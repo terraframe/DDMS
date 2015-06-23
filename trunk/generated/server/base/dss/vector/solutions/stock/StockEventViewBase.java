@@ -41,10 +41,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(AVAILABLESTOCK);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAvailableStockMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getAvailableStockMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(AVAILABLESTOCK);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(AVAILABLESTOCK);
   }
   
   public void setAvailableStock(Integer value)
@@ -69,10 +69,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -97,10 +97,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(COST);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCostMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCostMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(COST);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COST);
   }
   
   public void setCost(java.math.BigDecimal value)
@@ -125,10 +125,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(EVENTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEventDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEventDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(EVENTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(EVENTDATE);
   }
   
   public void setEventDate(java.util.Date value)
@@ -153,10 +153,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.stock.StockItem getItem()
@@ -181,10 +181,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ITEM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItemMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getItemMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(ITEM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ITEM);
   }
   
   public void setItem(dss.vector.solutions.stock.StockItem value)
@@ -209,10 +209,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(ITEMLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItemLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getItemLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(ITEMLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ITEMLABEL);
   }
   
   public void setItemLabel(String value)
@@ -237,10 +237,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(OTHERPARTY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOtherPartyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getOtherPartyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(OTHERPARTY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(OTHERPARTY);
   }
   
   public void setOtherParty(String value)
@@ -265,10 +265,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(QUANTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getQuantityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(QUANTITY);
   }
   
   public void setQuantity(Integer value)
@@ -305,10 +305,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(STAFF);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStaffMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStaffMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(STAFF);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STAFF);
   }
   
   public void setStaff(dss.vector.solutions.stock.StockStaff value)
@@ -333,10 +333,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(STAFFLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStaffLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getStaffLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(STAFFLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(STAFFLABEL);
   }
   
   public void setStaffLabel(String value)
@@ -373,10 +373,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(STOCKDEPOT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStockDepotMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStockDepotMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(STOCKDEPOT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STOCKDEPOT);
   }
   
   public void setStockDepot(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -423,10 +423,10 @@ public abstract class StockEventViewBase extends com.runwaysdk.business.View imp
     this.validateAttribute(TRANSACTIONTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTransactionTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTransactionTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.stock.StockEventView.CLASS);
-    return mdClassIF.definesAttribute(TRANSACTIONTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TRANSACTIONTYPE);
   }
   
   protected String getDeclaredType()

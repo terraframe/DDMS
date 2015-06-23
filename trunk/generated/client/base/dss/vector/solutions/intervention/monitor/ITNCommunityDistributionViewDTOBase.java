@@ -235,6 +235,11 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.runwaysdk.
     }
   }
   
+  public String getDisplayNetsId()
+  {
+    return getValue(DISPLAYNETS);
+  }
+  
   public void setDisplayNets(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -277,6 +282,11 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.runwaysdk.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DISPLAYTARGETGROUPS));
     }
+  }
+  
+  public String getDisplayTargetGroupsId()
+  {
+    return getValue(DISPLAYTARGETGROUPS);
   }
   
   public void setDisplayTargetGroups(dss.vector.solutions.ontology.TermDTO value)

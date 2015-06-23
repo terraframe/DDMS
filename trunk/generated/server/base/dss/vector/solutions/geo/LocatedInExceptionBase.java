@@ -46,10 +46,10 @@ public abstract class LocatedInExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(ENTITYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.LocatedInException.CLASS);
-    return mdClassIF.definesAttribute(ENTITYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYNAME);
   }
   
   public void setEntityName(String value)
@@ -74,10 +74,10 @@ public abstract class LocatedInExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.LocatedInException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentDisplayLabel()
@@ -90,10 +90,10 @@ public abstract class LocatedInExceptionBase extends com.runwaysdk.business.Smar
     this.validateAttribute(PARENTDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.LocatedInException.CLASS);
-    return mdClassIF.definesAttribute(PARENTDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTDISPLAYLABEL);
   }
   
   public void setParentDisplayLabel(String value)

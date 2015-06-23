@@ -34,15 +34,20 @@ public abstract class IndividualPremiseExcelViewBase extends dss.vector.solution
     }
   }
   
+  public String getPremiseGeoEntityId()
+  {
+    return getValue(PREMISEGEOENTITY);
+  }
+  
   public void validatePremiseGeoEntity()
   {
     this.validateAttribute(PREMISEGEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getPremiseGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISEGEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(PREMISEGEOENTITY);
   }
   
   public void setPremiseGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -67,10 +72,10 @@ public abstract class IndividualPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(REASONSFORNOTTREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReasonsForNotTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getReasonsForNotTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(REASONSFORNOTTREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(REASONSFORNOTTREATED);
   }
   
   public void setReasonsForNotTreated(String value)
@@ -95,10 +100,10 @@ public abstract class IndividualPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(TREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(TREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TREATED);
   }
   
   public void setTreated(Boolean value)
@@ -123,10 +128,10 @@ public abstract class IndividualPremiseExcelViewBase extends dss.vector.solution
     this.validateAttribute(VISITED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVisitedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getVisitedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(VISITED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(VISITED);
   }
   
   public void setVisited(Boolean value)

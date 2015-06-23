@@ -48,10 +48,10 @@ public abstract class UniqueSprayExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(BRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueSprayException.CLASS);
-    return mdClassIF.definesAttribute(BRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BRAND);
   }
   
   public void setBrand(String value)
@@ -76,10 +76,10 @@ public abstract class UniqueSprayExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueSprayException.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(String value)
@@ -104,10 +104,10 @@ public abstract class UniqueSprayExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueSprayException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public java.util.Date getSprayDate()
@@ -120,10 +120,10 @@ public abstract class UniqueSprayExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(SPRAYDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getSprayDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueSprayException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(SPRAYDATE);
   }
   
   public void setSprayDate(java.util.Date value)
@@ -148,10 +148,10 @@ public abstract class UniqueSprayExceptionBase extends com.runwaysdk.business.Sm
     this.validateAttribute(SPRAYMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSprayMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.UniqueSprayException.CLASS);
-    return mdClassIF.definesAttribute(SPRAYMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPRAYMETHOD);
   }
   
   public void setSprayMethod(String value)

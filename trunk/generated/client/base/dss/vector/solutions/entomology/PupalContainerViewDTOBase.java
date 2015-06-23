@@ -160,6 +160,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getContainerTypeId()
+  {
+    return getValue(CONTAINERTYPE);
+  }
+  
   public void setContainerType(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -239,6 +244,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DRAWDOWNFREQUENCY));
     }
+  }
+  
+  public String getDrawdownFrequencyId()
+  {
+    return getValue(DRAWDOWNFREQUENCY);
   }
   
   public void setDrawdownFrequency(dss.vector.solutions.ontology.TermDTO value)
@@ -322,6 +332,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getFillFrequencyId()
+  {
+    return getValue(FILLFREQUENCY);
+  }
+  
   public void setFillFrequency(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -364,6 +379,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(FILLMETHOD));
     }
+  }
+  
+  public String getFillMethodId()
+  {
+    return getValue(FILLMETHOD);
   }
   
   public void setFillMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -445,6 +465,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(LID));
     }
+  }
+  
+  public String getLidId()
+  {
+    return getValue(LID);
   }
   
   public void setLid(dss.vector.solutions.ontology.TermDTO value)
@@ -602,6 +627,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getPremiseId()
+  {
+    return getValue(PREMISE);
+  }
+  
   public void setPremise(dss.vector.solutions.entomology.PupalPremiseDTO value)
   {
     if(value == null)
@@ -644,6 +674,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PUPAEAMOUNT));
     }
+  }
+  
+  public String getPupaeAmountId()
+  {
+    return getValue(PUPAEAMOUNT);
   }
   
   public void setPupaeAmount(dss.vector.solutions.ontology.TermDTO value)
@@ -690,6 +725,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     }
   }
   
+  public String getRoofId()
+  {
+    return getValue(ROOF);
+  }
+  
   public void setRoof(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -732,6 +772,11 @@ public abstract class PupalContainerViewDTOBase extends com.runwaysdk.business.V
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SHADING));
     }
+  }
+  
+  public String getShadingId()
+  {
+    return getValue(SHADING);
   }
   
   public void setShading(dss.vector.solutions.ontology.TermDTO value)

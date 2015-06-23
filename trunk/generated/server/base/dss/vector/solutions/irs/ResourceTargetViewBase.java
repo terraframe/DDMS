@@ -86,10 +86,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public dss.vector.solutions.general.MalariaSeason getSeason()
@@ -104,15 +104,20 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
+  }
+  
   public void validateSeason()
   {
     this.validateAttribute(SEASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSeasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(SEASON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SEASON);
   }
   
   public void setSeason(dss.vector.solutions.general.MalariaSeason value)
@@ -137,10 +142,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGETID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTargetIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGETID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TARGETID);
   }
   
   public void setTargetId(String value)
@@ -165,10 +170,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_0);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_0Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_0Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_0);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_0);
   }
   
   public void setTarget_0(Integer value)
@@ -193,10 +198,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_1);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_1Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_1Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_1);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_1);
   }
   
   public void setTarget_1(Integer value)
@@ -221,10 +226,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_10);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_10Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_10Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_10);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_10);
   }
   
   public void setTarget_10(Integer value)
@@ -249,10 +254,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_11);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_11Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_11Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_11);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_11);
   }
   
   public void setTarget_11(Integer value)
@@ -277,10 +282,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_12);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_12Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_12Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_12);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_12);
   }
   
   public void setTarget_12(Integer value)
@@ -305,10 +310,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_13);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_13Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_13Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_13);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_13);
   }
   
   public void setTarget_13(Integer value)
@@ -333,10 +338,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_14);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_14Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_14Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_14);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_14);
   }
   
   public void setTarget_14(Integer value)
@@ -361,10 +366,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_15);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_15Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_15Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_15);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_15);
   }
   
   public void setTarget_15(Integer value)
@@ -389,10 +394,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_16);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_16Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_16Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_16);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_16);
   }
   
   public void setTarget_16(Integer value)
@@ -417,10 +422,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_17);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_17Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_17Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_17);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_17);
   }
   
   public void setTarget_17(Integer value)
@@ -445,10 +450,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_18);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_18Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_18Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_18);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_18);
   }
   
   public void setTarget_18(Integer value)
@@ -473,10 +478,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_19);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_19Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_19Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_19);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_19);
   }
   
   public void setTarget_19(Integer value)
@@ -501,10 +506,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_2);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_2Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_2Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_2);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_2);
   }
   
   public void setTarget_2(Integer value)
@@ -529,10 +534,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_20);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_20Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_20Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_20);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_20);
   }
   
   public void setTarget_20(Integer value)
@@ -557,10 +562,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_21);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_21Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_21Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_21);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_21);
   }
   
   public void setTarget_21(Integer value)
@@ -585,10 +590,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_22);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_22Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_22Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_22);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_22);
   }
   
   public void setTarget_22(Integer value)
@@ -613,10 +618,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_23);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_23Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_23Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_23);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_23);
   }
   
   public void setTarget_23(Integer value)
@@ -641,10 +646,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_24);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_24Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_24Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_24);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_24);
   }
   
   public void setTarget_24(Integer value)
@@ -669,10 +674,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_25);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_25Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_25Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_25);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_25);
   }
   
   public void setTarget_25(Integer value)
@@ -697,10 +702,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_26);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_26Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_26Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_26);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_26);
   }
   
   public void setTarget_26(Integer value)
@@ -725,10 +730,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_27);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_27Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_27Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_27);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_27);
   }
   
   public void setTarget_27(Integer value)
@@ -753,10 +758,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_28);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_28Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_28Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_28);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_28);
   }
   
   public void setTarget_28(Integer value)
@@ -781,10 +786,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_29);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_29Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_29Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_29);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_29);
   }
   
   public void setTarget_29(Integer value)
@@ -809,10 +814,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_3);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_3Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_3Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_3);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_3);
   }
   
   public void setTarget_3(Integer value)
@@ -837,10 +842,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_30);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_30Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_30Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_30);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_30);
   }
   
   public void setTarget_30(Integer value)
@@ -865,10 +870,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_31);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_31Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_31Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_31);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_31);
   }
   
   public void setTarget_31(Integer value)
@@ -893,10 +898,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_32);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_32Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_32Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_32);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_32);
   }
   
   public void setTarget_32(Integer value)
@@ -921,10 +926,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_33);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_33Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_33Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_33);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_33);
   }
   
   public void setTarget_33(Integer value)
@@ -949,10 +954,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_34);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_34Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_34Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_34);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_34);
   }
   
   public void setTarget_34(Integer value)
@@ -977,10 +982,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_35);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_35Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_35Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_35);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_35);
   }
   
   public void setTarget_35(Integer value)
@@ -1005,10 +1010,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_36);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_36Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_36Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_36);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_36);
   }
   
   public void setTarget_36(Integer value)
@@ -1033,10 +1038,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_37);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_37Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_37Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_37);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_37);
   }
   
   public void setTarget_37(Integer value)
@@ -1061,10 +1066,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_38);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_38Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_38Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_38);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_38);
   }
   
   public void setTarget_38(Integer value)
@@ -1089,10 +1094,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_39);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_39Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_39Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_39);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_39);
   }
   
   public void setTarget_39(Integer value)
@@ -1117,10 +1122,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_4);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_4Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_4Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_4);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_4);
   }
   
   public void setTarget_4(Integer value)
@@ -1145,10 +1150,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_40);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_40Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_40Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_40);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_40);
   }
   
   public void setTarget_40(Integer value)
@@ -1173,10 +1178,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_41);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_41Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_41Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_41);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_41);
   }
   
   public void setTarget_41(Integer value)
@@ -1201,10 +1206,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_42);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_42Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_42Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_42);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_42);
   }
   
   public void setTarget_42(Integer value)
@@ -1229,10 +1234,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_43);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_43Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_43Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_43);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_43);
   }
   
   public void setTarget_43(Integer value)
@@ -1257,10 +1262,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_44);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_44Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_44Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_44);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_44);
   }
   
   public void setTarget_44(Integer value)
@@ -1285,10 +1290,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_45);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_45Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_45Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_45);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_45);
   }
   
   public void setTarget_45(Integer value)
@@ -1313,10 +1318,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_46);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_46Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_46Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_46);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_46);
   }
   
   public void setTarget_46(Integer value)
@@ -1341,10 +1346,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_47);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_47Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_47Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_47);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_47);
   }
   
   public void setTarget_47(Integer value)
@@ -1369,10 +1374,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_48);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_48Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_48Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_48);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_48);
   }
   
   public void setTarget_48(Integer value)
@@ -1397,10 +1402,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_49);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_49Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_49Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_49);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_49);
   }
   
   public void setTarget_49(Integer value)
@@ -1425,10 +1430,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_5);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_5Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_5Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_5);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_5);
   }
   
   public void setTarget_5(Integer value)
@@ -1453,10 +1458,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_50);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_50);
   }
   
   public void setTarget_50(Integer value)
@@ -1481,10 +1486,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_51);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_51Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_51Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_51);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_51);
   }
   
   public void setTarget_51(Integer value)
@@ -1509,10 +1514,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_52);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_52Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_52Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_52);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_52);
   }
   
   public void setTarget_52(Integer value)
@@ -1537,10 +1542,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_6);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_6Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_6Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_6);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_6);
   }
   
   public void setTarget_6(Integer value)
@@ -1565,10 +1570,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_7);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_7Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_7Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_7);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_7);
   }
   
   public void setTarget_7(Integer value)
@@ -1593,10 +1598,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_8);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_8Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_8Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_8);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_8);
   }
   
   public void setTarget_8(Integer value)
@@ -1621,10 +1626,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET_9);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTarget_9Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTarget_9Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGET_9);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGET_9);
   }
   
   public void setTarget_9(Integer value)
@@ -1651,15 +1656,20 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getTargeterId()
+  {
+    return getValue(TARGETER);
+  }
+  
   public void validateTargeter()
   {
     this.validateAttribute(TARGETER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargeterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTargeterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGETER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TARGETER);
   }
   
   public void setTargeter(dss.vector.solutions.irs.Targeter value)
@@ -1684,10 +1694,10 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGETERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargeterNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTargeterNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ResourceTargetView.CLASS);
-    return mdClassIF.definesAttribute(TARGETERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TARGETERNAME);
   }
   
   public void setTargeterName(String value)

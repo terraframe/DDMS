@@ -45,10 +45,10 @@ public abstract class InvalidMemberIDExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidMemberIDException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMemberId()
@@ -61,10 +61,10 @@ public abstract class InvalidMemberIDExceptionBase extends com.runwaysdk.busines
     this.validateAttribute(MEMBERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMemberIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMemberIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InvalidMemberIDException.CLASS);
-    return mdClassIF.definesAttribute(MEMBERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MEMBERID);
   }
   
   public void setMemberId(String value)

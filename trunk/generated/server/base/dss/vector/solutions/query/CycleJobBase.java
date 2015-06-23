@@ -33,10 +33,10 @@ public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.Execut
     this.validateAttribute(IMAGEHEIGHT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageHeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getImageHeightMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
-    return mdClassIF.definesAttribute(IMAGEHEIGHT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(IMAGEHEIGHT);
   }
   
   public void setImageHeight(Integer value)
@@ -61,10 +61,10 @@ public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.Execut
     this.validateAttribute(IMAGEWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getImageWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
-    return mdClassIF.definesAttribute(IMAGEWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(IMAGEWIDTH);
   }
   
   public void setImageWidth(Integer value)
@@ -89,10 +89,10 @@ public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.Execut
     this.validateAttribute(JOBNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getJobNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getJobNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
-    return mdClassIF.definesAttribute(JOBNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(JOBNAME);
   }
   
   public void setJobName(String value)
@@ -117,10 +117,10 @@ public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.Execut
     this.validateAttribute(LAYERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
-    return mdClassIF.definesAttribute(LAYERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERID);
   }
   
   public void setLayerId(String value)
@@ -157,10 +157,10 @@ public abstract class CycleJobBase extends com.runwaysdk.system.scheduler.Execut
     this.validateAttribute(SAVEDMAP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSavedMapMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSavedMapMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJob.CLASS);
-    return mdClassIF.definesAttribute(SAVEDMAP);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SAVEDMAP);
   }
   
   public void setSavedMap(dss.vector.solutions.query.SavedMap value)

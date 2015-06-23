@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class GeoEntityExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -800168435;
 
   public GeoEntityExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

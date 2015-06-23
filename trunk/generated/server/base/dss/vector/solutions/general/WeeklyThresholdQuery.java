@@ -10,7 +10,6 @@ package dss.vector.solutions.general;
  */
 public  class WeeklyThresholdQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 150485999;
 
   public WeeklyThresholdQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

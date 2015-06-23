@@ -46,10 +46,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(BATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(BATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BATCHNUMBER);
   }
   
   public void setBatchNumber(String value)
@@ -74,10 +74,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -102,10 +102,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(CURRENCYRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrencyReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCurrencyReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(CURRENCYRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CURRENCYRECEIVED);
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -132,15 +132,20 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     }
   }
   
+  public String getDisplayNetsId()
+  {
+    return getValue(DISPLAYNETS);
+  }
+  
   public void validateDisplayNets()
   {
     this.validateAttribute(DISPLAYNETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayNetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayNetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYNETS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYNETS);
   }
   
   public void setDisplayNets(dss.vector.solutions.ontology.Term value)
@@ -167,15 +172,20 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     }
   }
   
+  public String getDisplayServicesId()
+  {
+    return getValue(DISPLAYSERVICES);
+  }
+  
   public void validateDisplayServices()
   {
     this.validateAttribute(DISPLAYSERVICES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayServicesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayServicesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYSERVICES);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYSERVICES);
   }
   
   public void setDisplayServices(dss.vector.solutions.ontology.Term value)
@@ -202,15 +212,20 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     }
   }
   
+  public String getDisplayTargetGroupsId()
+  {
+    return getValue(DISPLAYTARGETGROUPS);
+  }
+  
   public void validateDisplayTargetGroups()
   {
     this.validateAttribute(DISPLAYTARGETGROUPS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayTargetGroupsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDisplayTargetGroupsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYTARGETGROUPS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISPLAYTARGETGROUPS);
   }
   
   public void setDisplayTargetGroups(dss.vector.solutions.ontology.Term value)
@@ -235,10 +250,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -263,10 +278,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(GEOID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(GEOID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOID);
   }
   
   public void setGeoId(String value)
@@ -291,10 +306,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getNumberDistributed()
@@ -307,10 +322,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(NUMBERDISTRIBUTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberDistributedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberDistributedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERDISTRIBUTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERDISTRIBUTED);
   }
   
   public void setNumberDistributed(Integer value)
@@ -335,10 +350,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(NUMBERSOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberSoldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberSoldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERSOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERSOLD);
   }
   
   public void setNumberSold(Integer value)
@@ -363,10 +378,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(PERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(PERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIOD);
   }
   
   public void setPeriod(Integer value)
@@ -413,10 +428,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(PERIODTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getPeriodTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(PERIODTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(PERIODTYPE);
   }
   
   public Integer getPeriodYear()
@@ -429,10 +444,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(PERIODYEAR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPeriodYearMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(PERIODYEAR);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PERIODYEAR);
   }
   
   public void setPeriodYear(Integer value)
@@ -457,10 +472,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedForCommunityResponseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedForCommunityResponseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDFORCOMMUNITYRESPONSE);
   }
   
   public void setReceivedForCommunityResponse(Integer value)
@@ -485,10 +500,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(RECEIVEDFORTARGETGROUPS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedForTargetGroupsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedForTargetGroupsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDFORTARGETGROUPS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDFORTARGETGROUPS);
   }
   
   public void setReceivedForTargetGroups(Integer value)
@@ -513,10 +528,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(SEARCHTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSearchTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getSearchTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(SEARCHTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SEARCHTYPE);
   }
   
   public void setSearchType(Boolean value)
@@ -541,10 +556,10 @@ public abstract class ITNDataViewBase extends com.runwaysdk.business.View implem
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)

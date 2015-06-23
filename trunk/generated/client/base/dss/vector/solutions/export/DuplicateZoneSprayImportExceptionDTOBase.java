@@ -69,6 +69,11 @@ public abstract class DuplicateZoneSprayImportExceptionDTOBase extends com.runwa
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)

@@ -41,10 +41,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(CONTROLTESTMORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getControlTestMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
   }
   
   public void setControlTestMortality(Float value)
@@ -69,10 +69,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(CONTROLTESTNUMBERDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestNumberDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getControlTestNumberDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTNUMBERDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(CONTROLTESTNUMBERDEAD);
   }
   
   public void setControlTestNumberDead(Integer value)
@@ -97,10 +97,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(CONTROLTESTNUMBEREXPOSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestNumberExposedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getControlTestNumberExposedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(CONTROLTESTNUMBEREXPOSED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(CONTROLTESTNUMBEREXPOSED);
   }
   
   public void setControlTestNumberExposed(Integer value)
@@ -125,10 +125,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(CORRECTEDQUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCorrectedQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getCorrectedQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(CORRECTEDQUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(CORRECTEDQUANTITYDEAD);
   }
   
   public void setCorrectedQuantityDead(Float value)
@@ -153,10 +153,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(HOLDINGTIME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHoldingTimeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getHoldingTimeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(HOLDINGTIME);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(HOLDINGTIME);
   }
   
   public void setHoldingTime(Integer value)
@@ -181,10 +181,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(KD50);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd50Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getKd50Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(KD50);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(KD50);
   }
   
   public void setKd50(Double value)
@@ -209,10 +209,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(KD95);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd95Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getKd95Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(KD95);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(KD95);
   }
   
   public void setKd95(Double value)
@@ -237,10 +237,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(MORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(MORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(MORTALITY);
   }
   
   public void setMortality(Float value)
@@ -265,10 +265,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(OBSERVEDMORTALITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObservedMortalityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeFloatDAOIF getObservedMortalityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(OBSERVEDMORTALITY);
+    return (com.runwaysdk.dataaccess.MdAttributeFloatDAOIF)mdClassIF.definesAttribute(OBSERVEDMORTALITY);
   }
   
   public void setObservedMortality(Float value)
@@ -293,10 +293,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(QUANTITYDEAD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityDeadMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYDEAD);
   }
   
   public void setQuantityDead(Integer value)
@@ -321,10 +321,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(QUANTITYLIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getQuantityLiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYLIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(QUANTITYLIVE);
   }
   
   public void setQuantityLive(Integer value)
@@ -349,10 +349,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(ROOTASSAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRootAssayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRootAssayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(ROOTASSAY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ROOTASSAY);
   }
   
   public void setRootAssay(String value)
@@ -377,10 +377,10 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

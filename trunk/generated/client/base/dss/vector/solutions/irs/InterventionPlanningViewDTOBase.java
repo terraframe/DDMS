@@ -70,6 +70,11 @@ public abstract class InterventionPlanningViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -112,6 +117,11 @@ public abstract class InterventionPlanningViewDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.general.MalariaSeasonDTO.get(getRequest(), getValue(SEASON));
     }
+  }
+  
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
   }
   
   public void setSeason(dss.vector.solutions.general.MalariaSeasonDTO value)

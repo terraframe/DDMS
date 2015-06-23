@@ -10,8 +10,6 @@ public class FieldRootControllerBase implements com.runwaysdk.generation.loader.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -933622660;
-  
   public FieldRootControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

@@ -30,10 +30,10 @@ public abstract class EntityNotChildOfMainWarningBase extends com.runwaysdk.busi
     this.validateAttribute(ENTITIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntitiesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getEntitiesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.EntityNotChildOfMainWarning.CLASS);
-    return mdClassIF.definesAttribute(ENTITIES);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ENTITIES);
   }
   
   public void setEntities(String value)
@@ -58,10 +58,10 @@ public abstract class EntityNotChildOfMainWarningBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.EntityNotChildOfMainWarning.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   protected String getDeclaredType()

@@ -45,10 +45,10 @@ public abstract class AmbigiousTermExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.AmbigiousTermException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getTermName()
@@ -61,10 +61,10 @@ public abstract class AmbigiousTermExceptionBase extends com.runwaysdk.business.
     this.validateAttribute(TERMNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTermNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.AmbigiousTermException.CLASS);
-    return mdClassIF.definesAttribute(TERMNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TERMNAME);
   }
   
   public void setTermName(String value)

@@ -38,10 +38,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(ACTIVEINGREDIENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActiveIngredientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getActiveIngredientMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ACTIVEINGREDIENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(String value)
@@ -66,10 +66,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(ASSAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAssayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAssayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ASSAY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ASSAY);
   }
   
   public void setAssay(String value)
@@ -94,10 +94,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -122,10 +122,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLifeStage()
@@ -138,10 +138,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(LIFESTAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLifeStageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLifeStageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(LIFESTAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LIFESTAGE);
   }
   
   public void setLifeStage(String value)
@@ -166,10 +166,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(REFERENCESTRAINRESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReferenceStrainResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReferenceStrainResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(REFERENCESTRAINRESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(REFERENCESTRAINRESULT);
   }
   
   public void setReferenceStrainResult(java.math.BigDecimal value)
@@ -194,10 +194,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(SPECIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpeciesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSpeciesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPECIES);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPECIES);
   }
   
   public void setSpecies(String value)
@@ -222,10 +222,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(SYNERGIST);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSynergistMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSynergistMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SYNERGIST);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SYNERGIST);
   }
   
   public void setSynergist(Boolean value)
@@ -250,10 +250,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(TESTSTRAINRESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestStrainResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTestStrainResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TESTSTRAINRESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TESTSTRAINRESULT);
   }
   
   public void setTestStrainResult(java.math.BigDecimal value)
@@ -278,10 +278,10 @@ public abstract class TimeResponseAssayExcelViewBase extends com.runwaysdk.busin
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TimeResponseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

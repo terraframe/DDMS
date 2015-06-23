@@ -255,6 +255,11 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
     }
   }
   
+  public String getEpidemicUniversalId()
+  {
+    return getValue(EPIDEMICUNIVERSAL);
+  }
+  
   public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
   {
     if(value == null)

@@ -47,10 +47,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -75,10 +75,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
@@ -103,10 +103,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -143,10 +143,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(FILTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFilterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getFilterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(FILTER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(FILTER);
   }
   
   public void setFilter(dss.vector.solutions.geo.GeoHierarchy value)
@@ -183,10 +183,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(GEOATTRIBUTE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoAttributeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoAttributeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(GEOATTRIBUTE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOATTRIBUTE);
   }
   
   public void setGeoAttribute(com.runwaysdk.system.metadata.MdAttributeReference value)
@@ -211,10 +211,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getIsPoliticalHierarchy()
@@ -227,10 +227,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ISPOLITICALHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsPoliticalHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsPoliticalHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ISPOLITICALHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISPOLITICALHIERARCHY);
   }
   
   public void setIsPoliticalHierarchy(Boolean value)
@@ -255,10 +255,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ISPOPULATIONHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsPopulationHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsPopulationHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ISPOPULATIONHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISPOPULATIONHIERARCHY);
   }
   
   public void setIsPopulationHierarchy(Boolean value)
@@ -283,10 +283,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ISSPRAYHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsSprayHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsSprayHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ISSPRAYHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISSPRAYHIERARCHY);
   }
   
   public void setIsSprayHierarchy(Boolean value)
@@ -311,10 +311,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ISUNDERSYSTEMROOT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsUnderSystemRootMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsUnderSystemRootMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ISUNDERSYSTEMROOT);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISUNDERSYSTEMROOT);
   }
   
   public void setIsUnderSystemRoot(Boolean value)
@@ -339,10 +339,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ISURBANHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsUrbanHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsUrbanHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(ISURBANHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISURBANHIERARCHY);
   }
   
   public void setIsUrbanHierarchy(Boolean value)
@@ -367,10 +367,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -395,10 +395,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -423,10 +423,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -451,10 +451,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -479,10 +479,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -507,10 +507,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -523,10 +523,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -539,10 +539,10 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoField.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

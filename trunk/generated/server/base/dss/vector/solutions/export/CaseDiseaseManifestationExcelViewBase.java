@@ -29,10 +29,10 @@ public abstract class CaseDiseaseManifestationExcelViewBase extends dss.vector.s
     this.validateAttribute(DISEASEMANIFESTATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseManifestationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDiseaseManifestationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.CaseDiseaseManifestationExcelView.CLASS);
-    return mdClassIF.definesAttribute(DISEASEMANIFESTATION);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DISEASEMANIFESTATION);
   }
   
   public void setDiseaseManifestation(String value)

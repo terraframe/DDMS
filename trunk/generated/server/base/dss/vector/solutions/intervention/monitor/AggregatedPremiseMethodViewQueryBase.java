@@ -11,7 +11,6 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class AggregatedPremiseMethodViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -608951529;
 
   public AggregatedPremiseMethodViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

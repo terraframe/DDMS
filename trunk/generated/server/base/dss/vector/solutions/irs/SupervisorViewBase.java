@@ -29,10 +29,10 @@ public abstract class SupervisorViewBase extends dss.vector.solutions.PersonView
     this.validateAttribute(SUPERVISORID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSupervisorIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSupervisorIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SupervisorView.CLASS);
-    return mdClassIF.definesAttribute(SUPERVISORID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUPERVISORID);
   }
   
   public void setSupervisorId(String value)

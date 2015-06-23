@@ -35,10 +35,10 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
     this.validateAttribute(ENDPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getEndPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem.CLASS);
-    return mdClassIF.definesAttribute(ENDPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ENDPOINT);
   }
   
   public void setEndPoint(Integer value)
@@ -63,10 +63,10 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
     this.validateAttribute(STARTPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartPointMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getStartPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem.CLASS);
-    return mdClassIF.definesAttribute(STARTPOINT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(STARTPOINT);
   }
   
   public void setStartPoint(Integer value)

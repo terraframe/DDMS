@@ -36,10 +36,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -64,10 +64,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(CREATEJOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateJobMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getCreateJobMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(CREATEJOB);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CREATEJOB);
   }
   
   public void setCreateJob(Boolean value)
@@ -92,10 +92,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getImageHeight()
@@ -108,10 +108,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(IMAGEHEIGHT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageHeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getImageHeightMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(IMAGEHEIGHT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IMAGEHEIGHT);
   }
   
   public void setImageHeight(Integer value)
@@ -136,10 +136,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(IMAGEWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImageWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getImageWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(IMAGEWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IMAGEWIDTH);
   }
   
   public void setImageWidth(Integer value)
@@ -164,10 +164,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(JOBNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getJobNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getJobNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(JOBNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(JOBNAME);
   }
   
   public void setJobName(String value)
@@ -192,10 +192,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(LAYERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLayerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(LAYERID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LAYERID);
   }
   
   public void setLayerId(String value)
@@ -232,10 +232,10 @@ public abstract class CycleJobViewBase extends com.runwaysdk.business.View imple
     this.validateAttribute(SAVEDMAP);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSavedMapMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSavedMapMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CycleJobView.CLASS);
-    return mdClassIF.definesAttribute(SAVEDMAP);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SAVEDMAP);
   }
   
   public void setSavedMap(dss.vector.solutions.query.SavedMap value)

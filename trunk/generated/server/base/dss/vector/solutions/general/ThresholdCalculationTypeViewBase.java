@@ -52,10 +52,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(CALCULATIONINTERVAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCalculationIntervalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getCalculationIntervalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(CALCULATIONINTERVAL);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(CALCULATIONINTERVAL);
   }
   
   public void setCalculationInterval(Boolean value)
@@ -102,10 +102,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(CASETYPES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseTypesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCaseTypesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(CASETYPES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CASETYPES);
   }
   
   public Integer getClinicalPositivePercentage()
@@ -118,10 +118,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(CLINICALPOSITIVEPERCENTAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClinicalPositivePercentageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getClinicalPositivePercentageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(CLINICALPOSITIVEPERCENTAGE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(CLINICALPOSITIVEPERCENTAGE);
   }
   
   public void setClinicalPositivePercentage(Integer value)
@@ -146,10 +146,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(CONCRETEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcreteIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConcreteIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(CONCRETEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONCRETEID);
   }
   
   public void setConcreteId(String value)
@@ -196,10 +196,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(COUNTINGMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCountingMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCountingMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(COUNTINGMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COUNTINGMETHOD);
   }
   
   public dss.vector.solutions.geo.GeoHierarchy getEpidemicUniversal()
@@ -214,15 +214,20 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     }
   }
   
+  public String getEpidemicUniversalId()
+  {
+    return getValue(EPIDEMICUNIVERSAL);
+  }
+  
   public void validateEpidemicUniversal()
   {
     this.validateAttribute(EPIDEMICUNIVERSAL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEpidemicUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEpidemicUniversalMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(EPIDEMICUNIVERSAL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(EPIDEMICUNIVERSAL);
   }
   
   public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchy value)
@@ -247,10 +252,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Double getIdentificationMinimum()
@@ -263,10 +268,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(IDENTIFICATIONMINIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentificationMinimumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIdentificationMinimumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATIONMINIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IDENTIFICATIONMINIMUM);
   }
   
   public void setIdentificationMinimum(Double value)
@@ -291,10 +296,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(NOTIFICATIONMINIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotificationMinimumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotificationMinimumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(NOTIFICATIONMINIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTIFICATIONMINIMUM);
   }
   
   public void setNotificationMinimum(Double value)
@@ -319,10 +324,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(PRIORYEARS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPriorYearsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPriorYearsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(PRIORYEARS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PRIORYEARS);
   }
   
   public void setPriorYears(Integer value)
@@ -369,10 +374,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(T1METHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getT1MethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getT1MethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(T1METHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(T1METHOD);
   }
   
   @SuppressWarnings("unchecked")
@@ -407,10 +412,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(T2METHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getT2MethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getT2MethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(T2METHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(T2METHOD);
   }
   
   public Integer getWeeksAfter()
@@ -423,10 +428,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEEKSAFTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeeksAfterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeeksAfterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEEKSAFTER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEEKSAFTER);
   }
   
   public void setWeeksAfter(Integer value)
@@ -451,10 +456,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEEKSBEFORE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeeksBeforeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeeksBeforeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEEKSBEFORE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEEKSBEFORE);
   }
   
   public void setWeeksBefore(Integer value)
@@ -479,10 +484,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT0);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight0Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight0Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT0);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT0);
   }
   
   public void setWeight0(Double value)
@@ -507,10 +512,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT1);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight1Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight1Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT1);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT1);
   }
   
   public void setWeight1(Double value)
@@ -535,10 +540,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT2);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight2Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight2Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT2);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT2);
   }
   
   public void setWeight2(Double value)
@@ -563,10 +568,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT3);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight3Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight3Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT3);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT3);
   }
   
   public void setWeight3(Double value)
@@ -591,10 +596,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT4);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight4Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight4Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT4);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT4);
   }
   
   public void setWeight4(Double value)
@@ -619,10 +624,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT5);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight5Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight5Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT5);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT5);
   }
   
   public void setWeight5(Double value)
@@ -647,10 +652,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT6);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight6Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight6Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT6);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT6);
   }
   
   public void setWeight6(Double value)
@@ -675,10 +680,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT7);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight7Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight7Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT7);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT7);
   }
   
   public void setWeight7(Double value)
@@ -703,10 +708,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT8);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight8Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight8Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT8);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT8);
   }
   
   public void setWeight8(Double value)
@@ -731,10 +736,10 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     this.validateAttribute(WEIGHT9);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight9Md()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWeight9Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT9);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WEIGHT9);
   }
   
   public void setWeight9(Double value)

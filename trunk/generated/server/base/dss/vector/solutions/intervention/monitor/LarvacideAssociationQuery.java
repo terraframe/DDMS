@@ -10,7 +10,6 @@ package dss.vector.solutions.intervention.monitor;
  */
 public  class LarvacideAssociationQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 913053442;
 
   public LarvacideAssociationQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

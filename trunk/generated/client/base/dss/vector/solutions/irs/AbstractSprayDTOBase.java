@@ -56,6 +56,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getBrandId()
+  {
+    return getValue(BRAND);
+  }
+  
   public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
@@ -125,6 +130,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -155,6 +165,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -199,6 +214,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -307,6 +327,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -339,6 +364,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -369,6 +399,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -546,6 +581,11 @@ public abstract class AbstractSprayDTOBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)

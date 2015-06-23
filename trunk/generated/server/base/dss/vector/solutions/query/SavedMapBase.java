@@ -52,10 +52,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -80,10 +80,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public dss.vector.solutions.general.Disease getDisease()
@@ -108,10 +108,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -148,10 +148,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -176,10 +176,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -192,10 +192,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -220,10 +220,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -248,10 +248,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -276,10 +276,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public String getMapCenter()
@@ -292,10 +292,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(MAPCENTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapCenterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMapCenterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(MAPCENTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MAPCENTER);
   }
   
   public void setMapCenter(String value)
@@ -320,10 +320,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(MAPHEIGHT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapHeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMapHeightMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(MAPHEIGHT);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MAPHEIGHT);
   }
   
   public void setMapHeight(Integer value)
@@ -348,10 +348,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(MAPNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMapNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(MAPNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MAPNAME);
   }
   
   public void setMapName(String value)
@@ -376,10 +376,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(MAPWIDTH);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapWidthMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getMapWidthMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(MAPWIDTH);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(MAPWIDTH);
   }
   
   public void setMapWidth(Integer value)
@@ -404,10 +404,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(NORTHARROWACTIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowActiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getNorthArrowActiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(NORTHARROWACTIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(NORTHARROWACTIVE);
   }
   
   public void setNorthArrowActive(Boolean value)
@@ -432,10 +432,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(NORTHARROWXPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowXPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNorthArrowXPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(NORTHARROWXPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NORTHARROWXPOSITION);
   }
   
   public void setNorthArrowXPosition(Integer value)
@@ -460,10 +460,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(NORTHARROWYPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNorthArrowYPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNorthArrowYPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(NORTHARROWYPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NORTHARROWYPOSITION);
   }
   
   public void setNorthArrowYPosition(Integer value)
@@ -500,10 +500,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -528,10 +528,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SCALEBARACTIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarActiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getScaleBarActiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(SCALEBARACTIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SCALEBARACTIVE);
   }
   
   public void setScaleBarActive(Boolean value)
@@ -556,10 +556,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SCALEBARXPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarXPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getScaleBarXPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(SCALEBARXPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SCALEBARXPOSITION);
   }
   
   public void setScaleBarXPosition(Integer value)
@@ -584,10 +584,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SCALEBARYPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getScaleBarYPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getScaleBarYPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(SCALEBARYPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SCALEBARYPOSITION);
   }
   
   public void setScaleBarYPosition(Integer value)
@@ -612,10 +612,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -628,10 +628,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getType()
@@ -644,10 +644,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public Integer getZoomLevel()
@@ -660,10 +660,10 @@ public abstract class SavedMapBase extends com.runwaysdk.business.Business imple
     this.validateAttribute(ZOOMLEVEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getZoomLevelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getZoomLevelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedMap.CLASS);
-    return mdClassIF.definesAttribute(ZOOMLEVEL);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ZOOMLEVEL);
   }
   
   public void setZoomLevel(Integer value)

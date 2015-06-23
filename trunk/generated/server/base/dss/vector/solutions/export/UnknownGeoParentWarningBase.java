@@ -33,10 +33,10 @@ public abstract class UnknownGeoParentWarningBase extends com.runwaysdk.business
     this.validateAttribute(CHILDNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getChildNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getChildNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.UnknownGeoParentWarning.CLASS);
-    return mdClassIF.definesAttribute(CHILDNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CHILDNAME);
   }
   
   public void setChildName(String value)
@@ -61,10 +61,10 @@ public abstract class UnknownGeoParentWarningBase extends com.runwaysdk.business
     this.validateAttribute(DEFAULTPARENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultParentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDefaultParentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.UnknownGeoParentWarning.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTPARENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DEFAULTPARENT);
   }
   
   public void setDefaultParent(String value)
@@ -89,10 +89,10 @@ public abstract class UnknownGeoParentWarningBase extends com.runwaysdk.business
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.UnknownGeoParentWarning.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getParentName()
@@ -105,10 +105,10 @@ public abstract class UnknownGeoParentWarningBase extends com.runwaysdk.business
     this.validateAttribute(PARENTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.UnknownGeoParentWarning.CLASS);
-    return mdClassIF.definesAttribute(PARENTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTNAME);
   }
   
   public void setParentName(String value)
@@ -133,10 +133,10 @@ public abstract class UnknownGeoParentWarningBase extends com.runwaysdk.business
     this.validateAttribute(PARENTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParentTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.UnknownGeoParentWarning.CLASS);
-    return mdClassIF.definesAttribute(PARENTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARENTTYPE);
   }
   
   public void setParentType(String value)

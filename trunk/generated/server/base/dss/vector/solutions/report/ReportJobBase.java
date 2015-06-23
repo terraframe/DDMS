@@ -41,10 +41,10 @@ public abstract class ReportJobBase extends com.runwaysdk.system.scheduler.Execu
     this.validateAttribute(REPORTITEM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReportItemMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getReportItemMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.report.ReportJob.CLASS);
-    return mdClassIF.definesAttribute(REPORTITEM);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(REPORTITEM);
   }
   
   public void setReportItem(dss.vector.solutions.report.ReportItem value)

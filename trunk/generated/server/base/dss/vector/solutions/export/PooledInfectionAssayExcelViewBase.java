@@ -41,10 +41,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -69,10 +69,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getIdentMethod()
@@ -85,10 +85,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(IDENTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdentMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(IDENTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(IDENTMETHOD);
   }
   
   public void setIdentMethod(String value)
@@ -113,10 +113,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(INFECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInfectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getInfectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INFECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(INFECTED);
   }
   
   public void setInfected(Boolean value)
@@ -141,10 +141,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(MOSQUITOSTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMosquitosTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getMosquitosTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(MOSQUITOSTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(MOSQUITOSTESTED);
   }
   
   public void setMosquitosTested(Integer value)
@@ -169,10 +169,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(NUMBERPOSITIVE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPositiveMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPositiveMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPOSITIVE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPOSITIVE);
   }
   
   public void setNumberPositive(Integer value)
@@ -197,10 +197,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(PARASITE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParasiteMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getParasiteMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(PARASITE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PARASITE);
   }
   
   public void setParasite(String value)
@@ -225,10 +225,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(POOLID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPoolIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPoolIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(POOLID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POOLID);
   }
   
   public void setPoolId(String value)
@@ -253,10 +253,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(POOLSTESTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPoolsTestedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPoolsTestedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(POOLSTESTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(POOLSTESTED);
   }
   
   public void setPoolsTested(Integer value)
@@ -281,10 +281,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(String value)
@@ -309,10 +309,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(SPECIES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSpeciesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSpeciesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPECIES);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SPECIES);
   }
   
   public void setSpecies(String value)
@@ -337,10 +337,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(TESTMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTestMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TESTMETHOD);
   }
   
   public void setTestMethod(String value)
@@ -365,10 +365,10 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     this.validateAttribute(UNIQUEASSAYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUniqueAssayIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNIQUEASSAYID);
   }
   
   public void setUniqueAssayId(String value)

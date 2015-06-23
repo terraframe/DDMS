@@ -32,10 +32,10 @@ public abstract class LayerViewBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLayerId()
@@ -48,10 +48,10 @@ public abstract class LayerViewBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(LAYERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getLayerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(LAYERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(LAYERID);
   }
   
   public void setLayerId(String value)
@@ -76,10 +76,10 @@ public abstract class LayerViewBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(LAYERNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLayerNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(LAYERNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LAYERNAME);
   }
   
   public void setLayerName(String value)
@@ -104,10 +104,10 @@ public abstract class LayerViewBase extends com.runwaysdk.business.View implemen
     this.validateAttribute(LAYERPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLayerPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.LayerView.CLASS);
-    return mdClassIF.definesAttribute(LAYERPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LAYERPOSITION);
   }
   
   public void setLayerPosition(Integer value)

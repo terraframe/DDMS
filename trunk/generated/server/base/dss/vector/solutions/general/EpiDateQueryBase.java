@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  abstract  class EpiDateQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2013687138;
 
   public EpiDateQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

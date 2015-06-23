@@ -52,10 +52,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COLLECTIONID);
   }
   
   public void setCollectionId(String value)
@@ -80,10 +80,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(CONTAINERTERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getContainerTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getContainerTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTAINERTERM);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONTAINERTERM);
   }
   
   public void setContainerTerm(String value)
@@ -108,10 +108,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -138,15 +138,20 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -171,10 +176,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getNotes()
@@ -187,10 +192,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NOTES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NOTES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTES);
   }
   
   public void setNotes(String value)
@@ -215,10 +220,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERCONTAINERS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberContainersMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberContainersMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERCONTAINERS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERCONTAINERS);
   }
   
   public void setNumberContainers(Integer value)
@@ -243,10 +248,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERDESTROYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberDestroyedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberDestroyedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERDESTROYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERDESTROYED);
   }
   
   public void setNumberDestroyed(Integer value)
@@ -271,10 +276,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBEREXAMINED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberExaminedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberExaminedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEREXAMINED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEREXAMINED);
   }
   
   public void setNumberExamined(Integer value)
@@ -299,10 +304,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERIMMATURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberImmaturesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberImmaturesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERIMMATURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERIMMATURES);
   }
   
   public void setNumberImmatures(Integer value)
@@ -327,10 +332,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERINHABITANTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberInhabitantsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberInhabitantsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERINHABITANTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERINHABITANTS);
   }
   
   public void setNumberInhabitants(Integer value)
@@ -355,10 +360,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERLARVAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberLarvaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberLarvaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERLARVAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERLARVAE);
   }
   
   public void setNumberLarvae(Integer value)
@@ -383,10 +388,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERLARVAECOLLECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberLarvaeCollectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberLarvaeCollectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERLARVAECOLLECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERLARVAECOLLECTED);
   }
   
   public void setNumberLarvaeCollected(Integer value)
@@ -411,10 +416,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERPUPAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPupaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPupaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPUPAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPUPAE);
   }
   
   public void setNumberPupae(Integer value)
@@ -439,10 +444,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERPUPAECOLLECTED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberPupaeCollectedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPupaeCollectedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERPUPAECOLLECTED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPUPAECOLLECTED);
   }
   
   public void setNumberPupaeCollected(Integer value)
@@ -467,10 +472,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERWITHIMMATURES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithImmaturesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithImmaturesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHIMMATURES);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHIMMATURES);
   }
   
   public void setNumberWithImmatures(Integer value)
@@ -495,10 +500,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERWITHLARVAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithLarvaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithLarvaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHLARVAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHLARVAE);
   }
   
   public void setNumberWithLarvae(Integer value)
@@ -523,10 +528,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERWITHLARVICIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithLarvicideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithLarvicideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHLARVICIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHLARVICIDE);
   }
   
   public void setNumberWithLarvicide(Integer value)
@@ -551,10 +556,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERWITHPUPAE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithPupaeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithPupaeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHPUPAE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHPUPAE);
   }
   
   public void setNumberWithPupae(Integer value)
@@ -579,10 +584,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(NUMBERWITHWATER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithWaterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberWithWaterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBERWITHWATER);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERWITHWATER);
   }
   
   public void setNumberWithWater(Integer value)
@@ -607,10 +612,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(PREMISESIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPremiseSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISESIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREMISESIZE);
   }
   
   public void setPremiseSize(java.math.BigDecimal value)
@@ -635,10 +640,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(PREMISETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremiseTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPremiseTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREMISETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PREMISETYPE);
   }
   
   public void setPremiseType(String value)
@@ -663,10 +668,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -691,10 +696,10 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     this.validateAttribute(TAXON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTaxonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTaxonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(TAXON);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TAXON);
   }
   
   public void setTaxon(String value)

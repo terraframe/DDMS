@@ -108,6 +108,11 @@ public abstract class StockItemViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getItemNameId()
+  {
+    return getValue(ITEMNAME);
+  }
+  
   public void setItemName(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -187,6 +192,11 @@ public abstract class StockItemViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(UNIT));
     }
+  }
+  
+  public String getUnitId()
+  {
+    return getValue(UNIT);
   }
   
   public void setUnit(dss.vector.solutions.ontology.TermDTO value)

@@ -35,10 +35,10 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
     this.validateAttribute(AGERANGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeRangeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeStructDAOIF getAgeRangeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(AGERANGE);
+    return (com.runwaysdk.dataaccess.MdAttributeStructDAOIF)mdClassIF.definesAttribute(AGERANGE);
   }
   
   public Integer getFed()
@@ -51,10 +51,10 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
     this.validateAttribute(FED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(FED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FED);
   }
   
   public void setFed(Integer value)
@@ -79,10 +79,10 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
     this.validateAttribute(GRAVID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGravidMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getGravidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(GRAVID);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(GRAVID);
   }
   
   public void setGravid(Integer value)
@@ -109,15 +109,20 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.Term value)

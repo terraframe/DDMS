@@ -34,10 +34,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(ENTITYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(ENTITYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYNAME);
   }
   
   public void setEntityName(String value)
@@ -62,10 +62,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(ENTITYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getEntityTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(ENTITYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ENTITYTYPE);
   }
   
   public void setEntityType(String value)
@@ -90,10 +90,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKnownHierarchy()
@@ -106,10 +106,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(KNOWNHIERARCHY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKnownHierarchyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getKnownHierarchyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(KNOWNHIERARCHY);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(KNOWNHIERARCHY);
   }
   
   public void setKnownHierarchy(String value)
@@ -134,10 +134,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(SIBLINGS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiblingsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getSiblingsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(SIBLINGS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(SIBLINGS);
   }
   
   public void setSiblings(String value)
@@ -162,10 +162,10 @@ public abstract class UnknownGeoEntityBase extends com.runwaysdk.business.View i
     this.validateAttribute(SYNONYMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSynonymsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getSynonymsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.UnknownGeoEntity.CLASS);
-    return mdClassIF.definesAttribute(SYNONYMS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(SYNONYMS);
   }
   
   public void setSynonyms(String value)

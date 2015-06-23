@@ -86,10 +86,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(AGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAgeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(AGE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(AGE);
   }
   
   public void setAge(Integer value)
@@ -114,10 +114,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ANAEMIATREATMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAnaemiaTreatmentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAnaemiaTreatmentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ANAEMIATREATMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ANAEMIATREATMENT);
   }
   
   public void setAnaemiaTreatment(String value)
@@ -142,10 +142,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(BLOODSLIDEDETAIL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideDetailMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBloodslideDetailMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDEDETAIL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BLOODSLIDEDETAIL);
   }
   
   public void setBloodslideDetail(String value)
@@ -170,10 +170,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(BLOODSLIDEREASON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideReasonMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBloodslideReasonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDEREASON);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BLOODSLIDEREASON);
   }
   
   public void setBloodslideReason(String value)
@@ -198,10 +198,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(BLOODSLIDERESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBloodslideResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBloodslideResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(BLOODSLIDERESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BLOODSLIDERESULT);
   }
   
   public void setBloodslideResult(Boolean value)
@@ -226,10 +226,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(DAMAGED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDamagedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDamagedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(DAMAGED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DAMAGED);
   }
   
   public void setDamaged(String value)
@@ -254,10 +254,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(DOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDobMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getDobMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(DOB);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(DOB);
   }
   
   public void setDob(java.util.Date value)
@@ -282,10 +282,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(FEVER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFeverMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFeverMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(FEVER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FEVER);
   }
   
   public void setFever(String value)
@@ -312,15 +312,20 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -345,10 +350,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HAEMOGLOBIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHaemoglobinMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHaemoglobinMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HAEMOGLOBIN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HAEMOGLOBIN);
   }
   
   public void setHaemoglobin(java.math.BigDecimal value)
@@ -373,10 +378,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HAEMOGLOBINMEASURED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHaemoglobinMeasuredMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHaemoglobinMeasuredMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HAEMOGLOBINMEASURED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HAEMOGLOBINMEASURED);
   }
   
   public void setHaemoglobinMeasured(String value)
@@ -401,10 +406,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HANGING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHangingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHangingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HANGING);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HANGING);
   }
   
   public void setHanging(String value)
@@ -429,10 +434,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HASBEENSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHasBeenSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHasBeenSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HASBEENSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HASBEENSPRAYED);
   }
   
   public void setHasBeenSprayed(String value)
@@ -457,10 +462,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HASWINDOWS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHasWindowsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHasWindowsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HASWINDOWS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HASWINDOWS);
   }
   
   public void setHasWindows(Boolean value)
@@ -485,10 +490,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HEADOFHOUSEHOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHeadOfHouseholdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHeadOfHouseholdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HEADOFHOUSEHOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HEADOFHOUSEHOLD);
   }
   
   public void setHeadOfHousehold(String value)
@@ -513,10 +518,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(HOUSEHOLDNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getHouseholdNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(HOUSEHOLDNAME);
   }
   
   public void setHouseholdName(String value)
@@ -541,10 +546,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getImmuneCompromised()
@@ -557,10 +562,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(IMMUNECOMPROMISED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getImmuneCompromisedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getImmuneCompromisedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(IMMUNECOMPROMISED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(IMMUNECOMPROMISED);
   }
   
   public void setImmuneCompromised(String value)
@@ -585,10 +590,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(IRON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIronMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIronMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(IRON);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(IRON);
   }
   
   public void setIron(Boolean value)
@@ -613,10 +618,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(LASTSPRAYED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastSprayedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getLastSprayedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(LASTSPRAYED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(LASTSPRAYED);
   }
   
   public void setLastSprayed(Integer value)
@@ -641,10 +646,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MALARIA);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMalariaMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMalariaMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MALARIA);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MALARIA);
   }
   
   public void setMalaria(String value)
@@ -669,10 +674,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MALARIACONFORMATIONTECHNIQUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMalariaConformationTechniqueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMalariaConformationTechniqueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MALARIACONFORMATIONTECHNIQUE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MALARIACONFORMATIONTECHNIQUE);
   }
   
   public void setMalariaConformationTechnique(String value)
@@ -697,10 +702,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MONTHRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMonthReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMonthReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MONTHRECEIVED);
   }
   
   public void setMonthReceived(String value)
@@ -725,10 +730,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(MONTHRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMonthRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMonthRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(MONTHRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MONTHRETREATED);
   }
   
   public void setMonthRetreated(String value)
@@ -753,10 +758,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NETBRAND);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetBrandMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNetBrandMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NETBRAND);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NETBRAND);
   }
   
   public void setNetBrand(String value)
@@ -781,10 +786,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NETID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNetIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NETID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NETID);
   }
   
   public void setNetId(String value)
@@ -809,10 +814,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NETS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNetsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NETS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NETS);
   }
   
   public void setNets(Integer value)
@@ -837,10 +842,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(NOTUSEDFORSLEEPING);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotUsedForSleepingMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNotUsedForSleepingMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(NOTUSEDFORSLEEPING);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NOTUSEDFORSLEEPING);
   }
   
   public void setNotUsedForSleeping(Boolean value)
@@ -865,10 +870,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(OBTAINED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObtainedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getObtainedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(OBTAINED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(OBTAINED);
   }
   
   public void setObtained(String value)
@@ -893,10 +898,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PAYMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPaymentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPaymentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PAYMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PAYMENT);
   }
   
   public void setPayment(String value)
@@ -921,10 +926,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PEOPLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeopleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPeopleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PEOPLE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PEOPLE);
   }
   
   public void setPeople(Integer value)
@@ -949,10 +954,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PERFORMEDBLOODSLIDE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPerformedBloodslideMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPerformedBloodslideMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERFORMEDBLOODSLIDE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERFORMEDBLOODSLIDE);
   }
   
   public void setPerformedBloodslide(Boolean value)
@@ -977,10 +982,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PERFORMEDRDT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPerformedRDTMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPerformedRDTMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERFORMEDRDT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PERFORMEDRDT);
   }
   
   public void setPerformedRDT(String value)
@@ -1005,10 +1010,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PERSONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPersonIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERSONID);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERSONID);
   }
   
   public void setPersonId(String value)
@@ -1033,10 +1038,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PREGNANT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPregnantMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPregnantMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PREGNANT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PREGNANT);
   }
   
   public void setPregnant(Boolean value)
@@ -1061,10 +1066,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PRICE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPriceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPriceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PRICE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PRICE);
   }
   
   public void setPrice(java.math.BigDecimal value)
@@ -1089,10 +1094,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PURPOSE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPurposeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPurposeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PURPOSE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PURPOSE);
   }
   
   public void setPurpose(String value)
@@ -1117,10 +1122,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(PURPOSECOMMENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPurposeCommentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPurposeCommentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(PURPOSECOMMENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PURPOSECOMMENTS);
   }
   
   public void setPurposeComments(String value)
@@ -1145,10 +1150,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(RDTDETAIL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtDetailMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRdtDetailMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(RDTDETAIL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RDTDETAIL);
   }
   
   public void setRdtDetail(String value)
@@ -1173,10 +1178,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(RDTRESULT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtResultMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRdtResultMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(RDTRESULT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RDTRESULT);
   }
   
   public void setRdtResult(Boolean value)
@@ -1201,10 +1206,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(RDTTREATMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRdtTreatmentMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRdtTreatmentMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(RDTTREATMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(RDTTREATMENT);
   }
   
   public void setRdtTreatment(String value)
@@ -1229,10 +1234,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(RETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(RETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RETREATED);
   }
   
   public void setRetreated(Boolean value)
@@ -1257,10 +1262,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ROOFINFO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofInfoMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoofInfoMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ROOFINFO);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOFINFO);
   }
   
   public void setRoofInfo(String value)
@@ -1285,10 +1290,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ROOFSURFACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoofSurfaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getRoofSurfaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ROOFSURFACE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ROOFSURFACE);
   }
   
   public void setRoofSurface(String value)
@@ -1313,10 +1318,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(ROOMS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRoomsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getRoomsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(ROOMS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ROOMS);
   }
   
   public void setRooms(Integer value)
@@ -1341,10 +1346,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(SEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SEX);
   }
   
   public void setSex(String value)
@@ -1369,10 +1374,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SLEPTUNDERNET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSleptUnderNetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSleptUnderNetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNET);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SLEPTUNDERNET);
   }
   
   public void setSleptUnderNet(Long value)
@@ -1397,10 +1402,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SLEPTUNDERNETID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSleptUnderNetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSleptUnderNetIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(SLEPTUNDERNETID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SLEPTUNDERNETID);
   }
   
   public void setSleptUnderNetId(String value)
@@ -1425,10 +1430,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(SURVEYDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getSurveyDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(SURVEYDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SURVEYDATE);
   }
   
   public void setSurveyDate(java.util.Date value)
@@ -1453,10 +1458,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(URBAN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrbanMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUrbanMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(URBAN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(URBAN);
   }
   
   public void setUrban(Boolean value)
@@ -1481,10 +1486,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WALLINFO);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallInfoMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWallInfoMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WALLINFO);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WALLINFO);
   }
   
   public void setWallInfo(String value)
@@ -1509,10 +1514,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WALLSURFACE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWallSurfaceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWallSurfaceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WALLSURFACE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WALLSURFACE);
   }
   
   public void setWallSurface(String value)
@@ -1537,10 +1542,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WASHFREQUENCY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashFrequencyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWashFrequencyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WASHFREQUENCY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WASHFREQUENCY);
   }
   
   public void setWashFrequency(Integer value)
@@ -1565,10 +1570,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WASHPERIOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashPeriodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWashPeriodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WASHPERIOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WASHPERIOD);
   }
   
   public void setWashPeriod(String value)
@@ -1593,10 +1598,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WASHED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWashedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWashedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WASHED);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WASHED);
   }
   
   public void setWashed(String value)
@@ -1621,10 +1626,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(WINDOWTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWindowTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getWindowTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(WINDOWTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(WINDOWTYPE);
   }
   
   public void setWindowType(String value)
@@ -1649,10 +1654,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(YEARRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(YEARRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEARRECEIVED);
   }
   
   public void setYearReceived(Integer value)
@@ -1677,10 +1682,10 @@ public abstract class SurveyExcelViewBase extends com.runwaysdk.business.View im
     this.validateAttribute(YEARRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getYearRetreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getYearRetreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.SurveyExcelView.CLASS);
-    return mdClassIF.definesAttribute(YEARRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(YEARRETREATED);
   }
   
   public void setYearRetreated(Integer value)

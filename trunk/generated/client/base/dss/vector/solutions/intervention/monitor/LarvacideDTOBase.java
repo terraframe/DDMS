@@ -121,6 +121,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -151,6 +156,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -195,6 +205,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -276,6 +291,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -384,6 +404,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -414,6 +439,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -483,6 +513,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -651,6 +686,11 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
     }
+  }
+  
+  public String getTeamLeaderId()
+  {
+    return getValue(TEAMLEADER);
   }
   
   public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)

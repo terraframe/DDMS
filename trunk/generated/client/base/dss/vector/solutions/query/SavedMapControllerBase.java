@@ -10,8 +10,6 @@ public class SavedMapControllerBase implements com.runwaysdk.generation.loader.R
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1984137309;
-  
   public SavedMapControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

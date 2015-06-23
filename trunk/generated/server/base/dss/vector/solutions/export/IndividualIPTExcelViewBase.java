@@ -48,10 +48,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ADMINISTRATORNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAdministratorNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAdministratorNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(ADMINISTRATORNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ADMINISTRATORNAME);
   }
   
   public void setAdministratorName(String value)
@@ -76,10 +76,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ADMINISTRATORSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAdministratorSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getAdministratorSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(ADMINISTRATORSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ADMINISTRATORSURNAME);
   }
   
   public void setAdministratorSurname(String value)
@@ -104,10 +104,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(DOSENUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDoseNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDoseNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(DOSENUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DOSENUMBER);
   }
   
   public void setDoseNumber(String value)
@@ -132,10 +132,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(DOSETYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDoseTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDoseTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(DOSETYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DOSETYPE);
   }
   
   public void setDoseType(String value)
@@ -162,15 +162,20 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getFacilityId()
+  {
+    return getValue(FACILITY);
+  }
+  
   public void validateFacility()
   {
     this.validateAttribute(FACILITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getFacilityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(FACILITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(FACILITY);
   }
   
   public void setFacility(dss.vector.solutions.geo.generated.HealthFacility value)
@@ -195,10 +200,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getIsANCVisit()
@@ -211,10 +216,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(ISANCVISIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsANCVisitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsANCVisitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(ISANCVISIT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISANCVISIT);
   }
   
   public void setIsANCVisit(Boolean value)
@@ -239,10 +244,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(NUMBEROFRECEIVEDITNS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberOfReceivedITNsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberOfReceivedITNsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFRECEIVEDITNS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBEROFRECEIVEDITNS);
   }
   
   public void setNumberOfReceivedITNs(Integer value)
@@ -267,10 +272,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PATIENTDOB);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientDOBMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getPatientDOBMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTDOB);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(PATIENTDOB);
   }
   
   public void setPatientDOB(java.util.Date value)
@@ -295,10 +300,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PATIENTFIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPatientFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTFIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PATIENTFIRSTNAME);
   }
   
   public void setPatientFirstName(String value)
@@ -323,10 +328,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PATIENTLASTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientLastNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPatientLastNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTLASTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PATIENTLASTNAME);
   }
   
   public void setPatientLastName(String value)
@@ -351,10 +356,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PATIENTSEX);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientSexMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPatientSexMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTSEX);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PATIENTSEX);
   }
   
   public void setPatientSex(String value)
@@ -379,10 +384,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(PATIENTTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getPatientTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(PATIENTTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(PATIENTTYPE);
   }
   
   public void setPatientType(String value)
@@ -407,10 +412,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(RECEIVEDITN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedITNMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedITNMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDITN);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDITN);
   }
   
   public void setReceivedITN(Boolean value)
@@ -435,10 +440,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(RECEIVEDSUPPLEMENT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReceivedSupplementMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getReceivedSupplementMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVEDSUPPLEMENT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RECEIVEDSUPPLEMENT);
   }
   
   public void setReceivedSupplement(Boolean value)
@@ -465,15 +470,20 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getResidentialLocationId()
+  {
+    return getValue(RESIDENTIALLOCATION);
+  }
+  
   public void validateResidentialLocation()
   {
     this.validateAttribute(RESIDENTIALLOCATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResidentialLocationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getResidentialLocationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(RESIDENTIALLOCATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(RESIDENTIALLOCATION);
   }
   
   public void setResidentialLocation(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -498,10 +508,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(SERVICEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getServiceDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getServiceDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(SERVICEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(SERVICEDATE);
   }
   
   public void setServiceDate(java.util.Date value)
@@ -526,10 +536,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(VISITNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVisitNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getVisitNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(VISITNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(VISITNUMBER);
   }
   
   public void setVisitNumber(String value)
@@ -556,15 +566,20 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getWorkGeoEntityId()
+  {
+    return getValue(WORKGEOENTITY);
+  }
+  
   public void validateWorkGeoEntity()
   {
     this.validateAttribute(WORKGEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWorkGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWorkGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(WORKGEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WORKGEOENTITY);
   }
   
   public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -589,10 +604,10 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     this.validateAttribute(WORKINFORMATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWorkInformationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getWorkInformationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
-    return mdClassIF.definesAttribute(WORKINFORMATION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(WORKINFORMATION);
   }
   
   public void setWorkInformation(String value)

@@ -59,10 +59,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(AGENTFIRSTNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgentFirstNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAgentFirstNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(AGENTFIRSTNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(AGENTFIRSTNAME);
   }
   
   public void setAgentFirstName(String value)
@@ -87,10 +87,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(AGENTSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAgentSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAgentSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(AGENTSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(AGENTSURNAME);
   }
   
   public void setAgentSurname(String value)
@@ -115,10 +115,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(BATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(BATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BATCHNUMBER);
   }
   
   public void setBatchNumber(String value)
@@ -143,10 +143,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -161,15 +161,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public java.math.BigDecimal getCurrencyReceived()
@@ -182,10 +187,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(CURRENCYRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCurrencyReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF getCurrencyReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(CURRENCYRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF)mdClassIF.definesAttribute(CURRENCYRECEIVED);
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -212,15 +217,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -247,15 +257,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getDistributionLocationId()
+  {
+    return getValue(DISTRIBUTIONLOCATION);
+  }
+  
   public void validateDistributionLocation()
   {
     this.validateAttribute(DISTRIBUTIONLOCATION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDistributionLocationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDistributionLocationMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(DISTRIBUTIONLOCATION);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISTRIBUTIONLOCATION);
   }
   
   public void setDistributionLocation(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -280,10 +295,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(ENDDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getEndDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(ENDDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(ENDDATE);
   }
   
   public void setEndDate(java.util.Date value)
@@ -310,15 +325,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -343,10 +363,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(ENTRYTYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntryTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEntryTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(ENTRYTYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENTRYTYPE);
   }
   
   public void setEntryType(Boolean value)
@@ -371,10 +391,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(HASBATCHNUMBER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHasBatchNumberMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getHasBatchNumberMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(HASBATCHNUMBER);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(HASBATCHNUMBER);
   }
   
   public void setHasBatchNumber(Boolean value)
@@ -401,15 +421,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getHouseholdAddressId()
+  {
+    return getValue(HOUSEHOLDADDRESS);
+  }
+  
   public void validateHouseholdAddress()
   {
     this.validateAttribute(HOUSEHOLDADDRESS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdAddressMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getHouseholdAddressMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDADDRESS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(HOUSEHOLDADDRESS);
   }
   
   public void setHouseholdAddress(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -434,10 +459,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(HOUSEHOLDNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLDNAME);
   }
   
   public void setHouseholdName(String value)
@@ -462,10 +487,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(HOUSEHOLDSURNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdSurnameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getHouseholdSurnameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDSURNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(HOUSEHOLDSURNAME);
   }
   
   public void setHouseholdSurname(String value)
@@ -490,10 +515,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Integer getItnsReceived()
@@ -506,10 +531,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(ITNSRECEIVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getItnsReceivedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getItnsReceivedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(ITNSRECEIVED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ITNSRECEIVED);
   }
   
   public void setItnsReceived(Integer value)
@@ -534,10 +559,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -562,10 +587,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -580,15 +605,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -603,15 +633,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public Integer getNumberRetrieved()
@@ -624,10 +659,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(NUMBERRETRIEVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberRetrievedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberRetrievedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(NUMBERRETRIEVED);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERRETRIEVED);
   }
   
   public void setNumberRetrieved(Integer value)
@@ -654,15 +689,20 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -687,10 +727,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(PRETREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPretreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getPretreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(PRETREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(PRETREATED);
   }
   
   public void setPretreated(Boolean value)
@@ -715,10 +755,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(RESIDENTS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResidentsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getResidentsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(RESIDENTS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(RESIDENTS);
   }
   
   public void setResidents(Integer value)
@@ -743,10 +783,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(RETRIEVED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRetrievedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getRetrievedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(RETRIEVED);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(RETRIEVED);
   }
   
   public void setRetrieved(Boolean value)
@@ -771,10 +811,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -787,10 +827,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public Boolean getSold()
@@ -803,10 +843,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(SOLD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSoldMd()
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getSoldMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(SOLD);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SOLD);
   }
   
   public void setSold(Boolean value)
@@ -831,10 +871,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -859,10 +899,10 @@ public abstract class ITNCommunityDistributionBase extends com.runwaysdk.busines
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

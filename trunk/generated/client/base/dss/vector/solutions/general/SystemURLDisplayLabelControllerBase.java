@@ -10,8 +10,6 @@ public class SystemURLDisplayLabelControllerBase implements com.runwaysdk.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1770998040;
-  
   public SystemURLDisplayLabelControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

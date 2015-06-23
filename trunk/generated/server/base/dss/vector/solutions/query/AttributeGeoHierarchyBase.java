@@ -33,10 +33,10 @@ public abstract class AttributeGeoHierarchyBase extends com.runwaysdk.business.V
     this.validateAttribute(ATTRIBUTEDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAttributeDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAttributeDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AttributeGeoHierarchy.CLASS);
-    return mdClassIF.definesAttribute(ATTRIBUTEDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ATTRIBUTEDISPLAYLABEL);
   }
   
   public void setAttributeDisplayLabel(String value)
@@ -61,10 +61,10 @@ public abstract class AttributeGeoHierarchyBase extends com.runwaysdk.business.V
     this.validateAttribute(GEOHIERARCHYDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoHierarchyDisplayLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoHierarchyDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AttributeGeoHierarchy.CLASS);
-    return mdClassIF.definesAttribute(GEOHIERARCHYDISPLAYLABEL);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOHIERARCHYDISPLAYLABEL);
   }
   
   public void setGeoHierarchyDisplayLabel(String value)
@@ -89,10 +89,10 @@ public abstract class AttributeGeoHierarchyBase extends com.runwaysdk.business.V
     this.validateAttribute(GEOHIERARCHYID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoHierarchyIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getGeoHierarchyIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AttributeGeoHierarchy.CLASS);
-    return mdClassIF.definesAttribute(GEOHIERARCHYID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(GEOHIERARCHYID);
   }
   
   public void setGeoHierarchyId(String value)
@@ -117,10 +117,10 @@ public abstract class AttributeGeoHierarchyBase extends com.runwaysdk.business.V
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AttributeGeoHierarchy.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getMdAttributeId()
@@ -133,10 +133,10 @@ public abstract class AttributeGeoHierarchyBase extends com.runwaysdk.business.V
     this.validateAttribute(MDATTRIBUTEID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdAttributeIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdAttributeIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.AttributeGeoHierarchy.CLASS);
-    return mdClassIF.definesAttribute(MDATTRIBUTEID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDATTRIBUTEID);
   }
   
   public void setMdAttributeId(String value)

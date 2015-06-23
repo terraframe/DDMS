@@ -81,10 +81,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(CASETYPES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseTypesMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getCaseTypesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(CASETYPES);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(CASETYPES);
   }
   
   public java.util.Date getCreateDate()
@@ -97,10 +97,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -115,15 +115,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public dss.vector.solutions.general.Disease getDisease()
@@ -138,15 +143,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(DISEASE);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.Disease value)
@@ -173,15 +183,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -206,10 +221,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Double getIdentificationMinimum()
@@ -222,10 +237,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(IDENTIFICATIONMINIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentificationMinimumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getIdentificationMinimumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATIONMINIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(IDENTIFICATIONMINIMUM);
   }
   
   public void setIdentificationMinimum(Double value)
@@ -250,10 +265,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -278,10 +293,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -296,15 +311,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -319,15 +339,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public Double getNotificationMinimum()
@@ -340,10 +365,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(NOTIFICATIONMINIMUM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotificationMinimumMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getNotificationMinimumMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(NOTIFICATIONMINIMUM);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(NOTIFICATIONMINIMUM);
   }
   
   public void setNotificationMinimum(Double value)
@@ -370,15 +395,20 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -403,10 +433,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(PRIORYEARS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPriorYearsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getPriorYearsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(PRIORYEARS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(PRIORYEARS);
   }
   
   public void setPriorYears(Integer value)
@@ -431,10 +461,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -447,10 +477,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   @SuppressWarnings("unchecked")
@@ -485,10 +515,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(T1METHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getT1MethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getT1MethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(T1METHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(T1METHOD);
   }
   
   @SuppressWarnings("unchecked")
@@ -523,10 +553,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(T2METHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getT2MethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF getT2MethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(T2METHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdClassIF.definesAttribute(T2METHOD);
   }
   
   public String getType()
@@ -539,10 +569,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   public Integer getWeeksAfter()
@@ -555,10 +585,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEEKSAFTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeeksAfterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getWeeksAfterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEEKSAFTER);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(WEEKSAFTER);
   }
   
   public void setWeeksAfter(Integer value)
@@ -583,10 +613,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEEKSBEFORE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeeksBeforeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getWeeksBeforeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEEKSBEFORE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(WEEKSBEFORE);
   }
   
   public void setWeeksBefore(Integer value)
@@ -611,10 +641,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT0);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight0Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight0Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT0);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT0);
   }
   
   public void setWeight0(Double value)
@@ -639,10 +669,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT1);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight1Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight1Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT1);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT1);
   }
   
   public void setWeight1(Double value)
@@ -667,10 +697,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT2);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight2Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight2Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT2);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT2);
   }
   
   public void setWeight2(Double value)
@@ -695,10 +725,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT3);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight3Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight3Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT3);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT3);
   }
   
   public void setWeight3(Double value)
@@ -723,10 +753,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT4);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight4Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight4Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT4);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT4);
   }
   
   public void setWeight4(Double value)
@@ -751,10 +781,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT5);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight5Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight5Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT5);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT5);
   }
   
   public void setWeight5(Double value)
@@ -779,10 +809,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT6);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight6Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight6Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT6);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT6);
   }
   
   public void setWeight6(Double value)
@@ -807,10 +837,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT7);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight7Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight7Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT7);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT7);
   }
   
   public void setWeight7(Double value)
@@ -835,10 +865,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT8);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight8Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight8Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT8);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT8);
   }
   
   public void setWeight8(Double value)
@@ -863,10 +893,10 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     this.validateAttribute(WEIGHT9);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeight9Md()
+  public static com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF getWeight9Md()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationType.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT9);
+    return (com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF)mdClassIF.definesAttribute(WEIGHT9);
   }
   
   public void setWeight9(Double value)

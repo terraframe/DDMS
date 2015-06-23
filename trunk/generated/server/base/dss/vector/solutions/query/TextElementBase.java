@@ -48,10 +48,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CREATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getCreateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(CREATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(CREATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getCreatedBy()
@@ -76,10 +76,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CREATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCreatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getCreatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(CREATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(CREATEDBY);
   }
   
   public String getCustomTextElementId()
@@ -92,10 +92,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(CUSTOMTEXTELEMENTID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCustomTextElementIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCustomTextElementIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(CUSTOMTEXTELEMENTID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CUSTOMTEXTELEMENTID);
   }
   
   public void setCustomTextElementId(String value)
@@ -132,10 +132,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ENTITYDOMAIN);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityDomainMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(ENTITYDOMAIN);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomain value)
@@ -160,10 +160,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTCOLOR);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontColorMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontColorMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(FONTCOLOR);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTCOLOR);
   }
   
   public void setFontColor(String value)
@@ -188,10 +188,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTFAMILY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontFamilyMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontFamilyMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(FONTFAMILY);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTFAMILY);
   }
   
   public void setFontFamily(String value)
@@ -216,10 +216,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTSIZE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontSizeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getFontSizeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(FONTSIZE);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(FONTSIZE);
   }
   
   public void setFontSize(Integer value)
@@ -244,10 +244,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(FONTSTYLE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFontStyleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFontStyleMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(FONTSTYLE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FONTSTYLE);
   }
   
   public void setFontStyle(String value)
@@ -272,10 +272,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getKeyName()
@@ -288,10 +288,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(KEYNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKeyNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getKeyNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(KEYNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(KEYNAME);
   }
   
   public void setKeyName(String value)
@@ -316,10 +316,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LASTUPDATEDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdateDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF getLastUpdateDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF)mdClassIF.definesAttribute(LASTUPDATEDATE);
   }
   
   public com.runwaysdk.system.SingleActor getLastUpdatedBy()
@@ -344,10 +344,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LASTUPDATEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLastUpdatedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLastUpdatedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(LASTUPDATEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
   public com.runwaysdk.system.Users getLockedBy()
@@ -372,10 +372,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(LOCKEDBY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLockedByMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getLockedByMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(LOCKEDBY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
   public com.runwaysdk.system.Actor getOwner()
@@ -400,10 +400,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(OWNER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOwnerMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getOwnerMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(OWNER);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.Actor value)
@@ -428,10 +428,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SEQ);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeqMd()
+  public static com.runwaysdk.dataaccess.MdAttributeLongDAOIF getSeqMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(SEQ);
+    return (com.runwaysdk.dataaccess.MdAttributeLongDAOIF)mdClassIF.definesAttribute(SEQ);
   }
   
   public String getSiteMaster()
@@ -444,10 +444,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(SITEMASTER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSiteMasterMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSiteMasterMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(SITEMASTER);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
   }
   
   public String getTextValue()
@@ -460,10 +460,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TEXTVALUE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextValueMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTextValueMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(TEXTVALUE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEXTVALUE);
   }
   
   public void setTextValue(String value)
@@ -488,10 +488,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TEXTXPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextXPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTextXPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(TEXTXPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TEXTXPOSITION);
   }
   
   public void setTextXPosition(Integer value)
@@ -516,10 +516,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TEXTYPOSITION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTextYPositionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getTextYPositionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(TEXTYPOSITION);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(TEXTYPOSITION);
   }
   
   public void setTextYPosition(Integer value)
@@ -544,10 +544,10 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     this.validateAttribute(TYPE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTypeMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.TextElement.CLASS);
-    return mdClassIF.definesAttribute(TYPE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
   protected String getDeclaredType()

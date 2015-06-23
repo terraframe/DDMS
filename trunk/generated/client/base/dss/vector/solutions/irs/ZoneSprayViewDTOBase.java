@@ -36,6 +36,11 @@ public abstract class ZoneSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getBrandId()
+  {
+    return getValue(BRAND);
+  }
+  
   public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
   {
     if(value == null)
@@ -115,6 +120,11 @@ public abstract class ZoneSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -244,6 +254,11 @@ public abstract class ZoneSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     }
   }
   
+  public String getSupervisorId()
+  {
+    return getValue(SUPERVISOR);
+  }
+  
   public void setSupervisor(dss.vector.solutions.irs.SupervisorDTO value)
   {
     if(value == null)
@@ -286,6 +301,11 @@ public abstract class ZoneSprayViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)

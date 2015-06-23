@@ -46,10 +46,10 @@ public abstract class UnknownLayerExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.UnknownLayerException.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public String getLayerId()
@@ -62,10 +62,10 @@ public abstract class UnknownLayerExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(LAYERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLayerIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getLayerIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.UnknownLayerException.CLASS);
-    return mdClassIF.definesAttribute(LAYERID);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(LAYERID);
   }
   
   public void setLayerId(String value)
@@ -90,10 +90,10 @@ public abstract class UnknownLayerExceptionBase extends com.runwaysdk.business.S
     this.validateAttribute(MAPNAME);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMapNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getMapNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.UnknownLayerException.CLASS);
-    return mdClassIF.definesAttribute(MAPNAME);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(MAPNAME);
   }
   
   public void setMapName(String value)

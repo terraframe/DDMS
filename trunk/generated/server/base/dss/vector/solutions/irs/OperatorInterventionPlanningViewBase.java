@@ -31,10 +31,10 @@ public abstract class OperatorInterventionPlanningViewBase extends dss.vector.so
     this.validateAttribute(NUMBEROFDAYS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberofDaysMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberofDaysMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(NUMBEROFDAYS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBEROFDAYS);
   }
   
   public void setNumberofDays(Integer value)
@@ -59,10 +59,10 @@ public abstract class OperatorInterventionPlanningViewBase extends dss.vector.so
     this.validateAttribute(REQUIREDOPERATORS);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRequiredOperatorsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getRequiredOperatorsMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(REQUIREDOPERATORS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(REQUIREDOPERATORS);
   }
   
   public void setRequiredOperators(Integer value)
@@ -87,10 +87,10 @@ public abstract class OperatorInterventionPlanningViewBase extends dss.vector.so
     this.validateAttribute(UNITSPERDAY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitsPerDayMd()
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getUnitsPerDayMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorInterventionPlanningView.CLASS);
-    return mdClassIF.definesAttribute(UNITSPERDAY);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(UNITSPERDAY);
   }
   
   public void setUnitsPerDay(Integer value)

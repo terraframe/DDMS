@@ -10,8 +10,6 @@ public class InterventionPlanningControllerBase implements com.runwaysdk.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 2053190576;
-  
   public InterventionPlanningControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");

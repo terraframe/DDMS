@@ -42,10 +42,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(COMPLETIONDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCompletionDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getCompletionDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(COMPLETIONDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(COMPLETIONDATE);
   }
   
   public void setCompletionDate(java.util.Date value)
@@ -70,10 +70,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(CONTROLMETHOD);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getControlMethodMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(CONTROLMETHOD);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONTROLMETHOD);
   }
   
   public void setControlMethod(String value)
@@ -98,10 +98,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(GEODESCRIPTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoDescriptionMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getGeoDescriptionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEODESCRIPTION);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(GEODESCRIPTION);
   }
   
   public void setGeoDescription(String value)
@@ -128,15 +128,20 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
+  }
+  
   public void validateGeoEntity()
   {
     this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
@@ -161,10 +166,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(ID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(ID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
   public Boolean getNatureOfControl()
@@ -177,10 +182,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(NATUREOFCONTROL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNatureOfControlMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNatureOfControlMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(NATUREOFCONTROL);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NATUREOFCONTROL);
   }
   
   public void setNatureOfControl(Boolean value)
@@ -205,10 +210,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(PERSONCOUNT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonCountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getPersonCountMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(PERSONCOUNT);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(PERSONCOUNT);
   }
   
   public void setPersonCount(Integer value)
@@ -233,10 +238,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(STARTDATE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartDateMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStartDateMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(STARTDATE);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STARTDATE);
   }
   
   public void setStartDate(java.util.Date value)
@@ -261,10 +266,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(SUBSTANCE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSubstanceMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSubstanceMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(SUBSTANCE);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUBSTANCE);
   }
   
   public void setSubstance(String value)
@@ -289,10 +294,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TARGET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTargetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TARGET);
   }
   
   public void setTarget(String value)
@@ -317,10 +322,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TEAMLEADERID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamLeaderIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getTeamLeaderIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(TEAMLEADERID);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TEAMLEADERID);
   }
   
   public void setTeamLeaderId(String value)
@@ -345,10 +350,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(TREATED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTreatedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(TREATED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TREATED);
   }
   
   public void setTreated(Integer value)
@@ -373,10 +378,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(UNIT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getUnitMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNIT);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(UNIT);
   }
   
   public void setUnit(String value)
@@ -401,10 +406,10 @@ public abstract class LarvacideExcelViewBase extends com.runwaysdk.business.View
     this.validateAttribute(UNITSUSED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitsUsedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getUnitsUsedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvacideExcelView.CLASS);
-    return mdClassIF.definesAttribute(UNITSUSED);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(UNITSUSED);
   }
   
   public void setUnitsUsed(Integer value)

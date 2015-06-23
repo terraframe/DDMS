@@ -10,8 +10,6 @@ public class MalariaSeasonControllerBase implements com.runwaysdk.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 79448786;
-  
   public MalariaSeasonControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this(req, resp, isAsynchronous, "","");
