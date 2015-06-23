@@ -4,10 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.querybuilder.IRSQB.View;
 
-public abstract class AbstractSQLProvider implements SQLProvider
+public abstract class AbstractSQLProvider implements SQLProvider, Reloadable
 {
   public static final String COLUMN_SUFFIX = ", \n";
   
