@@ -309,7 +309,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           }
 
                          ]);
-    if(available.contains('<%= AbstractSprayDTO.SPRAYDATE %>'))
+    if (available.contains('<%= AbstractSprayDTO.SPRAYDATE %>'))
     {
       Spray_Details.push({
         key:'<%= AbstractSprayDTO.SPRAYDATE %>',
@@ -319,8 +319,7 @@ YAHOO.util.Event.onDOMReady(function(){
         description:abstractSpray.getSprayDateMd().getDescription()
       });
     }
-
-    if(available.contains('<%= AbstractSprayDTO.GEOENTITY %>'))
+    if (available.contains('<%= AbstractSprayDTO.GEOENTITY %>'))
     {
       Spray_Details.push({
         key:'<%= AbstractSprayDTO.GEOENTITY %>',
@@ -330,7 +329,7 @@ YAHOO.util.Event.onDOMReady(function(){
         description:abstractSpray.getSprayDateMd().getDescription()
       });
     }
-
+    
     // HouseholdSprayStatus, OperatorSprayStatus, TeamSprayStatus (Used for Spray_Details and Household_Structure_Details)
     <%
       Halp.setReadableAttributes(request, "hss", HouseholdSprayStatusViewDTO.CLASS, requestIF);
@@ -353,24 +352,31 @@ YAHOO.util.Event.onDOMReady(function(){
 
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
+    if (available.contains('structureType'))
+    {
+      Spray_Details.push({
+        key:"structureType",
+        type:"dss.vector.solutions.ontology.Term",
+        attributeName:"structureType",
+        dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+        isTerm: true
+      });
+    }
+    if (available.contains('reasonNotSprayed'))
+    {
+      Spray_Details.push({
+        key:"reasonNotSprayed",
+        type:"dss.vector.solutions.ontology.Term",
+        attributeName:"reasonNotSprayed",
+        dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+        isTerm: true
+      });
+    }
+    
     // The last three unsprayed columns (locked, refused, other) go after the calculations
     //var unsprayedLast = Spray_Details.splice(-3,3);
     
    Spray_Details = Spray_Details.concat([
-                                  {
-	                                  key:"structureType",
-	                                  type:"dss.vector.solutions.ontology.Term",
-	                                  attributeName:"structureType",
-	                                  dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
-	                                  isTerm: true
-	                                },
-	                                {
-                                    key:"reasonNotSprayed",
-                                    type:"dss.vector.solutions.ontology.Term",
-                                    attributeName:"reasonNotSprayed",
-                                    dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
-                                    isTerm: true
-                                  },
                                   {
                                     key:"sprayedunits",
                                     type:"sqlinteger",
