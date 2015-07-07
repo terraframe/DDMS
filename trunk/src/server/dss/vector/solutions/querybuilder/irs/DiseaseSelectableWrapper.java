@@ -1,5 +1,6 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +9,7 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
+import com.runwaysdk.query.ColumnInfo;
 import com.runwaysdk.query.ComponentQuery;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Join;
@@ -188,6 +190,20 @@ public class DiseaseSelectableWrapper implements Reloadable, Selectable
   public void setUserDefinedDisplayLabel(String userDefinedDisplayLabel)
   {
     selectable.setUserDefinedDisplayLabel(userDefinedDisplayLabel);
+  }
+
+  @Override
+  public ColumnInfo getColumnInfo()
+  {
+    return new ColumnInfo(this.getDefiningTableName(), this.getDefiningTableAlias(), this.getDbColumnName(), this.getColumnAlias());
+  }
+
+  @Override
+  public List<ColumnInfo> getColumnInfoList()
+  {
+    List<ColumnInfo> columnInfoList = new LinkedList<ColumnInfo>();
+    columnInfoList.add(this.getColumnInfo());
+    return columnInfoList;
   }
 
 }

@@ -2,7 +2,6 @@ package dss.vector.solutions.querybuilder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,12 +21,12 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -35,6 +34,7 @@ import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
@@ -71,7 +71,6 @@ import dss.vector.solutions.querybuilder.irs.DateExtrapolationView;
 import dss.vector.solutions.querybuilder.irs.DateGroups;
 import dss.vector.solutions.querybuilder.irs.DiseaseSelectableWrapper;
 import dss.vector.solutions.querybuilder.irs.GeoTargetView;
-import dss.vector.solutions.querybuilder.irs.IRSSpoofJoin;
 import dss.vector.solutions.querybuilder.irs.InsecticideView;
 import dss.vector.solutions.querybuilder.irs.PlannedAreaTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedOperatorTarget;
@@ -84,7 +83,6 @@ import dss.vector.solutions.querybuilder.irs.SpraySummaryView;
 import dss.vector.solutions.querybuilder.irs.SprayView;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
-import dss.vector.solutions.util.Restriction;
 
 public class IRSQB extends AbstractQB implements Reloadable
 {
@@ -813,8 +811,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     discoverDateGroups();
 
-    swapOutAttributesForAggregates();
-
     joinSexAttributes();
     
     // Add the filters (spray operator id = 123) to the WHERE criteria.
@@ -839,6 +835,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       setNumericRestrictions(irsVQ, queryConfig);
     }
     
+    // This must happen after setNumericRestrictions, otherwise the selectables are aggregated in the WHERE clause (syntax error!) in the case of an aggregated range restriction.
+    swapOutAttributesForAggregates();
+    
     // Spray Date
     QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYDATE, sprayViewAlias + "." + Alias.SPRAY_DATE);
 
@@ -857,8 +856,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     // NOTE: for backwards compatibility use the XMLAlias() instead of alias()
     if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
     {
-      QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, abstractSprayQuery, this.getTermRestrictions());
+      QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery, View.SPRAY_VIEW.getView(), this.sprayViewAlias);
+      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, View.SPRAY_VIEW.getView(), this.sprayViewAlias, this.getTermRestrictions());
     }
 
     sprayedUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN " + Alias.SPRAYED_ROOMS + "  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN " + Alias.SPRAYED_STRUCTURES + " WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN " + Alias.SPRAYED_HOUSEHOLDS + " END )";
@@ -1067,16 +1066,21 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(Alias.UNITS_UNSPRAYED.getAlias()))
     {
       Selectable s = irsVQ.getSelectableRef(Alias.UNITS_UNSPRAYED.getAlias());
-      Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedUnits, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
+      SelectableSQL r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedUnits, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.UNITS_UNSPRAYED.getAlias());
 
       irsVQ.replaceSelectable(r);
-      irsVQ.GROUP_BY(irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias()));
+      
+      SelectableSQL gb = irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias());
+      gb.setAttributeNameSpace("insecticideView");
+      irsVQ.GROUP_BY(gb);
     }
 
     if (QueryUtil.setSelectabeSQL(irsVQ, Alias.REFILLS + " * " + shareOfCans, unsprayedUnits))
     {
-      irsVQ.GROUP_BY(irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias()));
+      SelectableSQL gb = irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias());
+      gb.setAttributeNameSpace("insecticideView");
+      irsVQ.GROUP_BY(gb);
     }
 
     QueryUtil.setSelectabeSQL(irsVQ, Alias.UNIT_APPLICATION_RATE.getAlias(), "(" + unit_application_rate + ")");
@@ -2081,35 +2085,24 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void joinMainQueryTables()
   {
-    // FIXME This hack is needed to avoid specifying the abstract_table alias
-    // more than
-    // once when other joins are added.
-    String abstractSprayTable = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
-    IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol, abstractSprayTable, this.sprayViewAlias);
-    irsVQ.AND(join);
-
-    StringBuffer str = new StringBuffer();
     String idCol = QueryUtil.getIdColumn();
     String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
 
     String leftTable = View.SPRAY_VIEW.getView();
     String leftAlias = this.sprayViewAlias;
     String insecticideView = View.INSECTICIDE_VIEW.getView();
-
-    str.append(leftTable + " " + leftAlias);
-
-    // join and restrict for the sex attribute on the spray team details
+    boolean didJoin = false;
 
     if (irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
-      str.append(" LEFT JOIN " + IMPORTED_DATETIME + " ON");
-      str.append(" " + IMPORTED_DATETIME + "." + Alias.CREATE_DATE);
-      str.append(" = " + leftAlias + "." + Alias.CREATE_DATE.getAlias() + " \n");
+      irsVQ.AND(new LeftJoinEq(Alias.CREATE_DATE.getAlias(), leftTable, leftAlias, Alias.CREATE_DATE.getAlias(), IMPORTED_DATETIME, IMPORTED_DATETIME));
+      didJoin = true;
     }
 
     if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
     {
-      str.append(" LEFT JOIN " + QueryUtil.GEO_DISPLAY_LABEL + " ON " + QueryUtil.GEO_DISPLAY_LABEL + "." + idCol + " = " + this.sprayViewAlias + "." + Alias.GEO_ENTITY + " \n");
+      irsVQ.AND(new LeftJoinEq(Alias.GEO_ENTITY.getAlias(), leftTable, leftAlias, idCol, QueryUtil.GEO_DISPLAY_LABEL, QueryUtil.GEO_DISPLAY_LABEL));
+      didJoin = true;
     }
 
     // Don't add anything regarding insecticide if the query is used for
@@ -2117,90 +2110,36 @@ public class IRSQB extends AbstractQB implements Reloadable
     // as aggregation has nothing to do with insecticide
     if (this.aggType == null)
     {
-      // System.out.println(insecticideVQ.getSQL());
       if (insecticideQuery != null)
       {
         SelectableSQLCharacter brand = irsVQ.aSQLCharacter("brand_join", this.sprayViewAlias + "." + Alias.BRAND.getAlias());
         irsVQ.WHERE(this.insecticideQuery.getId().EQ(brand));
-
-        /*
-        String insecticideId = insecticideVQ.getSelectableRef(InsecticideBrand.ID).getColumnAlias();
-
-        insecticideVQ.FROM(insecticideView, insecticideView);
-        insecticideVQ.AND(insecticideVQ.aSQLCharacter("i_vq",
-            insecticideQuery.getTableAlias() + "." + idCol).EQ(
-            insecticideVQ.aSQLCharacter("i_view", insecticideView + "." + idCol)));
-        
-        // Quick fix. The subquery needs to be distinct
-        String subQuery = insecticideVQ.getSQL().replaceFirst("SELECT", "SELECT DISTINCT");
-        
-        String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
-        str.append(" " + joinType + " (" + subQuery + ") "
-            + insecticideQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.BRAND + " = "
-            + insecticideQuery.getTableAlias() + "." + insecticideId + " \n");
-
-        
-        // IMPORTANT: Because we are joining three parsed queries, the irsVQ
-        // will
-        // have some conditions applied
-        // to it instead of the insecticideVQ, and that will force the
-        // insecticide
-        // brand table to be automatically
-        // included in the main query. Join on the insecticide brand in the main
-        // query with that of the insecticideVQ
-        // to make sure everything matches correctly.
-        
-        irsVQ.FROM(outerInsecticideQuery.getMdClassIF().getTableName(),
-            outerInsecticideQuery.getTableAlias());
-        irsVQ
-            .WHERE(irsVQ.aSQLCharacter("forceJoin1", outerInsecticideQuery.getId().getDbQualifiedName())
-                .EQ(irsVQ.aSQLCharacter("forceJoin2", insecticideQuery.getTableAlias() + "."
-                    + insecticideId)));
-                    */
+        didJoin = true;
       }
-
+      
       if (this.requiredViews.contains(View.INSECTICIDE_VIEW))
       {
-        // always join on the insecticide view
-        str.append(" LEFT JOIN " + insecticideView + " " + insecticideView + " ON " + leftAlias + "." + Alias.BRAND + " = " + insecticideView + "." + idCol + " AND \n" + insecticideView + "." + diseaseCol + " = " + leftAlias + "." + Alias.DISEASE + "  \n");
-
-        // restrict by dates
-        str.append("AND ((" + leftAlias + "." + Alias.SPRAY_DATE + ") >= (" + insecticideView + ".start_date) \n");
-        str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView + ".end_date)) \n");
+        irsVQ.AND(new LeftJoinEq(Alias.BRAND.getAlias(), leftTable, leftAlias, idCol, insecticideView, insecticideView));
+        
+        SelectableSQLCharacter insectDisease = irsVQ.aSQLCharacter(diseaseCol, insecticideView + "." + diseaseCol, diseaseCol);
+        SelectableSQLCharacter sprayDisease = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), leftAlias + "." + Alias.DISEASE, Alias.DISEASE.getAlias());
+        irsVQ.AND(insectDisease.EQ(sprayDisease));
+        
+        SelectableSQLDate leftSel = irsVQ.aSQLDate(Alias.SPRAY_DATE.getAlias(), leftAlias + "." + Alias.SPRAY_DATE, Alias.SPRAY_DATE.getAlias());
+        
+        SelectableSQLDate rightSel = irsVQ.aSQLDate("start_date", insecticideView + "." + "start_date", "start_date");
+        irsVQ.AND(leftSel.GE(rightSel));
+        
+        rightSel = irsVQ.aSQLDate("end_date", insecticideView + "." + "end_date", "end_date");
+        irsVQ.AND(leftSel.LE(rightSel));
+        didJoin = true;
       }
     }
-
-    // FIXME trigger this...is it necessary? Maybe push more columns into
-    // all-actuals
-    // if (this.hasSprayEnumOrTerm)
-    // {
-    // String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
-    //
-    // String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
-    // str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") " + abstractSprayQuery.getTableAlias()
-    // + " ON " + leftAlias + "." + Alias.ID + " = " + abstractSprayQuery.getTableAlias() + "."
-    // + sprayId + " \n");
-    // }
-
-    /*
-     * removed for #2826 str.append("AND (" + leftAlias + "." + Alias.SPRAY_DATE
-     * + ") >= (" + insecticideView + ".nozzleStart)) \n"); str.append("AND (" +
-     * leftAlias + "." + Alias.SPRAY_DATE + ") <= (" + insecticideView +
-     * ".nozzleEnd)) \n");
-     */
-
-    // Special case to include rows from the planned targets, which have no
-    // dates
-    if (this.hasPlannedTargets)
+    
+    if (!didJoin)
     {
-      // FIXME This now breaks...is it needed?
-      // str.append(" OR " + leftAlias + "." + Alias.SPRAY_DATE +
-      // " IS NULL \n");
+      irsVQ.FROM(View.SPRAY_VIEW.getView(), this.sprayViewAlias);
     }
-
-    str.append("\n");
-
-    irsVQ.FROM(str.toString(), "");
   }
 
   @Override
