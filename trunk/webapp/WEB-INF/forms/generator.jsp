@@ -49,6 +49,7 @@
 <jsp:include page="../templates/header.jsp" />
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
+<jwr:script src="/bundles/jqueryBundle.js" useRandomParam="false"/>
 
 <script type="text/javascript">
 

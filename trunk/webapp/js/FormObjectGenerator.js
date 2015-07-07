@@ -2412,10 +2412,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         var p = problems[i];
         var attributeId = p.getAttributeId();
 
-        var span = document.getElementById(attributeId);
+        // There's actually 2 elements on the page with attributeId, so we can't do a direct document.getElementById because the id actually isn't unique.
+        // The other element is a hidden search element.
+        var span = $("#FormContainer").find("#" + attributeId);
         
         if(span != null)
-        {  
+        {
+          span = span[0];
           span.innerHTML = p.getLocalizedMessage();
           span.style.display = 'inline-block';
         

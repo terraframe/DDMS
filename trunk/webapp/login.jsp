@@ -7,6 +7,13 @@
 
 <c:set var="page_title" value="login"  scope="request"/>
 
+<!-- Tell Runway what the application context path is. -->
+<script>
+window.com = window.com || {};
+window.com.runwaysdk = window.com.runwaysdk || {};
+window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
+</script>
+
 <jsp:include page="/WEB-INF/templates/banner.jsp" />
 
 <style type="text/css">
