@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
   
@@ -21,13 +22,13 @@
 					<c:forEach items="${fields}" var="field">
 						<c:choose>
 							<c:when test="${field.type=='com.runwaysdk.system.metadata.MdWebSingleTerm'}">
-								<button class="expressionButton" value="${field.displayLabel.value}.toString()">${field.displayLabel}</button>
+								<button class="expressionButton" value="${fn:replace(field.displayLabel.value,' ', '')}.toString()">${field.displayLabel}</button>
 							</c:when>
 							<c:when test="${field.type=='com.runwaysdk.system.metadata.MdWebGeo'}">
-								<button class="expressionButton" value="${field.displayLabel.value}.toString()">${field.displayLabel}</button>
+								<button class="expressionButton" value="${fn:replace(field.displayLabel.value,' ', '')}.toString()">${field.displayLabel}</button>
 							</c:when>
 							<c:otherwise>
-								<button class="expressionButton" value="${field.fieldName}">${field.displayLabel}</button>
+								<button class="expressionButton" value="${fn:replace(field.fieldName,' ', '')}">${field.displayLabel}</button>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
