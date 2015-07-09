@@ -39,6 +39,19 @@ public class BIRTVaultResourceResolver implements Reloadable, IResourceLocator
   
   private URL resolve(String filePath)
   {
+    // When making PDF's for some reason BIRT will give a URL back to us that we've already resolved. So, lets check if what we've been given already exists.
+    try
+    {
+      if (new File(new URL(filePath).toURI()).exists())
+      {
+        return new URL(filePath);
+      }
+    }
+    catch (Exception e)
+    {
+      
+    }
+    
     File resourcesF = ReportResourceManager.getInstance().getBIRTResources();
     
     try
