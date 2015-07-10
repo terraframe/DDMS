@@ -422,32 +422,36 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
     File profiles = new File(path);
 
-    File[] files = profiles.listFiles(new FilenameFilter()
+    // If Firefox has been installed, but never opened, the profiles directory will not exist (#3185)
+    if (profiles.exists())
     {
-
-      @Override
-      public boolean accept(File dir, String name)
+      File[] files = profiles.listFiles(new FilenameFilter()
       {
-        return ( dir.isDirectory() && name.endsWith("default") );
-      }
-    });
-
-    for (File file : files)
-    {
-      File user = new File(file, "user.js");
-
-      if (user.exists())
-      {
-        boolean hasResponseTimeout = hasResponseTimeout(user);
-
-        if (!hasResponseTimeout)
+  
+        @Override
+        public boolean accept(File dir, String name)
         {
-          writeResponseTimeout(user, true);
+          return ( dir.isDirectory() && name.endsWith("default") );
         }
-      }
-      else
+      });
+  
+      for (File file : files)
       {
-        writeResponseTimeout(user, false);
+        File user = new File(file, "user.js");
+  
+        if (user.exists())
+        {
+          boolean hasResponseTimeout = hasResponseTimeout(user);
+  
+          if (!hasResponseTimeout)
+          {
+            writeResponseTimeout(user, true);
+          }
+        }
+        else
+        {
+          writeResponseTimeout(user, false);
+        }
       }
     }
 
