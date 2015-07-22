@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 
 import com.runwaysdk.constants.ClientRequestIF;
 
-import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
