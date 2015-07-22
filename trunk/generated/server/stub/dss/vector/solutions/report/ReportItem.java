@@ -48,7 +48,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.CreatePermissionException;
-import com.runwaysdk.session.LocaleManager;
 import com.runwaysdk.session.ReadPermissionException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;

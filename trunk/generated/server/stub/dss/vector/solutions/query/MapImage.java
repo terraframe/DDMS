@@ -3,7 +3,6 @@ package dss.vector.solutions.query;
 //import com.runwaysdk.util.FileIO;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.runwaysdk.constants.DeployProperties;

@@ -3,7 +3,6 @@ package dss.vector.solutions.query;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.OIterator;
 
 public class TextElement extends TextElementBase implements com.runwaysdk.generation.loader.Reloadable
 {

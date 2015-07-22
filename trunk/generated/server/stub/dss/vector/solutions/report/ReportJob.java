@@ -11,9 +11,6 @@ import com.runwaysdk.system.scheduler.JobHistory;
 import com.runwaysdk.system.scheduler.JobHistoryQuery;
 import com.runwaysdk.system.scheduler.JobHistoryRecordQuery;
 
-import dss.vector.solutions.query.CycleJobQuery;
-import dss.vector.solutions.query.MapInUseException;
-
 @DisallowConcurrentExecution
 public class ReportJob extends ReportJobBase implements com.runwaysdk.generation.loader.Reloadable
 {

@@ -2,7 +2,6 @@ package dss.vector.solutions;
 
 import java.util.ArrayList;
 
-import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.SessionIF;

@@ -28,7 +28,6 @@ import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.monitor.IndividualCase;
 
 public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.generation.loader.Reloadable
 {

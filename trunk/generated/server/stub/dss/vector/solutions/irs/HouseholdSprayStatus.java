@@ -9,7 +9,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyDTO;
 import dss.vector.solutions.general.UniqueValueProblem;
 
 public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
