@@ -19,8 +19,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.EntityDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -60,6 +64,7 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.ResourceTarget;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
@@ -1121,50 +1126,69 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   @SuppressWarnings("unchecked")
   private void joinSexAttributes()
-  {
+  {       
     if (irsVQ.hasSelectableRef(Alias.SPRAY_OPERATOR_SEX.getAlias()))
     {
-      PersonQuery p = new PersonQuery(irsVQ);
-      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.SPRAY_OPERATOR_SEX.getAlias());
-      this.leftJoinSexDisplayLabels(sel, p, Alias.SPRAY_OPERATOR_PERSON.getAlias());
+      this.localizeSex(Alias.SPRAY_OPERATOR_SEX.getAlias(), Alias.SPRAY_OPERATOR_PERSON.getAlias());
     }
 
     if (irsVQ.hasSelectableRef(Alias.SPRAY_LEADER_SEX.getAlias()))
     {
-      PersonQuery p = new PersonQuery(irsVQ);
-      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.SPRAY_LEADER_SEX.getAlias());
-      this.leftJoinSexDisplayLabels(sel, p, Alias.SPRAY_LEADER_PERSON.getAlias());
+      this.localizeSex(Alias.SPRAY_LEADER_SEX.getAlias(), Alias.SPRAY_LEADER_PERSON.getAlias());
     }
 
     if (irsVQ.hasSelectableRef(Alias.ZONE_SUPERVISOR_SEX.getAlias()))
     {
-      PersonQuery p = new PersonQuery(irsVQ);
-      SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(Alias.ZONE_SUPERVISOR_SEX.getAlias());
-      this.leftJoinSexDisplayLabels(sel, p, Alias.ZONE_SUPERVISOR_PERSON.getAlias());
+      this.localizeSex(Alias.ZONE_SUPERVISOR_SEX.getAlias(), Alias.ZONE_SUPERVISOR_PERSON.getAlias());
     }
+    
   }
 
-  /**
-   * Custom deviation from QueryUtil.leftJoinTermDisplayLabels() to accommodate IRS.
-   * 
-   * @param sexSel
-   * @param p
-   * @param joinAlias
-   */
-  public void leftJoinSexDisplayLabels(SelectableSQL sexSel, PersonQuery p, String joinAlias)
+  private void localizeSex(String sexAlias, String personAlias)
   {
-    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-    MdEntityDAOIF md = p.getMdClassIF();
-    String tableName = md.getTableName();
-    String sexCol = QueryUtil.getColumnName(md, Person.SEX);
+    MdEntityDAOIF termLabelMdEntityDAOIF = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
+    MdAttributeLocalCharacterDAOIF mdAttributeTermDisplayLabel = Term.getTermDisplayLabelMd();
     
-//    String sql = "SELECT " + Session.getCurrentLocale().getDisplayCountry() + " FROM term t INNER JOIN term_term_display_label tdl ON t.term_display_label=tdl.id";
-    
-    String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t";
-    sql += " LEFT JOIN " + termTable + " as term  on t." + sexCol + " = term." + idCol;
-    sql += " WHERE t." + this.idCol + " = " + joinAlias + "";
+    Selectable selectable = irsVQ.getSelectableRef(sexAlias);
+    if (selectable instanceof SelectableSQL)
+    {
+      SelectableSQL s = (SelectableSQL)selectable;
+      PersonQuery personQuery = new PersonQuery(irsVQ);
+      MdEntityDAOIF personMdEntity = personQuery.getMdClassIF();
+      
+      String sprayOpColumn = personAlias;
+      String sprayOpTableName = View.SPRAY_VIEW.getView(); // ActualTeamSprayTarget.OPERATOR_PERSON;
+      String sprayOpTableAlias = View.SPRAY_VIEW.getView();
+      
+      // Used for calculating new table aliases for the query
+      String personNamespace = sprayOpTableAlias+"."+sexAlias;
+      String newPersonTableAlias = irsVQ.getQueryFactory().getTableAlias(personNamespace, personMdEntity.getTableName());
 
-    sexSel.setSQL(sql);
+      LeftJoinEq leftJoinEq1 = new LeftJoinEq(sprayOpColumn, sprayOpTableName, sprayOpTableAlias, EntityDAOIF.ID_COLUMN, personMdEntity.getTableName(), newPersonTableAlias);
+      
+      String termNamespace = personNamespace+"."+Person.SEX; 
+      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+      String termTableAlias = irsVQ.getQueryFactory().getTableAlias(termNamespace, termTable);
+      MdAttributeConcreteDAOIF sexMdAttribute = personMdEntity.definesAttribute(Person.SEX);
+      
+      LeftJoinEq leftJoinEq2 = new LeftJoinEq(sexMdAttribute.getColumnName(), personMdEntity.getTableName(), newPersonTableAlias, EntityDAOIF.ID_COLUMN, termTable, termTableAlias);
+      leftJoinEq1.nest(leftJoinEq2);
+      
+      
+      // create the display label table alias for the term
+      String displayLabelNamespace = termNamespace+"."+TermTermDisplayLabel.DEFAULTLOCALE;
+      String newDisplayLabelTableAlias = irsVQ.getQueryFactory().getTableAlias(displayLabelNamespace, termLabelMdEntityDAOIF.getTableName()); 
+      
+      LeftJoinEq leftJoinEq3 = new LeftJoinEq(mdAttributeTermDisplayLabel.getColumnName(), termTable, termTableAlias, EntityDAOIF.ID_COLUMN, termLabelMdEntityDAOIF.getTableName(), newDisplayLabelTableAlias);
+      leftJoinEq2.nest(leftJoinEq3);
+
+      // Create the coalesce function for the term display label
+      String coalesceFunction = QueryUtil.getLocaleCoalesce(newDisplayLabelTableAlias + ".");
+      // Set the selectable to be the coalesce function.
+      s.setSQL(coalesceFunction); 
+      
+      irsVQ.AND(leftJoinEq1);
+    }
   }
 
   private String[] getGeoIncludes()

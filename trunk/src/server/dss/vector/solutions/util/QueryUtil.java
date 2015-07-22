@@ -19,15 +19,14 @@ import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
-import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
@@ -57,9 +56,7 @@ import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.EnumerationMaster;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
-import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
@@ -320,6 +317,8 @@ public class QueryUtil implements Reloadable
   
   public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableName, String tableAlias, Map<String, Restriction> aggregations)
   {
+    MdEntityDAOIF termLabelMdEntityDAOIF = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
+    
     // This operation is expensive, so only do it once.
     List<String> termAttributes = Arrays.asList(Term.getTermAttributes(klass));
     
@@ -331,6 +330,7 @@ public class QueryUtil implements Reloadable
     
     MdEntityDAOIF mdEntityTerm = MdEntityDAO.getMdEntityDAO(Term.CLASS);
     String termTable = mdEntityTerm.getTableName();
+    MdAttributeLocalCharacterDAOIF mdAttributeTermDisplayLabel = Term.getTermDisplayLabelMd();
 
     boolean found = false;
     
@@ -363,8 +363,8 @@ public class QueryUtil implements Reloadable
             {
               found = true;
 
-              MdAttributeConcreteDAOIF mdAttributeTermName = mdEntityTerm.definesAttribute(Term.NAME);
-              String termNameColumn = mdAttributeTermName.getColumnName();
+ //             MdAttributeConcreteDAOIF mdAttributeTermName = mdEntityTerm.definesAttribute(Term.NAME);
+ //             String termNameColumn = mdAttributeTermName.getColumnName();
               
               MdAttributeConcreteDAOIF mdAttribute = targetMdBusiness.definesAttribute(attr);
 
@@ -378,14 +378,22 @@ public class QueryUtil implements Reloadable
               String namespace = tableAlias+"."+columnName;
               
               String newTermTableAlias = valueQuery.getQueryFactory().getTableAlias(namespace, termTable); // namedspaced term 
-              // change the table alias hardcoded flag to the table alias created in the left join claus
-              ((SelectableSQL)s).setSQL(newTermTableAlias+"."+termNameColumn); 
+              
+              // create the display label table alias for the term
+              String displayLabelNamespace = namespace+"."+termTable;
+              String newDisplayLabelTableAlias = valueQuery.getQueryFactory().getTableAlias(displayLabelNamespace, termLabelMdEntityDAOIF.getTableName()); 
+
+              // Create the coalesce function for the term display label
+              String coalesceFunction = QueryUtil.getLocaleCoalesce(newDisplayLabelTableAlias + ".");
+              // Set the selectable to be the coalesce function.
+              ((SelectableSQL)s).setSQL(coalesceFunction); 
               
               if(aggregations.containsKey(columnAlias) && aggregations.get(columnAlias).getRestrictions().size() > 0)
               {
                 
                 String allPathsAlias = valueQuery.getQueryFactory().getTableAlias(namespace, ALLPATHS_ONTOLOGY_TABLE);
                 
+                // Join the given reference attribute on main datatype with the all paths table
                 currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias);
                 if (rootLeftJoin == null)
                 {
@@ -411,7 +419,7 @@ public class QueryUtil implements Reloadable
                   previousLeftJoin.nest(currleftJoinEq);
                   previousLeftJoin = currleftJoinEq;
                 }
-
+                
                 List<String> restrictions = aggregation.getRestrictions();
 
                 if (restrictions.size() > 0)
@@ -438,6 +446,11 @@ public class QueryUtil implements Reloadable
                 }
                 previousLeftJoin = currleftJoinEq;
               }
+              
+              // Join with the term table with the term display label
+              currleftJoinEq = new LeftJoinEq(mdAttributeTermDisplayLabel.getColumnName(), termTable, newTermTableAlias, EntityDAOIF.ID_COLUMN, termLabelMdEntityDAOIF.getTableName(), newDisplayLabelTableAlias);
+              previousLeftJoin.nest(currleftJoinEq);
+              previousLeftJoin = currleftJoinEq;
             } // if (termAttrib.equals(attr))
          } // for (String termAttrib : termAttributes)
         } // if (ind != -1)
