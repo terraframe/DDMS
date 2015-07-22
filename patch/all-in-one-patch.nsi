@@ -54,7 +54,7 @@ Function StrContains
   Exch 1
   Exch $STR_HAYSTACK
   ; Uncomment to debug
-  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK '
+  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK ' /SD IDOK
     StrCpy $STR_RETURN_VAR ""
     StrCpy $STR_CONTAINS_VAR_1 -1
     StrLen $STR_CONTAINS_VAR_2 $STR_NEEDLE
@@ -175,12 +175,12 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 7884
-  StrCpy $PatchVersion 7896
+  StrCpy $ManagerVersion 7938
+  StrCpy $PatchVersion 7939
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
-  StrCpy $LocalizationVersion 7831
+  StrCpy $LocalizationVersion 7930
   StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
@@ -604,7 +604,9 @@ Function patchManager
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
 	File ..\standalone\patch\manager.ps1
-    File ..\standalone\patch\manager.ico  
+    File ..\standalone\patch\manager.ico
+	File ..\standalone\patch\ddmschedule.bat
+	File ..\standalone\patch\ddmscli.bat
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
@@ -1077,7 +1079,8 @@ Section /o -un.Main UNSEC0000
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     
     ${If} $0 <> 0        
-        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled" /SD IDOK
         Abort
     ${EndIf}
     
@@ -1118,7 +1121,7 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components" Birt 
     DeleteRegValue HKLM "${REGKEY}\Components" Webapps
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
-    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
+    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.5-1.exe" /S`
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
     RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
     RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"

@@ -222,8 +222,9 @@ Function appNameUniquenessCheck
     StrCmp $AppName $1 appNameCollision appNameFileReadLoop
     
     appNameCollision:
-    MessageBox MB_OK|MB_ICONSTOP "$1 already exists.  Please choose another name."
-	FileClose $0
+	  LogEx::Write "FATAL: $1 already exists.  Please choose another name."
+      MessageBox MB_OK|MB_ICONSTOP "$1 already exists.  Please choose another name." /SD IDOK
+	  FileClose $0
     Abort
     
     appNameDone:
@@ -292,8 +293,8 @@ Function stopPostgres
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
   	# Goto PostgresDown
-    LogEx::Write "PostgreSQL failed to stop."
-	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." 
+      LogEx::Write "ERROR: PostgreSQL failed to stop."
+	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." /SD IDOK
 	  #Abort
     ${EndIf}	
 	
@@ -318,8 +319,8 @@ Function startPostgres
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
 	  Goto PostgresDown
-    LogEx::Write "PostgreSQL failed to start."
-	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." 
+      LogEx::Write "ERROR: PostgreSQL failed to start."
+	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." /SD IDOK
 	  #Abort
     ${EndIf}	
 	
@@ -334,15 +335,15 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7896
+    StrCpy $PatchVersion 7943
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
-    StrCpy $LocalizationVersion 7831
+    StrCpy $LocalizationVersion 7930
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7774
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7884
+	StrCpy $ManagerVersion 7938
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7802
@@ -375,7 +376,13 @@ Section -Main SEC0000
     installFireFox:
       LogEx::Write "Installing Firefox 27.0.1"
       !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
-      File "Firefox Setup 27.0.1.exe"
+	  
+      ${If} ${Silent}
+		File "Firefox Setup 27.0.1.exe -ms"
+	  ${Else}
+	    File "Firefox Setup 27.0.1.exe"
+	  ${EndIf}
+	  
       ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe"`
       Call findFireFox
     doneInstallFireFox:
@@ -383,7 +390,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Verifying Firefox Installation"
     StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
-      LogEx::Write "Firefox 27.0.1 was not found."
+	  LogEx::Write "ERROR: Firefox 27.0.1 was not found."
       MessageBox MB_OK|MB_ICONEXCLAMATION "Could not find FireFox. The installer can continue, but you may need to install Firefox yourself." /SD IDOK
     
     fireFoxFound:
@@ -441,7 +448,7 @@ Section -Main SEC0000
 	#IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
-	#MessageBox MB_OK "Postgres failed to install correctly" 
+	#MessageBox MB_OK "Postgres failed to install correctly" /SD IDOK
 	#Abort
 	
 	#PostgressInstallSuccess:
@@ -461,7 +468,8 @@ Section -Main SEC0000
     
     # Who knows what version we're on.
     ${Else}
-      MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
+      LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
+	  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
       File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
     
@@ -512,7 +520,9 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
 	File ..\standalone\patch\manager.ps1
-    File ..\standalone\patch\manager.ico	
+    File ..\standalone\patch\manager.ico
+	File ..\standalone\patch\ddmschedule.bat
+	File ..\standalone\patch\ddmscli.bat
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
@@ -574,8 +584,8 @@ Section -Main SEC0000
     IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
-    LogEx::Write "Post Install Setup Failed"
-	MessageBox MB_OK|MB_ICONSTOP "Post install process failed." 
+    LogEx::Write "ERROR: Post Install Setup Failed"
+	MessageBox MB_OK|MB_ICONSTOP "Post install process failed." /SD IDOK
 	ClearErrors
 	
 	skipErrorMsg:
@@ -722,7 +732,8 @@ Section /o -un.Main UNSEC0000
 	  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
 	  
 	  ${If} $0 <> 0        
-        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
+        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled" /SD IDOK
         Abort
 	  ${EndIf}
 	  
@@ -753,7 +764,7 @@ Section /o -un.Main UNSEC0000
 	#Uninstall Tomcat as a service
 	ExecWait `$TomcatExec //DS//Tomcat6`
 	
-  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
+  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.5-1.exe" /S`
   ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
   RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
   RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"

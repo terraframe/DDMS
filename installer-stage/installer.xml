@@ -69,11 +69,13 @@
     </classpath>
   </taskdef>
  
+
 <!--
-  <target name="build" depends="build_installer_exe"/> 
+  <target name="build" depends="build_installer_exe"/>
  -->
  
   <target name="build" depends="build-database, build_installer_exe"/>
+
   
   <target name="build-database">
     <echo message="Deleting directory: ${stage.webapp}/" />
@@ -95,12 +97,14 @@
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\:' replace=":" />
 
-    <echo message="Compiling/" />		
+    <echo message="Compiling/" />
+
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
       <target name="compile_generated" />
     </ant>
+	
 
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
@@ -129,20 +133,24 @@
     </ant>
 	
     <!-- We deploy all files after localization because we need to push the updated MDSS.properties files -->  
+	
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
 
       <target name="deploy_all_files"/>    
     </ant>
+	
   
     <!-- We need to update the deploy database with the source and class. -->  
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
-    <antcall target="deploy_update_db_source_and_classes" />    
+	<antcall target="deploy_update_db_source_and_classes" />    
+
 	
     <antcall target="set_vital_properties" />
-    <antcall target="dump_db" />	
+    <antcall target="dump_db" />
+
   </target>
 
   <target name="deploy_update_db_source_and_classes" depends="" description="Update DB Source and Classes">
