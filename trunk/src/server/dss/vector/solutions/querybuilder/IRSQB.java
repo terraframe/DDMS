@@ -157,6 +157,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   private CriteriaInterceptor               criteriaInterceptor;
 
   private String                            sprayViewAlias;
+  
+  private boolean                           joinSprayView = true;
 
   private String                            idCol;
 
@@ -1158,7 +1160,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       
       String sprayOpColumn = personAlias;
       String sprayOpTableName = View.SPRAY_VIEW.getView(); // ActualTeamSprayTarget.OPERATOR_PERSON;
-      String sprayOpTableAlias = View.SPRAY_VIEW.getView();
+      String sprayOpTableAlias = this.sprayViewAlias;
       
       // Used for calculating new table aliases for the query
       String personNamespace = sprayOpTableAlias+"."+sexAlias;
@@ -1188,6 +1190,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       s.setSQL(coalesceFunction); 
       
       irsVQ.AND(leftJoinEq1);
+      joinSprayView = false;
     }
   }
 
@@ -2115,18 +2118,17 @@ public class IRSQB extends AbstractQB implements Reloadable
     String leftTable = View.SPRAY_VIEW.getView();
     String leftAlias = this.sprayViewAlias;
     String insecticideView = View.INSECTICIDE_VIEW.getView();
-    boolean didJoin = false;
 
     if (irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
       irsVQ.AND(new LeftJoinEq(Alias.CREATE_DATE.getAlias(), leftTable, leftAlias, Alias.CREATE_DATE.getAlias(), IMPORTED_DATETIME, IMPORTED_DATETIME));
-      didJoin = true;
+      joinSprayView = false;
     }
 
     if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
     {
       irsVQ.AND(new LeftJoinEq(Alias.GEO_ENTITY.getAlias(), leftTable, leftAlias, idCol, QueryUtil.GEO_DISPLAY_LABEL, QueryUtil.GEO_DISPLAY_LABEL));
-      didJoin = true;
+      joinSprayView = false;
     }
 
     // Don't add anything regarding insecticide if the query is used for
@@ -2138,7 +2140,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       {
         SelectableSQLCharacter brand = irsVQ.aSQLCharacter("brand_join", this.sprayViewAlias + "." + Alias.BRAND.getAlias());
         irsVQ.WHERE(this.insecticideQuery.getId().EQ(brand));
-        didJoin = true;
+        joinSprayView = false;
       }
       
       if (this.requiredViews.contains(View.INSECTICIDE_VIEW))
@@ -2156,11 +2158,11 @@ public class IRSQB extends AbstractQB implements Reloadable
         
         rightSel = irsVQ.aSQLDate("end_date", insecticideView + "." + "end_date", "end_date");
         irsVQ.AND(leftSel.LE(rightSel));
-        didJoin = true;
+        joinSprayView = false;
       }
     }
     
-    if (!didJoin)
+    if (joinSprayView)
     {
       irsVQ.FROM(View.SPRAY_VIEW.getView(), this.sprayViewAlias);
     }
