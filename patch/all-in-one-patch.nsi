@@ -24,6 +24,7 @@ RequestExecutionLevel highest
 !include LogicLib.nsh
 !include FileFunc.nsh
 !include x64.nsh
+!include nsProcess.nsh
 
 # Define access to the StrTrimNewLines function
 !macro StrTrimNewLines ResultVar String
@@ -153,7 +154,16 @@ FunctionEnd
 
 # Installer sections
 Section -Main SEC0000
-
+  
+  # We're not doing anything if BIRT is running, it can cause (resource contention) issues.
+  ${nsProcess::FindProcess} "BIRT.exe" $0
+  Pop $0 ; The exit code
+  ${If} $0 != 603
+    LogEx::Write "FATAL: BIRT must be closed before patching. Close BIRT and try again. [$0]"
+    MessageBox MB_OK|MB_ICONSTOP "BIRT must be closed before patching. Close BIRT and try again." /SD IDOK
+    Abort
+  ${EndIf}
+  
   # Determine the location of java home.  
   ${IfNot} ${RunningX64}
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
@@ -176,7 +186,7 @@ Section -Main SEC0000
   StrCpy $RunwayVersion 7774
   StrCpy $MetadataVersion 7688
   StrCpy $ManagerVersion 7938
-  StrCpy $PatchVersion 7939
+  StrCpy $PatchVersion 7949
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
