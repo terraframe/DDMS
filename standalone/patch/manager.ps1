@@ -98,6 +98,7 @@ function main()
   else
   {
     help
+    echo "You entered: $($args)"
   }
 }
 
@@ -196,8 +197,6 @@ function startTomcat()
 
 function stopTomcat()
 {
-  echo "stop tomcat"
-
   $status = getTomcatStatus
   
   if ($status -eq "started")
