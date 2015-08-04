@@ -88,85 +88,6 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   }
 
   /**
-   * Custom JSON config method to add the the highest universal in the system if
-   * this query is for abundance calculation and if no universal columns have
-   * been added.
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected JSONObject constructQueryConfig(String config)
-  {
-    JSONObject json = super.constructQueryConfig(config);
-
-    if (this.hasAbundance)
-    {
-      JSONObject selectedUniMap;
-      try
-      {
-        selectedUniMap = json.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-        Iterator<String> keys = selectedUniMap.keys();
-        if (keys.hasNext())
-        {
-          // Will be
-          // "dss.vector.solutions.entomology.MosquitoCollection.geoEntity" as
-          // mosquito collection
-          // only has one GeoEntity attribute
-          String key = keys.next();
-
-          JSONArray universals = selectedUniMap.getJSONArray(key);
-          if (universals.length() == 0)
-          {
-            // no universals even though we're doing an abundance calculation
-            // so add the highest level universal automatically
-            universals.put(this.universalClass);
-            this.forceUniversal = true;
-          }
-        }
-      }
-      catch (JSONException e)
-      {
-        // we should never reach this
-        throw new ProgrammingErrorException(e);
-      }
-    }
-
-    return json;
-  }
-
-  @Override
-  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
-  {
-    super.setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
-    
-    if (this.forceUniversal)
-    {
-      // We know there is only one left join universal (Earth)
-      ValueQuery earthVQ = leftJoinValueQueries.get(0);
-      
-      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      String universalName = MdEntity.getMdEntity(this.universalClass).getTypeName();
-      String entityNameAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.ENTITYLABEL;
-      String geoIdAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.GEOID;
-      
-      Selectable name = earthVQ.aCharacter(entityNameAlias);
-      Selectable geoId = earthVQ.aCharacter(geoIdAlias);
-      
-      // Due to an unfortunate hack, taxon is forced as the first column but the
-      // query only
-      // works correctly if the geo columns are after taxon but before
-      // everything else. This
-      // needs to be more fully tested. (See setWithQuerySQL() for the source of
-      // this evil).
-      List<Selectable> selectables = valueQuery.getSelectableRefs();
-      selectables.add(0, name);
-      selectables.add(1, geoId);
-      
-      valueQuery.clearSelectClause();
-      valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-    }
-  }
-
-  /**
    * Hack check for abundance calculation within the query.
    * 
    * @return
@@ -433,16 +354,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           if (pair.getAttribute().equals(MosquitoCollection.COLLECTIONMETHOD))
           {
-            continue; // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
-//            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
-//            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-//            termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-//            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW + "." + this.collectionMethod.getColumnAlias())));
-//
-//            // There is no condition passthrough so we have to hack in the
-//            // EXISTS
-//            // operator
-//            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+            continue;
           }
           else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
@@ -454,27 +366,6 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
               
               valueQuery.WHERE(taxon.IN(idsList.toArray(new String[idsList.size()])));
             }
-            
-            // do nothing. NOTE: restriction behavior is now defined in the subquery instead of in the original query for terms
-            // Filtering on species during abundance calculation has to be done
-            // at the end so it doesn't disrupt the results
-            // of the recursive rollup. Even though the conditions are on the
-            // ontology allpaths table, we strictly match on the
-            // terms and do not include children.
-//
-//            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
-//            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-//
-//            String taxonCol = ABUNDANCE_VIEW + "." + QueryUtil.getColumnName(SubCollection.getTaxonMd());
-//            SelectableSQLCharacter taxon = termVQ.aSQLCharacter("taxon_term_criteria", taxonCol);
-//
-//            termVQ.SELECT(allpathsQ.getParentTerm());
-//            termVQ.AND(allpathsQ.getChildTerm().EQ(taxon));
-//
-//            // There is no condition passthrough so we have to hack in the
-//            // EXISTS
-//            // operator
-//            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", taxonCol + " IN ((" + termVQ.getSQL() + ")) AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
           }
         }
       }

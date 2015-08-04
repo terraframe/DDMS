@@ -188,42 +188,36 @@ YAHOO.util.Event.onDOMReady(function(){
                                   isTermAggregate:false
                                 }, */
                                 {
-                                  
                                   key:"mosquitoCount",
                                   type:"sqlinteger",
                                   attributeName:"mosquitoCount",
                                   isAggregate:true
                                 },
                                 {
-                                  
                                   key:"collectionCount",
                                   type:"sqlinteger",
                                   attributeName:"collectionCount",
                                   isAggregate:true
                                 },
                                 {
-                                  
                                   key:"subCollectionCount",
                                   type:"sqlinteger",
                                   attributeName:"subCollectionCount",
                                   isAggregate:true
                                 },
                                 {
-                                                      
                                   key:"abundance_1",
                                   type:"sqlfloat",
                                   attributeName:"abundance_1",
                                   isAggregate:true
                                 },
                                 {
-                                  
                                   key:"abundance_10",
                                   type:"sqlfloat",
                                   attributeName:"abundance_10",
                                   isAggregate:true
                                 },
                                 {
-                                  
                                   key:"abundance_100",
                                   type:"sqlfloat",
                                   attributeName:"abundance_100",
@@ -315,18 +309,17 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: false
     });
     dm.includes({
-      independent: ['collectionCount', 'subCollectionCount'],
-      dependent:['collectionMethod_mc'],
+      independent: ['collectionCount', 'subCollectionCount', "mosquitoCount"],
+      dependent:['collectionMethod_mc', "taxon"],
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.includes({
-      independent: ['mosquitoCount'],
-      dependent:['collectionMethod_mc'],
-      type: MDSS.Dependent.CHECKED,
+      independent: ['taxon'],
+      dependent: ['collectionCount', 'subCollectionCount', "mosquitoCount"],
+      type: MDSS.Dependent.UNCHECKED,
       bidirectional: false
     });
-    
 
     Mojo.GLOBAL.query = query;
 });
