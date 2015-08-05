@@ -120,9 +120,14 @@
   <!--
 	<target name="build-all" depends="build-installer,build-patch" />
 	-->
-	<target name="build-all" depends="build-installer,build-patch" />
+	<target name="build-all" depends="build-managers,build-installer,build-patch" />
 
-
+	<target name="build-managers">
+      <exec executable="cmd">
+        <arg value="/c" />
+        <arg value="${basedir}/../standalone\buildall.bat" />
+      </exec>
+	</target>
 
 	<target name="build-installer" depends="update-about">
 
@@ -172,6 +177,7 @@
 				<include name="${file.installer}"/>
 			</fileset>
 		</ftp>
+	</target>
 	
 	<target name="upload">	
 		<echo message="${file.installer}" />	
