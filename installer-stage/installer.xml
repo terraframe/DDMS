@@ -72,6 +72,7 @@
 
 <!--
   <target name="build" depends="build_installer_exe"/>
+  <target name="build" depends="build-database, build_installer_exe"/>
  -->
  
   <target name="build" depends="build-database, build_installer_exe"/>
@@ -254,7 +255,7 @@
     <replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
 	<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
-	<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+	<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
 	<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
 	<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
 	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
