@@ -335,15 +335,15 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7943
+    StrCpy $PatchVersion 7965
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
     StrCpy $LocalizationVersion 7930
     StrCpy $PermissionsVersion 7799
-	StrCpy $RunwayVersion 7774
+	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7938
+	StrCpy $ManagerVersion 7966
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7802
@@ -374,16 +374,17 @@ Section -Main SEC0000
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
-      LogEx::Write "Installing Firefox 27.0.1"
-      !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
-	  
-      ${If} ${Silent}
-		File "Firefox Setup 27.0.1.exe -ms"
-	  ${Else}
-	    File "Firefox Setup 27.0.1.exe"
-	  ${EndIf}
-	  
-      ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe"`
+    LogEx::Write "Installing Firefox 27.0.1"
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
+	 
+	File "Firefox Setup 27.0.1.exe"
+	
+	${If} ${Silent}
+	    ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe -ms"`
+	${Else}
+        ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe"`
+	${EndIf}
+	
       Call findFireFox
     doneInstallFireFox:
       
@@ -803,8 +804,8 @@ Function .onInit
   # Read the command-line parameters
   ${GetParameters} $Params
   ${GetOptions} "$Params" "-master" $R0
-
-	IfErrors masterFalse masterTrue
+  
+  IfErrors masterFalse masterTrue
    masterFalse:
       StrCpy $Master_Value "false"
       Goto masterDone
@@ -814,8 +815,26 @@ Function .onInit
     masterDone:
       ClearErrors
     
-  ${GetOptions} "$Params" "-install_number" $InstallationNumber
-  ${GetOptions} "$Params" "-app_name" $AppName
+  ClearErrors
+  ${GetOptions} "$Params" "-install_number" $R0
+  IfErrors numberFalse numberTrue
+   numberFalse:
+      Goto numberDone
+    numberTrue:
+      StrCpy $InstallationNumber $R0
+    numberDone:
+      ClearErrors
+	
+  ClearErrors
+  ${GetOptions} "$Params" "-app_name" $R0
+  IfErrors appNameFalse appNameTrue
+   appNameFalse:
+      Goto appNameDone
+    appNameTrue:
+      StrCpy $AppName $R0
+    appNameDone:
+      ClearErrors
+  
   ClearErrors
 FunctionEnd
 
