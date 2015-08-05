@@ -60,7 +60,11 @@
 		</fileset>
 	</path>
 
-	<target name="compile">
+	<target name="clean">
+	  <delete dir="${target.dir}" failonerror="false"/>
+	</target>
+	
+	<target name="compile" depends="clean">
 		<mkdir dir="${target.dir}" />
 		<mkdir dir="${target.dir}/classes" />
 
