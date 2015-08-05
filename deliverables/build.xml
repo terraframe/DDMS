@@ -5,6 +5,7 @@
     <property name="build.ftp.user" value="terraframe@terraframe.com" />
 	<property name="build.ftp.pass" value="_Terra4Frame" />
 	<property name="build.ftp.path" value="/ddms/installers" />
+	<property name="build.ftp.testpath" value="/ddms/testing" />
 
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
@@ -41,15 +42,17 @@
 		</ftp>
 	</target>
 	
-	<target name="build" depends="update,set-properties,build-all" />
+	<target name="build" depends="update,set-properties,build-all,upload-test" />
 	
 	<target name="build-installer-only" depends="update,set-properties,build-installer" />
 	
 	<target name="build-patch-only" depends="update,set-properties,build-patch" />
 	
 	<target name="upload-and-email" depends="set-properties,upload,email,increment" />	
-
+	
 	<target name="email-only" depends="set-properties,email,increment" />		
+	
+	<target name="standalone-upload-test" depends="set-properties,upload-test" />
 	
 	<target name="build-and-upload" depends="build,upload-and-email" />	
 	
@@ -114,9 +117,10 @@
 	</target>
 	
   
-  
+  <!--
 	<target name="build-all" depends="build-installer,build-patch" />
-	
+	-->
+	<target name="build-all" depends="build-installer,build-patch" />
 
 
 
@@ -138,24 +142,40 @@
 		<delete file="../patch/manager-patch.exe" />								
 	</target>
 	
-	<target name="upload">	
-		<echo message="${file.installer}" />	
-		<echo message="${file.patch}" />	
-
-		<!-- ftp upload -->
-		<!--
+	<target name="upload-test">	
 		<ftp server="ftp.terraframe.com"
 			 port="21"
-		     remotedir="${build.ftp.path}"
+		     remotedir="${build.ftp.testpath}"
+		     userid="${build.ftp.user}"
+		     password="${build.ftp.pass}"
+		     passive="yes"
+		     binary="yes"
+			 verbose="yes"
+			 action="delete">
+			<fileset dir=".">
+				<include name="*.exe"/>
+			</fileset>
+		</ftp>
+		
+		<echo message="${file.installer}" />	
+		<echo message="${file.patch}" />
+		<ftp server="ftp.terraframe.com"
+			 port="21"
+		     remotedir="${build.ftp.testpath}"
 		     userid="${build.ftp.user}"
 		     password="${build.ftp.pass}"
 		     passive="yes"
 		     binary="yes"
 			 verbose="yes">
 			<fileset dir=".">
-		    </fileset>
+				<include name="${file.patch}"/>			  			  			
+				<include name="${file.installer}"/>
+			</fileset>
 		</ftp>
-		-->
+	
+	<target name="upload">	
+		<echo message="${file.installer}" />	
+		<echo message="${file.patch}" />	
 		
 		<ftp server="ftp.terraframe.com"
 			 port="21"
@@ -181,7 +201,7 @@
 		    ssl="true"
             subject="${date} build complete"
             user="builder@terraframe.com"
-            password="p6s7r9ZT"
+            password="_Terra4Frame"
 			tolist="rrowlands@terraframe.com, dinfiesto@terraframe.com, nmceachen@terraframe.com, jsmethie@terraframe.com, jlewis@terraframe.com, miguel.orlans@gmail.com"
 			>
             <from address="builder@terraframe.com" />
