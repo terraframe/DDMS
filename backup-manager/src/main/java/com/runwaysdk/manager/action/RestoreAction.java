@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -18,6 +17,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.Restore;
 import com.runwaysdk.manager.BackupManagerWindow;
 import com.runwaysdk.manager.EventOutputStream;
@@ -26,6 +27,8 @@ import com.runwaysdk.manager.Logger;
 import com.runwaysdk.manager.ProgressMonitorDialogAdapter;
 import com.runwaysdk.manager.PropertiesAgent;
 import com.runwaysdk.manager.RegistryAgent;
+import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.RestoreAppnameException;
 
 public class RestoreAction extends Action
 {
@@ -136,6 +139,18 @@ public class RestoreAction extends Action
   }
   
   private static void doRestore(final File file, PrintStream print, boolean doRegistry, String appName)
+  {
+    try
+    {
+      doRestoreInRequest(file, print, doRegistry, appName);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+  @Request
+  private static void doRestoreInRequest(final File file, PrintStream print, boolean doRegistry, String appName)
   {
     Restore restore = new Restore(print, file.getAbsolutePath());
 

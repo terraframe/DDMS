@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -20,12 +19,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.manager.BackupManagerWindow;
 import com.runwaysdk.manager.EventOutputStream;
 import com.runwaysdk.manager.Localizer;
 import com.runwaysdk.manager.Logger;
 import com.runwaysdk.manager.RegistryAgent;
+import com.runwaysdk.session.Request;
 
 public class BackupAction extends Action
 {
@@ -123,6 +124,18 @@ public class BackupAction extends Action
   }
 
   private static void doBackup(final File file, PrintStream print, boolean doRegistry, String appName)
+  {
+    try
+    {
+      doBackupInRequest(file, print, doRegistry, appName);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+  @Request
+  private static void doBackupInRequest(final File file, PrintStream print, boolean doRegistry, String appName)
   {
     Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
 

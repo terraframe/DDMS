@@ -1,5 +1,7 @@
 package com.runwaysdk.manager;
 
+import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 import org.apache.commons.cli.CommandLine;
@@ -9,9 +11,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
@@ -163,13 +167,13 @@ public class BackupManagerWindow extends ApplicationWindow
 
     shell.getDisplay().asyncExec(runnable);
   }
-
-  public void error(Throwable throwable)
+  
+  public void error(final Throwable throwable)
   {
-    error(throwable.getLocalizedMessage());
+    error(Localizer.getMessage(throwable));
   }
 
-  public void message(final String msg)
+  public Shell message(final String msg)
   {
     final Shell shell = this.getShell();
 
@@ -183,6 +187,8 @@ public class BackupManagerWindow extends ApplicationWindow
     };
 
     shell.getDisplay().asyncExec(runnable);
+    
+    return shell;
   }
 
   public void run()
