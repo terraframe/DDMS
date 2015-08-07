@@ -739,7 +739,87 @@
     }
   });
   
-  Mojo.Meta.newClass('MDSS.report.ReportParameter', {
+  Mojo.Meta.newClass('MDSS.report.ReportParameterGroup', {
+    Instance: {
+      initialize : function(json)
+      {
+        this.groupName = json.groupName;
+        this.params = [];
+        initParams(json.contents, params);
+      },
+      
+      initParams : function(jsonContents, params)
+      {
+        var len = jsonContents.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var jsonParam = jsonContents[i];
+          params.push(new MDSS.report.ScalarReportParameter(jsonParam));
+        }
+      },
+      
+      build : function(form)
+      {
+        var len = this.params.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var param = this.params[i];
+          param.build(form);
+        }
+      },
+      
+      getGroupName : function()
+      {
+        return this.groupName;
+      }
+    }
+  });
+  
+  Mojo.Meta.newClass('MDSS.report.CascadingReportParameterGroup', {
+    Extends : MDSS.report.ReportParameterGroup,
+    Instance: {
+      initialize : function(json)
+      {
+        this.$initialize(json);
+      },
+      
+      initParams : function(jsonContents, params)
+      {
+        var len = jsonContents.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var jsonParam = jsonContents[i];
+          params.push(new MDSS.report.CascadingScalarReportParameter(jsonParam));
+        }
+      },
+      
+      /**
+       * Loops through the chain of dependent cascading parameters for paramName and returns
+       * the selected values in order.
+       */
+      getCascadedValues : function(paramName)
+      {
+        var values = [];
+        
+        var len = this.params.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var param = this.params[i];
+          
+          if (param.getName() === paramName)
+          {
+            break;
+          }
+          
+          values.push(param.getValue());
+        }
+        
+        return values;
+      }
+    }
+  });
+  
+  Mojo.Meta.newClass('MDSS.report.ScalarReportParameter', {
     Constants : {
       AUTO_SUGGEST : 4,
       CHECK_BOX : 3,
@@ -863,6 +943,42 @@
           return encodeURIComponent(this.getName()) + "=" + encodeURIComponent(this.getValue());          
         }
       },
+      build : function(form)
+      {
+        if(!this.isHidden())
+        {
+          if(this.getType() == MDSS.report.ReportParameter.AUTO || this.getType() == MDSS.report.ReportParameter.TEXT_BOX)
+          {
+            var entry = new MDSS.report.FormTextEntry(this);
+          
+            form.addEntry(entry);                      
+          }
+          else if(this.getType() == MDSS.report.ReportParameter.LIST_BOX)
+          {
+            var entry = new MDSS.report.SelectEntry(this);
+          
+            form.addEntry(entry);                      
+          }
+          else if(this.getType() == MDSS.report.ReportParameter.RADIO_BUTTON)
+          {
+            var entry = new MDSS.report.RadioEntry(this);
+          
+            form.addEntry(entry);
+          }
+          else if(this.getDataType() == MDSS.report.ReportParameter.TYPE_BOOLEAN &&  this.getType() == MDSS.report.ReportParameter.CHECK_BOX)
+          {
+            var entry = new MDSS.report.RadioEntry(this);
+            
+            form.addEntry(entry);
+          }       
+          else if(this.getType() == MDSS.report.ReportParameter.CHECK_BOX)
+          {
+            var entry = new MDSS.report.CheckboxEntry(this);
+          
+            form.addEntry(entry);
+          }       
+        }
+      },
       validate : function(value) {
         if(value === undefined)
         {
@@ -942,6 +1058,35 @@
       }
     }
   });
+  
+  Mojo.Meta.newClass('MDSS.report.CascadingScalarReportParameter', {
+    Extends : MDSS.report.ScalarReportParameter,
+    Instance: {
+      initialize : function(json, cascadingReportParameterGroup) {
+        this.$initialize(json)
+        this.cascadingReportParameterGroup = cascadingReportParameterGroup;
+      },
+      
+      build : function(form) {
+        if(!this.isHidden())
+        {
+          if(this.getType() == MDSS.report.ReportParameter.LIST_BOX)
+          {
+            var entry = new MDSS.report.SelectEntry(this);
+          
+            form.addEntry(entry);                      
+          }
+          else
+          {
+            if (window != null && window.console != null && Mojo.Util.isFunction(window.console.log))
+            {
+              window.console.log("Unsupported type for CascadingScalarReportParameter [" + this.getType() + "].");
+            }
+          }
+        }
+      }
+    }
+  });
     
   Mojo.Meta.newClass('MDSS.report.ReportPage', {
     Instance: {
@@ -1008,7 +1153,28 @@
             
         var len = array.length;
         for (var i = 0; i < len; i++) {
-          var parameter = new MDSS.report.ReportParameter(array[i]);
+          var parameter;
+          
+          if (json.parameterType === "Scalar")
+          {
+            parameter = new MDSS.report.ScalarReportParameter(array[i]);
+          }
+          else if (json.parameterType === "CascadingParameterGroup")
+          {
+            parameter = new MDSS.report.CascadingReportParameterGroup(array[i]);
+          }
+          else if (json.parameterType === "ParameterGroup")
+          {
+            parameter = new MDSS.report.ReportParameterGroup(array[i]);
+          }
+          else
+          {
+            if (window != null && window.console != null && Mojo.Util.isFunction(window.console.log))
+            {
+              window.console.log("Unknown parameter type [" + json.parameterType + "].");
+            }
+          }
+          
           this._parameters.push(parameter);
         }                        
       },
@@ -1054,39 +1220,7 @@
         for (var i = 0; i < len; i++) {
           var parameter = this._parameters[i];
           
-          if(!parameter.isHidden())
-          {
-            if(parameter.getType() == MDSS.report.ReportParameter.AUTO || parameter.getType() == MDSS.report.ReportParameter.TEXT_BOX)
-            {
-              var entry = new MDSS.report.FormTextEntry(parameter);
-            
-              form.addEntry(entry);                      
-            }
-            else if(parameter.getType() == MDSS.report.ReportParameter.LIST_BOX)
-            {
-              var entry = new MDSS.report.SelectEntry(parameter);
-            
-              form.addEntry(entry);                      
-            }
-            else if(parameter.getType() == MDSS.report.ReportParameter.RADIO_BUTTON)
-            {
-              var entry = new MDSS.report.RadioEntry(parameter);
-            
-              form.addEntry(entry);
-            }
-            else if(parameter.getDataType() == MDSS.report.ReportParameter.TYPE_BOOLEAN &&  parameter.getType() == MDSS.report.ReportParameter.CHECK_BOX)
-            {
-              var entry = new MDSS.report.RadioEntry(parameter);
-              
-              form.addEntry(entry);
-            }       
-            else if(parameter.getType() == MDSS.report.ReportParameter.CHECK_BOX)
-            {
-              var entry = new MDSS.report.CheckboxEntry(parameter);
-            
-              form.addEntry(entry);
-            }       
-          }
+          parameter.build(form);
         } 
         
         form.createButton("run_report", MDSS.localize("run_report"), true, Mojo.Util.bind(this, this._run));
