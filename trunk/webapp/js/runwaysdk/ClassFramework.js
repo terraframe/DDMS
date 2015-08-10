@@ -239,8 +239,6 @@
           throw new Exception(msg);
         }
         
-        this.__context = {}; // super context
-        
         if(arguments.length === 1 && arguments[0] === _pseudoConstructor)
         {
           _pseudoConstructor(); // for "reflective" newInstance()
@@ -253,27 +251,52 @@
       };      
     },
     
-    _addOverride : function(m)
+    _addOverride : function(methodName)
     {
-      return function(){
-        // find the next different method on the superclass prototype
-        // and execute it because it is the overridden super method.
-        var current = this.__context[m] || this.constructor;
-        var next = current.getMetaClass().getSuperClass();
+      return function OverrideFunc(){
+        // Our goal here is to execute the super method
         
-        while(current.prototype[m] === next.prototype[m])
+        // We can get a reference to the function that called us, but its just a function.
+        var caller = OverrideFunc.caller;
+        
+        // Now we need to find the MetaClass that our calling function belongs to.
+        var currentClazz = this.getMetaClass();
+        var currentMethod = currentClazz.getMethodMethod(methodName);
+        while (currentMethod == null || currentMethod !== caller)
         {
-          next = next.getMetaClass().getSuperClass();
+          currentClazz = currentClazz.getSuperClass().getMetaClass();
+          currentMethod = currentClazz.getMethodMethod(methodName);
         }
         
-        this.__context[m] = next;
+        // Find the calling function's super (using that meta class)
+        var nextClazz = currentClazz.getSuperClass().getMetaClass();
+        var superMethod = nextClazz.getMethodMethod(methodName);
+        while (superMethod == null || superMethod === caller)
+        {
+          nextClazz = nextClazz.getSuperClass().getMetaClass();
+          superMethod = nextClazz.getMethodMethod(methodName);
+        }
         
-        var retObj = next.prototype[m].apply(this, arguments);
+        // Invoke it
+        var retObj = superMethod.apply(this, arguments);
         
-        this.__context[m] = current;
         
         return retObj;
       };    
+    },
+    
+    __findMethod : function(meta, method)
+    {
+      var methods = meta._instanceMethods;
+      for (var name in methods)
+      {
+        if (methods.hasOwnProperty(name) && methods[name] === method)
+        {
+          return true;
+        }
+      }
+      
+      return false;
     },
     
     _addMethod : function(klass, superClass, methodName, definition)
@@ -952,6 +975,19 @@
       {
         // FIXME will not work with instance/static method of same name
         return this._instanceMethods[name] || this._staticMethods[name];
+      },
+      
+      /**
+       * Purely for convenience, this returns getMethod(name).getMethod(). If the method
+       * does not exist it will return null.
+       */
+      getMethodMethod : function(name)
+      {
+        var m = this.getMethod(name);
+        
+        if (m == null) { return null; }
+        
+        return m.getMethod();
       },
       
       hasInstanceMethod : function(name)
