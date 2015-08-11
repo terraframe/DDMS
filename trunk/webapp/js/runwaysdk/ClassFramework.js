@@ -258,14 +258,30 @@
         // We can get a reference to the function that called us, but its just a function.
         var caller = OverrideFunc.caller;
         
+        var callerName = caller.name;
+        if (callerName == null || callerName === "")
+        {
+          callerName = methodName; // If this isn't a correct assumption, we'll have to do the expensive lookup
+        }
+        
         // Now we need to find the MetaClass that our calling function belongs to.
         var currentClazz = this.getMetaClass();
-        var currentMethod = currentClazz.getMethodMethod(methodName);
-        while (currentMethod == null || currentMethod !== caller)
+        var currentMethod = currentClazz.getMethod(callerName);
+        try
         {
-          currentClazz = currentClazz.getSuperClass().getMetaClass();
-          currentMethod = currentClazz.getMethodMethod(methodName);
+          while (currentMethod == null || currentMethod.getMethod() !== caller)
+          {
+            currentClazz = currentClazz.getSuperClass().getMetaClass();
+            currentMethod = currentClazz.getMethod(methodName);
+          }
         }
+        catch (ex)
+        {
+          // If we've gotten here, then the user is supering up to a method with a different name from the one that called us
+          currentMethod = Mojo.Meta.__expensiveMethodLookup(this.getMetaClass(), caller);
+        }
+        currentClazz = currentMethod.getDefiningMetaClass();
+        
         
         // Find the calling function's super (using that meta class)
         var nextClazz = currentClazz.getSuperClass().getMetaClass();
@@ -282,6 +298,23 @@
         
         return retObj;
       };    
+    },
+    
+    __expensiveMethodLookup(meta, method)
+    {
+      var currentClazz = meta;
+      var currentMethod = null;
+      while (true)
+      {
+        var methods = currentClazz._instanceMethods;
+        for (var mname in methods) {
+          if (methods.hasOwnProperty(mname) && methods[mname].getMethod() === method) {
+            return methods[mname];
+          }
+        }
+        
+        currentClazz = currentClazz.getSuperClass().getMetaClass();
+      }
     },
     
     _addMethod : function(klass, superClass, methodName, definition)
@@ -1394,6 +1427,7 @@
         this._isStatic = config.isStatic;
         this._isConstructor = config.isConstructor;
         this._klass = config.klass || null;
+        this._metaClass = metaClass;
         this._overrideKlass = config.overrideKlass || null;
         this._isAbstract = config.isAbstract;
         this._enforceArity = config.enforceArity || false;
@@ -1486,6 +1520,11 @@
       getDefiningClass : function()
       {
         return this._klass;
+      },
+      
+      getDefiningMetaClass : function()
+      {
+        return this._metaClass;
       },
       
       toString : function()
