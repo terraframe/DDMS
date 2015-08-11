@@ -25,6 +25,7 @@ public class CascadingScalarParameterSerializer extends ScalarParameterSerialize
     this.groupName = groupName;
   }
   
+  @Override
   public JSONArray optionsToJSON(Object defaultValue, String convertedDefaultValue) throws JSONException
   {
     JSONArray options = new JSONArray();

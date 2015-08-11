@@ -515,6 +515,18 @@
                  
         this.setId(this._widget.getId());
       },
+      rebuildOptions : function(options)
+      {
+        this._widget.removeAllChildren();
+        
+        for (var i = 0; i < options.length; i++) {
+          var option = this.getFactory().newElement('option');
+          option.setAttribute('value', options[i].value);
+          option.setInnerHTML(options[i].label);
+          
+          this._widget.appendChild(option)
+        }
+      },
       hasError : function()
       {
         return (this._error.getInnerHTML() != '');
@@ -745,7 +757,7 @@
       {
         this.groupName = json.groupName;
         this.params = [];
-        initParams(json.contents, params);
+        this.initParams(json.contents, this.params);
       },
       
       initParams : function(jsonContents, params)
@@ -771,6 +783,35 @@
       getGroupName : function()
       {
         return this.groupName;
+      },
+      
+      validate : function()
+      {
+        var len = this.params.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var param = this.params[i];
+          param.validate();
+        }
+      },
+      
+      formatForUrl : function()
+      {
+        var ret = "";
+        
+        var len = this.params.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var param = this.params[i];
+          ret = ret + param.formatForUrl();
+          
+          if (i < len-1)
+          {
+            ret = ret + "&";
+          }
+        }
+        
+        return ret;
       }
     }
   });
@@ -778,9 +819,10 @@
   Mojo.Meta.newClass('MDSS.report.CascadingReportParameterGroup', {
     Extends : MDSS.report.ReportParameterGroup,
     Instance: {
-      initialize : function(json)
+      initialize : function(json, reportPage)
       {
         this.$initialize(json);
+        this._reportPage = reportPage;
       },
       
       initParams : function(jsonContents, params)
@@ -789,7 +831,58 @@
         for (var i = 0; i < len; ++i)
         {
           var jsonParam = jsonContents[i];
-          params.push(new MDSS.report.CascadingScalarReportParameter(jsonParam));
+          params.push(new MDSS.report.CascadingScalarReportParameter(jsonParam, this));
+        }
+      },
+      
+      /**
+       * Called when one of our CascadingScalarReportParameters has a new value set. When this happens,
+       * we need to update all of the cascading parameters.
+       */
+      onParameterSetValue : function(eventParam, newValue)
+      {
+        var ajaxParam = null;
+        var isDownstream = false;
+        var didAjax = false;
+        var len = this.params.length;
+        for (var i = 0; i < len; ++i)
+        {
+          var loopParam = this.params[i];
+          
+          if (!isDownstream)
+          {
+            if (eventParam.getName() === loopParam.getName())
+            {
+              isDownstream = true;
+            }
+            continue;
+          }
+          
+          if (!didAjax)
+          {
+            var cascadedValues = this.getCascadedValues(loopParam.getName());
+            
+            dss.vector.solutions.report.ReportItem.getSelectionListForCascadingGroup(new MDSS.Request({
+              onSuccess : function(json) {
+                ajaxParam.rebuildOptions(Mojo.Util.toObject(json));
+              },
+              onFailure : function(e) {
+                alert(e.getLocalizedMessage());
+              }
+            }), this._reportPage.getId(), loopParam.getName(), this.getGroupName(), cascadedValues);
+            
+            didAjax = true;
+            ajaxParam = loopParam;
+          }
+          
+          try
+          {
+            loopParam.clearOptions();
+          }
+          catch (e)
+          {
+            loopParam.getSelectEntry().addInlineError(e);
+          }
         }
       },
       
@@ -871,7 +964,7 @@
           }
         }
                 
-        if((this._options == null || this._options.length == 0) && this._dataType == MDSS.report.ReportParameter.TYPE_BOOLEAN)
+        if((this._options == null || this._options.length == 0) && this._dataType == MDSS.report.ScalarReportParameter.TYPE_BOOLEAN)
         {
           this._options = [{label:MDSS.localize('True'), value:'True'}, {label:MDSS.localize('False'), value:'False'}];
         }
@@ -947,31 +1040,31 @@
       {
         if(!this.isHidden())
         {
-          if(this.getType() == MDSS.report.ReportParameter.AUTO || this.getType() == MDSS.report.ReportParameter.TEXT_BOX)
+          if(this.getType() == MDSS.report.ScalarReportParameter.AUTO || this.getType() == MDSS.report.ScalarReportParameter.TEXT_BOX)
           {
             var entry = new MDSS.report.FormTextEntry(this);
           
             form.addEntry(entry);                      
           }
-          else if(this.getType() == MDSS.report.ReportParameter.LIST_BOX)
+          else if(this.getType() == MDSS.report.ScalarReportParameter.LIST_BOX)
           {
             var entry = new MDSS.report.SelectEntry(this);
           
             form.addEntry(entry);                      
           }
-          else if(this.getType() == MDSS.report.ReportParameter.RADIO_BUTTON)
+          else if(this.getType() == MDSS.report.ScalarReportParameter.RADIO_BUTTON)
           {
             var entry = new MDSS.report.RadioEntry(this);
           
             form.addEntry(entry);
           }
-          else if(this.getDataType() == MDSS.report.ReportParameter.TYPE_BOOLEAN &&  this.getType() == MDSS.report.ReportParameter.CHECK_BOX)
+          else if(this.getDataType() == MDSS.report.ScalarReportParameter.TYPE_BOOLEAN &&  this.getType() == MDSS.report.ScalarReportParameter.CHECK_BOX)
           {
             var entry = new MDSS.report.RadioEntry(this);
             
             form.addEntry(entry);
           }       
-          else if(this.getType() == MDSS.report.ReportParameter.CHECK_BOX)
+          else if(this.getType() == MDSS.report.ScalarReportParameter.CHECK_BOX)
           {
             var entry = new MDSS.report.CheckboxEntry(this);
           
@@ -998,7 +1091,7 @@
         }
         else if (value != null && value.length > 0)
         {
-          if(this._dataType == MDSS.report.ReportParameter.TYPE_FLOAT || this._dataType == MDSS.report.ReportParameter.TYPE_DECIMAL)
+          if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_FLOAT || this._dataType == MDSS.report.ScalarReportParameter.TYPE_DECIMAL)
           {
             // Validate the value represents a valid float or decimal
             var re = /^-{0,1}\d+(\.\d+){0,1}$/;
@@ -1007,7 +1100,7 @@
               throw new com.runwaysdk.Exception(MDSS.localize("invalid_birt_rational"));              
             }
           }
-          else if(this._dataType == MDSS.report.ReportParameter.TYPE_INTEGER)
+          else if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_INTEGER)
           {
             // Validate the value represents a valid whole number
             //var re = new RegExp('-{0,1}\d+');
@@ -1018,7 +1111,7 @@
               throw new com.runwaysdk.Exception(MDSS.localize("invalid_birt_integer"));              
             }
           }        
-          else if(this._dataType == MDSS.report.ReportParameter.TYPE_TIME)
+          else if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_TIME)
           {
             // Validate the value represents a valid time (hh:mm:ss)            
             var re = /^\d{2}:\d{2}:\d{2}$/;
@@ -1027,7 +1120,7 @@
               throw new com.runwaysdk.Exception(MDSS.localize("invalid_birt_time"));
             }          
           }        
-          else if(this._dataType == MDSS.report.ReportParameter.TYPE_DATE)
+          else if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_DATE)
           {
             // Validate the value represents a valid date (yyyy-MM-dd)
             var re = /^\d{4}-\d{2}-\d{2}$/;
@@ -1036,7 +1129,7 @@
               throw new com.runwaysdk.Exception(MDSS.localize("invalid_birt_date"));
             }          
           }        
-          else if(this._dataType == MDSS.report.ReportParameter.TYPE_DATE_TIME)
+          else if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_DATE_TIME)
           {
             // Validate the value represents a valid date time (yyyy-MM-dd HH:mm:ss.SSS)
             var re = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.*$/;
@@ -1046,7 +1139,7 @@
             }          
           
           }
-          else if(this._dataType == MDSS.report.ReportParameter.TYPE_BOOLEAN)
+          else if(this._dataType == MDSS.report.ScalarReportParameter.TYPE_BOOLEAN)
           {
             // Validate the value represents a valid date time (False, True)
             if(!(value == 'True' || value == 'False'))
@@ -1067,14 +1160,36 @@
         this.cascadingReportParameterGroup = cascadingReportParameterGroup;
       },
       
+      setValue : function(newValue, dontCallCascading) {
+        this.$setValue(newValue);
+        
+        if (!dontCallCascading)
+        {
+          this.cascadingReportParameterGroup.onParameterSetValue(this, newValue);
+        }
+      },
+      
+      getSelectEntry : function() {
+        return this._selectEntry;
+      },
+      
+      clearOptions : function() {
+        this.rebuildOptions([]);
+        this.setValue(null, true);
+      },
+      
+      rebuildOptions : function(options) {
+        this._selectEntry.rebuildOptions(options);
+      },
+      
       build : function(form) {
         if(!this.isHidden())
         {
-          if(this.getType() == MDSS.report.ReportParameter.LIST_BOX)
+          if(this.getType() == MDSS.report.ScalarReportParameter.LIST_BOX)
           {
-            var entry = new MDSS.report.SelectEntry(this);
+            this._selectEntry = new MDSS.report.SelectEntry(this);
           
-            form.addEntry(entry);                      
+            form.addEntry(this._selectEntry);                      
           }
           else
           {
@@ -1118,6 +1233,10 @@
         $( "#menu" ).menu();
         $( "#menu" ).hide();
       },
+      getId : function()
+      {
+        return this._id;
+      },
       getFactory : function()
       {
         return com.runwaysdk.ui.Manager.getFactory();
@@ -1150,28 +1269,29 @@
         this._parameters = [];
         
         var array = JSON.parse(json);
-            
+        
         var len = array.length;
         for (var i = 0; i < len; i++) {
+          var paramCfg = array[i];
           var parameter;
           
-          if (json.parameterType === "Scalar")
+          if (paramCfg.parameterType === "Scalar")
           {
-            parameter = new MDSS.report.ScalarReportParameter(array[i]);
+            parameter = new MDSS.report.ScalarReportParameter(paramCfg);
           }
-          else if (json.parameterType === "CascadingParameterGroup")
+          else if (paramCfg.parameterType === "CascadingParameterGroup")
           {
-            parameter = new MDSS.report.CascadingReportParameterGroup(array[i]);
+            parameter = new MDSS.report.CascadingReportParameterGroup(paramCfg, this);
           }
-          else if (json.parameterType === "ParameterGroup")
+          else if (paramCfg.parameterType === "ParameterGroup")
           {
-            parameter = new MDSS.report.ReportParameterGroup(array[i]);
+            parameter = new MDSS.report.ReportParameterGroup(paramCfg);
           }
           else
           {
             if (window != null && window.console != null && Mojo.Util.isFunction(window.console.log))
             {
-              window.console.log("Unknown parameter type [" + json.parameterType + "].");
+              window.console.log("Unknown parameter type [" + paramCfg.parameterType + "].");
             }
           }
           

@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 1359478541)
+@com.runwaysdk.business.ClassSignature(hash = 1505637966)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1359478541;
+  private static final long serialVersionUID = 1505637966;
   
   public ReportItemBase()
   {
@@ -590,6 +590,18 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   {
     ReportItem _instance = ReportItem.get(id);
     return _instance.getParameterDefinitions();
+  }
+  
+  public java.lang.String getSelectionListForCascadingGroup(java.lang.String paramName, java.lang.String groupName, java.lang.String[] cascadingValues)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportItem.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getSelectionListForCascadingGroup(java.lang.String id, java.lang.String paramName, java.lang.String groupName, java.lang.String[] cascadingValues)
+  {
+    ReportItem _instance = ReportItem.get(id);
+    return _instance.getSelectionListForCascadingGroup(paramName, groupName, cascadingValues);
   }
   
   public java.lang.String getURL()

@@ -6,11 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.birt.core.archive.FileArchiveWriter;
 import org.eclipse.birt.core.archive.IDocArchiveReader;
 import org.eclipse.birt.core.archive.compound.ArchiveReader;
@@ -21,13 +26,17 @@ import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
 import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
+import org.eclipse.birt.report.engine.api.ICascadingParameterGroup;
 import org.eclipse.birt.report.engine.api.IExcelRenderOption;
+import org.eclipse.birt.report.engine.api.IGetParameterDefinitionTask;
+import org.eclipse.birt.report.engine.api.IParameterDefnBase;
 import org.eclipse.birt.report.engine.api.IRenderOption;
 import org.eclipse.birt.report.engine.api.IRenderTask;
 import org.eclipse.birt.report.engine.api.IReportDocument;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunTask;
+import org.eclipse.birt.report.engine.api.IScalarParameterDefn;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
 import org.json.JSONArray;
@@ -64,6 +73,7 @@ import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.permission.ReadAction;
 import dss.vector.solutions.permission.WriteAction;
 import dss.vector.solutions.permissions.RoleProperty;
+import dss.vector.solutions.report.serialization.CascadingScalarParameterSerializer;
 import dss.vector.solutions.util.BirtEngine;
 
 public class ReportItem extends ReportItemBase implements com.runwaysdk.generation.loader.Reloadable
@@ -366,6 +376,62 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     return BASE_RUN_URL + this.getId();
   }
 
+  /**
+   * MdMethod
+   * 
+   * Used by reports to dynamically update a cascading parameter.
+   */
+  @Override
+  public java.lang.String getSelectionListForCascadingGroup(java.lang.String paramName, java.lang.String groupName, java.lang.String[] cascadingValues)
+  {
+    InputStream stream = this.getDesignAsStream();
+    IGetParameterDefinitionTask task = null;
+    
+    try
+    {
+      IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
+  
+      // Open a report design
+      IReportRunnable design = engine.openReportDesign(stream);
+  
+      task = engine.createGetParameterDefinitionTask(design);
+      
+      ArrayList<Object> cv = new ArrayList<Object>();
+      for (String v : cascadingValues)
+      {
+        cv.add(v);
+      }
+    
+      CascadingScalarParameterSerializer serializer = new CascadingScalarParameterSerializer(task, design, null, cv, groupName);
+
+      return serializer.optionsToJSON(null, null).toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (BirtException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    finally
+    {
+      try
+      {
+        if (task != null)
+        {
+          task.close();
+        }
+        stream.close();
+      }
+      catch (IOException e)
+      {
+        // TODO change exception type
+        throw new RuntimeException("Unable to get a report document", e);
+      }
+    }
+  }
+  
   @Override
   public InputStream getDesignAsStream()
   {
