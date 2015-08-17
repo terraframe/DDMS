@@ -34,15 +34,14 @@ def toolkitMain():
   deleteRestoreTemp()
   deleteGeneratedBackups()
 
-  logging.info("Reading config")
-  if not os.path.isfile("toolkitpersist.cfg"):
-    with open('toolkitpersist.cfg', 'a+') as cfgFile:
+  if not os.path.isfile(config.TESTING_ROOT + "/toolkitpersist.cfg"):
+    with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'a+') as cfgFile:
+      logging.info("Config file not found, creating new one.")
       json.dump({}, cfgFile)
-      cfgFile.close()
   
-  with open('toolkitpersist.cfg', 'r+') as cfgFile:
+  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
     cfg = json.load(cfgFile)
-    cfgFile.close()
+    logging.info("Read config as " + str(cfg))
   
   logging.info("Checking dependencies")
   getDependencies(cfg)
@@ -71,6 +70,7 @@ def getDependencies(cfg):
   installerChecked = False
   patcherChecked = False
   shouldLoop = True
+  toldUserWereWaiting = False
   while (shouldLoop):
     directory = connection.mlsd()
     for file in directory:
@@ -92,6 +92,9 @@ def getDependencies(cfg):
       logging.info("Installer and patcher found.")
       time.sleep(3)
     else:
+      if (not toldUserWereWaiting):
+        logging.info("Installer and patcher were either not found, or were not new. Waiting on new files.")
+        toldUserWereWaiting = True
       time.sleep(30)
 
   # download dependencies we'll need
@@ -129,7 +132,7 @@ def getDependencies(cfg):
     restoreFile.close()
  
   # Save last modified so we won't download it again later
-  with open('toolkitpersist.cfg', 'r+') as cfgFile:
+  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
     json.dump(cfg, cfgFile)
     cfgFile.close()
   
@@ -241,7 +244,7 @@ def uninstall():
 def exitWithFailure(msg, files=[]):
   logging.error(msg)
   sys.stderr.write(msg)
-  #backupLogs()
+  backupLogs()
 
   sendEmail("The recent DDMS build failed automated testing. Reason:\n" + msg, files)
   
@@ -274,7 +277,7 @@ def systemReboot():
     result = procezz.wait()
 
 def manualTesting():
-  toolkit.exitIfErrorInLogs()
+  exitIfErrorInLogs()
   ctypes.windll.user32.MessageBoxW(0, "You now have an opportunity to do any additional manual testing. When finished, click OK and control will be given back to the toolkit.", "DDMS Release Testing", 0)
   sendEmail("Ready for manual testing.")
   
@@ -294,9 +297,12 @@ def backupLogs():
   if os.path.exists(config.MDSS_ROOT + "/PostInstallSetup.log"):
     shutil.copyfile(config.MDSS_ROOT + "/PostInstallSetup.log", config.TESTING_ROOT + "/logs/PostInstallSetup.log")
 
+  if os.path.exists(config.TESTING_ROOT + "/shell.out"):
+    shutil.copyfile(config.TESTING_ROOT + "/shell.out", config.TESTING_ROOT + "/logs/shell.out")
+    
   ts = time.time()
   st = datetime.datetime.fromtimestamp(ts).strftime('(%Y-%m-%d)-(%H-%M-%S)')
-  backedUp = config.TESTING_ROOT + "/" + st
+  backedUp = config.TESTING_ROOT + "/results/" + st
   logging.info("Saving results to [" + backedUp + "].")
   shutil.copytree(config.TESTING_ROOT + "/logs", backedUp)
 
@@ -327,6 +333,9 @@ def exitIfErrorInLogs():
 
   if os.path.exists(config.MDSS_ROOT + "/installer-log.txt"):
     logFiles.append(config.MDSS_ROOT + "/installer-log.txt")
+    
+  if os.path.exists(config.TESTING_ROOT + "/shell.out"):
+    logFiles.append(config.TESTING_ROOT + "/shell.out")
 
   daemonRE = re.compile(".*commons-daemon.*\.log")
   for fileName in logFiles:
