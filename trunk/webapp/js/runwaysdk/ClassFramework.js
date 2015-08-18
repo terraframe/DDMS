@@ -300,7 +300,7 @@
       };    
     },
     
-    __expensiveMethodLookup(meta, method)
+    __expensiveMethodLookup : function(meta, method)
     {
       var currentClazz = meta;
       var currentMethod = null;
