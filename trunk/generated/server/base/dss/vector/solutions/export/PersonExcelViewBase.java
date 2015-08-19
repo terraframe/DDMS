@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1091571768)
+@com.runwaysdk.business.ClassSignature(hash = 508204173)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,9 +29,10 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   public static java.lang.String PASSWORD = "password";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
+  public static java.lang.String SUPERVISORCODE = "supervisorCode";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = -1091571768;
+  private static final long serialVersionUID = 508204173;
   
   public PersonExcelViewBase()
   {
@@ -539,6 +540,34 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
     else
     {
       setValue(SEX, value);
+    }
+  }
+  
+  public String getSupervisorCode()
+  {
+    return getValue(SUPERVISORCODE);
+  }
+  
+  public void validateSupervisorCode()
+  {
+    this.validateAttribute(SUPERVISORCODE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSupervisorCodeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUPERVISORCODE);
+  }
+  
+  public void setSupervisorCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORCODE, "");
+    }
+    else
+    {
+      setValue(SUPERVISORCODE, value);
     }
   }
   

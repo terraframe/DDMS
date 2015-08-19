@@ -64,7 +64,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
     TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), team.getId());
     tsv.setTarget(this.getTarget());
     tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
-    tsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
+    tsv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname()));
 
     String leaderID = this.getLeaderId();
 
@@ -152,6 +152,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
     list.add(SURFACETYPE);
     list.add(SUPERVISORNAME);
     list.add(SUPERVISORSURNAME);
+    list.add(SUPERVISORCODE);
     list.add(TARGET);
     list.add(OPERATORID);
     list.add(OPERATORTARGET);

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -781252823)
+@com.runwaysdk.business.ClassSignature(hash = -887850302)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -76,6 +76,24 @@ public  abstract  class PersonViewQueryBase extends com.runwaysdk.query.Generate
   public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.BIRTHLOCATION, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode()
+  {
+    return getCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.CODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.CODE, alias, displayLabel);
 
   }
  

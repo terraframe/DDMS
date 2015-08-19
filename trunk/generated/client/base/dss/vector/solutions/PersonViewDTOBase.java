@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -2033352512)
+@com.runwaysdk.business.ClassSignature(hash = -1644444085)
 public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = -2033352512;
+  private static final long serialVersionUID = -1644444085;
   
   protected PersonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -19,6 +19,7 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public static java.lang.String AGE = "age";
   public static java.lang.String BIRTHENTITY = "birthEntity";
   public static java.lang.String BIRTHLOCATION = "birthLocation";
+  public static java.lang.String CODE = "code";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
@@ -152,6 +153,43 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getBirthLocationMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(BIRTHLOCATION).getAttributeMdDTO();
+  }
+  
+  public String getCode()
+  {
+    return getValue(CODE);
+  }
+  
+  public void setCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(CODE, "");
+    }
+    else
+    {
+      setValue(CODE, value);
+    }
+  }
+  
+  public boolean isCodeWritable()
+  {
+    return isWritable(CODE);
+  }
+  
+  public boolean isCodeReadable()
+  {
+    return isReadable(CODE);
+  }
+  
+  public boolean isCodeModified()
+  {
+    return isModified(CODE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCodeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CODE).getAttributeMdDTO();
   }
   
   public java.util.Date getDateOfBirth()

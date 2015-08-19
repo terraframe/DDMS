@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1794930004)
+@com.runwaysdk.business.ClassSignature(hash = -381488293)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -46,6 +46,7 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String SUPERVISORCODE = "supervisorCode";
   public static java.lang.String SUPERVISORNAME = "supervisorName";
   public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
   public static java.lang.String SURFACETYPE = "surfaceType";
@@ -56,7 +57,7 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -1794930004;
+  private static final long serialVersionUID = -381488293;
   
   public TeamSprayExcelViewBase()
   {
@@ -1040,6 +1041,34 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(STRUCTURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getSupervisorCode()
+  {
+    return getValue(SUPERVISORCODE);
+  }
+  
+  public void validateSupervisorCode()
+  {
+    this.validateAttribute(SUPERVISORCODE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSupervisorCodeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUPERVISORCODE);
+  }
+  
+  public void setSupervisorCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORCODE, "");
+    }
+    else
+    {
+      setValue(SUPERVISORCODE, value);
     }
   }
   

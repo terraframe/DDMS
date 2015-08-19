@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 641804603)
+@com.runwaysdk.business.ClassSignature(hash = -1873094054)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -545,6 +545,24 @@ public  abstract  class ZoneSprayExcelViewQueryBase extends com.runwaysdk.query.
   public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.STRUCTURES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode()
+  {
+    return getSupervisorCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.SUPERVISORCODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.SUPERVISORCODE, alias, displayLabel);
 
   }
  

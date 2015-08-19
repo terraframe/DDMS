@@ -303,7 +303,6 @@
     __expensiveMethodLookup : function(meta, method)
     {
       var currentClazz = meta;
-      var currentMethod = null;
       while (true)
       {
         var methods = currentClazz._instanceMethods;

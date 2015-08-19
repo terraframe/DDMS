@@ -119,6 +119,25 @@
         </fieldset>
       </dd>
     </c:if>
+    <c:if test="${item.isSupervisor}">
+      <dt>
+        <label>
+          ${item.isSupervisorMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <fieldset>
+          <dt>
+            <label>
+              ${item.codeMd.displayLabel}
+            </label>
+          </dt>
+          <dd>
+            ${item.code}
+          </dd>
+        </fieldset>
+      </dd>
+    </c:if>
     <mdss:localize key="Edit" var="Localized_Edit" />
     <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
     <mdss:localize key="Create_new_person" var="Localized_Create_new_person" />

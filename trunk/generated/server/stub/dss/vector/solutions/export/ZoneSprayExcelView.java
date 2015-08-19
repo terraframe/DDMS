@@ -51,7 +51,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
     ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
 
     zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
-    zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
+    zsv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname()));
 
     zsv.apply();
 
@@ -144,6 +144,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
     list.add(SURFACETYPE);
     list.add(SUPERVISORNAME);
     list.add(SUPERVISORSURNAME);
+    list.add(SUPERVISORCODE);
     list.add(SPRAYTEAM);
     list.add(LEADERID);
     list.add(TEAMTARGET);

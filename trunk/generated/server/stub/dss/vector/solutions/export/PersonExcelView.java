@@ -102,6 +102,7 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     personView.setIsSprayLeader(this.getIsSprayLeader() != null && this.getIsSprayLeader());
     personView.setIsSprayOperator(this.getIsSprayOperator() != null && this.getIsSprayOperator());
     personView.setMemberId(this.getMemberId());
+    personView.setCode(this.getSupervisorCode());
 
     personView.setIsStockStaff(this.getIsStockStaff() != null && this.getIsStockStaff());
     personView.setIsSupervisor(this.getIsSupervisor() != null && this.getIsSupervisor());
@@ -125,6 +126,7 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     list.add(ISSPRAYOPERATOR);
     list.add(ISSTOCKSTAFF);
     list.add(ISSUPERVISOR);
+    list.add(SUPERVISORCODE);
     list.add(ISIPTRECIPIENT);
     list.add(ISITNRECIPIENT);
     list.add(ISPATIENT);

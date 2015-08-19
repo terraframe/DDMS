@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -655650240)
+@com.runwaysdk.business.ClassSignature(hash = 1464304843)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String AGE = "age";
   public static java.lang.String BIRTHENTITY = "birthEntity";
   public static java.lang.String BIRTHLOCATION = "birthLocation";
+  public static java.lang.String CODE = "code";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
@@ -38,7 +39,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -655650240;
+  private static final long serialVersionUID = 1464304843;
   
   public PersonViewBase()
   {
@@ -126,6 +127,34 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     else
     {
       setValue(BIRTHLOCATION, value);
+    }
+  }
+  
+  public String getCode()
+  {
+    return getValue(CODE);
+  }
+  
+  public void validateCode()
+  {
+    this.validateAttribute(CODE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCodeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CODE);
+  }
+  
+  public void setCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(CODE, "");
+    }
+    else
+    {
+      setValue(CODE, value);
     }
   }
   

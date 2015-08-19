@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -264298625)
+@com.runwaysdk.business.ClassSignature(hash = -1722845514)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -347,6 +347,24 @@ public  abstract  class PersonExcelViewQueryBase extends com.runwaysdk.query.Gen
   public com.runwaysdk.query.SelectableChar getSex(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.SEX, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode()
+  {
+    return getSupervisorCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.SUPERVISORCODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSupervisorCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.SUPERVISORCODE, alias, displayLabel);
 
   }
  

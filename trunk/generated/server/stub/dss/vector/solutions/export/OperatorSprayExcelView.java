@@ -3,13 +3,17 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -23,8 +27,11 @@ import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
+import dss.vector.solutions.irs.SupervisorCodeProblem;
+import dss.vector.solutions.irs.SupervisorNameProblem;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.permission.MDSSRoleView;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -60,7 +67,13 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     
     if (this.getSprayMethod() == null || this.getSprayMethod().equals(""))
     {
-      throw new RequiredAttributeException("SprayMethod is required.");
+      MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(OperatorSpray.CLASS);
+      MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(OperatorSpray.SPRAYMETHOD);
+
+      RequiredAttributeException exception = new RequiredAttributeException("SprayMethod is required.");
+      exception.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+
+      throw exception;
     }
 
     OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
@@ -92,8 +105,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setUsed(this.getUsed());
     osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
     osv.setSprayOperator(operator);
-    osv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
-
+    osv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname()));
+    
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
       SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
@@ -204,6 +217,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(SURFACETYPE);
     list.add(SUPERVISORNAME);
     list.add(SUPERVISORSURNAME);
+    list.add(SUPERVISORCODE);
     list.add(TARGET);
     list.add(RECEIVED);
     list.add(REFILLS);

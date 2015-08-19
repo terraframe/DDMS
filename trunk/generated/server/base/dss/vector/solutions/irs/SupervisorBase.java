@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1605154152)
+@com.runwaysdk.business.ClassSignature(hash = 1549990719)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.irs;
 public abstract class SupervisorBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.Supervisor";
+  public static java.lang.String CODE = "code";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -24,11 +25,39 @@ public abstract class SupervisorBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1605154152;
+  private static final long serialVersionUID = 1549990719;
   
   public SupervisorBase()
   {
     super();
+  }
+  
+  public String getCode()
+  {
+    return getValue(CODE);
+  }
+  
+  public void validateCode()
+  {
+    this.validateAttribute(CODE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getCodeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.Supervisor.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CODE);
+  }
+  
+  public void setCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(CODE, "");
+    }
+    else
+    {
+      setValue(CODE, value);
+    }
   }
   
   public java.util.Date getCreateDate()

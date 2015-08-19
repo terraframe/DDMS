@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -258451169)
+@com.runwaysdk.business.ClassSignature(hash = 1696651432)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,6 +37,23 @@ public  class SupervisorQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public String getClassType()
   {
     return dss.vector.solutions.irs.Supervisor.CLASS;
+  }
+  public com.runwaysdk.query.SelectableChar getCode()
+  {
+    return getCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.Supervisor.CODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.Supervisor.CODE, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -362,6 +379,9 @@ public  class SupervisorQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public interface SupervisorQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
+    public com.runwaysdk.query.SelectableChar getCode();
+    public com.runwaysdk.query.SelectableChar getCode(String alias);
+    public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -436,6 +456,23 @@ public  class SupervisorQuery extends com.runwaysdk.query.GeneratedBusinessQuery
       return this.NE(supervisor.getId());
     }
 
+  public com.runwaysdk.query.SelectableChar getCode()
+  {
+    return getCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.Supervisor.CODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.Supervisor.CODE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -701,6 +738,9 @@ public  class SupervisorQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public interface SupervisorQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
   {
 
+    public com.runwaysdk.query.SelectableChar getCode();
+    public com.runwaysdk.query.SelectableChar getCode(String alias);
+    public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -823,6 +863,23 @@ public  class SupervisorQuery extends com.runwaysdk.query.GeneratedBusinessQuery
       }
 
       return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableChar getCode()
+  {
+    return getCode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.Supervisor.CODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.Supervisor.CODE, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {

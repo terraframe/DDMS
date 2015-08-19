@@ -237,7 +237,19 @@
         <dd>
           <mjl:input id="supervisorInput" type="hidden" value="${item.isSupervisor}" param="isSupervisor" />
           <div id="supervisorDiv" style="display: ${item.isSupervisor ? 'block' : 'none'}">
-            <!-- Patient Fieldset -->
+            <fieldset>
+            <dt>
+              <label>
+                ${item.codeMd.displayLabel}
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="text" param="code" id="code" value="${item.code}" />
+              <mjl:messages attribute="code">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+          </fieldset>
           </div>
         </dd>
       </c:if>      

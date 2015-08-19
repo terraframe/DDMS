@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -286617272)
+@com.runwaysdk.business.ClassSignature(hash = -1730174195)
 public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -286617272;
+  private static final long serialVersionUID = -1730174195;
   
   protected PersonExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -34,6 +34,7 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   public static java.lang.String PASSWORD = "password";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
+  public static java.lang.String SUPERVISORCODE = "supervisorCode";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public java.util.Date getDateOfBirth()
@@ -675,6 +676,43 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+  }
+  
+  public String getSupervisorCode()
+  {
+    return getValue(SUPERVISORCODE);
+  }
+  
+  public void setSupervisorCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUPERVISORCODE, "");
+    }
+    else
+    {
+      setValue(SUPERVISORCODE, value);
+    }
+  }
+  
+  public boolean isSupervisorCodeWritable()
+  {
+    return isWritable(SUPERVISORCODE);
+  }
+  
+  public boolean isSupervisorCodeReadable()
+  {
+    return isReadable(SUPERVISORCODE);
+  }
+  
+  public boolean isSupervisorCodeModified()
+  {
+    return isModified(SUPERVISORCODE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSupervisorCodeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUPERVISORCODE).getAttributeMdDTO();
   }
   
   public String getUsername()

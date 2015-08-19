@@ -40,6 +40,64 @@ public class Supervisor extends SupervisorBase implements com.runwaysdk.generati
     }
 
   }
+  
+  public static Supervisor getByCodeAndName(String code, String name, String lastname)
+  {
+    Supervisor sup;
+    
+    if (code != null && !code.equals(""))
+    {
+      sup = Supervisor.getByCode(code);
+      
+      if (
+          sup == null
+          || (name != null && !name.equals("") && !name.equals(sup.getPerson().getFirstName()))
+          || (lastname != null && !lastname.equals("") && !lastname.equals(sup.getPerson().getLastName()))
+          )
+      {
+        SupervisorCodeProblem prob = new SupervisorCodeProblem();
+        prob.setCode(code);
+        prob.throwIt();
+      }
+    }
+    else
+    {
+      sup = Supervisor.getByName(name, lastname);
+      
+      if (sup == null)
+      {
+        SupervisorNameProblem prob = new SupervisorNameProblem();
+        prob.setName(name);
+        prob.setSurname(lastname);
+        prob.throwIt();
+      }
+    }
+    
+    return sup;
+  }
+  
+  public static Supervisor getByCode(String code)
+  {
+    SupervisorQuery query = new SupervisorQuery(new QueryFactory());
+    Condition condition = query.getCode().EQ(code);
+    query.WHERE(condition);
+    
+    OIterator<? extends Supervisor> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+      
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 
   public SupervisorView getView()
   {

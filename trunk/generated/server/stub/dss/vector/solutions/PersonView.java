@@ -119,6 +119,17 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       this.setIsSprayLeader(member.getIsSprayLeader());
       this.setMemberId(member.getMemberId());
     }
+    
+    Supervisor sup = concrete.getSupervisorDelegate();
+    if (sup == null)
+    {
+      this.setIsSupervisor(false);
+    }
+    else
+    {
+      this.setIsSupervisor(true);
+      this.setCode(sup.getCode());
+    }
 
     this.setIsStockStaff(concrete.getStockStaffDelegate() != null);
     this.setIsSupervisor(concrete.getSupervisorDelegate() != null);
@@ -252,6 +263,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
         supervisor = new Supervisor();
       }
       supervisor.setPerson(person);
+      supervisor.setCode(this.getCode());
       supervisor.apply();
     }
     else

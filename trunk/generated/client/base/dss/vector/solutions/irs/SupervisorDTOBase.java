@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -773237016)
+@com.runwaysdk.business.ClassSignature(hash = 1648241087)
 public abstract class SupervisorDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.Supervisor";
-  private static final long serialVersionUID = -773237016;
+  private static final long serialVersionUID = 1648241087;
   
   protected SupervisorDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class SupervisorDTOBase extends com.runwaysdk.business.BusinessD
     return CLASS;
   }
   
+  public static java.lang.String CODE = "code";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -40,6 +41,43 @@ public abstract class SupervisorDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public String getCode()
+  {
+    return getValue(CODE);
+  }
+  
+  public void setCode(String value)
+  {
+    if(value == null)
+    {
+      setValue(CODE, "");
+    }
+    else
+    {
+      setValue(CODE, value);
+    }
+  }
+  
+  public boolean isCodeWritable()
+  {
+    return isWritable(CODE);
+  }
+  
+  public boolean isCodeReadable()
+  {
+    return isReadable(CODE);
+  }
+  
+  public boolean isCodeModified()
+  {
+    return isModified(CODE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCodeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CODE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
