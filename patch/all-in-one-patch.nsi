@@ -183,10 +183,10 @@ Section -Main SEC0000
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7774
+  StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 7938
-  StrCpy $PatchVersion 7949
+  StrCpy $ManagerVersion 7988
+  StrCpy $PatchVersion 7988
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -372,7 +372,7 @@ Function patchApplication
 
       # Build any dimensional metadata with the Master domain
       !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
-      ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
+      ExecWait `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
       Call JavaAbort
 	  
 	  # Predictive id patching
@@ -566,13 +566,13 @@ Function patchMetadata
 	  
 		# Build any dimensional metadata with the Master domain
 		!insertmacro MUI_HEADER_TEXT "Patching metadata" "Preparing dimensional metadata for $AppName..."
-		ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter` $JavaError
+		ExecWait `$Java $JavaOpts=$AgentDir\dimensionalmetadata -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter` $JavaError
 		Call JavaAbort
 	${EndIf}
   
     # Execute patch
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Patching $AppName..."
-    ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
+    ExecWait `$Java $JavaOpts=$AgentDir\runwaypatcher -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
     Call JavaAbort
   
     # We need to clear the old cache
