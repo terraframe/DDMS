@@ -159,6 +159,7 @@
 			 action="delete">
 			<fileset dir=".">
 				<include name="*.exe"/>
+				<include name="marker.txt"/>
 			</fileset>
 		</ftp>
 		
@@ -175,6 +176,19 @@
 			<fileset dir=".">
 				<include name="${file.patch}"/>			  			  			
 				<include name="${file.installer}"/>
+			</fileset>
+		</ftp>
+		
+		<ftp server="ftp.terraframe.com"
+			 port="21"
+		     remotedir="${build.ftp.testpath}"
+		     userid="${build.ftp.user}"
+		     password="${build.ftp.pass}"
+		     passive="yes"
+		     binary="yes"
+			 verbose="yes">
+			<fileset dir=".">
+				<include name="marker.txt"/>
 			</fileset>
 		</ftp>
 	</target>
