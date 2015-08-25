@@ -1339,11 +1339,13 @@ public abstract class AbstractQB implements Reloadable
         Selectable sRefGeoLabel = geoEntityJoinData.geoSelectableLabel.get(leftJoinVQ.getTableAlias());
         SelectableSQL sGeoLabel = this.valueQuery.aSQLCharacter(sRefGeoLabel.getResultAttributeName(), leftJoinVQ.getTableAlias() + "." + sRefGeoLabel.getUserDefinedAlias());
         sGeoLabel.generateColumnAlias();
+        sGeoLabel.setUserDefinedDisplayLabel(this.parser.getIgnoredDisplayLabel(sRefGeoLabel.getResultAttributeName()));
         this.valueQuery.SELECT(sGeoLabel);
         
         Selectable sRefGeoId = geoEntityJoinData.geoSelectableId.get(leftJoinVQ.getTableAlias());
         SelectableSQL sGeoId = this.valueQuery.aSQLCharacter(sRefGeoId.getResultAttributeName(), leftJoinVQ.getTableAlias() + "." + sRefGeoId.getColumnAlias());
         sGeoId.generateColumnAlias();
+        sGeoId.setUserDefinedDisplayLabel(this.parser.getIgnoredDisplayLabel(sRefGeoId.getResultAttributeName()));
         this.valueQuery.SELECT(sGeoId);
         
         
@@ -1387,7 +1389,7 @@ public abstract class AbstractQB implements Reloadable
       valueQuery.AND(newCond);
     }
   }
-
+  
   /**
    * Performs basic validation on the ValueQuery to ensure the query is valid.
    * 
