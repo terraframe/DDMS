@@ -48,6 +48,7 @@ Table=1;]]></method>
                     <expression name="valueExpr">row["geo_id"]</expression>
                     <expression name="labelExpr">row["geo_id"]</expression>
                     <property name="dataType">string</property>
+                    <property name="paramType">multi-value</property>
                     <property name="controlType">list-box</property>
                     <property name="fixedOrder">true</property>
                     <structure name="format"/>

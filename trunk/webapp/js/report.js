@@ -473,7 +473,6 @@
         
         if(!model.allowNewValues())
         {
-          this._widget.setAttribute('multiple', model.isMultiple());
           this._widget.setAttribute('size', 3);
         }
         
@@ -831,7 +830,7 @@
         for (var i = 0; i < len; ++i)
         {
           var jsonParam = jsonContents[i];
-          params.push(new MDSS.report.CascadingScalarReportParameter(jsonParam, this));
+          params.push(new MDSS.report.CascadingScalarReportParameter(jsonParam, this, i === (len - 1)));
         }
       },
       
@@ -1155,7 +1154,8 @@
   Mojo.Meta.newClass('MDSS.report.CascadingScalarReportParameter', {
     Extends : MDSS.report.ScalarReportParameter,
     Instance: {
-      initialize : function(json, cascadingReportParameterGroup) {
+      initialize : function(json, cascadingReportParameterGroup, isLeaf) {
+        this._isLeaf = isLeaf;
         this.$initialize(json)
         this.cascadingReportParameterGroup = cascadingReportParameterGroup;
       },
@@ -1180,6 +1180,23 @@
       
       rebuildOptions : function(options) {
         this._selectEntry.rebuildOptions(options);
+      },
+      
+      isLeaf : function()
+      {
+        return this._isLeaf;
+      },
+      
+      isMultiple : function()
+      {
+        if (this.isLeaf())
+        {
+          return (this._scalarParameterType === 'multi-value');
+        }
+        else
+        {
+          return false;
+        }
       },
       
       build : function(form) {
