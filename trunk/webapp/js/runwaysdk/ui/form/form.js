@@ -232,8 +232,13 @@ var Select = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Select', {
       this.$initialize(name, config);
       config = config || {};
       var options = config.options || [];
-      this._el = this.getFactory().newElement('select', config);
+      
       this._multiple = config.multiple || false;
+      delete config.multiple;
+      
+      this._el = this.getFactory().newElement('select', config);
+      
+      
       if (this._multiple)
       {
         this._el.getEl().getRawEl().multiple = "multiple";
