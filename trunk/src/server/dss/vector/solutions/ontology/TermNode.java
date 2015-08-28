@@ -6,11 +6,12 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.general.Disease;
 
-public class TermNode implements Comparable<TermNode>
+public class TermNode implements Comparable<TermNode>, Reloadable
 {
   private String id;
   private String name;

@@ -106,7 +106,7 @@ public class ScalarParameterSerializer extends ParameterSerializer
                 JSONObject option = new JSONObject();
                 option.put("label", defaultValueString);
                 option.put("value", defaultValueString);
-
+                
                 options.put(option);
               }
             }

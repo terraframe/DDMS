@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Savepoint;
 import java.util.Deque;
 import java.util.HashMap;
@@ -28,6 +29,8 @@ import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
@@ -35,7 +38,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.export.ExcelVersionException;
 
-public class OntologyExcelImporter
+public class OntologyExcelImporter implements Reloadable
 {
   private Map<String, TermNode>       terms;
 
@@ -87,8 +90,36 @@ public class OntologyExcelImporter
   @Request
   public static void readRequest(File file) throws FileNotFoundException
   {
-    OntologyExcelImporter importer = new OntologyExcelImporter(file.getAbsolutePath());
-    importer.read(new BufferedInputStream(new FileInputStream(file)));
+    try
+    {
+      Class<?> thisClass = LoaderDecorator.load("dss.vector.solutions.ontology.OntologyExcelImporter");
+      Object inst = thisClass.getConstructor(new Class<?>[]{String.class}).newInstance(file.getAbsolutePath());
+      thisClass.getMethod("read", new Class<?>[]{InputStream.class}).invoke(inst, new BufferedInputStream(new FileInputStream(file)));
+    }
+    catch (InstantiationException e)
+    {
+      throw new RuntimeException(e);
+    }
+    catch (IllegalAccessException e)
+    {
+      throw new RuntimeException(e);
+    }
+    catch (SecurityException e)
+    {
+      throw new RuntimeException(e);
+    }
+    catch (NoSuchMethodException e)
+    {
+      throw new RuntimeException(e);
+    }
+    catch (IllegalArgumentException e)
+    {
+      throw new RuntimeException(e);
+    }
+    catch (InvocationTargetException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
 
   public OntologyExcelImporter(String fileName)
@@ -111,7 +142,7 @@ public class OntologyExcelImporter
     QueryFactory f = new QueryFactory();
     RootTermQuery q = new RootTermQuery(f);
     OIterator<? extends RootTerm> rootIterator = q.getIterator();
-
+    
     try
     {
       if (rootIterator.hasNext())
