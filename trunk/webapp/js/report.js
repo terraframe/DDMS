@@ -1023,6 +1023,7 @@
         
         var decoded = decodeURIComponent(results[1].replace(/\+/g, " "));
         
+        return decoded;
       },
       formatForUrl : function()
       {
