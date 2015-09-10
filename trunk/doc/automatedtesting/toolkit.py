@@ -69,31 +69,50 @@ def getDependencies(cfg):
   getDepends = []
   installerChecked = False
   patcherChecked = False
+  foundMarker = False
   shouldLoop = True
   toldUserWereWaiting = False
   while (shouldLoop):
     directory = connection.mlsd()
     for file in directory:
-      if (installRe.match(file[0])):
-        if (not installerChecked and ((not "installer" in cfg) or cfg["installer"] != file[1]["modify"])):
-          cfg["installer"] = file[1]["modify"]
-          getDepends.append(file[0])
-          installerChecked = True
-          installerName = file[0]
-      if (patchRe.match(file[0])):
-        if (not patcherChecked and ((not "patcher" in cfg) or cfg["patcher"] != file[1]["modify"])):
-          cfg["patcher"] = file[1]["modify"]
-          getDepends.append(file[0])
-          patcherChecked = True
-          patcherName = file[0]
+      if (
+        installRe.match(file[0]) and
+        not installerChecked and
+        ((not "installer" in cfg) or cfg["installer"] != file[1]["modify"])
+        ):
+        cfg["installer"] = file[1]["modify"]
+        getDepends.append(file[0])
+        installerChecked = True
+        toldUserWereWaiting = False
+        installerName = file[0]
+      elif (
+        patchRe.match(file[0]) and
+        not patcherChecked and
+        ((not "patcher" in cfg) or cfg["patcher"] != file[1]["modify"])
+        ):
+        cfg["patcher"] = file[1]["modify"]
+        getDepends.append(file[0])
+        patcherChecked = True
+        toldUserWereWaiting = False
+        patcherName = file[0]
+      elif (file[0] == "marker.txt"):
+        foundMarker = True # The marker tells us that not only do the files exist, they're also finished uploading
+        toldUserWereWaiting = False
         
-    if (patcherChecked and installerChecked):
+    if (patcherChecked and installerChecked and foundMarker):
       shouldLoop = False
       logging.info("Installer and patcher found.")
       time.sleep(3)
     else:
       if (not toldUserWereWaiting):
-        logging.info("Installer and patcher were either not found, or were not new. Waiting on new files.")
+        if patcherChecked and installerChecked:
+          logging.info("Waiting on marker flag.")
+        elif not patcherChecked and not installerChecked:
+          logging.info("Waiting on both patcher and installer.")
+        elif not patcherChecked and installerChecked:
+          logging.info("Waiting on patcher.")
+        elif not installerChecked and patcherChecked:
+          logging.info("Waiting on installer.")
         toldUserWereWaiting = True
       time.sleep(30)
 
@@ -267,6 +286,7 @@ def sendEmail(body, files=[]):
   server = smtplib.SMTP(config.email["server"])
   server.starttls()
   server.login(config.email["username"], config.email["password"])
+  logging.info("Sending email(s) to [" + config.email["to"] + "] with body [" + body + "]")
   server.sendmail(config.email["from"], config.email["to"], msg.as_string())
   server.quit()
   
@@ -278,15 +298,15 @@ def systemReboot():
 
 def manualTesting():
   exitIfErrorInLogs()
-  ctypes.windll.user32.MessageBoxW(0, "You now have an opportunity to do any additional manual testing. When finished, click OK and control will be given back to the toolkit.", "DDMS Release Testing", 0)
   sendEmail("Ready for manual testing.")
+  ctypes.windll.user32.MessageBoxW(0, "You now have an opportunity to do any additional manual testing. When finished, click OK and control will be given back to the toolkit.", "DDMS Release Testing", 0)
   
 def backupLogs():
   if os.path.exists(config.MDSS_ROOT + "/logs"):
     shutil.copytree(config.MDSS_ROOT + "/logs", config.TESTING_ROOT + "/logs/mdsslogs")
 
   if os.path.exists(config.MDSS_ROOT + "/tomcat6/logs"):
-    shutil.copytree(config.MDSS_ROOT + "/logs", config.TESTING_ROOT + "/logs/tomcatlogs")
+    shutil.copytree(config.MDSS_ROOT + "/tomcat6/logs", config.TESTING_ROOT + "/logs/tomcatlogs")
 
   if os.path.exists(config.MDSS_ROOT + "/patch"):
     shutil.copytree(config.MDSS_ROOT + "/patch", config.TESTING_ROOT + "/logs/patch")

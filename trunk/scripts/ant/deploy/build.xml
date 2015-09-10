@@ -19,7 +19,7 @@
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" location="C:/Program Files (x86)/PostgreSQL/9.1/bin"/>
+	<property name="postgres.bin" location="/usr/local/Cellar/postgresql/9.0.17_1/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 

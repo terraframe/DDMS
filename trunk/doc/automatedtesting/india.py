@@ -9,26 +9,26 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class India(unittest.TestCase):
+class Ghana(unittest.TestCase):
 
   @classmethod
   def setUpClass(self):
-    toolkit.install("India")
-    toolkit.restore("India")
+    toolkit.install("Ghana")
+    toolkit.restore("Ghana")
     toolkit.patch()
     toolkit.startTomcat()
     
     self.driver = webdriver.Firefox()
     self.driver.implicitly_wait(30)
-    self.base_url = "http://localhost:8080/India"
+    self.base_url = "http://localhost:8080/Ghana"
     self.accept_next_alert = True
   
     driver = self.driver
     driver.get(self.base_url)
     driver.find_element_by_name("username").clear()
-    driver.find_element_by_name("username").send_keys("ddms")
+    driver.find_element_by_name("username").send_keys("train")
     driver.find_element_by_name("password").clear()
-    driver.find_element_by_name("password").send_keys("ddms")
+    driver.find_element_by_name("password").send_keys("train")
     driver.find_element_by_id("submitLogin").click()
     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, "mainNav")))
 
@@ -49,15 +49,16 @@ class India(unittest.TestCase):
 
   @classmethod
   def tearDownClass(self):
-    self.driver.get(self.base_url + "/com.runwaysdk.defaults.LoginController.logout.mojo")
-    self.driver.quit()
+    if self.driver is not None:
+      self.driver.get(self.base_url + "/com.runwaysdk.defaults.LoginController.logout.mojo")
+      self.driver.quit()
     
     toolkit.manualTesting()
     
     toolkit.stopTomcat()
-    toolkit.backup("India")
+    toolkit.backup("Ghana")
     toolkit.deleteGeneratedBackups()
-    toolkit.uninstall()
+    #toolkit.uninstall()
     
   def waitComServer(self):
     WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, "wait_for_ajax_c")))

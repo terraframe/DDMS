@@ -22,6 +22,7 @@
 		<pathelement location="${client.bin}" />
 		<pathelement location="${server.bin}" />
 		<pathelement location="${common.bin}" />
+		<pathelement location="${local.src}/backup" />
 	</path>
 	
 	<property name="myclasspath" refid="framework.classpath"/>

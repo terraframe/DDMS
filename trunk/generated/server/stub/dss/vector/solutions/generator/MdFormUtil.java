@@ -31,6 +31,7 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdWebFormInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -1247,8 +1248,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       if (label.length() == 0)
       {
         label = mdForm.getFormName();
-        mdForm.getDisplayLabel().setValue(label);
       }
+      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export all locales.
+      mdForm.getDisplayLabel().setValue(null);
+      mdForm.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, label);
 
       String description = mdForm.getDescription().getValue();
 
@@ -1264,7 +1267,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdBusiness = new MdBusiness();
       mdBusiness.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
       mdBusiness.setTypeName(typeName);
-      mdBusiness.getDisplayLabel().setValue(label);
+      
+      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      mdBusiness.getDisplayLabel().setValue(null);
+      mdBusiness.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, label);
+      
       mdBusiness.getDescription().setValue(description);
       mdBusiness.setIsAbstract(false);
       mdBusiness.setExtendable(true);
@@ -1298,7 +1305,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdAttributeCharacter.setDefiningMdClass(mdBusiness);
       mdAttributeCharacter.setRemove(false);
       mdAttributeCharacter.setRequired(true);
-      mdAttributeCharacter.getDisplayLabel().setValue(DEFAULT_OID_LABEL);
+      
+      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      mdAttributeCharacter.getDisplayLabel().setValue(null);
+      mdAttributeCharacter.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, DEFAULT_OID_LABEL);
+      
       mdAttributeCharacter.apply();
 
       MdWebCharacter mdWebCharacter = new MdWebCharacter();
@@ -1309,7 +1320,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdWebCharacter.setUnique(true);
       mdWebCharacter.setRemove(false);
       mdWebCharacter.setRequired(true);
-      mdWebCharacter.getDisplayLabel().setValue(DEFAULT_OID_LABEL);
+      
+      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      mdWebCharacter.getDisplayLabel().setValue(null);
+      mdWebCharacter.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, DEFAULT_OID_LABEL);
+      
       mdWebCharacter.setDefiningMdAttribute(mdAttributeCharacter);
       mdWebCharacter.setDefiningMdForm(mdForm);
       mdWebCharacter.apply();
