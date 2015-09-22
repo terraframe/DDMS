@@ -9,6 +9,9 @@
 	<classpathentry kind="src" output="generated/server/bin" path="generated/server/stub"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="profiles"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.birt.runtime-4.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-ooxml-3.12.jar"/>
 	<classpathentry kind="src" output="generated/client/bin" path="generated/client/base"/>
 	<classpathentry kind="src" output="generated/common/bin" path="generated/common/base"/>
 	<classpathentry kind="src" output="generated/server/bin" path="generated/server/base"/>
@@ -112,11 +115,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.codec_1.3.0.v201101211617.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.logging_1.0.4.v201101211617.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.poi_3.9.0.v201303080712.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xerces_2.9.0.v201101211617.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xml.resolver_1.2.0.v201005080400.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xml.serializer_2.7.1.v201005080400.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.birt.runtime_4.3.2.v20140225-1404.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.contenttype_3.4.200.v20130326-1255.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.expressions_3.4.501.v20131118-1915.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.filesystem_1.4.0.v20130514-1240.jar"/>
@@ -193,5 +194,6 @@
 	<classpathentry kind="lib" path="lib/common/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/zip4j_1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/client/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/server/ognl-3.0.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

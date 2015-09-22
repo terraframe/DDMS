@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.io.Files;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.VaultInfo;
@@ -206,7 +207,7 @@ public class BackupDevImporter
     }
     catch (Throwable e)
     {
-      logger.error("Exception while dropping tables. This can happen if the database has already been dropped, we're going to keep running as if nothing happened.", e);
+      logger.warn("Exception while dropping tables. This can happen if the database has already been dropped, we're going to keep running as if nothing happened.", e);
     }
 
     if (tableNames != null)
@@ -217,6 +218,12 @@ public class BackupDevImporter
   
   private void importSQL()
   {
+    String dbbin = DatabaseProperties.getDatabaseBinDirectory();
+    if (dbbin.equals("") || !new File(dbbin).exists())
+    {
+      throw new RuntimeException("Check the value of your databaseBinDirectory in database.properties");
+    }
+    
     FilenameFilter filter = new FilenameFilter()
     {
       @Override
@@ -308,50 +315,39 @@ public class BackupDevImporter
       this.logger.warn("This error happened while deleting the existing webapp content", e);
     }
     
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    PrintStream ps = new PrintStream(baos);
-    try
-    {
-      // Copy source of universals
-      String geoGen = "/dss/vector/solutions/geo/generated";
-      File geoGenDest = new File(fDestSrcRoot, geoGen);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/stub" + geoGen), geoGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/base" + geoGen), geoGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/base" + geoGen), geoGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/stub" + geoGen), geoGenDest, filenameFilter, ps);
-      
-      // and generated forms
-      String formGen = "/dss/vector/solutions/form/business";
-      File formGenDest = new File(fDestSrcRoot, formGen);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGen), formGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGen), formGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGen), formGenDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGen), formGenDest, filenameFilter, ps);
-      
-      // and generated form's relationships
-      String formGenRel = "/dss/vector/solutions/form/tree";
-      File formGenRelDest = new File(fDestSrcRoot, formGenRel);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGenRel), formGenRelDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGenRel), formGenRelDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGenRel), formGenRelDest, filenameFilter, ps);
-      FileIO.copyFolder(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGenRel), formGenRelDest, filenameFilter, ps);
-      
-      this.logger.info(baos.toString());
-    }
-    finally
-    {
-      ps.close();
-      try
-      {
-        baos.close();
-      }
-      catch (IOException e)
-      {
-        throw new RuntimeException(e);
-      }
-    }
+    // Copy source of universals
+    String geoGen = "/dss/vector/solutions/geo/generated";
+    File geoGenDest = new File(fDestSrcRoot, geoGen);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + geoGen), geoGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + geoGen), geoGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + geoGen), geoGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/stub" + geoGen), geoGenDest, filenameFilter);
+    
+    // and generated forms
+    String formGen = "/dss/vector/solutions/form/business";
+    File formGenDest = new File(fDestSrcRoot, formGen);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGen), formGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGen), formGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGen), formGenDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGen), formGenDest, filenameFilter);
+    
+    // and generated form's relationships
+    String formGenRel = "/dss/vector/solutions/form/tree";
+    File formGenRelDest = new File(fDestSrcRoot, formGenRel);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGenRel), formGenRelDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGenRel), formGenRelDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGenRel), formGenRelDest, filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGenRel), formGenRelDest, filenameFilter);
     
     deleteDuplicateWebappSource();
+  }
+  
+  private void copyFolderIfExist(File source, File destination, FilenameFilter filter)
+  {
+    if (source.exists())
+    {
+      FileIO.copyFolder(source, destination, filter);
+    }
   }
   
   /**
