@@ -1015,7 +1015,7 @@
       },
       getParameterByName : function (name) {
         // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]").replace(" ", "%20");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
         
@@ -1276,11 +1276,11 @@
           }
         });
         
-        if(this._required) {
+        if (this._required) {
           $("#navigationBar").hide();
+          
+          dss.vector.solutions.report.ReportItem.getParameterDefinitions(request, this._id);
         }
-            
-        dss.vector.solutions.report.ReportItem.getParameterDefinitions(request, this._id);    
       },
       _setParameters : function(json)
       {
@@ -1396,16 +1396,25 @@
       },
       _getUrl : function()
       {
-        var url = "dss.vector.solutions.report.ReportController.run.mojo?report=" + this._id;
+        var action = "dss.vector.solutions.report.ReportController.run.mojo";
         
-        var len = this._parameters.length;
-        for (var i = 0; i < len; i++) {
-          var parameter = this._parameters[i];
-        
-          url += "&" + parameter.formatForUrl();
-        } 
-        
-        return url;
+        if (this._parameters != null && this._parameters.length > 0)
+        {
+          var url = action + "?report=" + this._id;
+          
+          var len = this._parameters.length;
+          for (var i = 0; i < len; i++) {
+            var parameter = this._parameters[i];
+          
+            url += "&" + parameter.formatForUrl();
+          }
+          
+          return url;
+        }
+        else
+        {
+          return action + window.location.search.replace(new RegExp("pageNumber=[0-9]+", "g"), "");
+        }
       },
       _run : function(){        
         

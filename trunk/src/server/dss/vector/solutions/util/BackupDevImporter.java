@@ -116,6 +116,8 @@ public class BackupDevImporter
       
       this.importSQL();
       
+      this.patch();
+      
       this.restoreWebapp();
       
       this.restoreVault();
@@ -268,6 +270,14 @@ public class BackupDevImporter
     // Run some SQL to reset the admin password back to ddms
     Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms'");
     Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms admin'");
+  }
+  
+  /**
+   * Patch the database to the development version by importing all schemas.
+   */
+  private void patch()
+  {
+    
   }
   
   private void restoreWebapp()
