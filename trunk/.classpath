@@ -80,7 +80,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/common/log4j-1.2.16.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/runwaysdk-server"/>
+	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/runwaysdk-common"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-gis-server.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-gis-common.jar"/>
@@ -182,7 +182,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/common/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/UTF8Resource.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-email-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/geoserver-manager-1.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/jdom-1.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/mdssaspect.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/postgis_jts_1.5.3.jar"/>
@@ -195,5 +194,6 @@
 	<classpathentry kind="lib" path="lib/common/zip4j_1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/client/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/server/ognl-3.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

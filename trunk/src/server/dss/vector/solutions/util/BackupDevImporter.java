@@ -51,8 +51,18 @@ import dss.vector.solutions.report.CacheDocumentManager;
 /**
  * This importer will import production backup datasets into your dev environment.
  * 
- * To use: Run the main program with a launch configuration with a single program argument: the absolute path
- *   of the backup file you want to restore, including the filename extension.
+ * Steps from ground 0:
+ * 1) Create a new database
+ * 2) Install the postgis extension
+ * 3) Modify the database permissions to make sure our user is gonna be able to access it (otherwise the import just skips with no errors)
+ * 4) Create a new launch for this java class with extra memory with a first argument that is the path to your zipped backup
+ * 5) Build the project and then run that launch!
+ * 
+ * 
+ * Troubleshooting steps (aka did the import happen but give no real error!?):
+ * 1) find your data directory (show data_directory)
+ * 2) find your log file (show log_filename, show log_directory)
+ * 3) CHECK THE POSTGRES LOGS (mine is at /usr/local/var/postgres/9.3/server.log)
  * 
  * @author rrowlands
  */
@@ -112,7 +122,7 @@ public class BackupDevImporter
       
       this.deleteCaches();
       
-      this.dropApplicationTabels();
+//      this.dropApplicationTabels();
       
       this.importSQL();
       
@@ -266,10 +276,6 @@ public class BackupDevImporter
         throw new RuntimeException(e);
       }
     }
-    
-    // Run some SQL to reset the admin password back to ddms
-    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms'");
-    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms admin'");
   }
   
   /**
@@ -277,7 +283,9 @@ public class BackupDevImporter
    */
   private void patch()
   {
-    
+    // Run some SQL to reset the admin password back to ddms
+//    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms'");
+//    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms admin'");
   }
   
   private void restoreWebapp()

@@ -392,12 +392,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         String viewName = configuration.getViewName(layer);
         layerNames[0] = layer.getLayerName();
 
-        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName;
+        sql = "SELECT ST_AsText(ST_Extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName;
       }
       else
       {
         // More than one layer so union the geometry columns
-        sql = "SELECT AsText(extent(geo_v)) AS bbox FROM (\n";
+        sql = "SELECT ST_AsText(ST_Extent(geo_v)) AS bbox FROM (\n";
 
         for (int i = 0; i < layers.size(); i++)
         {
