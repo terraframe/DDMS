@@ -197,7 +197,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var pooledAttribs = ["species","identificationMethod","generation","isofemale","testDate", "testMethod", "exposureTime","quantityTested"];
+    <!-- todo: This species typo is necessary for the app to work correctly, so don't try and "fix" it... -->
+    var pooledAttribs = ["specie","identificationMethod","generation","isofemale","testDate", "testMethod", "exposureTime","quantityTested"];
     <%
     Halp.setReadableAttributes(request, "pooledAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
