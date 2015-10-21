@@ -31,7 +31,7 @@
 	<target name="build" >
 	<target name="build" depends="setup-files">
 -->		
-	<target name="build" depends="setup-files">
+	<target name="build" >
 		<!-- Get revision info from svn -->
 		<svn refid="svn.settings">
 			<info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
