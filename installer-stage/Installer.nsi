@@ -8,6 +8,7 @@ Name DDMS
 !define VERSION 2.0
 !define COMPANY "Innovative Vector Control Consortium"
 !define URL "http://www.ivcc.com/"
+!define POSTGRES_DIR PostgreSql\9.4
 
 # MUI Symbol Definitions
 !define MUI_ICON "ivcc_roundel_1.ico"
@@ -93,6 +94,7 @@ Var MaxMem                 # Max amount of memory to give Tomcat and the install
 Var PermMem                # Max amount of perm gen memory to give Tomcat and the installer
 Var TomcatExec             # Path of the tomcat service executable
 Var execReturn             # Contains the return value from running an executable.
+
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -278,7 +280,7 @@ FunctionEnd
 
 Function stopPostgres
   LogEx::Write "Stopping PostgreSQL"
-  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data"
+  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe stop -D $INSTDIR\${POSTGRES_DIR}\data"
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -292,19 +294,18 @@ Function stopPostgres
 	
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
-  	# Goto PostgresDown
       LogEx::Write "ERROR: PostgreSQL failed to stop."
 	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." /SD IDOK
-	  #Abort
+	  Goto PostgresDown
     ${EndIf}	
 	
-	IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgresUp PostgresDown
+	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
 FunctionEnd
 
 Function startPostgres
   LogEx::Write "Starting PostgreSQL"
-  ExecDos::exec "$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data" 
+  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe start -D $INSTDIR\${POSTGRES_DIR}\data" 
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -318,13 +319,12 @@ Function startPostgres
 	
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
-	  Goto PostgresDown
       LogEx::Write "ERROR: PostgreSQL failed to start."
 	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." /SD IDOK
-	  #Abort
+	  Goto PostgresDown
     ${EndIf}	
 	
-	IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgresDown PostgresUp
+	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresDown PostgresUp
   PostgresDown:
 FunctionEnd
 
@@ -335,7 +335,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7965
+    StrCpy $PatchVersion 8009
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -343,7 +343,7 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 7966
+	StrCpy $ManagerVersion 8009
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 7616
 	StrCpy $JavaVersion 7802
@@ -443,10 +443,18 @@ Section -Main SEC0000
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
-    File "postgresql-9.1.2-1-windows.exe"
-    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\PostgreSql\9.1 --datadir $INSTDIR\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
-    #IfErrors PostgresInstallError PostgressInstallSuccess
-	#IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
+	
+	CreateDirectory $INSTDIR\${POSTGRES_DIR}
+	${If} ${RunningX64}
+	  File "postgresql-9.4.5-1-windows-x64.exe"
+      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	${Else}
+	  File "postgresql-9.4.5-1-windows.exe"
+      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	${EndIf}
+	
+	#IfErrors PostgresInstallError PostgressInstallSuccess
+	#IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
 	#MessageBox MB_OK "Postgres failed to install correctly" /SD IDOK
@@ -461,32 +469,42 @@ Section -Main SEC0000
     LogEx::Write "Installing custom pg_hba.conf"
     # Version 5 means XP.  No IPv6
     ${If} $0 == 5
-      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv4.conf"
+      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv4.conf"
     
     # Version 5 means Vista or Seven.  IPv6 enabled
     ${ElseIf} $0 == 6
-      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv6.conf"
     
     # Who knows what version we're on.
     ${Else}
       LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
 	  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
-      File "/oname=$INSTDIR\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
     
     # Copy the tweaked postgres config
     LogEx::Write "Installing custom postgresql.conf"
-    File "/oname=$INSTDIR\PostgreSql\9.1\data\postgresql.conf" "postgresql.conf"
+    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\postgresql.conf" "postgresql.conf"
 	
 	Sleep 2000    
 	DetailPrint "The database is initializing. This may take a few minutes."
+	LogEx::Write "The database is initializing. This may take a few minutes."
 	Call startPostgres
     
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
     LogEx::Write "Installing PostGIS"
-    File "postgis-pg91-setup-1.5.5-1.exe"
-    ExecWait `"$INSTDIR\postgis-pg91-setup-1.5.5-1.exe" /S`
+	CreateDirectory $INSTDIR\installer\postgis
+	${If} ${RunningX64}
+	  SetOutPath "$INSTDIR\installer\postgis"
+	  File /r "..\installer-stage\postgis-bundle-pg94x64-2.2.0\*"
+	  ExecWait `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	${Else}
+	  SetOutPath "$INSTDIR\installer\postgis"
+	  File /r "..\installer-stage\postgis-bundle-pg94x32-2.1.8\*"
+	  ExecWait `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	${EndIf}
+	RmDir /r "$INSTDIR\installer\postgis"
 
 	# Install tomcat as a service	
     LogEx::Write "Configuring Tomcat as a service"
@@ -553,19 +571,19 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
-    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
-    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
+    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
 
     # Update the installation number
     LogEx::Write "Updating the installation number"
-    nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f $INSTDIR\PostgreSql /r /d y
@@ -670,9 +688,10 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
-
+    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
+	
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
-    
+	
     # Write some shortcuts
     LogEx::Write "Creating shortcuts"
     SetShellVarContext all
@@ -748,7 +767,7 @@ Section /o -un.Main UNSEC0000
 	${EndIf}
 	
   CreateDirectory $DESKTOP\temp_uninstall_files
-  CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
+  CopyFiles $INSTDIR\${POSTGRES_DIR}\uninstall*.exe $DESKTOP\temp_uninstall_files
   DeleteRegValue HKLM "${REGKEY}\Components" Main
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
@@ -761,11 +780,10 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components" Birt
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps	
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
-		
-	#Uninstall Tomcat as a service
-	ExecWait `$TomcatExec //DS//Tomcat6`
 	
-  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.5-1.exe" /S`
+  #Uninstall Tomcat as a service
+  ExecWait `$TomcatExec //DS//Tomcat6`
+
   ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
   RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
   RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
