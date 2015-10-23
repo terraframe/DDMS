@@ -59,7 +59,6 @@ Var STR_CONTAINS_VAR_2
 Var STR_CONTAINS_VAR_3
 Var STR_CONTAINS_VAR_4
 Var STR_RETURN_VAR
-Var POSTGRES_TO_STOP
  
 Function StrContains
   Exch $STR_NEEDLE
@@ -102,6 +101,7 @@ Var JavaError
 Var Classpath               # Classpath to use when running java commands.  Changes depending on $AppName.
 Var PatchDir                # Location of the temp patch directory on the client install.
 Var AgentDir                # Location of the logging agent directory on the client install.
+Var PrimaryLogFile          # Path to the primary logging output file for this program.
 Var isMaster                # Temp flag denoting if the current app is a master or not.
 Var AppName                 # Temp variable for the name of the current app being patched.
 Var LowerAppName
@@ -130,6 +130,7 @@ Var MaxMem                  # Max amount of memory to give Tomcat
 Var PermMem                 # Amount of perm gen memory to give to Tomcat
 Var TomcatExec              # Path of the tomcat service executable
 Var DatabaseSoftwareVersion # Version of database software
+Var postgresToStop
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -215,6 +216,7 @@ Section -Main SEC0000
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
   StrCpy $AgentDir "$PatchDir\output"
+  StrCpy $PrimaryLogFile "$AgentDir\patcher.log"
   StrCpy $JavaOpts "$ExtraOpts -Xmx$MaxMemM -XX:MaxPermSize=$PermMemM -javaagent:$PatchDir\OutputAgent.jar"
   StrCpy $Java "$JavaHome\bin\javaw.exe"
   
@@ -224,7 +226,8 @@ Section -Main SEC0000
   File ..\ddms-runway-patcher\OutputAgent.jar
   File ..\ddms-runway-patcher\7za.exe
   File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
-  LogEx::Init "$PatchDir\patcher.log"
+  CreateDirectory $AgentDir
+  LogEx::Init "$PrimaryLogFile"
   
   #####################################################################
   # First we must patch any runway metadata changes for all of the apps
@@ -309,6 +312,8 @@ Section -Main SEC0000
   
   # Clean-up the logging libs
   Delete $PatchDir\*  
+  LogEx::Write "Patching complete."
+  LogEx::Close
 SectionEnd
 
 Function checkIfMaster
@@ -1150,8 +1155,8 @@ done${UNSECTION_ID}:
 !macroend
 
 Function startPostgres
-  LogEx::Write "Starting PostgreSQL"
-  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe start -D $INSTDIR\${POSTGRES_DIR}\data" 
+  LogEx::Write "Starting PostgreSQL at $INSTDIR\${POSTGRES_DIR}"
+  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe start -D $INSTDIR\${POSTGRES_DIR}\data" "" "$AgentDir\postgresController.log"
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -1175,36 +1180,79 @@ Function startPostgres
 FunctionEnd
 
 Function stopPostgres
-  LogEx::Write "Stopping PostgreSQL"
-  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\$POSTGRES_TO_STOP\bin\pg_ctl.exe stop -D $INSTDIR\$POSTGRES_TO_STOP\data"
-
+  pop $postgresToStop
+  LogEx::Write "Stopping PostgreSQL at $INSTDIR\$postgresToStop"
+  
   # Wait until postgres is stopped
   StrCpy $0 0
   
   PostgresUp:
+    Push "ExecDos::End" # Add a marker for the loop to test for.
+    ExecDos::exec /NOUNLOAD /TOSTACK `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\$postgresToStop\data"` "" "$AgentDir\postgresController.out"
+    Pop $1 # return value
+    StrCmp $1 0 TestFileExist
+    
+	LogEx::Write `ExecDos "$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\$postgresToStop\data" returned $1`
+	
+	# Print output from exec invocation
+	StrCpy $3 0
+	Loop:
+      Pop $1
+      StrCmp $1 "ExecDos::End" ExitLoop
+	  StrCmp $1 "$AgentDir\postgresController.out" SkipWrite
+      LogEx::Write "stopPostgres  >  $1"
+	  
+	  SkipWrite:
+	  IntOp $3 $3 + 1
+	  ${If} $3 > 50
+	    Goto ExitLoop
+	  ${Else}
+        Goto Loop
+	  ${EndIf}
+    ExitLoop:
+	
     # Sleep 2 seconds
     Sleep 5000	
 	
 	# Increment the timeout counter
 	IntOp $0 $0 + 1
 	
-	# Check to make sure the timeout hasn't expired
-	${If} $0 > 50
-      LogEx::Write "ERROR: PostgreSQL failed to stop."
-	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." /SD IDOK
-	  Goto PostgresDown
-    ${EndIf}	
+	# Third times the charm
+	${If} $0 > 2
+      LogEx::Write "PostgreSQL failed to stop using pg_ctl. We will now try to stop the service."
+	  
+	  # If pg_ctl won't stop the server (which can happen if the installer runs, the machine does not reboot, and now we're patching)
+	  # Then our last resort is to stop the postgres service. There is a high likelihood of this working, assuming their machine isn't corrupt.
+	  ExecDos::exec /NOUNLOAD /TOSTACK `net stop postgresql-9.1` "" "$AgentDir\postgresController.out"
+      Pop $1 # return value
+      StrCmp $1 0 PostgresDown
+	  
+	  # Yikes, this is a problem if we get here.
+	  LogEx::Write "FATAL ERROR : Postgres failed to stop. This patcher will now exit."
+	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop. This patcher will now exit." /SD IDOK
+	  Abort
+    ${EndIf}
 	
-	IfFileExists $INSTDIR\$POSTGRES_TO_STOP\data\postmaster.pid PostgresUp PostgresDown
+	Goto PostgresUp
+	
+	TestFileExist:
+	IfFileExists $INSTDIR\$postgresToStop\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
 FunctionEnd
 
 # This function uninstalls the old database software and installs the new software (postgres 9.1 -> 9.4, postgis 1.5 -> 2.2)
 Function migrateDatabaseSoftware
-	StrCpy $POSTGRES_TO_STOP PostgreSql\9.1 
+    push PostgreSql\9.1
     Call stopPostgres
 
-	!insertmacro MUI_HEADER_TEXT "Upgrading Database Software" "Installing PostgreSQL 9.4"
+	# Uninstall old Postgres & PostGIS
+	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Uninstalling old software"
+    LogEx::Write "Uninstalling old software"
+	ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.5-1.exe" /S`
+    ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
+    RmDir /r "$INSTDIR\PostgreSql"
+	
+	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Installing PostgreSQL 9.4"
     LogEx::Write "Installing Postgres 9.4."
 	SetOutPath $INSTDIR
     ${If} ${RunningX64}
@@ -1215,7 +1263,7 @@ Function migrateDatabaseSoftware
       ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	${EndIf}
 	
-	StrCpy $POSTGRES_TO_STOP ${POSTGRES_DIR}
+	push ${POSTGRES_DIR}
     Call stopPostgres
 	
     # Get the Windows Version (XP, Vista, etc.)
@@ -1246,16 +1294,9 @@ Function migrateDatabaseSoftware
 	DetailPrint "The database is initializing. This may take a few minutes."
 	Call startPostgres
 	
-	# Uninstall old Postgres & PostGIS
-	!insertmacro MUI_HEADER_TEXT "Upgrading Database Software" "Uninstalling old software"
-    LogEx::Write "Uninstalling old software"
-	ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.5-1.exe" /S`
-    ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
-    RmDir /r "$INSTDIR\PostgreSql"
-	
 	# Install PostGIS 2.2
-	!insertmacro MUI_HEADER_TEXT "Upgrading Database Software" "Upgrading PostGIS"
-    LogEx::Write "Upgrading PostGIS"
+	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Updating PostGIS"
+    LogEx::Write "Updating PostGIS"
 	CreateDirectory $INSTDIR\migrate\postgis
 	${If} ${RunningX64}
 	  SetOutPath "$INSTDIR\migrate\postgis"
@@ -1272,6 +1313,7 @@ FunctionEnd
 # This function upgrades postgis 1.5 to 2.2
 Function upgradePostgresAndPostgis
   CreateDirectory $INSTDIR\migrate
+  !insertmacro MUI_HEADER_TEXT "Updating database software" "This one time operation may take a while..."
 
   ####################################
   # Backup All Application Databases #
@@ -1295,10 +1337,11 @@ Function upgradePostgresAndPostgis
   ${StrCase} $LowerAppName $AppName "L"
 
   # Back it up
-  !insertmacro MUI_HEADER_TEXT "Backing Up Applications" "Backing up $AppName"
+  DetailPrint "Backing up $AppName"
   LogEx::Write "Backing up $AppName."
-  nsExec::Exec `"$INSTDIR\PostgreSql\9.1\bin\pg_dump.exe" -p 5444 -h 127.0.0.1 -U postgres -Fc -b -v -f "$INSTDIR\migrate\$LowerAppName.backup" $LowerAppName`
-
+  push `"$INSTDIR\PostgreSql\9.1\bin\pg_dump.exe" -p 5444 -h 127.0.0.1 -U postgres -Fc -b -v -f "$INSTDIR\migrate\$LowerAppName.backup" $LowerAppName`
+  Call execDos
+  
   Goto appNameFileReadLoop
           
   appNameDone:
@@ -1334,19 +1377,28 @@ Function upgradePostgresAndPostgis
   !insertmacro MUI_HEADER_TEXT "Restoring Application Databases" "Restoring $AppName"
   LogEx::Write "Restoring application databases."
   
+  # Create the mdssdeploy role
+  LogEx::Write "Creating the mdssdeploy role"
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+  Call execDos
+  
   # Create a new db
   LogEx::Write "Creating the database"
-  nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
-	
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+  Call execDos 
+  
   # create extension postgis
   LogEx::Write "Installing PostGIS extension."
-  nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION postgis"`
-	
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION postgis"`
+  Call execDos
+  
   # Import the app data into the new db
-  LogEx::Write "Restoring database from backup file"
+  LogEx::Write "Restoring $AppName database from $INSTDIR\migrate\$LowerAppName.backup."
+  DetailPrint "Restoring $AppName database."
   SetOutPath $INSTDIR\migrate
   File ..\patch\postgis_restore.exe
-  nsExec::Exec `"$INSTDIR\migrate\postgis_restore.exe" "$INSTDIR/$LowerAppName.backup" | psql -h localhost -p 5432 -U postgres $LowerAppName 2> errors.txt`
+  push `"$INSTDIR\migrate\postgis_restore.exe" "$INSTDIR\migrate\$LowerAppName.backup" | psql -h localhost -p 5432 -U postgres $LowerAppName 2> $AgentDir\pgis_errors.txt`
+  Call execDos
 	
   # permissions on db?
   
@@ -1372,7 +1424,41 @@ Function upgradePostgresAndPostgis
   FileClose $AppFile
   
   # delete permissionsCache?
-  RmDir /r "$INSTDIR\postgis"
+  RmDir /r "$INSTDIR\migrate"
+FunctionEnd
+
+Function execDos
+  pop $9
+  push "ExecDos::End" # Add a marker for the loop to test for.
+  ExecDos::exec /NOUNLOAD /TOSTACK $9 "" "$AgentDir\postgresController.out"
+  pop $8 # return value
+  
+  # Print output from exec invocation
+  StrCpy $7 0
+  Loop:
+    pop $6
+    StrCmp $6 "ExecDos::End" ExitLoop
+	StrCmp $6 "$AgentDir\postgresController.out" SkipWrite
+    LogEx::Write "execDos  >  $6"
+	
+	SkipWrite:
+	IntOp $7 $7 + 1
+    ${If} $7 > 500 # You can increase this number to get more output
+	  LogEx::Write "execDos  >  ... additional output truncated ..."
+	  Goto ExitLoop
+	${Else}
+      Goto Loop
+	${EndIf}
+  ExitLoop:
+  
+  StrCmp $8 0 WeAreDone
+  
+  # Error handling
+  LogEx::Write `ExecDos $9 returned $8`
+  StrCpy $JavaError 1
+  Call JavaAbort
+
+  WeAreDone:
 FunctionEnd
 
 # Uninstaller sections
