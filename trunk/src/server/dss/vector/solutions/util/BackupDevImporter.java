@@ -57,12 +57,18 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 3) Modify the database permissions to make sure our user is gonna be able to access it (otherwise the import just skips with no errors)
  * 4) Create a new launch for this java class with extra memory with a first argument that is the path to your zipped backup
  * 5) Build the project and then run that launch!
+ * 6) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
- * Troubleshooting steps (aka did the import happen but give no real error!?):
+ * Troubleshooting steps
+ * 
+ * Q: The import happened but gave no real error!?:
  * 1) find your data directory (show data_directory)
  * 2) find your log file (show log_filename, show log_directory)
  * 3) CHECK THE POSTGRES LOGS (mine is at /usr/local/var/postgres/9.3/server.log)
+ * 
+ * Q: Hey the query builder pages don't render, I just get while boxes
+ * A: You forgot to run a deploy you goober (step 6)
  * 
  * @author rrowlands
  */
@@ -122,7 +128,7 @@ public class BackupDevImporter
       
       this.deleteCaches();
       
-//      this.dropApplicationTabels();
+      this.dropApplicationTabels();
       
       this.importSQL();
       
@@ -147,15 +153,11 @@ public class BackupDevImporter
     }
     catch (ZipException e)
     {
-      CorruptBackupException cbe = new CorruptBackupException(e);
-      cbe.setBackupName(fBackup.getName());
-      throw cbe;
+      throw new RuntimeException(e);
     }
     catch (IOException e)
     {
-      BackupReadException bre = new BackupReadException(e);
-      bre.setLocation(fBackup.getName());
-      throw bre;
+      throw new RuntimeException(e);
     }
   }
   
