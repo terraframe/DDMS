@@ -1,38 +1,32 @@
 package dss.vector.solutions.querybuilder;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -279,6 +273,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         else if (s instanceof AttributeMoment)
         {
           sel = overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
+        }
+        else if (s instanceof SelectableSQLCharacter && (((SelectableSQLCharacter)s).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_geoId") || ((SelectableSQLCharacter)s).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_entityLabel") ) )
+        {
+          sel = overrideQuery.aSQLCharacter(s._getAttributeName(), columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
+          ((SelectableSQLCharacter)sel).generateColumnAlias();
         }
         else if (!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
         {

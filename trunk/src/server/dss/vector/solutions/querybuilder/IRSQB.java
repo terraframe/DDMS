@@ -19,11 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -766,16 +768,16 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer)
   {
-    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer, this.irsParser);
+    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer);
 
     // this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig,
     // null, this.insecticideParser);
     //
     // this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null,
     // this.sprayParser);
-
+    
     return this.mainQueryMap;
   }
 
@@ -1284,8 +1286,10 @@ public class IRSQB extends AbstractQB implements Reloadable
       // so grab an existing known selectable that references the same ValueQuery and select from there.
       // Because the aggregation query is a clone of the original query we can use the same selectable/namespace
       Selectable smallestUniversal = originalVQ.getSelectableRef(this.smallestUniversalSelectable);
-      ValueQuery universalVQ = (ValueQuery) smallestUniversal.getRootQuery();
-      String parentUniversalId = universalVQ.getSelectableRef(PARENT_UNIVERSAL_ID).getDbQualifiedName();
+      String sql = smallestUniversal.getSQL();
+      String[] smallestUniSql = sql.substring(1, sql.length()-1).split("\\.");
+      String geoRefTableAlias = smallestUniSql[0];
+      String parentUniversalId = geoRefTableAlias + "." + PARENT_UNIVERSAL_ID;
 
       // create a new IRS Query that aggregates the area targets for the
       // universals selected.
@@ -1350,8 +1354,9 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // Group by the universal column that is the parent geo entity
       // Create a new selectable to group by the universal id
-      SelectableSQL universalGroup = universalVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
+      SelectableSQL universalGroup = this.irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, PARENT_UNIVERSAL_ID, PARENT_UNIVERSAL_ID);
       universalGroup.setColumnAlias(universalGroup.getSQL());
+      universalGroup.setAttributeNameSpace(geoRefTableAlias);
       areaAggVQ.GROUP_BY(universalGroup);
 
       // set the user defined alias to the attribute name
@@ -1400,9 +1405,9 @@ public class IRSQB extends AbstractQB implements Reloadable
       // Create a new selectable to group by the universal
       if (originalVQ.isGrouping())
       {
-        SelectableSQL targetGroup = universalVQ.aSQLInteger(PARENT_UNIVERSAL_ID, parentUniversalId, PARENT_UNIVERSAL_ID);
+        SelectableSQL targetGroup = this.irsVQ.aSQLInteger(PARENT_UNIVERSAL_ID, PARENT_UNIVERSAL_ID, PARENT_UNIVERSAL_ID);
         targetGroup.setColumnAlias(targetGroup.getSQL());
-
+        targetGroup.setAttributeNameSpace(geoRefTableAlias);
         irsVQ.GROUP_BY(targetGroup);
       }
 
