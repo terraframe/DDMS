@@ -348,7 +348,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       selectionDiv.appendChild(this._renderCurrentSelection(factory));
       
       this._outerDiv = factory.newElement('div');
-      this._outerDiv.setStyle('width', '695px');
+      this._outerDiv.setStyle('width', '700px');
       this._outerDiv.setStyle('margin-top', '15px');
       
       this._outerDiv.appendChild(componentDiv);      
