@@ -2,12 +2,12 @@ package dss.vector.solutions.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Properties;
+import java.util.TreeSet;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -18,17 +18,19 @@ import com.google.common.io.Files;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.VaultInfo;
 import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.Backup;
+import com.runwaysdk.dataaccess.io.Versioning;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.BackupReadException;
-import com.runwaysdk.system.metadata.CorruptBackupException;
+import com.runwaysdk.system.Users;
+import com.runwaysdk.system.UsersQuery;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.form.business.FormBedNet;
@@ -61,24 +63,23 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 
  * 
  * Troubleshooting steps
- * 
  * Q: The import happened but gave no real error!?:
  * 1) find your data directory (show data_directory)
  * 2) find your log file (show log_filename, show log_directory)
  * 3) CHECK THE POSTGRES LOGS (mine is at /usr/local/var/postgres/9.3/server.log)
  * 
- * Q: Hey the query builder pages don't render, I just get while boxes
+ * Q: Hey the query builder pages don't render, I just get white boxes
  * A: You forgot to run a deploy you goober (step 6)
  * 
  * @author rrowlands
  */
 public class BackupDevImporter
 {
-  private Logger logger = LoggerFactory.getLogger(BackupDevImporter.class);
+  private Logger logger;
   
   private File fRestoreUnzip;
   
-  private File fDestSrcRoot = new File(LocalProperties.getSrcRoot() + File.separator + "backup");
+  private File fDestSrcRoot;
   
   /**
    * When we copy the generated source over, because we're copying the entire package, its going to copy some source that we already have predefined in fresh installs.
@@ -92,6 +93,20 @@ public class BackupDevImporter
       // Predefined Forms:
       FormSurvey.CLASS, FormBedNet.CLASS, FormPerson.CLASS, FormHousehold.CLASS, HumanBloodIndex.CLASS
   };
+  
+  public BackupDevImporter()
+  {
+    logger = LoggerFactory.getLogger(BackupDevImporter.class);
+    
+    if (LocalProperties.getSrcRoot() == null || !(new File(LocalProperties.getSrcRoot()).exists()))
+    {
+      throw new RuntimeException("Your local.properties [local.src.root] is misconfigured.");
+    }
+    else
+    {
+      fDestSrcRoot = new File(LocalProperties.getSrcRoot() + File.separator + "backup");
+    }
+  }
   
   /**
    * @param args
@@ -128,15 +143,15 @@ public class BackupDevImporter
       
       this.deleteCaches();
       
-      this.dropApplicationTabels();
+      this.dropApplicationTables();
       
       this.importSQL();
-      
-      this.patch();
       
       this.restoreWebapp();
       
       this.restoreVault();
+      
+      this.patch();
     }
     finally
     {
@@ -171,6 +186,10 @@ public class BackupDevImporter
       logger.info("Deleting permissions cache at [" + fPermissionCache.getAbsolutePath() + "].");
       fPermissionCache.delete();
     }
+    else
+    {
+      logger.info("Skipping delete of permissions cache at [" + fPermissionCache.getAbsolutePath() + "].");
+    }
      
     // Object cache
 //    String sGlobalCacheLoc = ServerProperties.getGlobalCacheFileLocation();
@@ -191,6 +210,10 @@ public class BackupDevImporter
       logger.info("Deleting transaction cache at [" + fTransactionCache.getAbsolutePath() + "].");
       fTransactionCache.delete();
     }
+    else
+    {
+      logger.info("Skipping delete of transaction cache at [" + fTransactionCache.getAbsolutePath() + "].");
+    }
     
     // Session cache (TODO : Untested)
     String sSessionCache = LocalProperties.getSessionCacheDirectory();
@@ -200,6 +223,10 @@ public class BackupDevImporter
       logger.info("Deleting permissions cache at [" + fSessionCache.getAbsolutePath() + "].");
       fSessionCache.delete();
     }
+    else
+    {
+      logger.info("Skipping delete of session cache at [" + fSessionCache.getAbsolutePath() + "].");
+    }
     
     // Report cache
     File fReportCache = new File(CacheDocumentManager.CACHE_DIR);
@@ -208,10 +235,22 @@ public class BackupDevImporter
       logger.info("Deleting report cache at [" + fReportCache.getAbsolutePath() + "].");
       fReportCache.delete();
     }
+    else
+    {
+      logger.info("Skipping delete of report cache at [" + fReportCache.getAbsolutePath() + "].");
+    }
   }
   
-  private void dropApplicationTabels()
+  private void dropApplicationTables()
   {
+    new TreeSet<String>();
+    
+    if (!Database.tableExists("md_class"))
+    {
+      logger.info("Skipping table drop.");
+      return;
+    }
+    
     logger.info("Dropping tables");
     
     List<String> tableNames = null;
@@ -249,8 +288,6 @@ public class BackupDevImporter
 
     File sqlDir = new File(this.fRestoreUnzip.getAbsoluteFile() + File.separator + Backup.SQL + File.separator);
 
-    this.logger.info("Importing SQL from directory [" + sqlDir + "]");
-
     File[] sqlFiles = sqlDir.listFiles(filter);
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -261,8 +298,13 @@ public class BackupDevImporter
       {
         for (File sqlFile : sqlFiles)
         {
+          this.logger.info("Importing SQL file [" + sqlFile.getAbsolutePath() + "]");
           Database.importFromSQL(sqlFile.getAbsolutePath(), ps);
         }
+      }
+      else
+      {
+        throw new RuntimeException("Unable to find SQL files at path [" + sqlDir.getAbsolutePath() + "]. Does this backup have SQL files in it?");
       }
       this.logger.info(baos.toString());
     }
@@ -286,22 +328,62 @@ public class BackupDevImporter
   private void patch()
   {
     // Run some SQL to reset the admin password back to ddms
-//    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms'");
-//    Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms admin'");
+    UsersQuery uq = new UsersQuery(new QueryFactory());
+    uq.WHERE(uq.getUsername().EQ("ddms"));
+    OIterator<? extends Users> it = uq.getIterator();
+    try
+    {
+      if (it.hasNext())
+      {
+        logger.info("Setting admin user [ddms] password to 'ddms'");
+        Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms'");
+      }
+      else
+      {
+        logger.info("Skipping reset of admin user [ddms] password.");
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    UsersQuery uq2 = new UsersQuery(new QueryFactory());
+    uq2.WHERE(uq2.getUsername().EQ("ddms admin"));
+    OIterator<? extends Users> it2 = uq2.getIterator();
+    try
+    {
+      if (it.hasNext())
+      {
+        logger.info("Setting admin user [ddms admin] password to 'ddms'");
+        Database.parseAndExecute("update ddms.users set password = 'yqp7HqQ0QbosXdkb+fxsXg+Sb3c=' where username = 'ddms admin'");
+      }
+      else
+      {
+        logger.info("Skipping reset of admin user [ddms admin] password.");
+      }
+    }
+    finally
+    {
+      it2.close();
+    }
+    
+    // Import the metadata
+    File metadata = new File(LocalProperties.getSrcRoot() + "/../doc/individual");
+
+    if (metadata.exists() && metadata.isDirectory())
+    {
+      logger.info("Importing metadata schema files from [" + metadata.getAbsolutePath() + "].");
+      Versioning.main(new String[] { metadata.getAbsolutePath() });
+    }
+    else
+    {
+      logger.error("Metadata schema files were not found at [" + metadata.getAbsolutePath() + "]. Unable to import schemas, your database is not patched.");
+    }
   }
   
   private void restoreWebapp()
   {
-    // Delete any source that may exist already
-    try
-    {
-      FileIO.deleteFolderContent(this.fDestSrcRoot, null);
-    }
-    catch (IOException e1)
-    {
-      throw new RuntimeException(e1);
-    }
-    
     // The path to the webapps directory inside of the unzipped backup.
     File fBackupWebapp = new File(this.fRestoreUnzip, Backup.WEBAPP_DIR_NAME);
     
@@ -318,17 +400,10 @@ public class BackupDevImporter
       }
     };
     
-    FileFilter fileFilter = new FileFilter()
-    {
-      public boolean accept(File pathname)
-      {
-        return true;
-      }
-    };
-    
+    // Delete any source that may exist already
     try
     {
-      FileIO.deleteFolderContent(fDestSrcRoot, fileFilter);
+      FileIO.deleteFolderContent(fDestSrcRoot, null);
     }
     catch (IOException e)
     {
@@ -360,6 +435,8 @@ public class BackupDevImporter
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGenRel), formGenRelDest, filenameFilter);
     
     deleteDuplicateWebappSource();
+    
+    modifyProperties();
   }
   
   private void copyFolderIfExist(File source, File destination, FilenameFilter filter)
@@ -375,7 +452,8 @@ public class BackupDevImporter
    */
   private void modifyProperties()
   {
-    propagateProperty("domain", "terraframe.properties");
+    logger.warn("TODO: Write this code that changes properties to match that of the restore. One such important example: domain.");
+//    propagateProperty("domain", "terraframe.properties");
   }
   
   private void propagateProperty(String key, String bundle)

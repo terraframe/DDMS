@@ -103,7 +103,7 @@ public class TermNode implements Comparable<TermNode>, Reloadable
       {
         TermRelationship rel = term.addParentTerm(parentTerm);
         rel.setOntologyRelationship(OntologyExcelImporter.getOntologyRelationship());
-        rel.applyWithoutCreatingAllPaths();
+        rel.apply();
       }
       catch (DuplicateGraphPathException e2)
       {
