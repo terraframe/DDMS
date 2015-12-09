@@ -9,9 +9,7 @@
 	<classpathentry kind="src" output="generated/server/bin" path="generated/server/stub"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="profiles"/>
-	<classpathentry kind="lib" path="lib/birt/org.eclipse.birt.runtime-4.4.2.jar"/>
-	<classpathentry kind="lib" path="lib/birt/poi-3.12.jar"/>
-	<classpathentry kind="lib" path="lib/birt/poi-ooxml-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/common/jts-1.13.jar"/>
 	<classpathentry kind="src" output="generated/client/bin" path="generated/client/base"/>
 	<classpathentry kind="src" output="generated/common/bin" path="generated/common/base"/>
 	<classpathentry kind="src" output="generated/server/bin" path="generated/server/base"/>
@@ -23,7 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/common/activation.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/ant.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/asm-3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/aspectjrt.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/axis.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-i18n-20050525.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/jaxrpc.jar"/>
@@ -173,7 +170,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.w3c.dom.smil_1.0.0.v200806040011.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/org.w3c.dom.svg_1.1.0.v201011041433.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/birt/Tidy.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/aspectjtools.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-configuration-1.9.jar" sourcepath="/Users/terraframe/.m2/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-lang-2.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/ehcache-core-2.4.1.jar"/>
@@ -195,5 +191,11 @@
 	<classpathentry kind="lib" path="lib/client/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/server/ognl-3.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.poi_3.9.0.v201303080712.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.birt.runtime_4.3.2.v20140225-1404.jar"/>
+	<classpathentry kind="lib" path="lib/birt/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/common/aspectjrt-1.8.6.jar"/>
+	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

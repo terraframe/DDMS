@@ -85,7 +85,7 @@ input[type="button"]:active {
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 
-<form method="post" action="com.runwaysdk.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
+<form method="post" action="${pageContext.request.contextPath}/com.runwaysdk.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
   <div class="alert alertbox">
   <p>${exception.localizedMessage}</p>
   </div>

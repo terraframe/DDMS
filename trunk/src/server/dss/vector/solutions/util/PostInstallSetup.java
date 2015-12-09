@@ -70,7 +70,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   public static String        ROOT_DIRECTORY      = "C:/MDSS";
 
-  public static String        DEFAULT_TOMCAT      = ROOT_DIRECTORY + "/tomcat6/";
+  public static String        DEFAULT_TOMCAT      = ROOT_DIRECTORY + "/tomcat/";
 
   public static String        DEFAULT_MANAGER     = ROOT_DIRECTORY + "/manager/";
 

@@ -411,7 +411,7 @@
 			<fileset dir="${server.bin}" includes="**/*" />									
 		</delete>
 	
-		<iajc destdir="${local.bin}" sourceroots="${local.src};${common.src};${client.src};${server.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${local.bin}" sourceroots="${local.src};${common.src};${client.src};${server.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -420,7 +420,7 @@
 
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -429,7 +429,7 @@
 
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -441,7 +441,7 @@
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</iajc>
-		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -458,7 +458,7 @@
 			<fileset dir="${local.bin}" includes="**/*" />
 		</delete>
 		
-		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -636,7 +636,7 @@
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<!-- You can comment this section out to speed up deploy if you want to use the class files produced by eclipse -->
-		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -680,7 +680,7 @@
 			</fileset>
 		</copy>
 
-		<iajc destdir="${deploy.bin}" sourceroots="${gis.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${deploy.bin}" sourceroots="${gis.src}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
@@ -1163,7 +1163,7 @@
 	<!-- Jar Heavy Client Control Pannel                                     -->
 	<!-- =================================================================== -->
 	<target name="buildControllPannelJar" depends="" description="Builds the controll pannel jar">
-		<javac srcdir="${local.src}" destDir="${local.bin}" source="1.6" target="1.6">
+		<javac srcdir="${local.src}" destDir="${local.bin}" source="1.8" target="1.8">
 			<include name="**/MdssControlPanel.java" />
 		</javac>
 
