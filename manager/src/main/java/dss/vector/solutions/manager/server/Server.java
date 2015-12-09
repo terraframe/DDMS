@@ -33,7 +33,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
   /**
    * Name of the service
    */
-  private static final String             SERVICE_NAME = "Tomcat6";
+  private static final String             SERVICE_NAME = "Tomcat";
 
   private RemoteLifecycleListenerServerIF server;
 
