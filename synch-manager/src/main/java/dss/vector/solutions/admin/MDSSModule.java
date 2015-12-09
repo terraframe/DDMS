@@ -146,7 +146,7 @@ public class MDSSModule implements IModule, IPropertyListener
 
   public static final String  VERSION                  = "1.02";
 
-  public static String        DEFAULT_TOMCAT           = "C:/MDSS/tomcat6/";
+  public static String        DEFAULT_TOMCAT           = "C:/MDSS/tomcat/";
 
   private IModuleController   controller;
 
