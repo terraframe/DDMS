@@ -34,12 +34,6 @@ public class RestoreAction extends Action
 {
   private BackupManagerWindow window;
   
-  public static String     ROOT_DIRECTORY = "C:/MDSS";
-
-  public static String     DEFAULT_TOMCAT  = ROOT_DIRECTORY+"/tomcat6/";
-
-  public static String     DEFAULT_MANAGER = ROOT_DIRECTORY+"/manager/";
-  
   /**
    * This function is used by the DDMS CLI (ticket 3180)
    * 
