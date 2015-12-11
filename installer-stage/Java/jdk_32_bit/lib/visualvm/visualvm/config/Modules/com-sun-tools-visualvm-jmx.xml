@@ -6,7 +6,5 @@
     <param name="eager">false</param>
     <param name="enabled">true</param>
     <param name="jar">modules/com-sun-tools-visualvm-jmx.jar</param>
-    <param name="release">0</param>
     <param name="reloadable">false</param>
-    <param name="specversion">1.2</param>
 </module>

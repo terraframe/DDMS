@@ -5,7 +5,5 @@
     <param name="autoload">true</param>
     <param name="eager">false</param>
     <param name="jar">modules/com-sun-tools-visualvm-api-caching.jar</param>
-    <param name="release">0</param>
     <param name="reloadable">false</param>
-    <param name="specversion">0.1</param>
 </module>
