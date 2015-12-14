@@ -90,8 +90,8 @@ public class RemoteLifecycleListenerServerTest
     System.setProperty("javax.net.ssl.keyStorePassword", "4b657920666fZ");
     System.setProperty("javax.net.ssl.trustStore", new File("doc/ddms.ts").getAbsolutePath());
     System.setProperty("javax.net.ssl.trustStorePassword", "1206b6579Acb3");
-    System.setProperty("javax.rmi.ssl.client.enabledCipherSuites", "SSL_RSA_WITH_RC4_128_MD5");
-    System.setProperty("javax.rmi.ssl.client.enabledProtocols", "TLSv1");
+//    System.setProperty("javax.rmi.ssl.client.enabledCipherSuites", "SSL_RSA_WITH_RC4_128_MD5");
+//    System.setProperty("javax.rmi.ssl.client.enabledProtocols", "TLSv1");
 
     int port = 4352;
     LifecycleEvent event = new LifecycleEvent(new StandardService(), Lifecycle.AFTER_START_EVENT, null);
