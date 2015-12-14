@@ -168,9 +168,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
   private void init()
   {
     String protocolsValue = System.getProperty("javax.rmi.ssl.client.enabledProtocols");
-    String ciphersValue = System.getProperty("javax.rmi.ssl.client.enabledCipherSuites");
-
-    log.info("Setup RMI Socket(" + useSSL + ", " + protocolsValue + ", " + ciphersValue + ", " + clientAuth + ")");
+//    String ciphersValue = System.getProperty("javax.rmi.ssl.client.enabledCipherSuites");
 
     // Get all the other parameters required from the standard system
     // properties. Only need to get the parameters that affect the creation
@@ -181,10 +179,12 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
       protocols = protocolsValue.split(",");
     }
 
-    if (ciphersValue != null)
-    {
-      ciphers = ciphersValue.split(",");
-    }
+//    if (ciphersValue != null)
+//    {
+//      ciphers = ciphersValue.split(",");
+//    }
+    
+    log.info("Setup RMI Socket(" + useSSL + ", " + protocolsValue + ", " + String.valueOf(ciphers) + ", " + clientAuth + ")");
   }
 
   public void lifecycleEvent(LifecycleEvent event)
