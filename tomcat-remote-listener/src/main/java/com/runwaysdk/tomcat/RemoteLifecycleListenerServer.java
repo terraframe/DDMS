@@ -167,24 +167,24 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
 
   private void init()
   {
-    String protocolsValue = System.getProperty("javax.rmi.ssl.client.enabledProtocols");
+//    String protocolsValue = System.getProperty("javax.rmi.ssl.client.enabledProtocols");
 //    String ciphersValue = System.getProperty("javax.rmi.ssl.client.enabledCipherSuites");
 
     // Get all the other parameters required from the standard system
     // properties. Only need to get the parameters that affect the creation
     // of the server port.
 
-    if (protocolsValue != null)
-    {
-      protocols = protocolsValue.split(",");
-    }
+//    if (protocolsValue != null)
+//    {
+//      protocols = protocolsValue.split(",");
+//    }
 
 //    if (ciphersValue != null)
 //    {
 //      ciphers = ciphersValue.split(",");
 //    }
     
-    log.info("Setup RMI Socket(" + useSSL + ", " + protocolsValue + ", " + String.valueOf(ciphers) + ", " + clientAuth + ")");
+    log.info("Setup RMI Socket(" + useSSL + ", " + String.valueOf(protocols) + ", " + String.valueOf(ciphers) + ", " + clientAuth + ")");
   }
 
   public void lifecycleEvent(LifecycleEvent event)
