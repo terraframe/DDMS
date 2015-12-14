@@ -68,7 +68,7 @@
 		<mkdir dir="${target.dir}" />
 		<mkdir dir="${target.dir}/classes" />
 
-		<iajc destdir="${target.dir}/classes" sourceroots="${gis.java}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+		<iajc destdir="${target.dir}/classes" sourceroots="${gis.java}" debug="true" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
