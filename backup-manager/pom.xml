@@ -8,7 +8,6 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <!-- Be careful! This aspectjtools jar version number must correspond to the aspectjtools specified by the aspectj-maven-plugin. Or else you get this error: Unable to continue, this version of AspectJ supports classes built with weaver version 6.0 but the class xxx.xxx.xx is version 7.0 http://stackoverflow.com/questions/3679589/aspectj-how-to-get-pointcuts-to-advise-classes-located-in-other-projects -->
     <org.aspectj.version>1.8.6</org.aspectj.version>
     <org.codehaus.mojo.version>1.7</org.codehaus.mojo.version>
   <ddms.path>C:\svn\ddms\trunk</ddms.path>
@@ -112,21 +111,21 @@
       <artifactId>rw-server</artifactId>
       <version>1</version>
     <scope>system</scope>
-    <systemPath>${ddms.path}\lib\server\runwaysdk-server.jar</systemPath>
+    <systemPath>${ddms.path}/lib/server/runwaysdk-server.jar</systemPath>
     </dependency>
   <dependency>
       <groupId>com.rwsdk</groupId>
       <artifactId>rw-common</artifactId>
       <version>1</version>
     <scope>system</scope>
-    <systemPath>${ddms.path}\lib\common\runwaysdk-common.jar</systemPath>
+    <systemPath>${ddms.path}/lib/common/runwaysdk-common.jar</systemPath>
     </dependency>
   <dependency>
       <groupId>com.rwsdk</groupId>
       <artifactId>rw-client</artifactId>
       <version>1</version>
     <scope>system</scope>
-    <systemPath>${ddms.path}\lib\client\runwaysdk-client.jar</systemPath>
+    <systemPath>${ddms.path}/lib/client/runwaysdk-client.jar</systemPath>
     </dependency>
   <dependency>
       <groupId>com.runwaysdk</groupId>
