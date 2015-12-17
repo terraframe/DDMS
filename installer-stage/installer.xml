@@ -31,7 +31,7 @@
   <property name="root.db" value="template_postgis" />
   <property name="max_memory_use" value="1024m" />
   <property name="domain" value="0.mdss.ivcc.com" />
-  <property name="deploy.root" location="${stage.dir}/tomcat6" />
+  <property name="deploy.root" location="${stage.dir}/tomcat" />
   <property name="manager.dest" location="${stage.dir}/manager" />
   <property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />  
   <property name="manager.dir" value="${project.root}/standalone" />  
@@ -75,7 +75,7 @@
   <target name="build" depends="build-database, build_installer_exe"/>
  -->
  
-  <target name="build" depends="build-database, build_installer_exe"/>
+  <target name="build" depends="build_installer_exe"/>
 
   
   <target name="build-database">
@@ -199,8 +199,8 @@
     <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat6/" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat6/" />	
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />	
   </target>
   
   <target name="dump_db" depends="">
@@ -232,17 +232,18 @@
   
     <!-- Get revision info from svn -->
     <svn refid="svn.settings">
-      <info target="${project.root}/trunk" verbose="true" propPrefix="svn.info." />
-      <info target="${project.root}/trunk/doc/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
-      <info target="${project.root}/trunk/doc/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
-      <info target="${project.root}/trunk/doc/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
-      <info target="${project.root}/trunk/doc/localization" verbose="true" propPrefix="localization.svn." />
-      <info target="${project.root}/trunk/profiles/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
-	  <info target="${runway-patch.dir}" verbose="true" propPrefix="runway-patch.info." />	
-	  <info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
-      <info target="${project.root}/installer-stage/birt" verbose="true" propPrefix="birt.svn." />	  
-	  <info target="${project.root}/installer-stage/tomcat6/webapps" verbose="true" propPrefix="webapps.svn." />	  	  			
-	  <info target="${project.root}/installer-stage/Java" verbose="true" propPrefix="java.svn." />	  	  				  
+      <info target="${project.root}/trunk" propPrefix="svn.info." />
+      <info target="${project.root}/trunk/doc/ontology/MOterms.xls" propPrefix="moterms.svn." />
+      <info target="${project.root}/trunk/doc/ontology/MOroots.xls" propPrefix="moroots.svn." />
+      <info target="${project.root}/trunk/doc/menu/MenuItems.xls" propPrefix="menuitems.svn." />
+      <info target="${project.root}/trunk/doc/localization" propPrefix="localization.svn." />
+      <info target="${project.root}/trunk/profiles/Permissions.xls" propPrefix="permissions.svn." />
+	  <info target="${runway-patch.dir}" propPrefix="runway-patch.info." />	
+	  <info target="${manager.dir}" propPrefix="manager.info." />
+      <info target="${project.root}/installer-stage/birt" propPrefix="birt.svn." />	  
+	  <info target="${project.root}/installer-stage/tomcat/webapps" propPrefix="webapps.svn." />	  	  			
+	  <info target="${project.root}/installer-stage/Java" propPrefix="java.svn." />
+	  <info target="${project.root}/installer-stage/tomcat" propPrefix="tomcat.svn." />
     </svn>
     
     <!-- Write revision info into Installer.nsi -->
@@ -256,7 +257,8 @@
 	<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
 	<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
 	<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
-	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+	<replaceregexp match="StrCpy \$TomcatVersion \d*" replace="StrCpy $TomcatVersion ${tomcat.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     
     <exec executable="${nsis.dir}/makensis" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
       <arg line="Installer.nsi" />

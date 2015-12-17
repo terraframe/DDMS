@@ -85,6 +85,7 @@ Var MenuVersion
 Var IdVersion				# Version of the predictive id change in the install. 
 Var LocalizationVersion
 Var PermissionsVersion
+Var TomcatVersion
 Var AppName
 Var LowerAppName
 Var JavaOpts               # Memory options for java commands
@@ -279,13 +280,16 @@ Function locationInputPage
 FunctionEnd
 
 Function stopPostgres
-  LogEx::Write "Stopping PostgreSQL"
-  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe stop -D $INSTDIR\${POSTGRES_DIR}\data"
-
+  LogEx::Write "Stopping PostgreSQL at $INSTDIR\${POSTGRES_DIR}"
+  
   # Wait until postgres is stopped
   StrCpy $0 0
   
   PostgresUp:
+    ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe stop -D $INSTDIR\${POSTGRES_DIR}\data" "" "$INSTDIR\installer-log.txt"
+    Pop $1 # return value
+    StrCmp $1 0 TestFileExist 0
+    
     # Sleep 2 seconds
     Sleep 5000	
 	
@@ -299,13 +303,14 @@ Function stopPostgres
 	  Goto PostgresDown
     ${EndIf}	
 	
+	TestFileExist:
 	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
 FunctionEnd
 
 Function startPostgres
   LogEx::Write "Starting PostgreSQL"
-  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe start -D $INSTDIR\${POSTGRES_DIR}\data" 
+  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe start -D $INSTDIR\${POSTGRES_DIR}\data" "" "$INSTDIR\installer-log.txt"
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -335,7 +340,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8009
+    StrCpy $PatchVersion 8020
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -343,25 +348,25 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8009
+	StrCpy $ManagerVersion 8020
 	StrCpy $BirtVersion 7851
-	StrCpy $WebappsVersion 7616
-	StrCpy $JavaVersion 7802
+	StrCpy $WebappsVersion 8045
+	StrCpy $JavaVersion 8043
+	StrCpy $TomcatVersion 8047
 	
     # Determine the location of java home.	
     ${IfNot} ${RunningX64}
       StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
       StrCpy $JvmType true
       StrCpy $MaxMem 768	  
-      StrCpy $PermMem 256	  	
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
+      StrCpy $PermMem 256
     ${Else}
-      StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+      StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66	  
       StrCpy $JvmType false
       StrCpy $MaxMem 3072
-      StrCpy $PermMem 512	  		
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
+      StrCpy $PermMem 512
     ${EndIf}
+	StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
 	
     StrCpy $JavaOpts "-Xmx$MaxMemM -XX:MaxPermSize=$PermMemM"
     
@@ -435,12 +440,21 @@ Section -Main SEC0000
     
     # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
-    LogEx::Write "Installing Tomcat"
-    SetOutPath $INSTDIR\tomcat6
-    File /r /x .svn /x webapps\DDMS\ tomcat6\*
-    SetOutPath $INSTDIR
-        
+    SetOutPath $INSTDIR\tomcat
+	
+	${If} ${RunningX64}
+	  LogEx::Write "Installing Tomcat 64-bit"
+	  File /r /x .svn /x webapps\DDMS\ tomcat\tomcat64\*
+	${Else}
+	  LogEx::Write "Installing Tomcat 32-bit"
+	  File /r /x .svn /x webapps\DDMS\ tomcat\tomcat32\*
+	${EndIf}
+	
+	SetOutPath $INSTDIR\tomcat\webapps
+	File /r /x .svn tomcat\webapps\*
+	
     # Install Postgres
+	SetOutPath $INSTDIR
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
 	
@@ -508,25 +522,13 @@ Section -Main SEC0000
 
 	# Install tomcat as a service	
     LogEx::Write "Configuring Tomcat as a service"
-    ExecWait `$TomcatExec //IS//Tomcat6 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+    ExecWait `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
 
 	# Set tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat6 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`	
+    ExecWait `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
 	
 	# Update the firewall to allow the tomcat service
-	${IfNot} ${RunningX64}
-#	  SimpleFC::AddApplication "DDMS Tomcat" "$INSTDIR\tomcat6\bin\tomcat6.exe" 0 2 "" 1
-#	  Pop $0 ; return error(1)/success(0)	
-
-      SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat6\bin\tomcat6.exe" "" "@$INSTDIR\tomcat6\bin\tomcat6.exe,-10000" "" "" "" ""
-	  Pop $0 ; return error(1)/success(0)
-    ${Else}
-#	  SimpleFC::AddApplication "DDMS Tomcat" "$INSTDIR\tomcat6\bin\tomcat64.exe" 0 2 "" 1
-#	  Pop $0 ; return error(1)/success(0)		
-	  	  
-      SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat6\bin\tomcat64.exe" "" "@$INSTDIR\tomcat6\bin\tomcat64.exe,-10000" "" "" "" ""
-	  Pop $0 ; return error(1)/success(0)	  	  
-    ${EndIf}
+	SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat\bin\tomcat8.exe" "" "@$INSTDIR\tomcat\bin\tomcat8.exe,-10000" "" "" "" ""
 	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"	
     
@@ -563,11 +565,19 @@ Section -Main SEC0000
 	
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
-    LogEx::Write "Copying the webapp to $INSTDIR\tomcat6\webapps\$AppName"
-    SetOutPath $INSTDIR\tomcat6\webapps\$AppName
+    LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
+    SetOutPath $INSTDIR\tomcat\webapps\$AppName
     File /r /x .svn webapp\*
     SetOutPath $INSTDIR
     
+	# Update index.html redirect
+	Push DDMS                                      # text to be replaced
+	Push $AppName                                  # replace with
+	Push all                                       # replace all occurrences
+	Push all                                       # replace all occurrences
+	Push $INSTDIR\tomcat\webapps\ROOT\index.html   # file to replace in
+	Call AdvReplaceInFile
+	
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
@@ -592,7 +602,7 @@ Section -Main SEC0000
     # Update lots of things	
 	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $execReturn
+    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $execReturn
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
 	
 	${If} $execReturn == 1 #Our PostInstall process returned 1. This isn't a memory option, its an error code.
@@ -617,7 +627,7 @@ Section -Main SEC0000
 	Push $JavaHome                         # replace with
 	Push all                               # replace all occurrences
 	Push all                               # replace all occurrences
-	Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
+	Push $INSTDIR\tomcat\bin\startup.bat  # file to replace in
 	Call AdvReplaceInFile
 	
     # Update shutdown.bat
@@ -625,7 +635,7 @@ Section -Main SEC0000
 	Push $JavaHome                         # replace with
 	Push all                               # replace all occurrences
 	Push all                               # replace all occurrences
-	Push $INSTDIR\tomcat6\bin\shutdown.bat # file to replace in
+	Push $INSTDIR\tomcat\bin\shutdown.bat # file to replace in
 	Call AdvReplaceInFile	
 	
 	# Update manager.bat
@@ -660,19 +670,21 @@ Section -Main SEC0000
 	${EndIF}	
 	
 	# Update tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp" --LogPath="$INSTDIR\logs"`	
+    ExecWait `$TomcatExec //US//Tomcat --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+	
+	Rename $INSTDIR\tomcat\bin\tomcat8w.exe $INSTDIR\tomcat\bin\tomcatw.exe
 	
     # Copy the profile to the backup manager
     LogEx::Write "Copying profile to backup manager"
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Copy in the pregenerated cache files
     LogEx::Write "Copying over pregenerated cache files"
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
-    File /oname=$INSTDIR\tomcat6\$AppName.data DDMS.data
-    File /oname=$INSTDIR\tomcat6\$AppName.index DDMS.index
+    File /oname=$INSTDIR\tomcat\$AppName.data DDMS.data
+    File /oname=$INSTDIR\tomcat\$AppName.index DDMS.index
 	    
     LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
@@ -688,8 +700,9 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
-    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
+	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
 	
+    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
 	
     # Write some shortcuts
@@ -741,14 +754,14 @@ done${UNSECTION_ID}:
 Section /o -un.Main UNSEC0000
     # Only run the uninstall if the service isn't running
 	
-    SimpleSC::ServiceIsRunning "Tomcat6"
+    SimpleSC::ServiceIsRunning "Tomcat"
 	Pop $0 ; returns an errorcode (<>0) otherwise success (0)
 	Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
 	
 	${If} $1 <> 0        
 	
 	  # Try to stop the service
-      SimpleSC::StopService "Tomcat6" 1 60
+      SimpleSC::StopService "Tomcat" 1 60
 	  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
 	  
 	  ${If} $0 <> 0        
@@ -759,15 +772,9 @@ Section /o -un.Main UNSEC0000
 	  
 	${EndIf}
 
-	# Determine the location of TomcatExec home.	
-	${IfNot} ${RunningX64}
-	  StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe	  
-    ${Else}
-	  StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe	  	  
-	${EndIf}
-	
-  CreateDirectory $DESKTOP\temp_uninstall_files
-  CopyFiles $INSTDIR\${POSTGRES_DIR}\uninstall*.exe $DESKTOP\temp_uninstall_files
+  # Determine the location of TomcatExec home.	
+  StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
+
   DeleteRegValue HKLM "${REGKEY}\Components" Main
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
@@ -782,10 +789,9 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
 	
   #Uninstall Tomcat as a service
-  ExecWait `$TomcatExec //DS//Tomcat6`
+  ExecWait `$TomcatExec //DS//Tomcat`
 
-  ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
-  RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
+  ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
   RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
   RmDir /r /REBOOTOK $INSTDIR
   UserMgr::DeleteAccount "ddmspostgres"
