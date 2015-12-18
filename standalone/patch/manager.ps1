@@ -28,7 +28,7 @@ function help()
 
 if ([System.Environment]::Is64BitOperatingSystem)
 {
-  $javaDir = "jdk1.6.0_16"
+  $javaDir = "jdk1.8.0_66"
 }
 else
 {
