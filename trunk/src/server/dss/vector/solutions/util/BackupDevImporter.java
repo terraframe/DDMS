@@ -157,6 +157,8 @@ public class BackupDevImporter
     {
       fRestoreUnzip.delete();
     }
+    
+    System.out.println("Restore is completed.");
   }
   
   private void unzipFile(File fBackup)

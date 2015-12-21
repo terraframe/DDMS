@@ -147,11 +147,20 @@ public class ErrorUtility implements Reloadable
   private static Throwable filterServletException(Throwable t)
   {
     int i = 0;
+    
     while (t instanceof ServletException && i < 50)
     {
-      t = t.getCause();
-      i++;
+      if (t.getCause() != null)
+      {
+        t = t.getCause();
+        i++;
+      }
+      else
+      {
+        break;
+      }
     }
+    
     return t;
   }
 
