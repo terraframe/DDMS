@@ -1,9 +1,6 @@
 package dss.vector.solutions.initializer;
 
-import java.io.InvalidClassException;
 import java.lang.reflect.InvocationTargetException;
-
-import net.sf.ehcache.CacheException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -99,14 +96,14 @@ public class Builder implements Reloadable
         throwable = throwable.getCause();
       }
 
-      if (throwable instanceof CacheException)
-      {
-        if (throwable.getCause() instanceof InvalidClassException)
-        {
-          throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
-          errorCode = 0;
-        }
-      }
+//      if (throwable instanceof CacheException)
+//      {
+//        if (throwable.getCause() instanceof InvalidClassException)
+//        {
+//          throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
+//          errorCode = 0;
+//        }
+//      }
 
       if (throwable instanceof NoSuchMethodError)
       {
