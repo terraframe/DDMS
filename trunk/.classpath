@@ -172,7 +172,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/birt/Tidy.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-configuration-1.9.jar" sourcepath="/Users/terraframe/.m2/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-lang-2.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/ehcache-core-2.4.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/guice-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/slf4j-api-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/slf4j-jdk14-1.6.1.jar"/>
@@ -197,5 +196,9 @@
 	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/aspectjrt-1.8.6.jar"/>
 	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.6.jar"/>
+	<classpathentry kind="lib" path="lib/server/cache-api-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/ehcache-3.0.0.m3.jar"/>
+	<classpathentry kind="lib" path="lib/server/javassist-3.11.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/server/offheap-store-2.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
