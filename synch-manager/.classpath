@@ -29,6 +29,6 @@
 	<classpathentry kind="lib" path="lib/swt.jar"/>
 	<classpathentry kind="lib" path="lib/ui-3.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/workbench-3.5.2.jar"/>
-	<classpathentry kind="lib" path="lib/runwaysdk-manager-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/runwaysdk-manager-2.0.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
