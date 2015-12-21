@@ -67,10 +67,14 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
   public void postRestore()
   {
     String regPath = this.getRegPath();
+    
+    String cleanReg32 = BackupProperties.getDeleteCommand() + " " + this.getHKLMPath();
+    String cleanReg64 = BackupProperties.getDeleteCommand() + " " + this.getHKLM64Path();
+    
     String command = this.getImportCommand(regPath);
-
+    
     File file = new File(regPath);
-
+    
     try
     {
       if (!file.exists())
@@ -78,17 +82,18 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         // Can't import a file that's not here...
         return;
       }
-
+      
+      execWait(cleanReg64);
+      execWait(cleanReg32);
+      
       execWait(command);
-
-//      FileIO.deleteFile(file);
     }
     catch (IOException e)
     {
       throw new FileReadException("Couldn't import registry backup file " + regPath, file, e);
     }
   }
-
+  
   private String getImportCommand(String regPath)
   {
     double version = Double.parseDouble(System.getProperty("os.version"));

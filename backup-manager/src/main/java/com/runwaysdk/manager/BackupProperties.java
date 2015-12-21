@@ -43,6 +43,11 @@ public class BackupProperties
   {
     return instance().getString("import.cmd");
   }
+  
+  public static String getDeleteCommand()
+  {
+    return instance().getString("delete.cmd");
+  }
 
   public static String getRegistry32()
   {
