@@ -39,5 +39,4 @@
 -->
   <role rolename="admin"/>
   <user username="framework" password="P7ayU8Re" roles="admin,manager"/>
-  <user username="ddms" password="ddms" roles="admin,manager"/>  
 </tomcat-users>
