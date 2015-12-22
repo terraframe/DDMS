@@ -39,11 +39,12 @@ else
 $basedir = split-path -parent $MyInvocation.MyCommand.Definition
 $ddmsLoc = "$($basedir)\..\"
 $java = "$($ddmsLoc)\Java\$($javaDir)\bin\java.exe"
-$username = "ddms"
-$password = "ddms"
+$username = "framework"
+$password = "P7ayU8Re"
 $url = "http://127.0.0.1:8080/manager/"
 $memory = "-Xms128m -Xmx1028m -XX:MaxPermSize=512m"
-$ssl = "`"-Djavax.rmi.ssl.client.enabledProtocols=TLSv1`" `"-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5`" `"-Djavax.net.ssl.trustStorePassword=1206b6579Acb3`" `"-Djavax.net.ssl.trustStore=$($ddmsLoc)manager\keystore\ddms.ts`" `"-Djavax.net.ssl.keyStorePassword=4b657920666fZ`" `"-Djavax.net.ssl.keyStore=$($ddmsLoc)manager\keystore\ddms.ks`" `"-Djava.endorsed.dirs=$($ddmsLoc)tomcat6\endorsed`""
+$ssl = "`"-Djavax.net.ssl.trustStorePassword=1206b6579Acb3`" `"-Djavax.net.ssl.trustStore=$($ddmsLoc)manager\keystore\ddms.ts`" `"-Djavax.net.ssl.keyStorePassword=4b657920666fZ`" `"-Djavax.net.ssl.keyStore=$($ddmsLoc)manager\keystore\ddms.ks`" `"-Djava.endorsed.dirs=$($ddmsLoc)tomcat\endorsed`""
+$serviceName = "Tomcat"
 
 function main()
 {
@@ -173,7 +174,7 @@ function startTomcat()
   {
     echo "Starting tomcat..."
   
-    cmd.exe /c sc start Tomcat6
+    cmd.exe /c sc start $serviceName
     
     $classpath = getClasspath "manager" $null
     $cmd = "$($java) $($memory) $($ssl) -cp `"$($classpath)`" dss.vector.solutions.manager.server.ServerStatus -s"
@@ -202,7 +203,7 @@ function stopTomcat()
   if ($status -eq "started")
   {
     echo "Stopping tomcat..."
-    cmd.exe /c sc stop Tomcat6
+    cmd.exe /c sc stop $serviceName
     
     $classpath = getClasspath "manager" $null
     $cmd = "$($java) $($memory) $($ssl) -cp `"$($classpath)`" dss.vector.solutions.manager.server.ServerStatus -o"
