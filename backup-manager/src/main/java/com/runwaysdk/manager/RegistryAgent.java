@@ -68,10 +68,10 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
   {
     String regPath = this.getRegPath();
     
-    String cleanReg32 = BackupProperties.getDeleteCommand() + " " + this.getHKLMPath();
-    String cleanReg64 = BackupProperties.getDeleteCommand() + " " + this.getHKLM64Path();
+    String cleanReg32 = BackupProperties.getDeleteCommand() + " " + this.getHKLMPath() + " /f";
+    String cleanReg64 = BackupProperties.getDeleteCommand() + " " + this.getHKLM64Path() + " /f";
     
-    String command = this.getImportCommand(regPath);
+    String command = this.getImportCommand(regPath); 
     
     File file = new File(regPath);
     
