@@ -69,16 +69,15 @@
     </classpath>
   </taskdef>
  
-
 <!--
   <target name="build" depends="build_installer_exe"/>
   <target name="build" depends="build-database, build_installer_exe"/>
  -->
- 
   <target name="build" depends="build_installer_exe"/>
 
   
   <target name="build-database">
+  <!--
     <echo message="Deleting directory: ${stage.webapp}/" />
     <delete dir="${stage.webapp}" verbose="false" />
   
@@ -109,7 +108,7 @@
 
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
-	
+	-->
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="root.user" value="${root.user}" />
       <property name="root.pass" value="${root.pass}" />
@@ -117,11 +116,13 @@
       <property name="geodata.db" value="${geodata.db}" />
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
+	  <!--
       <target name="rebuild_db" /> 
       <target name="rebuild_model" />
       <target name="import_most_recent" />
       <target name="deploy" />
       <target name="deploy_all_files"/>
+	  -->
       <target name="import_ontology" />
       <target name="import_menuitems" />
       <target name="import_ontology_roots" />
@@ -227,8 +228,9 @@
   
   <target name="build_installer_exe">
     <!-- Copy in cache files -->
-    <copy file="${local.root}/DDMS.data" todir="${stage.dir}"/>
-    <copy file="${local.root}/DDMS.index" todir="${stage.dir}"/>
+	<copy todir="${stage.dir}/cache/global">
+      <fileset dir="${local.root}/cache/global"/>
+    </copy>
   
     <!-- Get revision info from svn -->
     <svn refid="svn.settings">

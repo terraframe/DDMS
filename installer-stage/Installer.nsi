@@ -88,13 +88,13 @@ Var PermissionsVersion
 Var TomcatVersion
 Var AppName
 Var LowerAppName
-Var JavaOpts               # Memory options for java commands
-Var JavaHome               # Location of the Java JDK depending on the system OS version
-Var JvmType                # Flag indicating if the jvm is 32-bit or not
-Var MaxMem                 # Max amount of memory to give Tomcat and the installer
-Var PermMem                # Max amount of perm gen memory to give Tomcat and the installer
-Var TomcatExec             # Path of the tomcat service executable
-Var execReturn             # Contains the return value from running an executable.
+Var JavaOpts                # Memory options for java commands
+Var JavaHome                # Location of the Java JDK depending on the system OS version
+Var JvmType                 # Flag indicating if the jvm is 32-bit or not
+Var MaxMem                  # Max amount of memory to give Tomcat and the installer
+Var PermMem                 # Max amount of perm gen memory to give Tomcat and the installer
+Var TomcatExec              # Path of the tomcat service executable
+Var execReturn              # Contains the return value from running an executable.
 
 
 # Installer pages
@@ -340,7 +340,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8020
+    StrCpy $PatchVersion 8088
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -348,11 +348,11 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 7799
 	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8020
+	StrCpy $ManagerVersion 8088
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8045
-	StrCpy $JavaVersion 8043
-	StrCpy $TomcatVersion 8047
+	StrCpy $JavaVersion 8082
+	StrCpy $TomcatVersion 8073
 	
     # Determine the location of java home.	
     ${IfNot} ${RunningX64}
@@ -525,7 +525,7 @@ Section -Main SEC0000
     ExecWait `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
 
 	# Set tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
+    ExecWait `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
 	
 	# Update the firewall to allow the tomcat service
 	SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat\bin\tomcat8.exe" "" "@$INSTDIR\tomcat\bin\tomcat8.exe,-10000" "" "" "" ""
@@ -670,7 +670,7 @@ Section -Main SEC0000
 	${EndIF}	
 	
 	# Update tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
+    ExecWait `$TomcatExec //US//Tomcat --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
 	
 	Rename $INSTDIR\tomcat\bin\tomcat8w.exe $INSTDIR\tomcat\bin\tomcatw.exe
@@ -683,9 +683,15 @@ Section -Main SEC0000
     # Copy in the pregenerated cache files
     LogEx::Write "Copying over pregenerated cache files"
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
-    File /oname=$INSTDIR\tomcat\$AppName.data DDMS.data
-    File /oname=$INSTDIR\tomcat\$AppName.index DDMS.index
-	    
+	SetOutPath $INSTDIR\tomcat\cache\global
+	File /r /x .svn cache\global\*
+	  # The cache is a directory called DDMS_autogenerated. We need to rename this to $AppName_autogenerated.
+	  # R0=fileHandle R1=filename
+	  FindFirst $R0 $R1 "$INSTDIR\tomcat\cache\global\*"
+	  FindClose $R0
+	  Rename "$INSTDIR\tomcat\cache\global\$R1" "$INSTDIR\tomcat\cache\global\$AppName_5bc784535e21ff17222e498cce8207ece6e49cf8"
+	  
+	
     LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
@@ -702,6 +708,7 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
 	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
 	
+	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 1
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
 	
