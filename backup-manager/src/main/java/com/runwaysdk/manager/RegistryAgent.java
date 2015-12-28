@@ -80,6 +80,7 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
       if (!file.exists())
       {
         // Can't import a file that's not here...
+        Logger.error("The registry file [" + file.getAbsolutePath() + "] does not exist, so we can't import it. Skipping all registry tasks.");
         return;
       }
       
