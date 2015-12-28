@@ -6,6 +6,8 @@
 	<property name="build.ftp.pass" value="_Terra4Frame" />
 	<property name="build.ftp.path" value="/ddms/installers" />
 	<property name="build.ftp.testpath" value="/ddms/testing" />
+	
+	<taskdef resource="taskdefs.xml" classpath="aws-java-sdk-ant-tasks-1.2.3.jar" />
 
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
@@ -52,7 +54,10 @@
 	
 	<target name="email-only" depends="set-properties,email,increment" />		
 	
+	<target name="email-test" depends="set-properties,email-test-impl" />
+	
 	<target name="standalone-upload-test" depends="set-properties,upload-test" />
+	<target name="standalone-upload-test-s3" depends="set-properties,upload-test-s3" />
 	
 	<target name="build-and-upload" depends="build,upload-and-email" />	
 	
@@ -61,7 +66,13 @@
 			<update dir="${mdss.root}" recurse="true" />
 			<update dir="../standalone" recurse="true" />
 			<update dir="../installer-stage" recurse="true" />
-			<update dir="../ddms-runway-patcher" recurse="true" />			
+			<update dir="../ddms-runway-patcher" recurse="true" />
+            <update dir="../backup-manager" recurse="true" />		
+			<update dir="../ddms-initializer" recurse="true" />
+			<update dir="../tomcat-remote-listener" recurse="true" />
+			<update dir="../synch-manager" recurse="true" />
+			<update dir="../MDSSGISI" recurse="true" />
+			<update dir="../manager" recurse="true" />
 		</svn>
 	</target>
 	
@@ -118,12 +129,12 @@
 	
   
   <!--
-	<target name="build-all" depends="build-installer,build-patch" />
-	-->
 	<target name="build-all" depends="build-managers,build-installer,build-patch" />
+	-->
+	<target name="build-all" depends="build-installer,build-patch" />
 
 	<target name="build-managers">
-      <exec executable="cmd">
+      <exec executable="cmd" failonerror="true">
         <arg value="/c" />
         <arg value="${basedir}/../standalone\buildall.bat" />
       </exec>
@@ -145,6 +156,19 @@
 		</ant>
 		<copy file="../patch/manager-patch.exe" tofile="${file.patch}" />						
 		<delete file="../patch/manager-patch.exe" />								
+	</target>
+	
+	<target name="upload-test-s3">
+	  <!-- Using this s3 plugin, the key name has to be the same as the filename, so we're going to rename it here then upload. -->
+	  <copy file="${file.patch}" tofile="patcher.exe"/>
+	  <copy file="${file.installer}" tofile="installer.exe"/>
+	
+	  <upload-to-s3 bucketName="dss.vector.solutions.ddms" keyPrefix="testing/" awsAccessKeyId="AKIAJX3T2RYVHDNKEPNQ" awsSecretKey="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">
+        <fileset dir=".">
+			<include name="patcher.exe"/>			  			  			
+			<include name="installer.exe"/>
+		</fileset>
+      </upload-to-s3>
 	</target>
 	
 	<target name="upload-test">	
@@ -223,6 +247,26 @@
             user="builder@terraframe.com"
             password="_Terra4Frame"
 			tolist="rrowlands@terraframe.com, dinfiesto@terraframe.com, nmceachen@terraframe.com, jsmethie@terraframe.com, jlewis@terraframe.com, miguel.orlans@gmail.com"
+			>
+            <from address="builder@terraframe.com" />
+			<replyto address="rrowlands@terraframe.com" />
+			
+            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.
+			</message>
+        </mail>	
+	</target>
+	
+	<target name="email-test-impl">
+		 <!-- Email devs to test that we can email -->
+		
+        <mail
+            mailhost="box737.bluehost.com"
+            mailport="465"
+		    ssl="true"
+            subject="${date} build complete"
+            user="builder@terraframe.com"
+            password="_Terra4Frame"
+			tolist="rrowlands@terraframe.com"
 			>
             <from address="builder@terraframe.com" />
 			<replyto address="rrowlands@terraframe.com" />

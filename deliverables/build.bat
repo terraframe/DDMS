@@ -1,12 +1,11 @@
-@echo off
+
 rem ant -buildfile cc-build.xml 
 
-SET ANT_HOME=C:\Program Files\Java\apache-ant-1.9.4
+SET "ANT_HOME=C:\Program Files (x86)\apache_ant"
 SET ANT_OPTS=-Xmx1024m -XX:MaxPermSize=128M
-SET JAVA_HOME=C:\Program Files\Java\jdk1.6.0_45
-SET JDK_HOME=C:\Program Files\Java\jdk1.6.0_45
-SET JRE_HOME=C:\Program Files\Java\jre6
-
+SET "JAVA_HOME=C:\Program Files\Java\jdk1.8.0_66"
+SET "JDK_HOME=C:\Program Files\Java\jdk1.8.0_66"
+SET "JRE_HOME=C:\Program Files\Java\jdk1.8.0_66\jre"
 
 rem "%ANT_HOME%\bin\ant" -buildfile cc-build.xml -Dpostgres.bin="C:/Program Files/PostgreSQL/8.4/bin"  build_installer_exe
 cls
