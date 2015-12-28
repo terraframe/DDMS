@@ -120,7 +120,9 @@ Var RootsVersion            # Version of the roots contained in the install.
 Var MenuVersion             # Version of the menu structure contained in the install.
 Var LocalizationVersion     # Version of the localization file contained in the install.
 Var PermissionsVersion      # Version of the permissions contained in the install.
-Var IdVersion			        	# Version of the predictive id change in the install. 
+Var TomcatVersion           # Version of tomcat install (using our own versioning system, not theirs)
+Var PropertiesVersion       # Version of our properties files
+Var IdVersion			    # Version of the predictive id change in the install. 
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var Params                  # Variable for storing all of the params
@@ -183,24 +185,23 @@ Section -Main SEC0000
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
     StrCpy $JvmType true
     StrCpy $MaxMem 768    
-    StrCpy $PermMem 256      
-    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe    
+    StrCpy $PermMem 256
   ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16    
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66    
     StrCpy $JvmType false
     StrCpy $MaxMem 3072
-    StrCpy $PermMem 512        
-    StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe        
+    StrCpy $PermMem 512
   ${EndIf}
-
+  StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
+  
   SetOutPath $INSTDIR
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8009
-  StrCpy $PatchVersion 8009
+  StrCpy $ManagerVersion 8088
+  StrCpy $PatchVersion 8088
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -208,9 +209,11 @@ Section -Main SEC0000
   StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 7616
-  StrCpy $JavaVersion 7802  
+  StrCpy $WebappsVersion 8045
+  StrCpy $JavaVersion 8082
+  StrCpy $TomcatVersion 8073
   
+  StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
     
   # Set some constants
@@ -263,29 +266,29 @@ Section -Main SEC0000
 
   #  After all patching has finished we need to delete the tomcat cache
   SetOutPath $INSTDIR
-  RMDir /r $INSTDIR\tomcat6\work\Catalina 
+  RMDir /r $INSTDIR\tomcat\work\Catalina 
   
   # Update the pathing for java  
   LogEx::Write "Updating java pathing"
 
   # Update startup.bat
-  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $INSTDIR\Java\jdk1.8.0_66         # text to be replaced
   Push $JavaHome                         # replace with
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
-  Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
+  Push $INSTDIR\tomcat\bin\startup.bat  # file to replace in
   Call AdvReplaceInFile
     
   # Update shutdown.bat
-  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $INSTDIR\Java\jdk1.8.0_66         # text to be replaced
   Push $JavaHome                         # replace with
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
-  Push $INSTDIR\tomcat6\bin\shutdown.bat # file to replace in
+  Push $INSTDIR\tomcat\bin\shutdown.bat # file to replace in
   Call AdvReplaceInFile
   
   # Update manager.bat
-  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $INSTDIR\Java\jdk1.8.0_66         # text to be replaced
   Push $JavaHome                         # replace with
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
@@ -321,7 +324,7 @@ Function checkIfMaster
   StrCpy $IsMaster "false"
   
   ClearErrors
-  FileOpen $0 $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\install.properties r
+  FileOpen $0 $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\install.properties r
     
   propFileReadLoop:
   # Read a line from the file into $1
@@ -376,6 +379,83 @@ Function patchApplications
   FileClose $AppFile
 FunctionEnd
 
+# This function will patch the properties files, for the current $AppName
+Function patchProperties
+    # Before we start, check the versions
+	ClearErrors
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Properties
+	IfErrors PropertiesNoExist PropertiesExist
+	PropertiesNoExist:
+	    StrCpy $0 0
+	PropertiesExist:
+    ${If} 1 > $0
+	    LogEx::Write "Patching $AppName properties to version 1."
+	
+	    # Replace any tomcat6 with just tomcat
+        Push tomcat6                                                                  # text to be replaced
+        Push tomcat                                                                   # replace with
+        Push all                                                                      # replace all occurrences
+        Push all                                                                      # replace all occurrences
+        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\terraframe.properties   # file to replace in
+        Call AdvReplaceInFile
+		
+		# Add the server.modules.loader to common.properties
+	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\common.properties" a
+        FileSeek $4 0 END
+        FileWrite $4 "$\r$\n" ; we write a new line
+        FileWrite $4 "server.modules.loader=com.runwaysdk.util.ServerInitializer"
+        FileWrite $4 "$\r$\n" ; we write an extra line
+        FileClose $4 ; and close the file
+	  
+	    # Update globalCache location
+		Push globalCache.cacheFileLocation=${local.root}                              # text to be replaced
+        Push globalCache.cacheFileLocation=${local.root}\cache\global                 # replace with
+        Push 0                                                                        # replace all occurrences
+        Push 1                                                                        # replace all occurrences
+        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
+        Call AdvReplaceInFile
+		
+		# Update transaction cache size
+		Push transactionCache.diskstore.size=500                                      # text to be replaced
+        Push transactionCache.diskstore.size=50000                                    # replace with
+        Push 0                                                                        # replace all occurrences
+        Push 1                                                                        # replace all occurrences
+        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
+        Call AdvReplaceInFile
+		
+		# Add new caching settings
+	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties" a
+        FileSeek $4 0 END
+        FileWrite $4 "$\r$\n" ; we write a new line
+        FileWrite $4 "globalCache.offheapMemorySize=20"
+		FileWrite $4 "$\r$\n" ; we write a new line
+		FileWrite $4 "globalCache.diskstore.size=50000"
+		FileWrite $4 "$\r$\n" ; we write a new line
+		FileWrite $4 "runtime.compiler.impl=ECLIPSE"
+        FileWrite $4 "$\r$\n" ; we write an extra line
+        FileClose $4 ; and close the file
+		
+		# Change logging level to WARN and disable the chainsaw appender
+		Push "log4j.rootLogger=ERROR, com.runwaysdk.RollingFileAppender, com.runwaysdk.ChainsawSocketAppender"    # text to be replaced
+        Push "log4j.rootLogger=WARN, com.runwaysdk.RollingFileAppender"                 # replace with
+        Push all                                                                      # replace all occurrences
+        Push all                                                                      # replace all occurrences
+        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
+        Call AdvReplaceInFile
+		
+		# Update globalCache location
+		Push globalCache.cacheFileLocation=${local.root}                              # text to be replaced
+        Push globalCache.cacheFileLocation=${local.root}\cache\global                 # replace with
+        Push all                                                                      # replace all occurrences
+        Push all                                                                      # replace all occurrences
+        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties   # file to replace in
+        Call AdvReplaceInFile
+	  
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
+    ${Else}
+	    LogEx::Write "Skipping properties patch of $AppName because it is already up to date."
+    ${EndIf}
+FunctionEnd
 
 Function patchApplication    
     # Before we start, check the versions to make sure this is actually a patch.
@@ -387,25 +467,26 @@ Function patchApplication
 	  LogEx::Write "Starting patch of application $AppName"
 	
 	  # Update the classpath to reference the particular application being patched
-      StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+      StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
 
       # Remove any old log files that may be laying around
       Delete $AgentDir\*.out
       Delete $AgentDir\*.err
 	  
 	  # Remove old lib files
-      Delete $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*.*
+      Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*.*
             
       # Copy web files
 	  LogEx::Write "Updating web files"
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
-      SetOutPath $INSTDIR\tomcat6\webapps\$AppName
+      SetOutPath $INSTDIR\tomcat\webapps\$AppName
       File /r /x .svn ..\trunk\patches\webapp\*
-      File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+      File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
 
+	  Call patchProperties
+	  
       # We need to clear the old cache
-      Delete $INSTDIR\tomcat6\$AppName.index
-      Delete $INSTDIR\tomcat6\$AppName.data    
+	  RMDir /r $INSTDIR\tomcat\cache
 
       # Build any dimensional metadata with the Master domain
 	  LogEx::Write "Building dimensional metadata for $AppName"
@@ -423,8 +504,7 @@ Function patchApplication
         Call JavaAbort
 		
 		# We need to re-clear the old cache
-		Delete $INSTDIR\tomcat6\$AppName.index
-		Delete $INSTDIR\tomcat6\$AppName.data    
+		RMDir /r $INSTDIR\tomcat\cache
 		
         StrCpy $Phase "Updating system ids, this process can several hours to complete."		
 		ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_keys -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k` $JavaError
@@ -454,8 +534,8 @@ Function patchApplication
       # Delete $PatchDir\schema
     
       # Switch to the develop environment
-      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties
-      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties
+      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
     
       # Terms
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
@@ -533,7 +613,7 @@ Function patchApplication
       ${If} $PermissionsVersion > $0
 	    LogEx::Write "Updating permissions"
         StrCpy $Phase "Updating permissions"
-        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\Permissions.xls` $JavaError
+        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\Permissions.xls` $JavaError
         Call JavaAbort
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
       ${Else}
@@ -556,17 +636,17 @@ Function patchApplication
    
       # Switch back to the deploy environment
 	  LogEx::Write "Switching back to deploy environment"
-      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
-      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
+      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
   
       # Update the .css file with the correct pathing
 	  LogEx::Write "Executing post install setup"
-      ExecWait `$Java -cp "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
+      ExecWait `$Java -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
     
       # Copy the profile to the backup manager
 	  LogEx::Write "Copying the profile to the backup manager"
       CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-      CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+      CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
       # Write updated versions into registry
 	  LogEx::Write "Updating the registry"
@@ -575,8 +655,7 @@ Function patchApplication
     
       # We need to clear the old cache
 	  LogEx::Write "Deleting the old cache"
-      Delete $INSTDIR\tomcat6\$AppName.index
-      Delete $INSTDIR\tomcat6\$AppName.data  
+	  RMDir /r $INSTDIR\tomcat\cache
     Goto next
     false:
     DetailPrint "Skipping patch of $AppName"
@@ -619,13 +698,13 @@ Function patchMetadata
   ${If} $RunwayVersion > $0
     LogEx::Write "Patching runway metadata for $AppName"
 	
-    StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"    
-    StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+    StrCpy $TargetLoc "$INSTDIR\tomcat\webapps\$AppName\WEB-INF"    
+    StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
 	
 	${If} $MetadataVersion > $0
 		# Copy over the updated runway jar
 		LogEx::Write "Copying over the updated runway jar."
-		SetOutPath $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib
+		SetOutPath $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib
 		File /x .svn ..\trunk\patches\webapp\WEB-INF\lib\*
 	  
 		# Build any dimensional metadata with the Master domain
@@ -642,8 +721,7 @@ Function patchMetadata
     Call JavaAbort
   
     # We need to clear the old cache
-    Delete $INSTDIR\tomcat6\$AppName.index
-    Delete $INSTDIR\tomcat6\$AppName.data
+	RMDir /r $INSTDIR\tomcat\cache
   
     # Build any dimensional metadata with the Master domain
     #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
@@ -822,54 +900,81 @@ Function patchInstallerStage
     LogEx::Write "Patching tomcat webapps."
   
     # Delete the existing birt web app files
-	RMDir /r $INSTDIR\tomcat6\webapps\birt\logs
-	RMDir /r $INSTDIR\tomcat6\webapps\birt\report
-	RMDir /r $INSTDIR\tomcat6\webapps\birt\scriptlib
-	RMDir /r $INSTDIR\tomcat6\webapps\birt\webcontent
-	RMDir /r $INSTDIR\tomcat6\webapps\birt\WEB-INF 
+	RMDir /r $INSTDIR\tomcat\webapps\birt\logs
+	RMDir /r $INSTDIR\tomcat\webapps\birt\report
+	RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
+	RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
+	RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
   
     # Copy over the new webapp files
-    SetOutPath $INSTDIR\tomcat6\webapps
-    File /r /x .svn /x .war ..\installer-stage\tomcat6\webapps\*  
+    SetOutPath $INSTDIR\tomcat\webapps
+    File /r /x .svn /x .war ..\installer-stage\tomcat\webapps\*  
   
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
   ${Else}
     DetailPrint "Webapps directory is already up to date"
     LogEx::Write "Webapps directory is already up to date"
-  ${EndIf}      
-  
+  ${EndIf}
+
   ################################################################################
-  # Copy over the tomcat conf files
-  ################################################################################
-  SetOutPath $INSTDIR\tomcat6\conf
-  File /r /x .svn /x .war ..\installer-stage\tomcat6\conf\tomcat-users.xml  
-  
-  # Copy over the 64 bit tomcat service executable
-  SetOutPath $INSTDIR\tomcat6\bin
-  File /r /x .svn /x .war ..\installer-stage\tomcat6\bin\tomcat64.exe
-  
-  ################################################################################
-  # Install tomcat as a service
+  # Patch tomcat
   ################################################################################
   
+  ClearErrors
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Tomcat
+  IfErrors DbSoftwareErrors
+  ${If} $TomcatVersion > $0
+    DbSoftwareErrors:
+	  # copy over new tomcat
+	  SetOutPath $INSTDIR\tomcat
+	  ${If} ${RunningX64}
+	    File /r /x .svn ..\installer-stage\tomcat\tomcat64\*
+      ${Else}
+	    File /r /x .svn ..\installer-stage\tomcat\tomcat32\*
+	  ${EndIf}
+	  
+	  # copy old webapps to the new install
+	  CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
+	  
+	  # delete old tomcat
+	  RMDir /r $INSTDIR\tomcat6
+	  
+	  WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
+  ${Else}
+    LogEx::Write "Skipping tomcat upgrade because the software is up to date."
+    DetailPrint "Skipping tomcat upgrade because the software is up to date."
+  ${EndIf}
+  
+  # Delete old service
   SimpleSC::ExistsService "Tomcat6"
+  Pop $1
+    
+  ${If} $0 <> 0
+    LogEx::Write "Removing old Tomcat6 service."
+    SimpleSC::RemoveService "Tomcat6"
+  ${EndIf}
+  
+  
+  
+  
+  SimpleSC::ExistsService "Tomcat8"
   Pop $0
   
   ${If} $0 <> 0
     # Install tomcat as a service  
     LogEx::Write "Configuring Tomcat as a service. The subprocess will log to ServiceSetup.log"
-    ExecWait `$TomcatExec //IS//Tomcat6 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+    ExecWait `$TomcatExec //IS//Tomcat8 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
     LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
   
     # Update tomcat service parameters
     LogEx::Write "Update tomcat service parameters. The subprocess will log to ServiceSetup.log"
-    ExecWait `$TomcatExec //US//Tomcat6 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat6\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`  
+    ExecWait `$TomcatExec //US//Tomcat8 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
     LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
   ${EndIf}
   
   # Update tomcat memory parameters
   LogEx::Write "Update tomcat memory parameters. The subprocess will log to ServiceSetup.log"
-  ExecWait `$TomcatExec //US//Tomcat6 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat6\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.rmi.ssl.client.enabledProtocols=TLSv1;-Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat6\endorsed;-Dcatalina.base=$INSTDIR\tomcat6;-Dcatalina.home=$INSTDIR\tomcat6;-Djava.io.tmpdir=$INSTDIR\tomcat6\temp"`  
+  ExecWait `$TomcatExec //US//Tomcat8 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
   LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
 FunctionEnd
 
@@ -1228,9 +1333,14 @@ Function stopPostgres
       StrCmp $1 0 PostgresDown
 	  
 	  # Yikes, this is a problem if we get here.
-	  LogEx::Write "FATAL ERROR : Postgres failed to stop. This patcher will now exit."
-	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop. This patcher will now exit." /SD IDOK
-	  Abort
+	  LogEx::Write "FATAL ERROR : Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team."
+	  MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
+	  Goto PostgresDown # Ignore
+	  Abort_Clicked:
+	  StrCpy $JavaError 1
+      Call JavaAbort
+	  Retry_Clicked:
+	  Goto PostgresUp
     ${EndIf}
 	
 	Goto PostgresUp
@@ -1248,8 +1358,10 @@ Function migrateDatabaseSoftware
 	# Uninstall old Postgres & PostGIS
 	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Uninstalling old software"
     LogEx::Write "Uninstalling old software"
-	ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.5-1.exe" /S`
-    ExecWait `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
+	push `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.5-1.exe" /S`
+	Call execDos
+    push `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
+	Call execDos
     RmDir /r "$INSTDIR\PostgreSql"
 	
 	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Installing PostgreSQL 9.4"
@@ -1257,10 +1369,12 @@ Function migrateDatabaseSoftware
 	SetOutPath $INSTDIR
     ${If} ${RunningX64}
 	  File ..\installer-stage\postgresql-9.4.5-1-windows-x64.exe
-      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  push `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  Call execDos
 	${Else}
 	  File ..\installer-stage\postgresql-9.4.5-1-windows.exe
-      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  push `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  Call execDos
 	${EndIf}
 	
 	push ${POSTGRES_DIR}
@@ -1301,11 +1415,13 @@ Function migrateDatabaseSoftware
 	${If} ${RunningX64}
 	  SetOutPath "$INSTDIR\migrate\postgis"
 	  File /r "..\installer-stage\postgis-bundle-pg94x64-2.2.0\*"
-	  ExecWait `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
+	  push `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
+	  Call execDos
 	${Else}
 	  SetOutPath "$INSTDIR\migrate\postgis"
 	  File /r "..\installer-stage\postgis-bundle-pg94x32-2.1.8\*"
-	  ExecWait `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
+	  push `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
+	  Call execDos
 	${EndIf}
 	RmDir /r "$INSTDIR\migrate\postgis"
 FunctionEnd
@@ -1357,6 +1473,12 @@ Function upgradePostgresAndPostgis
   # Restore Application Databases On New Software #
   #################################################
   LogEx::Write "Restoring application databases."
+  
+  # Create the mdssdeploy role
+  LogEx::Write "Creating the mdssdeploy role"
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+  Call execDos
+  
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
   
@@ -1377,15 +1499,15 @@ Function upgradePostgresAndPostgis
   !insertmacro MUI_HEADER_TEXT "Restoring Application Databases" "Restoring $AppName"
   LogEx::Write "Restoring application databases."
   
-  # Create the mdssdeploy role
-  LogEx::Write "Creating the mdssdeploy role"
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-  Call execDos
-  
   # Create a new db
   LogEx::Write "Creating the database"
   push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
   Call execDos 
+  
+  # Set the db search path
+  LogEx::Write "Setting search path"
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+  Call execDos
   
   # create extension postgis
   LogEx::Write "Installing PostGIS extension."
@@ -1397,17 +1519,16 @@ Function upgradePostgresAndPostgis
   DetailPrint "Restoring $AppName database."
   SetOutPath $INSTDIR\migrate
   File ..\patch\postgis_restore.exe
-  push `"$INSTDIR\migrate\postgis_restore.exe" "$INSTDIR\migrate\$LowerAppName.backup" | psql -h localhost -p 5432 -U postgres $LowerAppName 2> $AgentDir\pgis_errors.txt`
+  File ..\patch\postgis_restore_launcher.bat
+  push `"$INSTDIR\migrate\postgis_restore_launcher.bat" $LowerAppName $INSTDIR`
   Call execDos
 	
-  # permissions on db?
-  
   # Update database.properties (databaseBinDirectory)
   Push PostgreSQL/9.1                                                                  # text to be replaced
   Push ${POSTGRES_DIR}                                                                 # replace with
   Push all                                                                             # replace all occurrences
   Push all                                                                             # replace all occurrences
-  Push $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
+  Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
   Call AdvReplaceInFile
   
   Push PostgreSQL/9.1                                                                  # text to be replaced
@@ -1423,7 +1544,6 @@ Function upgradePostgresAndPostgis
   ClearErrors
   FileClose $AppFile
   
-  # delete permissionsCache?
   RmDir /r "$INSTDIR\migrate"
 FunctionEnd
 
@@ -1455,8 +1575,14 @@ Function execDos
   
   # Error handling
   LogEx::Write `ExecDos $9 returned $8`
+  MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
+  Goto WeAreDone # Ignore
+  Abort_Clicked:
   StrCpy $JavaError 1
   Call JavaAbort
+  Retry_Clicked:
+  push $9
+  Call execDos
 
   WeAreDone:
 FunctionEnd
@@ -1464,14 +1590,14 @@ FunctionEnd
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
 
-    SimpleSC::ServiceIsRunning "Tomcat6"
+    SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
   
   ${If} $1 <> 0  
   
     # Try to stop the service
-      SimpleSC::StopService "Tomcat6" 1 60
+      SimpleSC::StopService "Tomcat" 1 60
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     
     ${If} $0 <> 0        
@@ -1483,26 +1609,18 @@ Section /o -un.Main UNSEC0000
   ${EndIf}
 
 
-    # Determine the location of java home.  
-    ${IfNot} ${RunningX64}
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat6.exe    
-    ${Else}
-      StrCpy $TomcatExec $INSTDIR\tomcat6\bin\tomcat64.exe        
-    ${EndIf}
-
-    CreateDirectory $DESKTOP\temp_uninstall_files
-    CopyFiles $INSTDIR\${POSTGRES_DIR}\uninstall*.exe $DESKTOP\temp_uninstall_files
+  StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
   
   ################################################################################
   # Uninstall the tomcat service
   ################################################################################  
-    SimpleSC::ExistsService "Tomcat6"
+    SimpleSC::ExistsService "Tomcat"
   Pop $0
   
     ${If} $0 == 0        
       # Service exists, we need to delete it  
       LogEx::Write "Deleting tomcat service"
-      ExecWait `$TomcatExec //DS//Tomcat6`
+      ExecWait `$TomcatExec //DS//Tomcat`
     ${EndIf}
   
     DeleteRegValue HKLM "${REGKEY}\Components" Main
@@ -1517,8 +1635,8 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components" Birt 
     DeleteRegValue HKLM "${REGKEY}\Components" Webapps
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
-    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
-    RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
+	
+    ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
     RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
     RmDir /r /REBOOTOK $INSTDIR
     UserMgr::DeleteAccount "ddmspostgres"
