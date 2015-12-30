@@ -3,9 +3,13 @@ package dss.vector.solutions.query;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.decoder.RESTLayerList;
-import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
+import it.geosolutions.geoserver.rest.encoder.datastore.GSPostGISDatastoreEncoder;
+import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -16,17 +20,24 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.runwaysdk.business.Business;
+import com.runwaysdk.configuration.RunwayConfigurationException;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.gis.ConfigurationException;
 import com.terraframe.utf8.UTF8ResourceBundle;
 
 import dss.vector.solutions.geo.GeoServerReloadException;
 
 public class GeoserverFacade implements Reloadable
 {
+  private Logger logger = LoggerFactory.getLogger(GeoserverFacade.class);
+  
   /**
    * Default geoserver username
    */
@@ -40,7 +51,7 @@ public class GeoserverFacade implements Reloadable
   /**
    * Bundle for reading properties file
    */
-  private final ResourceBundle bundle   = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
+  private static final ResourceBundle bundle   = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
 
   /**
    * Lock used for creating the workspace
@@ -51,6 +62,12 @@ public class GeoserverFacade implements Reloadable
    * Set of workspaces
    */
   private Set<String>          workspaceSet;
+  
+  private static GeoServerRESTStoreManager manager = null;
+  
+  private static GeoServerRESTPublisher publisher = null;
+  
+  private static GeoServerRESTReader restReader = null;
 
   public GeoserverFacade()
   {
@@ -62,7 +79,7 @@ public class GeoserverFacade implements Reloadable
    * 
    * @return
    */
-  public String getGeoServerLocalURL()
+  public static String getGeoServerLocalURL()
   {
     return bundle.getString("geoserver.local.path");
   }
@@ -84,12 +101,22 @@ public class GeoserverFacade implements Reloadable
 
     return reader;
   }
-
-  public GeoServerRESTPublisher getGeoServerPublisher()
+  
+  public static synchronized GeoServerRESTReader getReader()
   {
-    String geoserverPath = getGeoServerLocalURL();
-    GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
-    return publisher;
+    if (restReader == null)
+    {
+      try
+      {
+        restReader = new GeoServerRESTReader(getGeoServerLocalURL(), USERNAME, PASSWORD);
+      }
+      catch (MalformedURLException e)
+      {
+        throw new RunwayConfigurationException(e);
+      }
+    }
+
+    return restReader;
   }
 
   @SuppressWarnings("deprecation")
@@ -120,7 +147,7 @@ public class GeoserverFacade implements Reloadable
         this.lock.unlock();
       }
 
-      GeoServerRESTPublisher publisher = this.getGeoServerPublisher();
+      GeoServerRESTPublisher publisher = getPublisher();
 
       // reload the catalog (this will force GeoServer to dump any cached
       // features in memory and avoid slowdown over time)
@@ -149,7 +176,7 @@ public class GeoserverFacade implements Reloadable
   {
     try
     {
-      GeoServerRESTPublisher publisher = this.getGeoServerPublisher();
+      GeoServerRESTPublisher publisher = this.getPublisher();
 
       for (String layerName : layerNames)
       {
@@ -208,35 +235,95 @@ public class GeoserverFacade implements Reloadable
       this.lock.unlock();
     }
   }
+  
+  public static synchronized GeoServerRESTPublisher getPublisher()
+  {
+    if (publisher == null)
+    {
+      String geoserverPath = getGeoServerLocalURL();
+      publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
+    }
 
-  @SuppressWarnings("deprecation")
-  public void createWorkspaceAndDatastore()
+    return publisher;
+  }
+  
+  public static synchronized GeoServerRESTStoreManager getManager()
+  {
+    if (manager == null)
+    {
+      try
+      {
+        URL geoserverPath = new URL(getGeoServerLocalURL());
+        manager = new GeoServerRESTStoreManager(geoserverPath, "admin", "geoserver");
+      }
+      catch (MalformedURLException e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
+
+    return manager;
+  }
+  
+  public void publishWorkspace()
   {
     try
     {
       String appName = CommonProperties.getDeployAppName();
+      if (getPublisher().createWorkspace(appName, new URI(getGeoServerLocalURL())))
+      {
+        logger.info("Created the workspace [" + appName + "].");
+      }
+      else
+      {
+        logger.warn("Failed to create the workspace [" + appName + "].");
+      }
+    }
+    catch (URISyntaxException e)
+    {
+      throw new ConfigurationException("The URI [" + getGeoServerLocalURL() + "] is invalid.", e);
+    }
+  }
+  
+  public void publishStore()
+  {
+    String appName = CommonProperties.getDeployAppName();
 
-      GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder();
-      datastore.setPort(5444);
-      datastore.setPassword("mdssdeploy");
-      datastore.setDatabaseType("postgis");
-      datastore.setHost("localhost");
-      datastore.setValidateConnections(false);
-      datastore.setMaxConnections(10);
-      datastore.setDatabase(appName.toLowerCase());
-      datastore.setNamespace("http://" + appName + ".terraframe.com");
-      datastore.setSchema(DatabaseProperties.getNamespace());
-      datastore.setLooseBBox(true);
-      datastore.setPreparedStatements(false);
-      datastore.setExposePrimaryKeys(false);
-      datastore.setUser("mdssdeploy");
-      datastore.setMinConnections(4);
-      datastore.setEnabled(true);
-      datastore.setName(QueryConstants.getNamespacedDataStore());
+    GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder(QueryConstants.getNamespacedDataStore());
+    datastore.setName(QueryConstants.getNamespacedDataStore());
+    datastore.setDatabase(DatabaseProperties.getDatabaseName());
+    datastore.setPort(DatabaseProperties.getPort());
+    datastore.setUser(DatabaseProperties.getUser());
+    datastore.setPassword(DatabaseProperties.getPassword());
+    datastore.setDatabaseType("postgis");
+    datastore.setHost("localhost");
+    datastore.setValidateConnections(false);
+    datastore.setMaxConnections(10);
+    datastore.setNamespace(appName);
+    datastore.setSchema(DatabaseProperties.getNamespace());
+    datastore.setLooseBBox(true);
+    datastore.setPreparedStatements(false);
+    datastore.setExposePrimaryKeys(false);
+    datastore.setMinConnections(4);
+    datastore.setEnabled(true);
 
-      GeoServerRESTPublisher publisher = this.getGeoServerPublisher();
-      publisher.createWorkspace(appName);
-      publisher.createPostGISDatastore(appName, datastore);
+    GeoServerRESTStoreManager manager = getManager();
+    if (manager.create(appName, datastore))
+    {
+      logger.info("Published the store [" + QueryConstants.getNamespacedDataStore() + "].");
+    }
+    else
+    {
+      logger.warn("Failed to publish the store [" + QueryConstants.getNamespacedDataStore() + "].");
+    }
+  }
+
+  public void createWorkspaceAndDatastore()
+  {
+    try
+    {
+      publishWorkspace();
+      publishStore();
     }
     catch (Exception e)
     {
