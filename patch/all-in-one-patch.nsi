@@ -200,8 +200,8 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8088
-  StrCpy $PatchVersion 8088
+  StrCpy $ManagerVersion 8094
+  StrCpy $PatchVersion 8094
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -408,8 +408,8 @@ Function patchProperties
         FileClose $4 ; and close the file
 	  
 	    # Update globalCache location
-		Push globalCache.cacheFileLocation=${local.root}                              # text to be replaced
-        Push globalCache.cacheFileLocation=${local.root}\cache\global                 # replace with
+		Push "globalCache.cacheFileLocation=${local.root}"                              # text to be replaced
+        Push "globalCache.cacheFileLocation=${local.root}\cache\global"                 # replace with
         Push 0                                                                        # replace all occurrences
         Push 1                                                                        # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
@@ -441,14 +441,6 @@ Function patchProperties
         Push all                                                                      # replace all occurrences
         Push all                                                                      # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
-        Call AdvReplaceInFile
-		
-		# Update globalCache location
-		Push globalCache.cacheFileLocation=${local.root}                              # text to be replaced
-        Push globalCache.cacheFileLocation=${local.root}\cache\global                 # replace with
-        Push all                                                                      # replace all occurrences
-        Push all                                                                      # replace all occurrences
-        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties   # file to replace in
         Call AdvReplaceInFile
 	  
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
