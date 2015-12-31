@@ -176,7 +176,7 @@ public class GeoserverFacade implements Reloadable
   {
     try
     {
-      GeoServerRESTPublisher publisher = this.getPublisher();
+      GeoServerRESTPublisher publisher = getPublisher();
 
       for (String layerName : layerNames)
       {
@@ -288,24 +288,26 @@ public class GeoserverFacade implements Reloadable
   public void publishStore()
   {
     String appName = CommonProperties.getDeployAppName();
+    String dbSchema = DatabaseProperties.getNamespace().length() != 0 ? DatabaseProperties.getNamespace() : "public";
 
     GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder(QueryConstants.getNamespacedDataStore());
-    datastore.setName(QueryConstants.getNamespacedDataStore());
     datastore.setDatabase(DatabaseProperties.getDatabaseName());
-    datastore.setPort(DatabaseProperties.getPort());
     datastore.setUser(DatabaseProperties.getUser());
     datastore.setPassword(DatabaseProperties.getPassword());
-    datastore.setDatabaseType("postgis");
-    datastore.setHost("localhost");
-    datastore.setValidateConnections(false);
-    datastore.setMaxConnections(10);
+    datastore.setName(QueryConstants.getNamespacedDataStore());
+    datastore.setHost(DatabaseProperties.getServerName());
+    datastore.setPort(DatabaseProperties.getPort());
+    datastore.setSchema(dbSchema);
     datastore.setNamespace(appName);
-    datastore.setSchema(DatabaseProperties.getNamespace());
-    datastore.setLooseBBox(true);
-    datastore.setPreparedStatements(false);
-    datastore.setExposePrimaryKeys(false);
-    datastore.setMinConnections(4);
     datastore.setEnabled(true);
+    datastore.setMaxConnections(10);
+    datastore.setMinConnections(1);
+    datastore.setFetchSize(1000);
+    datastore.setConnectionTimeout(20);
+    datastore.setValidateConnections(true);
+    datastore.setLooseBBox(true);
+    datastore.setExposePrimaryKeys(false);
+    datastore.setPreparedStatements(false);
 
     GeoServerRESTStoreManager manager = getManager();
     if (manager.create(appName, datastore))
