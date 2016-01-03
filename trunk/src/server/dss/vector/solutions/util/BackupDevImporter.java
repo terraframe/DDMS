@@ -54,23 +54,27 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * This importer will import production backup datasets into your dev environment.
  * 
  * Steps from ground 0:
- * 1) Create a new database
- * 2) Install the postgis extension
- * 3) Modify your login role to default to the ddms schema: ALTER ROLE <your_login_role> SET search_path TO ddms
- * 4) Modify the database permissions to make sure our user is gonna be able to access it (otherwise the import just skips with no errors)
+ * 1) Create user mdssdevelop
+ * 2) Create a new database with owner: mdssdevelop
+ * 3) Install the postgis extension: CREATE EXTENSION postgis;
+ * 4) Modify your login role to default to the ddms schema: ALTER ROLE <your_login_role> SET search_path TO ddms
  * 5) Create a new launch for this java class with extra memory with a first argument that is the path to your zipped backup
  * 6) Build the project and then run that launch!
  * 7) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
- * Troubleshooting steps
+ * Troubleshooting Problems:
  * Q: The import happened but gave no real error!?:
- * 1) find your data directory (show data_directory)
- * 2) find your log file (show log_filename, show log_directory)
- * 3) CHECK THE POSTGRES LOGS (mine is at /usr/local/var/postgres/9.3/server.log)
+ * A: The importer can be picky about certain filenames. If your filename contains a bunch of strange characters like ()!@#$%
+ *    try renaming it to something simple like ghana.zip.
+ * A: This can happen if your user does not have permissions to access the database.
+ *   1) find your data directory (show data_directory)
+ *   2) find your log file (show log_filename, show log_directory)
+ *   3) Check the postgres logs (mine is at /usr/local/var/postgres/9.3/server.log)
  * 
- * Q: Hey the query builder pages don't render, I just get white boxes
- * A: You forgot to run a deploy you goober (step 6)
+ * Q: The query builder pages don't render and some pages have some content missing.
+ * A: After running this, you will see a new source directory: src/backup. This is the generated java files from the backup, which
+ *    is required for the app to run properly. Run a deploy (step 7) and make sure your backup source matches the database.
  * 
  * @author rrowlands
  */

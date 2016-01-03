@@ -905,7 +905,15 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
     _searchFunction : function(request, value) {
       if(this._roots.length > 0) {
-        Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+        // Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+        
+        var rootz = [];
+        for (var i = 0; i < this._roots.length; ++i)
+        {
+          rootz.push(this._roots[i][0]);
+        }
+        
+        Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, rootz);
       }
       else {
         var parameters = this._getParameters();
