@@ -200,8 +200,8 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8094
-  StrCpy $PatchVersion 8094
+  StrCpy $ManagerVersion 8098
+  StrCpy $PatchVersion 8098
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -914,9 +914,11 @@ Function patchInstallerStage
   
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" Tomcat
-  IfErrors DbSoftwareErrors
+  IfErrors TomcatRegErrors
   ${If} $TomcatVersion > $0
-    DbSoftwareErrors:
+    TomcatRegErrors:
+	  LogEx::Write "Upgrading from tomcat6 to tomcat8."
+	  
 	  # copy over new tomcat
 	  SetOutPath $INSTDIR\tomcat
 	  ${If} ${RunningX64}
@@ -926,7 +928,8 @@ Function patchInstallerStage
 	  ${EndIf}
 	  
 	  # copy old webapps to the new install
-	  CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
+	  LogEx::Write "Copying from [$INSTDIR\tomcat6\webapps\*] to [$INSTDIR\tomcat\webapps]"
+	  CopyFiles $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
 	  
 	  # delete old tomcat
 	  RMDir /r $INSTDIR\tomcat6
