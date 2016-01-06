@@ -200,8 +200,8 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8098
-  StrCpy $PatchVersion 8098
+  StrCpy $ManagerVersion 8104
+  StrCpy $PatchVersion 8104
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -209,9 +209,9 @@ Section -Main SEC0000
   StrCpy $PermissionsVersion 7799
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 8045
+  StrCpy $WebappsVersion 8103
   StrCpy $JavaVersion 8082
-  StrCpy $TomcatVersion 8073
+  StrCpy $TomcatVersion 8103
   
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
@@ -927,6 +927,13 @@ Function patchInstallerStage
 	    File /r /x .svn ..\installer-stage\tomcat\tomcat32\*
 	  ${EndIf}
 	  
+	  # We don't care about the old Geoserver or the old ROOT app, so lets delete those otherwise they'll overwrite the new ones
+	  RMDir /r $INSTDIR\tomcat6\webapps\geoserver
+	  RMDir /r $INSTDIR\tomcat6\webapps\ROOT
+	  RMDir /r $INSTDIR\tomcat6\webapps\manager
+	  RMDir /r $INSTDIR\tomcat6\webapps\birt
+	  Delete $INSTDIR\tomcat6\webapps\geoserver.war
+	  
 	  # copy old webapps to the new install
 	  LogEx::Write "Copying from [$INSTDIR\tomcat6\webapps\*] to [$INSTDIR\tomcat\webapps]"
 	  CopyFiles $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
@@ -942,9 +949,9 @@ Function patchInstallerStage
   
   # Delete old service
   SimpleSC::ExistsService "Tomcat6"
-  Pop $1
+  Pop $0
     
-  ${If} $0 <> 0
+  ${If} $0 == 0
     LogEx::Write "Removing old Tomcat6 service."
     SimpleSC::RemoveService "Tomcat6"
   ${EndIf}
@@ -952,25 +959,25 @@ Function patchInstallerStage
   
   
   
-  SimpleSC::ExistsService "Tomcat8"
+  SimpleSC::ExistsService "Tomcat"
   Pop $0
   
   ${If} $0 <> 0
     # Install tomcat as a service  
-    LogEx::Write "Configuring Tomcat as a service. The subprocess will log to ServiceSetup.log"
-    ExecWait `$TomcatExec //IS//Tomcat8 --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
-    LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+    LogEx::Write "Configuring Tomcat as a service."
+	push `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+	Call execDos
   
     # Update tomcat service parameters
-    LogEx::Write "Update tomcat service parameters. The subprocess will log to ServiceSetup.log"
-    ExecWait `$TomcatExec //US//Tomcat8 --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
-    LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
+    LogEx::Write "Update tomcat service parameters."
+    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$INSTDIR\tomcat\bin\tomcat-juli.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`  
+    Call execDos
   ${EndIf}
   
   # Update tomcat memory parameters
-  LogEx::Write "Update tomcat memory parameters. The subprocess will log to ServiceSetup.log"
-  ExecWait `$TomcatExec //US//Tomcat8 --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
-  LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"    
+  LogEx::Write "Update tomcat memory parameters."
+  push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
+  Call execDos
 FunctionEnd
 
 
@@ -1545,6 +1552,7 @@ FunctionEnd
 Function execDos
   pop $9
   push "ExecDos::End" # Add a marker for the loop to test for.
+  LogEx::Write "execDos  >  Executing command [$9]"
   ExecDos::exec /NOUNLOAD /TOSTACK $9 "" "$AgentDir\postgresController.out"
   pop $8 # return value
   
@@ -1585,14 +1593,14 @@ FunctionEnd
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
 
-    SimpleSC::ServiceIsRunning "Tomcat"
+  SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
   
   ${If} $1 <> 0  
   
     # Try to stop the service
-      SimpleSC::StopService "Tomcat" 1 60
+    SimpleSC::StopService "Tomcat" 1 60
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     
     ${If} $0 <> 0        
@@ -1609,7 +1617,7 @@ Section /o -un.Main UNSEC0000
   ################################################################################
   # Uninstall the tomcat service
   ################################################################################  
-    SimpleSC::ExistsService "Tomcat"
+  SimpleSC::ExistsService "Tomcat"
   Pop $0
   
     ${If} $0 == 0        
