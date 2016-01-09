@@ -13,12 +13,17 @@ import logging
 import smtplib
 import config
 import ctypes
+import boto3
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
 from email import encoders
+
+# Global variable which will hold our json configuration, which we use to store timestamps of files we've downloaded
+cfg = None
+# TODO : We also have an object called config, which is imported from a user config file. This is confusing..
 
 def toolkitMain():
   if not os.path.exists(config.TEMP_ROOT):
@@ -34,16 +39,9 @@ def toolkitMain():
   deleteRestoreTemp()
   deleteGeneratedBackups()
 
-  if not os.path.isfile(config.TESTING_ROOT + "/toolkitpersist.cfg"):
-    with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'a+') as cfgFile:
-      logging.info("Config file not found, creating new one.")
-      json.dump({}, cfgFile)
+  global cfg
+  cfg = getConfig()
   
-  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
-    cfg = json.load(cfgFile)
-    logging.info("Read config as " + str(cfg))
-  
-  logging.info("Checking dependencies")
   getDependencies(cfg)
   
   logging.info("Running tests")
@@ -57,9 +55,54 @@ def toolkitMain():
   
   backupLogs()
   sendEmail("The recent DDMS build has completed testing successfully.")
-  toolkitMain()
 
+def saveConfig():
+  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
+    json.dump(cfg, cfgFile)
+    cfgFile.close()
+
+def getConfig():
+  global cfg
+  if not (cfg is None):
+    return cfg
+
+  if not os.path.isfile(config.TESTING_ROOT + "/toolkitpersist.cfg"):
+    with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'a+') as cfgFile:
+      logging.info("Config file not found, creating new one.")
+      json.dump({}, cfgFile)
+  
+  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
+    cfg = json.load(cfgFile)
+    logging.info("Read config as " + str(cfg))
+  
+  return cfg
+
+def s3Dependency(filename):
+  s3 = boto3.resource('s3')
+  bucket = s3.Bucket("dss.vector.solutions.ddms")
+  object = s3.Object('dss.vector.solutions.ddms', "testing/" + filename)
+  
+  #objLM = datetime.datetime.fromtimestamp(time.mktime(time.strptime(object.last_modified, '%a, %d %b %Y %H:%M:%S %Z')))
+  objLM = object.last_modified
+  
+  # TODO : wait if doesn't exist on server
+  if (os.path.isfile(config.TEMP_ROOT + "/" + filename)):
+    localLM = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
+
+    if (
+    objLM > localLM
+    ):
+      logging.info("deleting old " + filename)
+      os.remove(config.TEMP_ROOT + "/" + filename)
+  
+      object.download_file(config.TEMP_ROOT + "/" + filename)
+    
+  else:
+    object.download_file(config.TEMP_ROOT + "/" + filename)
+  
 def getDependencies(cfg):
+  logging.info("Checking dependencies")
+
   installRe = re.compile("InstallDDMSblank-.*\.exe")
   patchRe = re.compile("patch-.*\.exe")
 
@@ -139,29 +182,26 @@ def getDependencies(cfg):
     dependFile.close()
 
   # Download the backup file
-  if (not os.path.isfile(config.TEMP_ROOT + "/" + config.RESTORE_FILE)):
+  if (not os.path.isfile(config.TEMP_ROOT + "/" + config.RESTORE_FILE + ".zip")):
     connection.cwd("/ddms/backups")
 
-    restoreFile = open(config.TEMP_ROOT + "/" + config.RESTORE_FILE, "wb")
+    restoreFile = open(config.TEMP_ROOT + "/" + config.RESTORE_FILE + ".zip", "wb")
     def restore_cb(block):
       restoreFile.write(block)
 
     logging.info("downloading " + restoreFile.name)
-    connection.retrbinary('RETR ' + config.RESTORE_FILE, restore_cb)
+    connection.retrbinary('RETR ' + config.RESTORE_FILE + ".zip", restore_cb)
     restoreFile.close()
  
-  # Save last modified so we won't download it again later
-  with open(config.TESTING_ROOT + "/toolkitpersist.cfg", 'r+') as cfgFile:
-    json.dump(cfg, cfgFile)
-    cfgFile.close()
-  
+  saveConfig()
+ 
   connection.quit()
 
-def install(appName):
+def install(appName, programName="installer.exe"):
   logging.info("Starting install of [" + appName + "].")
 
   with open(config.LOG_FILE, "a+") as out:
-    baseCmds = [config.TEMP_ROOT + "/installer.exe", "/S", "-app_name", appName, "-master", "-install_number", "0"]
+    baseCmds = [config.TEMP_ROOT + "/" + programName, "/S", "-app_name", appName, "-master", "-install_number", "0"]
 
     procezz = subprocess.Popen(baseCmds, stdout=out, stderr=out, cwd=os.getcwd())
     result = procezz.wait()
@@ -170,10 +210,33 @@ def install(appName):
     exitWithFailure("Toolkit is exiting with failure, install subprocess failed.")
 
   exitIfErrorInLogs()
+  
+  # Update log4j to debug logging levels
+  '''
+  backupMan = open(config.MDSS_ROOT + "/manager/backup-manager-1.0.0/profiles/" + appName + "/log4j.properties").read()
+  backupMan = backupMan.replace("WARN", "DEBUG")
+  f=open(config.MDSS_ROOT + "/manager/backup-manager-1.0.0/profiles/" + appName + "/log4j.properties", 'w')
+  f.write(backupMan)
+  f.flush()
+  f.close()
+  
+  tomcat = open(config.MDSS_ROOT + "/tomcat/webapps/" + appName + "/WEB-INF/classes/log4j.properties").read()
+  tomcat = tomcat.replace("WARN", "DEBUG")
+  f=open(config.MDSS_ROOT + "/tomcat/webapps/" + appName + "/WEB-INF/classes/log4j.properties", 'w')
+  f.write(tomcat)
+  f.flush()
+  f.close()
+  '''
 
 def restore(appName, bkpFile=None):
   if bkpFile is None:
-    bkpFile = config.TEMP_ROOT + "/" + config.RESTORE_FILE
+    bkpFile = config.TEMP_ROOT + "/" + config.RESTORE_FILE + ".zip"
+  
+  #if not os.path.exists(config.RESTORE_DIR):
+  #  os.makedirs(config.RESTORE_DIR)
+  #copied = config.RESTORE_DIR + "/" + config.RESTORE_FILE + ".zip"
+  
+  #shutil.copyfile(bkpFile, copied)
   
   manager("-restore", appName, "-filename", "\"" + bkpFile + "\"",)
 
@@ -187,12 +250,11 @@ def backup(appName, bkpFile=None):
 
 # Doing a restore creates a temp directory which causes us to run out of space. Calling this function will delete that temp directory.
 def deleteRestoreTemp():
-  tempRE = re.compile("_temp_")
-  tempFiles = os.listdir(config.TEMP_ROOT)
-  for file in tempFiles:
-    if os.path.isdir(config.TEMP_ROOT + "/" + file) and tempRE.match(file):
-      logging.info("Deleting backup temp directory [" + config.TEMP_ROOT + "/" + file + "]")
-      shutil.rmtree(config.TEMP_ROOT + "/" + file)
+  pass
+  #tempDir = config.RESTORE_DIR
+  #if os.path.isdir(tempDir):
+    #logging.info("Deleting backup temp directory [" + tempDir + "]")
+    #shutil.rmtree(tempDir)
 
 # Running the backup command generates a backup file. We're going to delete it with this function.
 def deleteGeneratedBackups():
@@ -286,7 +348,7 @@ def sendEmail(body, files=[]):
   server = smtplib.SMTP(config.email["server"])
   server.starttls()
   server.login(config.email["username"], config.email["password"])
-  logging.info("Sending email(s) to [" + config.email["to"] + "] with body [" + body + "]")
+  logging.info("Sending email(s) to [" + msg['To'] + "] with body [" + body + "]")
   server.sendmail(config.email["from"], config.email["to"], msg.as_string())
   server.quit()
   
