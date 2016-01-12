@@ -11,6 +11,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 
+import org.apache.log4j.Logger;
+
 import com.runwaysdk.tomcat.RemoteLifecycleListenerServer;
 import com.runwaysdk.tomcat.RemoteLifecycleListenerServerIF;
 
@@ -19,6 +21,8 @@ import dss.vector.solutions.manager.properties.ManagerProperties;
 
 public class Server extends EventProvider implements UncaughtExceptionHandler, IServer
 {
+  private static Logger logger = Logger.getLogger(Server.class);
+  
   /**
    * Amount of time to wait before calling the status call back function
    */
@@ -172,7 +176,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
             long end = System.currentTimeMillis();
             
             String msg = "Server bootup in " + (end - start) + ".";
-            System.out.println(msg);
+            logger.info(msg);
           }
         }
       });

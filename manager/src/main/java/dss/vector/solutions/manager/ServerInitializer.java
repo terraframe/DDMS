@@ -3,6 +3,7 @@ package dss.vector.solutions.manager;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import org.apache.log4j.Logger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Path;
@@ -14,6 +15,8 @@ import dss.vector.solutions.manager.server.ServerStatus;
 
 public class ServerInitializer implements Runnable
 {
+  private static Logger logger = Logger.getLogger(ServerInitializer.class);
+  
   /**
    * Manager context bean
    */
@@ -56,6 +59,7 @@ public class ServerInitializer implements Runnable
         try
         {
           ServerStatus status = server.getServerStatus();
+          long start = System.currentTimeMillis();
 
           if (status.equals(ServerStatus.STOPPED))
           {
@@ -98,6 +102,11 @@ public class ServerInitializer implements Runnable
 
           if (isInitilized)
           {
+            long end = System.currentTimeMillis();
+            
+            String msg = "Cache initialized in " + (end - start) + ".";
+            logger.info(msg);
+            
             server.startServer();
           }
           else
