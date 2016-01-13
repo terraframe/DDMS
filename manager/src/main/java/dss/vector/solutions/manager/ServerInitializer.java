@@ -58,48 +58,48 @@ public class ServerInitializer implements Runnable
 
         try
         {
-//          ServerStatus status = server.getServerStatus();
+          ServerStatus status = server.getServerStatus();
           long start = System.currentTimeMillis();
+          
+          // This code will initialize the cache.
+          if (status.equals(ServerStatus.STOPPED))
+          {
+            for (String application : applications)
+            {
+              String baseDir = System.getProperty("user.dir");
 
-       // This code will initialize the cache.
-//          if (status.equals(ServerStatus.STOPPED))
-//          {
-//            for (String application : applications)
-//            {
-//              String baseDir = System.getProperty("user.dir");
-//
-//              StringBuffer classpath = new StringBuffer();
-//              classpath.append(ManagerProperties.getInitializerLib() + "*");
-//              classpath.append(File.pathSeparator + ManagerProperties.getInitializerClasses());
-//              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationClassesPath(application));
-//              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationLibPath(application) + "*");
-//
-//              Project project = new Project();
-//              project.setBaseDir(new File(baseDir));
-//              project.init();
-//
-//              Java java = new Java();
-//              java.setTaskName("initialize");
-//              java.setProject(project);
-//              java.setFork(true);
-//              java.setFailonerror(true);
-//              java.setClassname("dss.vector.solutions.initializer.BuilderLauncher");
-//              java.setClasspath(new Path(project, classpath.toString()));
-//              java.init();
-//
-//              java.createArg().setValue("-a" + application);
-//              java.createArg().setValue("-l" + Localizer.getLocale().toString());
-//
-//              java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
-//              java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
-//              java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
-//              java.createJvmarg().setValue("-Dfile.encoding=UTF8");
-//
-//              int results = java.executeJava();
-//
-//              isInitilized = isInitilized && ( results >= 0 );
-//            }
-//          }
+              StringBuffer classpath = new StringBuffer();
+              classpath.append(ManagerProperties.getInitializerLib() + "*");
+              classpath.append(File.pathSeparator + ManagerProperties.getInitializerClasses());
+              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationClassesPath(application));
+              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationLibPath(application) + "*");
+
+              Project project = new Project();
+              project.setBaseDir(new File(baseDir));
+              project.init();
+
+              Java java = new Java();
+              java.setTaskName("initialize");
+              java.setProject(project);
+              java.setFork(true);
+              java.setFailonerror(true);
+              java.setClassname("dss.vector.solutions.initializer.BuilderLauncher");
+              java.setClasspath(new Path(project, classpath.toString()));
+              java.init();
+
+              java.createArg().setValue("-a" + application);
+              java.createArg().setValue("-l" + Localizer.getLocale().toString());
+
+              java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
+              java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
+              java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
+              java.createJvmarg().setValue("-Dfile.encoding=UTF8");
+
+              int results = java.executeJava();
+
+              isInitilized = isInitilized && ( results >= 0 );
+            }
+          }
 
           if (isInitilized)
           {
