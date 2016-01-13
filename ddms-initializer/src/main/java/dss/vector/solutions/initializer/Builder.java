@@ -1,7 +1,10 @@
 package dss.vector.solutions.initializer;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -13,6 +16,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
+import com.runwaysdk.constants.ServerProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
@@ -31,6 +36,18 @@ public class Builder implements Reloadable
     @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
     {
+      // Delete the cache because theres some bug in ehcache that prevents it from restoring correctly in some cases (as of Ehcache 3m4)
+      File cacheDirectory = new File(ServerProperties.getGlobalCacheFileLocation(), ServerProperties.getGlobalCacheName());
+      try
+      {
+        FileUtils.deleteDirectory(cacheDirectory);
+      }
+      catch (IOException e)
+      {
+        // TODO Change exception type??
+        throw new ProgrammingErrorException(e);
+      }
+      
       monitor.beginTask(Localizer.getMessage("STATUS_CHECK") + " " + appName, IProgressMonitor.UNKNOWN);
 
       ITaskListener listener = new MonitorTaskListener(monitor);
