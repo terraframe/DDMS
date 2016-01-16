@@ -80,7 +80,7 @@
 
 <mdss:localize key="Search" var="Localized_Search" />
 
-<mjl:command name="searchPatient.button" value="${Localized_Search}"action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />
+<mjl:command name="searchPatient.button" value="${Localized_Search}" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />
 </mjl:form>
 </dl>
 
