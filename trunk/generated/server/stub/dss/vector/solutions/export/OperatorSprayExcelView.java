@@ -105,7 +105,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setUsed(this.getUsed());
     osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
     osv.setSprayOperator(operator);
-    osv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname()));
+    osv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname(), true));
     
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {

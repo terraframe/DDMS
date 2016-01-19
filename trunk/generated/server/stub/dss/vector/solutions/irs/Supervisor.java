@@ -41,7 +41,7 @@ public class Supervisor extends SupervisorBase implements com.runwaysdk.generati
 
   }
   
-  public static Supervisor getByCodeAndName(String code, String name, String lastname)
+  public static Supervisor getByCodeAndName(String code, String name, String lastname, boolean ignoreNull)
   {
     Supervisor sup;
     
@@ -50,9 +50,10 @@ public class Supervisor extends SupervisorBase implements com.runwaysdk.generati
       sup = Supervisor.getByCode(code);
       
       if (
-          sup == null
+          (sup == null
           || (name != null && !name.equals("") && !name.equals(sup.getPerson().getFirstName()))
-          || (lastname != null && !lastname.equals("") && !lastname.equals(sup.getPerson().getLastName()))
+          || (lastname != null && !lastname.equals("") && !lastname.equals(sup.getPerson().getLastName())))
+          && !ignoreNull
           )
       {
         SupervisorCodeProblem prob = new SupervisorCodeProblem();
@@ -64,7 +65,7 @@ public class Supervisor extends SupervisorBase implements com.runwaysdk.generati
     {
       sup = Supervisor.getByName(name, lastname);
       
-      if (sup == null)
+      if (sup == null && !ignoreNull)
       {
         SupervisorNameProblem prob = new SupervisorNameProblem();
         prob.setName(name);
