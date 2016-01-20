@@ -106,6 +106,10 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.correctedQuantityDead}</fmt:formatNumber>              
       </mjl:dt>
       
+      <mjl:dt attribute="controlTestNumberDead">
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.controlTestNumberDead}</fmt:formatNumber>              
+      </mjl:dt>
+      
       <mjl:dt attribute="mortality">
         <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2">${item.mortality}</fmt:formatNumber>              
       </mjl:dt>
