@@ -26,49 +26,6 @@ public class UniqueAssayUtil implements Reloadable
   private static Log log = LogFactory.getLog(UniqueAssayUtil.class);
   
   /**
-   * Checks if the attribute on the source View has a value that
-   * 
-   * 
-   * @param bus
-   * @param name
-   * @return
-   */
-  public static boolean allowAttributeUpdate(View src, Business dest, String name)
-  {
-    if(dest.isNew())
-    {
-      // a new instance should have every field validated
-      return true;
-    }
-    else if(src.isModified(name))
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  /**
-   * Checks if the attribute on the given View object has a value ready
-   * @param bus
-   * @param name
-   * @return
-   */
-  public static boolean allowAttributeUpdate(View src, View dest, String name)
-  {
-    if(src.isModified(name))
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-  
-  /**
    * Ensures that no duplicate assay ids exist in the given array of UniqueAssay objects.
    * 
    * @param assays

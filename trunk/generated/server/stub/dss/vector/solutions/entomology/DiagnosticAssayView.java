@@ -31,36 +31,12 @@ public class DiagnosticAssayView extends DiagnosticAssayViewBase implements
   private void populateConcrete(DiagnosticAssay concrete)
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
-    {
-      concrete.setCollection(this.getCollection());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ACTIVEINGREDIENT))
-    {
-      concrete.setActiveIngredient(this.getActiveIngredient());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
-    {
-      concrete.setSpecies(this.getSpecies());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, LIFESTAGE))
-    {
-      concrete.setLifeStage(this.getLifeStage());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SYNERGIST))
-    {
-      concrete.setSynergist(this.getSynergist());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, OUTCOME))
-    {
-      concrete.setOutcome(this.getOutcome());
-    }
+    concrete.setCollection(this.getCollection());
+    concrete.setActiveIngredient(this.getActiveIngredient());
+    concrete.setSpecies(this.getSpecies());
+    concrete.setLifeStage(this.getLifeStage());
+    concrete.setSynergist(this.getSynergist());
+    concrete.setOutcome(this.getOutcome());
   }
 
   private void buildAttributeMap(DiagnosticAssay concrete)

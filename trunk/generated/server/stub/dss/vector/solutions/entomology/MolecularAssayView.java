@@ -37,66 +37,18 @@ public class MolecularAssayView extends MolecularAssayViewBase implements
   private void populateConcrete(MolecularAssay concrete)
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
-    {
-      concrete.setCollection(this.getCollection());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
-    {
-      concrete.setIdentMethod(this.getIdentMethod());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ISOFEMALE))
-    {
-      concrete.setIsofemale(this.getIsofemale());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOID))
-    {
-      concrete.setMosquitoId(this.getMosquitoId());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERRR))
-    {
-      concrete.setNumberRR(this.getNumberRR());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERRS))
-    {
-      concrete.setNumberRS(this.getNumberRS());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERSS))
-    {
-      concrete.setNumberSS(this.getNumberSS());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GENERATION))
-    {
-      concrete.setGeneration(this.getGeneration());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
-    {
-      concrete.setSex(this.getSex());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
-    {
-      concrete.setSpecies(this.getSpecies());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ASSAYMETHOD))
-    {
-      concrete.setAssayMethod(this.getAssayMethod());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TARGET))
-    {
-      concrete.setTarget(this.getTarget());
-    }
+    concrete.setCollection(this.getCollection());
+    concrete.setIdentMethod(this.getIdentMethod());
+    concrete.setIsofemale(this.getIsofemale());
+    concrete.setMosquitoId(this.getMosquitoId());
+    concrete.setNumberRR(this.getNumberRR());
+    concrete.setNumberRS(this.getNumberRS());
+    concrete.setNumberSS(this.getNumberSS());
+    concrete.setGeneration(this.getGeneration());
+    concrete.setSex(this.getSex());
+    concrete.setSpecies(this.getSpecies());
+    concrete.setAssayMethod(this.getAssayMethod());
+    concrete.setTarget(this.getTarget());
   }
 
   private void buildAttributeMap(MolecularAssay concrete)
