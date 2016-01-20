@@ -58,7 +58,7 @@
 
   <mdss:localize key="save" var="Localized_save" />
 
-  <mjl:command classes="submitButton"value="${Localized_save}" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
+  <mjl:command classes="submitButton" value="${Localized_save}" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
 </mjl:form>
 
 <div id="modal" style="scroll:auto"></div>

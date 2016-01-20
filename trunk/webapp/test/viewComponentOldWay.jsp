@@ -38,7 +38,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.collectionMethod.keyName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
+      <mjl:commandLink action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
         <mjl:property value="${item.collectionMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -56,7 +56,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntity.keyName}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
+      <mjl:commandLink action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
         <mjl:property value="${item.geoEntity.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -74,14 +74,14 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="True Specie Collection" action="mdss.entomology.CollectionTrueSpecieController.parentQuery.mojo" name="mdss.entomology.CollectionTrueSpecie.parentQuery.link">
+        <mjl:commandLink action="mdss.entomology.CollectionTrueSpecieController.parentQuery.mojo" name="mdss.entomology.CollectionTrueSpecie.parentQuery.link">
           <mjl:property value="${item.id}" name="parentId" />
         </mjl:commandLink>
       </li>
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="mdss.entomology.MosquitoCollectionController.viewAll.mojo" name="mdss.entomology.MosquitoCollection.viewAll.link" />
+<mjl:commandLink action="mdss.entomology.MosquitoCollectionController.viewAll.mojo" name="mdss.entomology.MosquitoCollection.viewAll.link" />
 
 
 

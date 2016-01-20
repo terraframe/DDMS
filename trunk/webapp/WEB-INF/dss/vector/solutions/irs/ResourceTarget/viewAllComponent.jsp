@@ -25,7 +25,7 @@
       <label><mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
-      <mdss:geo param="geoId" concrete="false"political="false" populated="false" spray="true" />
+      <mdss:geo param="geoId" concrete="false" political="false" populated="false" spray="true" />
     </dd>  
     <dt>
       <label> <mdss:localize key="Season" /></label>

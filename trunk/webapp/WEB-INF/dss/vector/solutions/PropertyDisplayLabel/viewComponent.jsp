@@ -20,7 +20,7 @@
         ${item.mALARIA_defaultLocale}
       </mjl:dt>
     </mjl:component>
-    <mjl:command localize="false" name="dss.vector.solutions.PropertyDisplayLabel.form.edit.button" value="Edit" action="dss.vector.solutions.PropertyDisplayLabelController.edit.mojo" />
+    <mjl:command name="dss.vector.solutions.PropertyDisplayLabel.form.edit.button" value="Edit" action="dss.vector.solutions.PropertyDisplayLabelController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.PropertyDisplayLabel.viewAll.link" action="dss.vector.solutions.PropertyDisplayLabelController.viewAll.mojo">
