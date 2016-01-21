@@ -175,7 +175,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
           {
             long end = System.currentTimeMillis();
             
-            String msg = "Server bootup in " + (end - start) + ".";
+            String msg = "Server bootup in " + (end - start) + "ms.";
             logger.info(msg);
           }
         }

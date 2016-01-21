@@ -105,7 +105,7 @@ public class ServerInitializer implements Runnable
           {
             long end = System.currentTimeMillis();
             
-            String msg = "Cache initialized in " + (end - start) + ".";
+            String msg = "Cache initialized in " + (end - start) + "ms.";
             logger.info(msg);
             
             server.startServer();
