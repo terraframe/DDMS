@@ -36,6 +36,11 @@ public class Builder implements Reloadable
     @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
     {
+      if (ServerProperties.memoryOnlyCache() || ServerProperties.getGlobalCacheDiskSize().equals(-1))
+      {
+        return;
+      }
+      
       // Delete the cache because theres some bug in ehcache that prevents it from restoring correctly in some cases (as of Ehcache 3m4)
       File cacheDirectory = new File(ServerProperties.getGlobalCacheFileLocation(), ServerProperties.getGlobalCacheName());
       try
