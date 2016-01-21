@@ -283,21 +283,77 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     ClientRequestIF clientRequest = super.getClientRequest();
 
     EfficacyAssayViewDTO clone = new EfficacyAssayViewDTO(clientRequest);
-    clone.setGeoId(dto.getGeoId());
-    clone.setSurfaceType(dto.getSurfaceType());
-    clone.setTestDate(dto.getTestDate());
-    clone.setTestMethod(dto.getTestMethod());
-    clone.setControlTestMortality(dto.getControlTestMortality());
-    clone.setSpecie(dto.getSpecie());
-    clone.setColonyName(dto.getColonyName());
-    clone.setTimeOnSurface(dto.getTimeOnSurface());
-    clone.setGravid(dto.getGravid());
-    clone.setFed(dto.getFed());
-    clone.setInsecticideBrand(dto.getInsecticideBrand());
-    clone.getAgeRange().setStartPoint(dto.getAgeRange().getStartPoint());
-    clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
-    clone.setSex(dto.getSex());
-    clone.setQuantityTested(dto.getQuantityTested());
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.GEOID))
+    {
+      clone.setGeoId(dto.getGeoId());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.SURFACETYPE))
+    {
+      clone.setSurfaceType(dto.getSurfaceType());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.TESTDATE))
+    {
+      clone.setTestDate(dto.getTestDate());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.TESTMETHOD))
+    {
+      clone.setTestMethod(dto.getTestMethod());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.CONTROLTESTMORTALITY))
+    {
+      clone.setControlTestMortality(dto.getControlTestMortality());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.SPECIE))
+    {
+      clone.setSpecie(dto.getSpecie());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.COLONYNAME))
+    {
+      clone.setColonyName(dto.getColonyName());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.TIMEONSURFACE))
+    {
+      clone.setTimeOnSurface(dto.getTimeOnSurface());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.GRAVID))
+    {
+      clone.setGravid(dto.getGravid());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.FED))
+    {
+      clone.setFed(dto.getFed());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.INSECTICIDEBRAND))
+    {
+      clone.setInsecticideBrand(dto.getInsecticideBrand());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.AGERANGE))
+    {
+      clone.getAgeRange().setStartPoint(dto.getAgeRange().getStartPoint());
+      clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.SEX))
+    {
+      clone.setSex(dto.getSex());
+    }
+    
+    if (dto.isReadable(EfficacyAssayViewDTO.QUANTITYTESTED))
+    {
+      clone.setQuantityTested(dto.getQuantityTested());
+    }
 
     this.newInstance(clone);
   }

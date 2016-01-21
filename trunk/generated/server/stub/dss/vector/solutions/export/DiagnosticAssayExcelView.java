@@ -25,24 +25,82 @@ public class DiagnosticAssayExcelView extends DiagnosticAssayExcelViewBase imple
   {
     DiagnosticAssayView assay = new DiagnosticAssayView();
 
+    // NOTE: We are now searching by assay id
+    // // Search for an existing record
+    // MosquitoCollection collection =
+    // MosquitoCollection.getByCollectionId(this.getCollectionId());
+    // Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(),
+    // DiagnosticAssayView.getActiveIngredientMd());
+    // Term specie = Term.validateByDisplayLabel(this.getSpecies(),
+    // DiagnosticAssayView.getSpeciesMd());
+    // Term stage = Term.validateByDisplayLabel(this.getLifeStage(),
+    // DiagnosticAssayView.getLifeStageMd());
+    // DiagnosticAssayQuery query = new DiagnosticAssayQuery(new
+    // QueryFactory());
+    // query.WHERE(query.getCollection().EQ(collection));
+    // query.WHERE(query.getActiveIngredient().EQ(ingredient));
+    // query.WHERE(query.getSpecies().EQ(specie));
+    // query.WHERE(query.getLifeStage().EQ(stage));
+    // OIterator<? extends DiagnosticAssay> iterator = query.getIterator();
+    // try
+    // {
+    // if (iterator.hasNext())
+    // {
+    // DiagnosticAssay next = iterator.next();
+    // next.lock();
+    // assay.populateView(next);
+    // }
+    // else
+    // {
+    // assay.setCollection(collection);
+    // assay.setActiveIngredient(ingredient);
+    // assay.setSpecies(specie);
+    // assay.setLifeStage(stage);
+    // }
+    // }
+    // finally
+    // {
+    // iterator.close();
+    // }
 
     assay.setUniqueAssayId(this.getUniqueAssayId());
 
-    MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
-    assay.setCollection(collection);
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, COLLECTIONID))
+    {
+      MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
+      assay.setCollection(collection);
+    }
 
-    Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(),
-        TimeResponseAssayView.getActiveIngredientMd());
-    assay.setActiveIngredient(ingredient);
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ACTIVEINGREDIENT))
+    {
+      Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(),
+          TimeResponseAssayView.getActiveIngredientMd());
+      assay.setActiveIngredient(ingredient);
+    }
 
-    Term specie = Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd());
-    assay.setSpecies(specie);
-    Term stage = Term.validateByDisplayLabel(this.getLifeStage(),
-        TimeResponseAssayView.getLifeStageMd());
-    assay.setLifeStage(stage);
-    assay.setSynergist(this.getSynergist());
-    assay
-        .setOutcome(Term.validateByDisplayLabel(this.getOutcome(), DiagnosticAssayView.getOutcomeMd()));
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SPECIES))
+    {
+      Term specie = Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd());
+      assay.setSpecies(specie);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, LIFESTAGE))
+    {
+      Term stage = Term.validateByDisplayLabel(this.getLifeStage(),
+          TimeResponseAssayView.getLifeStageMd());
+      assay.setLifeStage(stage);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SYNERGIST))
+    {
+      assay.setSynergist(this.getSynergist());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, OUTCOME))
+    {
+      assay
+          .setOutcome(Term.validateByDisplayLabel(this.getOutcome(), DiagnosticAssayView.getOutcomeMd()));
+    }
 
     assay.apply();
   }

@@ -12,7 +12,7 @@
         Geo Entity
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="parent.link">
+        <mjl:commandLink action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="parent.link">
           <mjl:property value="${item.parentId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -25,7 +25,7 @@
         Geo Entity
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="child.link">
+        <mjl:commandLink action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="child.link">
           <mjl:property value="${item.childId}" name="id" />
         </mjl:commandLink>
       </mjl:row>

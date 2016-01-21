@@ -10,9 +10,12 @@ import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.View;
+import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
 
 import dss.vector.solutions.LocalProperty;
 
@@ -24,6 +27,29 @@ public class UniqueAssayUtil implements Reloadable
 {
 
   private static Log log = LogFactory.getLog(UniqueAssayUtil.class);
+  
+  /**
+   * 
+   * 
+   * @param bus
+   * @param name
+   * @return
+   */
+  public static boolean allowAttributeUpdate(View src, Business dest, String name)
+  {
+    return Session.getCurrentSession().checkAttributeAccess(Operation.READ, src.getMdAttributeDAO(name));
+  }
+
+  /**
+   * 
+   * @param bus
+   * @param name
+   * @return
+   */
+  public static boolean allowAttributeUpdate(View src, View dest, String name)
+  {
+    return Session.getCurrentSession().checkAttributeAccess(Operation.READ, src.getMdAttributeDAO(name));
+  }
   
   /**
    * Ensures that no duplicate assay ids exist in the given array of UniqueAssay objects.

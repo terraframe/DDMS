@@ -33,21 +33,58 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
     }
 
     ldda.setUniqueAssayId(this.getUniqueAssayId());
-    ldda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    ldda.setTestDate(this.getTestDate());
-    ldda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(),
-    LarvaeDiscriminatingDoseAssay.getSpecieMd()));
-    ldda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
-        LarvaeDiscriminatingDoseAssay.getIdentificationMethodMd()));
-    ldda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
-        LarvaeDiscriminatingDoseAssay.getTestMethodMd()));
-    ldda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-        LarvaeDiscriminatingDoseAssay.getGenerationMd()));
-    ldda.setIsofemale(this.getIsofemale());
-    ldda.setStartPoint(Term.validateByDisplayLabel(this.getStartPoint(),
-        LarvaeDiscriminatingDoseAssay.getStartPointMd()));
-    ldda.setEndPoint(Term.validateByDisplayLabel(this.getEndPoint(),
-        LarvaeDiscriminatingDoseAssay.getEndPointMd()));
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, COLLECTIONID))
+    {
+      ldda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, TESTDATE))
+    {
+      ldda.setTestDate(this.getTestDate());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, SPECIE))
+    {
+      ldda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(),
+          LarvaeDiscriminatingDoseAssay.getSpecieMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, IDENTIFICATIONMETHOD))
+    {
+      ldda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
+          LarvaeDiscriminatingDoseAssay.getIdentificationMethodMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, TESTMETHOD))
+    {
+      ldda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
+          LarvaeDiscriminatingDoseAssay.getTestMethodMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, GENERATION))
+    {
+      ldda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
+          LarvaeDiscriminatingDoseAssay.getGenerationMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, ISOFEMALE))
+    {
+      ldda.setIsofemale(this.getIsofemale());
+    }
+
+    // Age ranges
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, STARTPOINT))
+    {
+      ldda.setStartPoint(Term.validateByDisplayLabel(this.getStartPoint(),
+          LarvaeDiscriminatingDoseAssay.getStartPointMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, ENDPOINT))
+    {
+      ldda.setEndPoint(Term.validateByDisplayLabel(this.getEndPoint(),
+          LarvaeDiscriminatingDoseAssay.getEndPointMd()));
+    }
 
     // set the Insecticide if at least one value is set (three values are
     // required, but
@@ -59,13 +96,40 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
           this.getInsecticideUnits(), this.getInsecticideAmount()));
     }
 
-    ldda.setExposureTime(this.getExposureTime());
-    ldda.setHoldingTime(this.getHoldingTime());
-    ldda.setQuantityTested(this.getQuantityTested());
-    ldda.setQuantityDead(this.getQuantityDead());
-    ldda.setControlTestMortality(this.getControlTestMortality());
-    ldda.setLt50(this.getLt50());
-    ldda.setLt95(this.getLt95());
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, EXPOSURETIME))
+    {
+      ldda.setExposureTime(this.getExposureTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, HOLDINGTIME))
+    {
+      ldda.setHoldingTime(this.getHoldingTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, QUANTITYTESTED))
+    {
+      ldda.setQuantityTested(this.getQuantityTested());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, QUANTITYDEAD))
+    {
+      ldda.setQuantityDead(this.getQuantityDead());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, CONTROLTESTMORTALITY))
+    {
+      ldda.setControlTestMortality(this.getControlTestMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, LT50))
+    {
+      ldda.setLt50(this.getLt50());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, LT95))
+    {
+      ldda.setLt95(this.getLt95());
+    }
 
     ldda.apply();
   }

@@ -13,7 +13,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
         <mjl:property value="${item.parentId}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -23,7 +23,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
         <mjl:property value="${item.childId}" name="id" />
       </mjl:commandLink>
     </dd>

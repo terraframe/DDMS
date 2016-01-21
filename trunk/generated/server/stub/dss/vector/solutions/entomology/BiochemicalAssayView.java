@@ -5,7 +5,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
-import dss.vector.solutions.ontology.Term;
 
 public class BiochemicalAssayView extends BiochemicalAssayViewBase implements
     com.runwaysdk.generation.loader.Reloadable, UniqueAssay
@@ -36,16 +35,56 @@ public class BiochemicalAssayView extends BiochemicalAssayViewBase implements
   private void populateConcrete(BiochemicalAssay concrete)
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
-    concrete.setCollection(this.getCollection());
-    concrete.setIdentMethod(this.getIdentMethod());
-    concrete.setIsofemale(this.getIsofemale());
-    concrete.setMosquitoId(this.getMosquitoId());
-    concrete.setNumberElevated(this.getNumberElevated());
-    concrete.setNumberTested(this.getNumberTested());
-    concrete.setGeneration(this.getGeneration());
-    concrete.setSex(this.getSex());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setAssay(this.getAssay());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
+    {
+      concrete.setIdentMethod(this.getIdentMethod());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ISOFEMALE))
+    {
+      concrete.setIsofemale(this.getIsofemale());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOID))
+    {
+      concrete.setMosquitoId(this.getMosquitoId());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERELEVATED))
+    {
+      concrete.setNumberElevated(this.getNumberElevated());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERTESTED))
+    {
+      concrete.setNumberTested(this.getNumberTested());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GENERATION))
+    {
+      concrete.setGeneration(this.getGeneration());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ASSAY))
+    {
+      concrete.setAssay(this.getAssay());
+    }
   }
 
   private void buildAttributeMap(BiochemicalAssay concrete)

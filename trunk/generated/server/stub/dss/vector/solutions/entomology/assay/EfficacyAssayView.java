@@ -31,38 +31,120 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
 
-    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
-
-    if (entity == null || ! ( entity instanceof Surface ))
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GEOID))
     {
-      throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId",
-          (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+      GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
+
+      if (entity == null || ! ( entity instanceof Surface ))
+      {
+        throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId",
+            (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+      }
+      
+      concrete.setGeoEntity((Surface) entity);
     }
-    
-    concrete.setGeoEntity((Surface) entity);
 
-    concrete.setTestDate(this.getTestDate());
-    concrete.setControlTestMortality(this.getControlTestMortality());
-    concrete.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
-    concrete.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
-    concrete.setColonyName(this.getColonyName());
-    concrete.setExposureTime(this.getExposureTime());
-    concrete.setFed(this.getFed());
-    concrete.setGravid(this.getGravid());
-    concrete.setHoldingTime(this.getHoldingTime());
-    concrete.setInsecticideBrand(this.getInsecticideBrand());
-    concrete.setMortality(this.getMortality());
-    concrete.setQuantityDead(this.getQuantityDead());
-    concrete.setQuantityLive(this.getQuantityLive());
-    concrete.setQuantityTested(this.getQuantityTested());
-    concrete.setSpecie(this.getSpecie());
-    concrete.setTestMethod(this.getTestMethod());
-    concrete.setTimeOnSurface(this.getTimeOnSurface());
-    concrete.setSex(this.getSex());
-    concrete.setSurfacePostion(this.getSurfacePostion());
-    concrete.setSurfaceType(this.getSurfaceType());
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTDATE))
+    {
+      concrete.setTestDate(this.getTestDate());
+    }
 
-    if (this.getDisease() != null)
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, CONTROLTESTMORTALITY))
+    {
+      concrete.setControlTestMortality(this.getControlTestMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, AGERANGE))
+    {
+      concrete.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, AGERANGE))
+    {
+      concrete.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLONYNAME))
+    {
+      concrete.setColonyName(this.getColonyName());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, EXPOSURETIME))
+    {
+      concrete.setExposureTime(this.getExposureTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, FED))
+    {
+      concrete.setFed(this.getFed());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GRAVID))
+    {
+      concrete.setGravid(this.getGravid());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, HOLDINGTIME))
+    {
+      concrete.setHoldingTime(this.getHoldingTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, INSECTICIDEBRAND))
+    {
+      concrete.setInsecticideBrand(this.getInsecticideBrand());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, MORTALITY))
+    {
+      concrete.setMortality(this.getMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYDEAD))
+    {
+      concrete.setQuantityDead(this.getQuantityDead());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYLIVE))
+    {
+      concrete.setQuantityLive(this.getQuantityLive());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYTESTED))
+    {
+      concrete.setQuantityTested(this.getQuantityTested());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIE))
+    {
+      concrete.setSpecie(this.getSpecie());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TIMEONSURFACE))
+    {
+      concrete.setTimeOnSurface(this.getTimeOnSurface());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SURFACEPOSTION))
+    {
+      concrete.setSurfacePostion(this.getSurfacePostion());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SURFACETYPE))
+    {
+      concrete.setSurfaceType(this.getSurfaceType());
+    }
+
+    if (this.isNew() && this.getDisease() != null)
     {
       concrete.setDisease(this.getDisease());
     }

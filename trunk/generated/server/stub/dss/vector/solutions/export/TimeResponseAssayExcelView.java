@@ -62,21 +62,53 @@ public class TimeResponseAssayExcelView extends TimeResponseAssayExcelViewBase i
     // }
 
     assay.setUniqueAssayId(this.getUniqueAssayId());
-    MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
-    assay.setCollection(collection);
-    Term assayTerm = Term.validateByDisplayLabel(this.getAssay(), TimeResponseAssayView.getAssayMd());
-    assay.setAssay(assayTerm);
-    Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(),
-        TimeResponseAssayView.getActiveIngredientMd());
-    assay.setActiveIngredient(ingredient);
-    Term specie = Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd());
-    assay.setSpecies(specie);
-    Term stage = Term.validateByDisplayLabel(this.getLifeStage(),
-        TimeResponseAssayView.getLifeStageMd());
-    assay.setLifeStage(stage);
-    assay.setSynergist(this.getSynergist());
-    assay.setTestStrainResult(this.getTestStrainResult());
-    assay.setReferenceStrainResult(this.getReferenceStrainResult());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, COLLECTIONID))
+    {
+      MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
+      assay.setCollection(collection);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ASSAY))
+    {
+      Term assayTerm = Term.validateByDisplayLabel(this.getAssay(), TimeResponseAssayView.getAssayMd());
+      assay.setAssay(assayTerm);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ACTIVEINGREDIENT))
+    {
+      Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(),
+          TimeResponseAssayView.getActiveIngredientMd());
+      assay.setActiveIngredient(ingredient);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SPECIES))
+    {
+      Term specie = Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd());
+      assay.setSpecies(specie);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, LIFESTAGE))
+    {
+      Term stage = Term.validateByDisplayLabel(this.getLifeStage(),
+          TimeResponseAssayView.getLifeStageMd());
+      assay.setLifeStage(stage);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SYNERGIST))
+    {
+      assay.setSynergist(this.getSynergist());
+    }
+
+    {
+      if (UniqueAssayUtil.allowAttributeUpdate(this, assay, TESTSTRAINRESULT))
+      assay.setTestStrainResult(this.getTestStrainResult());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, REFERENCESTRAINRESULT))
+    {
+      assay.setReferenceStrainResult(this.getReferenceStrainResult());
+    }
 
     assay.apply();
   }

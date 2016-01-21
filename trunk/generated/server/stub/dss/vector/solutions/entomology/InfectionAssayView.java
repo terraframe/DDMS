@@ -36,19 +36,57 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
 
-    concrete.setCollection(this.getCollection());
-    concrete.setIdentMethod(this.getIdentMethod());
-    concrete.setInfected(this.getInfected());
-    concrete.setMosquitoId(this.getMosquitoId());
-    concrete.setNumberPositive(this.getNumberPositive());
-    concrete.setNumberTested(this.getNumberTested());
-    concrete.setParasite(this.getParasite());
-    concrete.setSex(this.getSex());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setTestMethod(this.getTestMethod());
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
+    {
+      concrete.setIdentMethod(this.getIdentMethod());
+    }
     
-    // TODO: Disease is always null!? What is the point of this?? Is it old logic thats no longer needed?
-    if (this.getDisease() != null) {
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, INFECTED))
+    {
+      concrete.setInfected(this.getInfected());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOID))
+    {
+      concrete.setMosquitoId(this.getMosquitoId());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERPOSITIVE))
+    {
+      concrete.setNumberPositive(this.getNumberPositive());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERTESTED))
+    {
+      concrete.setNumberTested(this.getNumberTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, PARASITE))
+    {
+      concrete.setParasite(this.getParasite());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+      
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+    
+    if (this.isNew() && this.getDisease() != null) {
     	concrete.setDisease(this.getDisease());
     }
   }

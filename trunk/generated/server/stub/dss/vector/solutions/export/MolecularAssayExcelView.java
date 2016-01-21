@@ -25,22 +25,82 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
 
     assay.setUniqueAssayId(this.getUniqueAssayId());
 
-    assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    assay.setMosquitoId(this.getMosquitoId());
-    assay
-        .setSpecies(Term.validateByDisplayLabel(this.getSpecies(), MolecularAssayView.getSpeciesMd()));
-    assay.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(),
-        MolecularAssayView.getIdentMethodMd()));
-    assay.setSex(Term.validateByDisplayLabel(this.getSex(), MolecularAssayView.getSexMd()));
-    assay.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-        MolecularAssayView.getGenerationMd()));
-    assay.setIsofemale(this.getIsofemale());
-    assay.setAssayMethod(Term.validateByDisplayLabel(this.getAssayMethod(),
-        MolecularAssayView.getAssayMethodMd()));
-    assay.setTarget(Term.validateByDisplayLabel(this.getTarget(), MolecularAssayView.getTargetMd()));
-    assay.setNumberRR(this.getNumberRR());
-    assay.setNumberRS(this.getNumberRS());
-    assay.setNumberSS(this.getNumberSS());
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, COLLECTIONID))
+    {
+
+      assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, MOSQUITOID))
+    {
+      assay.setMosquitoId(this.getMosquitoId());
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SPECIES))
+    {
+      assay
+          .setSpecies(Term.validateByDisplayLabel(this.getSpecies(), MolecularAssayView.getSpeciesMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, IDENTMETHOD))
+    {
+      assay.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(),
+          MolecularAssayView.getIdentMethodMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SEX))
+    {
+      assay.setSex(Term.validateByDisplayLabel(this.getSex(), MolecularAssayView.getSexMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, GENERATION))
+    {
+      assay.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
+          MolecularAssayView.getGenerationMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ISOFEMALE))
+    {
+      assay.setIsofemale(this.getIsofemale());
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ASSAYMETHOD))
+    {
+      assay.setAssayMethod(Term.validateByDisplayLabel(this.getAssayMethod(),
+          MolecularAssayView.getAssayMethodMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, TARGET))
+    {
+      assay.setTarget(Term.validateByDisplayLabel(this.getTarget(), MolecularAssayView.getTargetMd()));
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, NUMBERRR))
+    {
+      assay.setNumberRR(this.getNumberRR());
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, NUMBERRS))
+    {
+      assay.setNumberRS(this.getNumberRS());
+
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, NUMBERSS))
+    {
+      assay.setNumberSS(this.getNumberSS());
+
+    }
 
     assay.apply();
   }

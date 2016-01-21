@@ -33,14 +33,46 @@ public class TimeResponseAssayView extends TimeResponseAssayViewBase implements
   private void populateConcrete(TimeResponseAssay concrete)
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
-    concrete.setCollection(this.getCollection());
-    concrete.setAssay(this.getAssay());
-    concrete.setActiveIngredient(this.getActiveIngredient());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setLifeStage(this.getLifeStage());
-    concrete.setSynergist(this.getSynergist());
-    concrete.setTestStrainResult(this.getTestStrainResult());
-    concrete.setReferenceStrainResult(this.getReferenceStrainResult());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ASSAY))
+    {
+      concrete.setAssay(this.getAssay());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ACTIVEINGREDIENT))
+    {
+      concrete.setActiveIngredient(this.getActiveIngredient());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, LIFESTAGE))
+    {
+      concrete.setLifeStage(this.getLifeStage());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SYNERGIST))
+    {
+      concrete.setSynergist(this.getSynergist());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTSTRAINRESULT))
+    {
+      concrete.setTestStrainResult(this.getTestStrainResult());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, REFERENCESTRAINRESULT))
+    {
+      concrete.setReferenceStrainResult(this.getReferenceStrainResult());
+    }
   }
 
   private void buildAttributeMap(TimeResponseAssay concrete)

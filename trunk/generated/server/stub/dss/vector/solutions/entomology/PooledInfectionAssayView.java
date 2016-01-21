@@ -37,19 +37,62 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
   {
     concrete.setUniqueAssayId(this.getUniqueAssayId());
   
-    concrete.setCollection(this.getCollection());
-    concrete.setIdentMethod(this.getIdentMethod());
-    concrete.setInfected(this.getInfected());
-    concrete.setPoolId(this.getPoolId());
-    concrete.setNumberPositive(this.getNumberPositive());
-    concrete.setPoolsTested(this.getPoolsTested());
-    concrete.setMosquitosTested(this.getMosquitosTested());
-    concrete.setParasite(this.getParasite());
-    concrete.setSex(this.getSex());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setTestMethod(this.getTestMethod());
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
     
-    if (this.getDisease() != null) {
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
+    {
+      concrete.setIdentMethod(this.getIdentMethod());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, INFECTED))
+    {
+      concrete.setInfected(this.getInfected());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, POOLID))
+    {
+      concrete.setPoolId(this.getPoolId());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERPOSITIVE))
+    {
+      concrete.setNumberPositive(this.getNumberPositive());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, POOLSTESTED))
+    {
+      concrete.setPoolsTested(this.getPoolsTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOSTESTED))
+    {
+      concrete.setMosquitosTested(this.getMosquitosTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, PARASITE))
+    {
+      concrete.setParasite(this.getParasite());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+    
+    if (this.isNew() && this.getDisease() != null) {
     	concrete.setDisease(this.getDisease());
     }
   }
