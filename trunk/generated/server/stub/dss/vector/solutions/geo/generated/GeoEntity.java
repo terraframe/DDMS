@@ -1201,9 +1201,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     // unless the child has more than one parent.
 
     boolean isNew = this.isNew();
+    boolean singleLeaf = false;
     if (isNew)
     {
       this.apply(); // has no children
+    }
+    else
+    {
+      singleLeaf = this.isSingleLeafNode();
     }
 
     // make sure a child cannot be applied to itself
@@ -1271,9 +1276,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     }
     else if (!isNew)
     {
-      if (this.isSingleLeafNode())
+      if (singleLeaf)
       {
         deleteLeafFromAllPaths(this.getId());
+        
+        updateAllPathForGeoEntity(this.getId(), parent.getId(), false, false, 0);
       }
       else
       {
