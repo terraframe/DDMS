@@ -3,6 +3,7 @@ package dss.vector.solutions;
 import java.util.ArrayList;
 
 import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.session.SessionIterator;
@@ -20,6 +21,8 @@ public class WhoIsOnlineView extends WhoIsOnlineViewBase implements com.runwaysd
   {
     ArrayList<WhoIsOnlineView> views = new ArrayList<WhoIsOnlineView>();
     
+    String pubId = UserDAO.getPublicUser().getId();
+    
     SessionIterator it = SessionFacade.getIterator();
     try
     {
@@ -29,10 +32,13 @@ public class WhoIsOnlineView extends WhoIsOnlineViewBase implements com.runwaysd
         
         UserDAO user = session.getUser().getBusinessDAO();
         
-        WhoIsOnlineView view = new WhoIsOnlineView();
-        view.setUsername(user.getUsername());
-        view.setLocale(session.getLocale().getDisplayName());
-        views.add(view);
+        if (!pubId.equals(user.getId()))
+        {
+          WhoIsOnlineView view = new WhoIsOnlineView();
+          view.setUsername(user.getUsername());
+          view.setLocale(session.getLocale().getDisplayName());
+          views.add(view);
+        }
       }
     }
     finally
