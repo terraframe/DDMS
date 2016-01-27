@@ -3,12 +3,19 @@ package dss.vector.solutions.entomology;
 import java.util.Date;
 import java.util.List;
 
+import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdWebField;
+import com.runwaysdk.system.metadata.MdWebForm;
+import com.runwaysdk.system.metadata.MdWebFormQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
@@ -113,6 +120,31 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     for (TimeResponseAssayView assay : timeResponseAssays)
     {
       assay.deleteConcrete();
+    }
+    
+    // Delete all generated forms that reference a mosquito collection (ticket 3358)
+    QueryFactory qf = new QueryFactory();
+    MdWebFormQuery formQ = new MdWebFormQuery(qf);
+    OIterator<? extends MdWebForm> formIt = formQ.getIterator();
+    while (formIt.hasNext())
+    {
+      MdWebForm form = formIt.next();
+      OIterator<? extends MdWebField> fieldIt = form.getAllMdFields();
+      while (fieldIt.hasNext())
+      {
+        MdWebField field = fieldIt.next();
+        if (field.getFieldName().equals(MosquitoCollection.COLLECTIONID))
+        {
+          BusinessQuery bizq = qf.businessQuery(form.getFormMdClass().definesType());
+          bizq.WHERE(bizq.aCharacter(MosquitoCollection.COLLECTIONID).EQ(this.getCollectionId()));
+          OIterator<? extends Business> bizIt = bizq.getIterator();
+          while (bizIt.hasNext())
+          {
+            Business biz = bizIt.next();
+            biz.delete();
+          }
+        }
+      }
     }
 
     super.delete();
