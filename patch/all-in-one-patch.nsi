@@ -180,16 +180,67 @@ Section -Main SEC0000
     Abort
   ${EndIf}
   
+  LogEx::Init "$PrimaryLogFile"
+  
+  # Calculate Java max memory (xmx)
+	System::Alloc 64
+	Pop $0
+	System::Call "*$0(i 64, i 0, l 0, l 0, l 0, l 0, l 0, l 0, l 0)"
+	System::Call "Kernel32::GlobalMemoryStatusEx(i r0)"
+	System::Call "*$0(i.r1, i.r2, l.r3, l.r4, l.r5, l.r6, l.r7, l.r8, l.r9)"
+	System::Free $0
+	System::Int64Op $3 / 1048576 ; convert bytes to megabytes
+	Pop $0
+	LogEx::Write "Structure size: $1 bytes"
+	LogEx::Write "Memory load: $2%"
+	LogEx::Write "Total physical memory: $3 bytes"
+	LogEx::Write "Total physical memory in megabytes: $0"
+	LogEx::Write "Free physical memory: $4 bytes"
+	LogEx::Write "Total page file: $5 bytes"
+	LogEx::Write "Free page file: $6 bytes"
+	LogEx::Write "Total virtual: $7 bytes"
+	LogEx::Write "Free virtual: $8 bytes"
+	LogEx::Write "Free extended virtual: $9 bytes"
+	${If} $0 < 4000
+	  LogEx::Write "This computer does not meet the recommended memory specifications (at least 4GB). Your computer has $0 MB. DDMS may perform slow or not at all."
+      MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "This computer does not meet the recommended memory specifications (at least 4GB). Your computer has $0 MB. DDMS may perform slow or not at all." /SD IDOK IDOK LOW_MEM_OK IDCANCEL LOW_MEM_CANCEL
+	  LOW_MEM_CANCEL:
+	  Abort
+	  LOW_MEM_OK:
+	  System::Int64Op $0 - 1200
+	  Pop $1
+	${ElseIf} $0 < 5000
+	  System::Int64Op $0 - 1600
+	  Pop $1
+	${ElseIf} $0 < 6000
+	  System::Int64Op $0 - 2000
+	  Pop $1
+	${ElseIf} $0 < 7000
+	  System::Int64Op $0 - 2500
+	  Pop $1
+	${ElseIf} $0 < 8500
+	  System::Int64Op $0 - 3000
+	  Pop $1
+	${ElseIf} $0 < 11000
+	  System::Int64Op $0 - 3500
+	  Pop $1
+	${Else}
+	  System::Int64Op $0 - 4000
+	  Pop $1
+	${EndIf}
+	StrCpy $MaxMem $1
+	LogEx::Write "MaxMem set to $MaxMem"
+  
   # Determine the location of java home.  
   ${IfNot} ${RunningX64}
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
     StrCpy $JvmType true
-    StrCpy $MaxMem 768    
+    #StrCpy $MaxMem 768    
     StrCpy $PermMem 256
   ${Else}
     StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66    
     StrCpy $JvmType false
-    StrCpy $MaxMem 3072
+    #StrCpy $MaxMem 3072
     StrCpy $PermMem 512
   ${EndIf}
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
@@ -200,18 +251,18 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8104
-  StrCpy $PatchVersion 8104
+  StrCpy $ManagerVersion 8152
+  StrCpy $PatchVersion 8152
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
   StrCpy $LocalizationVersion 7930
-  StrCpy $PermissionsVersion 7799
+  StrCpy $PermissionsVersion 8117
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 8103
+  StrCpy $WebappsVersion 8118
   StrCpy $JavaVersion 8082
-  StrCpy $TomcatVersion 8103
+  StrCpy $TomcatVersion 8118
   
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
@@ -230,7 +281,6 @@ Section -Main SEC0000
   File ..\ddms-runway-patcher\7za.exe
   File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
   CreateDirectory $AgentDir
-  LogEx::Init "$PrimaryLogFile"
   
   #####################################################################
   # First we must patch any runway metadata changes for all of the apps
@@ -407,16 +457,18 @@ Function patchProperties
         FileWrite $4 "$\r$\n" ; we write an extra line
         FileClose $4 ; and close the file
 	  
+	  
+	    ### This already happens because properties are already patched as part of another step in the patching process.
 	    # Update globalCache location
-		Push "globalCache.cacheFileLocation=${local.root}"                              # text to be replaced
-        Push "globalCache.cacheFileLocation=${local.root}\cache\global"                 # replace with
-        Push 0                                                                        # replace all occurrences
-        Push 1                                                                        # replace all occurrences
-        Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
-        Call AdvReplaceInFile
+		#Push "globalCache.cacheFileLocation=${local.root}"                              # text to be replaced
+        #Push "globalCache.cacheFileLocation=${local.root}\cache\global"                 # replace with
+        #Push 0                                                                        # replace all occurrences
+        #Push 1                                                                        # replace all occurrences
+        #Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
+        #Call AdvReplaceInFile
 		
 		# Update transaction cache size
-		Push transactionCache.diskstore.size=500                                      # text to be replaced
+		Push transactionCache.diskstore.size=2500                                      # text to be replaced
         Push transactionCache.diskstore.size=50000                                    # replace with
         Push 0                                                                        # replace all occurrences
         Push 1                                                                        # replace all occurrences
@@ -430,14 +482,14 @@ Function patchProperties
         FileWrite $4 "globalCache.offheapMemorySize=20"
 		FileWrite $4 "$\r$\n" ; we write a new line
 		FileWrite $4 "globalCache.diskstore.size=50000"
-		FileWrite $4 "$\r$\n" ; we write a new line
-		FileWrite $4 "runtime.compiler.impl=ECLIPSE"
+		#FileWrite $4 "$\r$\n" ; we write a new line
+		#FileWrite $4 "runtime.compiler.impl=ECLIPSE"
         FileWrite $4 "$\r$\n" ; we write an extra line
         FileClose $4 ; and close the file
 		
-		# Change logging level to WARN and disable the chainsaw appender
+		# Disable the chainsaw appender
 		Push "log4j.rootLogger=ERROR, com.runwaysdk.RollingFileAppender, com.runwaysdk.ChainsawSocketAppender"    # text to be replaced
-        Push "log4j.rootLogger=WARN, com.runwaysdk.RollingFileAppender"                 # replace with
+        Push "log4j.rootLogger=ERROR, com.runwaysdk.RollingFileAppender"                 # replace with
         Push all                                                                      # replace all occurrences
         Push all                                                                      # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
