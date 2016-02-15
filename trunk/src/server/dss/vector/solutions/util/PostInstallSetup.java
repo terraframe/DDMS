@@ -156,7 +156,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     logger.info("Updating firefox preferences.");
     this.updateFirefoxPreferences();
 
-    return totalMemory;
+    return 0;
   }
 
   public int getTotalMemory(int appCount)
