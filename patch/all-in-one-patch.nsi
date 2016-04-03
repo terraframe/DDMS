@@ -129,7 +129,6 @@ Var Params                  # Variable for storing all of the params
 Var JavaHome                # Location of the Java JDK depending on the system OS version
 Var JvmType                 # Flag indicating if the jvm is 32-bit or not
 Var MaxMem                  # Max amount of memory to give Tomcat
-Var PermMem                 # Amount of perm gen memory to give to Tomcat
 Var TomcatExec              # Path of the tomcat service executable
 Var DatabaseSoftwareVersion # Version of database software
 Var postgresToStop
@@ -180,7 +179,42 @@ Section -Main SEC0000
     Abort
   ${EndIf}
   
+  # The version numbers are automatically replaced by all-in-one-patch.xml
+  StrCpy $RunwayVersion 7963
+  StrCpy $MetadataVersion 7688
+  StrCpy $ManagerVersion 8158
+  StrCpy $PatchVersion 8158
+  StrCpy $TermsVersion 7764
+  StrCpy $RootsVersion 7829
+  StrCpy $MenuVersion 7786
+  StrCpy $LocalizationVersion 7930
+  StrCpy $PermissionsVersion 8117
+  StrCpy $IdVersion 7686
+  StrCpy $BirtVersion 7851
+  StrCpy $WebappsVersion 8118
+  StrCpy $JavaVersion 8082
+  StrCpy $TomcatVersion 8118
+  
+  StrCpy $PropertiesVersion 1
+  StrCpy $DatabaseSoftwareVersion 1
+  
+  # Set some constants
+  StrCpy $PatchDir "$INSTDIR\patch"
+  StrCpy $AgentDir "$PatchDir\output"
+  StrCpy $PrimaryLogFile "$AgentDir\patcher.log"
+  StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
+  
   LogEx::Init "$PrimaryLogFile"
+  
+  # Determine the location of java home.  
+  ${IfNot} ${RunningX64}
+    StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
+    StrCpy $JvmType true
+  ${Else}
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66    
+    StrCpy $JvmType false
+  ${EndIf}
+  StrCpy $Java "$JavaHome\bin\javaw.exe"
   
   # Calculate Java max memory (xmx)
 	System::Alloc 64
@@ -231,48 +265,10 @@ Section -Main SEC0000
 	StrCpy $MaxMem $1
 	LogEx::Write "MaxMem set to $MaxMem"
   
-  # Determine the location of java home.  
-  ${IfNot} ${RunningX64}
-    StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
-    StrCpy $JvmType true
-    #StrCpy $MaxMem 768    
-    StrCpy $PermMem 256
-  ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66    
-    StrCpy $JvmType false
-    #StrCpy $MaxMem 3072
-    StrCpy $PermMem 512
-  ${EndIf}
-  StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
+  StrCpy $JavaOpts "$ExtraOpts -Xmx$MaxMemM -javaagent:$PatchDir\OutputAgent.jar"
   
   SetOutPath $INSTDIR
   SetOverwrite on
-  
-  # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7963
-  StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8152
-  StrCpy $PatchVersion 8152
-  StrCpy $TermsVersion 7764
-  StrCpy $RootsVersion 7829
-  StrCpy $MenuVersion 7786
-  StrCpy $LocalizationVersion 7930
-  StrCpy $PermissionsVersion 8117
-  StrCpy $IdVersion 7686
-  StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 8118
-  StrCpy $JavaVersion 8082
-  StrCpy $TomcatVersion 8118
-  
-  StrCpy $PropertiesVersion 1
-  StrCpy $DatabaseSoftwareVersion 1
-    
-  # Set some constants
-  StrCpy $PatchDir "$INSTDIR\patch"
-  StrCpy $AgentDir "$PatchDir\output"
-  StrCpy $PrimaryLogFile "$AgentDir\patcher.log"
-  StrCpy $JavaOpts "$ExtraOpts -Xmx$MaxMemM -XX:MaxPermSize=$PermMemM -javaagent:$PatchDir\OutputAgent.jar"
-  StrCpy $Java "$JavaHome\bin\javaw.exe"
   
   # Extract the logging libs
   !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
@@ -535,8 +531,8 @@ Function patchApplication
       # Build any dimensional metadata with the Master domain
 	  LogEx::Write "Building dimensional metadata for $AppName"
       !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
-      ExecWait `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
-      Call JavaAbort
+      push `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com`
+      Call execDos
 	  
 	  # Predictive id patching
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
@@ -544,15 +540,15 @@ Function patchApplication
       ${If} $IdVersion > $0
 	    LogEx::Write "Migrating system ids"
         StrCpy $Phase "Updating root ids, this process can several hours to complete."		
-		ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_roots -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r` $JavaError
-        Call JavaAbort
+		push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
+        Call execDos
 		
 		# We need to re-clear the old cache
 		RMDir /r $INSTDIR\tomcat\cache
 		
         StrCpy $Phase "Updating system ids, this process can several hours to complete."		
-		ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_keys -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k` $JavaError
-        Call JavaAbort
+		push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
+        Call execDos
 		
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
       ${Else}
@@ -560,21 +556,31 @@ Function patchApplication
         DetailPrint "Skipping system id migration because they are already up to date"
       ${EndIf}	  
     
+	  # Reference Indexing Patching (ticket 3341)
+	  !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating reference indexes."
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+	  ${If} $0 < 8157
+	    LogEx::Write "Updating reference indexes for $AppName"
+        !insertmacro MUI_HEADER_TEXT "Patching indexes" "Updating reference indexes for $AppName..."
+        push `$Java $JavaOpts=$AgentDir\index3341 -cp $Classpath com.runwaysdk.gis.IndexMetadataPatcher`
+        Call execDos
+	  ${EndIf}
+	
       # Import Most Recent
 	  LogEx::Write "Importing updated schema definitions."
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
       SetOutPath $PatchDir\schema
       File /x .svn ..\trunk\doc\individual\*
       StrCpy $Phase "Importing updated schema definitions"
-      ExecWait `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd` $JavaError
-      Call JavaAbort
+      push `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd`
+      Call execDos
     
       # Update Database Source and Class
 	  LogEx::Write "Updating database source and classes"
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Database"
       StrCpy $Phase "Updating database"
-      ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
-      Call JavaAbort
+      push `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses`
+      Call execDos
       # Delete $PatchDir\schema
     
       # Switch to the develop environment
@@ -589,8 +595,8 @@ Function patchApplication
       ${If} $TermsVersion > $0
 	    LogEx::Write "Importing ontology"
         StrCpy $Phase "Importing ontology from spreadsheet"
-        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls` $JavaError
-        Call JavaAbort
+        push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls`
+        Call execDos
         StrCpy $Phase "Rebuilding all paths"
         ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
         StrCpy $JavaError "500"
@@ -609,8 +615,8 @@ Function patchApplication
       ${If} $RootsVersion > $0
 	    LogEx::Write "Setting up ontology roots."
         StrCpy $Phase "Post ontology setup"
-        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls false` $JavaError
-        Call JavaAbort
+        push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls false`
+        Call execDos
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
       ${Else}
 	    LogEx::Write "Skipping Ontology Roots because they are already up to date"
@@ -625,8 +631,8 @@ Function patchApplication
       ${If} $MenuVersion > $0
 	    LogEx::Write "Importing menu items"
         StrCpy $Phase "Importing menu items"
-        ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls false` $JavaError
-        Call JavaAbort
+        push `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls false`
+        Call execDos
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
       ${Else}
 	    LogEx::Write "Skipping Menu because it is already up to date"
@@ -641,8 +647,8 @@ Function patchApplication
       ${If} $LocalizationVersion > $0
 	    LogEx::Write "Updating localization"
         StrCpy $Phase "Updating localization"
-        ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls` $JavaError
-        Call JavaAbort
+        push `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls`
+        Call execDos
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
       ${Else}
 	    LogEx::Write "Skipping localization because it is already up to date"
@@ -657,8 +663,8 @@ Function patchApplication
       ${If} $PermissionsVersion > $0
 	    LogEx::Write "Updating permissions"
         StrCpy $Phase "Updating permissions"
-        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\Permissions.xls` $JavaError
-        Call JavaAbort
+        push `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\Permissions.xls`
+        Call execDos
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
       ${Else}
 	    LogEx::Write "Skipping Permissions because they are already up to date"
@@ -670,13 +676,14 @@ Function patchApplication
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
       SetOutPath $PatchDir\doc
       StrCpy $Phase "Updating application data"
-      ExecWait `$Java $JavaOpts=$AgentDir\appdataupdate_app -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
-      Call JavaAbort
+      push `$Java $JavaOpts=$AgentDir\appdataupdate_app -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater`
+      Call execDos
    
       # Delete all database views and sql functions because the QB source / function source may have changed
 	  LogEx::Write "Deleting existing database views and functions."
    	  StrCpy $Phase "Deleting existing database views and functions."
-      ExecWait `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
+      push `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
+      Call execDos
    
       # Switch back to the deploy environment
 	  LogEx::Write "Switching back to deploy environment"
@@ -685,8 +692,9 @@ Function patchApplication
   
       # Update the .css file with the correct pathing
 	  LogEx::Write "Executing post install setup"
-      ExecWait `$Java -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
-    
+      push `$Java -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
+      Call execDos
+	
       # Copy the profile to the backup manager
 	  LogEx::Write "Copying the profile to the backup manager"
       CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
@@ -754,15 +762,15 @@ Function patchMetadata
 		# Build any dimensional metadata with the Master domain
 		LogEx::Write "Building dimensional metadata with the master domain"
 		!insertmacro MUI_HEADER_TEXT "Patching metadata" "Preparing dimensional metadata for $AppName..."
-		ExecWait `$Java $JavaOpts=$AgentDir\dimensionalmetadata -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter` $JavaError
-		Call JavaAbort
+		push `$Java $JavaOpts=$AgentDir\dimensionalmetadata -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter`
+		Call execDos
 	${EndIf}
   
     # Execute patch
 	LogEx::Write "Executing the runway patcher."
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Patching $AppName..."
-    ExecWait `$Java $JavaOpts=$AgentDir\runwaypatcher -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
-    Call JavaAbort
+    push `$Java $JavaOpts=$AgentDir\runwaypatcher -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib`
+    Call execDos
   
     # We need to clear the old cache
 	RMDir /r $INSTDIR\tomcat\cache
@@ -1022,13 +1030,13 @@ Function patchInstallerStage
   
     # Update tomcat service parameters
     LogEx::Write "Update tomcat service parameters."
-    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$INSTDIR\tomcat\bin\tomcat-juli.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`  
+    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$INSTDIR\tomcat\bin\tomcat-juli.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`  
     Call execDos
   ${EndIf}
   
   # Update tomcat memory parameters
   LogEx::Write "Update tomcat memory parameters."
-  push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
+  push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
   Call execDos
 FunctionEnd
 
@@ -1601,6 +1609,7 @@ Function upgradePostgresAndPostgis
   RmDir /r "$INSTDIR\migrate"
 FunctionEnd
 
+# Authored by rrowlands   #yourwelcome
 Function execDos
   pop $9
   push "ExecDos::End" # Add a marker for the loop to test for.
@@ -1629,7 +1638,7 @@ Function execDos
   StrCmp $8 0 WeAreDone
   
   # Error handling
-  LogEx::Write `ExecDos $9 returned $8`
+  LogEx::Write `ExecDos returned $8`
   MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
   Goto WeAreDone # Ignore
   Abort_Clicked:
