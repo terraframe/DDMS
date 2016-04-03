@@ -340,7 +340,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8152
+    StrCpy $PatchVersion 8158
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -348,7 +348,7 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 8117
 	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8152
+	StrCpy $ManagerVersion 8158
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8118
 	StrCpy $JavaVersion 8082
@@ -437,9 +437,11 @@ Section -Main SEC0000
 	File "Firefox Setup 27.0.1.exe"
 	
 	${If} ${Silent}
-	    ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe -ms"`
+	    push `"$INSTDIR\Firefox Setup 27.0.1.exe -ms"`
+		Call execDos
 	${Else}
-        ExecWait `"$INSTDIR\Firefox Setup 27.0.1.exe"`
+        push `"$INSTDIR\Firefox Setup 27.0.1.exe"`
+		Call execDos
 	${EndIf}
 	
       Call findFireFox
@@ -513,10 +515,12 @@ Section -Main SEC0000
 	CreateDirectory $INSTDIR\${POSTGRES_DIR}
 	${If} ${RunningX64}
 	  File "postgresql-9.4.5-1-windows-x64.exe"
-      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+      push `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  Call execDos
 	${Else}
 	  File "postgresql-9.4.5-1-windows.exe"
-      ExecWait `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+      push `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  Call execDos
 	${EndIf}
 	
 	#IfErrors PostgresInstallError PostgressInstallSuccess
@@ -564,20 +568,24 @@ Section -Main SEC0000
 	${If} ${RunningX64}
 	  SetOutPath "$INSTDIR\installer\postgis"
 	  File /r "..\installer-stage\postgis-bundle-pg94x64-2.2.0\*"
-	  ExecWait `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  push `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  Call execDos
 	${Else}
 	  SetOutPath "$INSTDIR\installer\postgis"
 	  File /r "..\installer-stage\postgis-bundle-pg94x32-2.1.8\*"
-	  ExecWait `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  push `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  Call execDos
 	${EndIf}
 	RmDir /r "$INSTDIR\installer\postgis"
 
 	# Install tomcat as a service	
     LogEx::Write "Configuring Tomcat as a service"
-    ExecWait `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
-
+    push `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
+    Call execDos
+	
 	# Set tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
+    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
+	Call execDos
 	
 	# Update the firewall to allow the tomcat service
 	SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat\bin\tomcat8.exe" "" "@$INSTDIR\tomcat\bin\tomcat8.exe,-10000" "" "" "" ""
@@ -654,20 +662,8 @@ Section -Main SEC0000
     # Update lots of things	
 	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    ExecWait `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType` $execReturn
-	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
-	
-	${If} $execReturn == 1 #Our PostInstall process returned 1. This isn't a memory option, its an error code.
-	  SetErrors
-	${Else}
-	  StrCpy $MaxMem $execReturn #PostInstall returned a calculated memory value for us to use.
-	${EndIf}
-    IfErrors postInstallError skipErrorMsg
-	
-	postInstallError:
-    LogEx::Write "ERROR: Post Install Setup Failed"
-	MessageBox MB_OK|MB_ICONSTOP "Post install process failed." /SD IDOK
-	ClearErrors
+	push `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType`
+	Call execDos
 	
 	skipErrorMsg:
 	
@@ -722,8 +718,9 @@ Section -Main SEC0000
 	${EndIF}	
 	
 	# Update tomcat service parameters
-    ExecWait `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+    push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
+	Call execDos
 	
 	Rename $INSTDIR\tomcat\bin\tomcat8w.exe $INSTDIR\tomcat\bin\tomcatw.exe
 	
@@ -982,6 +979,48 @@ Function findFireFox
     call StripPath
     
     FDone:
+FunctionEnd
+
+Function execDos
+  pop $9
+  push "ExecDos::End" # Add a marker for the loop to test for.
+  LogEx::Write "execDos  >  Executing command [$9]"
+  ExecDos::exec /NOUNLOAD /TOSTACK $9 "" "$AgentDir\postgresController.out"
+  pop $8 # return value
+  
+  # Print output from exec invocation
+  StrCpy $7 0
+  Loop:
+    pop $6
+    StrCmp $6 "ExecDos::End" ExitLoop
+	StrCmp $6 "$AgentDir\postgresController.out" SkipWrite
+    LogEx::Write "execDos  >  $6"
+	
+	SkipWrite:
+	IntOp $7 $7 + 1
+    ${If} $7 > 500 # You can increase this number to get more output
+	  LogEx::Write "execDos  >  ... additional output truncated ..."
+	  Goto ExitLoop
+	${Else}
+      Goto Loop
+	${EndIf}
+  ExitLoop:
+  
+  StrCmp $8 0 WeAreDone
+  
+  # Error handling
+  LogEx::Write `ExecDos returned $8`
+  MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this installer is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
+  Goto WeAreDone # Ignore
+  Abort_Clicked:
+  Abort
+  #StrCpy $JavaError 1
+  #Call JavaAbort
+  Retry_Clicked:
+  push $9
+  Call execDos
+
+  WeAreDone:
 FunctionEnd
 
 Function RIndexOf
