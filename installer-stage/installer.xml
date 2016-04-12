@@ -73,7 +73,7 @@
   <target name="build" depends="build_installer_exe"/>
   <target name="build" depends="build-database, build_installer_exe"/>
  -->
-  <target name="build" depends="build_installer_exe"/>
+  <target name="build" depends="build-database, build_installer_exe"/>
 
   
   <target name="build-database">
@@ -107,7 +107,7 @@
 
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
-	
+    
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="root.user" value="${root.user}" />
       <property name="root.pass" value="${root.pass}" />
@@ -131,14 +131,14 @@
       <target name="load_permissions"/>    	  
     </ant>
 	
-    <!-- We deploy all files after localization because we need to push the updated MDSS.properties files -->  
+    <!-- We deploy all files after localization because we need to push the updated MDSS.properties files --> 
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
 
       <target name="deploy_all_files"/>    
     </ant>
-  
+    
     <!-- We need to update the deploy database with the source and class. -->  
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
@@ -204,7 +204,7 @@
   <target name="dump_db" depends="">
     <echo message="dumping the develop db to a sql file " />
     <exec executable="${postgres.bin}/pg_dump" dir="." failonerror="true" searchpath="true" logError="true">
-      <arg line="--blobs --no-password -h 127.0.0.1 -U ${root.user} ${develop.db}" />
+      <arg line="--blobs --no-password -h 127.0.0.1 -U ${root.user} --schema ddms ${develop.db}" />
       <redirector output="MDSS.backup">
         <outputfilterchain>
           <!--make sql dump stop on errors -->

@@ -340,7 +340,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8158
+    StrCpy $PatchVersion 8168
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
@@ -348,11 +348,11 @@ Section -Main SEC0000
     StrCpy $PermissionsVersion 8117
 	StrCpy $RunwayVersion 7963
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8158
+	StrCpy $ManagerVersion 8168
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8118
 	StrCpy $JavaVersion 8082
-	StrCpy $TomcatVersion 8118
+	StrCpy $TomcatVersion 8159
 	
 	# Set up our logger
 	LogEx::Init "$INSTDIR\installer-log.txt"
@@ -641,20 +641,25 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
-    
+	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+    Call execDos
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+    Call execDos
+	
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
-    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
-    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
-
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
+    Call execDos
+	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+	Call execDos
+	
     # Update the installation number
     LogEx::Write "Updating the installation number"
-    nsExec::Exec `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
-    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    Call execDos
+	
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f $INSTDIR\PostgreSql /r /d y
     # icalcs $INSTDIR\PostgreSql /grant administrators:F /t
