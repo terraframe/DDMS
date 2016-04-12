@@ -1250,9 +1250,9 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           var record = this.myDataTable.getRecord(target);
           var row_index = this.myDataTable.getRecordIndex(record);
           
-          if (confirm(MDSS.localize('Confirm_Delete_Row') + ' ' + (row_index + 1) + '?')) {
+          // if (confirm(MDSS.localize('Confirm_Delete_Row') + ' ' + (row_index + 1) + '?')) {
             this._model.deleteRow(row_index);
-          }
+          // }
           break;
 
         default:
