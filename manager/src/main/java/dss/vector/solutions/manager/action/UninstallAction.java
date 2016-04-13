@@ -167,7 +167,8 @@ public class UninstallAction extends Action
 
     String port = props.getPort();
 
-    String command = "C:\\MDSS\\PostgreSql\\9.1\\bin\\dropdb.exe -p " + port + " -U postgres " + props.getDatabaseName();
+    // Sigh: Yikes, dude. TODO: Make this dynamic instead of hardcoded to C:\MDSS
+    String command = "C:\\MDSS\\PostgreSql\\9.4\\bin\\dropdb.exe -p " + port + " -U postgres " + props.getDatabaseName();
 
     int results = this.execWait(command);
 
