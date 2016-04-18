@@ -196,10 +196,10 @@
 	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.6.jar"/>
 	<classpathentry kind="lib" path="lib/server/cache-api-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/javassist-3.11.0.GA.jar"/>
-	<classpathentry kind="lib" path="lib/server/ehcache-3.0.0.m4.jar" sourcepath="/Users/terraframe/.m2/repository/org/ehcache/ehcache/3.0.0.m4/ehcache-3.0.0.m4-sources.jar"/>
-	<classpathentry kind="lib" path="lib/server/offheap-store-2.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/ecj-4.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/server/ehcache-3.0.0.m4.jar"/>
 	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/management-model-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/offheap-store-2.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
