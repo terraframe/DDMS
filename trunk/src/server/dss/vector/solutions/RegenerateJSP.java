@@ -41,7 +41,7 @@ public class RegenerateJSP implements Reloadable
 
     for (MdEntityDAOIF mdEntity : mdEntities)
     {
-      if (GenerationUtil.isReservedType(mdEntity))
+      if (GenerationUtil.isReservedAndHardcoded(mdEntity))
       {
         continue;
       }
