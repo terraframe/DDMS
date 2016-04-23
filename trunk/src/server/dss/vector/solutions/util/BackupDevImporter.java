@@ -56,8 +56,9 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * Steps from ground 0:
  * 1) Create user mdssdevelop
  * 2) Create a new database with owner: mdssdevelop
- * 3) Install the postgis extension: CREATE EXTENSION postgis;
- * 4) Modify your login role to default to the ddms schema: ALTER ROLE <your_login_role> SET search_path TO ddms
+ * 3) Modify your database search_path to ddms,public: ALTER DATABASE $name SET search_path=ddms,public;
+ *    alternatively: ALTER ROLE mdssdevelop SET search_path = ddms,public;
+ * 4) Install the postgis extension: CREATE EXTENSION postgis;
  * 5) Create a new launch for this java class with extra memory with a first argument that is the path to your zipped backup
  * 6) Build the project and then run that launch!
  * 7) Compile and deploy the new source we just loaded from the backup to your tomcat server

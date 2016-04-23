@@ -57,6 +57,8 @@ public class ServerContext
   public synchronized void contextDestroyed()
   {
 //    doCleanup();
+    
+    Database.close();
   }
 
   @Request
