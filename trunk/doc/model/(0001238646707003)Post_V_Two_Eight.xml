@@ -206,7 +206,8 @@
          name="dss.vector.solutions.entomology.assay.EfficacyAssay"
          label="Efficacy Assay"
          description="An efficacy assay which can be performed on a colony mosquitos"
-         extends="dss.vector.solutions.entomology.assay.AbstractAssay">
+         extends="dss.vector.solutions.entomology.assay.AbstractAssay"
+		 generateController="true">
         <attributes>
           <char name="colonyName" size="255" label="Colony Name" description="The name of the colony" />
           <integer name="holdingTime" label="Holding Time (hr)" required="true" rejectNegative="true" description="The amount of time the mosquitos were held before exposure in hours" defaultValue="23" />
@@ -607,7 +608,8 @@
       <mdBusiness
          name="dss.vector.solutions.Person"
          label="Person"
-         description="Generic Person">
+         description="Generic Person"
+		 generateController="true">
         <attributes>
           <char name="firstName" label="First Name" description="User&apos;s given names.  If more than one, names are separated by a space." size="64" required="true" />
           <char name="lastName" label="Last Name / Surname" description="User&apos;s surname.  If more than one, names are separated by a space." size="64" required="true" />
@@ -704,7 +706,8 @@
          name="dss.vector.solutions.irs.SprayTeam"
          label="Spray Team"
          description="A team of spray Operators"
-         extends="dss.vector.solutions.irs.Targeter">
+         extends="dss.vector.solutions.irs.Targeter"
+		 generateController="true">
         <attributes>
           <char name="teamId" label="Team Identifier" description="Human entered team identifier" size="32" required="true" indexType="unique index" />
           <reference name="sprayZone" label="Spray Zone" description="This team&apos;s assigned Spray Zone" type="dss.vector.solutions.geo.generated.SprayZone" />
@@ -2603,6 +2606,8 @@
          name="dss.vector.solutions.irs.InsecticideNozzle"
          label="Configuration"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.irs.InsecticideBrand" method="Insecticides" />
+        <child cardinality="*" name="dss.vector.solutions.irs.Nozzle" method="Nozzles" />
         <attributes>
           <boolean name="enabled" label="Enabled" required="true" defaultValue="true" description="If the nozzle is enabled" negativeLabel="No" positiveLabel="Yes" />
           <date name="configurationDate" label="Configuration Date" required="true" />
@@ -2626,8 +2631,6 @@
         </mdMethod>
         <mdMethod name="lockView" static="false" returnType="dss.vector.solutions.irs.InsecticideNozzleView" label="Lock View" description="Locks the represented insecticide nozzle" />
         <mdMethod name="unlockView" static="false" returnType="dss.vector.solutions.irs.InsecticideNozzleView" label="Unlock View" description="Unlocks the represented insecticide nozzle" />
-        <parent cardinality="*" name="dss.vector.solutions.irs.InsecticideBrand" method="Insecticides" />
-        <child cardinality="*" name="dss.vector.solutions.irs.Nozzle" method="Nozzles" />
       </mdRelationship>
       <mdRelationship
          name="dss.vector.solutions.irs.LeadTeam"
@@ -2653,11 +2656,11 @@
          name="dss.vector.solutions.query.HasLayers"
          label="Has Layers"
          composition="true">
+		<parent cardinality="1" name="dss.vector.solutions.query.SavedMap" method="Map" />
+        <child cardinality="*" name="dss.vector.solutions.query.Layer" method="Layer" />
         <attributes>
           <integer name="layerPosition" label="Position" description="The layer&apos;s position relative to the other layers." required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="1" name="dss.vector.solutions.query.SavedMap" method="Map" />
-        <child cardinality="*" name="dss.vector.solutions.query.Layer" method="Layer" />
       </mdRelationship>
       <mdRelationship
          name="dss.vector.solutions.query.HasCategories"
@@ -2687,107 +2690,109 @@
          name="dss.vector.solutions.intervention.monitor.IPTPatients"
          label="IPT Patients"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="PatientAggregatedIPTs" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Patients" />
         <attributes>
           <integer name="amount" label="Number per person category" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="PatientAggregatedIPTs" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Patients" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.IPTANCVisit"
          label="IPT ANC visit"
          generateController="false">
+		 <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="ANCVisitAggregatedIPTs" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ANCVisits" />
         <attributes>
           <integer name="amount" label="Number of pregnant females who received IPT per ANC visit" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="ANCVisitAggregatedIPTs" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ANCVisits" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.IPTDose"
          label="IPT Dose"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="DoseAggregatedIPTs" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Doses" />
         <attributes>
           <integer name="amount" label="Number of pregnant females who received IPT per IPT dose number" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="DoseAggregatedIPTs" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Doses" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.IPTTreatment"
          label="IPT Treatment"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="TreatmentAggregatedIPTs" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Treatments" />
         <attributes>
           <integer name="amount" label="Number of pregnant females who received IPT per type" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedIPT" method="TreatmentAggregatedIPTs" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Treatments" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNService"
          label="ITN Service"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithService" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Services" />
         <attributes>
           <integer name="amount" label="Total per type of service received" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithService" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Services" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNTargetGroup"
          label="ITN Target Group"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithTargetGroups" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
         <attributes>
           <integer name="amount" label="Total ITNs distributed per target group/s" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithTargetGroups" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNNet"
          label="ITN Net"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithNets" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Nets" />
         <attributes>
           <integer name="amount" label="Total ITN distributed by type" required="true" rejectNegative="true" defaultValue="0" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNData" method="AggregatedITNsWithNets" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Nets" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup"
          label="ITN Community Target Group"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" method="ITNCommunityDistributionsWithTargetGroups" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
         <attributes>
           <integer name="amount" label="Total ITNs distributed per target group/s" defaultValue="0" required="true" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" method="ITNCommunityDistributionsWithTargetGroups" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNCommunityNet"
          label="ITN Community Net"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" method="ITNCommunityDistributionsWithNets" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Nets" />
         <attributes>
           <integer name="amount" label="Total ITN distributed by type" required="true" rejectNegative="true" defaultValue="0" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" method="ITNCommunityDistributionsWithNets" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Nets" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup"
          label="ITN Distribution Target Group"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNDistribution" method="ITNFacilityDistributionsWithNets" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
         <attributes>
           <integer name="amount" label="Total ITNs distributed by target group" required="true" rejectNegative="true" defaultValue="0" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.ITNDistribution" method="ITNFacilityDistributionsWithNets" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="TargetGroups" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.general.WeeklyThreshold"
          label="Weekly Threshold"
          exported="true"
          enforceSiteMaster="false">
+		<parent cardinality="*" name="dss.vector.solutions.general.ThresholdData" method="Thresholds" />
+        <child cardinality="*" name="dss.vector.solutions.general.EpiWeek" method="EpiWeeks" />
         <attributes>
           <double name="notification" label="T1" length="12" decimal="2" required="false" rejectNegative="true" rejectZero="true" description="Source notification threshold value" />
           <double name="identification" label="T2" length="12" decimal="2" required="false" rejectNegative="true" rejectZero="true" description="Source identification threshold value" />
@@ -2807,18 +2812,16 @@
           <reference name="lastFacilityNotification" label="Last Facility Notification" type="dss.vector.solutions.general.EpiWeek" />
           <reference name="lastFacilityIdentification" label="Last Facility Identification" type="dss.vector.solutions.general.EpiWeek" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.general.ThresholdData" method="Thresholds" />
-        <child cardinality="*" name="dss.vector.solutions.general.EpiWeek" method="EpiWeeks" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.surveillance.IndividualCaseSymptom"
          label="Individual Case Symptom"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.IndividualInstance" method="IndividualInstance" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Symptoms" />
         <attributes>
           <boolean name="hasSymptom" label="Has Symptom" required="true" description="Flag denoting if the patient has the given symptom" negativeLabel="No" positiveLabel="Yes" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.IndividualInstance" method="IndividualInstance" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Symptoms" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.HouseholdITNInstance"
@@ -2852,6 +2855,8 @@
          name="dss.vector.solutions.entomology.CollectionContainer"
          label="Collection Container"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.entomology.PremiseTaxon" method="PremiseTaxons" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Containers" />
         <attributes>
           <integer name="numberContainers" label="# containers" required="true" rejectNegative="true" />
           <integer name="numberWithWater" label="# with water" required="true" rejectNegative="true" />
@@ -2863,88 +2868,86 @@
           <integer name="numberLarvaeCollected" label="# larvae collected" rejectNegative="true" />
           <integer name="numberPupaeCollected" label="# pupae collected" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.entomology.PremiseTaxon" method="PremiseTaxons" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Containers" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.entomology.PupalContainerAmount"
          label="Pupal Container Amount"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.entomology.PupalContainer" method="PupalContainerAmounts" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Pupal" />
         <attributes>
           <integer name="amount" label="Amount" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.entomology.PupalContainer" method="PupalContainerAmounts" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Pupal" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod"
          label="Intervention Method Used"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.IndividualPremiseVisit" method="IndividualPremiseVisits" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
         <attributes>
           <boolean name="used" label="Used" required="true" positiveLabel="Yes" negativeLabel="No" defaultValue="false" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.IndividualPremiseVisit" method="IndividualPremiseVisits" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.AggregatedPremiseReason"
          label="# Reason for Not Treated"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" method="AggregatedPremiseReasons" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="NonTreatmentReasons" />
         <attributes>
           <integer name="amount" label="Amount" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" method="AggregatedPremiseReasons" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="NonTreatmentReasons" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod"
          label="# Treated with Intervention Method"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" method="AggregatedPremiseMethod" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
         <attributes>
           <integer name="amount" label="Amount" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" method="AggregatedPremiseMethod" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.intervention.monitor.PersonInterventionMethod"
          label="# Treated with Intervention Method"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.intervention.monitor.PersonIntervention" method="PersonInterventionMethod" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
         <attributes>
           <integer name="amount" label="Amount" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.intervention.monitor.PersonIntervention" method="PersonInterventionMethod" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="InterventionMethods" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount"
          label="Type of diagnosis amount"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.surveillance.CaseDiagnosisType" method="CaseDiagnosisTypes" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Categories" />
         <attributes>
           <integer name="amount" label="Number" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.surveillance.CaseDiagnosisType" method="CaseDiagnosisTypes" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Categories" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount"
          label="Type of diagnosis amount"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.surveillance.CaseDiseaseManifestation" method="CaseDiseaseManifestations" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Diseases" />
         <attributes>
           <integer name="amount" label="Number" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.surveillance.CaseDiseaseManifestation" method="CaseDiseaseManifestations" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Diseases" />
       </mdTree>
       <mdTree
          name="dss.vector.solutions.surveillance.CasePatientTypeAmount"
          label="Type of patient amount"
          generateController="false">
+		<parent cardinality="*" name="dss.vector.solutions.surveillance.CasePatientType" method="CasePatientTypes" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Patients" />
         <attributes>
           <integer name="amount" label="Number" rejectNegative="true" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.surveillance.CasePatientType" method="CasePatientTypes" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="Patients" />
       </mdTree>
       <mdGraph
          name="dss.vector.solutions.geo.HasSynonym"
@@ -9209,7 +9212,8 @@
         </create>
       </mdBusiness>
       <mdBusiness
-         name="dss.vector.solutions.Property">
+         name="dss.vector.solutions.Property"
+		 generateController="true">
         <create>
           <mdMethod
              name="setUnitsPerDay"
@@ -9441,7 +9445,8 @@
         </mdAction>
       </mdController>
       <mdController
-         name="dss.vector.solutions.PersonController">
+         name="dss.vector.solutions.PersonController"
+		 >
         <create>
           <mdAction
              name="search"

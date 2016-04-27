@@ -423,7 +423,7 @@
       </mdBusiness>
       <mdBusiness
          name="dss.vector.solutions.general.KnockDownTimeProperty"
-         label="Knock down Cut-off Values">
+         label="Knock down Cut-off Values" generateController="true">
         <attributes>
           <integer name="upperPercent" label="Upper Percent" required="true" rejectNegative="true" rejectZero="true" defaultValue="95" />
           <integer name="upperTime" label="Upper Time" required="true" rejectNegative="true" rejectZero="true" />
@@ -441,7 +441,8 @@
       </mdBusiness>
       <mdBusiness
          name="dss.vector.solutions.general.LethalTimeProperty"
-         label="Lethal Time Property">
+         label="Lethal Time Property"
+		 generateController="true">
         <attributes>
           <integer name="upperPercent" label="Upper Percent" required="true" rejectNegative="true" rejectZero="true" defaultValue="95" />
           <integer name="upperTime" label="Upper Time" required="true" rejectNegative="true" rejectZero="true" />
@@ -571,11 +572,11 @@
          description="Ontology relationship between two terms."
          isAbstract="false"
          generateController="false">
+		 <parent cardinality="*" name="dss.vector.solutions.ontology.Term" method="ParentTerm" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ChildTerm" />
         <attributes>
           <reference name="ontologyRelationship" required="true" label="Ontology Relationship" type="dss.vector.solutions.ontology.OntologyRelationship" />
         </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.ontology.Term" method="ParentTerm" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ChildTerm" />
       </mdGraph>
       <mdIndex type="dss.vector.solutions.ontology.OntologyRelationship" label="Name and Namespace Index" active="true" unique="false" description="Enforces a unique index between the name and namespace" cacheAlgorithm="everything">
         <attribute name="namespace" indexOrder="1" />
