@@ -49,7 +49,7 @@ public class AggregatedITNListener extends ExcelAdapter implements ExcelExportLi
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedITNExcelView aggregatedITN = (AggregatedITNExcelView) instance;
 

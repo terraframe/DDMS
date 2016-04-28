@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1430268392)
+@com.runwaysdk.business.ClassSignature(hash = 659832756)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1430268392;
+  private static final long serialVersionUID = 659832756;
   
   public FacadeBase()
   {
@@ -389,6 +389,12 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   }
   
   public static java.io.InputStream importExcelFile(java.io.InputStream inputStream, java.lang.String type, java.lang.String listenerMethod, java.lang.String[] params)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.OutputStream importExcelWithSynonyms()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.PopulationDataQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -70,15 +71,15 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
   
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     OIterator<? extends GeoHierarchy> iterator = PopulationData.getValidGeoHierarchies().getIterator();
@@ -88,7 +89,7 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
     }
     iterator.close();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
   
 }

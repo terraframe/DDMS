@@ -46,7 +46,7 @@ public class AggregatedCaseReferralListener extends ExcelAdapter implements Exce
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedCaseReferralsExcelView aggregatedCase = (AggregatedCaseReferralsExcelView) instance;
 

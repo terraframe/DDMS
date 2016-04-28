@@ -7,6 +7,7 @@ import java.util.List;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
@@ -151,19 +152,19 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
     return list;
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(new PupalCollectionListener());
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
     exporter.addListener(new PupalCollectionListener());
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllUrban())
@@ -171,7 +172,7 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
       builder.add(hierarchy);
     }
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 
   public void addPupaeAmount(Term term, Integer amount)

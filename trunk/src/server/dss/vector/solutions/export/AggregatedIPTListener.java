@@ -58,7 +58,7 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedIPTExcelView aggregatedIPT = (AggregatedIPTExcelView) instance;
 

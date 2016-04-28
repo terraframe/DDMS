@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
@@ -110,9 +111,9 @@ public class CaseDiseaseManifestationExcelView extends CaseDiseaseManifestationE
     exporter.addListener(new CaseDiseaseManifestationListener());
   }
   
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    AggregatedCaseExcelView.setupImportListener(context, params);
+    AggregatedCaseExcelView.setupImportListener(context, params, importer);
     context.addListener(new CaseDiseaseManifestationListener());
   }
   

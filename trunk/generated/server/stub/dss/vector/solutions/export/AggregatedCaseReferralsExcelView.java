@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView;
@@ -172,9 +173,9 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
     exporter.addListener(new AggregatedCaseReferralListener());
   }
   
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    AggregatedCaseExcelView.setupImportListener(context, params);
+    AggregatedCaseExcelView.setupImportListener(context, params, importer);
     context.addListener(new AggregatedCaseReferralListener());
   }
   

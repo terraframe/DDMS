@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionMethodView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionView;
@@ -82,9 +83,9 @@ public class PersonInterventionExcelView extends PersonInterventionExcelViewBase
     exporter.addListener(new PersonInterventionListener());
   }
   
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    ControlInterventionExcelView.setupImportListener(context, params);
+    ControlInterventionExcelView.setupImportListener(context, params, importer);
     context.addListener(new PersonInterventionListener());
   }
 

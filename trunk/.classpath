@@ -13,7 +13,7 @@
 	<classpathentry kind="src" output="generated/client/bin" path="generated/client/base"/>
 	<classpathentry kind="src" output="generated/common/bin" path="generated/common/base"/>
 	<classpathentry kind="src" output="generated/server/bin" path="generated/server/base"/>
-	<classpathentry exported="true" kind="lib" path="lib/client/commons-fileupload-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/client/commons-fileupload-1.2.jar" sourcepath="/Users/terraframe/.m2/repository/commons-fileupload/commons-fileupload/1.2/commons-fileupload-1.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/fileupload-progress.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/jstl.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/standard.jar"/>

@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -184,19 +185,19 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     return list;
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(new AggregatedIPTListener());
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
     exporter.addListener(new AggregatedIPTListener());
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
@@ -204,7 +205,7 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
       builder.add(hierarchy);
     }
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 
   public void addPatient(Term grid, Integer amount)

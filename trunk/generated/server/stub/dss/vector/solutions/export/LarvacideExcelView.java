@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
@@ -112,21 +113,21 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.ru
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 }

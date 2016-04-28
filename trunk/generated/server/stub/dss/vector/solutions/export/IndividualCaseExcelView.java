@@ -13,6 +13,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
@@ -543,7 +544,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     return list;
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(createSettlementSubdivisionListener(RESIDENCE));
     context.addListener(createSettlementSubdivisionListener(WORKPLACE));

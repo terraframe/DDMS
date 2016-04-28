@@ -42,7 +42,7 @@ public class AggregatedCaseTreatmentListener extends ExcelAdapter implements Exc
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedCaseTreatmentsExcelView aggregatedCase = (AggregatedCaseTreatmentsExcelView) instance;
 

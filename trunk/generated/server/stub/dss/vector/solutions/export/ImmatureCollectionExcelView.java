@@ -11,6 +11,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.entomology.CollectionContainer;
 import dss.vector.solutions.entomology.CollectionContainerQuery;
@@ -207,23 +208,23 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     return list;
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllUrban())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 }

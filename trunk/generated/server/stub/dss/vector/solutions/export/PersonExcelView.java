@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.PersonWithDelegatesView;
 import dss.vector.solutions.PersonWithDelegatesViewQuery;
@@ -139,7 +140,7 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
     context.addListener(createExcelGeoListener(WORKGEOENTITY));

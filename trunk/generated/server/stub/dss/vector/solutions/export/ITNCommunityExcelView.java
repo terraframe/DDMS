@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
@@ -120,7 +121,7 @@ public class ITNCommunityExcelView extends ITNCommunityExcelViewBase implements 
     exporter.addListener(new ITNCommunityDistributionListener());
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(new ITNCommunityDistributionListener());
     context.addListener(createExcelGeoListener(DISTRIBUTIONLOCATION));

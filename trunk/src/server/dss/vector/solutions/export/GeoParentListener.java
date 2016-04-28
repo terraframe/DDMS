@@ -19,7 +19,7 @@ public class GeoParentListener extends ImportAdapter implements ImportListener, 
     this.parentGeoEntityId = parentId;
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     GeoEntityExcelView view = (GeoEntityExcelView) instance;
     view.setParentGeoEntityId(this.parentGeoEntityId);

@@ -34,7 +34,7 @@ public class AggregatedCaseListener extends ExcelAdapter implements ExcelExportL
   {
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     AggregatedCaseExcelView aggregatedCase = (AggregatedCaseExcelView) instance;
     

@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
@@ -96,18 +97,18 @@ public class IndividualPremiseExcelView extends IndividualPremiseExcelViewBase i
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     ControlInterventionExcelView.setupExportListener(exporter, params);
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
     exporter.addListener(new IndividualPremiseListener());
   }
   
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    ControlInterventionExcelView.setupImportListener(context, params);
-    context.addListener(createExcelGeoListener());
+    ControlInterventionExcelView.setupImportListener(context, params, importer);
+    context.addListener(createExcelGeoListener(importer));
     context.addListener(new IndividualPremiseListener());
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllUrban())

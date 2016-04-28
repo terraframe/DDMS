@@ -30,7 +30,7 @@ public class DynamicNetListener extends ExcelAdapter implements ExcelExportListe
   {
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
   }
 

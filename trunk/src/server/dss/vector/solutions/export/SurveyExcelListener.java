@@ -44,7 +44,7 @@ public class SurveyExcelListener extends ExcelAdapter implements ExcelExportList
   {
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     SurveyExcelView survey = (SurveyExcelView) instance;
 

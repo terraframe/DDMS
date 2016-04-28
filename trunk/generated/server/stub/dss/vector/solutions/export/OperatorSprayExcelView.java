@@ -15,6 +15,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -27,11 +28,8 @@ import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
-import dss.vector.solutions.irs.SupervisorCodeProblem;
-import dss.vector.solutions.irs.SupervisorNameProblem;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.permission.MDSSRoleView;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -259,23 +257,23 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     return list;
   }
 
-  public static void setupExportListener(ExcelExporter exporter, String... params)
+  public static void setupExportListener(ExcelExporter exporter, String[] params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllSprayTargets())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 }

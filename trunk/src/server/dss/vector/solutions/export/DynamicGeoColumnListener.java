@@ -22,8 +22,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -35,6 +37,8 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
   private String             excelType;
 
   private List<GeoHierarchy> hierarchyList;
+  
+  private ExcelImportManager importer;
 
   public static final String PREFIX = "Geo ";
 
@@ -43,6 +47,14 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     this.attributeName = attributeName;
     this.excelType = excelType;
     this.hierarchyList = mainHierarchyBuilder.getHierarchy();
+  }
+  
+  public DynamicGeoColumnListener(String excelType, String attributeName, HierarchyBuilder mainHierarchyBuilder, ExcelImportManager importer)
+  {
+    this.attributeName = attributeName;
+    this.excelType = excelType;
+    this.hierarchyList = mainHierarchyBuilder.getHierarchy();
+    this.importer = importer;
   }
 
   public void addColumns(List<ExcelColumn> extraColumns)
@@ -102,6 +114,26 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     // null instead of throwing an exception
     if (!endPointEntityName.equals("") && entityList.size() == 0)
     {
+      if (importer != null && !importer.isGeoEntityNameUnknown(endPointEntityName))
+      {
+        // Unable to find a match look up synonyms
+        List<GeoEntity> synonymEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
+  
+        List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, synonymEntityList);
+  
+        UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
+        unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
+        unknownGeoEntity.setEntityName(endPointEntityName);
+        unknownGeoEntity.setSynonyms(GeoEntitySearcher.getDelimitedList(synonymEntityList));
+        unknownGeoEntity.setSiblings(GeoEntitySearcher.getDelimitedList(siblingGeoEntityList));
+        unknownGeoEntity.setKnownHierarchy(GeoEntitySearcher.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
+        unknownGeoEntity.apply();
+  
+        importer.addUnknownEntity(unknownGeoEntity);
+        importer.addUnknownGeoEntityName(endPointEntityName);
+        
+      }
+      
       String msg = "Unknown Geo Entity [" + endPointEntityName + "]";
       UnknownGeoEntityException e = new UnknownGeoEntityException(msg);
       e.setEntityName(endPointEntityName);
@@ -138,5 +170,11 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
   {
     String geoTypeName = geoEntityClass.getTypeName();
     return PREFIX + this.attributeName + " " + geoTypeName;
+  }
+  
+  @Override
+  public void onFinishImport()
+  {
+    importer.onFinishImport();
   }
 }

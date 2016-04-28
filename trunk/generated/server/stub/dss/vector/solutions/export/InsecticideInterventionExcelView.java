@@ -6,6 +6,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -67,8 +68,8 @@ public class InsecticideInterventionExcelView extends InsecticideInterventionExc
     ControlInterventionExcelView.setupExportListener(exporter, params);
   }
   
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    ControlInterventionExcelView.setupImportListener(context, params);
+    ControlInterventionExcelView.setupImportListener(context, params, importer);
   }
 }

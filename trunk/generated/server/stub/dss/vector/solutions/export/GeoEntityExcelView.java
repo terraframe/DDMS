@@ -19,6 +19,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.UnknownTermProblem;
@@ -204,7 +205,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     return super.getGeoId(); // .split("\\.")[0];
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(new GeoParentListener(params[0]));
   }

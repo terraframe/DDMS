@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -211,15 +212,15 @@ public class GeoTargetExcelView extends GeoTargetExcelViewBase implements com.ru
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
     query.WHERE(query.getSprayTargetAllowed().EQ(true));
@@ -234,7 +235,7 @@ public class GeoTargetExcelView extends GeoTargetExcelViewBase implements com.ru
         builder.add(iterator.next());
       }
 
-      return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+      return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
     }
     finally
     {

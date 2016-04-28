@@ -285,7 +285,7 @@ public class GeoEntitySearcher implements Reloadable
     return false;
   }
 
-  private String getDelimitedList(List<GeoEntity> entities)
+  public static String getDelimitedList(List<GeoEntity> entities)
   {
     StringBuffer buffer = new StringBuffer();
     boolean firstIteration = true;
@@ -306,7 +306,7 @@ public class GeoEntitySearcher implements Reloadable
     return buffer.toString();
   }
 
-  private String getDelimitedHierarchy(Map<String, String> parentGeoEntityMap, String endPointEntityType)
+  public static String getDelimitedHierarchy(Map<String, String> parentGeoEntityMap, String endPointEntityType)
   {
     StringBuffer buffer = new StringBuffer();
 

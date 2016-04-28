@@ -57,6 +57,16 @@
   <servlet-name>ExcelImportServlet</servlet-name>
   <url-pattern>/excelimport</url-pattern>
 </servlet-mapping>
+<servlet-mapping>
+  <servlet-name>ExcelImportServlet</servlet-name>
+  <url-pattern>/excelImportSynonyms</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+  <servlet-name>ExcelImportServlet</servlet-name>
+  <url-pattern>/excelImportDone</url-pattern>
+</servlet-mapping>
+
+
 
 <servlet>
   <servlet-name>ExcelExportServlet</servlet-name>

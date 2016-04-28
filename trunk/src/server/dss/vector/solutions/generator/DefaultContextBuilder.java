@@ -14,17 +14,29 @@ import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
+
 public class DefaultContextBuilder extends ContextBuilder implements ContextBuilderIF, Reloadable
 {
+  private static final String setupImportMethod = "setupImportListener";
+  
   private String   methodName;
 
   private String[] params;
-
+  
+  private ExcelImportManager importer;
+  
   public DefaultContextBuilder()
   {
-    this("setupImportListener", new String[] {});
+    this(setupImportMethod, new String[] {});
   }
 
+  public DefaultContextBuilder(String[] params, ExcelImportManager importer)
+  {
+    this(setupImportMethod, params);
+    this.importer = importer;
+  }
+  
   public DefaultContextBuilder(String methodName, String[] params)
   {
     this.methodName = methodName;
@@ -43,10 +55,10 @@ public class DefaultContextBuilder extends ContextBuilder implements ContextBuil
       Class<?> c = LoaderDecorator.load(definesType);
 
       // Get the listener method
-      Method method = c.getMethod(this.methodName, ImportContext.class, String[].class);
+      Method method = c.getMethod(this.methodName, ImportContext.class, String[].class, ExcelImportManager.class);
 
       // Invoke the method
-      method.invoke(null, context, (Object) this.params);
+      method.invoke(null, context, (Object) this.params, importer);
     }
     catch (NoSuchMethodException e)
     {

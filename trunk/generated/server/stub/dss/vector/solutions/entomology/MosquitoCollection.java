@@ -11,8 +11,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;

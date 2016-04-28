@@ -31,7 +31,7 @@ public class ITNDistributionListener extends ExcelAdapter implements ExcelExport
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     ITNDistributionExcelView aggregatedITN = (ITNDistributionExcelView) instance;
 

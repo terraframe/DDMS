@@ -40,7 +40,7 @@ public class ITNCommunityDistributionListener extends ExcelAdapter implements Ex
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row)
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     ITNCommunityExcelView community = (ITNCommunityExcelView) instance;
 

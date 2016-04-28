@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.UnknownAgeGroupException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -66,17 +67,17 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     return list;
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener(importer));
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(null));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
@@ -84,6 +85,6 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
       builder.add(hierarchy);
     }
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
   }
 }
