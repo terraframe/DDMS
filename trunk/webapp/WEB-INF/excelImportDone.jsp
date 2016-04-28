@@ -34,7 +34,7 @@
       </c:forEach>
     </table>
   </c:when>
-  <c:when test="${!(empty errorMessage)}">
+  <c:when test="${not empty errorMessage}">
     <div class="pageTitle"><mdss:localize key="Excel_Import_Fail" /></div>
     <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
   </c:when>

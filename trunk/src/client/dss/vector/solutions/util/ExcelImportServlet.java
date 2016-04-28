@@ -159,7 +159,7 @@ public class ExcelImportServlet extends HttpServlet
         {
           // We're making up our own status codes here because we can
           int statusCode = 701; // Request completed but with errors
-          if (unknownGeoEntityDTOArray.length > 0)
+          if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
           {
             statusCode = 702; // Request completed with errors and synonyms
           }
@@ -307,6 +307,11 @@ public class ExcelImportServlet extends HttpServlet
     }
     else if (path.contains("excelImportDone"))
     {
+      if (req.getParameter("errorMessage") != null)
+      {
+        req.setAttribute("errorMessage", req.getParameter("errorMessage"));
+      }
+      
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
     else
