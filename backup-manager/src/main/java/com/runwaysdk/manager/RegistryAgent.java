@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 
@@ -74,7 +76,10 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         if (file32.exists())
         {
           String content = IOUtils.toString(new FileInputStream(file32));
-          content = content.toLowerCase().replaceAll(BackupProperties.getRegistry32().toLowerCase(), BackupProperties.getRegistry64());
+          String regx = "(?i)" + BackupProperties.getRegistry32().replace("\\", "\\\\");
+          String replacement = BackupProperties.getRegistry64();
+          content = content.replaceAll(regx, replacement);
+          
           ioExFile = file64;
           IOUtils.write(content, new FileOutputStream(file64));
         }
@@ -95,9 +100,10 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         if (file64.exists())
         {
           String content = IOUtils.toString(new FileInputStream(file64));
-          String regx = BackupProperties.getRegistry64().toLowerCase().replace("\\", "\\\\");
+          String regx = "(?i)" + BackupProperties.getRegistry64().toLowerCase().replace("\\", "\\\\");
           String replacement = BackupProperties.getRegistry32();
           content = content.toLowerCase().replaceAll(regx, replacement);
+          
           ioExFile = file32;
           IOUtils.write(content, new FileOutputStream(file32));
         }
