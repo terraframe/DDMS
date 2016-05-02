@@ -95,7 +95,9 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         if (file64.exists())
         {
           String content = IOUtils.toString(new FileInputStream(file64));
-          content = content.toLowerCase().replaceAll(BackupProperties.getRegistry64().toLowerCase(), BackupProperties.getRegistry32());
+          String regx = BackupProperties.getRegistry64().toLowerCase().replace("\\", "\\\\");
+          String replacement = BackupProperties.getRegistry32();
+          content = content.toLowerCase().replaceAll(regx, replacement);
           ioExFile = file32;
           IOUtils.write(content, new FileOutputStream(file32));
         }
