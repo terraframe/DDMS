@@ -8,12 +8,13 @@ set PGADMIN=%PGINSTALL%\pgAdmin III
 set PGBIN=%PGINSTALL%\bin\
 set PGLIB=%PGINSTALL%\lib\
 set POSTGISVER=2.1
-xcopy /y /i bin\*.* "%PGBIN%"
-xcopy /y /i /I /S bin\postgisgui\* "%PGBIN%\postgisgui"
-xcopy /y /i /I /S share\contrib\postgis-%POSTGISVER% "%PGINSTALL%\share\contrib\postgis-%POSTGISVER%"
-xcopy /y /i /I plugins.d\* "%PGADMIN%\plugins.d"
-xcopy /y /i lib\*.* "%PGLIB%"
-xcopy /y /i /I gdal-data "%PGINSTALL%\gdal-data"
+xcopy /y /i bin\* "%PGBIN%"
+xcopy /y /i /S bin\postgisgui\* "%PGBIN%\postgisgui"
+xcopy /y /i /S share\contrib\postgis-%POSTGISVER% "%PGINSTALL%\share\contrib\postgis-%POSTGISVER%"
+xcopy /y /i /S share\extension\* %PGINSTALL%\share\extension
+xcopy /y /i plugins.d\* "%PGADMIN%\plugins.d"
+xcopy /y /i lib\* "%PGLIB%"
+xcopy /y /i gdal-data "%PGINSTALL%\gdal-data"
 "%PGBIN%\psql"  -c "CREATE DATABASE %THEDB%"
 "%PGBIN%\psql"  -d "%THEDB%" -c "CREATE EXTENSION postgis;"
 
