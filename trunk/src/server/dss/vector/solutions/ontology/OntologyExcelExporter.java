@@ -72,8 +72,8 @@ public class OntologyExcelExporter
     header.createCell(2).setCellValue(new HSSFRichTextString("Active Dengue"));
     header.createCell(3).setCellValue(new HSSFRichTextString("ParentId"));
     header.createCell(NAME_COLUMN).setCellValue(new HSSFRichTextString("Name"));
-
-    Term root = Term.getByTermId(MDSSProperties.getString("ROOT"));
+    
+    Term root = RootTerm.getRootInstance();
     for (Term child : root.getAllChildTerm())
     {
       recurse(child);
