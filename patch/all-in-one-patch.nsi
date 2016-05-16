@@ -182,8 +182,8 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 7963
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8158
-  StrCpy $PatchVersion 8158
+  StrCpy $ManagerVersion 8183
+  StrCpy $PatchVersion 8183
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
@@ -192,8 +192,8 @@ Section -Main SEC0000
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
   StrCpy $WebappsVersion 8118
-  StrCpy $JavaVersion 8082
-  StrCpy $TomcatVersion 8118
+  StrCpy $JavaVersion 8188
+  StrCpy $TomcatVersion 8159
   
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
@@ -505,6 +505,8 @@ Function patchApplication
       true:
     
 	  LogEx::Write "Starting patch of application $AppName"
+	  
+	  ${StrCase} $LowerAppName $AppName "L"
 	
 	  # Update the classpath to reference the particular application being patched
       StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
@@ -527,6 +529,10 @@ Function patchApplication
 	  
       # We need to clear the old cache
 	  RMDir /r $INSTDIR\tomcat\cache
+	  
+	  # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
+	  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
+	  Call execDos
 
       # Build any dimensional metadata with the Master domain
 	  LogEx::Write "Building dimensional metadata for $AppName"
@@ -827,6 +833,18 @@ Function patchManager
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
+	
+	# Set tomcat auto deploy to false (ticket 3389)
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+	${If} 8190 > $0
+	  LogEx::Write "Setting tomcat auto deploy to false (3389)."
+	  Push autoDeploy="true"                                       # text to be replaced
+      Push autoDeploy="false"                                       # replace with
+      Push all                                                            # replace all occurrences
+      Push all                                                            # replace all occurrences
+      Push $INSTDIR\tomcat\conf\server.xml      # file to replace in
+      Call AdvReplaceInFile  
+	${EndIf}
   
     ################################################################################
     # Update the manager memory settings for 64-bit installs
