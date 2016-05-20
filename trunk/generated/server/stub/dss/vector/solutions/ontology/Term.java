@@ -2,17 +2,26 @@ package dss.vector.solutions.ontology;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 import org.json.JSONArray;
 
+import com.runwaysdk.business.Business;
+import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.constants.MdAttributeCharacterInfo;
+import com.runwaysdk.constants.MdAttributeIntegerInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -25,6 +34,7 @@ import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -40,7 +50,6 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
@@ -99,41 +108,230 @@ public class Term extends TermBase implements Reloadable, OptionIF
     throw ex;
   }
 
+  private static final String TEMP_TABLE = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP";
+  private static final String TEMP_TERM_ID_COL = "termId";
+  private static final String TEMP_PARENT_ID_COL = "parentId";
+  private static final String TEMP_DEPTH_COL = "depth";
+  private static final String INDEX_NAME = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP_INDEX";
+  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(
+      TEMP_TERM_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS)
+  );
+  private static final List<String> TEMP_TABLE_ATTRS = Arrays.asList(
+      MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS
+  );
+  
+  /**
+   * Deletes the term and maintains allpaths integrity. May be a potentially expensive operation.
+   * 
+   * TODO: Multi-threading
+   * TODO: Add better support in Query API for managing tables so this temp table logic can be more cross DB
+   */
   @Override
   @Transaction
   public void deleteTerm()
   {
     OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);
-
-    // Rebuild the all paths
-    if (this.isSingleLeafNode(rel.getId()))
+    MdBusinessDAOIF allpathsMdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
+    String child_term = allpathsMdBiz.definesAttribute(AllPaths.CHILDTERM).getColumnName();
+    String allpaths_ontology = allpathsMdBiz.getTableName(); 
+    
+    // Count how many ancestors this term has. This will be used for later calculations
+    AllPathsQuery apq = new AllPathsQuery(new QueryFactory());
+    apq.WHERE(apq.getChildTerm().EQ(this));
+    long delRootACount = apq.getCount() - 1;
+    
+    // Create us a temp table for storing multiple parents that need to be rebuilt on the post step.
+    Database.createTempTable(TEMP_TABLE, TEMP_TABLE_COLUMNS, "DROP");
+    Database.addNonUniqueIndex(TEMP_TABLE, TEMP_TERM_ID_COL, INDEX_NAME);
+    
+    // Depth first search because we're using a stack.
+    Stack<Term> s = new Stack<Term>();
+    s.push(this);
+    
+    stackLoop:
+    while (!s.empty())
     {
-      AllPaths.deleteLeafFromAllPaths(this.getId());
-
-      this.delete();
+      Term current = s.pop();
+      
+      // Push the first child
+      OIterator<? extends Business> children = current.getChildren(TermRelationship.CLASS);
+      try
+      {
+        childLoop:
+        while (children.hasNext()) // We're only pushing the first child because we're going to delete it so it won't show up in later queries
+        {
+          Term child = (Term) children.next();
+          
+          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent infinite loops.
+          String allpathsAncestorsSql = Database.selectClause(Arrays.asList("count(*)"), Arrays.asList(allpaths_ontology), Arrays.asList(child_term + " = '" + child.getId() + "'"));
+          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + (2 + s.size() + delRootACount));
+          try
+          {
+            if (resultSet.next())
+            {
+              int count = resultSet.getInt("count");
+              
+              if (count > 0)
+              {
+                continue childLoop;
+              }
+            }
+          }
+          catch (SQLException sqlEx1)
+          {
+            Database.throwDatabaseException(sqlEx1);
+          }
+          finally
+          {
+            try
+            {
+              java.sql.Statement statement = resultSet.getStatement();
+              resultSet.close();
+              statement.close();
+            }
+            catch (SQLException sqlEx2)
+            {
+              Database.throwDatabaseException(sqlEx2);
+            }
+          }
+          
+          s.push(current);
+          s.push(child);
+          continue stackLoop;
+        }
+      }
+      finally
+      {
+        children.close();
+      }
+      
+      // Does this node have multiple parents?
+      List<Term> parents = new ArrayList<Term>();
+      QueryFactory f = new QueryFactory();
+      TermRelationshipQuery q = new TermRelationshipQuery(f);
+      q.WHERE(q.childId().EQ(current.getId()));
+      OIterator<? extends TermRelationship> pRelIt = q.getIterator();
+      try {
+        while (pRelIt.hasNext())
+        {
+          parents.add(pRelIt.next().getParent());
+        }
+      }
+      finally
+      {
+        pRelIt.close();
+      }
+      
+      if (parents.size() == 1)
+      {
+        Term parent = parents.get(0);
+        
+        // Count how many ancestors this term has.
+        AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
+        apq2.WHERE(apq2.getChildTerm().EQ(current));
+        long ancestorCount = apq2.getCount() - 1;
+        
+        // If one of our ancestors has multiple parents 
+        if (s.size() + delRootACount < ancestorCount)
+        {
+          insertIntoTemp(current.getId(), Arrays.asList(parent.getId()), s.size());
+        }
+        else
+        {
+          Database.deleteWhere(TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
+          
+          AllPaths.deleteTermFromAllPaths(current.getId());
+          current.delete(false);
+        }
+      }
+      else // If I have multiple parents, add to list for post step
+      {
+        List<String> parentIds = new ArrayList<String>();
+        for (Term parent : parents)
+        {
+          parentIds.add(parent.getId());
+        }
+        
+        insertIntoTemp(current.getId(), parentIds, s.size());
+      }
     }
-    else
+    
+    
+    // Post step: since we destroyed terms with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
+    String selectSql = Database.selectClause(Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
+    ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
+    
+    try
     {
-      MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
-      mdBusiness.deleteAllTableRecords();
-
-      this.delete();
-
-      AllPaths.rebuildAllPaths();
+      while (resultSet.next())
+      {
+        String termId = resultSet.getString(TEMP_TERM_ID_COL);
+        String parentId = resultSet.getString(TEMP_PARENT_ID_COL);
+        
+        AllPaths.updateAllPathForTerm(termId, parentId, rel.getId());
+      }
     }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    // We don't need to care about deleting the temp table because it drops on transaction and the transaction ends here.
   }
-
+  
+  private void insertIntoTemp(String termId, List<String> parentIds, Integer depth)
+  {
+    List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
+    
+    for (String parentId : parentIds)
+    {
+      List<String> bindVals = Arrays.asList("?","?","?");
+      List<Object> vals = Arrays.asList(termId, parentId, String.valueOf(depth));
+      
+      PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(TEMP_TABLE, Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), bindVals, vals, TEMP_TABLE_ATTRS);
+      statements.add(preparedStmt);
+    }
+    
+    Database.executeStatementBatch(statements);
+  }
+  
+  /**
+   * WARNING: Does not maintain allpaths table!!
+   */
   @Override
-  @Transaction
   public void delete()
   {
-    List<? extends Term> children = this.getAllChildTerm().getAll();
+    delete(true);
+  }
 
-    for (Term child : children)
+  @Transaction
+  public void delete(boolean deleteChildren)
+  {
+    if (deleteChildren)
     {
-      if (child.hasSingleParent())
+      List<? extends Term> children = this.getAllChildTerm().getAll();
+  
+      for (Term child : children)
       {
-        child.delete();
+        if (child.hasSingleParent())
+        {
+          child.delete();
+        }
       }
     }
 
