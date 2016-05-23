@@ -39,71 +39,29 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
 
     kda.setUniqueAssayId(this.getUniqueAssayId());
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, COLLECTIONID))
+    kda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+    kda.setTestDate(this.getTestDate());
+    kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
+        KnockDownAssay.getTestMethodMd()));
+    kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
+        KnockDownAssay.getGenerationMd()));
+    kda.setIsofemale(this.getIsofemale());
+    kda.setSex(Term.validateByDisplayLabel(this.getSex(), KnockDownAssay.getSexMd()));
+    kda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
+    kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
+        KnockDownAssay.getIdentificationMethodMd()));
+    
+    AdultAgeRange excelAgeRange = this.getAgeRange();
+    if (excelAgeRange != null)
     {
-      kda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, TESTDATE))
-    {
-      kda.setTestDate(this.getTestDate());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, TESTMETHOD))
-    {
-      kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
-          KnockDownAssay.getTestMethodMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, GENERATION))
-    {
-      kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-          KnockDownAssay.getGenerationMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, ISOFEMALE))
-    {
-      kda.setIsofemale(this.getIsofemale());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, SEX))
-    {
-      kda.setSex(Term.validateByDisplayLabel(this.getSex(), KnockDownAssay.getSexMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, SPECIE))
-    {
-      kda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, IDENTIFICATIONMETHOD))
-    {
-      kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
-          KnockDownAssay.getIdentificationMethodMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, AGERANGE))
-    {
-      AdultAgeRange excelAgeRange = this.getAgeRange();
       AdultAgeRange newAgeRange = kda.getAgeRange();
       newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
       newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, FED))
-    {
-      kda.setFed(this.getFed());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, GRAVID))
-    {
-      kda.setGravid(this.getGravid());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, EXPOSURETIME))
-    {
-      kda.setExposureTime(this.getExposureTime());
-    }
+    kda.setFed(this.getFed());
+    kda.setGravid(this.getGravid());
+    kda.setExposureTime(this.getExposureTime());
 
     // set the Insecticide if at least one value is set (three values are
     // required, but
@@ -115,20 +73,9 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
           this.getInsecticideUnits(), this.getInsecticideAmount()));
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, QUANTITYTESTED))
-    {
-      kda.setQuantityTested(this.getQuantityTested());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, KD50))
-    {
-      kda.setKd50(this.getKd50());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, kda, KD95))
-    {
-      kda.setKd95(this.getKd95());
-    }
+    kda.setQuantityTested(this.getQuantityTested());
+    kda.setKd50(this.getKd50());
+    kda.setKd95(this.getKd95());
 
     kda.apply();
 

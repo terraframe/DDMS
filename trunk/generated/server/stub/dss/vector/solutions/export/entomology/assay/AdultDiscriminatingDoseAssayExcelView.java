@@ -39,73 +39,27 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
 
     adda.setUniqueAssayId(this.getUniqueAssayId());
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, COLLECTIONID))
+    adda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+    adda.setTestDate(this.getTestDate());
+    adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
+    adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
+    adda.setIsofemale(this.getIsofemale());
+    adda.setSex(Term.validateByDisplayLabel(this.getSex(), AdultDiscriminatingDoseAssay.getSexMd()));
+    adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
+    adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
+    
+    AdultAgeRange excelAgeRange = this.getAgeRange();
+    if (excelAgeRange != null)
     {
-      adda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, TESTDATE))
-    {
-      adda.setTestDate(this.getTestDate());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, TESTMETHOD))
-    {
-      adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, GENERATION))
-    {
-      adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, ISOFEMALE))
-    {
-      adda.setIsofemale(this.getIsofemale());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, SEX))
-    {
-      adda.setSex(Term.validateByDisplayLabel(this.getSex(), AdultDiscriminatingDoseAssay.getSexMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, SPECIE))
-    {
-      adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, IDENTIFICATIONMETHOD))
-    {
-      adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, AGERANGE))
-    {
-      AdultAgeRange excelAgeRange = this.getAgeRange();
       AdultAgeRange newAgeRange = adda.getAgeRange();
       newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
       newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, FED))
-    {
-      adda.setFed(this.getFed());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, GRAVID))
-    {
-      adda.setGravid(this.getGravid());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, EXPOSURETIME))
-    {
-      adda.setExposureTime(this.getExposureTime());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, HOLDINGTIME))
-    {
-      adda.setHoldingTime(this.getHoldingTime());
-    }
+    adda.setFed(this.getFed());
+    adda.setGravid(this.getGravid());
+    adda.setExposureTime(this.getExposureTime());
+    adda.setHoldingTime(this.getHoldingTime());
 
     // set the Insecticide if at least one value is set (three values are
     // required, but
@@ -115,35 +69,12 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
       adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYTESTED))
-    {
-      adda.setQuantityTested(this.getQuantityTested());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYDEAD))
-    {
-      adda.setQuantityDead(this.getQuantityDead());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTNUMBERDEAD))
-    {
-      adda.setControlTestNumberDead(this.getControlTestNumberDead()); 
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTNUMBEREXPOSED))
-    {
-      adda.setControlTestNumberExposed(this.getControlTestNumberExposed());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, KD50))
-    {
-      adda.setKd50(this.getKd50());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, KD95))
-    {
-      adda.setKd95(this.getKd95());
-    }
+    adda.setQuantityTested(this.getQuantityTested());
+    adda.setQuantityDead(this.getQuantityDead());
+    adda.setControlTestNumberDead(this.getControlTestNumberDead()); 
+    adda.setControlTestNumberExposed(this.getControlTestNumberExposed());
+    adda.setKd50(this.getKd50());
+    adda.setKd95(this.getKd95());
 
     adda.apply();
 

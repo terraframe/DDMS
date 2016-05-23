@@ -10,7 +10,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
-import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -35,101 +34,43 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
 
     eav.setUniqueAssayId(this.getUniqueAssayId());
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, GEOENTITY))
+    if (getGeoEntity() != null)
     {
       eav.setGeoId(getGeoEntity().getGeoId());
     }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, SURFACETYPE))
+    else
     {
-      eav.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(),
-          EfficacyAssayView.getSurfaceTypeMd()));
+      eav.setGeoId("");
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, TESTMETHOD))
-    {
-      eav.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
-          EfficacyAssayView.getTestMethodMd()));
-    }
+    eav.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(),
+      EfficacyAssayView.getSurfaceTypeMd()));
+    eav.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
+      EfficacyAssayView.getTestMethodMd()));
+    eav.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
+    eav.setTestDate(this.getTestDate());
+    eav.setColonyName(this.getColonyName());
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, SPECIE))
+    AdultAgeRange excelAgeRange = this.getAgeRange();
+    if (excelAgeRange != null)
     {
-      eav.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, TESTDATE))
-    {
-      eav.setTestDate(this.getTestDate());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, COLONYNAME))
-    {
-      eav.setColonyName(this.getColonyName());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, AGERANGE))
-    {
-      AdultAgeRange excelAgeRange = this.getAgeRange();
       AdultAgeRange newAgeRange = eav.getAgeRange();
       newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
       newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
     }
 
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, CONTROLTESTMORTALITY))
-    {
-      eav.setControlTestMortality(this.getControlTestMortality());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, SEX))
-    {
-      eav.setSex(Term.validateByDisplayLabel(this.getSex(), EfficacyAssayView.getSexMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, GRAVID))
-    {
-      eav.setGravid(this.getGravid());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, FED))
-    {
-      eav.setFed(this.getFed());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, TIMEONSURFACE))
-    {
-      eav.setTimeOnSurface(this.getTimeOnSurface());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, SURFACEPOSITION))
-    {
-      eav.setSurfacePostion(Term.validateByDisplayLabel(this.getSurfacePosition(),
-          EfficacyAssayView.getSurfacePostionMd()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, EXPOSURETIME))
-    {
-      eav.setExposureTime(this.getExposureTime());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, HOLDINGTIME))
-    {
-      eav.setHoldingTime(this.getHoldingTime());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, QUANTITYTESTED))
-    {
-      eav.setQuantityTested(this.getQuantityTested());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, QUANTITYDEAD))
-    {
-      eav.setQuantityDead(this.getQuantityDead());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, eav, INSECTICIDETERM))
-    {
-      eav.setInsecticideBrand(InsecticideBrand.validateByName(this.getInsecticideTerm()));
-    }
+    eav.setControlTestMortality(this.getControlTestMortality());
+    eav.setSex(Term.validateByDisplayLabel(this.getSex(), EfficacyAssayView.getSexMd()));
+    eav.setGravid(this.getGravid());
+    eav.setFed(this.getFed());
+    eav.setTimeOnSurface(this.getTimeOnSurface());
+    eav.setSurfacePostion(Term.validateByDisplayLabel(this.getSurfacePosition(),
+        EfficacyAssayView.getSurfacePostionMd()));
+    eav.setExposureTime(this.getExposureTime());
+    eav.setHoldingTime(this.getHoldingTime());
+    eav.setQuantityTested(this.getQuantityTested());
+    eav.setQuantityDead(this.getQuantityDead());
+    eav.setInsecticideBrand(InsecticideBrand.validateByName(this.getInsecticideTerm()));
 
     eav.apply();
   }

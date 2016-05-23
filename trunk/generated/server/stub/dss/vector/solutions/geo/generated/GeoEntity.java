@@ -3,6 +3,7 @@ package dss.vector.solutions.geo.generated;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -26,6 +28,9 @@ import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseInfo;
+import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.constants.MdAttributeCharacterInfo;
+import com.runwaysdk.constants.MdAttributeIntegerInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
@@ -93,8 +98,12 @@ import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
+import dss.vector.solutions.ontology.OBO;
+import dss.vector.solutions.ontology.OntologyRelationship;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.ontology.TermRelationship;
+import dss.vector.solutions.ontology.TermRelationshipQuery;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.util.GeoEntityImporter;
@@ -540,42 +549,234 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
     }
   }
-
+  
+  private static final String TEMP_TABLE = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP";
+  private static final String TEMP_GEO_ID_COL = "objId";
+  private static final String TEMP_PARENT_ID_COL = "parentId";
+  private static final String TEMP_DEPTH_COL = "depth";
+  private static final String INDEX_NAME = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP_INDEX";
+  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(
+      TEMP_GEO_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS)
+  );
+  private static final List<String> TEMP_TABLE_ATTRS = Arrays.asList(
+      MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS
+  );
+  
+  /**
+   * Deletes the term and maintains allpaths integrity. May be a potentially expensive operation.
+   * 
+   * TODO: Multi-threading
+   * TODO: At what point is it faster to rebuild the Allpaths table?
+   * TODO: Add better support in Query API for managing tables so this temp table logic can be more cross DB
+   */
   @Override
   @Transaction
   public void deleteEntity()
   {
-    if (this.isSingleLeafNode())
+    MdBusinessDAOIF allpathsMdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
+    String child_geoentity = allpathsMdBiz.definesAttribute(AllPaths.CHILDGEOENTITY).getColumnName();
+    String allpaths_ontology = allpathsMdBiz.getTableName(); 
+    
+    // Count how many ancestors this geoentity has. This will be used for later calculations
+    AllPathsQuery apq = new AllPathsQuery(new QueryFactory());
+    apq.WHERE(apq.getChildGeoEntity().EQ(this));
+    long delRootACount = apq.getCount() - 1;
+    
+    // Create us a temp table for storing multiple parents that need to be rebuilt on the post step.
+    Database.createTempTable(TEMP_TABLE, TEMP_TABLE_COLUMNS, "DROP");
+    Database.addNonUniqueIndex(TEMP_TABLE, TEMP_GEO_ID_COL, INDEX_NAME);
+    
+    // Depth first search because we're using a stack.
+    Stack<GeoEntity> s = new Stack<GeoEntity>();
+    s.push(this);
+    
+    stackLoop:
+    while (!s.empty())
     {
-      deleteLeafFromAllPaths(this.getId());
-
-      this.delete();
+      GeoEntity current = s.pop();
+      
+      // Push the first child
+      OIterator<? extends Business> children = current.getChildren(LocatedIn.CLASS);
+      try
+      {
+        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be deleted.
+        childLoop:
+        while (children.hasNext())
+        {
+          GeoEntity child = (GeoEntity) children.next();
+          
+          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent infinite loops.
+          String allpathsAncestorsSql = Database.selectClause(Arrays.asList("count(*)"), Arrays.asList(allpaths_ontology), Arrays.asList(child_geoentity + " = '" + child.getId() + "'"));
+          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + (2 + s.size() + delRootACount));
+          try
+          {
+            if (resultSet.next())
+            {
+              int count = resultSet.getInt("count");
+              
+              if (count > 0)
+              {
+                continue childLoop;
+              }
+            }
+          }
+          catch (SQLException sqlEx1)
+          {
+            Database.throwDatabaseException(sqlEx1);
+          }
+          finally
+          {
+            try
+            {
+              java.sql.Statement statement = resultSet.getStatement();
+              resultSet.close();
+              statement.close();
+            }
+            catch (SQLException sqlEx2)
+            {
+              Database.throwDatabaseException(sqlEx2);
+            }
+          }
+          
+          s.push(current);
+          s.push(child);
+          continue stackLoop;
+        }
+      }
+      finally
+      {
+        children.close();
+      }
+      
+      // Does this node have multiple parents?
+      List<GeoEntity> parents = new ArrayList<GeoEntity>();
+      QueryFactory f = new QueryFactory();
+      LocatedInQuery q = new LocatedInQuery(f);
+      q.WHERE(q.childId().EQ(current.getId()));
+      OIterator<? extends LocatedIn> pRelIt = q.getIterator();
+      try {
+        while (pRelIt.hasNext())
+        {
+          parents.add(pRelIt.next().getParent());
+        }
+      }
+      finally
+      {
+        pRelIt.close();
+      }
+      
+      if (parents.size() == 1)
+      {
+        GeoEntity parent = parents.get(0);
+        
+        // Count how many ancestors this geoentity has.
+        AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
+        apq2.WHERE(apq2.getChildGeoEntity().EQ(current));
+        long ancestorCount = apq2.getCount() - 1;
+        
+        // If one of our ancestors has multiple parents 
+        if (s.size() + delRootACount < ancestorCount)
+        {
+          insertIntoTemp(current.getId(), Arrays.asList(parent.getId()), s.size());
+        }
+        else
+        {
+          Database.deleteWhere(TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
+          
+          deleteLeafFromAllPaths(current.getId());
+          current.delete(false);
+        }
+      }
+      else // If I have multiple parents, add to list for post step
+      {
+        List<String> parentIds = new ArrayList<String>();
+        for (GeoEntity parent : parents)
+        {
+          parentIds.add(parent.getId());
+        }
+        
+        insertIntoTemp(current.getId(), parentIds, s.size());
+      }
     }
-    else
+    
+    
+    // Post step: since we destroyed geoentitys with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
+    String selectSql = Database.selectClause(Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
+    ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
+    
+    try
     {
-      MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
-      mdBusiness.deleteAllTableRecords();
-
-      this.delete();
-
-      buildAllPathsFast();
+      while (resultSet.next())
+      {
+        String geoentityId = resultSet.getString(TEMP_GEO_ID_COL);
+        String parentId = resultSet.getString(TEMP_PARENT_ID_COL);
+        
+        updateAllPathForGeoEntity(geoentityId, parentId);
+      }
     }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    // We don't need to care about deleting the temp table because it drops on transaction and the transaction ends here.
+  }
+  
+  private void insertIntoTemp(String geoentityId, List<String> parentIds, Integer depth)
+  {
+    List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
+    
+    for (String parentId : parentIds)
+    {
+      List<String> bindVals = Arrays.asList("?","?","?");
+      List<Object> vals = Arrays.asList(geoentityId, parentId, String.valueOf(depth));
+      
+      PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(TEMP_TABLE, Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), bindVals, vals, TEMP_TABLE_ATTRS);
+      statements.add(preparedStmt);
+    }
+    
+    Database.executeStatementBatch(statements);
   }
 
   /**
-   * Deletes this GeoEntity and all its children in the LocatedIn relationship.
+   * Deletes this GeoEntity.
+   * 
+   * WARNING: Does not maintain allpaths table!!
    */
-  @Override
+   @Override
+   public void delete()
+   {
+     delete(true);
+   }
+   
   @Transaction
-  public void delete()
+  public void delete(boolean deleteChildren)
   {
-    List<GeoEntity> children = this.getImmediateChildren();
-
-    for (GeoEntity child : children)
+    if (deleteChildren)
     {
-      if (child.hasSingleParent())
+      List<GeoEntity> children = this.getImmediateChildren();
+  
+      for (GeoEntity child : children)
       {
-        child.delete();
+        if (child.hasSingleParent())
+        {
+          child.delete();
+        }
       }
     }
 

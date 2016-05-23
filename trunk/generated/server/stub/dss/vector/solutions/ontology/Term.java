@@ -126,6 +126,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * Deletes the term and maintains allpaths integrity. May be a potentially expensive operation.
    * 
    * TODO: Multi-threading
+   * TODO: At what point is it faster to rebuild the Allpaths table?
    * TODO: Add better support in Query API for managing tables so this temp table logic can be more cross DB
    */
   @Override
@@ -159,8 +160,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
       OIterator<? extends Business> children = current.getChildren(TermRelationship.CLASS);
       try
       {
+        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be deleted.
         childLoop:
-        while (children.hasNext()) // We're only pushing the first child because we're going to delete it so it won't show up in later queries
+        while (children.hasNext())
         {
           Term child = (Term) children.next();
           

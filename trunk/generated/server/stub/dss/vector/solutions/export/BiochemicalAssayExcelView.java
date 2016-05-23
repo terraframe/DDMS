@@ -5,7 +5,6 @@ import java.util.List;
 
 import dss.vector.solutions.entomology.BiochemicalAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.ontology.Term;
 
 public class BiochemicalAssayExcelView extends BiochemicalAssayExcelViewBase implements
@@ -24,66 +23,19 @@ public class BiochemicalAssayExcelView extends BiochemicalAssayExcelViewBase imp
     BiochemicalAssayView assay = new BiochemicalAssayView();
 
     assay.setUniqueAssayId(this.getUniqueAssayId());
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, COLLECTIONID))
-    {
-      assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, MOSQUITOID))
-    {
-      assay.setMosquitoId(this.getMosquitoId());
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SPECIES))
-    {
-      assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(),
-          BiochemicalAssayView.getSpeciesMd()));
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, IDENTMETHOD))
-    {
-      assay.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(),
-          BiochemicalAssayView.getIdentMethodMd()));
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, SEX))
-    {
-      assay.setSex(Term.validateByDisplayLabel(this.getSex(), BiochemicalAssayView.getSexMd()));
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, GENERATION))
-    {
-      assay.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-          BiochemicalAssayView.getGenerationMd()));
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ISOFEMALE))
-    {
-      assay.setIsofemale(this.getIsofemale());
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, ASSAY))
-    {
-      assay.setAssay(Term.validateByDisplayLabel(this.getAssay(), BiochemicalAssayView.getAssayMd()));
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, NUMBERTESTED))
-    {
-      assay.setNumberTested(this.getNumberTested());
-
-    }
-
-    if (UniqueAssayUtil.allowAttributeUpdate(this, assay, NUMBERELEVATED))
-    {
-      assay.setNumberElevated(this.getNumberElevated());
-    }
+    assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+    assay.setMosquitoId(this.getMosquitoId());
+    assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(),
+        BiochemicalAssayView.getSpeciesMd()));
+    assay.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(),
+        BiochemicalAssayView.getIdentMethodMd()));
+    assay.setSex(Term.validateByDisplayLabel(this.getSex(), BiochemicalAssayView.getSexMd()));
+    assay.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
+        BiochemicalAssayView.getGenerationMd()));
+    assay.setIsofemale(this.getIsofemale());
+    assay.setAssay(Term.validateByDisplayLabel(this.getAssay(), BiochemicalAssayView.getAssayMd()));
+    assay.setNumberTested(this.getNumberTested());
+    assay.setNumberElevated(this.getNumberElevated());
 
     assay.apply();
   }

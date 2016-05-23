@@ -22,7 +22,7 @@ public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.ge
     {
       emailWarning = ( (MdAttributeBooleanDAOIF) getEmailFailureMd() ).getPositiveDisplayLabel(locale);
     }
-
+ 
     String message = this.getLocalizedTemplate(locale);
     message = replace(message, "{emailWarning}", emailWarning);
     message = replace(message, "{messageText}", this.getMessageText());    
