@@ -26,6 +26,14 @@ RequestExecutionLevel highest
 !include FileFunc.nsh
 !include x64.nsh
 !include nsProcess.nsh
+!include 'MoveFileFolder.nsh'
+
+!insertmacro Locate
+
+# Configure our MoveFileFolder plugin.
+# http://nsis.sourceforge.net/MoveFileFolder
+Var /GLOBAL switch_overwrite
+StrCpy $switch_overwrite 0
 
 # Define access to the StrTrimNewLines function
 !macro StrTrimNewLines ResultVar String
@@ -845,8 +853,17 @@ Function patchManager
       Push $INSTDIR\tomcat\conf\server.xml      # file to replace in
       Call AdvReplaceInFile  
 	${EndIf}
-  
-    ################################################################################
+	
+	# Move the vault to the correct place (ticket 3259)
+    ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+  	${If} 8193 > $6
+	  LogEx::Write "Moving the vault to the correct place (3259)."
+      
+	  MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
+	  ClearErrors
+	${EndIf}
+	
+	################################################################################
     # Update the manager memory settings for 64-bit installs
     ################################################################################
   
@@ -891,11 +908,25 @@ Function patchManager
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
   
+    
+	# Ticket 3259 : Patch the vault props for all apps
+	${If} 8193 > $6
+	  LogEx::Write "Patching vault properties for app $1 (3259)."
+      
+	  Push default=C:/Tomcat/webapps/MDSS/WEB-INF/vault                   # text to be replaced
+      Push default=$INSTDIR\vault                                         # replace with
+      Push all                                                            # replace all occurrences
+      Push all                                                            # replace all occurrences
+      Push $INSTDIR\tomcat\webapps\$1\WEB-INF\classes\vault.properties      # file to replace in
+      Call AdvReplaceInFile  
+	${EndIf}
+  
+  
     Goto appNameFileReadLoop
         
     appNameDone:
     ClearErrors
-    FileClose $0    
+    FileClose $0
   
     SetOutPath $INSTDIR
     
