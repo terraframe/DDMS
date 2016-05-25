@@ -262,6 +262,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     
     
     // Post step: since we destroyed terms with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
+    //   We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
     String selectSql = Database.selectClause(Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
     ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
     
@@ -270,9 +271,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       while (resultSet.next())
       {
         String termId = resultSet.getString(TEMP_TERM_ID_COL);
-        String parentId = resultSet.getString(TEMP_PARENT_ID_COL);
         
-        AllPaths.updateAllPathForTerm(termId, parentId, rel.getId());
+        AllPaths.deleteTermFromAllPaths(termId);
       }
     }
     catch (SQLException sqlEx1)
@@ -285,6 +285,37 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
         java.sql.Statement statement = resultSet.getStatement();
         resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    // Post Step loop #2: Rebuild the terms with multiple parents.
+    ResultSet resultSet2 = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
+    
+    try
+    {
+      while (resultSet2.next())
+      {
+        String termId = resultSet2.getString(TEMP_TERM_ID_COL);
+        String parentId = resultSet2.getString(TEMP_PARENT_ID_COL);
+        
+        AllPaths.updateAllPathForTerm(termId, parentId, rel.getId());
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
         statement.close();
       }
       catch (SQLException sqlEx2)

@@ -547,6 +547,10 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Import_Button'));
       importMenuItem.subscribe("click", Mojo.Util.bind(this, this._uploadImport));
       itemData.push(importMenuItem);
+      
+      var exportMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Export_Button'));
+      exportMenuItem.subscribe("click", Mojo.Util.bind(this, this._doExport));
+      itemData.push(exportMenuItem);
     
       var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Create'));
       createMenuItem.subscribe("click", Mojo.Util.bind(this, this._addNodeHandler));
@@ -592,6 +596,22 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         } 
       });
       this._Term.getDefaultRoots(request);
+    },
+    
+    /**
+     * Invoked when the user clicks "export" on the context menu.
+     */
+    _doExport : function()
+    {
+//      var request = new MDSS.Request({
+//        that: this,
+//        onSuccess: function(html)
+//        {
+//           this.that._createModal(html, false, true);
+//        }     
+//      });
+//      
+//      this._controller.exportTerms(request);
     },
     
     /**

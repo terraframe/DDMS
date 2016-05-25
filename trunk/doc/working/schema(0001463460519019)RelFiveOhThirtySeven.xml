@@ -1,0 +1,20 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod name="export" static="false" returnType="void">
+            <mdParameter name=""/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ontology.AllpathsTempStorage" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>
