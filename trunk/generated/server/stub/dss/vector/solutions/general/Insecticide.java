@@ -5,6 +5,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
+import dss.vector.solutions.entomology.InsecticideNotFoundException;
 import dss.vector.solutions.ontology.Term;
 
 public class Insecticide extends InsecticideBase implements
@@ -99,7 +100,12 @@ public class Insecticide extends InsecticideBase implements
         return iterator.next();
       }
 
-      return null;
+      InsecticideNotFoundException ex = new InsecticideNotFoundException();
+      ex.setActiveIngredient(ingredient);
+      ex.setAmount(amount);
+      ex.setUnits(u);
+      ex.apply();
+      throw ex;
     }
     finally
     {
