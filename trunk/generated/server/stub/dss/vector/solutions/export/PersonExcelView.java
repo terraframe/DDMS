@@ -136,23 +136,23 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
-    exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
+    exporter.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY, null));
+    exporter.addListener(createExcelGeoListener(WORKGEOENTITY, null));
   }
 
   public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
-    context.addListener(createExcelGeoListener(WORKGEOENTITY));
+    context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY, importer));
+    context.addListener(createExcelGeoListener(WORKGEOENTITY, importer));
   }
 
-  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
+  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName, ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, attributeName, builder);
+    return new DynamicGeoColumnListener(CLASS, attributeName, builder, importer);
   }
 }

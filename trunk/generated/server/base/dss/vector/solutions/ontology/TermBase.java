@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -424987788)
+@com.runwaysdk.business.ClassSignature(hash = 884896857)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -424987788;
+  private static final long serialVersionUID = 884896857;
   
   public TermBase()
   {
@@ -1699,6 +1699,18 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   {
     Term _instance = Term.get(id);
     _instance.deleteTerm();
+  }
+  
+  public void export(java.io.OutputStream outputStream)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void export(java.lang.String id, java.io.OutputStream outputStream)
+  {
+    Term _instance = Term.get(id);
+    _instance.export(outputStream);
   }
   
   public static dss.vector.solutions.ontology.Term[] getAllTermsForField(java.lang.String className, java.lang.String attributeName)

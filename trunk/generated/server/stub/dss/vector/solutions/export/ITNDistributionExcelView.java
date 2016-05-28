@@ -187,7 +187,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, FACILITY, builder);
+    return new DynamicGeoColumnListener(CLASS, FACILITY, builder, importer);
   }
 
   public void addTargetGroup(Term grid, Integer amount)

@@ -115,7 +115,7 @@ public class IndividualPremiseExcelView extends IndividualPremiseExcelViewBase i
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, PREMISEGEOENTITY, builder);
+    return new DynamicGeoColumnListener(CLASS, PREMISEGEOENTITY, builder, importer);
   }
 
   public void addInterventionMethod(Term term, Boolean used)

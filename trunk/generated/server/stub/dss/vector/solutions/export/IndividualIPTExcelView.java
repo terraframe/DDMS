@@ -190,33 +190,33 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
-    exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
-    exporter.addListener(createExcelHealthFacilityListener());
+    exporter.addListener(createExcelGeoListener(RESIDENTIALLOCATION, null));
+    exporter.addListener(createExcelGeoListener(WORKGEOENTITY, null));
+    exporter.addListener(createExcelHealthFacilityListener(null));
   }
 
   public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
-    context.addListener(createExcelGeoListener(WORKGEOENTITY));
-    context.addListener(createExcelHealthFacilityListener());
+    context.addListener(createExcelGeoListener(RESIDENTIALLOCATION, importer));
+    context.addListener(createExcelGeoListener(WORKGEOENTITY, importer));
+    context.addListener(createExcelHealthFacilityListener(importer));
   }
   
-  private static DynamicGeoColumnListener createExcelHealthFacilityListener()
+  private static DynamicGeoColumnListener createExcelHealthFacilityListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, FACILITY, builder);
+    return new DynamicGeoColumnListener(CLASS, FACILITY, builder, importer);
   }
   
-  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
+  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName, ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, attributeName, builder);
+    return new DynamicGeoColumnListener(CLASS, attributeName, builder, importer);
   }
   
 }

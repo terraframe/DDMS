@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 553058804)
+@com.runwaysdk.business.ClassSignature(hash = 454251993)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 553058804;
+  private static final long serialVersionUID = 454251993;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -774,6 +774,22 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteTerm", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void export(java.io.OutputStream outputStream)
+  {
+    String[] _declaredTypes = new String[]{"java.io.OutputStream"};
+    Object[] _parameters = new Object[]{outputStream};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "export", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void export(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.OutputStream outputStream)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.io.OutputStream"};
+    Object[] _parameters = new Object[]{id, outputStream};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "export", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

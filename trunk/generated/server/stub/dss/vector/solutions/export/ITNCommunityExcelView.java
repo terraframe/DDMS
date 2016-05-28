@@ -116,26 +116,26 @@ public class ITNCommunityExcelView extends ITNCommunityExcelViewBase implements 
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener(DISTRIBUTIONLOCATION));
-    exporter.addListener(createExcelGeoListener(HOUSEHOLDADDRESS));
+    exporter.addListener(createExcelGeoListener(DISTRIBUTIONLOCATION, null));
+    exporter.addListener(createExcelGeoListener(HOUSEHOLDADDRESS, null));
     exporter.addListener(new ITNCommunityDistributionListener());
   }
 
   public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
     context.addListener(new ITNCommunityDistributionListener());
-    context.addListener(createExcelGeoListener(DISTRIBUTIONLOCATION));
-    context.addListener(createExcelGeoListener(HOUSEHOLDADDRESS));
+    context.addListener(createExcelGeoListener(DISTRIBUTIONLOCATION, importer));
+    context.addListener(createExcelGeoListener(HOUSEHOLDADDRESS, importer));
   }
   
-  private static DynamicGeoColumnListener createExcelGeoListener(String attribute)
+  private static DynamicGeoColumnListener createExcelGeoListener(String attribute, ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, attribute, builder);
+    return new DynamicGeoColumnListener(CLASS, attribute, builder, importer);
   }
 
   public void addTargetGroup(Term grid, Integer amount)

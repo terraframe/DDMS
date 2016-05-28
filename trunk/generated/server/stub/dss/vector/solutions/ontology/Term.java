@@ -1849,4 +1849,15 @@ public class Term extends TermBase implements Reloadable, OptionIF
     OntologyExcelImporter importer = new OntologyExcelImporter("InputStream");
     importer.read(new BufferedInputStream(importFile));
   }
+  
+  /**
+   * MdMethod
+   */
+  @Override
+  public void export(java.io.OutputStream outputStream)
+  {
+    OntologyExcelExporter exporter = new OntologyExcelExporter();
+    exporter.export();
+    exporter.write(outputStream);
+  }
 }

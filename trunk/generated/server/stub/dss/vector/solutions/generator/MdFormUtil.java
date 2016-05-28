@@ -1655,7 +1655,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
             builder.add(universal);
           }
 
-          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder));
+          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder, null));
         }
       }
     }

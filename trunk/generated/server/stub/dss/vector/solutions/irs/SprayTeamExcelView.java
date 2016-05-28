@@ -133,6 +133,6 @@ public class SprayTeamExcelView extends SprayTeamExcelViewBase implements com.ru
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SprayZone.CLASS));
-    return new DynamicGeoColumnListener(CLASS, SprayTeamView.SPRAYZONE, builder);
+    return new DynamicGeoColumnListener(CLASS, SprayTeamView.SPRAYZONE, builder, importer);
   }
 }

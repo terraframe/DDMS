@@ -546,39 +546,39 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
 
   public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(createSettlementSubdivisionListener(RESIDENCE));
-    context.addListener(createSettlementSubdivisionListener(WORKPLACE));
-    context.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
-    context.addListener(createSettlementSubdivisionListener(BIRTHENTITY));
-    context.addListener(createHealthFacilityListener());
+    context.addListener(createSettlementSubdivisionListener(RESIDENCE, importer));
+    context.addListener(createSettlementSubdivisionListener(WORKPLACE, importer));
+    context.addListener(createSettlementSubdivisionListener(PROBABLESOURCE, importer));
+    context.addListener(createSettlementSubdivisionListener(BIRTHENTITY, importer));
+    context.addListener(createHealthFacilityListener(importer));
     context.addListener(new SymptomListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
-    exporter.addListener(createSettlementSubdivisionListener(RESIDENCE));
-    exporter.addListener(createSettlementSubdivisionListener(WORKPLACE));
-    exporter.addListener(createSettlementSubdivisionListener(BIRTHENTITY));
-    exporter.addListener(createHealthFacilityListener());
+    exporter.addListener(createSettlementSubdivisionListener(PROBABLESOURCE, null));
+    exporter.addListener(createSettlementSubdivisionListener(RESIDENCE, null));
+    exporter.addListener(createSettlementSubdivisionListener(WORKPLACE, null));
+    exporter.addListener(createSettlementSubdivisionListener(BIRTHENTITY, null));
+    exporter.addListener(createHealthFacilityListener(null));
     exporter.addListener(new SymptomListener());
   }
 
-  private static DynamicGeoColumnListener createSettlementSubdivisionListener(String attribute)
+  private static DynamicGeoColumnListener createSettlementSubdivisionListener(String attribute, ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, attribute, builder);
+    return new DynamicGeoColumnListener(CLASS, attribute, builder, importer);
   }
 
-  private static DynamicGeoColumnListener createHealthFacilityListener()
+  private static DynamicGeoColumnListener createHealthFacilityListener(ExcelImportManager importer)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
-    return new DynamicGeoColumnListener(CLASS, HEALTHFACILITY, builder);
+    return new DynamicGeoColumnListener(CLASS, HEALTHFACILITY, builder, importer);
   }
 
   public void addSymptom(Term term)

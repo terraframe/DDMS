@@ -42,13 +42,14 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
 
   public static final String PREFIX = "Geo ";
 
-  public DynamicGeoColumnListener(String excelType, String attributeName, HierarchyBuilder mainHierarchyBuilder)
-  {
-    this.attributeName = attributeName;
-    this.excelType = excelType;
-    this.hierarchyList = mainHierarchyBuilder.getHierarchy();
-  }
-  
+  /**
+   * 
+   * 
+   * @param excelType
+   * @param attributeName
+   * @param mainHierarchyBuilder
+   * @param importer May be null, if used for an export.
+   */
   public DynamicGeoColumnListener(String excelType, String attributeName, HierarchyBuilder mainHierarchyBuilder, ExcelImportManager importer)
   {
     this.attributeName = attributeName;
@@ -175,6 +176,9 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
   @Override
   public void onFinishImport()
   {
-    importer.onFinishImport();
+    if (importer != null)
+    {
+      importer.onFinishImport();
+    }
   }
 }
