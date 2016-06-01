@@ -234,18 +234,12 @@ public class OntologyExcelImporter implements Reloadable
 
       if (cell.getColumnIndex() == 1)
       {
-        node.setActiveMalaria(ExcelUtil.getBoolean(cell));
-        cell = iterator.next();
-      }
-
-      if (cell.getColumnIndex() == 2)
-      {
-        node.setActiveDengue(ExcelUtil.getBoolean(cell));
+        node.setActive(ExcelUtil.getBoolean(cell));
         cell = iterator.next();
       }
 
       TermNode parentNode = null;
-      if (cell.getColumnIndex() == 3)
+      if (cell.getColumnIndex() == 2)
       {
         parentNode = getNodeById(ExcelUtil.getString(cell));
         cell = iterator.next();

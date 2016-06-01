@@ -1,8 +1,11 @@
 package dss.vector.solutions.ontology;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
-import net.sourceforge.jtds.jdbc.DateTime;
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,6 +38,8 @@ public class AllpathsTest
     RootTerm root = RootTerm.getRootInstance();
     
     //                  Tree Root
+    //                    /   \
+    //                 Spacer  \
     //                  /       \
     //               delRoot     F
     //             /      |     /
@@ -48,12 +53,21 @@ public class AllpathsTest
     //            J
     
     
+    // Spacer
+    Term spacer = new Term();
+    spacer.setName("AllpathsTest Spacer");
+    spacer.setTermId("AllpathsTest Spacer");
+    spacer.apply();
+    TermRelationship spacerRel = spacer.addParentTerm(root);
+    spacerRel.setOntologyRelationship(rel);
+    spacerRel.apply();
+    
     // Delete Root
     Term delRoot = new Term();
     delRoot.setName("AllpathsTest Delete Root");
     delRoot.setTermId("AllpathsTest Delete Root");
     delRoot.apply();
-    TermRelationship delRootRel = delRoot.addParentTerm(root);
+    TermRelationship delRootRel = delRoot.addParentTerm(spacer);
     delRootRel.setOntologyRelationship(rel);
     delRootRel.apply();
     
@@ -209,17 +223,25 @@ public class AllpathsTest
         children.close();
       }
       
-      enforceAPExist(current, current);
-      validateAllpaths(current, current);
+      validateAllpaths(current);
     }
   }
   
-  public void validateAllpaths(Term child, Term parent)
+  public void validateAllpaths(Term term)
+  {
+    enforceAPExist(term, term);
+    Set<String> ancestors = validateParentAllpaths(term, term);
+    assertNumChildEntries(term, ancestors.size() + 1);
+  }
+  
+  public Set<String> validateParentAllpaths(Term child, Term parent)
   {
     if (parent.equals(RootTerm.getRootInstance()))
     {
-      return;
+      return new HashSet<String>();
     }
+    
+    Set<String> ancestors = new HashSet<String>();
     
     OIterator<? extends Business> parents = parent.getParents(TermRelationship.CLASS);
     try
@@ -230,13 +252,17 @@ public class AllpathsTest
         
         enforceAPExist(child, parentOfParent);
         
-        validateAllpaths(child, parentOfParent);
+        ancestors.addAll(validateParentAllpaths(child, parentOfParent));
+        
+        ancestors.add(parentOfParent.getId());
       }
     }
     finally
     {
       parents.close();
     }
+    
+    return ancestors;
   }
   
   public void enforceAPExist(Term child, Term parent)
@@ -254,6 +280,13 @@ public class AllpathsTest
     {
       throw new RuntimeException("Too many AllPaths entries defined between parent [" + parent.getName() + "] and child [" + child.getName() + "].");
     }
+  }
+  
+  public void assertNumChildEntries(Term child, int num)
+  {
+    AllPathsQuery apq = new AllPathsQuery(new QueryFactory());
+    apq.WHERE(apq.getChildTerm().EQ(child));
+    Assert.assertEquals("Number of allpaths entries for child [" + child.getTermId() + "] is incorrect.", num, apq.getCount());
   }
   
   public void ensureNoTestDataExists()
@@ -295,7 +328,32 @@ public class AllpathsTest
       
       validateAllpaths();
       Term.getByTermId("AllpathsTest F").deleteTerm(); // F exists outside the delRoot
+      Term.getByTermId("AllpathsTest Spacer").deleteTerm(); // Spacer exists outside the delRoot
       ensureNoTestDataExists();
+    }
+    finally
+    {
+      destroyTestData();
+    }
+  }
+  
+  @Test
+  @Request
+  public void testExportImport() throws Exception
+  {
+    destroyTestData();
+    
+    try
+    {
+      createTestData();
+      
+      OntologyExcelExporter.exportToFile(new File("OntologyExport2.xls"), Term.getByTermId("AllpathsTest Delete Root"));
+      
+      destroyTestData();
+      
+      OntologyExcelImporter.main(new String[]{"OntologyExport2.xls"});
+      
+      validateAllpaths();
     }
     finally
     {

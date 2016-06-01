@@ -1,6 +1,7 @@
 package dss.vector.solutions.ontology;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 
@@ -287,6 +288,19 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     resp.sendError(500);
   }
 
+  @Override
+  public void exportTerm(java.lang.String term) throws java.io.IOException, javax.servlet.ServletException
+  {
+    OutputStream os = resp.getOutputStream();
+    
+    resp.setContentType("application/xls");
+    resp.addHeader("Content-Disposition", "attachment;filename=\"export.xls\"");
+    
+    TermDTO.export(this.getClientRequest(), term, os);
+    
+    os.close();
+  }
+  
   @Override
   public void importTerms(MultipartFileParameter importFile) throws IOException, ServletException
   {

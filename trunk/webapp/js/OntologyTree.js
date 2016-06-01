@@ -603,15 +603,19 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
      */
     _doExport : function()
     {
+      var termId = this._selectedNode.data.termId;
+      
 //      var request = new MDSS.Request({
 //        that: this,
 //        onSuccess: function(html)
 //        {
-//           this.that._createModal(html, false, true);
+//          
 //        }     
 //      });
 //      
-//      this._controller.exportTerms(request);
+//      this._controller.exportTerm(request, termId);
+      
+      window.location="dss.vector.solutions.ontology.TermController.exportTerm.mojo?term=" + termId;
     },
     
     /**

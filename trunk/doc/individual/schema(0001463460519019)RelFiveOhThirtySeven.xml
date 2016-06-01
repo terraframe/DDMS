@@ -20,11 +20,20 @@
           </mdMethod>
         </create>
       </mdBusiness>
+      <mdController name="dss.vector.solutions.ontology.TermController">
+        <create>
+          <mdAction name="exportTerm" isPost="false" isQuery="false" label="export">
+            <mdParameter name="term" label="term" order="0" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
     </update>
   </doIt>
   <undoIt>
     <delete>
-      <object key="dss.vector.solutions.ontology.AllpathsTempStorage" type="com.runwaysdk.system.metadata.MdBusiness"/>
+      <object key="dss.vector.solutions.entomology.InsecticideNotFoundException" type="com.runwaysdk.system.metadata.MdException"/>
+      <object key="dss.vector.solutions.ontology.Term.export" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.ontology.TermController.exportTerm" type="com.runwaysdk.system.metadata.MdAction"/>
     </delete>
   </undoIt>
 </version>

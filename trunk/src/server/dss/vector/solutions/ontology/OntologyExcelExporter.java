@@ -1,11 +1,13 @@
 package dss.vector.solutions.ontology;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.Stack;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,29 +17,21 @@ import org.apache.poi.ss.usermodel.Sheet;
 import com.runwaysdk.SystemException;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.util.FileIO;
-
-import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.util.MDSSProperties;
 
 public class OntologyExcelExporter
 {
-  private static final int NAME_COLUMN = 4;
+  private static final int NAME_COLUMN = 3;
 
   private HSSFWorkbook workbook;
   private Sheet sheet;
-  private int indent = NAME_COLUMN;
+  private OutputStream os;
   private int rowCount = 0;
-
-  // Keep track of the terms we've already exported
-  private Set<String> exported;
+  private Term root;
 
   @Request
   public static void main(String[] args) throws IOException
   {
-    long start = System.currentTimeMillis();
-
-    String fileName = "OntologyExport.xls";
+    String fileName = "OntologyExport2.xls";
     File file = new File(fileName);
     if (args.length==0)
     {
@@ -48,37 +42,69 @@ public class OntologyExcelExporter
       fileName = args[0];
       file = new File(fileName);
     }
-
-    OntologyExcelExporter exporter = new OntologyExcelExporter();
-    exporter.export();
-    FileIO.write(file, exporter.write());
+    
+    long start = System.currentTimeMillis();
+    
+    exportToFile(file, RootTerm.getRootInstance());
 
     long end = System.currentTimeMillis();
     System.out.println("Exported in " + (end-start)/1000.0 + " seconds");
   }
-
-  public OntologyExcelExporter()
+  
+  public static void exportToFile(File file, Term root)
   {
-    workbook = new HSSFWorkbook();
-    sheet = workbook.createSheet();
-    exported = new TreeSet<String>();
+    BufferedOutputStream bos = null;
+    try
+    {
+      FileOutputStream fos = new FileOutputStream(file);
+      bos = new BufferedOutputStream(fos);
+      
+      new OntologyExcelExporter(root, bos).export();
+    }
+    catch (IOException e1)
+    {
+      e1.printStackTrace();
+    }
+    finally
+    {
+      try
+      {
+        bos.close();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
   }
 
-  public void export()
+  public OntologyExcelExporter(Term root, OutputStream os)
+  {
+    this.root = root;
+    workbook = new HSSFWorkbook();
+    sheet = workbook.createSheet();
+    this.os = os;
+  }
+  
+  private void exportTerm(Term t, int indent, boolean active)
+  {
+    Row row = sheet.createRow(rowCount++);
+    row.createCell(0).setCellValue(new HSSFRichTextString(t.getTermId()));
+    row.createCell(1).setCellValue(active);
+    row.createCell(indent++).setCellValue(new HSSFRichTextString(t.getName()));
+  }
+  
+  private void open()
   {
     Row header = sheet.createRow(rowCount++);
     header.createCell(0).setCellValue(new HSSFRichTextString("ID"));
-    header.createCell(1).setCellValue(new HSSFRichTextString("Active Malaria"));
-    header.createCell(2).setCellValue(new HSSFRichTextString("Active Dengue"));
-    header.createCell(3).setCellValue(new HSSFRichTextString("ParentId"));
+    header.createCell(1).setCellValue(new HSSFRichTextString("Active"));
+    header.createCell(2).setCellValue(new HSSFRichTextString("ParentId"));
     header.createCell(NAME_COLUMN).setCellValue(new HSSFRichTextString("Name"));
-    
-    Term root = RootTerm.getRootInstance();
-    for (Term child : root.getAllChildTerm())
-    {
-      recurse(child);
-    }
-
+  }
+  
+  private void close()
+  {
     for (short s=0; s<NAME_COLUMN; s++)
     {
       sheet.autoSizeColumn(s);
@@ -87,72 +113,83 @@ public class OntologyExcelExporter
     {
       sheet.setColumnWidth(i, 1280);
     }
-  }
-
-  private void recurse(Term parent)
-  {
-    Boolean activeMalaria = true;
-    Boolean activeDengue = true;
-    OIterator<? extends InactiveProperty> props = parent.getAllInactiveProperties();
+    
     try
     {
-      for (InactiveProperty ip : props)
+      workbook.write(os);
+    }
+    catch (IOException e)
+    {
+      throw new SystemException(e);
+    }
+  }
+  
+  private class StackEntry
+  {
+    private int depth;
+    private String id;
+    
+    private StackEntry(String id, int depth)
+    {
+      this.depth = depth;
+      this.id = id;
+    }
+    
+    public int getDepth()
+    {
+      return depth;
+    }
+
+    public void setDepth(int depth)
+    {
+      this.depth = depth;
+    }
+
+    public String getId()
+    {
+      return id;
+    }
+
+    public void setId(String id)
+    {
+      this.id = id;
+    }
+  }
+  
+  /**
+   * Exports the root term and all children.
+   * 
+   * @param term
+   */
+  public void export()
+  {
+    open();
+
+    try
+    {
+      // Stack results in a depth first traverse
+      Stack<StackEntry> sNext = new Stack<StackEntry>();
+      sNext.push(new StackEntry(root.getId(), NAME_COLUMN));
+      
+      while (sNext.size() > 0)
       {
-        Disease disease = ip.getDisease();
-        if (disease.equals(Disease.MALARIA))
+        StackEntry seCurrent = sNext.pop();
+        Term tCurrent = Term.get(seCurrent.getId());
+        int dCurrent = seCurrent.getDepth();
+        
+        InactiveProperty inactive = tCurrent.getInactiveByDisease();
+        exportTerm(tCurrent, dCurrent, !inactive.getInactive());
+        
+        OIterator<? extends Term> children = tCurrent.getAllChildTerm();
+        for (Term child: children)
         {
-          activeMalaria = !ip.getInactive();
-        }
-        if (disease.equals(Disease.DENGUE))
-        {
-          activeDengue = !ip.getInactive();
+          sNext.push(new StackEntry(child.getId(), dCurrent + 1));
         }
       }
     }
     finally
     {
-      props.close();
-    }
-
-    // Write the row
-    Row row = sheet.createRow(rowCount++);
-    row.createCell(0).setCellValue(new HSSFRichTextString(parent.getTermId()));
-    row.createCell(1).setCellValue(activeMalaria);
-    row.createCell(2).setCellValue(activeDengue);
-    row.createCell(indent++).setCellValue(new HSSFRichTextString(parent.getName()));
-
-    // If we've already exported this term, no need to repeat all of its children.  It's just here for its multiple parents.
-    if(exported.add(parent.getId()))
-    {
-      for (Term child : parent.getAllChildTerm())
-      {
-        recurse(child);
-      }
-    }
-
-    indent--;
-  }
-
-  /**
-   * Writes the workbook to a byte array, which can then be written to the
-   * filesystem or streamed across the net.
-   *
-   * @return
-   */
-  public byte[] write()
-  {
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    BufferedOutputStream buffer = new BufferedOutputStream(bytes);
-    try
-    {
-      workbook.write(buffer);
-      buffer.flush();
-      buffer.close();
-      return bytes.toByteArray();
-    }
-    catch (IOException e)
-    {
-      throw new SystemException(e);
+      close();
     }
   }
 }

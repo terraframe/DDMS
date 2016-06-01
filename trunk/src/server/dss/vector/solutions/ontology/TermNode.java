@@ -17,8 +17,7 @@ public class TermNode implements Comparable<TermNode>, Reloadable
   private String name;
   private Integer indent;
   private Term term;
-  private Boolean activeMalaria;
-  private Boolean activeDengue;
+  private Boolean active;
   
   private List<TermNode> parents;
   private List<TermNode> children;
@@ -53,6 +52,8 @@ public class TermNode implements Comparable<TermNode>, Reloadable
     term.setName(name);
     term.apply();
     
+    Disease current = Disease.getCurrent();
+    
     OIterator<? extends InactiveProperty> props = term.getAllInactiveProperties();
     try
     {
@@ -61,18 +62,13 @@ public class TermNode implements Comparable<TermNode>, Reloadable
         ip.appLock();
         Disease disease = ip.getDisease();
         
-        if (disease.equals(Disease.getMalaria()))
+        if (disease.equals(current))
         {
-          ip.setInactive(!activeMalaria);
-        }
-        else if (disease.equals(Disease.getDengue()))
-        {
-          ip.setInactive(!activeDengue);
+          ip.setInactive(!active);
         }
         else
         {
-          ip.setInactive(false);
-//          throw new RuntimeException("Disease " + disease + " not found for term name [" + name + "] and id [" + id + "]");
+          ip.setInactive(true);
         }
         ip.apply();
       }
@@ -173,24 +169,9 @@ public class TermNode implements Comparable<TermNode>, Reloadable
     this.name = name;
   }
 
-  public Boolean getActiveMalaria()
+  public void setActive(Boolean active)
   {
-    return activeMalaria;
-  }
-
-  public void setActiveMalaria(Boolean activeMalaria)
-  {
-    this.activeMalaria = activeMalaria;
-  }
-
-  public Boolean getActiveDengue()
-  {
-    return activeDengue;
-  }
-
-  public void setActiveDengue(Boolean activeDengue)
-  {
-    this.activeDengue = activeDengue;
+    this.active = active;
   }
 
   public Integer getIndent()
