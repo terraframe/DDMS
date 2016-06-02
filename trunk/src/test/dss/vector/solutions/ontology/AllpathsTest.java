@@ -46,11 +46,15 @@ public class AllpathsTest
     //            A       B    /
     //            |     / | \ /
     //            |    C  E  G
-    //            |   /    \ /
-    //            | /       H
-    //            D        /
-    //            |        I
-    //            J
+    //            |   /|   \ /
+    //            | /  |    H
+    //            D    |   /
+    //            |    |   I
+    //            J    |
+    //              \  |
+    //                K
+    //                |
+    //                L
     
     
     // Spacer
@@ -169,6 +173,27 @@ public class AllpathsTest
     TermRelationship jRel = j.addParentTerm(d);
     jRel.setOntologyRelationship(rel);
     jRel.apply();
+    
+    // K
+    Term k = new Term();
+    k.setName("AllpathsTest K");
+    k.setTermId("AllpathsTest K");
+    k.apply();
+    TermRelationship kRel = k.addParentTerm(j);
+    kRel.setOntologyRelationship(rel);
+    kRel.apply();
+    TermRelationship kRel2 = k.addParentTerm(c);
+    kRel2.setOntologyRelationship(rel);
+    kRel2.apply();
+    
+    // L
+    Term l = new Term();
+    l.setName("AllpathsTest L");
+    l.setTermId("AllpathsTest L");
+    l.apply();
+    TermRelationship lRel = l.addParentTerm(k);
+    lRel.setOntologyRelationship(rel);
+    lRel.apply();
   }
   
   public void destroyTestData()
@@ -305,61 +330,61 @@ public class AllpathsTest
     }
   }
   
-//  @Test
-//  @Request
-//  public void testDelete() throws Exception
-//  {
-//    destroyTestData();
-//    
-//    try
-//    {
-//      createTestData();
-//      validateAllpaths();
-//      
-//      Term delRoot = Term.getByTermId("AllpathsTest Delete Root");
-//      
-//      System.out.println("Invoking deleteTerm");
-//      
-//      long pre = System.nanoTime();
-//      delRoot.deleteTerm();
-//      long post = System.nanoTime();
-//      long elapsed = (post - pre) / 1000000000;
-//      System.out.println("deleteTerm took: " + elapsed + " seconds");
-//      
-//      validateAllpaths();
-//      Term.getByTermId("AllpathsTest F").deleteTerm(); // F exists outside the delRoot
-//      Term.getByTermId("AllpathsTest Spacer").deleteTerm(); // Spacer exists outside the delRoot
-//      ensureNoTestDataExists();
-//    }
-//    finally
-//    {
-//      destroyTestData();
-//    }
-//  }
-//  
-//  @Test
-//  @Request
-//  public void testExportImport() throws Exception
-//  {
-//    destroyTestData();
-//    
-//    try
-//    {
-//      createTestData();
-//      
-//      OntologyExcelExporter.exportToFile(new File("OntologyExport2.xls"), Term.getByTermId("AllpathsTest Delete Root"));
-//      
-//      destroyTestData();
-//      
-//      OntologyExcelImporter.main(new String[]{"OntologyExport2.xls"});
-//      
-//      validateAllpaths();
-//    }
-//    finally
-//    {
-//      destroyTestData();
-//    }
-//  }
+  @Test
+  @Request
+  public void testDelete() throws Exception
+  {
+    destroyTestData();
+    
+    try
+    {
+      createTestData();
+      validateAllpaths();
+      
+      Term delRoot = Term.getByTermId("AllpathsTest Delete Root");
+      
+      System.out.println("Invoking deleteTerm");
+      
+      long pre = System.nanoTime();
+      delRoot.deleteTerm();
+      long post = System.nanoTime();
+      long elapsed = (post - pre) / 1000000000;
+      System.out.println("deleteTerm took: " + elapsed + " seconds");
+      
+      validateAllpaths();
+      Term.getByTermId("AllpathsTest F").deleteTerm(); // F exists outside the delRoot
+      Term.getByTermId("AllpathsTest Spacer").deleteTerm(); // Spacer exists outside the delRoot
+      ensureNoTestDataExists();
+    }
+    finally
+    {
+      destroyTestData();
+    }
+  }
+  
+  @Test
+  @Request
+  public void testExportImport() throws Exception
+  {
+    destroyTestData();
+    
+    try
+    {
+      createTestData();
+      
+      OntologyExcelExporter.exportToFile(new File("OntologyExport2.xls"), Term.getByTermId("AllpathsTest Delete Root"));
+      
+      destroyTestData();
+      
+      OntologyExcelImporter.main(new String[]{"OntologyExport2.xls"});
+      
+      validateAllpaths();
+    }
+    finally
+    {
+      destroyTestData();
+    }
+  }
   
   @Test
   @Request
