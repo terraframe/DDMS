@@ -305,54 +305,84 @@ public class AllpathsTest
     }
   }
   
-  @Test
-  @Request
-  public void testDelete() throws Exception
-  {
-    destroyTestData();
-    
-    try
-    {
-      createTestData();
-      validateAllpaths();
-      
-      Term delRoot = Term.getByTermId("AllpathsTest Delete Root");
-      
-      System.out.println("Invoking deleteTerm");
-      
-      long pre = System.nanoTime();
-      delRoot.deleteTerm();
-      long post = System.nanoTime();
-      long elapsed = (post - pre) / 1000000000;
-      System.out.println("deleteTerm took: " + elapsed + " seconds");
-      
-      validateAllpaths();
-      Term.getByTermId("AllpathsTest F").deleteTerm(); // F exists outside the delRoot
-      Term.getByTermId("AllpathsTest Spacer").deleteTerm(); // Spacer exists outside the delRoot
-      ensureNoTestDataExists();
-    }
-    finally
-    {
-      destroyTestData();
-    }
-  }
+//  @Test
+//  @Request
+//  public void testDelete() throws Exception
+//  {
+//    destroyTestData();
+//    
+//    try
+//    {
+//      createTestData();
+//      validateAllpaths();
+//      
+//      Term delRoot = Term.getByTermId("AllpathsTest Delete Root");
+//      
+//      System.out.println("Invoking deleteTerm");
+//      
+//      long pre = System.nanoTime();
+//      delRoot.deleteTerm();
+//      long post = System.nanoTime();
+//      long elapsed = (post - pre) / 1000000000;
+//      System.out.println("deleteTerm took: " + elapsed + " seconds");
+//      
+//      validateAllpaths();
+//      Term.getByTermId("AllpathsTest F").deleteTerm(); // F exists outside the delRoot
+//      Term.getByTermId("AllpathsTest Spacer").deleteTerm(); // Spacer exists outside the delRoot
+//      ensureNoTestDataExists();
+//    }
+//    finally
+//    {
+//      destroyTestData();
+//    }
+//  }
+//  
+//  @Test
+//  @Request
+//  public void testExportImport() throws Exception
+//  {
+//    destroyTestData();
+//    
+//    try
+//    {
+//      createTestData();
+//      
+//      OntologyExcelExporter.exportToFile(new File("OntologyExport2.xls"), Term.getByTermId("AllpathsTest Delete Root"));
+//      
+//      destroyTestData();
+//      
+//      OntologyExcelImporter.main(new String[]{"OntologyExport2.xls"});
+//      
+//      validateAllpaths();
+//    }
+//    finally
+//    {
+//      destroyTestData();
+//    }
+//  }
   
   @Test
   @Request
-  public void testExportImport() throws Exception
+  public void testDeleteRelationship() throws Exception
   {
     destroyTestData();
     
     try
     {
       createTestData();
+      validateAllpaths();
       
-      OntologyExcelExporter.exportToFile(new File("OntologyExport2.xls"), Term.getByTermId("AllpathsTest Delete Root"));
+      Term a = Term.getByTermId("AllpathsTest A");
+      Term b = Term.getByTermId("AllpathsTest B");
+      Term delRoot = Term.getByTermId("AllpathsTest Delete Root");
       
-      destroyTestData();
+      b.applyWithParent(a.getId(), false, delRoot.getId(), false);
+      validateAllpaths();
       
-      OntologyExcelImporter.main(new String[]{"OntologyExport2.xls"});
+      b.applyWithParent(delRoot.getId(), true, a.getId(), false);
+      validateAllpaths();
       
+      b.deleteRelationship(a.getId());
       validateAllpaths();
     }
     finally

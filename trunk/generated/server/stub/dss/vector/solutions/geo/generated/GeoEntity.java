@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Timestamp;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
@@ -539,14 +541,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       iter.close();
 
-      if (this.isSingleLeafNode())
-      {
-        deleteLeafFromAllPaths(this.getId());
-      }
-      else
-      {
-        buildAllPathsFast();
-      }
+      deleteEntityAndChildrenFromAllPaths(this.getId());
+      updateAllPathForGeoEntity(this.getId(), null);
     }
   }
   
@@ -701,8 +697,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
     }
     
-    
-    // Post step: since we destroyed geoentitys with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
+    // Post step: since we destroyed terms with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
+    //   We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
     String selectSql = Database.selectClause(Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
     ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
     
@@ -710,10 +706,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       while (resultSet.next())
       {
-        String geoentityId = resultSet.getString(TEMP_GEO_ID_COL);
-        String parentId = resultSet.getString(TEMP_PARENT_ID_COL);
+        String termId = resultSet.getString(TEMP_GEO_ID_COL);
         
-        updateAllPathForGeoEntity(geoentityId, parentId);
+        deleteEntityFromAllPaths(termId);
       }
     }
     catch (SQLException sqlEx1)
@@ -726,6 +721,37 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       {
         java.sql.Statement statement = resultSet.getStatement();
         resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    // Post Step loop #2: Rebuild the terms with multiple parents.
+    ResultSet resultSet2 = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
+    
+    try
+    {
+      while (resultSet2.next())
+      {
+        String geoentityId = resultSet2.getString(TEMP_GEO_ID_COL);
+        String parentId = resultSet2.getString(TEMP_PARENT_ID_COL);
+        
+        updateAllPathForGeoEntity(geoentityId, parentId);
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
         statement.close();
       }
       catch (SQLException sqlEx2)
@@ -1477,16 +1503,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     }
     else if (!isNew)
     {
-      if (singleLeaf)
-      {
-        deleteLeafFromAllPaths(this.getId());
-        
-        updateAllPathForGeoEntity(this.getId(), parent.getId(), false, false, 0);
-      }
-      else
-      {
-        buildAllPathsFast();
-      }
+      deleteEntityAndChildrenFromAllPaths(this.getId());
+      updateAllPathForGeoEntity(this.getId(), null);
     }
 
     // update this GeoEntity and all its
@@ -1504,6 +1522,32 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     else
     {
       return new String[] {};
+    }
+  }
+  
+  /**
+   * Removes the term and all its children from the allpaths table.
+   * 
+   * @param termId
+   */
+  public static void deleteEntityAndChildrenFromAllPaths(String rootId)
+  {
+    // Queue results in a breadth first traverse
+    Queue<String> qNext = new ArrayDeque<String>();
+    qNext.offer(rootId);
+    
+    while (qNext.size() > 0)
+    {
+      String sCurrent = qNext.poll();
+      GeoEntity tCurrent = GeoEntity.get(sCurrent);
+      
+      deleteEntityFromAllPaths(sCurrent);
+      
+      OIterator<? extends GeoEntity> children = tCurrent.getAllLocatedInGeoEntity();
+      for (GeoEntity child: children)
+      {
+        qNext.offer(child.getId());
+      }
     }
   }
 
@@ -1950,7 +1994,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       List<String> childOfChildIdList = getChildIds(childId);
       for (String childOfChild : childOfChildIdList)
       {
-        applyCount = updateAllPathForGeoEntity(childOfChild, childId, copyChildren, showTicker, applyCount);
+        if (parentId != null)
+        {
+          applyCount = updateAllPathForGeoEntity(childOfChild, childId, copyChildren, showTicker, applyCount);
+        }
+        else
+        {
+          applyCount = updateAllPathForGeoEntity(childOfChild, null, copyChildren, showTicker, applyCount);
+        }
       }
     }
 

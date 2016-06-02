@@ -407,8 +407,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     finally
     {
       iter.close();
+      
+      OntologyRelationship ontRel = OntologyRelationship.getByKey(OBO.IS_A);
 
-      AllPaths.rebuildAllPaths();
+      AllPaths.deleteTermAndChildrenFromAllPaths(this.getId());
+      AllPaths.updateAllPathForTerm(this.getId(), null, ontRel.getId());
     }
   }
 
@@ -667,7 +670,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     else if (!isNew)
     {
-      AllPaths.rebuildAllPaths();
+      AllPaths.deleteTermAndChildrenFromAllPaths(this.getId());
+      AllPaths.updateAllPathForTerm(this.getId(), null, ontRel.getId());
     }
 
     if (inactive != null)

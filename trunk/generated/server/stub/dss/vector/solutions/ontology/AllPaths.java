@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Timestamp;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Queue;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
@@ -234,6 +236,32 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
       }
     }
   }
+  
+  /**
+   * Removes the term and all its children from the allpaths table.
+   * 
+   * @param termId
+   */
+  public static void deleteTermAndChildrenFromAllPaths(String rootId)
+  {
+    // Queue results in a breadth first traverse
+    Queue<String> qNext = new ArrayDeque<String>();
+    qNext.offer(rootId);
+    
+    while (qNext.size() > 0)
+    {
+      String sCurrent = qNext.poll();
+      Term tCurrent = Term.get(sCurrent);
+      
+      deleteTermFromAllPaths(sCurrent);
+      
+      OIterator<? extends Term> children = tCurrent.getAllChildTerm();
+      for (Term child: children)
+      {
+        qNext.offer(child.getId());
+      }
+    }
+  }
 
   /**
    * Removes all AllPaths entries where the given term is a parent or child.
@@ -433,7 +461,14 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
       List<String> childOfChildIdList = Term.getChildIds(childId, ontologyRelationshipId);
       for (String childOfChild : childOfChildIdList)
       {
-        applyCount = updateAllPathForTerm(childOfChild, childId, ontologyRelationshipId, copyChildren, showTicker, applyCount);
+        if (parentId != null)
+        {
+          applyCount = updateAllPathForTerm(childOfChild, childId, ontologyRelationshipId, copyChildren, showTicker, applyCount);
+        }
+        else
+        {
+          applyCount = updateAllPathForTerm(childOfChild, null, ontologyRelationshipId, copyChildren, showTicker, applyCount);
+        }
       }
     }
 
