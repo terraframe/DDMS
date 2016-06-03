@@ -263,11 +263,14 @@ public class MenuGenerator implements Reloadable
         // that are associated with menuitems for the given disease
         "select mi." + menuItemTermCol + "\n" + "from " + menuItemTable + " mi" + "\n" + "join " + termTable + " term on mi." + menuItemTermCol + " = term." + termIdCol + "\n" + "join " + systemUrlTable + " url on mi." + menuItemUrlCol + " = url." + systemUrlIdCol + "\n" + "join " + allPathsTable + " undermenuroot on undermenuroot." + allPathsChildTermCol + " = mi." + menuItemTermCol + " and undermenuroot." + allPathsParentTermCol + " = '" + disease.getMenuRoot().getId() + "'" + "\n" + "join "
         + allPathsTable + " isleaf on isleaf." + allPathsParentTermCol + " = mi." + menuItemTermCol + "\n" + "join " + inactiveByDiseaseTable + " ibd on ibd." + inactiveByDiseaseParentIdCol + " = term." + termIdCol + "\n" + "join " + inactivePropertyTable + " ip on ibd." + inactiveByDiseaseChildIdCol + " = ip." + inactivePropertyIdCol + " and ip." + inactivePropertyInactiveCol + " = 0" + "\n"
-        + "group by mi." + menuItemTermCol + "\n" + "having count(*) = 1" + "\n" + ")" + "\n" + "and ap." + allPathsParentTermCol + " in (" + "\n" +
+        + "group by mi." + menuItemTermCol + "\n" + ")" + "\n" + "and ap." + allPathsParentTermCol + " in (" + "\n" +
         // This selects all terms who are descendants of the given menu root
         "select ap." + allPathsChildTermCol + "\n" + "from " + allPathsTable + " ap" + "\n" + "where ap." + allPathsParentTermCol + " = '" + disease.getMenuRoot().getId() + "'" + "\n" + ")";
     query.FROM(from, "");
     // MdssLog.debug(query.getSQL());
+    
+    
+    
     return query;
   }
 
