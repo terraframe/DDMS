@@ -61,6 +61,7 @@ import com.runwaysdk.dataaccess.io.ImportManager;
 import com.runwaysdk.dataaccess.io.StringMarkupWriter;
 import com.runwaysdk.dataaccess.io.StringStreamSource;
 import com.runwaysdk.dataaccess.io.XMLParseException;
+import com.runwaysdk.dataaccess.io.dataDefinition.DataTypePlugin;
 import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
@@ -2156,7 +2157,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
       StringStreamSource source = new StringStreamSource(xml);
 
-      SAXImporter importer = new SAXImporter(source, XSD_LOCATION);
+      SAXImporter importer = new SAXImporter(source, XSD_LOCATION, new DataTypePlugin());
       importer.begin();
 
       // The form permissions cannot be exported because they are specific to the diseases specified

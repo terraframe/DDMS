@@ -38,6 +38,7 @@ import com.runwaysdk.dataaccess.io.ImportManager;
 import com.runwaysdk.dataaccess.io.StringMarkupWriter;
 import com.runwaysdk.dataaccess.io.StringStreamSource;
 import com.runwaysdk.dataaccess.io.XMLParseException;
+import com.runwaysdk.dataaccess.io.dataDefinition.DataTypePlugin;
 import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
@@ -1099,7 +1100,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       StringStreamSource source = new StringStreamSource(xml);
 
-      SAXImporter importer = new SAXImporter(source, MdFormUtil.XSD_LOCATION);
+      SAXImporter importer = new SAXImporter(source, MdFormUtil.XSD_LOCATION, new DataTypePlugin());
       importer.begin();
 
       // Ensure the imported queries are valid.
