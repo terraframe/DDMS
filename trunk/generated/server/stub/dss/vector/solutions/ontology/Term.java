@@ -650,7 +650,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     Savepoint savepoint = Database.setSavepoint();
     try
     {
-      termRelationship.apply();
+      termRelationship.applyWithoutCreatingAllPaths();
     }
     catch (DuplicateGraphPathException e)
     {
@@ -1318,9 +1318,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     QueryFactory queryFactory = new QueryFactory();
 
-    OntologyRelationship ontologyRelationship = OntologyRelationship.get(ontologyRelationshipId);
     TermRelationshipQuery termRelationshipQuery = new TermRelationshipQuery(queryFactory);
-    termRelationshipQuery.WHERE(termRelationshipQuery.getOntologyRelationship().EQ(ontologyRelationship));
+    if (ontologyRelationshipId != null)
+    {
+      OntologyRelationship ontologyRelationship = OntologyRelationship.get(ontologyRelationshipId);
+      termRelationshipQuery.WHERE(termRelationshipQuery.getOntologyRelationship().EQ(ontologyRelationship));
+    }
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 

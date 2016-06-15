@@ -1,5 +1,10 @@
 package dss.vector.solutions;
 
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.QueryFactory;
+
 @com.runwaysdk.business.ClassSignature(hash = 978492195)
 /**
  *
@@ -9,6 +14,12 @@ public class PersonWithDelegatesViewQuery extends dss.vector.solutions.PersonWit
 {
 private static final long serialVersionUID = 978492195;
 
+  public PersonWithDelegatesViewQuery(com.runwaysdk.query.QueryFactory queryFactory, PersonView view)
+  {
+    super(queryFactory);
+    this.buildQuery(new SearchQueryBuilder(queryFactory, view));
+  }
+  
   public PersonWithDelegatesViewQuery(com.runwaysdk.query.QueryFactory queryFactory)
   {
     super(queryFactory);
@@ -67,5 +78,113 @@ private static final long serialVersionUID = 978492195;
 
     }
 
+  }
+  
+  public class SearchQueryBuilder extends DefaultPersonWithDelegatesViewBuilder implements Reloadable
+  {
+    private PersonView view;
+
+    private Condition                    condition;
+
+    public SearchQueryBuilder(QueryFactory queryFactory, PersonView view)
+    {
+      super(queryFactory);
+
+      this.view = view;
+      this.condition = null;
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      PersonWithDelegatesViewQuery vQuery = this.getViewQuery();
+
+      if (view.getPersonId() != null && !view.getPersonId().equals(""))
+      {
+        this.addCondition(vQuery.getPersonId().EQ(view.getPersonId()));
+      }
+
+      if (view.getIdentifier() != null && !view.getIdentifier().equals(""))
+      {
+        this.addCondition(vQuery.getIdentifier().EQ(view.getIdentifier()));
+      }
+
+      if (view.getDateOfBirth() != null && !view.getDateOfBirth().equals(""))
+      {
+        this.addCondition(vQuery.getDateOfBirth().EQ(view.getDateOfBirth()));
+      }
+      
+      if (view.getFirstName() != null && !view.getFirstName().equals(""))
+      {
+        this.addCondition(vQuery.getFirstName().EQi(view.getFirstName()));
+      }
+      
+      if (view.getLastName() != null && !view.getLastName().equals(""))
+      {
+        this.addCondition(vQuery.getLastName().EQi(view.getLastName()));
+      }
+      
+      if (view.getSex() != null)
+      {
+        this.addCondition(vQuery.getSex().EQ(view.getSex()));
+      }
+      
+//      if (view.getPatientDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getPatientDelegate()));
+//      }
+//      
+//      if (view.getTeamMemberDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getTeamMemberDelegate()));
+//      }
+//      
+//      if (view.getStockStaffDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getStockStaffDelegate()));
+//      }
+//      
+//      if (view.getIptRecipientDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getIptRecipientDelegate()));
+//      }
+//      
+//      if (view.getItnRecipientDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getItnRecipientDelegate()));
+//      }
+//      
+//      if (view.getSupervisorDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getSupervisorDelegate()));
+//      }
+//      
+//      if (view.getUserDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getUserDelegate()));
+//      }
+//      
+//      if (view.getPhysicianDelegate() != null)
+//      {
+//        this.addCondition(vQuery.getSex().EQ(view.getPhysicianDelegate()));
+//      }
+
+      if (condition != null)
+      {
+        vQuery.WHERE(condition);
+      }
+    }
+
+    private void addCondition(Condition newCondition)
+    {
+      if (condition == null)
+      {
+        condition = newCondition;
+      }
+      else
+      {
+        condition = AND.get(condition, newCondition);
+      }
+    }
   }
 }

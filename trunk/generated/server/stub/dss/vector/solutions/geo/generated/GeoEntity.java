@@ -100,12 +100,8 @@ import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
-import dss.vector.solutions.ontology.OBO;
-import dss.vector.solutions.ontology.OntologyRelationship;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.ontology.TermRelationship;
-import dss.vector.solutions.ontology.TermRelationshipQuery;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.util.GeoEntityImporter;
@@ -687,6 +683,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
       else // If I have multiple parents, add to list for post step
       {
+        if (s.size() == 0)
+        {
+          deleteLeafFromAllPaths(current.getId());
+          current.delete(false);
+          break;
+        }
+        
         List<String> parentIds = new ArrayList<String>();
         for (GeoEntity parent : parents)
         {
@@ -1428,14 +1431,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     // unless the child has more than one parent.
 
     boolean isNew = this.isNew();
-    boolean singleLeaf = false;
     if (isNew)
     {
       this.apply(); // has no children
-    }
-    else
-    {
-      singleLeaf = this.isSingleLeafNode();
     }
 
     // make sure a child cannot be applied to itself
@@ -1495,7 +1493,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
     }
 
-    this.addLocatedInGeoEntity(parent).apply();
+    this.addLocatedInGeoEntity(parent).applyWithoutCreatingAllPaths();
 
     if (cloneOperation)
     {
@@ -1543,10 +1541,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       
       deleteEntityFromAllPaths(sCurrent);
       
-      OIterator<? extends GeoEntity> children = tCurrent.getAllLocatedInGeoEntity();
-      for (GeoEntity child: children)
+      List<String> children = GeoEntity.getChildIds(tCurrent.getId());
+      for (String child: children)
       {
-        qNext.offer(child.getId());
+        qNext.offer(child);
       }
     }
   }
@@ -2214,6 +2212,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     return childOfChildIdList;
   }
 
+  
+  
   public static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
   {
     // create save point
@@ -2221,23 +2221,28 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     try
     {
-
-      // Check if the entry already exists. If so, don't create it.
-      // WARNING: this is not thread safe. Make SAVEPOINTS work instead.
-      // QueryFactory f = new QueryFactory(); AllPathsQuery q = new
-      // AllPathsQuery(f); q.WHERE(q.getChildGeoEntity().EQ(childId));
-      // q.WHERE(q.getParentGeoEntity().EQ(parentId));
-      //
-      // if(q.getCount() == 0)
-      // {
       AllPaths allPaths = new AllPaths();
       allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
       allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdBusiness);
       allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
       allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
       allPaths.apply();
-      // }
-
+      
+      // Performing this via insert statement and bypassing the validation in the object API is 15% faster
+//      MdBusinessDAO mdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS).getBusinessDAO();
+//      String allPathsTbl = mdBiz.getTableName();
+//      List<String> tableAttrs = Arrays.asList( MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS );
+//      List<String> columns = Arrays.asList(mdBiz.definesAttribute(AllPaths.ID).getColumnName(), mdBiz.definesAttribute(AllPaths.PARENTGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.PARENTUNIVERSAL).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDUNIVERSAL).getColumnName());
+//      
+//      List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
+//      
+//      List<String> bindVals = Arrays.asList("?","?","?", "?", "?");
+//      List<Object> vals = Arrays.asList(parentId, parentMdBusiness, childId, childMdBusiness);
+//      
+//      PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(allPathsTbl, columns, bindVals, vals, tableAttrs);
+//      statements.add(preparedStmt);
+//      
+//      Database.executeStatementBatch(statements);
     }
     catch (DuplicateDataDatabaseException ex)
     {

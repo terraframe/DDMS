@@ -44,11 +44,19 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
     this.setStockStaffDelegate(concrete.getStockStaffDelegate());
     this.setSupervisorDelegate(concrete.getSupervisorDelegate());
   }
-
+  
+  /**
+   * MdMethod (invoked from PersonController)
+   */
   public static PersonWithDelegatesViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     PersonWithDelegatesViewQuery query = new PersonWithDelegatesViewQuery(new QueryFactory());
-
+    
+    return getPage(query, sortAttribute, isAscending, pageSize, pageNumber);
+  }
+  
+  public static PersonWithDelegatesViewQuery getPage(PersonWithDelegatesViewQuery query, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
     if (sortAttribute == null)
     {
       sortAttribute = FIRSTNAME;

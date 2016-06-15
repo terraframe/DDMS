@@ -8,12 +8,14 @@ import java.sql.Savepoint;
 import java.sql.Timestamp;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.MdAttributeCharacterInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -22,6 +24,7 @@ import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 import com.runwaysdk.dataaccess.database.general.PostgreSQL;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -255,10 +258,10 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
       
       deleteTermFromAllPaths(sCurrent);
       
-      OIterator<? extends Term> children = tCurrent.getAllChildTerm();
-      for (Term child: children)
+      List<String> children = Term.getChildIds(tCurrent.getId(), null);
+      for (String child: children)
       {
-        qNext.offer(child.getId());
+        qNext.offer(child);
       }
     }
   }
@@ -457,7 +460,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
 
     if (copyChildren)
     {
-      // Update paths of the children.
+      // Update paths of the children.  
       List<String> childOfChildIdList = Term.getChildIds(childId, ontologyRelationshipId);
       for (String childOfChild : childOfChildIdList)
       {
@@ -482,14 +485,27 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
 
     try
     {
-
-      // Check if the entry already exists. If so, don't create it.
       AllPaths allPaths = new AllPaths();
       allPaths.setValue(AllPaths.PARENTTERM, parentId);
       allPaths.setValue(AllPaths.CHILDTERM, childId);
       allPaths.setValue(AllPaths.ONTOLOGYRELATIONSHIP, ontologyRelationship);
       allPaths.apply();
-
+      
+      // Performing this via insert statement and bypassing the validation in the object API is 15% faster
+//      MdBusinessDAO mdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS).getBusinessDAO();
+//      String allPathsTbl = mdBiz.getTableName();
+//      List<String> tableAttrs = Arrays.asList( MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS );
+//      List<String> columns = Arrays.asList(mdBiz.definesAttribute(AllPaths.PARENTTERM).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDTERM).getColumnName(), mdBiz.definesAttribute(AllPaths.ONTOLOGYRELATIONSHIP).getColumnName());
+//      
+//      List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
+//      
+//      List<String> bindVals = Arrays.asList("?","?","?");
+//      List<Object> vals = Arrays.asList(parentId, childId, ontologyRelationship);
+//      
+//      PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(allPathsTbl, columns, bindVals, vals, tableAttrs);
+//      statements.add(preparedStmt);
+//      
+//      Database.executeStatementBatch(statements);
     }
     catch (DuplicateDataDatabaseException ex)
     {

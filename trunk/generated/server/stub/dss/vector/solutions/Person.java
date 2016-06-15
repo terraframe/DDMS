@@ -10,7 +10,6 @@ import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -299,36 +298,41 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     return view;
   }
 
+  /**
+   * Invoke this on PersonView instead.
+   */
+  @Deprecated
   public PersonWithDelegatesViewQuery searchForDuplicates()
   {
-    PersonWithDelegatesViewQuery query = new PersonWithDelegatesViewQuery(new QueryFactory());
-
-    String firstName = this.getFirstName();
-    String lastName = this.getLastName();
-    Date dob = this.getDateOfBirth();
-    Term sex = this.getSex();
-
-    if (firstName.length() > 0)
-    {
-      query.WHERE(query.getFirstName().EQ(firstName));
-    }
-
-    if (lastName.length() > 0)
-    {
-      query.WHERE(query.getLastName().EQ(lastName));
-    }
-
-    if (dob != null)
-    {
-      query.WHERE(query.getDateOfBirth().EQ(dob));
-    }
-
-    if (sex != null)
-    {
-      query.WHERE(query.getSex().EQ(sex));
-    }
-
-    return query;
+//    PersonWithDelegatesViewQuery query = new PersonWithDelegatesViewQuery(new QueryFactory());
+//
+//    String firstName = this.getFirstName();
+//    String lastName = this.getLastName();
+//    Date dob = this.getDateOfBirth();
+//    Term sex = this.getSex();
+//
+//    if (firstName.length() > 0)
+//    {
+//      query.WHERE(query.getFirstName().EQ(firstName));
+//    }
+//
+//    if (lastName.length() > 0)
+//    {
+//      query.WHERE(query.getLastName().EQ(lastName));
+//    }
+//
+//    if (dob != null)
+//    {
+//      query.WHERE(query.getDateOfBirth().EQ(dob));
+//    }
+//
+//    if (sex != null)
+//    {
+//      query.WHERE(query.getSex().EQ(sex));
+//    }
+//
+//    return query;
+    throw new UnsupportedOperationException();
   }
 
   public static Person lockPerson(String id)

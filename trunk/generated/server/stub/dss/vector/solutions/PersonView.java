@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.PersonWithDelegatesViewQuery.DefaultPersonWithDelegatesViewBuilder;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
@@ -507,38 +508,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
   @Override
   public PersonWithDelegatesViewQuery getDuplicatesPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    PersonWithDelegatesViewQuery query = PersonWithDelegatesView.getPage(sortAttribute, isAscending, pageSize, pageNumber);
-
-    String firstName = this.getFirstName();
-    String lastName = this.getLastName();
-    Date dob = this.getDateOfBirth();
-    Term sex = this.getSex();
-    String identifier = this.getIdentifier();
-
-    if (firstName.length() > 0)
-    {
-      query.WHERE(query.getFirstName().EQi(firstName));
-    }
-
-    if (lastName.length() > 0)
-    {
-      query.WHERE(query.getLastName().EQi(lastName));
-    }
-
-    if (dob != null)
-    {
-      query.WHERE(query.getDateOfBirth().EQ(dob));
-    }
-
-    if (sex != null)
-    {
-      query.WHERE(query.getSex().EQ(sex));
-    }
-
-    if (identifier == null || identifier.length() == 0)
-    {
-      query.WHERE(query.getIdentifier().EQ((String) null));
-    }
+    PersonWithDelegatesViewQuery query = PersonWithDelegatesView.getPage(new PersonWithDelegatesViewQuery(new QueryFactory(), this), sortAttribute, isAscending, pageSize, pageNumber);
 
     return query;
   }
