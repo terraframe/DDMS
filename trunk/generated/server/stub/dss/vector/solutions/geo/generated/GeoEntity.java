@@ -1494,15 +1494,21 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     }
 
     this.addLocatedInGeoEntity(parent).applyWithoutCreatingAllPaths();
-
-    if (cloneOperation)
+    
+    // Update the allpaths table
+    // There are 3 different contexts this method can be invoked in:
+    if (cloneOperation) // 1) We're creating a new relationship with a new parent
     {
       copyTermFast(parentGeoEntityId, this.getId());
     }
-    else if (!isNew)
+    else if (!isNew) // 2) We're moving this node from one parent to another (delete and create relationship)
     {
       deleteEntityAndChildrenFromAllPaths(this.getId());
       updateAllPathForGeoEntity(this.getId(), null);
+    }
+    else if (!cloneOperation && isNew) // 3) This is a new GeoEntity so we're giving it it's first parent.
+    {
+      updateAllPathForGeoEntity(this.getId(), parent.getId());
     }
 
     // update this GeoEntity and all its

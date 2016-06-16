@@ -664,14 +664,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     // update the AllPaths table
-    if (cloneOperation)
+    // There are 3 different contexts this method can be invoked in:
+    if (cloneOperation) // 1) We're creating a new relationship with a new parent
     {
       AllPaths.copyTermFast(parentTermId, this.getId(), ontRel.getId());
     }
-    else if (!isNew)
+    else if (!isNew) // 2) We're moving this node from one parent to another (delete and create relationship)
     {
       AllPaths.deleteTermAndChildrenFromAllPaths(this.getId());
       AllPaths.updateAllPathForTerm(this.getId(), null, ontRel.getId());
+    }
+    else if (!cloneOperation && isNew)  // 3) This is a new Term so we're giving it it's first parent.
+    {
+      AllPaths.updateAllPathForTerm(this.getId(), parent.getId(), ontRel.getId());
     }
 
     if (inactive != null)
