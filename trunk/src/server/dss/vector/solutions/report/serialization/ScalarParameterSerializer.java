@@ -101,7 +101,7 @@ public class ScalarParameterSerializer extends ParameterSerializer
             {
               String defaultValueString = this.getDefaultValue(scalar, values[i]);
 
-              if (!this.containsDefaultValue(collection, defaultValueString))
+              if (!this.containsDefaultValue(collection, defaultValue))
               {
                 JSONObject option = new JSONObject();
                 option.put("label", defaultValueString);
@@ -111,7 +111,7 @@ public class ScalarParameterSerializer extends ParameterSerializer
               }
             }
           }
-          else if (!this.containsDefaultValue(collection, convertedDefaultValue))
+          else if (!this.containsDefaultValue(collection, defaultValue))
           {
             JSONObject option = new JSONObject();
             option.put("label", convertedDefaultValue);
@@ -224,7 +224,7 @@ public class ScalarParameterSerializer extends ParameterSerializer
     return null;
   }
   
-  protected boolean containsDefaultValue(Collection<IParameterSelectionChoice> collection, String defaultValue)
+  protected boolean containsDefaultValue(Collection<IParameterSelectionChoice> collection, Object defaultValue)
   {
     for (IParameterSelectionChoice selectionItem : collection)
     {

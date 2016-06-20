@@ -479,9 +479,15 @@
         var options = this._model.getOptions();
         
         for (var i = 0; i < options.length; i++) {
+          var label = options[i].label;
+          if (label == null)
+          {
+            label = options[i].value;
+          }
+          
           var option = this.getFactory().newElement('option');
           option.setAttribute('value', options[i].value);
-          option.setInnerHTML(options[i].label);
+          option.setInnerHTML(label);
           
           this._widget.appendChild(option)
         }          
@@ -982,6 +988,11 @@
       },
       getPromptText : function()
       {
+        if (this._promptText == null)
+        {
+          return this.getName();
+        }
+        
         return this._promptText;
       },
       setValue : function(value) {
