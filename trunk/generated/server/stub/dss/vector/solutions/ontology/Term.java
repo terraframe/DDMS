@@ -1865,7 +1865,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
   /**
    * MdMethod
    */
-  @Override
   public void export(java.io.OutputStream outputStream)
   {
     OntologyExcelExporter exporter = new OntologyExcelExporter(this, outputStream);
