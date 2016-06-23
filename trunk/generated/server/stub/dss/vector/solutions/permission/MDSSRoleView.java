@@ -10,6 +10,8 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdClassDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -198,6 +200,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
     RoleDAO role = this.getRole().getBusinessDAO();
     boolean hasUniversalPermissions = false;
+    MdDimensionDAOIF dimension = Session.getCurrentDimension();
 
     for (UniversalPermissionView view : permissions)
     {
@@ -208,10 +211,18 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.revokePermission(Operation.DENY_CREATE, universal.getId());
         role.revokePermission(Operation.DENY_WRITE, universal.getId());
         role.revokePermission(Operation.DENY_DELETE, universal.getId());
-        
         role.grantPermission(Operation.CREATE, universal.getId());
         role.grantPermission(Operation.WRITE, universal.getId());
         role.grantPermission(Operation.DELETE, universal.getId());
+        
+        // Don't forget about the dimension...
+        String mdClassDim = universal.getMdClassDimension(dimension).getId();
+        role.revokePermission(Operation.DENY_CREATE, mdClassDim);
+        role.revokePermission(Operation.DENY_WRITE, mdClassDim);
+        role.revokePermission(Operation.DENY_DELETE, mdClassDim);
+        role.grantPermission(Operation.CREATE, mdClassDim);
+        role.grantPermission(Operation.DELETE, mdClassDim);
+        role.grantPermission(Operation.WRITE, mdClassDim);
 
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
 
@@ -227,10 +238,18 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.revokePermission(Operation.CREATE, universal.getId());
         role.revokePermission(Operation.WRITE, universal.getId());
         role.revokePermission(Operation.DELETE, universal.getId());
-        
         role.grantPermission(Operation.DENY_CREATE, universal.getId());
         role.grantPermission(Operation.DENY_DELETE, universal.getId());
         role.grantPermission(Operation.DENY_WRITE, universal.getId());
+        
+        // Don't forget about the dimension...
+        String mdClassDim = universal.getMdClassDimension(dimension).getId();
+        role.revokePermission(Operation.CREATE, mdClassDim);
+        role.revokePermission(Operation.WRITE, mdClassDim);
+        role.revokePermission(Operation.DELETE, mdClassDim);
+        role.grantPermission(Operation.DENY_CREATE, mdClassDim);
+        role.grantPermission(Operation.DENY_DELETE, mdClassDim);
+        role.grantPermission(Operation.DENY_WRITE, mdClassDim);
 
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
 
