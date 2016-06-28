@@ -37,7 +37,7 @@ public class BIRTVaultResourceResolver implements Reloadable, IResourceLocator
     return resolve(filePath);
   }
   
-  private URL resolve(String filePath)
+  public URL resolve(String filePath)
   {
     // When making PDF's for some reason BIRT will give a URL back to us that we've already resolved. So, lets check if what we've been given already exists.
     try

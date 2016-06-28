@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +34,19 @@ import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunTask;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
+import org.eclipse.birt.report.model.api.DesignElementHandle;
+import org.eclipse.birt.report.model.api.ImageHandle;
+import org.eclipse.birt.report.model.api.IncludeScriptHandle;
+import org.eclipse.birt.report.model.api.LibraryHandle;
+import org.eclipse.birt.report.model.api.ReportDesignHandle;
+import org.eclipse.birt.report.model.api.ScriptLibHandle;
+import org.eclipse.birt.report.model.api.SlotHandle;
+import org.eclipse.birt.report.model.api.elements.DesignChoiceConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
@@ -72,6 +85,8 @@ import dss.vector.solutions.util.BirtEngine;
 public class ReportItem extends ReportItemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID      = -935561311;
+  
+  private static Logger logger = LoggerFactory.getLogger(ReportItem.class);
 
   private static final String TEMP_REPORT_PREFIX    = "birt-temp-doc-archive";
 
@@ -527,6 +542,144 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       throw new RuntimeException("Unable to generate the report document", e);
     }
   }
+  
+  /**
+   * MdMethod
+   * 
+   * Invoked in the report manager's "view" page to get a quick list of any issues the report is expected to have. 
+   * 
+   * @return A serialized JSON string of report problems.
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public String getReportProblems()
+  {
+    this.validatePermissions();
+    
+    try
+    {
+      // Open the BIRT document
+      RenderContext context = this.createRenderContext("", new ReportParameter[]{});
+      File fDocument = this.getReportDocument(context);
+      IDocArchiveReader reader = new ArchiveReader(fDocument.getAbsolutePath());
+      IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
+  
+      HashMap<String, Object> contextMap = new HashMap<String, Object>();
+      contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
+  
+      IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
+      ReportDesignHandle design = document.getReportDesign(); 
+      
+      // Read the resources
+      List<String> resources = new ArrayList<String>();
+      
+      // Properties files
+      resources.addAll(design.getIncludeResources());
+      
+      // Javascript files
+      List<IncludeScriptHandle> jsResources = design.getAllIncludeScripts();
+      for (IncludeScriptHandle resource : jsResources)
+      {
+        resources.add(resource.getFileName());
+      }
+      
+      // Libraries
+      List<LibraryHandle> libRess = design.getAllLibraries();
+      for (LibraryHandle libRes : libRess)
+      {
+        resources.add(libRes.getFileName());
+      }
+      
+      // Jars
+      List<ScriptLibHandle> jarRess = design.getAllScriptLibs();
+      for (ScriptLibHandle jarRes : jarRess)
+      {
+        resources.add(jarRes.getName());
+      }
+      
+      // There is unfortunately no getter for images. design.getAllImages only returns EMBEDDED images, which we don't care about.
+      // We have to loop over all the elements and check if its an image.
+      resources.addAll(this.getAllImages(design.getBody()));
+      
+      // Ensure that all these resources exist
+      List<String> missingResources = new ArrayList<String>();
+      BIRTVaultResourceResolver vaultResolver = new BIRTVaultResourceResolver();
+      for (String resource : resources)
+      {
+        URL url = null;
+        try
+        {
+          url = vaultResolver.resolve(resource);
+        }
+        catch (ReportResourcesException e)
+        {
+          // Don't care about your exceptions
+        }
+        
+        if (url == null)
+        {
+          missingResources.add(resource);
+        }
+        else
+        {
+          try
+          {
+            InputStream is = url.openStream();
+            is.close();
+          }
+          catch (IOException e)
+          {
+            missingResources.add(resource);
+          }
+        }
+      }
+      
+      // Serialize them to JSON
+      JSONObject json = new JSONObject();
+      JSONArray jaMissingRes = new JSONArray();
+      for (String res : missingResources)
+      {
+        jaMissingRes.put(res);
+      }
+      json.put("missingResources", jaMissingRes);
+      return json.toString();
+    }
+    catch (BirtException | IOException | JSONException e)
+    {
+      logger.error("Something went wrong while fetching report problems.", e);
+      throw new RuntimeException(e); // TODO : REMOVE THIS I'M ONLY DOING THIS FOR DEV NOT PRODUCTION
+    }
+  }
+  
+  //There is unfortunately no getter for images. design.getAllImages only returns EMBEDDED images, which we don't care about.
+  // We have to loop over all the elements and check if its an image.
+  @SuppressWarnings("unchecked")
+  private List<String> getAllImages(SlotHandle slot)
+  {
+    List<String> resources = new ArrayList<String>();
+    
+    List<DesignElementHandle> children = slot.getContents();
+    for (DesignElementHandle child : children)
+    {
+      if (child instanceof ImageHandle)
+      {
+        ImageHandle img = (ImageHandle) child;
+        
+        if (img.getSource().equals(DesignChoiceConstants.IMAGE_REF_TYPE_FILE))
+        {
+          resources.add(img.getFile());
+        }
+      }
+      
+      Iterator<SlotHandle> iterator = child.slotsIterator();
+      while (iterator.hasNext())
+      {
+        resources.addAll(getAllImages(iterator.next()));
+      }
+    }
+    
+    return resources;
+  }
 
   private Long renderFromDocument(OutputStream outputStream, IDocArchiveReader reader, RenderContext context) throws BirtException, EngineException
   {
@@ -536,7 +689,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
 
     IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
-
+    
     try
     {
       IRenderTask task = engine.createRenderTask(document);

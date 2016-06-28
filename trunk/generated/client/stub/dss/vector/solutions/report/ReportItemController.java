@@ -2,10 +2,15 @@ package dss.vector.solutions.report;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
@@ -168,6 +173,8 @@ public class ReportItemController extends ReportItemControllerBase implements co
     }
     catch (Throwable t)
     {
+      t.printStackTrace();
+      
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
       if (!redirect)
       {
@@ -187,6 +194,8 @@ public class ReportItemController extends ReportItemControllerBase implements co
     }
     catch (Throwable t)
     {
+      t.printStackTrace();
+      
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
       if (!redirect)
       {
@@ -219,6 +228,8 @@ public class ReportItemController extends ReportItemControllerBase implements co
     }
     catch (Throwable t)
     {
+      t.printStackTrace();
+      
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
       if (!redirect)
@@ -238,10 +249,32 @@ public class ReportItemController extends ReportItemControllerBase implements co
   {
     try
     {
+      // Fetch the report problems
+      String sJson = ReportItemDTO.getReportProblems(this.getClientRequest(), id);
+      
+      if (sJson != null && !sJson.equals(""))
+      {
+        // Add missingResources to the request
+        JSONObject oJson = new JSONObject(sJson);
+        JSONArray jaMissingRes = oJson.getJSONArray("missingResources");
+        String[] aMissingRes = new String[jaMissingRes.length()];
+        for (int i = 0; i < jaMissingRes.length(); ++i)
+        {
+          String sMissingRes = jaMissingRes.getString(i);
+          aMissingRes[i] = sMissingRes;
+        }
+        if (aMissingRes.length > 0)
+        {
+          this.req.setAttribute("missingResources", aMissingRes);
+        }
+      }
+      
       this.view(ReportItemDTO.get(super.getClientRequest(), id));
     }
     catch (Throwable t)
     {
+      t.printStackTrace();
+      
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
       if (!redirect)
       {
@@ -263,6 +296,8 @@ public class ReportItemController extends ReportItemControllerBase implements co
     }
     catch (Throwable t)
     {
+      t.printStackTrace();
+      
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
       if (!redirect)
       {

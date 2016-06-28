@@ -78,7 +78,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/common/log4j-1.2.16.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/runwaysdk-common"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-gis-server.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-gis-server.jar" sourcepath="/runwaysdk-gis-server"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-gis-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-gis-client.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ant/ant-contrib-1.0b3.jar"/>

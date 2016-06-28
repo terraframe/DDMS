@@ -24,10 +24,25 @@
       <mjl:dt attribute="reportName">
         ${item.reportName}
       </mjl:dt>
+      
+      <c:if test="${not empty missingResources}">
+			  <dt><label style="color: red;"><mdss:localize key="Report_Problems" /></label></dt>
+			  <dd>
+			  <table>
+			  <mdss:localize key="Missing_Resources" />
+			  <c:forEach items="${missingResources}" var="resource">
+			    <tr>
+			      <td>${resource}</td>
+			    </tr>
+			  </c:forEach>
+			  </table>
+			  </dd>
+			</c:if>
     </mjl:component>
     <mjl:command name="dss.vector.solutions.report.ReportItem.form.edit.button" value="Edit" action="dss.vector.solutions.report.ReportItemController.edit.mojo" />
   </mjl:form>
 </dl>
+
 <mjl:commandLink name="dss.vector.solutions.report.ReportItem.viewAll.link" action="dss.vector.solutions.report.ReportItemController.viewAll.mojo">
   <mdss:localize key="View_All" />
 </mjl:commandLink>
