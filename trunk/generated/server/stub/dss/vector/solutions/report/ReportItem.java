@@ -574,27 +574,40 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       List<String> resources = new ArrayList<String>();
       
       // Properties files
-      resources.addAll(design.getIncludeResources());
+      List<String> icr = design.getIncludeResources();
+      if (icr != null)
+      {
+        resources.addAll(icr);
+      }
       
       // Javascript files
       List<IncludeScriptHandle> jsResources = design.getAllIncludeScripts();
-      for (IncludeScriptHandle resource : jsResources)
+      if (jsResources != null)
       {
-        resources.add(resource.getFileName());
+        for (IncludeScriptHandle resource : jsResources)
+        {
+          resources.add(resource.getFileName());
+        }
       }
       
       // Libraries
       List<LibraryHandle> libRess = design.getAllLibraries();
-      for (LibraryHandle libRes : libRess)
+      if (libRess != null)
       {
-        resources.add(libRes.getFileName());
+        for (LibraryHandle libRes : libRess)
+        {
+          resources.add(libRes.getFileName());
+        }
       }
       
       // Jars
       List<ScriptLibHandle> jarRess = design.getAllScriptLibs();
-      for (ScriptLibHandle jarRes : jarRess)
+      if (jarRess != null)
       {
-        resources.add(jarRes.getName());
+        for (ScriptLibHandle jarRes : jarRess)
+        {
+          resources.add(jarRes.getName());
+        }
       }
       
       // There is unfortunately no getter for images. design.getAllImages only returns EMBEDDED images, which we don't care about.
@@ -659,22 +672,25 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     List<String> resources = new ArrayList<String>();
     
     List<DesignElementHandle> children = slot.getContents();
-    for (DesignElementHandle child : children)
+    if (children != null)
     {
-      if (child instanceof ImageHandle)
+      for (DesignElementHandle child : children)
       {
-        ImageHandle img = (ImageHandle) child;
-        
-        if (img.getSource().equals(DesignChoiceConstants.IMAGE_REF_TYPE_FILE))
+        if (child instanceof ImageHandle)
         {
-          resources.add(img.getFile());
+          ImageHandle img = (ImageHandle) child;
+          
+          if (img.getSource().equals(DesignChoiceConstants.IMAGE_REF_TYPE_FILE))
+          {
+            resources.add(img.getFile());
+          }
         }
-      }
-      
-      Iterator<SlotHandle> iterator = child.slotsIterator();
-      while (iterator.hasNext())
-      {
-        resources.addAll(getAllImages(iterator.next()));
+        
+        Iterator<SlotHandle> iterator = child.slotsIterator();
+        while (iterator.hasNext())
+        {
+          resources.addAll(getAllImages(iterator.next()));
+        }
       }
     }
     
