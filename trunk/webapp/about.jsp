@@ -21,7 +21,7 @@
   <dd>
     <ul>
       <li> Colorado State University (<a href="http://www.colostate.edu">www.colostate.edu</a>) </li>
-      <li> TerraFrame, Inc. (<a href="http://www.terraframe.com/">www.terraframe.com/pages/</a>) </li>
+      <li> TerraFrame, Inc. (<a href="http://www.terraframe.com/">www.terraframe.com/</a>) </li>
     </ul>
   </dd>
   <dt><mdss:localize key="funding_by"/>:</dt>
