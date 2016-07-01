@@ -250,6 +250,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
       else // If I have multiple parents, add to list for post step
       {
+        if (s.size() == 0)
+        {
+          AllPaths.deleteLeafFromAllPaths(current.getId());
+          current.delete(false);
+          break;
+        }
+        
         List<String> parentIds = new ArrayList<String>();
         for (Term parent : parents)
         {

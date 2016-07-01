@@ -677,7 +677,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         {
           Database.deleteWhere(TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
           
-          deleteLeafFromAllPaths(current.getId());
+          deleteEntityFromAllPaths(current.getId());
           current.delete(false);
         }
       }
