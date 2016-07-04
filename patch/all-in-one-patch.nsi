@@ -26,14 +26,11 @@ RequestExecutionLevel highest
 !include FileFunc.nsh
 !include x64.nsh
 !include nsProcess.nsh
+
+Var /GLOBAL switch_overwrite
 !include 'MoveFileFolder.nsh'
 
 !insertmacro Locate
-
-# Configure our MoveFileFolder plugin.
-# http://nsis.sourceforge.net/MoveFileFolder
-Var /GLOBAL switch_overwrite
-StrCpy $switch_overwrite 0
 
 # Define access to the StrTrimNewLines function
 !macro StrTrimNewLines ResultVar String
@@ -188,20 +185,20 @@ Section -Main SEC0000
   ${EndIf}
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 7963
+  StrCpy $RunwayVersion 8220
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8183
-  StrCpy $PatchVersion 8183
+  StrCpy $ManagerVersion 8219
+  StrCpy $PatchVersion 8219
   StrCpy $TermsVersion 7764
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 7786
-  StrCpy $LocalizationVersion 7930
+  StrCpy $LocalizationVersion 8199
   StrCpy $PermissionsVersion 8117
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
   StrCpy $WebappsVersion 8118
   StrCpy $JavaVersion 8188
-  StrCpy $TomcatVersion 8159
+  StrCpy $TomcatVersion 8190
   
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
@@ -212,7 +209,13 @@ Section -Main SEC0000
   StrCpy $PrimaryLogFile "$AgentDir\patcher.log"
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
   
+  CreateDirectory "$AgentDir"
+  ClearErrors
   LogEx::Init "$PrimaryLogFile"
+  
+  # Configure our MoveFileFolder plugin.
+  # http://nsis.sourceforge.net/MoveFileFolder
+  StrCpy $switch_overwrite 0
   
   # Determine the location of java home.  
   ${IfNot} ${RunningX64}
@@ -287,32 +290,22 @@ Section -Main SEC0000
   CreateDirectory $AgentDir
   
   #####################################################################
-  # First we must patch any runway metadata changes for all of the apps
-  #####################################################################
-  Call patchAllMetadata
-
-  #####################################################################
-  # Next we must patch the manager jars and associated files
-  #####################################################################
-  Call patchManager  
-  
-  #####################################################################
-  # Next we must patch default installer stage artifacts
+  # Patch installer stage artifacts (Java, Postgres, BIRT)
   #####################################################################
   Call patchInstallerStage
   
-  # Custom Database patching script #
-  ClearErrors
-  ReadRegStr $0 HKLM "${REGKEY}\Components" DatabaseSoftware
-  IfErrors DbSoftwareErrors
-  ${If} $DatabaseSoftwareVersion > $0
-    DbSoftwareErrors:
-    Call upgradePostgresAndPostgis
-  ${Else}
-    LogEx::Write "Skipping database software patch because the software is up to date."
-    DetailPrint "Skipping database software patch because the software is up to date."
-  ${EndIf}
+  #####################################################################
+  # Patch the manager jars and associated files
+  #####################################################################
+  Call patchManager
   
+  Call patchProperties
+  
+  #####################################################################
+  # Patch any runway metadata changes for all of the apps
+  #####################################################################
+  Call patchAllMetadata
+
   #####################################################################
   # Finally we can patch master applications
   #####################################################################
@@ -433,8 +426,33 @@ Function patchApplications
   FileClose $AppFile
 FunctionEnd
 
-# This function will patch the properties files, for the current $AppName
+# This function will patch the properties files for all apps
 Function patchProperties
+  # Loop over all the apps
+  ClearErrors
+  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+  PROPSappNameFileReadLoop:
+  FileRead $AppFile $1 # Read a line from the file into $1
+  IfErrors PROPSappNameDone # Errors means end of File
+  ${StrTrimNewLines} $1 $1 # Removes the newline from the end of $1
+  Push $1
+  Pop $AppName
+
+  
+	# Ticket 3259 : Patch the vault props for all apps
+	${If} 8195 > $6
+	  LogEx::Write "Patching vault properties for app $AppName (3259)."
+      
+	  Push default=C:/Tomcat/webapps/MDSS/WEB-INF/vault                   # text to be replaced
+      Push default=$INSTDIR\vault                                         # replace with
+      Push all                                                            # replace all occurrences
+      Push all                                                            # replace all occurrences
+      Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\vault.properties      # file to replace in
+      Call AdvReplaceInFile
+	${Else}
+	  LogEx::Write "Skipping vault patch of $AppName because it is already up to date."
+	${EndIf}
+
     # Before we start, check the versions
 	ClearErrors
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Properties
@@ -503,6 +521,12 @@ Function patchProperties
     ${Else}
 	    LogEx::Write "Skipping properties patch of $AppName because it is already up to date."
     ${EndIf}
+	
+	
+  Goto PROPSappNameFileReadLoop
+  PROPSappNameDone:
+  ClearErrors
+  FileClose $AppFile
 FunctionEnd
 
 Function patchApplication    
@@ -533,9 +557,7 @@ Function patchApplication
       File /r /x .svn ..\trunk\patches\webapp\*
       File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
 
-	  Call patchProperties
-	  
-      # We need to clear the old cache
+	  # We need to clear the old cache
 	  RMDir /r $INSTDIR\tomcat\cache
 	  
 	  # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
@@ -554,14 +576,14 @@ Function patchApplication
       ${If} $IdVersion > $0
 	    LogEx::Write "Migrating system ids"
         StrCpy $Phase "Updating root ids, this process can several hours to complete."		
-		push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
+		push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
         Call execDos
 		
 		# We need to re-clear the old cache
 		RMDir /r $INSTDIR\tomcat\cache
 		
         StrCpy $Phase "Updating system ids, this process can several hours to complete."		
-		push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
+		push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
         Call execDos
 		
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
@@ -856,10 +878,10 @@ Function patchManager
 	
 	# Move the vault to the correct place (ticket 3259)
     ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" PatchVersion
-  	${If} 8193 > $6
+  	${If} 8195 > $6
 	  LogEx::Write "Moving the vault to the correct place (3259)."
       
-	  MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
+	  !insertmacro MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
 	  ClearErrors
 	${EndIf}
 	
@@ -908,20 +930,6 @@ Function patchManager
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
   
-    
-	# Ticket 3259 : Patch the vault props for all apps
-	${If} 8193 > $6
-	  LogEx::Write "Patching vault properties for app $1 (3259)."
-      
-	  Push default=C:/Tomcat/webapps/MDSS/WEB-INF/vault                   # text to be replaced
-      Push default=$INSTDIR\vault                                         # replace with
-      Push all                                                            # replace all occurrences
-      Push all                                                            # replace all occurrences
-      Push $INSTDIR\tomcat\webapps\$1\WEB-INF\classes\vault.properties      # file to replace in
-      Call AdvReplaceInFile  
-	${EndIf}
-  
-  
     Goto appNameFileReadLoop
         
     appNameDone:
@@ -939,7 +947,7 @@ FunctionEnd
 
 Function patchInstallerStage
   ################################################################################
-  # Copy over the jdk
+  # Copy over the jdk. We want to do this first because we need the $Java variable to be accurate asap
   ################################################################################
 
   !insertmacro MUI_HEADER_TEXT "Patching Java" "Patching Java"
@@ -961,7 +969,21 @@ Function patchInstallerStage
   ${Else}
     DetailPrint "Java is already up to date"
 	LogEx::Write "Java is already up to date"
-  ${EndIf}    
+  ${EndIf}   
+
+  ################################################################################
+  # Database Patching
+  ################################################################################
+  ClearErrors
+  ReadRegStr $0 HKLM "${REGKEY}\Components" DatabaseSoftware
+  IfErrors DbSoftwareErrors
+  ${If} $DatabaseSoftwareVersion > $0
+    DbSoftwareErrors:
+    Call upgradePostgresAndPostgis
+  ${Else}
+    LogEx::Write "Skipping database software patch because the software is up to date."
+    DetailPrint "Skipping database software patch because the software is up to date."
+  ${EndIf} 
   
   ################################################################################
   # Copy over the Birt
@@ -987,38 +1009,10 @@ Function patchInstallerStage
   ${Else}
     DetailPrint "Birt is already up to date"
     LogEx::Write "BIRT is already up to date."
-  ${EndIf}    
-  
-  ################################################################################
-  # Copy over the webapps changes
-  ################################################################################
-
-  !insertmacro MUI_HEADER_TEXT "Patching Tomcat webapps" "Patching Tomcat webapps"
-  
-  # Before we start, check the versions to make sure this is actually a patch.
-  ReadRegStr $0 HKLM "${REGKEY}\Components" Webapps
-  ${If} $WebappsVersion > $0 
-    LogEx::Write "Patching tomcat webapps."
-  
-    # Delete the existing birt web app files
-	RMDir /r $INSTDIR\tomcat\webapps\birt\logs
-	RMDir /r $INSTDIR\tomcat\webapps\birt\report
-	RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
-	RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
-	RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
-  
-    # Copy over the new webapp files
-    SetOutPath $INSTDIR\tomcat\webapps
-    File /r /x .svn /x .war ..\installer-stage\tomcat\webapps\*  
-  
-    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
-  ${Else}
-    DetailPrint "Webapps directory is already up to date"
-    LogEx::Write "Webapps directory is already up to date"
-  ${EndIf}
+  ${EndIf} 
 
   ################################################################################
-  # Patch tomcat
+  # Upgrade tomcat
   ################################################################################
   
   ClearErrors
@@ -1065,9 +1059,6 @@ Function patchInstallerStage
     SimpleSC::RemoveService "Tomcat6"
   ${EndIf}
   
-  
-  
-  
   SimpleSC::ExistsService "Tomcat"
   Pop $0
   
@@ -1087,6 +1078,35 @@ Function patchInstallerStage
   LogEx::Write "Update tomcat memory parameters."
   push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
   Call execDos
+  
+  
+  ################################################################################
+  # Update tomcat webapps
+  ################################################################################
+
+  !insertmacro MUI_HEADER_TEXT "Patching Tomcat webapps" "Patching Tomcat webapps"
+  
+  # Before we start, check the versions to make sure this is actually a patch.
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Webapps
+  ${If} $WebappsVersion > $0 
+    LogEx::Write "Patching tomcat webapps."
+  
+    # Delete the existing birt web app files
+	RMDir /r $INSTDIR\tomcat\webapps\birt\logs
+	RMDir /r $INSTDIR\tomcat\webapps\birt\report
+	RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
+	RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
+	RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
+  
+    # Copy over the new webapp files
+    SetOutPath $INSTDIR\tomcat\webapps
+    File /r /x .svn /x .war ..\installer-stage\tomcat\webapps\*  
+  
+    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
+  ${Else}
+    DetailPrint "Webapps directory is already up to date"
+    LogEx::Write "Webapps directory is already up to date"
+  ${EndIf}
 FunctionEnd
 
 
@@ -1469,11 +1489,13 @@ Function migrateDatabaseSoftware
 	# Uninstall old Postgres & PostGIS
 	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Uninstalling old software"
     LogEx::Write "Uninstalling old software"
-	push `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.5-1.exe" /S`
+	push `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.3-2.exe" /S`
 	Call execDos
+	
     push `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
 	Call execDos
-    RmDir /r "$INSTDIR\PostgreSql"
+	
+	RmDir /r "$INSTDIR\PostgreSql"
 	
 	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Installing PostgreSQL 9.4"
     LogEx::Write "Installing Postgres 9.4."
@@ -1487,6 +1509,8 @@ Function migrateDatabaseSoftware
 	  push `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	  Call execDos
 	${EndIf}
+	
+	#MessageBox MB_OK|MB_ICONINFORMATION "Please run through the postgres installer and click OK here when finished."
 	
 	push ${POSTGRES_DIR}
     Call stopPostgres
