@@ -95,6 +95,8 @@ Var MaxMem                  # Max amount of memory to give Tomcat and the instal
 Var PermMem                 # Max amount of perm gen memory to give Tomcat and the installer
 Var TomcatExec              # Path of the tomcat service executable
 Var execReturn              # Contains the return value from running an executable.
+Var execDosLogCounter       # Counter used by our logging func to know how much output has been logged so far
+Var outputTrunc
 
 
 # Installer pages
@@ -340,19 +342,19 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8168
+    StrCpy $PatchVersion 8219
     StrCpy $TermsVersion 7764
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 7786
-    StrCpy $LocalizationVersion 7930
+    StrCpy $LocalizationVersion 8199
     StrCpy $PermissionsVersion 8117
-	StrCpy $RunwayVersion 7963
+	StrCpy $RunwayVersion 8220
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8168
+	StrCpy $ManagerVersion 8219
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8118
-	StrCpy $JavaVersion 8082
-	StrCpy $TomcatVersion 8159
+	StrCpy $JavaVersion 8188
+	StrCpy $TomcatVersion 8190
 	
 	# Set up our logger
 	LogEx::Init "$INSTDIR\installer-log.txt"
@@ -641,9 +643,9 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "DO $body$ BEGIN IF NOT EXISTS ( SELECT * FROM   pg_catalog.pg_user WHERE  usename = 'mdssdeploy') THEN CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'; END IF; END $body$;"`
     Call execDos
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template_postgis OWNER=mdssdeploy"`
     Call execDos
 	
     # Restore the db from the dump file
@@ -653,6 +655,8 @@ Section -Main SEC0000
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
     Call execDos
 	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+	Call execDos
+	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
 	Call execDos
 	
     # Update the installation number
@@ -986,41 +990,32 @@ Function findFireFox
     FDone:
 FunctionEnd
 
-Function execDos
-  pop $9
-  push "ExecDos::End" # Add a marker for the loop to test for.
-  LogEx::Write "execDos  >  Executing command [$9]"
-  ExecDos::exec /NOUNLOAD /TOSTACK $9 "" "$AgentDir\postgresController.out"
-  pop $8 # return value
-  
-  # Print output from exec invocation
-  StrCpy $7 0
-  Loop:
-    pop $6
-    StrCmp $6 "ExecDos::End" ExitLoop
-	StrCmp $6 "$AgentDir\postgresController.out" SkipWrite
-    LogEx::Write "execDos  >  $6"
-	
-	SkipWrite:
-	IntOp $7 $7 + 1
-    ${If} $7 > 500 # You can increase this number to get more output
-	  LogEx::Write "execDos  >  ... additional output truncated ..."
-	  Goto ExitLoop
-	${Else}
-      Goto Loop
+Function execDosLogFunc
+    ${If} $execDosLogCounter < $outputTrunc
+        LogEx::Write "execDos > $0"
+        Pop $0
+	${ElseIf} $execDosLogCounter == $outputTrunc
+	    LogEx::Write "execDos > ... additional output truncated ..."
 	${EndIf}
-  ExitLoop:
+FunctionEnd
+Function execDos
+  StrCpy $execDosLogCounter 0
+  StrCpy $outputTrunc 500 # You can increase this number to get more output
+
+  pop $9
+  GetFunctionAddress $R2 execDosLogFunc
+  LogEx::Write "execDos  >  Executing command [$9]"
+  ExecDos::exec /TOFUNC $9 "" "$AgentDir\postgresController.out" "" $R2
+  pop $8 # return value
   
   StrCmp $8 0 WeAreDone
   
-  # Error handling
+  # Error handling with abort retry ignore
   LogEx::Write `ExecDos returned $8`
   MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this installer is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
   Goto WeAreDone # Ignore
   Abort_Clicked:
   Abort
-  #StrCpy $JavaError 1
-  #Call JavaAbort
   Retry_Clicked:
   push $9
   Call execDos

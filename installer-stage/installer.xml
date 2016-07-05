@@ -70,15 +70,39 @@
   </taskdef>
  
 <!--
-  <target name="build" depends="build_installer_exe"/>
-  <target name="build" depends="build-database, build_installer_exe"/>
+  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 15 minutes)
+  <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
+  <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="build-database, build_installer_exe"/>
-
+  <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>
   
-  <target name="build-database">
-    <echo message="Deleting directory: ${stage.webapp}/" />
+  
+  <target name="deploy">
+    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
+	  <property name="profile.root" value="${profile.root}" />
+      <property name="profile.name" value="installer" />
+	
+	  <target name="import_localization_disease_defaults"/>
+	  <target name="deploy" />
+      <target name="deploy_all_files"/>
+	</ant>
+	
+	<antcall target="set_vital_properties" />
+  </target>
+  
+  <!-- Depends on source being compiled -->
+  <target name="build-managers">
+      <exec executable="cmd" failonerror="true">
+        <arg value="/c" />
+        <arg value="${basedir}/../standalone\buildall.bat" />
+      </exec>
+	</target>
+
+  <target name="compile">
+    <echo message="Cleaning old source." />
     <delete dir="${stage.webapp}" verbose="false" />
+    <delete dir="${local.root}/bin/com/" verbose="false" />
+    <delete dir="${local.root}/bin/dss/" verbose="false" />
   
     <echo message="Rewriting terraframe.properties values local.root, deploy.root, deploy.appname, and domain/" />	
     <propertyfile file="${profile.root}/default/common/terraframe.properties">
@@ -103,8 +127,9 @@
       <property name="profile.name" value="installer" />
       <target name="compile_generated" />
     </ant>
-	
-
+  </target>
+  
+  <target name="build-database">
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
     
@@ -118,8 +143,6 @@
       <target name="rebuild_db" />
       <target name="rebuild_model" />
       <target name="import_most_recent" />
-      <target name="deploy" />
-      <target name="deploy_all_files"/>
       <target name="import_ontology" />
       <target name="import_menuitems" />
       <target name="import_ontology_roots" />
@@ -127,26 +150,15 @@
       <target name="import_geodata" />
       <target name="build_all_paths_geodata" />
       <target name="create_universal_queries"/>
-      <target name="import_localization_disease_defaults"/>
       <target name="load_permissions"/>    	  
     </ant>
 	
-    <!-- We deploy all files after localization because we need to push the updated MDSS.properties files --> 
-    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
-      <property name="profile.root" value="${profile.root}" />
-      <property name="profile.name" value="installer" />
-
-      <target name="deploy_all_files"/>    
-    </ant>
-    
     <!-- We need to update the deploy database with the source and class. -->  
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
 	<antcall target="deploy_update_db_source_and_classes" />    
 
-	
-    <antcall target="set_vital_properties" />
-    <antcall target="dump_db" />
+	<antcall target="dump_db" />
 
   </target>
 
