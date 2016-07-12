@@ -209,52 +209,29 @@ public class Term extends TermBase implements Reloadable, OptionIF
         children.close();
       }
       
-      // Does this node have multiple parents?
-      List<Term> parents = new ArrayList<Term>();
-      QueryFactory f = new QueryFactory();
-      TermRelationshipQuery q = new TermRelationshipQuery(f);
-      q.WHERE(q.childId().EQ(current.getId()));
-      OIterator<? extends TermRelationship> pRelIt = q.getIterator();
-      try {
-        while (pRelIt.hasNext())
-        {
-          parents.add(pRelIt.next().getParent());
-        }
-      }
-      finally
-      {
-        pRelIt.close();
-      }
+      // Calculate if this term has a multiParentAncestor
+      AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
+      apq2.WHERE(apq2.getChildTerm().EQ(current));
+      long ancestorCount = apq2.getCount() - 1;
+      boolean multiParentAncestor = s.size() + delRootACount < ancestorCount;
       
-      if (parents.size() == 1)
+      if (multiParentAncestor)
       {
-        Term parent = parents.get(0);
-        
-        // Count how many ancestors this term has.
-        AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
-        apq2.WHERE(apq2.getChildTerm().EQ(current));
-        long ancestorCount = apq2.getCount() - 1;
-        
-        // If one of our ancestors has multiple parents 
-        if (s.size() + delRootACount < ancestorCount)
-        {
-          insertIntoTemp(current.getId(), Arrays.asList(parent.getId()), s.size());
+        // Fetch all the term's parents to help us with inserting into the temp table
+        List<Term> parents = new ArrayList<Term>();
+        QueryFactory f = new QueryFactory();
+        TermRelationshipQuery q = new TermRelationshipQuery(f);
+        q.WHERE(q.childId().EQ(current.getId()));
+        OIterator<? extends TermRelationship> pRelIt = q.getIterator();
+        try {
+          while (pRelIt.hasNext())
+          {
+            parents.add(pRelIt.next().getParent());
+          }
         }
-        else
+        finally
         {
-          Database.deleteWhere(TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
-          
-          AllPaths.deleteTermFromAllPaths(current.getId());
-          current.delete(false);
-        }
-      }
-      else // If I have multiple parents, add to list for post step
-      {
-        if (s.size() == 0)
-        {
-          AllPaths.deleteLeafFromAllPaths(current.getId());
-          current.delete(false);
-          break;
+          pRelIt.close();
         }
         
         List<String> parentIds = new ArrayList<String>();
@@ -264,6 +241,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
         }
         
         insertIntoTemp(current.getId(), parentIds, s.size());
+      }
+      else
+      {
+        Database.deleteWhere(TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
+        
+        AllPaths.deleteTermFromAllPaths(current.getId());
+        current.delete(false);
       }
     }
     
