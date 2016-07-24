@@ -1,0 +1,76 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdController name="dss.vector.solutions.geo.GeoSynonymController" label="GeoSynonymController">
+        <mdAction name="create" label="create" isPost="true" isQuery="false">
+          <mdParameter name="view" type="dss.vector.solutions.geo.GeoSynonymArrayView" order="0"/>
+        </mdAction>
+        <mdAction name="cancel" label="cancel" isPost="true" isQuery="false">
+          <mdParameter name="view" type="dss.vector.solutions.geo.GeoSynonymArrayView" order="0"/>
+        </mdAction>
+        <mdAction name="newInstance" label="newInstance" isPost="false" isQuery="false">
+        </mdAction>
+        <mdAction name="search" label="search" isPost="false" isQuery="false">
+        </mdAction>
+        <mdAction name="view" label="view" isPost="false" isQuery="false">
+          <mdParameter name="id" type="java.lang.String" order="0"/>
+        </mdAction>
+        <mdAction name="delete" label="delete" isPost="true" isQuery="false">
+          <mdParameter name="view" type="dss.vector.solutions.geo.GeoSynonymArrayView" order="0"/>
+        </mdAction>
+        
+        <mdAction name="searchByDTO" label="search" isPost="true" isQuery="false">
+        <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.geo.GeoSynonymArrayView"/>
+          <mdParameter name="sortAttribute" label="sortAttribute" order="1" type="java.lang.String"/>
+          <mdParameter name="isAscending" label="isAscending" order="2" type="java.lang.Boolean"/>
+          <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer"/>
+          <mdParameter name="pageNumber" label="pageNumber" order="4" type="java.lang.Integer"/>
+        </mdAction>
+      </mdController>
+      <mdView name="dss.vector.solutions.geo.GeoSynonymArrayView">
+        <create>
+          <attributes>
+            <reference name="geoEntity" label="geoEntity" required="false" type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            <char name="geoEntityName" required="false" label="Geo Entity Name" size="255" />
+            <char name="geoTypeDisplayLabel" required="false" size="100" label="Universal" />
+            <char name="synonymNames" required="true"  label="SynonymNames" size="25500"/>
+            <char name="synonymIds" required="true"  label="SynonymIds" size="25500"/>
+          </attributes>
+          <mdMethod name="getMostRecent" label="getMostRecent" removable="false" returnType="dss.vector.solutions.geo.GeoSynonymArrayViewQuery" static="true"></mdMethod>
+          <mdMethod name="getGeoSynonym" label="getGeoSynonym" removable="false" returnType="dss.vector.solutions.geo.GeoSynonymArrayView" static="true">
+            <mdParameter name="geoEntityId" label="geoEntityId" order="0" type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod name="searchByView" label="searchByView" removable="false" returnType="dss.vector.solutions.geo.GeoSynonymArrayViewQuery" static="true">
+            <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.geo.GeoSynonymArrayView"/>
+            <mdParameter name="sortAttribute" label="sortAttribute" order="1" type="java.lang.String"/>
+            <mdParameter name="isAscending" label="isAscending" order="2" type="java.lang.Boolean"/>
+            <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer"/>
+            <mdParameter name="pageNumber" label="pageNumber" order="4" type="java.lang.Integer"/>
+          </mdMethod>
+          <mdMethod name="lock" label="lock" static="false" returnType="void"></mdMethod>
+          <mdMethod name="unlock" label="unlock" static="false" returnType="void"></mdMethod>
+          <mdMethod name="applyWithSynonyms" label="applyWithSynonyms" static="false" returnType="void">
+            <mdParameter name="synonyms" label="synonyms" order="0" type="dss.vector.solutions.geo.GeoSynonymView[]"/>
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.geo.GeoSynonymView">
+        <create>
+          <attributes>
+            <char name="geoSynonymId" required="false" label="GeoSynonym Id" size="64" />
+            <char name="synonymName" required="true" label="syonynmName" size="200" />
+          </attributes>
+        </create>
+      </mdView>
+    </create>
+    <update>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.geo.GeoSynonymController" type="com.runwaysdk.system.metadata.MdController"/>
+      <object key="dss.vector.solutions.geo.GeoSynonymView" type="com.runwaysdk.system.metadata.MdView"/>
+      <object key="dss.vector.solutions.geo.GeoSynonymArrayView" type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+  </undoIt>
+</version>

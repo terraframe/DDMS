@@ -19,19 +19,24 @@ public class TermNode implements Comparable<TermNode>, Reloadable
   private Term term;
   private Boolean active;
   
+  private Boolean activeByDisease;
+  private Boolean activeMalaria;
+  private Boolean activeDengue;
+  
   private List<TermNode> parents;
   private List<TermNode> children;
   private static OntologyRelationship ontRel = OntologyRelationship.getByKey(OBO.IS_A);
   
-  public TermNode()
+  public TermNode(Boolean activeByDisease)
   {
     parents = new LinkedList<TermNode>();
     children = new LinkedList<TermNode>();
+    this.activeByDisease = activeByDisease;
   }
   
-  public TermNode(Term term)
+  public TermNode(Term term, Boolean activeByDisease)
   {
-    this();
+    this(activeByDisease);
     this.term = term;
     this.id = term.getTermId();
     this.name = term.getName();
@@ -62,13 +67,31 @@ public class TermNode implements Comparable<TermNode>, Reloadable
         ip.appLock();
         Disease disease = ip.getDisease();
         
-        if (disease.equals(current))
+        if (activeByDisease)
         {
-          ip.setInactive(!active);
+       	  if (disease.equals(Disease.getMalaria()))
+          {
+            ip.setInactive(!activeMalaria);
+          }
+          else if (disease.equals(Disease.getDengue()))
+          {
+            ip.setInactive(!activeDengue);
+          }
+          else
+          {
+            ip.setInactive(false);
+          }
         }
         else
         {
-          ip.setInactive(true);
+          if (disease.equals(current))
+          {
+            ip.setInactive(!active);
+          }
+          else
+          {
+            ip.setInactive(true);
+          }
         }
         ip.apply();
       }
@@ -172,6 +195,26 @@ public class TermNode implements Comparable<TermNode>, Reloadable
   public void setActive(Boolean active)
   {
     this.active = active;
+  }
+  
+  public Boolean getActiveMalaria()
+  {
+    return activeMalaria;
+  }
+
+  public void setActiveMalaria(Boolean activeMalaria)
+  {
+    this.activeMalaria = activeMalaria;
+  }
+
+  public Boolean getActiveDengue()
+  {
+    return activeDengue;
+  }
+
+  public void setActiveDengue(Boolean activeDengue)
+  {
+    this.activeDengue = activeDengue;
   }
 
   public Integer getIndent()

@@ -48,6 +48,8 @@ public class OntologyExcelImporter implements Reloadable
 
   private static OntologyRelationship ontologyRelationship;
   
+  private boolean                     activeByDisease;
+  
   private String fileName;
 
   public static void main(String[] args) throws FileNotFoundException
@@ -135,7 +137,7 @@ public class OntologyExcelImporter implements Reloadable
     Iterator<Row> iterator = openStream(stream);
 
     // Skip the header row
-    iterator.next();
+    readHeader(iterator.next());
 
     RootTerm rootTerm = new RootTerm();
 
@@ -163,7 +165,7 @@ public class OntologyExcelImporter implements Reloadable
       rootIterator.close();
     }
 
-    TermNode root = new TermNode(rootTerm);
+    TermNode root = new TermNode(rootTerm, activeByDisease);
 
     // indent=0 means this will always be on the stack
     root.setIndent(0);
@@ -206,6 +208,23 @@ public class OntologyExcelImporter implements Reloadable
       node.applyRelationships();
     }
   }
+  
+  private void readHeader(Row row)
+  {
+    Iterator<Cell> iterator = row.cellIterator();
+    Cell cell;
+    
+    while (iterator.hasNext())
+    {
+      cell = iterator.next();
+      String header = ExcelUtil.getString(cell);
+      
+      if (cell.getColumnIndex() == 1)
+      {
+        activeByDisease = header.toLowerCase().contains("malaria");
+      }
+    }
+  }
 
   @SuppressWarnings("unchecked")
   private void readRow(Row row)
@@ -227,22 +246,45 @@ public class OntologyExcelImporter implements Reloadable
       TermNode node = getNodeById(id);
       if (node == null)
       {
-        node = new TermNode();
+        node = new TermNode(activeByDisease);
         node.setId(id);
       }
       cell = iterator.next();
 
-      if (cell.getColumnIndex() == 1)
-      {
-        node.setActive(ExcelUtil.getBoolean(cell));
-        cell = iterator.next();
-      }
-
       TermNode parentNode = null;
-      if (cell.getColumnIndex() == 2)
+      if (!activeByDisease)
       {
-        parentNode = getNodeById(ExcelUtil.getString(cell));
-        cell = iterator.next();
+        if (cell.getColumnIndex() == 1)
+        {
+          node.setActive(ExcelUtil.getBoolean(cell));
+          cell = iterator.next();
+        }
+  
+        if (cell.getColumnIndex() == 2)
+        {
+          parentNode = getNodeById(ExcelUtil.getString(cell));
+          cell = iterator.next();
+        }
+      }
+      else
+      {
+        if (cell.getColumnIndex() == 1)
+        {
+          node.setActiveMalaria(ExcelUtil.getBoolean(cell));
+          cell = iterator.next();
+        }
+
+        if (cell.getColumnIndex() == 2)
+        {
+          node.setActiveDengue(ExcelUtil.getBoolean(cell));
+          cell = iterator.next();
+        }
+
+        if (cell.getColumnIndex() == 3)
+        {
+          parentNode = getNodeById(ExcelUtil.getString(cell));
+          cell = iterator.next();
+        }
       }
 
       // By here, we know that index >=4, and should contain the name
@@ -314,7 +356,7 @@ public class OntologyExcelImporter implements Reloadable
       if (iterator.hasNext())
       {
         Term term = iterator.next();
-        node = new TermNode(term);
+        node = new TermNode(term, activeByDisease);
       }
       iterator.close();
     }
