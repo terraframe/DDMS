@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -96264409)
+@com.runwaysdk.business.ClassSignature(hash = 398271898)
 public class TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.TermController";
@@ -217,6 +217,20 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failExportTerm");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:termId", post=false)
+  public void fetchAllParents(java.lang.String termId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.fetchAllParents");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:termId", post=false)
+  public void failFetchAllParents(java.lang.String termId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failFetchAllParents");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.controller.MultipartFileParameter:importFile", post=true)

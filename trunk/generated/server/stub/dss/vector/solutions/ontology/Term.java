@@ -44,6 +44,7 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
@@ -485,7 +486,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
+   * MdMethod
+   * 
    * Gets all the TermRelationship children of this Term.
+   * 
+   * @param filterObsolete If set to true, the query only returns active terms.
    * 
    * FIXME parameterize to pass in the relationship type.
    */
@@ -499,21 +504,22 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return q;
   }
-
-  // Replaced by Term.termQuery() to do weighted searches
-  // public static TermViewQuery searchTerms(String searchValue, String[]
-  // parentTermIds)
-  // {
-  // QueryFactory f = new QueryFactory();
-  //
-  // SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue,
-  // parentTermIds);
-  // TermViewQuery q = new TermViewQuery(f, builder);
-  //
-  // q.restrictRows(15, 1);
-  //
-  // return q;
-  // }
+  
+  /**
+   * MdMethod
+   * 
+   * Gets all the TermRelationship parents of this Term.
+   * 
+   * @param filterInactive If set to true, the query only returns active terms.
+   */
+  @Override
+  public TermViewQuery getAncestors()
+  {
+    QueryFactory qf = new QueryFactory();
+    TermViewQuery tvq = new TermViewQuery(qf, new TermViewQuery.AncestorsQueryBuilder(qf, this));
+    
+    return tvq;
+  }
 
   public static ValueQuery termQuery(String value, String[] parentTermIds)
   {
@@ -1131,7 +1137,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
   }
-
+  
   /**
    * Queries for the root Term of a given ontology.
    */

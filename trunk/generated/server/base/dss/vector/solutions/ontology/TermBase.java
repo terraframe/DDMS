@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 884896857)
+@com.runwaysdk.business.ClassSignature(hash = -943016878)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 884896857;
+  private static final long serialVersionUID = -943016878;
   
   public TermBase()
   {
@@ -1717,6 +1717,18 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.ontology.TermViewQuery getAncestors()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.ontology.TermViewQuery getAncestors(java.lang.String id)
+  {
+    Term _instance = Term.get(id);
+    return _instance.getAncestors();
   }
   
   public static dss.vector.solutions.ontology.TermViewQuery getByIds(java.lang.String[] termIds)

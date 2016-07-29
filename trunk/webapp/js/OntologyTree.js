@@ -2,7 +2,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
 
   Instance : {
   
-    initialize : function(treeViewId)
+    initialize : function(treeViewId, searchNode)
     {
       // id of the div that will contain the TreeView
       this._treeViewId = treeViewId;
@@ -24,6 +24,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       
       // the current node of operation 
       this._selectedNode = null;
+      
+      this._searchNode = searchNode;
     },
     
     /**
@@ -267,21 +269,115 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       }
     },
     
+    addSearchButton : function(searchButElId)
+    {
+      this._tree.subscribe('expandComplete', Mojo.Util.bind(this, this._expandComplete));
+      
+      var searchBut = document.getElementById(searchButElId);
+      
+      var that = this;
+      
+      var onClick = function(e) {
+        var searchTermId = document.getElementById("searchTerm").value;
+        
+        var request = new MDSS.Request({
+          onSuccess : function(strJSON)
+          {
+            that._tree.collapseAll();
+            
+            var ancestorArray = Mojo.Util.toObject(strJSON).returnValue;
+            var rootJSON = ancestorArray[0];
+            
+            var rootNode = that._tree.getNodesByProperty('termId', rootJSON.id)[0];
+            rootNode.nextAncestors = ancestorArray.splice(1);
+            rootNode.fetchedNodes = rootJSON.children;
+            rootNode.expand();
+          }
+        });
+        
+        dss.vector.solutions.ontology.TermController.fetchAllParents(request, searchTermId);
+      }
+      YAHOO.util.Event.addListener(searchBut, "click", onClick);
+    },
+    
+    _expandComplete : function(node){
+      // Make sure that ALL parent nodes have finished loading
+      var doneLoading = true;
+      var parentNodes = this._tree.getNodesByProperty('termId', node.data.termId);
+      for (var i = 0; i < parentNodes.length; ++i)
+      {
+        var parentNode = parentNodes[i];
+        
+        if (parentNode.expanded === false)
+        {
+          doneLoading = false;
+        }
+      }
+      
+      if (doneLoading)
+      {
+        var ancestorArray = node.nextAncestors;
+        
+        if (ancestorArray.length > 0)
+        {
+          var ancestorJSON = ancestorArray[0];
+          var ancestorId = ancestorJSON.id;
+          var children = ancestorJSON.children;
+          var nextAncestors = ancestorArray.slice(1);
+          
+          var parentNodes = this._tree.getNodesByProperty('termId', ancestorId);
+          Mojo.Iter.forEach(parentNodes, function(parentNode){
+            if (!parentNode.expanded)
+            {
+              parentNode.nextAncestors = nextAncestors;
+              parentNode.fetchedNodes = children;
+              parentNode.expand();
+            }
+          });
+        }
+        else if (ancestorArray.length === 0)
+        {
+          var searchNodeId = document.getElementById("searchTerm").value;
+          var searchNodes = this._tree.getNodesByProperty('termId', searchNodeId);
+          Mojo.Iter.forEach(searchNodes, function(searchNode){
+            searchNode.focus();
+          });
+        }
+      }
+    },
+    
     /**
      * Loads the children of the given parentNode into the tree.
      */
     _dynamicLoad : function(parentNode, fnLoadComplete)
     {
+      var that = this;
+      
+      if (parentNode.fetchedNodes) {
+        var children = parentNode.fetchedNodes;
+        
+        Mojo.Iter.forEach(children, function(child) {
+          var childTermViewDTO = com.runwaysdk.DTOUtil.convertToType(child);
+          
+          var node = that._createNode(childTermViewDTO);
+          parentNode.appendChild(node);
+        });
+        
+        parentNode.fetchedNodes = null;
+        parentNode.refresh();
+        fnLoadComplete(); // inform the TreeView the loading is complete
+        return;
+      }
+      
       var request = new MDSS.Request({
-        that : this,
         onSuccess : function(query)
         {
           var views = query.getResultSet();
           Mojo.Iter.forEach(views, function(view){
          
-            var node = this._createNode(view); 
+            var node = that._createNode(view); 
             parentNode.appendChild(node);
-          }, this.that);
+          });
           
           fnLoadComplete(); // inform the TreeView the loading is complete
           parentNode.refresh();
@@ -538,6 +634,11 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       this._tree.render();
       
       this._setupMenu();
+      
+      if (this._searchNode != null)
+      {
+        this.addSearchButton(this._searchNode);
+      }
     },
 
     _setupMenu : function()

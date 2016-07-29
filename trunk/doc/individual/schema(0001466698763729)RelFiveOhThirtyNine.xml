@@ -26,6 +26,8 @@
           <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer"/>
           <mdParameter name="pageNumber" label="pageNumber" order="4" type="java.lang.Integer"/>
         </mdAction>
+        
+        <mdAction name="fetchAllParents" label="fetchAllParents" isPost="true" isQuery="false"/>
       </mdController>
       <mdView name="dss.vector.solutions.geo.GeoSynonymArrayView">
         <create>
@@ -64,6 +66,19 @@
       </mdView>
     </create>
     <update>
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod name="getAncestors" label="getAncestors" returnType="dss.vector.solutions.ontology.TermViewQuery" static="false">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.ontology.TermController">
+        <create>
+          <mdAction name="fetchAllParents" label="fetchAllParents" returnType="java.lang.String" static="false">
+            <mdParameter name="termId" label="termId" order="0" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
     </update>
   </doIt>
   <undoIt>
@@ -71,6 +86,8 @@
       <object key="dss.vector.solutions.geo.GeoSynonymController" type="com.runwaysdk.system.metadata.MdController"/>
       <object key="dss.vector.solutions.geo.GeoSynonymView" type="com.runwaysdk.system.metadata.MdView"/>
       <object key="dss.vector.solutions.geo.GeoSynonymArrayView" type="com.runwaysdk.system.metadata.MdView"/>
+      <object key="dss.vector.solutions.ontology.TermController.fetchAllParents" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.ontology.Term.getAncestorIds" type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
   </undoIt>
 </version>

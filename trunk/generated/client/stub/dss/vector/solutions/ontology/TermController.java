@@ -2,15 +2,22 @@ package dss.vector.solutions.ontology;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
+import com.runwaysdk.transport.conversion.json.BusinessDTOToJSON;
+import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
@@ -30,6 +37,45 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
+  @Override
+  public void fetchAllParents(String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      JSONArray json = new JSONArray();
+      
+      Iterator<? extends TermViewDTO> it = TermDTO.getAncestors(getClientRequest(), id).getResultSet().iterator();
+      
+      while (it.hasNext())
+      {
+        TermViewDTO ancestor = it.next();
+        
+        JSONObject ancestorJSON = new JSONObject();
+//        ancestorJSON.put("view", BusinessDTOToJSON.getConverter(ancestor).populate());
+        ancestorJSON.put("id", ancestor.getTermId());
+        
+        JSONArray childrenJSON = new JSONArray();
+        List<? extends TermViewDTO> children = TermDTO.getOntologyChildren(this.getClientRequest(), ancestor.getTermId(), false).getResultSet();
+        for (TermViewDTO child: children)
+        {
+          childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
+        }
+        
+        ancestorJSON.put("children", childrenJSON);
+        
+        json.put(ancestorJSON);
+      }
+      
+      resp.getWriter().print(new JSONReturnObject(json).toString());
+    }
+    catch (Throwable t)
+    {
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
   @Override
   public void viewTree() throws IOException, ServletException
   {

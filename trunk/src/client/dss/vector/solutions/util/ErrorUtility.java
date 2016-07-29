@@ -17,6 +17,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.runwaysdk.AttributeNotificationDTO;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.InformationDTO;
@@ -31,6 +34,8 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 public class ErrorUtility implements Reloadable
 {
+  private static Logger logger = LoggerFactory.getLogger(ErrorUtility.class);
+  
   public static final String ERROR_MESSAGE_ARRAY = "errorMessageArray";
 
   public static final String ERROR_MESSAGE       = "errorMessage";
@@ -104,6 +109,8 @@ public class ErrorUtility implements Reloadable
   {
     t = ErrorUtility.filterServletException(t);
 
+    logger.error("An unexpected error occurred", t);
+    
     if (isAsynchronus)
     {
       if (t instanceof ProblemExceptionDTO)

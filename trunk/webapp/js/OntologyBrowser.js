@@ -865,7 +865,14 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       this._roots = [];
        
       // Setup the ontology browser
-      this._browser = new MDSS.OntologyBrowser(false, this._attributeClass, this._browserField);            
+      if (config.defaultRoot)
+      {
+        this._browser = new MDSS.OntologyBrowser(false);
+      }
+      else
+      {
+        this._browser = new MDSS.OntologyBrowser(false, this._attributeClass, this._browserField);
+      }
       this._browser.setHandler(Mojo.Util.bind(this, this.setField));
         
       if(this._enabled) {
@@ -905,7 +912,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
     _searchFunction : function(request, value) {
       if(this._roots.length > 0) {
-        // Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+//         Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
         
         var rootz = [];
         for (var i = 0; i < this._roots.length; ++i)
