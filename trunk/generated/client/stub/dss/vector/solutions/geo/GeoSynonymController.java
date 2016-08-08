@@ -8,9 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.runwaysdk.constants.ClientRequestIF;
 
-import dss.vector.solutions.MDSSUserDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.DataGrid;
@@ -27,15 +29,22 @@ public class GeoSynonymController extends GeoSynonymControllerBase implements co
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void forward() throws java.io.IOException, javax.servlet.ServletException
-  {
-    
-  }
-  
   public void cancel(dss.vector.solutions.geo.GeoSynonymArrayViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
-    view.unlock();
-    this.search();
+    try
+    {
+      view.unlock();
+      this.search();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(view);
+      }
+    }
   }
   
   public void failCancel(dss.vector.solutions.geo.GeoSynonymArrayViewDTO view) throws java.io.IOException, javax.servlet.ServletException
@@ -92,14 +101,26 @@ public class GeoSynonymController extends GeoSynonymControllerBase implements co
   
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    GeoSynonymArrayViewDTO dto = new GeoSynonymArrayViewDTO(clientRequest);
-    
-    req.setAttribute("item", dto);
-    req.setAttribute("newInstance", true);
-    addGrid(dto);
-    
-    render("viewComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      GeoSynonymArrayViewDTO dto = new GeoSynonymArrayViewDTO(clientRequest);
+      
+      req.setAttribute("item", dto);
+      req.setAttribute("newInstance", true);
+      addGrid(dto);
+      
+      render("viewComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
+    }
   }
   
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -142,33 +163,58 @@ public class GeoSynonymController extends GeoSynonymControllerBase implements co
   
   public void failSearch() throws java.io.IOException, javax.servlet.ServletException
   {
-    
+    // Uhh.. well, search is the GeoSynonym homepage. If that's not working then... redirect to the DDMS homepage?
+    this.resp.sendRedirect("/");
   }
   
   public void searchByDTO(GeoSynonymArrayViewDTO view, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    isAscending = ( isAscending == null ? true : isAscending );
-    pageSize = ( pageSize == null ? 15 : pageSize );
-    pageNumber = ( pageNumber == null ? 1 : pageNumber );
+    try
+    {
+      isAscending = ( isAscending == null ? true : isAscending );
+      pageSize = ( pageSize == null ? 15 : pageSize );
+      pageNumber = ( pageNumber == null ? 1 : pageNumber );
+  
+      ClientRequestIF request = this.getClientRequest();
+  
+      GeoSynonymArrayViewQueryDTO query = GeoSynonymArrayViewDTO.searchByView(request, view, sortAttribute, isAscending, pageSize, pageNumber);
+  
+      req.setAttribute("query", query);
+      req.setAttribute("item", view);
+  
+      render("searchComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-    ClientRequestIF request = this.getClientRequest();
-
-    GeoSynonymArrayViewQueryDTO query = GeoSynonymArrayViewDTO.searchByView(request, view, sortAttribute, isAscending, pageSize, pageNumber);
-
-    req.setAttribute("query", query);
-    req.setAttribute("item", view);
-
-    render("searchComponent.jsp");
+      if (!redirected)
+      {
+        this.failSearchByDTO(sortAttribute, isAscending, pageSize, pageNumber);
+      }
+    }
   }
   
-  public void failSearchByDTO(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failSearchByDTO(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     this.search();
   }
   
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    viewGeoSyn(GeoSynonymArrayViewDTO.getGeoSynonym(this.getClientRequest(), id));
+    try
+    {
+      viewGeoSyn(GeoSynonymArrayViewDTO.getGeoSynonym(this.getClientRequest(), id));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
+    }
   }
   
   private void viewGeoSyn(GeoSynonymArrayViewDTO dto) throws IOException, ServletException

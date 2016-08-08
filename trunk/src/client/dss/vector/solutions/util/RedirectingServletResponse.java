@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
@@ -90,6 +91,18 @@ public class RedirectingServletResponse extends HttpServletResponseWrapper {
 
         public void write(int param) throws java.io.IOException {
             out.write(param);
+        }
+
+        @Override
+        public boolean isReady()
+        {
+          return true;
+        }
+
+        @Override
+        public void setWriteListener(WriteListener arg0)
+        {
+          // ??
         }
     }
 

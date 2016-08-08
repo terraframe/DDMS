@@ -21,20 +21,28 @@ public class GeoSynonymArrayView extends GeoSynonymArrayViewBase implements com.
   public void lock()
   {
     String synonymIds = this.getSynonymIds();
-    for (String synonymId : synonymIds.split(","))
+    
+    if (synonymIds.length() > 0)
     {
-      GeoSynonym gs = GeoSynonym.get(synonymId);
-      gs.lock();
+      for (String synonymId : synonymIds.split(","))
+      {
+        GeoSynonym gs = GeoSynonym.get(synonymId);
+        gs.lock();
+      }
     }
   }
   
   public void unlock()
   {
     String synonymIds = this.getSynonymIds();
-    for (String synonymId : synonymIds.split(","))
+    
+    if (synonymIds.length() > 0)
     {
-      GeoSynonym gs = GeoSynonym.get(synonymId);
-      gs.unlock();
+      for (String synonymId : synonymIds.split(","))
+      {
+        GeoSynonym gs = GeoSynonym.get(synonymId);
+        gs.unlock();
+      }
     }
   }
   
