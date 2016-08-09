@@ -44,7 +44,7 @@
 		</ftp>
 	</target>
 	
-	<target name="build" depends="update,set-properties,build-all,upload-test" />
+	<target name="build" depends="update,set-properties,delete-marker,build-all,upload-test" />
 	
 	<target name="build-installer-only" depends="update,set-properties,build-installer" />
 	
@@ -54,7 +54,7 @@
 	
 	<target name="email-only" depends="set-properties,email,increment" />		
 	
-	<target name="email-test" depends="set-properties,email-test-impl" />
+	<target name="email-test" depends="set-properties,email" />
 	
 	<target name="standalone-upload-test" depends="set-properties,upload-test" />
 	<target name="standalone-upload-test-s3" depends="set-properties,upload-test-s3" />
@@ -129,16 +129,9 @@
 	
   
   <!--
-	<target name="build-all" depends="build-managers,build-installer,build-patch" />
+	<target name="build-all" depends="build-installer,build-patch" />
 	-->
 	<target name="build-all" depends="build-installer,build-patch" />
-
-	<target name="build-managers">
-      <exec executable="cmd" failonerror="true">
-        <arg value="/c" />
-        <arg value="${basedir}/../standalone\buildall.bat" />
-      </exec>
-	</target>
 
 	<target name="build-installer" depends="update-about">
 
@@ -171,6 +164,22 @@
       </upload-to-s3>
 	</target>
 	
+	<target name="delete-marker">	
+		<ftp server="ftp.terraframe.com"
+			 port="21"
+		     remotedir="${build.ftp.testpath}"
+		     userid="${build.ftp.user}"
+		     password="${build.ftp.pass}"
+		     passive="yes"
+		     binary="yes"
+			 verbose="yes"
+			 action="delete">
+			<fileset dir=".">
+				<include name="marker.txt"/>
+			</fileset>
+		</ftp>
+	</target>
+	
 	<target name="upload-test">	
 		<ftp server="ftp.terraframe.com"
 			 port="21"
@@ -198,7 +207,7 @@
 		     binary="yes"
 			 verbose="yes">
 			<fileset dir=".">
-				<include name="${file.patch}"/>			  			  			
+				<include name="${file.patch}"/>
 				<include name="${file.installer}"/>
 			</fileset>
 		</ftp>
@@ -239,41 +248,34 @@
 	<target name="email">
 		 <!-- Email peeps -->
 		
-        <mail
-            mailhost="box737.bluehost.com"
+		<!-- tolist="rrowlands@terraframe.com, nmceachen@terraframe.com, jsmethie@terraframe.com, jlewis@terraframe.com, miguel.orlans@gmail.com, chris@teravation.com" -->
+        <!-- 220 We do not authorize the use of this system to transport unsolicited and/or bulk emails. -->
+		<!-- 550 Access denied - Invalid Helo name (See RFC2821 4.1.3) -->
+		<!-- My research tells me that this ant library is no longer performing a valid Helo handshake with our bluehost server. I tried upgrading the ant email jars
+               and nothing I can do will work. I think the library is simply implemented incorrectly, so I'm going to use what I know works: python mail.
+		-->
+		<!--
+		<mail
+		    mailhost="box737.bluehost.com"
             mailport="465"
-		    ssl="true"
             subject="${date} build complete"
             user="builder@terraframe.com"
-            password="_Terra4Frame"
-			tolist="rrowlands@terraframe.com, dinfiesto@terraframe.com, nmceachen@terraframe.com, jsmethie@terraframe.com, jlewis@terraframe.com, miguel.orlans@gmail.com"
-			>
-            <from address="builder@terraframe.com" />
-			<replyto address="rrowlands@terraframe.com" />
-			
-            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.
-			</message>
-        </mail>	
-	</target>
-	
-	<target name="email-test-impl">
-		 <!-- Email devs to test that we can email -->
-		
-        <mail
-            mailhost="box737.bluehost.com"
-            mailport="465"
-		    ssl="true"
-            subject="${date} build complete"
-            user="builder@terraframe.com"
+			from="builder@terraframe.com"
             password="_Terra4Frame"
 			tolist="rrowlands@terraframe.com"
+			ssl="true"
 			>
-            <from address="builder@terraframe.com" />
-			<replyto address="rrowlands@terraframe.com" />
 			
             <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.
 			</message>
         </mail>	
+		-->
+		
+		<exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
+		  <arg line="C:\svn\ddms\deliverables\ddms-email.py"/>
+		  <arg line="'${date} build complete'" />
+		  <arg line="'Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.'"/>
+		</exec>
 	</target>
 	
 </project>

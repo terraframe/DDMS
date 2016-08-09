@@ -10,4 +10,4 @@ SET JRE_HOME=C:\svn\ddms\installer-stage\Java\jdk1.6.0_16\jre
 
 rem "%ANT_HOME%\bin\ant" -buildfile cc-build.xml -Dpostgres.bin="C:/Program Files/PostgreSQL/8.4/bin"  build_installer_exe
 cls
-cmd /c "%ANT_HOME%\bin\ant" -buildfile build.xml email-only
+cmd /c "%ANT_HOME%\bin\ant" -buildfile build.xml email-test
