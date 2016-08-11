@@ -318,83 +318,88 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       {
         var ancestorArray = node.nextAncestors;
         
-        if (ancestorArray.length > 0)
+        if (ancestorArray != null)
         {
-          var ancestorJSON = ancestorArray[0];
-          var ancestorId = ancestorJSON.id;
-          var children = ancestorJSON.children;
-          var nextAncestors = ancestorArray.slice(1);
-          
-          var parentNodes = this._tree.getNodesByProperty('termId', ancestorId);
-          Mojo.Iter.forEach(parentNodes, function(parentNode){
-            if (!parentNode.expanded)
-            {
-              parentNode.nextAncestors = nextAncestors;
-              parentNode.fetchedNodes = children;
-              parentNode.expand();
-            }
-          });
-        }
-        else if (ancestorArray.length === 0)
-        {
-          var searchNodeId = document.getElementById("searchTerm").value;
-          var searchNodes = this._tree.getNodesByProperty('termId', searchNodeId);
-          
-          // All this code just to focus multiple items at once
-          if (searchNodes.length > 0)
+          if (ancestorArray.length > 0)
           {
-            for (var i = 0; i < searchNodes.length; ++i)
-            {
-              var node = searchNodes[i];
-              var focused = false;
-              YAHOO.util.Dom.getElementsBy  (
-                  function (el) {
-                      return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
-                  } ,
-                  'td' , 
-                  node.getEl().firstChild , 
-                  function (el) {
-                      YAHOO.util.Dom.addClass(el, YAHOO.widget.TreeView.FOCUS_CLASS_NAME );
-                      if (!focused) { 
-                          var aEl = el.getElementsByTagName('a');
-                          if (aEl.length) {
-                              aEl = aEl[0];
-                              aEl.focus();
-                              node._focusedItem = aEl;
-                              focused = true;
-                          }
-                      }
-                  }
-              );
-            }
+            var ancestorJSON = ancestorArray[0];
+            var ancestorId = ancestorJSON.id;
+            var children = ancestorJSON.children;
+            var nextAncestors = ancestorArray.slice(1);
             
-            for (var i = 0; i < searchNodes.length; ++i)
+            var parentNodes = this._tree.getNodesByProperty('termId', ancestorId);
+            Mojo.Iter.forEach(parentNodes, function(parentNode){
+              if (!parentNode.expanded)
+              {
+                parentNode.nextAncestors = nextAncestors;
+                parentNode.fetchedNodes = children;
+                parentNode.expand();
+              }
+            });
+          }
+          else if (ancestorArray.length === 0)
+          {
+            var searchNodeId = document.getElementById("searchTerm").value;
+            var searchNodes = this._tree.getNodesByProperty('termId', searchNodeId);
+            
+            // All this code just to focus multiple items at once
+            if (searchNodes.length > 0)
             {
-              var node = searchNodes[i];
-              var focused = false;
-              YAHOO.util.Dom.getElementsBy  (
-                  function (el) {
-                      return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
-                  } ,
-                  'td' , 
-                  node.getEl().firstChild , 
-                  function (el) {
-                      if (!focused) { 
-                          var aEl = el.getElementsByTagName('a');
-                          if (aEl.length) {
-                              aEl = aEl[0];
-                              node._focusedItem = aEl;
-                              YAHOO.util.Event.on(aEl,'blur',function () {
-                                  node._removeFocus();
-                              });
-                              focused = true;
-                          }
-                      }
-                      node._focusHighlightedItems.push(el);
-                  }
-              );
+              for (var i = 0; i < searchNodes.length; ++i)
+              {
+                var node = searchNodes[i];
+                var focused = false;
+                YAHOO.util.Dom.getElementsBy  (
+                    function (el) {
+                        return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                    } ,
+                    'td' , 
+                    node.getEl().firstChild , 
+                    function (el) {
+                        YAHOO.util.Dom.addClass(el, YAHOO.widget.TreeView.FOCUS_CLASS_NAME );
+                        if (!focused) { 
+                            var aEl = el.getElementsByTagName('a');
+                            if (aEl.length) {
+                                aEl = aEl[0];
+                                aEl.focus();
+                                node._focusedItem = aEl;
+                                focused = true;
+                            }
+                        }
+                    }
+                );
+              }
+              
+              for (var i = 0; i < searchNodes.length; ++i)
+              {
+                var node = searchNodes[i];
+                var focused = false;
+                YAHOO.util.Dom.getElementsBy  (
+                    function (el) {
+                        return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                    } ,
+                    'td' , 
+                    node.getEl().firstChild , 
+                    function (el) {
+                        if (!focused) { 
+                            var aEl = el.getElementsByTagName('a');
+                            if (aEl.length) {
+                                aEl = aEl[0];
+                                node._focusedItem = aEl;
+                                YAHOO.util.Event.on(aEl,'blur',function () {
+                                    node._removeFocus();
+                                });
+                                focused = true;
+                            }
+                        }
+                        node._focusHighlightedItems.push(el);
+                    }
+                );
+              }
             }
           }
+          
+          node.nextAncestors = null;
         }
       }
     },
