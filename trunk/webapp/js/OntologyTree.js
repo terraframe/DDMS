@@ -339,9 +339,62 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         {
           var searchNodeId = document.getElementById("searchTerm").value;
           var searchNodes = this._tree.getNodesByProperty('termId', searchNodeId);
-          Mojo.Iter.forEach(searchNodes, function(searchNode){
-            searchNode.focus();
-          });
+          
+          // All this code just to focus multiple items at once
+          if (searchNodes.length > 0)
+          {
+            for (var i = 0; i < searchNodes.length; ++i)
+            {
+              var node = searchNodes[i];
+              var focused = false;
+              YAHOO.util.Dom.getElementsBy  (
+                  function (el) {
+                      return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                  } ,
+                  'td' , 
+                  node.getEl().firstChild , 
+                  function (el) {
+                      YAHOO.util.Dom.addClass(el, YAHOO.widget.TreeView.FOCUS_CLASS_NAME );
+                      if (!focused) { 
+                          var aEl = el.getElementsByTagName('a');
+                          if (aEl.length) {
+                              aEl = aEl[0];
+                              aEl.focus();
+                              node._focusedItem = aEl;
+                              focused = true;
+                          }
+                      }
+                  }
+              );
+            }
+            
+            for (var i = 0; i < searchNodes.length; ++i)
+            {
+              var node = searchNodes[i];
+              var focused = false;
+              YAHOO.util.Dom.getElementsBy  (
+                  function (el) {
+                      return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                  } ,
+                  'td' , 
+                  node.getEl().firstChild , 
+                  function (el) {
+                      if (!focused) { 
+                          var aEl = el.getElementsByTagName('a');
+                          if (aEl.length) {
+                              aEl = aEl[0];
+                              node._focusedItem = aEl;
+                              YAHOO.util.Event.on(aEl,'blur',function () {
+                                  node._removeFocus();
+                              });
+                              focused = true;
+                          }
+                      }
+                      node._focusHighlightedItems.push(el);
+                  }
+              );
+            }
+          }
         }
       }
     },
