@@ -218,9 +218,9 @@
         descriptionInput.setValue(jobDTO.getDescription().getLocalizedValue());
         form.addEntry(jobMetadata.getAttributeDTO("description").getAttributeMdDTO().getDisplayLabel(), descriptionInput);
         
-        var cronInput = new com.runwaysdk.ui.CronInput("cron");
+        var cronInput = new com.runwaysdk.ui.CronInput("cron", {localizedLabel: this._config.language.get("scheduledRun")});
         cronInput.setValue(jobDTO.getCronExpression());
-        form.addEntry(this._config.language.get("scheduledRun"), cronInput);
+        form.addEntry("", cronInput);
         
         dialog.appendContent(form);
         

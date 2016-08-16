@@ -122,25 +122,30 @@
         return this._impl;
       },
       
-      _onClickEnable : function() {
-        this._enableRadio.getRawEl().checked = true;
-        this._disableRadio.getRawEl().checked = false;
-        this._cron.setStyle("display", "inline");
-        this._enabled = true;
-        
-        if (this._cronStr == null) {
-          this._cronStr = "0 * * * * ?";
-          this._rangePicker.setValue("everyMinute");
-        }
-        this._writeCronHtml();
+      _onClickEnableCheckbox : function(checkEvent)
+      {
+        this.setEnabled(checkEvent.getCheckBox().isChecked());
       },
       
-      _onClickDisable : function() {
-        this._disableRadio.getRawEl().checked = true;
-        this._enableRadio.getRawEl().checked = false;
-        this._cron.setStyle("display", "none");
-        this._enabled = false;
-        this._cronStr = null;
+      setEnabled : function(enabled)
+      {
+        this._enabled = enabled;
+        
+        if (this._enabled)
+        {
+          this._cron.setStyle("display", "inline");
+          
+          if (this._cronStr == null) {
+            this._cronStr = "0 * * * * ?";
+            this._rangePicker.setValue("everyMinute");
+          }
+          this._writeCronHtml();
+        }
+        else
+        {
+          this._cron.setStyle("display", "none");
+          this._cronStr = null;
+        }
       },
       
       getCronString : function() {
@@ -159,34 +164,26 @@
         
         if (this.isRendered()) {
           if (this._cronStr == null) {
-            this._onClickDisable();
+            this.setEnabled(false);
             this._writeCronHtml();
           }
           else {
-            this._onClickEnable();
+            this.setEnabled(true);
           }
         }
       },
       
       _writeHtml : function() {
-        // Write Enable Radio Button
+        // Write Enable/Disable checkbox
         var enableDiv = this.getFactory().newElement("div", null, {display: "inline"});
-        enableDiv.addEventListener("click", {handleEvent: Mojo.Util.bind(this, this._onClickEnable)});
+        this._checkbox = this.getFactory().newCheckBox();
+        this._checkbox.addOnCheckListener(Mojo.Util.bind(this, this._onClickEnableCheckbox));
+        this._checkbox.setStyle("display", "inline-block");
+        enableDiv.appendChild(this._checkbox);
+        var label = this.getFactory().newElement("label", {innerHTML: this._config.localizedLabel});
+        label.setStyle("display", "inline-block");
+        enableDiv.appendChild(label);
         this.appendChild(enableDiv);
-        var enableLabel = this.getFactory().newElement("label", {innerHTML: this.localize("enabled")});
-        enableDiv.appendChild(enableLabel);
-        this._enableRadio = this.getFactory().newElement("input", {type: "radio", name: "enabled", value: "enabled"});
-        this._enableRadio.addEventListener("click", {handleEvent: Mojo.Util.bind(this, this._onClickEnable)});
-        enableDiv.appendChild(this._enableRadio);
-        
-        // Write Disable Radio Button
-        var disableDiv = this.getFactory().newElement("div", null, {display: "inline"});
-        disableDiv.addEventListener("click", {handleEvent: Mojo.Util.bind(this, this._onClickDisable)});
-        this.appendChild(disableDiv);
-        var disableLabel = this.getFactory().newElement("label", {innerHTML: this.localize("disabled")}, {"padding-left": "30px"});
-        disableDiv.appendChild(disableLabel);
-        this._disableRadio = this.getFactory().newElement("input", {type: "radio", name: "enabled", value: "disabled"});
-        disableDiv.appendChild(this._disableRadio);
         
         this.appendChild(this.getFactory().newElement("br"));
         
@@ -195,11 +192,11 @@
         this.appendChild(this._cron);
         
         if (this._cronStr == null) {
-          this._onClickDisable();
+          this.setEnabled(false);
           this._writeCronHtml();
         }
         else {
-          this._onClickEnable();
+          this.setEnabled(true);
         }
       },
       
@@ -486,7 +483,7 @@
       {
         config = config || {};
         
-        this._impl = new CronPicker(config.cronStr);
+        this._impl = new CronPicker(config.cronStr, config);
         
         this.$initialize(this._impl, null, name, config);
       },

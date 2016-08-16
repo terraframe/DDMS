@@ -558,18 +558,12 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     
     try
     {
-      // Open the BIRT document
-      RenderContext context = this.createRenderContext("", new ReportParameter[]{});
-      File fDocument = this.getReportDocument(context);
-      IDocArchiveReader reader = new ArchiveReader(fDocument.getAbsolutePath());
+      // Open the BIRT design file (NOT the document file)
       IReportEngine engine = BirtEngine.getBirtEngine(LocalProperties.getLogDirectory());
-  
-      HashMap<String, Object> contextMap = new HashMap<String, Object>();
-      contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
-  
-      IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
-      ReportDesignHandle design = document.getReportDesign(); 
-      
+      IReportRunnable runnable = engine.openReportDesign(this.getDesignAsStream());
+      DesignElementHandle handle = runnable.getDesignHandle();
+      ReportDesignHandle design = handle.getDesignHandle(); 
+
       // Read the resources
       List<String> resources = new ArrayList<String>();
       
@@ -657,10 +651,10 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
       json.put("missingResources", jaMissingRes);
       return json.toString();
     }
-    catch (BirtException | IOException | JSONException e)
+    catch (BirtException | JSONException e)
     {
       logger.error("Something went wrong while fetching report problems.", e);
-      throw new RuntimeException(e); // TODO : REMOVE THIS I'M ONLY DOING THIS FOR DEV NOT PRODUCTION
+      throw new RuntimeException(e);
     }
   }
   

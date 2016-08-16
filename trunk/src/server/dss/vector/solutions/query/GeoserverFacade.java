@@ -402,10 +402,13 @@ public class GeoserverFacade implements Reloadable
   
   public void publishWorkspace()
   {
+    String appName = CommonProperties.getDeployAppName();
+    String uri = this.getGeoServerRemoteURL() + "/" + appName;
+    
     try
     {
-      String appName = CommonProperties.getDeployAppName();
-      if (getPublisher().createWorkspace(appName, new URI(getGeoServerLocalURL())))
+      
+      if (getPublisher().createWorkspace(appName, new URI(uri)))
       {
         logger.info("Created the workspace [" + appName + "].");
       }
