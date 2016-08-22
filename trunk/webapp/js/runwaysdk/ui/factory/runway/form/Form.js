@@ -220,6 +220,9 @@ var FormEntry = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'FormEntry', {
   Instance : {
     initialize : function(term, definition)
     {
+      var id = this._generateId();
+      this.setId(id);
+      
       this._parent = null;
       this._rendered = false;
       this._isDestroyed = false;

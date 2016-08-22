@@ -1,0 +1,15 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdUtil name="dss.vector.solutions.report.SchedulerUtil">
+        <mdMethod name="searchByValueQuery" label="Search By Value Query" returnType="com.runwaysdk.query.ValueQuery" static="true">
+          <mdParameter name="value" label="Value" order="0" type="java.lang.String" />
+        </mdMethod>
+      </mdUtil>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

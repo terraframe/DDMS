@@ -5,6 +5,9 @@
 <%@page import="com.runwaysdk.system.scheduler.ExecutableJobDescriptionDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.ExecutableJobDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.AllJobStatusDTO"%>
+<%@page import="com.runwaysdk.system.scheduler.DownstreamJobRelationshipDTO"%>
+<%@page import="com.runwaysdk.system.scheduler.JobViewDTO"%>
+<%@page import="dss.vector.solutions.report.SchedulerUtilDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.report.ReportJobDTO"%>
@@ -92,7 +95,8 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
 </style>
 
 <%
-    String[] types = new String[]{AllJobStatusDTO.CLASS, CycleJobDTO.CLASS, ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS, QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS, JobHistoryDTO.CLASS};
+    String[] types = new String[]{AllJobStatusDTO.CLASS, CycleJobDTO.CLASS, ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS,
+    QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS, JobHistoryDTO.CLASS, JobViewDTO.CLASS, DownstreamJobRelationshipDTO.CLASS, SchedulerUtilDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(types));

@@ -53,14 +53,18 @@ import dss.vector.solutions.report.CacheDocumentManager;
 /**
  * This importer will import production backup datasets into your dev environment.
  * 
+ * @param args[0] fBackup The path to the backup zip file you want to import
+ * @param args[1] fPatches The path to the runway metadata patches zip file. The zip exists in the runway-patcher project.
+ *      If you do not specify this path, this program will skip patching after restoring the backup.
+ * 
  * Steps from ground 0:
  * 1) Create user mdssdevelop
  * 2) Create a new database with owner: mdssdevelop
  * 3) Modify your database search_path to ddms,public: ALTER DATABASE $name SET search_path=ddms,public;
  *    alternatively: ALTER ROLE mdssdevelop SET search_path = ddms,public;
  * 4) Install the postgis extension: CREATE EXTENSION postgis;
- * 5) Create a new launch for this java class with extra memory with a first argument that is the path to your zipped backup
- * 6) Build the project and then run that launch!
+ * 5) Build the project
+ * 6) Create and run a java main program launch for this class with the necessary parameters.
  * 7) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
@@ -87,6 +91,10 @@ public class BackupDevImporter
   
   private File fDestSrcRoot;
   
+  private File fBackup;
+  
+  private File fPatches;
+  
   /**
    * When we copy the generated source over, because we're copying the entire package, its going to copy some source that we already have predefined in fresh installs.
    * The point of this array is to define what source we're going to delete after copying the package. Any name specified here will delete ALL the source (base, stub, controller, query etc)
@@ -100,7 +108,7 @@ public class BackupDevImporter
       FormSurvey.CLASS, FormBedNet.CLASS, FormPerson.CLASS, FormHousehold.CLASS, HumanBloodIndex.CLASS
   };
   
-  public BackupDevImporter()
+  public BackupDevImporter(File fBackup, File fPatches)
   {
     logger = LoggerFactory.getLogger(BackupDevImporter.class);
     
@@ -112,6 +120,22 @@ public class BackupDevImporter
     {
       fDestSrcRoot = new File(LocalProperties.getSrcRoot() + File.separator + "backup");
     }
+    
+    if (fBackup == null || !fBackup.isFile())
+    {
+      throw new RuntimeException("The first argument [" + fBackup + "] is not a valid path to a backup file.");
+    }
+    this.fBackup = fBackup;
+    
+//    if (fPatches == null || !fPatches.isFile())
+//    {
+//      String msg = "The second argument [" + backupPath + "] is not a valid path to a runway metadata patches zip. Your backup will not be patched.";
+//      logger.warn(msg);
+//    }
+//    else
+//    {
+//      this.fPatches = fPatches;
+//    }
   }
   
   /**
@@ -126,26 +150,26 @@ public class BackupDevImporter
    */
   public static void main(String[] args)
   {
-    String backupPath = args[0];
+    File fBackup = new File(args[0]);
     
-    File fBackup = new File(backupPath);
-    if (!fBackup.isFile())
+    File fPatches = null;
+    if (args.length > 1)
     {
-      throw new RuntimeException("The supplied path [" + backupPath + "] is not a valid backup file.");
+      fPatches = new File(args[1]);
     }
     
-    BackupDevImporter importer = new BackupDevImporter();
-    importer.start(fBackup);
+    BackupDevImporter importer = new BackupDevImporter(fBackup, fPatches);
+    importer.start();
   }
   
   @Request
-  public void start(File fBackup)
+  public void start()
   {
     fRestoreUnzip = Files.createTempDir();
     
     try
     {
-      this.unzipFile(fBackup);
+      this.unzipFile(this.fBackup);
       
       this.deleteCaches();
       
@@ -355,7 +379,6 @@ public class BackupDevImporter
     {
       it.close();
     }
-    
     UsersQuery uq2 = new UsersQuery(new QueryFactory());
     uq2.WHERE(uq2.getUsername().EQ("ddms admin"));
     OIterator<? extends Users> it2 = uq2.getIterator();
@@ -376,17 +399,23 @@ public class BackupDevImporter
       it2.close();
     }
     
-    // Import the metadata
-    File metadata = new File(LocalProperties.getSrcRoot() + "/../doc/individual");
-
-    if (metadata.exists() && metadata.isDirectory())
+    if (this.fPatches != null)
     {
-      logger.info("Importing metadata schema files from [" + metadata.getAbsolutePath() + "].");
-      Versioning.main(new String[] { metadata.getAbsolutePath() });
-    }
-    else
-    {
-      logger.error("Metadata schema files were not found at [" + metadata.getAbsolutePath() + "]. Unable to import schemas, your database is not patched.");
+      // Patch Runway
+      
+      
+      // Import the metadata
+      File metadata = new File(LocalProperties.getSrcRoot() + "/../doc/individual");
+  
+      if (metadata.exists() && metadata.isDirectory())
+      {
+        logger.info("Importing metadata schema files from [" + metadata.getAbsolutePath() + "].");
+        Versioning.main(new String[] { metadata.getAbsolutePath() });
+      }
+      else
+      {
+        logger.error("Metadata schema files were not found at [" + metadata.getAbsolutePath() + "]. Unable to import schemas, your database is not patched.");
+      }
     }
   }
   

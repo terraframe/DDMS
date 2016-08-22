@@ -131,6 +131,8 @@
       {
         this._enabled = enabled;
         
+        this._checkbox.setChecked(this._enabled, false);
+        
         if (this._enabled)
         {
           this._cron.setStyle("display", "inline");
@@ -193,7 +195,6 @@
         
         if (this._cronStr == null) {
           this.setEnabled(false);
-          this._writeCronHtml();
         }
         else {
           this.setEnabled(true);
@@ -364,7 +365,7 @@
         
         this.$render(p);
         
-//        this._impl = $(this._cron.getRawEl()).cron(this._config);
+        this._writeCronHtml();
       }
     }
   });
