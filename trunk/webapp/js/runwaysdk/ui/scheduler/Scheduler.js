@@ -222,8 +222,7 @@
         cronInput.setValue(jobDTO.getCronExpression());
         form.addEntry("", cronInput);
         
-        var dsjInput = new com.runwaysdk.ui.DownstreamJobInput("downstreamJob", {localizedLabel: jobViewDTO.getDownstreamJobMd().getDisplayLabel(), tofLabel: jobViewDTO.getTriggerOnFailureMd().getDisplayLabel()});
-        dsjInput.setValue(jobViewDTO.getDownstreamJobDisplayLabel());
+        var dsjInput = new com.runwaysdk.ui.DownstreamJobInput("downstreamJob", jobViewDTO);
         form.addEntry("", dsjInput);
         
         dialog.appendContent(form);

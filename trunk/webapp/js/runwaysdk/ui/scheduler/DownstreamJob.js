@@ -55,13 +55,11 @@
   var DownstreamJobInput = Mojo.Meta.newClass('com.runwaysdk.ui.DownstreamJobInput', {
     Extends : Forms.FormInput,
     Instance : {
-      initialize : function(name, config)
+      initialize : function(name, jobViewDTO)
       {
-        this._config = config || {};
+        this._jobViewDTO = jobViewDTO;
         
-        this.searchInput = this.getFactory().newElement("input");
-        
-        this.$initialize("div", null, name, this._config);
+        this.$initialize("div", null, name, {});
       },
       accept : function(visitor)
       {
@@ -73,7 +71,14 @@
         return this._jobIdEl.getValue();
       },
       setValue : function(val) {
-        this.searchInput.setValue(val);
+        this._jobIdEl.setValue(val);
+        
+        if (val == null || val == "") {
+          this.setEnabled(false);
+        }
+        else {
+          this.setEnabled(true);
+        }
       },
       
       _onClickEnableCheckbox : function(checkEvent)
@@ -89,13 +94,13 @@
         
         if (this._enabled)
         {
-          this.searchContainer.setStyle("display", "inline");
+          this.searchInput.setStyle("display", "inline");
           this.tofLabel.setStyle("display", "table-cell");
           this._tofCheckbox.setStyle("display", "inline-block");
         }
         else
         {
-          this.searchContainer.setStyle("display", "none");
+          this.searchInput.setStyle("display", "none");
           this.tofLabel.setStyle("display", "none");
           this._tofCheckbox.setStyle("display", "none");
         }
@@ -111,16 +116,15 @@
         enableDiv.appendChild(this._checkbox);
         
         // Downstream job label
-        var label = this.getFactory().newElement("label", {innerHTML: this._config.localizedLabel});
+        var label = this.getFactory().newElement("label", {innerHTML: this._jobViewDTO.getDownstreamJobMd().getDisplayLabel()});
         label.setStyle("display", "inline-block");
         enableDiv.appendChild(label);
         
         enableDiv.appendChild(this.getFactory().newElement("br"));
         
         // Search box
-        this.searchContainer = this.getFactory().newElement("div");
-        this.searchContainer.appendChild(this.searchInput);
-        enableDiv.appendChild(this.searchContainer);
+        this.searchInput = this.getFactory().newElement("input");
+        enableDiv.appendChild(this.searchInput);
         
         // Hidden element that will store the id of the selected job
         this._jobIdEl = this.getFactory().newElement("div");
@@ -138,15 +142,17 @@
         enableDiv.appendChild(this._tofCheckbox);
         
         // TOF label
-        this.tofLabel = this.getFactory().newElement("label", {innerHTML: this._config.tofLabel});
+        this.tofLabel = this.getFactory().newElement("label", {innerHTML: this._jobViewDTO.getTriggerOnFailureMd().getDisplayLabel()});
         this.tofLabel.setStyle("vertical-align", "middle");
         enableDiv.appendChild(this.tofLabel);
         
-        if (this.getValue() == null || this.getValue() == "") {
-          this.setEnabled(false);
-        }
-        else {
-          this.setEnabled(true);
+        // Populate forms with existing data
+        var downstreamJobId = this._jobViewDTO.getValue("downstreamJob");
+        this.setValue(downstreamJobId);
+        if (downstreamJobId != null && downstreamJobId != "")
+        {
+          this._tofCheckbox.setChecked(this._jobViewDTO.getValue("triggerOnFailure"));
+          this.searchInput.setValue(this._jobViewDTO.getValue("downstreamJobDisplayLabel"));
         }
       },
       render: function(p) {
