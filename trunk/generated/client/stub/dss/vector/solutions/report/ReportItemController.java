@@ -326,6 +326,11 @@ public class ReportItemController extends ReportItemControllerBase implements co
 
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
+    if (sortAttribute.equals("null"))
+    {
+      sortAttribute = null;
+    }
+    
     ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.report.ReportItemQueryDTO query = ReportItemDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
