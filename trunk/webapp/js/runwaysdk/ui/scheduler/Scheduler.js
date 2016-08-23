@@ -181,7 +181,7 @@
       },
       
       _openContextMenu : function(row, event) {
-        
+        var that = this;
         var jobMetadata = this._table.getDataSource().getMetadataQueryDTO();
         var statusRowNum = 3;
         
@@ -191,15 +191,18 @@
         
         cm.render();
         
-        row.addClassName("row_selected");
+        this._selectedRow = row;
+        row.setSelected(true);
         cm.addDestroyEventListener(function() {
-          row.removeClassName("row_selected");
+          row.setSelected(false);
+          that._selectedRow = null;
         });
         
         return false; // Prevents default (displaying the browser context menu)
       },
       
       _openEditMenu : function(row, jobViewDTO) {
+        var that = this;
         var fac = this.getFactory();
         var table = row.getParentTable();
         var jobMetadata = table.getDataSource().getMetadataQueryDTO();
@@ -207,9 +210,11 @@
         
         var dialog = fac.newDialog(this._config.language.get("editJobTitle"), {width: "500px"});
         
-        row.addClassName("row_selected");
+        row.setSelected(true);
+        this._selectedRow = row;
         dialog.addDestroyEventListener(function() {
-          row.removeClassName("row_selected");
+          row.setSelected(false);
+          that._selectedRow = null;
         });
         
         var form = this.getFactory().newForm();
@@ -227,59 +232,43 @@
         
         dialog.appendContent(form);
         
-        var Structure = com.runwaysdk.structure;
-        var tq = new Structure.TaskQueue();
+        var submitHandler = function(){
+          var values = form.accept(fac.newFormControl('FormVisitor'));
+          
+          jobDTO.getDescription().localizedValue = values.get("description");
+          jobDTO.setCronExpression(values.get("cron"));
+          jobViewDTO.setDownstreamJob(values.get("downstreamJob"));
+          jobViewDTO.setTriggerOnFailure(values.get("triggerOnFailure"));
+          
+          var applyCallback = new Mojo.ClientRequest({
+            onSuccess : function() {
+              dialog.close();
+            },
+            onFailure : function(ex) {
+              dialog.close();
+              that.handleException(ex);
+            }
+          });
+          
+          jobViewDTO.applyWithJob(applyCallback, jobDTO);
+        };
+        dialog.addButton(this._config.language.get("submit"), function() { submitHandler(); });
         
-        var that = this;
+        var cancelCallback = function() {
+          var unlockCallback = new Mojo.ClientRequest({
+            onSuccess : function(retJobDTO) {
+              dialog.close();
+            },
+            onFailure : function(ex) {
+              that.handleException(ex);
+            }
+          });
+          
+          com.runwaysdk.Facade.unlock(unlockCallback, jobDTO.getId());
+        };
+        dialog.addButton(this._config.language.get("cancel"), cancelCallback);
         
-        tq.addTask(new Structure.TaskIF({
-          start : Mojo.Util.bind(this, function(){
-            dialog.addButton(this._config.language.get("submit"), function() { tq.next(); });
-            
-            var cancelCallback = function() {
-              tq.stop();
-              
-              var unlockCallback = new Mojo.ClientRequest({
-                onSuccess : function(retJobDTO) {
-                  dialog.close();
-                },
-                onFailure : function(ex) {
-                  that.handleException(ex);
-                }
-              });
-              
-              com.runwaysdk.Facade.unlock(unlockCallback, jobDTO.getId());
-            };
-            dialog.addButton(this._config.language.get("cancel"), cancelCallback);
-            
-            dialog.render();
-          })
-        }));
-        
-        tq.addTask(new Structure.TaskIF({
-          start : Mojo.Util.bind(this, function(){
-            var values = form.accept(fac.newFormControl('FormVisitor'));
-            
-            jobDTO.getDescription().localizedValue = values.get("description");
-            jobDTO.setCronExpression(values.get("cron"));
-            jobViewDTO.setDownstreamJob(values.get("downstreamJob"));
-            jobViewDTO.setTriggerOnFailure(values.get("triggerOnFailure"));
-            
-            var applyCallback = new Mojo.ClientRequest({
-              onSuccess : function() {
-                dialog.close();
-              },
-              onFailure : function(ex) {
-                tq.stop();
-                that.handleException(ex);
-              }
-            });
-            
-            jobViewDTO.applyWithJob(applyCallback, jobDTO);
-          })
-        }));
-        
-        tq.start();
+        dialog.render();
         
         return false;
       },
@@ -318,6 +307,12 @@
                 
         row.addEventListener("click", onClick);
         row.addEventListener("contextmenu", onContextMenu);
+        
+        if (this._selectedRow != null && this._selectedRow.getRowNumber() === row.getRowNumber())
+        {
+          row.setSelected(true);
+          this._selectedRow = row;
+        }
       },
       
       

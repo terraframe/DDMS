@@ -100,6 +100,12 @@
           row.setSelected(true);
           this._selectedRow = row;
         }));
+        
+        if (this._selectedRow != null && this._selectedRow.getRowNumber() === row.getRowNumber())
+        {
+          row.setSelected(true);
+          this._selectedRow = row;
+        }
       },
       
       getSelectedRow : function() {

@@ -10,6 +10,8 @@
     <update></update>
   </doIt>
   <undoIt>
-    <delete></delete>
+    <delete>
+      <object key="dss.vector.solutions.report.SchedulerUtil" type="com.runwaysdk.system.metadata.MdUtil" />
+    </delete>
   </undoIt>
 </version>

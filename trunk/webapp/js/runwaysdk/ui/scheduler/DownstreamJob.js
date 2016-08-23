@@ -68,7 +68,14 @@
       },
       getValue : function()
       {
-        return this._jobIdEl.getValue();
+        if (this._checkbox.isChecked())
+        {
+          return this._jobIdEl.getValue();
+        }
+        else
+        {
+          return "";
+        }
       },
       setValue : function(val) {
         this._jobIdEl.setValue(val);

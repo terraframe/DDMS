@@ -392,7 +392,7 @@ var FormList = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'FormList', {
     {
 //      delimiter = delimiter || this.getFactory().newElement('br');
       formEntry.setParent(this);
-      this._entries.put(formEntry.getTerm().getText(), formEntry.getDef());
+      this._entries.put(formEntry.getId(), formEntry.getDef());
       this.getEl().appendChild(formEntry.getTermEl());
       this.getEl().appendChild(formEntry.getDefEl());
 //      this.getEl().appendChild(delimiter);
