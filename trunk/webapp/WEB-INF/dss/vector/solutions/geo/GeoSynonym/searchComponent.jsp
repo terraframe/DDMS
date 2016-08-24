@@ -75,8 +75,7 @@
 </c:choose>  
 <br />
 
-<%--
+
 <jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.geo.GeoSynonymExcelView" name="excelType"/>
+  <jsp:param value="dss.vector.solutions.geo.GeoSynonymArrayExcelView" name="excelType"/>
 </jsp:include>
---%>

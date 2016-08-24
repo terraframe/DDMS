@@ -27,7 +27,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{GeoSynonymArrayViewDTO.CLASS, GeoSynonymViewDTO.CLASS}))%>
 
-<<script type="text/javascript">
+<script type="text/javascript">
 var viewGeoSynonym = new Mojo.$.dss.vector.solutions.geo.GeoSynonymArrayView();
 viewGeoSynonym.setGeoEntity("${item.geoEntity.id}");
 </script>

@@ -6,6 +6,12 @@
           <mdParameter name="value" label="Value" order="0" type="java.lang.String" />
         </mdMethod>
       </mdUtil>
+      <mdView name="dss.vector.solutions.geo.GeoSynonymArrayExcelView" label="GeoSynonym Excel View" publish="false">
+        <attributes>
+          <reference name="geoEntity" label="geoEntity" type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual concrete="synonymNames" type="dss.vector.solutions.geo.GeoSynonymArrayView" />
+        </attributes>
+      </mdView>
     </create>
     <update></update>
   </doIt>

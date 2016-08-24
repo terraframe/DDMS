@@ -1452,6 +1452,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     List<? extends GeoHierarchy> list = query.getIterator().getAll();
     return list.toArray(new GeoHierarchy[list.size()]);
   }
+  
+  public static GeoHierarchy[] getAll()
+  {
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    List<? extends GeoHierarchy> list = query.getIterator().getAll();
+    return list.toArray(new GeoHierarchy[list.size()]);
+  }
 
   /**
    * @return An array of all Geo Hierarchies where Political==true
