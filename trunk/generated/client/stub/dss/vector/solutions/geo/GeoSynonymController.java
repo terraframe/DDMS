@@ -99,16 +99,19 @@ public class GeoSynonymController extends GeoSynonymControllerBase implements co
     this.viewGeoSyn(view);
   }
   
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance(GeoSynonymArrayViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      ClientRequestIF clientRequest = super.getClientRequest();
-      GeoSynonymArrayViewDTO dto = new GeoSynonymArrayViewDTO(clientRequest);
+      if (view == null)
+      {
+        ClientRequestIF clientRequest = super.getClientRequest();
+        view = new GeoSynonymArrayViewDTO(clientRequest);
+      }
       
-      req.setAttribute("item", dto);
+      req.setAttribute("item", view);
       req.setAttribute("newInstance", true);
-      addGrid(dto);
+      addGrid(view);
       
       render("viewComponent.jsp");
     }

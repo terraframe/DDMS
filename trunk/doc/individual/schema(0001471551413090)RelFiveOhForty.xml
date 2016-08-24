@@ -13,11 +13,20 @@
         </attributes>
       </mdView>
     </create>
-    <update></update>
+    <update>
+      <mdController name="dss.vector.solutions.geo.GeoSynonymController">
+        <mdAction name="newInstance" isPost="true">
+          <create>
+            <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.geo.GeoSynonymArrayView"/>
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
   </doIt>
   <undoIt>
     <delete>
       <object key="dss.vector.solutions.report.SchedulerUtil" type="com.runwaysdk.system.metadata.MdUtil" />
+      <object key="dss.vector.solutions.geo.GeoSynonymArrayExcelView" type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>
