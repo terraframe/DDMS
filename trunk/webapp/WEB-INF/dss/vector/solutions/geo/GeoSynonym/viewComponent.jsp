@@ -134,6 +134,7 @@ Mojo.Meta.newClass('MDSS.GeoSynonymViewForm', {
 
       this.populateComponent(component);
 
+      this._grid.myDataTable.saveCellEditor(); // Save any open editor forms (DDMS ticket 3428)
       var synonyms = this._grid != null ? this._grid.getParameters()[0] : [];
       
       component.applyWithSynonyms(request, synonyms);
