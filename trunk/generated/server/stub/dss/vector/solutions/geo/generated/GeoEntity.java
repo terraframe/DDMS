@@ -2281,11 +2281,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   @Transaction
   public void addSynonym(String synonymEntityName)
   {
-    GeoSynonym geoSynonym = new GeoSynonym();
-    geoSynonym.setEntityName(synonymEntityName);
-    geoSynonym.apply();
+    GeoSynonym gs = GeoSynonym.getByNameAndGeo(this.getGeoId(), synonymEntityName);
+    if (gs == null)
+    {
+      GeoSynonym geoSynonym = new GeoSynonym();
+      geoSynonym.setEntityName(synonymEntityName);
+      geoSynonym.apply();
 
-    this.addSynonyms(geoSynonym).apply();
+      this.addSynonyms(geoSynonym).apply();
+    }
+    else
+    {
+      // Nothing to update if it already exists...
+    }
   }
 
   @Override

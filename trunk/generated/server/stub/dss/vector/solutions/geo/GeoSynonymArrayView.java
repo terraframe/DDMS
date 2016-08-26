@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.SelectablePrimitive;
 
@@ -63,7 +64,17 @@ public class GeoSynonymArrayView extends GeoSynonymArrayViewBase implements com.
         return;
       }
     }
+    GeoEntity geo = this.getGeoEntity();
     
+    // Delete all existing synonyms for this GeoEntity
+    OIterator<? extends HasSynonym> geoRelsIt = geo.getAllSynonymsRel();
+    while (geoRelsIt.hasNext())
+    {
+      HasSynonym rel = geoRelsIt.next();
+      GeoSynonym syn = rel.getChild();
+      rel.delete();
+      syn.delete();
+    }
     
     // Apply all the synonyms they sent us.
     ArrayList<String> ids = new ArrayList<String>();
@@ -78,38 +89,31 @@ public class GeoSynonymArrayView extends GeoSynonymArrayViewBase implements com.
       }
       else
       {
+        try
+        {
         synonym = GeoSynonym.get(view.getGeoSynonymId());
+        }
+        catch (DataNotFoundException e)
+        {
+          // This is fine. We may have deleted the synonym earlier when we deleted all synonyms linked to our GeoEntity
+          synonym = new GeoSynonym();
+        }
       }
       synonym.setEntityName(view.getSynonymName());
       synonym.apply();
       
       ids.add(synonym.getId());
-    }
-    this.setSynonymIds(StringUtils.join(ids, ","));
-    
-    
-    // Update the relationships between the synonyms and the geoEntity
-    GeoEntity geo = this.getGeoEntity();
-    
-    OIterator<? extends HasSynonym> geoRelsIt = geo.getAllSynonymsRel();
-    while (geoRelsIt.hasNext())
-    {
-      HasSynonym rel = geoRelsIt.next();
-      rel.delete();
-    }
-    
-    for (String synonymId : ids)
-    {
-      GeoSynonym gs = GeoSynonym.get(synonymId);
       
-      OIterator<? extends HasSynonym> it = gs.getAllGeoEntityRel();
+      // Update the relationships between the synonym and the geoEntity
+      OIterator<? extends HasSynonym> it = synonym.getAllGeoEntityRel();
       while(it.hasNext())
       {
         it.next().delete();
       }
       
-      gs.addGeoEntity(geo).apply();
+      synonym.addGeoEntity(geo).apply();
     }
+    this.setSynonymIds(StringUtils.join(ids, ","));
   }
   
   /**

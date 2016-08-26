@@ -1,14 +1,19 @@
 package dss.vector.solutions.geo;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.export.ControlInterventionExcelView;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class GeoSynonymArrayExcelView extends GeoSynonymArrayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -24,19 +29,15 @@ public class GeoSynonymArrayExcelView extends GeoSynonymArrayExcelViewBase imple
   @Transaction
   public void apply()
   {
-    GeoSynonymArrayView gs = new GeoSynonymArrayView();
-    gs.setGeoEntity(getGeoEntity());
+    GeoEntity geo = this.getGeoEntity();
     
     String[] names = this.getSynonymNames().split(",");
-    GeoSynonymView[] synonymViews = new GeoSynonymView[names.length];
     for (int i = 0; i < names.length ; ++i)
     {
-      GeoSynonymView view = new GeoSynonymView();
-      view.setSynonymName(names[i]);
-      synonymViews[i] = view;
+      String name = names[i];
+      
+      GeoSynonym.createSynonym(name, geo.getGeoId());
     }
-    
-    gs.applyWithSynonyms(synonymViews);
   }
   
   public static List<String> customAttributeOrder()

@@ -1,6 +1,10 @@
 package dss.vector.solutions.geo;
 
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoSynonym extends GeoSynonymBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -15,11 +19,33 @@ public class GeoSynonym extends GeoSynonymBase implements com.runwaysdk.generati
   {
     GeoEntity.searchByGeoId(geoId).addSynonym(entityName);
   }
+  
+  public static GeoSynonym getByNameAndGeo(String geoId, String name)
+  {
+    QueryFactory qf = new QueryFactory();
+    
+    GeoEntityQuery geq = new GeoEntityQuery(qf);
+    
+    GeoSynonymQuery gsq = new GeoSynonymQuery(qf);
+    gsq.WHERE(gsq.getEntityName().EQ(name));
+    gsq.AND(gsq.geoEntity(geq));
+    
+    geq.WHERE(geq.getGeoId().EQ(geoId));
+    
+    OIterator<? extends GeoSynonym> it = gsq.getIterator();
+    if (!it.hasNext())
+    {
+      return null;
+    }
+    else
+    {
+      return it.next();
+    }
+  }
 
   @Override
   protected String buildKey()
   {
-    // TODO: Naifeh needs to define this key
     return this.getId();
   }
 
