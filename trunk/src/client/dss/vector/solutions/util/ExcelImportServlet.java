@@ -34,8 +34,6 @@ import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.logging.RunwayLogUtil;
 import com.runwaysdk.util.FileIO;
 
-import dss.vector.solutions.ExcelImportManagerDTO;
-
 public class ExcelImportServlet extends HttpServlet
 {
   /**
@@ -147,13 +145,15 @@ public class ExcelImportServlet extends HttpServlet
       {
         Class<?> managerClass = LoaderDecorator.load("dss.vector.solutions.ExcelImportManagerDTO");
         Method newInstMethod = managerClass.getMethod("getNewInstance", ClientRequestIF.class);
-        ExcelImportManagerDTO manager = (ExcelImportManagerDTO) newInstMethod.invoke(null, clientRequest);
+        Object managerInst = (Object) newInstMethod.invoke(null, clientRequest);
+        Method getIdMethod = managerClass.getMethod("getId");
+        String managerId = (String) getIdMethod.invoke(managerInst);
         
         Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class);
-        errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, manager.getId(), new ByteArrayInputStream(bytes), new String[0]);
+        errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), new String[0]);
 
         Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
-        unknownGeoEntityDTOArray = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, manager.getId());
+        unknownGeoEntityDTOArray = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
         
         if (errorStream.available() > 0)
         {
@@ -164,7 +164,7 @@ public class ExcelImportServlet extends HttpServlet
             statusCode = 702; // Request completed with errors and synonyms
           }
           
-          respondError(errorStream, fileName, res, manager, statusCode);
+          respondError(errorStream, fileName, res, managerId, statusCode);
           return;
         }
       }
@@ -206,7 +206,7 @@ public class ExcelImportServlet extends HttpServlet
   
   // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
   //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
-  private void respondError(InputStream errorStream, String filename, HttpServletResponse res, ExcelImportManagerDTO manager, Integer statusCode)
+  private void respondError(InputStream errorStream, String filename, HttpServletResponse res, String managerId, Integer statusCode)
   {
     String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
     try
@@ -225,9 +225,9 @@ public class ExcelImportServlet extends HttpServlet
       
       res.setContentType("application/xls");
       res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-      if (manager != null)
+      if (managerId != null)
       {
-        res.addHeader("ExcelImportManagerId", manager.getId());
+        res.addHeader("ExcelImportManagerId", managerId);
       }
       if (statusCode != null)
       {
