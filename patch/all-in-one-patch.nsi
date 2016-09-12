@@ -185,15 +185,15 @@ Section -Main SEC0000
   ${EndIf}
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8220
+  StrCpy $RunwayVersion 8246
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8219
-  StrCpy $PatchVersion 8219
-  StrCpy $TermsVersion 7764
+  StrCpy $ManagerVersion 8251
+  StrCpy $PatchVersion 8251
+  StrCpy $TermsVersion 8225
   StrCpy $RootsVersion 7829
-  StrCpy $MenuVersion 7786
-  StrCpy $LocalizationVersion 8199
-  StrCpy $PermissionsVersion 8117
+  StrCpy $MenuVersion 8225
+  StrCpy $LocalizationVersion 8225
+  StrCpy $PermissionsVersion 8251
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
   StrCpy $WebappsVersion 8118
@@ -395,20 +395,22 @@ FunctionEnd
 Function patchApplications
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-      
-  appNameFileReadLoop:
+  # TODO : Error handling for reading the applications file
+  
+  PATCHAPPSappNameFileReadLoop:
   # Read a line from the file into $1
+  ClearErrors
   FileRead $AppFile $1
-      
+  
   # Errors means end of File
-  IfErrors appNameDone
-      
+  IfErrors PATCHAPPSappNameDone
+  
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-    
+  
   Push $1
   Pop $AppName
-
+  
   # Only master installations can be patched.  
   Call checkIfMaster
 
@@ -419,9 +421,9 @@ Function patchApplications
     DetailPrint "$AppName cannot be patched because it is not a master install."
   ${EndIf}
 
-  Goto appNameFileReadLoop
+  Goto PATCHAPPSappNameFileReadLoop
           
-  appNameDone:
+  PATCHAPPSappNameDone:
   ClearErrors
   FileClose $AppFile
 FunctionEnd
@@ -530,224 +532,224 @@ Function patchProperties
 FunctionEnd
 
 Function patchApplication    
-    # Before we start, check the versions to make sure this is actually a patch.
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
-    ${If} $PatchVersion > $0     
-      MessageBox MB_YESNO "Patch application $AppName?" /SD IDYES IDYES true IDNO false  
-      true:
-    
-	  LogEx::Write "Starting patch of application $AppName"
-	  
-	  ${StrCase} $LowerAppName $AppName "L"
-	
-	  # Update the classpath to reference the particular application being patched
-      StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
+  # Before we start, check the versions to make sure this is actually a patch.
+  ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
+  ${If} $PatchVersion > $0     
+    MessageBox MB_YESNO "Patch application $AppName?" /SD IDYES IDYES true IDNO false  
+    true:
 
-      # Remove any old log files that may be laying around
-      Delete $AgentDir\*.out
-      Delete $AgentDir\*.err
-	  
-	  # Remove old lib files
-      Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*.*
-            
-      # Copy web files
-	  LogEx::Write "Updating web files"
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
-      SetOutPath $INSTDIR\tomcat\webapps\$AppName
-      File /r /x .svn ..\trunk\patches\webapp\*
-      File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+    LogEx::Write "Starting patch of application $AppName"
+    
+    ${StrCase} $LowerAppName $AppName "L"
 
-	  # We need to clear the old cache
-	  RMDir /r $INSTDIR\tomcat\cache
-	  
-	  # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
-	  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
-	  Call execDos
+    # Update the classpath to reference the particular application being patched
+    StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
 
-      # Build any dimensional metadata with the Master domain
-	  LogEx::Write "Building dimensional metadata for $AppName"
-      !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
-      push `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com`
-      Call execDos
-	  
-	  # Predictive id patching
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
-      ${If} $IdVersion > $0
-	    LogEx::Write "Migrating system ids"
-        StrCpy $Phase "Updating root ids, this process can several hours to complete."		
-		push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
-        Call execDos
-		
-		# We need to re-clear the old cache
-		RMDir /r $INSTDIR\tomcat\cache
-		
-        StrCpy $Phase "Updating system ids, this process can several hours to complete."		
-		push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
-        Call execDos
-		
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
-      ${Else}
-	    LogEx::Write "Skipping system id migration because they are already up to date"
-        DetailPrint "Skipping system id migration because they are already up to date"
-      ${EndIf}	  
+    # Remove any old log files that may be laying around
+    Delete $AgentDir\*.out
+    Delete $AgentDir\*.err
     
-	  # Reference Indexing Patching (ticket 3341)
-	  !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating reference indexes."
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
-	  ${If} $0 < 8157
-	    LogEx::Write "Updating reference indexes for $AppName"
-        !insertmacro MUI_HEADER_TEXT "Patching indexes" "Updating reference indexes for $AppName..."
-        push `$Java $JavaOpts=$AgentDir\index3341 -cp $Classpath com.runwaysdk.gis.IndexMetadataPatcher`
-        Call execDos
-	  ${EndIf}
-	
-      # Import Most Recent
-	  LogEx::Write "Importing updated schema definitions."
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
-      SetOutPath $PatchDir\schema
-      File /x .svn ..\trunk\doc\individual\*
-      StrCpy $Phase "Importing updated schema definitions"
-      push `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd`
-      Call execDos
+    # Remove old lib files
+    Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*.*
+      
+    # Copy web files
+    LogEx::Write "Updating web files"
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
+    SetOutPath $INSTDIR\tomcat\webapps\$AppName
+    File /r /x .svn ..\trunk\patches\webapp\*
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+
+    # We need to clear the old cache
+    RMDir /r $INSTDIR\tomcat\cache
     
-      # Update Database Source and Class
-	  LogEx::Write "Updating database source and classes"
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Database"
-      StrCpy $Phase "Updating database"
-      push `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses`
-      Call execDos
-      # Delete $PatchDir\schema
+    # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
+    Call execDos
+
+    # Build any dimensional metadata with the Master domain
+    LogEx::Write "Building dimensional metadata for $AppName"
+    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
+    push `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com`
+    Call execDos
     
-      # Switch to the develop environment
-      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties
-      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
+    # Predictive id patching
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
+    ${If} $IdVersion > $0
+    LogEx::Write "Migrating system ids"
+    StrCpy $Phase "Updating root ids, this process can several hours to complete."		
+    push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
+    Call execDos
     
-      # Terms
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
-      SetOutPath $PatchDir\doc
-      File ..\trunk\doc\ontology\MOterms.xls
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
-      ${If} $TermsVersion > $0
-	    LogEx::Write "Importing ontology"
-        StrCpy $Phase "Importing ontology from spreadsheet"
-        push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls`
-        Call execDos
-        StrCpy $Phase "Rebuilding all paths"
-        ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
-        StrCpy $JavaError "500"
-        Call JavaAbort
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
-      ${Else}
-	    LogEx::Write "Skipping Ontology because it is already up to date"
-        DetailPrint "Skipping Ontology because it is already up to date"
-      ${EndIf}
+    # We need to re-clear the old cache
+    RMDir /r $INSTDIR\tomcat\cache
     
-      # Term Roots
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
-      File ..\trunk\doc\ontology\MOroots.xls
-      File ..\trunk\patches\geo-universals.xls
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
-      ${If} $RootsVersion > $0
-	    LogEx::Write "Setting up ontology roots."
-        StrCpy $Phase "Post ontology setup"
-        push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls false`
-        Call execDos
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
-      ${Else}
-	    LogEx::Write "Skipping Ontology Roots because they are already up to date"
-        DetailPrint "Skipping Ontology Roots because they are already up to date"
-      ${EndIf}
+    StrCpy $Phase "Updating system ids, this process can several hours to complete."		
+    push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
+    Call execDos
     
-      # Menu Items
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Menu Items"
-      SetOutPath $PatchDir\doc
-      File ..\trunk\doc\menu\MenuItems.xls
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
-      ${If} $MenuVersion > $0
-	    LogEx::Write "Importing menu items"
-        StrCpy $Phase "Importing menu items"
-        push `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls false`
-        Call execDos
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
-      ${Else}
-	    LogEx::Write "Skipping Menu because it is already up to date"
-        DetailPrint "Skipping Menu because it is already up to date"
-      ${EndIf}
-        
-      # Localization
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Localization"
-      SetOutPath $PatchDir\doc
-      File ..\trunk\doc\DiseaseLocalizationDefaults.xls
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Localization
-      ${If} $LocalizationVersion > $0
-	    LogEx::Write "Updating localization"
-        StrCpy $Phase "Updating localization"
-        push `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls`
-        Call execDos
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
-      ${Else}
-	    LogEx::Write "Skipping localization because it is already up to date"
-        DetailPrint "Skipping Localization because it is already up to date"
-      ${EndIf}
-	  
-      # Permissions
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
-      SetOutPath $PatchDir\doc
-      File ..\trunk\profiles\Permissions.xls
-      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
-      ${If} $PermissionsVersion > $0
-	    LogEx::Write "Updating permissions"
-        StrCpy $Phase "Updating permissions"
-        push `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\Permissions.xls`
-        Call execDos
-        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
-      ${Else}
-	    LogEx::Write "Skipping Permissions because they are already up to date"
-        DetailPrint "Skipping Permissions because they are already up to date"
-      ${EndIf}    
-        
-      # Update any application data which needs to be updated
-	  LogEx::Write "Updating application data"
-      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
-      SetOutPath $PatchDir\doc
-      StrCpy $Phase "Updating application data"
-      push `$Java $JavaOpts=$AgentDir\appdataupdate_app -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater`
-      Call execDos
-   
-      # Delete all database views and sql functions because the QB source / function source may have changed
-	  LogEx::Write "Deleting existing database views and functions."
-   	  StrCpy $Phase "Deleting existing database views and functions."
-      push `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
-      Call execDos
-   
-      # Switch back to the deploy environment
-	  LogEx::Write "Switching back to deploy environment"
-      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
-      Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
-  
-      # Update the .css file with the correct pathing
-	  LogEx::Write "Executing post install setup"
-      push `$Java -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
-      Call execDos
-	
-      # Copy the profile to the backup manager
-	  LogEx::Write "Copying the profile to the backup manager"
-      CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-      CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
+    ${Else}
+    LogEx::Write "Skipping system id migration because they are already up to date"
+    DetailPrint "Skipping system id migration because they are already up to date"
+    ${EndIf}	  
+
+    # Reference Indexing Patching (ticket 3341)
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating reference indexes."
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+    ${If} $0 < 8157
+    LogEx::Write "Updating reference indexes for $AppName"
+    !insertmacro MUI_HEADER_TEXT "Patching indexes" "Updating reference indexes for $AppName..."
+    push `$Java $JavaOpts=$AgentDir\index3341 -cp $Classpath com.runwaysdk.gis.IndexMetadataPatcher`
+    Call execDos
+    ${EndIf}
+
+    # Import Most Recent
+    LogEx::Write "Importing updated schema definitions."
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
+    SetOutPath $PatchDir\schema
+    File /x .svn ..\trunk\doc\individual\*
+    StrCpy $Phase "Importing updated schema definitions"
+    push `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd`
+    Call execDos
+
+    # Update Database Source and Class
+    LogEx::Write "Updating database source and classes"
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Database"
+    StrCpy $Phase "Updating database"
+    push `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses`
+    Call execDos
+    # Delete $PatchDir\schema
+
+    # Switch to the develop environment
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
+
+    # Terms
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
+    SetOutPath $PatchDir\doc
+    File ..\trunk\doc\ontology\MOterms.xls
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
+    ${If} $TermsVersion > $0
+    LogEx::Write "Importing ontology"
+    StrCpy $Phase "Importing ontology from spreadsheet"
+    push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls`
+    Call execDos
+    StrCpy $Phase "Rebuilding all paths"
+    ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
+    StrCpy $JavaError "500"
+    Call JavaAbort
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
+    ${Else}
+    LogEx::Write "Skipping Ontology because it is already up to date"
+    DetailPrint "Skipping Ontology because it is already up to date"
+    ${EndIf}
+
+    # Term Roots
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
+    File ..\trunk\doc\ontology\MOroots.xls
+    File ..\trunk\patches\geo-universals.xls
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
+    ${If} $RootsVersion > $0
+    LogEx::Write "Setting up ontology roots."
+    StrCpy $Phase "Post ontology setup"
+    push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls false`
+    Call execDos
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
+    ${Else}
+    LogEx::Write "Skipping Ontology Roots because they are already up to date"
+    DetailPrint "Skipping Ontology Roots because they are already up to date"
+    ${EndIf}
+
+    # Menu Items
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Menu Items"
+    SetOutPath $PatchDir\doc
+    File ..\trunk\doc\menu\MenuItems.xls
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
+    ${If} $MenuVersion > $0
+    LogEx::Write "Importing menu items"
+    StrCpy $Phase "Importing menu items"
+    push `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls false`
+    Call execDos
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
+    ${Else}
+    LogEx::Write "Skipping Menu because it is already up to date"
+    DetailPrint "Skipping Menu because it is already up to date"
+    ${EndIf}
     
-      # Write updated versions into registry
-	  LogEx::Write "Updating the registry"
-      WriteRegStr HKLM "${REGKEY}\Components" Main 1
-      WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
+    # Localization
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Localization"
+    SetOutPath $PatchDir\doc
+    File ..\trunk\doc\DiseaseLocalizationDefaults.xls
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Localization
+    ${If} $LocalizationVersion > $0
+    LogEx::Write "Updating localization"
+    StrCpy $Phase "Updating localization"
+    push `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls`
+    Call execDos
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
+    ${Else}
+    LogEx::Write "Skipping localization because it is already up to date"
+    DetailPrint "Skipping Localization because it is already up to date"
+    ${EndIf}
     
-      # We need to clear the old cache
-	  LogEx::Write "Deleting the old cache"
-	  RMDir /r $INSTDIR\tomcat\cache
+    # Permissions
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
+    SetOutPath $PatchDir\doc
+    File ..\trunk\profiles\Permissions.xls
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
+    ${If} $PermissionsVersion > $0
+    LogEx::Write "Updating permissions"
+    StrCpy $Phase "Updating permissions"
+    push `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\Permissions.xls`
+    Call execDos
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
+    ${Else}
+    LogEx::Write "Skipping Permissions because they are already up to date"
+    DetailPrint "Skipping Permissions because they are already up to date"
+    ${EndIf}    
+    
+    # Update any application data which needs to be updated
+    LogEx::Write "Updating application data"
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
+    SetOutPath $PatchDir\doc
+    StrCpy $Phase "Updating application data"
+    push `$Java $JavaOpts=$AgentDir\appdataupdate_app -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater`
+    Call execDos
+
+    # Delete all database views and sql functions because the QB source / function source may have changed
+    LogEx::Write "Deleting existing database views and functions."
+    StrCpy $Phase "Deleting existing database views and functions."
+    push `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
+    Call execDos
+
+    # Switch back to the deploy environment
+    LogEx::Write "Switching back to deploy environment"
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
+
+    # Update the .css file with the correct pathing
+    LogEx::Write "Executing post install setup"
+    push `$Java -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
+    Call execDos
+
+    # Copy the profile to the backup manager
+    LogEx::Write "Copying the profile to the backup manager"
+    CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+
+    # Write updated versions into registry
+    LogEx::Write "Updating the registry"
+    WriteRegStr HKLM "${REGKEY}\Components" Main 1
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
+
+    # We need to clear the old cache
+    LogEx::Write "Deleting the old cache"
+    RMDir /r $INSTDIR\tomcat\cache
     Goto next
     false:
     DetailPrint "Skipping patch of $AppName"
-	LogEx::Write "Skipping patch of $AppName"
+    LogEx::Write "Skipping patch of $AppName"
     next:    
   ${Else}
     DetailPrint "The application $AppName is already up to date."
@@ -915,24 +917,24 @@ Function patchManager
     ClearErrors
     FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
     
-    appNameFileReadLoop:
+    MANAGERappNameFileReadLoop:
     # Read a line from the file into $1
     FileRead $0 $1
     
     # Errors means end of File
-    IfErrors appNameDone
+    IfErrors MANAGERappNameDone
     
     # Removes the newline from the end of $1
     ${StrTrimNewLines} $1 $1
     
     # Copy over updated runway properties
-	LogEx::Write "Copying over updated runway properties for app $1"
+	  LogEx::Write "Copying over updated runway properties for app $1"
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
   
-    Goto appNameFileReadLoop
+    Goto MANAGERappNameFileReadLoop
         
-    appNameDone:
+    MANAGERappNameDone:
     ClearErrors
     FileClose $0
   
@@ -1112,7 +1114,7 @@ FunctionEnd
 
 Function JavaAbort
   ${If} $JavaError == 1
-    ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\output\*.err $PatchDir\output\*.out $INSTDIR\logs`
+    ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\output\*.err $PatchDir\output\*.out $PatchDir\output\*.log $INSTDIR\logs`
 	LogEx::Write "FATAL ERROR: Patch failed. A file called PatchFailure.7z has been created on your desktop."
     DetailPrint "Patch failed."
     DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
@@ -1466,11 +1468,14 @@ Function stopPostgres
 	  # Yikes, this is a problem if we get here.
 	  LogEx::Write "FATAL ERROR : Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team."
 	  MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
-	  Goto PostgresDown # Ignore
+	  LogEx::Write "User has opted to ignore the error and continue patching."
+    Goto PostgresDown # Ignore
 	  Abort_Clicked:
-	  StrCpy $JavaError 1
+      LogEx::Write "User has opted to abort."
+	    StrCpy $JavaError 1
       Call JavaAbort
 	  Retry_Clicked:
+      LogEx::Write "User has opted to retry previously failed operation."
 	  Goto PostgresUp
     ${EndIf}
 	
@@ -1573,16 +1578,16 @@ Function upgradePostgresAndPostgis
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
   
-  appNameFileReadLoop:
+  UPPOSTGRESappNameFileReadLoop:
   # Read a line from the file into $1
   FileRead $AppFile $1
       
   # Errors means end of File
-  IfErrors appNameDone
+  IfErrors UPPOSTGRESappNameDone
       
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-    
+  
   Push $1
   Pop $AppName
   ${StrCase} $LowerAppName $AppName "L"
@@ -1593,9 +1598,9 @@ Function upgradePostgresAndPostgis
   push `"$INSTDIR\PostgreSql\9.1\bin\pg_dump.exe" -p 5444 -h 127.0.0.1 -U postgres -Fc -b -v -f "$INSTDIR\migrate\$LowerAppName.backup" $LowerAppName`
   Call execDos
   
-  Goto appNameFileReadLoop
+  Goto UPPOSTGRESappNameFileReadLoop
           
-  appNameDone:
+  UPPOSTGRESappNameDone:
   ClearErrors
   FileClose $AppFile
   
@@ -1617,12 +1622,12 @@ Function upgradePostgresAndPostgis
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
   
-  appNameFileReadLoop2:
+  UPPOSTGRES2appNameFileReadLoop:
   # Read a line from the file into $1
   FileRead $AppFile $1
       
   # Errors means end of File
-  IfErrors appNameDone2
+  IfErrors UPPOSTGRES2appNameDone
       
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
@@ -1673,9 +1678,9 @@ Function upgradePostgresAndPostgis
   Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties     # file to replace in
   Call AdvReplaceInFile
 
-  Goto appNameFileReadLoop2
+  Goto UPPOSTGRES2appNameFileReadLoop
           
-  appNameDone2:
+  UPPOSTGRES2appNameDone:
   ClearErrors
   FileClose $AppFile
   
