@@ -70,11 +70,13 @@
   </taskdef>
  
 <!--
+   BUILD CONFIGURATION PARAMETERS : Take your pick :
+   
   <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 15 minutes)
   <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
   <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>
+  <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>
   
   
   <target name="deploy">
