@@ -200,6 +200,7 @@ Section -Main SEC0000
   StrCpy $JavaVersion 8188
   StrCpy $TomcatVersion 8190
   
+  # These ones aren't
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
   
@@ -625,28 +626,39 @@ Function patchApplication
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
 
+    # Ticket 3434
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+    ${If} 8252 > $0
+      LogEx::Write "Patching ticket 3434"
+      push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
+      Call execDos
+    ${Else}
+      LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
+    ${EndIf}
+    
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
-    SetOutPath $PatchDir\doc
-    File ..\trunk\doc\ontology\MOterms.xls
+    SetOutPath $PatchDir\doc\ontology\defaultterms
+    File /x .svn ..\trunk\doc\ontology\defaultterms\*
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
     ${If} $TermsVersion > $0
-    LogEx::Write "Importing ontology"
-    StrCpy $Phase "Importing ontology from spreadsheet"
-    push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls`
-    Call execDos
-    StrCpy $Phase "Rebuilding all paths"
-    ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
-    StrCpy $JavaError "500"
-    Call JavaAbort
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
+      LogEx::Write "Importing ontology"
+      StrCpy $Phase "Importing ontology from spreadsheet"
+      push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter $PatchDir\doc\ontology\defaultterms`
+      Call execDos
+      StrCpy $Phase "Rebuilding all paths"
+      ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
+      StrCpy $JavaError "500"
+      Call JavaAbort
+      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
     ${Else}
-    LogEx::Write "Skipping Ontology because it is already up to date"
-    DetailPrint "Skipping Ontology because it is already up to date"
+      LogEx::Write "Skipping Ontology because it is already up to date"
+      DetailPrint "Skipping Ontology because it is already up to date"
     ${EndIf}
 
     # Term Roots
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
+    SetOutPath $PatchDir\doc\ontology
     File ..\trunk\doc\ontology\MOroots.xls
     File ..\trunk\patches\geo-universals.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
@@ -841,7 +853,7 @@ Function patchManager
     LogEx::Write "Patching the manager."
 	
     # Delete the existing SWT jars, the SWT jar has been moved into the jre
-  	RMDir /r $INSTDIR\manager\backup-manager-1.0.0\lib
+    RMDir /r $INSTDIR\manager\backup-manager-1.0.0\lib
     Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar  
     Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar  
     Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar  
@@ -849,10 +861,10 @@ Function patchManager
   
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
-	File ..\standalone\patch\manager.ps1
+    File ..\standalone\patch\manager.ps1
     File ..\standalone\patch\manager.ico
-	File ..\standalone\patch\ddmschedule.bat
-	File ..\standalone\patch\ddmscli.bat
+    File ..\standalone\patch\ddmschedule.bat
+    File ..\standalone\patch\ddmscli.bat
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
@@ -866,28 +878,32 @@ Function patchManager
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
 	
-	# Set tomcat auto deploy to false (ticket 3389)
+    # TODO : The code below references $AppName, which can't possibly be defined yet at this point because we're not patching per app, we're patching the manager as a whole.
+    #        My guess is that it coincidentally works because $AppName was used elsewhere in the patcher so it uses the last set value of it. I'm not going to attempt to fix
+    #        it right now since the customer hasn't reported any issues with it (and I'm not getting paid to fix random obsolete crap), just be aware when writing new code that its not good practice.
+  
+    # Set tomcat auto deploy to false (ticket 3389)
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
-	${If} 8190 > $0
-	  LogEx::Write "Setting tomcat auto deploy to false (3389)."
-	  Push autoDeploy="true"                                       # text to be replaced
-      Push autoDeploy="false"                                       # replace with
-      Push all                                                            # replace all occurrences
-      Push all                                                            # replace all occurrences
-      Push $INSTDIR\tomcat\conf\server.xml      # file to replace in
-      Call AdvReplaceInFile  
-	${EndIf}
+    ${If} 8190 > $0
+      LogEx::Write "Setting tomcat auto deploy to false (3389)."
+      Push autoDeploy="true"                                       # text to be replaced
+        Push autoDeploy="false"                                       # replace with
+        Push all                                                            # replace all occurrences
+        Push all                                                            # replace all occurrences
+        Push $INSTDIR\tomcat\conf\server.xml      # file to replace in
+        Call AdvReplaceInFile  
+    ${EndIf}
 	
-	# Move the vault to the correct place (ticket 3259)
+    # Move the vault to the correct place (ticket 3259)
     ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" PatchVersion
-  	${If} 8195 > $6
-	  LogEx::Write "Moving the vault to the correct place (3259)."
-      
-	  !insertmacro MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
-	  ClearErrors
-	${EndIf}
+    ${If} 8195 > $6
+      LogEx::Write "Moving the vault to the correct place (3259)."
+        
+      !insertmacro MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
+      ClearErrors
+    ${EndIf}
 	
-	################################################################################
+    ################################################################################
     # Update the manager memory settings for 64-bit installs
     ################################################################################
   
@@ -932,6 +948,29 @@ Function patchManager
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
   
+    # Fix any Postgres migration issues (ticket 3440)
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$1" PatchVersion
+    ${If} 8250 > $0
+      LogEx::Write "Fixing potential Postgres migration issues for app [$1] (ticket 3440)"
+      
+      LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$1\WEB-INF\classes\database.properties]"
+      Push PostgreSQL/9.1                                                                  # text to be replaced
+      Push ${POSTGRES_DIR}                                                                 # replace with
+      Push all                                                                             # replace all occurrences
+      Push all                                                                             # replace all occurrences
+      Push $INSTDIR\tomcat\webapps\$1\WEB-INF\classes\database.properties           # file to replace in
+      Call AdvReplaceInFile
+      
+      LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$1\database.properties]"
+      Push PostgreSQL/9.1                                                                  # text to be replaced
+      Push ${POSTGRES_DIR}                                                                 # replace with
+      Push all                                                                             # replace all occurrences
+      Push all                                                                             # replace all occurrences
+      Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$1\database.properties     # file to replace in
+      Call AdvReplaceInFile
+    ${EndIf}
+  
+  
     Goto MANAGERappNameFileReadLoop
         
     MANAGERappNameDone:
@@ -943,7 +982,7 @@ Function patchManager
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion  
   ${Else}
     DetailPrint "Manager is already up to date"
-	LogEx::Write "Manager is already up to date."
+    LogEx::Write "Manager is already up to date."
   ${EndIf}    
 FunctionEnd
 
@@ -976,16 +1015,18 @@ Function patchInstallerStage
   ################################################################################
   # Database Patching
   ################################################################################
+  
   ClearErrors
-  ReadRegStr $0 HKLM "${REGKEY}\Components" DatabaseSoftware
-  IfErrors DbSoftwareErrors
-  ${If} $DatabaseSoftwareVersion > $0
-    DbSoftwareErrors:
+  
+  IfFileExists $INSTDIR\PostgreSql\9.4\bin\psql.exe Yes94 No94
+  
+  No94:
     Call upgradePostgresAndPostgis
-  ${Else}
+    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware $DatabaseSoftwareVersion
+  Yes94:
+    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     LogEx::Write "Skipping database software patch because the software is up to date."
     DetailPrint "Skipping database software patch because the software is up to date."
-  ${EndIf} 
   
   ################################################################################
   # Copy over the Birt
@@ -1518,30 +1559,30 @@ Function migrateDatabaseSoftware
 	#MessageBox MB_OK|MB_ICONINFORMATION "Please run through the postgres installer and click OK here when finished."
 	
 	push ${POSTGRES_DIR}
-    Call stopPostgres
-	
-    # Get the Windows Version (XP, Vista, etc.)
-    nsisos::osversion
-    
-    LogEx::Write "Installing custom pg_hba.conf"
-    # Version 5 means XP.  No IPv6
-    ${If} $0 == 5
-      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv4.conf"
-    
-    # Version 5 means Vista or Seven.  IPv6 enabled
-    ${ElseIf} $0 == 6
-      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
-    
-    # Who knows what version we're on.
-    ${Else}
-      LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
-	  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
-      File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
-    ${EndIf}
-    
-    # Copy the tweaked postgres config
-    LogEx::Write "Installing custom postgresql.conf"
-    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\postgresql.conf" "..\installer-stage\postgresql.conf"
+  Call stopPostgres
+
+  # Get the Windows Version (XP, Vista, etc.)
+  nsisos::osversion
+  
+  LogEx::Write "Installing custom pg_hba.conf"
+  # Version 5 means XP.  No IPv6
+  ${If} $0 == 5
+    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv4.conf"
+  
+  # Version 5 means Vista or Seven.  IPv6 enabled
+  ${ElseIf} $0 == 6
+    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
+  
+  # Who knows what version we're on.
+  ${Else}
+    LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
+  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
+    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
+  ${EndIf}
+  
+  # Copy the tweaked postgres config
+  LogEx::Write "Installing custom postgresql.conf"
+  File "/oname=$INSTDIR\${POSTGRES_DIR}\data\postgresql.conf" "..\installer-stage\postgresql.conf"
 	
 	Sleep 2000    
 	LogEx::Write "The database is initializing. This may take a few minutes."
@@ -1664,6 +1705,7 @@ Function upgradePostgresAndPostgis
   Call execDos
 	
   # Update database.properties (databaseBinDirectory)
+  LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties]"
   Push PostgreSQL/9.1                                                                  # text to be replaced
   Push ${POSTGRES_DIR}                                                                 # replace with
   Push all                                                                             # replace all occurrences
@@ -1671,6 +1713,7 @@ Function upgradePostgresAndPostgis
   Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
   Call AdvReplaceInFile
   
+  LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties]"
   Push PostgreSQL/9.1                                                                  # text to be replaced
   Push ${POSTGRES_DIR}                                                                 # replace with
   Push all                                                                             # replace all occurrences
@@ -1716,13 +1759,16 @@ Function execDos
   StrCmp $8 0 WeAreDone
   
   # Error handling
-  LogEx::Write `ExecDos returned $8`
+  LogEx::Write `ExecDos had an error. Exit code is $8`
   MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
+  LogEx::Write "ExecDos: User decided to ignore the error and continue anyway."
   Goto WeAreDone # Ignore
   Abort_Clicked:
+  LogEx::Write "ExecDos: User is aborting."
   StrCpy $JavaError 1
   Call JavaAbort
   Retry_Clicked:
+  LogEx::Write "ExecDos: User is retrying the operation."
   push $9
   Call execDos
 
@@ -1731,7 +1777,9 @@ FunctionEnd
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-
+  ################################################################################
+  # Uninstall tomcat
+  ################################################################################
   SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
@@ -1750,38 +1798,49 @@ Section /o -un.Main UNSEC0000
     
   ${EndIf}
 
-
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
   
-  ################################################################################
-  # Uninstall the tomcat service
-  ################################################################################  
   SimpleSC::ExistsService "Tomcat"
   Pop $0
   
-    ${If} $0 == 0        
-      # Service exists, we need to delete it  
-      LogEx::Write "Deleting tomcat service"
-      ExecWait `$TomcatExec //DS//Tomcat`
-    ${EndIf}
+  ${If} $0 == 0        
+    # Service exists, we need to delete it  
+    LogEx::Write "Deleting tomcat service"
+    ExecWait `$TomcatExec //DS//Tomcat`
+  ${EndIf}
+
+  ################################################################################
+  # Uninstall Postgres
+  ################################################################################
+  ExecDos::exec /NOUNLOAD `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i` "" "$AgentDir\postgresController.out"
   
-    DeleteRegValue HKLM "${REGKEY}\Components" Main
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
-    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
-    DeleteRegValue HKLM "${REGKEY}\Components" Manager
-    DeleteRegValue HKLM "${REGKEY}\Components" Java 
-    DeleteRegValue HKLM "${REGKEY}\Components" Birt 
-    DeleteRegValue HKLM "${REGKEY}\Components" Webapps
-    DeleteRegValue HKLM "${REGKEY}\Components" Runway
-	
-    ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
-    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
-    RmDir /r /REBOOTOK $INSTDIR
-    UserMgr::DeleteAccount "ddmspostgres"
+  ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
+  ExecDos::exec /NOUNLOAD `SC DELETE postgresql-x64-9.4` "" "$AgentDir\postgresController.out"
+  DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
+  DeleteRegKey HKLM "SOFTWARE\PostgreSQL Global Development Group"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL Global Development Group"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostGIS"
+  RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+  UserMgr::DeleteAccount "ddmspostgres"
+  
+  ################################################################################
+  # Uninstall DDMS
+  ################################################################################
+  DeleteRegValue HKLM "${REGKEY}\Components" Main
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
+  DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
+  DeleteRegValue HKLM "${REGKEY}\Components" Manager
+  DeleteRegValue HKLM "${REGKEY}\Components" Java 
+  DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+  DeleteRegValue HKLM "${REGKEY}\Components" Webapps
+  DeleteRegValue HKLM "${REGKEY}\Components" Runway
+  
+  RmDir /r /REBOOTOK $INSTDIR
 SectionEnd
 
 Function StrCase
