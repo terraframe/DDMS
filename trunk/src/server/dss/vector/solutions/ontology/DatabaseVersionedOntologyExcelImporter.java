@@ -25,6 +25,7 @@ import com.runwaysdk.session.Request;
 public class DatabaseVersionedOntologyExcelImporter
 {
   public static final String ONTOLOGY_VERSION_TIMESTAMP_PROPERTY = "DDMS00000000000000001";
+  // delete from dynamic_properties where id ='DDMS00000000000000001'
   
   class VersionComparator implements Comparator<File>
   {
@@ -50,8 +51,11 @@ public class DatabaseVersionedOntologyExcelImporter
    */
   protected Map<Date, File> map;
   
+  protected boolean rebuildAllpaths;
+  
   public DatabaseVersionedOntologyExcelImporter(String location)
   {
+    this.rebuildAllpaths = false;
     this.map = new HashMap<Date, File>();
     this.ordered = new TreeSet<File>(new VersionComparator());
 
@@ -92,6 +96,8 @@ public class DatabaseVersionedOntologyExcelImporter
       }
       
       timestamps.add(timestamp);
+      
+      rebuildAllpaths = true;
     }
   }
   
@@ -111,6 +117,11 @@ public class DatabaseVersionedOntologyExcelImporter
     List<File> list = new LinkedList<File>(ordered);
 
     this.performDoIt(list);
+    
+    if (rebuildAllpaths)
+    {
+      AllPaths.main(new String[]{});
+    }
   }
   
   public static void main(String[] args)

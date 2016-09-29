@@ -8,14 +8,15 @@ import java.sql.Savepoint;
 import java.sql.Timestamp;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
-import com.runwaysdk.constants.MdAttributeCharacterInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -24,7 +25,6 @@ import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 import com.runwaysdk.dataaccess.database.general.PostgreSQL;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -40,6 +40,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.loader.Reloadable
 {
+  private static final Logger logger = LoggerFactory.getLogger(AllPaths.class);
+  
   private static final long serialVersionUID = 1253040252503L;
 
   public static int         BATCH_SIZE       = 1000;
@@ -55,7 +57,9 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   @Request
   public static void main(String[] args)
   {
-    System.out.println(System.currentTimeMillis());
+    logger.info("Starting allpaths table rebuild.");
+    
+    long start = System.currentTimeMillis();
     try
     {
       rebuildAllPaths();
@@ -64,7 +68,9 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     {
       CacheShutdown.shutdown();
     }
-    System.out.println(System.currentTimeMillis());
+    long finish = System.currentTimeMillis();
+    
+    logger.info("Rebuilding the allpaths table took [" + (finish - start) + "] ms.");
   }
 
   /**

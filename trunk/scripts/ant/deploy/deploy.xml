@@ -968,8 +968,8 @@
 		<copy file="../../../doc/MergedLocalization.xls" tofile="../../../doc/DiseaseLocalizationDefaults.xls" overwrite="true" />
 	</target>
 
-	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
-		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
+	<target name="import_ontology" depends="" description="imports the default terms into the db">
+		<java classname="dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx${memory_use}" />
 			<jvmarg value="-Xms${memory_use}" />			
 			<jvmarg value="-XX:PermSize=${perm_size}" />
@@ -977,8 +977,7 @@
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
-			<arg value="../../../doc/ontology/MOterms.xls" />
-			<arg value="MO" />
+			<arg value="../../../doc/ontology/defaultterms" />
 		</java>
 
 	</target>
