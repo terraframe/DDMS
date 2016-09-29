@@ -23,6 +23,7 @@ import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.VaultInfo;
 import com.runwaysdk.constants.VaultProperties;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Versioning;
@@ -54,18 +55,19 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * This importer will import production backup datasets into your dev environment.
  * 
  * @param args[0] fBackup The path to the backup zip file you want to import
- * @param args[1] fPatches The path to the runway metadata patches zip file. The zip exists in the runway-patcher project.
+ * @param args[1] fPatches TODO: Not implemented yet. The path to the runway metadata patches zip file. The zip exists in the runway-patcher project.
  *      If you do not specify this path, this program will skip patching after restoring the backup.
  * 
  * Steps from ground 0:
- * 1) Create user mdssdevelop
- * 2) Create a new database with owner: mdssdevelop
- * 3) Modify your database search_path to ddms,public: ALTER DATABASE $name SET search_path=ddms,public;
- *    alternatively: ALTER ROLE mdssdevelop SET search_path = ddms,public;
- * 4) Install the postgis extension: CREATE EXTENSION postgis;
- * 5) Build the project
- * 6) Create and run a java main program launch for this class with the necessary parameters.
- * 7) Compile and deploy the new source we just loaded from the backup to your tomcat server
+ * 1) Add your password to a ~/.pgpass file with host 127.0.0.1 (NOT LOCALHOST) that the psql import process will use when importing the sql files.
+ * 2) Create user mdssdeploy
+ * 3) Create a new database of name mdssdeploy with owner: mdssdeploy
+ * 4) Modify your database search_path to ddms,public: ALTER DATABASE mdssdeploy SET search_path=ddms,public;
+ *    alternatively: ALTER ROLE mdssdeploy SET search_path = ddms,public;
+ * 5) Install the postgis extension: CREATE EXTENSION postgis;
+ * 6) Build the project
+ * 7) Create and run a java main program launch for this class with the necessary parameters.
+ * 8) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
  * Troubleshooting Problems:
@@ -108,34 +110,13 @@ public class BackupDevImporter
       FormSurvey.CLASS, FormBedNet.CLASS, FormPerson.CLASS, FormHousehold.CLASS, HumanBloodIndex.CLASS
   };
   
+  private String databaseName;
+  
   public BackupDevImporter(File fBackup, File fPatches)
   {
     logger = LoggerFactory.getLogger(BackupDevImporter.class);
-    
-    if (LocalProperties.getSrcRoot() == null || !(new File(LocalProperties.getSrcRoot()).exists()))
-    {
-      throw new RuntimeException("Your local.properties [local.src.root] is misconfigured.");
-    }
-    else
-    {
-      fDestSrcRoot = new File(LocalProperties.getSrcRoot() + File.separator + "backup");
-    }
-    
-    if (fBackup == null || !fBackup.isFile())
-    {
-      throw new RuntimeException("The first argument [" + fBackup + "] is not a valid path to a backup file.");
-    }
     this.fBackup = fBackup;
-    
-//    if (fPatches == null || !fPatches.isFile())
-//    {
-//      String msg = "The second argument [" + backupPath + "] is not a valid path to a runway metadata patches zip. Your backup will not be patched.";
-//      logger.warn(msg);
-//    }
-//    else
-//    {
-//      this.fPatches = fPatches;
-//    }
+    this.fPatches = fPatches;
   }
   
   /**
@@ -150,21 +131,32 @@ public class BackupDevImporter
    */
   public static void main(String[] args)
   {
-    File fBackup = new File(args[0]);
-    
-    File fPatches = null;
-    if (args.length > 1)
+    try
     {
-      fPatches = new File(args[1]);
+      File fBackup = new File(args[0]);
+      
+      File fPatches = null;
+      if (args.length > 1)
+      {
+        fPatches = new File(args[1]);
+      }
+      
+      BackupDevImporter importer = new BackupDevImporter(fBackup, fPatches);
+      importer.start();
     }
-    
-    BackupDevImporter importer = new BackupDevImporter(fBackup, fPatches);
-    importer.start();
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
   }
   
   @Request
   public void start()
   {
+    this.validate();
+    
+    logger.info("Restore will import [" + fBackup.getAbsolutePath() + "] into database with name [" + databaseName + "].");
+    
     fRestoreUnzip = Files.createTempDir();
     
     try
@@ -191,12 +183,51 @@ public class BackupDevImporter
     System.out.println("Restore is completed.");
   }
   
+  private void validate()
+  {
+    if (LocalProperties.getSrcRoot() == null || !(new File(LocalProperties.getSrcRoot()).exists()))
+    {
+      throw new RuntimeException("Your local.properties [local.src.root] is misconfigured.");
+    }
+    else
+    {
+      fDestSrcRoot = new File(LocalProperties.getSrcRoot() + File.separator + "backup");
+    }
+    
+    if (fBackup == null || !fBackup.isFile())
+    {
+      throw new RuntimeException("The first argument [" + fBackup + "] is not a valid path to a backup file.");
+    }
+    
+    String dbbin = DatabaseProperties.getDatabaseBinDirectory();
+    if (dbbin.equals("") || !new File(dbbin).exists())
+    {
+      throw new RuntimeException("Check the value of your databaseBinDirectory in database.properties");
+    }
+    
+    databaseName = DatabaseProperties.getDatabaseName();
+    if (databaseName == null || databaseName.equals(""))
+    {
+      throw new RuntimeException("Check the value of your database name in database.properties");
+    }
+    
+//    if (fPatches == null || !fPatches.isFile())
+//    {
+//      String msg = "The second argument [" + backupPath + "] is not a valid path to a runway metadata patches zip. Your backup will not be patched.";
+//      logger.warn(msg);
+//    }
+//    else
+//    {
+//      this.fPatches = fPatches;
+//    }
+  }
+  
   private void unzipFile(File fBackup)
   {
     try
     {
+      logger.info("Unzipping from [" + fBackup.getAbsolutePath() + "] to [" + this.fRestoreUnzip.getAbsolutePath() + "]");
       FileIO.write(new ZipFile(fBackup), this.fRestoreUnzip.getAbsolutePath());
-      logger.info("Unzipped from [" + fBackup.getAbsolutePath() + "] to [" + this.fRestoreUnzip.getAbsolutePath() + "]");
     }
     catch (ZipException e)
     {
@@ -252,7 +283,7 @@ public class BackupDevImporter
     File fSessionCache = new File(sSessionCache);
     if (fSessionCache.exists())
     {
-      logger.info("Deleting permissions cache at [" + fSessionCache.getAbsolutePath() + "].");
+      logger.info("Deleting session cache at [" + fSessionCache.getAbsolutePath() + "].");
       fSessionCache.delete();
     }
     else
@@ -303,12 +334,6 @@ public class BackupDevImporter
   
   private void importSQL()
   {
-    String dbbin = DatabaseProperties.getDatabaseBinDirectory();
-    if (dbbin.equals("") || !new File(dbbin).exists())
-    {
-      throw new RuntimeException("Check the value of your databaseBinDirectory in database.properties");
-    }
-    
     FilenameFilter filter = new FilenameFilter()
     {
       @Override
@@ -324,6 +349,9 @@ public class BackupDevImporter
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(baos);
+    
+    ByteArrayOutputStream errBaos = new ByteArrayOutputStream();
+    PrintStream errPs = new PrintStream(errBaos);
     try
     {
       if (sqlFiles != null)
@@ -331,14 +359,28 @@ public class BackupDevImporter
         for (File sqlFile : sqlFiles)
         {
           this.logger.info("Importing SQL file [" + sqlFile.getAbsolutePath() + "]");
-          Database.importFromSQL(sqlFile.getAbsolutePath(), ps);
+          Database.importFromSQL(sqlFile.getAbsolutePath(), ps, errPs);
         }
       }
       else
       {
         throw new RuntimeException("Unable to find SQL files at path [" + sqlDir.getAbsolutePath() + "]. Does this backup have SQL files in it?");
       }
-      this.logger.info(baos.toString());
+      String normalOut = baos.toString();
+      if (normalOut.length() > 0)
+      {
+        this.logger.info(normalOut);
+      }
+      String errOut = errBaos.toString();
+      if (errOut.length() > 0)
+      {
+        String msg = "psql produced this error output: \n" + errOut;
+        if (errOut.contains("no password supplied"))
+        {
+          throw new RuntimeException("No database password supplied, check your pgpass file. " + msg);
+        }
+        this.logger.info(msg);
+      }
     }
     finally
     {

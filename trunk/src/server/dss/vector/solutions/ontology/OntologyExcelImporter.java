@@ -21,6 +21,8 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
@@ -38,8 +40,16 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.export.ExcelVersionException;
 
+/**
+ * Imports an excel (xls) ontology file into the DDMS.
+ *
+ * @author rrowlands
+ *
+ */
 public class OntologyExcelImporter implements Reloadable
 {
+  private static final Logger         logger = LoggerFactory.getLogger(OntologyExcelImporter.class);
+  
   private Map<String, TermNode>       terms;
 
   private Deque<TermNode>             stack;
@@ -62,11 +72,11 @@ public class OntologyExcelImporter implements Reloadable
     {
       if (file.exists())
       {
-        System.out.println("No file name specified. Using default location: " + file.getAbsoluteFile());
+        logger.info("No file name specified. Using default location: " + file.getAbsoluteFile());
       }
       else
       {
-        System.out.println("No file name specified. Add file name as a comand line argument.");
+        logger.info("No file name specified. Add file name as a comand line argument.");
         return;
       }
     }
@@ -78,10 +88,12 @@ public class OntologyExcelImporter implements Reloadable
 
     try
     {
+      logger.info("Importing ontology file [" + file.getAbsolutePath() + "]");
+      
       readRequest(file);
 
       long end = System.currentTimeMillis();
-      System.out.println("Imported in " + ( end - start ) / 1000.0 + " seconds");
+      logger.info("Imported in " + ( end - start ) / 1000.0 + " seconds");
     }
     finally
     {
