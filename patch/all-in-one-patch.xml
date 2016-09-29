@@ -37,7 +37,6 @@
 			<info target="${manager.dir}"  propPrefix="manager.info." />
 			<info target="${runway-patch.dir}"  propPrefix="runway-patch.info." />			
 			<info target="${trunk.dir}"  propPrefix="svn.info." />
-			<info target="${doc.dir}/ontology/MOterms.xls" propPrefix="moterms.svn." />
 			<info target="${doc.dir}/ontology/MOroots.xls" propPrefix="moroots.svn." />
 			<info target="${doc.dir}/menu/MenuItems.xls" propPrefix="menuitems.svn." />
 			<info target="${doc.dir}/localization" propPrefix="localization.svn." />
@@ -54,7 +53,6 @@
 		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
 		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
 		<replaceregexp match="StrCpy \$PatchVersion \d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$TermsVersion \d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
 		<replaceregexp match="StrCpy \$RootsVersion \d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
 		<replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
 		<replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />

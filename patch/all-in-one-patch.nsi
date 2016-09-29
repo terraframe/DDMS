@@ -120,7 +120,6 @@ Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
 Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion            # Version of the patch contained in the install.
-Var TermsVersion            # Version of them terms contained in the install.
 Var RootsVersion            # Version of the roots contained in the install.
 Var MenuVersion             # Version of the menu structure contained in the install.
 Var LocalizationVersion     # Version of the localization file contained in the install.
@@ -189,7 +188,6 @@ Section -Main SEC0000
   StrCpy $MetadataVersion 7688
   StrCpy $ManagerVersion 8251
   StrCpy $PatchVersion 8251
-  StrCpy $TermsVersion 8225
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 8225
   StrCpy $LocalizationVersion 8225
@@ -637,24 +635,14 @@ Function patchApplication
     ${EndIf}
     
     # Terms
-    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Default Terms"
     SetOutPath $PatchDir\doc\ontology\defaultterms
     File /x .svn ..\trunk\doc\ontology\defaultterms\*
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
-    ${If} $TermsVersion > $0
-      LogEx::Write "Importing ontology"
-      StrCpy $Phase "Importing ontology from spreadsheet"
-      push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter $PatchDir\doc\ontology\defaultterms`
-      Call execDos
-      StrCpy $Phase "Rebuilding all paths"
-      ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
-      StrCpy $JavaError "500"
-      Call JavaAbort
-      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
-    ${Else}
-      LogEx::Write "Skipping Ontology because it is already up to date"
-      DetailPrint "Skipping Ontology because it is already up to date"
-    ${EndIf}
+    LogEx::Write "Importing default terms"
+    StrCpy $Phase "Importing default terms"
+    push `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter $PatchDir\doc\ontology\defaultterms`
+    Call execDos
 
     # Term Roots
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
