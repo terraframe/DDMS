@@ -79,7 +79,6 @@ Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
 Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion
-Var TermsVersion
 Var RootsVersion
 Var MenuVersion
 Var IdVersion				# Version of the predictive id change in the install. 
@@ -343,7 +342,6 @@ Section -Main SEC0000
     
     # These version numbers are automatically regexed by ant
     StrCpy $PatchVersion 8251
-    StrCpy $TermsVersion 8225
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 8225
     StrCpy $LocalizationVersion 8225
@@ -776,7 +774,6 @@ Section -Main SEC0000
     LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
@@ -840,29 +837,56 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    # Only run the uninstall if the service isn't running
-	
-    SimpleSC::ServiceIsRunning "Tomcat"
-	Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-	Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
-	
-	${If} $1 <> 0        
-	
-	  # Try to stop the service
-      SimpleSC::StopService "Tomcat" 1 60
-	  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-	  
-	  ${If} $0 <> 0        
+  ################################################################################
+  # Uninstall tomcat
+  ################################################################################
+  SimpleSC::ServiceIsRunning "Tomcat"
+  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+  Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
+  
+  ${If} $1 <> 0  
+  
+    # Try to stop the service
+    SimpleSC::StopService "Tomcat" 1 60
+    Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+    
+    ${If} $0 <> 0        
 	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
         MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled" /SD IDOK
         Abort
-	  ${EndIf}
-	  
-	${EndIf}
+    ${EndIf}
+    
+  ${EndIf}
 
-  # Determine the location of TomcatExec home.	
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
+  
+  SimpleSC::ExistsService "Tomcat"
+  Pop $0
+  
+  ${If} $0 == 0        
+    # Service exists, we need to delete it  
+    LogEx::Write "Deleting tomcat service"
+    ExecWait `$TomcatExec //DS//Tomcat`
+  ${EndIf}
 
+  ################################################################################
+  # Uninstall Postgres
+  ################################################################################
+  ExecDos::exec /NOUNLOAD `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i` "" "$AgentDir\postgresController.out"
+  
+  ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
+  ExecDos::exec /NOUNLOAD `SC DELETE postgresql-x64-9.4` "" "$AgentDir\postgresController.out"
+  DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
+  DeleteRegKey HKLM "SOFTWARE\PostgreSQL Global Development Group"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL Global Development Group"
+  DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostGIS"
+  RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+  UserMgr::DeleteAccount "ddmspostgres"
+  
+  ################################################################################
+  # Uninstall DDMS
+  ################################################################################
   DeleteRegValue HKLM "${REGKEY}\Components" Main
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
@@ -871,18 +895,12 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
-  DeleteRegValue HKLM "${REGKEY}\Components" Java
-  DeleteRegValue HKLM "${REGKEY}\Components" Birt
-  DeleteRegValue HKLM "${REGKEY}\Components" Webapps	
+  DeleteRegValue HKLM "${REGKEY}\Components" Java 
+  DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+  DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
-	
-  #Uninstall Tomcat as a service
-  ExecWait `$TomcatExec //DS//Tomcat`
-
-  ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
-  RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+  
   RmDir /r /REBOOTOK $INSTDIR
-  UserMgr::DeleteAccount "ddmspostgres"
 SectionEnd
 
 Section -un.post UNSEC0001

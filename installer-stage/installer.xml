@@ -76,7 +76,7 @@
   <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
   <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>
+  <target name="build" depends="build_installer_exe"/>
   
   
   <target name="deploy">
@@ -148,7 +148,6 @@
       <target name="import_ontology" />
       <target name="import_menuitems" />
       <target name="import_ontology_roots" />
-      <target name="build_all_paths_ontology" />
       <target name="import_geodata" />
       <target name="build_all_paths_geodata" />
       <target name="create_universal_queries"/>
@@ -246,7 +245,6 @@
     <!-- Get revision info from svn -->
     <svn refid="svn.settings">
       <info target="${project.root}/trunk" propPrefix="svn.info." />
-      <info target="${project.root}/trunk/doc/ontology/MOterms.xls" propPrefix="moterms.svn." />
       <info target="${project.root}/trunk/doc/ontology/MOroots.xls" propPrefix="moroots.svn." />
       <info target="${project.root}/trunk/doc/menu/MenuItems.xls" propPrefix="menuitems.svn." />
       <info target="${project.root}/trunk/doc/localization" propPrefix="localization.svn." />
@@ -261,7 +259,6 @@
     
     <!-- Write revision info into Installer.nsi -->
     <replaceregexp match="StrCpy \$PatchVersion \d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
-    <replaceregexp match="StrCpy \$TermsVersion \d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$RootsVersion \d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
