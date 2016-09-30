@@ -23,6 +23,7 @@ import com.runwaysdk.dataaccess.io.Restore;
 import com.runwaysdk.manager.BackupManagerWindow;
 import com.runwaysdk.manager.EventOutputStream;
 import com.runwaysdk.manager.Localizer;
+import com.runwaysdk.manager.LogOutputStream;
 import com.runwaysdk.manager.Logger;
 import com.runwaysdk.manager.ProgressMonitorDialogAdapter;
 import com.runwaysdk.manager.PropertiesAgent;
@@ -103,7 +104,7 @@ public class RestoreAction extends Action
 
               try
               {
-                doRestore(file, print, System.err, window.getRegistry(), window.getAppName());
+                doRestore(file, print, new LogOutputStream(), window.getRegistry(), window.getAppName());
               }
               finally
               {
