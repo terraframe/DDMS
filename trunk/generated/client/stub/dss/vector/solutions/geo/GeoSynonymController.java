@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.LifeStageDTO;
+import dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.DataGrid;
@@ -201,6 +203,16 @@ public class GeoSynonymController extends GeoSynonymControllerBase implements co
   public void failSearchByDTO(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     this.search();
+  }
+  
+  public void searchByParameters(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String geoEntityName, java.lang.String geoId, java.lang.String geoTypeDisplayLabel, java.lang.String synonymNames) throws java.io.IOException, javax.servlet.ServletException
+  {
+    GeoSynonymArrayViewDTO view = new GeoSynonymArrayViewDTO(this.getClientRequest());
+    view.setGeoEntityName(geoEntityName);
+    view.setGeoTypeDisplayLabel(geoTypeDisplayLabel);
+    view.setSynonymNames(synonymNames);
+
+    this.searchByDTO(view, sortAttribute, isAscending, pageSize, pageNumber);
   }
   
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

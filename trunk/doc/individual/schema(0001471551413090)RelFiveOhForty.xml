@@ -27,6 +27,7 @@
     <delete>
       <object key="dss.vector.solutions.report.SchedulerUtil" type="com.runwaysdk.system.metadata.MdUtil" />
       <object key="dss.vector.solutions.geo.GeoSynonymArrayExcelView" type="com.runwaysdk.system.metadata.MdView" />
+      <object key="dss.vector.solutions.geo.GeoSynonymController.newInstance.view" type="com.runwaysdk.system.metadata.MdParameter" />
     </delete>
   </undoIt>
 </version>

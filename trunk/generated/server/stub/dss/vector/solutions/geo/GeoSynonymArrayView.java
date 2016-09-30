@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -189,32 +190,47 @@ public class GeoSynonymArrayView extends GeoSynonymArrayViewBase implements com.
 
     if (sortAttribute != null)
     {
-      SelectablePrimitive attribute;
+      SelectablePrimitive selecPrim = null;
+      Selectable selec = null;
 
       if (sortAttribute.equalsIgnoreCase(GeoSynonymArrayView.GEOTYPEDISPLAYLABEL))
       {
-        attribute = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.GEOTYPEDISPLAYLABEL);
+        selecPrim = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.GEOTYPEDISPLAYLABEL);
       }
       else if (sortAttribute.equalsIgnoreCase(GeoSynonymArrayView.GEOENTITYNAME))
       {
-        attribute = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.GEOENTITYNAME);
+        selecPrim = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.GEOENTITYNAME);
       }
       else if (sortAttribute.equalsIgnoreCase(GeoSynonymArrayView.SYNONYMNAMES))
       {
-        attribute = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.SYNONYMNAMES);
+        selecPrim = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.SYNONYMNAMES);
       }
       else
       {
-        attribute = (SelectablePrimitive) query.getSelectableRef(GeoSynonymArrayView.GEOENTITY);
+        selec = query.getSelectableRef(GeoSynonymArrayView.GEOENTITY);
       }
 
       if (isAscending)
       {
-        query.ORDER_BY_ASC((SelectablePrimitive) attribute, sortAttribute);
+        if (selecPrim != null)
+        {
+          query.ORDER_BY_ASC(selecPrim, sortAttribute);
+        }
+        else if (selec != null)
+        {
+          query.ORDER_BY_ASC(selec, sortAttribute);
+        }
       }
       else
       {
-        query.ORDER_BY_DESC((SelectablePrimitive) attribute, sortAttribute);
+        if (selecPrim != null)
+        {
+          query.ORDER_BY_DESC(selecPrim, sortAttribute);
+        }
+        else if (selec != null)
+        {
+          query.ORDER_BY_DESC(selec, sortAttribute);
+        }
       }
     }
 

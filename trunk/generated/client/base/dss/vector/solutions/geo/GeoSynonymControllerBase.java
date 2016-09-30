@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -297340299)
+@com.runwaysdk.business.ClassSignature(hash = 1319134730)
 public class GeoSynonymControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.GeoSynonymController";
@@ -107,15 +107,29 @@ public class GeoSynonymControllerBase implements com.runwaysdk.generation.loader
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.failDelete");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void fetchAllParents() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.fetchAllParents");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void failFetchAllParents() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.failFetchAllParents");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.geo.GeoSynonymArrayViewDTO:view", post=true)
+  public void newInstance(dss.vector.solutions.geo.GeoSynonymArrayViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.newInstance");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.geo.GeoSynonymArrayViewDTO:view", post=true)
+  public void failNewInstance(dss.vector.solutions.geo.GeoSynonymArrayViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.failNewInstance");
@@ -147,6 +161,20 @@ public class GeoSynonymControllerBase implements com.runwaysdk.generation.loader
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.failSearchByDTO");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:geoEntityName, java.lang.String:geoId, java.lang.String:geoTypeDisplayLabel, java.lang.String:synonymNames", post=false)
+  public void searchByParameters(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String geoEntityName, java.lang.String geoId, java.lang.String geoTypeDisplayLabel, java.lang.String synonymNames) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.searchByParameters");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber, java.lang.String:geoEntityName, java.lang.String:geoId, java.lang.String:geoTypeDisplayLabel, java.lang.String:synonymNames", post=false)
+  public void failSearchByParameters(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber, java.lang.String geoEntityName, java.lang.String geoId, java.lang.String geoTypeDisplayLabel, java.lang.String synonymNames) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoSynonymController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoSynonymController.failSearchByParameters");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
