@@ -102,7 +102,7 @@ public class RestoreAction extends Action
 
               try
               {
-                doRestore(file, print, new PrintStream(new LogOutputStream()), window.getRegistry(), window.getAppName());
+                doRestore(file, print, new PrintStream(new LogOutputStream(), true), window.getRegistry(), window.getAppName());
               }
               finally
               {

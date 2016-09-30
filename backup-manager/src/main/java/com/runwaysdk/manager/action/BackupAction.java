@@ -102,7 +102,7 @@ public class BackupAction extends Action
               EventOutputStream out = new EventOutputStream(monitor);
               PrintStream print = new PrintStream(out, true);
 
-              doBackup(file, print, new PrintStream(new LogOutputStream()), window.getRegistry(), window.getAppName());
+              doBackup(file, print, new PrintStream(new LogOutputStream(), true), window.getRegistry(), window.getAppName());
 
               print.close();
             }
