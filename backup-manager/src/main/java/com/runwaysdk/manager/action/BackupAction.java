@@ -51,7 +51,7 @@ public class BackupAction extends Action
     CommandLineParser parser = new PosixParser();
     CommandLine cmd = parser.parse(options, args);
 
-    doBackup(new File(cmd.getOptionValue("f")), System.out, !cmd.hasOption("r"), cmd.getOptionValue("a"));
+    doBackup(new File(cmd.getOptionValue("f")), System.out, System.err, !cmd.hasOption("r"), cmd.getOptionValue("a"));
   }
   
   public BackupAction(BackupManagerWindow window)
@@ -101,7 +101,7 @@ public class BackupAction extends Action
               EventOutputStream out = new EventOutputStream(monitor);
               PrintStream print = new PrintStream(out, true);
 
-              doBackup(file, print, window.getRegistry(), window.getAppName());
+              doBackup(file, print, System.err, window.getRegistry(), window.getAppName());
 
               print.close();
             }
@@ -123,11 +123,11 @@ public class BackupAction extends Action
     }
   }
 
-  private static void doBackup(final File file, PrintStream print, boolean doRegistry, String appName)
+  private static void doBackup(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
     try
     {
-      doBackupInRequest(file, print, doRegistry, appName);
+      doBackupInRequest(file, print, errOut, doRegistry, appName);
     }
     finally
     {
@@ -135,9 +135,9 @@ public class BackupAction extends Action
     }
   }
   @Request
-  private static void doBackupInRequest(final File file, PrintStream print, boolean doRegistry, String appName)
+  private static void doBackupInRequest(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
-    Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
+    Backup backup = new Backup(print, errOut, file.getName(), file.getParent(), true, true);
 
     if (doRegistry)
     {

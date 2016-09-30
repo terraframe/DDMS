@@ -51,7 +51,7 @@ public class RestoreAction extends Action
     CommandLineParser parser = new PosixParser();
     CommandLine cmd = parser.parse(options, args);
 
-    doRestore(new File(cmd.getOptionValue("f")), System.out, !cmd.hasOption("r"), cmd.getOptionValue("a"));
+    doRestore(new File(cmd.getOptionValue("f")), System.out, System.err, !cmd.hasOption("r"), cmd.getOptionValue("a"));
   }
   
   public RestoreAction(BackupManagerWindow window)
@@ -103,7 +103,7 @@ public class RestoreAction extends Action
 
               try
               {
-                doRestore(file, print, window.getRegistry(), window.getAppName());
+                doRestore(file, print, System.err, window.getRegistry(), window.getAppName());
               }
               finally
               {
@@ -132,11 +132,11 @@ public class RestoreAction extends Action
     }
   }
   
-  private static void doRestore(final File file, PrintStream print, boolean doRegistry, String appName)
+  private static void doRestore(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
     try
     {
-      doRestoreInRequest(file, print, doRegistry, appName);
+      doRestoreInRequest(file, print, errOut, doRegistry, appName);
     }
     finally
     {
@@ -144,9 +144,9 @@ public class RestoreAction extends Action
     }
   }
   @Request
-  private static void doRestoreInRequest(final File file, PrintStream print, boolean doRegistry, String appName)
+  private static void doRestoreInRequest(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
-    Restore restore = new Restore(print, file.getAbsolutePath());
+    Restore restore = new Restore(print, errOut, file.getAbsolutePath());
 
     if (doRegistry)
     {

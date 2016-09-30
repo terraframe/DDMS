@@ -10,7 +10,7 @@
 
     <org.aspectj.version>1.8.6</org.aspectj.version>
     <org.codehaus.mojo.version>1.7</org.codehaus.mojo.version>
-  <ddms.path>C:\svn\ddms\trunk</ddms.path>
+  <ddms.path>/home/rick/Documents/eclipse/workspace/MDSS</ddms.path>
   </properties>
   
   <repositories>
@@ -97,9 +97,9 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>org.eclipse</groupId>
-          <artifactId>swt-linux</artifactId>
-          <version>4.3</version>
+          <groupId>swt</groupId>
+          <artifactId>swt-linux-gtk</artifactId>
+          <version>3.0.1</version>
         </dependency>
       </dependencies>
     </profile>
