@@ -10,7 +10,7 @@
 
     <org.aspectj.version>1.8.6</org.aspectj.version>
     <org.codehaus.mojo.version>1.7</org.codehaus.mojo.version>
-  <ddms.path>/home/rick/Documents/eclipse/workspace/MDSS</ddms.path>
+  <ddms.path>C:\svn\ddms\trunk</ddms.path>
   </properties>
   
   <repositories>
