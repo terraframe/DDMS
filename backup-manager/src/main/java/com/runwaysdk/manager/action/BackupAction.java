@@ -18,7 +18,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.Backup;
@@ -103,7 +102,7 @@ public class BackupAction extends Action
               EventOutputStream out = new EventOutputStream(monitor);
               PrintStream print = new PrintStream(out, true);
 
-              doBackup(file, print, new LogOutputStream(), window.getRegistry(), window.getAppName());
+              doBackup(file, print, new PrintStream(new LogOutputStream()), window.getRegistry(), window.getAppName());
 
               print.close();
             }

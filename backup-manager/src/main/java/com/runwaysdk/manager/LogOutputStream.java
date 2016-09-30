@@ -1,17 +1,14 @@
 package com.runwaysdk.manager;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.OutputStream;
 
-public class LogOutputStream extends PrintStream
+public class LogOutputStream extends OutputStream
 {
   /** The internal memory for the written bytes. */
   private String mem;
 
   public LogOutputStream ()
   {
-    super(new ByteArrayOutputStream());
-    
     mem = "";
   }
 

@@ -17,7 +17,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.Restore;
 import com.runwaysdk.manager.BackupManagerWindow;
@@ -29,7 +28,6 @@ import com.runwaysdk.manager.ProgressMonitorDialogAdapter;
 import com.runwaysdk.manager.PropertiesAgent;
 import com.runwaysdk.manager.RegistryAgent;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.RestoreAppnameException;
 
 public class RestoreAction extends Action
 {
@@ -104,7 +102,7 @@ public class RestoreAction extends Action
 
               try
               {
-                doRestore(file, print, new LogOutputStream(), window.getRegistry(), window.getAppName());
+                doRestore(file, print, new PrintStream(new LogOutputStream()), window.getRegistry(), window.getAppName());
               }
               finally
               {
