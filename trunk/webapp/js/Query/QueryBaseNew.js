@@ -1261,13 +1261,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
               optionEl.innerHTML = option.label;
               YAHOO.util.Dom.setAttribute(optionEl, 'value', option.name);
   
-              YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-  
               select.appendChild(optionEl);
             }
             select.disabled = true; // default (must be checked to enabled)
             this._defaults.push({element:select, index:0});
             li.appendChild(select);
+            
+            YAHOO.util.Event.on(select, 'change', this._visibleAggregateHandler, attribute, this);
           }
 
             // Add single match and range
