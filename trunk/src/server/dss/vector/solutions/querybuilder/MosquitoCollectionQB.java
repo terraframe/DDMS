@@ -378,7 +378,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private void setWithQuerySQL(String viewName, ValueQuery valueQuery)
   {
 
-    String joinMainQuery = "";
+    String joinMainQuery = " AND ss." + GEO_ID_COALESCE_ALIAS + " = mainQuery." + GEO_ID_COALESCE_ALIAS;
 
     String areaGroup = "";
 
@@ -396,8 +396,17 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           s.getDbColumnName().equals("geoEntity_displayLabel") || s.getDbColumnName().startsWith("wallType")
         )
       {
-        joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " AND ss." + GEO_ID_COALESCE_ALIAS + " = mainQuery." + GEO_ID_COALESCE_ALIAS;
-        areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
+        // Optional criteria (ticket 3444). If the collection contains values for these criteria then we'll join on them. Otherwise we won't.
+        if (s.getDbColumnName().startsWith("wallType") || s.getDbColumnName().startsWith("collectionType"))
+        {
+          joinMainQuery += "\n AND CASE WHEN mainQuery." + s.getColumnAlias() + " IS NULL THEN true ELSE ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " END";
+          areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
+        }
+        else
+        {
+          joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias();
+          areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
+        }
       }
 
       String definedColumn = s.getMdAttributeIF().getColumnName();
