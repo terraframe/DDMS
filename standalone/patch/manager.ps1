@@ -26,7 +26,7 @@ function help()
   echo "-scheduler                              Prints some information about running scripts in the Windows scheduler."
 }
 
-if ([System.Environment]::Is64BitOperatingSystem)
+if ([System.IntPtr]::Size -eq 8)
 {
   $javaDir = "jdk1.8.0_66"
 }
