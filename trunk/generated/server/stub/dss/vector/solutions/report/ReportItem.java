@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
@@ -366,7 +367,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
 
       if (!access)
       {
-        UserDAOIF user = SessionFacade.getUser(sessionId);
+        SingleActorDAOIF user = SessionFacade.getUser(sessionId);
         String errorMsg = "User [" + user.getSingleActorName() + "] does not have permission to upload a new design file ";
         throw new CreatePermissionException(errorMsg, entity, user);
       }
@@ -998,7 +999,7 @@ public class ReportItem extends ReportItemBase implements com.runwaysdk.generati
     SystemURL url = SystemURL.getByURL(this.getURL());
 
     Map<String, String> roles = Session.getCurrentSession().getUserRoles();
-    UserDAOIF user = Session.getCurrentSession().getUser();
+    SingleActorDAOIF user = Session.getCurrentSession().getUser();
     Disease disease = Disease.getCurrent();
     ReadAction action = new ReadAction(url, disease);
     Roles readRole = action.getRole();

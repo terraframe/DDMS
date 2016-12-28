@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -166,7 +167,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
 
       if (session != null)
       {
-        UserDAOIF userDAO = session.getUser();
+        SingleActorDAOIF userDAO = session.getUser();
         MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
         UserSettings settings = UserSettings.createIfNotExists(mdssUser);

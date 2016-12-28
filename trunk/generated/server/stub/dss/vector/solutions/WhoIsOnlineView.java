@@ -29,7 +29,7 @@ public class WhoIsOnlineView extends WhoIsOnlineViewBase implements com.runwaysd
       {
         SessionIF session = it.next();
         
-        UserDAO user = session.getUser().getBusinessDAO();
+        UserDAO user = (UserDAO) session.getUser().getBusinessDAO();
         
         if (!pubId.equals(user.getId()))
         {

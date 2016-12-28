@@ -6,6 +6,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -119,7 +120,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   {
     GeoEntity geoEntity = GeoEntity.get(geoEntityId);
 
-    UserDAOIF user = Session.getCurrentSession().getUser();
+    SingleActorDAOIF user = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(user.getId());
 
     mdssUser.appLock();

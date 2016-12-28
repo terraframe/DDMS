@@ -5,7 +5,7 @@ import java.util.List;
 import com.runwaysdk.ProblemException;
 import com.runwaysdk.ProblemIF;
 import com.runwaysdk.business.rbac.Operation;
-import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.attributes.EmptyValueProblem;
 import com.runwaysdk.dataaccess.transaction.TransactionManagement;
@@ -71,7 +71,7 @@ privileged public aspect EmptyValueProblemWithNoRead
 
         if (!hasReadAccess)
         {
-          UserDAOIF userDAOIF = sessionIF.getUser();
+          SingleActorDAOIF userDAOIF = sessionIF.getUser();
           String devMsg = "MDSS Specific Exception: Unable to write to a manditory field because the user does not have read permissions.";
           throw new AttributeReadPermissionException(devMsg, mdAttributeDAOIF, userDAOIF);
         }

@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
@@ -603,7 +604,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     this.setMapCenter(existingMap.getMapCenter());
     this.apply();
 
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
@@ -732,7 +733,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
   public static DefaultSavedMap getSessionDefaultMap()
   {
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
@@ -752,7 +753,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Authenticate
   public static SavedMap loadDefaultMap(SavedMap map)
   {
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
@@ -1026,7 +1027,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     /*
      * Hack work around: We need to apply the zoomLevel and mapCenter to the default map as well as this map.
      */
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);

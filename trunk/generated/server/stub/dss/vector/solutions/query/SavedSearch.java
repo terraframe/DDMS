@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -548,7 +548,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw ex;
     }
 
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
     DefaultSavedSearch defaultSearch = settings.getDefaultSearch();
@@ -598,7 +598,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @Transaction
   protected void create(SavedSearchView view, boolean asDefault)
   {
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
     String name = view.getQueryName();
@@ -752,7 +752,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw ex;
     }
 
-    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    SingleActorDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
     DefaultSavedSearch defaultSearch = settings.getDefaultSearch();
