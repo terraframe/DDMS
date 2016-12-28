@@ -688,7 +688,6 @@
 	</target>
 
 	<target name="import_geodata_deploy" depends="" description="imports geodata.db of geodata into the deploy db">
-		<!--<diagnostics/>-->
 		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
 		<sleep seconds="3" />
 		<!-- backup deploy properties -->
@@ -723,7 +722,6 @@
 	</target>
 
 	<target name="deploy_build_all_paths_geodata" depends="" description="builds the all paths geo entity table for deployment">
-		<!--<diagnostics/>-->
 		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
 		<sleep seconds="3" />
 		<!-- backup deploy properties -->

@@ -822,8 +822,6 @@
 
 	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
-		<echoproperties>
-		</echoproperties>
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
 			<jvmarg value="-Xms${memory_use}" />			
@@ -931,8 +929,6 @@
 	<target name="import_ontology_old" depends="" description="imports the MO ontology data into the db">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -985,8 +981,6 @@
 	<target name="import_ontology_roots" depends="" description="imports the MO roots into the db">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1005,8 +999,6 @@
 	<target name="import_menuitems" depends="" description="imports the default MenuItems into the db">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1027,8 +1019,6 @@
 	<target name="build_all_paths_geodata" depends="" description="imports a db of geodata into the db">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1051,8 +1041,6 @@
 	<target name="build_all_paths_ontology" depends="" description="imports a db of geodata into the db">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1072,8 +1060,6 @@
 	<target name="create_universal_queries" depends="" description="creates system queries for all universal types">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1095,8 +1081,6 @@
 	<target name="load_permissions" depends="" description="Loads roles and permissions">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.permission.PermissionImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="LoadPermissions">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1118,8 +1102,6 @@
 	<target name="backupApplication" depends="" description="backs up the application to a zip file">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx${memory_use}" />
@@ -1141,8 +1123,6 @@
 	<target name="restoreApplication" depends="" description="restores the application">
 		<!--
 		<diagnostics/>
-		<echoproperties>
-		</echoproperties>
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx${memory_use}" />
