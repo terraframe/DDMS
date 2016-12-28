@@ -6,7 +6,6 @@
 	<!-- =================================================================== -->
 
 	<property name="profile.root" value="../../../profiles" />
-	<property name="system.password" value="mdsstest2" />
 	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};runwayProperties.jar" />
 	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
@@ -327,11 +326,8 @@
 			</classpath>
 		</java>
 		<echo message="Deleting now-irrelevant cache files" />
-		<delete>
-			<fileset dir="${globalCache.cacheFileLocation}">
-				<include name="${globalCache.cacheName}.data" />
-				<include name="${globalCache.cacheName}.index" />
-			</fileset>
+		<delete failonerror="false">
+          <fileset dir="${globalCache.cacheFileLocation}"/>
 		</delete>
 	</target>
 
@@ -806,12 +802,16 @@
 
 	<target name="rebuild_model" depends="setup_model" description="Rebuilds the entire domain model using a freshly merged schema">
 		<echo message="Update domain to the most recent schema" />
-		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true" timeout="7200000">
+		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true" timeout="7200000" fork="true">
 			<jvmarg value="-Xmx${memory_use}" />
 			<jvmarg value="-Xms${memory_use}" />			
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-
+			<!--
+			<jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000" />
+			-->
+			
 			<arg value="${model.dir}" />
 			<arg value="${version.xsd}" />
 			<classpath>
@@ -827,7 +827,11 @@
 			<jvmarg value="-Xms${memory_use}" />			
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-
+			<!--
+			<jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8080" />
+			-->
+			
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}" />
 			<classpath>
