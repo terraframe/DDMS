@@ -505,7 +505,7 @@
    	ps ax  | egrep [Tt]omcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
 	</shellscript>
 		<shellscript shell="cmd" dir="." os="Windows" searchpath="true">
-		net stop tomcat6
+		net stop tomcat
     </shellscript>
 		<sleep seconds="5" />
 	</target>
@@ -515,7 +515,7 @@
 	    ./startup.sh
 	</shellscript>
 		<shellscript shell="cmd" dir="." os="Windows" searchpath="true">
-		net start tomcat6
+		net start tomcat
     </shellscript>
 		<sleep seconds="10" />
 	</target>
