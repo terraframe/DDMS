@@ -13,6 +13,26 @@
   <target name="compile_generated"/>
 -->
 <project name="MDSS" default="build" basedir=".">
+
+
+<!--
+  ===============
+    BUILD FLAGS
+  ===============
+  Tweak with these settings to modify what you're building
+   
+  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 15 minutes)
+  <target name="build" depends="clean, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
+  <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
+ -->
+  <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>
+
+  
+  
+  
+  
+  
+  
   <property name="project.root" location="C:/svn/ddms" />
   <property name="local.root" location="../trunk" />
   <property name="country" value="blank" />
@@ -68,16 +88,6 @@
       </fileset>
     </classpath>
   </taskdef>
- 
-<!--
-   BUILD CONFIGURATION PARAMETERS : Take your pick :
-   
-  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 15 minutes)
-  <target name="build" depends="compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
-  <target name="build" depends="compile, deploy, build-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
- -->
-  <target name="build" depends="build_installer_exe"/>
-  
   
   <target name="deploy">
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
@@ -99,13 +109,15 @@
         <arg value="${basedir}/../standalone\buildall.bat" />
       </exec>
 	</target>
-
-  <target name="compile">
+  
+  <target name="clean">
     <echo message="Cleaning old source." />
     <delete dir="${stage.webapp}" verbose="false" />
     <delete dir="${local.root}/bin/com/" verbose="false" />
     <delete dir="${local.root}/bin/dss/" verbose="false" />
-  
+  </target>
+
+  <target name="compile">
     <echo message="Rewriting terraframe.properties values local.root, deploy.root, deploy.appname, and domain/" />	
     <propertyfile file="${profile.root}/default/common/terraframe.properties">
       <entry key="local.root" value="${local.root}" />
@@ -153,14 +165,15 @@
       <target name="create_universal_queries"/>
       <target name="load_permissions"/>    	  
     </ant>
-	
+  </target>
+  
+  <target name="export-database">
     <!-- We need to update the deploy database with the source and class. -->  
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
-	<antcall target="deploy_update_db_source_and_classes" />    
+	  <antcall target="deploy_update_db_source_and_classes" />    
 
-	<antcall target="dump_db" />
-
+	  <antcall target="dump_db" />
   </target>
 
   <target name="deploy_update_db_source_and_classes" depends="" description="Update DB Source and Classes">
