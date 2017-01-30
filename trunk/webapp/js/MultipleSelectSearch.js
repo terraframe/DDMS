@@ -35,6 +35,25 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       this.setOkHandler(Mojo.Util.bind(this, this.okHandler));
       this.setCancelHandler(Mojo.Util.bind(this, this.cancelHandler));
       this.setHideHandler(Mojo.Util.bind(this, this.cancelHandler));
+      
+      
+      
+      // Hack for ticket 3458
+      // There's no way with the new 'onchange' event to detect shift clicks, so we're doing this hacky crap to listen for shift key
+      var that = this;
+      this._isShiftDown = false;
+      
+      var docu = new YAHOO.util.Element(document);
+      docu.on('keydown', function(down) {
+        if(down.keyCode == 16 || down.keyCode == 17) {
+          that._isShiftDown = true;
+        }
+      });
+      docu.on("keyup", function(up){
+        if (up.keyCode == 16 || up.keyCode == 17) {
+          that._isShiftDown = false;
+        }
+      });
     },
     
     _renderHierarchyHeader : function(factory, hierarchy, index, rootId)
@@ -132,9 +151,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
      */
     _getChildren : function(e)
     {
-      if(e.shiftKey)
+      if (e.target.selectedIndex == 0) { return; }
+      
+      if(this._isShiftDown)
       {
-        var currentOption = e.target;
+        var currentOption = e.target.options[e.target.selectedIndex];
         var select = currentOption.parentNode;
         var geoEntityView = this._geoEntityViewCache[currentOption.id];
   

@@ -449,10 +449,42 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             
         this._autocompletes.push(autocomplete);
       }
-        
-      var select = factory.newElement('select', {'name':rootId, 'id':rootId, 'class':'typeSelect', 'disabled':'disabled'});
+      
+      var selectWrap = factory.newElement("div", {"class": "select-wrap"}, {"position" : "relative", "height" : "20px"});
+      container.appendChild(selectWrap);
+      
+      var fakeSelect = factory.newElement("div", {"class": "fake-select"}, {"z-index": "2", "width" : "250px", "height" : "20px", "position" : "absolute"});
+      selectWrap.appendChild(fakeSelect);
+      
+      var select = factory.newElement('select', {'name':rootId, 'id':rootId, 'class':'typeSelect', 'disabled':'disabled'}, {"overflow":"hidden", "position" : "absolute"});
       select.setStyle('width', '250px');
-      container.appendChild(select);
+      selectWrap.appendChild(select);
+      
+      // Hackity hack hack http://stackoverflow.com/questions/31155411/jquery-select-dropdown-ignores-keydown-event-when-its-opened
+      // ticket 3458
+      var isOpen = false;
+      var jqFakeSelect = $(fakeSelect.getRawEl());
+      var jqRealSelect = $(select.getRawEl());
+      jqFakeSelect.on("click", function () {
+        var numOfOpen = jqRealSelect.children().length;
+        jqRealSelect.attr("size", numOfOpen).css("overflow", "hidden").css("z-index", "3");
+        jqFakeSelect.hide();
+        isOpen = true;
+      });
+      var realSelectHandler = function () {
+        var numOfOpen = jqRealSelect.children().length;
+        jqRealSelect.attr("size", 1).css("z-index", "1");
+        jqFakeSelect.show();
+        isOpen = false;
+      };
+      jqRealSelect.on("click", realSelectHandler);
+      $(document).on("click", function(e) {
+        if (e.target.id !== fakeSelect.getRawEl().id && isOpen)
+        {
+          realSelectHandler();
+        }
+      });
+      
       
       this._selectLists.push(select.getRawEl());
       this._selectMap[type] = select.getRawEl();
@@ -465,6 +497,9 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       }        
       else
       {
+        var br = factory.newElement("br");
+        container.appendChild(br);
+        
         var a = factory.newElement('a', {'id':'treeOpener' + this._suffix, 'href':'#'});
         a.setStyle('marginLeft', '20px');          
         container.appendChild(a);
@@ -543,8 +578,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
         select.appendChild(optionRaw);
   
-        var option = new YAHOO.util.Element(optionRaw);
-        option.on('click', this._getChildren, null, this);
+        var selectYahoo = new YAHOO.util.Element(select);
+        selectYahoo.on('change', this._getChildren, null, this);
   
         this._geoEntityViewCache[geoEntityView.getGeoEntityId()] = geoEntityView;
       }
@@ -906,7 +941,9 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      */
     _getChildren : function(e)
     {
-      var currentOption = e.target;
+      if (e.target.selectedIndex == 0) { return; }
+      
+      var currentOption = e.target.options[e.target.selectedIndex];
       var select = currentOption.parentNode;
   
   
