@@ -70,18 +70,19 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
       
       if (jvmBitness.equals("32"))
       {
+        file32 = new File(regPath32);
         ioExFile = file32;
         execWait(command32);
         
         if (file32.exists())
         {
-          String content = IOUtils.toString(new FileInputStream(file32));
+          String content = org.apache.commons.io.FileUtils.readFileToString(file32, "UTF-16LE");
           String regx = "(?i)" + BackupProperties.getRegistry32().replace("\\", "\\\\");
-          String replacement = BackupProperties.getRegistry64();
-          content = content.replaceAll(regx, replacement);
+          String replacement = BackupProperties.getRegistry64().replace("\\", "\\\\");
+          content = content.toLowerCase().replaceAll(regx, replacement);
           
           ioExFile = file64;
-          IOUtils.write(content, new FileOutputStream(file64));
+          IOUtils.write(content, new FileOutputStream(file64), "UTF-16LE");
         }
         else
         {
@@ -94,18 +95,19 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
       }
       else
       {
+        file64 = new File(regPath64);
         ioExFile = file64;
         execWait(command64);
         
         if (file64.exists())
         {
-          String content = IOUtils.toString(new FileInputStream(file64));
+          String content = org.apache.commons.io.FileUtils.readFileToString(file64, "UTF-16LE");
           String regx = "(?i)" + BackupProperties.getRegistry64().toLowerCase().replace("\\", "\\\\");
-          String replacement = BackupProperties.getRegistry32();
+          String replacement = BackupProperties.getRegistry32().replace("\\", "\\\\");
           content = content.toLowerCase().replaceAll(regx, replacement);
           
           ioExFile = file32;
-          IOUtils.write(content, new FileOutputStream(file32));
+          IOUtils.write(content, new FileOutputStream(file32), "UTF-16LE");
         }
         else
         {
