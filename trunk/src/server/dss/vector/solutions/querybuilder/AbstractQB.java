@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,7 +76,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.CountOrRatioAloneException;
-import dss.vector.solutions.query.DatesOnlyException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
@@ -1338,77 +1338,39 @@ public abstract class AbstractQB implements Reloadable
    */
   private void validateQuery(ValueQuery valueQuery)
   {
-    validateDateSelectables(valueQuery);
-
-    int size = valueQuery.getSelectableRefs().size();
-    if (size == 0)
-    {
-      NoColumnsAddedException ex = new NoColumnsAddedException();
-      throw ex;
-    }
-
-    if (size == 1 && ( valueQuery.hasSelectableRef(QueryUtil.RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
-    {
-      throw new CountOrRatioAloneException();
-    }
-    else if (size == 2 && valueQuery.hasSelectableRef(QueryUtil.RATIO))
-    {
-      // count and ratio are invalid
-      for (Selectable sel : valueQuery.getSelectableRefs())
-      {
-        if (sel instanceof COUNT)
-        {
-          throw new CountOrRatioAloneException();
-        }
-      }
-    }
+    ensureContainsDatatypeSelectable(valueQuery);
   }
 
   /**
-   * Ensures that the ValueQuery contains more than the start and end date criteria.
+   * Ensures that the ValueQuery contains a concrete "DataType" selectable. More formally, the query must contain more than 'non datatype selectables'.
    * 
-   * @param valueQuery
+   * @throws AddtionalColumnsRequiredException if the only columns added are 'start date, end date, and/or audit fields'.
    */
-  private void validateDateSelectables(ValueQuery valueQuery)
+  private void ensureContainsDatatypeSelectable(ValueQuery valueQuery)
   {
-    // Start and End date can only be selected if other Selectables added
-    // to create a meaninful query.
     List<Selectable> selectables = valueQuery.getSelectableRefs();
-    boolean hasOnlyDates = false;
-    if (selectables.size() == 1)
+    String[] nonDatatypeSelectables = getNonDatatypeSelectables();
+    
+    for (Selectable sel : selectables)
     {
-      String alias = selectables.get(0).getUserDefinedAlias();
-      if (QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
+      String alias = sel.getUserDefinedAlias();
+      
+      if (!(sel instanceof COUNT) && !ArrayUtils.contains(nonDatatypeSelectables, alias))
       {
-        hasOnlyDates = true;
+        return;
       }
     }
-    else if (selectables.size() == 2)
-    {
-      boolean isStart = false;
-      boolean isEnd = false;
-
-      for (Selectable sel : selectables)
-      {
-        String alias = sel.getUserDefinedAlias();
-        if (QueryUtil.START_DATE_RANGE.equals(alias))
-        {
-          isStart = true;
-        }
-        else if (QueryUtil.END_DATE_RANGE.equals(alias))
-        {
-          isEnd = true;
-        }
-      }
-
-      hasOnlyDates = isStart && isEnd;
-    }
-
-    if (hasOnlyDates)
-    {
-      String error = "The start and end date must be added with other selectables.";
-      throw new DatesOnlyException(error);
-    }
+    
+    throw new AdditionalColumnsRequiredException();
+  }
+  protected String[] getNonDatatypeSelectables()
+  {
+    return new String[]{
+        QueryUtil.START_DATE_RANGE, QueryUtil.END_DATE_RANGE,
+        QueryConstants.AUDIT_CREATE_DATE_ALIAS, QueryConstants.AUDIT_CREATED_BY_ALIAS, QueryConstants.AUDIT_IMPORTED_ALIAS, QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS, QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS,
+        QueryUtil.RATIO,
+        QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_MONTH, QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_SEASON, QueryUtil.DATEGROUP_CALENDARYEAR
+    };
   }
 
   /**

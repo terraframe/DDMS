@@ -1226,7 +1226,10 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
   
   /**
-   * If the original query contains planned targets (operator planned target, team planned target, or area planned target), then we join the planned target aggregation results with the original query. This is done by creating a new IRSQB, running it, and then printing it at the top of our SQL output in a 'with' clause ( i.e. with teamAggregation as ( ... ) ). We then create another value query (finalVQ) and select from originalVQ FULL OUTER JOIN teamAggregation. originalVQ is the (this) value query and it queries the actuals.
+   * If the original query contains planned targets (operator planned target, team planned target, or area planned target), then we join the planned target aggregation
+   * results with the original query. This is done by creating a new IRSQB, running it, and then printing it at the top of our SQL output in a 'with' clause
+   * ( i.e. with teamAggregation as ( ... ) ). We then create another value query (finalVQ) and select from originalVQ FULL OUTER JOIN teamAggregation. originalVQ is the
+   * (this) value query and it queries the actuals.
    */
   @Override
   protected ValueQuery postProcess(ValueQuery originalVQ)
