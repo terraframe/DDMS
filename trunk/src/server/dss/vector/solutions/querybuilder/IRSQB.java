@@ -30,6 +30,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
@@ -813,7 +814,21 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       this.addRequiredView(View.INSECTICIDE_VIEW);
     }
-
+    
+    
+    // The LeftOuterJoins created by the ValueQueryParser contain a reference to abstract_spray. Because we're IRS and we think we're special,
+    //   we need to rewire that to reference SprayView instead.
+    //   First implemented as part of ticket 3459
+    Set<LeftJoin> leftJoins = this.irsVQ.getLeftOuterJoins();
+    for (LeftJoin lj : leftJoins)
+    {
+      if (lj.getTableName1().equals("abstract_spray"))
+      {
+        lj.setTableName1("sprayView");
+      }
+    }
+    
+    
     processUniversals();
 
     discoverDateGroups();
@@ -2137,15 +2152,15 @@ public class IRSQB extends AbstractQB implements Reloadable
     // Don't add anything regarding insecticide if the query is used for
     // aggregation
     // as aggregation has nothing to do with insecticide
-    if (this.aggType == null)
-    {
+//    if (this.aggType == null)
+//    {
       if (insecticideQuery != null)
       {
         SelectableSQLCharacter brand = irsVQ.aSQLCharacter("brand_join", this.sprayViewAlias + "." + Alias.BRAND.getAlias());
         irsVQ.WHERE(this.insecticideQuery.getId().EQ(brand));
         joinSprayView = false;
       }
-      
+     
       if (this.requiredViews.contains(View.INSECTICIDE_VIEW))
       {
         irsVQ.AND(new LeftJoinEq(Alias.BRAND.getAlias(), leftTable, leftAlias, idCol, insecticideView, insecticideView));
@@ -2163,7 +2178,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         irsVQ.AND(leftSel.LE(rightSel));
         joinSprayView = false;
       }
-    }
+//    }
     
     if (joinSprayView)
     {
