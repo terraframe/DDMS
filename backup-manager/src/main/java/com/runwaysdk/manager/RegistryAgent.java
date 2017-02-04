@@ -79,7 +79,7 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
           String content = org.apache.commons.io.FileUtils.readFileToString(file32, "UTF-16LE");
           String regx = "(?i)" + BackupProperties.getRegistry32().replace("\\", "\\\\");
           String replacement = BackupProperties.getRegistry64().replace("\\", "\\\\");
-          content = content.toLowerCase().replaceAll(regx, replacement);
+          content = content.replaceAll(regx, replacement);
           
           ioExFile = file64;
           IOUtils.write(content, new FileOutputStream(file64), "UTF-16LE");
@@ -102,9 +102,9 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         if (file64.exists())
         {
           String content = org.apache.commons.io.FileUtils.readFileToString(file64, "UTF-16LE");
-          String regx = "(?i)" + BackupProperties.getRegistry64().toLowerCase().replace("\\", "\\\\");
+          String regx = "(?i)" + BackupProperties.getRegistry64().replace("\\", "\\\\");
           String replacement = BackupProperties.getRegistry32().replace("\\", "\\\\");
-          content = content.toLowerCase().replaceAll(regx, replacement);
+          content = content.replaceAll(regx, replacement);
           
           ioExFile = file32;
           IOUtils.write(content, new FileOutputStream(file32), "UTF-16LE");
