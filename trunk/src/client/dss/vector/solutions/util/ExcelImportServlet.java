@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -22,6 +23,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
 
 import com.runwaysdk.ClientSession;
@@ -137,7 +139,7 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
-          respondError(errorStream, fileName, res, null, null);
+          respondError(new BufferedInputStream(errorStream), fileName, res, null, null);
           return;
         }
       }
@@ -164,7 +166,7 @@ public class ExcelImportServlet extends HttpServlet
             statusCode = 702; // Request completed with errors and synonyms
           }
           
-          respondError(errorStream, fileName, res, managerId, statusCode);
+          respondError(new BufferedInputStream(errorStream), fileName, res, managerId, statusCode);
           return;
         }
       }
@@ -204,42 +206,93 @@ public class ExcelImportServlet extends HttpServlet
     }
   }
   
-  // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
+  // #3211 This property is used to specify a directory that, if an excel file is imported
   //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
-  private void respondError(InputStream errorStream, String filename, HttpServletResponse res, String managerId, Integer statusCode)
+  private void respondError(BufferedInputStream errorStream, String filename, HttpServletResponse res, String managerId, Integer statusCode)
   {
+    TeeOutputStream tee = null;
+    ServletOutputStream streamToBrowser = null;
+    BufferedOutputStream streamToXlsLogFile = null;
+    
     String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
     try
     {
-      File fDir = new File(errorDir);
-      
-      if (!fDir.exists())
+      try
       {
-        fDir.mkdirs();
+        byte[] errorBytes = IOUtils.toByteArray(errorStream);
+        errorStream.close();
+        errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
+        
+        File fDir = new File(errorDir);
+        
+        if (!fDir.exists())
+        {
+          fDir.mkdirs();
+        }
+        
+        File errorFile = new File(fDir, filename);
+        if (errorFile.exists())
+        {
+          FileIO.deleteFile(errorFile);
+        }
+        
+        FileOutputStream fos = new FileOutputStream(errorFile);
+        streamToXlsLogFile = new BufferedOutputStream(fos);
+        
+        res.setContentType("application/xls");
+        res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+        if (managerId != null)
+        {
+          res.addHeader("ExcelImportManagerId", managerId);
+        }
+        if (statusCode != null)
+        {
+          res.setStatus(statusCode);
+        }
+        
+        streamToBrowser = res.getOutputStream();
+        
+        tee = new TeeOutputStream(streamToXlsLogFile, streamToBrowser); // The tee allows us to write to 2 different places at once.
+        try
+        {
+          FileIO.write(tee, errorStream);
+        }
+        catch (IOException e)
+        {
+          // If the client closed their browser tab we'll get an IOEx. We still want to make sure that log file gets written (#3462)
+          streamToXlsLogFile.close();
+          errorStream.close();
+          
+          if (errorFile.exists())
+          {
+            FileIO.deleteFile(errorFile);
+          }
+          
+          errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
+          streamToXlsLogFile = new BufferedOutputStream(new FileOutputStream(errorFile));
+          
+          FileIO.write(streamToXlsLogFile, errorStream);
+        }
       }
-      
-      File errorFile = new File(fDir, filename);
-      
-      FileOutputStream fos = new FileOutputStream(errorFile);
-      BufferedOutputStream buffer = new BufferedOutputStream(fos);
-      
-      res.setContentType("application/xls");
-      res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-      if (managerId != null)
+      finally
       {
-        res.addHeader("ExcelImportManagerId", managerId);
+        if (streamToBrowser != null)
+        {
+          streamToBrowser.close();
+        }
+        if (errorStream != null)
+        {
+          errorStream.close();
+        }
+        if (streamToXlsLogFile != null)
+        {
+          streamToXlsLogFile.close();
+        }
+        if (tee != null)
+        {
+          tee.close();
+        }
       }
-      if (statusCode != null)
-      {
-        res.setStatus(statusCode);
-      }
-      
-      ServletOutputStream outputStream = res.getOutputStream();
-      
-      TeeOutputStream tee = new TeeOutputStream(buffer, outputStream); // The tee allows us to write to 2 different places at once.
-      FileIO.write(tee, errorStream);
-      tee.flush();
-      tee.close();
     }
     catch (Exception e)
     {
