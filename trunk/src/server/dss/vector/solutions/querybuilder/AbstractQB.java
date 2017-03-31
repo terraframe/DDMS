@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -205,6 +207,8 @@ public abstract class AbstractQB implements Reloadable
   private ValueQueryParser                  parser;
 
   private List<WITHEntry>                   withEntries;
+  
+  private List<WITHEntry>                   tempTableEntries;
 
   private boolean                           hasUniversal;
 
@@ -237,6 +241,7 @@ public abstract class AbstractQB implements Reloadable
     this.valueQuery = null;
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
+    this.tempTableEntries = new LinkedList<WITHEntry>();
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.geoEntityJoinData = new GeoEntityJoinData();
@@ -278,6 +283,11 @@ public abstract class AbstractQB implements Reloadable
     this.recursiveWithClause = recursive;
   }
 
+  protected void addTempTableEntry(WITHEntry entry)
+  {
+    tempTableEntries.add(entry);
+  }
+  
   protected void addWITHEntry(WITHEntry entry)
   {
     withEntries.add(entry);
@@ -636,7 +646,18 @@ public abstract class AbstractQB implements Reloadable
     {
       return;
     }
+    
+    
+    String tempTableSql = "";
+    for (WITHEntry entry : this.tempTableEntries)
+    {
+      String entrySql = "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
+      tempTableSql = tempTableSql + entrySql;
+    }
+    tempTableSql = tempTableSql + "\n\n";
+    
 
+    
     String with = "WITH ";
     if (recursive)
     {
@@ -662,7 +683,9 @@ public abstract class AbstractQB implements Reloadable
       with = prepend + " \n" + with;
     }
 
-    valueQuery.setSqlPrefix(with);
+    
+    
+    valueQuery.setSqlPrefix(tempTableSql + with);
   }
 
   /**
@@ -673,7 +696,7 @@ public abstract class AbstractQB implements Reloadable
     this.setWITHClause(entries, recursive, valueQuery, null);
   }
 
-  protected final void setGeoDisplayLabelSQL()
+  protected void setGeoDisplayLabelSQL()
   {
     String sql = QueryUtil.getGeoDisplayLabelSQL(false);
     this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
