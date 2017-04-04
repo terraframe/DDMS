@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +19,6 @@ import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -77,9 +75,7 @@ import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.AllRenderTypes;
-import dss.vector.solutions.query.CountOrRatioAloneException;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
@@ -208,8 +204,6 @@ public abstract class AbstractQB implements Reloadable
 
   private List<WITHEntry>                   withEntries;
   
-  private List<WITHEntry>                   tempTableEntries;
-
   private boolean                           hasUniversal;
 
   private Integer                           pageNumber;
@@ -241,7 +235,6 @@ public abstract class AbstractQB implements Reloadable
     this.valueQuery = null;
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
-    this.tempTableEntries = new LinkedList<WITHEntry>();
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.geoEntityJoinData = new GeoEntityJoinData();
@@ -283,11 +276,6 @@ public abstract class AbstractQB implements Reloadable
     this.recursiveWithClause = recursive;
   }
 
-  protected void addTempTableEntry(WITHEntry entry)
-  {
-    tempTableEntries.add(entry);
-  }
-  
   protected void addWITHEntry(WITHEntry entry)
   {
     withEntries.add(entry);
@@ -646,18 +634,7 @@ public abstract class AbstractQB implements Reloadable
     {
       return;
     }
-    
-    
-    String tempTableSql = "";
-    for (WITHEntry entry : this.tempTableEntries)
-    {
-      String entrySql = "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
-      tempTableSql = tempTableSql + entrySql;
-    }
-    tempTableSql = tempTableSql + "\n\n";
-    
 
-    
     String with = "WITH ";
     if (recursive)
     {
@@ -683,9 +660,7 @@ public abstract class AbstractQB implements Reloadable
       with = prepend + " \n" + with;
     }
 
-    
-    
-    valueQuery.setSqlPrefix(tempTableSql + with);
+    valueQuery.setSqlPrefix(with);
   }
 
   /**
