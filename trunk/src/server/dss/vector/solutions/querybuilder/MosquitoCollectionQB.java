@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
@@ -34,6 +35,7 @@ import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.querybuilder.AbstractQB.WITHEntry;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.Restriction;
@@ -97,6 +99,13 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     return MosquitoCollection.CLASS;
   }
   
+  @Override
+  protected void setGeoDisplayLabelSQL()
+  {
+    String sql = QueryUtil.getGeoDisplayLabelSQL(false);
+    this.addTempTableEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
+  }
+
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
@@ -448,8 +457,13 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     origQuery = origQuery.replaceFirst("SELECT", "SELECT " + selectAddtions).replaceFirst("GROUP BY", "GROUP BY " + taxonCol + ",");
 
     this.setWITHRecursive(true);
-    this.addWITHEntry(new WITHEntry("mainQuery", origQuery));
+
+
+    this.addTempTableEntry(new WITHEntry("mainQuery", origQuery));
+//    String createSql = "CREATE TEMPORARY TABLE IF NOT EXISTS mainQuery ON COMMIT DROP AS (" + origQuery + ")";
+//    Database.parseAndExecute(createSql);
     
+
     // taxonCountQuery is where each node gets the total of its child species
     String taxonCountQuery = "SELECT mainQuery.* ,";
     taxonCountQuery += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap ";
@@ -476,7 +490,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     taxonCountQuery += areaGroup + " AS areaGroup\n";
     taxonCountQuery += " FROM mainQuery";
-    this.addWITHEntry(new WITHEntry("taxonCountQuery", taxonCountQuery));
+    this.addTempTableEntry(new WITHEntry("taxonCountQuery", taxonCountQuery));
 
     joinMainQuery = joinMainQuery.replace("mainQuery", "taxonCountQuery");
 
@@ -504,7 +518,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     percentViewSQL += "GROUP BY " + pctGB + " \n";
 
-    this.addWITHEntry(new WITHEntry("percent_view", percentViewSQL));
+    this.addTempTableEntry(new WITHEntry("percent_view", percentViewSQL));
 
     String rollupView = " SELECT *, abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     rollupView += "     FROM percent_view\n";
