@@ -1,0 +1,27 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.WeeklyThresholdView">
+        <create>
+          <attributes>
+            <char
+              name="diseaseLabel"
+              label="Disease"
+              required="true"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.WeeklyThresholdView.diseaseLabel"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

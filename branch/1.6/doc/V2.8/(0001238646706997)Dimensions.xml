@@ -1,0 +1,44 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <object
+        type="com.runwaysdk.system.metadata.MdDimension"
+        key="Dimension.MALARIA">
+        <attribute
+          name="name"
+          value="MALARIA" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Malaria" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.metadata.MdDimension"
+        key="Dimension.DENGUE">
+        <attribute
+          name="name"
+          value="DENGUE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Dengue" />
+        </attributeStruct>
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="MALARIA"
+        type="com.runwaysdk.system.metadata.MdDimension" />
+      <object
+        key="DENGUE"
+        type="com.runwaysdk.system.metadata.MdDimension" />
+    </delete>
+  </undoIt>
+</version>

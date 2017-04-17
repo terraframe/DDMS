@@ -1,0 +1,390 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdTree
+        name="dss.vector.solutions.surveillance.IndividualCaseSymptom"
+        label="Individual Case Symptom"
+        generateController="false">
+        <attributes>
+          <boolean
+            name="hasSymptom"
+            label="Has Symptom"
+            required="true"
+            description="Flag denoting if the patient has the given symptom"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.IndividualInstance"
+          method="IndividualInstance" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Symptoms" />
+      </mdTree>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualCase">
+        <attributes>
+          <reference
+            name="probableSource"
+            label="Probable Source Geo Entity"/>
+        </attributes>
+        <create>
+          <attributes>
+            <integer
+              name="age"
+              label="Age"
+              description=""
+              rejectNegative="true"/>
+            <text
+              name="probableSourceText"
+              label="Probable Source Location"/>
+            <reference
+              name="residence"
+              label="Residence Geo Entity"
+              type="dss.vector.solutions.geo.generated.GeoEntity"
+              required="true"/>
+            <text
+              name="residenceText"
+              label="Residence Location"/>
+            <reference
+              name="workplace"
+              label="Workplace/School Geo Entity"
+              type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            <text
+              name="workplaceText"
+              label="Workplace/School Location"/>
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualInstance">
+        <create>
+          <attributes>
+            <reference
+              name="patientCategory"
+              label="Patient Category"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
+              name="referralReason"
+              label="Reason for Referral"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
+              name="labTest"
+              label="Test used"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
+              name="treatmentMethod"
+              label="Treatment Method"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
+              name="treatment"
+              label="Treatment"
+              type="dss.vector.solutions.ontology.Term" />
+            <reference
+              name="symptom"
+              label="Symptoms"
+              type="dss.vector.solutions.ontology.Term"/>
+            <text
+              name="symptomComments"
+              label="Symptom Comments"/>
+            <reference
+              name="sampleType"
+              label="Sample Type"
+              type="dss.vector.solutions.ontology.Term"/>
+            <reference
+              name="malariaType"
+              label="Malaria Type"
+              type="dss.vector.solutions.ontology.Term"/>
+            <date
+              name="treatmentStartDate"
+              label="Treatment Start Date"/>
+            <boolean
+              name="activelyDetected"
+              label="Case Detection"
+              positiveLabel="Actively Detected"
+              negativeLabel="Passively Detected"/>
+            <reference
+              name="healthFacility"
+              label="Health Facility"
+              type="dss.vector.solutions.geo.generated.HealthFacility"/>
+            <reference
+              name="detectedBy"
+              label="Organization responsible for case detection"
+              type="dss.vector.solutions.ontology.Term"/>
+          </attributes>
+          <mdMethod
+            name="getSymptoms"
+            label="Get Symptoms"
+            returnType="dss.vector.solutions.ontology.Term[]"/>
+          <mdMethod
+            name="applyAll"
+            label="Apply All"
+            returnType="void">
+            <mdParameter
+              name="symptoms"
+              label="Symptoms"
+              type="dss.vector.solutions.ontology.Term[]"
+              order="0"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualCaseController">
+        <mdAction
+          name="search">
+          <create>
+            <mdParameter
+              name="caseReportDate"
+              label="Case Report Date"
+              type="java.util.Date"
+              order="2"/>
+          </create>
+        </mdAction>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualInstanceController">
+        <mdAction
+          name="create"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="symptoms"
+              label="Symptoms"
+              type="dss.vector.solutions.ontology.Term[]"
+              order="1"/>
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="symptoms"
+              label="Symptoms"
+              type="dss.vector.solutions.ontology.Term[]"
+              order="1"/>
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="newInstanceWithCase"
+            label="New Instance (With Case)"
+            isPost="true">
+            <mdParameter
+              name="newCase"
+              label="Individual Case"
+              order="0"
+              type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+            <mdParameter
+              name="personId"
+              label="Person Id"
+              type="java.lang.String"
+              order="1" />
+          </mdAction>
+          <mdAction
+            name="createWithCase"
+            label="Create (With Case)"
+            isPost="true">
+            <mdParameter
+              name="dto"
+              label="Individual Instance"
+              order="0"
+              type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+            <mdParameter
+              name="newCase"
+              label="Individual Case"
+              order="1"
+              type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+            <mdParameter
+              name="personId"
+              label="Person Id"
+              type="java.lang.String"
+              order="2" />
+            <mdParameter
+              name="symptoms"
+              label="Symptoms"
+              type="dss.vector.solutions.ontology.Term[]"
+              order="3"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.referralReason"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.referralReason" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.labTest"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.labTest" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.treatmentMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatmentMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.treatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.symptom"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.symptom" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.sampleType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.sampleType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.malariaType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.malariaType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.getSymptoms"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.applyAll"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.create.symptoms"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.update.symptoms"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.referralReason"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.labTest"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.treatmentMethod"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.treatment"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.caseReportDate"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.symptom"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.sampleType"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.malariaType"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="dss.vector.solutions.surveillance.IndividualCaseSymptom"
+        type="com.runwaysdk.system.metadata.MdTree"/>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.age"
+        type="com.runwaysdk.system.metadata.MdAttributeInteger" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.probableSourceText"
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.residence"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.residenceText"
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.workplace"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase.workplaceText"
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.referralReason"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.labTest"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatmentMethod"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatment"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.symptom"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.sampleType"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.malariaType"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.activelyDetected"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.healthFacility"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy"
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.newInstanceWithCase"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.createWithCase"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

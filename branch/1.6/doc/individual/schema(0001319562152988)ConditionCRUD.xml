@@ -1,0 +1,99 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+          <mdAction
+            name="deleteCondition"
+            label="Delete Condition"
+            isPost="true">
+            <mdParameter
+              name="mdFieldId"
+              label="MdField Id"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="conditionId"
+              label="Condition Id"
+              order="1"
+              type="java.lang.String"/>
+          </mdAction>
+          <mdAction
+            name="editCondition"
+            label="Edit Condition"
+            isPost="true">
+            <mdParameter
+              name="conditionId"
+              label="Condition Id"
+              order="1"
+              type="java.lang.String"/>
+          </mdAction>
+          <mdAction
+            name="updateCondition"
+            label="Update Condition"
+            isPost="true">
+            <mdParameter
+              name="condition"
+              label="Condition"
+              order="0"
+              type="com.runwaysdk.system.metadata.FieldCondition"/>
+          </mdAction>
+          <mdAction
+            name="getConditions"
+            label="Get Conditions"
+            isPost="true">
+            <mdParameter
+              name="mdFieldId"
+              label="MdField Id"
+              order="0"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+      <mdUtil
+        name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod
+            name="getConditions"
+            label="Get Conditions"
+            static="true"
+            returnType="com.runwaysdk.system.metadata.FieldCondition[]">
+            <mdParameter
+              name="mdFieldId"
+              label="MdField Id"
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="deleteCondition"
+            label="Delete Condition"
+            static="true"
+            returnType="void">
+            <mdParameter
+              name="mdFieldId"
+              label="MdField Id"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="conditionId"
+              label="Condition Id"
+              order="1"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getConditions" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.deleteCondition" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.form.MdFormAdminController.editCondition" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.form.MdFormAdminController.updateCondition" type="com.runwaysdk.system.metadata.MdAction"/>    
+      <object key="dss.vector.solutions.form.MdFormAdminController.getConditions" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.form.MdFormAdminController.deleteCondition" type="com.runwaysdk.system.metadata.MdAction"/>    
+    </delete>
+  </undoIt>
+</version>

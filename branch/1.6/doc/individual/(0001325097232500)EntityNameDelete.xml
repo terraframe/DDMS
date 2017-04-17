@@ -1,0 +1,23 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.GeoEntityExcelView.entityName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.GeoTargetView.entityName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.geo.GeoEntityView.entityName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />        
+      <object
+        key="dss.vector.solutions.geo.generated.GeoEntity.entityName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

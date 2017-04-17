@@ -1,0 +1,774 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.brandName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.amount"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.weight"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.sachetsPerRefill"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandLabel.brandName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandLabel.concentration"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField" />
+    </delete>
+
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.irs.InsecticideBrandUseProblem"
+        label="Insecticide Brand Use Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]"
+        message="When {insecticideUseLabel} is {insecticideUseValue}, {attributeLabel} must be {attributeValue}">
+        <attributes>
+          <text
+            name="insecticideUseLabel"
+            label="Insecticide use label"
+            required="true" />
+          <text
+            name="insecticideUseValue"
+            label="Insecticide use value"
+            required="true" />
+          <text
+            name="attributeLabel"
+            label="Attribute label"
+            required="true" />
+          <text
+            name="attributeValue"
+            label="Attribute value"
+            required="true" />
+        </attributes>
+      </mdProblem>
+    </create>
+
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.irs.InsecticideBrandUseMaster"
+        label="Insecticide Brand Use Master"
+        generateController="false"
+        hasDeterministicId="true">
+      </enumerationMaster>
+
+      <object
+        key="IRS"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="IRS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="IRS" />
+        </attributeStruct>
+      </object>
+      <object
+        key="ITM"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="ITM" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="ITM" />
+        </attributeStruct>
+      </object>
+      <object
+        key="SPACE_SPRAY"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="SPACE_SPRAY" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Space spray" />
+        </attributeStruct>
+      </object>
+      <object
+        key="SOLID_LARVICIDE"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="SOLID_LARVICIDE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Solid larvicide" />
+        </attributeStruct>
+      </object>
+      <object
+        key="LIQUID_LARVICIDE"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="LIQUID_LARVICIDE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Liquid larvicide" />
+        </attributeStruct>
+      </object>
+      <object
+        key="OTHER"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <attribute
+          name="enumName"
+          value="OTHER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Other" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.InsecticideBrandUse"
+        type="dss.vector.solutions.irs.InsecticideBrandUseMaster">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+
+
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster"
+        label="Insecticide Brand Concentration Qualifier Master"
+        generateController="false"
+        hasDeterministicId="true">
+      </enumerationMaster>
+
+      <object
+        key="PERCENT"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="PERCENT" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="%" />
+        </attributeStruct>
+      </object>
+      <object
+        key="GRAMS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="GRAMS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="g/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MICROGRAMS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MICROGRAMS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="µg/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="PICOGRAMS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="PICOGRAMS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="pg/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MILLILITERS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MILLILITERS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="ml/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MICROLITERS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MICROLITERS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="µl/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="PICOLITERS_PER_LITER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="PICOLITERS_PER_LITER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="pl/l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="GRAMS_PER_KILOGRAM"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="GRAMS_PER_KILOGRAM" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="g/kg" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MILLIGRAMS_PER_KILOGRAM"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MILLIGRAMS_PER_KILOGRAM" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="mg/kg" />
+        </attributeStruct>
+      </object>
+      <object
+        key="PICOGRAMS_PER_KILOGRAM"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="PICOGRAMS_PER_KILOGRAM" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="pg/kg" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MILLIGRAMS_PER_SQUARE_METER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MILLIGRAMS_PER_SQUARE_METER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="mg/m²" />
+        </attributeStruct>
+      </object>
+      <object
+        key="GRAMS_PER_SQUARE_METER"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="GRAMS_PER_SQUARE_METER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="g/m²" />
+        </attributeStruct>
+      </object>
+      <object
+        key="UNKNOWN"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <attribute
+          name="enumName"
+          value="UNKNOWN" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Unknown" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier"
+        type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+
+
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster"
+        label="Insecticide Brand Unit Qualifier Master"
+        generateController="false"
+        hasDeterministicId="true">
+      </enumerationMaster>
+      <object
+        key="GRAMS"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="GRAMS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="g" />
+        </attributeStruct>
+      </object>
+      <object
+        key="KILOGRAMS"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="KILOGRAMS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="kg" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MILLILITERS"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="MILLILITERS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="ml" />
+        </attributeStruct>
+      </object>
+      <object
+        key="LITERS"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="LITERS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="l" />
+        </attributeStruct>
+      </object>
+      <object
+        key="SQUARE_METERS"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="SQUARE_METERS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="m²" />
+        </attributeStruct>
+      </object>
+      <object
+        key="EACH"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <attribute
+          name="enumName"
+          value="EACH" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="each" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.InsecticideBrandUnitQualifier"
+        type="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+
+
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.InsecticideBrand"
+        generateController="true">
+        <create>
+          <attributes>
+            <reference
+              name="productName"
+              label="Product name"
+              type="dss.vector.solutions.ontology.Term"
+              required="true"
+              indexType="unique index" />
+            <enumeration
+              name="insecticideUse"
+              label="Use"
+              type="dss.vector.solutions.irs.InsecticideBrandUse"
+              selectMultiple="false"
+              immutable="true"
+              required="true" />
+            <reference
+              name="useDetail"
+              label="Use detail"
+              type="dss.vector.solutions.ontology.Term" />
+            <decimal
+              name="concentrationQuantifier"
+              label="Concentration quantifier"
+              length="10"
+              decimal="2"
+              rejectNegative="true"
+              rejectZero="true"
+              required="true" />
+            <enumeration
+              name="concentrationQualifier"
+              label="Concentration qualifier"
+              type="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier"
+              selectMultiple="false"
+              required="true" />
+            <decimal
+              name="unitQuantifier"
+              label="Unit quantifier"
+              length="10"
+              decimal="2"
+              rejectNegative="true"
+              rejectZero="true"
+              required="false" />
+            <enumeration
+              name="unitQualifier"
+              label="Unit qualifier"
+              type="dss.vector.solutions.irs.InsecticideBrandUnitQualifier"
+              selectMultiple="false"
+              required="false" />
+            <integer
+              name="unitsPerApplication"
+              label="Units per application"
+              rejectNegative="true"
+              rejectZero="true"
+              required="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandView"
+        generateController="true">
+        <create>
+          <attributes>
+            <virtual
+              name="productName"
+              concrete="productName"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="insecticideUse"
+              concrete="insecticideUse"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="useDetail"
+              concrete="useDetail"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="concentrationQuantifier"
+              concrete="concentrationQuantifier"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="concentrationQualifier"
+              concrete="concentrationQualifier"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="unitQuantifier"
+              concrete="unitQuantifier"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="unitQualifier"
+              concrete="unitQualifier"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <virtual
+              name="unitsPerApplication"
+              concrete="unitsPerApplication"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+
+    <update>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.InsecticideInterventionView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="concentrationQuantifier"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              required="false" />
+            <char
+              name="concentrationQualifier"
+              label="Concentration qualifier"
+              required="false"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandLabel">
+        <create>
+          <attributes>
+            <char
+              name="productName"
+              label="Product name"
+              size="255"
+              required="true" />
+            <decimal
+              name="concentrationQuantifier"
+              label="Concentration quantifier"
+              length="10"
+              decimal="2"
+              rejectNegative="true"
+              rejectZero="true"
+              required="true" />
+            <char
+              name="concentrationQualifier"
+              label="Concentration qualifier"
+              size="255"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.productName"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.InsecticideBrand.productName" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.useDetail"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.InsecticideBrand.useDetail" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.InsecticideBrand.activeIngredient" />
+      </object>
+    </create>
+  </doIt>
+
+
+
+  <undoIt>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.InsecticideBrandView.activeIngredient" />
+      </object>
+    </create>
+
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.productName"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.useDetail"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrand.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField" />
+    </delete>
+
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.InsecticideBrand">
+        <create>
+          <attributes>
+            <char
+              name="brandName"
+              label="Brand Name"
+              required="true"
+              size="255"
+              indexType="unique index" />
+
+            <integer
+              name="amount"
+              label="Concentration (%)"
+              rejectZero="true"
+              rejectNegative="true"
+              required="true" />
+            <decimal
+              name="weight"
+              label="Sachet Weight (g)"
+              length="6"
+              decimal="2"
+              rejectNegative="true"
+              rejectZero="true"
+              required="true" />
+            <integer
+              name="sachetsPerRefill"
+              label="Sachets per Can Refill"
+              rejectNegative="true"
+              rejectZero="true"
+              required="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandView">
+        <create>
+          <attributes>
+            <virtual
+              name="activeIngredient"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              concrete="activeIngredient" />
+            <virtual
+              name="amount"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              concrete="amount" />
+            <virtual
+              name="weight"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              concrete="weight" />
+            <virtual
+              name="sachetsPerRefill"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              concrete="sachetsPerRefill" />
+            <virtual
+              name="enabled"
+              type="dss.vector.solutions.irs.InsecticideBrand"
+              concrete="enabled" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.InsecticideInterventionView.concentrationQuantifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.InsecticideInterventionView.concentrationQualifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandLabel"
+        label="Insecticide Brand Label">
+        <create>
+          <attributes>
+            <char
+              name="brandName"
+              label="Brand Name"
+              size="255"
+              required="true" />
+            <integer
+              name="concentration"
+              label="Concentration"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.productName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.insecticideUse"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.useDetail"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.concentrationQuantifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.concentrationQualifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.unitQuantifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.unitQualifier"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand.unitsPerApplication"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandUse"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandUseMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandUnitQualifier"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandUseProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,54 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+  
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName"
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+    
+    </delete>    
+  
+    <update>
+    
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <mdMethod
+          name="searchByEntityNameOrGeoId">
+          <create>
+            <mdParameter
+              name="enforceRoot"
+              label="Enforce Root"
+              description="Denotes if the default system root should be enforced or not"
+              type="java.lang.Boolean"
+              order="2" />
+          </create>
+        </mdMethod>
+        <mdMethod
+          name="searchByParameters">
+          <create>
+            <mdParameter
+              name="enforceRoot"
+              label="Enforce Root"
+              description="Denotes if the default system root should be enforced or not"
+              type="java.lang.Boolean"
+              order="2" />
+          </create>
+        </mdMethod>
+      </mdBusiness>    
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId.enforceRoot"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.geo.generated.GeoEntity.searchByParameters.enforceRoot"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+    
+    </delete>
+  </undoIt>
+</version>

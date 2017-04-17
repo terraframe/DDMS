@@ -1,0 +1,44 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.InsecticideInterventionExcelView">
+        <create>
+          <attributes>
+            <char
+              name="interventionMethod"
+              label="Intervention Method"
+              size="255"/>
+            <char
+              name="insecticide"
+              label="Insecticide product"
+              size="255"/>
+            <virtual
+              concrete="quantity"
+              type="dss.vector.solutions.intervention.monitor.InsecticideIntervention"/>
+            <char
+              name="unit"
+              label="Unit"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.InsecticideInterventionExcelView.interventionMethod"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.InsecticideInterventionExcelView.insecticide"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.InsecticideInterventionExcelView.quantity"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.InsecticideInterventionExcelView.unit"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+  </undoIt>
+</version>

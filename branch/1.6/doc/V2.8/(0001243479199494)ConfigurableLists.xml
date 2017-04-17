@@ -1,0 +1,29 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+    </delete>
+    <update>
+    </update>
+    <create>
+      <mdController
+        name="dss.vector.solutions.util.ConfigurableListController"
+        label="Configurable List Controller"
+        description="Controller to manage configurable lists">
+        <mdAction
+          name="viewAll"
+          label="View All Configurable Lists"
+          description="View All Configurable Lists"
+          isPost="false"/>
+      </mdController>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.ConfigurableListController"
+        type="com.runwaysdk.system.metadata.MdController" />
+    </delete>
+  </undoIt>
+</version>

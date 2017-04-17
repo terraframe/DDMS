@@ -1,0 +1,107 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.BiochemicalAssayExcelView"
+        label="Biochemical Assay Excel View">
+        <attributes>
+          <virtual
+            concrete="collectionId"
+            type="dss.vector.solutions.entomology.MosquitoCollection"/>
+          <virtual
+            concrete="mosquitoId"
+            type="dss.vector.solutions.entomology.BiochemicalAssay"/>
+          <char
+            name="species"
+            label="Species"
+            size="255"/>
+          <char
+            name="identMethod"
+            label="Method of species identification"
+            size="255"/>
+          <char
+            name="sex"
+            label="Sex"
+            size="255"/>
+          <char
+            name="generation"
+            label="Generation"
+            size="255"/>
+          <virtual
+            concrete="isofemale"
+            type="dss.vector.solutions.entomology.BiochemicalAssay"/>
+          <char
+            name="assay"
+            label="Biochemical Assay"
+            size="255"/>
+          <virtual
+            concrete="numberTested"
+            type="dss.vector.solutions.entomology.BiochemicalAssay"/>
+          <virtual
+            concrete="numberElevated"
+            type="dss.vector.solutions.entomology.BiochemicalAssay"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.MolecularAssayExcelView"
+        label="Molecular Assay Excel View">
+        <attributes>
+          <virtual
+            concrete="collectionId"
+            type="dss.vector.solutions.entomology.MosquitoCollection"/>
+          <virtual
+            concrete="mosquitoId"
+            type="dss.vector.solutions.entomology.MolecularAssay"/>
+          <char
+            name="species"
+            label="Species"
+            size="255"/>
+          <char
+            name="identMethod"
+            label="Method of species identification"
+            size="255"/>
+          <char
+            name="sex"
+            label="Sex"
+            size="255"/>
+          <char
+            name="generation"
+            label="Generation"
+            size="255"/>
+          <virtual
+            concrete="isofemale"
+            type="dss.vector.solutions.entomology.MolecularAssay"/>
+          <char
+            name="assayMethod"
+            label="Molecular assay method"
+            size="255"/>
+          <char
+            name="target"
+            label="Test Target"
+            size="255"/>
+          <virtual
+            concrete="numberRR"
+            type="dss.vector.solutions.entomology.MolecularAssay"/>
+          <virtual
+            concrete="numberRS"
+            type="dss.vector.solutions.entomology.MolecularAssay"/>
+          <virtual
+            concrete="numberSS"
+            type="dss.vector.solutions.entomology.MolecularAssay"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.BiochemicalAssayExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.MolecularAssayExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

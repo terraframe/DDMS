@@ -1,0 +1,22 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.HouseholdSprayStatusView">
+        <create>
+          <mdMethod
+            name="getGeneratedIds"
+            label="Get Generated Ids"
+            returnType="java.lang.String[]"
+            static="true"
+            description="Returns an array of auto generated ids" />
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,0 +1,43 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNonUseReasons"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField" />    
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.retreatmentPeriod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washInterval"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washed"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.freeProvider"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

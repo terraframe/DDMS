@@ -1,0 +1,25 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <mdMethod name="getOntologyChildren">
+          <create>
+            <mdParameter
+              name="filterObsolete"
+              label="Filter Obsolete"
+              description="Denotes if this method should filter out any obsolete terms."
+              order="0"
+              type="java.lang.Boolean"/>
+          </create>
+        </mdMethod>
+      </mdBusiness>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

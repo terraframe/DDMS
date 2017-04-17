@@ -1,0 +1,1113 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.MonthOfYearMaster"
+        label="Month Master"
+        generateController="false" />
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.JANUARY"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="JANUARY" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="January" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.FEBRUARY"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="FEBRUARY" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="February" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.MARCH"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="MARCH" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="March" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.APRIL"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="APRIL" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="April" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.MAY"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="MAY" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="May" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.JUNE"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="JUNE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="June" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.JULY"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="JULY" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="July" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.AUGUST"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="AUGUST" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="August" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.SEPTEMBER"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="SEPTEMBER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="September" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.OCTOBER"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="OCTOBER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="October" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.NOVEMBER"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="NOVEMBER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="November" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster.DECEMBER"
+        type="dss.vector.solutions.MonthOfYearMaster">
+        <attribute
+          name="enumName"
+          value="DECEMBER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="December" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.MonthOfYear"
+        type="dss.vector.solutions.MonthOfYearMaster"
+        label="Month">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNInstance"
+        label="ITN instance"
+        generateController="true">
+        <attributes>
+          <reference
+            name="household"
+            label="Household"
+            required="true"
+            type="dss.vector.solutions.intervention.monitor.Household"
+            immutable="true" />
+          <char
+            name="netId"
+            label="Net Id"
+            size="255"
+            required="true" />
+          <reference
+            name="netBrand"
+            label="Net brand"
+            type="dss.vector.solutions.ontology.Term" />
+          <enumeration
+            name="monthReceived"
+            label="When was the net received (Month)"
+            selectMultiple="false"
+            type="dss.vector.solutions.MonthOfYear" />
+          <integer
+            name="yearReceived"
+            label="When was the net received (Year)"
+            rejectNegative="true"
+            required="true" />
+          <reference
+            name="obtained"
+            label="Where was the net obtained from"
+            type="dss.vector.solutions.ontology.Term" />
+          <decimal
+            name="price"
+            label="Purchase price of the net"
+            length="32"
+            decimal="5"
+            defaultValue="0.00" />
+          <boolean
+            name="retreated"
+            label="Has the net been retreated"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <enumeration
+            name="monthRetreated"
+            label="When was the net retreated (Month)"
+            selectMultiple="false"
+            type="dss.vector.solutions.MonthOfYear" />
+          <integer
+            name="yearRetreated"
+            label="When was the net retreated (Year)"
+            rejectNegative="true" />
+          <reference
+            name="damaged"
+            label="Is the net damaged (holes) beyond being effective?"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="hanging"
+            label="Is the net hanging for the purpose of sleeping?"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="notUsedForSleeping"
+            label="Is the ITN used for purpose other than sleeping under?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <reference
+            name="purpose"
+            label="Purpose of Net"
+            type="dss.vector.solutions.ontology.Term" />
+          <text
+            name="purposeComments"
+            label="Purpose of Net (Additional Comments)" />
+          <enumeration
+            name="washed"
+            label="Has the ITN been washed?"
+            type="dss.vector.solutions.Response"
+            selectMultiple="false"
+            defaultValueKey="dss.vector.solutions.Response.NO" />
+          <integer
+            name="washFrequency"
+            label="Wash Frequency"
+            rejectNegative="true" />
+          <reference
+            name="washPeriod"
+            label="Wash Period"
+            type="dss.vector.solutions.ontology.Term" />
+          <long
+            name="sleptUnderNet"
+            label="How many persons sleep under the net"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNInstanceView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNInstanceView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNInstanceView"
+          static="false" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.HouseholdITNInstance"
+        label="Household ITN Instance"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNInstance"
+          method="ITNs" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNInstanceView"
+        label="ITN Instance">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="household"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="netId"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="netBrand"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="monthReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="yearReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="obtained"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="price"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="retreated"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="monthRetreated"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="yearRetreated"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="damaged"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="hanging"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="notUsedForSleeping"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="purpose"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="purposeComments"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="washed"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="washFrequency"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="washPeriod"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <virtual
+            concrete="sleptUnderNet"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <boolean
+            name="isNetUsed"
+            label="Is Net Used"
+            defaultValue="false"
+            description="Flag indicating if surveyed person data exists which reference this net"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+      </mdView>
+
+      <mdIndex
+        type="dss.vector.solutions.intervention.monitor.ITNInstance"
+        label="Net Id Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="household"
+          indexOrder="0" />
+        <attribute
+          name="netId"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.SurveyedPerson"
+        label="Person"
+        generateController="true"
+        description="Surveyed Person">
+        <attributes>
+          <reference
+            name="household"
+            label="Household"
+            required="true"
+            type="dss.vector.solutions.intervention.monitor.Household"
+            immutable="true" />
+          <char
+            name="personId"
+            label="Person Id"
+            indexType="unique index"
+            size="255"
+            required="true" />
+          <reference
+            name="headOfHousehold"
+            label="Is this the head of the house hold?"
+            type="dss.vector.solutions.ontology.Term" />
+          <date
+            name="dob"
+            label="Date of Birth"
+            description="Persons date of birth" />
+          <reference
+            name="sex"
+            label="Sex"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="pregnant"
+            label="Pregnant"
+            description="Flag indicating if the SurveyedPerson is pregnant"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+          <reference
+            name="immuneCompromised"
+            label="Is the person immune compromised?"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="sleptUnderNet"
+            label="Which net did the person sleep under last night"
+            type="dss.vector.solutions.intervention.monitor.ITNInstance" />
+          <enumeration
+            name="haemoglobinMeasured"
+            label="Was haemoglobin measured?"
+            description="Flag indicating if the person had their haemoglobin measured"
+            selectMultiple="false"
+            type="dss.vector.solutions.RefusedResponse" />
+          <decimal
+            name="haemoglobin"
+            label="Enter haemoglobin value (gm/dl)"
+            length="3"
+            decimal="1"
+            description="Hemoglobin value" />
+          <reference
+            name="anaemiaTreatment"
+            label="Anaemia Treatment"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="iron"
+            label="Was iron given"
+            description="Flag indicating if iron was given"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+          <enumeration
+            name="performedRDT"
+            label="Was RDT done"
+            selectMultiple="false"
+            type="dss.vector.solutions.RefusedResponse" />
+          <boolean
+            name="rdtResult"
+            label="RDT Result"
+            negativeLabel="Negative"
+            positiveLabel="Positive" />
+          <reference
+            name="rdtDetail"
+            label="RDT Detail"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="rdtTreatment"
+            label="Treatment given"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="performedBloodslide"
+            label="Was a blood slide done"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+          <reference
+            name="bloodslideReason"
+            label="Reason for not performing bloodslide"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="bloodslideResult"
+            label="Bloodslide Result"
+            negativeLabel="Negative"
+            positiveLabel="Positive" />
+          <reference
+            name="bloodslideDetail"
+            label="Bloodslide Detail"
+            type="dss.vector.solutions.ontology.Term" />
+          <enumeration
+            name="fever"
+            label="Has person had fever in last week?"
+            selectMultiple="false"
+            type="dss.vector.solutions.Response" />
+          <enumeration
+            name="malaria"
+            label="Was it confirmed malaria?"
+            selectMultiple="false"
+            type="dss.vector.solutions.Response" />
+          <reference
+            name="malariaConformationTechnique"
+            column="malariaConformationTech"
+            label="How was malaria confirmed"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="payment"
+            label="Payment for treatment"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.SurveyedPersonView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.SurveyedPersonView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.SurveyedPersonView"
+          static="false" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson"
+        label="Household Person"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.SurveyedPerson"
+          method="SurveyedPeople" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation"
+        label="Surveyed Person Treatment Location"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.SurveyedPerson"
+          method="PersonsWithTreatmentLocations" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Locations" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment"
+        label="Surveyed Person Treatment"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.SurveyedPerson"
+          method="PersonsWithTreatments" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Treatments" />
+      </mdTree>
+
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.SurveyedPersonView"
+        label="Surveyed Person">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="household"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="personId"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="headOfHousehold"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="dob"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <integer
+            name="age"
+            label="Age"
+            rejectNegative="true" />
+          <virtual
+            concrete="sex"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="pregnant"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="immuneCompromised"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="sleptUnderNet"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="haemoglobinMeasured"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="haemoglobin"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="anaemiaTreatment"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="iron"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="performedRDT"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="rdtResult"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="rdtDetail"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="rdtTreatment"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="performedBloodslide"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="bloodslideReason"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="bloodslideResult"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="bloodslideDetail"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="fever"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="malaria"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="malariaConformationTechnique"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <virtual
+            concrete="payment"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPerson" />
+          <reference
+            name="displayLocations"
+            label="Where treatments were sought"
+            description="Place holder for permissions and ontology root binding"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="displayTreatments"
+            label="Select treatments taken"
+            description="Place holder for permissions and ontology root binding"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply all"
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="locations"
+            label="Locations"
+            order="0"
+            type="dss.vector.solutions.ontology.Term[]" />
+          <mdParameter
+            name="treatments"
+            label="Treatments"
+            order="1"
+            type="dss.vector.solutions.ontology.Term[]" />
+        </mdMethod>
+        <mdMethod
+          name="getLocations"
+          static="false"
+          label="Get Locaitons"
+          returnType="dss.vector.solutions.ontology.Term[]" />
+        <mdMethod
+          name="getTreatments"
+          static="false"
+          label="Get Treatments"
+          returnType="dss.vector.solutions.ontology.Term[]" />
+      </mdView>
+
+      <mdProblem
+        name="dss.vector.solutions.CurrentYearProblem"
+        label="Current Year Problem"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer
+            name="yearOfDate"
+            label="Year" />
+        </attributes>
+      </mdProblem>
+
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.HouseholdView">
+        <create>
+        </create>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ITNInstanceController">
+        <mdAction
+          name="newInstance">
+          <create>
+            <mdParameter
+              name="householdId"
+              label="Household Id"
+              order="0"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNInstanceView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNInstanceView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNInstanceView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNInstanceView" />
+        </mdAction>
+      </mdController>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.SurveyedPersonController">
+        <mdAction
+          name="newInstance">
+          <create>
+            <mdParameter
+              name="householdId"
+              label="Household Id"
+              order="0"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPersonView" />
+          <create>
+            <mdParameter
+              name="locations"
+              label="Locations"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+            <mdParameter
+              name="treatments"
+              label="Treatments"
+              order="2"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPersonView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPersonView" />
+          <create>
+            <mdParameter
+              name="locations"
+              label="Locations"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+            <mdParameter
+              name="treatments"
+              label="Treatments"
+              order="2"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyedPersonView" />
+        </mdAction>
+      </mdController>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.HouseholdView">
+        <create>
+          <attributes>
+            <boolean
+              name="hasHouseholdNets"
+              label="Has household Nets"
+              defaultValue="false"
+              description="Flag indicating if itn instance data exists which reference this household"
+              required="true" />
+          </attributes>
+          <mdMethod
+            name="getItns"
+            label="Get ITNs"
+            static="false"
+            returnType="dss.vector.solutions.intervention.monitor.ITNInstanceView[]" />
+          <mdMethod
+            name="getSurveyedPeople"
+            label="Get Surveyed People"
+            static="false"
+            returnType="dss.vector.solutions.intervention.monitor.SurveyedPersonView[]" />
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.SurveyPointView">
+        <create>
+          <mdMethod
+            name="getHouseholdViews"
+            label="Get Household Views"
+            static="false"
+            returnType="dss.vector.solutions.intervention.monitor.HouseholdView[]" />
+        </create>
+      </mdView>
+    </update>
+
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.netBrand"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.netBrand" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.obtained"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.obtained" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.damaged"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.damaged" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.hanging"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.hanging" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.purpose"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.purpose" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.washPeriod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNInstanceView.washPeriod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.headOfHousehold"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.headOfHousehold" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.immuneCompromised"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.immuneCompromised" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.anaemiaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.anaemiaTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtDetail"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtDetail" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideReason"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideReason" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideDetail"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideDetail" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.malariaConformationTechnique"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.malariaConformationTechnique" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayLocations"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayLocations" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayTreatments"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayTreatments" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.payment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.SurveyedPersonView.payment" />
+      </object>
+    </create>    
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.netBrand"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.obtained"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.damaged"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.hanging"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.purpose"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNInstanceView.washPeriod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.headOfHousehold"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.immuneCompromised"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.anaemiaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtDetail"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.rdtTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideReason"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.bloodslideDetail"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.malariaConformationTechnique"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayLocations"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.displayTreatments"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.SurveyedPersonView.payment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyPointView.getHouseholdViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.CurrentYearProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdView.hasHouseholdNets"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdView.getItns"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdView.getSurveyedPeople"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyedPersonView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdSurveyedPerson"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyedPerson"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNInstanceView"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdITNInstance"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNInstance"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.MonthOfYear"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.MonthOfYearMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>    
+  </undoIt>
+</version>

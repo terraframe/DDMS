@@ -1,0 +1,159 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Larvacide"
+        label="Larvacide"
+        description="Larvacide">
+        <attributes>
+          <date
+            name="startDate"
+            label="Start date control was applied"/>
+          <date
+            name="completionDate"
+            label="Completion date control was applied"/>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <text
+            name="geoDescription"
+            label="Geo Entity Description"/>
+          <reference
+            name="teamLeader"
+            label="Team Leader"
+            type="dss.vector.solutions.irs.TeamMember"/>
+          <integer
+            name="personCount"
+            label="Number of people involved"/>
+        </attributes>
+        <mdMethod
+          name="getInstanceViews"
+          label="Get Instance Views"
+          returnType="dss.vector.solutions.intervention.monitor.LarvacideInstanceView[]">
+        </mdMethod>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.LarvacideInstance"
+        label="Larvacide Instance"
+        generateController="false">
+        <attributes>
+          <reference
+            name="target"
+            label="Target"
+            type="dss.vector.solutions.ontology.Term"/>
+          <integer
+            name="treated"
+            label="No. Treated"
+            rejectNegative="true"/>
+          <reference
+            name="controlMethod"
+            label="Control Method"
+            type="dss.vector.solutions.ontology.Term"/>
+          <reference
+            name="unit"
+            label="Unit"
+            type="dss.vector.solutions.ontology.Term"/>
+          <integer
+            name="unitsUsed"
+            label="No. Units Used"
+            rejectNegative="true"/>
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="Lock View"
+          returnType="dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="Unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+          static="false" />
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+        label="Larvacide Instance View">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete ID"
+            required="true"
+            size="64"/>
+          <char
+            name="controlId"
+            label="Control ID"
+            required="true"
+            size="64"/>
+          <virtual
+            concrete="target"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+          <virtual
+            concrete="treated"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+          <virtual
+            concrete="controlMethod"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+          <virtual
+            concrete="unit"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+          <virtual
+            concrete="unitsUsed"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          label="Apply All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.LarvacideInstanceView[]">
+          <mdParameter
+            name="views"
+            label="View"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstanceView[]" />
+        </mdMethod>
+      </mdView>
+      <mdRelationship
+        name="dss.vector.solutions.intervention.monitor.LarvacideAssociation"
+        label="Larvacide Association"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.intervention.monitor.Larvacide"
+          method="ControlLarvacide" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.LarvacideInstance"
+          method="Instances" />
+      </mdRelationship>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervetion.monitor.LarvacideAssociation"
+        type="com.runwaysdk.system.metadata.MdRelationship"/>
+      <object
+        key="dss.vector.solutions.intervetion.monitor.LarvacideInstanceView"
+        type="com.runwaysdk.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.intervetion.monitor.LarvacideInstance"
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
+      <object
+        key="dss.vector.solutions.intervetion.monitor.Larvacide"
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>

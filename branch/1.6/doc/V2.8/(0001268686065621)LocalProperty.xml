@@ -1,0 +1,108 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+    </delete>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.LocalProperty"
+        label="Property"
+        exported="false"
+        enforceSiteMaster="false">
+        <attributes>
+          <char
+            name="propertyName"
+            label="Name"
+            required="true"
+            size="255" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <char
+            name="propertyPackage"
+            required="true"
+            label="Package"
+            size="255" />
+          <char
+            name="propertyValue"
+            required="true"
+            label="Value"
+            size="255" />
+          <char
+            name="validValues"
+            required="false"
+            label="Valid Values"
+            size="255" />
+          <char
+            name="propertyType"
+            required="true"
+            label="Type"
+            size="255" />
+          <char
+            name="propertyValidator"
+            required="true"
+            label="Validator Regexp"
+            size="255" />
+          <char
+            name="description"
+            required="false"
+            label="Description"
+            size="255" />
+          <boolean
+            name="editable"
+            label="Editable"
+            required="true"
+            defaultValue="true"
+            negativeLabel="Not Editable"
+            positiveLabel="Editable" />
+        </attributes>
+        <mdMethod
+          name="getNextId"
+          label="Get the next ShortId"
+          description="Gets the next ShortId for this install, increments SHORT_ID_COUNTER"
+          static="true"
+          returnType="java.lang.String">
+        </mdMethod>
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.LocalProperty"
+        key="SHORT_ID_COUNTER">
+        <attribute
+          name="propertyName"
+          value="SHORT_ID_COUNTER" />
+        <attribute
+          name="displayLabel"
+          value="SHORT_ID_COUNTER" />
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.system.install" />
+        <attribute
+          name="propertyValue"
+          value="0" />
+        <attribute
+          name="propertyType"
+          value="Long" />
+        <attribute
+          name="propertyValidator"
+          value="^[0-9]+$" />
+        <attribute
+          name="description"
+          value="How many ids have we generated in this install's address space" />
+        <attribute
+          name="editable"
+          value="false" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.LocalProperty"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

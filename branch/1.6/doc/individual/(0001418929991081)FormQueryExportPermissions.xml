@@ -1,0 +1,33 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <permissions>
+      <method
+        methodName="importQuery"
+        type="dss.vector.solutions.query.SavedSearch">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="exportQuery"
+        type="dss.vector.solutions.query.SavedSearch">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="exportDefinition"
+        type="dss.vector.solutions.generator.MdFormUtil">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="importDefinition"
+        type="dss.vector.solutions.generator.MdFormUtil">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

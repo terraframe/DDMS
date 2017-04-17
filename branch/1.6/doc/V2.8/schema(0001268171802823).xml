@@ -1,0 +1,31 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+    
+      <mdView
+        name="dss.vector.solutions.util.ReadableAttributeView">
+        <create>
+        <mdMethod
+          name="getReadableAttributes"
+          label="Get Readable Attributes"
+          description="Returns a list of readable attribute given by the current session user."
+          returnType="dss.vector.solutions.util.ReadableAttributeView[]"
+          static="true">
+            <mdParameter
+              name="qualifiedClass"
+              label="Qualified Class"
+              description="The name of the class that defines the attributes."
+              order="0"
+              type="java.lang.String" />
+        </mdMethod>
+        </create>
+      </mdView>      
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

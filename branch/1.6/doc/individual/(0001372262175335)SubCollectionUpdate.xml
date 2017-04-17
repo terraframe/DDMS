@@ -1,0 +1,49 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem name="dss.vector.solutions.ValueGreaterLimitProblem" description="Value limit problem" message="{valueAttributeLabel} cannot be greater than {limitAttributeLabel}">
+        <attributes>
+          <char name="valueAttributeLabel" label="Value Attribute Label" size="255"/>
+          <char name="limitAttributeLabel" label="Limit Attribute Label" size="255"/>
+        </attributes>
+      </mdProblem>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.entomology.SubCollection">
+        <create>
+          <attributes>
+            <integer name="disected" label="Disected" rejectNegative="true" />
+            <integer name="parous" label="Parous" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.entomology.SubCollectionView">
+        <create>
+          <attributes>
+            <virtual concrete="disected" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="parous" type="dss.vector.solutions.entomology.SubCollection" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.MosquitoCollectionExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="disected" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="parous" type="dss.vector.solutions.entomology.SubCollection" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ValueGreaterLimitProblem" type="com.runwaysdk.system.metadata.MdProblem" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.disected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.parous" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.disected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.parous" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollection.disected" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+      <object key="dss.vector.solutions.entomology.SubCollection.parous" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+    </delete>
+  </undoIt>
+</version>

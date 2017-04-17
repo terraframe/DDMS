@@ -1,0 +1,179 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakIdentification" />
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakNotification" />
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakIdentification" />
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakNotification" />
+    </delete>
+    
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.general.SystemAlert">
+        <create>
+          <attributes>
+            <localText
+              name="displayName"
+              label="Display Name" />
+          </attributes>
+        </create>
+      </mdBusiness>
+	</update>
+	
+	<create>
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakIdentification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Political Outbreak Identification" />
+        </attributeStruct>
+        <attribute
+          name="isOnscreenActive"
+          value="true" />
+        <attribute
+          name="isEmailActive"
+          value="true" />
+        <attribute
+          name="emailToAddresses"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailFromAddress"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailSubject"
+          value="Test Email ($thresholdType)" />
+        <attribute
+          name="emailBody"
+          value="Political Identification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+        <attributeStruct
+          name="emailTemplateVariables">
+          <attribute
+            name="defaultLocale"
+            value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakNotification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Political Outbreak Notification" />
+        </attributeStruct>
+        <attribute
+          name="isOnscreenActive"
+          value="true" />
+        <attribute
+          name="isEmailActive"
+          value="true" />
+        <attribute
+          name="emailToAddresses"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailFromAddress"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailSubject"
+          value="Test Email ($thresholdType)" />
+        <attribute
+          name="emailBody"
+          value="Political Notification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+        <attributeStruct
+          name="emailTemplateVariables">
+          <attribute
+            name="defaultLocale"
+            value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakIdentification">
+         <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Facility Outbreak Identification" />
+        </attributeStruct>
+        <attribute
+          name="isOnscreenActive"
+          value="true" />
+        <attribute
+          name="isEmailActive"
+          value="true" />
+        <attribute
+          name="emailToAddresses"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailFromAddress"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailSubject"
+          value="Test Email ($thresholdType)" />
+        <attribute
+          name="emailBody"
+          value="Facility Identification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+        <attributeStruct
+          name="emailTemplateVariables">
+          <attribute
+            name="defaultLocale"
+            value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        </attributeStruct>
+      </object>
+
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakNotification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Facility Outbreak Notification" />
+        </attributeStruct> 
+        <attribute
+          name="isOnscreenActive"
+          value="true" />
+        <attribute
+          name="isEmailActive"
+          value="true" />
+        <attribute
+          name="emailToAddresses"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailFromAddress"
+          value="mdsstest@gmail.com" />
+        <attribute
+          name="emailSubject"
+          value="Test Email ($thresholdType)" />
+        <attribute
+          name="emailBody"
+          value="Facility Notification email:  $thresholdType of $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+        <attributeStruct
+          name="emailTemplateVariables">
+          <attribute
+            name="defaultLocale"
+            value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+        </attributeStruct>
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

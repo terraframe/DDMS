@@ -1,0 +1,16 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.NoSmallestLocatedInException"
+        label="No Smallest Located In Exception"
+        description="Thrown when a user doesn't select a smallest located_in relationship for an action."
+        message="Cannot determine smallest located_in relationship between universal columns.">
+      </mdException>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

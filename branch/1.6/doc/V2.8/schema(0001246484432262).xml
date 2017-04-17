@@ -1,0 +1,63 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.ZoneSpray">
+        <create>
+          <mdMethod
+            name="exportQueryToExcel"
+            label="Export Query To Excel"
+            static="true"
+            returnType="java.io.InputStream">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="config"
+              label="Config"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="exportQueryToCSV"
+            label="Export Query To CSV"
+            static="true"
+            returnType="java.io.InputStream">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="config"
+              label="Config"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

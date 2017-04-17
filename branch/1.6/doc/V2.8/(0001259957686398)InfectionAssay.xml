@@ -1,0 +1,456 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.InfectionAssay"
+        label="Infection Assay Result"
+        generateController="false">
+        <attributes>
+          <reference
+            name="collection"
+            label="Collection"
+            type="dss.vector.solutions.entomology.MosquitoCollection"
+            required="true" />
+          <char
+            name="mosquitoId"
+            label="Mosquito ID"
+            size="255" />
+          <reference
+            name="species"
+            label="Species"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <reference
+            name="identMethod"
+            label="Method of species identification"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="sex"
+            label="Sex"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="parasite"
+            label="Tested parasite"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="testMethod"
+            label="Test method"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="infected"
+            label="Infected/Infectious"
+            positiveLabel="Infected"
+            negativeLabel="Infectious"
+            defaultValue="false" />
+          <integer
+            name="numberTested"
+            label="Number tested"
+            rejectNegative="true"
+            rejectZero="true"
+            required="true" />
+          <integer
+            name="numberPositive"
+            label="Number positive"
+            rejectNegative="true"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.InfectionAssayView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.entomology.InfectionAssayView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.entomology.InfectionAssayView"
+          static="false" />
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.entomology.InfectionAssayView"
+        label="Infection Assay Result">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            name="collection"
+            concrete="collection"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="mosquitoId"
+            concrete="mosquitoId"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="species"
+            concrete="species"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="identMethod"
+            concrete="identMethod"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="sex"
+            concrete="sex"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="parasite"
+            concrete="parasite"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="testMethod"
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="infected"
+            concrete="infected"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="numberTested"
+            concrete="numberTested"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+          <virtual
+            name="numberPositive"
+            concrete="numberPositive"
+            type="dss.vector.solutions.entomology.InfectionAssay" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply all"
+          returnType="dss.vector.solutions.entomology.InfectionAssayView[]"
+          static="true">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.entomology.InfectionAssayView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.entomology.PooledInfectionAssay"
+        label="Pooled Infection Assay Result"
+        generateController="false">
+        <attributes>
+          <reference
+            name="collection"
+            label="Collection"
+            type="dss.vector.solutions.entomology.MosquitoCollection"
+            required="true" />
+          <char
+            name="poolId"
+            label="Pool ID"
+            size="255" />
+          <reference
+            name="species"
+            label="Species"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <reference
+            name="identMethod"
+            label="Method of species identification"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="sex"
+            label="Sex"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="parasite"
+            label="Tested parasite"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="testMethod"
+            label="Test method"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="infected"
+            label="Infected/Infectious"
+            positiveLabel="Infected"
+            negativeLabel="Infectious"
+            defaultValue="false" />
+          <integer
+            name="mosquitosTested"
+            label="Total Number Mosquitoes tested"
+            rejectNegative="true"
+            rejectZero="true"
+            required="true" />
+          <integer
+            name="poolsTested"
+            label="Number of Pools tested"
+            rejectNegative="true" />
+          <integer
+            name="numberPositive"
+            label="Number positive Pools"
+            rejectNegative="true"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.PooledInfectionAssayView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.entomology.PooledInfectionAssayView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.entomology.PooledInfectionAssayView"
+          static="false" />
+
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.entomology.PooledInfectionAssayView"
+        label="Pooled Infection Assay Result">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            name="collection"
+            concrete="collection"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="poolId"
+            concrete="poolId"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="species"
+            concrete="species"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="identMethod"
+            concrete="identMethod"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="sex"
+            concrete="sex"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="parasite"
+            concrete="parasite"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="testMethod"
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="infected"
+            concrete="infected"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="mosquitosTested"
+            concrete="mosquitosTested"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="poolsTested"
+            concrete="poolsTested"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+          <virtual
+            name="numberPositive"
+            concrete="numberPositive"
+            type="dss.vector.solutions.entomology.PooledInfectionAssay" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply all"
+          returnType="dss.vector.solutions.entomology.PooledInfectionAssayView[]"
+          static="true">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.entomology.PooledInfectionAssayView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.entomology.AssayController"
+        label="Assay Controller">
+        <mdAction
+          name="searchInfectionAssay"
+          label="Search Infection Assay"
+          isPost="false"
+          isQuery="false"/>
+        <mdAction
+          name="getInfectionAssays"
+          label="Get Infection Assays"
+          isPost="false"
+          isQuery="false">
+          <mdParameter
+            name="collectionId"
+            label="Collection Id"
+            order="0"
+            type="java.lang.String" />
+        </mdAction>
+      </mdController>
+      
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.species"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.InfectionAssayView.species" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.InfectionAssayView.identMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.InfectionAssayView.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.parasite"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.InfectionAssayView.parasite" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.InfectionAssayView.testMethod" />
+      </object>    
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.species"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.PooledInfectionAssayView.species" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.PooledInfectionAssayView.identMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.PooledInfectionAssayView.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.parasite"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.PooledInfectionAssayView.parasite" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.PooledInfectionAssayView.testMethod" />
+      </object>      
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.entomology.MosquitoCollectionView">
+        <create>
+          <mdMethod
+            name="getInfectionAssays"
+            label="Get Infection Assays"
+            returnType="dss.vector.solutions.entomology.InfectionAssayView[]"
+            static="false" />
+          <mdMethod
+            name="getPooledInfectionAssays"
+            label="Get Infection Assays"
+            returnType="dss.vector.solutions.entomology.PooledInfectionAssayView[]"
+            static="false" />
+        </create>
+      </mdView>
+    </update>    
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.species"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.parasite"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.InfectionAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.species"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.parasite"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.PooledInfectionAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />    
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getInfectionAssays"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getPooledInfectionAssays"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.AssayController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.entomology.PooledInfectionAssayView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.InfectionAssayView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.PooledInfectionAssay"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.entomology.InfectionAssay"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

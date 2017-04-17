@@ -1,0 +1,277 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdView
+        name="dss.vector.solutions.ontology.TermView"
+        label="Term View">
+        <attributes>
+          <char
+            name="termId"
+            size="64"
+            label="Term Id"
+            required="true" />
+          <virtual
+            name="termName"
+            required="true"
+            type="dss.vector.solutions.ontology.Term"
+            concrete="name" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.BrowserField"
+        label="Ontology Field">
+        <attributes>
+          <reference
+            name="mdAttribute"
+            label="MdAttribute"
+            type="com.runwaysdk.system.metadata.MdAttribute"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getAsViews"
+          label="Get As Views"
+          static="true"
+          returnType="dss.vector.solutions.ontology.BrowserFieldViewQuery">
+        </mdMethod>
+        <mdMethod
+          name="addBrowserRoot"
+          static="false"
+          label="Add Browser Root"
+          description="Adds a BrowserRoot to this BrowserField"
+          returnType="dss.vector.solutions.ontology.BrowserRootView">
+          <mdParameter
+            name="browserRoot"
+            label="Browser Root"
+            description="The BrowserRoot to apply and add to this BrowserField."
+            order="0"
+            type="dss.vector.solutions.ontology.BrowserRoot" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.ontology.BrowserFieldView"
+        label="BrowserFieldView">
+        <attributes>
+          <char
+            name="browserFieldId"
+            required="true"
+            size="64"
+            label="BrowserField Id" />
+          <char
+            name="mdAttributeId"
+            size="64"
+            required="true"
+            label="MdAttribute Id" />
+          <char
+            name="mdAttributeLabel"
+            label="MdAttribute Label"
+            description="The display label of the MdAttribute"
+            size="255"
+            required="true" />
+          <char
+            name="mdClassId"
+            label="MdClass Id"
+            size="64"
+            required="true"
+            description="The Id of the MdClass that defines the ontology reference attribute." />
+          <char
+            name="mdClassLabel"
+            label="MdClassLabel"
+            description="The display label of the MdClass that defines the ontology reference attribute."
+            size="255"
+            required="true" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.BrowserRoot"
+        label="Ontology Root">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.general.Disease"
+            indexType="non-unique index" />
+          <reference
+            name="browserField"
+            label="Browser Field"
+            required="true"
+            type="dss.vector.solutions.ontology.BrowserField" />
+          <reference
+            name="term"
+            label="Term"
+            description="The ontology term this root references."
+            required="true"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="selectable"
+            required="true"
+            defaultValue="true"
+            label="Selectable"
+            positiveLabel="True"
+            negativeLabel="False" />
+        </attributes>
+        <mdMethod
+          name="getDefaultRoot"
+          label="Get Default Root"
+          description="Gets the default term root without attribute restrictions."
+          static="true"
+          returnType="dss.vector.solutions.ontology.BrowserRootView[]">
+        </mdMethod>
+        <mdMethod
+          name="getAsViews"
+          label="Get As Views"
+          static="true"
+          returnType="dss.vector.solutions.ontology.BrowserRootViewQuery">
+        </mdMethod>
+        <mdMethod
+          name="update"
+          label="Updtate"
+          static="false"
+          returnType="dss.vector.solutions.ontology.BrowserRootView">
+          <mdParameter
+            name="browserRoot"
+            label="BrowserRoot"
+            description="The BroswerRoot used as a placeholder to update this instance."
+            order="0"
+            type="dss.vector.solutions.ontology.BrowserRoot" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.BrowserRoot"
+        label="Browser Root Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="disease"
+          indexOrder="0" />
+        <attribute
+          name="browserField"
+          indexOrder="1" />
+        <attribute
+          name="term"
+          indexOrder="2" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.ontology.BrowserRootView"
+        label="BrowserRootView">
+        <attributes>
+          <char
+            name="browserRootId"
+            required="true"
+            size="64"
+            label="BrowserRoot Id" />
+          <char
+            name="termId"
+            size="64"
+            required="true"
+            label="Term Id" />
+          <virtual
+            name="termName"
+            required="true"
+            type="dss.vector.solutions.ontology.Term"
+            concrete="name" />
+          <char
+            name="mdAttributeId"
+            label="MdAttribute Id"
+            size="64"
+            required="false" />
+          <virtual
+            name="selectable"
+            required="true"
+            type="dss.vector.solutions.ontology.BrowserRoot"
+            concrete="selectable" />
+        </attributes>
+      </mdView>
+
+      <mdRelationship
+        name="dss.vector.solutions.ontology.FieldRoot">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.ontology.BrowserField"
+          method="field" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.BrowserRoot"
+          method="root" />
+      </mdRelationship>
+
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.LarvaeAssay.startPoint"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.LarvaeAssay.startPoint" />
+      </object>
+
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.LarvaeAssay.endPoint"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.LarvaeAssay.endPoint" />
+      </object>
+
+    </create>
+
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="getOntologyChildren"
+            label="Get Ontology Children"
+            description="Get Ontology Children"
+            static="false"
+            returnType="dss.vector.solutions.ontology.TermViewQuery">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdController
+        name="dss.vector.solutions.ontology.BrowserRootController">
+        <create>
+          <mdAction
+            name="openBrowser"
+            label="openBrowser"
+            description="Command used as a Javascript hook to open the Ontology Browser"
+            isPost="false">
+          </mdAction>
+        </create>
+      </mdController>
+
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+
+      <object
+        key="dss.vector.solutions.ontology.BrowserFieldView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.ontology.BrowserRootView"
+        type="com.runwaysdk.system.metadata.MdView" />
+
+
+      <object
+        key="dss.vector.solutions.ontology.BrowserField"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.ontology.BrowserRoot"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.ontology.BrowserRelationship"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+
+    </delete>
+  </undoIt>
+</version>

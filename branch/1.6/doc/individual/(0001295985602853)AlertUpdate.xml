@@ -1,0 +1,43 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.alertType"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.thresholdType"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.geoEntity"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.thresholdValue"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.actualValue"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.OutbreakAlert.alertLevel"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+    <update>
+      <mdInformation
+        name="dss.vector.solutions.general.OutbreakAlert"
+        message="${message}.  {emailFailure}">
+        <create>
+          <attributes>
+            <char
+              name="message"
+              label="Message"
+              size="255" />
+          </attributes>
+        </create>
+      </mdInformation>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

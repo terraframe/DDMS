@@ -1,0 +1,75 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.ITNCommunityExcelView"
+        label="ITN Community Distribution Excel View"
+        description="Excel view for importing/exporting ITN community distribution data">
+        <attributes>
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="endDate"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="agentFirstName"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="agentSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="itnsReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="batchNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <reference
+            name="distributionLocation"
+            label="Distribution Location"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="entryType"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="householdName"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="householdSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <reference
+            name="householdAddress"
+            label="Address"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="residents"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="sold"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="currencyReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="retrieved"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="numberRetrieved"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+          <virtual
+            concrete="pretreated"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.ITNCommunityExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

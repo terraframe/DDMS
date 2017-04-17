@@ -1,0 +1,148 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.ResistanceProperty"
+        label="Resistance Property"
+        cacheAlgorithm="everything">
+        <attributes>
+          <char
+            name="propertyName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <integer
+            name="propertyValue"
+            required="true"
+            label="Value"
+            size="255"
+            rejectNegative="true" />
+          <localChar
+            name="description"
+            required="true"
+            label="Description"
+            size="255" />
+        </attributes>
+      </mdBusiness>
+
+      <object
+        key="ADDA Susceptible"
+        type="dss.vector.solutions.entomology.ResistanceProperty">
+        <attribute
+          name="propertyName"
+          value="ADDA Susceptible" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Adult Diagnostic Dose Assay Susceptible" />
+        </attributeStruct>
+        <attribute
+          name="propertyValue"
+          value="98" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is susceptible - Greater than or Equal to " />
+        </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />
+      </object>
+
+      <object
+        key="LDDA Resistant"
+        type="dss.vector.solutions.entomology.ResistanceProperty">
+        <attribute
+          name="propertyName"
+          value="LDDA Resistant" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Larvae Diagnostic Dose Assay Resistant" />
+        </attributeStruct>
+        <attribute
+          name="propertyValue"
+          value="95" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is resistant - Less Than" />
+        </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />
+      </object>
+
+      <object
+        key="LDDA Susceptible"
+        type="dss.vector.solutions.entomology.ResistanceProperty">
+        <attribute
+          name="propertyName"
+          value="LDDA Susceptible" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Larvae Diagnostic Dose Assay Susceptible" />
+        </attributeStruct>
+        <attribute
+          name="propertyValue"
+          value="98" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is susceptible - Greater than or Equal to" />
+        </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />        
+      </object>
+
+      <object
+        key="ADDA Resistant"
+        type="dss.vector.solutions.entomology.ResistanceProperty">
+        <attribute
+          name="propertyName"
+          value="ADDA Resistant" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Adult Diagnostic Dose Assay Resistant" />
+        </attributeStruct>
+        <attribute
+          name="propertyValue"
+          value="95" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is resistant Less Than" />
+        </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />        
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.ResistanceProperty"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

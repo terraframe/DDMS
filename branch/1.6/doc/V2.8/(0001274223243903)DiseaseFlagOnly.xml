@@ -1,0 +1,487 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create></create>
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.general.Email">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="false" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.stock.StockEvent">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.SurveyPoint">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.ImmatureCollection">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.PupalCollection">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.ITNData">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.ITNDistribution">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.Larvacide">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.SprayTeam">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.OperatorSpray">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.TeamSpray">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.ZoneSpray">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.GeoTarget">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.ResourceTarget">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.MosquitoCollection">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.assay.AbstractAssay">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.BiochemicalAssay">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.MolecularAssay">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.DiagnosticAssay">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.TimeResponseAssay">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.InsecticideBrand">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.Nozzle">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdRelationship
+				name="dss.vector.solutions.irs.InsecticideNozzle">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdRelationship>
+
+			<mdBusiness
+				name="dss.vector.solutions.irs.AreaStandards">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.general.KnockDownTimeProperty">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.general.LethalTimeProperty">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.entomology.ResistanceProperty">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.stock.StockEvent.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.SurveyPoint.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.general.Email.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.ImmatureCollection.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.PupalCollection.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.ITNData.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.ITNDistribution.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.Larvacide.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.SprayTeam.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.OperatorSpray.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.TeamSpray.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.ZoneSpray.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.GeoTarget.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.ResourceTarget.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.MosquitoCollection.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.assay.AbstractAssay.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.BiochemicalAssay.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.MolecularAssay.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.DiagnosticAssay.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.entomology.TimeResponseAssay.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.InsecticideBrand.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.Nozzle.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.InsecticideNozzle.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.irs.AreaStandards.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.general.KnockDownTimeProperty.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.general.LethalTimeProperty.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+				
+			<object
+				key="dss.vector.solutions.entomology.ResistanceProperty.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+		</delete>
+	</undoIt>
+</version>

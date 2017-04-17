@@ -1,0 +1,394 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"
+        label="ITN community distribution data"
+        generateController="true">
+        <attributes>
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <char
+            name="agentFirstName"
+            label="Agent/Interviewer name"
+            size="255" />
+          <char
+            name="agentSurname"
+            label="Agent/Interviewer surname"
+            size="255" />
+          <char
+            name="batchNumber"
+            label="The ITNs batch number"
+            size="255" />
+          <boolean
+            name="entryType"
+            label="Data Entry type"
+            positiveLabel="Individual Household"
+            negativeLabel="Location"
+            required="true" />
+          <char
+            name="householdName"
+            label="Name of household head"
+            size="255" />
+          <char
+            name="householdSurname"
+            label="Surname of household head"
+            size="255" />
+          <reference
+            name="householdAddress"
+            label="Address"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <integer
+            name="residents"
+            label="Number of people residing in household"
+            rejectNegative="true" />
+          <reference
+            name="distributionLocation"
+            label="distribution location"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <boolean
+            name="sold"
+            label="Were nets sold"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <decimal
+            name="currencyReceived"
+            label="The amount of monitory currency received"
+            length="9"
+            decimal="2"
+            rejectNegative="true" />
+          <boolean
+            name="retrieved"
+            label="Were any ITNs retrieved"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <integer
+            name="numberRetrieved"
+            label="Total number of ITNs retrieved"
+            rejectNegative="true" />
+          <boolean
+            name="pretreated"
+            label="Were nets pre-treated"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+          static="false" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup"
+        label="ITN Community Target Group"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Total ITNs distributed per target group/s"
+            defaultValue="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"
+          method="ITNCommunityDistributionsWithTargetGroups" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="TargetGroups" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityNet"
+        label="ITN Community Net"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Total ITN distributed by type"
+            required="true"
+            rejectNegative="true"
+            defaultValue="0" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution"
+          method="ITNCommunityDistributionsWithNets" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Nets" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+        label="ITN community distribution data">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <virtual
+            name="startDate"
+            concrete="startDate"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="endDate"
+            concrete="endDate"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="agentFirstName"
+            concrete="agentFirstName"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="agentSurname"
+            concrete="agentSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="batchNumber"
+            concrete="batchNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="entryType"
+            concrete="entryType"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="householdName"
+            concrete="householdName"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="householdSurname"
+            concrete="householdSurname"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <char
+            name="householdAddress"
+            label="Address"
+            size="255"
+            required="true" />
+          <virtual
+            name="residents"
+            concrete="residents"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <char
+            name="distributionLocation"
+            label="Distribution Location"
+            size="255"
+            required="true" />
+          <virtual
+            name="sold"
+            concrete="sold"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="currencyReceived"
+            concrete="currencyReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="retrieved"
+            concrete="retrieved"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="numberRetrieved"
+            concrete="numberRetrieved"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <virtual
+            name="pretreated"
+            concrete="pretreated"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          <reference
+            name="displayTargetGroups"
+            label="ITN Target Groups"
+            description="Marker for displaying ITN Target Group grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="displayNets"
+            label="ITN Nets"
+            description="Marker for displaying ITN Net grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getITNCommunityNets"
+          label="Get ITN Community Nets"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityNet[]" />
+        <mdMethod
+          name="getITNCommunityTargetGroups"
+          label="Get ITN Community Target Groups"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup[]" />
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply ITN distributed data and all of its grids">
+          <mdParameter
+            name="nets"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityNet[]"
+            order="1"
+            label="ITN Nets" />
+          <mdParameter
+            name="targetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup[]"
+            order="2"
+            label="ITN target groups" />
+        </mdMethod>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.NotApplicableProblem"
+        label="Address Not Applicable Problem"
+        description="A [attriubte] is not applicable when [inputAttribute] is [inputValue]"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char
+            name="inputAttribute"
+            label="Input Attribute"
+            required="true"
+            description="Name of the input attribute"
+            size="255" />
+          <char
+            name="inputValue"
+            label="Input Value"
+            required="true"
+            description="Value of the input attribute which makes the attribute invalid"
+            size="255" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.RequiredAttributeProblem"
+        label="Required Attribute Problem"
+        description="The [attriubte] is required."
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController">
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNCommunityNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNCommunityNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

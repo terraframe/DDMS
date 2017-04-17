@@ -1,0 +1,66 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController
+        name="dss.vector.solutions.query.QueryController">
+        <create>
+          <mdAction
+            name="queryAggregatedIPT"
+            label="Query AggregatedIPT"
+            description="Query AggregatedIPT"
+            isPost="false"/>
+          <mdAction
+            name="exportAggregatedIPTQueryToCSV"
+            label="Export Query To CSV"
+            isPost="true">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="config"
+              label="JSON config"
+              description="The query configuration"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String"/>
+          </mdAction>
+          <mdAction
+            name="exportAggregatedIPTQueryToExcel"
+            label="Export Aggregated Query To Excel"
+            isPost="true">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="config"
+              label="Config"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

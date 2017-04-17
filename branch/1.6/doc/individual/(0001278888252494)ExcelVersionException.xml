@@ -1,0 +1,19 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.export.ExcelVersionException"
+        label="Excel Version Exception"
+        description="Thrown if the user tries to import an excel file from an unsupported version"
+        message="The supplied file appears to be in the Office 2007 format. MDSS only supports 2003 or earlier.">
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.ExcelVersionException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

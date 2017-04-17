@@ -1,0 +1,18 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView name="dss.vector.solutions.general.ThresholdDataView">
+        <create>
+          <mdMethod name="getCalculatedThresholds" label="Get Calculated Thresholds" returnType="java.lang.Double[]" static="false" />
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.general.ThresholdDataView.getCalculatedThresholds" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

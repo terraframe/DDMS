@@ -1,0 +1,352 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.general.ThresholdCalculationMethodMaster"
+        label="Threshold Calculation Method"
+        generateController="false" />
+
+      <object
+        key="MEAN_PLUS_15_SD"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <attribute
+          name="enumName"
+          value="MEAN_PLUS_15_SD" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Mean + 1.5 SD" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MEAN_PLUS_20_SD"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <attribute
+          name="enumName"
+          value="MEAN_PLUS_20_SD" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Mean + 2.0 SD" />
+        </attributeStruct>
+      </object>
+      <object
+        key="UPPER_THIRD_QUARTILE"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <attribute
+          name="enumName"
+          value="UPPER_THIRD_QUARTILE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Upper Third Quartile" />
+        </attributeStruct>
+      </object>
+      <object
+        key="BINOMIAL_99"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <attribute
+          name="enumName"
+          value="BINOMIAL_99" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Binomial 99%" />
+        </attributeStruct>
+      </object>
+      <object
+        key="BINOMIAL_95"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <attribute
+          name="enumName"
+          value="BINOMIAL_95" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Binomial 95%" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.general.ThresholdCalculationMethod"
+        type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.general.ThresholdCalculationType"
+        label="Threshold Calculation Type"
+        generateController="false">
+        <attributes>
+          <enumeration
+            name="t1Method"
+            label="T1 method"
+            type="dss.vector.solutions.general.ThresholdCalculationMethod"
+            selectMultiple="false"
+            required="true" />
+          <enumeration
+            name="t2Method"
+            label="T2 method"
+            type="dss.vector.solutions.general.ThresholdCalculationMethod"
+            selectMultiple="false"
+            required="true" />
+          <integer
+            name="weeksBefore"
+            label="# of weeks before"
+            required="true"
+            rejectNegative="true"
+            defaultValue="2" />
+          <integer
+            name="weeksAfter"
+            label="# of weeks after"
+            required="true"
+            rejectNegative="true"
+            defaultValue="2" />
+          <integer
+            name="priorYears"
+            label="# of prior years"
+            required="true"
+            rejectNegative="true"
+            defaultValue="3" />
+          <double
+            name="weight0"
+            decimal="2"
+            length="4"
+            label="Weight 0"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight1"
+            decimal="2"
+            length="4"
+            label="Weight 1"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight2"
+            decimal="2"
+            length="4"
+            label="Weight 2"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight3"
+            decimal="2"
+            length="4"
+            label="Weight 3"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight4"
+            decimal="2"
+            length="4"
+            label="Weight 4"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight5"
+            decimal="2"
+            length="4"
+            label="Weight 5"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight6"
+            decimal="2"
+            length="4"
+            label="Weight 6"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight7"
+            decimal="2"
+            length="4"
+            label="Weight 7"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight8"
+            decimal="2"
+            length="4"
+            label="Weight 8"
+            rejectNegative="true"
+            defaultValue="1" />
+          <double
+            name="weight9"
+            decimal="2"
+            length="4"
+            label="Weight 9"
+            rejectNegative="true"
+            defaultValue="1" />
+        </attributes>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.general.ThresholdCalculationTypeView"
+        label="Threshold Calculation Type">
+        <attributes>
+          <virtual
+            concrete="t1Method"
+            type="dss.vector.solutions.general.ThresholdCalculationType" />
+          <virtual
+            concrete="t2Method"
+            type="dss.vector.solutions.general.ThresholdCalculationType" />
+          <virtual
+            concrete="weeksBefore"
+            type="dss.vector.solutions.general.ThresholdCalculationType" />
+          <virtual
+            concrete="weeksAfter"
+            type="dss.vector.solutions.general.ThresholdCalculationType" />
+          <virtual
+            concrete="priorYears"
+            type="dss.vector.solutions.general.ThresholdCalculationType" />
+          <virtual
+            concrete="weight0"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight1"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight2"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight3"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight4"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight5"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight6"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight7"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight8"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <virtual
+            concrete="weight9"
+            type="dss.vector.solutions.general.ThresholdCalculationType"
+            required="true" />
+          <char
+            name="concreteId"
+            label="concrete id"
+            size="255"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="calculateThresholds"
+          label="Calculate thresholds"
+          returnType="void"
+          static="true">
+          <mdParameter
+            name="thresholdCalculation"
+            type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+            label="Calculation Type"
+            order="0" />
+          <mdParameter
+            name="currentYear"
+            type="java.lang.Boolean"
+            label="Current year"
+            order="1" />
+        </mdMethod>
+        <mdMethod
+          name="getCalculationThreshold"
+          returnType="dss.vector.solutions.general.ThresholdCalculationTypeView"
+          label="Get Calculation Threshold"
+          static="true" />
+      </mdView>
+    </create>
+    <update>
+      <mdTree
+        name="dss.vector.solutions.general.WeeklyThreshold">
+        <create>
+          <attributes>
+            <reference
+              name="calculationType"
+              type="dss.vector.solutions.general.ThresholdCalculationType"
+              label="Calculation Type"
+              required="false" />
+          </attributes>
+        </create>
+      </mdTree>
+      <mdController
+        name="dss.vector.solutions.general.ThresholdDataController">
+        <mdAction
+          name="setThresholdConfiguration"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="thresholdCalculation"
+              type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+              label="Calculation type"
+              order="3" />
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="calculateThresholds"
+            label="Calculate thresholds"
+            isPost="true"
+            isQuery="false"
+            description="Calculate thresholds">
+            <mdParameter
+              name="thresholdCalculation"
+              type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+              label="Calculation type"
+              order="0" />
+            <mdParameter
+              name="currentYear"
+              type="java.lang.Boolean"
+              label="Current year"
+              order="1" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.ThresholdCalculationMethod"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.general.ThresholdCalculationMethodMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.general.ThresholdCalculationType"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.general.WeeklyThreshold.calculationType"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.ThresholdCalculationTypeView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.general.ThresholdDataController.calculateThresholds"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.thresholdCalculation"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+    </delete>
+  </undoIt>
+</version>

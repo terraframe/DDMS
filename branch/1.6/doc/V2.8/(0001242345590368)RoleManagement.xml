@@ -1,0 +1,198 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+    </delete>
+    <update>
+      <mdBusiness name="dss.vector.solutions.MDSSUser">
+        <create>
+          <mdMethod
+            name="updateRoles"
+            label="Update Roles"
+            description="Update (assign and revoke) Roles"
+            returnType="void"
+            static="false">
+            <mdParameter
+              name="assign"
+              label="Assigned Roles"
+              description="Array of role names to assign"
+              type="java.lang.String[]"
+              order="0"/>
+            <mdParameter
+              name="revoke"
+              label="Revoked Roles"
+              description="Array of role names to revoke"
+              type="java.lang.String[]"
+              order="1"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.util.Facade">
+        <create>
+          <mdMethod
+            name="getMDSSRoles"
+            label="Get All MDSS Roles"
+            description="Returns a list of all Roles in the MDSS project"
+            static="true"
+            returnType="com.runwaysdk.system.Roles[]">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <create>
+      <mdController
+        name="dss.vector.solutions.RoleController"
+        label="Role Controller"
+        description="Manages assigning and revoking permissiosn to users">
+        <mdAction
+          name="edit"
+          label="Edit User Roles"
+          description="Edit a User's Roles"
+          isPost="true">
+          <mdParameter
+            name="id"
+            label="User Id"
+            order="0"
+            type="java.lang.String"/>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          label="Cancel Edit User Roles"
+          description="Cancel editing a User's Roles"
+          isPost="true">
+          <mdParameter
+            name="id"
+            label="User Id"
+            order="0"
+            type="java.lang.String"/>
+        </mdAction>
+        <mdAction
+          name="save"
+          label="Save User Roles"
+          description="Save a User's Roles"
+          isPost="true">
+          <mdParameter
+            name="id"
+            label="User Id"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="assigned"
+            label="Assigned Roles"
+            order="1"
+            type="java.lang.String[]"/>
+          <mdParameter
+            name="revoked"
+            label="Revoked Roles"
+            order="2"
+            type="java.lang.String[]"/>
+        </mdAction>
+        <mdAction
+          name="viewAll"
+          label="View All"
+          description="View All MDSS Users"/>
+        <mdAction
+          name="viewPage"
+          label="View Page"
+          description="View Page of MDSS Users">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0"/>
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1"/>
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2"/>
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3"/>
+        </mdAction>
+      </mdController>
+      <mdView
+        name="dss.vector.solutions.MDSSUserView"
+        label="MDSS User View"
+        description="MDSS User View which includes some Person attributes"
+        removable="true">
+        <attributes>
+          <char
+            name="personId"
+            label="Person Id"
+            description="Person Id"
+            size="64"
+            required="true"/>
+          <char
+            name="userId"
+            label="MDSS User Id"
+            description="MDSS User Id"
+            size="64"
+            required="true"/>
+          <virtual
+            name="username"
+            concrete="username"
+            type="com.runwaysdk.system.Users"/>
+          <virtual
+            name="firstName"
+            concrete="firstName"
+            type="dss.vector.solutions.Person"/>
+          <virtual
+            name="lastName"
+            concrete="lastName"
+            type="dss.vector.solutions.Person"/>
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.MDSSUserViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0"/>
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1"/>
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2"/>
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3"/>
+        </mdMethod>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.RoleController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.MDSSUserView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.MDSSUser.updateRoles"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.util.Facade.getMDSSRoles"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

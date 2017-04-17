@@ -1,0 +1,66 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdUtil
+        name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod
+            name="getCompositeFields"
+            label="Get composite"
+            static="true"
+            returnType="com.runwaysdk.system.metadata.MdWebPrimitive[]">
+            <mdParameter
+              name="compositeFieldId"
+              label="Composite field id"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdUtil>
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormSurvey">
+        <attributes>
+          <char
+            name="surveyId"
+            rename="oid" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormHousehold">
+        <attributes>
+          <char
+            name="householdId"
+            rename="oid" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormPerson">
+        <attributes>
+          <char
+            name="personId"
+            rename="oid" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormBedNet">
+        <attributes>
+          <char
+            name="netId"
+            rename="oid" />
+        </attributes>
+      </mdBusiness>      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.generator.MdFormUtil.getCompositeFields"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

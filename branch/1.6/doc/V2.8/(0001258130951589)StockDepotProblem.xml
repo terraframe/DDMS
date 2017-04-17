@@ -1,0 +1,25 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.stock.StockDepotProblem"
+        label="Stock Depot Problem">
+        <attributes>
+          <char
+            name="geoId"
+            label="Geo Id"
+            size="255" />
+        </attributes>
+      </mdProblem>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.stock.StockDepotProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

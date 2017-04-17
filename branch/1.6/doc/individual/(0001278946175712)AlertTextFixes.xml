@@ -1,0 +1,99 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdInformation
+				name="dss.vector.solutions.general.OutbreakAlert"
+				message="{alertLevel} {alertType} at [{geoEntity}].  Total Cases: [{actualValue}], Threshold: [{thresholdValue}].  {emailFailure}">
+				<create>
+					<attributes>
+						<char
+							name="alertLevel"
+							label="Alert Level"
+							size="255" />
+					</attributes>
+				</create>
+			</mdInformation>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaSourceOutbreakIdentification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaSourceOutbreakIdentification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueSourceOutbreakIdentification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaSourceOutbreakNotification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueSourceOutbreakNotification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaFacilityOutbreakIdentification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueFacilityOutbreakIdentification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaFacilityOutbreakNotification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueFacilityOutbreakNotification">
+				<attribute
+					name="emailBody"
+					value="$alertLevel $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.OutbreakAlert.alertLevel"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+		</delete>
+	</undoIt>
+</version>

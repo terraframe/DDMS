@@ -1,0 +1,103 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.util.LocaleNotInstalledException"
+        label="Locale Not Installed Exception"
+        description="Indicates a reference to an uninstalled locale">
+        <attributes>
+          <char
+            name="localeString"
+            label="Locale String"
+            description="String representation of the locale"
+            size="64"/>
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.util.LocalizationController"
+        label="Localization Controller"
+        description="Localization Controller">
+        <create>
+          <mdAction
+            name="newLocale"
+            label="Select New Locale"
+            description="Selects a new locale to install"
+            isPost="false">
+          </mdAction>
+          <mdAction
+            name="installLocale"
+            label="Install New Locale"
+            description="Installs a new locale"
+            isPost="true">
+            <mdParameter
+              name="language"
+              label="Language"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="country"
+              label="Country"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="variant"
+              label="Variant"
+              order="2"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness
+        name="dss.vector.solutions.util.LocalizationFacade"
+        label="Localization Facade"
+        description="Localization Facade"
+        extendable="false"
+        isAbstract="true"
+        generateController="false">
+        <create>
+          <mdMethod
+            name="installLocale"
+            label="Install New Locale"
+            description="Installs a new locale"
+            static="true"
+            returnType="void">
+            <mdParameter
+              name="localeString"
+              label="Locale String"
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="getInstalledLocales"
+            label="Get Installed Locales"
+            static="true"
+            returnType="com.runwaysdk.system.metadata.SupportedLocaleQuery">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.LocalizationController.newLocale"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.util.LocalizationController.installLocale"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.util.LocalizationFacade.installLocale"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.util.LocalizationFacade.getInstalledLocales"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.util.LocaleNotInstalledException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

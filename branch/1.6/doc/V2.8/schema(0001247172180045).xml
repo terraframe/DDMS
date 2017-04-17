@@ -1,0 +1,58 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+		<mdProblem
+        	name="dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem"
+        	label="Invalid Start and End Dates Problem"
+        	description="The end date may not be before the start date">
+        	<attributes>
+	          	<date
+		            name="startDate"
+	            	label="Start Date"
+	            	required="true" />
+	          	<date
+		            name="endDate"
+	            	label="End Date"
+	            	required="true" />
+        	</attributes>
+		</mdProblem>
+		
+      <mdException
+        name="dss.vector.solutions.query.NoThematicLayerException"
+        label="No Thematic Layer Exception"
+        description="Thrown when a user tries to render a map without having first selected a thematic layer.">
+      </mdException>
+    </create>
+    
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.query.ThematicVariable">
+        <create>
+        <attributes>
+          <char
+            name="userAlias"
+            size="255"
+            label="User Alias"
+            required="true"
+            description="The User Alias used in the XML value query." />
+        </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+    
+    <delete>
+      <object key="dss.vector.solutions.query.MapWithoutGeoEntityException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+    
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

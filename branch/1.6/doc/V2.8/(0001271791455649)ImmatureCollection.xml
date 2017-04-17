@@ -1,0 +1,534 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.ImmatureCollection"
+        label="Collection of immatures"
+        generateController="false">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <char
+            name="collectionId"
+            label="Collection Id"
+            size="255"
+            required="true"
+            indexType="unique index" />
+          <text
+            name="notes"
+            label="Notes" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.entomology.ImmatureCollection"
+        label="Immature Collection Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="geoEntity"
+          indexOrder="0" />
+        <attribute
+          name="startDate"
+          indexOrder="1" />
+        <attribute
+          name="endDate"
+          indexOrder="2" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.entomology.CollectionPremise"
+        label="Premise"
+        generateController="false">
+        <attributes>
+          <reference
+            name="collection"
+            label="Collection"
+            required="true"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <reference
+            name="premiseType"
+            label="Premise Type"
+            required="true"
+            type="dss.vector.solutions.ontology.Term" />
+          <integer
+            name="numberExamined"
+            label="Total Number of Premises Examined"
+            rejectNegative="true"
+            rejectZero="true"
+            required="true" />
+          <decimal
+            name="premiseSize"
+            label="Total Size of Premises in Hectares"
+            length="32"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true" />
+          <integer
+            name="numberInhabitants"
+            label="Total Number of Inhabitants"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.entomology.CollectionPremise"
+        label="Collection Premise Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="collection"
+          indexOrder="0" />
+        <attribute
+          name="premiseType"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.entomology.PremiseTaxon"
+        label="Taxon"
+        generateController="false">
+        <attributes>
+          <reference
+            name="premise"
+            label="Premise"
+            required="true"
+            type="dss.vector.solutions.entomology.CollectionPremise" />
+          <reference
+            name="taxon"
+            label="Taxon"
+            required="true"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.ImmatureCollectionView"
+          static="false" />
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.entomology.PremiseTaxon"
+        label="Premise Taxon Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="premise"
+          indexOrder="0" />
+        <attribute
+          name="taxon"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdTree
+        name="dss.vector.solutions.entomology.CollectionContainer"
+        label="Collection Container"
+        generateController="false">
+        <attributes>
+          <integer
+            name="numberContainers"
+            label="# containers"
+            required="true"
+            rejectNegative="true" />
+          <integer
+            name="numberWithWater"
+            label="# with water"
+            required="true"
+            rejectNegative="true" />
+          <integer
+            name="numberDestroyed"
+            label="# destroyed"
+            rejectNegative="true" />
+          <integer
+            name="numberWithLarvicide"
+            label="# treated with larvicide"
+            rejectNegative="true" />
+          <integer
+            name="numberImmatures"
+            label="# with immatures"
+            rejectNegative="true" />
+          <integer
+            name="numberLarvae"
+            label="# with larvae"
+            rejectNegative="true" />
+          <integer
+            name="numberPupae"
+            label="# with pupae"
+            rejectNegative="true" />
+          <integer
+            name="numberLarvaeCollected"
+            label="# larvae collected"
+            rejectNegative="true" />
+          <integer
+            name="numberPupaeCollected"
+            label="# pupae collected"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.entomology.PremiseTaxon"
+          method="PremiseTaxons" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Containers" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.entomology.ImmatureCollectionView"
+        label="Immature Collection">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="geoEntity"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <virtual
+            concrete="endDate"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <virtual
+            concrete="collectionId"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <virtual
+            concrete="notes"
+            type="dss.vector.solutions.entomology.ImmatureCollection" />
+          <char
+            name="premiseId"
+            label="Premise Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="premiseType"
+            type="dss.vector.solutions.entomology.CollectionPremise" />
+          <virtual
+            concrete="numberExamined"
+            type="dss.vector.solutions.entomology.CollectionPremise" />
+          <virtual
+            concrete="premiseSize"
+            type="dss.vector.solutions.entomology.CollectionPremise" />
+          <virtual
+            concrete="numberInhabitants"
+            type="dss.vector.solutions.entomology.CollectionPremise" />
+          <char
+            name="taxonId"
+            label="Taxon Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="taxon"
+            type="dss.vector.solutions.entomology.PremiseTaxon" />
+          <reference
+            name="containerGrid"
+            label="Container type name"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="applyWithContainers"
+          label="Apply With Containers"
+          static="false"
+          returnType="dss.vector.solutions.entomology.CollectionContainerView[]">
+          <mdParameter
+            name="containers"
+            label="Containers"
+            order="0"
+            type="dss.vector.solutions.entomology.CollectionContainerView[]" />
+        </mdMethod>
+        <mdMethod
+          name="getMostRecent"
+          label="Get Most Recent"
+          returnType="dss.vector.solutions.entomology.ImmatureCollectionViewQuery"
+          static="true" />
+        <mdMethod
+          name="getContainers"
+          label="Get Containers"
+          returnType="dss.vector.solutions.entomology.CollectionContainerView[]"
+          static="false" />
+        <mdMethod
+          name="searchCollections"
+          label="Search Collections"
+          returnType="dss.vector.solutions.entomology.ImmatureCollectionViewQuery"
+          static="true">
+          <mdParameter
+            name="collection"
+            label="Collection"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView"
+            order="-1" />
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            order="1"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            order="2"
+            type="java.lang.Integer" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            order="3"
+            type="java.lang.Integer" />
+        </mdMethod>
+        <mdMethod
+          name="getCollection"
+          label="Get Collection"
+          returnType="dss.vector.solutions.entomology.ImmatureCollectionView"
+          static="true">
+          <mdParameter
+            name="collection"
+            label="Collection"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="deletePremise"
+          label="Delete Premise"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="deleteTaxon"
+          label="Delete Taxon"
+          returnType="void"
+          static="false" />
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.entomology.CollectionContainerView"
+        label="Collection Container">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <reference
+            name="taxon"
+            label="Taxon"
+            type="dss.vector.solutions.entomology.PremiseTaxon" />
+          <reference
+            name="term"
+            label="Container type name"
+            type="dss.vector.solutions.ontology.Term" />
+          <virtual
+            concrete="numberContainers"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberWithWater"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberDestroyed"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberWithLarvicide"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberImmatures"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberLarvae"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberPupae"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberLarvaeCollected"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+          <virtual
+            concrete="numberPupaeCollected"
+            type="dss.vector.solutions.entomology.CollectionContainer" />
+        </attributes>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.entomology.ImmatureContainerController"
+        label="Immature Container Controller">
+        <mdAction
+          name="search"
+          label="Search"
+          isPost="false"
+          isQuery="false" />
+        <mdAction
+          name="searchByDTO"
+          label="Search by DTO"
+          isPost="true"
+          isQuery="true">
+          <mdParameter
+            name="dto"
+            label="DTO"
+            order="0"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView" />
+        </mdAction>
+        <mdAction
+          name="searchByParameters"
+          label="Search by Parameters"
+          isPost="false"
+          isQuery="true">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            order="1"
+            type="java.util.Date" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="premiseType"
+            label="Premise Type"
+            order="3"
+            type="java.lang.String" />
+          <mdParameter
+            name="taxon"
+            label="Taxon"
+            order="4"
+            type="java.lang.String" />
+          <mdParameter
+            name="collectionId"
+            label="CollectionId"
+            order="5"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="forward"
+          label="Forward"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            label="DTO"
+            order="0"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView" />
+        </mdAction>
+        <mdAction
+          name="view"
+          label="View"
+          isPost="false"
+          isQuery="false">
+          <mdParameter
+            name="id"
+            label="Id"
+            order="1"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="update"
+          label="Update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            label="DTO"
+            order="0"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView" />
+          <mdParameter
+            name="containers"
+            label="Containers"
+            order="1"
+            type="dss.vector.solutions.entomology.CollectionContainerView[]" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          label="delete"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            label="DTO"
+            order="0"
+            type="dss.vector.solutions.entomology.ImmatureCollectionView" />
+        </mdAction>
+      </mdController>
+
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.containerGrid"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.ImmatureCollectionView.containerGrid" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.premiseType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.ImmatureCollectionView.premiseType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.taxon"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.ImmatureCollectionView.taxon" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.containerGrid"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.premiseType"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.ImmatureCollectionView.taxon"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.entomology.ImmatureContainerController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionContainerView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.ImmatureCollectionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionContainer"
+        type="com.runwaysdk.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.entomology.PremiseTaxon"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremise"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.entomology.ImmatureCollection"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

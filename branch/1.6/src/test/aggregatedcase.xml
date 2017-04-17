@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<query xsi:noNamespaceSchemaLocation="file:/Users/nathan/workspace3.5/mojo/trunk/profiles/query.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<query>
+  <entities>
+      <entity>
+        <type>dss.vector.solutions.surveillance.CaseTreatmentMethod</type>
+        <alias>CaseTreatmentMethod_Tablets</alias>
+        <criteria/>
+      </entity>
+      <entity>
+        <type>dss.vector.solutions.surveillance.TreatmentMethodGrid</type>
+        <alias>CaseTreatmentMethod_Tablets_TreatmentMethodGrid</alias>
+        <criteria>
+          <basicCondition>
+            <selectable>
+              <attribute>
+                <entityAlias>CaseTreatmentMethod_Tablets_TreatmentMethodGrid</entityAlias>
+                <name>optionName</name>
+                <userAlias/>
+              </attribute>
+            </selectable>
+            <operator>EQ</operator>
+            <value>Tablets</value>
+          </basicCondition>
+        </criteria>
+      </entity>
+      <entity>
+        <type>dss.vector.solutions.surveillance.CaseTreatmentMethod</type>
+        <alias>CaseTreatmentMethod_Syrup</alias>
+        <criteria/>
+      </entity>
+      <entity>
+        <type>dss.vector.solutions.surveillance.TreatmentMethodGrid</type>
+        <alias>CaseTreatmentMethod_Syrup_TreatmentMethodGrid</alias>
+        <criteria>
+          <basicCondition>
+            <selectable>
+              <attribute>
+                <entityAlias>CaseTreatmentMethod_Syrup_TreatmentMethodGrid</entityAlias>
+                <name>optionName</name>
+                <userAlias/>
+              </attribute>
+            </selectable>
+            <operator>EQ</operator>
+            <value>Syrup</value>
+          </basicCondition>
+        </criteria>
+      </entity>
+  </entities>
+  <select>
+    <selectable>
+      <attribute>
+        <entityAlias>CaseTreatmentMethod_Tablets</entityAlias>
+        <name>Amount</name>
+        <userAlias>Tablets</userAlias>
+      </attribute>
+    </selectable>
+    <selectable>
+      <attribute>
+        <entityAlias>CaseTreatmentMethod_Syrup</entityAlias>
+        <name>Amount</name>
+        <userAlias>Syrup</userAlias>
+      </attribute>
+    </selectable>
+  </select>
+  <groupby/>
+  <having/>
+  <orderby/>
+</query>

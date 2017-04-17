@@ -1,0 +1,560 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualIPTCase"
+        label="Individual IPT Case"
+        generateController="true">
+        <attributes>
+          <reference
+            name="patient"
+            label="Patient"
+            type="dss.vector.solutions.intervention.monitor.IPTRecipient"
+            required="true" />
+          <reference
+            name="residentialLocation"
+            label="Residential Location"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="false" />
+        </attributes>
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+        label="Individual IPT Case">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <reference
+            name="patient"
+            label="Patient"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <char
+            name="residentialLocation"
+            label="Residential Location"
+            required="false"
+            size="255" />
+          <char
+            name="facility"
+            label="Facility"
+            size="255"
+            required="true" />
+          <virtual
+            name="serviceDate"
+            concrete="serviceDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getPatientView"
+          label="Get Patient View"
+          returnType="dss.vector.solutions.PersonView"
+          static="false" />
+        <mdMethod
+          name="searchCases"
+          label="Search Cases"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView[]">
+          <mdParameter
+            name="serviceDate"
+            label="Service Date"
+            type="java.util.Date"
+            order="5" />
+          <mdParameter
+            name="patientId"
+            label="patientId"
+            type="java.lang.String"
+            order="6" />
+        </mdMethod>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false">
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualIPT"
+        label="Individual IPT Information"
+        generateController="true">
+        <attributes>
+          <reference
+            name="facility"
+            label="Facility"
+            type="dss.vector.solutions.geo.generated.HealthFacility"
+            required="true" />
+          <date
+            name="serviceDate"
+            label="Service Date"
+            required="true" />
+          <char
+            name="administratorSurname"
+            label="IPT administrator surname"
+            size="255" />
+          <integer
+            name="numberOfReceivedITNs"
+            label="Number of received ITNs"
+            rejectNegative="true" />
+          <char
+            name="administratorName"
+            label="IPT administrator name"
+            size="255" />
+          <reference
+            name="iptCase"
+            label="Case"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCase"
+            required="true" />
+          <reference
+            name="patientType"
+            label="Person category"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="visitNumber"
+            label="Visit number"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="doseNumber"
+            label="Indicate IPT dose number"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="doseType"
+            label="Indicate IPT dose type"
+            type="dss.vector.solutions.ontology.Term" />
+          <boolean
+            name="isANCVisit"
+            label="Is this an ANC visit?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <boolean
+            name="receivedSupplement"
+            label="Did the patient receive iron supplement"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+          <boolean
+            name="receivedITN"
+            label="Did the patient receive ITN"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+        label="Individual IPT Information">
+        <attributes>
+          <char
+            name="facility"
+            label="Facility"
+            size="255"
+            required="true" />
+          <virtual
+            name="serviceDate"
+            concrete="serviceDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"
+            required="false" />
+          <virtual
+            name="administratorSurname"
+            concrete="administratorSurname"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="administratorName"
+            concrete="administratorName"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="numberOfReceivedITNs"
+            concrete="numberOfReceivedITNs"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="iptCase"
+            concrete="iptCase"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="patientType"
+            concrete="patientType"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="isANCVisit"
+            concrete="isANCVisit"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="visitNumber"
+            concrete="visitNumber"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="doseNumber"
+            concrete="doseNumber"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="doseType"
+            concrete="doseType"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="receivedSupplement"
+            concrete="receivedSupplement"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <virtual
+            name="receivedITN"
+            concrete="receivedITN"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT" />
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+        </attributes>
+        <mdMethod
+          name="getCaseInstances"
+          label="Get Case Instances"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+          <mdParameter
+            name="caseId"
+            label="caseId"
+            type="java.lang.String"
+            order="6" />
+        </mdMethod>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualIPTViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false">
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController">
+        <mdAction
+          name="newInstance"
+          isPost="false"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="patientId"
+              label="Patient Id"
+              order="3"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView" />
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView" />
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            label="search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="viewCasePage"
+            label="View Case Page"
+            description="View a page of a patients individual IPT Case history"
+            isPost="false"
+            isQuery="true">
+            <mdParameter
+              name="serviceDate"
+              label="Service Date"
+              type="java.util.Date"
+              order="1" />
+            <mdParameter
+              name="patientId"
+              label="Patient Id"
+              type="java.lang.String"
+              order="3" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualIPTController">
+        <mdAction
+          name="newInstance"
+          isPost="false"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="caseId"
+              label="Case Id"
+              order="3"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTView" />
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTView" />
+        </mdAction>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.PersonController">
+        <create>
+          <mdAction
+            name="updateRecipient"
+            label="Update Recipient Info"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="patient"
+              label="Patient"
+              type="dss.vector.solutions.PersonView"
+              order="1" />
+          </mdAction>
+          <mdAction
+            name="editRecipient"
+            label="Edit Recipient"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="id"
+              order="0"
+              label="Id"
+              type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness
+        name="dss.vector.solutions.Person">
+        <create>
+          <mdMethod
+            name="searchForPerson"
+            label="Search for Person"
+            static="true"
+            returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.PersonView">
+        <create>
+          <mdMethod
+            name="applyNonDelegates"
+            label="Apply Non Delegates"
+            returnType="void"
+            static="false" />
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualIPTView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualIPTCase"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualIPT"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.PersonView.applyNonDelegates"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.Person.searchForPerson"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.PersonController.updateRecipient"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.PersonController.editRecipient"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

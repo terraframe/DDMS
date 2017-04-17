@@ -1,0 +1,209 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.PersonView"
+        label="Person View"
+        description="Surveyed Person View">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            name="household"
+            concrete="household"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="personId"
+            concrete="personId"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="dob"
+            concrete="dob"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <integer
+            name="age"
+            label="Age"
+            rejectNegative="true" />
+          <virtual
+            name="sex"
+            concrete="sex"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="pregnant"
+            concrete="pregnant"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="sleptUnderNet"
+            concrete="sleptUnderNet"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="haemoglobinMeasured"
+            concrete="haemoglobinMeasured"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="haemoglobin"
+            concrete="haemoglobin"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="anaemiaTreatment"
+            concrete="anaemiaTreatment"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="iron"
+            concrete="iron"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="performedRDT"
+            concrete="performedRDT"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <reference
+            name="rDTResult"
+            label="Result"
+            description="Place holder for permissions and ontology root binding"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <virtual
+            name="rdtTreatment"
+            concrete="rdtTreatment"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="bloodslide"
+            concrete="bloodslide"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="fever"
+            concrete="fever"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="feverTreatment"
+            concrete="feverTreatment"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="malaria"
+            concrete="malaria"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="malariaTreatment"
+            concrete="malariaTreatment"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+          <virtual
+            name="payment"
+            concrete="payment"
+            type="dss.vector.solutions.intervention.monitor.Person" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply all"
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="results"
+            label="results"
+            order="0"
+            type="dss.vector.solutions.ontology.Term[]" />
+        </mdMethod>
+        <mdMethod
+          name="getRDTResults"
+          static="false"
+          label="Get RDT Results"
+          returnType="dss.vector.solutions.ontology.Term[]" />
+      </mdView>
+    </create>
+    <update>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.PersonController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.PersonView" />
+          <create>
+            <mdParameter
+              name="results"
+              label="results"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.PersonView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.PersonView" />
+          <create>
+            <mdParameter
+              name="results"
+              label="results"
+              order="1"
+              type="dss.vector.solutions.ontology.Term[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.PersonView" />
+        </mdAction>
+      </mdController>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Person">
+        <create>
+          <mdMethod
+            name="unlockView"
+            label="unlock View"
+            returnType="dss.vector.solutions.intervention.monitor.PersonView"
+            description="Unlocks the corresponding Person and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="lockView"
+            label="Lock View"
+            returnType="dss.vector.solutions.intervention.monitor.PersonView"
+            description="Locks the corresponding Person and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="getView"
+            label="Get View"
+            returnType="dss.vector.solutions.intervention.monitor.PersonView"
+            description="Returns the view representation of a given person"
+            static="true">
+            <mdParameter
+              name="id"
+              label="Id"
+              order="0"
+              description="UUID of the person"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.PersonView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

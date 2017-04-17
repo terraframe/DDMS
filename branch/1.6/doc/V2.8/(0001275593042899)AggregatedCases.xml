@@ -1,0 +1,763 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AggregatedCase"
+        label="Aggregated Case"
+        generateController="true">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.general.Disease"
+            indexType="non-unique index" />
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <reference
+            name="geoEntity"
+            required="true"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <reference
+            name="ageGroup"
+            required="true"
+            label="Age Group"
+            type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
+          <integer
+            name="cases"
+            label="Total cases with clinical diagnosis"
+            rejectNegative="true"
+            required="true" />
+          <integer
+            name="positiveCases"
+            label="Total cases with confirmed positive diagnosis"
+            rejectNegative="true"
+            required="true" />
+          <integer
+            name="negativeCases"
+            label="Total cases with confirmed negative diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="deaths"
+            label="Total Deaths"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="generateReport"
+          label="Generate Report"
+          static="true"
+          returnType="java.lang.Byte[]">
+          <mdParameter
+            name="file"
+            label="File"
+            description="The fully qualified file path"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+
+        <mdMethod
+          name="lockView"
+          label="Lock Case"
+          returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+          static="false" />
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+          static="false" />
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.AggregatedCase"
+        label="Aggregated Case Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="disease"
+          indexOrder="0" />
+        <attribute
+          name="startDate"
+          indexOrder="1" />
+        <attribute
+          name="endDate"
+          indexOrder="2" />
+        <attribute
+          name="geoEntity"
+          indexOrder="3" />
+        <attribute
+          name="ageGroup"
+          indexOrder="4" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.CaseTreatmentStock"
+        label="Case Treatment Stock"
+        generateController="false">
+        <attributes>
+          <reference
+            name="aggregatedCase"
+            label="Case"
+            type="dss.vector.solutions.surveillance.AggregatedCase"
+            required="true" />
+          <reference
+            name="term"
+            label="Treatment"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <boolean
+            name="outOfStock"
+            label="Out of Stock"
+            description="Flag denoting if the treatment is out of stock"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.CaseTreatmentStock"
+        label="Case Treatment stock view"
+        active="true"
+        unique="true">
+        <attribute
+          name="aggregatedCase"
+          indexOrder="0" />
+        <attribute
+          name="term"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.CaseTreatmentStockView"
+        label="Case Treatment Stock">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="aggregatedCase"
+            type="dss.vector.solutions.surveillance.CaseTreatmentStock" />
+          <virtual
+            concrete="term"
+            type="dss.vector.solutions.surveillance.CaseTreatmentStock" />
+          <virtual
+            concrete="outOfStock"
+            type="dss.vector.solutions.surveillance.CaseTreatmentStock" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.CaseTreatment"
+        label="Case Treatment"
+        generateController="false">
+        <attributes>
+          <reference
+            name="aggregatedCase"
+            label="Case"
+            type="dss.vector.solutions.surveillance.AggregatedCase"
+            required="true" />
+          <reference
+            name="term"
+            label="Treatments"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="amount"
+            label="Total"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.CaseTreatment"
+        label="Case Treatment Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="aggregatedCase"
+          indexOrder="0" />
+        <attribute
+          name="term"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.CaseTreatmentView"
+        label="Case Treatment Stock">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="aggregatedCase"
+            type="dss.vector.solutions.surveillance.CaseTreatment" />
+          <virtual
+            concrete="term"
+            type="dss.vector.solutions.surveillance.CaseTreatment" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.surveillance.CaseTreatment" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.CaseDiagnostic"
+        label="Case Diagnostic Methods"
+        generateController="false">
+        <attributes>
+          <reference
+            name="aggregatedCase"
+            label="Case"
+            type="dss.vector.solutions.surveillance.AggregatedCase"
+            required="true" />
+          <reference
+            name="term"
+            label="Diagnostic Methods"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="amount"
+            label="Total tests"
+            description="Amount of people a diagnostic test was performed upon"
+            rejectNegative="true" />
+          <integer
+            name="amountPositive"
+            label="Total positive tests"
+            description="Amount of positive people a diagnostic test was performed upon"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.CaseDiagnostic"
+        label="Case Diagnostic Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="aggregatedCase"
+          indexOrder="0" />
+        <attribute
+          name="term"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.CaseDiagnosticView"
+        label="Case Diagnostic Methods">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="aggregatedCase"
+            type="dss.vector.solutions.surveillance.CaseDiagnostic" />
+          <virtual
+            concrete="term"
+            type="dss.vector.solutions.surveillance.CaseDiagnostic" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.surveillance.CaseDiagnostic" />
+          <virtual
+            concrete="amountPositive"
+            type="dss.vector.solutions.surveillance.CaseDiagnostic" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.CaseReferral"
+        label="Case Referral"
+        generateController="false">
+        <attributes>
+          <reference
+            name="aggregatedCase"
+            label="Case"
+            type="dss.vector.solutions.surveillance.AggregatedCase"
+            required="true" />
+          <reference
+            name="term"
+            label="Reasons why facility referred the patient/s to another facility"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="amount"
+            label="Total"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.CaseReferral"
+        label="Case Referral Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="aggregatedCase"
+          indexOrder="0" />
+        <attribute
+          name="term"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.CaseReferralView"
+        label="Case Referral">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="aggregatedCase"
+            type="dss.vector.solutions.surveillance.CaseReferral" />
+          <virtual
+            concrete="term"
+            type="dss.vector.solutions.surveillance.CaseReferral" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.surveillance.CaseReferral" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        label="Case Treatment Method"
+        generateController="false">
+        <attributes>
+          <reference
+            name="aggregatedCase"
+            label="Case"
+            type="dss.vector.solutions.surveillance.AggregatedCase"
+            required="true" />
+          <reference
+            name="term"
+            label="Treatment methods"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="amount"
+            label="Total"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        label="Case Treatment Method Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="aggregatedCase"
+          indexOrder="0" />
+        <attribute
+          name="term"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.CaseTreatmentMethodView"
+        label="Case Treatment Method">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="aggregatedCase"
+            type="dss.vector.solutions.surveillance.CaseTreatmentMethod" />
+          <virtual
+            concrete="term"
+            type="dss.vector.solutions.surveillance.CaseTreatmentMethod" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.surveillance.CaseTreatmentMethod" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.AggregatedCaseView"
+        label="Aggregated Case"
+        extendable="true">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="ageGroup"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="endDate"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="geoEntity"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="cases"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="positiveCases"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="negativeCases"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <virtual
+            concrete="deaths"
+            type="dss.vector.solutions.surveillance.AggregatedCase" />
+          <reference
+            name="caseStocks"
+            label="Treatment Stock"
+            description="Marker indicating if the treatment stocks should be displayed"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="caseTreatments"
+            label="Treatments"
+            description="Marker indicating if the treatments should be displayed"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="caseTreatmentMethod"
+            label="Treatment Methods"
+            description="Marker indicating if the treatment methods should be displayed"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="caseReferrals"
+            label="Reasons why facility referred the patient/s to another facility"
+            description="Marker indicating if the referral reasons should be displayed"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="caseDiagnostic"
+            label="Diagnostic Methods"
+            description="Marker indicating if the diagnostic methods should be displayed"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="validateEpiDate"
+          label="Validate Epi Date"
+          returnType="void"
+          static="true">
+          <mdParameter
+            name="periodType"
+            label="Period Type"
+            type="java.lang.String"
+            order="1" />
+          <mdParameter
+            name="period"
+            label="period"
+            order="2"
+            type="java.lang.Integer" />
+          <mdParameter
+            name="year"
+            label="Year"
+            order="3"
+            type="java.lang.Integer" />
+        </mdMethod>
+        <mdMethod
+          name="validateSearchCriteria"
+          label="Validate Search Criteria"
+          static="true"
+          returnType="void">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="periodType"
+            label="Period Type"
+            type="java.lang.String"
+            order="1" />
+          <mdParameter
+            name="period"
+            label="period"
+            order="2"
+            type="java.lang.Integer" />
+          <mdParameter
+            name="year"
+            label="Year"
+            order="3"
+            type="java.lang.Integer" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          static="false"
+          returnType="void" />
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply an aggregated case and all of its corresponding grids">
+          <mdParameter
+            name="treatments"
+            type="dss.vector.solutions.surveillance.CaseTreatmentView[]"
+            order="1"
+            label="Case Treatments" />
+          <mdParameter
+            name="treatmentMethods"
+            type="dss.vector.solutions.surveillance.CaseTreatmentMethodView[]"
+            order="2"
+            label="Treatment Methods" />
+          <mdParameter
+            name="stock"
+            type="dss.vector.solutions.surveillance.CaseTreatmentStockView[]"
+            order="3"
+            label="Treatment stock" />
+          <mdParameter
+            name="diagnosticMethods"
+            type="dss.vector.solutions.surveillance.CaseDiagnosticView[]"
+            order="4"
+            label="Diagnostic Methods" />
+          <mdParameter
+            name="referrals"
+            type="dss.vector.solutions.surveillance.CaseReferralView[]"
+            order="5"
+            label="Referrals" />
+        </mdMethod>
+        <mdMethod
+          name="getDiagnosticMethods"
+          label="getDiagnosticMethods"
+          static="false"
+          returnType="dss.vector.solutions.surveillance.CaseDiagnosticView[]" />
+        <mdMethod
+          name="getReferrals"
+          label="getReferrals"
+          static="false"
+          returnType="dss.vector.solutions.surveillance.CaseReferralView[]" />
+        <mdMethod
+          name="getTreatments"
+          label="getTreatments"
+          static="false"
+          returnType="dss.vector.solutions.surveillance.CaseTreatmentView[]" />
+        <mdMethod
+          name="getTreatmentMethods"
+          label="getTreatmentMethods"
+          static="false"
+          returnType="dss.vector.solutions.surveillance.CaseTreatmentMethodView[]" />
+        <mdMethod
+          name="getTreatmentStocks"
+          label="getTreatmentStocks"
+          static="false"
+          returnType="dss.vector.solutions.surveillance.CaseTreatmentStockView[]" />
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.AggregatedCaseSearchView"
+        label="Aggregated Case Search"
+        extends="dss.vector.solutions.surveillance.AggregatedCaseView">
+        <attributes>
+          <boolean
+            name="searchType"
+            label="Search Type"
+            defaultValue="true"
+            required="true"
+            positiveLabel="Dates"
+            negativeLabel="Period" />
+          <enumeration
+            name="periodType"
+            label="Period Type"
+            type="dss.vector.solutions.surveillance.PeriodType"
+            description="The period type"
+            selectMultiple="false" />
+          <integer
+            name="period"
+            label="Period"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="periodYear"
+            label="Year" />
+        </attributes>
+        <mdMethod
+          name="searchByView"
+          label="Search By View"
+          returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+          static="false">
+        </mdMethod>
+      </mdView>
+
+
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseDiagnostic"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.surveillance.AggregatedCaseView.caseDiagnostic" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseReferrals"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.surveillance.AggregatedCaseView.caseReferrals" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseStocks"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.surveillance.AggregatedCaseView.caseStocks" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatmentMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatmentMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatments"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatments" />
+      </object>
+
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.surveillance.AggregatedCaseController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.surveillance.AggregatedCaseView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.surveillance.AggregatedCaseView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.surveillance.AggregatedCaseView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.surveillance.AggregatedCaseView" />
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            label="Search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="searchByView"
+            label="Search By View"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="view"
+              label="View"
+              order="0"
+              type="dss.vector.solutions.surveillance.AggregatedCaseSearchView" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseDiagnostic"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseReferrals"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseStocks"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatmentMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.surveillance.AggregatedCaseView.caseTreatments"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCaseController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCaseSearchView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCaseView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentStockView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseDiagnosticView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseReferralView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentMethodView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatment"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentStock"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseDiagnostic"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseReferral"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        type="com.runwaysdk.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCase"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

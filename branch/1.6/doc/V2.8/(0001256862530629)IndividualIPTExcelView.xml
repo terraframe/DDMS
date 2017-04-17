@@ -1,0 +1,76 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.IndividualIPTExcelView"
+        label="ITN distribution excel view"
+        generateController="false">
+        <attributes>
+          <virtual
+            concrete="residentialLocation"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPTCase"/>
+          <char
+            name="patientFirstName"
+            label="Patient First Name"
+            size="255"/>
+          <char
+            name="patientLastName"
+            label="Patient Last Name"
+            size="255"/>
+          <date
+            name="patientDOB"
+            label="Patient Date of Birth"/>
+          <virtual
+            concrete="facility"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="serviceDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="administratorSurname"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="numberOfReceivedITNs"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="administratorName"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <char
+            name="patientType"
+            label="Person category"
+            size="255"/>
+          <char
+            name="visitNumber"
+            label="Visit number"
+            size="255"/>
+          <char
+            name="doseNumber"
+            label="Indicate IPT dose number"
+            size="255"/>
+          <char
+            name="doseType"
+            label="Indicate IPT dose type"
+            size="255"/>
+          <virtual
+            concrete="isANCVisit"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="receivedSupplement"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+          <virtual
+            concrete="receivedITN"
+            type="dss.vector.solutions.intervention.monitor.IndividualIPT"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.IndividualIPTExcelView"
+        type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,126 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayStatusView.operatorSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayStatus.operatorSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+
+      <object
+        key="dss.vector.solutions.irs.TeamSprayView.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.TeamSpray.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+
+      <object
+        key="dss.vector.solutions.irs.TeamSprayStatus.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.TeamSprayStatus.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+
+      <object
+        key="dss.vector.solutions.irs.ZoneSprayView.target"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSpray.target"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSprayView.sprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSpray.sprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayView.operatorSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayView.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSpray.operatorSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSpray.teamSprayWeek"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.ResourceTargetView">
+        <create>
+          <mdMethod
+            name="getCalculatedTargets"
+            label="Get Calculated Targets"
+            returnType="java.lang.Integer[]"
+            static="true">
+            <mdParameter
+              name="targeter"
+              label="Targeter"
+              order="0"
+              type="dss.vector.solutions.irs.Targeter" />
+            <mdParameter
+              name="season"
+              label="Season"
+              order="1"
+              type="dss.vector.solutions.general.MalariaSeason" />
+          </mdMethod>
+          <mdMethod
+            name="getCalculatedTargetsFoViews"
+            label="Get Calculated Targets"
+            returnType="java.lang.Integer[][]"
+            static="true">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.ResourceTargetView[]" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdBusiness
+        name="dss.vector.solutions.irs.OperatorSprayStatus">
+        <create>
+          <attributes>
+            <integer
+              name="operatorTarget"
+              label="Operator Target"
+              rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.OperatorSprayStatusView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="operatorTarget"
+              type="dss.vector.solutions.irs.OperatorSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayStatusView.operatorTarget"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayStatus.operatorTarget"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.ResourceTargetView.getCalculatedTargets"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.irs.ResourceTargetView.getCalculatedTargetsFoViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

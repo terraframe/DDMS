@@ -1,0 +1,32 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdIndex
+        type="dss.vector.solutions.general.PopulationData"
+        active="true"
+        label="Population Data Index"
+        unique="true">
+        <attribute
+          name="geoEntity"
+          indexOrder="0" />
+        <attribute
+          name="yearOfData"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdProblem
+        name="dss.vector.solutions.general.PopulationProblem"
+        label="Population Problem"
+        extends="dss.vector.solutions.NotificationProblem" />
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.PopulationProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

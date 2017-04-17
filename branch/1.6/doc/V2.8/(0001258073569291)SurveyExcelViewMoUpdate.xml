@@ -1,0 +1,58 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.malariaePositive"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.mixedPositive"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.negative"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.notValid"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.ovalePositive"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.pfPositive"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.roof"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.vivaxPositive"
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.SurveyExcelView">
+        <create>
+          <attributes>
+            <char
+              name="wallSurface"
+              label="Wall Surface"
+              size="255"/>
+            <char
+              name="roofSurface"
+              label="Roof Surface"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+    <!--
+      We can't really undo the deletes at the top so... sorry.  No undo.
+    -->
+    </delete>
+  </undoIt>
+</version>

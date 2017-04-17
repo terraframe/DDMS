@@ -1,0 +1,65 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.CollectionPremise">
+        <create>
+          <attributes>
+            <integer
+              name="numberWithLarvae"
+              label="Total Number of Premises With Larvae"
+              rejectNegative="true" />
+            <integer
+              name="numberWithPupae"
+              label="Total Number of Premises With Pupae"
+              rejectNegative="true" />
+            <integer
+              name="numberWithImmatures"
+              label="Total Number of Premises With Immatures"
+              rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.entomology.ImmatureCollectionView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="numberWithLarvae"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+            <virtual
+              concrete="numberWithPupae"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+            <virtual
+              concrete="numberWithImmatures"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremiseView.numberWithLarvae"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremiseView.numberWithPupae"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremiseView.numberWithImmatures"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremise.numberWithLarvae"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremise.numberWithPupae"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.CollectionPremise.numberWithImmatures"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

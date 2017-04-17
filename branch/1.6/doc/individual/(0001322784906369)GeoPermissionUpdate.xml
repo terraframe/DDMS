@@ -1,0 +1,146 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdWebForm
+        name="dss.vector.solutions.form.FormHousehold">
+        <fields>
+          <char
+            name="householdId"
+            unique="false"
+            required="true"
+            order="-10" />
+          <reference
+            name="survey"
+            removable="false"
+            required="true" />
+        </fields>
+      </mdWebForm>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormPerson">
+        <fields>
+          <char
+            name="personId"
+            unique="false"
+            required="true"
+            order="-10" />
+          <reference
+            name="household"
+            removable="false"
+            required="true" />
+          <reference
+            name="survey"
+            removable="false"
+            required="true" />
+        </fields>
+      </mdWebForm>
+
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormBedNet">
+        <fields>
+          <char
+            name="netId"
+            unique="false"
+            required="true"
+            order="-10" />
+          <reference
+            name="household"
+            removable="false"
+            required="true" />
+          <reference
+            name="survey"
+            removable="false"
+            required="true" />
+        </fields>
+      </mdWebForm>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormHousehold">
+        <create>
+          <mdMethod
+            name="getHouseIds"
+            label="Get house ids"
+            returnType="com.runwaysdk.query.ValueQuery"
+            static="true"
+            description="Returns a value query of all the household ids which contain the given value">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormBedNet">
+        <create>
+          <mdMethod
+            name="getNetIds"
+            label="Get bed net ids"
+            returnType="com.runwaysdk.query.ValueQuery"
+            static="true"
+            description="Returns a value query of all the bed net ids which contain the given value">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormPerson">
+        <create>
+          <mdMethod
+            name="getPersonIds"
+            label="Get person ids"
+            returnType="com.runwaysdk.query.ValueQuery"
+            static="true"
+            description="Returns a value query of all the person ids which contain the given value">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <permissions>
+      <method
+        methodName="deleteGeoHierarchy"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="updateFromView"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="applyExistingWithParent"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.form.business.FormHousehold.getHouseIds"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.form.business.FormBedNet.getNetIds"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.form.business.FormPerson.getPersonIds"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

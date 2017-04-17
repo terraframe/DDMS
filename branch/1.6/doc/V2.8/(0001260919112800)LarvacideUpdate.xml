@@ -1,0 +1,69 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.LarvacideInstance">
+        <attributes>
+          <reference
+            name="target"
+            label="Target"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <integer
+            name="treated"
+            label="No. Treated"
+            rejectNegative="true"
+            required="true" />
+          <reference
+            name="controlMethod"
+            label="Control Method"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+        <create>
+          <attributes>
+            <reference
+              name="substance"
+              label="Substance"
+              type="dss.vector.solutions.ontology.Term" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+        label="Larvacide Instance View">
+        <create>
+          <attributes>
+            <virtual
+              concrete="substance"
+              type="dss.vector.solutions.intervention.monitor.LarvacideInstance" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView.substance"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.substance" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.substance"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.LarvacideInstance.substance"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
+        type="dss.vector.solutions.ontology.BrowserField" />
+    </delete>
+  </undoIt>
+</version>

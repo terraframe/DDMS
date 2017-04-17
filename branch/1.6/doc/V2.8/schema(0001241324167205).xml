@@ -1,0 +1,96 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem name="dss.vector.solutions.irs.RequiredGeoIdProblem" label="Required Geo Id" />
+      <mdProblem name="dss.vector.solutions.irs.RequiredInsecticideBrandProblem" label="Required Geo Id" />
+      <mdProblem name="dss.vector.solutions.irs.RequiredSprayMethodProblem" label="Required Geo Id" />
+      <mdProblem name="dss.vector.solutions.irs.RequiredSprayDateProblem" label="Required Geo Id" />
+      <mdProblem name="dss.vector.solutions.irs.RequiredSprayOperatorProblem" label="Required Geo Id" />
+      <mdProblem name="dss.vector.solutions.irs.RequiredSprayTeamProblem" label="Required Geo Id" />
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.irs.TeamSprayController">
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.TeamSprayView" />
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.TeamSprayView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.TeamSprayView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.TeamSprayView" />
+        </mdAction>
+
+        <create>
+          <mdAction
+            name="search"
+            label="search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="searchByParameters"
+            label="Search by Parameters"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="brand"
+              label="Brand"
+              order="0"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="date"
+              label="date"
+              order="2"
+              type="java.util.Date" />
+            <mdParameter
+              name="method"
+              label="Spray Method"
+              order="3"
+              type="java.lang.String" />
+            <mdParameter
+              name="team"
+              label="Team"
+              order="4"
+              type="dss.vector.solutions.irs.SprayTeam" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.irs.RequiredSprayTeamProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.RequiredSprayOperatorProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.RequiredSprayDateProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.RequiredSprayMethodProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.RequiredInsecticideBrandProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.RequiredGeoIdProblem" type="com.runwaysdk.system.metadata.MdProblem"/>
+      <object key="dss.vector.solutions.irs.TeamSprayController.search" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.irs.TeamSprayController.searchByParameters" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

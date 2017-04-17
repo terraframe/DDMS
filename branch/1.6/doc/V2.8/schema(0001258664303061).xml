@@ -1,0 +1,32 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController
+        name="dss.vector.solutions.query.QueryController">
+        <create>
+          <mdAction
+            name="queryAggregatedITN"
+            label="Query AggregatedITN"
+            description="Query AggregatedITN"
+            isPost="false"/>
+          <mdAction
+            name="queryITNDistribution"
+            label="Query ITN Facility Distribution"
+            description="Query Facility Distribution"
+            isPost="false"/>
+          <mdAction
+            name="queryITNCommunityDistribution"
+            label="Query ITN Community Distribution"
+            description="Query ITNCommunity Distribution"
+            isPost="false"/>
+
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

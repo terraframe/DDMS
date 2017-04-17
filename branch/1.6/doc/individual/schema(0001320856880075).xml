@@ -1,0 +1,30 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoField">
+        <create>
+          <mdMethod
+            name="getGeoFieldForMdWebGeo"
+            label="Get GeoField For MdWebGeo"
+            static="true"
+            returnType="dss.vector.solutions.geo.GeoField">
+            <mdParameter
+              name="mdWebGeoId"
+              label="MdWebGeo Id"
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object 
+        key="dss.vector.solutions.geo.GeoField.getGeoFieldForMdWebGeo" 
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,37 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+     <mdException
+       name="dss.vector.solutions.query.LegendWithoutVariableException"
+       label="Legend Without Variable Exception"
+       description="Thrown when a user tries to create a legend without a thematic variable.">
+     </mdException>    
+    
+    </create>
+    <update>
+      
+      <mdController
+        name="dss.vector.solutions.query.MappingController">
+        <create>
+          <mdAction
+            name="getLegend"
+            label="Get Legend"
+            description="Returns the HTML of the legend table."
+            isPost="true">
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="0"
+              type="java.lang.String"
+            />
+          </mdAction>
+        </create>
+      </mdController>
+      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

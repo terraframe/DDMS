@@ -1,0 +1,248 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.geo.GeoEntityView"
+        label="GeoEntity View"
+        description="Simplified view of a GeoEntity">
+        <attributes>
+          <char
+            name="geoEntityId"
+            required="true"
+            size="64"
+            label="The GeoEntity id"/>
+          <char
+            name="typeDisplayLabel"
+            required="true"
+            size="100"
+            label="The GeoEntity type's display label"/>
+          <char
+            name="entityType"
+            required="true"
+            size="255"
+            label="The GeoEntity type"/>
+          <virtual
+            name="entityName"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="entityName"/>
+          <virtual
+            name="geoId"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="geoId"/>
+          <virtual
+            name="activated"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="activated"/>
+        </attributes>
+      </mdView>
+
+      <mdException
+        name="dss.vector.solutions.geo.AllowedInSelfException"
+        label="Allowed In Self Exception"
+        description="Thrown when a GeoHierarchy is added to itself as a parent/child.">
+        <attributes>
+          <char
+            name="displayLabel"
+            label="Display Label"
+            size="100"
+            required="true"
+            description="GeoHierarchy Display Label"/>
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.geo.ConfirmDeleteHierarchyException"
+        label="Confirm delete hierarchy exception"
+        description="Exception thrown when deleting a GeoHierarchy with more than one parent.">
+        <attributes>
+          <char
+            name="parentDisplayLabel"
+            label="Parent Display Name"
+            size="100"
+            required="true"
+            description="Parent GeoHierarchy Display Label"/>
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.geo.ConfirmHierarchyParentChangeException"
+        label="Confirmation Hierarhcy Parent Change Exception"
+        description="Exception thrown to confirm a GeoHierarchy parent change">
+        <attributes>
+          <char
+            name="parentDisplayLabel"
+            label="Parent Display Label"
+            size="100"
+            required="true"
+            description="Parent Display Label"/>
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.geo.DuplicateHierarchyParentException"
+        label="Duplicate Hierarchy Parent Exception"
+        description="Thrown when a child GeoHierarchy is added to the same parent twice">
+        <attributes>
+          <char
+            name="childDisplayLabel"
+            label="Child Display Label"
+            size="100"
+            required="true"/>
+          <char
+            name="parentDisplayLabel"
+            label="Parent Display Label"
+            size="100"
+            required="true"/>
+        </attributes>
+      </mdException>
+    </create>
+
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="searchByEntityName"
+            label="Search By Entity Name"
+            description="Returns a list of GeoEntityViews that match the search criteria."
+            static="true"
+            returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter
+              name="entityType"
+              label="Entity Type"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="entityName"
+              label="Search Entity Name"
+              order="1"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchy">
+        <create>
+          <mdMethod
+            name="confirmChangeParent"
+            label="Confirm Change Parent"
+            description="Throws an exception with confirmation information to change a geo hierarchy's parent."
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="parentId"
+              label="Parent Id"
+              description="The id of the current GeoHierarchy parent."
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="confirmDeleteHierarchy"
+            label="Confirm Delete Entity"
+            description="Throws exception with confirmation information to delete a GeoHierarchy with more than one parent."
+            static="false"
+            returnType="java.lang.String[]">
+            <mdParameter
+              name="parentId"
+              label="Parent Id"
+              description="The id of the current GeoHierarchy parent."
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="deleteRelationship"
+            label="Delete Relationship"
+            description="Deletes the AllowedIn relationship with the given parent."
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="parentId"
+              label="parent id"
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <mdMethod
+          name="getOrderedChildren"
+          label="Get Ordered Child Entities"
+          description="Gets LocatedIn children ordered by label."
+          static="false"
+          returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
+          <mdParameter
+            name="typeFilter"
+            label="Type Filter"
+            description="Name of GeoEntity subclass to filter."
+            order="0"
+            type="java.lang.String"/>
+        </mdMethod>
+      </mdBusiness>
+
+      <!-- Possible Bug when this is included as a create in the above MdBusiness tag.
+           The MdMethod was never created (verify this with Smethie). -->
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="deleteRelationship"
+            label="Delete Relationship"
+            description="Deletes the LocatedIn relationship with the given parent."
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="parentId"
+              label="parent id"
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="collectAllLocatedIn"
+            label="Collect All Located In"
+            description="Recursively collects all located in relationships."
+            returnType="dss.vector.solutions.geo.GeoEntityView[]"
+            static="false">
+            <mdParameter
+              name="includeParents"
+              label="Include Parents"
+              order="0"
+              type="java.lang.Boolean"/>
+            <mdParameter
+              name="filter"
+              label="Type Filter"
+              order="1"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="getAllChildIds"
+            label="Recursive Get Child Entity Ids"
+            description="Gets LocatedIn children."
+            static="false"
+            returnType="java.lang.String[]">
+            <mdParameter
+              name="typeFilter"
+              label="Type Filter"
+              description="Name of GeoEntity subclass to filter."
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+    </update>
+
+
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

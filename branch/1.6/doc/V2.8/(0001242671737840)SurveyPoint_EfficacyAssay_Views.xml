@@ -1,0 +1,362 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.NetProblem"
+        label="Net Quantity Problem"
+        description="The value cannot be set when the household has zero nets">
+        <attributes>
+          <char
+            name="netName"
+            label="Name"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.NetQuantityProblem"
+        label="Net Quantity Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="The net count cannot be greater than the number of household nets">
+        <attributes>
+          <integer
+            name="quantity"
+            label="Quantity"
+            required="true" />
+          <integer
+            name="netCount"
+            label="Net Count"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.WindowTypeProblem"
+        label="Net Quantity Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="A window type cannot be select when the household does not have windows" />
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.SurveyPointView"
+        label="Survey Point">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <char
+            name="geoId"
+            label="Geo Entity"
+            description="The Geo Id of the survey"
+            required="true"
+            size="255" />
+          <virtual
+            name="surveyDate"
+            concrete="surveyDate"
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint" />
+        </attributes>
+        <mdMethod
+          name="search"
+          label="Search"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.SurveyPointView">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="1"
+            type="java.util.Date" />
+        </mdMethod>
+        <mdMethod
+          name="getHouseholds"
+          label="Get Households"
+          returnType="dss.vector.solutions.intervention.monitor.Household[]"
+          static="false" />
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+      </mdView>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.SurveyPoint">
+        <create>
+          <mdMethod
+            name="unlockView"
+            label="unlock View"
+            returnType="dss.vector.solutions.intervention.monitor.SurveyPointView"
+            description="Unlocks the corresponding SurveyPoint and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="lockView"
+            label="Lock View"
+            returnType="dss.vector.solutions.intervention.monitor.SurveyPointView"
+            description="Locks the corresponding SurveyPoint and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="getView"
+            label="Get View"
+            returnType="dss.vector.solutions.intervention.monitor.SurveyPointView"
+            description="Returns the view representation of a given SurveyPoint"
+            static="true">
+            <mdParameter
+              name="id"
+              label="Id"
+              order="0"
+              description="UUID of the SurveyPoint"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.SurveyPointController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyPointView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyPointView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyPointView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.SurveyPointView" />
+        </mdAction>
+      </mdController>
+    </update>
+    <create>
+      <mdView
+        name="dss.vector.solutions.entomology.assay.EfficacyAssayView"
+        label="Efficacy Assay">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <char
+            name="geoId"
+            label="Surface"
+            description="The geo id of the surface used in the efficacy biosassy"
+            required="true"
+            size="255" />
+          <virtual
+            name="testDate"
+            concrete="testDate"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            name="specie"
+            concrete="specie"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            name="insecticideBrand"
+            concrete="insecticideBrand"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="testMethod"
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="holdingTime"
+            concrete="holdingTime"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="quantityDead"
+            concrete="quantityDead"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="quantityLive"
+            concrete="quantityLive"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="mortality"
+            concrete="mortality"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="colonyName"
+            concrete="colonyName"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="exposureTime"
+            concrete="exposureTime"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="quantityTested"
+            concrete="quantityTested"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="surfacePostion"
+            concrete="surfacePostion"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="timeOnSurface"
+            concrete="timeOnSurface"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="ageRange"
+            concrete="ageRange"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="fed"
+            concrete="fed"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="gravid"
+            concrete="gravid"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="sex"
+            concrete="sex"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          returnType="dss.vector.solutions.entomology.assay.EfficacyAssayViewQuery"
+          label="getPage"
+          static="true">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+        <mdMethod
+          name="getOverallMortalityRate"
+          label="Get Overall Mortality Rate"
+          returnType="java.lang.Float"
+          description="Returns the overall mortality rate for all efficacy assays on the same suface and date"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="searchByGeoEntityAndDate"
+          label="Search By GeoEntity and Date"
+          description="Searches for all efficacy assays with the given geo entity and date"
+          static="true"
+          returnType="dss.vector.solutions.entomology.assay.EfficacyAssayView[]">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            type="java.lang.String"
+            order="0"
+            description="Geo Id" />
+          <mdParameter
+            name="collectionDate"
+            label="Colllection Date"
+            type="java.util.Date"
+            order="1" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+      </mdView>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.EfficacyAssay">
+        <create>
+          <mdMethod
+            name="unlockView"
+            label="unlock View"
+            returnType="dss.vector.solutions.entomology.assay.EfficacyAssayView"
+            description="Unlocks the corresponding Efficacy Assay and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="lockView"
+            label="Lock View"
+            returnType="dss.vector.solutions.entomology.assay.EfficacyAssayView"
+            description="Locks the corresponding Efficacy Assay and returns its view representation"
+            static="false" />
+          <mdMethod
+            name="getView"
+            label="Get View"
+            returnType="dss.vector.solutions.entomology.assay.EfficacyAssayView"
+            description="Returns the view representation of a given Efficacy Assay"
+            static="true">
+            <mdParameter
+              name="id"
+              label="Id"
+              order="0"
+              description="UUID of the Efficacy Assay"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdController
+        name="dss.vector.solutions.entomology.assay.EfficacyAssayController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

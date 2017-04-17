@@ -1,0 +1,434 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Ontology"
+        isAbstract="false"
+        label="Ontology"
+        description="Ontology class that models different ontologies in the system"
+        cacheAlgorithm="everything">
+        <attributes>
+          <char
+            name="title"
+            label="Title"
+            required="true"
+            indexType="unique index"
+            size="64" />
+          <char
+            name="defaultNamespace"
+            label="Namespace"
+            required="true"
+            indexType="no index"
+            size="255" />
+          <!--
+          <char
+            name="prefix"
+            label="Prefix"
+            required="true"
+            indexType="no index"
+            size="32" />
+-->
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.OntologyRelationship"
+        isAbstract="false"
+        label="Ontology Relationship"
+        description="Relationships that participate in an Ontology"
+        cacheAlgorithm="everything">
+        <attributes>
+          <char
+            name="relationshipId"
+            label="Relationship Id"
+            required="true"
+            indexType="unique index"
+            size="64" />
+          <char
+            name="altId"
+            label="Alt Id"
+            required="false"
+            indexType="non-unique index"
+            size="64" />
+          <char
+            name="name"
+            label="Name"
+            required="true"
+            indexType="non-unique index"
+            size="255" />
+          <char
+            name="namespace"
+            label="Namespace"
+            required="false"
+            indexType="non-unique index"
+            size="255" />
+          <text
+            name="def"
+            label="Definition"
+            required="false" />
+          <text
+            name="comment"
+            label="Comment"
+            column="relationship_comment"
+            required="false" />
+          <reference
+            name="inverseOf"
+            required="false"
+            label="Inverse Of"
+            type="dss.vector.solutions.ontology.OntologyRelationship" />
+          <reference
+            name="inverseOfOnInstanceLevel"
+            required="false"
+            label="Inverse Of On Instance Level"
+            type="dss.vector.solutions.ontology.OntologyRelationship" />
+          <boolean
+            name="isObsolete"
+            label="Is Obsolete"
+            required="true"
+            defaultValue="false" />
+          <boolean
+            name="isBuiltIn"
+            label="Is Built In"
+            required="true"
+            defaultValue="false" />
+          <boolean
+            name="isReflexive"
+            label="Is Reflexive"
+            required="false"
+            defaultValue="false" />
+          <boolean
+            name="isAntiSymmetric"
+            label="Is Anti Symmetric"
+            required="false"
+            defaultValue="false" />
+          <boolean
+            name="isTransitive"
+            label="Is Transitive"
+            required="false"
+            defaultValue="false" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.OntologyRelationship"
+        label="Name and Namespace Index"
+        active="true"
+        unique="false"
+        description="Enforces a unique index between the name and namespace"
+        cacheAlgorithm="everything">
+        <attribute
+          name="name"
+          indexOrder="0" />
+        <attribute
+          name="namespace"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdTree
+        name="dss.vector.solutions.ontology.OntologyHasRelationship"
+        label="Ontology Has Relationship"
+        description="Relationships that an ontology utilizes"
+        generateController="false"
+        cacheAlgorithm="everything">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Ontology"
+          method="Ontology" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.OntologyRelationship"
+          method="OntologyRelationship" />
+      </mdTree>
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term"
+        label="Term"
+        description="Ontology term">
+        <attributes>
+          <char
+            name="termId"
+            label="Term Id"
+            required="true"
+            indexType="unique index"
+            size="64" />
+          <char
+            name="name"
+            label="Name"
+            required="true"
+            indexType="non-unique index"
+            size="255" />
+          <char
+            name="namespace"
+            label="Namespace"
+            required="false"
+            indexType="non-unique index"
+            size="255" />
+          <text
+            name="def"
+            label="Definition"
+            required="false" />
+          <text
+            name="comment"
+            column="term_comment"
+            label="Comment"
+            required="false" />
+          <boolean
+            name="obsolete"
+            label="Obsolete"
+            required="true"
+            defaultValue="false" />
+          <reference
+            name="ontology"
+            required="true"
+            label="Ontology"
+            type="dss.vector.solutions.ontology.Ontology" />
+        </attributes>
+      </mdBusiness>
+
+      <mdGraph
+        name="dss.vector.solutions.ontology.TermRelationship"
+        label="Term Relationship"
+        description="Ontology relationship between two terms."
+        isAbstract="false"
+        generateController="false">
+        <attributes>
+          <reference
+            name="ontologyRelationship"
+            required="true"
+            label="Ontology Relationship"
+            type="dss.vector.solutions.ontology.OntologyRelationship" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="ParentTerm" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="ChildTerm" />
+      </mdGraph>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.ontology.AllPaths"
+        label="Ontology All Paths"
+        description="Contains recursive relationships for all paths between ontology terms"
+        extendable="false"
+        isAbstract="false"
+        publish="false"
+        generateController="false"
+        table="allpaths_ontology">
+        <attributes>
+          <reference
+            name="parentTerm"
+            label="Parent Term"
+            required="true"
+            unique="false"
+            type="dss.vector.solutions.ontology.Term"
+            description="The parent term that has a relationship (possibily recursive) with the child term"
+            indexType="non-unique index" />
+          <reference
+            name="childTerm"
+            label="Child Term"
+            required="true"
+            unique="false"
+            type="dss.vector.solutions.ontology.Term"
+            description="The parent term that has a relationship (possibily recursive) with the child term"
+            indexType="non-unique index" />
+          <reference
+            name="ontologyRelationship"
+            label="Ontology Relationship"
+            required="true"
+            unique="false"
+            type="dss.vector.solutions.ontology.OntologyRelationship"
+            description="The relationship type definition"
+            indexType="non-unique index" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.AllPaths"
+        label="Parent Child Ontology Term Index"
+        active="true"
+        unique="true"
+        description="Enforces a unique index between the parent term and the child term">
+        <attribute
+          name="parentTerm"
+          indexOrder="0" />
+        <attribute
+          name="childTerm"
+          indexOrder="1" />
+        <attribute
+          name="ontologyRelationship"
+          indexOrder="2" />
+      </mdIndex>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.AllPaths"
+        label="Parent Term Ontology Relationship Type Index"
+        active="true"
+        unique="false"
+        description="Enforces a unique index between the parent term and the relatoinship type">
+        <attribute
+          name="parentTerm"
+          indexOrder="0" />
+        <attribute
+          name="ontologyRelationship"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.AllPaths"
+        label="Child Term Ontology Relationship Type Index"
+        active="true"
+        unique="false"
+        description="Enforces a unique index between the child term and the relatoinship type">
+        <attribute
+          name="childTerm"
+          indexOrder="0" />
+        <attribute
+          name="ontologyRelationship"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdException
+        name="dss.vector.solutions.ontology.InvalidRelationshipForOntologyException"
+        label="Unknown Term Exception">
+        <attributes>
+          <char
+            name="relationship"
+            label="Relationship"
+            required="true"
+            size="255" />
+          <char
+            name="ontology"
+            label="Ontology"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.ontology.InvalidOBOFormatException"
+        label="Invalid OBO File Exception">
+        <attributes>
+          <char
+            name="fileName"
+            label="File"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdException>
+
+    </create>
+
+    <create>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.coordinator">
+        <attribute
+          name="roleName"
+          value="mdss.coordinator" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="MDSS Coordinator" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.entomologist">
+        <attribute
+          name="roleName"
+          value="mdss.entomologist" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Entomologist" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.operationalManager">
+        <attribute
+          name="roleName"
+          value="mdss.operationalManager" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Operational Manager" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.MDSS">
+        <attribute
+          name="roleName"
+          value="mdss.MDSS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="MDSS" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.GUIVisibility">
+        <attribute
+          name="roleName"
+          value="mdss.GUIVisibility" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="GUIVisibility" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.dataCapturer">
+        <attribute
+          name="roleName"
+          value="mdss.dataCapturer" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Data Capturer" />
+        </attributeStruct>
+      </object>
+      <object
+        type="com.runwaysdk.system.Roles"
+        key="Roles.mdss.manager">
+        <attribute
+          name="roleName"
+          value="mdss.manager" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Manager" />
+        </attributeStruct>
+      </object>      
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.AllPaths"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.ontology.Term"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.ontology.Ontology"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

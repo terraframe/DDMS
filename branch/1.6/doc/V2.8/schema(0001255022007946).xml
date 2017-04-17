@@ -1,0 +1,98 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchy">
+          <create>
+            <attributes>
+              <reference
+                name="term"
+                label="Term"
+                description="Reference to the ontology Term that maps to this universal."
+                required="false"
+                type="dss.vector.solutions.ontology.Term" />
+            </attributes>
+          </create>
+        </mdBusiness>
+        
+        <mdView
+          name="dss.vector.solutions.geo.GeoEntityDefinition">
+          <create>
+            <attributes>
+              <virtual
+                name="term"
+                required="false"
+                type="dss.vector.solutions.geo.GeoHierarchy"
+                concrete="term" />
+            </attributes>
+          </create>
+        </mdView>
+        
+        <mdView
+          name="dss.vector.solutions.geo.GeoHierarchyView">
+          <create>
+            <attributes>
+              <virtual
+                name="term"
+                required="false"
+                type="dss.vector.solutions.geo.GeoHierarchy"
+                concrete="term" />
+            </attributes>
+          </create>
+        </mdView>
+        
+        <mdBusiness
+          name="dss.vector.solutions.geo.generated.GeoEntity">
+          <create>
+            <attributes>
+              <point
+                name="geoPoint"
+                label="Geo Point"
+                description="Geo Point"
+                required="false"
+                srid="4326"
+                dimension="2" />
+              <multipolygon
+                name="geoMultiPolygon"
+                label="Geo MultiPolygon"
+                description="Geo MultiPolygon"
+                required="false"
+                srid="4326"
+                dimension="2" />
+            </attributes>
+          </create>
+        </mdBusiness>
+        
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <attributes>
+            <reference
+              name="term"
+              label="Term"
+              description="Reference to the ontology Term that describes the GeoEntity sub-type."
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+          </attributes>
+        </create> 
+      </mdBusiness>
+      
+    </update>
+    
+    <create>
+
+      <object
+        key="Ontology__dss.vector.solutions.geo.GeoHierarchy.term"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.geo.GeoHierarchy.term"/>
+      </object> 
+          
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

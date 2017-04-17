@@ -1,0 +1,489 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<delete>
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="PoliticalOutbreakIdentification" />
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="PoliticalOutbreakNotification" />
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="FacilityOutbreakIdentification" />
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="FacilityOutbreakNotification" />
+
+			<object
+				key="dss.vector.solutions.general.SystemAlert.displayName"
+				type="com.runwaysdk.system.metadata.MdAttributeLocalText" />
+
+			<object
+				key="dss.vector.solutions.general.SystemAlert.emailTemplateVariables"
+				type="com.runwaysdk.system.metadata.MdAttributeLocalText" />
+		</delete>
+
+		<create>
+			<enumerationMaster
+				name="dss.vector.solutions.general.SystemAlertTypeMaster"
+				label="System Alert Type Master"
+				generateController="false">
+				<attributes>
+					<localText
+						name="emailTemplateVariables"
+						label="Template Variables" />
+				</attributes>
+			</enumerationMaster>
+
+			<object
+				key="SOURCE_OUTBREAK_IDENTIFICATION"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<attribute
+					name="enumName"
+					value="SOURCE_OUTBREAK_IDENTIFICATION" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Source Outbreak Identification" />
+				</attributeStruct>
+				<attributeStruct
+					name="emailTemplateVariables">
+					<attribute
+						name="defaultLocale"
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
+				</attributeStruct>
+			</object>
+
+			<object
+				key="SOURCE_OUTBREAK_NOTIFICATION"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<attribute
+					name="enumName"
+					value="SOURCE_OUTBREAK_NOTIFICATION" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Source Outbreak Notification" />
+				</attributeStruct>
+				<attributeStruct
+					name="emailTemplateVariables">
+					<attribute
+						name="defaultLocale"
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
+				</attributeStruct>
+			</object>
+
+			<object
+				key="FACILITY_OUTBREAK_IDENTIFICATION"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<attribute
+					name="enumName"
+					value="FACILITY_OUTBREAK_IDENTIFICATION" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Facility Outbreak Identification" />
+				</attributeStruct>
+				<attributeStruct
+					name="emailTemplateVariables">
+					<attribute
+						name="defaultLocale"
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
+				</attributeStruct>
+			</object>
+
+			<object
+				key="FACILITY_OUTBREAK_NOTIFICATION"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<attribute
+					name="enumName"
+					value="FACILITY_OUTBREAK_NOTIFICATION" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Facility Outbreak Notification" />
+				</attributeStruct>
+				<attributeStruct
+					name="emailTemplateVariables">
+					<attribute
+						name="defaultLocale"
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
+				</attributeStruct>
+			</object>
+
+			<object
+				key="ELEVATED_IMMATURE_INDEX_NOTIFICATION"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<attribute
+					name="enumName"
+					value="ELEVATED_IMMATURE_INDEX_NOTIFICATION" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Elevated Immature Index Notification" />
+				</attributeStruct>
+				<attributeStruct
+					name="emailTemplateVariables">
+					<attribute
+						name="defaultLocale"
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, taxon, startDate, endDate" />
+				</attributeStruct>
+			</object>
+
+			<mdEnumeration
+				name="dss.vector.solutions.general.SystemAlertType"
+				type="dss.vector.solutions.general.SystemAlertTypeMaster">
+				<includeAll />
+			</mdEnumeration>
+		</create>
+
+
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.general.SystemAlert">
+				<create>
+					<attributes>
+						<enumeration
+							name="alertType"
+							label="Alert Type"
+							type="dss.vector.solutions.general.SystemAlertType"
+							selectMultiple="false"
+							required="true" />
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							selectMultiple="false"
+							required="false" />
+					</attributes>
+				</create>
+			</mdBusiness>
+		</update>
+
+		<create>
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaSourceOutbreakIdentification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="SOURCE_OUTBREAK_IDENTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueSourceOutbreakIdentification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="SOURCE_OUTBREAK_IDENTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaSourceOutbreakNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="SOURCE_OUTBREAK_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueSourceOutbreakNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="SOURCE_OUTBREAK_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaFacilityOutbreakIdentification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="FACILITY_OUTBREAK_IDENTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueFacilityOutbreakIdentification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="FACILITY_OUTBREAK_IDENTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaFacilityOutbreakNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="FACILITY_OUTBREAK_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueFacilityOutbreakNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="FACILITY_OUTBREAK_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+			</object>
+
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="MalariaElevatedImmatureIndexNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="ELEVATED_IMMATURE_INDEX_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+			</object>
+
+			<object
+				type="dss.vector.solutions.general.SystemAlert"
+				key="DengueElevatedImmatureIndexNotification">
+				<attributeEnumeration
+					name="alertType">
+					<enumeratedItem
+						name="ELEVATED_IMMATURE_INDEX_NOTIFICATION" />
+				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="isOnscreenActive"
+					value="true" />
+				<attribute
+					name="isEmailActive"
+					value="true" />
+				<attribute
+					name="emailToAddresses"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailFromAddress"
+					value="mdsstest@gmail.com" />
+				<attribute
+					name="emailSubject"
+					value="Test Email ($alertType)" />
+				<attribute
+					name="emailBody"
+					value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+			</object>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete></delete>
+	</undoIt>
+</version>

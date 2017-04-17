@@ -1,0 +1,36 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.GeoTypeMismatchException"
+        label="Geo type mismatch exception"
+        message="The geo entity with geo id [{geoId}] is not of type [{geoType}]">
+        <attributes>
+          <text
+            name="geoId"
+            label="Geo id" />
+          <text
+            name="geoType"
+            label="Geo type" />
+        </attributes>
+      </mdException>
+    </create>
+    <permissions>
+      <method
+        methodName="defineGeoEntity"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.geo.GeoTypeMismatchException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

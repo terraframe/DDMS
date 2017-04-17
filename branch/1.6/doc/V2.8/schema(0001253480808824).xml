@@ -1,0 +1,75 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.EpiDate">
+
+        <mdMethod
+          name="snapToEpiWeek">
+          <create>
+            <mdParameter
+              name="snapToFirstDay"
+              label="Snap To First Day"
+              discription="True for snaping to fisrt day of Period, False for last day, Null for closest"
+              type="java.lang.Boolean"
+              order="1"/>
+          </create>
+        </mdMethod>
+
+        <mdMethod
+          name="snapToMonth">
+          <create>
+            <mdParameter
+              name="snapToFirstDay"
+              label="Snap To First Day"
+              discription="True for snaping to fisrt day of Period, False for last day, Null for closest"
+              type="java.lang.Boolean"
+              order="1"/>
+          </create>
+        </mdMethod>
+
+        <mdMethod
+          name="snapToQuarter">
+          <create>
+            <mdParameter
+              name="snapToFirstDay"
+              label="Snap To First Day"
+              discription="True for snaping to fisrt day of Period, False for last day, Null for closest"
+              type="java.lang.Boolean"
+              order="1"/>
+          </create>
+        </mdMethod>
+
+        <mdMethod
+          name="snapToYear">
+          <create>
+            <mdParameter
+              name="snapToFirstDay"
+              label="Snap To First Day"
+              discription="True for snaping to fisrt day of Period, False for last day, Null for closest"
+              type="java.lang.Boolean"
+              order="1"/>
+          </create>
+        </mdMethod>
+
+        <mdMethod
+          name="snapToSeason">
+          <create>
+            <mdParameter
+              name="snapToFirstDay"
+              label="Snap To First Day"
+              discription="True for snaping to fisrt day of Period, False for last day, Null for closest"
+              type="java.lang.Boolean"
+              order="1"/>
+          </create>
+        </mdMethod>
+
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

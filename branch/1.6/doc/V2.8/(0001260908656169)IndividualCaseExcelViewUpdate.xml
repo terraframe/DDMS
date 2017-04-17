@@ -1,0 +1,31 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.IndividualCaseExcelView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="residence"
+              type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+            <virtual
+              concrete="workplace"
+              type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.IndividualCaseExcelView.residence"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.IndividualCaseExcelView.workplace"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+    </delete>
+  </undoIt>
+</version>

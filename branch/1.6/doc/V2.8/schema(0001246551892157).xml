@@ -1,0 +1,87 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.DelegateIdException"
+        label="Delegate Id Exception"
+        description="The Operator Id cannot match the Spray Leader Id"/>
+      <mdException
+        name="dss.vector.solutions.UniqueOperatorIdException"
+        label="Operator Id Exception"
+        description="The Operator Id is already used"/>
+      <mdException
+        name="dss.vector.solutions.UniqueLeaderIdException"
+        label="Leader Id Exception"
+        description="The Spray Leader Id is already used"/>
+    </create>
+    
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="getAsViews"
+            label="Get As Views"
+            description="Returns GeoEntities as a list of GeoEntities as GeoEntityViews"
+            static="true"
+            returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
+            <mdParameter
+              name="entities"
+              label="Entities"
+              description="Ids of the GeoEntities to fetch"
+              type="java.lang.String[]"
+              order="0"/>
+        </mdMethod>      
+        </create>
+      </mdBusiness>     
+      
+     <mdBusiness name="dss.vector.solutions.MDSSUser">
+       <create>
+         <attributes>
+           <reference
+             name="defaultSearch"
+             label="Default Search"
+             description="Default Search"
+             required="false"
+             type="dss.vector.solutions.query.SavedSearch" />
+         </attributes>
+       </create>
+     </mdBusiness> 
+    
+     <mdBusiness name="dss.vector.solutions.query.SavedSearch">
+       <create>
+         <mdMethod
+           name="loadDefaultSearch"
+           label="Load Default Search"
+           description="Loads the default search for the current user"
+           static="true"
+           returnType="dss.vector.solutions.query.SavedSearchView">
+           <mdParameter
+             name="savedSearchView"
+             label="Saved Search View"
+             description="Saved Search View"
+             order="0"
+             type="dss.vector.solutions.query.SavedSearchView"/>
+         </mdMethod>
+        <mdMethod
+          name="loadSearch"
+          label="Load Search"
+          description="Loads a search with the given id."
+          static="true"
+          returnType="dss.vector.solutions.query.SavedSearchView">
+          <mdParameter
+            name="searchId"
+            label="Search Id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+      </create>
+     </mdBusiness>
+    
+    </update>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

@@ -1,0 +1,39 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.entomology.LethalTimePropertyProblem"
+        label="Lethal Time Property Problem"
+        description="Lower time must be less then upper time for Lethal Time Properties"
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.entomology.KnockDownTimePropertyProblem"
+        label="Knockdown Time Property Problem"
+        description="Lower time must be less then upper time for Knockdown Time Properties"
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.CurrentDateProblem"
+        label="Current Date Problem"
+        description="The given date may not be after the current date"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <date
+            name="givenDate"
+            label="Given Date"
+            required="true" />
+          <date
+            name="currentDate"
+            label="Current Date"
+            required="true" />
+        </attributes>
+      </mdProblem>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

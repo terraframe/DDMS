@@ -1,0 +1,16 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.NetSumProblem"
+        label="Net Sum Problem"
+        description="The sum of all individual nets does not sum up to the total number of nets"
+        extends="dss.vector.solutions.NotificationProblem" />
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

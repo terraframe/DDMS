@@ -1,0 +1,100 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.general.MalariaSeason"
+        label="Malaria Season"
+        description="A time period in which malaria tracking and intervention occurs">
+        <attributes>
+          <char
+            name="seasonName"
+            label="Season Name"
+            required="true"
+            unique="true"
+            size="255"
+            description="The name or display label for this season" />
+          <date
+            name="startDate"
+            required="true"
+            label="Start Date"
+            description="The first day of this season, inclusive" />
+          <date
+            name="endDate"
+            required="true"
+            label="End Date"
+            description="The last day of this season, inclusive" />
+        </attributes>
+
+        <mdMethod
+          name="getSeasonByDate"
+          label="Get Season By Date"
+          description="Returns the season that this date belongs to"
+          static="true"
+          returnType="dss.vector.solutions.general.MalariaSeason">
+          <mdParameter
+            name="date"
+            description="Date to search for"
+            label="date"
+            order="0"
+            type="java.util.Date" />
+        </mdMethod>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          returnType="dss.vector.solutions.general.MalariaSeason[]"
+          static="true"
+          description="Returns an array of all of the seasons, with the nearest season first"/>
+      </mdBusiness>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonOverlapProblem"
+        label="Season Overlap Exception"
+        description="The given date may not be after the current date">
+        <attributes>
+          <char
+            size="256"
+            name="overlap"
+            label="Overlaping Season"
+            required="true" />
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonTooLongProblem"
+        label="Season To Long Exception"
+        description="The season may not be longer then 365 days or 366 days for leap years">
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonDateProblem"
+        label="Season To Long Exception"
+        description="The end date must be after the start date">
+      </mdProblem>
+
+      <mdView
+        name="dss.vector.solutions.general.MalariaSeasonView"
+        label="Malaria Season">
+        <attributes>
+          <virtual
+            name="seasonName"
+            concrete="seasonName"
+            type="dss.vector.solutions.general.MalariaSeason" />
+          <virtual
+            name="startDate"
+            concrete="startDate"
+            type="dss.vector.solutions.general.MalariaSeason" />
+          <virtual
+            name="endDate"
+            concrete="endDate"
+            type="dss.vector.solutions.general.MalariaSeason" />
+        </attributes>
+      </mdView>
+
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,0 +1,23 @@
+These are the instructions to switch to load-time weaving for MDSS.
+
+1) Right-click on the MDSS project and select "AspectJ Tools" then "Remove AspectJ Capability"
+2) Open server.properties in your default profile and set compileTimeWeaving=false
+3) Append the following to your CATALINA_OPTS and change the path to your environment: -javaagent:/Users/justin/workspace/MDSS/lib/server/aspectjweaver.jar
+  - You will have to restart your terminal session to make the CATALINA_OPTS changes visible. (If this is done correctly, there
+    will be a -javaagent argument for Tomcat if you execute "ps -ef | grep java" after step 6)
+4) Modify deploy.xml to include the -javaagent jvm argument for all ant tasks which fork a new jvm.
+5) Perform a clean and build on MDSS to regenerate the class files
+6) Deploy the application files (to push the server.properties changes to your Tomcat install)
+7) Start Tomcat
+
+You're done. To ensure the weaving is working correctly, check catalina.out for AspectJ printouts. You should see something
+similar to the following when running MDSS:
+
+tail -f /usr/local/tomcat6/logs/catalina.out
+
+[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/runwaysdk.jar!/META-INF/aop.xml
+[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/runwaysdk_gis.jar!/META-INF/aop.xml
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.session.SessionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.dataaccess.transaction.TransactionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.session.SessionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.dataaccess.transaction.TransactionManagement

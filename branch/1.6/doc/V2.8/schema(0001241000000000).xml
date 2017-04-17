@@ -1,0 +1,321 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+<!--
+Removing this value in accordance with ticket #344
+      <object
+        type="dss.vector.solutions.Property"
+        id="8002">
+        <valueAttribute
+          name="propertyName"
+          value="8002" />
+        <valueAttribute
+          name="displayLabel"
+          value="Unit nozzle area coverage Default" />
+        <valueAttribute
+          name="propertyPackage"
+          value="dss.vector.solutions.irs.Standards" />
+        <valueAttribute
+          name="propertyValue"
+          value="35" />
+        <valueAttribute
+          name="propertyType"
+          value="Float" />
+        <valueAttribute
+          name="propertyValidator"
+          value="^\d{1,9}\.{0,1}\d{0,2}$" />
+        <valueAttribute
+          name="description"
+          value="Average amount of square meters that can typically be covered by a full can of insecticide using the unit nozzle." />
+      </object>
+-->
+
+      <mdProblem
+        name="dss.vector.solutions.irs.ValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="Value is not applicable on a mop-up spray"
+        isAbstract="true" >
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            size="255" />
+          <char
+            name="structureId"
+            label="Structure Id"
+            size="255" />                    
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.ValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.NotificationProblem"
+        isAbstract="true" >
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            size="255" />
+          <char
+            name="structureId"
+            label="Structure Id"
+            size="255" />                    
+        </attributes>        
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.CountProblem"
+        label="Household Value Problem"
+        description="A household with the given id has already been counted."
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.SprayedCountProblem"
+        label="Household Value Problem"
+        description="A household with the given id has already been counted as sprayed."
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.PrevSprayedCountProblem"
+        label="Household Value Problem"
+        description="A household with the given id has already been counted as previously sprayed."
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdProblem>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideNozzleView"
+        label="Configuration">
+        <attributes>
+          <char
+            name="insecticideNozzleId"
+            label="Insecticide Nozzle Id"
+            size="255"
+            required="true" />
+          <reference
+            name="brand"
+            label="Insecticide Brand"
+            required="true"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <reference
+            name="nozzle"
+            label="Nozzle"
+            required="true"
+            type="dss.vector.solutions.irs.Nozzle" />
+          <virtual
+            name="enabled"
+            concrete="enabled"
+            type="dss.vector.solutions.irs.InsecticideNozzle" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzleView[]"
+          label="Get All"
+          description="Returns all enabled Nozzles">
+        </mdMethod>
+        <mdMethod
+          name="getAllActive"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzleView[]"
+          label="Get All"
+          description="Returns all enabled Nozzles">
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzleView[]"
+          label="Apply All">
+          <mdParameter
+            name="insecticideNozzles"
+            label="Insecticide Nozzles"
+            order="0"
+            type="dss.vector.solutions.irs.InsecticideNozzleView[]" />
+        </mdMethod>
+      </mdView>
+      <mdController
+        name="dss.vector.solutions.irs.ApplicationRateController"
+        label="Application Rate Controller">
+        <mdAction
+          name="view"
+          label="View"
+          isPost="false"
+          isQuery="false" />
+        <mdAction
+          name="create"
+          label="Create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            label="dto"
+            order="0"
+            type="dss.vector.solutions.irs.AreaStandardsView" />
+        </mdAction>
+        <mdAction
+          name="update"
+          label="Update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            label="dto"
+            order="0"
+            type="dss.vector.solutions.irs.AreaStandardsView" />
+        </mdAction>
+      </mdController>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.InsecticideBrand">
+        <create>
+          <mdMethod
+            name="getAll"
+            static="true"
+            returnType="dss.vector.solutions.irs.InsecticideBrand[]"
+            label="Get All"
+            description="Returns all enabled Insecticide Brand">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.irs.Nozzle">
+        <create>
+          <mdMethod
+            name="getAll"
+            static="true"
+            returnType="dss.vector.solutions.irs.Nozzle[]"
+            label="Get All"
+            description="Returns all enabled Nozzles">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdRelationship
+        name="dss.vector.solutions.irs.InsecticideNozzle">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.irs.InsecticideBrand"
+          method="Insecticides" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.irs.Nozzle"
+          method="Nozzles" />
+        <create>
+          <mdMethod
+            name="getView"
+            static="true"
+            returnType="dss.vector.solutions.irs.InsecticideNozzleView"
+            label="Get View"
+            description="Returns a view representing the insecticide nozzle">
+            <mdParameter
+              name="id"
+              label="Id"
+              type="java.lang.String"
+              order="0" />
+          </mdMethod>
+          <mdMethod
+            name="lockView"
+            static="false"
+            returnType="dss.vector.solutions.irs.InsecticideNozzleView"
+            label="Lock View"
+            description="Locks the represented insecticide nozzle">
+          </mdMethod>
+          <mdMethod
+            name="unlockView"
+            static="false"
+            returnType="dss.vector.solutions.irs.InsecticideNozzleView"
+            label="Unlock View"
+            description="Unlocks the represented insecticide nozzle">
+          </mdMethod>
+        </create>
+      </mdRelationship>
+      <mdView
+        name="dss.vector.solutions.irs.AreaStandardsView">
+        <create>
+          <mdMethod
+            name="getMostRecent"
+            static="true"
+            returnType="dss.vector.solutions.irs.AreaStandardsView"
+            label="Get Most Recent">
+          </mdMethod>
+          <mdMethod
+            name="applyClone"
+            static="false"
+            returnType="void"
+            label="Apply Clone">
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.OperatorSprayView">
+        <create>
+          <mdMethod
+            name="getStatus"
+            label="Get Status"
+            returnType="dss.vector.solutions.irs.HouseholdSprayStatusView[]"
+            static="false">
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.TeamSprayView">
+        <create>
+          <mdMethod
+            name="getStatus"
+            label="Get Status"
+            returnType="dss.vector.solutions.irs.OperatorSprayStatusView[]"
+            static="false">
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.ZoneSprayView">
+        <create>
+          <mdMethod
+            name="getStatus"
+            label="Get Status"
+            returnType="dss.vector.solutions.irs.TeamSprayStatusView[]"
+            static="false">
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

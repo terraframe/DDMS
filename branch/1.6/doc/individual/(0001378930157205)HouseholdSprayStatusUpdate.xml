@@ -1,0 +1,34 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.irs.HouseholdSprayStatus">
+        <create>
+          <attributes>
+            <integer name="wrongSurface" label="Not sprayed (wrong surface) #" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.HouseholdSprayStatusView" label="Operator Spray Status">
+        <create>
+          <attributes>
+            <virtual name="wrongSurface" concrete="wrongSurface" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.OperatorSprayExcelView">
+        <create>
+          <attributes>
+            <virtual name="wrongSurface" concrete="wrongSurface" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.export.OperatorSprayExcelView.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.wrongSurface" type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

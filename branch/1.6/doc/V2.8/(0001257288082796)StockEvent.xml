@@ -1,0 +1,433 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.stock.StockItem">
+        <create>
+          <attributes>
+            <char
+              name="itemId"
+              label="Item Id"
+              required="true"
+              indexType="unique index"
+              size="255" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.stock.StockItemView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="itemId"
+              name="itemId"
+              type="dss.vector.solutions.stock.StockItem" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdBusiness
+        name="dss.vector.solutions.stock.StockStaff">
+        <create>
+          <mdMethod
+            name="getAll"
+            label="Get All"
+            returnType="dss.vector.solutions.stock.StockStaff[]"
+            static="true" />
+          <mdMethod
+            name="searchAll"
+            label="Search All"
+            returnType="dss.vector.solutions.stock.StockStaffQuery"
+            static="true">
+            <mdParameter
+              name="criteria"
+              label="Criteria"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.stock.EventOptionMaster"
+        label="Event Option"
+        generateController="false" />
+
+      <object
+        key="STOCK_IN"
+        type="dss.vector.solutions.stock.EventOptionMaster">
+        <attribute
+          name="enumName"
+          value="STOCK_IN" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Stock In" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="STOCK_OUT"
+        type="dss.vector.solutions.stock.EventOptionMaster">
+        <attribute
+          name="enumName"
+          value="STOCK_OUT" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Stock Out" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.stock.EventOption"
+        type="dss.vector.solutions.stock.EventOptionMaster"
+        label="Event Option">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.stock.StockEvent"
+        label="Stock Event"
+        generateController="false">
+        <attributes>
+          <reference
+            name="stockDepot"
+            label="Stock Depot"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <reference
+            name="item"
+            label="Item"
+            required="true"
+            type="dss.vector.solutions.stock.StockItem" />
+          <date
+            name="eventDate"
+            label="Event Date"
+            required="true" />
+          <reference
+            name="staff"
+            label="Staff"
+            required="true"
+            type="dss.vector.solutions.stock.StockStaff" />
+          <integer
+            name="quantity"
+            label="Quantity"
+            rejectNegative="true" />
+          <decimal
+            name="cost"
+            label="Cost per single unit"
+            rejectNegative="true"
+            length="30"
+            decimal="5" />
+          <enumeration
+            name="transactionType"
+            label="Transaction Type"
+            required="true"
+            selectMultiple="false"
+            type="dss.vector.solutions.stock.EventOption" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.stock.StockEventView"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="Lock View"
+          returnType="dss.vector.solutions.stock.StockEventView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="Unlock View"
+          returnType="dss.vector.solutions.stock.StockEventView"
+          static="false" />
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.stock.StockEventView"
+        label="Stock Event">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <integer
+            name="availableStock"
+            label="Available stock" />
+          <char
+            name="itemLabel"
+            label="Item"
+            size="255"
+            required="true" />
+          <char
+            name="staffLabel"
+            label="Staff"
+            size="255"
+            required="true" />
+          <virtual
+            name="stockDepot"
+            concrete="stockDepot"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="item"
+            concrete="item"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="eventDate"
+            concrete="eventDate"
+            label="Transaction Date"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="staff"
+            concrete="staff"
+            label="Stock Staff"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="quantity"
+            concrete="quantity"
+            label="Quantity"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="cost"
+            concrete="cost"
+            type="dss.vector.solutions.stock.StockEvent" />
+          <virtual
+            name="transactionType"
+            concrete="transactionType"
+            type="dss.vector.solutions.stock.StockEvent" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="getViews"
+          label="GetViews"
+          static="true"
+          returnType="dss.vector.solutions.stock.StockEventView[]">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="dss.vector.solutions.ontology.Term" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="transactionType"
+            label="Transaction Type"
+            order="3"
+            type="dss.vector.solutions.stock.EventOption" />
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          label="Apply All"
+          static="true"
+          returnType="dss.vector.solutions.stock.StockEventView[]">
+          <mdParameter
+            name="views"
+            label="View"
+            order="0"
+            type="dss.vector.solutions.stock.StockEventView[]" />
+        </mdMethod>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.stock.StockEventViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="-4" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="-3" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="-2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="-1" />
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="java.lang.String" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            order="3"
+            type="java.util.Date" />
+        </mdMethod>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.stock.StockEventController"
+        label="Stock Event Controller">
+        <mdAction
+          name="search"
+          label="search"
+          isPost="false"
+          isQuery="false" />
+        <mdAction
+          name="searchInStock"
+          label="Serach In Stock"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="dss.vector.solutions.ontology.Term" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="2"
+            type="java.util.Date" />
+        </mdAction>
+        <mdAction
+          name="searchOutStock"
+          label="Serach Out Stock"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="dss.vector.solutions.ontology.Term" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="2"
+            type="java.util.Date" />
+        </mdAction>
+        <mdAction
+          name="searchPage"
+          label="Search Page"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="dss.vector.solutions.ontology.Term" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            order="3"
+            type="java.util.Date" />
+        </mdAction>
+        <mdAction
+          name="getPage"
+          label="Get Page"
+          isPost="false"
+          isQuery="true">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="item"
+            label="Item"
+            order="1"
+            type="java.lang.String" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            order="3"
+            type="java.util.Date" />
+        </mdAction>
+      </mdController>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.stock.StockItemView.itemId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.stock.StockItem.itemId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.stock.StockEventController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.stock.EventOption"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.stock.EventOptionMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.stock.StockStaff.getAll"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.stock.StockStaff.searchAll"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.stock.StockEventView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.stock.StockEvent"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

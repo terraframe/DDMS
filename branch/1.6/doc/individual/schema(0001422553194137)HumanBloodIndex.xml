@@ -1,0 +1,93 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <!-- 
+    This Schema contains the metadata for tickets #3188 and #3199. These tickets implement a hardcoded MdWebForm (HumanBloodIndex) as well as the ability to clone forms.
+   -->
+
+  <doIt>
+    <create>
+      <mdWebForm name="dss.vector.solutions.form.HumanBloodIndex"
+          mdClass="dss.vector.solutions.form.business.HumanBloodIndex"
+          formName="VectorCollectionForm"
+          label="Vector collection form">
+        <fields>
+          <char name="oid" label="Form ID" displayLength="16" maxLength="255" order="0" mdAttribute="oid" unique="true" required="true" />
+          <char name="collectionId" label="Collection ID" displayLength="16" maxLength="255" order="1" mdAttribute="collectionId" unique="true" required="true" removable="true" showOnSearch="true" />
+          <!-- <reference name="collectionId" label="Collection ID" mdAttribute="collectionId" order="1" required="true"/> -->
+        </fields>
+      </mdWebForm>
+      
+      <mdBusiness name="dss.vector.solutions.form.business.HumanBloodIndex"
+          label="Human Blood Index"
+          description="Denotes the amount of human blood found in a collection"
+          generateController="false">
+        <attributes>
+          <char name="oid" label="Form ID" size="255" indexType="unique index" />
+          <reference name="disease" label="Disease" type="dss.vector.solutions.general.Disease" />
+          <char name="collectionId" label="Collection ID" size="255" removable="true" required="true" />
+          <!-- <reference name="collectionId" label="Collection ID" required="true" type="dss.vector.solutions.entomology.MosquitoCollection"/> -->
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update>
+      <!-- <mdController
+         name="dss.vector.solutions.query.QueryController">
+        <create>
+          <mdAction name="queryHBI" label="Query HBI" description="Query human blood index." />
+        </create>
+      </mdController> -->
+      
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="getFormByKey" label="getFormByKey" static="true" returnType="java.lang.String">
+            <mdParameter name="formKey" label="formKey" order="0" type="java.lang.String"/>
+          </mdMethod>
+          
+          <mdMethod name="clone" label="clone" static="true" returnType="com.runwaysdk.system.metadata.MdWebForm">
+            <mdParameter name="mdForm" label="mdForm" order="0" type="com.runwaysdk.system.metadata.MdWebForm"/>
+            <mdParameter name="mdClass" label="mdClass" order="1" type="com.runwaysdk.system.metadata.MdClass"/>
+            <mdParameter name="mdFields" label="mdFields" order="2" type="com.runwaysdk.system.metadata.MdWebField[]"/>
+            <mdParameter name="mdAttrs" label="mdAttrs" order="3" type="com.runwaysdk.system.metadata.MdAttributeConcrete[]"/>
+          </mdMethod>
+          
+          <mdMethod name="getMdBusinessByType" label="getMdBusinessByType" static="true" returnType="com.runwaysdk.system.metadata.MdBusiness">
+            <mdParameter name="bizType" label="bizType" order="1" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdUtil>
+      
+      <mdController
+         name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+          <mdAction name="viewClone" label="View Clone" description="Get the html form for performing a clone." isPost="true">
+            <mdParameter name="id" order="0" type="java.lang.String" label="id"/>
+          </mdAction>
+          <mdAction name="clone" label="Clone" description="Perform a clone." isPost="true">
+            <mdParameter name="form" order="0" type="com.runwaysdk.system.metadata.MdWebForm" label="mdForm"/>
+          </mdAction>
+        </create>
+      </mdController>
+      
+      <mdController
+         name="dss.vector.solutions.form.FormObjectController">
+        <create>
+          <mdAction name="formGeneratorKey" label="formGeneratorKey">
+            <mdParameter name="formKey" order="0" type="java.lang.String" label="formKey"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.form.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdWebForm"/>
+      <object key="dss.vector.solutions.form.business.HumanBloodIndex" type="com.runwaysdk.system.metadata.MdBusiness"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getFormByKey" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getMdBusinessByKey" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.generator.MdFormUtil.clone" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.form.MdFormAdminController.viewClone" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.form.MdFormAdminController.clone" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.form.FormObjectController.formGeneratorKey" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

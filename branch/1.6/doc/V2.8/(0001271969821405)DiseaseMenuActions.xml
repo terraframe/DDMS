@@ -1,0 +1,57 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.PersonController">
+        <create>
+          <mdAction
+            name="changeDisease"
+            label="Change Disease"
+            isPost="false"
+            isQuery="false">
+            <mdParameter
+              name="diseaseName"
+              order="0"
+              label="Disease Name"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness
+        name="dss.vector.solutions.MDSSUser">
+        <create>
+          <mdMethod
+            name="changeDisease"
+            label="Change Disease"
+            returnType="void">
+            <mdParameter
+              name="diseaseName"
+              order="0"
+              label="Disease Name"
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="getDiseaseName"
+            label="Get Disease Name"
+            returnType="java.lang.String">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.PersonController.changeDisease"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.MDSSUser.changeDisease"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.MDSSUser.getDiseaseName"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

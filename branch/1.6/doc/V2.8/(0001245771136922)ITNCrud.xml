@@ -1,0 +1,405 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ITNData"
+        label="ITN distribution data"
+        generateController="true">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <char
+            name="batchNumber"
+            label="The ITNs batch number"
+            size="255" />
+          <integer
+            name="receivedForTargetGroups"
+            label="The number of ITNs received for Target Groups"
+            rejectNegative="true" />
+          <integer
+            name="receivedForCommunityResponse"
+            column="receivedForCommunityResp"
+            label="Total number ITNs received for community response"
+            rejectNegative="true" />
+          <integer
+            name="numberDistributed"
+            label="Number of ITNs distributed"
+            rejectNegative="true" />
+          <integer
+            name="numberSold"
+            label="Number of ITNs sold"
+            rejectNegative="true" />
+          <decimal
+            name="currencyReceived"
+            label="Currency Received"
+            description="Monetary currency received"
+            length="12"
+            decimal="2"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="searchByGeoEntityAndEpiDate"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDataView"
+          static="true"
+          label="Search By GeoEntity and Epi Date">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <mdParameter
+            name="periodType"
+            label="Period Type"
+            order="1"
+            type="dss.vector.solutions.surveillance.PeriodType" />
+          <mdParameter
+            name="period"
+            label="Period"
+            order="2"
+            type="java.lang.Integer" />
+          <mdParameter
+            name="year"
+            label="Year"
+            order="3"
+            type="java.lang.Integer" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDataView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDataView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.ITNDataView"
+          static="false" />
+      </mdBusiness>
+
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.CurrencyAmountProblem"
+        extends="dss.vector.solutions.NotificationProblem"
+        label="Currency Amount Problem"
+        description="Currency received cannot be set when the total number of ITNs sold is zero." />
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNService"
+        label="ITN Service"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Total per type of service received"
+            defaultValue="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNData"
+          method="AggregatedITNsWithService" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Services" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNTargetGroup"
+        label="ITN Target Group"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Total ITNs distributed per target group/s"
+            defaultValue="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNData"
+          method="AggregatedITNsWithTargetGroups" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="TargetGroups" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.ITNNet"
+        label="ITN Net"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Total ITN distributed by type"
+            required="true"
+            rejectNegative="true"
+            defaultValue="0" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.ITNData"
+          method="AggregatedITNsWithNets" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="Nets" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNDataView"
+        label="ITN distribution data">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <char
+            name="geoId"
+            label="Geo Id"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            size="255" />
+          <enumeration
+            name="periodType"
+            label="Period Type"
+            required="true"
+            type="dss.vector.solutions.surveillance.PeriodType"
+            description="The period type"
+            selectMultiple="false" />
+          <integer
+            name="period"
+            label="Period"
+            required="true"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="periodYear"
+            label="Year"
+            required="true" />
+          <virtual
+            name="batchNumber"
+            concrete="batchNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <virtual
+            name="receivedForTargetGroups"
+            concrete="receivedForTargetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <virtual
+            name="receivedForCommunityResponse"
+            concrete="receivedForCommunityResponse"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <virtual
+            name="numberDistributed"
+            concrete="numberDistributed"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <virtual
+            name="numberSold"
+            concrete="numberSold"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <virtual
+            name="currencyReceived"
+            concrete="currencyReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNData" />
+          <reference
+            name="displayServices"
+            label="Total per type of service received"
+            description="Marker for displaying ITN Service grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="displayTargetGroups"
+            label="Total ITNs distributed per target group/s"
+            description="Marker for displaying ITN Target Group grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="displayNets"
+            label="Total ITN distributed by type"
+            description="Marker for displaying ITN Net grid"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getITNNets"
+          label="Get ITN Nets"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNNet[]" />
+        <mdMethod
+          name="getITNTargetGroups"
+          label="Get ITN Target Groups"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNTargetGroup[]" />
+        <mdMethod
+          name="getITNServices"
+          label="Get ITN Services"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.ITNService[]" />
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply ITN distributed data and all of its grids">
+          <mdParameter
+            name="nets"
+            type="dss.vector.solutions.intervention.monitor.ITNNet[]"
+            order="1"
+            label="ITN Nets" />
+          <mdParameter
+            name="targetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNTargetGroup[]"
+            order="2"
+            label="ITN target groups" />
+          <mdParameter
+            name="services"
+            type="dss.vector.solutions.intervention.monitor.ITNService[]"
+            order="3"
+            label="ITN Services" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ITNDataController">
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNDataView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.ITNDataView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNDataView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+            <mdParameter
+              name="services"
+              type="dss.vector.solutions.intervention.monitor.ITNService[]"
+              order="3"
+              label="ITN Services" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.ITNDataView" />
+          <create>
+            <mdParameter
+              name="nets"
+              type="dss.vector.solutions.intervention.monitor.ITNNet[]"
+              order="1"
+              label="ITN Nets" />
+            <mdParameter
+              name="targetGroups"
+              type="dss.vector.solutions.intervention.monitor.ITNTargetGroup[]"
+              order="2"
+              label="ITN target groups" />
+            <mdParameter
+              name="services"
+              type="dss.vector.solutions.intervention.monitor.ITNService[]"
+              order="3"
+              label="ITN Services" />
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            isPost="false"
+            isQuery="false"
+            label="Search" />
+          <mdAction
+            name="searchByGeoIdAndPeriod"
+            isPost="true"
+            label="Search By GeoId and Period"
+            isQuery="false">
+            <mdParameter
+              name="geoId"
+              order="0"
+              type="java.lang.String"
+              label="Geo Id" />
+            <mdParameter
+              name="periodType"
+              label="Period Type"
+              type="java.lang.String"
+              order="1" />
+            <mdParameter
+              name="period"
+              label="period"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="year"
+              label="Year"
+              order="3"
+              type="java.lang.Integer" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

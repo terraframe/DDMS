@@ -1,0 +1,590 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.ImmatureThreshold"
+        label="Configure thresholds for collection of immatures by container type"
+        generateController="true"
+        cacheAlgorithm="everything">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.general.Disease"
+            indexType="non-unique index" />
+          <char
+            name="thresholdIndex"
+            label="Index"
+            required="true"
+            indexType="non-unique index"
+            size="255" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <decimal
+            name="thresholdValue"
+            label="Value"
+            length="32"
+            decimal="2" />
+        </attributes>
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.entomology.ImmatureThresholdView"
+          description="Unlocks the corresponding SurveyPoint and returns its view representation"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="Lock View"
+          returnType="dss.vector.solutions.entomology.ImmatureThresholdView"
+          description="Locks the corresponding SurveyPoint and returns its view representation"
+          static="false" />
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.entomology.ImmatureThresholdView"
+          description="Returns the view representation of a given SurveyPoint"
+          static="false">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.entomology.ImmatureThreshold"
+        label="Immature Threshold Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="disease"
+          indexOrder="0" />
+        <attribute
+          name="thresholdIndex"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.entomology.ImmatureThresholdView"
+        label="Configure thresholds for collection of immatures by container type">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <virtual
+            concrete="thresholdIndex"
+            type="dss.vector.solutions.entomology.ImmatureThreshold" />
+          <virtual
+            concrete="displayLabel"
+            type="dss.vector.solutions.entomology.ImmatureThreshold" />
+          <virtual
+            concrete="thresholdValue"
+            type="dss.vector.solutions.entomology.ImmatureThreshold" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.entomology.ImmatureThresholdViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+
+      <object
+        key="MALARIA.PUPAE_PREMISE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_PREMISE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Premise" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.PUPAE_HECTARE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_HECTARE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Hectare" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.PUPAE_PERSON"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_PERSON" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Person" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.PUPAL_INDEX"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAL_INDEX" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupal Index" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.BRETEAU_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.BRETEAU_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.BRETEAU_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Immatures" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.CONTAINER_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.CONTAINER_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.CONTAINER_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Immatures" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.HOUSE_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.HOUSE_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="MALARIA.HOUSE_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="MALARIA" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Immatures" />
+        </attributeStruct>
+      </object>      
+
+      <object
+        key="DENGUE.PUPAE_PREMISE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_PREMISE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Premise" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.PUPAE_HECTARE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_HECTARE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Hectare" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.PUPAE_PERSON"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAE_PERSON" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupae per Person" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.PUPAL_INDEX"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="PUPAL_INDEX" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Pupal Index" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.BRETEAU_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.BRETEAU_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.BRETEAU_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="thresholdIndex"
+          value="BRETEAU_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Breteau Index for Immatures" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.CONTAINER_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.CONTAINER_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.CONTAINER_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="CONTAINER_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Container Index for Immatures" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.HOUSE_PUPAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_PUPAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Pupae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.HOUSE_LARVAE"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_LARVAE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Larvae" />
+        </attributeStruct>
+      </object>
+      <object
+        key="DENGUE.HOUSE_IMMATURES"
+        type="dss.vector.solutions.entomology.ImmatureThreshold">
+        <attributeReference
+          name="disease"
+          key="DENGUE" />        
+        <attribute
+          name="thresholdIndex"
+          value="HOUSE_IMMATURES" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="House Index for Immatures" />
+        </attributeStruct>
+      </object>
+      
+      
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.entomology.ImmatureThresholdController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.ImmatureThresholdView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.ImmatureThresholdView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.ImmatureThresholdView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.ImmatureThresholdView" />
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.ImmatureThresholdController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.entomology.ImmatureThresholdView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.ImmatureThreshold"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,18 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.report.ReportItem">
+        <mdMethod name="render">
+          <create>
+            <mdParameter name="reportURL" label="Report URL" order="3" type="java.lang.String" />
+          </create>
+        </mdMethod>
+      </mdBusiness>    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.report.ReportItem.render.reportURL" type="com.runwaysdk.system.metadata.MdParameter"/>      
+    </delete>
+  </undoIt>
+</version>

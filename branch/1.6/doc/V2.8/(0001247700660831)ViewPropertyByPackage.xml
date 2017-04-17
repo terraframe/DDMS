@@ -1,0 +1,35 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController
+        name="dss.vector.solutions.PropertyController"
+        label="System Property Controller"
+        description="Controller to manage access to system properties">
+        <create>
+          <mdAction
+            name="viewPackage"
+            label="View Package"
+            description="Views all properties in a given package"
+            isPost="false">
+            <mdParameter
+              name="propertyPackage"
+              label="Property Package"
+              order="0"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+    <create>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.PropertyController.viewPackage"
+        type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

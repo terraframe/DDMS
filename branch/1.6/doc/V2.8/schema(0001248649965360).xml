@@ -1,0 +1,46 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <object
+        type="dss.vector.solutions.QueryTypeMaster"
+        key="dss.vector.solutions.QueryTypeMaster.RESISTANCE">
+        <attribute
+          name="enumName"
+          value="RESISTANCE"/>
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Resistance"/>
+        </attributeStruct>
+      </object>
+    </create>
+    <create>
+      <object
+        type="dss.vector.solutions.QueryTypeMaster"
+        key="dss.vector.solutions.QueryTypeMaster.EFFICACY">
+        <attribute
+          name="enumName"
+          value="EFFICACY"/>
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Efficacy"/>
+        </attributeStruct>
+      </object>
+
+      <mdException
+        name="dss.vector.solutions.query.NoEntitiesInThematicLayerException"
+        label="No Entities in thematic layer exception"
+        description="Thrown when a user tries to create a thematic layer without any geometry data.">
+      </mdException>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

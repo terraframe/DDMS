@@ -1,0 +1,12 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.query.GeoserverResponseException" label="Geoserver response exception" message="Geoserver failed to generate the layer image.  This can occur under a heavy system load.  Please try again when the system is not being used as much"/>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.query.GeoserverResponseException" type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

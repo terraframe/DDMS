@@ -1,0 +1,130 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdException
+        name="dss.vector.solutions.query.NoColumnsAddedException"
+        label="No Columns Added Exception"
+        description="Thrown when a user tries to perform a query without having first added any columns.">
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.query.GeoEntityNotUniqueException"
+        label="Geo Entity Not Unique Exception"
+        description="Thrown when a user tries to create a map with multiple instances of the same Geo Entity.">
+        <attributes>
+          <virtual
+            name="entityName"
+            concrete="entityName"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <virtual
+            name="geoId"
+            concrete="geoId"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="false" />
+          <char
+            name="entityType"
+            concrete="entityType"
+            required="true"
+            size="100"
+            label="Entity Type" />
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.query.OverlapBoundsException"
+        label="Overlap Bounds Exception"
+        description="Thrown when a user specifies overlapping boundaries in two categories.">
+        <attributes>
+          <char
+            name="rangeOne"
+            label="Range One"
+            required="true"
+            size="50"/>
+          <char
+            name="rangeTwo"
+            label="Range Two"
+            required="true"
+            size="50"/>
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.geo.NoCompatibleTypesException"
+        label="No Compatible Types Exception"
+        description="Thrown when a user tries to change an entity's type but there are no other compatible types available.">
+        <attributes>
+          <!-- FIXME These attributes are not being imported correctly.
+          <virtual
+            name="entityName"
+            concrete="entityName"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <virtual
+            name="geoId"
+            concrete="geoId"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="false" />
+           -->
+        </attributes>
+      </mdException>
+
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.EpiDate">
+        <create>
+          <mdMethod
+            name="getNumberOfEpiWeeks"
+            label="Get Epi Weeks"
+            description="Returns the number of epiWeeks In this epi year"
+            static="false"
+            returnType="java.lang.Integer">
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="changeUniversalType"
+            label="Change Universal Type"
+            static="false"
+            description="Allows a GeoEntity to have its underlying class changed."
+            returnType="dss.vector.solutions.geo.generated.GeoEntity">
+            <mdParameter
+              name="newType"
+              label="New Type"
+              description="The new universal type of the entity"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+          <mdMethod
+            name="getCompatibleTypes"
+            label="Get Compatible Types"
+            description="Returns a list of types this Geo Entity can be changed to."
+            static="false"
+            returnType="java.lang.String[]">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchy">
+        <create>
+        <mdMethod
+          name="getAllGeoHierarchyViews"
+          label="Gets all GeoHierarchyViews"
+          description="Gets views to represent GeoEntity Hierarchies"
+          returnType="dss.vector.solutions.geo.GeoHierarchyViewQuery"
+          static="true">
+        </mdMethod>
+        </create>
+      </mdBusiness>
+      </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

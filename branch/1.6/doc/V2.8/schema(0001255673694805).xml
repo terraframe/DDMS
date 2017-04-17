@@ -1,0 +1,28 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdException
+        name="dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping"
+        label="Missing MO to GeoUniversal Mapping">
+        <attributes>
+          <char
+            name="termId"
+            label="Term Id"
+            required="true"
+            indexType="unique index"
+            size="64" />
+        </attributes>
+      </mdException>
+
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

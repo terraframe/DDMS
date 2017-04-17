@@ -1,0 +1,116 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.TimeInterventionPlanningView">
+        <create>
+          <mdMethod
+            name="exportToExcel"
+            returnType="java.io.InputStream"
+            label="Export To Excel"
+            static="true">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.TimeInterventionPlanningView[]" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideInterventionPlanningView">
+        <create>
+          <mdMethod
+            name="exportToExcel"
+            returnType="java.io.InputStream"
+            label="Export To Excel"
+            static="true">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.InsecticideInterventionPlanningView[]" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.OperatorInterventionPlanningView">
+        <create>
+          <mdMethod
+            name="exportToExcel"
+            returnType="java.io.InputStream"
+            label="Export To Excel"
+            static="true">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.OperatorInterventionPlanningView[]" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdController
+        name="dss.vector.solutions.irs.InterventionPlanningController">
+        <create>
+          <mdAction
+            name="exportTimePlanning"
+            label="Export Time Planning"
+            isPost="true"
+            description="Exports an time intervention planning data to an excel sheet">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.TimeInterventionPlanningView[]" />
+          </mdAction>
+          <mdAction
+            name="exportInsecticidePlanning"
+            label="Export Insecticide Planning"
+            isPost="true"
+            description="Exports an insecticide intervention planning data to an excel sheet">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.InsecticideInterventionPlanningView[]" />
+          </mdAction>
+          <mdAction
+            name="exportOperatorPlanning"
+            label="Export Operator Planning"
+            isPost="true"
+            description="Exports an operator intervention planning data to an excel sheet">
+            <mdParameter
+              name="views"
+              label="Views"
+              order="0"
+              type="dss.vector.solutions.irs.OperatorInterventionPlanningView[]" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.TimeInterventionPlanningView.exportToExcel"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideInterventionPlanningView.exportToExcel"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.irs.OperatorInterventionPlanningView.exportToExcel"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.irs.InterventionPlanningController.exportTimePlanning"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.irs.InterventionPlanningController.exportInsecticidePlanning"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.irs.InterventionPlanningController.exportOperatorPlanning"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

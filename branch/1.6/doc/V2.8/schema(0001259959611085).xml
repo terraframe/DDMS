@@ -1,0 +1,275 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+
+      <object
+        key="dss.vector.solutions.query.Layer.geoHierarchy"
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object
+        key="dss.vector.solutions.query.MappingController.createLayer"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.query.MappingController.editLayer"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.query.SavedMap.addLayerToMap"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.query.LayerView.universalType"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+        
+      <object
+        key="dss.vector.solutions.geo.GeoEntityDefinition.parentTypeGeoHierarchyId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+        
+      <object
+        key="dss.vector.solutions.query.RangeCategory.lowerBound"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.RangeCategory.upperBound"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.NonRangeCategory.exactValue"
+        type="com.runwaysdk.system.metadata.MdAttribute" />       
+    
+    </delete>
+
+    <update>
+    
+      <mdBusiness
+        name="dss.vector.solutions.query.RangeCategory">
+        <create>
+          <attributes>
+            <char
+              name="lowerBoundStr"
+              label="Lower Bound"
+              required="true"
+              size="255" />
+            <char
+              name="upperBoundStr"
+              label="Upper Bound"
+              required="true"
+              size="255" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      
+      <mdBusiness
+        name="dss.vector.solutions.query.NonRangeCategory">
+        <create>
+          <attributes>
+            <char
+              name="exactValueStr"
+              label="Exact Value"
+              required="true"
+              size="255" />
+          </attributes>
+        </create>
+      </mdBusiness>    
+    
+     <mdController
+        name="dss.vector.solutions.query.AbstractCategoryController">
+        <create>
+          <mdAction
+            name="saveCategory"
+            label="Save Category"
+            isPost="true">
+            <mdParameter
+              name="category"
+              label="Category"
+              order="0"
+              type="dss.vector.solutions.query.AbstractCategory" />
+            <mdParameter
+              name="styles"
+              label="Styles"
+              order="1"
+              type="dss.vector.solutions.query.Styles" />
+            <mdParameter
+              name="layerId"
+              label="Layer Id"
+              order="2"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+      
+      <mdBusiness
+        name="dss.vector.solutions.query.AbstractCategory">
+        <create>
+          <mdMethod
+            name="applyWithStyles"
+            label="Apply With Styles"
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="styles"
+              label="Styles"
+              order="0"
+              type="dss.vector.solutions.query.Styles" />
+            <mdParameter
+              name="layerId"
+              label="Layer Id"
+              order="1"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <mdMethod name="applyWithParent">
+          <create>
+            <mdParameter
+              name="oldParentId"
+              order="2"
+              label="Old Parent Id"
+              type="java.lang.String" />
+          </create>
+        </mdMethod>
+        <create>
+          <mdMethod
+            name="deleteEntity"
+            label="Delete Entity"
+            returnType="void"
+            static="false">
+          </mdMethod>        
+        </create>
+      </mdBusiness>    
+    
+      <mdController
+        name="dss.vector.solutions.query.LayerController">
+        <create>
+          <mdAction
+            name="saveLayer"
+            label="Save Layer"
+            isPost="true">
+              <mdParameter
+                name="layer"
+                label="Layer"
+                order="0"
+                type="dss.vector.solutions.query.Layer" />
+              <mdParameter
+                name="styles"
+                label="Styles"
+                order="1"
+                type="dss.vector.solutions.query.Styles" />       
+              <mdParameter
+                name="savedMapId"
+                label="SavedMap Id"
+                order="2"
+                type="java.lang.String" />     
+          </mdAction>
+        </create>
+      </mdController>
+      
+      <mdBusiness
+        name="dss.vector.solutions.query.Layer">
+        <attributes>
+          <reference
+            name="savedSearch"
+            label="Saved Query"/>
+        </attributes>
+        <create>
+          <attributes>
+            <decimal
+              name="opacity"
+              label="Layer Opacity"
+              required="true"
+              rejectNegative="true"
+              defaultValue="1.0"
+              decimal="2"
+              length="3"/>
+          </attributes>
+          <mdMethod
+            name="applyWithStyles"
+            label="Apply With Styles"
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="styles"
+              label="Styles"
+              order="0"
+              type="dss.vector.solutions.query.Styles"/> 
+            <mdParameter
+              name="savedMapId"
+              label="SavedMap Id"
+              order="1"
+              type="java.lang.String" />     
+          </mdMethod>
+        </create> 
+      </mdBusiness>
+    
+      <mdBusiness
+        name="dss.vector.solutions.query.SavedMap">
+        <create>
+          <mdMethod
+            name="createFromExisting"
+            label="Create From Existing"
+            description="Creates a SavedMap and clones and clones the properties of the existing map."
+            static="false"
+            returnType="dss.vector.solutions.query.LayerViewQuery">
+            <mdParameter
+              name="existingMapId"
+              label="Existing Map Id"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster.SQUARE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Square"/>
+        </attributeStruct> 
+      </object>
+
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster.CIRCLE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Circle"/>
+        </attributeStruct> 
+      </object>
+
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster.TRIANGLE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Triangle"/>
+        </attributeStruct> 
+      </object>
+
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster.STAR"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Star"/>
+        </attributeStruct> 
+      </object>
+
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster.CROSS"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Cross"/>
+        </attributeStruct> 
+      </object>
+      
+      <object
+        key="dss.vector.solutions.geo.GeoEntityDefinition.term"
+        type="com.runwaysdk.system.metadata.MdAttribute">
+        <attributeStruct name="displayLabel">
+          <attribute name="defaultLocale" value="Type Root"/>
+        </attributeStruct> 
+      </object>      
+      
+    </update>
+
+
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

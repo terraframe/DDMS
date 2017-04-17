@@ -1,0 +1,54 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedITNExcelView"
+        label="Aggregated ITN Distribution Excel View"
+        description="Excel view for importing/exporting aggregated ITN distribution data">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <char
+            name="periodType"
+            label="Period Type"
+            size="255" />
+          <virtual
+            concrete="period"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView"/>
+          <virtual
+            concrete="periodYear"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView"/>
+          <virtual
+            concrete="batchNumber"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+          <virtual
+            concrete="receivedForTargetGroups"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+          <virtual
+            concrete="receivedForCommunityResponse"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+          <virtual
+            concrete="numberDistributed"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+          <virtual
+            concrete="numberSold"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+          <virtual
+            concrete="currencyReceived"
+            type="dss.vector.solutions.intervention.monitor.ITNData"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.AggregatedITNExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

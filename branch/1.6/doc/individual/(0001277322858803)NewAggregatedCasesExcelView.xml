@@ -1,0 +1,97 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <!-- 
+       -->
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseExcelView"
+        label="Aggregated Case Excel View"
+        description="Excel view for aggregated cases"
+        publish="false">
+        <attributes>
+          <virtual
+            concrete="geoEntity"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="endDate"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="displayLabel"
+            label="Age Group"
+            type="dss.vector.solutions.surveillance.AggregatedAgeGroup"/>
+          <virtual
+            concrete="cases"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="positiveCases"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="negativeCases"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+          <virtual
+            concrete="deaths"
+            type="dss.vector.solutions.surveillance.AggregatedCase"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseTypesExcelView"
+        label="Aggregated Case Types Excel View"
+        description="Partial excel view for aggregated cases, containing grid info for type of diagnosis, disease manifestation, and type of patient"
+        extends="dss.vector.solutions.export.AggregatedCaseExcelView">
+        <attributes>
+          <char
+            name="diagnosisType"
+            label="Type of diagnosis"
+            size="256"/>
+          <char
+            name="diseaseManifestation"
+            label="Disease Manifestation"
+            size="256"/>
+          <char
+            name="patientType"
+            label="Type of Patient"
+            size="256"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseTreatmentsExcelView"
+        label="Aggregated Case Treatments Excel View"
+        description="Partial excel view for aggregated cases, containing grid info for treatments, treatment methods, and treatment stock"
+        extends="dss.vector.solutions.export.AggregatedCaseExcelView">
+        <attributes>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseReferralsExcelView"
+        label="Aggregated Case Referrals Excel View"
+        description="Partial excel view for aggregated cases, containing grid info for case referrals, transfer reasons, and diagnostic methods"
+        extends="dss.vector.solutions.export.AggregatedCaseExcelView">
+        <attributes>
+        </attributes>
+      </mdView>
+    </create>
+    <update>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.AggregatedCaseReferralsExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.AggregatedCaseTreatmentsExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.AggregatedCaseTypesExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.AggregatedCaseExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <!-- 
+       -->
+    </delete>
+  </undoIt>
+</version>

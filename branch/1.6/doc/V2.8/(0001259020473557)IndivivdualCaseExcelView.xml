@@ -1,0 +1,137 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.IndividualCaseExcelView"
+        label="Individual Case Excel View"
+        generateController="false">
+        <attributes>
+          <!-- Case Information -->
+          <virtual
+            concrete="caseReportDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          <virtual
+            concrete="diagnosisDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          <virtual
+            concrete="age"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          <virtual
+            concrete="probableSource"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          <virtual
+            concrete="firstName"
+            type="dss.vector.solutions.Person"/>
+          <virtual
+            concrete="lastName"
+            type="dss.vector.solutions.Person"/>
+          <virtual
+            concrete="dateOfBirth"
+            type="dss.vector.solutions.Person"/>
+          <char
+            name="sex"
+            label="Patient Sex"
+            size="255"/>
+          <!-- Instance Information -->
+          <virtual
+            concrete="activelyDetected"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="healthFacility"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <char
+            name="detectedBy"
+            label="Organization responsible for case detection"
+            size="255"/>
+          <!-- Basic Case Information -->
+          <virtual
+            concrete="clinicalDiagnosis"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="symptomOnset"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+          <virtual
+            concrete="facilityVisit"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <char
+            name="patientCategory"
+            label="Patient Category"
+            size="255"/>
+          <virtual
+            concrete="admissionDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="releaseDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="anaemiaPatient"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="pregnant"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="diedInFacility"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <!-- Administrative Information -->
+          <virtual
+            concrete="properlyRelease"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="referredTo"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="referredFrom"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <char
+            name="referralReason"
+            label="Reason for Referral"
+            size="255"/>
+          <!-- Laboratory Testing -->
+          <char
+            name="sampleType"
+            label="Sample Type"
+            size="255"/>
+          <char
+            name="labTest"
+            label="Test used"
+            size="255"/>
+          <virtual
+            concrete="testSampleDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <virtual
+            concrete="labTestDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <char
+            name="malariaType"
+            label="Malaria Type"
+            size="255"/>
+          <!-- Treatment -->
+          <char
+            name="treatmentMethod"
+            label="Treatment Method"
+            size="255"/>
+          <char
+            name="treatment"
+            label="Treatment"
+            size="255"/>
+          <virtual
+            concrete="treatmentStartDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+          <!-- Clinical Findings -->
+          <virtual
+            concrete="symptomComments"
+            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.IndividualCaseExcelView"
+        type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+  </undoIt>
+</version>

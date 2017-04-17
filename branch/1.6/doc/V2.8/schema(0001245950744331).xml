@@ -1,0 +1,89 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.EpiDate">
+        <create>
+          <mdMethod
+            name="snapToEpiWeek"
+            label="snapToEpiWeek"
+            description="Accepts a date and returns the begining or ending of the epiWeek, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
+          </mdMethod>
+          <mdMethod
+            name="snapToMonth"
+            label="snapToMonth"
+            description="Accepts a date and returns the begining or ending of the month, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
+          </mdMethod>
+          <mdMethod
+            name="snapToQuarter"
+            label="snapToQuarter"
+            description="Accepts a date and returns the begining or ending of the quarter, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
+          </mdMethod>
+          <mdMethod
+            name="snapToYear"
+            label="snapToYear"
+            description="Accepts a date and returns the begining or ending of the year, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
+          </mdMethod>
+          <mdMethod
+            name="snapToSeason"
+            label="snapToSeason"
+            description="Accepts a date and returns the begining or ending of the season, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.AllPaths">
+        <create>
+          <mdMethod
+            name="regeneratePaths"
+            label="Regenerate Paths"
+            description="Regenerates all GeoEntity paths."
+            static="true"
+            returnType="void">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

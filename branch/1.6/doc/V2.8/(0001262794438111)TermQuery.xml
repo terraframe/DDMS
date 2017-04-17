@@ -1,0 +1,66 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="termQueryByIds"
+            static="true"
+            returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter
+              name="termIds"
+              label="Term Ids"
+              order="0"
+              type="java.lang.String[]" />
+          </mdMethod>
+          <mdMethod
+            name="termQueryWithRoots"
+            static="true"
+            returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="parameters"
+              label="Parameters"
+              order="1"
+              type="java.lang.String[]" />
+          </mdMethod>
+          <mdMethod
+            name="termQuery"
+            static="true"
+            returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="parentTermIds"
+              label="Parent Term Ids"
+              order="1"
+              type="java.lang.String[]" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.Term.termQueryByIds"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.ontology.Term.termQuery"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.ontology.Term.termQueryWithRoots"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

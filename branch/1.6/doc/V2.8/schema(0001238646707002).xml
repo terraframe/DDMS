@@ -1,0 +1,158 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.EfficacyAssay"
+        label="Efficacy Assay"
+        description="An efficacy assay which can be performed on a colony mosquitos"
+        extends="dss.vector.solutions.entomology.assay.AbstractAssay">
+        <attributes>
+          <reference
+            name="testMethod"
+            label="Test Method"
+            type="dss.vector.solutions.ontology.Term" />
+          <integer
+            name="holdingTime"
+            label="Holding Time (hr)"
+            required="true"
+            rejectNegative="true"
+            description="The amount of time the mosquitos were held before exposure in hours"
+            defaultValue="23" />
+          <integer
+            name="quantityDead"
+            label="Number Dead"
+            rejectNegative="true"
+            required="true"
+            description="The total number of mosquitos which died during the assay" />
+          <integer
+            name="quantityLive"
+            label="Number Alive"
+            rejectNegative="true"
+            required="true"
+            description="The total number of mosquitos which lived during the assay" />
+          <float
+            name="mortality"
+            label="Percentage Mortality"
+            length="5"
+            decimal="2"
+            required="true"
+            description="The mortality rate of mosquitos" />
+          <char
+            name="colonyName"
+            size="255"
+            label="Colony Name"
+            description="The name of the colony" />
+          <integer
+            name="exposureTime"
+            label="Time Exposed (minutes)"
+            description="The exposure time in minutes"
+            rejectNegative="true"
+            rejectZero="true"
+            defaultValue="3"
+            immutable="true" />
+          <integer
+            name="quantityTested"
+            label="Number Exposed"
+            rejectNegative="true"
+            rejectZero="true"
+            required="true"
+            description="The total number mosquitos tested" />
+          <reference
+            name="surfacePostion"
+            label="Position on surface"
+            description="The surface position of the insecticide"
+            type="dss.vector.solutions.ontology.Term" />
+          <integer
+            name="timeOnSurface"
+            label="Time on Surface (weeks)"
+            description="The length of time the Insecticide has been on the surface in weeks"
+            rejectNegative="true" />
+          <reference
+            name="geoEntity"
+            required="true"
+            label="Surface"
+            type="dss.vector.solutions.geo.generated.Surface" />
+          <struct
+            name="ageRange"
+            label="Age Range"
+            required="false"
+            description="The age range of the mosquitos tested"
+            type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
+          <integer
+            name="fed"
+            label="Number Fed"
+            description="Fed value (Only applicable when females are present)."
+            rejectNegative="true"
+            required="false" />
+          <integer
+            name="gravid"
+            label="Number Gravid"
+            description="Gravid value (Only applicable when females are present)"
+            rejectNegative="true"
+            required="false" />
+          <reference
+            name="sex"
+            label="Sex"
+            required="true"
+            description="The sex of the tested mosquitos"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="insecticideBrand"
+            label="Insecticide product"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            description="The Insecticide product being tested."
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getOverallMortalityRate"
+          label="Get Overall Mortality Rate"
+          returnType="java.lang.Float"
+          description="Returns the overall mortality rate for all efficacy assays on the same suface and date"
+          static="false">
+        </mdMethod>
+        <mdMethod
+          name="searchByGeoEntityAndDate"
+          label="Search By GeoEntity and Date"
+          description="Searches for all efficacy assays with the given geo entity and date"
+          static="true"
+          returnType="dss.vector.solutions.entomology.assay.EfficacyAssay[]">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            order="0"
+            description="GeoEntity" />
+          <mdParameter
+            name="collectionDate"
+            label="Colllection Date"
+            type="java.util.Date"
+            order="1" />
+        </mdMethod>
+      </mdBusiness>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.entomology.assay.EfficacyAssayController">
+        <create>
+          <mdAction
+            name="cloneAssay"
+            isPost="false"
+            description="Creates a new EfficacyAssay with some of the values from the given assay"
+            label="Clone Assay"
+            isQuery="false">
+            <mdParameter
+              type="java.lang.String"
+              order="0"
+              name="id"
+              label="Id" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

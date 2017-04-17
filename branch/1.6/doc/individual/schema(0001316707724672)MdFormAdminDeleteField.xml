@@ -1,0 +1,37 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+         <mdAction
+            name="fetchFormFields"
+            label="Fetch Form Fields"
+            description="Retrieves form fields"
+            isPost="true">
+            <mdParameter name="formId" label="Form id" description="Existing MdForm id" order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction
+            name="deleteField"
+            label="Delete Field"
+            description="Deletes a field from a form"
+            isPost="true">
+            <mdParameter name="formId" label="Form id" description="Existing MdForm id" order="0" type="java.lang.String" />
+            <mdParameter name="fieldId" label="Field id" description="Existing MdField id" order="1" type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.form.MdFormAdminController.fetchFormFields" 
+        type="com.runwaysdk.system.metadata.MdAction"/>
+      <object
+        key="dss.vector.solutions.form.MdFormAdminController.deleteField" 
+        type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,41 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.synchronization.TransactionItemView">
+        <create>
+          <attributes>
+            <virtual
+              name="componentSiteMaster"
+              concrete="componentSiteMaster"
+              type="com.runwaysdk.system.transaction.TransactionItem"
+              required="false" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.synchronization.TransactionItemFullView">
+        <create>
+          <attributes>
+            <virtual
+              name="componentSiteMaster"
+              concrete="componentSiteMaster"
+              type="com.runwaysdk.system.transaction.TransactionItem"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.synchronization.TransactionItemView.componentSiteMaster"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.synchronization.TransactionItemFullView.componentSiteMaster"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

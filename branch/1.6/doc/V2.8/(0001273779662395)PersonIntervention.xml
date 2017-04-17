@@ -1,0 +1,193 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.PersonIntervention"
+        label="Person Days Used for Intervention"
+        generateController="false">
+        <attributes>
+          <reference
+            name="point"
+            label="Intervention Point"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          <integer
+            name="vehicleDays"
+            label="# Person-days for Vehicle Based Spraying" />
+        </attributes>
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.PersonInterventionMethod"
+        label="# Treated with Intervention Method"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.PersonIntervention"
+          method="PersonInterventionMethod" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="InterventionMethods" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.PersonInterventionView"
+        label="Person Days Used for Intervention">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="64"
+            required="true" />
+          <virtual
+            concrete="point"
+            type="dss.vector.solutions.intervention.monitor.PersonIntervention" />
+          <virtual
+            concrete="vehicleDays"
+            type="dss.vector.solutions.intervention.monitor.PersonIntervention" />
+          <reference
+            name="interventionMethod"
+            label="# Treated with Intervention Method"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getInterventionMethods"
+          label="Get Intervention Methods"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[]">
+        </mdMethod>
+        <mdMethod
+          name="getInterventionMethodsForViews"
+          label="Get Intervention Methods For Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[][]">
+          <mdParameter
+            name="views"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.PersonInterventionView[]"
+            label="Views" />
+        </mdMethod>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.PersonInterventionMethodView"
+        label="Intervention Method Used">
+        <attributes>
+          <reference
+            name="person"
+            label="person"
+            type="dss.vector.solutions.intervention.monitor.PersonIntervention"
+            required="true" />
+          <reference
+            name="term"
+            label="Term"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.intervention.monitor.PersonInterventionMethod" />
+        </attributes>
+      </mdView>
+
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonInterventionView.interventionMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonInterventionView.interventionMethod" />
+      </object>
+
+    </create>
+    <update>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionView">
+        <create>
+          <attributes>
+            <char 
+              name="personIntervention"
+              label="Person Days Used for Intervention"              
+              size="255" />
+          </attributes>
+          <mdMethod
+            name="getPersonInterventionViews"
+            label="Get Person Intervention Views"
+            returnType="dss.vector.solutions.intervention.monitor.PersonInterventionView[]"
+            static="false" />
+          <mdMethod
+            name="applyWithPersonInterventionViews"
+            label="Get Person Intervention Views"
+            returnType="dss.vector.solutions.intervention.monitor.PersonInterventionView[]"
+            static="false">
+            <mdParameter
+              name="premises"
+              type="dss.vector.solutions.intervention.monitor.PersonInterventionView[]"
+              order="0"
+              label="Interventions" />
+            <mdParameter
+              name="methods"
+              type="dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[][]"
+              order="1"
+              label="Methods" />
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionController">
+        <create>
+          <mdAction
+            name="getPersonIntervention"
+            label="Get Person Intervention Views"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="view"
+              label="View"
+              order="0"
+              type="dss.vector.solutions.intervention.monitor.ControlInterventionView" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonIntervention"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.applyWithPersonInterventionViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.getPersonInterventionViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.personIntervention"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonInterventionView.interventionMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.PersonInterventionMethodView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.PersonInterventionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.PersonInterventionMethod"
+        type="com.runwaysdk.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.PersonIntervention"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

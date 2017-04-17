@@ -1,0 +1,76 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.generator.DuplicateFormInstanceException" label="Duplicate form instance" message="Form instance with form id [{formId}] already exists. Click on the View link in the table to edit or enter a different form id.">
+        <attributes>
+          <char name="formId" label="Form id" size="255"/>
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.generator.DeleteAllAccessException" label="Delete all user exception" message="A system user is the only user which can perform a delete all operation" />
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.MDSSUser">
+        <create>
+          <mdMethod name="canDeleteAll" label="Can Delete all" static="true" returnType="java.lang.Boolean" />          
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.form.FormObjectController">
+        <create>
+          <mdAction name="searchForm" label="Search form" isPost="true">
+            <mdParameter name="mdFormId" label="MdForm Id" description="The MdForm id that defines the new FormObject instance." order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="searchInstance" label="Search form" isPost="true">
+            <mdParameter name="criteria" label="criteria" description="The FormObject which specifies the criteria." order="0" type="com.runwaysdk.form.FormObject" />
+            <mdParameter name="type" label="type" order="1" type="java.lang.String" />
+            <mdParameter name="sortAttribute" label="Sort Attribute" type="java.lang.String" order="2" />
+            <mdParameter name="isAscending" label="Is Ascending" type="java.lang.Boolean" order="3" />
+            <mdParameter name="pageSize" label="Page Size" type="java.lang.Integer" order="4" />
+            <mdParameter name="pageNumber" label="Page Number" type="java.lang.Integer" order="5" />
+          </mdAction>
+          <mdAction name="createNewInstance" label="Create new instance" isPost="true">
+            <mdParameter name="criteria" label="criteria" description="The FormObject which specifies the criteria." order="0" type="com.runwaysdk.form.FormObject" />
+            <mdParameter name="mdFormId" label="MdForm Id" description="The MdForm id that defines the new FormObject instance." order="1" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="deleteAll" label="Delete all" isPost="true">
+            <mdParameter name="criteria" label="criteria" description="The FormObject which specifies the criteria." order="0" type="com.runwaysdk.form.FormObject" />
+            <mdParameter name="type" label="type" order="1" type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="isAvailable" label="Is available" static="true" returnType="void">
+            <mdParameter name="type" label="Type" order="0" type="java.lang.String" />
+            <mdParameter name="oid" label="Form id" order="1" type="java.lang.String" />
+          </mdMethod>
+          <mdMethod name="searchObject" label="Search Object" static="true" returnType="com.runwaysdk.query.GeneratedComponentQuery">
+            <mdParameter name="criteria" label="Criteria" order="0" type="com.runwaysdk.business.Business" />
+            <mdParameter name="type" label="type" order="1" type="java.lang.String" />
+            <mdParameter name="sortAttribute" label="Sort Attribute" type="java.lang.String" order="2" />
+            <mdParameter name="isAscending" label="Is Ascending" type="java.lang.Boolean" order="3" />
+            <mdParameter name="pageSize" label="Page Size" type="java.lang.Integer" order="4" />
+            <mdParameter name="pageNumber" label="Page Number" type="java.lang.Integer" order="5" />
+          </mdMethod>
+          <mdMethod name="deleteAll" label="Delete all" static="true" returnType="void">
+            <mdParameter name="criteria" label="Criteria" order="0" type="com.runwaysdk.business.Business" />
+            <mdParameter name="type" label="type" order="1" type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.generator.DeleteAllAccessException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.generator.DuplicateFormInstanceException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.form.FormObjectController.createNewInstance" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.form.FormObjectController.deleteAll" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.form.FormObjectController.searchInstance" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.form.FormObjectController.searchForm" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.generator.MdFormUtil.searchObject" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.generator.MdFormUtil.isAvailable" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.generator.MdFormUtil.deleteAll" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.MDSSUser.canDeleteAll" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,109 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.general.MalariaSeason">
+				<attributes>
+					<char
+						name="seasonName"
+						label="Season Name"
+						required="true"
+						indexType="unique index"
+						size="255"
+						description="The name or display label for this season" />
+				</attributes>
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+					<mdMethod
+						name="getAllForDisease"
+						label="Get All For Disease"
+						returnType="dss.vector.solutions.general.MalariaSeason[]"
+						static="true"
+						description="Returns an array of all of the seasons for the current disease, with the nearest season first" />
+					<mdMethod
+						name="getAllInstancesForDisease"
+						label="Get All InstancedFor Disease"
+						description="Returns all objects for the current disease"
+						static="true"
+						returnType="dss.vector.solutions.general.MalariaSeasonQuery">
+						<mdParameter
+							name="sortAttribute"
+							label="Sort Attribute"
+							order="0"
+							type="java.lang.String" />
+						<mdParameter
+							name="ascending"
+							label="Ascending"
+							description="Whether to sort ascending"
+							order="1"
+							type="java.lang.Boolean" />
+						<mdParameter
+							name="pageSize"
+							label="Page Size"
+							type="java.lang.Integer"
+							order="2" />
+						<mdParameter
+							name="pageNumber"
+							label="Page Number"
+							type="java.lang.Integer"
+							order="3" />
+					</mdMethod>
+				</create>
+			</mdBusiness>
+
+			<mdView
+				name="dss.vector.solutions.general.MalariaSeasonView">
+				<create>
+					<attributes>
+						<virtual
+							name="disease"
+							concrete="disease"
+							type="dss.vector.solutions.general.MalariaSeason" />
+					</attributes>
+				</create>
+			</mdView>
+
+		</update>
+		<!--  Restore this when they want to go back to names only being unique within season, and change line 13 to be no index
+		<create>
+			<mdIndex
+				type="dss.vector.solutions.general.MalariaSeason"
+				label="Transmission Season Disease and Name Index"
+				active="true"
+				unique="true"
+				description="Enforces a unique index between the disease and season name">
+				<attribute
+					indexOrder="0"
+					name="disease" />
+				<attribute
+					indexOrder="1"
+					name="seasonName" />
+			</mdIndex>
+		</create>
+		 -->
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.MalariaSeason.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="dss.vector.solutions.general.MalariaSeasonView.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="dss.vector.solutions.general.MalariaSeason.getAllForDisease"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+			<object
+				key="dss.vector.solutions.general.MalariaSeason.getAllInstancesForDisease"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+		</delete>
+	</undoIt>
+</version>

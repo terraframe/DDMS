@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem name="dss.vector.solutions.irs.SprayedSumProblem"
+        label="Sprayed Sum Problem" description="The total number of sprayed objects cannot be greater than the total number of objects"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char name="objectLabel" label="Object Label" size="255" required="true"/>
+          <char name="sprayedObjectLabel" label="Sprayed Object Label" size="255" required="true"/>
+          <integer name="objects" label="Objects" required="true"/>
+          <integer name="sprayedObjects" label="Sprayed Objects" required="true"/>
+        </attributes>
+      </mdProblem>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

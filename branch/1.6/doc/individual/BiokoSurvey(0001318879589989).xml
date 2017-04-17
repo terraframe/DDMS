@@ -1,0 +1,185 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormSurvey"
+        label="Survey"
+        description="Form survey">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            type="dss.vector.solutions.general.Disease" />
+        </attributes>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormSurvey"
+        mdClass="dss.vector.solutions.form.business.FormSurvey"
+        formName="Survey"
+        label="Survey" />
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormHousehold"
+        label="Household"
+        description="Form houseshold survey"
+        generateController="false">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            type="dss.vector.solutions.general.Disease" />
+          <reference
+            name="survey"
+            label="Survey"
+            type="dss.vector.solutions.form.business.FormSurvey"
+            required="true"
+            removable="false" />
+        </attributes>
+        <mdMethod
+          name="getBedNets"
+          label="Get Bed Nets"
+          returnType="dss.vector.solutions.form.business.FormBedNet[]"
+          static="false" />
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormHousehold"
+        mdClass="dss.vector.solutions.form.business.FormHousehold"
+        formName="Survey Household"
+        label="Survey Household">
+        <fields>
+          <reference
+            name="survey"
+            label="Survey"
+            order="-1"
+            mdAttribute="survey"
+            removable="false" />
+        </fields>
+      </mdWebForm>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormBedNet"
+        label="Bed net"
+        description="Form Bed net"
+        generateController="false">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            type="dss.vector.solutions.general.Disease" />
+          <reference
+            name="household"
+            label="household"
+            type="dss.vector.solutions.form.business.FormHousehold"
+            required="true"
+            removable="false" />
+          <char
+            name="netId"
+            label="Net id"
+            size="255"
+            removable="false"
+            indexType="unique index" />
+        </attributes>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormBedNet"
+        mdClass="dss.vector.solutions.form.business.FormBedNet"
+        formName="Bed net"
+        label="Bed net">
+        <fields>
+          <char
+            name="netId"
+            label="Net id"
+            mdAttribute="netId"
+            order="-1"
+            displayLength="16"
+            maxLength="255"
+            removable="false" />
+          <reference
+            name="household"
+            label="Household"
+            order="-2"
+            mdAttribute="household"
+            removable="false" />
+        </fields>
+      </mdWebForm>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormPerson"
+        label="Person"
+        description="Form person survey"
+        generateController="false">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            type="dss.vector.solutions.general.Disease" />
+          <reference
+            name="household"
+            label="household"
+            type="dss.vector.solutions.form.business.FormHousehold"
+            required="true"
+            removable="false" />
+          <reference
+            name="net"
+            label="net"
+            type="dss.vector.solutions.form.business.FormBedNet"
+            removable="false" />
+        </attributes>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormPerson"
+        mdClass="dss.vector.solutions.form.business.FormPerson"
+        formName="Survey person"
+        label="Survey person">
+        <fields>
+          <reference
+            name="household"
+            label="Household"
+            order="-2"
+            mdAttribute="household"
+            removable="false" />
+          <reference
+            name="net"
+            label="Net"
+            order="-1"
+            mdAttribute="net"
+            removable="false" />
+        </fields>
+      </mdWebForm>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.form.FormPerson"
+        type="com.runwaysdk.system.metadata.MdForm" />
+      <object
+        key="dss.vector.solutions.form.business.FormPerson"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.form.FormBedNet"
+        type="com.runwaysdk.system.metadata.MdForm" />
+      <object
+        key="dss.vector.solutions.form.FormHousehold"
+        type="com.runwaysdk.system.metadata.MdForm" />
+      <object
+        key="dss.vector.solutions.form.FormSurvey"
+        type="com.runwaysdk.system.metadata.MdForm" />
+      <object
+        key="dss.vector.solutions.form.business.FormBedNet"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.form.business.FormHousehold"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.form.business.FormSurvey"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

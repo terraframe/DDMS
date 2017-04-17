@@ -1,0 +1,33 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.GeoTargetView">
+        <create>
+          <mdMethod
+            name="getGeoTargets"
+            label="Get Geo Targets"
+            static="true"
+            returnType="dss.vector.solutions.irs.GeoTargetView[]">
+            <mdParameter
+              name="geoEntities"
+              label="Geo Entities"
+              description="List of GeoEntites to return the Geo Target"
+              order="0"
+              type="java.lang.String[]" />
+            <mdParameter
+              name="season"
+              label="Target Season"
+              description="The year to get targets for"
+              order="1"
+              type="dss.vector.solutions.general.MalariaSeason" />
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

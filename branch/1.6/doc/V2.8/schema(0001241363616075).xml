@@ -1,0 +1,84 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+
+    <update>
+      <mdController
+        name="dss.vector.solutions.irs.ZoneSprayController">
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.ZoneSprayView" />
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.ZoneSprayView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.ZoneSprayView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.irs.ZoneSprayView" />
+        </mdAction>
+
+        <create>
+          <mdAction
+            name="search"
+            label="search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="searchByParameters"
+            label="Search by Parameters"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="brand"
+              label="Brand"
+              order="0"
+              type="dss.vector.solutions.irs.InsecticideBrand" />
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="date"
+              label="date"
+              order="2"
+              type="java.util.Date" />
+            <mdParameter
+              name="method"
+              label="Spray Method"
+              order="3"
+              type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.ZoneSprayController.search"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSprayController.searchByParameters"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

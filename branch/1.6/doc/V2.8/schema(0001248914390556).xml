@@ -1,0 +1,123 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+
+    <create>
+
+      <mdView
+        name="dss.vector.solutions.geo.UnknownGeoEntity"
+        label="Unknown Geo Entity"
+        description="Represents an unknown Geo Entity"
+        isAbstract="false"
+        extendable="true"
+        generateController="false">
+        <attributes>
+          <char
+            name="entityName"
+            required="true"
+            label="Geo Entity Name"
+            size="255" />
+          <char
+            name="entityType"
+            required="true"
+            label="Geo Entity Type"
+            size="255" />
+          <text
+            name="synonyms"
+            required="false"
+            label="Similar Geo Entity Names"
+            description="Comma delimited list of synonyms"/>
+          <text
+            name="knownHierarchy"
+            required="false"
+            label="Hierarchy"
+            description="List of the hierarchy that is known for this geo entity"/>
+          <text
+            name="siblings"
+            required="false"
+            label="Other Possible Matches"
+            description="List of all potential matches based on the known hierarchy for this geo entity."/>
+        </attributes>
+      </mdView>
+
+    </create>
+    <update>
+      <mdException
+        name="dss.vector.solutions.AmbigiousGeoEntityException">
+        <create>
+          <attributes>
+            <char
+              name="entityName"
+              label="Entity Name"
+              required="true"
+              description="Geo Entity Name "
+              size="255" />
+          </attributes>
+        </create>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.UnknownGeoEntityException">
+        <create>
+          <attributes>
+            <char
+              name="entityName"
+              label="Entity Name"
+              required="true"
+              description="Geo Entity Name "
+              size="255" />
+          </attributes>
+        </create>
+      </mdException>
+
+      <mdBusiness
+        name="dss.vector.solutions.util.Facade">
+        <create>
+          <mdMethod
+            name="checkSynonyms"
+            label="Check Synonym"
+            description="Checks the Synonyms of an Excel Input file"
+            static="true"
+            returnType="dss.vector.solutions.geo.UnknownGeoEntity[]">
+            <mdParameter
+              name="inputStream"
+              label="Input Stream"
+              description="Input Stream containing the Excel file"
+              order="0"
+              type="java.io.InputStream" />
+            <mdParameter
+              name="type"
+              label="Type"
+              description="Type of the class that rows of this "
+              order="1"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+    </update>
+
+  </doIt>
+  <undoIt>
+
+    <delete>
+      <object
+        key="dss.vector.solutions.AmbigiousGeoEntityException.entityName"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+    <delete>
+      <object
+        key="dss.vector.solutions.UnknownGeoEntityException.entityName"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.Facade.checkSynonyms"
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+    <delete>
+      <object
+        key="dss.vector.solutions.geo.UnknownGeoEntity"
+        type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+
+  </undoIt>
+</version>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="patch" default="build">
+	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
+	<property name="geodata.db" value="mrc_blank" />
+	<property name="project.root" location="C:/cruisecontrol-bin-2.8.3/projects/mdss" />
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="../lib/ant">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</typedef>
+
+	<target name="build">
+
+		<delete dir="webapp" includeemptydirs="true" />
+				
+		<!-- Compile -->
+		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+
+		<!-- Generate an up to date localization spread sheet -->		
+		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+		
+		<!-- Get a copy of all web files -->
+		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
+			<property name="profile.name" value="patch" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+		
+
+		<!-- Copy in the appropriate geo universals xls -->
+		<copy file="../doc/country/${geodata.db}-universals.xls" tofile="geo-universals.xls" />
+		
+		<!-- Create the local-develop.properties file -->
+		<copy file="webapp/WEB-INF/classes/local.properties" tofile="webapp/WEB-INF/classes/local-develop.properties" />
+		<replace file="webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
+		
+		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
+		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
+		<delete file="webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="webapp/WEB-INF/classes/database.properties" />
+		<delete file="webapp/WEB-INF/classes/common.properties" />
+		<!--<delete file="webapp/css/style.css" />-->
+		<delete file="webapp/login.jsp" />
+		
+		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
+		<delete file="webapp/imgs/flags/default" />
+
+		<!-- Remove things we don't want to copy
+    	<delete>
+    		<fileset dir="webapp/webapp/WEB-INF/classes/dss/vector/solutions/geo/generated">
+    			<include name="*.class"/>
+    		</fileset>
+    	</delete>
+    	-->
+
+		<!-- Get revision info from svn -->
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<info target="${project.root}/trunk" verbose="true" propPrefix="svn.info." />
+			<info target="${project.root}/trunk/doc/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
+			<info target="${project.root}/trunk/doc/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
+			<info target="${project.root}/trunk/doc/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
+			<info target="${project.root}/trunk/doc/localization" verbose="true" propPrefix="localization.svn." />
+			<info target="${project.root}/trunk/doc/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
+		</svn>
+
+		<!-- Write revision info into patch.nsi -->
+		<replaceregexp match="StrCpy \$PatchVersion \d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$TermsVersion \d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$RootsVersion \d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="patch.nsi" byline="true" />
+
+		<!-- Compile patch.nsi -->
+		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">
+			<arg line="patch.nsi" />
+		</exec>
+		<!--
+		-->
+	</target>
+</project>

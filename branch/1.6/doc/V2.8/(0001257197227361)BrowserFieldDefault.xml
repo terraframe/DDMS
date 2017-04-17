@@ -1,0 +1,58 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.ontology.FieldDefaultView"
+        label="Field Default View">
+        <attributes>
+          <reference
+            name="mdAttribute"
+            label="MdAttribute"
+            type="com.runwaysdk.system.metadata.MdAttribute"
+            required="true" />
+          <reference
+            name="defaultValue"
+            label="Default Value"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="applyDefaultValue"
+          label="Apply"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="deleteConcrete"
+          label="delete"
+          returnType="void"
+          static="false" />
+      </mdView>
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.ontology.BrowserFieldView">
+        <create>
+          <attributes>
+            <reference
+              name="defaultValue"
+              label="Default Value"
+              required="false"
+              type="dss.vector.solutions.ontology.Term" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.FieldDefaultView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.ontology.BrowserFieldView.defaultValue"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

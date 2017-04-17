@@ -1,0 +1,32 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdException
+				name="dss.vector.solutions.OverlappingTermRootException"
+				label="Overlapping Term Root Exception"
+				description="Thrown when a BrowserField tries to define overlapping roots.">
+				<attributes>
+					<char
+						name="browserField"
+						label="Browser Field"
+						size="150"
+						required="true" />
+					<char
+						name="browserRoot"
+						label="Browser Root"
+						size="150"
+						required="true" />
+				</attributes>
+			</mdException>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.OverlappingTermRootException"
+				type="com.runwaysdk.system.metadata.MdException" />
+		</delete>
+	</undoIt>
+</version>

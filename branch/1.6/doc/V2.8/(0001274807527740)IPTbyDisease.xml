@@ -1,0 +1,44 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.AggregatedIPT">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.intervention.monitor.IndividualIPTCase">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.intervention.monitor.AggregatedIPT.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+
+			<object
+				key="dss.vector.solutions.intervention.monitor.IndividualIPTCase.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+		</delete>
+	</undoIt>
+</version>

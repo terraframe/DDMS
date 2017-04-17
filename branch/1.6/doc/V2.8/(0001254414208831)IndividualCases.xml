@@ -1,0 +1,210 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualCase"
+        label="Individual Case"
+        description="Individual Malaria Case"
+        generateController="true">
+        <attributes>
+          <date
+            name="symptomOnset"
+            label="Symptom Onset Date"/>
+          <date
+            name="caseReportDate"
+            label="Case Report Date"
+            description="Date for the original case report"/>
+          <date
+            name="caseEntryDate"
+            label="Case Entry Date"
+            description="Date of case entry in MDSS"/>
+          <date
+            name="diagnosisDate"
+            label="Diagnosis Date"
+            description="Date of diagnosis"/>
+          <reference
+            name="probableSource"
+            label="Probable Source Location"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true"/>
+          <reference
+            name="patient"
+            label="Patient"
+            description="Malaria Patient"
+            type="dss.vector.solutions.Patient"
+            required="true"/>
+        </attributes>
+        <mdMethod
+          name="searchForExistingCase"
+          label="Search for exisiting case"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualCase"
+          static="true">
+          <mdParameter
+            name="diagnosisDate"
+            label="Diagnosis Date"
+            type="java.util.Date"
+            order="0"/>
+          <mdParameter
+            name="patientId"
+            label="Patient Id"
+            type="java.lang.String"
+            order="3" />
+        </mdMethod>
+        <mdMethod
+          name="applyWithPersonId"
+          label="Apply With PersonId"
+          returnType="void">
+          <mdParameter
+            name="personId"
+            label="Person ID"
+            type="java.lang.String"
+            order="0"/>
+        </mdMethod>
+        <mdMethod
+          name="getInstances"
+          label="Get associated instances"
+          returnType="dss.vector.solutions.intervention.monitor.IndividualInstanceQuery"
+          static="false">
+        </mdMethod>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualInstance"
+        label="Individual Instance"
+        generateController="true">
+        <attributes>
+          <reference
+            name="individualCase"
+            label="Case"
+            description="Case"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"
+            required="true"/>
+          <!-- Basic Case Information -->
+          <boolean
+            name="clinicalDiagnosis"
+            label="Clinical Diagnosis"
+            positiveLabel="Clinical Diagnosis"
+            negativeLabel="Definitive Diagnosis"/>
+          <date
+            name="facilityVisit"
+            label="Facility Visit Date"/>
+          <date
+            name="admissionDate"
+            label="Admission Date"
+            description="In-patient date admitted"/>
+          <date
+            name="releaseDate"
+            label="Release Date"
+            description="In-patient date released"/>
+          <boolean
+            name="anaemiaPatient"
+            label="Is this a Patient with anaemia?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <boolean
+            name="pregnant"
+            label="Pregnant"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <boolean
+            name="diedInFacility"
+            label="Did the patient die in the facility?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <!-- Administrative Information -->
+          <boolean
+            name="properlyRelease"
+            label="Patient Properly Released?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <boolean
+            name="referredTo"
+            label="Patient Referred to this Facility?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <boolean
+            name="referredFrom"
+            label="Did this facility refer patient to another facility?"
+            positiveLabel="Yes"
+            negativeLabel="No"
+            defaultValue="false" />
+          <!-- Clinical Findings -->
+          <!-- Laboratory Testing -->
+          <date
+            name="testSampleDate"
+            label="Test Sample Date"
+            description="Date test sample was taken"/>
+          <date
+            name="labTestDate"
+            label="Laboratory Test Date"
+            description="Date laboratory test was done"/>
+          <!-- Treatment -->
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualCaseController">
+        <mdAction
+          name="create">
+          <create>
+            <mdParameter
+              name="personId"
+              label="Person Id"
+              type="java.lang.String"
+              order="3" />
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            label="search"
+            isPost="false"
+            isQuery="false">
+            <mdParameter
+              name="diagnosisDate"
+              label="Diagnosis Date"
+              type="java.util.Date"
+              order="1"/>
+            <mdParameter
+              name="personId"
+              label="Person Id"
+              type="java.lang.String"
+              order="3" />
+          </mdAction>
+        </create>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.IndividualInstanceController">
+        <mdAction
+          name="newInstance"
+          isPost="false"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="caseId"
+              label="Case Id"
+              order="3"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCase"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualInstance"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

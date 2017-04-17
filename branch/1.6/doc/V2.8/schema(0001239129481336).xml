@@ -1,0 +1,465 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        label="Age Group"
+        generateController="true">
+        <attributes>
+          <reference
+            name="disease"
+            label="Disease"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.general.Disease"
+            indexType="non-unique index" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255"
+            description="The display label of the aggregated age group" />
+          <boolean
+            name="active"
+            label="active"
+            required="true"
+            defaultValue="true"
+            description="If this is an active age group"
+            negativeLabel="False"
+            positiveLabel="True" />
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Age Groups"
+          static="true"
+          returnType="dss.vector.solutions.surveillance.AggregatedAgeGroupQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          returnType="dss.vector.solutions.surveillance.AggregatedAgeGroup[]"
+          static="true"
+          description="Returns an array of all active aggregated age groups" />
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        label="Aggregate Age Group Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="disease"
+          indexOrder="0" />
+        <attribute
+          name="startAge"
+          indexOrder="1" />
+        <attribute
+          name="endAge"
+          indexOrder="2" />
+      </mdIndex>
+
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.InvalidAgeGroupProblem"
+        label="Invalid Age Group Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="The end age of an age group may not be before the start date">
+        <attributes>
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+      </mdProblem>
+
+      <mdException
+        name="dss.vector.solutions.surveillance.DistinctAgeGroupException"
+        label="Distinct Age Group Exception"
+        description="An age group in the given range already exists">
+        <attributes>
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+      </mdException>
+
+      <object
+        type="dss.vector.solutions.Property"
+        key="epiStartWeekDay">
+        <attribute
+          name="propertyName"
+          value="epiStartWeekDay" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="First Weekday of the Epi Year" />
+        </attributeStruct>
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.surveillance.EpiWeek" />
+        <attribute
+          name="propertyValue"
+          value="0" />
+        <attribute
+          name="propertyType"
+          value="Integer" />
+        <attribute
+          name="propertyValidator"
+          value="^[0-6]$" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="Sunday is the (WHO/PAHO) Standard" />
+        </attributeStruct>
+        <attribute
+          name="validValues"
+          value="0,1,2,3,4,5,6" />
+        <attribute
+          name="editable"
+          value="false" />
+      </object>
+
+      <enumerationMaster
+        name="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        label="Period Type Master"
+        generateController="false">
+        <attributes>
+          <integer
+            name="maximumPeriod"
+            label="Maximum Period"
+            description="The maximum valid period number"
+            required="true"
+            rejectNegative="true"
+            rejectZero="true" />
+        </attributes>
+      </enumerationMaster>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.WEEK">
+        <attribute
+          name="enumName"
+          value="WEEK" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Week" />
+        </attributeStruct>
+        <attribute
+          name="maximumPeriod"
+          value="53" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.MONTH">
+        <attribute
+          name="enumName"
+          value="MONTH" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Month" />
+        </attributeStruct>
+        <attribute
+          name="maximumPeriod"
+          value="12" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        key="dss.vector.solutions.surveillance.PeriodTypeMaster.QUARTER">
+        <attribute
+          name="enumName"
+          value="QUARTER" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Quarter" />
+        </attributeStruct>
+        <attribute
+          name="maximumPeriod"
+          value="4" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.surveillance.PeriodType"
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        label="Period Type">
+        <includeAll />
+      </mdEnumeration>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="MALARIA: 0 - 1">
+        <attribute
+          name="startAge"
+          value="0" />
+        <attribute
+          name="endAge"
+          value="1" />
+        <attribute
+          name="displayLabel"
+          value="0 &lt; 1" />
+        <attribute
+          name="active"
+          value="true" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="MALARIA: 1 - 5">
+        <attribute
+          name="startAge"
+          value="1" />
+        <attribute
+          name="endAge"
+          value="5" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="1 &lt; 5" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="MALARIA: 5 - 14">
+        <attribute
+          name="startAge"
+          value="5" />
+        <attribute
+          name="endAge"
+          value="14" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="5 &lt; 14" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="MALARIA: 14 - 200">
+        <attribute
+          name="startAge"
+          value="14" />
+        <attribute
+          name="endAge"
+          value="200" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="14+" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="MALARIA: 0 - 200">
+        <attribute
+          name="startAge"
+          value="0" />
+        <attribute
+          name="endAge"
+          value="200" />
+        <attribute
+          name="displayLabel"
+          value="All" />
+        <attribute
+          name="active"
+          value="true" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="DENGUE: 0 - 1">
+        <attribute
+          name="startAge"
+          value="0" />
+        <attribute
+          name="endAge"
+          value="1" />
+        <attribute
+          name="displayLabel"
+          value="0 &lt; 1" />
+        <attribute
+          name="active"
+          value="true" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="DENGUE: 1 - 5">
+        <attribute
+          name="startAge"
+          value="1" />
+        <attribute
+          name="endAge"
+          value="5" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="1 &lt; 5" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="DENGUE: 5 - 14">
+        <attribute
+          name="startAge"
+          value="5" />
+        <attribute
+          name="endAge"
+          value="14" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="5 &lt; 14" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="DENGUE: 14 - 200">
+        <attribute
+          name="startAge"
+          value="14" />
+        <attribute
+          name="endAge"
+          value="200" />
+        <attribute
+          name="active"
+          value="true" />
+        <attribute
+          name="displayLabel"
+          value="14+" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        key="DENGUE: 0 - 200">
+        <attribute
+          name="startAge"
+          value="0" />
+        <attribute
+          name="endAge"
+          value="200" />
+        <attribute
+          name="displayLabel"
+          value="All" />
+        <attribute
+          name="active"
+          value="true" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+      </object>
+
+
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.InvalidAgeGroupProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+      <object
+        key="dss.vector.solutions.surveillance.DistinctAgeGroupException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

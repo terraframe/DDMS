@@ -1,0 +1,119 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionView.recipient"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNDistributionView">
+        <create>
+          <attributes>
+            <reference
+              name="person"
+              label="Recipient"
+              required="true"
+              type="dss.vector.solutions.Person" />
+          </attributes>
+          <mdMethod
+            name="getRecipientView"
+            label="Get Recipient View"
+            returnType="dss.vector.solutions.PersonView"
+            static="false" />
+          <mdMethod
+            name="searchHistory"
+            label="Search History"
+            static="true"
+            returnType="dss.vector.solutions.intervention.monitor.ITNDistributionViewQuery">
+            <mdParameter
+              name="view"
+              label="view"
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
+          </mdMethod>
+        </create>
+      </mdView>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ITNDistributionController">
+        <mdAction
+          name="newInstance">
+          <create>
+            <mdParameter
+              name="person"
+              label="Person"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="facility"
+              label="Facility"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="batchNumber"
+              label="Batch Number"
+              order="2"
+              type="java.lang.String" />
+            <mdParameter
+              name="distributionDate"
+              label="Distribution Date"
+              order="3"
+              type="java.util.Date" />
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            label="search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="viewHistory"
+            label="View History"
+            description="View a page of a recipients ITN distribution history"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="view"
+              label="view"
+              type="dss.vector.solutions.intervention.monitor.ITNDistributionView"
+              order="0" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.person"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.facility"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.batchNumber"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.distributionDate"
+        type="com.runwaysdk.system.metadata.MdParameter" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionView.person"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionView.getRecipientView"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionView.searchHistory"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.search"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

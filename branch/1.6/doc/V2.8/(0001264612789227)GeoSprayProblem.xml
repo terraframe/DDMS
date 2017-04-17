@@ -1,0 +1,25 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.general.GeoEntitySprayProblem"
+        label="Geo Entity Spray Problem">
+        <attributes>
+          <char
+            name="entityLabel"
+            label="Geo Entity"
+            size="255" />
+        </attributes>
+      </mdProblem>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.GeoEntitySprayProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,40 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.general.CalculationInProgressException"
+        label="Calculation In Progress">
+        <attributes>
+          <integer
+            name="percentComplete"
+            label="Percent" />
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.ThresholdCalculationTypeView">
+        <create>
+          <mdMethod
+            name="getPercentComplete"
+            label="Get Percent Complete"
+            returnType="java.lang.Integer"
+            static="true">
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.CalculationInProgressException"
+        type="com.runwaysdk.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.general.ThresholdCalculationTypeView.getPercentComplete"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,67 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.query.Layer">
+        <create>
+          <mdMethod
+            name="updateSLDFile"
+            label="Update SLD File"
+            returnType="void"
+            static="false">
+            <mdParameter
+              name="fileId"
+              label="File Id"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <permissions>
+      <method
+        methodName="setPermissions"
+        type="dss.vector.solutions.permission.MDSSRoleView">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="setUniversalPermissions"
+        type="dss.vector.solutions.permission.MDSSRoleView">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="loadDefaultMap"
+        type="dss.vector.solutions.query.SavedMap">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="createFromExisting"
+        type="dss.vector.solutions.query.SavedMap">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="refreshMap"
+        type="dss.vector.solutions.query.SavedMap">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+      <method
+        methodName="updateSLDFile"
+        type="dss.vector.solutions.query.Layer">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.query.Layer.updateSLDFile" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

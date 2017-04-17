@@ -1,0 +1,35 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.entomology.ResistancePropertyException"
+        label="Resistance Property Exception">
+        <attributes>
+          <char
+            name="lowerLabel"
+            label="Lower Label"
+            size="255" />
+          <char
+            name="upperLabel"
+            label="Lower Label"
+            size="255" />
+          <integer
+            name="lowerValue"
+            label="Lower Value" />
+          <integer
+            name="upperValue"
+            label="Upper Value" />
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.ResistancePropertyException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

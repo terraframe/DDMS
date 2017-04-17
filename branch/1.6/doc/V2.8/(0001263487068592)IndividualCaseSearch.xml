@@ -1,0 +1,59 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.IndividualCaseView"
+        label="Individual Case">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="age"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="probableSourceText"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="residence"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="residenceText"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="workplace"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="workplaceText"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="caseReportDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="caseEntryDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="diagnosisDate"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="probableSource"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+          <virtual
+            concrete="patient"
+            type="dss.vector.solutions.intervention.monitor.IndividualCase" />
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.IndividualCaseView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

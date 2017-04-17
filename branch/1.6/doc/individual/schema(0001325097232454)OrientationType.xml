@@ -1,0 +1,74 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.LocalizationFacade.getSessionLocaleOrientation"
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.util.OrientationTypeMaster"
+        label="Orientation Type Master"
+        generateController="false"
+        hasDeterministicId="true" />
+
+      <object
+        key="RTL"
+        type="dss.vector.solutions.util.OrientationTypeMaster">
+        <attribute
+          name="enumName"
+          value="RTL" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Right-to-Left" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="LTR"
+        type="dss.vector.solutions.util.OrientationTypeMaster">
+        <attribute
+          name="enumName"
+          value="LTR" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Left-to-Right" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.util.OrientationType"
+        type="dss.vector.solutions.util.OrientationTypeMaster"
+        label="CSS Orientation">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.util.LocalizationFacade">
+        <create>
+          <mdMethod
+            name="getSessionLocaleOrientation"
+            label="Get Session Locale Orientation"
+            description="Gets the orientation of the locale being used this session"
+            static="true"
+            returnType="dss.vector.solutions.util.OrientationType">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.OrientationType"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.util.OrientationTypeMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

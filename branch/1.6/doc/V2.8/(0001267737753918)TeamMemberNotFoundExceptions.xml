@@ -1,0 +1,47 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.irs.InvalidMemberIDException"
+        label="Invalid Member ID Exception"
+        description="Thrown when the user attempts to access a team member with an invalid id">
+        <attributes>
+          <char
+            name="memberId"
+            label="Member ID"
+            size="64"/>
+        </attributes>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.InvalidOperatorIDException"
+        label="Invalid Operator ID Exception"
+        description="Thrown when the user attempts to access a spray operator with an invalid id">
+        <attributes>
+          <char
+            name="operatorId"
+            label="Operator ID"
+            size="64"/>
+        </attributes>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.irs.InvalidLeaderIDException"
+        label="Invalid Leader ID Exception"
+        description="Thrown when the user attempts to access a team leader with an invalid id">
+        <attributes>
+          <char
+            name="leaderId"
+            label="Leader ID"
+            size="64"/>
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

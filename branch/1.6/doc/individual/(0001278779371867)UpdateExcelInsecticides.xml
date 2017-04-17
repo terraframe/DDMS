@@ -1,0 +1,86 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.EfficacyAssayExcelView.insecticideActiveIngredient"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.EfficacyAssayExcelView.insecticideAmount"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.EfficacyAssayExcelView.insecticideUnits"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.EfficacyAssayExcelView"
+        label="Efficacy Assay Excel View"
+        description="Excel view for efficacy assays"
+        publish="false">
+        <create>
+          <attributes>
+            <char
+              name="insecticideTerm"
+              label="Insecticide"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.OperatorSprayExcelView"
+        label="Operator Spray Excel View"
+        description="Excel view for operator sprays"
+        publish="false">
+        <create>
+          <attributes>
+            <char
+              name="insecticideTerm"
+              label="Insecticide"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.TeamSprayExcelView"
+        label="Team Spray Excel View"
+        description="Excel view for team sprays"
+        publish="false">
+        <create>
+          <attributes>
+            <char
+              name="insecticideTerm"
+              label="Insecticide"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.ZoneSprayExcelView"
+        label="Zone Spray Excel View"
+        description="Excel view for zone sprays"
+        publish="false">
+        <create>
+          <attributes>
+            <char
+              name="insecticideTerm"
+              label="Insecticide"
+              size="255"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.OperatorSprayExcelView.insecticideTerm"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.TeamSprayExcelView.insecticideTerm"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.ZoneSprayExcelView.insecticideTerm"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+  </undoIt>
+</version>

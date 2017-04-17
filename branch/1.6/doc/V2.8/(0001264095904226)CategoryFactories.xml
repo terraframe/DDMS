@@ -1,0 +1,34 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdUtil
+				name="dss.vector.solutions.query.AbstractCategoryFactory"
+				label="Abstract Category Factory"
+				description="Abstract class that is the parent of the various Category Factories."
+				isAbstract="true">
+			</mdUtil>
+			
+			<mdUtil
+				name="dss.vector.solutions.query.EqualSizeCategoryFactory"
+				extends="dss.vector.solutions.query.AbstractCategoryFactory"
+				label="Equal Size Category"
+				description="Factory to create equally sized ranges">
+			</mdUtil>
+			
+			<mdUtil
+				name="dss.vector.solutions.query.ExactCategoryFactory"
+				extends="dss.vector.solutions.query.AbstractCategoryFactory"
+				label="Exact Category"
+				description="Factory to create exact categories">
+			</mdUtil>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.query.AbstractCategoryFactory"
+				type="com.runwaysdk.system.metadata.MdUtil" />
+		</delete>
+	</undoIt>
+</version>

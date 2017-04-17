@@ -1,0 +1,181 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<delete>
+<!--
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.epidemicUniversal"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.countingMethod"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+-->
+			 <object
+				key="dss.vector.solutions.general.ThresholdDataView.setThresholdConfiguration"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+			<object
+				key="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.universal"
+				type="com.runwaysdk.system.metadata.MdParameter" />
+			<object
+				key="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.calulationMethod"
+				type="com.runwaysdk.system.metadata.MdParameter" />
+			<object
+				key="epidemicUniversal"
+				type="dss.vector.solutions.Property" />
+			<object
+				key="isEpiWeek"
+				type="dss.vector.solutions.Property" />
+		</delete>
+
+		<create>
+			<mdBusiness
+				name="dss.vector.solutions.general.ThresholdAlertCalculationType"
+				label="Threshold Alert Calculation Type"
+				cacheAlgorithm="everything"
+				generateController="false">
+				<attributes>
+					<reference
+						name="disease"
+						label="Disease"
+						type="dss.vector.solutions.general.Disease"
+						indexType="unique index"
+						required="true" />
+					<enumeration
+						name="countingMethod"
+						label="Counting Method"
+						type="dss.vector.solutions.general.OutbreakCalculation"
+						selectMultiple="false"
+						required="true" />
+					<reference
+						name="epidemicUniversal"
+						label="Epidemic Universal"
+						type="dss.vector.solutions.geo.GeoHierarchy"
+						required="true" />
+					<integer
+						name="clinicalPositivePercentage"
+						label="Percent of clinical cases to be considered positive"
+						required="true"
+						rejectNegative="true"
+						defaultValue="100" />
+				</attributes>
+			</mdBusiness>
+
+			<object
+				key="DENGUE"
+				type="dss.vector.solutions.general.ThresholdAlertCalculationType">
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attributeEnumeration
+					name="countingMethod">
+					<enumeratedItem
+						name="EPI_WEEK" />
+				</attributeEnumeration>
+				<attributeReference
+					name="epidemicUniversal"
+					key="dss.vector.solutions.geo.generated.Country" />
+				<attribute
+					name="clinicalPositivePercentage"
+					value="100" />
+			</object>
+
+			<object
+				key="MALARIA"
+				type="dss.vector.solutions.general.ThresholdAlertCalculationType">
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attributeEnumeration
+					name="countingMethod">
+					<enumeratedItem
+						name="EPI_WEEK" />
+				</attributeEnumeration>
+				<attributeReference
+					name="epidemicUniversal"
+					key="dss.vector.solutions.geo.generated.Country" />
+				<attribute
+					name="clinicalPositivePercentage"
+					value="100" />
+			</object>
+
+		</create>
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.general.ThresholdCalculationType">
+				<create>
+					<attributes>
+						<reference
+							name="disease"
+							label="Disease"
+							type="dss.vector.solutions.general.Disease"
+							required="true" />
+					</attributes>
+				</create>
+			</mdBusiness>
+			<mdView
+				name="dss.vector.solutions.general.ThresholdCalculationTypeView">
+				<create>
+					<attributes>
+						<virtual
+							concrete="countingMethod"
+							type="dss.vector.solutions.general.ThresholdAlertCalculationType" />
+						<virtual
+							concrete="epidemicUniversal"
+							type="dss.vector.solutions.general.ThresholdAlertCalculationType" />
+						<virtual
+							concrete="clinicalPositivePercentage"
+							type="dss.vector.solutions.general.ThresholdAlertCalculationType" />
+					</attributes>
+				</create>
+			</mdView>
+		</update>
+	</doIt>
+	
+	
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationType.disease"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="dss.vector.solutions.general.ThresholdAlertCalculationType"
+				type="com.runwaysdk.system.metadata.MdBusiness" />
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.countingMethod"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.epidemicUniversal"
+				type="com.runwaysdk.system.metadata.MdAttribute" />
+		</delete>
+
+		<update>
+			<mdController
+				name="dss.vector.solutions.general.ThresholdDataController">
+				<mdAction
+					name="setThresholdConfiguration">
+					<create>
+						<mdParameter
+							name="universal"
+							type="java.lang.String"
+							label="universal"
+							order="0" />
+						<mdParameter
+							name="calulationMethod"
+							label="Calculation Method"
+							order="1"
+							type="java.lang.String" />
+					</create>
+				</mdAction>
+				<create>
+					<mdAction
+						name="editThresholdConfiguration"
+						label="Edit Threshold Configuration"
+						isPost="false"
+						isQuery="false" />
+				</create>
+
+			</mdController>
+		</update>
+	</undoIt>
+</version>

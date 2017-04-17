@@ -1,0 +1,32 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.RangeValueProblem"
+        label="Range Value Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="[attributeLabel] values must be between [lowerLimit] and [upperLimit]">
+        <attributes>
+          <integer
+            name="invalidValue"
+            label="Value"
+            required="true" />
+          <integer
+            name="lowerLimit"
+            label="Lower Limit"
+            required="true" />
+          <integer
+            name="upperLimit"
+            label="Upper Limit"
+            required="true" />
+        </attributes>
+      </mdProblem>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

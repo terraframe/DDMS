@@ -1,0 +1,101 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdController
+				name="dss.vector.solutions.general.ThresholdDataController">
+				<create>
+					<mdAction
+						name="calculatePoliticalThresholds"
+						label="Calculate political thresholds"
+						isPost="true"
+						isQuery="false"
+						description="Calculate political thresholds">
+						<mdParameter
+							name="thresholdCalculation"
+							type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+							label="Calculation type"
+							order="0" />
+						<mdParameter
+							name="currentYear"
+							type="java.lang.Boolean"
+							label="Current year"
+							order="1" />
+					</mdAction>
+					<mdAction
+						name="calculateFacilityThresholds"
+						label="Calculate facility thresholds"
+						isPost="true"
+						isQuery="false"
+						description="Calculate facility thresholds">
+						<mdParameter
+							name="thresholdCalculation"
+							type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+							label="Calculation type"
+							order="0" />
+						<mdParameter
+							name="currentYear"
+							type="java.lang.Boolean"
+							label="Current year"
+							order="1" />
+					</mdAction>
+				</create>
+			</mdController>
+			
+			<mdView
+				name="dss.vector.solutions.general.ThresholdCalculationTypeView">
+				<create>
+					<mdMethod
+						name="calculatePoliticalThresholds"
+						label="Calculate political thresholds"
+						returnType="void"
+						static="true">
+						<mdParameter
+							name="thresholdCalculation"
+							type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+							label="Calculation Type"
+							order="0" />
+						<mdParameter
+							name="currentYear"
+							type="java.lang.Boolean"
+							label="Current year"
+							order="1" />
+					</mdMethod>
+					<mdMethod
+						name="calculateFacilityThresholds"
+						label="Calculate facility thresholds"
+						returnType="void"
+						static="true">
+						<mdParameter
+							name="thresholdCalculation"
+							type="dss.vector.solutions.general.ThresholdCalculationTypeView"
+							label="Calculation Type"
+							order="0" />
+						<mdParameter
+							name="currentYear"
+							type="java.lang.Boolean"
+							label="Current year"
+							order="1" />
+					</mdMethod>
+				</create>
+			</mdView>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholds"
+				type="com.runwaysdk.system.metadata.MdAction" />
+			<object
+				key="dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholds"
+				type="com.runwaysdk.system.metadata.MdAction" />
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.calculatePoliticalThresholds"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+			<object
+				key="dss.vector.solutions.general.ThresholdCalculationTypeView.calculateFacilityThresholds"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+		</delete>
+	</undoIt>
+</version>

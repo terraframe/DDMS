@@ -1,0 +1,50 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+        <mdBusiness name="dss.vector.solutions.query.TextElement" label="TextElement">
+          <attributes>
+        	<integer name="textXPosition" label="textXPosition" required="false" defaultValue="0" />
+        	<integer name="textYPosition" label="textYPosition" required="false" defaultValue="0"/>
+        	<char name="textValue" label="textValue" required="true" size="300"/>
+        	<char name="fontColor" label="fontColor" required="true" size="30" defaultValue="#000000"/>
+        	<char name="fontFamily" label="fontFamily" required="true" size="300" defaultValue="Times New Roman"/>
+        	<integer name="fontSize" label="fontSize" required="true" defaultValue="14"/>
+        	<char name="fontStyle" label="fontStyle" required="true" size="100" defaultValue="font-style:NORMAL;font-weight:normal;"/>
+        	<char name="customTextElementId" label="customTextElementId" required="true" size="150"/>
+          </attributes>
+    	  <mdMethod name="removeTextElement" label="removeTextElement" returnType="java.lang.String" static="false">
+          	<mdParameter name="textElementId" label="textElementId" order="0" type="java.lang.String"/>	
+          	<mdParameter name="mapId" label="mapId" order="1" type="java.lang.String"/>	
+          </mdMethod>
+      </mdBusiness>
+      <mdRelationship name="dss.vector.solutions.query.HasTextElement" generateController="false" label="Has Text Element" composition="true"  cacheAlgorithm="nothing">
+	    <parent cardinality="1" name="dss.vector.solutions.query.SavedMap" method="ContainingMap" />
+		<child cardinality="*" name="dss.vector.solutions.query.TextElement" method="HasTextElement" />
+	  </mdRelationship>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.query.SavedMap">
+      	<create>
+      	  <mdMethod name="getTextByCustomTextElementId" label="getTextByCustomTextElementId" returnType="java.lang.String" static="false">
+    	      <mdParameter name="customTextElementId" label="customTextElementId" order="0" type="java.lang.String"/>	
+          </mdMethod>
+          <mdMethod name="updateTextElements" label="updateTextElements" returnType="void" static="false">
+          	<mdParameter name="textElements" label="textElements" order="0" type="java.lang.String"/>		
+          </mdMethod>
+          <mdMethod name="addTextElement" label="addTextElement" description="Persist instance of a text element" returnType="java.lang.String" static="false">
+	        <mdParameter name="savedMapId" label="savedMapId" description="Id of the new map that the image will be added to" type="java.lang.String" order="0"/>
+	        <mdParameter name="textValue" label="textValue" type="java.lang.String" order="1"/>
+	        <mdParameter name="fontColor" label="fontColor" type="java.lang.String" order="2"/>
+	        <mdParameter name="fontFamily" label="fontFamily" type="java.lang.String" order="3"/>
+	        <mdParameter name="fontSize" label="fontSize" type="java.lang.Integer" order="4"/>
+	        <mdParameter name="fontStyle" label="fontStyle" type="java.lang.String" order="5"/>
+	        <mdParameter name="customTextElementId" label="customTextElementId" type="java.lang.String" order="6"/>
+	      </mdMethod>
+	    </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,0 +1,63 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.LarvacideExcelView"
+        label="Larvacide Excel View"
+        description="Excel view for importing/exporting control of immatures">
+        <attributes>
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.intervention.monitor.Larvacide"/>
+          <virtual
+            concrete="completionDate"
+            type="dss.vector.solutions.intervention.monitor.Larvacide"/>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="geoDescription"
+            type="dss.vector.solutions.intervention.monitor.Larvacide"/>
+          <virtual
+            concrete="natureOfControl"
+            type="dss.vector.solutions.intervention.monitor.Larvacide"/>
+          <virtual
+            concrete="personCount"
+            type="dss.vector.solutions.intervention.monitor.Larvacide"/>
+          <char
+            name="teamLeaderId"
+            label="Team Leader Id"
+            size="255"/>
+          <char
+            name="target"
+            label="Target"
+            size="255"/>
+          <virtual
+            concrete="treated"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+          <char
+            name="controlMethod"
+            label="Control Method"
+            size="255"/>
+          <char
+            name="unit"
+            label="Unit"
+            size="255"/>
+          <virtual
+            concrete="unitsUsed"
+            type="dss.vector.solutions.intervention.monitor.LarvacideInstance"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.LarvacideExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

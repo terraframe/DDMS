@@ -1,0 +1,512 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.InsecticideBrandView.activeIngredient" />
+      </object>    
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.patientType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualIPTView.patientType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.visitNumber"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualIPTView.visitNumber" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.doseNumber"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualIPTView.doseNumber" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.doseType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.IndividualIPTView.doseType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.general.Insecticide.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.general.Insecticide.activeIngredient" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.CollectionAssay.testMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.generation"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.CollectionAssay.generation" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.AdultAssay.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.AdultAssay.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.AbstractAssay.specie"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.AbstractAssay.specie" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.identificationMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.CollectionAssay.identificationMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.EfficacyAssayView.testMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.specie"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.EfficacyAssayView.specie" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.EfficacyAssayView.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.surfacePostion"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.assay.EfficacyAssayView.surfacePostion" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.roof"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.HouseholdView.roof" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.wall"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.HouseholdView.wall" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.windowType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.HouseholdView.windowType" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.HouseholdView.displayNets" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.anaemiaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.anaemiaTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.bloodslide"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.bloodslide" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.fever"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.fever" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.feverTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.feverTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.malaria"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.malaria" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.malariaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.malariaTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.payment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.payment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.performedRDT"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.performedRDT" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.rdtTreatment"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.rdtTreatment" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.sex"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.sex" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.rDTResult"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.PersonView.rDTResult" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.retreatmentPeriod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.retreatmentPeriod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washInterval"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washInterval" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washed"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washed" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.freeProvider"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.freeProvider" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDataView.displayNets" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayServices"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDataView.displayServices" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDataView.displayTargetGroups" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.service"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDistributionView.service" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.net"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDistributionView.net" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.targetGroups"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNDistributionView.targetGroups" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayDose"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayDose" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayPatients"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayPatients" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayTreatments"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayTreatments" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayVisits"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayVisits" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayTargetGroups" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayNets" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNets" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNonUseReasons"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNonUseReasons" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayTargetGroups" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField" />    
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.patientType"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.visitNumber"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.doseNumber"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.IndividualIPTView.doseType"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.general.Insecticide.activeIngredient"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.generation"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.AdultAssay.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.AbstractAssay.specie"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.CollectionAssay.identificationMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.testMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.specie"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.entomology.assay.EfficacyAssayView.surfacePostion"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.roof"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.wall"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.windowType"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.anaemiaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.bloodslide"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.fever"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.feverTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.malaria"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.malariaTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.payment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.performedRDT"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.rdtTreatment"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.sex"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.rDTResult"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.retreatmentPeriod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washInterval"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.washed"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.freeProvider"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayServices"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.service"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.net"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNDistributionView.targetGroups"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayDose"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayPatients"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayTreatments"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedIPTView.displayVisits"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNets"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayNonUseReasons"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.displayTargetGroups"
+        type="dss.vector.solutions.ontology.BrowserField" />
+    </delete>
+  </undoIt>
+</version>

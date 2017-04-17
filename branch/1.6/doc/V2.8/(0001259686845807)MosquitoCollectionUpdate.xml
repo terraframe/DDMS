@@ -1,0 +1,399 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.entomology.SearchMosquitoCollectionView"
+        label="Mosquito Collection"
+        extends="dss.vector.solutions.entomology.MosquitoCollectionView">
+        <attributes>
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+        </attributes>
+      </mdView>
+
+      <mdIndex
+        type="dss.vector.solutions.entomology.MosquitoCollection"
+        label="Mosquito Collection Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="geoEntity"
+          indexOrder="0" />
+        <attribute
+          name="collectionDate"
+          indexOrder="1" />
+        <attribute
+          name="collectionMethod"
+          indexOrder="2" />
+        <attribute
+          name="lifeStageName"
+          indexOrder="3" />
+      </mdIndex>
+
+      <object
+        key="Ontology__dss.vector.solutions.entomology.MosquitoCollectionView.collectionMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.MosquitoCollectionView.collectionMethod" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.SubCollectionView.taxon"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.SubCollectionView.taxon" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.SubCollectionView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.entomology.SubCollectionView.identMethod" />
+      </object>
+      
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.entomology.MosquitoCollectionView"
+        label="Mosquito Collection">
+        <create>
+          <mdMethod
+            name="applyAll"
+            label="Apply All"
+            returnType="dss.vector.solutions.entomology.SubCollectionView[]"
+            static="false">
+            <mdParameter
+              name="subCollections"
+              label="Sub-Collections"
+              type="dss.vector.solutions.entomology.SubCollectionView[]"
+              order="0" />
+          </mdMethod>
+          <mdMethod
+            name="getSubCollections"
+            label="Get Sub-Collections"
+            returnType="dss.vector.solutions.entomology.SubCollectionView[]"
+            static="false" />
+          <mdMethod
+            name="getMostRecent"
+            label="Get Most Recent"
+            returnType="dss.vector.solutions.entomology.MosquitoCollectionViewQuery"
+            static="true" />
+          <mdMethod
+            name="searchCollections"
+            label="Search Collections"
+            returnType="dss.vector.solutions.entomology.MosquitoCollectionViewQuery"
+            static="true">
+            <mdParameter
+              name="collection"
+              label="Collection"
+              type="dss.vector.solutions.entomology.SearchMosquitoCollectionView"
+              order="-1" />
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              order="1"
+              type="java.lang.Boolean" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              order="3"
+              type="java.lang.Integer" />
+          </mdMethod>
+          <mdMethod
+            name="getCollection"
+            label="Get Collection"
+            returnType="dss.vector.solutions.entomology.MosquitoCollectionView"
+            static="true">
+            <mdParameter
+              name="collection"
+              label="Collection"
+              type="dss.vector.solutions.entomology.MosquitoCollectionView"
+              order="0" />
+          </mdMethod>
+          <mdMethod
+            name="searchCollection"
+            label="Search Collection"
+            static="true"
+            returnType="dss.vector.solutions.entomology.MosquitoCollectionViewQuery">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+          <mdMethod
+            name="getAdultDoseAssays"
+            label="Get Adult Dose Assays"
+            returnType="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery"
+            static="false">
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              order="1"
+              type="java.lang.Boolean" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              order="3"
+              type="java.lang.Integer" />
+          </mdMethod>
+          <mdMethod
+            name="getLarvaeDoseAssays"
+            label="Get Larvae Dose Assays"
+            returnType="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery"
+            static="false">
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              order="1"
+              type="java.lang.Boolean" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              order="3"
+              type="java.lang.Integer" />
+          </mdMethod>
+          <mdMethod
+            name="getKnockDownAssays"
+            label="Get Knock Down Assays"
+            returnType="dss.vector.solutions.entomology.assay.KnockDownAssayQuery"
+            static="false">
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              order="1"
+              type="java.lang.Boolean" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              order="3"
+              type="java.lang.Integer" />
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.entomology.MosquitoCollectionController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.MosquitoCollectionView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.MosquitoCollectionView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.MosquitoCollectionView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.entomology.MosquitoCollectionView" />
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            label="Search"
+            isPost="false"
+            isQuery="false" />
+          <mdAction
+            name="searchByDTO"
+            isPost="true"
+            isQuery="true">
+            <mdParameter
+              name="dto"
+              label="dto"
+              order="0"
+              type="dss.vector.solutions.entomology.SearchMosquitoCollectionView" />
+          </mdAction>
+          <mdAction
+            name="searchByParameters"
+            isPost="false"
+            isQuery="true">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              order="0"
+              type="java.util.Date" />
+            <mdParameter
+              name="endDate"
+              label="End Date"
+              order="1"
+              type="java.util.Date" />
+            <mdParameter
+              name="collectionMethod"
+              label="Collection Method"
+              order="2"
+              type="java.lang.String" />
+            <mdParameter
+              name="geoEntity"
+              label="Geo Entity"
+              order="3"
+              type="java.lang.String" />
+            <mdParameter
+              name="collectionId"
+              label="Collection Id"
+              order="4"
+              type="java.lang.String" />
+            <mdParameter
+              name="abundance"
+              label="Abundance"
+              order="5"
+              type="java.lang.Boolean" />
+            <mdParameter
+              name="lifeStage"
+              label="Life Stage"
+              order="6"
+              type="java.lang.String" />
+          </mdAction>
+          <mdAction
+            name="forward"
+            label="Forward"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="dto"
+              label="dto"
+              order="0"
+              type="dss.vector.solutions.entomology.MosquitoCollectionView" />
+          </mdAction>
+          <mdAction
+            name="sortAssays"
+            label="Sort Assays"
+            isPost="false"
+            isQuery="true">
+            <mdParameter
+              name="collectionId"
+              label="collectionId"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="assayType"
+              label="Assay Type"
+              order="1"
+              type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.SubCollectionView.taxon"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.SubCollectionView.identMethod"
+        type="dss.vector.solutions.ontology.BrowserField"/>
+      <object
+        key="Ontology__dss.vector.solutions.entomology.MosquitoCollectionView.collectionMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />    
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getAdultDoseAssays"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getLarvaeDoseAssays"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getKnockDownAssays"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.searchCollection"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.searchCollections"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getMostRecent"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getSubCollections"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.getCollection"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionView.applyAll"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.entomology.SearchMosquitoCollectionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionController.search"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionController.searchByParameters"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionController.searchByDTO"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionController.forward"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.entomology.MosquitoCollectionController.sortAssays"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

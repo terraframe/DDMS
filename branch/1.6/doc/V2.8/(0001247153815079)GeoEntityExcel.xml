@@ -1,0 +1,46 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.GeoEntityExcelView"
+        label="Geo Entity Excel View"
+        description="Excel View for importing Geo Entities">
+        <attributes>
+          <virtual
+            name="activated"
+            concrete="activated"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            name="entityName"
+            concrete="entityName"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            name="gazId"
+            concrete="gazId"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            name="geoId"
+            concrete="geoId"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <char
+            name="geoType"
+            label="Geo Entity Type"
+            size="255" 
+            required="true"/>
+          <text
+            name="geometryWKT"
+            label="Well Known Text"/>
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.GeoEntityExcelView"
+        type="com.runwaysdk.system.metadata.MdView"/>
+    </delete>
+  </undoIt>
+</version>

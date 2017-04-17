@@ -1,0 +1,31 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController
+        name="dss.vector.solutions.util.ReadableAttributeController">
+        <create>
+          <mdAction
+            name="getFormAttributes"
+            label="Get form attributes"
+            isPost="false"
+            isQuery="false">
+            <mdParameter
+              name="actor"
+              label="Actor"
+              order="0"
+              type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.ReadableAttributeController.getFormAttributes"
+        type="com.runwaysdk.system.metadata.MdAction" />
+    </delete>
+  </undoIt>
+</version>

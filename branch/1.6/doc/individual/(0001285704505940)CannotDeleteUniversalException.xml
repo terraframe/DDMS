@@ -1,0 +1,25 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.CannotDeleteUniversalException"
+        label="Cannot Delete Universal Exception"
+        description="Thrown when the deletion of a universal raises compile errors"
+        message="Universal [{universalLabel}] cannot be deleted">
+        <attributes>
+          <char
+            name="universalLabel"
+            label="Universal Label"
+            size="255"/>
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.geo.CannotDeleteUniversalException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

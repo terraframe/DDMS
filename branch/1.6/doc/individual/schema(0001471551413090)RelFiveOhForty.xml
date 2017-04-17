@@ -1,0 +1,33 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdUtil name="dss.vector.solutions.report.SchedulerUtil">
+        <mdMethod name="searchByValueQuery" label="Search By Value Query" returnType="com.runwaysdk.query.ValueQuery" static="true">
+          <mdParameter name="value" label="Value" order="0" type="java.lang.String" />
+        </mdMethod>
+      </mdUtil>
+      <mdView name="dss.vector.solutions.geo.GeoSynonymArrayExcelView" label="GeoSynonym Excel View" publish="false">
+        <attributes>
+          <reference name="geoEntity" label="geoEntity" type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual concrete="synonymNames" type="dss.vector.solutions.geo.GeoSynonymArrayView" />
+        </attributes>
+      </mdView>
+    </create>
+    <update>
+      <mdController name="dss.vector.solutions.geo.GeoSynonymController">
+        <mdAction name="newInstance" isPost="true">
+          <create>
+            <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.geo.GeoSynonymArrayView"/>
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.report.SchedulerUtil" type="com.runwaysdk.system.metadata.MdUtil" />
+      <object key="dss.vector.solutions.geo.GeoSynonymArrayExcelView" type="com.runwaysdk.system.metadata.MdView" />
+      <object key="dss.vector.solutions.geo.GeoSynonymController.newInstance.view" type="com.runwaysdk.system.metadata.MdParameter" />
+    </delete>
+  </undoIt>
+</version>

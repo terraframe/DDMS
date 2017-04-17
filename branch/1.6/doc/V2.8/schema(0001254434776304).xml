@@ -1,0 +1,40 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+      <mdException
+        name="dss.vector.solutions.ontology.DuplicateRootException"
+        label="Duplicate Root Exception"
+        description="Thrown when a BrowserField tries to define two of the same roots.">
+       <attributes>
+         <char
+           name="browserField"
+           label="Browser Field"
+           size="150"
+           required="true" />
+          <char
+           name="browserRoot"
+           label="Browser Root"
+           size="150"
+           required="true" />          
+       </attributes> 
+      </mdException>
+    
+    </create>
+    <update>
+    
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <attributes>
+          <boolean
+            name="obsolete"
+            positiveLabel="true"
+            negativeLabel="false" />
+        </attributes>
+      </mdBusiness>    
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

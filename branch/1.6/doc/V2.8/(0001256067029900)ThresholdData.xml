@@ -1,0 +1,713 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdBusiness
+				name="dss.vector.solutions.general.ThresholdData"
+				label="Threshold"
+				generateController="false"
+				description="Population data for a geo entity on a given year">
+				<attributes>
+					<reference
+						name="geoEntity"
+						label="Geo Entity"
+						type="dss.vector.solutions.geo.generated.GeoEntity"
+						required="true" />
+					<reference
+						name="season"
+						label="Malaria Season"
+						type="dss.vector.solutions.general.MalariaSeason"
+						required="true" />
+				</attributes>
+				<mdMethod
+					name="unlockView"
+					label="unlock View"
+					returnType="dss.vector.solutions.general.ThresholdDataView"
+					static="false">
+				</mdMethod>
+				<mdMethod
+					name="lockView"
+					label="lock View"
+					returnType="dss.vector.solutions.general.ThresholdDataView"
+					static="false">
+				</mdMethod>
+				<mdMethod
+					name="getView"
+					label="Get View"
+					returnType="dss.vector.solutions.general.ThresholdDataView"
+					static="false" />
+			</mdBusiness>
+			<mdView
+				name="dss.vector.solutions.general.ThresholdDataView"
+				label="Threshold">
+				<attributes>
+					<char
+						name="concreteId"
+						label="Concrete Id"
+						size="255"
+						required="true" />
+					<char
+						name="geoEntity"
+						label="Geo Entity"
+						size="255"
+						required="true" />
+					<char
+						name="entityLabel"
+						label="Geo Entity"
+						size="255"
+						required="true" />
+					<virtual
+						name="season"
+						concrete="season"
+						type="dss.vector.solutions.general.ThresholdData" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_0"
+						label="W1T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_1"
+						label="W2T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_2"
+						label="W3T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_3"
+						label="W4T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_4"
+						label="W5T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_5"
+						label="W6T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_6"
+						label="W7T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_7"
+						label="W8T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_8"
+						label="W9T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_9"
+						label="W10T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_10"
+						label="W11T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_11"
+						label="W12T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_12"
+						label="W13T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_13"
+						label="W14T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_14"
+						label="W15T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_15"
+						label="W16T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_16"
+						label="W17T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_17"
+						label="W18T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_18"
+						label="W19T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_19"
+						label="W20T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_20"
+						label="W21T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_21"
+						label="W22T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_22"
+						label="W23T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_23"
+						label="W24T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_24"
+						label="W25T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_25"
+						label="W26T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_26"
+						label="W27T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_27"
+						label="W28T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_28"
+						label="W29T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_29"
+						label="W30T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_30"
+						label="W31T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_31"
+						label="W32T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_32"
+						label="W33T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_33"
+						label="W34T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_34"
+						label="W35T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_35"
+						label="W36T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_36"
+						label="W37T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_37"
+						label="W38T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_38"
+						label="W39T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_39"
+						label="W40T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_40"
+						label="W41T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_41"
+						label="W42T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_42"
+						label="W43T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_43"
+						label="W44T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_44"
+						label="W45T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_45"
+						label="W46T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_46"
+						label="W47T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_47"
+						label="W48T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_48"
+						label="W49T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_49"
+						label="W50T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_50"
+						label="W51T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_51"
+						label="W52T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="outbreak_52"
+						label="W53T1" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_0"
+						label="W1T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_1"
+						label="W2T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_2"
+						label="W3T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_3"
+						label="W4T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_4"
+						label="W5T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_5"
+						label="W6T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_6"
+						label="W7T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_7"
+						label="W8T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_8"
+						label="W9T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_9"
+						label="W10T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_10"
+						label="W11T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_11"
+						label="W12T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_12"
+						label="W13T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_13"
+						label="W14T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_14"
+						label="W15T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_15"
+						label="W16T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_16"
+						label="W17T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_17"
+						label="W18T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_18"
+						label="W19T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_19"
+						label="W20T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_20"
+						label="W21T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_21"
+						label="W22T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_22"
+						label="W23T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_23"
+						label="W24T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_24"
+						label="W25T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_25"
+						label="W26T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_26"
+						label="W27T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_27"
+						label="W28T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_28"
+						label="W29T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_29"
+						label="W30T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_30"
+						label="W31T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_31"
+						label="W32T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_32"
+						label="W33T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_33"
+						label="W34T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_34"
+						label="W35T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_35"
+						label="W36T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_36"
+						label="W37T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_37"
+						label="W38T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_38"
+						label="W39T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_39"
+						label="W40T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_40"
+						label="W41T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_41"
+						label="W42T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_42"
+						label="W43T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_43"
+						label="W44T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_44"
+						label="W45T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_45"
+						label="W46T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_46"
+						label="W47T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_47"
+						label="W48T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_48"
+						label="W49T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_49"
+						label="W50T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_50"
+						label="W51T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_51"
+						label="W52T2" />
+					<double
+						length="12"
+						decimal="2"
+						name="identification_52"
+						label="W53T2" />
+				</attributes>
+				<mdMethod
+					name="deleteConcrete"
+					label="Delete Concrete"
+					returnType="void"
+					static="false" />
+				<mdMethod
+					name="getViews"
+					returnType="dss.vector.solutions.general.ThresholdDataView[]"
+					label="Get View"
+					static="true">
+					<mdParameter
+						name="geoId"
+						label="Geo Id"
+						order="0"
+						type="java.lang.String" />
+					<mdParameter
+						name="season"
+						label="Malaria Season"
+						order="1"
+						type="dss.vector.solutions.general.MalariaSeason" />
+				</mdMethod>
+				<mdMethod
+					name="applyAll"
+					returnType="dss.vector.solutions.general.ThresholdDataView[]"
+					label="Apply All"
+					static="true">
+					<mdParameter
+						name="views"
+						order="0"
+						label="Views"
+						type="dss.vector.solutions.general.ThresholdDataView[]" />
+				</mdMethod>
+				<mdMethod
+					name="exportToExcel"
+					returnType="java.io.InputStream"
+					label="Export To Excel"
+					static="true">
+					<mdParameter
+						name="views"
+						label="Views"
+						order="0"
+						type="dss.vector.solutions.general.ThresholdDataView[]" />
+				</mdMethod>
+			</mdView>
+			<mdController
+				name="dss.vector.solutions.general.ThresholdDataController"
+				label="Population Data Controller">
+				<mdAction
+					name="searchForThresholdData"
+					isPost="true"
+					isQuery="false">
+					<mdParameter
+						name="geoId"
+						label="Geo Id"
+						order="0"
+						type="java.lang.String" />
+					<mdParameter
+						name="season"
+						label="Season"
+						order="1"
+						type="dss.vector.solutions.general.MalariaSeason" />
+				</mdAction>
+				<mdAction
+					name="search"
+					isPost="false"
+					label="Search" />
+				<mdAction
+					name="exportThresholdData"
+					label="Export Threshold Data"
+					isPost="true"
+					description="Exports threshold data to an excel sheet">
+					<mdParameter
+						name="views"
+						label="Views"
+						order="0"
+						type="dss.vector.solutions.general.ThresholdDataView[]" />
+				</mdAction>
+			</mdController>
+			<mdIndex
+				type="dss.vector.solutions.general.ThresholdData"
+				label="Threshold Data Index"
+				active="true"
+				unique="true">
+				<attribute
+					name="geoEntity"
+					indexOrder="0" />
+				<attribute
+					name="season"
+					indexOrder="1" />
+			</mdIndex>
+			<mdException
+				name="dss.vector.solutions.general.MalariaSeasonDateException"
+				label="Malaria Season Date">
+				<attributes>
+					<char
+						name="seasonName"
+						label="Season Name"
+						size="255" />
+					<date
+						name="weekDate"
+						label="Week Date" />
+				</attributes>
+			</mdException>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.ThresholdData"
+				type="com.runwaysdk.system.metadata.MdBusiness" />
+			<object
+				key="dss.vector.solutions.general.ThresholdDataView"
+				type="com.runwaysdk.system.metadata.MdView" />
+			<object
+				key="dss.vector.solutions.general.ThresholdDataController"
+				type="com.runwaysdk.system.metadata.MdController" />
+		</delete>
+	</undoIt>
+</version>

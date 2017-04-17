@@ -1,0 +1,33 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.PersonExcelView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="isStockStaff"
+              type="dss.vector.solutions.PersonView" />
+            <virtual
+              concrete="isSupervisor"
+              type="dss.vector.solutions.PersonView" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.PersonExcelView.isStockStaff"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.PersonExcelView.isSupervisor"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+    </delete>
+  </undoIt>
+</version>

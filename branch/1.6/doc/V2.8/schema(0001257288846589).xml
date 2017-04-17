@@ -1,0 +1,34 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+    </delete>
+    <update>
+      <mdController
+        name="dss.vector.solutions.query.QueryController">
+        <mdAction
+          name="exportQueryToCSV">
+          <create>
+            <mdParameter
+              name="queryClass"
+              label="Query Class"
+              description="A string with the FQCN of the class to get data from"
+              order="-1"
+              type="java.lang.String"/>
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="queryIndividualIPT"
+            label="Query IndividualIPT"
+            description="Query IndividualIPT"
+            isPost="false"/>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

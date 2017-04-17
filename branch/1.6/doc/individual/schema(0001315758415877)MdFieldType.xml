@@ -1,0 +1,69 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+      <mdView
+        name="dss.vector.solutions.form.MdFieldType"
+        label="MdFieldType">
+        
+        <attributes>
+          <char
+            name="mdFieldId"
+            size="64"
+            label="MdField Id"
+            required="true" />
+          <char
+            name="displayLabel" 
+            required="false" 
+            size="255"
+            label="Display Label"  />
+          <text
+            name="description" 
+            required="false" 
+            label="Description" />         
+        </attributes>
+      </mdView>
+    
+    </create>
+    <update>
+    
+      <mdController
+        name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+          <mdAction 
+            name="availableFields"
+            label="Available Fields"
+            description="Returns types of MdFields available for creation."
+            isPost="true">
+          </mdAction>
+        </create>
+      </mdController>
+    
+      <mdUtil
+        name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+        <mdMethod
+          name="getAvailableFields"
+          label="Get Available Fields"
+          static="true"
+          returnType="dss.vector.solutions.form.MdFieldTypeQuery"></mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.form.MdFieldType"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.form.MdFormAdminController.availableFields" 
+        type="com.runwaysdk.system.metadata.MdAction"/>
+      <object
+        key="dss.vector.solutions.generator.MdFormUtil.getAvailableFields" 
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+
+    </delete>
+  </undoIt>
+</version>

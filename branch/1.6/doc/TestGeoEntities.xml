@@ -1,0 +1,15 @@
+<TerraFrame
+  xsi:noNamespaceSchemaLocation="../profiles/datatype.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+    <update>
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        
+        <create>
+
+        </create>
+      </mdBusiness>
+      
+    </update>
+  
+</TerraFrame>

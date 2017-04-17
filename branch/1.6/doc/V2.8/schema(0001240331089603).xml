@@ -1,0 +1,1154 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.Targeter"
+        label="Targeter"
+        description="Interface denoting that an entity can have targets assigned to it."
+        generateController="false"
+        isAbstract="true"
+        extendable="true">
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.ResourceTarget"
+        label="Resource Target"
+        generateController="true"
+        description="Target on which a user/team resource is assigned">
+        <attributes>
+          <reference
+            name="targeter"
+            label="Targeter"
+            type="dss.vector.solutions.irs.Targeter"
+            required="true" />
+          <reference
+            name="season"
+            label="Season"
+            description="The Season to set targets for"
+            type="dss.vector.solutions.general.MalariaSeason"
+            required="true" />
+          <integer
+            name="target_0"
+            label="Target of Spray Week 1" />
+          <integer
+            name="target_1"
+            label="Target of Spray Week 2" />
+          <integer
+            name="target_2"
+            label="Target of Spray Week 3" />
+          <integer
+            name="target_3"
+            label="Target of Spray Week 4" />
+          <integer
+            name="target_4"
+            label="Target of Spray Week 5" />
+          <integer
+            name="target_5"
+            label="Target of Spray Week 6" />
+          <integer
+            name="target_6"
+            label="Target of Spray Week 7" />
+          <integer
+            name="target_7"
+            label="Target of Spray Week 8" />
+          <integer
+            name="target_8"
+            label="Target of Spray Week 9" />
+          <integer
+            name="target_9"
+            label="Target of Spray Week 10" />
+          <integer
+            name="target_10"
+            label="Target of Spray Week 11" />
+          <integer
+            name="target_11"
+            label="Target of Spray Week 12" />
+          <integer
+            name="target_12"
+            label="Target of Spray Week 13" />
+          <integer
+            name="target_13"
+            label="Target of Spray Week 14" />
+          <integer
+            name="target_14"
+            label="Target of Spray Week 15" />
+          <integer
+            name="target_15"
+            label="Target of Spray Week 16" />
+          <integer
+            name="target_16"
+            label="Target of Spray Week 17" />
+          <integer
+            name="target_17"
+            label="Target of Spray Week 18" />
+          <integer
+            name="target_18"
+            label="Target of Spray Week 19" />
+          <integer
+            name="target_19"
+            label="Target of Spray Week 20" />
+          <integer
+            name="target_20"
+            label="Target of Spray Week 21" />
+          <integer
+            name="target_21"
+            label="Target of Spray Week 22" />
+          <integer
+            name="target_22"
+            label="Target of Spray Week 23" />
+          <integer
+            name="target_23"
+            label="Target of Spray Week 24" />
+          <integer
+            name="target_24"
+            label="Target of Spray Week 25" />
+          <integer
+            name="target_25"
+            label="Target of Spray Week 26" />
+          <integer
+            name="target_26"
+            label="Target of Spray Week 27" />
+          <integer
+            name="target_27"
+            label="Target of Spray Week 28" />
+          <integer
+            name="target_28"
+            label="Target of Spray Week 29" />
+          <integer
+            name="target_29"
+            label="Target of Spray Week 30" />
+          <integer
+            name="target_30"
+            label="Target of Spray Week 31" />
+          <integer
+            name="target_31"
+            label="Target of Spray Week 32" />
+          <integer
+            name="target_32"
+            label="Target of Spray Week 33" />
+          <integer
+            name="target_33"
+            label="Target of Spray Week 34" />
+          <integer
+            name="target_34"
+            label="Target of Spray Week 35" />
+          <integer
+            name="target_35"
+            label="Target of Spray Week 36" />
+          <integer
+            name="target_36"
+            label="Target of Spray Week 37" />
+          <integer
+            name="target_37"
+            label="Target of Spray Week 38" />
+          <integer
+            name="target_38"
+            label="Target of Spray Week 39" />
+          <integer
+            name="target_39"
+            label="Target of Spray Week 40" />
+          <integer
+            name="target_40"
+            label="Target of Spray Week 41" />
+          <integer
+            name="target_41"
+            label="Target of Spray Week 42" />
+          <integer
+            name="target_42"
+            label="Target of Spray Week 43" />
+          <integer
+            name="target_43"
+            label="Target of Spray Week 44" />
+          <integer
+            name="target_44"
+            label="Target of Spray Week 45" />
+          <integer
+            name="target_45"
+            label="Target of Spray Week 46" />
+          <integer
+            name="target_46"
+            label="Target of Spray Week 47" />
+          <integer
+            name="target_47"
+            label="Target of Spray Week 48" />
+          <integer
+            name="target_48"
+            label="Target of Spray Week 49" />
+          <integer
+            name="target_49"
+            label="Target of Spray Week 50" />
+          <integer
+            name="target_50"
+            label="Target of Spray Week 51" />
+          <integer
+            name="target_51"
+            label="Target of Spray Week 52" />
+          <integer
+            name="target_52"
+            label="Target of Spray Week 53" />
+        </attributes>
+        <mdMethod
+          name="find"
+          label="Find"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView">
+          <mdParameter
+            name="resource"
+            label="Resource"
+            order="0"
+            type="dss.vector.solutions.irs.Targeter" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.RequiredSeasonProblem"
+        label="Required Season Problem"
+        description="Malaria season requires a value" />
+
+      <mdView
+        name="dss.vector.solutions.irs.ResourceTargetView"
+        label="Resource Target View"
+        description="View for target on which a user/team resource is assigned">
+        <attributes>
+          <char
+            name="targetId"
+            label="Target Id"
+            size="255"
+            required="true" />
+          <char
+            name="targeterName"
+            label="Name"
+            size="255"
+            required="true" />
+          <virtual
+            name="season"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            concrete="season"
+            required="true" />
+          <virtual
+            name="targeter"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            concrete="targeter"
+            required="true" />
+          <virtual
+            concrete="target_0"
+            name="target_0"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_1"
+            name="target_1"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_2"
+            name="target_2"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_3"
+            name="target_3"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_4"
+            name="target_4"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_5"
+            name="target_5"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_6"
+            name="target_6"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_7"
+            name="target_7"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_8"
+            name="target_8"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_9"
+            name="target_9"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_10"
+            name="target_10"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_11"
+            name="target_11"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_12"
+            name="target_12"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_13"
+            name="target_13"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_14"
+            name="target_14"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_15"
+            name="target_15"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_16"
+            name="target_16"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_17"
+            name="target_17"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_18"
+            name="target_18"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_19"
+            name="target_19"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_20"
+            name="target_20"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_21"
+            name="target_21"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_22"
+            name="target_22"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_23"
+            name="target_23"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_24"
+            name="target_24"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_25"
+            name="target_25"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_26"
+            name="target_26"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_27"
+            name="target_27"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_28"
+            name="target_28"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_29"
+            name="target_29"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_30"
+            name="target_30"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_31"
+            name="target_31"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_32"
+            name="target_32"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_33"
+            name="target_33"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_34"
+            name="target_34"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_35"
+            name="target_35"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_36"
+            name="target_36"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_37"
+            name="target_37"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_38"
+            name="target_38"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_39"
+            name="target_39"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_40"
+            name="target_40"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_41"
+            name="target_41"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_42"
+            name="target_42"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_43"
+            name="target_43"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_44"
+            name="target_44"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_45"
+            name="target_45"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_46"
+            name="target_46"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_47"
+            name="target_47"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_48"
+            name="target_48"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_49"
+            name="target_49"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_50"
+            name="target_50"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_51"
+            name="target_51"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+          <virtual
+            concrete="target_52"
+            name="target_52"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="sum"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView"
+          label="Sums"
+          description="Creates a new view with the sum of all given targets">
+          <mdParameter
+            name="resource"
+            label="Resource"
+            order="0"
+            type="dss.vector.solutions.irs.Targeter" />
+          <mdParameter
+            name="views"
+            label="Views"
+            order="1"
+            type="dss.vector.solutions.irs.ResourceTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="lockAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView[]"
+          label="Lock All"
+          description="Locks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.ResourceTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="unlockAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView[]"
+          label="Lock All"
+          description="Unlocks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.ResourceTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.ResourceTargetView[]"
+          label="Apply All"
+          description="Unlocks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.ResourceTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          description="Deletes the concrete representation of this view"
+          static="false"
+          returnType="void"
+          label="Delete Concrete" />
+      </mdView>
+    </create>
+
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.irs.GeoTarget"
+        label="Geo Target"
+        generateController="true"
+        description="Target on which a user/team resource is assigned">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <reference
+            name="season"
+            label="Season"
+            description="The Season to set targets for"
+            type="dss.vector.solutions.general.MalariaSeason"
+            required="true" />
+          <integer
+            name="target_0"
+            label="Target 1" />
+          <integer
+            name="target_1"
+            label="Target 2" />
+          <integer
+            name="target_2"
+            label="Target 3" />
+          <integer
+            name="target_3"
+            label="Target 4" />
+          <integer
+            name="target_4"
+            label="Target 5" />
+          <integer
+            name="target_5"
+            label="Target 6" />
+          <integer
+            name="target_6"
+            label="Target 7" />
+          <integer
+            name="target_7"
+            label="Target 8" />
+          <integer
+            name="target_8"
+            label="Target 9" />
+          <integer
+            name="target_9"
+            label="Target 10" />
+          <integer
+            name="target_10"
+            label="Target 11" />
+          <integer
+            name="target_11"
+            label="Target 12" />
+          <integer
+            name="target_12"
+            label="Target 13" />
+          <integer
+            name="target_13"
+            label="Target 14" />
+          <integer
+            name="target_14"
+            label="Target 15" />
+          <integer
+            name="target_15"
+            label="Target 16" />
+          <integer
+            name="target_16"
+            label="Target 17" />
+          <integer
+            name="target_17"
+            label="Target 18" />
+          <integer
+            name="target_18"
+            label="Target 19" />
+          <integer
+            name="target_19"
+            label="Target 20" />
+          <integer
+            name="target_20"
+            label="Target 21" />
+          <integer
+            name="target_21"
+            label="Target 22" />
+          <integer
+            name="target_22"
+            label="Target 23" />
+          <integer
+            name="target_23"
+            label="Target 24" />
+          <integer
+            name="target_24"
+            label="Target 25" />
+          <integer
+            name="target_25"
+            label="Target 26" />
+          <integer
+            name="target_26"
+            label="Target 27" />
+          <integer
+            name="target_27"
+            label="Target 28" />
+          <integer
+            name="target_28"
+            label="Target 29" />
+          <integer
+            name="target_29"
+            label="Target 30" />
+          <integer
+            name="target_30"
+            label="Target 31" />
+          <integer
+            name="target_31"
+            label="Target 32" />
+          <integer
+            name="target_32"
+            label="Target 33" />
+          <integer
+            name="target_33"
+            label="Target 34" />
+          <integer
+            name="target_34"
+            label="Target 35" />
+          <integer
+            name="target_35"
+            label="Target 36" />
+          <integer
+            name="target_36"
+            label="Target 37" />
+          <integer
+            name="target_37"
+            label="Target 38" />
+          <integer
+            name="target_38"
+            label="Target 39" />
+          <integer
+            name="target_39"
+            label="Target 40" />
+          <integer
+            name="target_40"
+            label="Target 41" />
+          <integer
+            name="target_41"
+            label="Target 42" />
+          <integer
+            name="target_42"
+            label="Target 43" />
+          <integer
+            name="target_43"
+            label="Target 44" />
+          <integer
+            name="target_44"
+            label="Target 45" />
+          <integer
+            name="target_45"
+            label="Target 46" />
+          <integer
+            name="target_46"
+            label="Target 47" />
+          <integer
+            name="target_47"
+            label="Target 48" />
+          <integer
+            name="target_48"
+            label="Target 49" />
+          <integer
+            name="target_49"
+            label="Target 50" />
+          <integer
+            name="target_50"
+            label="Target 51" />
+          <integer
+            name="target_51"
+            label="Target 52" />
+          <integer
+            name="target_52"
+            label="Target 53" />
+        </attributes>
+        <mdMethod
+          name="find"
+          label="Find"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.GeoTargetView"
+        label="Geo Target View"
+        description="View for target on which a geo resource is assigned">
+        <attributes>
+          <char
+            name="targetId"
+            label="Target Id"
+            size="255"
+            required="true" />
+          <virtual
+            name="geoEntity"
+            type="dss.vector.solutions.irs.GeoTarget"
+            concrete="geoEntity"
+            required="true" />
+          <virtual
+            name="entityName"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="entityName"
+            required="true" />
+          <virtual
+            name="season"
+            type="dss.vector.solutions.irs.GeoTarget"
+            concrete="season"
+            required="true" />
+          <virtual
+            concrete="target_0"
+            name="target_0"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_1"
+            name="target_1"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_2"
+            name="target_2"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_3"
+            name="target_3"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_4"
+            name="target_4"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_5"
+            name="target_5"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_6"
+            name="target_6"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_7"
+            name="target_7"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_8"
+            name="target_8"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_9"
+            name="target_9"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_10"
+            name="target_10"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_11"
+            name="target_11"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_12"
+            name="target_12"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_13"
+            name="target_13"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_14"
+            name="target_14"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_15"
+            name="target_15"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_16"
+            name="target_16"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_17"
+            name="target_17"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_18"
+            name="target_18"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_19"
+            name="target_19"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_20"
+            name="target_20"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_21"
+            name="target_21"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_22"
+            name="target_22"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_23"
+            name="target_23"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_24"
+            name="target_24"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_25"
+            name="target_25"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_26"
+            name="target_26"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_27"
+            name="target_27"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_28"
+            name="target_28"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_29"
+            name="target_29"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_30"
+            name="target_30"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_31"
+            name="target_31"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_32"
+            name="target_32"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_33"
+            name="target_33"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_34"
+            name="target_34"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_35"
+            name="target_35"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_36"
+            name="target_36"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_37"
+            name="target_37"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_38"
+            name="target_38"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_39"
+            name="target_39"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_40"
+            name="target_40"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_41"
+            name="target_41"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_42"
+            name="target_42"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_43"
+            name="target_43"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_44"
+            name="target_44"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_45"
+            name="target_45"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_46"
+            name="target_46"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_47"
+            name="target_47"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_48"
+            name="target_48"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_49"
+            name="target_49"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_50"
+            name="target_50"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_51"
+            name="target_51"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+          <virtual
+            concrete="target_52"
+            name="target_52"
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="sum"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView"
+          label="Sums"
+          description="Creates a new view with the sum of all given targets">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <mdParameter
+            name="views"
+            label="Views"
+            order="1"
+            type="dss.vector.solutions.irs.GeoTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="lockAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView[]"
+          label="Lock All"
+          description="Locks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.GeoTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="unlockAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView[]"
+          label="Lock All"
+          description="Unlocks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.GeoTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView[]"
+          label="Apply All"
+          description="Unlocks all of the given view objects">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="0"
+            type="dss.vector.solutions.irs.GeoTargetView[]" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          description="Deletes the concrete representation of this view"
+          static="false"
+          returnType="void"
+          label="Delete Concrete" />
+      </mdView>
+    </create>
+
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.GeoTargetView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.GeoTarget"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.ResourceTargetView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.ResourceTarget"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.Team"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.Targeter"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

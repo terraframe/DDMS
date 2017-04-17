@@ -1,0 +1,74 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.ontology.TermSelectionProblem"
+        label="Term Selection Problem">
+        <attributes>
+          <char
+            name="termId"
+            label="Term Id"
+            size="255" />
+        </attributes>
+      </mdProblem>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="getTermById"
+            static="true"
+            returnType="dss.vector.solutions.ontology.TermView">
+            <mdParameter
+              name="termId"
+              label="Term Id"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="parameters"
+              label="Parameters"
+              order="1"
+              type="java.lang.String[]" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.InfectionAssay"
+        label="Infection Assay Result"
+        generateController="false">
+        <attributes>
+          <reference
+            name="parasite"
+            label="Tested parasite"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.PooledInfectionAssay"
+        label="Pooled Infection Assay Result"
+        generateController="false">
+        <attributes>
+          <reference
+            name="parasite"
+            label="Tested parasite"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.Term.getTermById"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.ontology.TermSelectionProblem"
+        type="com.runwaysdk.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>

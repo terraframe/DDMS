@@ -1,0 +1,113 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.PersonView"
+        label="PersonView"
+        description="View of a Person including all attributes from possible delegations">
+        <attributes>
+          <char
+            name="personId"
+            label="Person ID"
+            description="ID of the Person theis view represents"
+            size="64"
+            required="true" />
+          <virtual
+            name="firstName"
+            concrete="firstName"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <virtual
+            name="lastName"
+            concrete="lastName"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <virtual
+            name="dateOfBirth"
+            concrete="dateOfBirth"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <char
+            name="residentialGeoId"
+            label="Residential Geo ID"
+            size="16" />
+          <virtual
+            name="sex"
+            concrete="sex"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <boolean
+            name="isMDSSUser"
+            label="Is MDSS User"
+            description="Is this Person an MDSS User?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <char
+            name="username"
+            label="Username"
+            description="Username"
+            size="64"
+            required="true" />
+          <char
+            name="password"
+            label="Password"
+            description="Password"
+            size="32"
+            required="true" />
+          <boolean
+            name="isPatient"
+            label="Is Malaria Patient"
+            description="Is this Person a Malaria Patient?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <boolean
+            name="isITNRecipient"
+            label="Is ITN Recipient"
+            description="Is this Person an ITN Recipient?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <boolean
+            name="isIPTRecipient"
+            label="Is IPT Recipient"
+            description="Is this Person an IPT Recipient?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <boolean
+            name="isSprayOperator"
+            label="Is Spray Operator"
+            description="Is this Person a Spray Operator?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <boolean
+            name="isSprayLeader"
+            label="Is Spray Leader"
+            description="Is this Person a Spray Team Leader?"
+            default_value="false"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            required="true" />
+          <virtual
+            name="memberId"
+            concrete="memberId"
+            type="dss.vector.solutions.irs.TeamMember"
+            required="true" />
+        </attributes>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

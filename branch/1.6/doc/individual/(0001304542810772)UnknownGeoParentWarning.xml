@@ -1,0 +1,40 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+    </update>
+    <create>
+      <mdWarning
+        name="dss.vector.solutions.export.UnknownGeoParentWarning"
+        label="Unknown Geo Parent Warning"
+        message="No geo entity found with Name/Id [{parentName}] and type [{parentType}]. {childName} has been imported under {defaultParent} instead." >
+        <attributes>
+          <char
+            name="childName"
+            label="Child Name"
+            size="255"/>
+          <char
+            name="parentName"
+            label="Parent Name"
+            size="255"/>
+          <char
+            name="parentType"
+            label="Parent Type"
+            size="255"/>
+          <char
+            name="defaultParent"
+            label="Default Parent"
+            size="255"/>
+        </attributes>
+      </mdWarning>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.UnknownGeoParentWarning"
+        type="com.runwaysdk.system.metadata.MdWarning"/>
+    </delete>
+  </undoIt>
+</version>

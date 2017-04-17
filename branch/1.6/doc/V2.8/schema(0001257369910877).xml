@@ -1,0 +1,23 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdController name="dss.vector.solutions.query.MappingController">
+        <create>
+          <mdAction
+            name="generateMaps"
+            label="Generate Maps"
+            isPost="false">
+          </mdAction>
+        </create> 
+      </mdController>
+      
+    </update>
+    <delete>
+    </delete>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,0 +1,320 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+        label="Intervention by Aggregated Premises Visits/Vehicle Based Spraying"
+        generateController="false">
+        <attributes>
+          <reference
+            name="point"
+            label="Intervention Point"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <integer
+            name="vehicleCoverage"
+            label="% Covered by Vehicle Based Spraying" />
+          <integer
+            name="premises"
+            label="# Premises Available to Visit" />
+          <integer
+            name="visited"
+            label="# Visited" />
+          <integer
+            name="treated"
+            label="# Treated" />
+        </attributes>
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseReason"
+        label="# Reason for Not Treated"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+          method="AggregatedPremiseReasons" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="NonTreatmentReasons" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod"
+        label="# Treated with Intervention Method"
+        generateController="false">
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount" />
+        </attributes>
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+          method="AggregatedPremiseMethod" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.Term"
+          method="InterventionMethods" />
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView"
+        label="Intervention by Aggregated Premises Visits/Vehicle Based Spraying">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="64"
+            required="true" />
+          <char
+            name="entityLabel"
+            label="Geo Entity"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="point"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="geoEntity"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="vehicleCoverage"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="premises"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="visited"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="treated"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <reference
+            name="nonTreatmentReason"
+            label="# Reason for Not Treated"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <reference
+            name="interventionMethod"
+            label="# Treated with Intervention Method"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getInterventionMethods"
+          label="Get Intervention Methods"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView[]">
+        </mdMethod>
+        <mdMethod
+          name="getInterventionMethodsForViews"
+          label="Get Intervention Methods For Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView[][]">
+          <mdParameter
+            name="views"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView[]"
+            label="Views" />
+        </mdMethod>
+        <mdMethod
+          name="getNonTreatmentReasons"
+          label="Get Non Treatment Reasons"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView[]">
+        </mdMethod>
+        <mdMethod
+          name="getNonTreatmentReasonsForViews"
+          label="Get Intervention Methods For Views"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView[][]">
+          <mdParameter
+            name="views"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView[]"
+            label="Views" />
+        </mdMethod>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView"
+        label="# Reason for Not Treated">
+        <attributes>
+          <reference
+            name="visit"
+            label="visit"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+            required="true" />
+          <reference
+            name="term"
+            label="Term"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseReason" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView"
+        label="Intervention Method Used">
+        <attributes>
+          <reference
+            name="visit"
+            label="visit"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+            required="true" />
+          <reference
+            name="term"
+            label="Term"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod" />
+        </attributes>
+      </mdView>
+
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.nonTreatmentReason"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.nonTreatmentReason" />
+      </object>
+
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.interventionMethod"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.interventionMethod" />
+      </object>
+
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.ControlIntervention">
+        <create>
+          <attributes>
+            <reference
+              name="aggregatedPremiseUniversal"
+              label="Intervention by Aggregated Premises Visits/Vehicle Based Spraying aggregation universal"
+              type="dss.vector.solutions.geo.GeoHierarchy" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="aggregatedPremiseUniversal"
+              type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          </attributes>
+          <mdMethod
+            name="getAggregatedPremiseViews"
+            label="Get Aggregated Premise Views"
+            returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView[]"
+            static="false" />
+          <mdMethod
+            name="applyWithAggregatedPremiseViews"
+            label="Get Aggregated Premise Views"
+            returnType="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView[]"
+            static="false">
+            <mdParameter
+              name="premises"
+              type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView[]"
+              order="0"
+              label="Premises" />
+            <mdParameter
+              name="reasons"
+              type="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView[][]"
+              order="1"
+              label="reasons" />
+            <mdParameter
+              name="methods"
+              type="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView[][]"
+              order="2"
+              label="Methods" />
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionController">
+        <create>
+          <mdAction
+            name="getAggregatedPremise"
+            label="Get Aggregated Premise Views"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="view"
+              label="View"
+              order="0"
+              type="dss.vector.solutions.intervention.monitor.ControlInterventionView" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionController.getAggregatedPremise"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.applyWithAggregatedPremiseViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.getAggregatedPremiseViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.aggregatedPremiseUniversal"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlIntervention.aggregatedPremiseUniversal"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.nonTreatmentReason"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.interventionMethod"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod"
+        type="com.runwaysdk.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseReason"
+        type="com.runwaysdk.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

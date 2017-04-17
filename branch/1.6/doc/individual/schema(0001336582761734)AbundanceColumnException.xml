@@ -1,0 +1,20 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.querybuilder.AbundanceColumnException"
+        label="Abundance Column Exception"
+        description="Thrown when a user tries to create an abundance query without adequate columns."
+        message="An abundance and/or aggregation calculation must be selected when in the Abundance section.">
+      </mdException>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.querybuilder.AbundanceColumnException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

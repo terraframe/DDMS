@@ -1,0 +1,22 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdException
+        name="dss.vector.solutions.InvalidEpiStartFormat"
+        label="Invalid Epi Start Format"
+        description="Property does not conform to the date format." />
+
+    </create>
+
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.InvalidEpiStartFormat"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

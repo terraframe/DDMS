@@ -1,0 +1,58 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.query.SavedMap">
+        <attributes>
+          <char
+            name="mapName"
+            indexType="no index" />
+        </attributes>
+        <create>
+          <attributes>
+            <reference
+              name="disease"
+              label="Disease"
+              required="true"
+              type="dss.vector.solutions.general.Disease" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.query.SavedSearch">
+        <create>
+          <attributes>
+            <reference
+              name="disease"
+              label="Disease"
+              required="false"
+              type="dss.vector.solutions.general.Disease" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+
+    <create>
+      <mdIndex
+        type="dss.vector.solutions.query.SavedMap"
+        label="Saved Map Index"
+        unique="true"
+        active="true">
+        <attribute name="mapName" indexOrder="0"/>
+        <attribute name="disease" indexOrder="1"/>
+      </mdIndex>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.query.SavedMap.disease"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.SavedSearch.disease"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

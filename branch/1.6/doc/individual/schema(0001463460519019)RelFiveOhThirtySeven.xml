@@ -1,0 +1,39 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.entomology.InsecticideNotFoundException" 
+        label="Insecticide Not Found"
+        message="Insecticide not found where units = [{units}], amount = [{amount}] and active ingredient = [{activeIngredient}]. You may either create a new inscecticide or modify these values to hit an existing match.">
+        <attributes>
+          <double name="amount" label="Concentration" rejectZero="true" rejectNegative="true" required="true" length="15" decimal="4" />
+          <reference name="activeIngredient" label="Active Ingredient" type="dss.vector.solutions.ontology.Term" required="true" />
+          <reference name="units" label="Units" required="true" type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod name="export" static="false" returnType="void">
+            <mdParameter name="outputStream" label="outputStream" order="0" type="java.io.OutputStream"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.ontology.TermController">
+        <create>
+          <mdAction name="exportTerm" isPost="false" isQuery="false" label="export">
+            <mdParameter name="term" label="term" order="0" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.entomology.InsecticideNotFoundException" type="com.runwaysdk.system.metadata.MdException"/>
+      <object key="dss.vector.solutions.ontology.Term.export" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.ontology.TermController.exportTerm" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

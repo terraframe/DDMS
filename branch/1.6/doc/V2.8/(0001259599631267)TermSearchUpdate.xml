@@ -1,0 +1,36 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="searchTermsWithRoots"
+            label="Search Terms with Roots"
+            returnType="dss.vector.solutions.ontology.TermViewQuery"
+            static="true">
+            <mdParameter
+              name="value"
+              label="Value"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="parameters"
+              label="Parameters"
+              order="1"
+              type="java.lang.String[]" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.Term.searchTermsWithRoots"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

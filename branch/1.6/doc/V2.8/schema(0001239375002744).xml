@@ -1,0 +1,60 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.GeoServerReloadException"
+        label="GeoServer Reload Exception"
+        description="Thrown when GeoServer cannot be reloaded when adding a new DB map view.">
+      </mdException>
+
+      <mdProblem
+        name="dss.vector.solutions.PeriodQuarterProblem"
+        label="Period Quarter Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.PeriodWeekProblem"
+        label="Period Week Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.PeriodMonthProblem"
+        label="Period Month Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+
+    </create>
+  </doIt>
+  <undoIt>
+    <!-- It is impossible to undo it because I have no idea what the key of the new aggregated age group objects are -->
+  </undoIt>
+</version>

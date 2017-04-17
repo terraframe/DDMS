@@ -1,0 +1,112 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.PersonWithDelegatesView"
+        label="Person"
+        extends="dss.vector.solutions.PersonView">
+        <attributes>
+          <virtual
+            concrete="stockStaffDelegate"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            concrete="userDelegate"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            concrete="patientDelegate"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            concrete="itnRecipientDelegate"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            concrete="iptRecipientDelegate"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            concrete="teamMemberDelegate"
+            type="dss.vector.solutions.Person" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          static="true"
+          returnType="dss.vector.solutions.PersonWithDelegatesViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.Person">
+        <mdMethod
+          name="searchForDuplicates"
+          label="Search For Duplicates"
+          description="Searches for existing People with matching parameters"
+          returnType="dss.vector.solutions.PersonWithDelegatesViewQuery">
+        </mdMethod>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.PersonView">
+        <mdMethod
+          name="searchForDuplicates"
+          label="Search For Duplicates"
+          description="Searches for existing People with matching parameters"
+          returnType="dss.vector.solutions.PersonWithDelegatesViewQuery" />
+        <mdMethod
+          name="getDuplicatesPage"
+          label="Get Duplicates Page"
+          returnType="dss.vector.solutions.PersonWithDelegatesViewQuery" />
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.Person">
+        <mdMethod
+          name="searchForDuplicates"
+          label="Search For Duplicates"
+          description="Searches for existing People with matching parameters"
+          returnType="dss.vector.solutions.PersonQuery">
+        </mdMethod>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.PersonView">
+        <mdMethod
+          name="searchForDuplicates"
+          label="Search For Duplicates"
+          description="Searches for existing People with matching parameters"
+          returnType="dss.vector.solutions.PersonQuery" />
+        <mdMethod
+          name="getDuplicatesPage"
+          label="Get Duplicates Page"
+          returnType="dss.vector.solutions.PersonQuery" />
+      </mdView>
+    </update>
+    <delete>
+      <object
+        key="dss.vector.solutions.PersonWithDelegatesView"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

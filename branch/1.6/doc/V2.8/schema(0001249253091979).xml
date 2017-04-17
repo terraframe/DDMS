@@ -1,0 +1,63 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+
+    <create></create>
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.SurveyPoint">
+        <create>
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
+            static="true">
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+            <mdParameter name="dobCriteria" label="Dob Criteria"
+              order="4" type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdBusiness name="dss.vector.solutions.irs.ZoneSpray">
+        <create>
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
+            static="true">
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+        <create>
+          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
+            static="true">
+            <mdParameter name="xml" label="xml" order="0"
+              type="java.lang.String" />
+            <mdParameter name="selectedUniversals" label="Selected Universals"
+              order="1" type="java.lang.String[]" />
+            <mdParameter name="includeGeometry" label="Include Geometry"
+              order="2" type="java.lang.Boolean" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+    </update>
+
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

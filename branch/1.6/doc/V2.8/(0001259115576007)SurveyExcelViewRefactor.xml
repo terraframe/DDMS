@@ -1,0 +1,278 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.bloodslide"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNet"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.feverTreatement"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.malariaTreatment"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.SurveyExcelView"
+        generateController="false">
+        <create>
+          <attributes>
+            <char
+              name="hasBeenSprayed"
+              label="Has the house been sprayed in the last 12 months?"
+              size="255"/>
+            <!-- SurveyedPerson -->
+            <virtual
+              concrete="personId"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <char
+              name="headOfHousehold"
+              label="Head of the house hold?"
+              size="255"/>
+            <virtual
+              concrete="dob"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <virtual
+              concrete="age"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPersonView"/>
+            <virtual
+              concrete="pregnant"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <char
+              name="immuneCompromised"
+              label="Is the person immune compromised?"
+              size="255"/>
+            <char
+              name="sleptUnderNetId"
+              label="ID of net person slept under"
+              size="255"/>
+            <char
+              name="haemoglobinMeasured"
+              label="Was haemoglobin measured?"
+              size="255"/>
+            <virtual
+              concrete="haemoglobin"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <!-- anaemiaTreatment already defined -->
+            <virtual
+              concrete="iron"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <!-- performedRDT already defined -->
+            <virtual
+              concrete="rdtResult"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <char
+              name="rdtDetail"
+              label="RDT Detail"
+              size="255"/>
+            <!-- RDT Treatment already in -->
+            <virtual
+              concrete="performedBloodslide"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <char
+              name="bloodslideReason"
+              label="Reason for not performing bloodslide"
+              size="255"/>
+            <virtual
+              concrete="bloodslideResult"
+              type="dss.vector.solutions.intervention.monitor.SurveyedPerson"/>
+            <char
+              name="bloodslideDetail"
+              label="Bloodslide Detail"
+              size="255"/>
+            <!-- fever already defined -->
+            <!-- malaria already defined -->
+            <char
+              name="malariaConformationTechnique"
+              label="Bloodslide Detail"
+              size="255"/>
+            <!-- payment already defined -->
+            <!-- ITN Instance -->
+            <virtual
+              concrete="netId"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="netBrand"
+              label="Net Brand"
+              size="255"/>
+            <char
+              name="monthReceived"
+              label="When was the net received (Month)"
+              size="255"/>
+            <virtual
+              concrete="yearReceived"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="obtained"
+              label="Where was the net obtained from"
+              size="255"/>
+            <virtual
+              concrete="price"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <virtual
+              concrete="retreated"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="monthRetreated"
+              label="When was the net retreated (Month)"
+              size="255"/>
+            <virtual
+              concrete="yearRetreated"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="damaged"
+              label="Is the net damaged (holes) beyond being effective?"
+              size="255"/>
+            <char
+              name="hanging"
+              label="Is the net hanging for the purpose of sleeping?"
+              size="255"/>
+            <virtual
+              concrete="notUsedForSleeping"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="purpose"
+              label="Purpose of Net"
+              size="255"/>
+            <virtual
+              concrete="purposeComments"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="washed"
+              label="Has the ITN been washed?"
+              size="255"/>
+            <virtual
+              concrete="washFrequency"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+            <char
+              name="washPeriod"
+              label="Wash Period"
+              size="255"/>
+            <virtual
+              concrete="sleptUnderNet"
+              type="dss.vector.solutions.intervention.monitor.ITNInstance"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <create>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.hasBeenSprayed"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.personId"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.headOfHousehold"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.dob"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.age"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.pregnant"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.immuneCompromised"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNetId"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.haemoglobinMeasured"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.haemoglobin"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.iron"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.rdtResult"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.rdtDetail"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.performedBloodslide"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.bloodslideReason"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.bloodslideResult"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.bloodslideDetail"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.malariaConformationTechnique"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.netId"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.netBrand"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.monthReceived"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.yearReceived"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.obtained"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.price"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.retreated"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.monthRetreated"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.yearRetreated"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.damaged"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.hanging"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.notUsedForSleeping"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.purpose"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.purposeComments"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.washed"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.washFrequency"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.washPeriod"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNet"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+    </delete>
+  </undoIt>
+</version>

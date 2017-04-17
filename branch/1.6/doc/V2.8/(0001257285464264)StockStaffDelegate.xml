@@ -1,0 +1,63 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.stock.StockStaff"
+        label="Stock Staff"
+        description="Person who is also a stock staffer"
+        generateController="false">
+        <attributes>
+          <reference
+            name="person"
+            label="Person"
+            description="Gets the person this delegate is associated with"
+            type="dss.vector.solutions.Person"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.Person">
+        <create>
+          <attributes>
+            <reference
+              name="stockStaffDelegate"
+              label="Stock Staff Delegate"
+              description="Associates this person with the Stock Staff Delegate"
+              type="dss.vector.solutions.stock.StockStaff" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.PersonView">
+        <create>
+          <attributes>
+            <boolean
+              name="isStockStaff"
+              label="Is Stock Staff"
+              description="Is this Person a Stock Staffer?"
+              defaultValue="false"
+              negativeLabel="No"
+              positiveLabel="Yes" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.PersonView.isStockStaff"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.Person.stockStaffDelegate"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.stock.StockStaff"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,140 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchy">
+        <attributes>
+          <boolean
+            name="sprayTargetAllowed"
+            defaultValue="false" />
+          <boolean
+            name="populationAllowed"
+            defaultValue="false" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.general.MenuItem">
+        <attributes>
+          <reference
+            name="term"
+            indexType="unique index"/>
+        </attributes>
+      </mdBusiness>
+
+      <mdController
+        name="dss.vector.solutions.general.MenuItemController">
+        <create>
+          <mdAction
+            name="editDisease"
+            label="Edit Disease"
+            isPost="true">
+            <mdParameter
+              name="id"
+              label="Id"
+              description="Id of the Disease"
+              order="0"
+              type="java.lang.String"/>
+          </mdAction>
+          <mdAction
+            name="updateDisease"
+            label="Update Disease"
+            isPost="true">
+            <mdParameter
+              name="dto"
+              label="Disease"
+              description="Disease"
+              order="0"
+              type="dss.vector.solutions.general.Disease"/>
+          </mdAction>
+          <mdAction
+            name="cancelDisease"
+            label="Cancel Disease"
+            isPost="true">
+            <mdParameter
+              name="id"
+              label="Id"
+              description="Id of the Disease"
+              order="0"
+              type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+
+    </update>
+    
+    <create>
+    
+      <mdException
+        name="dss.vector.solutions.general.MenuItemLeafException"
+        label="MenuItem Leaf Exception"
+        description="Thrown when a menu item points to a non-leaf Term.">
+      </mdException>    
+    
+      <object
+        key="Ontology__dss.vector.solutions.general.Disease.menuRoot"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.general.Disease.menuRoot" />
+      </object>    
+
+      <mdView
+        name="dss.vector.solutions.general.MenuItemView"
+        label="Menu Item View"
+        description="Menu Item View">
+        <attributes>
+          <virtual
+            concrete="disease"
+            type="dss.vector.solutions.general.MenuItem"
+            required="true" />
+          <text
+            name="termDisplay"
+            label="Term" />
+          <text
+            name="urlDisplay"
+            label="URL" />
+          <char
+            name="menuItemId"
+            size="64"
+            required="true"
+            label="MenuItem Id" />
+        </attributes>
+        <mdMethod
+          name="getViewsForDisease"
+          label="Get Views For Disease"
+          description="Gets all MenuItemViews for the disease of the current session."
+          static="true"
+          returnType="dss.vector.solutions.general.MenuItemViewQuery">
+        </mdMethod>
+      </mdView>
+
+    </create>
+    
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object
+        key="Ontology__dss.vector.solutions.general.Disease.menuRoot"
+        type="dss.vector.solutions.ontology.BrowserField" />
+
+      <object
+        key="dss.vector.solutions.general.MenuItemView"
+        type="com.runwaysdk.system.metadata.MdView" />
+        
+      <object
+        key="dss.vector.solutions.general.MenuItemLeafException"
+        type="com.runwaysdk.system.metadata.MdException" />
+
+      <object
+        key="dss.vector.solutions.general.MenuItemController.editDisease"
+        type="com.runwaysdk.system.metadata.MdAction" />
+        
+      <object
+        key="dss.vector.solutions.general.MenuItemController.updateDisease"
+        type="com.runwaysdk.system.metadata.MdAction" />
+        
+    </delete>
+  </undoIt>
+</version>

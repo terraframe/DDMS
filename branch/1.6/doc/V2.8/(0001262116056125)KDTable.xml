@@ -1,0 +1,270 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.KnockDownAssay">
+        <create>
+          <attributes>
+            <integer
+              name="interval10"
+              label="# Knocked Down at 10 minutes"
+              rejectNegative="true" />
+            <integer
+              name="interval20"
+              label="# Knocked Down at 20 minutes"
+              rejectNegative="true" />
+            <integer
+              name="interval30"
+              label="# Knocked Down at 30 minutes"
+              rejectNegative="true" />
+            <integer
+              name="interval40"
+              label="# Knocked Down at 40 minutes"
+              rejectNegative="true" />
+            <integer
+              name="interval50"
+              label="# Knocked Down at 50 minutes"
+              rejectNegative="true" />
+            <integer
+              name="interval60"
+              label="# Knocked Down at 60 minutes"
+              rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+    <create>
+      <mdView
+        name="dss.vector.solutions.entomology.assay.KnockDownAssayView"
+        label="Knock Down Assay">
+        <attributes>
+          <char
+            name="concreteId"
+            label="ConcreteId"
+            required="true"
+            size="255" />
+          <char
+            name="collectionLabel"
+            label="Collection"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="testDate"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="specie"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="insecticide"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="exposureTime"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="identificationMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="quantityTested"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="sex"
+            type="dss.vector.solutions.entomology.assay.AdultAssay" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.entomology.assay.KnockDownAssayViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView"
+        label="Adult Diagnostic Assay">
+        <attributes>
+          <char
+            name="concreteId"
+            label="ConcreteId"
+            required="true"
+            size="255" />
+          <char
+            name="collectionLabel"
+            label="Collection"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="testDate"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="specie"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="insecticide"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="exposureTime"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="identificationMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="quantityTested"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="sex"
+            type="dss.vector.solutions.entomology.assay.AdultAssay" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView"
+        label="Larvae Diagnostic Assay">
+        <attributes>
+          <char
+            name="concreteId"
+            label="ConcreteId"
+            required="true"
+            size="255" />
+          <char
+            name="collectionLabel"
+            label="Collection"
+            size="255"
+            required="true" />
+          <virtual
+            concrete="testDate"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="specie"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <virtual
+            concrete="insecticide"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="testMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="exposureTime"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="identificationMethod"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          <virtual
+            concrete="quantityTested"
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+        </attributes>
+        <mdMethod
+          name="getPage"
+          label="Get Page"
+          description="Gets a page of Views"
+          static="true"
+          returnType="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayViewQuery">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssayView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval10"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval20"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval30"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval40"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval50"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.KnockDownAssay.interval60"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

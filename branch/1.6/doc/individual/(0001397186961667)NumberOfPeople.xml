@@ -1,0 +1,82 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.irs.HouseholdSprayStatus">
+        <create>
+          <attributes>
+            <integer name="numberOfPeople" label="# People" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.HouseholdSprayStatusView" label="Operator Spray Status">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.OperatorSprayExcelView">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdBusiness name="dss.vector.solutions.irs.OperatorSprayStatus">
+        <create>
+          <attributes>
+            <integer name="numberOfPeople" label="# People" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.OperatorSprayStatusView" label="Operator Spray Status">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.TeamSprayExcelView">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>    
+      <mdBusiness name="dss.vector.solutions.irs.TeamSprayStatus">
+        <create>
+          <attributes>
+            <integer name="numberOfPeople" label="# People" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.TeamSprayStatusView" label="Team Spray Status">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.TeamSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.ZoneSprayExcelView">
+        <create>
+          <attributes>
+            <virtual name="numberOfPeople" concrete="numberOfPeople" type="dss.vector.solutions.irs.TeamSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.export.ZoneSprayExcelView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.TeamSprayExcelView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.export.OperatorSprayExcelView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberOfPeople" type="com.runwaysdk.system.metadata.MdAttribute" />    
+    </delete>
+  </undoIt>
+</version>

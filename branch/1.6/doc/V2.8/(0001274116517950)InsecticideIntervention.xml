@@ -1,0 +1,223 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.InsecticideIntervention"
+        label="Insecticide Use For Intervention"
+        generateController="false">
+        <attributes>
+          <reference
+            name="intervention"
+            label="Intervention"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention"
+            required="true" />
+          <reference
+            name="interventionMethod"
+            label="Intervention Method"
+            type="dss.vector.solutions.ontology.Term"
+            required="true" />
+          <reference
+            name="insecticide"
+            label="Insecticide Formulation"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            required="false" />
+          <integer
+            name="quantity"
+            label="Quantity"
+            rejectNegative="true"
+            rejectZero="true" />
+          <reference
+            name="unit"
+            label="Unit"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.intervention.monitor.InsecticideIntervention"
+        label="Insecticide Intervention Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="intervention"
+          indexOrder="0" />
+        <attribute
+          name="interventionMethod"
+          indexOrder="1" />
+      </mdIndex>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.InsecticideInterventionView"
+        label="Insecticide Use For Intervention">
+        <attributes>
+          <char
+            name="concreteId"
+            label="ConcreteId"
+            required="true"
+            size="64" />
+          <virtual
+            concrete="intervention"
+            type="dss.vector.solutions.intervention.monitor.InsecticideIntervention" />
+          <virtual
+            concrete="interventionMethod"
+            type="dss.vector.solutions.intervention.monitor.InsecticideIntervention" />
+          <virtual
+            concrete="insecticide"
+            type="dss.vector.solutions.intervention.monitor.InsecticideIntervention" />
+          <char
+            name="activeIngredient"
+            label="Active Ingredient"
+            required="false"
+            size="255" />
+          <virtual
+            concrete="amount"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <virtual
+            concrete="quantity"
+            type="dss.vector.solutions.intervention.monitor.InsecticideIntervention" />
+          <virtual
+            concrete="unit"
+            type="dss.vector.solutions.intervention.monitor.InsecticideIntervention" />
+        </attributes>
+        <mdMethod
+          name="getInsecticideView"
+          label="Get Insecticide View"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView"
+          static="false" />
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandLabel"
+        label="Insecticide Brand Label">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="255"
+            required="true" />
+          <char
+            name="brandName"
+            label="Brand Name"
+            size="255"
+            required="true" />
+          <char
+            name="activeIngredient"
+            label="Active Ingredient"
+            size="255"
+            required="true" />
+          <integer
+            name="concentration"
+            label="Concentration"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getLabel"
+          label="Get Label"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandLabel">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionView">
+        <create>
+          <attributes>
+            <reference
+              name="insecticideIntervention"
+              label="Insecticide Use For Intervention"
+              type="dss.vector.solutions.ontology.Term" />
+          </attributes>
+          <mdMethod
+            name="getInsecticideInterventionViews"
+            label="Get Insecticide Intervention Views"
+            returnType="dss.vector.solutions.intervention.monitor.InsecticideInterventionView[]"
+            static="false" />
+          <mdMethod
+            name="applyWithInsecticideInterventionViews"
+            label="Get Insecticide Intervention Views"
+            returnType="dss.vector.solutions.intervention.monitor.InsecticideInterventionView[]"
+            static="false">
+            <mdParameter
+              name="views"
+              type="dss.vector.solutions.intervention.monitor.InsecticideInterventionView[]"
+              order="0"
+              label="Interventions" />
+          </mdMethod>
+        </create>
+      </mdView>
+
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionController">
+        <create>
+          <mdAction
+            name="getInsecticideIntervention"
+            label="Get Insecticide Intervention Views"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="view"
+              label="View"
+              order="0"
+              type="dss.vector.solutions.intervention.monitor.ControlInterventionView" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+    <create>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ControlInterventionView.insecticideIntervention"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.ControlInterventionView.insecticideIntervention" />
+      </object>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.InsecticideInterventionView.unit"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.intervention.monitor.InsecticideInterventionView.unit" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.InsecticideInterventionView.unit"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="Ontology__dss.vector.solutions.intervention.monitor.ControlInterventionView.insecticideIntervention"
+        type="dss.vector.solutions.ontology.BrowserField" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionController.getInsecticideIntervention"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.applyWithInsecticideInterventionViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.getInsecticideInterventionViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.insecticideIntervention"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandLabel"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.InsecticideInterventionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.InsecticideIntervention"
+        type="com.runwaysdk.system.metadata.MdRelationship" />
+    </delete>
+  </undoIt>
+</version>

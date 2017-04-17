@@ -1,0 +1,31 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+
+      <mdBusiness
+        name="dss.vector.solutions.general.Disease">
+        <create>
+          <mdMethod
+            name="getAllDiseases"
+            label="Get All Diseases"
+            description="Get All Diseases"
+            static="true"
+            returnType="dss.vector.solutions.general.Disease[]">
+          </mdMethod>
+          <mdMethod
+            name="getCurrent"
+            label="Get Current"
+            description="Returns the current disease of the session."
+            static="true"
+            returnType="dss.vector.solutions.general.Disease">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

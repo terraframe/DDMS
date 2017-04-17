@@ -1,0 +1,40 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.stock.StockEvent">
+        <create>
+          <attributes>
+            <char
+              name="otherParty"
+              label="Other Party"
+              size="255" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.stock.StockEventView">
+        <create>
+          <attributes>
+            <virtual
+              name="otherParty"
+              concrete="otherParty"
+              type="dss.vector.solutions.stock.StockEvent" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>    
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.stock.StockEventView.otherParty"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.stock.StockEvent.otherParty"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,26 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
+        <attributes>
+          <reference
+            name="displayTargetGroups"
+            label="Distribution by target group"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="displayNets"
+            label="The ITN type distributed, totals numbers"
+            required="false"
+            type="dss.vector.solutions.ontology.Term" />
+        </attributes>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

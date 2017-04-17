@@ -1,0 +1,68 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="confirmDeleteEntity"
+            label="Confirm Delete Entity"
+            description="Throws exception with confirmation information to delete an entity with more than one parent."
+            static="false"
+            returnType="void">
+          <mdParameter
+            name="parentId"
+            label="Parent Id"
+            description="The id of the current GeoEntity parent."
+            order="0"
+            type="java.lang.String" />
+         </mdMethod>
+        </create>
+      </mdBusiness>
+    
+    </update>
+    
+    <create>
+     
+      <mdException
+        name="dss.vector.solutions.geo.DuplicateParentException"
+        label="Duplicate Parent Exception"
+        description="Thrown when a child GeoEntity is added to the same parent twice">
+        <attributes>
+          <char
+            name="childEntityName"
+            label="Child Entity Name"
+            size="100"
+            required="true"
+            description="Geo Entity Child name" />
+          <char
+            name="parentEntityName"
+            label="Parent Entity Name"
+            size="100"
+            required="true"
+            description="Geo Entity Parent name" />
+        </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.geo.ConfirmDeleteEntityException"
+        label="Confirm delete entity exception"
+        description="Exception thrown when deleting an entity with more than one parent.">
+        <attributes>
+          <char
+            name="entityName"
+            label="Entity Name"
+            size="100"
+            required="true"
+            description="Geo Entity Parent name" />
+        </attributes>
+      </mdException>
+    
+    </create>    
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

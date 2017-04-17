@@ -1,0 +1,200 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+    
+      <mdBusiness
+         name="dss.vector.solutions.general.SystemAlert">
+         <create>
+          <attributes>
+            <localText
+              name="emailBodyText"
+              label="Email Body Text" />
+          </attributes>
+        </create>
+        </mdBusiness>
+        
+      <enumerationMaster
+        name="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <create>
+          <attributes>
+            <localText
+              name="emailBodyText"
+              label="Email Body Text" />
+          </attributes>
+        </create>
+      </enumerationMaster>
+    
+      <object type="dss.vector.solutions.general.SystemAlert" key="MalariaSourceOutbreakIdentification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+    
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueSourceOutbreakIdentification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+      
+      <object type="dss.vector.solutions.general.SystemAlert" key="MalariaSourceOutbreakNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+        
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueSourceOutbreakNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+      <object type="dss.vector.solutions.general.SystemAlert" key="MalariaFacilityOutbreakIdentification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>  
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueFacilityOutbreakIdentification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+      <object type="dss.vector.solutions.general.SystemAlert" key="MalariaFacilityOutbreakNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+        
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueFacilityOutbreakNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+        
+      <object type="dss.vector.solutions.general.SystemAlert" key="MalariaElevatedImmatureIndexNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+        </attributeStruct>
+      </object>
+      
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueElevatedImmatureIndexNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+        </attributeStruct>
+      </object>
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="MalariaElevatedImmatureIndexNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+        </attributeStruct>
+      </object>
+      
+      <object type="dss.vector.solutions.general.SystemAlert" key="DengueElevatedImmatureIndexNotification">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+        </attributeStruct>
+      </object>
+      
+     <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.SOURCE_OUTBREAK_IDENTIFICATION"
+        type="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.SOURCE_OUTBREAK_NOTIFICATION"
+        type="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.FACILITY_OUTBREAK_IDENTIFICATION"
+        type="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.FACILITY_OUTBREAK_NOTIFICATION"
+        type="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.ELEVATED_IMMATURE_INDEX_NOTIFICATION"
+        type="dss.vector.solutions.general.SystemAlertTypeMaster">
+        <attributeStruct
+          name="emailBodyText">
+          <attribute
+            name="defaultLocale"
+            value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
+        </attributeStruct>
+      </object>
+    </update>
+  </doIt>
+  <undoIt>
+  
+   <delete>
+      <object
+        key="dss.vector.solutions.general.SystemAlert.emailBodyText"
+        type="com.runwaysdk.system.metadata.MdAttribute" />      
+      <object
+        key="dss.vector.solutions.general.SystemAlertTypeMaster.emailBodyText"
+        type="com.runwaysdk.system.metadata.MdAttribute" />      
+   </delete>
+  </undoIt>
+</version>

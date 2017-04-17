@@ -1,0 +1,87 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="SHORT_ID_OFFSET"
+        type="dss.vector.solutions.Property"/>
+    </delete>
+    <create>
+      <object
+        type="dss.vector.solutions.LocalProperty"
+        key="SHORT_ID_OFFSET">
+        <attribute
+          name="propertyName"
+          value="SHORT_ID_OFFSET" />
+        <attribute
+          name="displayLabel"
+          value="Installation Identifier" />
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.system.install" />
+        <attribute
+          name="propertyValue"
+          value="0" />
+        <attribute
+          name="propertyType"
+          value="Integer" />
+        <attribute
+          name="propertyValidator"
+          value="^[0-9]{0,3}$" />
+        <attribute
+          name="validValues"
+          value="0-999" />
+        <attribute
+          name="description"
+          value="The id address space offset or install number, MUST be unique for each server, 0-999" />
+      </object>
+    </create>
+    <update>
+     <mdController name="dss.vector.solutions.PropertyController">
+       <create>
+         <mdAction
+           name="localEdit"
+           isPost="true"
+           label="Local Edit"
+           description="Edits a local property">
+           <mdParameter
+             name="id"
+             label="ID"
+             description="Local Property ID"
+             order="0"
+             type="java.lang.String"/>
+         </mdAction>
+         <mdAction
+           name="localUpdate"
+           isPost="true"
+           label="Local Update"
+           description="Updates a local property">
+           <mdParameter
+             name="dto"
+             label="Local Property DTO"
+             description="Local Property DTO"
+             order="0"
+             type="dss.vector.solutions.LocalProperty"/>
+         </mdAction>
+         <mdAction
+           name="localCancel"
+           isPost="true"
+           label="Local Edit"
+           description="Edits a local property">
+           <mdParameter
+             name="dto"
+             label="Local Property DTO"
+             description="Local Property DTO"
+             order="0"
+             type="dss.vector.solutions.LocalProperty"/>
+         </mdAction>
+       </create>
+     </mdController>
+   </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>

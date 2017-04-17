@@ -1,0 +1,78 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.query.Styles">
+        <create>
+          <attributes>
+            <boolean
+              name="enable_conflictResolution"
+              required="true"
+              defaultValue="false"
+              label="Enable conflict resolution"
+              positiveLabel="Enable"
+              negativeLabel="Disable" />
+            <boolean
+              name="conflictResolution"
+              required="true"
+              defaultValue="false"
+              label="Conflict resolution"
+              positiveLabel="Enable"
+              negativeLabel="Disable" />
+            <boolean
+              name="enable_goodnessOfFit"
+              required="true"
+              defaultValue="false"
+              label="Enable goodness of fit"
+              positiveLabel="Enable"
+              negativeLabel="Disable" />
+            <decimal
+              name="goodnessOfFit"
+              label="Goodness of fit"
+              rejectNegative="true"
+              required="true"
+              defaultValue="0.1"
+              length="2"
+              decimal="1" />
+            <boolean
+              name="enable_spaceAround"
+              required="true"
+              defaultValue="false"
+              label="Enable space around"
+              positiveLabel="Enable"
+              negativeLabel="Disable" />
+            <integer
+              name="spaceAround"
+              label="Space around"
+              required="true"
+              defaultValue="-10" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.query.Styles.enable_conflictResolution"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.Styles.conflictResolution"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.Styles.enable_goodnessOfFit"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.Styles.goodnessOfFit"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.Styles.enable_spaceAround"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.query.Styles.spaceAround"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

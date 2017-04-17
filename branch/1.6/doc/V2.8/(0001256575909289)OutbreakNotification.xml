@@ -1,0 +1,142 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdBusiness
+				name="dss.vector.solutions.general.EpiWeek"
+				label="Epi Week"
+				generateController="false">
+				<attributes>
+					<integer
+						name="period"
+						label="Period"
+						required="true"
+						rejectNegative="true" />
+					<integer
+						name="yearOfWeek"
+						label="Year"
+						required="true"
+						rejectNegative="true" />
+				</attributes>
+			</mdBusiness>
+
+			<mdTree
+				name="dss.vector.solutions.general.WeeklyThreshold"
+				label="Weekly Threshold"
+				exported="true"
+				enforceSiteMaster="false">
+				<attributes>
+					<double
+						name="notification"
+						label="T1"
+						length="12"
+						decimal="2"
+						required="false"
+						rejectNegative="true"
+						rejectZero="true"
+						description="Source notification threshold value" />
+					<double
+						name="identification"
+						label="T2"
+						length="12"
+						decimal="2"
+						required="false"
+						rejectNegative="true"
+						rejectZero="true"
+						description="Source identification threshold value" />
+					<reference
+						name="lastNotification"
+						label="Last Notification"
+						type="dss.vector.solutions.general.EpiWeek" />
+					<reference
+						name="lastIdentification"
+						label="Last Identification"
+						type="dss.vector.solutions.general.EpiWeek" />
+				</attributes>
+				<parent
+					cardinality="*"
+					name="dss.vector.solutions.general.ThresholdData"
+					method="Thresholds" />
+				<child
+					cardinality="*"
+					name="dss.vector.solutions.general.EpiWeek"
+					method="EpiWeeks" />
+			</mdTree>
+
+			<mdInformation
+				name="dss.vector.solutions.general.OutbreakAlert"
+				label="Outbreak Alert">
+				<attributes>
+					<char
+						name="alertType"
+						label="Alert Type"
+						size="255" />
+					<char
+						name="thresholdType"
+						label="Threshold Type"
+						size="255" />
+					<char
+						name="geoEntity"
+						label="GeoEntity Label"
+						size="255" />
+					<double
+
+						name="thresholdValue"
+						label="Threshold Value"
+						length="12"
+						decimal="2" />
+					<double
+						name="actualValue"
+						label="Actual Value"
+						length="12"
+						decimal="2" />
+				</attributes>
+			</mdInformation>
+		</create>
+		<update>
+			<mdBusiness
+				name="dss.vector.solutions.general.ThresholdData">
+				<create>
+					<mdMethod
+						name="checkThresholdViolation"
+						label="Check Threshold"
+						static="true"
+						returnType="void">
+						<mdParameter
+							name="date"
+							label="Date"
+							order="0"
+							type="java.util.Date" />
+						<mdParameter
+							name="entity"
+							label="Entity"
+							order="1"
+							type="dss.vector.solutions.geo.generated.GeoEntity" />
+						<mdParameter
+							name="count"
+							label="Count"
+							order="2"
+							type="java.lang.Double" />
+					</mdMethod>
+				</create>
+			</mdBusiness>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.ThresholdData.checkThresholdViolation"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+			<object
+				key="dss.vector.solutions.general.EpiWeek"
+				type="com.runwaysdk.system.metadata.MdBusiness" />
+			<object
+				key="dss.vector.solutions.general.WeeklyThreshold"
+				type="com.runwaysdk.system.metadata.MdTree" />
+			<object
+				key="dss.vector.solutions.general.OutbreakAlert"
+				type="com.runwaysdk.system.metadata.MdInformation" />
+		</delete>
+	</undoIt>
+</version>

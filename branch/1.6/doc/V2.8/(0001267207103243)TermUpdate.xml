@@ -1,0 +1,41 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="getRootChildren"
+            label="Get Root Children"
+            returnType="dss.vector.solutions.ontology.Term[]"
+            static="true">
+            <mdParameter
+              name="className"
+              label="Class Name"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="attributeName"
+              label="Attribute Name"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="returnOnlySelectable"
+              label="Return Only Selectable"
+              order="2"
+              type="java.lang.Boolean" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.ontology.Term.getRootChildren"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

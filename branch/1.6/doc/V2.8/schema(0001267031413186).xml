@@ -1,0 +1,45 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdBusiness
+        name="dss.vector.solutions.query.Layer">
+        <create>
+          <attributes>
+            <char
+              name="thematicColumnAlias"
+              label="Thematic Column Alias"
+              description="The database alias of the thematic column"
+              size="255"
+              required="false"/>
+          </attributes>
+        </create>
+      </mdBusiness>    
+      
+      <mdBusiness
+        name="dss.vector.solutions.query.SavedMap">
+        <attributes>
+          <char
+            name="mapName"
+            indexType="unique index"/>
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness
+        name="dss.vector.solutions.query.DefaultSavedMap"
+        label="Default Saved Map">
+      </mdBusiness>
+      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.query.Layer.thematicColumnAlias"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter" />
+    
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,35 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdView
+        name="dss.vector.solutions.geo.GeoEntityDefinition">
+        <create>
+          <attributes>
+            <virtual
+              concrete="urban"
+              type="dss.vector.solutions.geo.GeoHierarchy"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+      
+      <mdView
+        name="dss.vector.solutions.geo.GeoHierarchyView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="urban"
+              type="dss.vector.solutions.geo.GeoHierarchy"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,0 +1,26 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.general.EpiConfiguration"
+        label="Epi Week Configuration">
+        <attributes>
+          <char
+            name="firstDay"
+            label="First Weekday of the Epi Year"
+            size="255"
+            required="true" />
+        </attributes>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.EpiConfiguration"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

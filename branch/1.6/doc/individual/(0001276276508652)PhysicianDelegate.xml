@@ -1,0 +1,121 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.Physician"
+        label="Physician"
+        description="Person who is also a Physician"
+        generateController="false">
+        <attributes>
+          <reference
+            name="person"
+            label="Person"
+            description="Gets the person this delegate is associated with"
+            type="dss.vector.solutions.Person"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="searchForPhysician"
+          label="Search for Physician"
+          returnType="com.runwaysdk.query.ValueQuery"
+          static="true">
+          <mdParameter
+            name="search"
+            label="Search"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.PersonView"
+          static="false" />
+      </mdBusiness>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.Person"
+        label="Person"
+        description="Generic Person">
+        <create>
+          <attributes>
+            <reference
+              name="physicianDelegate"
+              label="Physician Delegate"
+              description="Associates this person with the Physician Delegate"
+              type="dss.vector.solutions.Physician" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.PersonView">
+        <create>
+          <attributes>
+            <boolean
+              name="isPhysician"
+              label="Is Physician"
+              description="Is this Person a Physician?"
+              defaultValue="false"
+              negativeLabel="No"
+              positiveLabel="Yes" />
+          </attributes>
+          <mdMethod
+            name="applyAsPhysician"
+            label="Apply As Physician"
+            returnType="dss.vector.solutions.PersonWithDelegatesView"
+            static="false" />
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.PersonWithDelegatesView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="physicianDelegate"
+              type="dss.vector.solutions.Person" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdController
+        name="dss.vector.solutions.PersonController">
+        <create>
+          <mdAction
+            name="editPhysician"
+            label="Edit Physician"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="id"
+              label="Id"
+              order="0"
+              type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.PersonController.editPhysician"
+        type="com.runwaysdk.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.PersonView.applyAsPhysician"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.PersonWithDelegatesView.physicianDelegate"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.PersonView.isPhysician"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.Person.physicianDelegate"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.Physician"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

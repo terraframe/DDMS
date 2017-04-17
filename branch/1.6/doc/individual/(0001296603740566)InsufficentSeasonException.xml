@@ -1,0 +1,25 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.general.InsufficentSeasonNumberException"
+        label="Insufficent Season Number exception"
+        message="This calculation method requires at least [{numberOfSeasons}] prior transmission seasons.">
+        <attributes>
+          <integer
+            name="numberOfSeasons"
+            label="Number of Seasons" />
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.InsufficentSeasonNumberException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

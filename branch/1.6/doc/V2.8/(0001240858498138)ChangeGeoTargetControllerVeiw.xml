@@ -1,0 +1,86 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.GeoTargetController.view.id"
+        type="com.runwaysdk.system.metadata.MdParameter"/>
+    </delete>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.GeoTarget">
+        <create>
+        <mdMethod
+          name="findByGeoEntityIdAndSeason"
+          label="findByGeoEntityIdAndSeason"
+          static="true"
+          returnType="dss.vector.solutions.irs.GeoTargetView">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="season"
+            label="season"
+            description="The Year (Season) to target "
+            order="1"
+            type="dss.vector.solutions.general.MalariaSeason"/>
+        </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController
+        name="dss.vector.solutions.irs.GeoTargetController">
+        <mdAction
+          name="view"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="geoEntity"
+              label="Root GeoEntity "
+              description="The id of the GeoEntity that will be the root of the target table."
+              order="1"
+              type="dss.vector.solutions.geo.generated.GeoEntity"/>
+            <mdParameter
+              name="season"
+              label="Target Season"
+              description="The Season (year) to set targets for"
+              order="2"
+              type="dss.vector.solutions.general.MalariaSeason"/>
+            <mdParameter
+              name="showChildren"
+              label="Show Children"
+              description="Shows all children when true"
+              order="3"
+              type="java.lang.Boolean"/>
+          </create>
+        </mdAction>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.irs.ResourceTargetController">
+        <mdAction
+          name="view"
+          isPost="true">
+          <create>                    
+            <mdParameter
+              name="season"
+              label="Target Season"
+              description="The Season (year) to set targets for"
+              order="1"
+              type="dss.vector.solutions.general.MalariaSeason"/>
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="The Geo Id from which to retrieve Spray Teams from"
+              order="2"
+              type="java.lang.String"/>
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
