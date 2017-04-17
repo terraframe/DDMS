@@ -799,27 +799,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
     },
   
-    _chooseOption : function(option)
+    _chooseOption : function(selectId, val)
     {
-      var optionEl = Mojo.Util.isString(option) ? document.getElementById(option) : option;
-      if(optionEl == null)
-      {
-        return false;
-      }
-  
-      var select = optionEl.parentNode;
-      var options = select.options;
-      for(var i=0; i<options.length; i++)
-      {
-        if(options[i].id === optionEl.id)
-        {
-          select.selectedIndex = i;
-          break;
-        }
-      }
-  
-      this._fireClickOnOption(optionEl);
-      return true;
+      $('#' + selectId).val(val).trigger("change");
     },
   
     /**

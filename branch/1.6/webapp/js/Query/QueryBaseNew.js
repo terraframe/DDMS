@@ -715,10 +715,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      * Handler when someone selects an aggregate function
      * on a visible attribute.
      */
-    _visibleAggregateHandler : function(e, attribute)
+    _visibleAggregateHandler : function(e)
     {
       var func = e.target.value;
-
+      var that = e.data[0];
+      var attribute = e.data[1];
+      
       var attributeName = attribute.getAttributeName();
       var key = attribute.getKey();
       
@@ -753,14 +755,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       
 
-      this._queryPanel.updateColumnLabel(key, func);
+      that._queryPanel.updateColumnLabel(key, func);
 
       // special cases
       if(func === '')
       {
         // Use regular selectable (this is just here for clarity).
-        this._removeVisibleAttribute(attribute, false, true, false);
-        this._visibleSelectables[attribute.getKey()] = selectable;
+        that._removeVisibleAttribute(attribute, false, true, false);
+        that._visibleSelectables[attribute.getKey()] = selectable;
         selectable.attribute = attribute;
 
         return;
@@ -786,10 +788,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
       }
 
-      this._removeVisibleAttribute(attribute, false, true, false);
+      that._removeVisibleAttribute(attribute, false, true, false);
 
       var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-      this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
+      that._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
     },
 
 
@@ -862,6 +864,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           this._toggleSingle(userAlias, true, criteria.display);
         }
       }
+    },
+    
+    _setNumberAggregationFromLoad : function(prepend, userAlias)
+    {
+      var key = userAlias;
+      
+      this._queryPanel.updateColumnLabel(key, prepend);
     },
     
     _loadQueryState : function(view)
@@ -940,25 +949,25 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM.name);
+          thisRef._chooseOption(userAlias+'-SELECT', MDSS.QueryXML.Functions.SUM.name);
         },
         min: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN.name);
+          thisRef._chooseOption(userAlias+'-SELECT', MDSS.QueryXML.Functions.MIN.name);
         },
         max: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX.name);
+          thisRef._chooseOption(userAlias+'-SELECT', MDSS.QueryXML.Functions.MAX.name);
         },
         avg: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG.name);
+          thisRef._chooseOption(userAlias+'-SELECT', MDSS.QueryXML.Functions.AVG.name);
         },
         count: function(entityAlias, attributeName, userAlias){
 
@@ -1148,6 +1157,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _getVizDiv : function(that,visibleAttributes,divName,mainQueryClass,checkClass, selectAll)
     {
+      var that = this;
+      
       var visibleDiv = document.createElement('div');
       // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
 
@@ -1243,6 +1254,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           {
             var select = document.createElement('select');
             
+            select.id = attribute.getKey() + '-SELECT';
+            
             var options = [{name: '', label: '', toString: function(){ return this.name; }}];
             
             options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
@@ -1267,7 +1280,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             this._defaults.push({element:select, index:0});
             li.appendChild(select);
             
-            YAHOO.util.Event.on(select, 'change', this._visibleAggregateHandler, attribute, this);
+//            YAHOO.util.Event.on(select, 'change', this._visibleAggregateHandler, attribute, this);
+            $(select).change([that, attribute], that._visibleAggregateHandler);
           }
 
             // Add single match and range

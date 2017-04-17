@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.filters.StringInputStream;
@@ -26,6 +28,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
+import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -274,9 +277,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // and disease suffix will take about 15-18 characters, truncate the query
     // name to
     // 45 characters (which is plenty descriptive).
-    if (temp.length() > 45)
+    
+    // Edit: I'm shortening this by 2 more characters because now we're wrapping it
+    //  in a function and prefixing with f_
+    if (temp.length() > 43)
     {
-      temp = temp.substring(0, 45);
+      temp = temp.substring(0, 43);
     }
 
     String viewName = VIEW_PREFIX + temp + "_" + disease;
@@ -478,8 +484,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       // create the database view
       String viewName = this.generateViewName();
-      String sql = "(" + outer.getSQL() + ")";
-      Database.createView(viewName, sql, replaceExisting);
+      
+      createDatabaseFunction(viewName, outer, valueQuery);
+      
+      String viewSql = "select * from f_" + viewName + "()";
+      Database.createView(viewName, viewSql, replaceExisting);
     }
     catch (NoColumnsAddedException e)
     {
@@ -488,6 +497,49 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // it just to be sure.
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
+  }
+  
+  private String getSqlDropDatabaseFunctionIfExists(String viewName)
+  {
+    String sql = "DROP FUNCTION IF EXISTS f_" + viewName + "() CASCADE;";
+    
+    return sql;
+  }
+  
+  private void createDatabaseFunction(String viewName, ValueQuery wrapper, ValueQuery original)
+  {
+    final String TAB = "\t";
+    final String NEWLINE = "\n";
+    
+    String fnSql = "CREATE OR REPLACE FUNCTION f_" + viewName + "()" + NEWLINE;
+    
+    fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
+    
+    // Generate the selectable list for the table our function is returning
+    List<String> selDefs = new ArrayList<String>();
+    List<Selectable> sels = wrapper.getSelectableRefs();
+    for (Selectable sel : sels)
+    {
+      MdAttributeConcreteDAOIF coreType = sel.getMdAttributeIF();
+      selDefs.add(TAB + sel.getColumnAlias() + " " + DatabaseProperties.getDatabaseType(coreType));
+    }
+    fnSql += StringUtils.join(selDefs, "," + NEWLINE);
+    
+    fnSql += TAB + ")" + NEWLINE;
+    
+    fnSql += "AS $body$" + NEWLINE;
+    
+    fnSql += "#variable_conflict use_column" + NEWLINE;
+    
+    fnSql += "BEGIN" + NEWLINE + NEWLINE;
+    
+    fnSql += original.getSQL() + ";" + NEWLINE + NEWLINE;
+    
+    fnSql += "END" + NEWLINE;
+    
+    fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
+    
+    Database.parseAndExecute(fnSql);
   }
 
   private void deleteDatabaseViewIfExists()
@@ -500,6 +552,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     List<String> batch = new LinkedList<String>();
     String viewName = this.generateViewName();
     batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
+    
+    batch.add(getSqlDropDatabaseFunctionIfExists(viewName));
+    
     Database.executeBatch(batch);
   }
 
