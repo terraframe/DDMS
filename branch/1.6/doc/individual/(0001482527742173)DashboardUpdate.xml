@@ -1,0 +1,26 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.Dashboard">
+				<create>
+					<mdMethod name="getTermSuggestions" label="Get text suggestions"
+						static="true" returnType="java.lang.String">
+						<mdParameter name="mdAttributeId" order="0"
+							type="java.lang.String" label="MdAttribute id" />
+						<mdParameter name="text" order="1" type="java.lang.String"
+							label="Text" />
+						<mdParameter name="limit" order="2" type="java.lang.Integer"
+							label="Limit" />
+					</mdMethod>
+				</create>
+				</mdBusiness>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.getTermSuggestions"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+		</delete>
+	</undoIt>
+</version>
