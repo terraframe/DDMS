@@ -36,7 +36,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeDate;
-import com.runwaysdk.system.metadata.MdAttributeTerm;
+import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
 
@@ -206,7 +206,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     MdAttributeConcrete mdAttributeConcrete = getMdAttributeConcrete(mdAttribute);
 
     // Determine if the attribute is an ontology attribute
-    if (mdAttributeConcrete instanceof MdAttributeTerm)
+    if (mdAttributeConcrete instanceof MdAttributeReference)
     {
       MdAttributeReferenceDAOIF mdAttributeTerm = MdAttributeReferenceDAO.get(mdAttributeConcrete.getId());
 
@@ -321,7 +321,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
         layerTypes.put(AllLayerType.BASICPOINT.getEnumName(), AllLayerType.BASICPOINT.getDisplayLabel());
         layerTypes.put(AllLayerType.BASICPOLYGON.getEnumName(), AllLayerType.BASICPOLYGON.getDisplayLabel());
       }
-      else if (mdAttributeConcrete instanceof MdAttributeTerm || mdAttributeConcrete instanceof MdAttributeText || mdAttributeConcrete instanceof MdAttributeCharacter)
+      else if (mdAttributeConcrete instanceof MdAttributeReference || mdAttributeConcrete instanceof MdAttributeText || mdAttributeConcrete instanceof MdAttributeCharacter)
       {
         layerTypes.put(AllLayerType.BASICPOINT.getEnumName(), AllLayerType.BASICPOINT.getDisplayLabel());
         layerTypes.put(AllLayerType.CATEGORYPOINT.getEnumName(), AllLayerType.CATEGORYPOINT.getDisplayLabel());

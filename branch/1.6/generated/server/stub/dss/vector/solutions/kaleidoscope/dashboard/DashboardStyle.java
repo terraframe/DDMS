@@ -40,7 +40,7 @@ import com.runwaysdk.system.metadata.MdAttributeFloat;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeMoment;
-import com.runwaysdk.system.metadata.MdAttributeTerm;
+import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
 
@@ -164,7 +164,7 @@ public class DashboardStyle extends DashboardStyleBase implements com.runwaysdk.
 
     MdAttributeConcrete mdAttrConcrete = DashboardStyle.getMdAttributeConcrete(thematicAttributeId);
 
-    if (mdAttrConcrete instanceof MdAttributeTerm || mdAttrConcrete instanceof MdAttributeText || mdAttrConcrete instanceof MdAttributeChar)
+    if (mdAttrConcrete instanceof MdAttributeReference || mdAttrConcrete instanceof MdAttributeText || mdAttrConcrete instanceof MdAttributeChar)
     {
       QueryFactory f = new QueryFactory();
       q = new AggregationTypeQuery(f);
@@ -215,8 +215,7 @@ public class DashboardStyle extends DashboardStyleBase implements com.runwaysdk.
       JSONArray numberOptions = DashboardStyle.getOptions(AllAggregationType.SUM, AllAggregationType.AVG, AllAggregationType.MIN, AllAggregationType.MAX);
 
       JSONObject mapping = new JSONObject();
-      mapping.put(MdAttributeTerm.CLASS, textOptions);
-      mapping.put(MdAttributeText.CLASS, textOptions);
+      mapping.put(MdAttributeReference.CLASS, textOptions);
       mapping.put(MdAttributeCharacter.CLASS, textOptions);
 
       mapping.put(MdAttributeInteger.CLASS, numberOptions);

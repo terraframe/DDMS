@@ -404,7 +404,7 @@
         var categoryType = aggregation.attribute.categoryType;
         
         // Load the categories
-        runwayService.loadCategoryValues(aggregation, styleDTO.getSecondaryCategories(), categoryType);
+        service.loadCategoryValues(aggregation, styleDTO.getSecondaryCategories(), categoryType);
       }
         
       return aggregation;
