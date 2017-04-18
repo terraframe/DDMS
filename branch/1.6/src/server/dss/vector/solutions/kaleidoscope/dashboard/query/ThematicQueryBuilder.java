@@ -17,6 +17,7 @@ import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.OrderBy;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableBoolean;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableSingle;
@@ -167,7 +168,7 @@ public abstract class ThematicQueryBuilder implements Reloadable
     SelectableSingle label = this.getLabelSelectable(query);
     Selectable id = this.getIdentifierSelectable(query);
 
-    if (thematicSel instanceof SelectableNumber || thematicSel instanceof SelectableMoment)
+    if (thematicSel instanceof SelectableNumber || thematicSel instanceof SelectableMoment || thematicSel instanceof SelectableBoolean)
     {
       boolean isAggregate = false;
 

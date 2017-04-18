@@ -503,7 +503,9 @@
         attribute:'='
       },
       link: function (scope, element, attrs, ctrl) {
-        scope.form = ctrl;        
+        scope.form = ctrl;
+        
+        scope.attribute.filter.operation = "eq";
       }
     }    
   }

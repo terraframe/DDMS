@@ -31,6 +31,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeChar;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
@@ -217,6 +218,7 @@ public class DashboardStyle extends DashboardStyleBase implements com.runwaysdk.
       JSONObject mapping = new JSONObject();
       mapping.put(MdAttributeReference.CLASS, textOptions);
       mapping.put(MdAttributeCharacter.CLASS, textOptions);
+      mapping.put(MdAttributeBoolean.CLASS, textOptions);
 
       mapping.put(MdAttributeInteger.CLASS, numberOptions);
       mapping.put(MdAttributeLong.CLASS, numberOptions);
