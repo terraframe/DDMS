@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
 
+
+  <!--
+  ===============
+    BUILD FLAGS
+  ===============
+  Tweak these settings to modify what you're building
+  
+	<target name="build-all" depends="build-installer,build-patch" />
+	-->
+	<target name="build-all" depends="build-installer,build-patch" />
+
+
+  
+  
+  
+  
+  
 	<property name="mdss.root" value="../trunk" />
     <property name="build.ftp.user" value="terraframe@terraframe.com" />
 	<property name="build.ftp.pass" value="_Terra4Frame" />
@@ -29,7 +46,7 @@
 		<format property="date" pattern="MMMM dd" />
 		<format property="long_date" pattern="MMMM dd, yyyy" />
 	</tstamp>
-
+  
 	<target name="test">
 		<ftp server="terraframe.com"
 			 port="21"
@@ -127,12 +144,6 @@
 		</echo>	
 	</target>
 	
-  
-  <!--
-	<target name="build-all" depends="build-installer,build-patch" />
-	-->
-	<target name="build-all" depends="build-installer,build-patch" />
-
 	<target name="build-installer" depends="update-about">
 
 		<!-- Installer -->
