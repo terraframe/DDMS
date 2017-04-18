@@ -56,7 +56,9 @@ h1 {
 }
 
 #header{
-    padding: 10px;
+  padding: 0px;
+  margin: 0px;
+  height: 91px;
 }
 
 #builder-dialog-category-widget-container{

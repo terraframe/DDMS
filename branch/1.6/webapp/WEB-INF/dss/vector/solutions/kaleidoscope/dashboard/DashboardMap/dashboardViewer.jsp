@@ -40,7 +40,7 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
   
-    <link rel="icon" type="image/png" href="./imgs/favicon.png" >
+    <link rel="icon" type="image/png" href="{pageContext.request.contextPath}/imgs/favicon.png" >
     <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
     <!-- Tell Runway what the application context path is. -->
     <script>
@@ -65,7 +65,6 @@
     </c:if>
 
     <title><mdss:localize key="dashboardViewer.title"/></title>
-    <link rel="icon" href="${pageContext.request.contextPath}/imgs/flags/current"/>
     
     <!-- CSS imports -->
     <jwr:style src="/bundles/main.css" useRandomParam="false" />
