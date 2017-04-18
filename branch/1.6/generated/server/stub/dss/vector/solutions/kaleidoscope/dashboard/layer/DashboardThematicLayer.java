@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,9 +35,15 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeDate;
+import com.runwaysdk.system.metadata.MdAttributeDecimal;
+import com.runwaysdk.system.metadata.MdAttributeDouble;
+import com.runwaysdk.system.metadata.MdAttributeFloat;
+import com.runwaysdk.system.metadata.MdAttributeInteger;
+import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
@@ -133,7 +141,15 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     //
     // Only number types can be used
     //
-    if (thematicAttrType.equals("com.runwaysdk.system.metadata.MdAttributeLong") || thematicAttrType.equals("com.runwaysdk.system.metadata.MdAttributeInteger") || thematicAttrType.equals("com.runwaysdk.system.metadata.MdAttributeDouble") || thematicAttrType.equals("com.runwaysdk.system.metadata.MdAttributeDecimal") || thematicAttrType.equals("com.runwaysdk.system.metadata.MdAttributeFloat"))
+    Set<String> numerics = new TreeSet<String>();
+    numerics.add(MdAttributeLong.CLASS);
+    numerics.add(MdAttributeInteger.CLASS);
+    numerics.add(MdAttributeDouble.CLASS);
+    numerics.add(MdAttributeDecimal.CLASS);
+    numerics.add(MdAttributeFloat.CLASS);
+    numerics.add(MdAttributeBoolean.CLASS);
+
+    if (numerics.contains(thematicAttrType))
     {
       selectables.add(wrapper.aSQLAggregateDouble("min_data", "MIN(" + _attribute + ")"));
       selectables.add(wrapper.aSQLAggregateDouble("max_data", "MAX(" + _attribute + ")"));
@@ -214,7 +230,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
       {
         try
         {
-//          boolean dynamic = ! ( Dashboard.getOptionCount(mdAttribute.getId()) < LIMIT );
+          // boolean dynamic = ! ( Dashboard.getOptionCount(mdAttribute.getId()) < LIMIT );
 
           attrObj.put("isOntologyAttribute", true);
           attrObj.put("isTextAttribute", false);
@@ -222,10 +238,10 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
           attrObj.put("termType", Term.CLASS);
           attrObj.put("dynamic", true);
 
-//          if (!dynamic)
-//          {
-//            attrObj.put("nodes", Dashboard.getClassifierTreeJSON(mdAttribute.getId()));
-//          }
+          // if (!dynamic)
+          // {
+          // attrObj.put("nodes", Dashboard.getClassifierTreeJSON(mdAttribute.getId()));
+          // }
         }
         catch (JSONException e)
         {
@@ -437,14 +453,14 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
 
           if (mdAttributeTerm.getReferenceMdBusinessDAO().definesType().equals(Term.CLASS))
           {
-//            boolean dynamic = ! ( Dashboard.getOptionCount(secAttr.getMdAttributeId()) < LIMIT );
+            // boolean dynamic = ! ( Dashboard.getOptionCount(secAttr.getMdAttributeId()) < LIMIT );
 
             secAttrObj.put("dynamic", true);
 
-//            if (!dynamic)
-//            {
-//              secAttrObj.put("nodes", Dashboard.getClassifierTreeJSON(secAttr.getMdAttributeId()));
-//            }
+            // if (!dynamic)
+            // {
+            // secAttrObj.put("nodes", Dashboard.getClassifierTreeJSON(secAttr.getMdAttributeId()));
+            // }
           }
         }
 
