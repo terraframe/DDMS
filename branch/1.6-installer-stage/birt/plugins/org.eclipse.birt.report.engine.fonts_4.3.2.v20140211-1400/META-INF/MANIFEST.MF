@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-Vendor: Eclipse BIRT Project
+Bundle-Version: 4.3.2.v20140211-1400
+Bundle-Localization: plugin
+Bundle-Name: BIRT Engine fonts
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.birt.report.engine.fonts
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
+

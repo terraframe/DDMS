@@ -1,0 +1,19 @@
+#Tue Feb 25 14:32:20 CST 2014
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/isSystem=true
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/version=1
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/name=Bundle pool
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/description=
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/provider=
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/enabled=true
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/uri=file\:/home/adb/releng.430/src/tmp/birt-rcp-report-designer-4_3_2/
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/type=org.eclipse.equinox.p2.artifact.repository.simpleRepository
+eclipse.preferences.version=1
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/name=download cache
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/suffix=artifacts.xml
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/version=1.0.0
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/type=org.eclipse.equinox.p2.artifact.repository.simpleRepository
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/enabled=true
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/description=
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/uri=file\:/home/adb/releng.430/src/tmp/birt-rcp-report-designer-4_3_2/p2/org.eclipse.equinox.p2.core/cache/
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2/provider=
+repositories/file\:_home_adb_releng.430_src_tmp_birt-rcp-report-designer-4_3_2_p2_org.eclipse.equinox.p2.core_cache/isSystem=true
