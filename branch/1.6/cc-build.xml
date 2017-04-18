@@ -25,7 +25,7 @@
   <property name="profile.root" location="profiles" />
   <property name="install.dir" location="/home/terraframe/DDMS/installs" />
   <property name="stage.dir" location="/home/terraframe/DDMS/stage" />
-  <property name="artifacts.path" location="${stage.dir}/tomcat6" />
+  <property name="artifacts.path" location="${stage.dir}/tomcat" />
   <property name="stage.classes" location = "${artifacts.path}/webapps/DDMS/WEB-INF/classes"/>
   <property name="root.user" value="postgres" />
   <property name="root.pass" value="postgres" />
@@ -33,7 +33,7 @@
   <property name="max_memory_use" value="1024m" />
   <property name="domain" value="0.mdss.ivcc.com" />
   <property name="local.root" location="." />
-  <property name="deploy.root" location="${stage.dir}/tomcat6" />
+  <property name="deploy.root" location="${stage.dir}/tomcat" />
   <property name="manager.dest" location="${stage.dir}/manager" />
   <property name="manager.dest.lib" location="${manager.dest}/lib" />
   <property name="manager.dest.bin" location="${manager.dest}/bin" />  
@@ -177,8 +177,8 @@
 
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat6/" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat6/" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
 
     <propertyfile file="${stage.classes}/jawr.properties">
       <entry key="jawr.debug.on" value="false" />
@@ -191,8 +191,8 @@
       <entry key="master" value="false" />
     </propertyfile>
     <propertyfile file="${stage.classes}/MdssControlPanel.properties">
-      <entry key="command.start" value="cmd /c C:/MDSS/tomcat6/bin/startup.bat" />
-      <entry key="command.stop" value="cmd /c C:/MDSS/tomcat6/bin/shutdown.bat" />
+      <entry key="command.start" value="cmd /c C:/MDSS/tomcat/bin/startup.bat" />
+      <entry key="command.stop" value="cmd /c C:/MDSS/tomcat/bin/shutdown.bat" />
     </propertyfile>
   </target>
   <target name="dump_db" depends="">
