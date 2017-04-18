@@ -341,14 +341,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8251
+    StrCpy $PatchVersion 8299
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 8225
     StrCpy $LocalizationVersion 8225
-    StrCpy $PermissionsVersion 8251
-	StrCpy $RunwayVersion 8246
+    StrCpy $PermissionsVersion 8298
+	StrCpy $RunwayVersion 8275
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8251
+	StrCpy $ManagerVersion 8299
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8118
 	StrCpy $JavaVersion 8188
@@ -872,10 +872,10 @@ Section /o -un.Main UNSEC0000
   ################################################################################
   # Uninstall Postgres
   ################################################################################
-  ExecDos::exec /NOUNLOAD `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i` "" "$AgentDir\postgresController.out"
+  ExecWait `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
   
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
-  ExecDos::exec /NOUNLOAD `SC DELETE postgresql-x64-9.4` "" "$AgentDir\postgresController.out"
+  ExecWait `SC DELETE postgresql-x64-9.4`
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL Global Development Group"
   DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL"
