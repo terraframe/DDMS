@@ -184,14 +184,14 @@ Section -Main SEC0000
   ${EndIf}
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8246
+  StrCpy $RunwayVersion 8275
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8251
-  StrCpy $PatchVersion 8251
+  StrCpy $ManagerVersion 8299
+  StrCpy $PatchVersion 8299
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 8225
   StrCpy $LocalizationVersion 8225
-  StrCpy $PermissionsVersion 8251
+  StrCpy $PermissionsVersion 8298
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
   StrCpy $WebappsVersion 8118
@@ -279,6 +279,9 @@ Section -Main SEC0000
   
   SetOutPath $INSTDIR
   SetOverwrite on
+  
+  # Remove any existing garbage
+  RMDir /r $PatchDir
   
   # Extract the logging libs
   !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
@@ -593,9 +596,31 @@ Function patchApplication
     DetailPrint "Skipping system id migration because they are already up to date"
     ${EndIf}	  
 
+    # Fix any Postgres migration issues (ticket 3440)
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
+    ${If} 8250 > $0
+      LogEx::Write "Fixing potential Postgres migration issues for app [$AppName] (ticket 3440)"
+      
+      LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties]"
+      Push PostgreSQL/9.1                                                                  # text to be replaced
+      Push ${POSTGRES_DIR}                                                                 # replace with
+      Push all                                                                             # replace all occurrences
+      Push all                                                                             # replace all occurrences
+      Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
+      Call AdvReplaceInFile
+      
+      LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties]"
+      Push PostgreSQL/9.1                                                                  # text to be replaced
+      Push ${POSTGRES_DIR}                                                                 # replace with
+      Push all                                                                             # replace all occurrences
+      Push all                                                                             # replace all occurrences
+      Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties     # file to replace in
+      Call AdvReplaceInFile
+    ${EndIf}
+    
     # Reference Indexing Patching (ticket 3341)
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating reference indexes."
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} $0 < 8157
     LogEx::Write "Updating reference indexes for $AppName"
     !insertmacro MUI_HEADER_TEXT "Patching indexes" "Updating reference indexes for $AppName..."
@@ -625,11 +650,12 @@ Function patchApplication
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
 
     # Ticket 3434
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
-    ${If} 8252 > $0
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
+    ${If} $0 < 8224
       LogEx::Write "Patching ticket 3434"
       push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
       Call execDos
+      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms 8225
     ${Else}
       LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
     ${EndIf}
@@ -646,7 +672,7 @@ Function patchApplication
 
     # Term Roots
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
-    SetOutPath $PatchDir\doc\ontology
+    SetOutPath $PatchDir\doc
     File ..\trunk\doc\ontology\MOroots.xls
     File ..\trunk\patches\geo-universals.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
@@ -722,6 +748,18 @@ Function patchApplication
     StrCpy $Phase "Deleting existing database views and functions."
     push `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
     Call execDos
+    
+    # Ticket 3456 (SRID patching for PostGIS 2.0+)
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
+    ${If} 8276 > $0
+      LogEx::Write "Patching ticket 3456"
+      push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "ALTER TABLE geo_entity ALTER COLUMN geo_point TYPE geometry(POINT, 4326) USING ST_SetSRID(geo_point,4326);"`
+      Call execDos
+      push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "ALTER TABLE geo_entity ALTER COLUMN geo_multi_polygon TYPE geometry(MultiPolygon, 4326) USING ST_SetSRID(geo_multi_polygon,4326);"`
+      Call execDos
+    ${Else}
+      LogEx::Write "Skipping ticket 3456 patch because it is already up to date."
+    ${EndIf}
 
     # Switch back to the deploy environment
     LogEx::Write "Switching back to deploy environment"
@@ -871,7 +909,7 @@ Function patchManager
     #        it right now since the customer hasn't reported any issues with it (and I'm not getting paid to fix random obsolete crap), just be aware when writing new code that its not good practice.
   
     # Set tomcat auto deploy to false (ticket 3389)
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8190 > $0
       LogEx::Write "Setting tomcat auto deploy to false (3389)."
       Push autoDeploy="true"                                       # text to be replaced
@@ -883,7 +921,7 @@ Function patchManager
     ${EndIf}
 	
     # Move the vault to the correct place (ticket 3259)
-    ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" PatchVersion
+    ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8195 > $6
       LogEx::Write "Moving the vault to the correct place (3259)."
         
@@ -935,29 +973,6 @@ Function patchManager
 	  LogEx::Write "Copying over updated runway properties for app $1"
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
-  
-    # Fix any Postgres migration issues (ticket 3440)
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$1" PatchVersion
-    ${If} 8250 > $0
-      LogEx::Write "Fixing potential Postgres migration issues for app [$1] (ticket 3440)"
-      
-      LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$1\WEB-INF\classes\database.properties]"
-      Push PostgreSQL/9.1                                                                  # text to be replaced
-      Push ${POSTGRES_DIR}                                                                 # replace with
-      Push all                                                                             # replace all occurrences
-      Push all                                                                             # replace all occurrences
-      Push $INSTDIR\tomcat\webapps\$1\WEB-INF\classes\database.properties           # file to replace in
-      Call AdvReplaceInFile
-      
-      LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$1\database.properties]"
-      Push PostgreSQL/9.1                                                                  # text to be replaced
-      Push ${POSTGRES_DIR}                                                                 # replace with
-      Push all                                                                             # replace all occurrences
-      Push all                                                                             # replace all occurrences
-      Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$1\database.properties     # file to replace in
-      Call AdvReplaceInFile
-    ${EndIf}
-  
   
     Goto MANAGERappNameFileReadLoop
         
@@ -1800,10 +1815,10 @@ Section /o -un.Main UNSEC0000
   ################################################################################
   # Uninstall Postgres
   ################################################################################
-  ExecDos::exec /NOUNLOAD `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i` "" "$AgentDir\postgresController.out"
+  ExecWait `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
   
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
-  ExecDos::exec /NOUNLOAD `SC DELETE postgresql-x64-9.4` "" "$AgentDir\postgresController.out"
+  ExecWait `SC DELETE postgresql-x64-9.4`
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL Global Development Group"
   DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL"
