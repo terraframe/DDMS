@@ -61,7 +61,7 @@
     <div ng-if="($index ) % 3 === 0" class="row">
         <div ng-if="ctrl.dashboards[ctrl.ids[$index]]" class="col-sm-6 col-md-4">
           <div  class="thumbnail text-center">
-            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" class="" >
+            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" target="_blank" class="" >
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
               <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" 
               onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';"              
@@ -88,7 +88,7 @@
         Why 3 semi-redundant blocks you might ask? To wrap groups of 3 in a bootstrap ROW. -->
         <div ng-if="ctrl.dashboards[ctrl.ids[$index + 1]]" class="col-sm-6 col-md-4">
           <div  class="thumbnail text-center">
-            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" class="" >
+            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" target="_blank" class="" >
               
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
               <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
@@ -112,7 +112,7 @@
         Why 3 semi-redundant blocks you might ask? To wrap groups of 3 in a bootstrap ROW.-->
         <div ng-if="ctrl.dashboards[ctrl.ids[$index + 2]]" class="col-sm-6 col-md-4">
           <div  class="thumbnail text-center">
-            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" class="" >
+            <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" target="_blank" class="" >
               
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
               <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
