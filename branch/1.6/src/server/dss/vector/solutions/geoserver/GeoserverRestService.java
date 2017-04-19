@@ -68,52 +68,38 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     }
   }
 
-  public static final String               GEOM_COLUMN = QueryConstants.GEOMETRY_NAME_COLUMN;
-
-  public final int                         SRS_CODE    = 4326;
-
-  public final String                      SRS         = "EPSG:" + SRS_CODE;
-
-  public int                               MINX_INDEX  = 0;
-
-  public int                               MINY_INDEX  = 1;
-
-  public int                               MAXX_INDEX  = 2;
-
-  public int                               MAXY_INDEX  = 3;
-
-  private Logger                           logger      = LoggerFactory.getLogger(GeoserverFacade.class);
+  private Logger                           logger     = LoggerFactory.getLogger(GeoserverFacade.class);
 
   /**
    * Default geoserver username
    */
-  private static final String              USERNAME    = "admin";
+  private static final String              USERNAME   = "admin";
 
   /**
    * Default geoserver password
    */
-  private static final String              PASSWORD    = "geoserver";
+  private static final String              PASSWORD   = "geoserver";
 
   /**
    * Bundle for reading properties file
    */
-  private final ResourceBundle             bundle      = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
+  private final ResourceBundle             bundle     = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
 
   /**
    * Lock used for creating the workspace
    */
-  private final ReentrantLock              lock        = new ReentrantLock();
+  private final ReentrantLock              lock       = new ReentrantLock();
 
   /**
    * Set of workspaces
    */
   private Set<String>                      workspaceSet;
 
-  private static GeoServerRESTStoreManager manager     = null;
+  private static GeoServerRESTStoreManager manager    = null;
 
-  private static GeoServerRESTPublisher    publisher   = null;
+  private static GeoServerRESTPublisher    publisher  = null;
 
-  private static GeoServerRESTReader       restReader  = null;
+  private static GeoServerRESTReader       restReader = null;
 
   public void refresh()
   {
@@ -515,10 +501,10 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       ValueObject o = iter.next();
 
       double[] bbox = new double[4];
-      bbox[MINX_INDEX] = Double.parseDouble(o.getValue("minx"));
-      bbox[MINY_INDEX] = Double.parseDouble(o.getValue("miny"));
-      bbox[MAXX_INDEX] = Double.parseDouble(o.getValue("maxx"));
-      bbox[MAXY_INDEX] = Double.parseDouble(o.getValue("maxy"));
+      bbox[GeoserverFacade.MINX_INDEX] = Double.parseDouble(o.getValue("minx"));
+      bbox[GeoserverFacade.MINY_INDEX] = Double.parseDouble(o.getValue("miny"));
+      bbox[GeoserverFacade.MAXX_INDEX] = Double.parseDouble(o.getValue("maxx"));
+      bbox[GeoserverFacade.MAXY_INDEX] = Double.parseDouble(o.getValue("maxy"));
 
       return bbox;
     }
@@ -644,19 +630,19 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     GSFeatureTypeEncoder fte = new GSFeatureTypeEncoder();
     fte.setEnabled(true);
     fte.setName(layer);
-    fte.setSRS(SRS);
+    fte.setSRS(GeoserverFacade.SRS);
     fte.setTitle(layer);
     fte.addKeyword(layer);
 
     if (bbox != null)
     {
-      double minX = bbox[MINX_INDEX];
-      double minY = bbox[MINY_INDEX];
-      double maxX = bbox[MAXX_INDEX];
-      double maxY = bbox[MAXY_INDEX];
+      double minX = bbox[GeoserverFacade.MINX_INDEX];
+      double minY = bbox[GeoserverFacade.MINY_INDEX];
+      double maxX = bbox[GeoserverFacade.MAXX_INDEX];
+      double maxY = bbox[GeoserverFacade.MAXY_INDEX];
 
-      fte.setNativeBoundingBox(minX, minY, maxX, maxY, SRS);
-      fte.setLatLonBoundingBox(minX, minY, maxX, maxY, SRS);
+      fte.setNativeBoundingBox(minX, minY, maxX, maxY, GeoserverFacade.SRS);
+      fte.setLatLonBoundingBox(minX, minY, maxX, maxY, GeoserverFacade.SRS);
     }
 
     GSLayerEncoder le = new GSLayerEncoder();
@@ -729,10 +715,10 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       ValueObject o = iter.next();
 
       double[] bbox = new double[4];
-      bbox[MINX_INDEX] = Double.parseDouble(o.getValue("minx"));
-      bbox[MINY_INDEX] = Double.parseDouble(o.getValue("miny"));
-      bbox[MAXX_INDEX] = Double.parseDouble(o.getValue("maxx"));
-      bbox[MAXY_INDEX] = Double.parseDouble(o.getValue("maxy"));
+      bbox[GeoserverFacade.MINX_INDEX] = Double.parseDouble(o.getValue("minx"));
+      bbox[GeoserverFacade.MINY_INDEX] = Double.parseDouble(o.getValue("miny"));
+      bbox[GeoserverFacade.MAXX_INDEX] = Double.parseDouble(o.getValue("maxx"));
+      bbox[GeoserverFacade.MAXY_INDEX] = Double.parseDouble(o.getValue("maxy"));
 
       return bbox;
     }

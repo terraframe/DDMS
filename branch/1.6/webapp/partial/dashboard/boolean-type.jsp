@@ -21,11 +21,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss" %>
 <div class="checks-frame">
   <div>
-    <input ng-model="attribute.filter.value"  class="gdb-attr-filter filter-boolean" id="{{attribute.mdAttributeId}}-true" name="filter-{{attribute.mdAttributeId}}" type="radio" value="true">
+    <input ng-model="attribute.filter.value"  class="gdb-attr-filter filter-boolean" id="{{attribute.mdAttributeId}}-true" name="filter-{{attribute.mdAttributeId}}"  type="radio" value="true" ng-click="ctrl.clickOn($event)">
     <label for="{{attribute.mdAttributeId}}-true"><mdss:localize key="filter.true" /></label>
   </div>
   <div>
-    <input ng-model="attribute.filter.value" class="gdb-attr-filter filter-boolean" id="{{attribute.mdAttributeId}}-false" name="filter-{{attribute.mdAttributeId}}" type="radio" value="false">
+    <input ng-model="attribute.filter.value" class="gdb-attr-filter filter-boolean" id="{{attribute.mdAttributeId}}-false" name="filter-{{attribute.mdAttributeId}}" type="radio" value="false" ng-click="ctrl.clickOn($event)">
     <label for="{{attribute.mdAttributeId}}-false"><mdss:localize key="filter.false" /></label>
   </div>
 </div>

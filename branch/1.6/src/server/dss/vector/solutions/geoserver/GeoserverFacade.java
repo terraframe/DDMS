@@ -8,10 +8,15 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MapConfiguration;
+import dss.vector.solutions.query.QueryConstants;
 
 public class GeoserverFacade implements Reloadable
 {
-  public static final String      GEOM_COLUMN = "geom";
+  public static final String      GEOM_COLUMN = QueryConstants.GEOMETRY_NAME_COLUMN;
+
+  public static final int         SRS_CODE    = 4326;
+
+  public static final String      SRS         = "EPSG:" + SRS_CODE;
 
   public static int               MINX_INDEX  = 0;
 

@@ -35,6 +35,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
 import com.runwaysdk.transport.conversion.ConversionException;
 
+import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.CategoryIcon;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
@@ -1217,7 +1218,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
 
     protected NodeBuilder getSymbolNode(String hexColor, Double fillOpacity, String strokeColor, int strokeWidth, Double strokeOpacity)
     {
-      NodeBuilder polyNode = node("PolygonSymbolizer").child(node("Geometry").child(node(OGC, "PropertyName").text("geom")), node("Fill").child(css("fill", hexColor), css("fill-opacity", fillOpacity)), node("Stroke").child(css("stroke", strokeColor), css("stroke-width", strokeWidth), css("stroke-opacity", strokeOpacity)));
+      NodeBuilder polyNode = node("PolygonSymbolizer").child(node("Geometry").child(node(OGC, "PropertyName").text(GeoserverFacade.GEOM_COLUMN)), node("Fill").child(css("fill", hexColor), css("fill-opacity", fillOpacity)), node("Stroke").child(css("stroke", strokeColor), css("stroke-width", strokeWidth), css("stroke-opacity", strokeOpacity)));
 
       return polyNode;
     }

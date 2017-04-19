@@ -38,15 +38,15 @@
     }
     
     
-	controller.setDatasetListHeight = function(){
-		var offset = function(){
-			var dataSetListContainer = document.getElementById("type-accordion");
-			var offset = $(".nav-bar.sidebar-nav-bar").height() + $("#location-filter-container").height() + 45;
-			dataSetListContainer.style.maxHeight = "calc(100% - "+ offset +"px)";
-		}
-		
-		$timeout(offset, 5);
-	}
+  controller.setDatasetListHeight = function(){
+    var offset = function(){
+      var dataSetListContainer = document.getElementById("type-accordion");
+      var offset = $(".nav-bar.sidebar-nav-bar").height() + $("#location-filter-container").height() + 45;
+      dataSetListContainer.style.maxHeight = "calc(100% - "+ offset +"px)";
+    }
+    
+    $timeout(offset, 5);
+  }
     
     controller.contains = function(id) {
       for(var i = 0; i < $scope.filter.locations.length; i++) {
@@ -61,9 +61,9 @@
     $scope.$watch('filter.locations', function(newValue, oldValue) {
         var dataSetListContainer = document.getElementById("type-accordion");
         if(newValue && dataSetListContainer){
-        	if(!oldValue){
-        		controller.setDatasetListHeight();
-        	}
+          if(!oldValue){
+            controller.setDatasetListHeight();
+          }
         }
     });
   }
@@ -85,7 +85,7 @@
         input.autocomplete({
           source: ctrl.source,
           select: function(event, ui) {
-        	ctrl.add(ui.item);
+          ctrl.add(ui.item);
             
             scope.$apply();
             
@@ -122,7 +122,7 @@
     }
     
     controller.init = function(element) {
-      // Add support for sorting the dashboard data sets    	
+      // Add support for sorting the dashboard data sets      
       if(element != null && dashboardService.canEdit()) {
         widgetService.sortable(element, function(e, ui){
           controller.move(element, e, ui);
@@ -480,7 +480,7 @@
         input.autocomplete({
           source: ctrl.source,
           select: function(event, ui) {
-        	ctrl.add(ui.item);
+          ctrl.add(ui.item);
             
             scope.$apply();
             $(this).val(''); 
@@ -493,6 +493,16 @@
     }    
   }
   
+  function BooleanTypeController($scope) {
+    var controller = this;
+    
+    controller.clickOn = function($event) {
+      if($event.shiftKey){
+        $scope.attribute.filter.value = null;        
+      }      
+    }    
+  }
+  
   function BooleanType() {
     return {
       restrict: 'E',
@@ -502,6 +512,8 @@
       scope: {
         attribute:'='
       },
+      controller : BooleanTypeController,
+      controllerAs : 'ctrl',      
       link: function (scope, element, attrs, ctrl) {
         scope.form = ctrl;
         
