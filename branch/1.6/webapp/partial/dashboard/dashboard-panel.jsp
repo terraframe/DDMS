@@ -20,7 +20,7 @@
 		    <li class="sidebar-nav-bar-btn">
 		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.editOptions()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
 		 	</li>
-		 	
+<!-- 
    			<li class="dropdown navigation-dropdown">      
    				<a href="#" class="fa fa-bars opener-drop dropdown-toggle dropdown-toggle-compact pull-right" ></a>
 	    		<ul class="dropdown-menu navigation-menu pull-right">
@@ -38,6 +38,7 @@
 	       			</a>
        			</ul>
        		</li>
+ -->		 	
        	</ul>
   </div>
     

@@ -2217,7 +2217,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     for (MdFieldDAOIF mdField : mdFields)
     {
-      if (mdField instanceof MdWebAttributeDAOIF)
+      if (mdField instanceof MdWebSingleTermGridDAOIF || mdField instanceof MdWebMultipleTermDAOIF)
+      {
+        // Skip
+      }
+      else if (mdField instanceof MdWebAttributeDAOIF)
       {
         MdWebAttributeDAOIF mdWebAttribute = (MdWebAttributeDAOIF) mdField;
         MdAttributeDAOIF mdAttributeDAO = mdWebAttribute.getDefiningMdAttribute();
