@@ -20,6 +20,28 @@
   <jwr:script src="/bundles/builder.js" useRandomParam="false"/>
 
   <script type="text/javascript">${js}</script>
+  
+  <style type="text/css">
+    #headermiddle {
+	-moz-border-radius: 10px;
+	margin: 0 95px 5px 220px;
+	padding: 22px 0 0 10px;
+	height: 80px;
+	background-color: #CA1413;
+	color: #FFFFFF;
+	font-size: 32px;
+}
+
+#headerleft {
+	-moz-border-radius: 10px;
+	height: 80px;
+	width: 210px;
+	margin: 0 0 0 5px;
+	padding: 22px 5px 0 5px;
+	position: absolute;
+	background: #FFFFFF url(/DDMS/imgs/flags/current) no-repeat 95% 50%;
+}
+  </style>
 </head>
 
 <div ng-app="dashboard-menu" ng-cloak>
@@ -51,7 +73,9 @@
 <div class="dashboard-card-ico-button-container">     
             <div class="dashboard-thumbnail-ico-group">
             <a href="#" class="fa fa-cog ico-dashboard-options dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.editDashboardTooltip"/>" ng-click="ctrl.edit(ctrl.dashboards[ctrl.ids[$index]].dashboardId)" ></a> 
+<!-- 
             <a href="#" class="fa fa-clone ico-dashboard dashboard-thumnail-ico-ctrl" title="<mdss:localize key='dashboardViewer.newDashboardTooltip'/>" ng-click="ctrl.cloneDashboard(ctrl.dashboards[ctrl.ids[$index]].dashboardId)"></a>
+ -->            
             <a href="#" class="fa fa-trash-o ico-remove dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.deleteDashboardTooltip"/>" ng-click="ctrl.remove(ctrl.dashboards[ctrl.ids[$index]].dashboardId)" ></a>
             </div>
             </div>
