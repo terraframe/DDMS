@@ -63,7 +63,7 @@
           <div  class="thumbnail text-center">
             <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" target="_blank" class="" >
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
-              <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" 
+              <img ng-src="dss.vector.solutions.kaleidoscope.UserMenuController.getDashboardMapThumbnail.mojo?dashboardId={{ctrl.dashboards[ctrl.ids[$index]].dashboardId}}" 
               onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';"              
               alt="Dashboard">
               
@@ -91,7 +91,7 @@
             <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" target="_blank" class="" >
               
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
-              <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
+              <img ng-src="dss.vector.solutions.kaleidoscope.UserMenuController.getDashboardMapThumbnail.mojo?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
               
               <div class="caption">
                 <h3>{{ctrl.dashboards[ctrl.ids[$index + 1]].label}}</h3>
@@ -115,7 +115,7 @@
             <a ng-href="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.createMapForSession.mojo?dashboard={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" target="_blank" class="" >
               
               <!-- NOTE: the onerror method that sets the default icon if now saved dashboard exists -->
-              <img ng-src="${pageContext.request.contextPath}/mapthumb/getDashboardMapThumbnail?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
+              <img ng-src="dss.vector.solutions.kaleidoscope.UserMenuController.getDashboardMapThumbnail.mojo?dashboardId={{ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId}}" onerror="if (this.src != 'imgs/dashboard_icon_small.png') this.src = 'imgs/dashboard_icon_small.png';" alt="Dashboard">
               
               <div class="caption">
                 <h3>{{ctrl.dashboards[ctrl.ids[$index + 2]].label}}</h3>

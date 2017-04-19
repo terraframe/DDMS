@@ -1103,6 +1103,8 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     DashboardState state = this.getOrCreateDashboardState(user);
     state.setConditions(DashboardCondition.serialize(conditions));
     state.apply();
+    
+    this.executeThumbnailThread(user);
 
     return "";
   }
