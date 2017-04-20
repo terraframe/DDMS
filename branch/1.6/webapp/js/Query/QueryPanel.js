@@ -1126,13 +1126,13 @@ MDSS.QueryPanel.prototype =
    */
   _buildButtons : function()
   {
-    var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
-    uploadTemplate.set('type', 'button');
-    uploadTemplate.set('value', MDSS.localize('Upload_Template'));
-    uploadTemplate.set('id', "uploadTemplateButton");
-    uploadTemplate.addClass('queryButton');
-    uploadTemplate.on('click', this._uploadTemplate,
-    {}, this);
+//    var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
+//    uploadTemplate.set('type', 'button');
+//    uploadTemplate.set('value', MDSS.localize('Upload_Template'));
+//    uploadTemplate.set('id', "uploadTemplateButton");
+//    uploadTemplate.addClass('queryButton');
+//    uploadTemplate.on('click', this._uploadTemplate,
+//    {}, this);
 
     var saveButton = new YAHOO.util.Element(document.createElement('input'));
     saveButton.set('type', 'button');
@@ -1194,7 +1194,7 @@ MDSS.QueryPanel.prototype =
 
     var exportQueryButton = this._buildExportQueryForm();
 
-    var exportReportButton = this._buildReportForm();
+//    var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
@@ -1211,8 +1211,8 @@ MDSS.QueryPanel.prototype =
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
     rightDiv.appendChild(exportQueryButton);
-    rightDiv.appendChild(uploadTemplate);
-    rightDiv.appendChild(exportReportButton);
+//    rightDiv.appendChild(uploadTemplate);
+//    rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
     rightDiv.appendChild(exportXLSButton);
     rightDiv.appendChild(runButton);
