@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.sql.Savepoint;
 import java.util.List;
 import java.util.Properties;
 import java.util.TreeSet;
@@ -18,7 +19,6 @@ import com.google.common.io.Files;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.DatabaseProperties;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.VaultInfo;
@@ -60,14 +60,19 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 
  * Steps from ground 0:
  * 1) Add your password to a ~/.pgpass file with host 127.0.0.1 (NOT LOCALHOST) that the psql import process will use when importing the sql files.
- * 2) Create user mdssdeploy
- * 3) Create a new database of name mdssdeploy with owner: mdssdeploy
- * 4) Modify your database search_path to ddms,public: ALTER DATABASE mdssdeploy SET search_path=ddms,public;
+ *     If your pgpass file doesn't exist, that is OK. Just create the file, and put this line in it:
+ *     127.0.0.1:5432:mdssdevelop:mdssdevelop:mdssdevelop
+ *     Make sure to chmod it: sudo chmod 600 ~/.pgpass
+ * 2) Create user mdssdevelop
+ * 3) Create a new database of name mdssdevelop with owner: mdssdevelop
+ * 4) Modify your database search_path to ddms,public: ALTER DATABASE mdssdevelop SET search_path=ddms,public;
  *    alternatively: ALTER ROLE mdssdeploy SET search_path = ddms,public;
  * 5) Install the postgis extension: CREATE EXTENSION postgis;
- * 6) Build the project
- * 7) Create and run a java main program launch for this class with the necessary parameters.
- * 8) Compile and deploy the new source we just loaded from the backup to your tomcat server
+ * 6) Set your databaseBinDirectory in database.properties
+ *      On mac with the postgres app mine resolves to: /Applications/Postgres.app/Contents/Versions/9.6/bin
+ * 7) Build the project
+ * 8) Create and run a java main program launch for this class with the necessary parameters.
+ * 9) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
  * Troubleshooting Problems:
@@ -316,6 +321,7 @@ public class BackupDevImporter
     
     logger.info("Dropping tables");
     
+    Savepoint sp = Database.setSavepoint();
     List<String> tableNames = null;
     try
     {
@@ -323,7 +329,12 @@ public class BackupDevImporter
     }
     catch (Throwable e)
     {
+      Database.rollbackSavepoint(sp);
       logger.warn("Exception while dropping tables. This can happen if the database has already been dropped, we're going to keep running as if nothing happened.", e);
+    }
+    finally
+    {
+      Database.releaseSavepoint(sp);
     }
 
     if (tableNames != null)
