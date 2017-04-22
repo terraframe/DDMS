@@ -136,6 +136,7 @@ Var MaxMem                  # Max amount of memory to give Tomcat
 Var TomcatExec              # Path of the tomcat service executable
 Var DatabaseSoftwareVersion # Version of database software
 Var postgresToStop
+Var GeoserverVersion
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -186,21 +187,22 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 8275
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8299
-  StrCpy $PatchVersion 8299
+  StrCpy $ManagerVersion 8334
+  StrCpy $PatchVersion 8334
   StrCpy $RootsVersion 7829
-  StrCpy $MenuVersion 8225
-  StrCpy $LocalizationVersion 8225
+  StrCpy $MenuVersion 8330
+  StrCpy $LocalizationVersion 8334
   StrCpy $PermissionsVersion 8298
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 8118
+  StrCpy $WebappsVersion 8331
   StrCpy $JavaVersion 8188
-  StrCpy $TomcatVersion 8190
+  StrCpy $TomcatVersion 8331
   
   # These ones aren't
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
+  StrCpy $GeoserverVersion 2551
   
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
@@ -313,6 +315,8 @@ Section -Main SEC0000
   #####################################################################
   Call patchApplications    
 
+  Call deleteOldGeoserverIfNecessary
+  
   #  After all patching has finished we need to delete the tomcat cache
   SetOutPath $INSTDIR
   RMDir /r $INSTDIR\tomcat\work\Catalina 
@@ -392,6 +396,70 @@ Function checkIfMaster
   isNotMaster:
   ClearErrors
   FileClose $0
+FunctionEnd
+
+Function deleteOldGeoserverIfNecessary
+  IfFileExists $INSTDIR\tomcat\webapps\geoserver YesGeoserver NoGeoserver
+  
+  YesGeoserver:
+    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
+    LogEx::Write "Geoserver 1.5 version exists. We will need to check to see if any apps depend on it because we might be able to delete it."
+  
+  
+  # 0 here means we have no unpatched apps
+  StrCpy $0 0
+   
+  ClearErrors
+  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+  # TODO : Error handling for reading the applications file
+  
+  DELETEOLDGEOSERVERappNameFileReadLoop:
+  # Read a line from the file into $1
+  ClearErrors
+  FileRead $AppFile $1
+  
+  # Errors means end of File
+  IfErrors DELETEOLDGEOSERVERappNameDone
+  
+  # Removes the newline from the end of $1
+  ${StrTrimNewLines} $1 $1
+  
+  Push $1
+  Pop $AppName
+  
+  
+  
+  ClearErrors
+  ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" GeoserverVersion
+	IfErrors GeoserverNoExist GeoserverExist
+	GeoserverNoExist:
+    LogEx::Write "App $AppName still depends on the older geoserver version."
+	  StrCpy $0 1
+	GeoserverExist:
+    # For now, we can just do nothing. In the future, we may need an if/else chain to check the specific version
+  
+  
+
+  Goto DELETEOLDGEOSERVERappNameFileReadLoop
+          
+  DELETEOLDGEOSERVERappNameDone:
+  ClearErrors
+  FileClose $AppFile
+  
+  
+  
+  
+  
+  
+  ${If} 0 = $0
+    LogEx::Write "Deleting old geoserver by the name of [geoserver] because all apps have been patched beyond that version."
+
+    Delete $INSTDIR\tomcat\webapps\geoserver
+  ${Else}
+    LogEx::Write "There are apps that depend on the older 1.5 geoserver. We cannot delete it."
+  ${EndIf}
+  
+  NoGeoserver:
 FunctionEnd
 
 Function patchApplications
@@ -1138,11 +1206,11 @@ Function patchInstallerStage
     LogEx::Write "Patching tomcat webapps."
   
     # Delete the existing birt web app files
-	RMDir /r $INSTDIR\tomcat\webapps\birt\logs
-	RMDir /r $INSTDIR\tomcat\webapps\birt\report
-	RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
-	RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
-	RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\logs
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\report
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
   
     # Copy over the new webapp files
     SetOutPath $INSTDIR\tomcat\webapps

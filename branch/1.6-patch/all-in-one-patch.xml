@@ -47,8 +47,6 @@
             <info target="${project.dir}/installer-stage/tomcat" propPrefix="tomcat.svn." />			
 		</svn>
 		
-		<echoproperties />
-		
 		<!-- Write revision info into all-in-one-patch.nsi -->
 		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
 		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
