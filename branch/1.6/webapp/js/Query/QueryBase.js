@@ -1055,8 +1055,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      
       var that = this;
       var request = new MDSS.Request({
-        onSuccess : function(viewName){
-          that._createModal(viewName, MDSS.localize('get_db_view_name'), 200, true);
+        onSuccess : function(response){
+          var viewNames = JSON.parse(response);
+          var content = "<ul>";
+          content += "<li>" + viewNames["q_"] + " " + MDSS.localize('Query_DB_suffix') + "</li>";
+          
+          if(viewNames["p_"] != null) {
+            content += "<li>" + viewNames["p_"] + " " + MDSS.localize('Query_MV_suffix') +  "</li>";
+          }
+          content += "</ul>";
+          
+          that._createModal(content, MDSS.localize('get_db_view_name'), 200, true);
         }
       });
       

@@ -564,20 +564,36 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @Override
   public String getDatabaseViewName()
   {
-    if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
+    try
     {
-      throw new NoDBViewForDefaultQueryException();
-    }
 
-    String viewName = this.generateViewName(VIEW_PREFIX);
-    if (databaseViewExists(viewName))
-    {
-      return viewName;
+      if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
+      {
+        throw new NoDBViewForDefaultQueryException();
+      }
+
+      String viewName = this.generateViewName(VIEW_PREFIX);
+      if (databaseViewExists(viewName))
+      {
+        JSONObject names = new JSONObject();
+        names.put(VIEW_PREFIX, viewName);
+        
+        if (this.getIsMaterialized())
+        {
+          names.put(MATERIALIZED_VIEW_PREFIX, this.getMaterializedViewName());
+        }
+
+        return names.toString();
+      }
+      else
+      {
+        String msg = "The query [" + this.getQueryName() + "] does not have a database view.";
+        throw new DatabaseViewMissingException(msg);
+      }
     }
-    else
+    catch (JSONException e)
     {
-      String msg = "The query [" + this.getQueryName() + "] does not have a database view.";
-      throw new DatabaseViewMissingException(msg);
+      throw new ProgrammingErrorException(e);
     }
   }
 
