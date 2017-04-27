@@ -91,7 +91,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   public static final String   VIEW_PREFIX              = "q_";
 
-  public static final String   MATERIALIZED_VIEW_PREFIX = "m_";
+  public static final String   MATERIALIZED_VIEW_PREFIX = "p_";
 
   private static Log           log                      = LogFactory.getLog(SavedSearch.class);
 
