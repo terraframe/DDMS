@@ -206,9 +206,19 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
 
-    if (this.getIsMaterialized() && this.getMaterializedTableId().length() == 0)
+    if (this.getIsMaterialized())
     {
-      this.createMaterializedView();
+
+      if (this.getMaterializedTableId().length() == 0)
+      {
+        // Create the view because it doesn't exist
+        this.createMaterializedView();
+      }
+      else
+      {
+        // Refresh the view
+        this.refreshMaterializedView();
+      }
     }
     else if (!this.getIsMaterialized() && this.getMaterializedTableId().length() != 0)
     {
@@ -241,6 +251,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     this.createOrReplaceDatabaseView();
+  }
+
+  public void refreshMaterializedView()
+  {
+    List<String> batch = new LinkedList<String>();
+    batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
+
+    Database.executeBatch(batch);
   }
 
   private void createMaterializedView()
