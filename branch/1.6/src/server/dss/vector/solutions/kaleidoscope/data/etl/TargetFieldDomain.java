@@ -8,6 +8,7 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 
@@ -15,7 +16,7 @@ import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.Term;
 
-public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF, TargetFieldValidationIF
+public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF, TargetFieldValidationIF, Reloadable
 {
   @Override
   public FieldValue getValue(MdAttributeConcreteDAOIF mdAttribute, Transient source)

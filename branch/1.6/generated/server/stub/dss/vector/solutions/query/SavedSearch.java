@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -64,6 +65,7 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
+import com.runwaysdk.system.metadata.MdTable;
 import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
@@ -78,27 +80,30 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.report.UndefinedTemplateException;
+import dss.vector.solutions.util.SelectableSQLKey;
 
 public class SavedSearch extends SavedSearchBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long    serialVersionUID = 1241158161320L;
+  private static final long    serialVersionUID         = 1241158161320L;
 
   /**
    * The prefix for the database view names that represent saved searches (queries).
    */
-  public static final String   VIEW_PREFIX      = "q_";
+  public static final String   VIEW_PREFIX              = "q_";
 
-  private static Log           log              = LogFactory.getLog(SavedSearch.class);
+  public static final String   MATERIALIZED_VIEW_PREFIX = "m_";
+
+  private static Log           log                      = LogFactory.getLog(SavedSearch.class);
 
   /**
    * Regex to detect an invalid postgres identifier, which cannot start with a digit.
    */
-  private static final Pattern INVALID_PREFIX   = Pattern.compile("^\\d.*$");
+  private static final Pattern INVALID_PREFIX           = Pattern.compile("^\\d.*$");
 
   /**
    * An identifier with an invalid prefix can be fixed by adding an underscore.
    */
-  private static final String  VALID_PREFIX     = "_";
+  private static final String  VALID_PREFIX             = "_";
 
   public SavedSearch()
   {
@@ -121,6 +126,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   @Override
+  @Transaction
   public void delete()
   {
     // remove the layers on all default maps that
@@ -146,15 +152,29 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       iter.close();
     }
 
+    if (this.getMaterializedTableId().length() > 0)
+    {
+      this.getMaterializedTable().delete();
+    }
+
     super.delete();
 
     this.deleteDatabaseViewIfExists();
+
+    // Delete the materialized view
+    if (this.getMaterializedViewName() != null && this.getMaterializedViewName().length() > 0)
+    {
+      List<String> batch = new LinkedList<String>();
+      batch.add("DROP MATERIALIZED VIEW IF EXISTS " + this.getMaterializedViewName() + " CASCADE");
+      Database.executeBatch(batch);
+    }
   }
 
   /**
    * Apply method that also checks if this SavedSearch object is mappable or not.
    */
   @SuppressWarnings("unchecked")
+  @Transaction
   public void apply()
   {
     try
@@ -184,9 +204,162 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw new ProgrammingErrorException(error, e);
     }
 
+    Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
+
+    if (this.getIsMaterialized() && this.getMaterializedTableId().length() == 0)
+    {
+      this.createMaterializedView();
+    }
+    else if (!this.getIsMaterialized() && this.getMaterializedTableId().length() != 0)
+    {
+      objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
+
+      this.setMaterializedViewName(null);
+      this.setMaterializedTable(null);
+    }
+
     super.apply();
 
+    Set<Entry<String, MdTable>> entries = objectsToDelete.entrySet();
+
+    for (Entry<String, MdTable> entry : entries)
+    {
+      String viewName = entry.getKey();
+      MdTable mdTable = entry.getValue();
+
+      /*
+       * Delete the materialized table metadata
+       */
+      mdTable.delete();
+
+      /*
+       * Drop the materialized view
+       */
+      List<String> batch = new LinkedList<String>();
+      batch.add("DROP MATERIALIZED VIEW IF EXISTS " + viewName + " CASCADE");
+      Database.executeBatch(batch);
+    }
+
     this.createOrReplaceDatabaseView();
+  }
+
+  private void createMaterializedView()
+  {
+    if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
+    {
+      return;
+    }
+
+    String queryType = this.getQueryType();
+    String xml = this.getQueryXml();
+    String config = this.getConfig();
+
+    String queryClass = QueryConstants.getQueryClass(queryType);
+    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
+
+    Map<Selectable, MdAttributeConcreteDAOIF> map = new HashMap<Selectable, MdAttributeConcreteDAOIF>();
+
+    try
+    {
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, new MaterializedMarkerLayer(), null, null, this.getDisease());
+
+      // wrap the query with outer SELECT that uses user-friendly column names
+      // based on the display labels.
+      ValueQuery outer = new ValueQuery(new QueryFactory());
+      outer.FROM("(" + valueQuery.getSQL() + ")", "original_query");
+
+      for (Selectable s : valueQuery.getSelectableRefs())
+      {
+        if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+        {
+          continue; // used only for queries as an optimization
+        }
+
+        // convert the user display label into something a user-friendly column.
+        // use SQL character because it's generic enough to handle all cases.
+        Selectable c = null;
+
+        if (s instanceof SelectableSQLKey)
+        {
+          c = new SelectableSQLKey(false, outer, s.getColumnAlias(), s.getColumnAlias(), ( (SelectableSQLKey) s ).getMdAttribute());
+        }
+        else
+        {
+          c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
+        }
+
+        String newColumn;
+        String label = s.getUserDefinedDisplayLabel();
+        if (label != null && label.length() > 0)
+        {
+          newColumn = label;
+        }
+        else
+        {
+          newColumn = c.getColumnAlias();
+        }
+
+        newColumn.replaceAll("%", "percent");
+
+        newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
+
+        // Postgres identifiers are case-insensitive so
+        // lowercase everything to simplify the label
+        newColumn = newColumn.toLowerCase();
+
+        // an identifier cannot start with a number so add
+        // an underscore if a digit is detected
+
+        if (INVALID_PREFIX.matcher(newColumn).matches())
+        {
+          newColumn = VALID_PREFIX + newColumn;
+        }
+
+        if (columnNameMap.containsKey(newColumn))
+        {
+          Integer count = columnNameMap.get(newColumn) + 1;
+          columnNameMap.put(newColumn, count);
+
+          newColumn += "_" + count;
+        }
+        else
+        {
+          columnNameMap.put(newColumn, new Integer(1));
+        }
+
+        c.setColumnAlias(newColumn);
+
+        outer.SELECT(c);
+
+        map.put(c, s.getMdAttributeIF());
+      }
+
+      String viewName = this.generateViewName(MATERIALIZED_VIEW_PREFIX);
+
+      String statement = "CREATE MATERIALIZED VIEW " + viewName + " AS (" + outer.getSQL() + ")";
+
+      Database.executeStatement(statement);
+
+      MdTable mdTable = new MdTableBuilder(viewName, map).build();
+
+      this.setMaterializedViewName(viewName);
+      this.setMaterializedTable(mdTable);
+    }
+    catch (NoColumnsAddedException e)
+    {
+      // cannot create a database view because there are no columns.
+      // This is not an error in-and-of-itself, but make sure to log
+      // it just to be sure.
+      log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
+    }
+  }
+
+  @Override
+  public Boolean getIsMaterialized()
+  {
+    Boolean isMaterialized = super.getIsMaterialized();
+
+    return isMaterialized != null ? isMaterialized : false;
   }
 
   @Transaction
@@ -223,14 +396,16 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
   private boolean hasDatabaseView()
   {
-    if (this instanceof DefaultSavedSearch || this.getQueryType().equals(GeoHierarchy.getQueryType()) || this.getDisease() == null) { return false; }
-    
+    if (this instanceof DefaultSavedSearch || this.getQueryType().equals(GeoHierarchy.getQueryType()) || this.getDisease() == null)
+    {
+      return false;
+    }
+
     return true;
   }
-  
+
   /**
-   * Generates the database view name for this SavedSearch, which follows a simple naming
-   * convention:
+   * Generates the database view name for this SavedSearch, which follows a simple naming convention:
    * 
    * VIEW_PREFIX + query name [sanitized] + _ + disease
    * 
@@ -238,18 +413,20 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * Q_my_query_malaria
    * 
-   * There is no need to persist this as an attribute because it can be predictably generated as the
-   * query name is immutable.
+   * There is no need to persist this as an attribute because it can be predictably generated as the query name is immutable.
+   * 
+   * @param prefix
+   *          TODO
    * 
    * @return
    */
   @AbortIfProblem
-  private String generateViewName()
+  private String generateViewName(String prefix)
   {
-    return generateViewNameNoAbortIfProblem();
+    return generateViewNameNoAbortIfProblem(prefix);
   }
-  
-  private String generateViewNameNoAbortIfProblem()
+
+  private String generateViewNameNoAbortIfProblem(String prefix)
   {
     if (this instanceof DefaultSavedSearch)
     {
@@ -277,15 +454,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // and disease suffix will take about 15-18 characters, truncate the query
     // name to
     // 45 characters (which is plenty descriptive).
-    
+
     // Edit: I'm shortening this by 2 more characters because now we're wrapping it
-    //  in a function and prefixing with f_
+    // in a function and prefixing with f_
     if (temp.length() > 43)
     {
       temp = temp.substring(0, 43);
     }
 
-    String viewName = VIEW_PREFIX + temp + "_" + disease;
+    String viewName = prefix + temp + "_" + disease;
 
     // Postgres creates tables/views in lowercase, so enforce that convention
     // here as well so we don't get into trouble with mixed casing.
@@ -341,7 +518,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          if ( search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem()) )
+          if (search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem(VIEW_PREFIX)))
           {
             search.createDatabaseView(false);
           }
@@ -374,7 +551,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw new NoDBViewForDefaultQueryException();
     }
 
-    String viewName = this.generateViewName();
+    String viewName = this.generateViewName(VIEW_PREFIX);
     if (databaseViewExists(viewName))
     {
       return viewName;
@@ -387,8 +564,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates the database view for this query or updates (replaces) it if one already exists. If the
-   * query is invalid because it has no columns then the database view is deleted, if one exists.
+   * Creates the database view for this query or updates (replaces) it if one already exists. If the query is invalid because it has no columns then
+   * the database view is deleted, if one exists.
    */
   @AbortIfProblem
   private void createOrReplaceDatabaseView()
@@ -403,14 +580,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     createDatabaseView(true);
   }
-  
+
   private void createDatabaseView(boolean replaceExisting)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return;
     }
-    
+
     String queryType = this.getQueryType();
     String xml = this.getQueryXml();
     String config = this.getConfig();
@@ -483,11 +660,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
 
       // create the database view
-      String viewName = this.generateViewName();
-      
+      String viewName = this.generateViewName(VIEW_PREFIX);
+
       createDatabaseFunction(viewName, outer, valueQuery);
-      
+
       String viewSql = "select * from f_" + viewName + "()";
+
       Database.createView(viewName, viewSql, replaceExisting);
     }
     catch (NoColumnsAddedException e)
@@ -498,23 +676,23 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
   }
-  
+
   private String getSqlDropDatabaseFunctionIfExists(String viewName)
   {
     String sql = "DROP FUNCTION IF EXISTS f_" + viewName + "() CASCADE;";
-    
+
     return sql;
   }
-  
+
   private void createDatabaseFunction(String viewName, ValueQuery wrapper, ValueQuery original)
   {
     final String TAB = "\t";
     final String NEWLINE = "\n";
-    
+
     String fnSql = "CREATE OR REPLACE FUNCTION f_" + viewName + "()" + NEWLINE;
-    
+
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
-    
+
     // Generate the selectable list for the table our function is returning
     List<String> selDefs = new ArrayList<String>();
     List<Selectable> sels = wrapper.getSelectableRefs();
@@ -524,21 +702,21 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       selDefs.add(TAB + sel.getColumnAlias() + " " + DatabaseProperties.getDatabaseType(coreType));
     }
     fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-    
+
     fnSql += TAB + ")" + NEWLINE;
-    
+
     fnSql += "AS $body$" + NEWLINE;
-    
+
     fnSql += "#variable_conflict use_column" + NEWLINE;
-    
+
     fnSql += "BEGIN" + NEWLINE + NEWLINE;
-    
+
     fnSql += original.getSQL() + ";" + NEWLINE + NEWLINE;
-    
+
     fnSql += "END" + NEWLINE;
-    
+
     fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
-    
+
     Database.parseAndExecute(fnSql);
   }
 
@@ -549,12 +727,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       return;
     }
 
+    String viewName = this.generateViewName(VIEW_PREFIX);
+
     List<String> batch = new LinkedList<String>();
-    String viewName = this.generateViewName();
     batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
-    
     batch.add(getSqlDropDatabaseFunctionIfExists(viewName));
-    
+
     Database.executeBatch(batch);
   }
 
@@ -640,6 +818,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     this.setQueryXml(xml);
     this.setConfig(config);
+    this.setIsMaterialized(view.getIsMaterialized());
 
     this.apply();
   }
@@ -664,6 +843,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.setQueryXml(xml);
     this.setQueryType(view.getQueryType());
     this.setConfig(view.getConfig());
+    this.setIsMaterialized(view.getIsMaterialized());
     this.setDisease(Disease.getCurrent());
 
     checkUniqueness(name, mdssUser);
@@ -697,6 +877,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     view.setQueryName(this.getQueryName());
     view.setSavedQueryId(this.getId());
+    view.setIsMaterialized(this.getIsMaterialized());
 
     if (includeXML)
     {
@@ -822,7 +1003,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // also reduce overhead in trying to synchronize the state
     // of the query with its database view representation.
     SavedSearch search = SavedSearch.get(searchId);
-    String viewName = search.generateViewName();
+    String viewName = search.generateViewName(VIEW_PREFIX);
 
     if (!databaseViewExists(viewName))
     {
@@ -833,8 +1014,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks if the given view exists in the database. For some reason Database.tableExists(table)
-   * was not working consistently, so this is a different check that does a direct query.
+   * Checks if the given view exists in the database. For some reason Database.tableExists(table) was not working consistently, so this is a different
+   * check that does a direct query.
    * 
    * @param viewName
    * @return
@@ -954,8 +1135,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Returns any available thematic variables (Selectables) available on this query this SavedSearch
-   * encapsulates.
+   * Returns any available thematic variables (Selectables) available on this query this SavedSearch encapsulates.
    */
   @Override
   public ThematicVariable[] getThematicVariables()

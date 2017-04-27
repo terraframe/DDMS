@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.sld;
 
-public interface Symbol
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface Symbol extends Reloadable
 {
   public String getSymbol();
 }

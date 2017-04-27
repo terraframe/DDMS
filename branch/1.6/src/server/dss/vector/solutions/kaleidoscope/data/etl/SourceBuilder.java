@@ -12,14 +12,15 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdViewQuery;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 
-public class SourceBuilder
+public class SourceBuilder implements Reloadable
 {
-  public static final String PACKAGE_NAME = "net.geoprism.data.view";
+  public static final String PACKAGE_NAME = "dss.vector.solutions.kaleidoscope.data.view";
 
   private JSONObject         configuration;
 

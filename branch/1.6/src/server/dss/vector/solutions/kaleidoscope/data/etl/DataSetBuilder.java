@@ -6,8 +6,9 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class DataSetBuilder implements DataSetBuilderIF
+public class DataSetBuilder implements DataSetBuilderIF, Reloadable
 {
   private JSONObject    configuration;
 

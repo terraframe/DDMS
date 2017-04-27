@@ -48,7 +48,7 @@ public class BiochemicalAssaySubSelectQB extends AbstractQB implements Reloadabl
     if (biochemicalQuery != null)
     {
       valueQuery.WHERE(biochemicalQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, BiochemicalAssay.CLASS, biochemicalQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, BiochemicalAssay.CLASS, biochemicalQuery, this.getTermRestrictions(), this.getLayer());
       if (xml.indexOf(">elevated<") > 0)
       {
         String numberElevatedCol = QueryUtil.getColumnName(BiochemicalAssay.getNumberElevatedMd());
@@ -62,7 +62,7 @@ public class BiochemicalAssaySubSelectQB extends AbstractQB implements Reloadabl
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 

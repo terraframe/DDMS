@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.gis.geo.GeoNodeGeometry;
@@ -33,7 +34,7 @@ import com.runwaysdk.util.IDGenerator;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 
-public class TargetFieldPoint extends TargetFieldCoordinate implements TargetFieldPointIF
+public class TargetFieldPoint extends TargetFieldCoordinate implements TargetFieldPointIF, Reloadable
 {
   private String id;
 

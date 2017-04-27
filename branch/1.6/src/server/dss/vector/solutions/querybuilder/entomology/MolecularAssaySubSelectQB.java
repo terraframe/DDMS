@@ -53,7 +53,7 @@ public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
     if (molecularQuery != null)
     {
       valueQuery.WHERE(molecularQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, MolecularAssay.CLASS, molecularQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, MolecularAssay.CLASS, molecularQuery, this.getTermRestrictions(), this.getLayer());
       
       String numberrrCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRR);
       String numberrsCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRS);
@@ -89,7 +89,7 @@ public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
     

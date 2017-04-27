@@ -15,11 +15,12 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.ontology.Term;
 
-public class ProblemResponse implements ImportResponseIF
+public class ProblemResponse implements ImportResponseIF, Reloadable
 {
   private Collection<ImportProblemIF> problems;
 

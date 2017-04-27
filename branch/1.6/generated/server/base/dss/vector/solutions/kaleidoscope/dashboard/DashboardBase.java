@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -658073058)
+@com.runwaysdk.business.ClassSignature(hash = 1282823793)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,6 +17,7 @@ public abstract class DashboardBase extends com.runwaysdk.business.Business impl
   public static java.lang.String DESCRIPTION = "description";
   private com.runwaysdk.business.Struct description = null;
   
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   private com.runwaysdk.business.Struct displayLabel = null;
   
@@ -34,7 +35,7 @@ public abstract class DashboardBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TODATE = "toDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -658073058;
+  private static final long serialVersionUID = 1282823793;
   
   public DashboardBase()
   {
@@ -141,6 +142,46 @@ public abstract class DashboardBase extends com.runwaysdk.business.Business impl
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF)mdClassIF.definesAttribute(DESCRIPTION);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabel getDisplayLabel()

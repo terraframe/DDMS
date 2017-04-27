@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.poi.ss.util.CellReference;
 
 import com.runwaysdk.business.Transient;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 import dss.vector.solutions.kaleidoscope.data.etl.ConverterIF;
@@ -17,7 +18,7 @@ import dss.vector.solutions.kaleidoscope.data.etl.ProgressMonitorIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceContextIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceFieldIF;
 
-public class SourceContentHandler implements SheetHandler
+public class SourceContentHandler implements SheetHandler, Reloadable
 {
   /**
    * Handles progress reporting

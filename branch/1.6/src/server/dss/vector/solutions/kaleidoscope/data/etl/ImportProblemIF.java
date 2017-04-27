@@ -3,7 +3,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface ImportProblemIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface ImportProblemIF extends Reloadable
 {
   public JSONObject toJSON() throws JSONException;
 

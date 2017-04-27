@@ -34,6 +34,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdClass;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.kaleidoscope.dashboard.AttributeWrapper;
@@ -187,6 +188,8 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
     query.WHERE(query.getWrappedMdClass().EQ(mdClass));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
+
 
     OIterator<? extends MappableClass> iterator = query.getIterator();
 
@@ -209,6 +212,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
   public static MappableClass[] getAll()
   {
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
     query.ORDER_BY_ASC(query.getWrappedMdClass().getDisplayLabel().localize());
 
     OIterator<? extends MappableClass> iterator = query.getIterator();

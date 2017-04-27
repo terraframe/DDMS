@@ -5,8 +5,9 @@ import java.util.List;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class Converter implements ConverterIF
+public class Converter implements ConverterIF, Reloadable
 {
   private TargetContextIF context;
 

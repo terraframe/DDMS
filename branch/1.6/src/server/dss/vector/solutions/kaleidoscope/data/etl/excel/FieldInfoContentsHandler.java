@@ -36,11 +36,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdView;
 
-public class FieldInfoContentsHandler implements SheetHandler
+public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 {
   private static class Field
   {

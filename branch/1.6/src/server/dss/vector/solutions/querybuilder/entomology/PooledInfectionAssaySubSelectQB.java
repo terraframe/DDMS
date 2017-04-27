@@ -48,7 +48,7 @@ public class PooledInfectionAssaySubSelectQB extends AbstractQB implements Reloa
     if (pooledInfectionQuery != null)
     {
       valueQuery.WHERE(pooledInfectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, PooledInfectionAssay.CLASS, pooledInfectionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, PooledInfectionAssay.CLASS, pooledInfectionQuery, this.getTermRestrictions(), this.getLayer());
 
       if (xml.indexOf(">minPrevalence<") > 0)
       {
@@ -62,7 +62,7 @@ public class PooledInfectionAssaySubSelectQB extends AbstractQB implements Reloa
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 

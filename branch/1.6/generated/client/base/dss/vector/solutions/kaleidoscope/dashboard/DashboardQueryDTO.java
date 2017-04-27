@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 1768376167)
+@com.runwaysdk.business.ClassSignature(hash = -2053890424)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 public class DashboardQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1768376167;
+private static final long serialVersionUID = -2053890424;
 
   protected DashboardQueryDTO(String type)
   {

@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.wrapper;
 
-public enum FeatureType {
+import com.runwaysdk.generation.loader.Reloadable;
+
+public enum FeatureType implements Reloadable {
   POINT,
   POLYGON,
   LINE

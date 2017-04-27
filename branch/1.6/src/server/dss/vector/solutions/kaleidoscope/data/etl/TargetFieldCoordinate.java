@@ -20,11 +20,12 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.geometry.GeometryHelper;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 
-public abstract class TargetFieldCoordinate extends TargetField implements TargetFieldIF
+public abstract class TargetFieldCoordinate extends TargetField implements TargetFieldIF, Reloadable
 {
   private String          latitudeSourceAttributeName;
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -1409134021)
+@com.runwaysdk.business.ClassSignature(hash = 1126006734)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DATASOURCE = "dataSource";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -25,7 +26,7 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WRAPPEDMDCLASS = "wrappedMdClass";
-  private static final long serialVersionUID = -1409134021;
+  private static final long serialVersionUID = 1126006734;
   
   public MappableClassBase()
   {
@@ -101,6 +102,46 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
     else
     {
       setValue(DATASOURCE, value);
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.MappableClass.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   

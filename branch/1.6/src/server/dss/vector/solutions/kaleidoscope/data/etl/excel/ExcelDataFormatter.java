@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.data.etl.excel;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.DateUtil;
 
-public class ExcelDataFormatter extends DataFormatter
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class ExcelDataFormatter extends DataFormatter implements Reloadable
 {
   public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 

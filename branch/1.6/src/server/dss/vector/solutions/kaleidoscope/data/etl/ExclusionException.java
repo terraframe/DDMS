@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-public class ExclusionException extends RuntimeException
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class ExclusionException extends RuntimeException implements Reloadable
 {
   /**
    * 

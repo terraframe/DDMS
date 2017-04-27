@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-public interface DataSetBuilderIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface DataSetBuilderIF extends Reloadable
 {
   public void build();
 

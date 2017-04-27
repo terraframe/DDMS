@@ -20,6 +20,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportValidator.DecimalAttribute;
@@ -27,7 +28,7 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelSheetReader;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.SourceContentHandler;
 
-public class ImportRunnable
+public class ImportRunnable implements Reloadable
 {
   private ProgressMonitorIF monitor;
   

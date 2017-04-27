@@ -26,7 +26,8 @@
   <fieldset>
     <legend class="none"><mdss:localize key="dashboardViewer.controlForm"/></legend>
     <button class="none"><mdss:localize key="dashboardViewer.save"/></button>
-    
+
+    <!-- Header icon -->
     <div class="info-box" style="height: 91px;width: 210px;">    
 	  <div class="headerleft" style="height:80px;-moz-border-radius: 10px;width: 200px;padding: 20px 5px 5px 5px;background: #FFFFFF url(/DDMS/imgs/flags/current) no-repeat 95% 50%;">
 		<div class="freeText" style="color: #000000;">

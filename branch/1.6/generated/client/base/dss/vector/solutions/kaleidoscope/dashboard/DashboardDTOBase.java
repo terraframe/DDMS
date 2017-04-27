@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1549591650)
+@com.runwaysdk.business.ClassSignature(hash = -1630968591)
 public abstract class DashboardDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.Dashboard";
-  private static final long serialVersionUID = -1549591650;
+  private static final long serialVersionUID = -1630968591;
   
   protected DashboardDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,7 @@ public abstract class DashboardDTOBase extends com.runwaysdk.business.BusinessDT
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DASHBOARDROLE = "dashboardRole";
   public static java.lang.String DESCRIPTION = "description";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FILTERDATE = "filterDate";
@@ -180,6 +181,55 @@ public abstract class DashboardDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO getDescriptionMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelDTO getDisplayLabel()

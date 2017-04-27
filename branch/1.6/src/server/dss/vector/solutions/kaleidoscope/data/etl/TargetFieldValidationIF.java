@@ -21,8 +21,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import java.util.Map;
 
 import com.runwaysdk.business.Transient;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface TargetFieldValidationIF
+public interface TargetFieldValidationIF extends Reloadable
 {
   public ImportProblemIF validate(Transient source, Map<String, Object> parameters);
 }

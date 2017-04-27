@@ -955,6 +955,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
             that._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
             that._queryPanel.setCurrentSavedSearch(savedSearchView);
+            that._queryPanel.setIsMaterialized(savedSearchView.getIsMaterialized());
 
             that._queryPanel.waitForRefresh = true;
             that._reconstructSearch(savedSearchView);
@@ -1095,6 +1096,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var queryXML = this._constructQuery();
       var xml = queryXML.getXML();
       var queryType = this._getQueryType();
+      var materialized = this._queryPanel.getIsMaterialized();
   
       if(queryName != null)
       {
@@ -1104,6 +1106,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
       view.setQueryType(queryType);
+      view.setIsMaterialized(materialized);
     },
     
     /**

@@ -14,8 +14,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class SLDValidator
+public class SLDValidator implements Reloadable
 {
   
 //  protected static final String         SLD_SCHEMA     = "src/test/resources/StyledLayerDescriptor.xsd";

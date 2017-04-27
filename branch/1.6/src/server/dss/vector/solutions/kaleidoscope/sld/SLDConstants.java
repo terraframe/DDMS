@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.sld;
 
-public class SLDConstants
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class SLDConstants implements Reloadable
 {
   // placeholder
 }

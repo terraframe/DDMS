@@ -48,11 +48,11 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeDateDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDoubleDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.constants.MdAttributeMultiPolygonInfo;
 import com.runwaysdk.gis.constants.MdAttributePointInfo;
 import com.runwaysdk.gis.dataaccess.metadata.MdAttributeMultiPolygonDAO;
@@ -68,8 +68,6 @@ import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoSynonym;
-import dss.vector.solutions.geo.HasSynonym;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.kaleidoscope.MappableAttribute;
 import dss.vector.solutions.kaleidoscope.MappableClass;
@@ -81,9 +79,9 @@ import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
 
-public class TargetBuilder
+public class TargetBuilder implements Reloadable
 {
-  public static final String PACKAGE_NAME = "net.geoprism.data.business";
+  public static final String PACKAGE_NAME = "dss.vector.solutions.kaleidoscope.data.business";
 
   public static final String EXLUDE       = "EXCLUDE";
 

@@ -58,6 +58,7 @@ import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -133,6 +134,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   {
     QueryFactory f = new QueryFactory();
     DashboardQuery q = new DashboardQuery(f);
+    q.WHERE(q.getDisease().EQ(Disease.getCurrent()));
 
     q.ORDER_BY_ASC(q.getDisplayLabel().localize());
 
@@ -277,6 +279,8 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     if (this.isNew() && !this.isAppliedToDB())
     {
+      this.setDisease(Disease.getCurrent());
+      
       if (this.getName() == null || this.getName().length() == 0)
       {
         this.setName(LocalProperty.getNextId());

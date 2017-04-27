@@ -23,7 +23,9 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface TargetFieldGeoEntityIF extends TargetFieldIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface TargetFieldGeoEntityIF extends TargetFieldIF, Reloadable
 {
   public Map<String, String> getUniversalAttributes();
 

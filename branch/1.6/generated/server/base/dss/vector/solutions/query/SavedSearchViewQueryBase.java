@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -2138496587)
+@com.runwaysdk.business.ClassSignature(hash = -1611149774)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -58,6 +58,24 @@ public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.Gen
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized()
+  {
+    return getIsMaterialized(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ISMATERIALIZED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ISMATERIALIZED, alias, displayLabel);
 
   }
  

@@ -6,11 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 
-public class LocationProblem implements ImportProblemIF, Comparable<ImportProblemIF>
+public class LocationProblem implements ImportProblemIF, Comparable<ImportProblemIF>, Reloadable
 {
   public static final String TYPE = "locations";
 

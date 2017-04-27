@@ -20,8 +20,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface TargetFieldIF
+public interface TargetFieldIF extends Reloadable
 {
   /**
    * @return Name of the MdAttribute of the target field

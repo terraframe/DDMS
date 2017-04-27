@@ -136,7 +136,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     {
       valueQuery.WHERE(subCollectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
 
-      QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery, this.getTermRestrictions(), this.getLayer());
     }
     
     if(insecticideBrandQuery != null)
@@ -144,12 +144,12 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(mosquitoCollectionQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
       
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions(), this.getLayer());
     }
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 

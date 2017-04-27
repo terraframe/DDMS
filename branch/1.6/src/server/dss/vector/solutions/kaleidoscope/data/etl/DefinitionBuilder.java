@@ -8,7 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DefinitionBuilder
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class DefinitionBuilder implements Reloadable
 {
   private SourceDefinitionIF source;
 

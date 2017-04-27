@@ -4,13 +4,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 /**
  * Wrapper around an ExecutorService to provide a means to perform non-time critical tasks. These tasks include deletion of database views for layers
  * that no longer exist, server side generation of thumbnail images, etc...
  * 
  * @author jsmethie
  */
-public class TaskExecutor
+public class TaskExecutor implements Reloadable
 {
   /**
    * Number of threads to use for task execution

@@ -54,10 +54,10 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
 
     if (efficacyAssayQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery, this.getTermRestrictions(), this.getLayer());
 
       // There are terms defined on the parent class as well, so grab
-      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, efficacyAssayQuery.getSpecie().getDefiningTableAlias(), this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, efficacyAssayQuery.getSpecie().getDefiningTableAlias(), this.getTermRestrictions(), this.getLayer());
       if (abstractAssayQuery != null)
       {
         valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
@@ -82,7 +82,7 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(efficacyAssayQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
 
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions(), this.getLayer());
     }
 
     if (valueQuery.hasSelectableRef(QueryConstants.OVERALL_MORTALITY))

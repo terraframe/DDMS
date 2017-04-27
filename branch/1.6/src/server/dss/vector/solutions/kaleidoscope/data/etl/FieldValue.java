@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-public class FieldValue
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class FieldValue implements Reloadable
 {
   /**
    * Flag denoting if the source value for the field was blank. This may be true even if the value is not null, because the value may be derived.

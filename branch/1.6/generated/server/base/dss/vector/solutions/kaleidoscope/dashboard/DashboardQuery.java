@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1413489003)
+@com.runwaysdk.business.ClassSignature(hash = -1253915494)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -122,6 +122,29 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DESCRIPTION);
 
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DESCRIPTION, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel()
@@ -427,6 +450,10 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     {
        return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -633,6 +660,9 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel);
@@ -807,6 +837,23 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias, String displayLabel)
   {
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF)this.attributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DESCRIPTION, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE,  alias, displayLabel);
 
   }
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel()
@@ -1192,6 +1239,10 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     {
        return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1259,6 +1310,9 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel);
@@ -1454,6 +1508,23 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF getDescription(String alias, String displayLabel)
   {
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDescriptionQuery.DashboardDescriptionQueryStructIF)this.attributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DESCRIPTION, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE,  alias, displayLabel);
 
   }
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel()
@@ -1722,6 +1793,10 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DASHBOARDROLE)) 
     {
        return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENTITYDOMAIN)) 
     {

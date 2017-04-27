@@ -60,7 +60,7 @@ public class TypeQB extends AbstractQB implements Reloadable
 
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get(MdFormUtil.DISEASE));
 
-        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query, this.getTermRestrictions(), this.getLayer());
 
         QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
 
@@ -83,7 +83,7 @@ public class TypeQB extends AbstractQB implements Reloadable
           }
           catch (AmbiguousAttributeException e) {}
           
-          QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions());
+          QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions(), this.getLayer());
           
           this.addGeoDisplayLabelQuery(mosQ);
           

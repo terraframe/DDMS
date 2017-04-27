@@ -23,8 +23,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.runwaysdk.business.Mutable;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface TargetContextIF
+public interface TargetContextIF extends Reloadable
 {
   public Mutable newMutable(String sourceType);
 

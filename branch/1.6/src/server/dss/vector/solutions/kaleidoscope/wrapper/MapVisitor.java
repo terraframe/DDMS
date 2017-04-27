@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.wrapper;
 
-public interface MapVisitor
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface MapVisitor extends Reloadable
 {
   public void visit(Map component);
 

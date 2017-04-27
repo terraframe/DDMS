@@ -18,9 +18,11 @@
  */
 package dss.vector.solutions.kaleidoscope.data.etl.excel;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 
-public interface SheetHandler
+public interface SheetHandler extends Reloadable
 {
   /**
    * A sheet with the given name has started

@@ -20,11 +20,12 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 
-public class TargetFieldMultiPolygon extends TargetFieldCoordinate implements TargetFieldIF
+public class TargetFieldMultiPolygon extends TargetFieldCoordinate implements TargetFieldIF, Reloadable
 {
   @Override
   public FieldValue getValue(MdAttributeConcreteDAOIF mdAttribute, Transient source)

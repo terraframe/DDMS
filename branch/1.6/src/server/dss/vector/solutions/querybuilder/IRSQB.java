@@ -849,7 +849,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (tableName != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions(), this.getLayer());
       this.setNumericRestrictions(irsVQ, queryConfig);
     }
     else
@@ -879,7 +879,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery, View.SPRAY_VIEW.getView(), this.sprayViewAlias);
-      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, View.SPRAY_VIEW.getView(), this.sprayViewAlias, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, View.SPRAY_VIEW.getView(), this.sprayViewAlias, this.getTermRestrictions(), this.getLayer());
     }
 
     sprayedUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN " + Alias.SPRAYED_ROOMS + "  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN " + Alias.SPRAYED_STRUCTURES + " WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN " + Alias.SPRAYED_HOUSEHOLDS + " END )";

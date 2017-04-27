@@ -30,7 +30,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class ExcelSheetReader
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class ExcelSheetReader implements Reloadable
 {
   /**
    * Handler used to parse the sheet

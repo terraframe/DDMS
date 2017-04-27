@@ -20,7 +20,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import java.util.List;
 
-public interface SourceDefinitionIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface SourceDefinitionIF extends Reloadable
 {
   public String getType();
 

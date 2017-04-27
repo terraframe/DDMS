@@ -26,6 +26,12 @@
           <localChar name="displayLabel" label="Label" required="true" />
           <reference name="country" label="Country" type="dss.vector.solutions.geo.generated.GeoEntity" required="true" />
           <reference name="dashboardRole" label="Role" type="com.runwaysdk.system.Roles" required="true" />
+					<reference
+						name="disease"
+						label="Disease"
+						type="dss.vector.solutions.general.Disease"
+						indexType="unique index"
+						required="true" />          
         </attributes>
         <mdMethod name="getSortedDashboards" label="Get Sorted Dashboards" static="true" returnType="dss.vector.solutions.kaleidoscope.dashboard.DashboardQuery" />
         <mdMethod name="getSortedTypes" label="Get Sorted Types" description="Returns a sorted list of de-referenced MdClasses stored by MetadataWrapper" returnType="com.runwaysdk.system.metadata.MdClass[]" />

@@ -6,9 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdView;
 
-public class SourceDefinition implements SourceDefinitionIF
+public class SourceDefinition implements SourceDefinitionIF, Reloadable
 {
   private String                         sheetName;
 

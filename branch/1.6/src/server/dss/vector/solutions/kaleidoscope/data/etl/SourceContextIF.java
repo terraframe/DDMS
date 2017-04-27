@@ -21,8 +21,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import java.util.Collection;
 
 import com.runwaysdk.business.Transient;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface SourceContextIF
+public interface SourceContextIF extends Reloadable
 {
   public Transient newView(String sheetName);
 

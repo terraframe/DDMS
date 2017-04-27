@@ -12,8 +12,9 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class ImportValidator implements ConverterIF
+public class ImportValidator implements ConverterIF, Reloadable
 {
   public static class DecimalAttribute
   {

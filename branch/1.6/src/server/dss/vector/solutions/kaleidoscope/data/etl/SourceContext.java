@@ -25,8 +25,9 @@ import java.util.Map;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.business.View;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class SourceContext implements SourceContextIF
+public class SourceContext implements SourceContextIF, Reloadable
 {
   private Map<String, SourceDefinitionIF> sheets;
 

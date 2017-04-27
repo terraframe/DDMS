@@ -4,10 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.kaleidoscope.dashboard.AllAggregationType;
 
-public interface ThematicStyle extends Style
+public interface ThematicStyle extends Style, Reloadable
 {
   public static final String VAL              = "val";
 

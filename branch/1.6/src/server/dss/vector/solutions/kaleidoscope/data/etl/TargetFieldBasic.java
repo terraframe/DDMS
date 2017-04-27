@@ -20,9 +20,10 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
 
-public class TargetFieldBasic extends TargetField implements TargetFieldIF
+public class TargetFieldBasic extends TargetField implements TargetFieldIF, Reloadable
 {
   private String sourceAttributeName;
 

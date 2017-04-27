@@ -3,7 +3,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingProgressMonitor implements ProgressMonitorIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
 {
   private static Logger logger = LoggerFactory.getLogger(ImportRunnable.class);
   

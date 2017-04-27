@@ -28,6 +28,7 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
@@ -43,7 +44,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.util.QueryUtil;
 
-public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoEntityIF, TargetFieldValidationIF
+public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoEntityIF, TargetFieldValidationIF, Reloadable
 {
   public static class UniversalAttribute
   {

@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-public abstract class TargetField implements TargetFieldIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public abstract class TargetField implements TargetFieldIF, Reloadable
 {
   private String  name;
 

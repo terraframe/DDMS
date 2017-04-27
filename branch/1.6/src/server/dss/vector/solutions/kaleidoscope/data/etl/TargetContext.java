@@ -26,8 +26,9 @@ import java.util.Set;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Mutable;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class TargetContext implements TargetContextIF
+public class TargetContext implements TargetContextIF, Reloadable
 {
   private Map<String, TargetDefinitionIF> definitions;
 

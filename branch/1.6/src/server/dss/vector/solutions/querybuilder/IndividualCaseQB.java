@@ -105,8 +105,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     String idCol = QueryUtil.getIdColumn();
     
-    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery, this.getTermRestrictions());
-    QueryUtil.joinTermAllpaths(valueQuery, IndividualCase.CLASS, caseQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery, this.getTermRestrictions(), this.getLayer());
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualCase.CLASS, caseQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery);
 
@@ -116,7 +116,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias() + "." + idCol);
     }
 
-    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions(), this.getLayer());
 
     if (valueQuery.hasSelectableRef("instances"))
     {

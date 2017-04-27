@@ -70,7 +70,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (mosquitoCollectionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
     }
     else
     {
@@ -98,14 +98,14 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
     if (abstractAssayQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery, this.getTermRestrictions(), this.getLayer());
     }
 
     if (collectionAssayQuery != null)
     {
       String alias = collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias();
       
-      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS, alias, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS, alias, this.getTermRestrictions(), this.getLayer());
     }
 
     // We must force join on CollectionAssay to avoid mixing results with
@@ -121,7 +121,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     if (insecticideQuery != null)
     {
       valueQuery.WHERE(collectionAssayQuery.getInsecticide().EQ(insecticideQuery));
-      QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery, this.getTermRestrictions(), this.getLayer());
     }
 
     // join Mosquito with mosquito collection
@@ -140,7 +140,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(abstractAssayQuery.getId().EQ(adultAssayQuery.getId()));
       valueQuery.WHERE(joinResults.getId().EQ(adultAssayQuery.getId()));
 
-      boolean found = QueryUtil.joinTermAllpaths(valueQuery, AdultAssay.CLASS, adultAssayQuery, this.getTermRestrictions());
+      boolean found = QueryUtil.joinTermAllpaths(valueQuery, AdultAssay.CLASS, adultAssayQuery, this.getTermRestrictions(), this.getLayer());
       if (found)
       {
         String id = QueryUtil.getIdColumn();
@@ -152,7 +152,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     else if (larvaeQuery != null)
     {
       joinResults = larvaeQuery;
-      QueryUtil.joinTermAllpaths(valueQuery, LarvaeAssay.CLASS, larvaeQuery.getStartPoint().getDefiningTableAlias(), this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, LarvaeAssay.CLASS, larvaeQuery.getStartPoint().getDefiningTableAlias(), this.getTermRestrictions(), this.getLayer());
     }
     else
     {

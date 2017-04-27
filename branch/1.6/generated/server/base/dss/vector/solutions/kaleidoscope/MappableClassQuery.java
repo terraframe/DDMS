@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = 437751858)
+@com.runwaysdk.business.ClassSignature(hash = 1400538231)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -93,6 +93,29 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.query.SelectableChar getDataSource(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.MappableClass.DATASOURCE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -319,6 +342,10 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.ENTITYDOMAIN)) 
     {
@@ -620,6 +647,9 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.query.SelectableChar getDataSource();
     public com.runwaysdk.query.SelectableChar getDataSource(String alias);
     public com.runwaysdk.query.SelectableChar getDataSource(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -793,6 +823,23 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.query.SelectableChar getDataSource(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DATASOURCE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1222,6 +1269,10 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1267,6 +1318,9 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.query.SelectableChar getDataSource();
     public com.runwaysdk.query.SelectableChar getDataSource(String alias);
     public com.runwaysdk.query.SelectableChar getDataSource(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -1433,6 +1487,23 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.query.SelectableChar getDataSource(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DATASOURCE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1629,6 +1700,10 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.MappableClass.ENTITYDOMAIN)) 
     {

@@ -183,7 +183,17 @@ MDSS.QueryPanel.prototype =
   {
     return this._renderDateRange;
   },
+  
+  getIsMaterialized : function()
+  {
+    return this._materializedView.checked;    
+  },
 
+  setIsMaterialized : function(checked)
+  {
+    this._materializedView.checked = (checked != null ? checked : false);    
+  },
+  
   /**
    * Updates the column label on both the YUI column object and the listing in
    * the right panel query summary.
@@ -1173,6 +1183,13 @@ MDSS.QueryPanel.prototype =
     importQuery.addClass('queryButton');
     importQuery.on('click', this._importQuery,
     {}, this);
+    
+    var materializedViewLabel = document.createElement('span');
+    materializedViewLabel.innerHTML = MDSS.localize('Query_Persist');
+    
+    this._materializedView = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._materializedView, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(this._materializedView, 'id', "materializedViewCheckbox");
 
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
@@ -1226,6 +1243,8 @@ MDSS.QueryPanel.prototype =
     leftDiv.appendChild(getDBViewName);
     leftDiv.appendChild(deleteButton);
     leftDiv.appendChild(importQuery);
+    leftDiv.appendChild(materializedViewLabel);
+    leftDiv.appendChild(this._materializedView);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1560094602)
+@com.runwaysdk.business.ClassSignature(hash = 1963589136)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,11 +18,14 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISMATERIALIZED = "isMaterialized";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPPABLE = "mappable";
+  public static java.lang.String MATERIALIZEDTABLE = "materializedTable";
+  public static java.lang.String MATERIALIZEDVIEWNAME = "materializedViewName";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
@@ -31,7 +34,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1560094602;
+  private static final long serialVersionUID = 1963589136;
   
   public SavedSearchBase()
   {
@@ -234,6 +237,34 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
+  public Boolean getIsMaterialized()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMATERIALIZED));
+  }
+  
+  public void validateIsMaterialized()
+  {
+    this.validateAttribute(ISMATERIALIZED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsMaterializedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISMATERIALIZED);
+  }
+  
+  public void setIsMaterialized(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISMATERIALIZED, "");
+    }
+    else
+    {
+      setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -359,6 +390,74 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     else
     {
       setValue(MAPPABLE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public com.runwaysdk.system.metadata.MdTable getMaterializedTable()
+  {
+    if (getValue(MATERIALIZEDTABLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.metadata.MdTable.get(getValue(MATERIALIZEDTABLE));
+    }
+  }
+  
+  public String getMaterializedTableId()
+  {
+    return getValue(MATERIALIZEDTABLE);
+  }
+  
+  public void validateMaterializedTable()
+  {
+    this.validateAttribute(MATERIALIZEDTABLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getMaterializedTableMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(MATERIALIZEDTABLE);
+  }
+  
+  public void setMaterializedTable(com.runwaysdk.system.metadata.MdTable value)
+  {
+    if(value == null)
+    {
+      setValue(MATERIALIZEDTABLE, "");
+    }
+    else
+    {
+      setValue(MATERIALIZEDTABLE, value.getId());
+    }
+  }
+  
+  public String getMaterializedViewName()
+  {
+    return getValue(MATERIALIZEDVIEWNAME);
+  }
+  
+  public void validateMaterializedViewName()
+  {
+    this.validateAttribute(MATERIALIZEDVIEWNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMaterializedViewNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MATERIALIZEDVIEWNAME);
+  }
+  
+  public void setMaterializedViewName(String value)
+  {
+    if(value == null)
+    {
+      setValue(MATERIALIZEDVIEWNAME, "");
+    }
+    else
+    {
+      setValue(MATERIALIZEDVIEWNAME, value);
     }
   }
   

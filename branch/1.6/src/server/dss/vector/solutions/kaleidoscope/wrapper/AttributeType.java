@@ -1,5 +1,7 @@
 package dss.vector.solutions.kaleidoscope.wrapper;
 
-public enum AttributeType {
+import com.runwaysdk.generation.loader.Reloadable;
+
+public enum AttributeType implements Reloadable {
   DATE, DATETIME, TIME, NUMBER, BASIC
 }

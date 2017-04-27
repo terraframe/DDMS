@@ -21,6 +21,7 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.COUNT;
@@ -52,7 +53,7 @@ import dss.vector.solutions.querybuilder.OrderedLookupBuilder;
 import dss.vector.solutions.querybuilder.TextLookupBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
-public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
+public class QueryBuilder extends QueryBuilderBase implements Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
 

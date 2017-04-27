@@ -31,11 +31,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 /**
  * This class handles the processing of a sheet#.xml sheet part of a XSSF .xlsx file, and generates row and cell events
  * for it.
  */
-public class XSSFSheetXMLHandler extends DefaultHandler
+public class XSSFSheetXMLHandler extends DefaultHandler implements Reloadable
 {
   /**
    * Table with the styles used for formatting

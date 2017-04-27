@@ -50,7 +50,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
       if (personQuery != null)
       {
         valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
-        QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery, this.getTermRestrictions(), this.getLayer());
         
         this.addGeoDisplayLabelQuery(personQuery); 
       }
@@ -76,7 +76,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(individualIPTQuery);
     
-    QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery, this.getTermRestrictions());  
+    QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery, this.getTermRestrictions(), this.getLayer());  
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 

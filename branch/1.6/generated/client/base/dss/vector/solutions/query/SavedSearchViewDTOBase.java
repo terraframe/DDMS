@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 282713100)
+@com.runwaysdk.business.ClassSignature(hash = -31386359)
 public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = 282713100;
+  private static final long serialVersionUID = -31386359;
   
   protected SavedSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -18,6 +18,7 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   
   public static java.lang.String CONFIG = "config";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISMATERIALIZED = "isMaterialized";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
@@ -57,6 +58,43 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getConfigMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsMaterialized()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMATERIALIZED));
+  }
+  
+  public void setIsMaterialized(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISMATERIALIZED, "");
+    }
+    else
+    {
+      setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsMaterializedWritable()
+  {
+    return isWritable(ISMATERIALIZED);
+  }
+  
+  public boolean isIsMaterializedReadable()
+  {
+    return isReadable(ISMATERIALIZED);
+  }
+  
+  public boolean isIsMaterializedModified()
+  {
+    return isModified(ISMATERIALIZED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsMaterializedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISMATERIALIZED).getAttributeMdDTO();
   }
   
   public String getQueryName()

@@ -22,7 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SuccessResponse implements ImportResponseIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class SuccessResponse implements ImportResponseIF, Reloadable
 {
   private JSONArray datasets;
 

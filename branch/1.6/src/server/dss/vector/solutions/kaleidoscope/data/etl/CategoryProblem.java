@@ -3,7 +3,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CategoryProblem implements ImportProblemIF, Comparable<ImportProblemIF>
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class CategoryProblem implements ImportProblemIF, Comparable<ImportProblemIF>, Reloadable
 {
   public static final String TYPE = "categories";
 

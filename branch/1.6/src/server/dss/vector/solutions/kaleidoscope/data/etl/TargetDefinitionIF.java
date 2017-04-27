@@ -20,7 +20,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import java.util.List;
 
-public interface TargetDefinitionIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface TargetDefinitionIF extends Reloadable
 {
   public String getTargetType();
 

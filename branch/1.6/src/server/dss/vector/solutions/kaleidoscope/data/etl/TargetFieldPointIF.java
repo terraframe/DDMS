@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface TargetFieldPointIF extends TargetFieldIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface TargetFieldPointIF extends TargetFieldIF, Reloadable
 {
   public String getId();
 

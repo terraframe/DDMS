@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.wrapper;
 
-public enum FeatureStrategy {
+import com.runwaysdk.generation.loader.Reloadable;
+
+public enum FeatureStrategy implements Reloadable {
   BUBBLE,
   GRADIENT,
   CATEGORY,

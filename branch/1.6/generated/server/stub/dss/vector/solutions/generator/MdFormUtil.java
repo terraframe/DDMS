@@ -2209,6 +2209,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(MdClass.get(mdClass.getId()));
+    mClass.setDisease(Disease.getCurrent());
     mClass.apply();
 
     List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();

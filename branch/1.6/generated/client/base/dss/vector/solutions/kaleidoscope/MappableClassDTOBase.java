@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -55929925)
+@com.runwaysdk.business.ClassSignature(hash = -913519026)
 public abstract class MappableClassDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.MappableClass";
-  private static final long serialVersionUID = -55929925;
+  private static final long serialVersionUID = -913519026;
   
   protected MappableClassDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,7 @@ public abstract class MappableClassDTOBase extends com.runwaysdk.business.Busine
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DATASOURCE = "dataSource";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -138,6 +139,55 @@ public abstract class MappableClassDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDataSourceMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DATASOURCE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()

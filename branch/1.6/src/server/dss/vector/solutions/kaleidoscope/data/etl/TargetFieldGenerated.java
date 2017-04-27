@@ -20,10 +20,11 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.util.IDGenerator;
 
-public class TargetFieldGenerated extends TargetField implements TargetFieldIF
+public class TargetFieldGenerated extends TargetField implements TargetFieldIF, Reloadable
 {
 
   @Override

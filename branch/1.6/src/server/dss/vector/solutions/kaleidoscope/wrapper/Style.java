@@ -1,7 +1,8 @@
 package dss.vector.solutions.kaleidoscope.wrapper;
 
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface Style extends Component
+public interface Style extends Component, Reloadable
 {
   
   public String getName();

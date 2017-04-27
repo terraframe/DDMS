@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface SourceFieldIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface SourceFieldIF extends Reloadable
 {
   public String getColumnName();
 

@@ -48,7 +48,7 @@ public class InfectionAssaySubSelectQB extends AbstractQB implements Reloadable
     if (infectionQuery != null)
     {
       valueQuery.WHERE(infectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      QueryUtil.joinTermAllpaths(valueQuery, InfectionAssay.CLASS, infectionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, InfectionAssay.CLASS, infectionQuery, this.getTermRestrictions(), this.getLayer());
 
       if (xml.indexOf(">prevalence<") > 0)
       {
@@ -63,7 +63,7 @@ public class InfectionAssaySubSelectQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 

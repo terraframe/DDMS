@@ -6,10 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdView;
 
-public class TargetDefinition implements TargetDefinitionIF
+public class TargetDefinition implements TargetDefinitionIF, Reloadable
 {
   private String                         sourceType;
 

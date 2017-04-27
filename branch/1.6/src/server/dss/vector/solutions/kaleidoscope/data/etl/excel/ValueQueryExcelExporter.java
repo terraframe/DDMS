@@ -25,6 +25,7 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.value.Attribute;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
@@ -32,7 +33,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.Predicate;
 
-public class ValueQueryExcelExporter
+public class ValueQueryExcelExporter implements Reloadable
 {
   /**
    * Excel workbook being exported

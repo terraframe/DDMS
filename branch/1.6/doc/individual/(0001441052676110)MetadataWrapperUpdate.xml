@@ -33,6 +33,12 @@
       <mdBusiness name="dss.vector.solutions.kaleidoscope.MappableClass" label="Mappable Class" cacheAlgorithm="everything" generateController="false">
         <attributes>
           <reference name="wrappedMdClass" type="com.runwaysdk.system.metadata.MdClass" label="MdClass" required="true" />
+          <reference name="disease"
+						label="Disease"
+						type="dss.vector.solutions.general.Disease"
+						indexType="unique index"
+						required="true" />
+          
         </attributes>
       </mdBusiness>
       <mdRelationship name="dss.vector.solutions.kaleidoscope.ClassUniversal" label="Class Universal" generateController="false" >

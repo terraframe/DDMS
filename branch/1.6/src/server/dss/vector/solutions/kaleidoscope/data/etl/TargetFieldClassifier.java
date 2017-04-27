@@ -21,11 +21,12 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.ontology.Term;
 
-public class TargetFieldClassifier extends TargetFieldBasic implements TargetFieldIF
+public class TargetFieldClassifier extends TargetFieldBasic implements TargetFieldIF, Reloadable
 {
   @Override
   public FieldValue getValue(MdAttributeConcreteDAOIF mdAttribute, Transient source)

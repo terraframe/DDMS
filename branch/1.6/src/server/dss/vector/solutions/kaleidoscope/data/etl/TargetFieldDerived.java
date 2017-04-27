@@ -4,6 +4,7 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ST_WITHIN;
@@ -16,7 +17,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.util.QueryUtil;
 
-public class TargetFieldDerived extends TargetFieldCoordinate implements TargetFieldIF
+public class TargetFieldDerived extends TargetFieldCoordinate implements TargetFieldIF, Reloadable
 {
   private GeoEntity       country;
 

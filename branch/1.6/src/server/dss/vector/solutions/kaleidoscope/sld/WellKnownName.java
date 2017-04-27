@@ -1,10 +1,12 @@
 package dss.vector.solutions.kaleidoscope.sld;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 /**
  * Represents a Well Known Name for SLD and provides a set of pre-defined
  * symbols or allows for construction of a custom value.
  */
-public class WellKnownName implements Symbol
+public class WellKnownName implements Symbol, Reloadable
 {
   /**
    * Standard symbols.

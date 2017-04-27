@@ -40,12 +40,12 @@ public class ITNFacilityDistributionQB extends AbstractQB implements Reloadable
     ITNDistributionQuery itnQuery = (ITNDistributionQuery) queryMap.get(ITNDistribution.CLASS);
 
     this.addGeoDisplayLabelQuery(itnQuery);
-    QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery, this.getTermRestrictions(), this.getLayer());
     QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
 
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
     valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));
-    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions(), this.getLayer());
     this.addGeoDisplayLabelQuery(personQuery);
 
     try

@@ -57,7 +57,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
     {
       valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
 
-      QueryUtil.joinTermAllpaths(valueQuery, Household.CLASS, householdQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, Household.CLASS, householdQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, Household.CLASS, householdQuery);
     }
 
@@ -72,7 +72,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
 
       valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
 
-      QueryUtil.joinTermAllpaths(valueQuery, SurveyedPerson.CLASS, personQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, SurveyedPerson.CLASS, personQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, SurveyedPerson.CLASS, personQuery, personQuery.getTableAlias() + ".id");
       QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
     }
@@ -104,7 +104,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
       {
         // join against the house if there is no person
         valueQuery.WHERE(householdQuery.iTNs(itnQuery));
-        QueryUtil.joinTermAllpaths(valueQuery, ITNInstance.CLASS, itnQuery, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery, ITNInstance.CLASS, itnQuery, this.getTermRestrictions(), this.getLayer());
         QueryUtil.joinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery);
       }
       else
