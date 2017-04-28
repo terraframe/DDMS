@@ -154,7 +154,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     if (this.getMaterializedTableId().length() > 0)
     {
-      this.getMaterializedTable().delete();
+      MdTable mdTable = this.getMaterializedTable();
+      RefreshViewJob.getJob(mdTable).delete();
+
+      mdTable.delete();
     }
 
     super.delete();
@@ -240,6 +243,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       /*
        * Delete the materialized table metadata
        */
+      RefreshViewJob.getJob(mdTable).delete();
       mdTable.delete();
 
       /*
@@ -577,7 +581,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         JSONObject names = new JSONObject();
         names.put(VIEW_PREFIX, viewName);
-        
+
         if (this.getIsMaterialized())
         {
           names.put(MATERIALIZED_VIEW_PREFIX, this.getMaterializedViewName());
@@ -1460,4 +1464,27 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
   }
 
+  public static SavedSearch getSavedSearch(MdTable materializedTable)
+  {
+    SavedSearchQuery query = new SavedSearchQuery(new QueryFactory());
+    query.WHERE(query.getMaterializedTable().EQ(materializedTable));
+
+    OIterator<? extends SavedSearch> iterator = query.getIterator();
+
+    try
+    {
+      List<? extends SavedSearch> searches = iterator.getAll();
+
+      if (searches.size() > 0)
+      {
+        return searches.get(0);
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    return null;
+  }
 }

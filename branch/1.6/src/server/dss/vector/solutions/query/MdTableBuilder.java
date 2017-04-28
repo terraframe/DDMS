@@ -68,12 +68,12 @@ public class MdTableBuilder implements Reloadable
   public MdTable build()
   {
     // Create the MdTable
-    MdTableDAO mdTable = MdTableDAO.newInstance();
-    mdTable.setValue(MdTableInfo.NAME, viewName);
-    mdTable.setValue(MdTableInfo.PACKAGE, MDSSInfo.GENERATED_TABLE_PACKAGE);
-    mdTable.setStructValue(MdTableInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, viewName);
-    mdTable.setValue(MdTableInfo.TABLE_NAME, viewName);
-    mdTable.apply();
+    MdTableDAO mdTableDAO = MdTableDAO.newInstance();
+    mdTableDAO.setValue(MdTableInfo.NAME, viewName);
+    mdTableDAO.setValue(MdTableInfo.PACKAGE, MDSSInfo.GENERATED_TABLE_PACKAGE);
+    mdTableDAO.setStructValue(MdTableInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, viewName);
+    mdTableDAO.setValue(MdTableInfo.TABLE_NAME, viewName);
+    mdTableDAO.apply();
 
     Set<Entry<Selectable, MdAttributeConcreteDAOIF>> entries = map.entrySet();
 
@@ -95,7 +95,7 @@ public class MdTableBuilder implements Reloadable
           MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
           mdAttribute.setValue(MdAttributeConcreteInfo.NAME, attributeName);
           mdAttribute.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeReference.getDisplayLabel(Session.getCurrentLocale()));
-          mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTable.getId());
+          mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, mdBusiness.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
@@ -108,7 +108,7 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.setStructValue(MdAttributeBooleanInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
         mdAttribute.setStructValue(MdAttributeBooleanInfo.POSITIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.TRUE);
         mdAttribute.setStructValue(MdAttributeBooleanInfo.NEGATIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.FALSE);
-        mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -124,7 +124,7 @@ public class MdTableBuilder implements Reloadable
           MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
           mdAttribute.setValue(MdAttributeConcreteInfo.NAME, attributeName);
           mdAttribute.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeReference.getDisplayLabel(Session.getCurrentLocale()));
-          mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTable.getId());
+          mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, referenceMdBusinessDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
@@ -138,7 +138,7 @@ public class MdTableBuilder implements Reloadable
           MdAttributeCharacterDAO mdAttribute = MdAttributeCharacterDAO.newInstance();
           mdAttribute.setValue(MdAttributeCharacterInfo.NAME, attributeName);
           mdAttribute.setStructValue(MdAttributeCharacterInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-          mdAttribute.setValue(MdAttributeCharacterInfo.DEFINING_MD_CLASS, mdTable.getId());
+          mdAttribute.setValue(MdAttributeCharacterInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.setValue(MdAttributeCharacterInfo.SIZE, "4000");
           mdAttribute.apply();
@@ -149,7 +149,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeDateDAO mdAttribute = MdAttributeDateDAO.newInstance();
         mdAttribute.setValue(MdAttributeDateInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeDateInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeDateInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeDateInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -158,7 +158,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeDateTimeDAO mdAttribute = MdAttributeDateTimeDAO.newInstance();
         mdAttribute.setValue(MdAttributeDateTimeInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeDateTimeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeDateTimeInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeDateTimeInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -167,7 +167,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeTimeDAO mdAttribute = MdAttributeTimeDAO.newInstance();
         mdAttribute.setValue(MdAttributeTimeInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeTimeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeTimeInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeTimeInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -176,7 +176,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeDecimalDAO mdAttribute = MdAttributeDecimalDAO.newInstance();
         mdAttribute.setValue(MdAttributeDecimalInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeDecimalInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeDecimalInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeDecimalInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.getAttribute(MdAttributeDecimalInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeDecimalInfo.DECIMAL).setValue("2");
@@ -187,7 +187,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
         mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
@@ -198,7 +198,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeFloatDAO mdAttribute = MdAttributeFloatDAO.newInstance();
         mdAttribute.setValue(MdAttributeFloatInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeFloatInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeFloatInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeFloatInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.getAttribute(MdAttributeFloatInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeFloatInfo.DECIMAL).setValue("2");
@@ -209,7 +209,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeIntegerDAO mdAttribute = MdAttributeIntegerDAO.newInstance();
         mdAttribute.setValue(MdAttributeIntegerInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeIntegerInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeIntegerInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeIntegerInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -218,7 +218,7 @@ public class MdTableBuilder implements Reloadable
         MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
         mdAttribute.setValue(MdAttributeLongInfo.NAME, attributeName);
         mdAttribute.setStructValue(MdAttributeLongInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdTable.getId());
+        mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
@@ -228,6 +228,12 @@ public class MdTableBuilder implements Reloadable
       }
     }
 
-    return (MdTable) BusinessFacade.get(mdTable);
+    MdTable mdTable = (MdTable) BusinessFacade.get(mdTableDAO);
+    
+    RefreshViewJob job = new RefreshViewJob();
+    job.setMaterializedTable(mdTable);
+    job.apply();
+    
+    return mdTable;
   }
 }
