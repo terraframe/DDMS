@@ -1238,13 +1238,13 @@ MDSS.QueryPanel.prototype =
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
 
+    leftDiv.appendChild(materializedViewLabel);
+    leftDiv.appendChild(this._materializedView);
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
     leftDiv.appendChild(getDBViewName);
     leftDiv.appendChild(deleteButton);
     leftDiv.appendChild(importQuery);
-    leftDiv.appendChild(materializedViewLabel);
-    leftDiv.appendChild(this._materializedView);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);

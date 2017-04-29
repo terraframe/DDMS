@@ -2017,6 +2017,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
   }
 
+  public boolean isAncestor(String universal)
+  {
+    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(this.getGeoEntityClass().definesType(), new SearchParameter());
+
+    for (GeoHierarchyView decendant : decendants)
+    {
+      String generatedType = decendant.getGeneratedType();
+
+      if (generatedType.equals(universal))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static boolean isAncestor(String type, String universal)
   {
     GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, new SearchParameter());

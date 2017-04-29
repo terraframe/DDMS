@@ -33,6 +33,7 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdElement;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -168,9 +169,12 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     /*
      * Delete all of the data views which reference this type
      */
-    List<String> viewNames = Database.getReferencingViews(MdElementDAO.getMdElementDAO(mdClass.definesType()));
+    if (mdClass instanceof MdElement)
+    {
+      List<String> viewNames = Database.getReferencingViews(MdElementDAO.getMdElementDAO(mdClass.definesType()));
 
-    DatabaseUtil.dropViews(viewNames);
+      DatabaseUtil.dropViews(viewNames);
+    }
 
     mdClass.delete();
   }
@@ -189,7 +193,6 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
     query.WHERE(query.getWrappedMdClass().EQ(mdClass));
     query.AND(query.getDisease().EQ(Disease.getCurrent()));
-
 
     OIterator<? extends MappableClass> iterator = query.getIterator();
 

@@ -155,22 +155,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     if (this.getMaterializedTableId().length() > 0)
     {
       MdTable mdTable = this.getMaterializedTable();
-      RefreshViewJob.getJob(mdTable).delete();
 
-      mdTable.delete();
+      new MdTableBuilder().delete(mdTable);
     }
 
     super.delete();
 
     this.deleteDatabaseViewIfExists();
-
-    // Delete the materialized view
-    if (this.getMaterializedViewName() != null && this.getMaterializedViewName().length() > 0)
-    {
-      List<String> batch = new LinkedList<String>();
-      batch.add("DROP MATERIALIZED VIEW IF EXISTS " + this.getMaterializedViewName() + " CASCADE");
-      Database.executeBatch(batch);
-    }
   }
 
   /**
@@ -200,61 +191,48 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       this.setMappable(mappable);
 
+      Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
+
+      if (!this.getIsMaterialized() && this.getMaterializedTableId().length() != 0)
+      {
+        objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
+
+        this.setMaterializedViewName(null);
+        this.setMaterializedTable(null);
+      }
+
+      if (this.getIsMaterialized())
+      {
+        if (this.getMaterializedTableId().length() == 0)
+        {
+          // Create the view because it doesn't exist
+          this.createMaterializedView();
+        }
+        else
+        {
+          // Refresh the view
+          this.refreshMaterializedView();
+        }
+      }
+
+      super.apply();
+
+      Set<Entry<String, MdTable>> entries = objectsToDelete.entrySet();
+
+      for (Entry<String, MdTable> entry : entries)
+      {
+        MdTable mdTable = entry.getValue();
+
+        new MdTableBuilder().delete(mdTable);
+      }
+
+      this.createOrReplaceDatabaseView();
     }
     catch (JSONException e)
     {
       String error = "An error occured while marking a query as mappable.";
       throw new ProgrammingErrorException(error, e);
     }
-
-    Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
-
-    if (this.getIsMaterialized())
-    {
-
-      if (this.getMaterializedTableId().length() == 0)
-      {
-        // Create the view because it doesn't exist
-        this.createMaterializedView();
-      }
-      else
-      {
-        // Refresh the view
-        this.refreshMaterializedView();
-      }
-    }
-    else if (!this.getIsMaterialized() && this.getMaterializedTableId().length() != 0)
-    {
-      objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
-
-      this.setMaterializedViewName(null);
-      this.setMaterializedTable(null);
-    }
-
-    super.apply();
-
-    Set<Entry<String, MdTable>> entries = objectsToDelete.entrySet();
-
-    for (Entry<String, MdTable> entry : entries)
-    {
-      String viewName = entry.getKey();
-      MdTable mdTable = entry.getValue();
-
-      /*
-       * Delete the materialized table metadata
-       */
-      RefreshViewJob.getJob(mdTable).delete();
-      mdTable.delete();
-
-      /*
-       * Drop the materialized view
-       */
-      List<String> batch = new LinkedList<String>();
-      batch.add("DROP MATERIALIZED VIEW IF EXISTS " + viewName + " CASCADE");
-      Database.executeBatch(batch);
-    }
-
-    this.createOrReplaceDatabaseView();
   }
 
   public void refreshMaterializedView()
@@ -265,7 +243,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     Database.executeBatch(batch);
   }
 
-  private void createMaterializedView()
+  private void createMaterializedView() throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
@@ -350,9 +328,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         }
 
         c.setColumnAlias(newColumn);
+        c.setData(s.getData());
 
         outer.SELECT(c);
-
+        
         map.put(c, s.getMdAttributeIF());
       }
 
@@ -362,7 +341,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       Database.executeStatement(statement);
 
-      MdTable mdTable = new MdTableBuilder(viewName, map).build();
+      MdTable mdTable = new MdTableBuilder().build(viewName, map, new JSONObject(config));
 
       this.setMaterializedViewName(viewName);
       this.setMaterializedTable(mdTable);

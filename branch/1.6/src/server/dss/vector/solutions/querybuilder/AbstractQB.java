@@ -10,18 +10,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.RelationshipInfo;
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -75,19 +72,17 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.AllRenderTypes;
-import dss.vector.solutions.query.CountOrRatioAloneException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MaterializedMarkerLayer;
-import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.Restriction;
-import dss.vector.solutions.util.SelectableSQLKey;
 
 public abstract class AbstractQB implements Reloadable
 {
@@ -1077,6 +1072,8 @@ public abstract class AbstractQB implements Reloadable
   {
     Map<String, GeneratedEntityQuery> queryMap;
 
+    Map<String, GeoHierarchy> hierarchies = this.getHiearchies(queryConfig);
+
     // If we're mapping, dereference the MdAttribute that will be joined with
     // the GeoEntity
     // table.
@@ -1111,7 +1108,7 @@ public abstract class AbstractQB implements Reloadable
           selectedUniversals[i] = universals.getString(i);
         }
 
-        addUniversalsForAttribute(factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias, hierarchies);
       }
     }
     catch (JSONException e)
@@ -1185,6 +1182,50 @@ public abstract class AbstractQB implements Reloadable
     return queryMap;
   }
 
+  @SuppressWarnings("unchecked")
+  private Map<String, GeoHierarchy> getHiearchies(JSONObject config)
+  {
+    try
+    {
+      Map<String, GeoHierarchy> hierarchies = new HashMap<String, GeoHierarchy>();
+
+      JSONObject universals = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+
+      Iterator<String> keys = universals.keys();
+
+      while (keys.hasNext())
+      {
+        String key = keys.next();
+
+        JSONArray array = universals.getJSONArray(key);
+
+        for (int i = 0; i < array.length(); i++)
+        {
+          String universal = array.getString(i);
+
+          if (!hierarchies.containsKey(key))
+          {
+            hierarchies.put(key, GeoHierarchy.getGeoHierarchyFromType(universal));
+          }
+          else
+          {
+            GeoHierarchy current = hierarchies.get(key);
+
+            if (current.isAncestor(universal))
+            {
+              hierarchies.put(key, GeoHierarchy.getGeoHierarchyFromType(universal));
+            }
+          }
+        }
+      }
+      return hierarchies;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   /**
    * Recreates the entity alias for the geo AllPath entries sent in the by the client.
    * 
@@ -1217,7 +1258,7 @@ public abstract class AbstractQB implements Reloadable
     return geoIdAlias;
   }
 
-  private void addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
+  private void addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias, Map<String, GeoHierarchy> hierarchies)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
@@ -1254,13 +1295,19 @@ public abstract class AbstractQB implements Reloadable
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
 
-      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer)
+      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer && hierarchies.containsKey(attributeKey))
       {
-        selectables.add(selectable6);
-        
-        String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
+        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
+        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
 
-        valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName);
+        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
+        {
+          selectables.add(selectable6);
+
+          String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
+
+          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, geoVQEntityAlias);
+        }
       }
 
       GeoEntityQuery geoEntityQuery2 = null;
