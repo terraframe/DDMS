@@ -1049,6 +1049,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           content += "<li>" + kaleidoscopes[i]  + "</li>";
         }
             
+        content += "<li></li>";
+        content += "<li>" + MDSS.localize('Confirm_Query_Change')  + "</li>";
         content += "</ul>";
           
         MDSS.confirmModal(content, doSave, function() {});        

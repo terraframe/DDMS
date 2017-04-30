@@ -1657,7 +1657,7 @@ MDSS.QueryPanel.prototype =
           content += "<li>" + this._kaleidoscopes[i]  + "</li>";
         }
         
-        content += "<li><hr /></li>";
+        content += "<li></li>";
       }
 
       content += "<li>" + MDSS.localize('Confirm_Delete_Query') + "</li>";
