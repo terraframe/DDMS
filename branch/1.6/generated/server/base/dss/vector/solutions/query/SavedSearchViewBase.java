@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -936229239)
+@com.runwaysdk.business.ClassSignature(hash = -1853415603)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,11 +14,13 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
   public static java.lang.String CONFIG = "config";
   public static java.lang.String ID = "id";
   public static java.lang.String ISMATERIALIZED = "isMaterialized";
+  public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
+  public static java.lang.String OVERWRITE = "overwrite";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
-  private static final long serialVersionUID = -936229239;
+  private static final long serialVersionUID = -1853415603;
   
   public SavedSearchViewBase()
   {
@@ -94,6 +96,62 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     else
     {
       setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public String getKaleidoscopes()
+  {
+    return getValue(KALEIDOSCOPES);
+  }
+  
+  public void validateKaleidoscopes()
+  {
+    this.validateAttribute(KALEIDOSCOPES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getKaleidoscopesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(KALEIDOSCOPES);
+  }
+  
+  public void setKaleidoscopes(String value)
+  {
+    if(value == null)
+    {
+      setValue(KALEIDOSCOPES, "");
+    }
+    else
+    {
+      setValue(KALEIDOSCOPES, value);
+    }
+  }
+  
+  public Boolean getOverwrite()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVERWRITE));
+  }
+  
+  public void validateOverwrite()
+  {
+    this.validateAttribute(OVERWRITE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getOverwriteMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(OVERWRITE);
+  }
+  
+  public void setOverwrite(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OVERWRITE, "");
+    }
+    else
+    {
+      setValue(OVERWRITE, java.lang.Boolean.toString(value));
     }
   }
   

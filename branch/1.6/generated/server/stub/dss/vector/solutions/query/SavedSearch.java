@@ -76,6 +76,9 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.kaleidoscope.dashboard.Dashboard;
+import dss.vector.solutions.kaleidoscope.dashboard.DashboardQuery;
+import dss.vector.solutions.kaleidoscope.dashboard.MetadataWrapperQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.querybuilder.AbstractQB;
@@ -167,9 +170,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   /**
    * Apply method that also checks if this SavedSearch object is mappable or not.
    */
+  public void apply()
+  {
+    this.apply(false);
+  }
+
   @SuppressWarnings("unchecked")
   @Transaction
-  public void apply()
+  public void apply(Boolean overwrite)
   {
     try
     {
@@ -193,7 +201,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
 
-      if (!this.getIsMaterialized() && this.getMaterializedTableId().length() != 0)
+      if (this.getMaterializedTableId().length() != 0 && ( !this.getIsMaterialized() || ( overwrite != null && overwrite ) ))
       {
         objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
 
@@ -331,7 +339,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         c.setData(s.getData());
 
         outer.SELECT(c);
-        
+
         map.put(c, s.getMdAttributeIF());
       }
 
@@ -837,7 +845,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.setConfig(config);
     this.setIsMaterialized(view.getIsMaterialized());
 
-    this.apply();
+    this.apply(view.getOverwrite());
   }
 
   /**
@@ -974,6 +982,39 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       view.setConfig(config.toString());
     }
+
+    JSONArray kaleidoscopes = new JSONArray();
+
+    if (this.getMaterializedTableId().length() > 0)
+    {
+      MdTable mdTable = this.getMaterializedTable();
+
+      QueryFactory factory = new QueryFactory();
+
+      MetadataWrapperQuery mwQuery = new MetadataWrapperQuery(factory);
+      mwQuery.WHERE(mwQuery.getWrappedMdClass().EQ(mdTable));
+
+      DashboardQuery query = new DashboardQuery(factory);
+      query.WHERE(query.metadata(mwQuery));
+
+      OIterator<? extends Dashboard> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          Dashboard dashboard = iterator.next();
+
+          kaleidoscopes.put(dashboard.getDisplayLabel().getValue());
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+
+    view.setKaleidoscopes(kaleidoscopes.toString());
 
     return view;
   }

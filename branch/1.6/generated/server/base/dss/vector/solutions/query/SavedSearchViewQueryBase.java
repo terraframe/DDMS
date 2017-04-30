@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1611149774)
+@com.runwaysdk.business.ClassSignature(hash = 1176457540)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -76,6 +76,42 @@ public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.Gen
   public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ISMATERIALIZED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes()
+  {
+    return getKaleidoscopes(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.KALEIDOSCOPES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.KALEIDOSCOPES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getOverwrite()
+  {
+    return getOverwrite(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getOverwrite(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.OVERWRITE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getOverwrite(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.OVERWRITE, alias, displayLabel);
 
   }
  

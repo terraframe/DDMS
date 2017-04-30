@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -31386359)
+@com.runwaysdk.business.ClassSignature(hash = -2001641267)
 public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = -31386359;
+  private static final long serialVersionUID = -2001641267;
   
   protected SavedSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -19,6 +19,8 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public static java.lang.String CONFIG = "config";
   public static java.lang.String ID = "id";
   public static java.lang.String ISMATERIALIZED = "isMaterialized";
+  public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
+  public static java.lang.String OVERWRITE = "overwrite";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
@@ -95,6 +97,80 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsMaterializedMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISMATERIALIZED).getAttributeMdDTO();
+  }
+  
+  public String getKaleidoscopes()
+  {
+    return getValue(KALEIDOSCOPES);
+  }
+  
+  public void setKaleidoscopes(String value)
+  {
+    if(value == null)
+    {
+      setValue(KALEIDOSCOPES, "");
+    }
+    else
+    {
+      setValue(KALEIDOSCOPES, value);
+    }
+  }
+  
+  public boolean isKaleidoscopesWritable()
+  {
+    return isWritable(KALEIDOSCOPES);
+  }
+  
+  public boolean isKaleidoscopesReadable()
+  {
+    return isReadable(KALEIDOSCOPES);
+  }
+  
+  public boolean isKaleidoscopesModified()
+  {
+    return isModified(KALEIDOSCOPES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getKaleidoscopesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(KALEIDOSCOPES).getAttributeMdDTO();
+  }
+  
+  public Boolean getOverwrite()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVERWRITE));
+  }
+  
+  public void setOverwrite(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OVERWRITE, "");
+    }
+    else
+    {
+      setValue(OVERWRITE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isOverwriteWritable()
+  {
+    return isWritable(OVERWRITE);
+  }
+  
+  public boolean isOverwriteReadable()
+  {
+    return isReadable(OVERWRITE);
+  }
+  
+  public boolean isOverwriteModified()
+  {
+    return isModified(OVERWRITE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getOverwriteMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OVERWRITE).getAttributeMdDTO();
   }
   
   public String getQueryName()
