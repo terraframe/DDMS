@@ -30,11 +30,13 @@ import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
+import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.dataaccess.metadata.MdTableDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -1612,6 +1614,10 @@ public class QueryUtil implements Reloadable
     {
       return new GenericBusinessQuery((MdBusinessDAOIF) mdClass, factory);
     }
+//    else if (mdClass instanceof MdTableDAOIF)
+//    {
+//      return new Generic((MdBusinessDAOIF) mdClass, factory);
+//    }
     else
     {
       throw new ProgrammingErrorException("Unsupported generated query type [" + mdClass.definesType() + "]");

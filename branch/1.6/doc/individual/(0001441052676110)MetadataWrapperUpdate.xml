@@ -36,7 +36,6 @@
           <reference name="disease"
 						label="Disease"
 						type="dss.vector.solutions.general.Disease"
-						indexType="unique index"
 						required="true" />
           
         </attributes>

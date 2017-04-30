@@ -90,8 +90,13 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
   }
 
   @Override
-  @Transaction
   public void delete()
+  {
+    this.delete(true);
+  }
+
+  @Transaction
+  public void delete(boolean deleteMdClass)
   {
     MdClass mdClass = this.getWrappedMdClass();
 
@@ -166,17 +171,20 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
     super.delete();
 
-    /*
-     * Delete all of the data views which reference this type
-     */
-    if (mdClass instanceof MdElement)
+    if (deleteMdClass)
     {
-      List<String> viewNames = Database.getReferencingViews(MdElementDAO.getMdElementDAO(mdClass.definesType()));
+      /*
+       * Delete all of the data views which reference this type
+       */
+      if (mdClass instanceof MdElement)
+      {
+        List<String> viewNames = Database.getReferencingViews(MdElementDAO.getMdElementDAO(mdClass.definesType()));
 
-      DatabaseUtil.dropViews(viewNames);
+        DatabaseUtil.dropViews(viewNames);
+      }
+
+      mdClass.delete();
     }
-
-    mdClass.delete();
   }
 
   public static MappableClass getMappableClass(String type)

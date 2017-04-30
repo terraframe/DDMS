@@ -194,6 +194,16 @@ MDSS.QueryPanel.prototype =
     this._materializedView.checked = (checked != null ? checked : false);    
   },
   
+  getKaleidoscopes : function()
+  {
+    return this._kaleidoscopes;    
+  },
+  
+  setKaleidoscopes : function(kaleidoscopes)
+  {
+    this._kaleidoscopes = kaleidoscopes;
+  },
+  
   /**
    * Updates the column label on both the YUI column object and the listing in
    * the right panel query summary.
@@ -1634,13 +1644,28 @@ MDSS.QueryPanel.prototype =
     // ignore the default, empty option
     var savedSearchId = queries.options[queries.selectedIndex].value;
     if (savedSearchId)
-    {
-      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId,
-          queries);
-      MDSS.confirmModal(MDSS.localize('Confirm_Delete_Query'), doDel,
-          function()
-          {
-          });
+    {    	
+      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
+      
+      var content = "<ul>";
+      
+      if(this._kaleidoscopes != null && this._kaleidoscopes.length > 0){
+        content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+        content += "<li><hr /></li>";
+        
+        for(var i = 0; i < this._kaleidoscopes.length; i++) {
+          content += "<li>" + this._kaleidoscopes[i]  + "</li>";
+        }
+        
+        content += "<li><hr /></li>";
+      }
+
+      content += "<li>" + MDSS.localize('Confirm_Delete_Query') + "</li>";
+
+      content += "</ul>";
+      
+      
+      MDSS.confirmModal(content, doDel, function() {});
     }
   },
 

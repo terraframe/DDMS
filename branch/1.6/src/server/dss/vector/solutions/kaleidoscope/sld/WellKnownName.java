@@ -12,7 +12,7 @@ public class WellKnownName implements Symbol, Reloadable
    * Standard symbols.
    * 
    */
-  public enum STANDARD implements Symbol {
+  public enum STANDARD implements Symbol, Reloadable {
     CIRCLE, SQUARE, TRIANGLE, START, CROSS, X;
 
     @Override
@@ -37,7 +37,7 @@ public class WellKnownName implements Symbol, Reloadable
   /**
    * Shape symbols.
    */
-  public enum SHAPE implements Symbol {
+  public enum SHAPE implements Symbol, Reloadable {
     VERTLINE, HORLINE, SLASH, BACKSLASH, DOT, PLUS, TIMES, OARROW, CARROW;
 
     @Override

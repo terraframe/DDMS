@@ -46,7 +46,6 @@ import org.geotools.data.wms.WMSUtils;
 import org.geotools.data.wms.WebMapServer;
 import org.geotools.data.wms.request.GetMapRequest;
 import org.geotools.data.wms.response.GetMapResponse;
-import org.geotools.ows.ServiceException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,6 +100,65 @@ import dss.vector.solutions.util.Predicate;
 
 public class DashboardMap extends DashboardMapBase implements Reloadable, dss.vector.solutions.kaleidoscope.wrapper.Map
 {
+  public static class SelectablePredicate implements Predicate<Selectable>, Reloadable
+  {
+    @Override
+    public boolean evaulate(Selectable selectable)
+    {
+      if ( ( selectable instanceof SelectableGeometry ) || selectable.getUserDefinedAlias().equals(ThematicQueryBuilder.LOCATION_ALIAS))
+      {
+        return false;
+      }
+
+      return true;
+    }
+  }
+
+  public static class ExportRunnable implements Runnable, Reloadable
+  {
+    private PipedInputStream      istream;
+
+    private ValueQuery            query;
+
+    private DashboardLayer        layer;
+
+    private Predicate<Selectable> predicate;
+
+    public ExportRunnable(PipedInputStream istream, ValueQuery query, DashboardLayer layer, Predicate<Selectable> predicate)
+    {
+      this.istream = istream;
+      this.query = query;
+      this.layer = layer;
+      this.predicate = predicate;
+    }
+
+    @Override
+    public void run()
+    {
+      try
+      {
+        PipedOutputStream ostream = new PipedOutputStream(istream);
+
+        try
+        {
+          SXSSFWorkbook workbook = new SXSSFWorkbook();
+          workbook.setCompressTempFiles(true);
+
+          ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, layer.getName(), predicate, workbook);
+          exporter.write(ostream);
+        }
+        finally
+        {
+          ostream.close();
+        }
+      }
+      catch (IOException e)
+      {
+        log.error(e);
+      }
+    }
+  }
+
   private static Log        log              = LogFactory.getLog(DashboardMap.class);
 
   private static final long serialVersionUID = 861649895;
@@ -160,53 +218,14 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
     ValueQuery query = layer.getViewQuery();
 
-    Predicate<Selectable> predicate = new Predicate<Selectable>()
-    {
-      @Override
-      public boolean evaulate(Selectable selectable)
-      {
-        if ( ( selectable instanceof SelectableGeometry ) || selectable.getUserDefinedAlias().equals(ThematicQueryBuilder.LOCATION_ALIAS))
-        {
-          return false;
-        }
-
-        return true;
-      }
-    };
+    Predicate<Selectable> predicate = new SelectablePredicate();
 
     /*
      * Export the query to an excel file and pipe it back to the controller
      */
     PipedInputStream istream = new PipedInputStream();
 
-    Thread thread = new Thread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        try
-        {
-          PipedOutputStream ostream = new PipedOutputStream(istream);
-
-          try
-          {
-            SXSSFWorkbook workbook = new SXSSFWorkbook();
-            workbook.setCompressTempFiles(true);
-
-            ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, layer.getName(), predicate, workbook);
-            exporter.write(ostream);
-          }
-          finally
-          {
-            ostream.close();
-          }
-        }
-        catch (IOException e)
-        {
-          log.error(e);
-        }
-      }
-    });
+    Thread thread = new Thread(new ExportRunnable(istream, query, layer, predicate));
     thread.setDaemon(true);
     thread.start();
 
@@ -975,29 +994,29 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
         image = ImageIO.read(response.getInputStream());
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         log.error(e);
-        
+
         return null;
       }
-//      catch (MalformedURLException e)
-//      {
-//        // will not happen
-//        String error = "The URL is not formed correctly.";
-//        throw new ProgrammingErrorException(error, e);
-//      }
-//      catch (IOException e)
-//      {
-//        String error = "Could not read the response to an image.";
-//        throw new ProgrammingErrorException(error, e);
-//      }
-//      catch (ServiceException e)
-//      {
-//        // The server returned a ServiceException (unusual in this case)
-//        String error = "The server returned a ServiceException.";
-//        throw new ProgrammingErrorException(error, e);
-//      }
+      // catch (MalformedURLException e)
+      // {
+      // // will not happen
+      // String error = "The URL is not formed correctly.";
+      // throw new ProgrammingErrorException(error, e);
+      // }
+      // catch (IOException e)
+      // {
+      // String error = "Could not read the response to an image.";
+      // throw new ProgrammingErrorException(error, e);
+      // }
+      // catch (ServiceException e)
+      // {
+      // // The server returned a ServiceException (unusual in this case)
+      // String error = "The server returned a ServiceException.";
+      // throw new ProgrammingErrorException(error, e);
+      // }
     }
 
     return image;

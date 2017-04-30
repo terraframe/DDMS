@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -18,7 +19,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TargetFieldGeoEntityBinding extends TargetFieldGeoEntityBindingBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static class UniversalAttributeBindingComparator implements Comparator<UniversalAttributeBinding>
+  private static class UniversalAttributeBindingComparator implements Comparator<UniversalAttributeBinding>, Reloadable
   {
     private Map<String, Integer> indices;
 

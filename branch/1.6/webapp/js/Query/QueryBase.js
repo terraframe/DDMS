@@ -872,6 +872,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       
       // disable the date criteria checkboxes
       this._queryPanel.disableDates(true, true);
+      this._queryPanel.setIsMaterialized(false);
+      this._queryPanel.setKaleidoscopes([]);
     },
   
   
@@ -964,6 +966,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
             that._loadQueryState(savedSearchView);
             
             that._refreshColumnsWhenIdle();
+            
+            that._loadSavedState(savedSearchView);
           }
           catch(e)
           {
@@ -980,6 +984,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       });
   
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
+    },
+    
+    _loadSavedState : function(savedSearchView) {
+      this._queryPanel.setKaleidoscopes(JSON.parse(savedSearchView.getKaleidoscopes()));
+      
+      this._loadedMaterialized = savedSearchView.getIsMaterialized();      
+      this._loadedXML = savedSearchView.getQueryXml();
     },
   
     _loadQueryState : {
@@ -1008,20 +1019,43 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     saveQuery : function()
     {
       var view = this._queryPanel.getCurrentSavedSearch();
+      var that = this;
   
       if(view != null)
       {
         this._populateSearch(null, view);
       }
-  
-      var request = new MDSS.Request({
-        onSuccess : function()
-        {
-          // nothing to do
-        }
+      
+      var doSave = Mojo.Util.bind(this, function(){
+        var request = new MDSS.Request({
+          onSuccess : function(savedSearchView)
+          {
+            that._loadSavedState(savedSearchView);
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view); 
       });
-  
-      Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view);
+      
+      var kaleidoscopes = this._queryPanel.getKaleidoscopes();
+            
+      if(view.getOverwrite() && kaleidoscopes != null && kaleidoscopes.length > 0) {
+          
+        var content = "<ul>";
+        content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+        content += "<li><hr /></li>";
+            
+        for(var i = 0; i < kaleidoscopes.length; i++) {
+          content += "<li>" + kaleidoscopes[i]  + "</li>";
+        }
+            
+        content += "</ul>";
+          
+        MDSS.confirmModal(content, doSave, function() {});        
+      }
+      else {
+        doSave();
+      }
     },
   
     /**
@@ -1111,11 +1145,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         view.setQueryName(queryName);
       }
+      
+      var overwrite = (materialized && this._loadedMaterialized && this._loadedXML !== xml);
   
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
       view.setQueryType(queryType);
       view.setIsMaterialized(materialized);
+      view.setOverwrite(overwrite);
     },
     
     /**

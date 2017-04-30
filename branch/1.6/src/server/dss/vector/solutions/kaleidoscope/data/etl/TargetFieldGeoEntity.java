@@ -46,7 +46,7 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoEntityIF, TargetFieldValidationIF, Reloadable
 {
-  public static class UniversalAttribute
+  public static class UniversalAttribute implements Reloadable
   {
     private String       attributeName;
 

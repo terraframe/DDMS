@@ -32,7 +32,7 @@ public class ImportRunnable implements Reloadable
 {
   private ProgressMonitorIF monitor;
   
-  static class ValidationResult
+  static class ValidationResult implements Reloadable
   {
     private ImportResponseIF              response;
 

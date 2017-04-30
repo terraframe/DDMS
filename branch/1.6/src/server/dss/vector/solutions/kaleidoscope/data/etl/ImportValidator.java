@@ -16,7 +16,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class ImportValidator implements ConverterIF, Reloadable
 {
-  public static class DecimalAttribute
+  public static class DecimalAttribute implements Reloadable
   {
     private int precision;
 

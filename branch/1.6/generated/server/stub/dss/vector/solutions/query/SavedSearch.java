@@ -167,17 +167,34 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.deleteDatabaseViewIfExists();
   }
 
+  @Transaction
+  public void clearMaterializedView()
+  {
+    if (this.getMaterializedTableId().length() > 0)
+    {
+      this.appLock();
+
+      MdTable mdTable = this.getMaterializedTable();
+      this.setMaterializedViewName(null);
+      this.setMaterializedTable(null);
+
+      super.apply();
+
+      new MdTableBuilder().delete(mdTable);
+    }
+  }
+
+  public void apply()
+  {
+    apply(false);
+  }
+
   /**
    * Apply method that also checks if this SavedSearch object is mappable or not.
    */
-  public void apply()
-  {
-    this.apply(false);
-  }
-
   @SuppressWarnings("unchecked")
   @Transaction
-  public void apply(Boolean overwrite)
+  private void apply(boolean overwrite)
   {
     try
     {
@@ -201,20 +218,19 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
 
-      if (this.getMaterializedTableId().length() != 0 && ( !this.getIsMaterialized() || ( overwrite != null && overwrite ) ))
+      if (this.getMaterializedTableId().length() != 0 && !this.getIsMaterialized())
       {
         objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
 
         this.setMaterializedViewName(null);
         this.setMaterializedTable(null);
       }
-
-      if (this.getIsMaterialized())
+      else if (this.getIsMaterialized())
       {
-        if (this.getMaterializedTableId().length() == 0)
+        if (this.getMaterializedTableId().length() == 0 || overwrite)
         {
           // Create the view because it doesn't exist
-          this.createMaterializedView();
+          this.createMaterializedView(overwrite);
         }
         else
         {
@@ -251,7 +267,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     Database.executeBatch(batch);
   }
 
-  private void createMaterializedView() throws JSONException
+  private void createMaterializedView(boolean overwrite) throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
@@ -345,14 +361,23 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       String viewName = this.generateViewName(MATERIALIZED_VIEW_PREFIX);
 
+      if (!overwrite || this.getMaterializedTableId().length() == 0)
+      {
+        MdTable mdTable = new MdTableBuilder().build(viewName, map);
+
+        this.setMaterializedViewName(viewName);
+        this.setMaterializedTable(mdTable);
+      }
+      else
+      {
+        MdTable mdTable = this.getMaterializedTable();
+        
+        new MdTableBuilder().update(mdTable, map);
+      }
+      
       String statement = "CREATE MATERIALIZED VIEW " + viewName + " AS (" + outer.getSQL() + ")";
 
-      Database.executeStatement(statement);
-
-      MdTable mdTable = new MdTableBuilder().build(viewName, map, new JSONObject(config));
-
-      this.setMaterializedViewName(viewName);
-      this.setMaterializedTable(mdTable);
+      Database.executeStatement(statement);      
     }
     catch (NoColumnsAddedException e)
     {
@@ -816,6 +841,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw ex;
     }
 
+//    if (view.getOverwrite())
+//    {
+//      SavedSearch search = SavedSearch.get(view.getSavedQueryId());
+//      search.clearMaterializedView();
+//    }
+
     SavedSearch search = SavedSearch.get(view.getSavedQueryId());
     search.update(view);
 
@@ -834,6 +865,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * @param view
    */
+  @Transaction
   protected void update(SavedSearchView view)
   {
     String xml = view.getQueryXml();

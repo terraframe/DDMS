@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
@@ -38,6 +37,8 @@ import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdTableDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeCharacterDAO;
@@ -73,10 +74,8 @@ import dss.vector.solutions.util.SelectableSQLKey;
 
 public class MdTableBuilder implements Reloadable
 {
-  public MdTable build(String viewName, Map<Selectable, MdAttributeConcreteDAOIF> map, JSONObject config) throws JSONException
+  public MdTable build(String viewName, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
   {
-    GeoHierarchy lowest = null;
-
     // Create the MdTable
     MdTableDAO mdTableDAO = MdTableDAO.newInstance();
     mdTableDAO.setValue(MdTableInfo.NAME, viewName);
@@ -84,6 +83,13 @@ public class MdTableBuilder implements Reloadable
     mdTableDAO.setStructValue(MdTableInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, viewName);
     mdTableDAO.setValue(MdTableInfo.TABLE_NAME, viewName);
     mdTableDAO.apply();
+
+    return build(mdTableDAO, map);
+  }
+
+  private MdTable build(MdTableDAO mdTableDAO, Map<Selectable, MdAttributeConcreteDAOIF> map)
+  {
+    GeoHierarchy lowest = null;
 
     Set<Entry<Selectable, MdAttributeConcreteDAOIF>> entries = map.entrySet();
 
@@ -319,8 +325,29 @@ public class MdTableBuilder implements Reloadable
     return mdTable;
   }
 
+  public void update(MdTable mdTable, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
+  {
+    this.delete(mdTable, false);
+
+    MdTableDAO mdTableDAO = MdTableDAO.get(mdTable.getId()).getBusinessDAO();
+
+    this.build(mdTableDAO, map);
+  }
+
   public void delete(MdTable mdTable)
   {
+    this.delete(mdTable, true);
+  }
+
+  private void delete(MdTable mdTable, boolean includeTable)
+  {
+    /*
+     * Drop the materialized view
+     */
+    List<String> batch = new LinkedList<String>();
+    batch.add("DROP MATERIALIZED VIEW IF EXISTS " + mdTable.getTableName() + " CASCADE");
+    Database.executeBatch(batch);
+
     /*
      * Delete the materialized table metadata
      */
@@ -329,25 +356,41 @@ public class MdTableBuilder implements Reloadable
     /*
      * Delete the dataset build upon the MdTable
      */
-    MappableClass mClass = MappableClass.getMappableClass(mdTable.definesType());
+    MappableClass mClass = null;
+
+    try
+    {
+      mClass = MappableClass.getMappableClass(mdTable.definesType());
+    }
+    catch (DataNotFoundException e)
+    {
+      // Do nothing
+    }
 
     if (mClass != null)
     {
       /*
        * Deleting the mappable class will delete the MdTable as well
        */
-      mClass.delete();
+      mClass.delete(includeTable);
     }
     else
     {
       mdTable.delete();
     }
 
-    /*
-     * Drop the materialized view
-     */
-    List<String> batch = new LinkedList<String>();
-    batch.add("DROP MATERIALIZED VIEW IF EXISTS " + mdTable.getTableName() + " CASCADE");
-    Database.executeBatch(batch);
+    if (!includeTable)
+    {
+      /*
+       * Delete all of the mdAttributes on the table
+       */
+      MdTableDAOIF mdTableDAO = MdTableDAO.get(mdTable.getId());
+      List<? extends MdAttributeDAOIF> mdAttributes = mdTableDAO.definesAttributes();
+
+      for (MdAttributeDAOIF mdAttribute : mdAttributes)
+      {
+        mdAttribute.getBusinessDAO().delete();
+      }
+    }
   }
 }

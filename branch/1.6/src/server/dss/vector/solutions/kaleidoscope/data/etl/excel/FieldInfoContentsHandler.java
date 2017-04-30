@@ -43,7 +43,7 @@ import com.runwaysdk.system.metadata.MdView;
 
 public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 {
-  private static class Field
+  private static class Field implements Reloadable
   {
     /**
      * Number of unique values
