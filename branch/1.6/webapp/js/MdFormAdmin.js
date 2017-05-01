@@ -83,7 +83,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var editB = Mojo.Util.bind(this, this.requestEdit);
       this._MdFormAdminController.setEditFormAttributesListener(editB);
       
-      this._MdFormAdminController.setExportDatasetListener(Mojo.Util.bind(this, this.requestDataset));
+//      this._MdFormAdminController.setExportDatasetListener(Mojo.Util.bind(this, this.requestDataset));
       
       this._MdFormAdminController.setExportDefinitionListener(Mojo.Util.bind(this, this.requestExport));
       

@@ -38,8 +38,6 @@
           <c:if test="${form.keyName != 'dss.vector.solutions.form.FormHousehold' && form.keyName != 'dss.vector.solutions.form.FormSurvey' && form.keyName != 'dss.vector.solutions.form.FormPerson' && form.keyName != 'dss.vector.solutions.form.FormBedNet'}">
             <mdss:localize key="Clone" var="Localized_Clone" />
             <mjl:command value="${Localized_Clone}" action="dss.vector.solutions.form.MdFormAdminController.viewClone.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.viewClone.button"/>
-            <mdss:localize key="Dataset" var="Dataset" />
-            <mjl:command value="${Dataset}" action="dss.vector.solutions.form.MdFormAdminController.exportDataset.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.exportDataset.button"/>
           </c:if>
 			</div>
 
