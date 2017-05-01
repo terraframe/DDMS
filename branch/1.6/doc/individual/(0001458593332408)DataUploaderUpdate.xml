@@ -21,7 +21,7 @@
 <version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdUtil name="dss.vector.solutions.geo.generated.GeoEntity">
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <mdMethod name="getGeoEntitySuggestions" label="Get geo entity suggestions" static="true" returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter name="parentId" order="0" type="java.lang.String" label="Text" />
@@ -30,7 +30,7 @@
             <mdParameter name="limit" order="3" type="java.lang.Integer" label="Limit" />
           </mdMethod>
         </create>
-      </mdUtil>
+      </mdBusiness>
       <mdController name="dss.vector.solutions.kaleidoscope.DataUploaderController">
         <create>
           <mdAction name="createGeoEntitySynonym" label="Create geo entity synonym" isPost="true">
