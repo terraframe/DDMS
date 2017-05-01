@@ -1,8 +1,9 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
 
-public class GeoNodeGeometry extends GeoNodeGeometryBase
+public class GeoNodeGeometry extends GeoNodeGeometryBase implements Reloadable
 {
   private static final long serialVersionUID = -693301817;
 

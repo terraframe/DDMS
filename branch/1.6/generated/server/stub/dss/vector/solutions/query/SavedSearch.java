@@ -363,7 +363,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       if (!overwrite || this.getMaterializedTableId().length() == 0)
       {
-        MdTable mdTable = new MdTableBuilder().build(viewName, map);
+        MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), viewName, map);
 
         this.setMaterializedViewName(viewName);
         this.setMaterializedTable(mdTable);

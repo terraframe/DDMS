@@ -1038,8 +1038,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       });
       
       var kaleidoscopes = this._queryPanel.getKaleidoscopes();
+      var materialized = this._queryPanel.getIsMaterialized();
             
-      if(view.getOverwrite() && kaleidoscopes != null && kaleidoscopes.length > 0) {
+      if(kaleidoscopes != null && kaleidoscopes.length > 0 && (view.getOverwrite() || materialized !== this._loadedMaterialized)) {
           
         var content = "<ul>";
         content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";

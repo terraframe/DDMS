@@ -79,13 +79,13 @@ import dss.vector.solutions.util.SelectableSQLKey;
 
 public class MdTableBuilder implements Reloadable
 {
-  public MdTable build(String viewName, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
+  public MdTable build(String label, String viewName, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
   {
     // Create the MdTable
     MdTableDAO mdTableDAO = MdTableDAO.newInstance();
     mdTableDAO.setValue(MdTableInfo.NAME, viewName);
     mdTableDAO.setValue(MdTableInfo.PACKAGE, MDSSInfo.GENERATED_TABLE_PACKAGE);
-    mdTableDAO.setStructValue(MdTableInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, viewName);
+    mdTableDAO.setStructValue(MdTableInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
     mdTableDAO.setValue(MdTableInfo.TABLE_NAME, viewName);
     mdTableDAO.apply();
 
@@ -176,29 +176,32 @@ public class MdTableBuilder implements Reloadable
 
         if (data != null)
         {
-          // Geo entity column
-          String[] split = data.split("__");
-
-          String key = split[0];
-          String universal = split[1];
-
-          GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(universal);
-          MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
-
-          MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) MdAttributeReferenceDAO.getByKey(key);
-          MdBusinessDAOIF referenceMdBusinessDAO = mdAttributeReference.getReferenceMdBusinessDAO();
-
-          MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
-          mdAttribute.setValue(MdAttributeConcreteInfo.NAME, attributeName);
-          mdAttribute.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeReference.getDisplayLabel(Session.getCurrentLocale()));
-          mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-          mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, referenceMdBusinessDAO.getId());
-          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-          mdAttribute.apply();
-
-          if (lowest == null || lowest.isAncestor(mdGeoEntity.definesType()))
+          if (!data.equals(Term.CLASS))
           {
-            lowest = hierarchy;
+            // Geo entity column
+            String[] split = data.split("__");
+
+            String key = split[0];
+            String universal = split[1];
+
+            GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(universal);
+            MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
+
+            MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) MdAttributeReferenceDAO.getByKey(key);
+            MdBusinessDAOIF referenceMdBusinessDAO = mdAttributeReference.getReferenceMdBusinessDAO();
+
+            MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
+            mdAttribute.setValue(MdAttributeConcreteInfo.NAME, attributeName);
+            mdAttribute.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeReference.getDisplayLabel(Session.getCurrentLocale()));
+            mdAttribute.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+            mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, referenceMdBusinessDAO.getId());
+            mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+            mdAttribute.apply();
+
+            if (lowest == null || lowest.isAncestor(mdGeoEntity.definesType()))
+            {
+              lowest = hierarchy;
+            }
           }
         }
         else
@@ -321,7 +324,9 @@ public class MdTableBuilder implements Reloadable
 
     List<? extends MdAttributeDAOIF> attributes = mdTableDAO.definesAttributes();
 
-    for (MdAttributeDAOIF mdAttributeDAO : attributes)
+    for (
+
+    MdAttributeDAOIF mdAttributeDAO : attributes)
     {
       MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
 
@@ -353,7 +358,9 @@ public class MdTableBuilder implements Reloadable
       mClass.addUniversal(lowest).apply();
     }
 
-    for (GeoNode node : nodes)
+    for (
+
+    GeoNode node : nodes)
     {
       mClass.addGeoNode(node).apply();
     }

@@ -474,6 +474,8 @@ public class QueryUtil implements Reloadable
                 }
                 previousLeftJoin = currleftJoinEq;
               }
+              
+              s.setData(Term.CLASS);
 
               // Join with the term table with the term display label
               currleftJoinEq = new LeftJoinEq(mdAttributeTermDisplayLabel.getColumnName(), termTable, newTermTableAlias, EntityDAOIF.ID_COLUMN, termLabelMdEntityDAOIF.getTableName(), newDisplayLabelTableAlias);

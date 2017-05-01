@@ -1,12 +1,13 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class GeoNodeEntity extends GeoNodeEntityBase
+public class GeoNodeEntity extends GeoNodeEntityBase implements Reloadable
 {
   private static final long serialVersionUID = 517026585;
 
