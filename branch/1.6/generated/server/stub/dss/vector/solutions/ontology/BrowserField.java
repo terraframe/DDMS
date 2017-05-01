@@ -20,8 +20,6 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
 import com.runwaysdk.system.metadata.MdAttributeVirtualQuery;
 
-import dss.vector.solutions.kaleidoscope.dashboard.MdAttributeViewQuery;
-
 public class BrowserField extends BrowserFieldBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID = 1252959713570L;
@@ -32,7 +30,7 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   {
     super();
   }
-
+  
   @Override
   protected String buildKey()
   {

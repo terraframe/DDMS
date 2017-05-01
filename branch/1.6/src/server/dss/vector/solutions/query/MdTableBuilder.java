@@ -410,6 +410,8 @@ public class MdTableBuilder implements Reloadable
       // Do nothing
     }
 
+    this.deleteBrowserRoots(mdTable);
+
     if (mClass != null)
     {
       /*
@@ -433,6 +435,43 @@ public class MdTableBuilder implements Reloadable
       for (MdAttributeDAOIF mdAttribute : mdAttributes)
       {
         mdAttribute.getBusinessDAO().delete();
+      }
+    }
+  }
+
+  private void deleteBrowserRoots(MdTable mdTable)
+  {
+    MdTableDAOIF mdTableDAO = MdTableDAO.get(mdTable.getId());
+    List<? extends MdAttributeDAOIF> mdAttributes = mdTableDAO.definesAttributes();
+
+    for (MdAttributeDAOIF mdAttribute : mdAttributes)
+    {
+      if (mdAttribute instanceof MdAttributeReferenceDAOIF)
+      {
+        MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
+        MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+
+        if (mdBusiness.definesType().equals(Term.CLASS))
+        {
+          BrowserField field = BrowserField.getBrowserField(mdAttributeReference);
+
+          OIterator<? extends BrowserRoot> it = field.getAllroot();
+          try
+          {
+            List<? extends BrowserRoot> roots = it.getAll();
+
+            for (BrowserRoot root : roots)
+            {
+              root.delete();
+            }
+          }
+          finally
+          {
+            it.close();
+          }
+
+          field.delete();
+        }
       }
     }
   }
