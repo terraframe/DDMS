@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLInteger;
@@ -36,7 +36,7 @@ public class StockQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     StockItemQuery stockItemQuery = (StockItemQuery) queryMap.get(StockItem.CLASS);
 

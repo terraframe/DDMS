@@ -9,10 +9,9 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
@@ -35,7 +34,6 @@ import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.querybuilder.AbstractQB.WITHEntry;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.Restriction;
@@ -107,7 +105,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     this.hasRound = valueQuery.hasSelectableRef("collectionRound");
     this.hasType = valueQuery.hasSelectableRef("collectionType");
@@ -346,7 +344,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, QBInterceptor interceptor)
   {
     if (interceptor == null)
     {

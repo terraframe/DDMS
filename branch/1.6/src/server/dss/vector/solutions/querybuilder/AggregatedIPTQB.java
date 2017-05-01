@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
@@ -30,7 +31,7 @@ public class AggregatedIPTQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject config)
   {
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
 
@@ -41,7 +42,7 @@ public class AggregatedIPTQB extends AbstractQB implements Reloadable
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedIPTQuery.getTableAlias());
 
-    this.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, config);
 
     valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(this.getDisease()));
 

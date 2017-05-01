@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AggregateFunction;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -44,7 +44,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     if (surveyPointQuery != null)

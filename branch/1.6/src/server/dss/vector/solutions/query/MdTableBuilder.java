@@ -53,6 +53,8 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTimeDAO;
 import com.runwaysdk.dataaccess.metadata.MdTableDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -69,6 +71,10 @@ import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.data.etl.LocalPersistenceStrategy;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity;
+import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.BrowserFieldQuery;
+import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.SelectableSQLKey;
 
@@ -93,6 +99,7 @@ public class MdTableBuilder implements Reloadable
 
     Set<Entry<Selectable, MdAttributeConcreteDAOIF>> entries = map.entrySet();
 
+    Disease disease = Disease.getCurrent();
     for (Entry<Selectable, MdAttributeConcreteDAOIF> entry : entries)
     {
       MdAttributeConcreteDAOIF mdAttributeIF = entry.getValue();
@@ -115,6 +122,42 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, mdBusiness.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          // Create the browser field
+          BrowserField tField = new BrowserField();
+          tField.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
+          tField.apply();
+
+          QueryFactory factory = new QueryFactory();
+          BrowserField sField = BrowserField.getBrowserField(mdAttributeReference);
+
+          BrowserFieldQuery bfQuery = new BrowserFieldQuery(factory);
+          bfQuery.WHERE(bfQuery.getId().EQ(sField.getId()));
+
+          BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
+          rootQuery.WHERE(rootQuery.field(bfQuery));
+          rootQuery.AND(rootQuery.getDisease().EQ(disease));
+
+          OIterator<? extends BrowserRoot> iterator = rootQuery.getIterator();
+
+          try
+          {
+            while (iterator.hasNext())
+            {
+              BrowserRoot sRoot = iterator.next();
+
+              BrowserRoot tRoot = new BrowserRoot();
+              tRoot.setSelectable(sRoot.getSelectable());
+              tRoot.setTerm(sRoot.getTerm());
+              tRoot.setBrowserField(tField);
+              tRoot.setDisease(disease);
+              tRoot.apply();
+            }
+          }
+          finally
+          {
+            iterator.close();
+          }
         }
       }
       else if (mdAttributeIF instanceof MdAttributeBooleanDAOIF)
@@ -274,7 +317,7 @@ public class MdTableBuilder implements Reloadable
 
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(mdTable);
-    mClass.setDisease(Disease.getCurrent());
+    mClass.setDisease(disease);
     mClass.apply();
 
     List<? extends MdAttributeDAOIF> attributes = mdTableDAO.definesAttributes();

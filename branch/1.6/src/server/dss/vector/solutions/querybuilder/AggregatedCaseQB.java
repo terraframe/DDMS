@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -63,9 +64,9 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
   {
     return AggregatedCase.CLASS;
   }
-
+  
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject config)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject config)
   {
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
     valueQuery.FROM(aggregatedCaseQuery.getMdClassIF().getTableName(), aggregatedCaseQuery.getTableAlias());

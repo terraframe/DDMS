@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoin;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
@@ -62,7 +62,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     this.prepareQueryMap(queryFactory, valueQuery, queryMap);
 
@@ -257,9 +257,9 @@ public class ResistanceQB extends AbstractQB implements Reloadable
     }
 
     // Ticket 3200. This kind of a hack, but basically we just want to make sure setQueryDates uses the AbstractAssay and not any of the subclasses.
-    GeneratedEntityQuery colAs = queryMap.get(CollectionAssay.CLASS);
-    GeneratedEntityQuery adultAs = queryMap.get(AdultAssay.CLASS);
-    GeneratedEntityQuery adultDisc = queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
+    GeneratedTableClassQuery colAs = queryMap.get(CollectionAssay.CLASS);
+    GeneratedTableClassQuery adultAs = queryMap.get(AdultAssay.CLASS);
+    GeneratedTableClassQuery adultDisc = queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
     if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY) || valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
     {
       queryMap.remove(CollectionAssay.CLASS);
@@ -278,7 +278,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
   }
 
-  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     if (valueQuery.hasSelectableRef(QueryConstants.OBSERVED_MORTALITY) || valueQuery.hasSelectableRef(QueryConstants.CORRECTED_MORTALITY))
     {

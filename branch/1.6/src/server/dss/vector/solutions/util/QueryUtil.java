@@ -30,13 +30,13 @@ import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
+import com.runwaysdk.dataaccess.MdTableClassIF;
 import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
-import com.runwaysdk.dataaccess.metadata.MdTableDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -49,7 +49,9 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.GenericBusinessQuery;
+import com.runwaysdk.query.GenericTableQuery;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
@@ -203,7 +205,7 @@ public class QueryUtil implements Reloadable
    * @param attribute
    * @return
    */
-  public static String getColumnName(MdEntityDAOIF md, String attribute)
+  public static String getColumnName(MdTableClassIF md, String attribute)
   {
     if (attribute.equals("childId"))
     {
@@ -313,7 +315,7 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, Map<String, Restriction> restrictions, Layer layer)
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedTableClassQuery query, Map<String, Restriction> restrictions, Layer layer)
   {
     String tableAlias = query.getTableAlias();
 
@@ -1034,7 +1036,7 @@ public class QueryUtil implements Reloadable
    * 
    * return sql; }
    */
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, ignoreCriteria, diseaseSel, null);
   }
@@ -1060,7 +1062,7 @@ public class QueryUtil implements Reloadable
     }
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel, SelectableMoment dateSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel, SelectableMoment dateSel)
   {
     String attributeName = null;
     String startValue = null;
@@ -1077,7 +1079,7 @@ public class QueryUtil implements Reloadable
         klass = dateObj.getString(DATE_CLASS);
 
         MdBusiness md = MdBusiness.getMdBusiness(klass);
-        GeneratedEntityQuery attributeQuery = null;
+        GeneratedTableClassQuery attributeQuery = null;
         while (attributeQuery == null)
         {
           if (md == null)
@@ -1178,7 +1180,7 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, boolean ignoreCriteria)
   {
     String attributeName = null;
     String startValue = null;
@@ -1192,7 +1194,7 @@ public class QueryUtil implements Reloadable
       klass = dateObj.getString(DATE_CLASS);
 
       MdBusiness md = MdBusiness.getMdBusiness(klass);
-      GeneratedEntityQuery attributeQuery = null;
+      GeneratedTableClassQuery attributeQuery = null;
       while (attributeQuery == null)
       {
         if (md == null)
@@ -1263,17 +1265,17 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel, null);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, String da, Selectable diseaseSel)
   {
     Set<String> found = new HashSet<String>();
 
@@ -1290,7 +1292,7 @@ public class QueryUtil implements Reloadable
     return setQueryDates(xml, valueQuery, target, da, found);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, SelectableMoment daSel, Selectable diseaseSel)
   {
     String da = daSel.getDbQualifiedName();
 
@@ -1350,7 +1352,7 @@ public class QueryUtil implements Reloadable
     return getSeasonNameSQL(diseaseSel.getDbQualifiedName(), startDateColumnName, endDateColumnName);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, SelectableMoment daSel)
   {
     String da = daSel.getDbQualifiedName();
     Set<String> found = new HashSet<String>();
@@ -1385,7 +1387,7 @@ public class QueryUtil implements Reloadable
     return "get_epiYear_from_date(" + da + "," + startDay + ")";
   }
 
-  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Set<String> found)
+  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, String da, Set<String> found)
   {
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
@@ -1441,7 +1443,7 @@ public class QueryUtil implements Reloadable
    * @param valueQuery
    * @param target
    */
-  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedEntityQuery target)
+  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedTableClassQuery target)
   {
     // Include RATIO, which suffers from the same problem as the date
     // selectables
@@ -1462,11 +1464,13 @@ public class QueryUtil implements Reloadable
           return;
         }
       }
+      
+      GeneratedEntityQuery entityTarget = (GeneratedEntityQuery) target;
 
       // Only date selectable were found, so force the tautological WHERE
       // condition
-      SelectableChar id1 = (SelectableChar) target.id();
-      SelectableChar id2 = (SelectableChar) target.id();
+      SelectableChar id1 = (SelectableChar) entityTarget.id();
+      SelectableChar id2 = (SelectableChar) entityTarget.id();
       valueQuery.WHERE(id1.EQ(id2));
     }
   }
@@ -1614,10 +1618,10 @@ public class QueryUtil implements Reloadable
     {
       return new GenericBusinessQuery((MdBusinessDAOIF) mdClass, factory);
     }
-//    else if (mdClass instanceof MdTableDAOIF)
-//    {
-//      return new Generic((MdBusinessDAOIF) mdClass, factory);
-//    }
+    else if (mdClass instanceof MdTableDAOIF)
+    {
+      return new GenericTableQuery((MdTableDAOIF) mdClass, factory);
+    }
     else
     {
       throw new ProgrammingErrorException("Unsupported generated query type [" + mdClass.definesType() + "]");
@@ -1650,6 +1654,10 @@ public class QueryUtil implements Reloadable
     {
       return new GenericBusinessQuery((MdBusinessDAOIF) mdClass, vQuery);
     }
+    else if (mdClass instanceof MdTableDAOIF)
+    {
+      return new GenericTableQuery((MdTableDAOIF) mdClass, vQuery);
+    }    
     else
     {
       throw new ProgrammingErrorException("Unsupported generated query type [" + mdClass.definesType() + "]");

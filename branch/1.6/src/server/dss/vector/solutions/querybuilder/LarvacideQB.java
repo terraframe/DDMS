@@ -5,7 +5,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
@@ -33,7 +33,7 @@ public class LarvacideQB extends AbstractQB implements Reloadable
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+      Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     LarvacideQuery larvacideQuery = (LarvacideQuery) queryMap.get(Larvacide.CLASS);
     LarvacideInstanceQuery larvacideInstanceQuery = (LarvacideInstanceQuery) queryMap.get(LarvacideInstance.CLASS);

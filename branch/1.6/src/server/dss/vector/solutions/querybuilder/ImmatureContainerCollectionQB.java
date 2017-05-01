@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
@@ -38,7 +38,7 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     ImmatureCollectionQuery collectionQuery = (ImmatureCollectionQuery) queryMap.get(ImmatureCollection.CLASS);
     CollectionPremiseQuery collectionPremiseQuery = (CollectionPremiseQuery) queryMap.get(CollectionPremise.CLASS);

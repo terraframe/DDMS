@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -62,7 +63,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+      Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     ControlInterventionQuery controlInterventionQuery = (ControlInterventionQuery) queryMap.get(ControlIntervention.CLASS);
 
@@ -514,11 +515,11 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
    * 
    * @param queryMap
    */
-  private boolean hasTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  private boolean hasTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     if(valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm"))
     {
-      for(GeneratedEntityQuery q : queryMap.values())
+      for(GeneratedTableClassQuery q : queryMap.values())
       {
         if(q instanceof AllPathsQuery)
         {

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
@@ -30,7 +31,7 @@ public class AggregatedITNQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject config)
   {
     ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
 
@@ -38,7 +39,7 @@ public class AggregatedITNQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(itnQuery);
 
-    this.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, config);
 
     if (hasNets)
     {

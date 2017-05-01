@@ -876,8 +876,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.setQueryXml(xml);
     this.setConfig(config);
     this.setIsMaterialized(view.getIsMaterialized());
+    
+    boolean overwrite = view.getOverwrite() != null ? view.getOverwrite() : false;
 
-    this.apply(view.getOverwrite());
+    this.apply(overwrite);
   }
 
   /**

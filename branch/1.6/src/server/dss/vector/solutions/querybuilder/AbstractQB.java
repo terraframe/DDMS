@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdTableClassIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -34,8 +34,8 @@ import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.MAX;
@@ -186,43 +186,43 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected GeoEntityJoinData               geoEntityJoinData;
+  protected GeoEntityJoinData                   geoEntityJoinData;
 
-  private String                            xml;
+  private String                                xml;
 
-  private String                            config;
+  private String                                config;
 
-  private Layer                             layer;
+  private Layer                                 layer;
 
-  private boolean                           recursiveWithClause;
+  private boolean                               recursiveWithClause;
 
-  private List<GeneratedEntityQuery>        geoDisplayLabelQueries;
+  private List<GeneratedTableClassQuery>        geoDisplayLabelQueries;
 
-  private QueryFactory                      factory;
+  private QueryFactory                          factory;
 
-  private ValueQuery                        valueQuery;
+  private ValueQuery                            valueQuery;
 
-  private ValueQueryParser                  parser;
+  private ValueQueryParser                      parser;
 
-  private List<WITHEntry>                   withEntries;
+  private List<WITHEntry>                       withEntries;
 
-  private List<WITHEntry>                   tempTableEntries;
+  private List<WITHEntry>                       tempTableEntries;
 
-  private boolean                           hasUniversal;
+  private boolean                               hasUniversal;
 
-  private Integer                           pageNumber;
+  private Integer                               pageNumber;
 
-  private Integer                           pageSize;
+  private Integer                               pageSize;
 
-  private Map<String, Restriction>          restrictions;
+  private Map<String, Restriction>              restrictions;
 
-  private JSONObject                        queryConfig;
+  private JSONObject                            queryConfig;
 
-  private Map<String, GeneratedEntityQuery> queryMap;
+  private Map<String, GeneratedTableClassQuery> queryMap;
 
-  private Disease                           disease;
+  private Disease                               disease;
 
-  protected Condition                       geoIncludesCondition;
+  protected Condition                           geoIncludesCondition;
 
   public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
@@ -232,7 +232,7 @@ public abstract class AbstractQB implements Reloadable
     this.xml = xml;
     this.config = config;
     this.layer = layer;
-    this.geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
+    this.geoDisplayLabelQueries = new LinkedList<GeneratedTableClassQuery>();
 
     this.queryMap = null;
     this.factory = null;
@@ -316,7 +316,7 @@ public abstract class AbstractQB implements Reloadable
     return layer;
   }
 
-  protected Map<String, GeneratedEntityQuery> getQueryMap()
+  protected Map<String, GeneratedTableClassQuery> getQueryMap()
   {
     return queryMap;
   }
@@ -538,9 +538,9 @@ public abstract class AbstractQB implements Reloadable
    */
   protected abstract String getAuditClassAlias();
 
-  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedEntityQuery> queryMap)
+  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedTableClassQuery> queryMap)
   {
-    GeneratedEntityQuery q = queryMap.get(this.getAuditClassAlias());
+    GeneratedTableClassQuery q = queryMap.get(this.getAuditClassAlias());
     QueryFactory f = valueQuery.getQueryFactory();
 
     // create date
@@ -584,7 +584,7 @@ public abstract class AbstractQB implements Reloadable
     // by timestamp)
     if (valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
-      MdEntityDAOIF mdClass = q.getMdClassIF();
+      MdTableClassIF mdClass = q.getMdClassIF();
       ValueQuery withV = new ValueQuery(f);
 
       Attribute cd = this.getImportedDateTimeSQL(f, mdClass, withV);
@@ -606,7 +606,7 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected Attribute getImportedDateTimeSQL(QueryFactory f, MdEntityDAOIF mdClass, ValueQuery withV)
+  protected Attribute getImportedDateTimeSQL(QueryFactory f, MdTableClassIF mdClass, ValueQuery withV)
   {
     BusinessQuery withQ = f.businessQuery(mdClass.definesType());
     Attribute cd = withQ.get(Metadata.CREATEDATE);
@@ -633,7 +633,7 @@ public abstract class AbstractQB implements Reloadable
    * @param importCreateDate
    *          the IMPORT_DATETIME's create date selectable
    */
-  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
+  protected void joinImported(GeneratedTableClassQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
   {
     // RawLeftJoinEq is a horrible hack, but there's no support in Runway for
     // custom left joins
@@ -734,7 +734,7 @@ public abstract class AbstractQB implements Reloadable
    * 
    * @param query
    */
-  protected final void addGeoDisplayLabelQuery(GeneratedEntityQuery query)
+  protected final void addGeoDisplayLabelQuery(GeneratedTableClassQuery query)
   {
     this.geoDisplayLabelQueries.add(query);
   }
@@ -793,7 +793,7 @@ public abstract class AbstractQB implements Reloadable
    * @param queryMap
    * @param interceptor
    */
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, QBInterceptor interceptor)
   {
     if (interceptor == null)
     {
@@ -810,7 +810,7 @@ public abstract class AbstractQB implements Reloadable
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+          GeneratedTableClassQuery attributeQuery = queryMap.get(klass);
 
           // IMPORTANT: We cannot always rely on the class table directly
           // because the attribute
@@ -983,7 +983,7 @@ public abstract class AbstractQB implements Reloadable
    */
   protected void joinGeoDisplayLabels(ValueQuery valueQuery)
   {
-    for (GeneratedEntityQuery query : this.geoDisplayLabelQueries)
+    for (GeneratedTableClassQuery query : this.geoDisplayLabelQueries)
     {
       String klass = query.getMdClassIF().definesType();
       String[] geoAttributes = QueryUtil.filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
@@ -1068,9 +1068,9 @@ public abstract class AbstractQB implements Reloadable
    * @param queryConfig
    * @param layer2
    */
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedTableClassQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
-    Map<String, GeneratedEntityQuery> queryMap;
+    Map<String, GeneratedTableClassQuery> queryMap;
 
     Map<String, GeoHierarchy> hierarchies = this.getHiearchies(queryConfig);
 
@@ -1381,7 +1381,7 @@ public abstract class AbstractQB implements Reloadable
     geoEntityJoinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
-  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
     {
@@ -1396,7 +1396,7 @@ public abstract class AbstractQB implements Reloadable
       String className = attributeKey.substring(0, ind);
       String attributeName = attributeKey.substring(ind + 1);
 
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
+      GeneratedTableClassQuery generatedEntityQuery = queryMap.get(className);
       AttributeReference sel = (AttributeReference) generatedEntityQuery.get(attributeName);
 
       // GeoEntityQuery geQ = new GeoEntityQuery(valueQuery);
@@ -1733,5 +1733,5 @@ public abstract class AbstractQB implements Reloadable
     return QueryUtil.AVG_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
-  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);
+  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig);
 }
