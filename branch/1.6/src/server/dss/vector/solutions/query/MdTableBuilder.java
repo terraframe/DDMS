@@ -68,7 +68,6 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.kaleidoscope.MappableAttribute;
 import dss.vector.solutions.kaleidoscope.MappableClass;
-import dss.vector.solutions.kaleidoscope.data.etl.LocalPersistenceStrategy;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity;
 import dss.vector.solutions.ontology.BrowserField;
@@ -358,12 +357,6 @@ public class MdTableBuilder implements Reloadable
     {
       mClass.addGeoNode(node).apply();
     }
-
-    /*
-     * Create the persistence strategy
-     */
-    LocalPersistenceStrategy strategy = new LocalPersistenceStrategy();
-    strategy.apply();
 
     return mdTable;
   }

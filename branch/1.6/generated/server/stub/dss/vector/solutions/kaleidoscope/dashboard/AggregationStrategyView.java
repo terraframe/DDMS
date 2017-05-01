@@ -1,6 +1,5 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +14,6 @@ import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
 
-import dss.vector.solutions.geo.AllowedIn;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.kaleidoscope.MappableClass;
@@ -23,7 +21,6 @@ import dss.vector.solutions.kaleidoscope.MappableClassGeoNode;
 import dss.vector.solutions.kaleidoscope.MappableClassGeoNodeQuery;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
-import dss.vector.solutions.ontology.Term;
 
 public class AggregationStrategyView extends AggregationStrategyViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -63,8 +60,10 @@ public class AggregationStrategyView extends AggregationStrategyViewBase impleme
 
         for (GeoHierarchy lowest : lowests)
         {
-          Collection<GeoHierarchy> universals = lowest.getAllParents();
-
+          LinkedList<GeoHierarchy> universals = new LinkedList<GeoHierarchy>(lowest.getAllParents());
+          
+          universals.addFirst(lowest);
+          
           for (GeoHierarchy universal : universals)
           {
             if (!universal.getId().equals(root.getId()))
