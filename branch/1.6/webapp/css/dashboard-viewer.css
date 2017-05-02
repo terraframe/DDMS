@@ -1474,31 +1474,6 @@ input.category-input.category-range-input.cat-range-max-val.right{
 }
 
 
-/* 
-* Custom Dashboard SVG Font Icon 
-*/
-@font-face {
-  font-family: 'geoDashboardFonts';
-  src: url('./custom-fonts/gdb.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-       url('./custom-fonts/gdb.ttf') format('truetype'), /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-       url('./custom-fonts/gdb.eot') format('embedded-opentype'),
-       url('./custom-fonts/gdb.svg') format('svg');
-}
-
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'geoDashboardFonts';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 .icon-dashboard-icons:before {
     content: "\e600";
 }

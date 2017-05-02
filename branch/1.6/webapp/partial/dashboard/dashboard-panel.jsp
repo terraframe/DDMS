@@ -53,7 +53,7 @@
       <a href="#" ng-click="form.$invalid || dashboard.save(false, 'saveToMapIco')" ng-disabled="form.$invalid" class="fa fa-floppy-o filters-button save-filters-button" title="<mdss:localize key="dashboardViewer.saveFiltersTooltip"/>" data-placement="left"">
       	<i ng-show="dashboard.icoSpin == 'saveToMapIco'" class="fa fa-refresh fa-spin" style="position: absolute; right: 0px; bottom: 10px; font-size: 23px; color:#bababa; border-radius: 25px; background-color: rgba(66,66,66,0.9);"></i>
       </a>
-      <a ng-if="dashboard.canEdit()" href="#" ng-click="form.$invalid || dashboard.save(true, 'saveToDashboardIco')"  ng-disabled="form.$invalid" class="icon-dashboard-icons filters-button save-global-filters-button" title="<mdss:localize key="dashboardViewer.saveGlobalFiltersTooltip"/>">
+      <a ng-if="dashboard.canEdit()" href="#" ng-click="form.$invalid || dashboard.save(true, 'saveToDashboardIco')"  ng-disabled="form.$invalid" class="fa fa-globe filters-button save-global-filters-button" title="<mdss:localize key="dashboardViewer.saveGlobalFiltersTooltip"/>">
       	<i ng-show="dashboard.icoSpin == 'saveToDashboardIco'" class="fa fa-refresh fa-spin" style="position: absolute; right: 10px; bottom: 10px; font-size: 23px; color:#bababa; border-radius: 25px; background-color: rgba(66,66,66,0.9);"></i>
       </a>
     </div>
