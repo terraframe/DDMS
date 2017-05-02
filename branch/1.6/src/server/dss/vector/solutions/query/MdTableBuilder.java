@@ -21,6 +21,7 @@ import com.runwaysdk.constants.MdAttributeIntegerInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdAttributeLongInfo;
 import com.runwaysdk.constants.MdAttributeReferenceInfo;
+import com.runwaysdk.constants.MdAttributeTextInfo;
 import com.runwaysdk.constants.MdAttributeTimeInfo;
 import com.runwaysdk.constants.MdTableInfo;
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
@@ -35,6 +36,7 @@ import com.runwaysdk.dataaccess.MdAttributeFloatDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeTextDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
@@ -51,6 +53,7 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeFloatDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeIntegerDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTimeDAO;
 import com.runwaysdk.dataaccess.metadata.MdTableDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -171,7 +174,7 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
       }
-      else if (mdAttributeIF instanceof MdAttributeCharacterDAOIF)
+      else if (mdAttributeIF instanceof MdAttributeCharacterDAOIF || mdAttributeIF instanceof MdAttributeTextDAOIF)
       {
         String data = (String) selectable.getData();
 
@@ -204,6 +207,15 @@ public class MdTableBuilder implements Reloadable
               lowest = hierarchy;
             }
           }
+        }
+        else if(mdAttributeIF instanceof MdAttributeTextDAOIF)
+        {
+          MdAttributeTextDAO mdAttribute = MdAttributeTextDAO.newInstance();
+          mdAttribute.setValue(MdAttributeTextInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeTextInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeTextInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.apply();          
         }
         else
         {
