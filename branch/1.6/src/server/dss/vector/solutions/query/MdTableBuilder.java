@@ -37,6 +37,7 @@ import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
@@ -324,9 +325,7 @@ public class MdTableBuilder implements Reloadable
 
     List<? extends MdAttributeDAOIF> attributes = mdTableDAO.definesAttributes();
 
-    for (
-
-    MdAttributeDAOIF mdAttributeDAO : attributes)
+    for (MdAttributeDAOIF mdAttributeDAO : attributes)
     {
       MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
 
@@ -340,8 +339,9 @@ public class MdTableBuilder implements Reloadable
       {
         MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeDAO;
         MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+        MdEntityDAOIF rootBusiness = mdBusiness.getRootMdClassDAO();
 
-        if (mdBusiness.definesType().equals(GeoEntity.CLASS))
+        if (rootBusiness.definesType().equals(GeoEntity.CLASS))
         {
           GeoNodeEntity node = new GeoNodeEntity();
           node.setKeyName(mdAttribute.getKey());
