@@ -41,6 +41,7 @@ import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdTableDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
@@ -312,7 +313,7 @@ public class MdTableBuilder implements Reloadable
       }
       else
       {
-        throw new RuntimeException("Unsupported selectable type: " + selectable.getClass().getName());
+        throw new ProgrammingErrorException("Unsupported selectable type: " + mdAttributeIF.getType());
       }
     }
 
