@@ -12,16 +12,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.runwaysdk.business.Business;
 import com.runwaysdk.configuration.RunwayConfigurationException;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
@@ -33,7 +30,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.gis.ConfigurationException;
 import com.runwaysdk.util.FileIO;
-import com.terraframe.utf8.UTF8ResourceBundle;
 
 import dss.vector.solutions.geo.GeoServerReloadException;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
@@ -81,11 +77,6 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   private static final String              PASSWORD   = "geoserver";
 
   /**
-   * Bundle for reading properties file
-   */
-  private final ResourceBundle             bundle     = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
-
-  /**
    * Lock used for creating the workspace
    */
   private final ReentrantLock              lock       = new ReentrantLock();
@@ -115,7 +106,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
   private String getGeoserverGWCDir()
   {
-    return this.bundle.getString("geoserver.gwc.dir");
+    return GeoserverProperties.getGeoserverGWCDir();
   }
 
   public String getWorkspace()
@@ -526,7 +517,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public String getGeoServerLocalURL()
   {
-    return bundle.getString("geoserver.local.path");
+    return GeoserverProperties.getGeoServerLocalURL();
   }
 
   /**
@@ -536,7 +527,13 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public String getGeoServerRemoteURL()
   {
-    return bundle.getString("geoserver.remote.path");
+    return GeoserverProperties.getGeoServerRemoteURL();
+  }
+  
+  @Override
+  public String getAppName()
+  {
+    return GeoserverProperties.getAppName();
   }
 
   public GeoServerRESTReader getGeoServerReader() throws MalformedURLException

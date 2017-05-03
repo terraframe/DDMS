@@ -10,6 +10,8 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.controller.ErrorUtility;
 
+import dss.vector.solutions.geoserver.GeoserverFacade;
+import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.kaleidoscope.JavascriptUtil;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayerDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
@@ -172,6 +174,7 @@ public class DashboardMapController extends DashboardMapControllerBase implement
       return;
     }
 
+    req.setAttribute("geoserver", GeoserverProperties.getAppName());
     req.setAttribute("workspace", CommonProperties.getDeployAppName());
     req.setAttribute("editDashboard", true);
     req.setAttribute("editData", false);

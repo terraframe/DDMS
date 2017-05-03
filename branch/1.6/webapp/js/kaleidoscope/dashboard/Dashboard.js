@@ -49,12 +49,13 @@
     controller.renderBase = true;
     
     /* Initialization Function */
-    $scope.init = function(workspace, editDashboard, editData) {
+    $scope.init = function(appname, workspace, editDashboard, editData) {
       
       dashboardService.setEdit(editDashboard);
       dashboardService.setEditData(editData);
       dashboardService.setDashboard(controller);
 
+      mapService.setAppname(appname);
       mapService.setWorkspace(workspace);
       mapService.setClickHandler(controller.onMapClick);
       

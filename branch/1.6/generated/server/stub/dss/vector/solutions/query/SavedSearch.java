@@ -167,23 +167,6 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.deleteDatabaseViewIfExists();
   }
 
-  @Transaction
-  public void clearMaterializedView()
-  {
-    if (this.getMaterializedTableId().length() > 0)
-    {
-      this.appLock();
-
-      MdTable mdTable = this.getMaterializedTable();
-      this.setMaterializedViewName(null);
-      this.setMaterializedTable(null);
-
-      super.apply();
-
-      new MdTableBuilder().delete(mdTable);
-    }
-  }
-
   public void apply()
   {
     apply(false);

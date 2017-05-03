@@ -254,4 +254,9 @@ public class GeoserverFacade implements Reloadable
   {
     return getService().getDecimalPrecision();
   }
+
+  public static String getAppName()
+  {
+    return getService().getAppName();
+  }
 }

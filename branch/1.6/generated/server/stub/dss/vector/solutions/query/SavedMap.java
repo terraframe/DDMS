@@ -32,7 +32,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
-import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -57,6 +56,7 @@ import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.util.ShapefileExporter;
 
 public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
@@ -173,14 +173,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
       // this is a hack until username, password, and sld path are put in
       // properties files.
-      String sldPath = geoserverLocalPath.replace("geoserver", appName) + "/";
+      String sldPath = geoserverLocalPath.replace(GeoserverFacade.getAppName(), appName) + "/";
 
       mapData = new JSONObject();
       layersJSON = new JSONArray();
       savedImagesJSON = new JSONArray();
       savedTextJSON = new JSONArray();
 
-      mapData.put("geoserverURL", geoserverPath);
+      mapData.put("geoserverURL", geoserverPath);   
       mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
       mapData.put("savedImages", savedImagesJSON);

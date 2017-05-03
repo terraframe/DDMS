@@ -402,6 +402,7 @@ public class MdTableBuilder implements Reloadable
      */
     List<String> batch = new LinkedList<String>();
     batch.add("DROP MATERIALIZED VIEW IF EXISTS " + mdTable.getTableName() + " CASCADE");
+    
     Database.executeBatch(batch);
 
     /*

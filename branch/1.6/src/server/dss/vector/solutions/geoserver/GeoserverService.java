@@ -151,4 +151,6 @@ public interface GeoserverService extends Reloadable
   public String getGeoServerLocalURL();
 
   public String getGeoServerRemoteURL();
+
+  public String getAppName();
 }

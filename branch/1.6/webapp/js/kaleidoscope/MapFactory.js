@@ -999,7 +999,7 @@
          * 
          * <public> - called externally
          */
-        createUserLayers : function(layers, geoserverWorkspace, removeExisting) {        
+        createUserLayers : function(layers, appname, geoserverWorkspace, removeExisting) {        
           // Remove any already rendered layers from the map
           if (removeExisting === true) {
             this.hideLayers(layers);            
@@ -1012,7 +1012,7 @@
              var geoserverName = geoserverWorkspace + ":" + viewName;
               
              if (layer.isActive === true) {
-               this.constructLayerObj(layer, geoserverWorkspace);
+               this.constructLayerObj(layer, appname, geoserverWorkspace);
              }
           }
         },
@@ -1027,7 +1027,7 @@
          * 
          * <public> - called externally
          */
-        createReferenceLayers : function(layers, geoserverWorkspace, removeExisting) {
+        createReferenceLayers : function(layers, appname, geoserverWorkspace, removeExisting) {
           
           // Remove any already rendered layers from the map
           if (removeExisting === true) {
@@ -1043,7 +1043,7 @@
             // Since REFERENCEJSON layers are basic placeholders for actual mappable layers we will make sure none of them
             // get through here.            
             if(layer.layerType !== "REFERENCEJSON" && layer.isActive === true && layer.layerExists) {
-              this.constructLayerObj(layer, geoserverWorkspace);
+              this.constructLayerObj(layer, appname, geoserverWorkspace);
             }
           }
         },
@@ -1056,7 +1056,7 @@
          * 
          * <private> - internal method
          */
-        constructLayerObj : function(layer, geoserverWorkspace){
+        constructLayerObj : function(layer, appname, geoserverWorkspace){
           // This tiling format (tileLayer) is the preferred way to render wms due to performance gains but 
           // REQUIRES THAT META TILING SIZE BE SET TO A LARGE VALUE (I.E. 20) TO REDUCE BUBBLE CHOPPING.
           // We could get slightly better performance by setting tiled: false for non-bubble layers but 
@@ -1067,7 +1067,7 @@
           // Single Tile format
           var oLayer = new ol.layer.Image({
             source: new ol.source.ImageWMS({
-              url: window.location.origin+"/geoserver-2.9.1/wms/",
+              url: window.location.origin+ "/" + appname + "/wms/",
               params: {
                 'LAYERS': geoserverName, 
                 'TILED': true,
@@ -1791,7 +1791,7 @@
         	map.removeControl(control);
         },
         
-        zoomToFeatureExtent : function(featureJSON, workspace) {
+        zoomToFeatureExtent : function(featureJSON, appname, workspace) {
         	var that = this;
         	var map = this.getMap();
         	
@@ -1809,7 +1809,7 @@
 	            }
         	}
         	
-        	this.getWFSFeature(callback, featureJSON, workspace);
+        	this.getWFSFeature(callback, featureJSON, appname, workspace);
         },
         
         setClickHandler : function(handler) {
@@ -1824,7 +1824,7 @@
          * @param callback
          * @param featureJSON - json object defining the feature to return
          */
-        getWFSFeature : function(callback, featureJSON, workspace) {
+        getWFSFeature : function(callback, featureJSON, appname, workspace) {
         	
         	var params = {
                     REQUEST:'GetFeature',
@@ -1836,7 +1836,7 @@
                     outputFormat : 'application/json'
               };
     	
-              var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wfs?" + $.param(params);
+              var url = window.location.origin+"/" + appname + "/" + workspace +"/wfs?" + $.param(params);
               
               $.ajax({
                   url: url,
@@ -1850,7 +1850,7 @@
                   
         },
         
-        getFeatureInfo : function(workspace, layers, e, callback) {
+        getFeatureInfo : function(appname, workspace, layers, e, callback) {
           if(layers.length > 0) {
             var point = e.pixel;
             var coordinate = e.coordinate;
@@ -1906,7 +1906,7 @@
               //PROPERTYNAME:"displaylabel,geoid," + layer.aggregationAttribute.toLowerCase()
             };
              
-            var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wms?" + $.param(params);
+            var url = window.location.origin+"/" + appname + "/" + workspace +"/wms?" + $.param(params);
                   
             $.ajax({
               url: url,

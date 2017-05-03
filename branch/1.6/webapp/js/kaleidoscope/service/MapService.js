@@ -2,7 +2,8 @@
   
   function MapService() {
     var service = {};
-    service.workspace = '';    
+    service.workspace = '';
+    service.appname= '';
     service.map = new dss.vector.solutions.kaleidoscope.gis.OpenLayersMap("mapDivId", null, null);
     
     service.setWorkspace = function(workspace) {
@@ -13,6 +14,14 @@
       return service.workspace;
     };
   
+    service.setAppname = function(appname) {
+      service.appname = appname;
+    };
+    
+    service.getAppname = function() {
+      return service.appname;
+    };
+    
     service.createBaseLayers = function() {
       return service.map.createBaseLayers();  
     }
@@ -26,11 +35,11 @@
     }
     
     service.createReferenceLayers = function(layers) {
-      service.map.createReferenceLayers(layers, service.workspace, true);
+      service.map.createReferenceLayers(layers, service.appname, service.workspace, true);
     }
     
     service.createUserLayers = function(layers) {
-      service.map.createUserLayers(layers, service.workspace, true);
+      service.map.createUserLayers(layers, service.appname, service.workspace, true);
     }
     
     service.hideLayer = function(layer){
@@ -54,7 +63,7 @@
     }
     
     service.getFeatureInfo = function(layers, e, setFeatureInfo) {
-      return service.map.getFeatureInfo(service.workspace, layers, e, setFeatureInfo);    
+      return service.map.getFeatureInfo(service.appname, service.workspace, layers, e, setFeatureInfo);    
     }        
 
     service.addOverlay = function(element, coordinate) {
@@ -68,7 +77,7 @@
     service.zoomToFeatureExtent = function(feature){
     	// NOTE: this.getWorkspace() will only be set if on the dashboardViewer page
     	// because that is the only place we are currently passing the var to the client via jsp attributes
-    	service.map.zoomToFeatureExtent(feature, this.getWorkspace());
+    	service.map.zoomToFeatureExtent(feature, service.appname, this.getWorkspace());
     	this.clearOverlays(); // the popup doesn't shift appropriately to the new position so clear it
     }
     
@@ -115,7 +124,7 @@
                 outputFormat : 'application/json'
           };
 	
-          var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wfs?" + $.param(params);
+          var url = window.location.origin+ "/" + service.appname + "/" + workspace +"/wfs?" + $.param(params);
           
           $.ajax({
               url: url,

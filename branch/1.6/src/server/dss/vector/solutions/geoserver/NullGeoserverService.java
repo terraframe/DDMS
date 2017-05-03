@@ -209,4 +209,10 @@ public class NullGeoserverService implements GeoserverService
   {
     return "http://remotehost/geoserver";
   }
+  
+  @Override
+  public String getAppName()
+  {
+    return "geoserver";
+  }
 }

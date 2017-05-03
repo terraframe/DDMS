@@ -383,7 +383,7 @@
         params.LEGEND_OPTIONS = params.LEGEND_OPTIONS + 'forceLabels:on;';
       }      
       
-      var src = window.location.origin + '/geoserver-2.9.1/wms?' + $.param(params);
+      var src = window.location.origin + '/' + mapService.getAppname() + '/wms?' + $.param(params);
         
       return src;      
     }
