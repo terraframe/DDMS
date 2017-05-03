@@ -1067,7 +1067,7 @@
           // Single Tile format
           var oLayer = new ol.layer.Image({
             source: new ol.source.ImageWMS({
-              url: window.location.origin+"/geoserver/wms/",
+              url: window.location.origin+"/geoserver-2.9.1/wms/",
               params: {
                 'LAYERS': geoserverName, 
                 'TILED': true,
@@ -1836,7 +1836,7 @@
                     outputFormat : 'application/json'
               };
     	
-              var url = window.location.origin+"/geoserver/" + workspace +"/wfs?" + $.param(params);
+              var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wfs?" + $.param(params);
               
               $.ajax({
                   url: url,
@@ -1906,7 +1906,7 @@
               //PROPERTYNAME:"displaylabel,geoid," + layer.aggregationAttribute.toLowerCase()
             };
              
-            var url = window.location.origin+"/geoserver/" + workspace +"/wms?" + $.param(params);
+            var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wms?" + $.param(params);
                   
             $.ajax({
               url: url,
