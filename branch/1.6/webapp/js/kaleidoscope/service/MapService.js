@@ -115,7 +115,7 @@
                 outputFormat : 'application/json'
           };
 	
-          var url = window.location.origin+"/geoserver/" + workspace +"/wfs?" + $.param(params);
+          var url = window.location.origin+"/geoserver-2.9.1/" + workspace +"/wfs?" + $.param(params);
           
           $.ajax({
               url: url,
