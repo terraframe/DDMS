@@ -41,6 +41,12 @@
 	position: absolute;
 	background: #FFFFFF url(/DDMS/imgs/flags/current) no-repeat 95% 50%;
 }
+
+div.pageContent {
+	padding: 13px 25px 0 25px;
+	height: 80%;
+	overflow-y: auto;
+}
   </style>
 </head>
 
