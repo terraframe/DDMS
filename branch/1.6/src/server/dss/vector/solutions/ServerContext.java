@@ -63,6 +63,9 @@ public class ServerContext
     Database.close();
   }
 
+  /**
+   * This code is invoked when patching (by the DatabaseViewCleanerPatcher.java)
+   */
   @Request
   public void doCleanup()
   {

@@ -398,13 +398,10 @@ public class MdTableBuilder implements Reloadable
   private void delete(MdTable mdTable, boolean includeTable)
   {
     /*
-     * Drop the materialized view
+     * Delete the materialized view
      */
-    List<String> batch = new LinkedList<String>();
-    batch.add("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
+    Database.executeStatement("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
     
-    Database.executeBatch(batch);
-
     /*
      * Delete the materialized table metadata
      */

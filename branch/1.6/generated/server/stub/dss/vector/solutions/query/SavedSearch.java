@@ -98,6 +98,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   public static final String   VIEW_PREFIX              = "q_";
 
   public static final String   MATERIALIZED_VIEW_PREFIX = "p_";
+  
+  public static final String   FUNCTION_PREFIX          = "f_";
 
   private static Log           log                      = LogFactory.getLog(SavedSearch.class);
 
@@ -157,7 +159,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     {
       iter.close();
     }
-
+    
     if (this.getMaterializedTableId().length() > 0)
     {
       MdTable mdTable = this.getMaterializedTable();
@@ -166,8 +168,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     super.delete();
-
-    this.deleteDatabaseViewIfExists();
+    
+    this.cleanupDatabaseView(false);
   }
 
   public void apply()
@@ -204,6 +206,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
 
+      String functionName = null;
+      
       if (this.getMaterializedTableId().length() != 0 && !this.getIsMaterialized())
       {
         objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
@@ -216,12 +220,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         if (this.getMaterializedTableId().length() == 0 || overwrite)
         {
           // Create the view because it doesn't exist
-          this.createMaterializedView(overwrite);
+          functionName = this.createMaterializedView(overwrite);
         }
         else
         {
           // Refresh the view
-          this.refreshMaterializedView();
+          functionName = this.refreshMaterializedView();
         }
       }
 
@@ -236,28 +240,41 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         new MdTableBuilder().delete(mdTable);
       }
 
-      this.createOrReplaceDatabaseView();
+      this.createOrReplaceDatabaseView(functionName);
     }
     catch (JSONException e)
     {
-      String error = "An error occured while marking a query as mappable.";
+      String error = "An error occured while saving a query.";
       throw new ProgrammingErrorException(error, e);
     }
   }
 
-  public void refreshMaterializedView()
+  public String refreshMaterializedView()
   {
-    List<String> batch = new LinkedList<String>();
-    batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
-
-    Database.executeBatch(batch);
+//    List<String> batch = new LinkedList<String>();
+//    batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
+//
+//    Database.executeBatch(batch);
+    
+    this.cleanupDatabaseView(true);
+    Database.executeStatement("DROP TABLE IF EXISTS " + this.generateViewName(MATERIALIZED_VIEW_PREFIX) + " CASCADE");
+    
+    try
+    {
+      return this.createMaterializedView(true);
+    }
+    catch (JSONException e)
+    {
+      String error = "An error occured while saving a query.";
+      throw new ProgrammingErrorException(error, e);
+    }
   }
 
-  private void createMaterializedView(boolean overwrite) throws JSONException
+  private String createMaterializedView(boolean overwrite) throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
-      return;
+      return null;
     }
 
     String queryType = this.getQueryType();
@@ -345,13 +362,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         map.put(c, s.getMdAttributeIF());
       }
 
-      String viewName = this.generateViewName(MATERIALIZED_VIEW_PREFIX);
+      String viewNameNoPrefix = this.generateViewName("");
+      String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
 
       if (!overwrite || this.getMaterializedTableId().length() == 0)
       {
-        MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), viewName, map);
+        MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), prefixedViewName, map);
 
-        this.setMaterializedViewName(viewName);
+        this.setMaterializedViewName(prefixedViewName);
         this.setMaterializedTable(mdTable);
       }
       else
@@ -363,17 +381,19 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
       {
-        createDatabaseFunction(viewName, outer, valueQuery);
+        String functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
   
-        String viewSql = "select * from f_" + viewName + "()";
+        String viewSql = "select * from " + functionName + "()";
   
-        String statement = "CREATE TABLE " + viewName + " AS (" + viewSql + ")";
+        String statement = "CREATE TABLE " + prefixedViewName + " AS (" + viewSql + ")";
   
         Database.executeStatement(statement);
+        
+        return functionName;
       }
       else
       {
-        String statement = "CREATE TABLE " + viewName + " AS (" + outer.getSQL() + ")";
+        String statement = "CREATE TABLE " + prefixedViewName + " AS (" + outer.getSQL() + ")";
 
       	Database.executeStatement(statement);
       }
@@ -385,6 +405,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // it just to be sure.
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
+    
+    return null;
   }
 
   @Override
@@ -488,11 +510,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // name to
     // 45 characters (which is plenty descriptive).
 
-    // Edit: I'm shortening this by 2 more characters because now we're wrapping it
-    // in a function and prefixing with f_
-    if (temp.length() > 43)
+    if (temp.length() > 45)
     {
-      temp = temp.substring(0, 43);
+      temp = temp.substring(0, 45);
     }
 
     String viewName = prefix + temp + "_" + disease;
@@ -504,7 +524,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Removes all database views for queries.
+   * Removes all database views for queries. This is called when patching.
    */
   public static void cleanupDatabaseViews()
   {
@@ -519,7 +539,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          search.deleteDatabaseViewIfExists();
+          search.cleanupDatabaseView(true);
         }
         catch (Throwable t)
         {
@@ -553,7 +573,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         {
           if (search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem(VIEW_PREFIX)))
           {
-            search.createDatabaseView(false);
+            search.createDatabaseView(false, null);
           }
         }
         catch (Throwable t)
@@ -617,7 +637,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * the database view is deleted, if one exists.
    */
   @AbortIfProblem
-  private void createOrReplaceDatabaseView()
+  private void createOrReplaceDatabaseView(String functionName)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
@@ -625,12 +645,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     // remove the existing database view
-    this.deleteDatabaseViewIfExists();
+    this.cleanupDatabaseView(functionName != null);
 
-    createDatabaseView(true);
+    createDatabaseView(true, functionName);
   }
 
-  private void createDatabaseView(boolean replaceExisting)
+  private void createDatabaseView(boolean replaceExisting, String functionName)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
@@ -709,22 +729,26 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
 
       // create the database view
-      String viewName = this.generateViewName(VIEW_PREFIX);
+      String viewNameNoPrefix = this.generateViewName("");
+      String viewNameWithPrefix = VIEW_PREFIX + viewNameNoPrefix;
 
       
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
       {
-        createDatabaseFunction(viewName, outer, valueQuery);
+        if (functionName == null)
+        {
+          functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
+        }
   
-        String viewSql = "select * from f_" + viewName + "()";
+        String viewSql = "select * from " + functionName + "()";
 
-        Database.createView(viewName, viewSql, replaceExisting);
+        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
       }
       else
       {
         String viewSql = "(" + outer.getSQL() + ")";
 
-        Database.createView(viewName, viewSql, replaceExisting);
+        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
       }
     }
     catch (NoColumnsAddedException e)
@@ -735,20 +759,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
   }
-
-  private String getSqlDropDatabaseFunctionIfExists(String viewName)
-  {
-    String sql = "DROP FUNCTION IF EXISTS f_" + viewName + "() CASCADE;";
-
-    return sql;
-  }
   
-  private void createDatabaseFunction(String viewName, ValueQuery wrapper, ValueQuery original)
+  private String createDatabaseFunction(String viewNameNoPrefix, ValueQuery wrapper, ValueQuery original)
   {
+    String functionName = FUNCTION_PREFIX + viewNameNoPrefix;
+    
     final String TAB = "\t";
     final String NEWLINE = "\n";
 
-    String fnSql = "CREATE OR REPLACE FUNCTION f_" + viewName + "()" + NEWLINE;
+    String fnSql = "CREATE OR REPLACE FUNCTION " + functionName + "()" + NEWLINE;
 
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
 
@@ -762,11 +781,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     
     String colQ = "";
     colQ += original.getDependentPreSqlStatements() + "\n";
-    colQ += "DROP TABLE IF EXISTS t_" + viewName + " CASCADE;\n";
-    colQ += "CREATE TEMPORARY TABLE t_" + viewName + " ON COMMIT DROP AS (" + wrapper.getSQL() + " LIMIT 0);\n";
+    colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
+    colQ += "CREATE TEMPORARY TABLE t_" + viewNameNoPrefix + " ON COMMIT DROP AS (" + wrapper.getSQL() + " LIMIT 0);\n";
     colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
     colQ += "FROM   pg_attribute ";
-    colQ += "WHERE  attrelid = 't_" + viewName + "'::regclass ";
+    colQ += "WHERE  attrelid = 't_" + viewNameNoPrefix + "'::regclass ";
     colQ += "AND    attnum > 0 ";
     colQ += "AND    NOT attisdropped ";
     colQ += "ORDER  BY attnum;";
@@ -822,21 +841,29 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
 
     Database.parseAndExecute(fnSql);
+    
+    return functionName;
   }
 
-  private void deleteDatabaseViewIfExists()
+  /**
+   * This will delete all functions and views.
+   */
+  private void cleanupDatabaseView(boolean skipFunction)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return;
     }
-
-    String viewName = this.generateViewName(VIEW_PREFIX);
+    
+    String viewNameNoPrefix = this.generateViewName("");
 
     List<String> batch = new LinkedList<String>();
-    batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
-    batch.add(getSqlDropDatabaseFunctionIfExists(viewName));
-
+    batch.add("DROP VIEW IF EXISTS " + VIEW_PREFIX + viewNameNoPrefix + " CASCADE");
+    if (!skipFunction)
+    {
+      batch.add("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
+    }
+    
     Database.executeBatch(batch);
   }
 
@@ -1153,7 +1180,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     if (!databaseViewExists(viewName))
     {
-      search.createOrReplaceDatabaseView();
+      search.createOrReplaceDatabaseView(null);
     }
 
     return search.getAsView(true, true);
@@ -1496,7 +1523,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         search.apply();
 
         // We must replace the database view because the search could have been updated
-        search.createOrReplaceDatabaseView();
+        search.createOrReplaceDatabaseView(null);
       }
     }
     catch (XMLParseException e)
