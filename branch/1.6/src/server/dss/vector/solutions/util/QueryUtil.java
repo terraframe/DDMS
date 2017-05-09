@@ -864,9 +864,9 @@ public class QueryUtil implements Reloadable
 
     StringBuffer buffer = new StringBuffer();
 
-    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + geoId + ", " + QueryUtil.getLocaleCoalesce(GEO_LABEL + ".") + " || ' (' || \n");
+    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + geoId + ", (" + QueryUtil.getLocaleCoalesce(GEO_LABEL + ".") + " || ' (' || \n");
     buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
-    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')'");
+    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')')::varchar");
 
     if (withGeoId)
     {

@@ -288,7 +288,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         }
         else if (!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
         {
-          sel = overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
+          sel = overrideQuery.aSQLCharacter(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
         
         if (sel != null)

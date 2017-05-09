@@ -401,7 +401,7 @@ public class MdTableBuilder implements Reloadable
      * Drop the materialized view
      */
     List<String> batch = new LinkedList<String>();
-    batch.add("DROP MATERIALIZED VIEW IF EXISTS " + mdTable.getTableName() + " CASCADE");
+    batch.add("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
     
     Database.executeBatch(batch);
 

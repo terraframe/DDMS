@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.entity.Attribute;
+import com.runwaysdk.dataaccess.attributes.value.MdAttributeBoolean_Q;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.io.ImportManager;
@@ -72,6 +74,7 @@ import com.runwaysdk.vault.VaultFileDAOIF;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -273,7 +276,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.FROM("(" + valueQuery.getSQL() + ")", "original_query");
+      outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
       for (Selectable s : valueQuery.getSelectableRefs())
       {
@@ -358,9 +361,22 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         new MdTableBuilder().update(mdTable, map);
       }
       
-      String statement = "CREATE MATERIALIZED VIEW " + viewName + " AS (" + outer.getSQL() + ")";
+      if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
+      {
+        createDatabaseFunction(viewName, outer, valueQuery);
+  
+        String viewSql = "select * from f_" + viewName + "()";
+  
+        String statement = "CREATE TABLE " + viewName + " AS (" + viewSql + ")";
+  
+        Database.executeStatement(statement);
+      }
+      else
+      {
+        String statement = "CREATE TABLE " + viewName + " AS (" + outer.getSQL() + ")";
 
-      Database.executeStatement(statement);      
+      	Database.executeStatement(statement);
+      }
     }
     catch (NoColumnsAddedException e)
     {
@@ -635,7 +651,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.FROM("(" + valueQuery.getSQL() + ")", "original_query");
+      outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
       for (Selectable s : valueQuery.getSelectableRefs())
       {
@@ -695,11 +711,21 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // create the database view
       String viewName = this.generateViewName(VIEW_PREFIX);
 
-      createDatabaseFunction(viewName, outer, valueQuery);
+      
+      if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
+      {
+        createDatabaseFunction(viewName, outer, valueQuery);
+  
+        String viewSql = "select * from f_" + viewName + "()";
 
-      String viewSql = "select * from f_" + viewName + "()";
+        Database.createView(viewName, viewSql, replaceExisting);
+      }
+      else
+      {
+        String viewSql = "(" + outer.getSQL() + ")";
 
-      Database.createView(viewName, viewSql, replaceExisting);
+        Database.createView(viewName, viewSql, replaceExisting);
+      }
     }
     catch (NoColumnsAddedException e)
     {
@@ -716,7 +742,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     return sql;
   }
-
+  
   private void createDatabaseFunction(String viewName, ValueQuery wrapper, ValueQuery original)
   {
     final String TAB = "\t";
@@ -726,16 +752,59 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
 
-    // Generate the selectable list for the table our function is returning
+    
+    // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
+    // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
+    
+    // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
+//    String wrapperSql = wrapper.getSQL();
+//    if (wrapperSql.endsWith("LIMIT .*"))
+    
+    String colQ = "";
+    colQ += original.getDependentPreSqlStatements() + "\n";
+    colQ += "DROP TABLE IF EXISTS t_" + viewName + " CASCADE;\n";
+    colQ += "CREATE TEMPORARY TABLE t_" + viewName + " ON COMMIT DROP AS (" + wrapper.getSQL() + " LIMIT 0);\n";
+    colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
+    colQ += "FROM   pg_attribute ";
+    colQ += "WHERE  attrelid = 't_" + viewName + "'::regclass ";
+    colQ += "AND    attnum > 0 ";
+    colQ += "AND    NOT attisdropped ";
+    colQ += "ORDER  BY attnum;";
+    
+    ResultSet resultSet2 = Database.query(colQ);
+    
     List<String> selDefs = new ArrayList<String>();
-    List<Selectable> sels = wrapper.getSelectableRefs();
-    for (Selectable sel : sels)
+    try
     {
-      MdAttributeConcreteDAOIF coreType = sel.getMdAttributeIF();
-      selDefs.add(TAB + sel.getColumnAlias() + " " + DatabaseProperties.getDatabaseType(coreType));
+      while (resultSet2.next())
+      {
+        String alias = resultSet2.getString("attname");
+        String dbType = resultSet2.getString("type");
+        
+        selDefs.add(TAB + alias + " " + dbType);
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
     }
     fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-
+   
+    
+    
     fnSql += TAB + ")" + NEWLINE;
 
     fnSql += "AS $body$" + NEWLINE;
@@ -743,8 +812,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     fnSql += "#variable_conflict use_column" + NEWLINE;
 
     fnSql += "BEGIN" + NEWLINE + NEWLINE;
+    
+    fnSql += original.getDependentPreSqlStatements() + "\n";
 
-    fnSql += original.getSQL() + ";" + NEWLINE + NEWLINE;
+    fnSql += "RETURN QUERY " + wrapper.getSQL() + ";" + NEWLINE + NEWLINE;
 
     fnSql += "END" + NEWLINE;
 

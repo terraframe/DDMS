@@ -646,24 +646,24 @@ public abstract class AbstractQB implements Reloadable
 
   protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery, String prepend)
   {
-    String prefix = "";
-
     if (this.tempTableEntries.size() > 0)
     {
       String tempTableSql = "";
-
+      
       for (WITHEntry entry : this.tempTableEntries)
       {
-        String entrySql = "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
-        tempTableSql = tempTableSql + entrySql;
+        tempTableSql = tempTableSql + "DROP TABLE IF EXISTS " + entry.name + " CASCADE;\n";
+        tempTableSql = tempTableSql + "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
       }
       tempTableSql = tempTableSql + "\n\n";
-
-      prefix += tempTableSql;
+      
+      valueQuery.setDependentPreSqlStatements(tempTableSql);
     }
 
     if (this.withEntries.size() > 0)
     {
+      String prefix = "";
+      
       String with = "WITH ";
       if (recursive)
       {
@@ -690,10 +690,7 @@ public abstract class AbstractQB implements Reloadable
       }
 
       prefix += with;
-    }
-
-    if (prefix.length() > 0)
-    {
+      
       valueQuery.setSqlPrefix(prefix);
     }
   }
