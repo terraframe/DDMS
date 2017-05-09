@@ -205,7 +205,7 @@ var MDSS = {
       {
         MDSS.util.wait_for_ajax.setHeader(MDSS.localize(_overrideMsg));
         MDSS.util.wait_for_ajax.show();
-        MDSS.util.wait_for_ajax.bringToTop();
+        MDSS.util.wait_for_ajax.cfg.setProperty("zindex", "99999");    
       }
       else
       {
@@ -224,7 +224,7 @@ var MDSS = {
         MDSS.util.wait_for_ajax.setHeader(MDSS.localize(_overrideMsg));
         MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
         MDSS.util.wait_for_ajax.render(document.body);
-        MDSS.util.wait_for_ajax.bringToTop();
+        MDSS.util.wait_for_ajax.cfg.setProperty("zindex", "99999");        
       }
     };
 

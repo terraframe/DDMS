@@ -101,7 +101,7 @@
 
   </head>
 
-  <body ng-controller="DashboardController as dashboard" ng-init="init('${workspace}', ${editDashboard}, ${editData})" style="text-align: left;">
+  <body ng-controller="DashboardController as dashboard" ng-init="init('${geoserver}', '${workspace}', ${editDashboard}, ${editData})" style="text-align: left;">
     <map-panel dashboard="dashboard"></map-panel>
     <dashboard-panel dashboard="dashboard"></dashboard-panel>
   
