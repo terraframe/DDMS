@@ -39,7 +39,7 @@
 	margin: 0 0 0 5px;
 	padding: 22px 5px 0 5px;
 	position: absolute;
-	background: #FFFFFF url(/DDMS/imgs/flags/current) no-repeat 95% 50%;
+	background: #FFFFFF url(${pageContext.request.contextPath}/imgs/flags/current) no-repeat 95% 50%;
 }
 
 div.pageContent {
