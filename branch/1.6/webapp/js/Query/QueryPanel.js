@@ -1194,12 +1194,29 @@ MDSS.QueryPanel.prototype =
     importQuery.on('click', this._importQuery,
     {}, this);
     
-    var materializedViewLabel = document.createElement('span');
-    materializedViewLabel.innerHTML = MDSS.localize('Query_Persist');
+    
+    // Persist result toggle for materialized views
+    var switc = document.createElement('label');
+    switc.className += " switch";
     
     this._materializedView = document.createElement('input');
+    this._materializedView.className += " switch-input";
     YAHOO.util.Dom.setAttribute(this._materializedView, 'type', 'checkbox');
     YAHOO.util.Dom.setAttribute(this._materializedView, 'id', "materializedViewCheckbox");
+    switc.appendChild(this._materializedView);
+    
+    var label = document.createElement('span');
+    label.setAttribute("data-on", MDSS.localize('Query_Persist_On'));
+    label.setAttribute("data-off", MDSS.localize('Query_Persist_Off'));
+    label.className += " switch-label";
+    switc.appendChild(label);
+    
+    var switchHandle = document.createElement('span');
+    switchHandle.className += " switch-handle";
+    switc.appendChild(switchHandle);
+    
+    
+    
 
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
@@ -1248,8 +1265,7 @@ MDSS.QueryPanel.prototype =
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
 
-    leftDiv.appendChild(materializedViewLabel);
-    leftDiv.appendChild(this._materializedView);
+    leftDiv.appendChild(switc);
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
     leftDiv.appendChild(getDBViewName);

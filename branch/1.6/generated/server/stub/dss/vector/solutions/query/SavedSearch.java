@@ -762,6 +762,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   
   private String createDatabaseFunction(String viewNameNoPrefix, ValueQuery wrapper, ValueQuery original)
   {
+    Database.executeStatement("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
+    
     String functionName = FUNCTION_PREFIX + viewNameNoPrefix;
     
     final String TAB = "\t";
