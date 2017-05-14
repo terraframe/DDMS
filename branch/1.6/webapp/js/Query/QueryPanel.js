@@ -1662,26 +1662,35 @@ MDSS.QueryPanel.prototype =
     if (savedSearchId)
     {    	
       var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
+            
       
-      var content = "<ul>";
-      
-      if(this._kaleidoscopes != null && this._kaleidoscopes.length > 0){
-        content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
-        content += "<li><hr /></li>";
-        
-        for(var i = 0; i < this._kaleidoscopes.length; i++) {
-          content += "<li>" + this._kaleidoscopes[i]  + "</li>";
+      var request = new MDSS.Request({
+        onSuccess : function(response)
+        {
+          var kaleidoscopes = JSON.parse(response);
+          
+          var content = "<ul>";
+          
+          if(kaleidoscopes != null && kaleidoscopes.length > 0){
+            content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+            content += "<li><hr /></li>";
+            
+            for(var i = 0; i < this._kaleidoscopes.length; i++) {
+              content += "<li>" + this._kaleidoscopes[i]  + "</li>";
+            }
+            
+            content += "<li></li>";
+          }
+
+          content += "<li>" + MDSS.localize('Confirm_Delete_Query') + "</li>";
+
+          content += "</ul>";
+          
+          MDSS.confirmModal(content, doDel, function() {});                    
         }
+      });    	  
         
-        content += "<li></li>";
-      }
-
-      content += "<li>" + MDSS.localize('Confirm_Delete_Query') + "</li>";
-
-      content += "</ul>";
-      
-      
-      MDSS.confirmModal(content, doDel, function() {});
+      Mojo.$.dss.vector.solutions.query.SavedSearch.getAllKaleidoscopes(request, savedSearchId);      
     }
   },
 

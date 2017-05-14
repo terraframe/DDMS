@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1963589136)
+@com.runwaysdk.business.ClassSignature(hash = 1631116524)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1963589136;
+  private static final long serialVersionUID = 1631116524;
   
   public SavedSearchBase()
   {
@@ -721,6 +721,18 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   {
     SavedSearch _instance = SavedSearch.get(id);
     return _instance.exportQuery();
+  }
+  
+  public java.lang.String getAllKaleidoscopes()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getAllKaleidoscopes(java.lang.String id)
+  {
+    SavedSearch _instance = SavedSearch.get(id);
+    return _instance.getAllKaleidoscopes();
   }
   
   public dss.vector.solutions.query.SavedSearchView getAsView(java.lang.Boolean includeXML, java.lang.Boolean includeConfig)

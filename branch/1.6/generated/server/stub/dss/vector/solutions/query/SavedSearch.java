@@ -30,14 +30,12 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
-import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.entity.Attribute;
-import com.runwaysdk.dataaccess.attributes.value.MdAttributeBoolean_Q;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.io.ImportManager;
@@ -98,7 +96,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   public static final String   VIEW_PREFIX              = "q_";
 
   public static final String   MATERIALIZED_VIEW_PREFIX = "p_";
-  
+
   public static final String   FUNCTION_PREFIX          = "f_";
 
   private static Log           log                      = LogFactory.getLog(SavedSearch.class);
@@ -159,7 +157,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     {
       iter.close();
     }
-    
+
     if (this.getMaterializedTableId().length() > 0)
     {
       MdTable mdTable = this.getMaterializedTable();
@@ -168,7 +166,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     super.delete();
-    
+
     this.cleanupDatabaseView(false);
   }
 
@@ -207,7 +205,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       Map<String, MdTable> objectsToDelete = new HashMap<String, MdTable>(1);
 
       String functionName = null;
-      
+
       if (this.getMaterializedTableId().length() != 0 && !this.getIsMaterialized())
       {
         objectsToDelete.put(this.getMaterializedViewName(), this.getMaterializedTable());
@@ -251,14 +249,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
   public String refreshMaterializedView()
   {
-//    List<String> batch = new LinkedList<String>();
-//    batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
-//
-//    Database.executeBatch(batch);
-    
+    // List<String> batch = new LinkedList<String>();
+    // batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
+    //
+    // Database.executeBatch(batch);
+
     this.cleanupDatabaseView(true);
     Database.executeStatement("DROP TABLE IF EXISTS " + this.generateViewName(MATERIALIZED_VIEW_PREFIX) + " CASCADE");
-    
+
     try
     {
       return this.createMaterializedView(true);
@@ -375,27 +373,27 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       else
       {
         MdTable mdTable = this.getMaterializedTable();
-        
+
         new MdTableBuilder().update(mdTable, map);
       }
-      
+
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
       {
         String functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
-  
+
         String viewSql = "select * from " + functionName + "()";
-  
+
         String statement = "CREATE TABLE " + prefixedViewName + " AS (" + viewSql + ")";
-  
+
         Database.executeStatement(statement);
-        
+
         return functionName;
       }
       else
       {
         String statement = "CREATE TABLE " + prefixedViewName + " AS (" + outer.getSQL() + ")";
 
-      	Database.executeStatement(statement);
+        Database.executeStatement(statement);
       }
     }
     catch (NoColumnsAddedException e)
@@ -405,7 +403,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // it just to be sure.
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
-    
+
     return null;
   }
 
@@ -732,14 +730,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       String viewNameNoPrefix = this.generateViewName("");
       String viewNameWithPrefix = VIEW_PREFIX + viewNameNoPrefix;
 
-      
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
       {
         if (functionName == null)
         {
           functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
         }
-  
+
         String viewSql = "select * from " + functionName + "()";
 
         Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
@@ -759,13 +756,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
   }
-  
+
   private String createDatabaseFunction(String viewNameNoPrefix, ValueQuery wrapper, ValueQuery original)
   {
     Database.executeStatement("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
-    
+
     String functionName = FUNCTION_PREFIX + viewNameNoPrefix;
-    
+
     final String TAB = "\t";
     final String NEWLINE = "\n";
 
@@ -773,14 +770,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
 
-    
     // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
     // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
-    
+
     // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
-//    String wrapperSql = wrapper.getSQL();
-//    if (wrapperSql.endsWith("LIMIT .*"))
-    
+    // String wrapperSql = wrapper.getSQL();
+    // if (wrapperSql.endsWith("LIMIT .*"))
+
     String colQ = "";
     colQ += original.getDependentPreSqlStatements() + "\n";
     colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
@@ -791,9 +787,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     colQ += "AND    attnum > 0 ";
     colQ += "AND    NOT attisdropped ";
     colQ += "ORDER  BY attnum;";
-    
+
     ResultSet resultSet2 = Database.query(colQ);
-    
+
     List<String> selDefs = new ArrayList<String>();
     try
     {
@@ -801,7 +797,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         String alias = resultSet2.getString("attname");
         String dbType = resultSet2.getString("type");
-        
+
         selDefs.add(TAB + alias + " " + dbType);
       }
     }
@@ -823,9 +819,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
     }
     fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-   
-    
-    
+
     fnSql += TAB + ")" + NEWLINE;
 
     fnSql += "AS $body$" + NEWLINE;
@@ -833,7 +827,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     fnSql += "#variable_conflict use_column" + NEWLINE;
 
     fnSql += "BEGIN" + NEWLINE + NEWLINE;
-    
+
     fnSql += original.getDependentPreSqlStatements() + "\n";
 
     fnSql += "RETURN QUERY " + wrapper.getSQL() + ";" + NEWLINE + NEWLINE;
@@ -843,7 +837,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
 
     Database.parseAndExecute(fnSql);
-    
+
     return functionName;
   }
 
@@ -856,7 +850,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     {
       return;
     }
-    
+
     String viewNameNoPrefix = this.generateViewName("");
 
     List<String> batch = new LinkedList<String>();
@@ -865,7 +859,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     {
       batch.add("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
     }
-    
+
     Database.executeBatch(batch);
   }
 
@@ -924,11 +918,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw ex;
     }
 
-//    if (view.getOverwrite())
-//    {
-//      SavedSearch search = SavedSearch.get(view.getSavedQueryId());
-//      search.clearMaterializedView();
-//    }
+    // if (view.getOverwrite())
+    // {
+    // SavedSearch search = SavedSearch.get(view.getSavedQueryId());
+    // search.clearMaterializedView();
+    // }
 
     SavedSearch search = SavedSearch.get(view.getSavedQueryId());
     search.update(view);
@@ -959,7 +953,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.setQueryXml(xml);
     this.setConfig(config);
     this.setIsMaterialized(view.getIsMaterialized());
-    
+
     boolean overwrite = view.getOverwrite() != null ? view.getOverwrite() : false;
 
     this.apply(overwrite);
@@ -1100,38 +1094,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       view.setConfig(config.toString());
     }
 
-    JSONArray kaleidoscopes = new JSONArray();
-
-    if (this.getMaterializedTableId().length() > 0)
-    {
-      MdTable mdTable = this.getMaterializedTable();
-
-      QueryFactory factory = new QueryFactory();
-
-      MetadataWrapperQuery mwQuery = new MetadataWrapperQuery(factory);
-      mwQuery.WHERE(mwQuery.getWrappedMdClass().EQ(mdTable));
-
-      DashboardQuery query = new DashboardQuery(factory);
-      query.WHERE(query.metadata(mwQuery));
-
-      OIterator<? extends Dashboard> iterator = query.getIterator();
-
-      try
-      {
-        while (iterator.hasNext())
-        {
-          Dashboard dashboard = iterator.next();
-
-          kaleidoscopes.put(dashboard.getDisplayLabel().getValue());
-        }
-      }
-      finally
-      {
-        iterator.close();
-      }
-    }
-
-    view.setKaleidoscopes(kaleidoscopes.toString());
+    view.setKaleidoscopes(this.getAllKaleidoscopes());
 
     return view;
   }
@@ -1623,5 +1586,42 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     return null;
+  }
+
+  @Override
+  public String getAllKaleidoscopes()
+  {
+    JSONArray kaleidoscopes = new JSONArray();
+
+    if (this.getMaterializedTableId().length() > 0)
+    {
+      MdTable mdTable = this.getMaterializedTable();
+
+      QueryFactory factory = new QueryFactory();
+
+      MetadataWrapperQuery mwQuery = new MetadataWrapperQuery(factory);
+      mwQuery.WHERE(mwQuery.getWrappedMdClass().EQ(mdTable));
+
+      DashboardQuery query = new DashboardQuery(factory);
+      query.WHERE(query.metadata(mwQuery));
+
+      OIterator<? extends Dashboard> iterator = query.getIterator();
+
+      try
+      {
+        while (iterator.hasNext())
+        {
+          Dashboard dashboard = iterator.next();
+
+          kaleidoscopes.put(dashboard.getDisplayLabel().getValue());
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+
+    return kaleidoscopes.toString();
   }
 }

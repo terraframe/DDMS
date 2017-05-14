@@ -1036,28 +1036,42 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         
         Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view); 
       });
-      
-      var kaleidoscopes = this._queryPanel.getKaleidoscopes();
+
       var materialized = this._queryPanel.getIsMaterialized();
+      
+
+      if((view.getOverwrite() || materialized !== this._loadedMaterialized)) {
+        var request = new MDSS.Request({
+          onSuccess : function(response)
+          {
+            var kaleidoscopes = JSON.parse(response);
             
-      if(kaleidoscopes != null && kaleidoscopes.length > 0 && (view.getOverwrite() || materialized !== this._loadedMaterialized)) {
-          
-        var content = "<ul>";
-        content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
-        content += "<li><hr /></li>";
-            
-        for(var i = 0; i < kaleidoscopes.length; i++) {
-          content += "<li>" + kaleidoscopes[i]  + "</li>";
-        }
-            
-        content += "<li></li>";
-        content += "<li>" + MDSS.localize('Confirm_Query_Change')  + "</li>";
-        content += "</ul>";
-          
-        MDSS.confirmModal(content, doSave, function() {});        
+            if(kaleidoscopes != null && kaleidoscopes.length > 0 && (view.getOverwrite() || materialized !== this._loadedMaterialized)) {
+                  
+              var content = "<ul>";
+              content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+              content += "<li><hr /></li>";
+                      
+              for(var i = 0; i < kaleidoscopes.length; i++) {
+                content += "<li>" + kaleidoscopes[i]  + "</li>";
+              }
+                      
+              content += "<li></li>";
+              content += "<li>" + MDSS.localize('Confirm_Query_Change')  + "</li>";
+              content += "</ul>";
+                    
+              MDSS.confirmModal(content, doSave, function() {});        
+            }
+            else {
+              doSave();
+            }
+          }
+        });    	  
+        
+        Mojo.$.dss.vector.solutions.query.SavedSearch.getAllKaleidoscopes(request, view.getSavedQueryId());        
       }
       else {
-        doSave();
+        doSave();    	  
       }
     },
   

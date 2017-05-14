@@ -22,6 +22,14 @@
   <script type="text/javascript">${js}</script>
   
   <style type="text/css">
+    body {
+      background-color: #333;
+      margin: 0;
+      min-width: 100%;
+      background-image: url(${pageContext.request.contextPath}/imgs/earth-profile.jpg);
+      background-size: cover;
+    }
+  
     #headermiddle {
 	-moz-border-radius: 10px;
 	margin: 0 95px 5px 220px;
