@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
@@ -87,13 +88,24 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
     /*
      * IMPORTANT: All results must be ordered for blocking to work
      */
-    Attribute id = query.get(MdClassInfo.ID);
+    if (mdClass instanceof MdTableDAOIF)
+    {
+      ValueQuery vQuery = config.getValueQuery();
+      Selectable selectable = vQuery.getSelectableRefs().get(0);
+      vQuery.ORDER_BY_ASC(selectable);
 
-    ValueQuery vQuery = config.getValueQuery();
-    vQuery.SELECT(id);
-    vQuery.ORDER_BY_ASC(id);
+      return vQuery;
+    }
+    else
+    {
+      Attribute id = query.get(MdClassInfo.ID);
 
-    return vQuery;
+      ValueQuery vQuery = config.getValueQuery();
+      vQuery.SELECT(id);
+      vQuery.ORDER_BY_ASC(id);
+
+      return vQuery;
+    }
   }
 
   private SelectableReference getGeoEntityAttribute(QueryConfiguration config, GeneratedComponentQuery query)
@@ -123,61 +135,66 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
       if (!mdAttribute.isSystem())
       {
         String attributeName = mdAttribute.definesAttribute();
-        String displayLabel = mdAttribute.getDisplayLabel(locale);
 
-        Selectable selectable = query.get(attributeName);
-
-        MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
-
-        if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
+        if (!attributeName.contains("__"))
         {
-          SelectableReference selectableReference = (SelectableReference) selectable;
+          String columnName = mdAttribute.getColumnName();
+          String displayLabel = mdAttribute.getDisplayLabel(locale);
 
-          MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeConcrete;
-          MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
-          String referenceType = referenceMdBusiness.definesType();
+          Selectable selectable = query.get(attributeName);
 
-          if (referenceType.equals(Term.CLASS))
+          MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
+
+          if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
           {
-            /*
-             * If the selectable is referencing a Classifier then get the display label of the classifier
-             */
-            TermQuery classifierQuery = new TermQuery(vQuery);
+            SelectableReference selectableReference = (SelectableReference) selectable;
 
-            Coalesce label = classifierQuery.getTermDisplayLabel().localize(attributeName, displayLabel);
-            label.setUserDefinedDisplayLabel(displayLabel);
+            MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeConcrete;
+            MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+            String referenceType = referenceMdBusiness.definesType();
+
+            if (referenceType.equals(Term.CLASS))
+            {
+              /*
+               * If the selectable is referencing a Classifier then get the display label of the classifier
+               */
+              TermQuery classifierQuery = new TermQuery(vQuery);
+
+              Coalesce label = classifierQuery.getTermDisplayLabel().localize(attributeName, displayLabel);
+              label.setUserDefinedDisplayLabel(displayLabel);
+
+              vQuery.SELECT(label);
+              vQuery.WHERE(selectableReference.LEFT_JOIN_EQ(classifierQuery));
+            }
+          }
+          else if (mdAttributeConcrete instanceof MdAttributeLocalDAOIF)
+          {
+            AttributeLocal selectableLocal = (AttributeLocal) selectable;
+
+            /*
+             * If the selectable is a localized attribute then get the localize label
+             */
+            Coalesce label = selectableLocal.localize(columnName, displayLabel);
+            label.setUserDefinedAlias(attributeName);
 
             vQuery.SELECT(label);
-            vQuery.WHERE(selectableReference.LEFT_JOIN_EQ(classifierQuery));
           }
-        }
-        else if (mdAttributeConcrete instanceof MdAttributeLocalDAOIF)
-        {
-          AttributeLocal selectableLocal = (AttributeLocal) selectable;
+          else if (mdAttributeConcrete instanceof MdAttributeEnumerationDAOIF)
+          {
+            // Enumerations are not supported
+          }
+          else if (mdAttributeConcrete instanceof MdAttributeGeometryDAOIF)
+          {
+            // Geometry attributes not supported
+          }
+          else
+          {
+            selectable.setColumnAlias(columnName);
+            selectable.setUserDefinedAlias(attributeName);
+            selectable.setUserDefinedDisplayLabel(displayLabel);
 
-          /*
-           * If the selectable is a localized attribute then get the localize label
-           */
-          Coalesce label = selectableLocal.localize(attributeName, displayLabel);
-          label.setUserDefinedAlias(attributeName);
-
-          vQuery.SELECT(label);
-        }
-        else if (mdAttributeConcrete instanceof MdAttributeEnumerationDAOIF)
-        {
-          // Enumerations are not supported
-        }
-        else if (mdAttributeConcrete instanceof MdAttributeGeometryDAOIF)
-        {
-          // Geometry attributes not supported
-        }
-        else
-        {
-          selectable.setColumnAlias(attributeName);
-          selectable.setUserDefinedAlias(attributeName);
-          selectable.setUserDefinedDisplayLabel(displayLabel);
-
-          vQuery.SELECT(selectable);
+            vQuery.SELECT(selectable);
+          }
         }
       }
     }

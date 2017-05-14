@@ -104,7 +104,7 @@
       var dashboardId = dashboardService.getDashboard().getDashboardId();
       
       var config = {
-        type: 'dss.vector.solutions.kaleidoscope.report.ReportItem',
+        type: 'dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport',
         action: "update",
         viewAction: "edit",
         viewParams: {id: dashboardId},          
@@ -117,7 +117,7 @@
           $scope.$apply();
         },
         onFailure : function(e) {
-          GDB.ExceptionHandler.handleException(e);
+          	MDSS.ErrorModal(e.getLocalizedMessage());
         },
         onCancel : function(e) {
           var request = new Mojo.ClientRequest({
@@ -125,11 +125,11 @@
               // Close the dialog ??
             },
             onFailure : function(e) {
-              GDB.ExceptionHandler.handleException(e);
+              	MDSS.ErrorModal(e.getLocalizedMessage());
             }
           });
             
-          dss.vector.solutions.kaleidoscope.report.ReportItem.unlockByDashboard(request, dashboardId);
+          dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport.unlockByDashboard(request, dashboardId);
         }
       };
             

@@ -130,7 +130,7 @@
         var info = (response != null ? response.getInformation() : null);
                   
         if(info != null){
-          MDSS.ErrorModal(info);                      
+          MDSS.ErrorModal(info[0].getMessage());                      
         }
       };      
       
@@ -623,10 +623,10 @@
         }
         
         if(format === "rptdesign"){
-          var url = 'dss.vector.solutions.kaleidoscope.report.ReportItemController.download.mojo?' + $.param({dashboardId:dashboardId});
+          var url = 'dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportController.download.mojo?' + $.param({dashboardId:dashboardId});
         }
         else{
-          var url = 'dss.vector.solutions.kaleidoscope.report.ReportItemController.run.mojo?' + $.param(params);
+          var url = 'dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportController.run.mojo?' + $.param(params);
         }
                   
         window.location.href = url;    

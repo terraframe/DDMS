@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public interface AttributeDecMetadataIF extends AttributeMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface AttributeDecMetadataIF extends AttributeMetadataIF, Reloadable
 {
   public int getScale();
 

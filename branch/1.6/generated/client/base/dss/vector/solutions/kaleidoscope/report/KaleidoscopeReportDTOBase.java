@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 1912684420)
+@com.runwaysdk.business.ClassSignature(hash = -178202662)
 public abstract class KaleidoscopeReportDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport";
-  private static final long serialVersionUID = 1912684420;
+  private static final long serialVersionUID = -178202662;
   
   protected KaleidoscopeReportDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -661,12 +661,12 @@ public abstract class KaleidoscopeReportDTOBase extends com.runwaysdk.business.B
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.kaleidoscope.report.PairViewDTO[] getGeoEntitySuggestions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String text, java.lang.Integer limit)
+  public static final java.lang.String getGeoEntitySuggestions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String text, java.lang.Integer limit)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer"};
     Object[] _parameters = new Object[]{text, limit};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO.CLASS, "getGeoEntitySuggestions", _declaredTypes);
-    return (dss.vector.solutions.kaleidoscope.report.PairViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String getMetadataForReporting(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryId, java.lang.String context)
@@ -701,12 +701,12 @@ public abstract class KaleidoscopeReportDTOBase extends com.runwaysdk.business.B
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.kaleidoscope.report.PairViewDTO[] getQueriesForReporting(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public static final java.lang.String getQueriesForReporting(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO.CLASS, "getQueriesForReporting", _declaredTypes);
-    return (dss.vector.solutions.kaleidoscope.report.PairViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO getReportItemForDashboard(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String dashboardId)
@@ -717,20 +717,20 @@ public abstract class KaleidoscopeReportDTOBase extends com.runwaysdk.business.B
     return (dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.kaleidoscope.report.PairViewDTO[] getSupportedAggregation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryId)
+  public static final java.lang.String getSupportedAggregation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{queryId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO.CLASS, "getSupportedAggregation", _declaredTypes);
-    return (dss.vector.solutions.kaleidoscope.report.PairViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.kaleidoscope.report.PairViewDTO[] getSupportedGeoNodes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryId)
+  public static final java.lang.String getSupportedGeoNodes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{queryId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO.CLASS, "getSupportedGeoNodes", _declaredTypes);
-    return (dss.vector.solutions.kaleidoscope.report.PairViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.String getURL()

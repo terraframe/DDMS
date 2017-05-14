@@ -37,8 +37,8 @@ import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayerD
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeDTO;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntityDTO;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometryDTO;
-import dss.vector.solutions.report.ReportItemController;
-import dss.vector.solutions.report.ReportItemDTO;
+import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportController;
+import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportDTO;
 
 public class JavascriptUtil implements Reloadable
 {
@@ -95,8 +95,8 @@ public class JavascriptUtil implements Reloadable
     types.add(DashboardReferenceLayerController.CLASS);
     types.add(DashboardController.CLASS);
     types.add(DashboardMapController.CLASS);
-    types.add(ReportItemController.CLASS);
-    types.add(ReportItemDTO.CLASS);
+    types.add(KaleidoscopeReportController.CLASS);
+    types.add(KaleidoscopeReportDTO.CLASS);
     types.add(GeoNodeDTO.CLASS);
     types.add(GeoNodeEntityDTO.CLASS);
     types.add(GeoNodeGeometryDTO.CLASS);

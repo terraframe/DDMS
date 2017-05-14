@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import java.util.Collection;
 import java.util.List;
 
-public interface RemoteQueryIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface RemoteQueryIF extends Reloadable
 {
 
   public List<RemoteResultIF> getResultSet();

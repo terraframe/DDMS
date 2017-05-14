@@ -292,7 +292,7 @@
     }    
   }
   
-  function DateType($parse) {
+  function DateType($parse, localizationService) {
     return {
       restrict: 'E',
       replace: true,
@@ -303,56 +303,25 @@
       },
       link: function (scope, element, attrs, ctrl) {
         scope.form = ctrl;
-        scope.attribute.filter.type = "DATE_CONDITION";
+        scope.attribute.filter.type = "DATE_CONDITION";      
+    	  
         
-        /* Hook up the jquery datepicker*/
-        var checkin = $(element).find('.checkin');
-        var checkout = $(element).find('.checkout');
-        
-        $(element).find('.datapicker-opener').on('click', function(e){
-          e.preventDefault();
-          
-          $(this).prev().datepicker('show');
-        });
-
-        var startDate = false;
-        var endDate = false;
-        
-        checkin.datepicker($.datepicker.regional.local);
-        checkin.datepicker("option", {
-          showOtherMonths: true,
-          selectOtherMonths: true,
-          onSelect: function(dateText, inst){
-            startDate = new Date(dateText);
-            
-            scope.attribute.filter.startDate = dateText;
-            scope.$apply();
-          },
-          onClose: function( selectedDate ) {
-            checkout.datepicker( "option", "minDate", selectedDate );
-          },
-          beforeShowDay: function(date){
-            return [true, startDate && ((date.getTime() == startDate.getTime()) || (endDate && date >= startDate && date <= endDate)) ? "dp-highlight" : ""];
-          }
+        var checkin = $(element).find('.checkin')[0];
+        localizationService.addCalendar(checkin, function(value){
+       	  scope.attribute.filter.startDate = value;       	  
+       	  scope.$apply();
         });
         
-        checkout.datepicker($.datepicker.regional.local);
-        checkout.datepicker("option", {
-          showOtherMonths: true,
-          selectOtherMonths: true,
-          onSelect: function(dateText, inst){
-            endDate = new Date(dateText);
-            
-            scope.attribute.filter.endDate = dateText;
-            scope.$apply();
-          },
-          onClose: function( selectedDate ) {
-            checkin.datepicker( "option", "maxDate", selectedDate );
-          },
-          beforeShowDay: function(date){
-            return [true, startDate && ((date.getTime() == startDate.getTime()) || (endDate && date >= startDate && date <= endDate)) ? "dp-highlight" : ""];
-          }
-        });            
+        var checkout = $(element).find('.checkout')[0];        
+        localizationService.addCalendar(checkout, function(value){
+          scope.attribute.filter.endDate = value;        
+          scope.$apply();
+        });
+        
+        scope.$on('$destroy', function() {
+          localizationService.destroyCalendar(checkin);
+          localizationService.destroyCalendar(checkout);
+        });
       }
     }    
   }
@@ -523,7 +492,7 @@
   }
   
   
-  angular.module("dashboard-accordion", ["dashboard-service", "widget-service", "styled-inputs"]);
+  angular.module("dashboard-accordion", ["dashboard-service", "localization-service", "widget-service", "styled-inputs"]);
   angular.module('dashboard-accordion')
   .directive('locationFilter', LocationFilter)
   .directive('typeAccordion', TypeAccordion)

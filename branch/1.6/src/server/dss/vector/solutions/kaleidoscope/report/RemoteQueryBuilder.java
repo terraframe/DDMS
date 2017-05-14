@@ -47,7 +47,7 @@ public class RemoteQueryBuilder implements Reloadable
     {
       MdAttributeConcreteDAOIF mdAttributeIF = selectable.getMdAttributeIF();
 
-      AttributeMetadataIF attributeMetadata = this.buildAttributeMetadata(mdAttributeIF);
+      AttributeMetadataIF attributeMetadata = RemoteQueryBuilder.buildAttributeMetadata(mdAttributeIF);
 
       query.addAttribute(attributeMetadata);
     }
@@ -85,7 +85,7 @@ public class RemoteQueryBuilder implements Reloadable
     return query;
   }
 
-  private AttributeMetadataIF buildAttributeMetadata(MdAttributeConcreteDAOIF mdAttributeIF)
+  public static AttributeMetadataIF buildAttributeMetadata(MdAttributeConcreteDAOIF mdAttributeIF)
   {
     String name = mdAttributeIF.definesAttribute();
     String label = mdAttributeIF.getDisplayLabel(Session.getCurrentLocale());

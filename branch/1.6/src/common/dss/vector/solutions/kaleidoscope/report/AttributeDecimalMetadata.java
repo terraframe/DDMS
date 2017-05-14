@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public class AttributeDecimalMetadata extends AttributeDecMetadata implements AttributeDecMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeDecimalMetadata extends AttributeDecMetadata implements AttributeDecMetadataIF, Reloadable
 {
   public AttributeDecimalMetadata(String name, String label, Boolean required, Integer precision, Integer scale)
   {

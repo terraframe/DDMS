@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface AttributeMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface AttributeMetadataIF extends Reloadable
 {
 
   public String getDisplayLabel();

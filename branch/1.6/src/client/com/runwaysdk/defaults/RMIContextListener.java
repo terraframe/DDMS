@@ -15,6 +15,6 @@ public class RMIContextListener implements ServletContextListener, Reloadable
 
   public void contextInitialized(ServletContextEvent arg0)
   {
-    RemoteAdapterServer.startServer();
+    RemoteAdapterServer.startServer(null, null);
   }
 }

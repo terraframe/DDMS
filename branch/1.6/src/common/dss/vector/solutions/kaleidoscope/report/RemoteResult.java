@@ -27,7 +27,9 @@ import java.util.Set;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RemoteResult implements RemoteResultIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class RemoteResult implements RemoteResultIF, Reloadable
 {
   private Map<String, String> values;
 

@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public class AttributeDoubleMetadata extends AttributeDecMetadata implements AttributeDecMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeDoubleMetadata extends AttributeDecMetadata implements AttributeDecMetadataIF, Reloadable
 {
   public AttributeDoubleMetadata(String name, String label, Boolean required, Integer precision, Integer scale)
   {

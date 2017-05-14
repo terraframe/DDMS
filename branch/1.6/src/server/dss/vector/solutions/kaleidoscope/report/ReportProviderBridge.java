@@ -19,8 +19,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.AggregationStrategyView;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 
 /**
- * This class is responsible for forwarding an MdMethod request from BIRT for either a query (getValues) or a list of
- * possible queries (getTypes).
+ * This class is responsible for forwarding an MdMethod request from BIRT for either a query (getValues) or a list of possible queries (getTypes).
  * 
  * @author rrowlands, jsmethie
  */
@@ -65,7 +64,7 @@ public class ReportProviderBridge implements Reloadable
     }
   }
 
-  public static PairView[] getQueriesForReporting()
+  public static String getQueriesForReporting()
   {
     ArrayList<PairView> types = new ArrayList<PairView>();
     List<ReportProviderIF> providers = getReportProviders();
@@ -75,10 +74,10 @@ public class ReportProviderBridge implements Reloadable
       types.addAll(provider.getSupportedQueryDescriptors());
     }
 
-    return types.toArray(new PairView[types.size()]);
+    return new PairViewSerializer().serialize(types);
   }
 
-  public static PairView[] getSupportedAggregation(String queryId)
+  public static String getSupportedAggregation(String queryId)
   {
     List<ReportProviderIF> providers = getReportProviders();
 
@@ -86,14 +85,16 @@ public class ReportProviderBridge implements Reloadable
     {
       if (provider.hasSupport(queryId))
       {
-        return provider.getSupportedAggregation(queryId);
+        List<PairView> aggregations = provider.getSupportedAggregation(queryId);
+        
+        return new PairViewSerializer().serialize(aggregations);
       }
     }
 
     throw new ReportRenderException("ReportProvider with id '" + queryId + "' does not exist. Are you using the wrong RPT file?");
   }
 
-  public static PairView[] getGeoNodeIds(String queryId)
+  public static String getGeoNodeIds(String queryId)
   {
     List<ReportProviderIF> providers = getReportProviders();
 
@@ -113,8 +114,8 @@ public class ReportProviderBridge implements Reloadable
         }
       }
     }
-
-    return list.toArray(new PairView[list.size()]);
+    
+    return new PairViewSerializer().serialize(list);
   }
 
   /**

@@ -30,7 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RemoteQuery implements RemoteQueryIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class RemoteQuery implements RemoteQueryIF, Reloadable
 {
   private Map<String, AttributeMetadataIF> attributes;
 

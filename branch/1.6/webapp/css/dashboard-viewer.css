@@ -646,6 +646,30 @@ a.map-layers-opener.opener {
 	border-color:#019edc;
 	outline:none;
 }
+.filter-block .filter-date input{
+	background:#eee;
+	border:1px solid #bbb;
+	width:100%;
+	height:28px;
+	padding:6px 7px 5px;
+	margin:0;
+	float:left;
+	font-size:13px;
+	line-height:15px;
+	color:#999;
+	outline:none;
+}
+.filter-block .filter-date input::-moz-placeholder{
+	color:#999;
+	opacity:1;
+}
+.filter-block .filter-date input:-ms-input-placeholder{color:#999;}
+.filter-block .filter-date input::-webkit-input-placeholder{color:#999;}
+.filter-block .filter-date input:-moz-placeholder{color:#999;}
+.filter-block .filter-date input:focus{
+	border-color:#019edc;
+	outline:none;
+}
 .filter-block .term{
 	float:left;
 	width:240px;

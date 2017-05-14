@@ -3,7 +3,7 @@ package dss.vector.solutions.geoserver;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.runwaysdk.business.Business;
+import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.terraframe.utf8.UTF8ResourceBundle;
 
@@ -18,12 +18,12 @@ public class GeoserverProperties implements Reloadable
 
   public GeoserverProperties()
   {
-    this.bundle = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
+    this.bundle = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), BusinessInfo.class.getClassLoader());
   }
 
   public ResourceBundle getBundle()
   {
-    return bundle;
+    return bundle;  
   }
 
   public static String getGeoserverGWCDir()

@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public class AttributeLongMetadata extends AttributeMetadata implements AttributeMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeLongMetadata extends AttributeMetadata implements AttributeMetadataIF, Reloadable
 {
 
   public AttributeLongMetadata(String name, String label, Boolean required)

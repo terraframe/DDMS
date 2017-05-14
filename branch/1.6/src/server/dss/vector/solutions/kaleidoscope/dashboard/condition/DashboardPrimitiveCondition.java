@@ -25,6 +25,7 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.Constants;
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -70,8 +71,7 @@ public abstract class DashboardPrimitiveCondition extends DashboardAttributeCond
 
   public Date getComparisonValueAsDate()
   {
-    Locale locale = LocalizationFacade.getLocale();
-    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", locale);
+    DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 
     try
     {

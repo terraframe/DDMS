@@ -21,8 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import java.io.File;
 
 import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public interface BirtConstants
+public interface BirtConstants extends Reloadable
 {
   public static final String CATEGORY       = "category";
 

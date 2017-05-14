@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.report;
 
-@com.runwaysdk.business.ClassSignature(hash = 1065316612)
+@com.runwaysdk.business.ClassSignature(hash = 236276058)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class KaleidoscopeReportBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1065316612;
+  private static final long serialVersionUID = 236276058;
   
   public KaleidoscopeReportBase()
   {
@@ -553,7 +553,7 @@ public abstract class KaleidoscopeReportBase extends com.runwaysdk.business.Busi
     return _instance.getDocumentAsStream();
   }
   
-  public static dss.vector.solutions.kaleidoscope.report.PairView[] getGeoEntitySuggestions(java.lang.String text, java.lang.Integer limit)
+  public static java.lang.String getGeoEntitySuggestions(java.lang.String text, java.lang.Integer limit)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -583,7 +583,7 @@ public abstract class KaleidoscopeReportBase extends com.runwaysdk.business.Busi
     return _instance.getParameterDefinitions();
   }
   
-  public static dss.vector.solutions.kaleidoscope.report.PairView[] getQueriesForReporting()
+  public static java.lang.String getQueriesForReporting()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -595,13 +595,13 @@ public abstract class KaleidoscopeReportBase extends com.runwaysdk.business.Busi
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.kaleidoscope.report.PairView[] getSupportedAggregation(java.lang.String queryId)
+  public static java.lang.String getSupportedAggregation(java.lang.String queryId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.kaleidoscope.report.PairView[] getSupportedGeoNodes(java.lang.String queryId)
+  public static java.lang.String getSupportedGeoNodes(java.lang.String queryId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

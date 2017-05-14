@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public interface AttributePrimitiveMetadataIF extends AttributeMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface AttributePrimitiveMetadataIF extends AttributeMetadataIF, Reloadable
 {
 
 }

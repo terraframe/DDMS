@@ -77,6 +77,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeQuery;
+import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootQuery;
@@ -115,7 +116,6 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     }
 
   }
-
 
   private static final long serialVersionUID = 2043512251;
 
@@ -280,7 +280,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     if (this.isNew() && !this.isAppliedToDB())
     {
       this.setDisease(Disease.getCurrent());
-      
+
       if (this.getName() == null || this.getName().length() == 0)
       {
         this.setName(LocalProperty.getNextId());
@@ -685,7 +685,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   {
     GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(MdClassDAO.getMdClassDAO(Country.CLASS), new QueryFactory());
     query.ORDER_BY_ASC(query.getEntityLabel().localize());
-    
+
     OIterator<? extends GeoEntity> it = query.getIterator();
 
     try
@@ -998,6 +998,17 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     return getJSON(this.getConditionMap());
   }
+  
+  @Override
+  public Boolean hasReport()
+  {
+    KaleidoscopeReportQuery query = new KaleidoscopeReportQuery(new QueryFactory());
+    query.WHERE(query.getDashboard().EQ(this));
+
+    return ( query.getCount() > 0 );
+  }
+
+  
 
   public JSONObject getJSON(Map<String, DashboardCondition> conditions) throws JSONException
   {
@@ -1017,9 +1028,8 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("name", this.getName());
     object.put("label", this.getDisplayLabel().getValue());
     object.put("description", this.getDescription().getValue());
-    object.put("hasReport", false);
+    object.put("hasReport", this.hasReport());
     object.put("editDashboard", true);
-    // object.put("hasReport", this.hasReport());
     // object.put("editDashboard", GeoprismUser.hasAccess(AccessConstants.EDIT_DASHBOARD));
     object.put("types", types);
 
@@ -1107,7 +1117,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     DashboardState state = this.getOrCreateDashboardState(user);
     state.setConditions(DashboardCondition.serialize(conditions));
     state.apply();
-    
+
     this.executeThumbnailThread(user);
 
     return "";
@@ -1371,16 +1381,16 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     }
 
   }
-  
+
   public ValueQuery getGeoEntitySuggestions(String text, Integer limit)
   {
     ValueQuery query = new ValueQuery(new QueryFactory());
 
-//    List<GeoEntity> countries = this.getCountries();
-    
+    // List<GeoEntity> countries = this.getCountries();
+
     GeoEntityQuery entityQuery = new GeoEntityQuery(query);
     MdBusinessQuery mdQ = new MdBusinessQuery(query);
-//    dss.vector.solutions.geo.AllPathsQuery aptQuery = new dss.vector.solutions.geo.AllPathsQuery(query);
+    // dss.vector.solutions.geo.AllPathsQuery aptQuery = new dss.vector.solutions.geo.AllPathsQuery(query);
 
     SelectableChar id = entityQuery.getId();
     Coalesce universalLabel = mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL);
@@ -1392,26 +1402,26 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     label.setUserDefinedAlias(GeoEntity.ENTITYLABEL);
     label.setUserDefinedDisplayLabel(GeoEntity.ENTITYLABEL);
 
-//    Condition cCondition = null;
-//
-//    for (GeoEntity country : countries)
-//    {
-//      if (cCondition == null)
-//      {
-//        cCondition = aptQuery.getParentGeoEntity().EQ(country);
-//      }
-//      else
-//      {
-//        cCondition = OR.get(cCondition, aptQuery.getPGeoEntity().EQ(country));
-//      }
-//    }
+    // Condition cCondition = null;
+    //
+    // for (GeoEntity country : countries)
+    // {
+    // if (cCondition == null)
+    // {
+    // cCondition = aptQuery.getParentGeoEntity().EQ(country);
+    // }
+    // else
+    // {
+    // cCondition = OR.get(cCondition, aptQuery.getPGeoEntity().EQ(country));
+    // }
+    // }
 
     query.SELECT(id, label);
     query.WHERE(label.LIKEi("%" + text + "%"));
-//    query.AND(entityQuery.EQ(aptQuery.getChildGeoEntity()));
+    // query.AND(entityQuery.EQ(aptQuery.getChildGeoEntity()));
     query.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(entityQuery.getType()));
     query.AND(entityQuery.getActivated().EQ(true));
-//    query.AND(cCondition);
+    // query.AND(cCondition);
 
     query.ORDER_BY_ASC(geoLabel);
 
@@ -1419,13 +1429,13 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     return query;
   }
-  
+
   @Override
   public void generateThumbnailImage()
   {
     /*
-     * This method is only invoked when a new layer is created. As such, it generates a thumbnail for both the current
-     * users state and the global state. Normally you just want to generate a thumbnail for one or the other.
+     * This method is only invoked when a new layer is created. As such, it generates a thumbnail for both the current users state and the global
+     * state. Normally you just want to generate a thumbnail for one or the other.
      */
     this.executeThumbnailThread(MDSSUser.getCurrentUser(), null);
   }

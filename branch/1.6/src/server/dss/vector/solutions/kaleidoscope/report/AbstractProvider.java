@@ -230,7 +230,7 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
       geoLocation = ( (AttributeLocal) geoLocation ).localize();
     }
 
-    geoLocation.setColumnAlias(entityAttribute.getAttributeName());
+    geoLocation.setColumnAlias(entityAttribute.getColumnName());
     geoLocation.setUserDefinedAlias(entityAttribute.getAttributeName());
     geoLocation.setUserDefinedDisplayLabel(entityAttribute.getDisplayLabel().getValue());
 
@@ -288,7 +288,7 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
     MdAttributeConcreteDAOIF mdAttribute = geoEntityAttribute.getMdAttributeIF();
 
     Coalesce geoLocation = entityQuery.getEntityLabel().localize();
-    geoLocation.setColumnAlias(mdAttribute.definesAttribute());
+    geoLocation.setColumnAlias(mdAttribute.getColumnName());
     geoLocation.setUserDefinedAlias(mdAttribute.definesAttribute());
     geoLocation.setUserDefinedDisplayLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
 
@@ -437,7 +437,7 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
   }
 
   @Override
-  public PairView[] getSupportedAggregation(String queryId)
+  public List<PairView> getSupportedAggregation(String queryId)
   {
     List<PairView> list = new LinkedList<PairView>();
 
@@ -450,7 +450,7 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
     list.add(PairView.create(COUSINS, "COUSINS"));
     list.add(PairView.create(TYPE, "TYPE"));
 
-    return list.toArray(new PairView[list.size()]);
+    return list;
   }
 
   private GeoEntity getGeoEntity(QueryConfiguration config)

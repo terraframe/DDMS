@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class AttributeDecMetadata extends AttributeMetadata implements AttributeDecMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public abstract class AttributeDecMetadata extends AttributeMetadata implements AttributeDecMetadataIF, Reloadable
 {
   private Integer precision;
 

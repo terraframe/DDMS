@@ -360,6 +360,9 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
 
     return file.getFileStream();
   }
+  
+
+  
 
   @Override
   public InputStream getDocumentAsStream()
@@ -886,13 +889,12 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       }
       catch (IOException e)
       {
-        // TODO change exception type
-        throw new RuntimeException("Unable to get a report document", e);
+        throw new ProgrammingErrorException(e);
       }
     }
   }
 
-  public static KaleidoscopeReport getKaleidoscopeReportForDashboard(String dashboardId)
+  public static KaleidoscopeReport getReportItemForDashboard(String dashboardId)
   {
     KaleidoscopeReportQuery query = new KaleidoscopeReportQuery(new QueryFactory());
     query.WHERE(query.getDashboard().EQ(dashboardId));
@@ -956,22 +958,22 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
     return q.serialize();
   }
 
-  public static PairView[] getQueriesForReporting()
+  public static String getQueriesForReporting()
   {
     return ReportProviderBridge.getQueriesForReporting();
   }
 
-  public static PairView[] getSupportedAggregation(String queryId)
+  public static String getSupportedAggregation(String queryId)
   {
     return ReportProviderBridge.getSupportedAggregation(queryId);
   }
 
-  public static PairView[] getSupportedGeoNodes(String queryId)
+  public static String getSupportedGeoNodes(String queryId)
   {
     return ReportProviderBridge.getGeoNodeIds(queryId);
   }
 
-  public static PairView[] getGeoEntitySuggestions(String text, Integer limit)
+  public static String getGeoEntitySuggestions(String text, Integer limit)
   {
     GeoEntity root = Earth.getEarthInstance();
 
@@ -996,7 +998,7 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
         list.add(PairView.createWithLabel(entity.getId(), entity.getEntityLabel().getValue()));
       }
 
-      return list.toArray(new PairView[list.size()]);
+      return new PairViewSerializer().serialize(list);
     }
     finally
     {
@@ -1005,51 +1007,6 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
 
   }
 
-  // public static PairView[] getGeoEntitySuggestions(String text, Integer limit)
-  // {
-  // ValueQuery query = new ValueQuery(new QueryFactory());
-  //
-  // GeoEntityQuery entityQuery = new GeoEntityQuery(query);
-  //
-  // SelectableChar id = entityQuery.getId();
-  // Coalesce universalLabel = entityQuery.getUniversal().getDisplayLabel().localize();
-  // Coalesce geoLabel = entityQuery.getDisplayLabel().localize();
-  // SelectableChar geoId = entityQuery.getGeoId();
-  //
-  // CONCAT label = F.CONCAT(F.CONCAT(F.CONCAT(F.CONCAT(geoLabel, " ("), F.CONCAT(universalLabel, ")")), " : "), geoId);
-  // label.setColumnAlias(GeoEntity.DISPLAYLABEL);
-  // label.setUserDefinedAlias(GeoEntity.DISPLAYLABEL);
-  // label.setUserDefinedDisplayLabel(GeoEntity.DISPLAYLABEL);
-  //
-  // query.SELECT(id, label);
-  // query.WHERE(label.LIKEi("%" + text + "%"));
-  //
-  // query.ORDER_BY_ASC(geoLabel);
-  //
-  // query.restrictRows(limit, 1);
-  //
-  // OIterator<ValueObject> iterator = query.getIterator();
-  //
-  // try
-  // {
-  // List<PairView> list = new LinkedList<PairView>();
-  //
-  // while (iterator.hasNext())
-  // {
-  // ValueObject vObject = iterator.next();
-  // String vId = vObject.getValue(GeoEntity.ID);
-  // String vLabel = vObject.getValue(GeoEntity.DISPLAYLABEL);
-  //
-  // list.add(PairView.createWithLabel(vId, vLabel));
-  // }
-  //
-  // return list.toArray(new PairView[list.size()]);
-  // }
-  // finally
-  // {
-  // iterator.close();
-  // }
-  // }
 
   public static KaleidoscopeReport getByDashboard(String dashboardId)
   {

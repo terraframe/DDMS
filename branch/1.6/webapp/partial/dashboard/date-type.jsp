@@ -1,37 +1,15 @@
-<%--
-
-    Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
-
-    This file is part of Runway SDK(tm).
-
-    Runway SDK(tm) is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
-
-    Runway SDK(tm) is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
-
---%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss" %>
-<div class="data-block">
-  <div class="col">
+<div>
+<div class="text">
     <label><mdss:localize key="dashboardViewer.dates.from" /></label>
     <span class="data-text"> 
-      <input ng-model="attribute.filter.startDate" class="checkin gdb-attr-filter filter-date" type="text" placeholder="" />
-      <a href="#" class="datapicker-opener"></a>
+      <input ng-model="attribute.filter.startDate" id="test-start" class="checkin gdb-attr-filter filter-date DatePick" type="text" placeholder="" />
     </span>
-  </div>
-  <div class="col">
+</div>
+<div class="text">
     <label><mdss:localize key="dashboardViewer.dates.to" /></label>
     <span class="data-text"> 
-      <input ng-model="attribute.filter.endDate" class="checkout gdb-attr-filter filter-date" type="text" placeholder="" />
-      <a href="#" class="datapicker-opener"></a>
+      <input ng-model="attribute.filter.endDate" id="test-end" class="checkout gdb-attr-filter filter-date DatePick" type="text" placeholder="" />
     </span>
-  </div>
+</div>
 </div>

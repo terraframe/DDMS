@@ -125,9 +125,9 @@
     }
     
     service.runReport = function(dashboardId, configuration, elementId, onSuccess, onFailure) {
-//      var request = runwayService.createStandbyRequest(elementId, onSuccess, onFailure);
-//    	
-//      dss.vector.solutions.kaleidoscope.report.ReportItemController.run(request, dashboardId, configuration);
+      var request = runwayService.createStandbyRequest(elementId, onSuccess, onFailure);
+    	
+      dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportController.run(request, dashboardId, configuration);
     }
     
     service.removeDashboard = function(dashboardId, elementId, onSuccess, onFailure) {
@@ -139,7 +139,7 @@
     service.removeReport = function(dashboardId, elementId, onSuccess, onFailure) {
       var request = runwayService.createStandbyRequest(elementId, onSuccess, onFailure);
         
-      dss.vector.solutions.kaleidoscope.report.ReportItemController.remove(request, dashboardId);
+      dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportController.remove(request, dashboardId);
     }
     
     service.cloneDashboard = function(dashboardId, label, elementId, onSuccess, onFailure) {

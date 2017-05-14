@@ -44,6 +44,13 @@
       return com.runwaysdk.Localize.get(key);
     }
     
+    service.addCalendar = function(element, callback) {
+      MDSS.Calendar.addCalendar(element, callback);
+    }
+    
+    service.destroyCalendar = function(element) {
+      MDSS.Calendar.destroyCalendar(element);
+    }    
 
     return service;
   }

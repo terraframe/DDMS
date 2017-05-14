@@ -12,7 +12,7 @@ import dss.vector.solutions.kaleidoscope.JSONControllerUtil;
 
 public class DashboardController extends DashboardControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "/WEB-INF/net/geoprism/dashboard/Dashboard/";
+  public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/kaleidoscope/dashboard/Dashboard/";
 
   public static final String LAYOUT  = "WEB-INF/templates/layout.jsp";
 

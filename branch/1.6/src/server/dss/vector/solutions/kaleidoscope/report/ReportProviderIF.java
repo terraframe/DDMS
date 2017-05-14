@@ -42,7 +42,7 @@ public interface ReportProviderIF extends Reloadable
    * @param queryId
    * @return
    */
-  public PairView[] getSupportedAggregation(String queryId);
+  public List<PairView> getSupportedAggregation(String queryId);
 
   /**
    * List of all of the geo nodes supported by the given query
@@ -53,8 +53,7 @@ public interface ReportProviderIF extends Reloadable
   public List<GeoNode> getSupportedGeoNodes(String queryId);
 
   /**
-   * Returns a ValueQuery containing all of the results for the given query based upon the context in which the query is
-   * run.
+   * Returns a ValueQuery containing all of the results for the given query based upon the context in which the query is run.
    * 
    * @param queryId
    * @param context

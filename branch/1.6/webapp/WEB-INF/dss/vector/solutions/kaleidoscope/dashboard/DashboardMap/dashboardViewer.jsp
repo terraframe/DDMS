@@ -55,14 +55,16 @@
     <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
     <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
     <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
-    <jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
     
     <c:if test="${generateJavaScriptClasses}">
       <script type="text/javascript" src="js/Localized.js.jsp"></script>
-    </c:if>
+    </c:if>    
+    <jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>    
+    
     <c:if test="${generateJavaScriptClasses}">
       <script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
     </c:if>
+    
 
     <title><mdss:localize key="dashboardViewer.title"/></title>
     
@@ -90,14 +92,14 @@
     <script src="${pageContext.request.contextPath}/js/kaleidoscope/MapConfig.json"></script>
     
     <jwr:script src="/bundles/dashboard.js" useRandomParam="false"/> 
+    <jwr:script src="/bundles/runway-controller.js" useRandomParam="false"/>
     
-<!-- 
+    
     <script type="text/javascript">
-        $(document).ready(function(){
+      $(document).ready(function(){
         com.runwaysdk.ui.Manager.setFactory("JQuery");
-        });
+      });
     </script>  
- -->      
 
   </head>
 

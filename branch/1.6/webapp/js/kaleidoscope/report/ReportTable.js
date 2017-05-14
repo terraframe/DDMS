@@ -5,7 +5,7 @@
   var ViewQueryDataSource = com.runwaysdk.ui.datatable.datasource.ViewQueryDataSource;
   var GenericDataTable = com.runwaysdk.ui.factory.generic.datatable.DataTable;
   
-  var defaultQueryType = "dss.vector.solutions.kaleidoscope.report.ReportItemView";
+  var defaultQueryType = "dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportView";
   
   var tableClassName = "dss.vector.solutions.kaleidoscope.report.ReportTable";
   
@@ -54,7 +54,7 @@
         var that = this;
         
         var config = {
-          type: 'dss.vector.solutions.kaleidoscope.report.ReportItem',
+          type: 'dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport',
           action: "update",
           viewAction: "edit",
           viewParams: {id: id},          
@@ -74,7 +74,7 @@
         var that = this;
           
         var config = {
-          type: 'dss.vector.solutions.kaleidoscope.report.ReportItem',
+          type: 'dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport',
           action: "create",
           viewAction: "newInstance",
           width: 600,
@@ -171,7 +171,7 @@
         this._makeButtons();
         
         // Build the columns from the read permissions
-        var report = new dss.vector.solutions.kaleidoscope.report.ReportItemView();
+        var report = new dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportView();
         var columns = [];        
         
         columns.push({header: this.localize("edit"), customFormatter: Mojo.Util.bind(this, function(result, rowNumber){

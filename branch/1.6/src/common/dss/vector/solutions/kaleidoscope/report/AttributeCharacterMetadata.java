@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AttributeCharacterMetadata extends AttributeMetadata implements AttributeCharacterMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeCharacterMetadata extends AttributeMetadata implements AttributeCharacterMetadataIF, Reloadable
 {
   private Integer size;
 

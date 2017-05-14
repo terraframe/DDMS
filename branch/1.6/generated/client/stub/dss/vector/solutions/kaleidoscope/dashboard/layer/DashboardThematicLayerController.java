@@ -16,7 +16,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyleDTO;
 
 public class DashboardThematicLayerController extends DashboardThematicLayerControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "/WEB-INF/net/geoprism/dashboard/layer/DashboardThematicLayer/";
+  public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/kaleidoscope/dashboard/layer/DashboardThematicLayer/";
 
   public static final String LAYOUT  = "WEB-INF/templates/layout.jsp";
 

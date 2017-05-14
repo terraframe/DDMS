@@ -17,7 +17,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyleDTO;
 
 public class DashboardReferenceLayerController extends DashboardReferenceLayerControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "/WEB-INF/net/geoprism/dashboard/layer/DashboardReferenceLayer/";
+  public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/kaleidoscope/dashboard/layer/DashboardReferenceLayer/";
 
   public static final String LAYOUT  = "WEB-INF/templates/layout.jsp";
 

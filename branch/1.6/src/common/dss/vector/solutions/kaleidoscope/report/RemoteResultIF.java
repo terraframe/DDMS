@@ -21,7 +21,9 @@ package dss.vector.solutions.kaleidoscope.report;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public interface RemoteResultIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public interface RemoteResultIF extends Reloadable
 {
   public String getValue(String columnName);
 

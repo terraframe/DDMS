@@ -3,34 +3,38 @@
  *
  * This file is part of Runway SDK(tm).
  *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
  */
 package dss.vector.solutions.kaleidoscope.dashboard.condition;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.Constants;
+import com.runwaysdk.constants.MdAttributeDateInfo;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.format.ParseException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.LocalizationFacade;
 
@@ -90,6 +94,12 @@ public abstract class DashboardCondition implements Reloadable
 
   public static DashboardCondition[] deserialize(String json)
   {
+
+    Locale locale = Session.getCurrentLocale();
+
+    DateFormat source = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, locale);
+    DateFormat target = new SimpleDateFormat(Constants.DATE_FORMAT);
+
     try
     {
       JSONArray criteria = new JSONArray(json);
@@ -108,6 +118,41 @@ public abstract class DashboardCondition implements Reloadable
           String mdAttributeId = object.getString(DateCondition.MD_ATTRIBUTE_KEY);
           String startDate = ( object.has(DateCondition.START_DATE) ? object.getString(DateCondition.START_DATE) : null );
           String endDate = ( object.has(DateCondition.END_DATE) ? object.getString(DateCondition.END_DATE) : null );
+
+          if (startDate != null && startDate.length() > 0)
+          {
+            if (DashboardCondition.isLocalized(startDate, target))
+            {
+              try
+              {
+                Date date = source.parse(startDate);
+
+                startDate = target.format(date);
+              }
+              catch (Exception e)
+              {
+                throw new ParseException(e, new com.runwaysdk.format.DateFormat(), locale, startDate);
+              }
+            }
+          }
+
+          if (endDate != null && endDate.length() > 0)
+          {
+            if (DashboardCondition.isLocalized(endDate, target))
+            {
+
+              try
+              {
+                Date date = source.parse(endDate);
+
+                endDate = target.format(date);
+              }
+              catch (Exception e)
+              {
+                throw new ParseException(e, new com.runwaysdk.format.DateFormat(), locale, endDate);
+              }
+            }
+          }
 
           condition = new DateCondition(mdAttributeId, startDate, endDate);
         }
@@ -186,6 +231,20 @@ public abstract class DashboardCondition implements Reloadable
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
+    }
+  }
+
+  private static boolean isLocalized(String date, DateFormat format)
+  {
+    try
+    {
+      format.parse(date);
+
+      return false;
+    }
+    catch (Exception e)
+    {
+      return true;
     }
   }
 

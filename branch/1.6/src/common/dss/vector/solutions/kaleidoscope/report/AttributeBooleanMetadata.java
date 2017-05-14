@@ -1,6 +1,8 @@
 package dss.vector.solutions.kaleidoscope.report;
 
-public class AttributeBooleanMetadata extends AttributeMetadata implements AttributePrimitiveMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeBooleanMetadata extends AttributeMetadata implements AttributePrimitiveMetadataIF, Reloadable
 {
 
   public AttributeBooleanMetadata(String name, String label, Boolean required)

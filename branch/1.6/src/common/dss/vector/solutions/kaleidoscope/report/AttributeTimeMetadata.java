@@ -18,7 +18,9 @@
  */
 package dss.vector.solutions.kaleidoscope.report;
 
-public class AttributeTimeMetadata extends AttributeMetadata implements AttributePrimitiveMetadataIF
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class AttributeTimeMetadata extends AttributeMetadata implements AttributePrimitiveMetadataIF, Reloadable
 {
   public AttributeTimeMetadata(String name, String label, Boolean required)
   {
