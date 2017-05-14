@@ -1675,8 +1675,8 @@ MDSS.QueryPanel.prototype =
             content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
             content += "<li><hr /></li>";
             
-            for(var i = 0; i < this._kaleidoscopes.length; i++) {
-              content += "<li>" + this._kaleidoscopes[i]  + "</li>";
+            for(var i = 0; i < kaleidoscopes.length; i++) {
+              content += "<li>" + kaleidoscopes[i]  + "</li>";
             }
             
             content += "<li></li>";
