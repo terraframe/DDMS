@@ -130,7 +130,9 @@
           <div ng-if="ctrl.editDashboard" class="dashboard-card-ico-button-container">     
             <div class="dashboard-thumbnail-ico-group">
             <a href="#" class="fa fa-cog ico-dashboard-options dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.editDashboardTooltip"/>" ng-click="ctrl.edit(ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId)" ></a> 
+<!-- 
             <a href="#" class="fa fa-clone ico-dashboard dashboard-thumnail-ico-ctrl" title="<mdss:localize key='dashboardViewer.newDashboardTooltip'/>" ng-click="ctrl.cloneDashboard(ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId)"></a>
+ -->            
             <a href="#" class="fa fa-trash-o ico-remove dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.deleteDashboardTooltip"/>" ng-click="ctrl.remove(ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId)" ></a>
             </div>
             </div>
@@ -154,7 +156,9 @@
           <div ng-if="ctrl.editDashboard" class="dashboard-card-ico-button-container">     
             <div class="dashboard-thumbnail-ico-group">
             <a href="#" class="fa fa-cog ico-dashboard-options dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.editDashboardTooltip"/>" ng-click="ctrl.edit(ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId)" ></a> 
+<!-- 
             <a href="#" class="fa fa-clone ico-dashboard dashboard-thumnail-ico-ctrl" title="<mdss:localize key='dashboardViewer.newDashboardTooltip'/>" ng-click="ctrl.cloneDashboard(ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId)"></a>
+ -->            
             <a href="#" class="fa fa-trash-o ico-remove dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.deleteDashboardTooltip"/>" ng-click="ctrl.remove(ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId)" ></a>
             </div>
             </div>
