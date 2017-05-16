@@ -22,15 +22,15 @@
   <script type="text/javascript">${js}</script>
   
   <style type="text/css">
-    body {
-      background-color: #333;
-      margin: 0;
-      min-width: 100%;
-      background-image: url(${pageContext.request.contextPath}/imgs/earth-profile.jpg);
-      background-size: cover;
-    }
+  body {
+    background-color: #333;
+    margin: 0;
+    min-width: 100%;
+    background-image: url(${pageContext.request.contextPath}/imgs/earth-profile.jpg);
+    background-size: cover;
+  }
   
-    #headermiddle {
+  #headermiddle {
 	-moz-border-radius: 10px;
 	margin: 0 95px 5px 220px;
 	padding: 22px 0 0 10px;
@@ -38,9 +38,9 @@
 	background-color: #CA1413;
 	color: #FFFFFF;
 	font-size: 32px;
-}
+  }
 
-#headerleft {
+  #headerleft {
 	-moz-border-radius: 10px;
 	height: 80px;
 	width: 210px;
@@ -48,13 +48,30 @@
 	padding: 22px 5px 0 5px;
 	position: absolute;
 	background: #FFFFFF url(${pageContext.request.contextPath}/imgs/flags/current) no-repeat 95% 50%;
-}
+  }
 
-div.pageContent {
+  div.pageContent {
 	padding: 13px 25px 0 25px;
 	height: 80%;
 	overflow-y: auto;
-}
+  }
+
+  .ng-modal-dialog {
+	z-index: 9999;
+	position: absolute;
+	width: 50%;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	overflow-y: auto;
+	height: 500px;
+	background-color: rgba(255,255,255,0.95);
+	border: 2px solid black;
+	overflow-y: scroll;
+  }
+  
   </style>
 </head>
 
