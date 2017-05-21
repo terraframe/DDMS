@@ -4,7 +4,7 @@
     controller.state = 'min';
     
     
-    controller.setupMenu = function() {
+    controller.setupMenu = function(hasReport) {
       $scope.menuOptions = [];      
       
       if(controller.canEdit()) {        
@@ -12,7 +12,7 @@
           controller.upload();
         }]);
         
-        if($scope.hasReport) {
+        if(hasReport) {
         	
           // Report actions
           $scope.menuOptions.push([localizationService.localize("dashboardViewer", "remove"), function ($itemScope, $event, modelValue, text, $li) {
@@ -47,15 +47,11 @@
       if($scope.opaque) {
         $scope.menuOptions.push([localizationService.localize("report", "translucent"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.opaque = false;
-          
-          controller.setupMenu();
         }]);
       }
       else {
         $scope.menuOptions.push([localizationService.localize("report", "opaque"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.opaque = true;
-              
-          controller.setupMenu();
         }]);        
       }
     }
@@ -151,9 +147,7 @@
         onSuccess : function(dto) {
           $("#report-export-container").show();
           
-          $scope.hasReport = true;
-          controller.setupMenu();
-                    
+          $scope.hasReport = true;                    
           $scope.$apply();
         },
         onFailure : function(e) {
@@ -185,14 +179,15 @@
       
       var onSuccess = function(){
         $scope.hasReport = false;
-        controller.setupMenu();        
         $scope.$apply();    	  
       };
       
       dashboardService.removeReport(dashboardId, "#report-viewport", onSuccess);
     }
     
-    controller.setupMenu();
+    $scope.$watch('hasReport', function(newValue, oldValue){        
+      controller.setupMenu(newValue);    	
+    });
   }
   
   function ReportPanel() {
