@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AmbiguousAttributeException;
 import com.runwaysdk.query.Attribute;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;

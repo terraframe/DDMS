@@ -5,7 +5,6 @@ import java.util.List;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.PooledInfectionAssayView;
-import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.ontology.Term;
 
 public class PooledInfectionAssayExcelView extends PooledInfectionAssayExcelViewBase implements

@@ -1,5 +1,7 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
+import java.util.Map;
+
 import org.json.JSONObject;
 
 import com.runwaysdk.query.ValueQuery;
@@ -16,7 +18,7 @@ public abstract class AggregationStrategy extends AggregationStrategyBase implem
     super();
   }
 
-  public abstract ValueQuery getViewQuery(DashboardThematicLayer layer);
+  public abstract ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns);
 
   public abstract JSONObject getJSON();
 

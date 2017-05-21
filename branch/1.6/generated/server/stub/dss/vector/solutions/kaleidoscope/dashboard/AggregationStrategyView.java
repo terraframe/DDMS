@@ -1,6 +1,7 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import dss.vector.solutions.kaleidoscope.MappableClassGeoNodeQuery;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 
-public class AggregationStrategyView extends AggregationStrategyViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class AggregationStrategyView extends AggregationStrategyViewBase implements com.runwaysdk.generation.loader.Reloadable, Comparable<AggregationStrategyView>
 {
   private static final long serialVersionUID = 1241142559;
 
@@ -40,7 +41,7 @@ public class AggregationStrategyView extends AggregationStrategyViewBase impleme
 
   public static AggregationStrategyView[] getAggregationStrategies(GeoNode node, Boolean aggregatable)
   {
-    List<AggregationStrategyView> list = new LinkedList<AggregationStrategyView>();
+    LinkedHashSet<AggregationStrategyView> set = new LinkedHashSet<AggregationStrategyView>();
 
     if (aggregatable)
     {
@@ -74,7 +75,7 @@ public class AggregationStrategyView extends AggregationStrategyViewBase impleme
               view.setDisplayLabel(universal.getDisplayLabel());
               view.setAvailableGeometryTypes(new JSONArray().toString());
 
-              list.add(view);
+              set.add(view);
             }
           }
         }
@@ -116,8 +117,10 @@ public class AggregationStrategyView extends AggregationStrategyViewBase impleme
 
       view.setAvailableGeometryTypes(geomTypesJSONArr.toString());
 
-      list.add(view);
+      set.add(view);
     }
+    
+    LinkedList<AggregationStrategyView> list = new LinkedList<>(set);
     
     Collections.reverse(list);
 
@@ -163,5 +166,11 @@ public class AggregationStrategyView extends AggregationStrategyViewBase impleme
     object.put("geomTypes", aggGeomTypes);
 
     return object;
+  }
+
+  @Override
+  public int compareTo(AggregationStrategyView o)
+  {
+    return this.getValue().compareTo(o.getValue());
   }
 }

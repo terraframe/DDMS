@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,6 +87,7 @@ import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.MappableClassQuery;
 import dss.vector.solutions.kaleidoscope.TaskExecutor;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
+import dss.vector.solutions.kaleidoscope.dashboard.condition.LocationCondition;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardReferenceLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
@@ -183,7 +185,23 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   @Override
   public String refresh(String state)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
+
+    Map<String, Drilldown> drilldowns = Drilldown.deserialize(state);
+
+    if (drilldowns.size() > 0)
+    {
+      Drilldown last = null;
+
+      for (Entry<String, Drilldown> entry : drilldowns.entrySet())
+      {
+        last = entry.getValue();
+      }
+
+      GeoEntity entity = GeoEntity.getByKey(last.getGeoId());
+
+      conditions.add(new LocationCondition(entity.getId()));
+    }
 
     GeoserverBatch batch = new GeoserverBatch();
 
@@ -197,8 +215,8 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
       this.generateSessionViewName(layer);
 
-      layer.setConditions(Arrays.asList(conditions));
-      layer.publish(batch);
+      layer.setConditions(conditions);
+      layer.publish(batch, drilldowns);
 
       TaskExecutor.addTask(new DropViewTask(viewName));
     }
@@ -211,10 +229,10 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   @Override
   public InputStream exportLayerData(String state, String layerId)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
     DashboardLayer layer = DashboardLayer.get(layerId);
-    layer.setConditions(Arrays.asList(conditions));
+    layer.setConditions(conditions);
 
     ValueQuery query = layer.getViewQuery();
 
@@ -725,6 +743,8 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
         for (GeoHierarchy lowest : lowests)
         {
+          universals.add(lowest);
+
           universals.addAll(lowest.getAllParents());
         }
 
@@ -1640,4 +1660,56 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     }
   }
 
+  public List<String> getUniversalAggregationIds(String mdAttributeId)
+  {
+    GeoHierarchy[] universals = this.getUniversalAggregations(mdAttributeId);
+
+    List<String> list = new LinkedList<>();
+
+    for (GeoHierarchy universal : universals)
+    {
+      list.add(universal.getId());
+    }
+
+    return list;
+  }
+
+  @Override
+  public String getDrillDownUniversals(String layerId, String geoId)
+  {
+    try
+    {
+      JSONArray response = new JSONArray();
+
+      GeoEntity entity = GeoEntity.getByKey(geoId);
+
+      MdClassDAOIF mdClass = entity.getMdClass();
+
+      GeoHierarchy universal = GeoHierarchy.getGeoHierarchyFromType(mdClass.definesType());
+
+      DashboardThematicLayer layer = DashboardThematicLayer.get(layerId);
+
+      List<String> universalIds = this.getUniversalAggregationIds(layer.getMdAttributeId());
+
+      List<? extends GeoHierarchy> hierarchies = universal.getAllAcceptsGeoEntity().getAll();
+
+      for (GeoHierarchy hierarchy : hierarchies)
+      {
+        if (universalIds.contains(hierarchy.getId()))
+        {
+          JSONObject object = new JSONObject();
+          object.put("universalId", hierarchy.getId());
+          object.put("label", hierarchy.getDisplayLabel());
+
+          response.put(object);
+        }
+      }
+
+      return response.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
 }

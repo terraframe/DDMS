@@ -72,6 +72,13 @@
       dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.refresh(request, state.mapId, state);
     }
     
+    service.getDrillDownUniversals = function(layerId, geoId, onSuccess, onFailure) {
+      var request = runwayService.createRequest(onSuccess, onFailure);
+      var mapId = this.getDashboard().getModel().mapId;      
+      
+      dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.getDrillDownUniversals(request, mapId, layerId, geoId);
+    }
+    
     service.getDashboardJSON = function(dashboardId, onSuccess, onFailure) {
       var request = runwayService.createRequest(onSuccess, onFailure);
           

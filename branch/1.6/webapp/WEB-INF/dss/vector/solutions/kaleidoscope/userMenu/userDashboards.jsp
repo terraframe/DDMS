@@ -57,7 +57,7 @@
   }
 
   .ng-modal-dialog {
-	z-index: 9999;
+	z-index: 999;
 	position: absolute;
 	width: 50%;
 	top: 40%;

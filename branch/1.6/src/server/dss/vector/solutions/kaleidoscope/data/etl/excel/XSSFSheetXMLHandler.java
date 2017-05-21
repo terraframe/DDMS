@@ -18,8 +18,6 @@
  */
 package dss.vector.solutions.kaleidoscope.data.etl.excel;
 
-import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
-
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -32,6 +30,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.runwaysdk.generation.loader.Reloadable;
+
+import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 
 /**
  * This class handles the processing of a sheet#.xml sheet part of a XSSF .xlsx file, and generates row and cell events

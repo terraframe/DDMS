@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AggregateFunction;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoin;
 import com.runwaysdk.query.InnerJoinEq;

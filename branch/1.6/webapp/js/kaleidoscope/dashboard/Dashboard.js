@@ -1,21 +1,3 @@
-/*
- * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
- *
- * This file is part of Runway SDK(tm).
- *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
- */
 (function(){
 
   function DashboardController($scope, $rootScope, $compile, $timeout, dashboardService, localizationService, mapService) {
@@ -36,7 +18,8 @@
       editData : false,
       types : [],
       mapId : '',
-      label : ''
+      label : '',
+      drillDown : []
     };
     
     // Variable used to dispatch events the builder modal
@@ -140,6 +123,16 @@
       
       var state = controller.getCompressedState();
       dashboardService.refreshMap(state, '#filter-buttons-container', onSuccess);
+    }
+    
+    controller.drillDown = function(data) {
+      if(!controller.model.drillDown) {
+        controller.model.drillDown = [];
+      }
+    	
+      controller.model.drillDown.push(data);
+      
+      controller.refresh(null, false);
     }
     
     controller.save = function(global, buttonId) {
@@ -643,7 +636,8 @@
       
       var state = {
         mapId : oState.mapId,
-        types : []
+        types : [],
+        drillDown : oState.drillDown
       };
       
       if(!dashboardService.isEmptyFilter(oState.location)) {
@@ -806,11 +800,16 @@
         
       event.stopPropagation();
     });    
-      
+    
     $scope.$on('centerMap', function(event, data) {
       controller.centerMap();
         
       event.stopPropagation();
+    });
+    
+    
+    $scope.$on('drillDown', function(event, data) {
+      controller.drillDown(data);
     });
   }
   

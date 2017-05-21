@@ -2,7 +2,9 @@ package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,6 +28,7 @@ import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.geoserver.SessionPredicate;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
+import dss.vector.solutions.kaleidoscope.dashboard.Drilldown;
 import dss.vector.solutions.kaleidoscope.dashboard.HasStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureStrategy;
@@ -43,7 +46,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   private List<DashboardCondition> conditions       = null;
 
-  public abstract ValueQuery getViewQuery();
+  public abstract ValueQuery getViewQuery(Map<String, Drilldown> drilldowns);
 
   public abstract JSONObject toJSON();
 
@@ -95,12 +98,17 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     return SessionPredicate.generateId();
   }
 
+  public ValueQuery getViewQuery()
+  {
+    return this.getViewQuery(new HashMap<String, Drilldown>());
+  }
+
   @Override
   public String applyWithStyle(DashboardStyle style, String mapId, String state)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
-    return this.applyWithStyle(style, mapId, conditions);
+    return this.applyWithStyle(style, mapId, conditions.toArray(new DashboardCondition[conditions.size()]));
   }
 
   public String applyWithStyle(DashboardStyle style, String mapId, DashboardCondition[] conditions)
@@ -220,12 +228,17 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   public void createDatabaseView(boolean force)
   {
-    this.createDatabaseView(force, true);
+    this.createDatabaseView(force, new HashMap<String, Drilldown>());
   }
 
-  public void createDatabaseView(boolean force, boolean dropExisting)
+  public void createDatabaseView(boolean force, Map<String, Drilldown> drilldowns)
   {
-    String sql = this.getViewQuery().getSQL();
+    this.createDatabaseView(force, true, drilldowns);
+  }
+
+  public void createDatabaseView(boolean force, boolean dropExisting, Map<String, Drilldown> drilldowns)
+  {
+    String sql = this.getViewQuery(drilldowns).getSQL();
 
     if (dropExisting)
     {
@@ -235,12 +248,19 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     DatabaseUtil.createView(this.getViewName(), sql);
   }
 
-  /**
-   * Publishes the layer and all its styles to GeoServer, creating a new database view that GeoServer will read, if it does not exist yet.
-   */
   public void publish(GeoserverBatch batch)
   {
-    createDatabaseView(true);
+    this.publish(batch, new HashMap<String, Drilldown>());
+  }
+
+  /**
+   * Publishes the layer and all its styles to GeoServer, creating a new database view that GeoServer will read, if it does not exist yet.
+   * 
+   * @param drilldowns
+   */
+  public void publish(GeoserverBatch batch, Map<String, Drilldown> drilldowns)
+  {
+    createDatabaseView(true, drilldowns);
 
     if (viewHasData)
     {

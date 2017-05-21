@@ -1,24 +1,19 @@
-/*
- * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
- *
- * This file is part of Runway SDK(tm).
- *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
- */
 (function(){
+	
+  function ModalInstanceCtrl ($uibModalInstance, layerNames) {
+    var controller = this;
+    controller.layerNames = layerNames;
+    
+    controller.ok = function () {
+      $uibModalInstance.close();
+    };
 
-  function BuilderDialogController($scope, $rootScope, $timeout, builderService, datasetService) {
+    controller.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  };
+
+  function BuilderDialogController($scope, $rootScope, $timeout, $uibModal, builderService, datasetService) {
     var controller = this;
     
     controller.clear = function() {
@@ -50,31 +45,36 @@
     };
     
     controller.persist = function() {
+    	
       $scope.busy = true;
    
       var onSuccess = function(result) {      
         var layerNames = JSON.parse(result);
         
         if(layerNames.length > 0) {
-          var message = com.runwaysdk.Localize.localize("dashboardViewer", "removeLayers", "This change will remove the following layers: {0}");
-          message = message.replace('{0}', layerNames.toString());
-                
-          var dialog = com.runwaysdk.ui.Manager.getFactory().newDialog(com.runwaysdk.Localize.localize("dashboardViewer", "information", "Information"));
-          dialog.appendContent(message);          
-          dialog.addButton(com.runwaysdk.Localize.localize("dashboardViewer", "ok", "Ok"), function() {
+        	
+          var modalInstance = $uibModal.open({
+            animation: false,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: com.runwaysdk.__applicationContextPath + '/partial/builder/modal-instance.jsp',
+            controller: 'ModalInstanceCtrl',
+            controllerAs: 'ctrl',
+            size: 800,
+            resolve: {
+              layerNames: function () {
+                return layerNames;
+              }
+            }
+          });
+
+          modalInstance.result.then(function () {
             $scope.busy = false;            
-            dialog.close();            
-            $scope.$apply();
-            
+              
             controller.applyWithOptions(); 
-          }, null, {class:'btn btn-primary'});
-          dialog.addButton(com.runwaysdk.Localize.localize("dashboardViewer", "cancel", "Cancel"), function() {
+          }, function () {
             $scope.busy = false;            
-            dialog.close();            
-            $scope.$apply();
-          }, null, {class:'btn btn-default'});
-          dialog.setStyle("z-index", 10001);          
-          dialog.render();
+          });        	
         }
         else {
           $scope.busy = false;            
@@ -448,11 +448,12 @@
     }    
   }  
 
-  angular.module("dashboard-builder", ["builder-service", "dataset-service", "styled-inputs", 'ngFileUpload']);
+  angular.module("dashboard-builder", ["builder-service", "dataset-service", "styled-inputs", 'ngFileUpload', 'ui.bootstrap']);
   angular.module("dashboard-builder")
    .directive('textField', TextField)
    .directive('textAreaField', TextAreaField)
    .directive('selectField', SelectField)
    .directive('typeAttribute', TypeAttribute)
-   .directive('builderDialog', BuilderDialog);
+   .directive('builderDialog', BuilderDialog)
+   .controller('ModalInstanceCtrl', ModalInstanceCtrl);
 })();

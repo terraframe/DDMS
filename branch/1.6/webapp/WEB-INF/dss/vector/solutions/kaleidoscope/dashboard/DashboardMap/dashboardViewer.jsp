@@ -84,15 +84,14 @@
     <jwr:script src="/bundles/widget.js" useRandomParam="false"/>  
     
     <!-- Dynamic map Javascript -->
+    <jwr:script src="/bundles/dashboard.js" useRandomParam="false"/>     
     <jwr:script src="/bundles/termtree.js" useRandomParam="false"/>
     <jwr:script src="/bundles/dynamic-map.js" useRandomParam="false"/> 
     <jwr:script src="/bundles/ontology.js" useRandomParam="false"/>
-    
+    <jwr:script src="/bundles/runway-controller.js" useRandomParam="false"/>
+        
     <script type="text/javascript">${js}</script>
     <script src="${pageContext.request.contextPath}/js/kaleidoscope/MapConfig.json"></script>
-    
-    <jwr:script src="/bundles/dashboard.js" useRandomParam="false"/> 
-    <jwr:script src="/bundles/runway-controller.js" useRandomParam="false"/>
     
     
     <script type="text/javascript">

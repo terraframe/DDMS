@@ -58,6 +58,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.DashboardLegend;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyle;
+import dss.vector.solutions.kaleidoscope.dashboard.Drilldown;
 import dss.vector.solutions.kaleidoscope.dashboard.MdAttributeView;
 import dss.vector.solutions.kaleidoscope.dashboard.MissingLocationAttributeException;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
@@ -109,11 +110,11 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   @Override
   public String applyWithStyleAndStrategy(DashboardStyle style, String mapId, AggregationStrategy strategy, String state)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
     try
     {
-      this.applyAll(style, mapId, strategy, conditions);
+      this.applyAll(style, mapId, strategy, conditions.toArray(new DashboardCondition[conditions.size()]));
     }
     catch (com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException e)
     {
@@ -539,12 +540,13 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
    * @prerequisite conditions is populated with any DashboardConditions necessary for restricting the view dataset.
    * 
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
-   */
-  public ValueQuery getViewQuery()
+   */  
+  @Override
+  public ValueQuery getViewQuery(Map<String, Drilldown> drilldowns)
   {
     AggregationStrategy strategy = this.getAggregationStrategy();
 
-    return strategy.getViewQuery(this);
+    return strategy.getViewQuery(this, drilldowns);
   }
 
   public DashboardStyle getStyle()

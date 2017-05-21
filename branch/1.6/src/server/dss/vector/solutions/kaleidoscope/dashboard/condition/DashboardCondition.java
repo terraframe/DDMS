@@ -26,9 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.constants.Constants;
-import com.runwaysdk.constants.MdAttributeDateInfo;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.format.ParseException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
@@ -80,7 +78,7 @@ public abstract class DashboardCondition implements Reloadable
     return message;
   }
 
-  public static String serialize(DashboardCondition[] conditions)
+  public static String serialize(List<DashboardCondition> conditions)
   {
     JSONArray array = new JSONArray();
 
@@ -92,7 +90,7 @@ public abstract class DashboardCondition implements Reloadable
     return array.toString();
   }
 
-  public static DashboardCondition[] deserialize(String json)
+  public static List<DashboardCondition> deserialize(String json)
   {
 
     Locale locale = Session.getCurrentLocale();
@@ -226,7 +224,7 @@ public abstract class DashboardCondition implements Reloadable
         }
       }
 
-      return conditions.toArray(new DashboardCondition[conditions.size()]);
+      return conditions;
     }
     catch (JSONException e)
     {
@@ -352,7 +350,7 @@ public abstract class DashboardCondition implements Reloadable
     return true;
   }
 
-  public static DashboardCondition[] getConditionsFromState(String state)
+  public static List<DashboardCondition> getConditionsFromState(String state)
   {
     if (state != null && state.length() > 0)
     {
@@ -368,6 +366,6 @@ public abstract class DashboardCondition implements Reloadable
       }
     }
 
-    return new DashboardCondition[] {};
+    return new LinkedList<DashboardCondition>();
   }
 }

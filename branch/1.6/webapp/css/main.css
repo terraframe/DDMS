@@ -2044,7 +2044,7 @@ div.alert.alertbox {
 
 .ng-modal-dialog {
   /* A centered div above the overlay with a box shadow. */
-  z-index:9999;
+  z-index:999;
   position: absolute;
   width: 50%; /* Default - often overwritten by 'width' property on element html */
   top: 50%;  /* Center the dialog */

@@ -1,23 +1,5 @@
-/*
- * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
- *
- * This file is part of Runway SDK(tm).
- *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
- */
 (function(){
-  function MapPopupController($scope, dashboardService, mapService) {
+  function MapPopupController($scope, $uibModal, dashboardService, localizationService, mapService) {
     var controller = this;
     
     controller.canEditData = function() {
@@ -33,8 +15,8 @@
     }
     
     controller.zoomToFeatureExtent = function() {
-    	var selectedFeatureInfo = dashboardService.getSelectedFeatureInfo();
-    	mapService.zoomToFeatureExtent(selectedFeatureInfo);
+      var selectedFeatureInfo = dashboardService.getSelectedFeatureInfo();
+      mapService.zoomToFeatureExtent(selectedFeatureInfo);
     }
     
     controller.editData = function() {
@@ -57,10 +39,59 @@
     }
     
     controller.addOverlay = function(element, coordinate) {
-      mapService.clearOverlays();    	
-      mapService.addOverlay(element, coordinate);    	
+      mapService.clearOverlays();      
+      mapService.addOverlay(element, coordinate);      
     }
+    
+    controller.getDrillUniversal = function(){
+      var feature = $scope.feature;
+      
+      var onSuccess = function(response) {
+        var universals = JSON.parse(response);
+        
+        if(universals.length > 1) {
+          // Pop-message determining the right universal to use
+          var modalInstance = $uibModal.open({
+            animation: false,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/drilldown-modal.jsp',
+            controller: 'DrilldownModalCtrl',
+            controllerAs: 'ctrl',
+            size: 800,
+            resolve: {
+              universals: function () {
+                return universals;
+              }
+            }
+          });
+
+          modalInstance.result.then(function (universal) {
+            $scope.$emit('drillDown', {layerId : feature.layerId, geoId : feature.geoId, universalId : universal.universalId});
+          }, function () {});          
+        }
+        else if(universals.length == 1) {
+          // Drill-down
+          $scope.$emit('drillDown', {layerId : feature.layerId, geoId : feature.geoId, universalId : universals[0].universalId});
+        }
+        else {
+          // Nothing to drill down into  
+          localizationService.errorModal("net.geoprism.gis.DynamicMap.lowestUniversal");          
+        }
+      };
+      
+      dashboardService.getDrillDownUniversals(feature.layerId, feature.geoId, onSuccess);
+    } 
   }
+  
+  function DrilldownModalCtrl ($uibModalInstance, universals) {
+    var controller = this;
+    controller.universals = universals;
+      
+    controller.select = function (universal) {
+      $uibModalInstance.close(universal);
+    };
+  };
   
   function MapPopup() {
     return {
@@ -76,13 +107,14 @@
         scope.$watch('feature', function(){
           if(scope.feature != null) {
             ctrl.addOverlay(element[0], scope.feature.coordinate);
-          }	
+          }  
         }, true);
       }
     }    
   }
   
-  angular.module("dashboard-map", ["dashboard-service", "map-service"]);
+  angular.module("dashboard-map", ['ui.bootstrap', "dashboard-service", "map-service", "localization-service"]);
   angular.module('dashboard-map')
-    .directive('mapPopup', MapPopup);
+    .directive('mapPopup', MapPopup)
+    .controller('DrilldownModalCtrl', DrilldownModalCtrl);
 })();

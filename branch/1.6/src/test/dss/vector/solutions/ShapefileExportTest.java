@@ -4,12 +4,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import junit.framework.TestCase;
-
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.ShapefileExporter;
+import junit.framework.TestCase;
 
 public class ShapefileExportTest extends TestCase implements Reloadable {
 	private class LayerMock extends Layer {

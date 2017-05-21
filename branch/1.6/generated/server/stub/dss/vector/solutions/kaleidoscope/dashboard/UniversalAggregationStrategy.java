@@ -1,5 +1,7 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
@@ -11,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geoserver.GeoserverFacade;
@@ -45,12 +48,12 @@ public class UniversalAggregationStrategy extends UniversalAggregationStrategyBa
   }
 
   @Override
-  public ValueQuery getViewQuery(DashboardThematicLayer layer)
+  public ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
   {
     QueryFactory factory = new QueryFactory();
 
     // Query containing the aggregated values and geo entity ids
-    ValueQuery valueQuery = this.getThematicValueQuery(factory, layer);
+    ValueQuery valueQuery = this.getThematicValueQuery(factory, layer, drilldowns);
 
     // Query to join with the geo entity geometries
     ValueQuery geometryQuery = new ValueQuery(factory);
@@ -110,12 +113,26 @@ public class UniversalAggregationStrategy extends UniversalAggregationStrategyBa
     return outerQuery;
   }
 
-  private ValueQuery getThematicValueQuery(QueryFactory factory, DashboardThematicLayer layer)
+  private ValueQuery getThematicValueQuery(QueryFactory factory, DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
   {
-    GeoEntityThematicQueryBuilder builder = new GeoEntityThematicQueryBuilder(factory, layer, this.getUniversal());
+    GeoHierarchy universal = this.getUniversalForQuery(layer, drilldowns);
+
+    GeoEntityThematicQueryBuilder builder = new GeoEntityThematicQueryBuilder(factory, layer, universal);
     ValueQuery valueQuery = builder.getThematicValueQuery();
 
     return valueQuery;
+  }
+
+  private GeoHierarchy getUniversalForQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
+  {
+    if (drilldowns.containsKey(layer.getId()))
+    {
+      Drilldown drilldown = drilldowns.get(layer.getId());
+
+      return GeoHierarchy.get(drilldown.getUniversalId());
+    }
+
+    return this.getUniversal();
   }
 
   @Override

@@ -3,20 +3,17 @@
  *
  * This file is part of Runway SDK(tm).
  *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
  */
 package dss.vector.solutions.kaleidoscope.dashboard;
+
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,7 +76,7 @@ public class GeometryAggregationStrategy extends GeometryAggregationStrategyBase
   }
 
   @Override
-  public ValueQuery getViewQuery(DashboardThematicLayer layer)
+  public ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
   {
     GeoNode node = layer.getGeoNode();
 
@@ -126,7 +123,7 @@ public class GeometryAggregationStrategy extends GeometryAggregationStrategyBase
     Selectable geom = entityQuery.get(columnName, GeoserverFacade.GEOM_COLUMN);
     geom.setColumnAlias(GeoserverFacade.GEOM_COLUMN);
     geom.setUserDefinedAlias(GeoserverFacade.GEOM_COLUMN);
-    geom.setUserDefinedDisplayLabel(LocalizationFacade.getFromBundles("column.geometry"));    
+    geom.setUserDefinedDisplayLabel(LocalizationFacade.getFromBundles("column.geometry"));
 
     geometryQuery.SELECT_DISTINCT(geoId2, geom);
 
@@ -143,7 +140,7 @@ public class GeometryAggregationStrategy extends GeometryAggregationStrategyBase
     // Add the geometry selectable from the geometry query to the outer query
     Attribute geomAttribute = geometryQuery.get(GeoserverFacade.GEOM_COLUMN);
     geomAttribute.setColumnAlias(GeoserverFacade.GEOM_COLUMN);
-    geomAttribute.setUserDefinedDisplayLabel(LocalizationFacade.getFromBundles("column.geometry"));    
+    geomAttribute.setUserDefinedDisplayLabel(LocalizationFacade.getFromBundles("column.geometry"));
 
     outerQuery.SELECT(geomAttribute);
 

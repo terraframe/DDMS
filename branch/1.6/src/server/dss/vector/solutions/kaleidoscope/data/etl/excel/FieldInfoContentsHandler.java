@@ -25,11 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
-import dss.vector.solutions.kaleidoscope.data.etl.ExcelFieldBindingQuery;
-import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
-import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBindingQuery;
-
 import org.apache.poi.ss.util.CellReference;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +35,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdView;
+
+import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
+import dss.vector.solutions.kaleidoscope.data.etl.ExcelFieldBindingQuery;
+import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
+import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBindingQuery;
 
 public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 {

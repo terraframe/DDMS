@@ -18,38 +18,6 @@
  */
 package dss.vector.solutions.kaleidoscope;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.RunwayException;
-import com.runwaysdk.business.SmartException;
-import com.runwaysdk.business.ontology.Term;
-import com.runwaysdk.business.ontology.TermAndRel;
-import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.constants.VaultProperties;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.ReservedWords;
-import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.system.gis.geo.AllowedIn;
-import com.runwaysdk.system.gis.geo.AllowedInQuery;
-import com.runwaysdk.system.gis.geo.GeoEntity;
-import com.runwaysdk.system.gis.geo.LocatedIn;
-import com.runwaysdk.system.gis.geo.Synonym;
-import com.runwaysdk.system.gis.geo.Universal;
-import com.runwaysdk.system.gis.geo.UniversalQuery;
-import com.runwaysdk.system.metadata.MdClassQuery;
-
 public class DataUploader extends DataUploaderBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long           serialVersionUID = -1960517297;

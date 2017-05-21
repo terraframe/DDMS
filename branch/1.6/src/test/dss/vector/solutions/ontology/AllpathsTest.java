@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +14,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
+
+import junit.framework.Assert;
 
 public class AllpathsTest
 {

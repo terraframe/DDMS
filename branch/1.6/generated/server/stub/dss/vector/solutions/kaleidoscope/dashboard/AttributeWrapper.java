@@ -21,12 +21,12 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 import java.util.Collection;
 import java.util.HashSet;
 
-import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
-import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayerQuery;
-
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+
+import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
+import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayerQuery;
 
 public class AttributeWrapper extends AttributeWrapperBase implements com.runwaysdk.generation.loader.Reloadable
 {

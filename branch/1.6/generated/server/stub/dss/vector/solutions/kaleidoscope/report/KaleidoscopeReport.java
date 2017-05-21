@@ -501,10 +501,10 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
     if (map.containsKey(STATE))
     {
       String state = map.get(STATE);
-      DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+      List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
       // Get the user friendly description of the criteria
-      if (conditions.length > 0)
+      if (conditions.size() > 0)
       {
         map.put(CRITERIA, DashboardCondition.serialize(conditions));
 

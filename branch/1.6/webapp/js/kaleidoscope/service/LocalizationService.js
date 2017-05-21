@@ -51,6 +51,10 @@
     service.destroyCalendar = function(element) {
       MDSS.Calendar.destroyCalendar(element);
     }    
+    
+    service.errorModal = function(key) {
+      MDSS.ErrorModal(service.get(key));    	
+    }    
 
     return service;
   }

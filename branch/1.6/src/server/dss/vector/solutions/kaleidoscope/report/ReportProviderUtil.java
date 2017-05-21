@@ -3,6 +3,7 @@ package dss.vector.solutions.kaleidoscope.report;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -14,7 +15,7 @@ import dss.vector.solutions.util.LocalizationFacade;
 
 public class ReportProviderUtil implements Reloadable
 {
-  private static void parseCondition(DashboardCondition[] conditions, ReportConditionHandlerIF _handler)
+  private static void parseCondition(List<DashboardCondition> conditions, ReportConditionHandlerIF _handler)
   {
     for (DashboardCondition condition : conditions)
     {
@@ -28,13 +29,13 @@ public class ReportProviderUtil implements Reloadable
 
     if (criteria != null && criteria.length() > 0)
     {
-      DashboardCondition[] conditions = DashboardCondition.deserialize(criteria);
+      List<DashboardCondition> conditions = DashboardCondition.deserialize(criteria);
 
       ReportProviderUtil.parseCondition(conditions, new ReportConditionHandler(_type, _config.getValueQuery(), _query));
     }
   }
 
-  public static String getConditionInformation(DashboardCondition[] conditions)
+  public static String getConditionInformation(List<DashboardCondition> conditions)
   {
     ConditionInformationHandler handler = new ConditionInformationHandler();
 

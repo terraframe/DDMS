@@ -1,8 +1,8 @@
 package dss.vector.solutions;
 
-import junit.framework.TestCase;
-
 import com.runwaysdk.generation.loader.Reloadable;
+
+import junit.framework.TestCase;
 
 public class CategoryFactoryTest extends TestCase implements Reloadable {
 	protected void setUp() throws Exception {

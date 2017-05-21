@@ -19,8 +19,6 @@ import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoHierarchyView;
-import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -29,6 +27,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.Dashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyle;
+import dss.vector.solutions.kaleidoscope.dashboard.Drilldown;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureType;
 import dss.vector.solutions.kaleidoscope.wrapper.MapVisitor;
@@ -82,8 +81,9 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
    * 
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
    */
+  
   @Override
-  public ValueQuery getViewQuery()
+  public ValueQuery getViewQuery(Map<String, Drilldown> drilldowns)
   {
     QueryFactory factory = new QueryFactory();
     ValueQuery query = new ValueQuery(factory);

@@ -1,9 +1,5 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
-import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardEqualCondition;
-import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardGreaterThanCondition;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +7,10 @@ import com.runwaysdk.dataaccess.MdAttributeCharDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeNumberDAO;
+
+import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
+import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardEqualCondition;
+import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardGreaterThanCondition;
 
 public class MdAttributeView extends MdAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
 {

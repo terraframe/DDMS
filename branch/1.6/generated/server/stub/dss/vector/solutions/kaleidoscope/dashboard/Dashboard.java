@@ -622,7 +622,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
   public static String[] getCategoryInputSuggestions(String mdAttributeId, String geoNodeId, String universalId, String aggregationVal, String text, Integer limit, String state)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
     Set<String> suggestions = new TreeSet<String>();
 
@@ -663,21 +663,20 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     return Arrays.copyOf(array, Math.min(limit, array.length));
   }
 
-  private static ThematicQueryBuilder getBuilder(String geoNodeId, String universalId, String aggregationVal, DashboardCondition[] conditions, MdAttributeDAOIF mdAttribute)
+  private static ThematicQueryBuilder getBuilder(String geoNodeId, String universalId, String aggregationVal, List<DashboardCondition> conditions, MdAttributeDAOIF mdAttribute)
   {
     GeoNode geoNode = GeoNode.get(geoNodeId);
-    List<DashboardCondition> conditionList = Arrays.asList(conditions);
     AllAggregationType aggregationType = AllAggregationType.valueOf(aggregationVal);
 
     if (universalId.equals(GeometryAggregationStrategy.VALUE))
     {
-      return new GeometryThematicQueryBuilder(new QueryFactory(), mdAttribute, null, aggregationType, conditionList, geoNode);
+      return new GeometryThematicQueryBuilder(new QueryFactory(), mdAttribute, null, aggregationType, conditions, geoNode);
     }
     else
     {
       GeoHierarchy universal = GeoHierarchy.get(universalId);
 
-      return new GeoEntityThematicQueryBuilder(new QueryFactory(), mdAttribute, null, aggregationType, conditionList, universal, geoNode);
+      return new GeoEntityThematicQueryBuilder(new QueryFactory(), mdAttribute, null, aggregationType, conditions, universal, geoNode);
     }
   }
 
@@ -709,7 +708,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   // return ( query.getCount() > 0 );
   // }
 
-  public DashboardCondition[] getConditions()
+  public List<DashboardCondition> getConditions()
   {
     DashboardState state = this.getDashboardState();
 
@@ -719,20 +718,20 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
       if (json != null && json.length() > 0)
       {
-        DashboardCondition[] conditions = DashboardCondition.deserialize(json);
+        List<DashboardCondition> conditions = DashboardCondition.deserialize(json);
 
         return conditions;
       }
     }
 
-    return new DashboardCondition[] {};
+    return new LinkedList<DashboardCondition>();
   }
 
   public Map<String, DashboardCondition> getConditionMap()
   {
     Map<String, DashboardCondition> map = new HashMap<String, DashboardCondition>();
 
-    DashboardCondition[] conditions = this.getConditions();
+    List<DashboardCondition> conditions = this.getConditions();
 
     for (DashboardCondition condition : conditions)
     {
@@ -1105,7 +1104,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   @Override
   public String saveState(String json, Boolean global)
   {
-    DashboardCondition[] conditions = DashboardCondition.getConditionsFromState(json);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(json);
 
     SingleActor user = null;
 

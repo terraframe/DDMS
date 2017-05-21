@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1728196696)
+@com.runwaysdk.business.ClassSignature(hash = 1412749262)
 public abstract class DashboardMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardMap";
-  private static final long serialVersionUID = -1728196696;
+  private static final long serialVersionUID = 1412749262;
   
   protected DashboardMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -541,6 +541,22 @@ public abstract class DashboardMapDTOBase extends com.runwaysdk.business.Busines
     Object[] _parameters = new Object[]{id, outFileFormat, mapBounds, mapSize, activeBaseMap};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO.CLASS, "generateMapImageExport", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String getDrillDownUniversals(java.lang.String layerId, java.lang.String geoId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{layerId, geoId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO.CLASS, "getDrillDownUniversals", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String getDrillDownUniversals(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String layerId, java.lang.String geoId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, layerId, geoId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO.CLASS, "getDrillDownUniversals", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.String getMapJSON(java.lang.String config)
