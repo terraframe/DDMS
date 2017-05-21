@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 2011349288)
+@com.runwaysdk.business.ClassSignature(hash = 510273870)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2011349288;
+  private static final long serialVersionUID = 510273870;
   
   public DashboardMapBase()
   {
@@ -489,6 +489,18 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
   {
     DashboardMap _instance = DashboardMap.get(id);
     return _instance.generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap);
+  }
+  
+  public java.lang.String getDrillDownUniversals(java.lang.String layerId, java.lang.String geoId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getDrillDownUniversals(java.lang.String id, java.lang.String layerId, java.lang.String geoId)
+  {
+    DashboardMap _instance = DashboardMap.get(id);
+    return _instance.getDrillDownUniversals(layerId, geoId);
   }
   
   public java.lang.String getMapJSON(java.lang.String config)

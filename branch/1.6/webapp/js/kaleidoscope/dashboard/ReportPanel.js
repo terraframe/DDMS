@@ -1,8 +1,65 @@
 (function(){
-  function ReportPanelController($scope, dashboardService) {
+  function ReportPanelController($scope, localizationService, dashboardService) {
     var controller = this;
     controller.state = 'min';
     
+    
+    controller.setupMenu = function() {
+      $scope.menuOptions = [];      
+      
+      if(controller.canEdit()) {        
+        $scope.menuOptions.push([localizationService.localize("dashboardViewer", "upload"), function ($itemScope, $event, modelValue, text, $li) {
+          controller.upload();
+        }]);
+        
+        if($scope.hasReport) {
+        	
+          // Report actions
+          $scope.menuOptions.push([localizationService.localize("dashboardViewer", "remove"), function ($itemScope, $event, modelValue, text, $li) {
+            controller.remove();
+          }]);
+          
+          $scope.menuOptions.push([localizationService.localize("report", "rptdesign"), function ($itemScope, $event, modelValue, text, $li) {
+            controller.exportReport('rptdesign');
+          }]);
+          
+          // Divider
+          $scope.menuOptions.push(null);
+
+          // Export actions
+          $scope.menuOptions.push([localizationService.localize("report", "docx"), function ($itemScope, $event, modelValue, text, $li) {
+            controller.exportReport('docx');
+          }]);
+          
+          $scope.menuOptions.push([localizationService.localize("report", "xlsx"), function ($itemScope, $event, modelValue, text, $li) {
+            controller.exportReport('xlsx');
+          }]);
+          
+          $scope.menuOptions.push([localizationService.localize("report", "pdf"), function ($itemScope, $event, modelValue, text, $li) {
+            controller.exportReport('pdf');
+          }]);
+        }        
+        
+        // Divider
+        $scope.menuOptions.push(null);        
+      }
+      
+      if($scope.opaque) {
+        $scope.menuOptions.push([localizationService.localize("report", "translucent"), function ($itemScope, $event, modelValue, text, $li) {
+          $scope.opaque = false;
+          
+          controller.setupMenu();
+        }]);
+      }
+      else {
+        $scope.menuOptions.push([localizationService.localize("report", "opaque"), function ($itemScope, $event, modelValue, text, $li) {
+          $scope.opaque = true;
+              
+          controller.setupMenu();
+        }]);        
+      }
+    }
+      
     controller.canEdit = function() {
       return dashboardService.canEdit();
     }
@@ -95,7 +152,8 @@
           $("#report-export-container").show();
           
           $scope.hasReport = true;
-          
+          controller.setupMenu();
+                    
           $scope.$apply();
         },
         onFailure : function(e) {
@@ -126,12 +184,15 @@
       var dashboardId = dashboardService.getDashboard().getDashboardId();
       
       var onSuccess = function(){
-        $scope.hasReport = false;          
+        $scope.hasReport = false;
+        controller.setupMenu();        
         $scope.$apply();    	  
       };
       
       dashboardService.removeReport(dashboardId, "#report-viewport", onSuccess);
     }
+    
+    controller.setupMenu();
   }
   
   function ReportPanel() {
@@ -149,7 +210,7 @@
     }    
   }
   
-  angular.module("report-panel", ["dashboard-service"]);
+  angular.module("report-panel", ["ui.bootstrap.contextMenu", "angularResizable", "localization-service", "dashboard-service"]);
   angular.module('report-panel')
     .directive('reportPanel', ReportPanel);
 })();
