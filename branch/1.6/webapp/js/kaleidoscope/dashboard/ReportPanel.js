@@ -47,11 +47,15 @@
       if($scope.opaque) {
         $scope.menuOptions.push([localizationService.localize("report", "translucent"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.opaque = false;
+          
+          controller.setupMenu($scope.hasReport);
         }]);
       }
       else {
         $scope.menuOptions.push([localizationService.localize("report", "opaque"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.opaque = true;
+
+          controller.setupMenu($scope.hasReport);
         }]);        
       }
     }
@@ -187,7 +191,7 @@
     
     $scope.$watch('hasReport', function(newValue, oldValue){        
       controller.setupMenu(newValue);    	
-    });
+    });        
   }
   
   function ReportPanel() {
