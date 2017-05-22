@@ -193,8 +193,8 @@
       controller.setupMenu(newValue);    	
     });        
     
-    $scope.$on('angular-resizable.resizeEnd', function(event, args){
-      $("#report-viewport").height(args.height);      
+    $scope.$on('angular-resizable.resizing', function(event, info){
+      $("#report-viewport").height(info.height);      
     });        
   }
   
