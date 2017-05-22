@@ -192,6 +192,10 @@
     $scope.$watch('hasReport', function(newValue, oldValue){        
       controller.setupMenu(newValue);    	
     });        
+    
+    $scope.$on('angular-resizable.resizeEnd', function(event, args){
+      $("#report-viewport").height(args.height);      
+    });        
   }
   
   function ReportPanel() {
