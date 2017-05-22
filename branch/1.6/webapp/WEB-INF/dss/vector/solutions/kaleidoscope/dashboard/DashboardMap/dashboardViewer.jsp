@@ -122,7 +122,7 @@
     <!-- map container -->
     <div class="bg-stretch">
       <div id="mapDivId" class="dynamicMap">
-        <map-popup ng-if="dashboard.feature != null && dashboard.feature.show" feature="dashboard.feature"></map-popup>
+        <map-popup ng-if="dashboard.feature != null && dashboard.feature.show" feature="dashboard.feature" drilldown="dashboard.model.drillDown"></map-popup>
       </div>
     </div>
   

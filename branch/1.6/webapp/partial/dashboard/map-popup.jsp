@@ -33,5 +33,8 @@
     <div ng-if="feature.featureGeom.type != 'Point'">
       <a href="#" ng-click="ctrl.getDrillUniversal()"><mdss:localize key="net.geoprism.gis.DynamicMap.drilldown"/></a>    
     </div>
+    <div ng-if="drilldown.length > 0">
+      <a href="#" ng-click="ctrl.rollup()"><mdss:localize key="net.geoprism.gis.DynamicMap.rollup"/></a>    
+    </div>
   </div>         
 </div>

@@ -135,6 +135,13 @@
       controller.refresh(null, false);
     }
     
+    controller.rollup = function() {
+      
+      controller.model.drillDown.pop();
+      
+      controller.refresh(null, false);
+    }
+    
     controller.save = function(global, buttonId) {
       var state = controller.getCompressedState();
        
@@ -806,10 +813,13 @@
         
       event.stopPropagation();
     });
-    
-    
+        
     $scope.$on('drillDown', function(event, data) {
       controller.drillDown(data);
+    });
+    
+    $scope.$on('rollup', function(event, data) {
+      controller.rollup();
     });
   }
   

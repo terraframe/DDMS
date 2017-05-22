@@ -43,6 +43,10 @@
       mapService.addOverlay(element, coordinate);      
     }
     
+    controller.rollup = function() {
+      $scope.$emit('rollup', {});    	
+    }
+    
     controller.getDrillUniversal = function(){
       var feature = $scope.feature;
       
@@ -99,7 +103,8 @@
       replace: true,
       templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/map-popup.jsp',
       scope: {
-        feature:'='
+        feature:'=',
+        drilldown :'='
       },
       controller : MapPopupController,
       controllerAs : 'ctrl',
