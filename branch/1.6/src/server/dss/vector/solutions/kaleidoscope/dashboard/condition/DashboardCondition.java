@@ -164,6 +164,16 @@ public abstract class DashboardCondition implements Reloadable
             condition = new ClassifierCondition(mdAttributeId, value);
           }
         }
+        else if (type.equals(BooleanCondition.CONDITION_TYPE))
+        {
+          JSONObject value = object.getJSONObject(VALUE_KEY);
+          String mdAttributeId = object.getString(ClassifierCondition.MD_ATTRIBUTE_KEY);
+          
+          if (value != null && value.length() > 0)
+          {
+            condition = new BooleanCondition(mdAttributeId, value);
+          }
+        }
         else if (type.equals(LocationCondition.CONDITION_TYPE))
         {
           if (object.has(LocationCondition.VALUE_KEY))

@@ -165,20 +165,9 @@ public abstract class DashboardPrimitiveCondition extends DashboardAttributeCond
 
     String label = _mdAttribute.getDisplayLabel(locale);
     String operation = this.getLocalizedOperation();
-    Boolean result = this.getComparisonValueAsBoolean();
+    String value = this.getComparisonValue();
 
-    if (result)
-    {
-      String localizedValue = _mdAttribute.getPositiveDisplayLabel(locale);
-
-      return this.handleCondition(label, operation, localizedValue);
-    }
-    else
-    {
-      String localizedValue = _mdAttribute.getNegativeDisplayLabel(locale);
-
-      return this.handleCondition(label, operation, localizedValue);
-    }
+    return this.handleCondition(label, operation, value);
   }
 
   private String handleNumberCondition(MdAttributeNumberDAOIF _mdAttribute)

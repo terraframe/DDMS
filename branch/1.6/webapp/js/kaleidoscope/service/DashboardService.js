@@ -196,6 +196,9 @@
                 return false;
               }
             }
+            else if (typeof value === 'object') {
+              return (Object.keys(value).length === 0);
+            }
             else {
               return false;            
             }

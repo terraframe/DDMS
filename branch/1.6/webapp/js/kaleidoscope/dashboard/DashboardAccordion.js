@@ -465,11 +465,12 @@
   function BooleanTypeController($scope) {
     var controller = this;
     
-    controller.clickOn = function($event) {
-      if($event.shiftKey){
-        $scope.attribute.filter.value = null;        
-      }      
-    }    
+    controller.init = function() {
+      $scope.attribute.filter.operation = "eq";    	
+      $scope.attribute.filter.type = "BOOLEAN_CONDITION";      
+    }
+    
+    controller.init();
   }
   
   function BooleanType() {
