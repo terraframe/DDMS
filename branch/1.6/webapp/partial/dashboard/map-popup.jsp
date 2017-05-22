@@ -30,7 +30,7 @@
     <div>
       <a href="#" ng-click="ctrl.zoomToFeatureExtent()"><mdss:localize key="net.geoprism.gis.DynamicMap.zoomToFeatureBtnLabel"/></a>
     </div>
-    <div>
+    <div ng-if="feature.featureGeom.type != 'Point'">
       <a href="#" ng-click="ctrl.getDrillUniversal()"><mdss:localize key="net.geoprism.gis.DynamicMap.drilldown"/></a>    
     </div>
   </div>         
