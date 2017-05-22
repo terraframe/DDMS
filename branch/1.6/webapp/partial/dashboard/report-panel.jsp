@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss" %>
 
-<article id="reporticng-container" class="reporticng-container report-panel-closed">
+<div>    
+  <article id="reporticng-container" class="reporticng-container report-panel-closed"  resizable r-directions="['top']" r-flex="false">
     <div ng-if="ctrl.canEdit() || hasReport" id="report-toolbar">
       <div id="report-toggle-container">
         <i ng-show="ctrl.state != 'min'" ng-click="ctrl.collapse()" id="report-collapse-toggle" class="fa fa-angle-double-down report-height-toggle"></i>
@@ -12,3 +13,4 @@
       </div>   
     </div>
 </article>
+</div>
