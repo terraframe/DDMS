@@ -13,7 +13,7 @@
  */
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import java.util.Map;
+import java.util.LinkedList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +76,7 @@ public class GeometryAggregationStrategy extends GeometryAggregationStrategyBase
   }
 
   @Override
-  public ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
+  public ValueQuery getViewQuery(DashboardThematicLayer layer, LinkedList<Drilldown> drilldowns)
   {
     GeoNode node = layer.getGeoNode();
 

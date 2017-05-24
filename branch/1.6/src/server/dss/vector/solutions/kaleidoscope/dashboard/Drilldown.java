@@ -1,7 +1,8 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -13,20 +14,17 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class Drilldown implements Reloadable
 {
-  public static final String KEY = "drillDown";
+  public static final String  KEY = "drillDown";
 
-  private String             layerId;
+  private String              geoId;
 
-  private String             geoId;
+  private Map<String, String> universals;
 
-  private String             universalId;
-
-  public Drilldown(String layerId, String geoId, String universalId)
+  public Drilldown(String geoId, Map<String, String> universals)
   {
     super();
-    this.layerId = layerId;
     this.geoId = geoId;
-    this.universalId = universalId;
+    this.universals = universals;
   }
 
   public String getGeoId()
@@ -34,17 +32,13 @@ public class Drilldown implements Reloadable
     return geoId;
   }
 
-  public String getLayerId()
+  public Map<String, String> getUniversals()
   {
-    return layerId;
+    return universals;
   }
 
-  public String getUniversalId()
-  {
-    return universalId;
-  }
-
-  public static Map<String, Drilldown> deserialize(String state)
+  @SuppressWarnings("unchecked")
+  public static LinkedList<Drilldown> deserialize(String state)
   {
     if (state != null && state.length() > 0)
     {
@@ -54,21 +48,32 @@ public class Drilldown implements Reloadable
 
         if (context.has(KEY))
         {
-          Map<String, Drilldown> map = new LinkedHashMap<String, Drilldown>();
+          LinkedList<Drilldown> list = new LinkedList<Drilldown>();
 
           JSONArray array = context.getJSONArray(KEY);
 
           for (int i = 0; i < array.length(); i++)
           {
             JSONObject drilldown = array.getJSONObject(i);
-            String layerId = drilldown.getString("layerId");
             String geoId = drilldown.getString("geoId");
-            String universalId = drilldown.getString("universalId");
 
-            map.put(layerId, new Drilldown(layerId, geoId, universalId));
+            JSONObject oUniversals = drilldown.getJSONObject("universals");
+
+            Map<String, String> universals = new HashMap<String, String>();
+
+            Iterator<String> layers = oUniversals.keys();
+
+            while (layers.hasNext())
+            {
+              String layerId = layers.next();
+
+              universals.put(layerId, oUniversals.getString(layerId));
+            }
+
+            list.add(new Drilldown(geoId, universals));
           }
 
-          return map;
+          return list;
         }
       }
       catch (JSONException e)
@@ -77,6 +82,6 @@ public class Drilldown implements Reloadable
       }
     }
 
-    return new HashMap<String, Drilldown>();
+    return new LinkedList<Drilldown>();
   }
 }

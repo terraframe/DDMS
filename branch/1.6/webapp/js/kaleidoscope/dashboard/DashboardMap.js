@@ -44,39 +44,78 @@
     }
     
     controller.rollup = function() {
-      $scope.$emit('rollup', {});    	
+      $scope.$emit('rollup', {});      
     }
     
     controller.getDrillUniversal = function(){
       var feature = $scope.feature;
       
       var onSuccess = function(response) {
-        var universals = JSON.parse(response);
+        var layers = JSON.parse(response);
         
-        if(universals.length > 1) {
-          // Pop-message determining the right universal to use
-          var modalInstance = $uibModal.open({
-            animation: false,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/drilldown-modal.jsp',
-            controller: 'DrilldownModalCtrl',
-            controllerAs: 'ctrl',
-            size: 800,
-            resolve: {
-              universals: function () {
-                return universals;
+        var drilldown = {
+          geoId : feature.geoId,
+          universals : {}
+        };
+        
+        if(layers.length > 0) {          
+          var handler = function(index) {
+          
+            if(index == layers.length) {
+              $scope.$emit('drillDown', drilldown);
+            }
+            else {
+              var layer = layers[index];
+              var universals = layer.universals
+                            
+              if(universals.length > 1) {
+                // Pop-message determining the right universal to use
+                var modalInstance = $uibModal.open({
+                  animation: false,
+                  ariaLabelledBy: 'modal-title',
+                  ariaDescribedBy: 'modal-body',
+                  templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/drilldown-modal.jsp',
+                  controller: 'DrilldownModalCtrl',
+                  controllerAs: 'ctrl',
+                  size: 800,
+                  resolve: {
+                    universals: function () {
+                      return universals;
+                    },
+                    layer: function () {
+                      return layer.label;
+                    }
+                  }
+                });
+
+                modalInstance.result.then(function (universal) {
+                	
+                  for(var i = 0; i < layer.ids.length; i++) {
+                	var id = layer.ids[i];
+                	
+                    drilldown.universals[id] = universal.universalId;    
+                  }
+                    
+                  if(index < layers.length) {
+                    handler(index + 1);                    
+                  }
+                }, function () {});          
+              }
+              else if(universals.length == 1) {
+                for(var i = 0; i < layer.ids.length; i++) {
+              	var id = layer.ids[i];
+              	
+                  drilldown.universals[id] = universals[0].universalId;    
+                }
+                
+                if(index < layers.length) {
+                  handler(index + 1);                  
+                }
               }
             }
-          });
-
-          modalInstance.result.then(function (universal) {
-            $scope.$emit('drillDown', {layerId : feature.layerId, geoId : feature.geoId, universalId : universal.universalId});
-          }, function () {});          
-        }
-        else if(universals.length == 1) {
-          // Drill-down
-          $scope.$emit('drillDown', {layerId : feature.layerId, geoId : feature.geoId, universalId : universals[0].universalId});
+          }
+          
+          handler(0);
         }
         else {
           // Nothing to drill down into  
@@ -84,13 +123,17 @@
         }
       };
       
-      dashboardService.getDrillDownUniversals(feature.layerId, feature.geoId, onSuccess);
+      var dashboard = dashboardService.getDashboard();
+      var state = dashboard.getCompressedState();
+      
+      dashboardService.getDrillDownUniversals(state, feature.geoId, onSuccess);
     } 
   }
   
-  function DrilldownModalCtrl ($uibModalInstance, universals) {
+  function DrilldownModalCtrl ($uibModalInstance, universals, layer) {
     var controller = this;
     controller.universals = universals;
+    controller.layer = layer;
       
     controller.select = function (universal) {
       $uibModalInstance.close(universal);

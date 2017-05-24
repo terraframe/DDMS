@@ -2,9 +2,8 @@ package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,7 +45,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   private List<DashboardCondition> conditions       = null;
 
-  public abstract ValueQuery getViewQuery(Map<String, Drilldown> drilldowns);
+  public abstract ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns);
 
   public abstract JSONObject toJSON();
 
@@ -100,7 +99,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   public ValueQuery getViewQuery()
   {
-    return this.getViewQuery(new HashMap<String, Drilldown>());
+    return this.getViewQuery(new LinkedList<Drilldown>());
   }
 
   @Override
@@ -228,15 +227,15 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   public void createDatabaseView(boolean force)
   {
-    this.createDatabaseView(force, new HashMap<String, Drilldown>());
+    this.createDatabaseView(force, new LinkedList<Drilldown>());
   }
 
-  public void createDatabaseView(boolean force, Map<String, Drilldown> drilldowns)
+  public void createDatabaseView(boolean force, LinkedList<Drilldown> drilldowns)
   {
     this.createDatabaseView(force, true, drilldowns);
   }
 
-  public void createDatabaseView(boolean force, boolean dropExisting, Map<String, Drilldown> drilldowns)
+  public void createDatabaseView(boolean force, boolean dropExisting, LinkedList<Drilldown> drilldowns)
   {
     String sql = this.getViewQuery(drilldowns).getSQL();
 
@@ -250,7 +249,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
 
   public void publish(GeoserverBatch batch)
   {
-    this.publish(batch, new HashMap<String, Drilldown>());
+    this.publish(batch, new LinkedList<Drilldown>());
   }
 
   /**
@@ -258,7 +257,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
    * 
    * @param drilldowns
    */
-  public void publish(GeoserverBatch batch, Map<String, Drilldown> drilldowns)
+  public void publish(GeoserverBatch batch, LinkedList<Drilldown> drilldowns)
   {
     createDatabaseView(true, drilldowns);
 

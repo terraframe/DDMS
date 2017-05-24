@@ -542,7 +542,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
    */  
   @Override
-  public ValueQuery getViewQuery(Map<String, Drilldown> drilldowns)
+  public ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns)
   {
     AggregationStrategy strategy = this.getAggregationStrategy();
 

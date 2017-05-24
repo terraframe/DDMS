@@ -2,6 +2,7 @@ package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -80,10 +81,9 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
    * @prerequisite conditions is populated with any DashboardConditions necessary for restricting the view dataset.
    * 
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
-   */
-  
+   */  
   @Override
-  public ValueQuery getViewQuery(Map<String, Drilldown> drilldowns)
+  public ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns)
   {
     QueryFactory factory = new QueryFactory();
     ValueQuery query = new ValueQuery(factory);

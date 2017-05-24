@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import java.util.Map;
+import java.util.LinkedList;
 
 import org.json.JSONObject;
 
@@ -18,7 +18,7 @@ public abstract class AggregationStrategy extends AggregationStrategyBase implem
     super();
   }
 
-  public abstract ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns);
+  public abstract ValueQuery getViewQuery(DashboardThematicLayer layer, LinkedList<Drilldown> drilldowns);
 
   public abstract JSONObject getJSON();
 

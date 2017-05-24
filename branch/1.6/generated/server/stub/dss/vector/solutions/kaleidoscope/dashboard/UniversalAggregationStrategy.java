@@ -1,5 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -48,7 +49,7 @@ public class UniversalAggregationStrategy extends UniversalAggregationStrategyBa
   }
 
   @Override
-  public ValueQuery getViewQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
+  public ValueQuery getViewQuery(DashboardThematicLayer layer, LinkedList<Drilldown> drilldowns)
   {
     QueryFactory factory = new QueryFactory();
 
@@ -113,7 +114,7 @@ public class UniversalAggregationStrategy extends UniversalAggregationStrategyBa
     return outerQuery;
   }
 
-  private ValueQuery getThematicValueQuery(QueryFactory factory, DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
+  private ValueQuery getThematicValueQuery(QueryFactory factory, DashboardThematicLayer layer, LinkedList<Drilldown> drilldowns)
   {
     GeoHierarchy universal = this.getUniversalForQuery(layer, drilldowns);
 
@@ -123,13 +124,17 @@ public class UniversalAggregationStrategy extends UniversalAggregationStrategyBa
     return valueQuery;
   }
 
-  private GeoHierarchy getUniversalForQuery(DashboardThematicLayer layer, Map<String, Drilldown> drilldowns)
+  private GeoHierarchy getUniversalForQuery(DashboardThematicLayer layer, LinkedList<Drilldown> drilldowns)
   {
-    if (drilldowns.containsKey(layer.getId()))
+    if (drilldowns.size() > 0)
     {
-      Drilldown drilldown = drilldowns.get(layer.getId());
+      Drilldown drilldown = drilldowns.getLast();
+      Map<String, String> universals = drilldown.getUniversals();
 
-      return GeoHierarchy.get(drilldown.getUniversalId());
+      if (universals.containsKey(layer.getId()))
+      {
+        return GeoHierarchy.get(universals.get(layer.getId()));
+      }
     }
 
     return this.getUniversal();

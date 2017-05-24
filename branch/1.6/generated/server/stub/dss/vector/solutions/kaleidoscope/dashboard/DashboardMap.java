@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -187,16 +186,11 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   {
     List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
 
-    Map<String, Drilldown> drilldowns = Drilldown.deserialize(state);
+    LinkedList<Drilldown> drilldowns = Drilldown.deserialize(state);
 
     if (drilldowns.size() > 0)
     {
-      Drilldown last = null;
-
-      for (Entry<String, Drilldown> entry : drilldowns.entrySet())
-      {
-        last = entry.getValue();
-      }
+      Drilldown last = drilldowns.getLast();
 
       GeoEntity entity = GeoEntity.getByKey(last.getGeoId());
 
@@ -1675,33 +1669,67 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   }
 
   @Override
-  public String getDrillDownUniversals(String layerId, String geoId)
+  public String getDrillDownUniversals(String state, String geoId)
   {
     try
     {
       JSONArray response = new JSONArray();
 
-      GeoEntity entity = GeoEntity.getByKey(geoId);
+      List<? extends DashboardLayer> layers = this.getAllHasLayer().getAll();
 
-      MdClassDAOIF mdClass = entity.getMdClass();
+      LinkedList<Drilldown> drilldowns = Drilldown.deserialize(state);
 
-      GeoHierarchy universal = GeoHierarchy.getGeoHierarchyFromType(mdClass.definesType());
+      Map<String, JSONArray> layerIds = new HashMap<String, JSONArray>();
 
-      DashboardThematicLayer layer = DashboardThematicLayer.get(layerId);
-
-      List<String> universalIds = this.getUniversalAggregationIds(layer.getMdAttributeId());
-
-      List<? extends GeoHierarchy> hierarchies = universal.getAllAcceptsGeoEntity().getAll();
-
-      for (GeoHierarchy hierarchy : hierarchies)
+      for (DashboardLayer layer : layers)
       {
-        if (universalIds.contains(hierarchy.getId()))
+        if (layer instanceof DashboardThematicLayer)
         {
-          JSONObject object = new JSONObject();
-          object.put("universalId", hierarchy.getId());
-          object.put("label", hierarchy.getDisplayLabel());
+          DashboardThematicLayer tLayer = (DashboardThematicLayer) layer;
 
-          response.put(object);
+          GeoHierarchy universal = this.getUniversal(tLayer, drilldowns);
+
+          if (universal != null)
+          {
+            if (layerIds.containsKey(universal.getId()))
+            {
+              JSONArray oIds = layerIds.get(universal.getId());
+              oIds.put(tLayer.getId());              
+            }
+            else
+            {
+              List<String> universalIds = this.getUniversalAggregationIds(tLayer.getMdAttributeId());
+
+              
+              JSONArray universals = new JSONArray();
+
+              List<? extends GeoHierarchy> hierarchies = universal.getAllAcceptsGeoEntity().getAll();
+
+              for (GeoHierarchy hierarchy : hierarchies)
+              {
+                if (universalIds.contains(hierarchy.getId()))
+                {
+                  JSONObject object = new JSONObject();
+                  object.put("universalId", hierarchy.getId());
+                  object.put("label", hierarchy.getDisplayLabel());
+
+                  universals.put(object);
+                }
+              }
+
+              JSONArray oIds = new JSONArray();
+              oIds.put(tLayer.getId());
+
+              JSONObject object = new JSONObject();
+              object.put("label", tLayer.getNameLabel().getValue());
+              object.put("ids", oIds);
+              object.put("universals", universals);
+
+              response.put(object);
+
+              layerIds.put(universal.getId(), oIds);
+            }
+          }
         }
       }
 
@@ -1711,5 +1739,30 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+
+  private GeoHierarchy getUniversal(DashboardThematicLayer tLayer, LinkedList<Drilldown> drilldowns)
+  {
+    if (drilldowns.size() > 0)
+    {
+      Drilldown drilldown = drilldowns.getLast();
+      Map<String, String> universals = drilldown.getUniversals();
+
+      if (universals.containsKey(tLayer.getId()))
+      {
+        String universalId = universals.get(tLayer.getId());
+
+        return GeoHierarchy.get(universalId);
+      }
+    }
+
+    AggregationStrategy strategy = tLayer.getAggregationStrategy();
+
+    if (strategy instanceof UniversalAggregationStrategy)
+    {
+      return ( (UniversalAggregationStrategy) strategy ).getUniversal();
+    }
+
+    return null;
   }
 }
