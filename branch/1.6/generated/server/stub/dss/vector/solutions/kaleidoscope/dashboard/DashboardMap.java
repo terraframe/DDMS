@@ -1694,13 +1694,12 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
             if (layerIds.containsKey(universal.getId()))
             {
               JSONArray oIds = layerIds.get(universal.getId());
-              oIds.put(tLayer.getId());              
+              oIds.put(tLayer.getId());
             }
             else
             {
               List<String> universalIds = this.getUniversalAggregationIds(tLayer.getMdAttributeId());
 
-              
               JSONArray universals = new JSONArray();
 
               List<? extends GeoHierarchy> hierarchies = universal.getAllAcceptsGeoEntity().getAll();
@@ -1715,6 +1714,15 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
                   universals.put(object);
                 }
+              }
+
+              if (universals.length() == 0)
+              {
+                JSONObject object = new JSONObject();
+                object.put("universalId", universal.getId());
+                object.put("label", universal.getDisplayLabel());
+
+                universals.put(object);
               }
 
               JSONArray oIds = new JSONArray();
