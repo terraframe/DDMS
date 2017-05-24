@@ -60,7 +60,8 @@
             templateUrl: com.runwaysdk.__applicationContextPath + '/partial/builder/modal-instance.jsp',
             controller: 'ModalInstanceCtrl',
             controllerAs: 'ctrl',
-            size: 800,
+            windowClass: 'basic-modal',
+            backdropClass: 'basic-modal',            
             resolve: {
               layerNames: function () {
                 return layerNames;

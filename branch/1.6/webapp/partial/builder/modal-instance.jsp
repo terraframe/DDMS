@@ -13,7 +13,7 @@
     </ul>  
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ctrl.ok()"><mdss:localize key="dashboardViewer.ok"/></button>
     <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()"><mdss:localize key="dashboardViewer.cancel"/></button>
+    <button class="btn btn-primary" type="button" ng-click="ctrl.ok()"><mdss:localize key="dashboardViewer.ok"/></button>
   </div>
 </div>

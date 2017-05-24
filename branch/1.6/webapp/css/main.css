@@ -2423,4 +2423,39 @@ li.list-group-item a{
 /*     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
 /* } */
 
+.basic-modal.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .8;
+	background: gray;    
+}
+
+.basic-modal .modal-content {
+    background-color: #ececec;
+    border: 1px solid #bdc3c7;
+    border-radius: 0px;
+    outline: 0;
+}
+
+.basic-modal .modal-dialog {
+	padding-top: 20%;	
+	width: 600px;
+}
+
+.basic-modal .modal-header {
+    min-height: 16.43px;
+    padding: 15px 15px 15px 15px;
+    border-bottom: 0px;
+}
+
+.basic-modal .modal-body {
+    position: relative;
+    padding: 5px 15px 5px 15px;
+}
+
+.basic-modal .modal-footer {
+    padding: 15px 15px 15px 15px;
+    text-align: left;
+    border-top: 0px;
+}
+
 

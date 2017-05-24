@@ -75,7 +75,10 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/drilldown-modal.jsp',
-                  windowClass: 'my-dialog',                  
+                  backdrop: 'static',
+                  size: 600,
+                  windowClass: 'basic-modal',
+                  backdropClass: 'basic-modal',                  
                   controller: 'DrilldownModalCtrl',
                   controllerAs: 'ctrl',
                   resolve: {
