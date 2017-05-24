@@ -75,9 +75,9 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/drilldown-modal.jsp',
+                  windowClass: 'my-dialog',                  
                   controller: 'DrilldownModalCtrl',
                   controllerAs: 'ctrl',
-                  size: 800,
                   resolve: {
                     universals: function () {
                       return universals;
