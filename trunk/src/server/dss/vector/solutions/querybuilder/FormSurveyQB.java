@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -47,7 +48,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     this.prepareQueryMap(queryFactory, valueQuery, queryMap);
 
@@ -57,7 +58,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     FormPersonQuery personQuery = (FormPersonQuery) queryMap.get(FormPerson.CLASS);
 
     this.addGeoDisplayLabelQuery(surveyQuery);
-    QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery, this.getTermRestrictions(), this.getLayer());
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyQuery.get(MdFormUtil.DISEASE));
     this.getSingleAttributeGridSql(valueQuery, surveyQuery, "id");
 
@@ -66,7 +67,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(householdQuery.getSurvey().EQ(surveyQuery));
 
       this.addGeoDisplayLabelQuery(householdQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, householdQuery.get(MdFormUtil.DISEASE));
       this.getSingleAttributeGridSql(valueQuery, householdQuery, "id");
     }
@@ -82,7 +83,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(personQuery.getHousehold().EQ(householdQuery));
 
       this.addGeoDisplayLabelQuery(personQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, personQuery.get(MdFormUtil.DISEASE));
       this.getSingleAttributeGridSql(valueQuery, personQuery, "id");
     }
@@ -100,7 +101,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         valueQuery.WHERE(bedNetQuery.getHousehold().EQ(householdQuery));
 
         this.addGeoDisplayLabelQuery(bedNetQuery);
-        QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery, this.getTermRestrictions(), this.getLayer());
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
         this.getSingleAttributeGridSql(valueQuery, bedNetQuery, "id");
       }
@@ -124,7 +125,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     return valueQuery;
   }
 
-  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     Collection<String> parentClasses = this.getGridParentClasses(valueQuery);
 

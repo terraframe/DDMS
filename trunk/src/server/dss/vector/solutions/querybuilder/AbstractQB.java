@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,9 +17,8 @@ import org.json.JSONObject;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdTableClassIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -36,8 +34,8 @@ import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.MAX;
@@ -74,12 +72,11 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.AllRenderTypes;
-import dss.vector.solutions.query.CountOrRatioAloneException;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
@@ -188,43 +185,43 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected GeoEntityJoinData               geoEntityJoinData;
+  protected GeoEntityJoinData                   geoEntityJoinData;
 
-  private String                            xml;
+  private String                                xml;
 
-  private String                            config;
+  private String                                config;
 
-  private Layer                             layer;
+  private Layer                                 layer;
 
-  private boolean                           recursiveWithClause;
+  private boolean                               recursiveWithClause;
 
-  private List<GeneratedEntityQuery>        geoDisplayLabelQueries;
+  private List<GeneratedTableClassQuery>        geoDisplayLabelQueries;
 
-  private QueryFactory                      factory;
+  private QueryFactory                          factory;
 
-  private ValueQuery                        valueQuery;
+  private ValueQuery                            valueQuery;
 
-  private ValueQueryParser                  parser;
+  private ValueQueryParser                      parser;
 
-  private List<WITHEntry>                   withEntries;
-  
-  private List<WITHEntry>                   tempTableEntries;
+  private List<WITHEntry>                       withEntries;
 
-  private boolean                           hasUniversal;
+  private List<WITHEntry>                       tempTableEntries;
 
-  private Integer                           pageNumber;
+  private boolean                               hasUniversal;
 
-  private Integer                           pageSize;
+  private Integer                               pageNumber;
 
-  private Map<String, Restriction>          restrictions;
+  private Integer                               pageSize;
 
-  private JSONObject                        queryConfig;
+  private Map<String, Restriction>              restrictions;
 
-  private Map<String, GeneratedEntityQuery> queryMap;
+  private JSONObject                            queryConfig;
 
-  private Disease                           disease;
-  
-  protected Condition                         geoIncludesCondition;
+  private Map<String, GeneratedTableClassQuery> queryMap;
+
+  private Disease                               disease;
+
+  protected Condition                           geoIncludesCondition;
 
   public AbstractQB(String xml, String config, Layer layer, Integer pageNumber, Integer pageSize, Disease disease)
   {
@@ -234,7 +231,7 @@ public abstract class AbstractQB implements Reloadable
     this.xml = xml;
     this.config = config;
     this.layer = layer;
-    this.geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
+    this.geoDisplayLabelQueries = new LinkedList<GeneratedTableClassQuery>();
 
     this.queryMap = null;
     this.factory = null;
@@ -287,7 +284,7 @@ public abstract class AbstractQB implements Reloadable
   {
     tempTableEntries.add(entry);
   }
-  
+
   protected void addWITHEntry(WITHEntry entry)
   {
     withEntries.add(entry);
@@ -318,7 +315,7 @@ public abstract class AbstractQB implements Reloadable
     return layer;
   }
 
-  protected Map<String, GeneratedEntityQuery> getQueryMap()
+  protected Map<String, GeneratedTableClassQuery> getQueryMap()
   {
     return queryMap;
   }
@@ -334,12 +331,12 @@ public abstract class AbstractQB implements Reloadable
     parser = this.createParser(valueQuery, interceptors);
 
     this.setGeoDisplayLabelSQL();
-    
+
     // Universals, mapping, and geo entity criteria
     this.restrictions = this.constructTermRestrictions(queryConfig);
 
     this.queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
-    
+
     // TODO : Delete this shitty code.
     ArrayList<SelectableSQL> terms = this.getTerms(valueQuery);
     if (terms.size() > 0)
@@ -348,7 +345,8 @@ public abstract class AbstractQB implements Reloadable
       this.setTermSelectablesSQL(terms);
     }
   }
-  //  TODO : Delete this shitty code.
+
+  // TODO : Delete this shitty code.
   protected void setTermSelectablesSQL(ArrayList<SelectableSQL> terms)
   {
     for (SelectableSQL term : terms)
@@ -356,12 +354,14 @@ public abstract class AbstractQB implements Reloadable
       term.setSQL("(SELECT " + QueryUtil.LABEL_COLUMN + " from " + QueryUtil.TERM_DISPLAY_LABEL + " WHERE " + QueryUtil.TERM_DISPLAY_LABEL + ".id=" + term.getUserDefinedAlias() + ")");
     }
   }
+
   // TODO : Delete this shitty code.
   protected void addTermDisplayLabelWithEntry()
   {
     String sql = QueryUtil.getTermDisplayLabelSQL();
     this.addWITHEntry(new WITHEntry(QueryUtil.TERM_DISPLAY_LABEL, sql));
   }
+
   // TODO : Delete this shitty code.
   protected ArrayList<SelectableSQL> getTerms(ValueQuery valueQuery)
   {
@@ -389,7 +389,9 @@ public abstract class AbstractQB implements Reloadable
   /**
    * Helper method for post processing.
    * 
-   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two. Some of these rows may only have data in one of the columns in one of the tables, but since the columns are the same we can coalesce the data and select it from any of the columns where the data exists.
+   * We're joining 2 tables, the aggregation and the original, that have the same columns between the two. Some of these rows may only have data in
+   * one of the columns in one of the tables, but since the columns are the same we can coalesce the data and select it from any of the columns where
+   * the data exists.
    */
   protected void coalesceSelects(ValueQuery finalVQ, ValueQuery aggregate, String originalAlias, String aggregateAlias)
   {
@@ -409,7 +411,8 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Generates a ValueQuery based on the query this builder represents. Subclasses may override any of the individual steps in the query construction for finer grained control.
+   * Generates a ValueQuery based on the query this builder represents. Subclasses may override any of the individual steps in the query construction
+   * for finer grained control.
    */
   public final ValueQuery construct()
   {
@@ -534,9 +537,9 @@ public abstract class AbstractQB implements Reloadable
    */
   protected abstract String getAuditClassAlias();
 
-  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedEntityQuery> queryMap)
+  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedTableClassQuery> queryMap)
   {
-    GeneratedEntityQuery q = queryMap.get(this.getAuditClassAlias());
+    GeneratedTableClassQuery q = queryMap.get(this.getAuditClassAlias());
     QueryFactory f = valueQuery.getQueryFactory();
 
     // create date
@@ -580,7 +583,7 @@ public abstract class AbstractQB implements Reloadable
     // by timestamp)
     if (valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
     {
-      MdEntityDAOIF mdClass = q.getMdClassIF();
+      MdTableClassIF mdClass = q.getMdClassIF();
       ValueQuery withV = new ValueQuery(f);
 
       Attribute cd = this.getImportedDateTimeSQL(f, mdClass, withV);
@@ -602,7 +605,7 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected Attribute getImportedDateTimeSQL(QueryFactory f, MdEntityDAOIF mdClass, ValueQuery withV)
+  protected Attribute getImportedDateTimeSQL(QueryFactory f, MdTableClassIF mdClass, ValueQuery withV)
   {
     BusinessQuery withQ = f.businessQuery(mdClass.definesType());
     Attribute cd = withQ.get(Metadata.CREATEDATE);
@@ -629,7 +632,7 @@ public abstract class AbstractQB implements Reloadable
    * @param importCreateDate
    *          the IMPORT_DATETIME's create date selectable
    */
-  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
+  protected void joinImported(GeneratedTableClassQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
   {
     // RawLeftJoinEq is a horrible hack, but there's no support in Runway for
     // custom left joins
@@ -642,24 +645,24 @@ public abstract class AbstractQB implements Reloadable
 
   protected void setWITHClause(List<WITHEntry> entries, boolean recursive, ValueQuery valueQuery, String prepend)
   {
-    String prefix = "";
-    
     if (this.tempTableEntries.size() > 0)
     {
       String tempTableSql = "";
-    
+      
       for (WITHEntry entry : this.tempTableEntries)
       {
-        String entrySql = "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
-        tempTableSql = tempTableSql + entrySql;
+        tempTableSql = tempTableSql + "DROP TABLE IF EXISTS " + entry.name + " CASCADE;\n";
+        tempTableSql = tempTableSql + "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
       }
       tempTableSql = tempTableSql + "\n\n";
       
-      prefix += tempTableSql;
+      valueQuery.setDependentPreSqlStatements(tempTableSql);
     }
-    
+
     if (this.withEntries.size() > 0)
     {
+      String prefix = "";
+      
       String with = "WITH ";
       if (recursive)
       {
@@ -684,12 +687,9 @@ public abstract class AbstractQB implements Reloadable
       {
         with = prepend + " \n" + with;
       }
-      
+
       prefix += with;
-    }
-    
-    if (prefix.length() > 0)
-    {
+      
       valueQuery.setSqlPrefix(prefix);
     }
   }
@@ -730,7 +730,7 @@ public abstract class AbstractQB implements Reloadable
    * 
    * @param query
    */
-  protected final void addGeoDisplayLabelQuery(GeneratedEntityQuery query)
+  protected final void addGeoDisplayLabelQuery(GeneratedTableClassQuery query)
   {
     this.geoDisplayLabelQueries.add(query);
   }
@@ -749,7 +749,8 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Extracts a class and attribute pair from the entity alias for dereferencing term criteria. If the alias is not a valid string for term criteria then null is returned.
+   * Extracts a class and attribute pair from the entity alias for dereferencing term criteria. If the alias is not a valid string for term criteria
+   * then null is returned.
    * 
    * @param entityAlias
    * @return
@@ -771,7 +772,8 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * This allows subclasses to provide a list of aliases for tables and attributes. This is useful when the QueryAPI assumes one table/alias when another should be used (in the case of custom SQL). Ah, who am I kidding? This is only for the IRS QB.
+   * This allows subclasses to provide a list of aliases for tables and attributes. This is useful when the QueryAPI assumes one table/alias when
+   * another should be used (in the case of custom SQL). Ah, who am I kidding? This is only for the IRS QB.
    * 
    * @return
    */
@@ -787,7 +789,7 @@ public abstract class AbstractQB implements Reloadable
    * @param queryMap
    * @param interceptor
    */
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, QBInterceptor interceptor)
   {
     if (interceptor == null)
     {
@@ -804,7 +806,7 @@ public abstract class AbstractQB implements Reloadable
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+          GeneratedTableClassQuery attributeQuery = queryMap.get(klass);
 
           // IMPORTANT: We cannot always rely on the class table directly
           // because the attribute
@@ -977,7 +979,7 @@ public abstract class AbstractQB implements Reloadable
    */
   protected void joinGeoDisplayLabels(ValueQuery valueQuery)
   {
-    for (GeneratedEntityQuery query : this.geoDisplayLabelQueries)
+    for (GeneratedTableClassQuery query : this.geoDisplayLabelQueries)
     {
       String klass = query.getMdClassIF().definesType();
       String[] geoAttributes = QueryUtil.filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
@@ -989,6 +991,14 @@ public abstract class AbstractQB implements Reloadable
         String subSelect = klass.replace('.', '_') + "GeoSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
         valueQuery.AND(new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect));
+
+        if (this.layer != null)
+        {
+          // new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_PARENT_TERM_COLUMN,
+          // (MdAttributeReferenceDAOIF) mdAttribute);
+          //
+          // valueQuery.SELECT();
+        }
       }
     }
   }
@@ -1054,9 +1064,11 @@ public abstract class AbstractQB implements Reloadable
    * @param queryConfig
    * @param layer2
    */
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedTableClassQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
-    Map<String, GeneratedEntityQuery> queryMap;
+    Map<String, GeneratedTableClassQuery> queryMap;
+
+    Map<String, GeoHierarchy> hierarchies = this.getHiearchies(queryConfig);
 
     // If we're mapping, dereference the MdAttribute that will be joined with
     // the GeoEntity
@@ -1092,7 +1104,7 @@ public abstract class AbstractQB implements Reloadable
           selectedUniversals[i] = universals.getString(i);
         }
 
-        addUniversalsForAttribute(factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias, hierarchies);
       }
     }
     catch (JSONException e)
@@ -1166,6 +1178,50 @@ public abstract class AbstractQB implements Reloadable
     return queryMap;
   }
 
+  @SuppressWarnings("unchecked")
+  private Map<String, GeoHierarchy> getHiearchies(JSONObject config)
+  {
+    try
+    {
+      Map<String, GeoHierarchy> hierarchies = new HashMap<String, GeoHierarchy>();
+
+      JSONObject universals = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+
+      Iterator<String> keys = universals.keys();
+
+      while (keys.hasNext())
+      {
+        String key = keys.next();
+
+        JSONArray array = universals.getJSONArray(key);
+
+        for (int i = 0; i < array.length(); i++)
+        {
+          String universal = array.getString(i);
+
+          if (!hierarchies.containsKey(key))
+          {
+            hierarchies.put(key, GeoHierarchy.getGeoHierarchyFromType(universal));
+          }
+          else
+          {
+            GeoHierarchy current = hierarchies.get(key);
+
+            if (current.isAncestor(universal))
+            {
+              hierarchies.put(key, GeoHierarchy.getGeoHierarchyFromType(universal));
+            }
+          }
+        }
+      }
+      return hierarchies;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   /**
    * Recreates the entity alias for the geo AllPath entries sent in the by the client.
    * 
@@ -1198,7 +1254,7 @@ public abstract class AbstractQB implements Reloadable
     return geoIdAlias;
   }
 
-  private void addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
+  private void addUniversalsForAttribute(QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias, Map<String, GeoHierarchy> hierarchies)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
@@ -1230,9 +1286,26 @@ public abstract class AbstractQB implements Reloadable
       SelectableChar selectable6 = geoEntityQuery.getId(idAlias);
       Selectable selectableId = geoEntityVQ.aSQLCharacter(PARENT_UNIVERSAL_ID, selectable6.getDbQualifiedName(), PARENT_UNIVERSAL_ID, selectable6.getUserDefinedAlias());
       selectableId.setColumnAlias(PARENT_UNIVERSAL_ID);
+
       selectables.add(selectableId);
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
+
+      if (this.layer != null && hierarchies.containsKey(attributeKey))
+      {
+        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
+        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
+
+        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
+        {
+          selectables.add(selectable6);
+
+          String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
+
+          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, geoVQEntityAlias);
+        }
+      }
+
       GeoEntityQuery geoEntityQuery2 = null;
       if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
       {
@@ -1304,7 +1377,7 @@ public abstract class AbstractQB implements Reloadable
     geoEntityJoinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
-  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
     {
@@ -1319,10 +1392,10 @@ public abstract class AbstractQB implements Reloadable
       String className = attributeKey.substring(0, ind);
       String attributeName = attributeKey.substring(ind + 1);
 
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
+      GeneratedTableClassQuery generatedEntityQuery = queryMap.get(className);
       AttributeReference sel = (AttributeReference) generatedEntityQuery.get(attributeName);
-      
-//      GeoEntityQuery geQ = new GeoEntityQuery(valueQuery);
+
+      // GeoEntityQuery geQ = new GeoEntityQuery(valueQuery);
 
       // this case is for when they have restricted to a specific geoEntity
       List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
@@ -1334,15 +1407,13 @@ public abstract class AbstractQB implements Reloadable
       int size = leftJoinSelectables.size();
       if (size > 0)
       {
-//        valueQuery.AND(geQ.getId().getAttribute().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
+        // valueQuery.AND(geQ.getId().getAttribute().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
         valueQuery.AND(sel.getAttribute().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
 
-      
-
       // join the domain class that defines the geo entity attribute with the
       // AllPaths table
-//      valueQuery.AND(sel.EQ(geQ.getId()));
+      // valueQuery.AND(sel.EQ(geQ.getId()));
 
       // Restrict by geo entity if applicable for the current attribute
       geoIncludesCondition = interceptor.getGeoCondition(getGeoAllPathsAlias(attributeKey));
@@ -1371,35 +1442,34 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Ensures that the ValueQuery contains a concrete "DataType" selectable. More formally, the query must contain more than 'non datatype selectables'.
+   * Ensures that the ValueQuery contains a concrete "DataType" selectable. More formally, the query must contain more than 'non datatype
+   * selectables'.
    * 
-   * @throws AddtionalColumnsRequiredException if the only columns added are 'start date, end date, and/or audit fields'.
+   * @throws AddtionalColumnsRequiredException
+   *           if the only columns added are 'start date, end date, and/or audit fields'.
    */
   private void ensureContainsDatatypeSelectable(ValueQuery valueQuery)
   {
     List<Selectable> selectables = valueQuery.getSelectableRefs();
     String[] nonDatatypeSelectables = getNonDatatypeSelectables();
-    
+
     for (Selectable sel : selectables)
     {
       String alias = sel.getUserDefinedAlias();
-      
-      if (!(sel instanceof COUNT) && !ArrayUtils.contains(nonDatatypeSelectables, alias))
+
+      if (! ( sel instanceof COUNT ) && !ArrayUtils.contains(nonDatatypeSelectables, alias))
       {
         return;
       }
     }
-    
+
     throw new AdditionalColumnsRequiredException();
   }
+
   protected String[] getNonDatatypeSelectables()
   {
-    return new String[]{
-        QueryUtil.START_DATE_RANGE, QueryUtil.END_DATE_RANGE,
-        QueryConstants.AUDIT_CREATE_DATE_ALIAS, QueryConstants.AUDIT_CREATED_BY_ALIAS, QueryConstants.AUDIT_IMPORTED_ALIAS, QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS, QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS,
-        QueryUtil.RATIO,
-        QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_MONTH, QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_SEASON, QueryUtil.DATEGROUP_CALENDARYEAR
-    };
+    return new String[] { QueryUtil.START_DATE_RANGE, QueryUtil.END_DATE_RANGE, QueryConstants.AUDIT_CREATE_DATE_ALIAS, QueryConstants.AUDIT_CREATED_BY_ALIAS, QueryConstants.AUDIT_IMPORTED_ALIAS, QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS, QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS, QueryUtil.RATIO, QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_MONTH,
+        QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_SEASON, QueryUtil.DATEGROUP_CALENDARYEAR };
   }
 
   /**
@@ -1415,7 +1485,7 @@ public abstract class AbstractQB implements Reloadable
     {
       String windowCount = "count(*) over()";
       SelectableSQLLong c = v.isGrouping() ? v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) : v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
-      
+
       v.SELECT(c);
       v.setCountSelectable(c);
     }
@@ -1498,7 +1568,8 @@ public abstract class AbstractQB implements Reloadable
   }
 
   /**
-   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql aggregates that use custom aggreation logic (eg, SUM(unique_column, sum_column).
+   * Exchanges aggregate functions (eg, SUM(sum_column)) as selectable sql aggregates that use custom aggreation logic (eg, SUM(unique_column,
+   * sum_column).
    * 
    * @param aliases
    * @param id
@@ -1658,5 +1729,5 @@ public abstract class AbstractQB implements Reloadable
     return QueryUtil.AVG_FUNCTION + "(array_agg(DISTINCT " + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||" + ( table != null ? table + "." : "" ) + column + "))";
   }
 
-  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);
+  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig);
 }

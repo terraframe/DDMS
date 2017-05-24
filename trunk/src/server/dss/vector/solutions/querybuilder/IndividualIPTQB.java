@@ -5,7 +5,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLInteger;
@@ -36,7 +36,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+      Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
 
     IndividualIPTQuery individualIPTQuery = (IndividualIPTQuery) queryMap.get(IndividualIPT.CLASS);
@@ -50,7 +50,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
       if (personQuery != null)
       {
         valueQuery.WHERE(personQuery.getIptRecipientDelegate().EQ(individualIPTCaseQuery.getPatient()));
-        QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery, this.getTermRestrictions(), this.getLayer());
         
         this.addGeoDisplayLabelQuery(personQuery); 
       }
@@ -76,7 +76,7 @@ public class IndividualIPTQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(individualIPTQuery);
     
-    QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery, this.getTermRestrictions());  
+    QueryUtil.joinTermAllpaths(valueQuery,IndividualIPT.CLASS,individualIPTQuery, this.getTermRestrictions(), this.getLayer());  
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 

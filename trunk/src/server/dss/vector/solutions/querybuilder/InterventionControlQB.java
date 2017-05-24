@@ -13,7 +13,7 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Function;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -62,7 +62,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+      Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     ControlInterventionQuery controlInterventionQuery = (ControlInterventionQuery) queryMap.get(ControlIntervention.CLASS);
 
@@ -137,7 +137,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     if (individualPremiseVisitQuery != null)
     {
 
-      QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery, this.getTermRestrictions(), this.getLayer());
       Boolean needsJoin = QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias());
       if (needsJoin)
       {
@@ -177,7 +177,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     
     if (aggregatedPremiseVisitQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias());
 
       valueQuery.WHERE(aggregatedPremiseVisitQuery.getPoint().EQ(controlInterventionQuery));
@@ -185,7 +185,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
     if (personInterventionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery, this.getTermRestrictions(), this.getLayer());
       QueryUtil.getSingleAttribteGridSql(valueQuery, personInterventionQuery.getTableAlias());
       
       valueQuery.WHERE(personInterventionQuery.getPoint().EQ(controlInterventionQuery));
@@ -193,7 +193,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
 
     if (insecticideInterventionQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery, this.getTermRestrictions(), this.getLayer());
       
       valueQuery.WHERE(insecticideInterventionQuery.getIntervention().EQ(controlInterventionQuery));
     }
@@ -211,7 +211,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
       valueQuery.AND(insecticideInterventionQuery.getIntervention().EQ(controlInterventionQuery));
 
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions(), this.getLayer());
     }
 
     MdEntityDAOIF individualVisit = MdEntityDAO.getMdEntityDAO(IndividualPremiseVisitMethod.CLASS);
@@ -514,11 +514,11 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
    * 
    * @param queryMap
    */
-  private boolean hasTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  private boolean hasTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap)
   {
     if(valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm"))
     {
-      for(GeneratedEntityQuery q : queryMap.values())
+      for(GeneratedTableClassQuery q : queryMap.values())
       {
         if(q instanceof AllPathsQuery)
         {

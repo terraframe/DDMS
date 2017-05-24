@@ -23,12 +23,26 @@ public class DiseaseSelectableWrapper implements Reloadable, Selectable
 
   private String     alias;
 
+  private Object     data;
+
   public DiseaseSelectableWrapper(Selectable selectable, String alias)
   {
     super();
 
     this.selectable = selectable;
     this.alias = alias;
+  }
+
+  @Override
+  public Object getData()
+  {
+    return this.data;
+  }
+
+  @Override
+  public void setData(Object data)
+  {
+    this.data = data;
   }
 
   @Override

@@ -469,6 +469,8 @@ public class BackupDevImporter
       {
         logger.error("Metadata schema files were not found at [" + metadata.getAbsolutePath() + "]. Unable to import schemas, your database is not patched.");
       }
+      
+      // Import localization
     }
   }
   

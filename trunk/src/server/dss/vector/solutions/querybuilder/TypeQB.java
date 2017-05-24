@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AmbiguousAttributeException;
 import com.runwaysdk.query.Attribute;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
@@ -42,13 +42,13 @@ public class TypeQB extends AbstractQB implements Reloadable
     return this.auditClass;
   }
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
-    Iterator<GeneratedEntityQuery> it = queryMap.values().iterator();
+    Iterator<GeneratedTableClassQuery> it = queryMap.values().iterator();
 
     while (it.hasNext())
     {
-      GeneratedEntityQuery query = it.next();
+      GeneratedTableClassQuery query = it.next();
 
       if (! ( query instanceof AllPathsQuery ) && ! ( query instanceof dss.vector.solutions.ontology.AllPathsQuery ) && !(query.getClassType().equals(MosquitoCollection.CLASS)))
       {
@@ -60,7 +60,7 @@ public class TypeQB extends AbstractQB implements Reloadable
 
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get(MdFormUtil.DISEASE));
 
-        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query, this.getTermRestrictions());
+        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query, this.getTermRestrictions(), this.getLayer());
 
         QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
 
@@ -68,7 +68,7 @@ public class TypeQB extends AbstractQB implements Reloadable
         
         if (queryMap.containsKey(MosquitoCollection.CLASS))
         {
-          GeneratedEntityQuery mosQ = queryMap.get(MosquitoCollection.CLASS);
+          GeneratedTableClassQuery mosQ = queryMap.get(MosquitoCollection.CLASS);
           
           Attribute mosQcolId = null;
           Attribute typeQcolId = null;
@@ -83,7 +83,7 @@ public class TypeQB extends AbstractQB implements Reloadable
           }
           catch (AmbiguousAttributeException e) {}
           
-          QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions());
+          QueryUtil.joinTermAllpaths(valueQuery, mosQ.getClassType(), mosQ, this.getTermRestrictions(), this.getLayer());
           
           this.addGeoDisplayLabelQuery(mosQ);
           

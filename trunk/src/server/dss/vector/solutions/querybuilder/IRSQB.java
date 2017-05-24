@@ -30,6 +30,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OR;
@@ -114,7 +115,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private boolean                           needsOperatorPlanned;
 
-  private Map<String, GeneratedEntityQuery> mainQueryMap;
+  private Map<String, GeneratedTableClassQuery> mainQueryMap;
 
   // private Map<String, GeneratedEntityQuery> insecticideQueryMap;
 
@@ -748,7 +749,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, QBInterceptor interceptor)
   {
     QBInterceptor qbInterceptor = this.getQBInterceptor(this.irsParser);
     super.setTermCriteria(irsVQ, this.mainQueryMap, qbInterceptor);
@@ -767,7 +768,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedTableClassQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
     this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer, this.irsParser);
 
@@ -790,7 +791,7 @@ public class IRSQB extends AbstractQB implements Reloadable
    * Populates the ValueQuery with the necessary selects, joins, and criteria to make the IRS query work correctly. ORDER IS IMPORTANT. Do not change the calls within this method unless you know what you are doing! There are many boolean flags set within those calls that dictate how the query will behave.
    */
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     queryFactory = this.irsVQ.getQueryFactory();
 
@@ -849,7 +850,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (tableName != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, InsecticideBrand.CLASS, insecticideQuery, this.getTermRestrictions(), this.getLayer());
       this.setNumericRestrictions(irsVQ, queryConfig);
     }
     else
@@ -879,7 +880,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (irsVQ.hasSelectableRef(Alias.SPRAY_METHOD.getXmlAlias()) || irsVQ.hasSelectableRef(Alias.SURFACE_TYPE.getXmlAlias()))
     {
       QueryUtil.joinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS, abstractSprayQuery, View.SPRAY_VIEW.getView(), this.sprayViewAlias);
-      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, View.SPRAY_VIEW.getView(), this.sprayViewAlias, this.getTermRestrictions());
+      QueryUtil.joinTermAllpaths(irsVQ, AbstractSpray.CLASS, View.SPRAY_VIEW.getView(), this.sprayViewAlias, this.getTermRestrictions(), this.getLayer());
     }
 
     sprayedUnits = "(CASE WHEN " + Alias.SPRAY_UNIT + " = 'ROOM' THEN " + Alias.SPRAYED_ROOMS + "  WHEN " + Alias.SPRAY_UNIT + " = 'STRUCTURE' THEN " + Alias.SPRAYED_STRUCTURES + " WHEN " + Alias.SPRAY_UNIT + " = 'HOUSEHOLD' THEN " + Alias.SPRAYED_HOUSEHOLDS + " END )";
@@ -2187,7 +2188,7 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
+  protected void joinImported(GeneratedTableClassQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
   {
     // do nothing. Custom join logic is in this.joinMainQueryTables()
   }

@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -21,18 +22,23 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
+import com.runwaysdk.dataaccess.MdTableClassIF;
+import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributeMoment;
@@ -41,7 +47,11 @@ import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
+import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
+import com.runwaysdk.query.GenericBusinessQuery;
+import com.runwaysdk.query.GenericTableQuery;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
@@ -78,6 +88,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
+import dss.vector.solutions.query.Layer;
 
 public class QueryUtil implements Reloadable
 {
@@ -193,7 +204,7 @@ public class QueryUtil implements Reloadable
    * @param attribute
    * @return
    */
-  public static String getColumnName(MdEntityDAOIF md, String attribute)
+  public static String getColumnName(MdTableClassIF md, String attribute)
   {
     if (attribute.equals("childId"))
     {
@@ -303,19 +314,19 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, Map<String, Restriction> restrictions)
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedTableClassQuery query, Map<String, Restriction> restrictions, Layer layer)
   {
     String tableAlias = query.getTableAlias();
 
-    return joinTermAllpaths(valueQuery, klass, null, tableAlias, restrictions);
+    return joinTermAllpaths(valueQuery, klass, null, tableAlias, restrictions, layer);
   }
 
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations)
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias, Map<String, Restriction> aggregations, Layer layer)
   {
-    return joinTermAllpaths(valueQuery, klass, null, tableAlias, aggregations);
+    return joinTermAllpaths(valueQuery, klass, null, tableAlias, aggregations, layer);
   }
   
-  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableName, String tableAlias, Map<String, Restriction> aggregations)
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableName, String tableAlias, Map<String, Restriction> aggregations, Layer layer)
   {
     MdEntityDAOIF termLabelMdEntityDAOIF = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
     
@@ -837,9 +848,9 @@ public class QueryUtil implements Reloadable
 
     StringBuffer buffer = new StringBuffer();
 
-    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + geoId + ", " + QueryUtil.getLocaleCoalesce(GEO_LABEL + ".") + " || ' (' || \n");
+    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + geoId + ", (" + QueryUtil.getLocaleCoalesce(GEO_LABEL + ".") + " || ' (' || \n");
     buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
-    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')'");
+    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')')::varchar");
 
     if (withGeoId)
     {
@@ -1019,7 +1030,7 @@ public class QueryUtil implements Reloadable
     return sql;
   }
 */  
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap,
       boolean ignoreCriteria, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, ignoreCriteria, diseaseSel, null);
@@ -1043,7 +1054,7 @@ public class QueryUtil implements Reloadable
     }
   }
   
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap,
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap,
       boolean ignoreCriteria, Selectable diseaseSel, SelectableMoment dateSel)
   {
     String attributeName = null;
@@ -1061,7 +1072,7 @@ public class QueryUtil implements Reloadable
         klass = dateObj.getString(DATE_CLASS);
 
         MdBusiness md = MdBusiness.getMdBusiness(klass);
-        GeneratedEntityQuery attributeQuery = null;
+        GeneratedTableClassQuery attributeQuery = null;
         while (attributeQuery == null)
         {
           if (md == null)
@@ -1162,7 +1173,7 @@ public class QueryUtil implements Reloadable
 
   }
   
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, 
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, 
       boolean ignoreCriteria)
   {
     String attributeName = null;
@@ -1177,7 +1188,7 @@ public class QueryUtil implements Reloadable
       klass = dateObj.getString(DATE_CLASS);
 
       MdBusiness md = MdBusiness.getMdBusiness(klass);
-      GeneratedEntityQuery attributeQuery = null;
+      GeneratedTableClassQuery attributeQuery = null;
       while (attributeQuery == null)
       {
         if (md == null)
@@ -1249,17 +1260,17 @@ public class QueryUtil implements Reloadable
   }
   
   
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedTableClassQuery> queryMap, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel, null);
   }
   
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, String da, Selectable diseaseSel)
   {
     Set<String> found = new HashSet<String>();
     
@@ -1276,7 +1287,7 @@ public class QueryUtil implements Reloadable
     return setQueryDates(xml, valueQuery, target, da, found);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel, Selectable diseaseSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, SelectableMoment daSel, Selectable diseaseSel)
   {
     String da = daSel.getDbQualifiedName();
 
@@ -1337,7 +1348,7 @@ public class QueryUtil implements Reloadable
     return getSeasonNameSQL(diseaseSel.getDbQualifiedName(), startDateColumnName, endDateColumnName);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, SelectableMoment daSel)
   {
     String da = daSel.getDbQualifiedName();
     Set<String> found = new HashSet<String>();
@@ -1372,7 +1383,7 @@ public class QueryUtil implements Reloadable
     return "get_epiYear_from_date(" + da + "," + startDay + ")";
   }
   
-  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Set<String> found)
+  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedTableClassQuery target, String da, Set<String> found)
   {
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
@@ -1431,7 +1442,7 @@ public class QueryUtil implements Reloadable
    * @param valueQuery
    * @param target
    */
-  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedEntityQuery target)
+  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedTableClassQuery target)
   {
     // Include RATIO, which suffers from the same problem as the date
     // selectables
@@ -1453,10 +1464,12 @@ public class QueryUtil implements Reloadable
         }
       }
 
+			GeneratedEntityQuery entityTarget = (GeneratedEntityQuery) target;
+
       // Only date selectable were found, so force the tautological WHERE
       // condition
-      SelectableChar id1 = (SelectableChar) target.id();
-      SelectableChar id2 = (SelectableChar) target.id();
+      SelectableChar id1 = (SelectableChar) entityTarget.id();
+      SelectableChar id2 = (SelectableChar) entityTarget.id();
       valueQuery.WHERE(id1.EQ(id2));
     }
   }
@@ -1524,7 +1537,8 @@ public class QueryUtil implements Reloadable
 
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date("
+          + ed + "," + startDay + ")::TEXT END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1577,5 +1591,95 @@ public class QueryUtil implements Reloadable
     return valueQuery;
 
   }
+	
+	@SuppressWarnings("unchecked")
+  public static GeneratedComponentQuery getQuery(MdClassDAOIF mdClass, QueryFactory factory)
+  {
+    // Use reflection to generate the view query
+    if (mdClass.isGenerateSource())
+    {
+      String queryClassName = mdClass.definesType() + "Query";
 
+      try
+      {
+        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.loadClass(queryClassName);
+        Constructor<GeneratedComponentQuery> constructor = clazz.getConstructor(factory.getClass());
+        GeneratedComponentQuery query = constructor.newInstance(factory);
+
+        return query;
+      }
+      catch (Exception e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    else if (mdClass instanceof MdBusinessDAOIF)
+    {
+      return new GenericBusinessQuery((MdBusinessDAOIF) mdClass, factory);
+    }
+    else if (mdClass instanceof MdTableDAOIF)
+    {
+      return new GenericTableQuery((MdTableDAOIF) mdClass, factory);
+    }
+    else
+    {
+      throw new ProgrammingErrorException("Unsupported generated query type [" + mdClass.definesType() + "]");
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public static GeneratedComponentQuery getQuery(MdClassDAOIF mdClass, ValueQuery vQuery)
+  {
+    // Use reflection to generate the view query
+    if (mdClass.isGenerateSource())
+    {
+      // Use reflection to generate the view query
+      String queryClassName = mdClass.definesType() + "Query";
+
+      try
+      {
+        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.loadClass(queryClassName);
+        Constructor<GeneratedComponentQuery> constructor = clazz.getConstructor(vQuery.getClass());
+        GeneratedComponentQuery query = constructor.newInstance(vQuery);
+
+        return query;
+      }
+      catch (Exception e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    else if (mdClass instanceof MdBusinessDAOIF)
+    {
+      return new GenericBusinessQuery((MdBusinessDAOIF) mdClass, vQuery);
+    }
+    else if (mdClass instanceof MdTableDAOIF)
+    {
+      return new GenericTableQuery((MdTableDAOIF) mdClass, vQuery);
+    }    
+    else
+    {
+      throw new ProgrammingErrorException("Unsupported generated query type [" + mdClass.definesType() + "]");
+    }
+  }
+
+  public static MdAttributeReferenceDAOIF getGeoEntityAttribute(MdClassDAOIF mdClass)
+  {
+    for (MdAttributeDAOIF mdAttr : mdClass.definesAttributes())
+    {
+      MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttr.getMdAttributeConcrete();
+
+      if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
+      {
+        MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeConcrete;
+
+        if (mdAttributeReference.getReferenceMdBusinessDAO().definesType().equals(GeoEntity.CLASS))
+        {
+          return mdAttributeReference;
+        }
+      }
+    }
+
+    return null;
+  }
 }

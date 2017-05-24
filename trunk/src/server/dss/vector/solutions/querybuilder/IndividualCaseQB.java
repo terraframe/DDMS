@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
-import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
@@ -73,7 +73,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+      Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
     if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_NOTIFICATION)) { thresholdNot = true; }
     if (valueQuery.hasSelectableRef(QueryConstants.THRESHOLD_IDENTIFICATION)) { thresholdIdent = true; }
@@ -105,8 +105,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     String idCol = QueryUtil.getIdColumn();
     
-    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery, this.getTermRestrictions());
-    QueryUtil.joinTermAllpaths(valueQuery, IndividualCase.CLASS, caseQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery, this.getTermRestrictions(), this.getLayer());
+    QueryUtil.joinTermAllpaths(valueQuery, IndividualCase.CLASS, caseQuery, this.getTermRestrictions(), this.getLayer());
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery);
 
@@ -116,7 +116,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias() + "." + idCol);
     }
 
-    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions());
+    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery, this.getTermRestrictions(), this.getLayer());
 
     if (valueQuery.hasSelectableRef("instances"))
     {

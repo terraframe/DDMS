@@ -2010,9 +2010,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
   }
 
-  public static boolean isAncestor(String type, String universal)
+  public boolean isAncestor(String universal)
   {
-    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, new SearchParameter());
+    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(this.getGeoEntityClass().definesType(), new SearchParameter());
 
     for (GeoHierarchyView decendant : decendants)
     {
@@ -2192,5 +2192,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       return part.substring(0, part.length() - 1) + "1";
     }
     return part;
+  }
+  
+  public static GeoHierarchy getRoot()
+  {
+    return GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
   }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,6 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
-import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -70,6 +70,7 @@ import com.runwaysdk.vault.VaultFileDAOIF;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -87,6 +88,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * The prefix for the database view names that represent saved searches (queries).
    */
   public static final String   VIEW_PREFIX      = "q_";
+  
+  public static final String   FUNCTION_PREFIX          = "f_";
 
   private static Log           log              = LogFactory.getLog(SavedSearch.class);
 
@@ -121,6 +124,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   @Override
+  @Transaction
   public void delete()
   {
     // remove the layers on all default maps that
@@ -148,7 +152,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     super.delete();
 
-    this.deleteDatabaseViewIfExists();
+    this.deleteDatabaseViewIfExists(false);
   }
 
   /**
@@ -180,7 +184,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
     catch (JSONException e)
     {
-      String error = "An error occured while marking a query as mappable.";
+      String error = "An error occured while saving a query.";
       throw new ProgrammingErrorException(error, e);
     }
 
@@ -244,12 +248,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * @return
    */
   @AbortIfProblem
-  private String generateViewName()
+  private String generateViewName(String prefix)
   {
-    return generateViewNameNoAbortIfProblem();
+    return generateViewNameNoAbortIfProblem(prefix);
   }
   
-  private String generateViewNameNoAbortIfProblem()
+  private String generateViewNameNoAbortIfProblem(String prefix)
   {
     if (this instanceof DefaultSavedSearch)
     {
@@ -277,15 +281,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // and disease suffix will take about 15-18 characters, truncate the query
     // name to
     // 45 characters (which is plenty descriptive).
-    
-    // Edit: I'm shortening this by 2 more characters because now we're wrapping it
-    //  in a function and prefixing with f_
-    if (temp.length() > 43)
+
+    if (temp.length() > 45)
     {
-      temp = temp.substring(0, 43);
+      temp = temp.substring(0, 45);
     }
 
-    String viewName = VIEW_PREFIX + temp + "_" + disease;
+    String viewName = prefix + temp + "_" + disease;
 
     // Postgres creates tables/views in lowercase, so enforce that convention
     // here as well so we don't get into trouble with mixed casing.
@@ -294,7 +296,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Removes all database views for queries.
+   * Removes all database views for queries. This is called when patching.
    */
   public static void cleanupDatabaseViews()
   {
@@ -309,7 +311,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          search.deleteDatabaseViewIfExists();
+          search.deleteDatabaseViewIfExists(true);
         }
         catch (Throwable t)
         {
@@ -341,7 +343,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         SavedSearch search = iter.next();
         try
         {
-          if ( search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem()) )
+          if (search.hasDatabaseView() && !Database.tableExists(search.generateViewNameNoAbortIfProblem(VIEW_PREFIX)))
           {
             search.createDatabaseView(false);
           }
@@ -374,7 +376,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       throw new NoDBViewForDefaultQueryException();
     }
 
-    String viewName = this.generateViewName();
+    String viewName = this.generateViewName(VIEW_PREFIX);
     if (databaseViewExists(viewName))
     {
       return viewName;
@@ -399,7 +401,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     // remove the existing database view
-    this.deleteDatabaseViewIfExists();
+    this.deleteDatabaseViewIfExists(false);
 
     createDatabaseView(true);
   }
@@ -425,7 +427,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.FROM("(" + valueQuery.getSQL() + ")", "original_query");
+      outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
       for (Selectable s : valueQuery.getSelectableRefs())
       {
@@ -483,12 +485,23 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
 
       // create the database view
-      String viewName = this.generateViewName();
-      
-      createDatabaseFunction(viewName, outer, valueQuery);
-      
-      String viewSql = "select * from f_" + viewName + "()";
-      Database.createView(viewName, viewSql, replaceExisting);
+      String viewNameNoPrefix = this.generateViewName("");
+      String viewNameWithPrefix = VIEW_PREFIX + viewNameNoPrefix;
+
+      if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
+      {
+        String functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
+
+        String viewSql = "select * from " + functionName + "()";
+
+        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
+      }
+      else
+      {
+        String viewSql = "(" + outer.getSQL() + ")";
+
+        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
+      }
     }
     catch (NoColumnsAddedException e)
     {
@@ -499,62 +512,109 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
   }
   
-  private String getSqlDropDatabaseFunctionIfExists(String viewName)
+  private String createDatabaseFunction(String viewNameNoPrefix, ValueQuery wrapper, ValueQuery original)
   {
-    String sql = "DROP FUNCTION IF EXISTS f_" + viewName + "() CASCADE;";
-    
-    return sql;
-  }
-  
-  private void createDatabaseFunction(String viewName, ValueQuery wrapper, ValueQuery original)
-  {
+    Database.executeStatement("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
+
+    String functionName = FUNCTION_PREFIX + viewNameNoPrefix;
+
     final String TAB = "\t";
     final String NEWLINE = "\n";
-    
-    String fnSql = "CREATE OR REPLACE FUNCTION f_" + viewName + "()" + NEWLINE;
-    
+
+    String fnSql = "CREATE OR REPLACE FUNCTION " + functionName + "()" + NEWLINE;
+
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
-    
-    // Generate the selectable list for the table our function is returning
+
+    // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
+    // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
+
+    // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
+    // String wrapperSql = wrapper.getSQL();
+    // if (wrapperSql.endsWith("LIMIT .*"))
+
+    String colQ = "";
+    colQ += original.getDependentPreSqlStatements() + "\n";
+    colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
+    colQ += "CREATE TEMPORARY TABLE t_" + viewNameNoPrefix + " ON COMMIT DROP AS (" + wrapper.getSQL() + " LIMIT 0);\n";
+    colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
+    colQ += "FROM   pg_attribute ";
+    colQ += "WHERE  attrelid = 't_" + viewNameNoPrefix + "'::regclass ";
+    colQ += "AND    attnum > 0 ";
+    colQ += "AND    NOT attisdropped ";
+    colQ += "ORDER  BY attnum;";
+
+    ResultSet resultSet2 = Database.query(colQ);
+
     List<String> selDefs = new ArrayList<String>();
-    List<Selectable> sels = wrapper.getSelectableRefs();
-    for (Selectable sel : sels)
+    try
     {
-      MdAttributeConcreteDAOIF coreType = sel.getMdAttributeIF();
-      selDefs.add(TAB + sel.getColumnAlias() + " " + DatabaseProperties.getDatabaseType(coreType));
+      while (resultSet2.next())
+      {
+        String alias = resultSet2.getString("attname");
+        String dbType = resultSet2.getString("type");
+
+        selDefs.add(TAB + alias + " " + dbType);
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
     }
     fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-    
+
     fnSql += TAB + ")" + NEWLINE;
-    
+
     fnSql += "AS $body$" + NEWLINE;
-    
+
     fnSql += "#variable_conflict use_column" + NEWLINE;
-    
+
     fnSql += "BEGIN" + NEWLINE + NEWLINE;
-    
-    fnSql += original.getSQL() + ";" + NEWLINE + NEWLINE;
-    
+
+    fnSql += original.getDependentPreSqlStatements() + "\n";
+
+    fnSql += "RETURN QUERY " + wrapper.getSQL() + ";" + NEWLINE + NEWLINE;
+
     fnSql += "END" + NEWLINE;
-    
+
     fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
-    
+
     Database.parseAndExecute(fnSql);
+
+    return functionName;
   }
 
-  private void deleteDatabaseViewIfExists()
+  /**
+   * This will delete all functions and views.
+   */
+  private void deleteDatabaseViewIfExists(boolean skipFunction)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return;
     }
 
+    String viewNameNoPrefix = this.generateViewName("");
+
     List<String> batch = new LinkedList<String>();
-    String viewName = this.generateViewName();
-    batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
-    
-    batch.add(getSqlDropDatabaseFunctionIfExists(viewName));
-    
+    batch.add("DROP VIEW IF EXISTS " + VIEW_PREFIX + viewNameNoPrefix + " CASCADE");
+    if (!skipFunction)
+    {
+      batch.add("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
+    }
+
     Database.executeBatch(batch);
   }
 
@@ -822,7 +882,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // also reduce overhead in trying to synchronize the state
     // of the query with its database view representation.
     SavedSearch search = SavedSearch.get(searchId);
-    String viewName = search.generateViewName();
+    String viewName = search.generateViewName(VIEW_PREFIX);
 
     if (!databaseViewExists(viewName))
     {
