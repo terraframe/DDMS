@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,7 +15,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.filters.StringInputStream;
@@ -84,6 +81,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.querybuilder.AbstractQB;
 import dss.vector.solutions.report.UndefinedTemplateException;
+import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.SelectableSQLKey;
 
 public class SavedSearch extends SavedSearchBase implements com.runwaysdk.generation.loader.Reloadable
@@ -291,6 +289,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
+      outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
       outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
       for (Selectable s : valueQuery.getSelectableRefs())
@@ -379,7 +378,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
       {
-        String functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
+        String functionName = QueryUtil.createDatabaseFunction(viewNameNoPrefix, outer);
 
         String viewSql = "select * from " + functionName + "()";
 
@@ -669,6 +668,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
+      outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
       outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
       for (Selectable s : valueQuery.getSelectableRefs())
@@ -728,25 +728,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       // create the database view
       String viewNameNoPrefix = this.generateViewName("");
-      String viewNameWithPrefix = VIEW_PREFIX + viewNameNoPrefix;
-
-      if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
-      {
-        if (functionName == null)
-        {
-          functionName = createDatabaseFunction(viewNameNoPrefix, outer, valueQuery);
-        }
-
-        String viewSql = "select * from " + functionName + "()";
-
-        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
-      }
-      else
-      {
-        String viewSql = "(" + outer.getSQL() + ")";
-
-        Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
-      }
+      
+      QueryUtil.createViewFromValueQuery(viewNameNoPrefix, VIEW_PREFIX, this.getQueryType(), outer, functionName, replaceExisting);
     }
     catch (NoColumnsAddedException e)
     {
@@ -755,90 +738,6 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       // it just to be sure.
       log.debug("Could not create a database view for the query [" + this.getQueryName() + "].", e);
     }
-  }
-
-  private String createDatabaseFunction(String viewNameNoPrefix, ValueQuery wrapper, ValueQuery original)
-  {
-    Database.executeStatement("DROP FUNCTION IF EXISTS " + FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
-
-    String functionName = FUNCTION_PREFIX + viewNameNoPrefix;
-
-    final String TAB = "\t";
-    final String NEWLINE = "\n";
-
-    String fnSql = "CREATE OR REPLACE FUNCTION " + functionName + "()" + NEWLINE;
-
-    fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
-
-    // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
-    // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
-
-    // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
-    // String wrapperSql = wrapper.getSQL();
-    // if (wrapperSql.endsWith("LIMIT .*"))
-
-    String colQ = "";
-    colQ += original.getDependentPreSqlStatements() + "\n";
-    colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
-    colQ += "CREATE TEMPORARY TABLE t_" + viewNameNoPrefix + " ON COMMIT DROP AS (" + wrapper.getSQL() + " LIMIT 0);\n";
-    colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
-    colQ += "FROM   pg_attribute ";
-    colQ += "WHERE  attrelid = 't_" + viewNameNoPrefix + "'::regclass ";
-    colQ += "AND    attnum > 0 ";
-    colQ += "AND    NOT attisdropped ";
-    colQ += "ORDER  BY attnum;";
-
-    ResultSet resultSet2 = Database.query(colQ);
-
-    List<String> selDefs = new ArrayList<String>();
-    try
-    {
-      while (resultSet2.next())
-      {
-        String alias = resultSet2.getString("attname");
-        String dbType = resultSet2.getString("type");
-
-        selDefs.add(TAB + alias + " " + dbType);
-      }
-    }
-    catch (SQLException sqlEx1)
-    {
-      Database.throwDatabaseException(sqlEx1);
-    }
-    finally
-    {
-      try
-      {
-        java.sql.Statement statement = resultSet2.getStatement();
-        resultSet2.close();
-        statement.close();
-      }
-      catch (SQLException sqlEx2)
-      {
-        Database.throwDatabaseException(sqlEx2);
-      }
-    }
-    fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-
-    fnSql += TAB + ")" + NEWLINE;
-
-    fnSql += "AS $body$" + NEWLINE;
-
-    fnSql += "#variable_conflict use_column" + NEWLINE;
-
-    fnSql += "BEGIN" + NEWLINE + NEWLINE;
-
-    fnSql += original.getDependentPreSqlStatements() + "\n";
-
-    fnSql += "RETURN QUERY " + wrapper.getSQL() + ";" + NEWLINE + NEWLINE;
-
-    fnSql += "END" + NEWLINE;
-
-    fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
-
-    Database.parseAndExecute(fnSql);
-
-    return functionName;
   }
 
   /**
