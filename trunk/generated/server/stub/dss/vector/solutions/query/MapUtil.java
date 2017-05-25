@@ -33,6 +33,7 @@ import com.vividsolutions.jts.geom.Envelope;
 
 import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoServerReloadException;
+import dss.vector.solutions.util.QueryUtil;
 
 public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -204,7 +205,8 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       String layerName = layer.getLayerName();
 
       // Update the view name on the layer for this refresh cycle
-      String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
+      String viewNameNoPrefix = String.valueOf(System.currentTimeMillis());
+      String newViewName = Layer.GEO_VIEW_PREFIX + viewNameNoPrefix;
 
       if (configuration.hasOverride(layer))
       {
@@ -274,18 +276,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
 
         valueQuery.FROM("(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS " + clippingColumnAlias + " FROM " + baseView + ")", clippingAlias);
-
-        sql = valueQuery.getSQL();
-      }
-      else
-      {
-        sql = valueQuery.getSQL();
       }
 
       if (!configuration.hasOverride(layer))
       {
         // Create a new view that will reflect the current state of the query.
-        Database.createView(newViewName, sql);
+        QueryUtil.createViewFromValueQuery(viewNameNoPrefix, Layer.GEO_VIEW_PREFIX, layer.getSavedSearch().getQueryType(), valueQuery, null, true);
       }
 
       // make sure there are no duplicate geo entities

@@ -1,6 +1,8 @@
 package dss.vector.solutions.util;
 
 import java.lang.reflect.Constructor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,6 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,6 +37,7 @@ import com.runwaysdk.dataaccess.MdTableClassIF;
 import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -78,6 +82,7 @@ import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
@@ -89,6 +94,8 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 
 public class QueryUtil implements Reloadable
 {
@@ -263,6 +270,113 @@ public class QueryUtil implements Reloadable
 
     return selectedTerms.toArray(new String[selectedTerms.size()]);
 
+  }
+
+  public static String createDatabaseFunction(String viewNameNoPrefix, ValueQuery vq)
+  {
+    Database.executeStatement("DROP FUNCTION IF EXISTS " + SavedSearch.FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
+
+    String functionName = SavedSearch.FUNCTION_PREFIX + viewNameNoPrefix;
+
+    final String TAB = "\t";
+    final String NEWLINE = "\n";
+
+    String fnSql = "CREATE OR REPLACE FUNCTION " + functionName + "()" + NEWLINE;
+
+    fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
+
+    // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
+    // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
+
+    // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
+    // String wrapperSql = wrapper.getSQL();
+    // if (wrapperSql.endsWith("LIMIT .*"))
+
+    String colQ = "";
+    colQ += vq.getDependentPreSqlStatements() + "\n";
+    colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
+    colQ += "CREATE TEMPORARY TABLE t_" + viewNameNoPrefix + " ON COMMIT DROP AS (" + vq.getSQLWithoutDependentPreSql() + " LIMIT 0);\n";
+    colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
+    colQ += "FROM   pg_attribute ";
+    colQ += "WHERE  attrelid = 't_" + viewNameNoPrefix + "'::regclass ";
+    colQ += "AND    attnum > 0 ";
+    colQ += "AND    NOT attisdropped ";
+    colQ += "ORDER  BY attnum;";
+
+    ResultSet resultSet2 = Database.query(colQ);
+
+    List<String> selDefs = new ArrayList<String>();
+    try
+    {
+      while (resultSet2.next())
+      {
+        String alias = resultSet2.getString("attname");
+        String dbType = resultSet2.getString("type");
+
+        selDefs.add(TAB + alias + " " + dbType);
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    fnSql += StringUtils.join(selDefs, "," + NEWLINE);
+
+    fnSql += TAB + ")" + NEWLINE;
+
+    fnSql += "AS $body$" + NEWLINE;
+
+    fnSql += "#variable_conflict use_column" + NEWLINE;
+
+    fnSql += "BEGIN" + NEWLINE + NEWLINE;
+
+    fnSql += vq.getDependentPreSqlStatements() + "\n";
+
+    fnSql += "RETURN QUERY " + vq.getSQLWithoutDependentPreSql() + ";" + NEWLINE + NEWLINE;
+
+    fnSql += "END" + NEWLINE;
+
+    fnSql += "$body$ LANGUAGE plpgsql;" + NEWLINE;
+
+    Database.parseAndExecute(fnSql);
+
+    return functionName;
+  }
+  
+  public static void createViewFromValueQuery(String viewNameNoPrefix, String viewPrefix, String queryType, ValueQuery vq, String nameOfExistingFunctionOrNull, boolean replaceExisting)
+  {
+    String viewNameWithPrefix = viewPrefix + viewNameNoPrefix;
+  
+    if (queryType.equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
+    {
+      if (nameOfExistingFunctionOrNull == null)
+      {
+        nameOfExistingFunctionOrNull = QueryUtil.createDatabaseFunction(viewNameNoPrefix, vq);
+      }
+  
+      String viewSql = "select * from " + nameOfExistingFunctionOrNull + "()";
+  
+      Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
+    }
+    else
+    {
+      String viewSql = "(" + vq.getSQL() + ")";
+  
+      Database.createView(viewNameWithPrefix, viewSql, replaceExisting);
+    }
   }
 
   public static boolean setSelectabeSQL(ValueQuery valueQuery, String ref, String sql)
