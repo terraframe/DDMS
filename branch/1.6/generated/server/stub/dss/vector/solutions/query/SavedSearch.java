@@ -217,7 +217,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         if (this.getMaterializedTableId().length() == 0 || overwrite)
         {
           // Create the view because it doesn't exist
-          functionName = this.createMaterializedView(overwrite);
+          functionName = this.defineMaterializedView(overwrite);
         }
         else
         {
@@ -248,126 +248,26 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
   public String refreshMaterializedView()
   {
-    // List<String> batch = new LinkedList<String>();
-    // batch.add("REFRESH MATERIALIZED VIEW " + this.getMaterializedViewName() + " WITH DATA");
-    //
-    // Database.executeBatch(batch);
-
     this.cleanupDatabaseView(true);
     Database.executeStatement("DROP TABLE IF EXISTS " + this.generateViewName(MATERIALIZED_VIEW_PREFIX) + " CASCADE");
 
-    try
-    {
-      return this.createMaterializedView(true);
-    }
-    catch (JSONException e)
-    {
-      String error = "An error occured while saving a query.";
-      throw new ProgrammingErrorException(error, e);
-    }
+    ValueQuery query = this.getValueQuery();
+    String viewNameNoPrefix = this.generateViewName("");
+    String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
+
+    return this.createMaterializedView(query, viewNameNoPrefix, prefixedViewName);
   }
 
-  @SuppressWarnings("unchecked")
-  private String createMaterializedView(boolean overwrite) throws JSONException
+  private String defineMaterializedView(boolean overwrite) throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return null;
     }
 
-    String queryType = this.getQueryType();
-    String xml = this.getQueryXml();
-    String config = this.getConfig();
-
-    String queryClass = QueryConstants.getQueryClass(queryType);
-    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
-
     try
     {
-      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, new MaterializedMarkerLayer(), null, null, this.getDisease());
-
-      // wrap the query with outer SELECT that uses user-friendly column names
-      // based on the display labels.
-      ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
-      outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
-
-      for (Selectable s : valueQuery.getSelectableRefs())
-      {
-        if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
-        {
-          continue; // used only for queries as an optimization
-        }
-
-        if (s.getData() == null)
-        {
-          s.setData(new HashMap<String, Object>());
-        }
-
-        Map<String, Object> data = (Map<String, Object>) s.getData();
-
-        if (!data.containsKey(MetadataInfo.CLASS))
-        {
-          data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
-        }
-
-        // convert the user display label into something a user-friendly column.
-        // use SQL character because it's generic enough to handle all cases.
-        Selectable c = null;
-
-        if (s instanceof SelectableSQLKey)
-        {
-          c = new SelectableSQLKey(false, outer, s.getColumnAlias(), s.getColumnAlias());
-        }
-        else
-        {
-          c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
-        }
-
-        String newColumn;
-        String label = s.getUserDefinedDisplayLabel();
-        if (label != null && label.length() > 0)
-        {
-          newColumn = label;
-        }
-        else
-        {
-          newColumn = c.getColumnAlias();
-        }
-
-        newColumn.replaceAll("%", "percent");
-
-        newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
-
-        // Postgres identifiers are case-insensitive so
-        // lowercase everything to simplify the label
-        newColumn = newColumn.toLowerCase();
-
-        // an identifier cannot start with a number so add
-        // an underscore if a digit is detected
-
-        if (INVALID_PREFIX.matcher(newColumn).matches())
-        {
-          newColumn = VALID_PREFIX + newColumn;
-        }
-
-        if (columnNameMap.containsKey(newColumn))
-        {
-          Integer count = columnNameMap.get(newColumn) + 1;
-          columnNameMap.put(newColumn, count);
-
-          newColumn += "_" + count;
-        }
-        else
-        {
-          columnNameMap.put(newColumn, new Integer(1));
-        }
-
-        c.setColumnAlias(newColumn);
-        c.setData(s.getData());
-
-        outer.SELECT(c);
-      }
+      ValueQuery outer = this.getValueQuery();
 
       String viewNameNoPrefix = this.generateViewName("");
       String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
@@ -386,24 +286,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         new MdTableBuilder().update(mdTable, outer);
       }
 
-      if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
-      {
-        String functionName = QueryUtil.createDatabaseFunction(viewNameNoPrefix, outer);
-
-        String viewSql = "select * from " + functionName + "()";
-
-        String statement = "CREATE TABLE " + prefixedViewName + " AS (" + viewSql + ")";
-
-        Database.executeStatement(statement);
-
-        return functionName;
-      }
-      else
-      {
-        String statement = "CREATE TABLE " + prefixedViewName + " AS (" + outer.getSQL() + ")";
-
-        Database.executeStatement(statement);
-      }
+      return this.createMaterializedView(outer, viewNameNoPrefix, prefixedViewName);
     }
     catch (NoColumnsAddedException e)
     {
@@ -414,6 +297,127 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     return null;
+  }
+
+  private String createMaterializedView(ValueQuery query, String viewNameNoPrefix, String prefixedViewName)
+  {
+    if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))
+    {
+      String functionName = QueryUtil.createDatabaseFunction(viewNameNoPrefix, query);
+
+      String viewSql = "select * from " + functionName + "()";
+
+      String statement = "CREATE TABLE " + prefixedViewName + " AS (" + viewSql + ")";
+
+      Database.executeStatement(statement);
+
+      return functionName;
+    }
+    else
+    {
+      String statement = "CREATE TABLE " + prefixedViewName + " AS (" + query.getSQL() + ")";
+
+      Database.executeStatement(statement);
+    }
+
+    return null;
+  }
+
+  @SuppressWarnings("unchecked")
+  private ValueQuery getValueQuery()
+  {
+    String queryType = this.getQueryType();
+    String xml = this.getQueryXml();
+    String config = this.getConfig();
+
+    String queryClass = QueryConstants.getQueryClass(queryType);
+    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
+
+    ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, new MaterializedMarkerLayer(), null, null, this.getDisease());
+
+    // wrap the query with outer SELECT that uses user-friendly column names
+    // based on the display labels.
+    ValueQuery outer = new ValueQuery(new QueryFactory());
+    outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
+    outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
+
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+      {
+        continue; // used only for queries as an optimization
+      }
+
+      if (s.getData() == null)
+      {
+        s.setData(new HashMap<String, Object>());
+      }
+
+      Map<String, Object> data = (Map<String, Object>) s.getData();
+
+      if (!data.containsKey(MetadataInfo.CLASS))
+      {
+        data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
+      }
+
+      // convert the user display label into something a user-friendly column.
+      // use SQL character because it's generic enough to handle all cases.
+      Selectable c = null;
+
+      if (s instanceof SelectableSQLKey)
+      {
+        c = new SelectableSQLKey(false, outer, s.getColumnAlias(), s.getColumnAlias());
+      }
+      else
+      {
+        c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
+      }
+
+      String newColumn;
+      String label = s.getUserDefinedDisplayLabel();
+      if (label != null && label.length() > 0)
+      {
+        newColumn = label;
+      }
+      else
+      {
+        newColumn = c.getColumnAlias();
+      }
+
+      newColumn.replaceAll("%", "percent");
+
+      newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
+
+      // Postgres identifiers are case-insensitive so
+      // lowercase everything to simplify the label
+      newColumn = newColumn.toLowerCase();
+
+      // an identifier cannot start with a number so add
+      // an underscore if a digit is detected
+
+      if (INVALID_PREFIX.matcher(newColumn).matches())
+      {
+        newColumn = VALID_PREFIX + newColumn;
+      }
+
+      if (columnNameMap.containsKey(newColumn))
+      {
+        Integer count = columnNameMap.get(newColumn) + 1;
+        columnNameMap.put(newColumn, count);
+
+        newColumn += "_" + count;
+      }
+      else
+      {
+        columnNameMap.put(newColumn, new Integer(1));
+      }
+
+      c.setColumnAlias(newColumn);
+      c.setData(s.getData());
+
+      outer.SELECT(c);
+    }
+    return outer;
   }
 
   @Override
@@ -738,7 +742,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       // create the database view
       String viewNameNoPrefix = this.generateViewName("");
-      
+
       QueryUtil.createViewFromValueQuery(viewNameNoPrefix, VIEW_PREFIX, this.getQueryType(), outer, functionName, replaceExisting);
     }
     catch (NoColumnsAddedException e)
