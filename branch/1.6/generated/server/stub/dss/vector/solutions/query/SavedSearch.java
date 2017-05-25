@@ -27,6 +27,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -266,6 +267,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
   }
 
+  @SuppressWarnings("unchecked")
   private String createMaterializedView(boolean overwrite) throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
@@ -279,8 +281,6 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     String queryClass = QueryConstants.getQueryClass(queryType);
     Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
-
-    Map<Selectable, MdAttributeConcreteDAOIF> map = new HashMap<Selectable, MdAttributeConcreteDAOIF>();
 
     try
     {
@@ -299,13 +299,25 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
           continue; // used only for queries as an optimization
         }
 
+        if (s.getData() == null)
+        {
+          s.setData(new HashMap<String, Object>());
+        }
+
+        Map<String, Object> data = (Map<String, Object>) s.getData();
+
+        if (!data.containsKey(MetadataInfo.CLASS))
+        {
+          data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
+        }
+
         // convert the user display label into something a user-friendly column.
         // use SQL character because it's generic enough to handle all cases.
         Selectable c = null;
 
         if (s instanceof SelectableSQLKey)
         {
-          c = new SelectableSQLKey(false, outer, s.getColumnAlias(), s.getColumnAlias(), ( (SelectableSQLKey) s ).getMdAttribute());
+          c = new SelectableSQLKey(false, outer, s.getColumnAlias(), s.getColumnAlias());
         }
         else
         {
@@ -355,8 +367,6 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         c.setData(s.getData());
 
         outer.SELECT(c);
-
-        map.put(c, s.getMdAttributeIF());
       }
 
       String viewNameNoPrefix = this.generateViewName("");
@@ -364,7 +374,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       if (!overwrite || this.getMaterializedTableId().length() == 0)
       {
-        MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), prefixedViewName, map);
+        MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), prefixedViewName, outer);
 
         this.setMaterializedViewName(prefixedViewName);
         this.setMaterializedTable(mdTable);
@@ -373,7 +383,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         MdTable mdTable = this.getMaterializedTable();
 
-        new MdTableBuilder().update(mdTable, map);
+        new MdTableBuilder().update(mdTable, outer);
       }
 
       if (this.getQueryType().equals(QueryConstants.namespaceQuery(MosquitoCollection.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS)))

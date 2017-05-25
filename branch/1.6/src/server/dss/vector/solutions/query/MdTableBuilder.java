@@ -3,12 +3,11 @@ package dss.vector.solutions.query;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import org.json.JSONException;
 
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.constants.EntityInfo;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeCharacterInfo;
 import com.runwaysdk.constants.MdAttributeConcreteInfo;
@@ -24,6 +23,7 @@ import com.runwaysdk.constants.MdAttributeReferenceInfo;
 import com.runwaysdk.constants.MdAttributeTextInfo;
 import com.runwaysdk.constants.MdAttributeTimeInfo;
 import com.runwaysdk.constants.MdTableInfo;
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -61,6 +61,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeReference;
@@ -80,11 +81,10 @@ import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.util.SelectableSQLKey;
 
 public class MdTableBuilder implements Reloadable
 {
-  public MdTable build(String label, String viewName, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
+  public MdTable build(String label, String viewName, ValueQuery query) throws JSONException
   {
     // Create the MdTable
     MdTableDAO mdTableDAO = MdTableDAO.newInstance();
@@ -94,27 +94,29 @@ public class MdTableBuilder implements Reloadable
     mdTableDAO.setValue(MdTableInfo.TABLE_NAME, viewName);
     mdTableDAO.apply();
 
-    return build(mdTableDAO, map);
+    return build(mdTableDAO, query);
   }
 
-  private MdTable build(MdTableDAO mdTableDAO, Map<Selectable, MdAttributeConcreteDAOIF> map)
+  @SuppressWarnings("unchecked")
+  private MdTable build(MdTableDAO mdTableDAO, ValueQuery query)
   {
     GeoHierarchy lowest = null;
 
-    Set<Entry<Selectable, MdAttributeConcreteDAOIF>> entries = map.entrySet();
-
     Disease disease = Disease.getCurrent();
-    for (Entry<Selectable, MdAttributeConcreteDAOIF> entry : entries)
+
+    List<Selectable> selectables = query.getSelectableRefs();
+
+    for (Selectable selectable : selectables)
     {
-      MdAttributeConcreteDAOIF mdAttributeIF = entry.getValue();
-      Selectable selectable = entry.getKey();
+      Map<String, Object> data = (Map<String, Object>) selectable.getData();
+      MdAttributeConcreteDAOIF mdAttributeIF = (MdAttributeConcreteDAOIF) data.get(MetadataInfo.CLASS);
 
       String attributeName = mdAttributeIF.definesAttribute();
       attributeName = attributeName.substring(Math.max(0, attributeName.length() - 64));
 
-      if (selectable instanceof SelectableSQLKey)
+      if (mdAttributeIF instanceof MdAttributeReferenceDAOIF)
       {
-        MdAttributeReferenceDAOIF mdAttributeReference = ( (SelectableSQLKey) selectable ).getMdAttribute();
+        MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeIF;
         MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
 
         if (mdBusiness.definesType().equals(Term.CLASS))
@@ -177,14 +179,14 @@ public class MdTableBuilder implements Reloadable
       }
       else if (mdAttributeIF instanceof MdAttributeCharacterDAOIF || mdAttributeIF instanceof MdAttributeTextDAOIF)
       {
-        String data = (String) selectable.getData();
-
-        if (data != null)
+        if (data.containsKey(EntityInfo.CLASS))
         {
-          if (!data.equals(Term.CLASS))
+          String info = (String) data.get(EntityInfo.CLASS);
+          
+          if (!info.equals(Term.CLASS))
           {
             // Geo entity column
-            String[] split = data.split("__");
+            String[] split = info.split("__");
 
             String key = split[0];
             String universal = split[1];
@@ -209,14 +211,14 @@ public class MdTableBuilder implements Reloadable
             }
           }
         }
-        else if(mdAttributeIF instanceof MdAttributeTextDAOIF)
+        else if (mdAttributeIF instanceof MdAttributeTextDAOIF)
         {
           MdAttributeTextDAO mdAttribute = MdAttributeTextDAO.newInstance();
           mdAttribute.setValue(MdAttributeTextInfo.NAME, attributeName);
           mdAttribute.setStructValue(MdAttributeTextInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
           mdAttribute.setValue(MdAttributeTextInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-          mdAttribute.apply();          
+          mdAttribute.apply();
         }
         else
         {
@@ -381,13 +383,13 @@ public class MdTableBuilder implements Reloadable
     return mdTable;
   }
 
-  public void update(MdTable mdTable, Map<Selectable, MdAttributeConcreteDAOIF> map) throws JSONException
+  public void update(MdTable mdTable, ValueQuery query) throws JSONException
   {
     this.delete(mdTable, false);
 
     MdTableDAO mdTableDAO = MdTableDAO.get(mdTable.getId()).getBusinessDAO();
 
-    this.build(mdTableDAO, map);
+    this.build(mdTableDAO, query);
   }
 
   public void delete(MdTable mdTable)
@@ -401,7 +403,7 @@ public class MdTableBuilder implements Reloadable
      * Delete the materialized view
      */
     Database.executeStatement("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
-    
+
     /*
      * Delete the materialized table metadata
      */

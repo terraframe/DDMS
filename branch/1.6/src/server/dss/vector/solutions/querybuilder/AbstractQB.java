@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.constants.EntityInfo;
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdTableClassIF;
@@ -438,6 +440,7 @@ public abstract class AbstractQB implements Reloadable
   /**
    * Copies all selectables and returns them.
    */
+  @SuppressWarnings("unchecked")
   protected Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix, boolean preserveAggregates, ValueQuery original)
   {
     Selectable[] replacements = new Selectable[sels.size()];
@@ -523,7 +526,20 @@ public abstract class AbstractQB implements Reloadable
         newSel = vq.aSQLCharacter(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
 
+      Map<String, Object> data = (Map<String, Object>) sel.getData();
+
+      if (data == null)
+      {
+        data = new HashMap<String, Object>();
+      }
+
+      if (!data.containsKey(MetadataInfo.CLASS))
+      {
+        data.put(MetadataInfo.CLASS, sel.getMdAttributeIF());
+      }
+
       newSel.setColumnAlias(sel.getColumnAlias());
+      newSel.setData(data);
 
       replacements[count++] = newSel;
     }
@@ -1302,8 +1318,11 @@ public abstract class AbstractQB implements Reloadable
           selectables.add(selectable6);
 
           String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
+          
+          HashMap<String, Object> data = new HashMap<String, Object>();
+          data.put(EntityInfo.CLASS, geoVQEntityAlias);
 
-          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, geoVQEntityAlias);
+          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, data);
         }
       }
 

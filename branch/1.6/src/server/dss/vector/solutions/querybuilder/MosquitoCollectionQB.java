@@ -1,5 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedTableClassQuery;
@@ -55,16 +57,16 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private Selectable          collectionMethod;
 
   private final String        geoIdColumn;
-  
-  private static final String ROUND_DISPLAY_LABEL = MosquitoCollection.COLLECTIONROUND+QueryUtil.DISPLAY_LABEL_SUFFIX;
-  
-  private static final String TYPE_DISPLAY_LABEL = MosquitoCollection.COLLECTIONTYPE+QueryUtil.DISPLAY_LABEL_SUFFIX;
-  
-  private boolean hasRound;
-  
-  private boolean hasType;
-  
-  private Restriction taxonRestriction;
+
+  private static final String ROUND_DISPLAY_LABEL     = MosquitoCollection.COLLECTIONROUND + QueryUtil.DISPLAY_LABEL_SUFFIX;
+
+  private static final String TYPE_DISPLAY_LABEL      = MosquitoCollection.COLLECTIONTYPE + QueryUtil.DISPLAY_LABEL_SUFFIX;
+
+  private boolean             hasRound;
+
+  private boolean             hasType;
+
+  private Restriction         taxonRestriction;
 
   private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
@@ -96,7 +98,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     return MosquitoCollection.CLASS;
   }
-  
+
   @Override
   protected void setGeoDisplayLabelSQL()
   {
@@ -104,6 +106,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.addTempTableEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
@@ -113,16 +116,16 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
     InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
-    
+
     // Taxon is a special case that is selected from the sub collection
     if (subCollectionQuery == null && valueQuery.hasSelectableRef("taxon"))
     {
       subCollectionQuery = new SubCollectionQuery(valueQuery);
       queryMap.put(SubCollection.CLASS, subCollectionQuery);
     }
-    
+
     // Species term restrictions must happen at the end, which we do in setTermCriteria. Remove the restriction
-    //  so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
+    // so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
     if (this.getTermRestrictions().containsKey("taxon"))
     {
       Map<String, Restriction> restrictions = this.getTermRestrictions();
@@ -136,11 +139,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
       QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery, this.getTermRestrictions(), this.getLayer());
     }
-    
-    if(insecticideBrandQuery != null)
+
+    if (insecticideBrandQuery != null)
     {
       valueQuery.WHERE(mosquitoCollectionQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
-      
+
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions(), this.getLayer());
     }
@@ -191,20 +194,20 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       setAbundance(valueQuery, 100, "100");
       setAbundance(valueQuery, 1000, "1000");
 
-//      this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
-//      valueQuery.SELECT(collectionMethod);
+      // this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
+      // valueQuery.SELECT(collectionMethod);
 
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
       super.joinGeoDisplayLabels(valueQuery);
-      
+
       setWithQuerySQL(ABUNDANCE_VIEW, valueQuery);
 
       ValueQuery overrideQuery = new ValueQuery(queryFactory);
 
       boolean hasSubCol = false;
       boolean hasCol = false;
-      
+
       for (Selectable s : valueQuery.getSelectableRefs())
       {
         String attributeName = s.getDbColumnName();
@@ -267,7 +270,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
-        
+
         SelectableSingle sel = null;
         if (s instanceof SelectableSQLFloat)
         {
@@ -281,41 +284,55 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           sel = overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
-        else if (s instanceof SelectableSQLCharacter && (((SelectableSQLCharacter)s).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_geoId") || ((SelectableSQLCharacter)s).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_entityLabel") ) )
+        else if (s instanceof SelectableSQLCharacter && ( ( (SelectableSQLCharacter) s ).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_geoId") || ( (SelectableSQLCharacter) s ).getResultAttributeName().matches("dss_vector_solutions_.*_geoEntity_.*_entityLabel") ))
         {
           sel = overrideQuery.aSQLCharacter(s._getAttributeName(), columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
-          ((SelectableSQLCharacter)sel).generateColumnAlias();
+          ( (SelectableSQLCharacter) sel ).generateColumnAlias();
         }
         else if (!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
         {
           sel = overrideQuery.aSQLCharacter(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
-        
+
         if (sel != null)
         {
+          Map<String, Object> data = (Map<String, Object>) s.getData();
+
+          if (data == null)
+          {
+            data = new HashMap<String, Object>();
+          }
+
+          if (!data.containsKey(MetadataInfo.CLASS))
+          {
+            data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
+          }
+
+          sel.setData(data);
+
           overrideQuery.SELECT(sel);
-//          overrideQuery.GROUP_BY(sel);
+          // overrideQuery.GROUP_BY(sel);
         }
       }
-      
-//      overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("final_abundance", "final_abundance"));
+
+      // overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("final_abundance", "final_abundance"));
       if (hasCol)
       {
-//        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allCollectionIds", "allCollectionIds"));
+        // overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allCollectionIds", "allCollectionIds"));
       }
       if (hasSubCol)
       {
-//        overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allSubCollectionIds", "allSubCollectionIds"));
+        // overrideQuery.GROUP_BY(overrideQuery.aSQLDecimal("allSubCollectionIds", "allSubCollectionIds"));
       }
-      
+
       overrideQuery.FROM(ABUNDANCE_VIEW, ABUNDANCE_VIEW);
-      
+
       return overrideQuery;
     }
 
     return valueQuery;
   }
-  
+
   protected void joinGeoDisplayLabels(ValueQuery valueQuery)
   {
     if (this.hasAbundance)
@@ -365,11 +382,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
             // #3002 - Apply filtering to the final query
-            if(taxonRestriction != null)
+            if (taxonRestriction != null)
             {
-              SelectableChar taxon = valueQuery.aSQLCharacter(ABUNDANCE_VIEW+".taxon", ABUNDANCE_VIEW+".taxon");
+              SelectableChar taxon = valueQuery.aSQLCharacter(ABUNDANCE_VIEW + ".taxon", ABUNDANCE_VIEW + ".taxon");
               List<String> idsList = taxonRestriction.getRestrictions();
-              
+
               valueQuery.WHERE(taxon.IN(idsList.toArray(new String[idsList.size()])));
             }
           }
@@ -395,13 +412,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     {
       this.abundanceCols.add(s.getColumnAlias());
 
-      // This list of aliases is the list that defines what "The Group" is. The Group contains all restrictive terms/criteria that the number of collections is grouped by and it EXCLUDES species/taxon.
+      // This list of aliases is the list that defines what "The Group" is. The Group contains all restrictive terms/criteria that the number of
+      // collections is grouped by and it EXCLUDES species/taxon.
       // If a new term is added to this QueryBuilder you'll need to add it to this list.
-      if ( s.getDbColumnName().startsWith("collectionRound") || s.getDbColumnName().startsWith("collectionType") ||
-          s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") ||
-          s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP") ||
-          s.getDbColumnName().equals("geoEntity_displayLabel") || s.getDbColumnName().startsWith("wallType")
-        )
+      if (s.getDbColumnName().startsWith("collectionRound") || s.getDbColumnName().startsWith("collectionType") || s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP") || s.getDbColumnName().equals("geoEntity_displayLabel")
+          || s.getDbColumnName().startsWith("wallType"))
       {
         // Optional criteria (ticket 3444). If the collection contains values for these criteria then we'll join on them. Otherwise we won't.
         if (s.getDbColumnName().startsWith("wallType") || s.getDbColumnName().startsWith("collectionType"))
@@ -456,11 +471,9 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     this.setWITHRecursive(true);
 
-
     this.addTempTableEntry(new WITHEntry("mainQuery", origQuery));
-//    String createSql = "CREATE TEMPORARY TABLE IF NOT EXISTS mainQuery ON COMMIT DROP AS (" + origQuery + ")";
-//    Database.parseAndExecute(createSql);
-    
+    // String createSql = "CREATE TEMPORARY TABLE IF NOT EXISTS mainQuery ON COMMIT DROP AS (" + origQuery + ")";
+    // Database.parseAndExecute(createSql);
 
     // taxonCountQuery is where each node gets the total of its child species
     String taxonCountQuery = "SELECT mainQuery.* ,";
@@ -476,7 +489,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     // the parent specie of this row in this group, may skip levels
     // taxonCountQuery += "(SELECT ss." + taxonCol +
     // " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." +
-    // taxonCol + " = " + parentTermCol + "  AND " + childTermCol +
+    // taxonCol + " = " + parentTermCol + " AND " + childTermCol +
     // " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." +
     // taxonCol + " " + joinMainQuery;
     // taxonCountQuery += " GROUP BY ss." + taxonCol +
@@ -523,19 +536,18 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     rollupView += "     WHERE depth = 0\n";
     rollupView += " UNION ALL\n";
     rollupView += " SELECT child_v.*, parent_v.final_abundance * child_v.my_share \n";
-    rollupView += " FROM " + viewName + " parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." 
-      + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS;
-    
-    if(this.hasRound)
+    rollupView += " FROM " + viewName + " parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS;
+
+    if (this.hasRound)
     {
-      rollupView += " AND child_v."+ROUND_DISPLAY_LABEL+" = parent_v."+ROUND_DISPLAY_LABEL;
+      rollupView += " AND child_v." + ROUND_DISPLAY_LABEL + " = parent_v." + ROUND_DISPLAY_LABEL;
     }
-    
-    if(this.hasType)
+
+    if (this.hasType)
     {
-      rollupView += " AND child_v."+TYPE_DISPLAY_LABEL+" = parent_v."+TYPE_DISPLAY_LABEL;
+      rollupView += " AND child_v." + TYPE_DISPLAY_LABEL + " = parent_v." + TYPE_DISPLAY_LABEL;
     }
-    
+
     rollupView += " \n";
     this.addWITHEntry(new WITHEntry(viewName, rollupView));
   }

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.EntityInfo;
 import com.runwaysdk.constants.EnumerationMasterInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -589,7 +591,10 @@ public class QueryUtil implements Reloadable
                 previousLeftJoin = currleftJoinEq;
               }
               
-              s.setData(Term.CLASS);
+              HashMap<String, Object> data = new HashMap<String, Object>();
+              data.put(EntityInfo.CLASS, Term.CLASS);
+              
+              s.setData(data);
 
               // Join with the term table with the term display label
               currleftJoinEq = new LeftJoinEq(mdAttributeTermDisplayLabel.getColumnName(), termTable, newTermTableAlias, EntityDAOIF.ID_COLUMN, termLabelMdEntityDAOIF.getTableName(), newDisplayLabelTableAlias);

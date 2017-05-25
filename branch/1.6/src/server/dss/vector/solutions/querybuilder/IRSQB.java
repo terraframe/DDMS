@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalCharacterDAOIF;
@@ -1031,6 +1032,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable s = irsVQ.getSelectableRef(Alias.ROOMS_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedRooms, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.ROOMS_UNSPRAYED.getAlias());
+      
+      this.copyData(s, r);
 
       irsVQ.replaceSelectable(r);
     }
@@ -1041,6 +1044,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedHouseholds, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.HOUSEHOLDS_UNSPRAYED.getAlias());
 
+      this.copyData(s, r);
+
       irsVQ.replaceSelectable(r);
     }
 
@@ -1049,6 +1054,8 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable s = irsVQ.getSelectableRef(Alias.STRUCTURES_UNSPRAYED.getAlias());
       Selectable r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedStructures, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.STRUCTURES_UNSPRAYED.getAlias());
+
+      this.copyData(s, r);
 
       irsVQ.replaceSelectable(r);
     }
@@ -1078,11 +1085,14 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable s = irsVQ.getSelectableRef(Alias.UNITS_UNSPRAYED.getAlias());
       SelectableSQL r = irsVQ.aSQLAggregateInteger(s._getAttributeName(), unsprayedUnits, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
       r.setColumnAlias(Alias.UNITS_UNSPRAYED.getAlias());
+      
+      this.copyData(s, r);
 
       irsVQ.replaceSelectable(r);
 
       SelectableSQL gb = irsVQ.aSQLCharacter(Alias.SPRAY_UNIT.getAlias(), Alias.SPRAY_UNIT.getAlias());
       gb.setAttributeNameSpace("insecticideView");
+      
       irsVQ.GROUP_BY(gb);
     }
 
@@ -1106,6 +1116,24 @@ public class IRSQB extends AbstractQB implements Reloadable
     QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_STRUCTURES_SPRAYED.getAlias(), "(" + unit_operational_coverage + ") * SUM(" + Alias.STRUCTURES.getAlias() + ")");
 
     QueryUtil.setSelectabeSQL(irsVQ, Alias.CALCULATED_HOUSEHOLDS_SPRAYED.getAlias(), "(" + unit_operational_coverage + ") * SUM(" + Alias.HOUSEHOLDS.getAlias() + ")");
+  }
+
+  @SuppressWarnings("unchecked")
+  private void copyData(Selectable source, Selectable target)
+  {
+    Map<String, Object> data = (Map<String, Object>) source.getData();
+
+    if (data == null)
+    {
+      data = new HashMap<String, Object>();
+    }
+
+    if (!data.containsKey(MetadataInfo.CLASS))
+    {
+      data.put(MetadataInfo.CLASS, source.getMdAttributeIF());
+    }
+
+    target.setData(data);
   }
 
   /**
@@ -1332,12 +1360,15 @@ public class IRSQB extends AbstractQB implements Reloadable
         {
           Selectable s = areaAggVQ.aSQLCharacter(geoIdSel._getAttributeName(), geoIdSel.getSQL(), geoIdSel.getUserDefinedAlias());
           s.setColumnAlias(originalVQ.getSelectableRef(geoId).getColumnAlias());
+          this.copyData(geoIdSel, s);
 
           toAdd.put(s.getResultAttributeName(), s);
         }
 
         Selectable s = areaAggVQ.aSQLCharacter(entityNameSel._getAttributeName(), entityNameSel.getSQL(), entityNameSel.getUserDefinedAlias());
         s.setColumnAlias(originalVQ.getSelectableRef(entityName).getColumnAlias());
+        this.copyData(entityNameSel, s);
+
         toAdd.put(s.getResultAttributeName(), s);
 
         toCoalesce.add(geoId);
