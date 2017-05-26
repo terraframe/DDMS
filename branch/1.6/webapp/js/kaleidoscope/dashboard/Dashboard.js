@@ -604,11 +604,13 @@
           
           // Scroll to the report element
           if(id) {
-            var top = $('#report-viewport').scrollTop();
-            var offset = $('#report-viewport').offset().top;
-            var elemOff = $('#' + id).offset().top;
-              
-            $('#report-viewport').scrollTop(top - offset + elemOff);
+        	$timeout(function(){
+              var top = $('#report-viewport').scrollTop();
+              var offset = $('#report-viewport').offset().top;
+              var elemOff = $('#' + id).offset().top;
+                  
+              $('#report-viewport').scrollTop(top - offset + elemOff);
+        	}, 200);
           }
         };
         
