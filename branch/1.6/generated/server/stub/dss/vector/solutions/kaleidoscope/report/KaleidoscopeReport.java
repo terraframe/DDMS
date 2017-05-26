@@ -360,9 +360,6 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
 
     return file.getFileStream();
   }
-  
-
-  
 
   @Override
   public InputStream getDocumentAsStream()
@@ -455,6 +452,8 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
     IReportDocument document = engine.openReportDocument(this.getReportName(), reader, new HashMap<Object, Object>());
 
     String format = this.getFormat(parameterMap);
+    
+    long pageNumber = parameterMap.containsKey(PAGE_NUMBER) ? Long.parseLong(parameterMap.get(PAGE_NUMBER)) : 1L;
 
     try
     {
@@ -462,8 +461,17 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       try
       {
         task.setAppContext(contextMap);
-        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format));
+        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format, pageNumber));
         task.setLocale(LocalizationFacade.getLocale());
+
+        if (task.getRenderOption() instanceof HTMLRenderOption && parameterMap.containsKey(PAGE_NUMBER))
+        {
+
+          if (pageNumber > 0)
+          {
+            task.setPageNumber(pageNumber);
+          }
+        }
 
         IReportRunnable design = engine.openReportDesign(document.getDesignStream());
 
@@ -767,7 +775,7 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
     }
   }
 
-  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL, String format)
+  private IRenderOption getRenderOptions(OutputStream outputStream, IReportDocument document, String baseURL, String reportURL, String format, long pageNumber)
   {
     if (format.equals("xlsx"))
     {
@@ -793,7 +801,7 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
       options.setOutputStream(outputStream);
       options.setBaseURL(baseURL);
-      options.setActionHandler(new PDFUrlActionHandler(document, baseURL, reportURL));
+      options.setActionHandler(new PDFUrlActionHandler(document));
 
       return options;
     }
@@ -809,7 +817,7 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       options.setImageHandler(new HTMLServerImageHandler());
       options.setBaseImageURL(baseURL + "/" + BirtConstants.BIRT_SUFFIX + "/" + folderName);
       options.setImageDirectory(BirtConstants.IMGS_DIR + File.separator + folderName);
-      options.setActionHandler(new HTMLUrlActionHandler(document, baseURL, reportURL));
+      options.setActionHandler(new HTMLUrlActionHandler(document, pageNumber));
       options.setHtmlTitle(this.getReportLabel().getValue());
       options.setEmbeddable(true);
       options.setHtmlPagination(true);
@@ -1006,7 +1014,6 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
     }
 
   }
-
 
   public static KaleidoscopeReport getByDashboard(String dashboardId)
   {

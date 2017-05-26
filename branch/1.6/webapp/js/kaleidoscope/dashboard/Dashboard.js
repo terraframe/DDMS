@@ -564,7 +564,7 @@
       }
     }
     
-    controller.renderReport = function() {
+    controller.renderReport = function(pageNumber, id) {
       if($( "#report-viewport" ).length > 0) {
         
         // Get the width of the reporting div, make sure to remove some pixels because of
@@ -583,6 +583,10 @@
         configuration.parameters.push({'name' : 'category', 'value' : geoId});
         configuration.parameters.push({'name' : 'state', 'value' : JSON.stringify(controller.getCompressedState())});
         
+        if(pageNumber) {
+          configuration.parameters.push({'name' : 'pageNumber', 'value' : pageNumber});        	
+        }
+        
         var onSuccess = function(html){
           $( "#report-content" ).html(html);
           
@@ -596,6 +600,13 @@
             if(thisClass && thisClass.indexOf("style_") !== -1){
               $(thisChart).hide();
             }
+          }
+          
+          // Scroll to the report element
+          if(id) {
+            $('#reporticng-container').animate({
+              scrollTop: $('#' + id).offset().top
+            }, 2000);        	  
           }
         };
         
@@ -797,6 +808,10 @@
      */ 
     $scope.$on('exportReport', function(event, data) {
       controller.exportReport(data.format);
+    });   
+    
+    $scope.$on('refreshReport', function(event, data) {
+      controller.refreshReport(data.pageNumber, data.id);
     });   
     
     /*

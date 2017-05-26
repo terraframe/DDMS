@@ -13,7 +13,7 @@
         }]);
         
         if(hasReport) {
-        	
+          
           // Report actions
           $scope.menuOptions.push([localizationService.localize("dashboardViewer", "remove"), function ($itemScope, $event, modelValue, text, $li) {
             controller.remove();
@@ -66,9 +66,9 @@
     
     controller.collapse = function() {
       var height = $("#mapDivId").height();
-    	
+      
       if(controller.state === 'split'){
-  	    controller.setReportPanelHeight(0, false);
+        controller.setReportPanelHeight(0, false);
         controller.state = 'min';
       }
       else if(controller.state === 'max'){
@@ -81,7 +81,7 @@
     
     controller.expand = function() {
       var height = $("#mapDivId").height();
-    	
+      
       if(controller.state === 'min'){
         var splitHeight = Math.floor(height / 2);
         
@@ -93,7 +93,7 @@
         
         controller.setReportPanelHeight(height + reportToolbarHeight, true);        
         controller.state = 'max';
-      }    	
+      }      
     }
     
     controller.setReportPanelHeight = function (height, flipButton) {
@@ -155,7 +155,7 @@
           $scope.$apply();
         },
         onFailure : function(e) {
-          	MDSS.ErrorModal(e.getLocalizedMessage());
+            MDSS.ErrorModal(e.getLocalizedMessage());
         },
         onCancel : function(e) {
           var request = new Mojo.ClientRequest({
@@ -163,7 +163,7 @@
               // Close the dialog ??
             },
             onFailure : function(e) {
-              	MDSS.ErrorModal(e.getLocalizedMessage());
+                MDSS.ErrorModal(e.getLocalizedMessage());
             }
           });
             
@@ -183,14 +183,14 @@
       
       var onSuccess = function(){
         $scope.hasReport = false;
-        $scope.$apply();    	  
+        $scope.$apply();        
       };
       
       dashboardService.removeReport(dashboardId, "#report-viewport", onSuccess);
     }
     
     $scope.$watch('hasReport', function(newValue, oldValue){        
-      controller.setupMenu(newValue);    	
+      controller.setupMenu(newValue);      
     });        
     
     $scope.$on('angular-resizable.resizing', function(event, info){
@@ -209,6 +209,31 @@
       controller : ReportPanelController,
       controllerAs : 'ctrl',
       link: function (scope, element, attrs, ctrl) {
+
+        element.on('click', function(event) {
+          var target = event.target;
+          
+          if(target.tagName === 'A') {
+            var hash = target.hash;
+            
+            if(hash.startsWith('#report')) {
+              var split = hash.split('/');
+              
+              if(split.length == 3) {
+                scope.$emit('refreshReport', {pageNumber : split[2], id : split[1]})
+              }
+              else if(split.length == 2) {
+                // Goto Hash
+                $('#reporticng-container').animate({
+                  scrollTop: $('#' + split[1]).offset().top
+                }, 2000);
+              }
+            }
+            
+          }
+          
+        });        
+        
       }
     }    
   }
