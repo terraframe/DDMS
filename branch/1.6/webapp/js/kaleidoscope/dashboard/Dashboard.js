@@ -604,9 +604,11 @@
           
           // Scroll to the report element
           if(id) {
-            $('#reporticng-container').animate({
-              scrollTop: $('#' + id).offset().top
-            }, 2000);        	  
+            var top = $('#report-viewport').scrollTop();
+            var offset = $('#report-viewport').offset().top;
+            var elemOff = $('#' + id).offset().top;
+              
+            $('#report-viewport').scrollTop(top - offset + elemOff);
           }
         };
         
@@ -811,7 +813,7 @@
     });   
     
     $scope.$on('refreshReport', function(event, data) {
-      controller.refreshReport(data.pageNumber, data.id);
+      controller.renderReport(data.pageNumber, data.id);
     });   
     
     /*

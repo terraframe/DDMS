@@ -460,11 +460,13 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       IRenderTask task = engine.createRenderTask(document);
       try
       {
+        IRenderOption options = this.getRenderOptions(outputStream, document, baseURL, reportURL, format, pageNumber);
+        
         task.setAppContext(contextMap);
-        task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format, pageNumber));
+        task.setRenderOption(options);
         task.setLocale(LocalizationFacade.getLocale());
 
-        if (task.getRenderOption() instanceof HTMLRenderOption)
+        if (options instanceof HTMLRenderOption)
         {
           task.setPageNumber(pageNumber);
         }

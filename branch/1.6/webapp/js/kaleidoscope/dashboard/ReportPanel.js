@@ -224,9 +224,11 @@
               }
               else if(split.length == 2) {
                 // Goto Hash
-                $('#reporticng-container').animate({
-                  scrollTop: $('#' + split[1]).offset().top
-                }, 2000);
+                var top = $('#report-viewport').scrollTop();
+                var offset = $('#report-viewport').offset().top;
+                var elemOff = $('#' + split[1]).offset().top;
+                
+                $('#report-viewport').scrollTop(top - offset + elemOff);
               }
             }
             
