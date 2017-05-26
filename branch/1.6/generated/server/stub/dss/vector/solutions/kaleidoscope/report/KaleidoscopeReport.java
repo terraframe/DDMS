@@ -464,13 +464,9 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
         task.setRenderOption(this.getRenderOptions(outputStream, document, baseURL, reportURL, format, pageNumber));
         task.setLocale(LocalizationFacade.getLocale());
 
-        if (task.getRenderOption() instanceof HTMLRenderOption && parameterMap.containsKey(PAGE_NUMBER))
+        if (task.getRenderOption() instanceof HTMLRenderOption)
         {
-
-          if (pageNumber > 0)
-          {
-            task.setPageNumber(pageNumber);
-          }
+          task.setPageNumber(pageNumber);
         }
 
         IReportRunnable design = engine.openReportDesign(document.getDesignStream());
