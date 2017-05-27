@@ -81,7 +81,7 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
    * @prerequisite conditions is populated with any DashboardConditions necessary for restricting the view dataset.
    * 
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
-   */  
+   */
   @Override
   public ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns)
   {
@@ -96,7 +96,7 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
         DashboardStyle style = iter.next();
         if (style instanceof DashboardStyle)
         {
-          GeoHierarchy universal = this.getUniversal();
+          GeoHierarchy universal = this.getUniversal(drilldowns);
           MdBusinessDAOIF mdBusiness = MdBusinessDAO.get(universal.getGeoEntityClassId());
 
           // geoentity label
@@ -166,6 +166,24 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
 
       this.setUniversal(tSource.getUniversal());
     }
+  }
+
+  private GeoHierarchy getUniversal(LinkedList<Drilldown> drilldowns)
+  {
+    if (drilldowns.size() > 0)
+    {
+      Drilldown drilldown = drilldowns.getLast();
+      Map<String, String> universals = drilldown.getUniversals();
+
+      if (universals.containsKey(this.getId()))
+      {
+        String universalId = universals.get(this.getId());
+
+        return GeoHierarchy.get(universalId);
+      }
+    }
+
+    return this.getUniversal();
   }
 
   /**

@@ -191,7 +191,8 @@
         editDashboard : false,
         editData : false,
         types : [],
-        mapId : ''
+        mapId : '',
+        drillDown : []        
       };
       controller.thematicLayerCache = {values:{}, ids:[]};
       controller.referenceLayerCache = {values:{}, ids:[]};
