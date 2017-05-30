@@ -844,6 +844,7 @@
             
             var thisBaseLayerToggleControl = new baseLayerToggleControl();
             map.addControl(thisBaseLayerToggleControl);
+            map.addControl(new ol.control.ScaleLine({className: 'ol-scale-line', target: document.getElementById('scale-line')}));
         },
         
         
