@@ -99,7 +99,7 @@
         com.runwaysdk.ui.Manager.setFactory("JQuery");
       });
     </script>  
-
+    
   </head>
 
   <body ng-controller="DashboardController as dashboard" ng-init="init('${geoserver}', '${workspace}', ${editDashboard}, ${editData})" style="text-align: left;" class="yui-skin-sam">
@@ -124,6 +124,8 @@
       <div id="mapDivId" class="dynamicMap">
         <map-popup ng-if="dashboard.feature != null && dashboard.feature.show" feature="dashboard.feature" drilldown="dashboard.model.drillDown"></map-popup>
       </div>
+      
+      <div id="scale-line" class="scale-line"></div>      
     </div>
   
     <!-- reporting container -->

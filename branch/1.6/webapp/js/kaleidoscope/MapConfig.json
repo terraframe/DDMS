@@ -44,10 +44,6 @@ var MapConfig ={
      },
      "_CONTROLS":[
      	{
-     		"TYPE":"Attribution",
-     		"COLLAPSIBLE": "true"
-     	},
-     	{
      		"TYPE":"ScaleLine",
      		"CLASSNAME":"ol-scale-line", 
         	"TARGET":"scale-line",
@@ -59,12 +55,7 @@ var MapConfig ={
     		"NAME":"Open Street Map",
     		"LOCLIZATION_KEY":"osmBasic",
     		"LAYER_TYPE":"Tile",
-    		"LAYER_TYPE_OPTIONS":{"attributions":[new ol.Attribution({
-        	                                html: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        	                              }),
-        	                              ol.source.OSM.ATTRIBUTION
-        	                            ]
-        	                      },
+    		"LAYER_TYPE_OPTIONS":{},
     		"CUSTOM_TYPE_OPTIONS":{},
     		"LAYER_SOURCE_TYPE":"OSM",
     		"LAYER_SOURCE_OPTIONS":{},
