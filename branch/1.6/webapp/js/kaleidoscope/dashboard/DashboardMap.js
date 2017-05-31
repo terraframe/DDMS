@@ -85,8 +85,11 @@
                     universals: function () {
                       return universals;
                     },
-                    layer: function () {
-                      return layer.label;
+                    header: function () {
+                      var message = localizationService.localize("net.geoprism.gis.DynamicMap.drilldown", "header");
+                      message = message.replace("{0}", layer.label);
+                      
+                      return message;
                     }
                   }
                 });
@@ -133,10 +136,10 @@
     } 
   }
   
-  function DrilldownModalCtrl ($uibModalInstance, universals, layer) {
+  function DrilldownModalCtrl ($uibModalInstance, universals, header) {
     var controller = this;
     controller.universals = universals;
-    controller.layer = layer;
+    controller.header = header;
       
     controller.select = function (universal) {
       $uibModalInstance.close(universal);

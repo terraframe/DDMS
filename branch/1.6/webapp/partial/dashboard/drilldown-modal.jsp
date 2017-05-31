@@ -2,9 +2,7 @@
 
 <div>
   <div class="modal-header">
-    <h3 class="modal-title">
-      <mdss:localize key="net.geoprism.gis.DynamicMap.drilldown.header"/>
-    </h3>
+    <h3 class="modal-title"> {{ctrl.header}} </h3>
   </div>
   <div class="modal-body" id="modal-body">
     <ul>

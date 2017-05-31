@@ -1760,7 +1760,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
               oIds.put(tLayer.getId());
 
               JSONObject object = new JSONObject();
-              object.put("label", tLayer.getNameLabel().getValue());
+              object.put("label", universal.getDisplayLabel());
               object.put("ids", oIds);
               object.put("universals", universals);
 
@@ -1809,7 +1809,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
             oIds.put(rLayer.getId());
 
             JSONObject object = new JSONObject();
-            object.put("label", rLayer.getNameLabel().getValue());
+            object.put("label", universal.getDisplayLabel());
             object.put("ids", oIds);
             object.put("universals", universals);
 
