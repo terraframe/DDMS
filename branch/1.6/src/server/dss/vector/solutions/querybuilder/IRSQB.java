@@ -36,6 +36,7 @@ import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQL;
@@ -1131,6 +1132,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     if (!data.containsKey(MetadataInfo.CLASS))
     {
       data.put(MetadataInfo.CLASS, source.getMdAttributeIF());
+    }
+    
+    if(!data.containsKey(SelectableAggregate.class.getName()))
+    {
+      data.put(SelectableAggregate.class.getName(), source.isAggregateFunction());
     }
 
     target.setData(data);

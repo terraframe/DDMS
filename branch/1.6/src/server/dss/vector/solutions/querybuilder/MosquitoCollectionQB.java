@@ -16,6 +16,7 @@ import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
@@ -307,6 +308,12 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           {
             data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
           }
+          
+          if(!data.containsKey(SelectableAggregate.class.getName()))
+          {
+            data.put(SelectableAggregate.class.getName(), s.isAggregateFunction());
+          }
+          
 
           sel.setData(data);
 

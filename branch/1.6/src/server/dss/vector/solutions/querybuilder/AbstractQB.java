@@ -47,6 +47,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableDecimal;
 import com.runwaysdk.query.SelectableDouble;
@@ -536,6 +537,11 @@ public abstract class AbstractQB implements Reloadable
       if (!data.containsKey(MetadataInfo.CLASS))
       {
         data.put(MetadataInfo.CLASS, sel.getMdAttributeIF());
+      }
+      
+      if(!data.containsKey(SelectableAggregate.class.getName()))
+      {
+        data.put(SelectableAggregate.class.getName(), sel.isAggregateFunction());
       }
 
       newSel.setColumnAlias(sel.getColumnAlias());

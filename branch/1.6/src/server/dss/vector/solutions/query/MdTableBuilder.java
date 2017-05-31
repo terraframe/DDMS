@@ -61,6 +61,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -168,21 +169,37 @@ public class MdTableBuilder implements Reloadable
       }
       else if (mdAttributeIF instanceof MdAttributeBooleanDAOIF)
       {
-        MdAttributeBooleanDAO mdAttribute = MdAttributeBooleanDAO.newInstance();
-        mdAttribute.setValue(MdAttributeBooleanInfo.NAME, attributeName);
-        mdAttribute.setStructValue(MdAttributeBooleanInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setStructValue(MdAttributeBooleanInfo.POSITIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.TRUE);
-        mdAttribute.setStructValue(MdAttributeBooleanInfo.NEGATIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.FALSE);
-        mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-        mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-        mdAttribute.apply();
+        Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
+
+        if (!isAggregateFunction)
+        {
+          MdAttributeBooleanDAO mdAttribute = MdAttributeBooleanDAO.newInstance();
+          mdAttribute.setValue(MdAttributeBooleanInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeBooleanInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setStructValue(MdAttributeBooleanInfo.POSITIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.TRUE);
+          mdAttribute.setStructValue(MdAttributeBooleanInfo.NEGATIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeBooleanInfo.FALSE);
+          mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.apply();
+        }
+        else
+        {
+          MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
+          mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
+          mdAttribute.apply();
+        }
       }
       else if (mdAttributeIF instanceof MdAttributeCharacterDAOIF || mdAttributeIF instanceof MdAttributeTextDAOIF)
       {
         if (data.containsKey(EntityInfo.CLASS))
         {
           String info = (String) data.get(EntityInfo.CLASS);
-          
+
           if (!info.equals(Term.CLASS))
           {
             // Geo entity column
@@ -297,21 +314,53 @@ public class MdTableBuilder implements Reloadable
       }
       else if (mdAttributeIF instanceof MdAttributeIntegerDAOIF)
       {
-        MdAttributeIntegerDAO mdAttribute = MdAttributeIntegerDAO.newInstance();
-        mdAttribute.setValue(MdAttributeIntegerInfo.NAME, attributeName);
-        mdAttribute.setStructValue(MdAttributeIntegerInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeIntegerInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-        mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-        mdAttribute.apply();
+        Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
+
+        if (!isAggregateFunction)
+        {
+          MdAttributeIntegerDAO mdAttribute = MdAttributeIntegerDAO.newInstance();
+          mdAttribute.setValue(MdAttributeIntegerInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeIntegerInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeIntegerInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.apply();
+        }
+        else
+        {
+          MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
+          mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
+          mdAttribute.apply();
+        }
       }
       else if (mdAttributeIF instanceof MdAttributeLongDAOIF)
       {
-        MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
-        mdAttribute.setValue(MdAttributeLongInfo.NAME, attributeName);
-        mdAttribute.setStructValue(MdAttributeLongInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-        mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-        mdAttribute.apply();
+        Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
+        
+        if (!isAggregateFunction)
+        {
+          MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
+          mdAttribute.setValue(MdAttributeLongInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeLongInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.apply();
+        }
+        else
+        {
+          MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
+          mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
+          mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+          mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
+          mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
+          mdAttribute.apply();
+        }        
       }
       else
       {

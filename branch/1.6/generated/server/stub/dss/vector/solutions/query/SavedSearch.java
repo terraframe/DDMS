@@ -51,12 +51,14 @@ import com.runwaysdk.dataaccess.transaction.TransactionCache;
 import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
@@ -358,6 +360,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       if (!data.containsKey(MetadataInfo.CLASS))
       {
         data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
+      }
+      
+      if(!data.containsKey(SelectableAggregate.class.getName()))
+      {
+        data.put(SelectableAggregate.class.getName(), s.isAggregateFunction());
       }
 
       // convert the user display label into something a user-friendly column.
