@@ -272,15 +272,18 @@ YAHOO.util.Event.onDOMReady(function(){
                 {title:"Abundance", values:abundanceColumns, group:"mc", klass:subCollection.CLASS}
         ];
 
+    
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
-    query.render();
 
     var picker = query.getGeoPicker();      
     picker.setPolitical(true);
     picker.setSprayTargetAllowed(false);
     picker.addExtraUniversal('<%=CollectionSiteDTO.CLASS%>');
     picker.addExtraUniversal('<%=SentinelSiteDTO.CLASS%>');
-
+    
+    query.render();
+    
+    
     var dm = query.getDependencyManager();
 
     var allCollections = subCollectionColumns.concat(collectionColumns);

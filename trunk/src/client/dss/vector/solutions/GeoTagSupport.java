@@ -398,16 +398,16 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("(function(){\n");
     out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
     out.write("    var geoInput = document.getElementById('" + _id + "');\n");
-    out.write("    var selectSearch = new MDSS.SingleSelectSearch(" + this.getEnforceRoot() + ");\n");
+    out.write("    var geoPicker = new MDSS.GeoPicker(" + this.getEnforceRoot() + ");\n");
 
     this.writeFilterScript(out);
 
     if (this.listener != null)
     {
-      out.write("    selectSearch.addListener(" + this.listener + ");\n");
+      out.write("    geoPicker.addListener(" + this.listener + ");\n");
     }
 
-    out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
+    out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, geoPicker.getGeoFilterCriteria(), geoPicker);\n");
 
     this.writeFilterTags(out);
 
@@ -415,6 +415,8 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     {
       out.write(action.getJavascript());
     }
+    
+    out.write("    geoPicker.render();");
 
     out.write("  })\n");
     out.write("})();\n");
@@ -427,17 +429,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
 
     if (this.getFilter() != null)
     {
-      out.write("    selectSearch.setFilter('" + this.getFilter() + "');\n");
+      out.write("    geoPicker.setFilter('" + this.getFilter() + "');\n");
     }
 
-    out.write("    selectSearch.setPolitical(" + this.getPolitical() + ");\n");
-    out.write("    selectSearch.setPopulated(" + this.getPopulated() + ");\n");
-    out.write("    selectSearch.setSprayTargetAllowed(" + this.getSpray() + ");\n");
-    out.write("    selectSearch.setUrban(" + this.getUrban() + ");\n");
+    out.write("    geoPicker.setPolitical(" + this.getPolitical() + ");\n");
+    out.write("    geoPicker.setPopulated(" + this.getPopulated() + ");\n");
+    out.write("    geoPicker.setSprayTargetAllowed(" + this.getSpray() + ");\n");
+    out.write("    geoPicker.setUrban(" + this.getUrban() + ");\n");
 
     for (String universal : _universals)
     {
-      out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");
+      out.write("    geoPicker.addExtraUniversal('" + universal + "');\n");
     }
   }
 

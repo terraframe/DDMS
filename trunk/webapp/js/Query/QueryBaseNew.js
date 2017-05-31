@@ -1566,6 +1566,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     render : function()
     {
+      this.$render();
+      
       // render the panel
       this._queryPanel.render();
 

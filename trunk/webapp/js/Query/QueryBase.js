@@ -56,8 +56,10 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
   
-      this._selectSearch = new MDSS.MultipleSelectSearch(this);
-      this._selectSearch.setFilter('');
+//      this._selectSearch = new MDSS.MultipleSelectSearch(this);
+//      this._selectSearch.setFilter('');
+      
+      this._geoPicker = new MDSS.GeoPickerWithUniversals();
   
       // list of all elements and default settings
       this._defaults = [];
@@ -113,7 +115,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     
     getGeoPicker : function ()
     {
-      return this._selectSearch;
+      return this._geoPicker;
     },
     
     /**
@@ -438,6 +440,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadDefaultSearch(request, view);
     },
+    
+    render : function()
+    {
+      this._geoPicker.render();
+    },
   
     /**
      * Called after the QueryPanel has performed all of its rendering
@@ -655,13 +662,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       return visibleDiv;
   
-    },
-  
-    /**
-     * Method called to render to set up the QueryPanel this QueryBase uses.
-     */
-    render: {
-      IsAbstract : true
     },
   
     /**
@@ -1475,18 +1475,20 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var selectedUniversals = this._config.getSelectedUniversals(currentAttribute);
       var criteria = this._criteriaEntities[currentAttribute];
       
-      this._selectSearch.setSelectedUniversals(selectedUniversals);
-      this._selectSearch.setCriteria(criteria);
-    
-      if(this._selectSearch != null && this._selectSearch.isInitialized())
-      {
-        this._selectSearch.show();
-      }
-      else
-      {
-        this._selectSearch.render();
-        this._setTreeValidator();
-      }
+      this._geoPicker.show();
+      
+//      this._selectSearch.setSelectedUniversals(selectedUniversals);
+//      this._selectSearch.setCriteria(criteria);
+//    
+//      if(this._selectSearch != null && this._selectSearch.isInitialized())
+//      {
+//        this._selectSearch.show();
+//      }
+//      else
+//      {
+//        this._selectSearch.render();
+//        this._setTreeValidator();
+//      }
       
     },
     
