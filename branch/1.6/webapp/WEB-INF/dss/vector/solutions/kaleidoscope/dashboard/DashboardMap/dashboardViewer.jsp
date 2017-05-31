@@ -125,7 +125,10 @@
         <map-popup ng-if="dashboard.feature != null && dashboard.feature.show" feature="dashboard.feature" drilldown="dashboard.model.drillDown"></map-popup>
       </div>
       
-      <div id="scale-line" class="scale-line"></div>      
+      <div id="scale-line" ng-show="dashboard.model.enableScale" style="position: absolute; cursor: move;" ng-style="{'top':dashboard.model.scaleYPosition + 'px', 'left':dashboard.model.scaleXPosition + 'px'}" draggable handler="dashboard.setScale"></div>      
+      <div id="arrowDiv" ng-show="dashboard.model.enableArrow" style="position: absolute; cursor: move;" ng-style="{'top':dashboard.model.arrowYPosition + 'px', 'left':dashboard.model.arrowXPosition + 'px'}" draggable handler="dashboard.setArrow">
+        <img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />
+      </div>      
     </div>
   
     <!-- reporting container -->

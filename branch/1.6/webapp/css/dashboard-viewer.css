@@ -1148,23 +1148,12 @@ input:focus.gdb-attr-filter.field-error {
 */
 #map-tools-collapse-container{
 	  padding: 5px;
-	  width: 110px; /* Simply remove this for full width */
+	  width: 140px; /* Simply remove this for full width */
 }
 
 div#collapse-map-tools.accordion-body{
 	height: 100%;
-	width: 110px;
-}
-
-.fa.fa-file-image-o.map-tool-icon{
-	font-size: 30px;
-	margin: 2px;
-	color: #bababa;
-	cursor: pointer;
-}
-a.fa.fa-file-image-o.map-tool-icon:hover,
-a.fa.fa-file-image-o.map-tool-icon:focus{
-	color: #00bfff;
+	width: 140px;
 }
 
 .fa.fa-file-image-o.map-tool-icon{
@@ -1185,23 +1174,34 @@ a.fa.fa-file-image-o.map-tool-icon:focus{
 	color: #bababa;
 	cursor: pointer;
 }
-i.fa.fa-arrows-alt.map-tool-icon:hover,
-i.fa.fa-arrows-alt.map-tool-icon:focus{
+a.fa.fa-arrows-alt.map-tool-icon:hover,
+a.fa.fa-arrows-alt.map-tool-icon:focus{
 	color: #00bfff;
 }
 
-.fa.fa-balance-scale.map-tool-icon{
+.fa.fa-balance-scale.map-tool-icon {
 	font-size: 30px;
-    margin: 2px;
+	margin: 2px;
 	color: #bababa;
 	cursor: pointer;
+	margin-right: 0px;
 }
-i.fa.fa-balance-scale.map-tool-icon:hover,
-i.fa.fa-balance-scale.map-tool-icon:focus{
+a.fa.fa-balance-scale.map-tool-icon:hover,
+a.fa.fa-balance-scale.map-tool-icon:focus{
 	color: #00bfff;
 }
 
-
+.fa.fa-arrow-up.map-tool-icon {
+	font-size: 30px;
+	margin: 2px;
+	color: #bababa;
+	cursor: pointer;
+	margin-left: 0px;
+}
+a.fa.fa-arrow-up.map-tool-icon:hover,
+a.fa.fa-arrow-up.map-tool-icon:focus{
+	color: #00bfff;
+}
 
 /*** 
 ** Legend

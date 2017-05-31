@@ -760,15 +760,36 @@
     controller.toggleScale = function(position) {
       controller.model.enableScale = !controller.model.enableScale;
       
-      dashboardService.updateScale(controller.model.id, controller.model.scaleXPosition, controller.model.scaleYPosition, controller.model.enableScale);
-      
       if(controller.model.enableScale && controller.model.scaleXPosition === 0 && controller.model.scaleYPosition === 0) {
         var $el = $('#mapDivId');        
         var bottom = $el.offset().top + $el.outerHeight(true);
-        
+          
         controller.model.scaleYPosition = bottom - 5;        
         controller.model.scaleXPosition = 5;        
       }
+      
+      dashboardService.updateScale(controller.model.id, controller.model.scaleXPosition, controller.model.scaleYPosition, controller.model.enableScale);      
+    }
+    
+    controller.setArrow = function(position) {
+      controller.model.arrowYPosition = position.top;
+      controller.model.arrowXPosition = position.left;
+      
+      dashboardService.updateArrow(controller.model.id, position.left, position.top, true);
+    }
+    
+    controller.toggleArrow = function(position) {
+      controller.model.enableArrow = !controller.model.enableArrow;
+      
+      if(controller.model.enableArrow && (!controller.model.arrowXPosition || controller.model.arrowXPosition === 0) && (!controller.model.arrowYPosition || controller.model.arrowYPosition === 0)) {
+        var $el = $('#mapDivId');        
+        var bottom = $el.offset().top + $el.outerHeight(true);
+          
+        controller.model.arrowYPosition = bottom - 100;        
+        controller.model.arrowXPosition = 5;        
+      }      
+      
+      dashboardService.updateArrow(controller.model.id, controller.model.arrowXPosition, controller.model.arrowYPosition, controller.model.enableArrow);      
     }
     
     controller.refreshDashboard = function(state) {
@@ -861,6 +882,12 @@
       event.stopPropagation();
     });
         
+    $scope.$on('toggleArrow', function(event, data) {
+      controller.toggleArrow();
+      
+      event.stopPropagation();
+    });
+    
     $scope.$on('drillDown', function(event, data) {
       controller.drillDown(data);
     });

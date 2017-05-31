@@ -11,6 +11,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -51,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.DuplicateDataException;
@@ -882,9 +884,33 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         BufferedImage legendCanvas = getLegendExportCanvas(width, height);
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
 
-        // Add scale to the base canvas
         Dashboard dashboard = this.getDashboard();
 
+        // Add the north arrow to the base canvas
+        if (dashboard.getEnableArrow())
+        {
+          String deploy = DeployProperties.getDeployPath();
+          String imagesDir = deploy + "/imgs";
+          String northArrowPath = imagesDir + "/" + "northArrow.png";
+          File northArrow = new File(northArrowPath);
+          int savedMapWidth = layerCanvas.getWidth();
+          int savedMapHeight = layerCanvas.getHeight();
+          int arrowXPositionPercentBased = (int) Math.round( ( (double) ( dashboard.getArrowXPosition() ) ) / savedMapWidth * width);
+          int arrowYPositionPercentBased = (int) Math.round( ( (double) ( dashboard.getArrowYPosition() ) ) / savedMapHeight * height);
+
+          try
+          {
+            BufferedImage northArrowImg = ImageIO.read(northArrow);
+            mapBaseGraphic.drawImage(northArrowImg, arrowXPositionPercentBased, arrowYPositionPercentBased, 50, 50, null);
+          }
+          catch (IOException e)
+          {
+            String error = "Could not read the north arrow image.";
+            throw new ProgrammingErrorException(error, e);
+          }
+        }
+
+        // Add scale to the base canvas
         if (dashboard.getEnableScale())
         {
           CanvasInformation info = new CanvasInformation();

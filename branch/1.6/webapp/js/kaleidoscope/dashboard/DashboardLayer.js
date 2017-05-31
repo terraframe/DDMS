@@ -40,6 +40,10 @@
     controller.toggleScale = function() {
       $scope.$emit('toggleScale', {});                
     }
+    
+    controller.toggleArrow = function() {
+      $scope.$emit('toggleArrow', {});                
+    }
   }
   
   function MapPanel() {

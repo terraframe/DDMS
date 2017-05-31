@@ -37,6 +37,7 @@
             <a ng-click="ctrl.exportMap()" class="fa fa-file-image-o map-tool-icon" download="map.png" title="<mdss:localize key='dashboardViewer.exportMapTooltip'/>" ></a>
             <a ng-click="ctrl.centerMap()" class="fa fa-arrows-alt map-tool-icon" title="<mdss:localize key='dashboardViewer.zoomMapToExtentTooltip'/>" ></a>
             <a ng-click="ctrl.toggleScale()" class="fa fa-balance-scale map-tool-icon" title="<mdss:localize key='dashboardViewer.toggleScaleTooltip'/>" ></a>
+            <a ng-click="ctrl.toggleArrow()" class="fa fa-arrow-up map-tool-icon" title="<mdss:localize key='dashboardViewer.toggleArrowTooltip'/>" ></a>
           </div>              
         </div>
       </div>
