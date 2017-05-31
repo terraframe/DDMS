@@ -30,7 +30,6 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
@@ -45,17 +44,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 {
   private boolean             hasAbundance;
 
-  private boolean             forceUniversal;
-
-  private String              universalClass;
-
   public static final String  GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
 
   private static final String ABUNDANCE_VIEW          = "abundance_view";
 
   private Set<String>         abundanceCols;
-
-  private Selectable          collectionMethod;
 
   private final String        geoIdColumn;
 
@@ -75,11 +68,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageNumber, pageNumber, disease);
 
-    this.universalClass = Country.CLASS;
-    this.forceUniversal = false;
     this.hasAbundance = this.hasAbundanceCalc(xml);
     this.abundanceCols = new HashSet<String>();
-    this.collectionMethod = null;
 
     this.geoIdColumn = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
   }

@@ -200,7 +200,7 @@ public class MdTableBuilder implements Reloadable
         {
           String info = (String) data.get(EntityInfo.CLASS);
 
-          if (!info.equals(Term.CLASS))
+          if (! ( info.equals(Term.CLASS) || info.equals(GeoEntity.CLASS) ))
           {
             // Geo entity column
             String[] split = info.split("__");
@@ -242,14 +242,16 @@ public class MdTableBuilder implements Reloadable
           /*
            * SIZE is spoofed because the MdAttributeCharacterDAOIF is an instanceof MdAttributeCharacter_Q which doesn't support SIZE
            */
-
-          MdAttributeCharacterDAO mdAttribute = MdAttributeCharacterDAO.newInstance();
-          mdAttribute.setValue(MdAttributeCharacterInfo.NAME, attributeName);
-          mdAttribute.setStructValue(MdAttributeCharacterInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-          mdAttribute.setValue(MdAttributeCharacterInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-          mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-          mdAttribute.setValue(MdAttributeCharacterInfo.SIZE, "4000");
-          mdAttribute.apply();
+          if (!attributeName.contains("__"))
+          {
+            MdAttributeCharacterDAO mdAttribute = MdAttributeCharacterDAO.newInstance();
+            mdAttribute.setValue(MdAttributeCharacterInfo.NAME, attributeName);
+            mdAttribute.setStructValue(MdAttributeCharacterInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+            mdAttribute.setValue(MdAttributeCharacterInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+            mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+            mdAttribute.setValue(MdAttributeCharacterInfo.SIZE, "4000");
+            mdAttribute.apply();
+          }
         }
       }
       else if (mdAttributeIF instanceof MdAttributeDateDAOIF)
@@ -340,7 +342,7 @@ public class MdTableBuilder implements Reloadable
       else if (mdAttributeIF instanceof MdAttributeLongDAOIF)
       {
         Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
-        
+
         if (!isAggregateFunction)
         {
           MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
@@ -360,7 +362,7 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
           mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
           mdAttribute.apply();
-        }        
+        }
       }
       else
       {

@@ -103,8 +103,6 @@ public abstract class AbstractQB implements Reloadable
 
     private String                        entityNameAlias;
 
-    private String                        idAlias;
-
     private String                        geoIdAlias;
 
     private String                        geoThematicAlias;
@@ -122,7 +120,6 @@ public abstract class AbstractQB implements Reloadable
       geoThematicAlias = null;
       geoThematicAttr = null;
       geoThematicEntity = null;
-      idAlias = null;
       attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
     }
   }
@@ -538,8 +535,8 @@ public abstract class AbstractQB implements Reloadable
       {
         data.put(MetadataInfo.CLASS, sel.getMdAttributeIF());
       }
-      
-      if(!data.containsKey(SelectableAggregate.class.getName()))
+
+      if (!data.containsKey(SelectableAggregate.class.getName()))
       {
         data.put(SelectableAggregate.class.getName(), sel.isAggregateFunction());
       }
@@ -671,21 +668,21 @@ public abstract class AbstractQB implements Reloadable
     if (this.tempTableEntries.size() > 0)
     {
       String tempTableSql = "";
-      
+
       for (WITHEntry entry : this.tempTableEntries)
       {
         tempTableSql = tempTableSql + "DROP TABLE IF EXISTS " + entry.name + " CASCADE;\n";
         tempTableSql = tempTableSql + "CREATE TEMPORARY TABLE " + entry.name + " ON COMMIT DROP AS (" + entry.sql + ");\n";
       }
       tempTableSql = tempTableSql + "\n\n";
-      
+
       valueQuery.setDependentPreSqlStatements(tempTableSql);
     }
 
     if (this.withEntries.size() > 0)
     {
       String prefix = "";
-      
+
       String with = "WITH ";
       if (recursive)
       {
@@ -712,7 +709,7 @@ public abstract class AbstractQB implements Reloadable
       }
 
       prefix += with;
-      
+
       valueQuery.setSqlPrefix(prefix);
     }
   }
@@ -1298,6 +1295,7 @@ public abstract class AbstractQB implements Reloadable
 
       Selectable selectable1 = geoEntityQuery.getEntityLabel().localize(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
+      
       Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, QueryUtil.GEO_DISPLAY_LABEL + "." + QueryUtil.LABEL_COLUMN, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
 
       selectables.add(selectable2);
@@ -1307,6 +1305,7 @@ public abstract class AbstractQB implements Reloadable
       selectables.add(selectable3);
 
       SelectableChar selectable6 = geoEntityQuery.getId(idAlias);
+      
       Selectable selectableId = geoEntityVQ.aSQLCharacter(PARENT_UNIVERSAL_ID, selectable6.getDbQualifiedName(), PARENT_UNIVERSAL_ID, selectable6.getUserDefinedAlias());
       selectableId.setColumnAlias(PARENT_UNIVERSAL_ID);
 
@@ -1324,7 +1323,7 @@ public abstract class AbstractQB implements Reloadable
           selectables.add(selectable6);
 
           String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
-          
+
           HashMap<String, Object> data = new HashMap<String, Object>();
           data.put(EntityInfo.CLASS, geoVQEntityAlias);
 
@@ -1338,7 +1337,6 @@ public abstract class AbstractQB implements Reloadable
         // save the aliases used for mapping the entity name and geo id columns
         geoEntityJoinData.entityNameAlias = entityNameAlias;
         geoEntityJoinData.geoIdAlias = geoIdAlias;
-        geoEntityJoinData.idAlias = idAlias;
 
         // If the thematic variable is either the entity name or geo id
         // then create a new selectable because those columns already have
