@@ -20,7 +20,6 @@
 		    <li class="sidebar-nav-bar-btn">
 		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.editOptions()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
 		 	</li>
-<!-- 
    			<li class="dropdown navigation-dropdown">      
    				<a href="#" class="fa fa-bars opener-drop dropdown-toggle dropdown-toggle-compact pull-right" ></a>
 	    		<ul class="dropdown-menu navigation-menu pull-right">
@@ -30,15 +29,8 @@
 	       					<p ><mdss:localize key="dashboardViewer.userMenuLinkLabel"/></p>
 	       				</li>
        				</a>
-       				<a href="${pageContext.request.contextPath}/dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo">
-	       				<li>
-	       					<i class="fa fa-th"></i> 
-	       					<p><mdss:localize key="dashboardViewer.userDashboardsLinkLabel"/></p>
-	       				</li>
-	       			</a>
        			</ul>
        		</li>
- -->		 	
        	</ul>
   </div>
     
