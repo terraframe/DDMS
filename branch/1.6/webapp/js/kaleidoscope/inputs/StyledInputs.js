@@ -644,6 +644,30 @@
     };
   };  
   
+  function Draggable($timeout) {
+    return {
+      restrict:'A',
+      scope: {
+        handler: "&"
+      },
+      link: function(scope, element, attrs, ctrl) {
+        $timeout(function(){
+          $(element).draggable({
+            containment: "body"
+          });
+            
+          $(element).on('dragstop', function(e, ui){
+            var target = e.currentTarget;
+            var newPosition = $(target).position();
+              
+            scope.handler()(newPosition);
+          }); 
+        }, 0);
+      }
+    }
+  }
+  
+  
   angular.module("styled-inputs", ["localization-service"]);
   angular.module("styled-inputs")
     .directive('styledCheckBox', StyledCheckBox)
@@ -665,5 +689,6 @@
     .directive('validateUnique', ValidateUnique)    
     .directive('pressEnter', PressEnter)
     .directive('pressEnter', PressEsc)
-    .directive('focusOnShow', FocusOnShow);
+    .directive('focusOnShow', FocusOnShow)
+    .directive('draggable', Draggable);
 })();

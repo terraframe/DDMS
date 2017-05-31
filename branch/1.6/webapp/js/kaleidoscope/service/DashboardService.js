@@ -42,6 +42,14 @@
       }
     };
     
+    service.updateScale = function(dashboardId, scaleX, scaleY, enableScale, onSuccess, onFailure) {
+      if(service.canEdit()) {
+        var request = runwayService.createRequest(onSuccess, onFailure);
+        
+        dss.vector.solutions.kaleidoscope.dashboard.Dashboard.updateScale(request, dashboardId, scaleX, scaleY, enableScale);
+      }
+    };
+    
     service.removeLayer = function(layerId, elementId, onSuccess, onFailure) {
       if(service.canEdit()) {      
         var request = runwayService.createStandbyRequest(elementId, onSuccess, onFailure);

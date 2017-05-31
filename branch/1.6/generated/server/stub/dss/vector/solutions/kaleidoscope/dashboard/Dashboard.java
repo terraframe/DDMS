@@ -997,7 +997,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     return getJSON(this.getConditionMap());
   }
-  
+
   @Override
   public Boolean hasReport()
   {
@@ -1006,8 +1006,6 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     return ( query.getCount() > 0 );
   }
-
-  
 
   public JSONObject getJSON(Map<String, DashboardCondition> conditions) throws JSONException
   {
@@ -1030,7 +1028,14 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("hasReport", this.hasReport());
     object.put("editDashboard", true);
     // object.put("editDashboard", GeoprismUser.hasAccess(AccessConstants.EDIT_DASHBOARD));
+    object.put("scaleXPosition", this.getScaleXPosition());
+    object.put("scaleYPosition", this.getScaleYPosition());
+    object.put("enableScale", this.getEnableScale());
+    object.put("arrowXPosition", this.getArrowXPosition());
+    object.put("arrowYPosition", this.getArrowYPosition());
+    object.put("enableArrow", this.getEnableArrow());    
     object.put("types", types);
+    
 
     List<GeoEntity> countries = this.getCountries();
 
@@ -1595,5 +1600,29 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     }
 
     return null;
+  }
+
+  @Override
+  @Transaction
+  public void updateScale(Integer scaleXPosition, Integer scaleYPosition, Boolean enableScale)
+  {
+    this.appLock();
+
+    this.setScaleXPosition(scaleXPosition);
+    this.setScaleYPosition(scaleYPosition);
+    this.setEnableScale(enableScale);
+    this.apply();
+  }
+
+  @Override
+  @Transaction
+  public void updateArrow(Integer arrowXPosition, Integer arrowYPosition, Boolean enableArrow)
+  {
+    this.appLock();
+
+    this.setArrowXPosition(arrowXPosition);
+    this.setArrowYPosition(arrowYPosition);
+    this.setEnableArrow(enableArrow);
+    this.apply();
   }
 }

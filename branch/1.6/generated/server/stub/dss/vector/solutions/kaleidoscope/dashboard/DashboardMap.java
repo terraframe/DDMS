@@ -96,6 +96,8 @@ import dss.vector.solutions.kaleidoscope.dashboard.query.MdAttributeViewPredicat
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ValueQueryExcelExporter;
 import dss.vector.solutions.kaleidoscope.wrapper.MapVisitor;
+import dss.vector.solutions.query.CanvasInformation;
+import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.util.Iterables;
 import dss.vector.solutions.util.Predicate;
 
@@ -804,138 +806,141 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   @Override
   public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap)
   {
-    InputStream inStream = null;
-    int width;
-    int height;
-
-    // Get dimensions of the map window (<div>)
     try
     {
+
+      InputStream inStream = null;
+
+      // Get dimensions of the map window (<div>)
       JSONObject mapSizeObj = new JSONObject(mapSize);
-      width = mapSizeObj.getInt("width");
-      height = mapSizeObj.getInt("height");
-    }
-    catch (JSONException e)
-    {
-      String error = "Could not parse map size.";
-      throw new ProgrammingErrorException(error, e);
-    }
+      int width = mapSizeObj.getInt("width");
+      int height = mapSizeObj.getInt("height");
 
-    // Setup the base canvas to which we will add layers and map elements
-    BufferedImage base = null;
-    Graphics mapBaseGraphic = null;
-    try
-    {
-      if (outFileFormat.toLowerCase().equals("png") || outFileFormat.toLowerCase().equals("gif"))
-      {
-        base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-      }
-      else if (outFileFormat.equals("jpg") || outFileFormat.toLowerCase().equals("bmp"))
-      {
-        base = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-      }
-
-      // Create the base canvas that all other map elements will be draped on top of
-      mapBaseGraphic = base.getGraphics();
-      mapBaseGraphic.setColor(Color.white);
-      mapBaseGraphic.fillRect(0, 0, width, height);
-      mapBaseGraphic.drawImage(base, 0, 0, null);
-
-      // Ordering the layers from the default map
-      DashboardLayer[] orderedLayers = this.getOrderedLayers();
-
-      // Add layers to the base canvas
-      BufferedImage layerCanvas = getLayersExportCanvas(width, height, orderedLayers, mapBounds);
-
-      // Get base map
-      String baseType = null;
+      // Setup the base canvas to which we will add layers and map elements
+      BufferedImage base = null;
+      Graphics mapBaseGraphic = null;
       try
       {
-        JSONObject activeBaseObj = new JSONObject(activeBaseMap);
-        baseType = activeBaseObj.getString("LAYER_SOURCE_TYPE");
-      }
-      catch (JSONException e)
-      {
-        String error = "Could not active base map JSON.";
-        throw new ProgrammingErrorException(error, e);
-      }
+        if (outFileFormat.toLowerCase().equals("png") || outFileFormat.toLowerCase().equals("gif"))
+        {
+          base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        }
+        else if (outFileFormat.equals("jpg") || outFileFormat.toLowerCase().equals("bmp"))
+        {
+          base = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        }
 
-      // Get bounds of the map
-      if (baseType.length() > 0)
-      {
-        String bottom;
-        String top;
-        String right;
-        String left;
+        // Create the base canvas that all other map elements will be draped on top of
+        mapBaseGraphic = base.getGraphics();
+        mapBaseGraphic.setColor(Color.white);
+        mapBaseGraphic.fillRect(0, 0, width, height);
+        mapBaseGraphic.drawImage(base, 0, 0, null);
+
+        // Ordering the layers from the default map
+        DashboardLayer[] orderedLayers = this.getOrderedLayers();
+
+        // Add layers to the base canvas
+        BufferedImage layerCanvas = getLayersExportCanvas(width, height, orderedLayers, mapBounds);
+
+        // Get base map
+        String baseType = null;
         try
         {
-          JSONObject mapBoundsObj = new JSONObject(mapBounds);
-          bottom = mapBoundsObj.getString("bottom");
-          top = mapBoundsObj.getString("top");
-          right = mapBoundsObj.getString("right");
-          left = mapBoundsObj.getString("left");
+          JSONObject activeBaseObj = new JSONObject(activeBaseMap);
+          baseType = activeBaseObj.getString("LAYER_SOURCE_TYPE");
         }
         catch (JSONException e)
         {
-          String error = "Could not parse map bounds.";
+          String error = "Could not active base map JSON.";
           throw new ProgrammingErrorException(error, e);
         }
 
-        BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, left, bottom, right, top, baseType);
+        JSONObject mapBoundsObj = new JSONObject(mapBounds);
+        String bottom = mapBoundsObj.getString("bottom");
+        String top = mapBoundsObj.getString("top");
+        String right = mapBoundsObj.getString("right");
+        String left = mapBoundsObj.getString("left");
 
-        if (baseMapImage != null)
+        // Get bounds of the map
+        if (baseType.length() > 0)
         {
-          mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
+          BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, left, bottom, right, top, baseType);
+
+          if (baseMapImage != null)
+          {
+            mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
+          }
         }
-      }
 
-      // Offset the layerCanvas so that it is center
-      int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
-      int heightOffset = (int) ( ( height - layerCanvas.getHeight() ) / 2 );
+        // Offset the layerCanvas so that it is center
+        int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
+        int heightOffset = (int) ( ( height - layerCanvas.getHeight() ) / 2 );
 
-      mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
+        mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
 
-      // Add legends to the base canvas
-      BufferedImage legendCanvas = getLegendExportCanvas(width, height);
-      mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
-    }
-    finally
-    {
-      ByteArrayOutputStream outStream = null;
-      try
-      {
-        outStream = new ByteArrayOutputStream();
-        ImageIO.write(base, outFileFormat, outStream);
-        inStream = new ByteArrayInputStream(outStream.toByteArray());
-      }
-      catch (IOException e)
-      {
-        String error = "Could not write map image to the output stream.";
-        throw new ProgrammingErrorException(error, e);
+        // Add legends to the base canvas
+        BufferedImage legendCanvas = getLegendExportCanvas(width, height);
+        mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
+
+        // Add scale to the base canvas
+        Dashboard dashboard = this.getDashboard();
+
+        if (dashboard.getEnableScale())
+        {
+          CanvasInformation info = new CanvasInformation();
+          info.setHeight(height);
+          info.setWidth(width);
+          info.setSavedMapHeight(layerCanvas.getHeight());
+          info.setSavedMapWidth(layerCanvas.getWidth());
+          info.setNorthBound(Double.parseDouble(top));
+          info.setSouthBound(Double.parseDouble(bottom));
+
+          MapUtil.generateScaleImageExport(info, dashboard.getScaleXPosition(), dashboard.getScaleYPosition(), mapBaseGraphic);
+        }
       }
       finally
       {
-        if (outStream != null)
+        ByteArrayOutputStream outStream = null;
+        try
         {
-          try
+          outStream = new ByteArrayOutputStream();
+          ImageIO.write(base, outFileFormat, outStream);
+          inStream = new ByteArrayInputStream(outStream.toByteArray());
+        }
+        catch (IOException e)
+        {
+          String error = "Could not write map image to the output stream.";
+          throw new ProgrammingErrorException(error, e);
+        }
+        finally
+        {
+          if (outStream != null)
           {
-            outStream.close();
+            try
+            {
+              outStream.close();
+            }
+            catch (IOException e)
+            {
+              String error = "Could not close stream.";
+              throw new ProgrammingErrorException(error, e);
+            }
           }
-          catch (IOException e)
-          {
-            String error = "Could not close stream.";
-            throw new ProgrammingErrorException(error, e);
-          }
+        }
+
+        if (mapBaseGraphic != null)
+        {
+          mapBaseGraphic.dispose();
         }
       }
 
-      if (mapBaseGraphic != null)
-      {
-        mapBaseGraphic.dispose();
-      }
+      return inStream;
     }
-
-    return inStream;
+    catch (JSONException e)
+    {
+      String error = "Could not parse map bounds.";
+      throw new ProgrammingErrorException(error, e);
+    }
   }
 
   public BufferedImage getBaseMapCanvas(int mapWidth, int mapHeight, String left, String bottom, String right, String top)

@@ -750,6 +750,27 @@
       }
     }
     
+    controller.setScale = function(position) {
+      controller.model.scaleYPosition = position.top;
+      controller.model.scaleXPosition = position.left;
+            
+      dashboardService.updateScale(controller.model.id, position.left, position.top, true);
+    }
+    
+    controller.toggleScale = function(position) {
+      controller.model.enableScale = !controller.model.enableScale;
+      
+      dashboardService.updateScale(controller.model.id, controller.model.scaleXPosition, controller.model.scaleYPosition, controller.model.enableScale);
+      
+      if(controller.model.enableScale && controller.model.scaleXPosition === 0 && controller.model.scaleYPosition === 0) {
+        var $el = $('#mapDivId');        
+        var bottom = $el.offset().top + $el.outerHeight(true);
+        
+        controller.model.scaleYPosition = bottom - 5;        
+        controller.model.scaleXPosition = 5;        
+      }
+    }
+    
     controller.refreshDashboard = function(state) {
       // Merge state to preserve all the applicable current filters
       controller.copyFilters(state);
@@ -831,6 +852,12 @@
     $scope.$on('centerMap', function(event, data) {
       controller.centerMap();
         
+      event.stopPropagation();
+    });
+    
+    $scope.$on('toggleScale', function(event, data) {
+      controller.toggleScale();
+      
       event.stopPropagation();
     });
         

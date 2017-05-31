@@ -36,6 +36,10 @@
     controller.centerMap = function() {
       $scope.$emit('centerMap', {});                
     }
+    
+    controller.toggleScale = function() {
+      $scope.$emit('toggleScale', {});                
+    }
   }
   
   function MapPanel() {

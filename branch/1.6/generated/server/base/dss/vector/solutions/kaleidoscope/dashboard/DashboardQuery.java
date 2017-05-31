@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1253915494)
+@com.runwaysdk.business.ClassSignature(hash = -1753220589)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,6 +37,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public String getClassType()
   {
     return dss.vector.solutions.kaleidoscope.dashboard.Dashboard.CLASS;
+  }
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition()
+  {
+    return getArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition()
+  {
+    return getArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -168,6 +202,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISPLAYLABEL);
 
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISPLAYLABEL, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow()
+  {
+    return getEnableArrow(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableScale()
+  {
+    return getEnableScale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -368,6 +436,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.OWNER, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition()
+  {
+    return getScaleXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition()
+  {
+    return getScaleYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -648,6 +750,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public interface DashboardQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition();
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition();
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -666,6 +774,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow();
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnableScale();
+    public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -696,6 +810,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -771,6 +891,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
       return this.NE(dashboard.getId());
     }
 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition()
+  {
+    return getArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition()
+  {
+    return getArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -871,6 +1025,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel)
   {
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISPLAYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow()
+  {
+    return getEnableArrow(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableScale()
+  {
+    return getEnableScale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1041,6 +1229,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition()
+  {
+    return getScaleXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition()
+  {
+    return getScaleYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -1298,6 +1520,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public interface DashboardQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
   {
 
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition();
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition();
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -1316,6 +1544,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel();
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias);
     public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow();
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnableScale();
+    public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -1346,6 +1580,12 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition();
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias);
+    public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -1441,6 +1681,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
       }
 
       return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition()
+  {
+    return getArrowXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition()
+  {
+    return getArrowYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getArrowYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ARROWYPOSITION, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -1542,6 +1816,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel)
   {
     return (dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelQuery.DashboardDisplayLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.DISPLAYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow()
+  {
+    return getEnableArrow(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableArrow(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLEARROW, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnableScale()
+  {
+    return getEnableScale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnableScale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.ENABLESCALE, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1712,6 +2020,40 @@ public  class DashboardQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition()
+  {
+    return getScaleXPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleXPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEXPOSITION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition()
+  {
+    return getScaleYPosition(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getScaleYPosition(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.kaleidoscope.dashboard.Dashboard.SCALEYPOSITION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
