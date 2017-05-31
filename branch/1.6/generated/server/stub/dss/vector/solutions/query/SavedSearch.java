@@ -51,7 +51,6 @@ import com.runwaysdk.dataaccess.transaction.TransactionCache;
 import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
-import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;

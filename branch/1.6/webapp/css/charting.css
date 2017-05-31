@@ -29,12 +29,12 @@
 }
 
 #report-toggle-container.maxed{
-  top: 30px;
+  top: 15px;
   border-bottom: 1px solid;
-     border-top-left-radius:0px;
+  border-top-left-radius:0px;
   border-top-right-radius:0px;
   border-top: none;
-     border-bottom-left-radius:3px;
+  border-bottom-left-radius:3px;
   border-bottom-right-radius:3px;
 }
 

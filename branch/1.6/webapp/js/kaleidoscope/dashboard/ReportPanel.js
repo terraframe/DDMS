@@ -89,7 +89,7 @@
         controller.state = 'split';
       }
       else if(controller.state === 'split'){
-        var reportToolbarHeight = 30;
+        var reportToolbarHeight = 15;
         
         controller.setReportPanelHeight(height + reportToolbarHeight, true);        
         controller.state = 'max';
@@ -195,6 +195,18 @@
     
     $scope.$on('angular-resizable.resizing', function(event, info){
       $("#report-viewport").height(info.height);      
+    });        
+    
+    $scope.$on('angular-resizable.resizing', function(event, info){
+      var max = $("#mapDivId").height();
+    	
+      if((max-info.height) <= 0) {
+        $("#report-toggle-container").addClass("maxed");
+        $("#reporticng-container").height(max + 15);
+        $("#report-viewport").height(max);
+            
+        controller.state = 'max';
+      }
     });        
   }
   
