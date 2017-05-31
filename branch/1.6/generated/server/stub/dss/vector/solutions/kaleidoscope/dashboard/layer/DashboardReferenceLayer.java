@@ -246,6 +246,8 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
       Map<String, JSONObject> options = new LinkedHashMap<String, JSONObject>();
 
       List<GeoHierarchy> children = country.getAllChildren();
+      
+      children.add(0, country);
 
       for (GeoHierarchy child : children)
       {
