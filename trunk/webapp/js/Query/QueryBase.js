@@ -59,7 +59,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
 //      this._selectSearch = new MDSS.MultipleSelectSearch(this);
 //      this._selectSearch.setFilter('');
       
-      this._geoPicker = new MDSS.GeoPickerWithUniversals();
+      this._geoPicker = new MDSS.GeoPickerWithUniversals(this);
   
       // list of all elements and default settings
       this._defaults = [];
@@ -1362,7 +1362,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
         var construct = Mojo.Meta.findClass(universal);
         var geoEntity = new construct();
-        var geoEntityView = this._selectSearch._copyEntityToView(geoEntity);
+        var geoEntityView = this._geoPicker._copyEntityToView(geoEntity);
   
         var namespacedType = this._addUniversalEntity(currentAttribute, geoEntityView);
         ignoreSet.set(namespacedType);
@@ -1395,6 +1395,23 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var display = this._geoAttributes[currentAttribute];
       this._queryPanel.addSelectedGeoEntities(currentAttribute, display, criteriaEntities);
     },
+    
+//    addNewGeoCriteria : function(geo)
+//    {
+//      if(!currentAttribute)
+//      {
+//        currentAttribute = this._getCurrentGeoAttribute();
+//      }
+//      
+//      this._criteriaEntities[currentAttribute].push(geo);
+//      
+//      var entityAlias = this.ALL_PATHS+'_'+currentAttribute; // Unique
+//      // namespace per
+//      // attribute
+//      var allPaths = new MDSS.QueryXML.Entity(this.ALL_PATHS, entityAlias);
+//      
+//      this._allPathQueries[currentAttribute] = allPaths;
+//    }
     
     _getCurrentGeoAttribute : function()
     {
@@ -1475,11 +1492,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var selectedUniversals = this._config.getSelectedUniversals(currentAttribute);
       var criteria = this._criteriaEntities[currentAttribute];
       
+      this._geoPicker.setSelectedUniversals(selectedUniversals);
+      this._geoPicker.setCriteria(criteria);
+      
       this._geoPicker.show();
       
-//      this._selectSearch.setSelectedUniversals(selectedUniversals);
-//      this._selectSearch.setCriteria(criteria);
-//    
 //      if(this._selectSearch != null && this._selectSearch.isInitialized())
 //      {
 //        this._selectSearch.show();

@@ -4,9 +4,14 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
 
   Instance : {
     
-    // TODO 
-    // 1. Add support to the geo tree for filtering geo entities
-    // 2. 
+    // TODO
+    // - the geo tree checkboxes don't load properly
+    // - styling on single tree
+    // - validators (see queryBase, search for _selectSearch)
+    // - Make sure it works across all QB's and input forms
+    
+    // - add spacing between checkbox and label
+    // - Add support to the geo tree for filtering geo entities
 
     /**
      * Constructor.
@@ -48,7 +53,14 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
         }
       })(this);
       
-      this._tree = new MDSS.GeoEntityTree("treeView" + this._suffix, wrappedHandler, this._selectSearchRootId);
+      var customLeftClickHandler = null;
+      if (this.hasLeftPanel())
+      {
+        customLeftClickHandler = Mojo.Util.bind(this, function(arg1){
+          this._onGeoSelect(arg1.node.data.geoEntityView, arg1.node);
+        });
+      }
+      this._tree = new MDSS.GeoEntityTree("treeView" + this._suffix, wrappedHandler, this._selectSearchRootId, customLeftClickHandler);
     },
     
     show : function()
@@ -66,47 +78,64 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     {
       com.runwaysdk.ui.Manager.setFactory("YUI3");
       var factory = com.runwaysdk.ui.Manager.getFactory();
-      var containerId = "geoPickerContainer" + this._suffix;
-      var dividerColor = "#87a4db";
-      var width = this.hasLeftPanel() ? "600px" : "400px";
       
+      var containerId = "geoPickerContainer" + this._suffix;
+      var panelId = "geoPickerPanelEl" + this._suffix;
+      var width = this.hasLeftPanel() ? 600 : 400;
+      var height = this.hasLeftPanel() ? 550 : 300;
+      var margin = 5;
+      var buttonHeight = 30;
+      var titleHeight = 24;
       
       // Geo Picker container (grand daddy of all els)
-      var geoPickerPanelEl = factory.newElement("div", {"id":"geoPickerPanelEl" + this._suffix});
+      this._geoPickerPanelEl = factory.newElement("div", {"id":panelId});
       this._geoPickerContainer = factory.newElement("div", {"id":containerId});
-      geoPickerPanelEl.setStyle("background-color", "white");
-      this._geoPickerContainer.setStyle("overflow", "auto");
-      this._geoPickerContainer.setStyle("height", (400 - 24) + "px")
-      this._geoPickerContainer.setStyle("width", "100%")
+      this._geoPickerPanelEl.setStyle("background-color", "white");
+//      this._geoPickerContainer.setStyle("overflow", "auto");
+      this._geoPickerContainer.setStyle("height", (height - titleHeight - buttonHeight - margin*2) + "px");
+      this._geoPickerContainer.setStyle("width",  width - margin*2)
       this._geoPickerContainer.setStyle("position", "absolute");
-      geoPickerPanelEl.appendChild(this._geoPickerContainer);
-      geoPickerPanelEl.render(document.body);
+      this._geoPickerContainer.setStyle("margin", margin + "px");
+      this._geoPickerPanelEl.appendChild(this._geoPickerContainer);
+      this._geoPickerPanelEl.render(document.body);
       
       
       // Turn that geoPickerContainer element into a Popup
-      this._geoPickerMainPanel = new YAHOO.widget.Panel("geoPickerPanelEl" + this._suffix, {width: width, height:'400px', fixedcenter: true, zindex:9});
+      this._geoPickerMainPanel = new YAHOO.widget.Panel(panelId, {width: width+"px", height:height+"px", fixedcenter: true, zindex:9});
       this._geoPickerMainPanel.setHeader("Geography"); // TODO : localize
       this._geoPickerMainPanel.render();
       this._geoPickerMainPanel.bringToTop();
       this._geoPickerMainPanel.hide();
       
-      
-      // ***************** //
-      // Universal section //
-      // ***************** //
+      // Make the panel Resizable
+//      var resize = new YAHOO.util.Resize(containerId, { 
+//        handles: ['br'], 
+//        autoRatio: false, 
+//        minWidth: width-100, 
+//        minHeight: height-100, 
+//        status: false 
+//      }); 
       
       this.layoutLeftPanel(this._geoPickerContainer);
       
-      
-      // ***************** //
-      // Geoentity section //
-      // ***************** //
+      this.layoutGeoSection(this._geoPickerContainer);
+    },
+    
+    layoutLeftPanel : function(parent)
+    {
+    },
+    
+    layoutGeoSection : function(parent)
+    {
+      var factory = com.runwaysdk.ui.Manager.getFactory();
+      var dividerColor = "#87a4db";
       
       // Geo grand daddy el
       var geoDaddy = factory.newElement("div", {"id":"geoDaddy" + this._suffix});
       geoDaddy.setStyle("margin-top", "10px");
+      geoDaddy.setStyle("width", "400px");
       geoDaddy.setStyle("float", "left");
-      this._geoPickerContainer.appendChild(geoDaddy);
+      parent.appendChild(geoDaddy);
       
       // Section title that says "Select filters"
       if (this.hasLeftPanel())
@@ -128,37 +157,19 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       geoSearch.setIsFormInput(false);
       
       // Geo Tree
-      var treeContainer = factory.newElement('div', {'id':"treeViewContainer" + this._suffix, 'class':'yui-skin-sam', 'style':'background-color:white;'});
-      treeContainer.appendChild(factory.newElement('div', {'id':'treeView' + this._suffix}));
+      var treeContainer = factory.newElement('div', {'id':"treeViewContainer" + this._suffix, 'class':'yui-skin-sam'}, {'background-color':'white', "overflow":"auto", "height":"300px"});
+      geoDaddy.setStyle("overflow", "auto");
+      var treeDiv = factory.newElement('div', {'id':'treeView' + this._suffix});
+      treeContainer.appendChild(treeDiv);
       geoDaddy.appendChild(treeContainer);
+      if (this.hasLeftPanel())
+      {
+        // Add checkboxes to geo tree
+        treeDiv.addClassName("ygtv-checkbox");
+      }
       this._tree.render();
       
-      
-      // OK / Cancel Buttons
-//      this._renderButtons(this._geoPickerContainer);
-    },
-    
-    getSelectHandler : function()
-    {
-      return Mojo.Util.bind(this, this._selectHandler == null ? this._onGeoSelect : this._selectHandler);
-    },
-    
-    /**
-     * Sets the handler function to be called when
-     * a user selects a GeoEntity.
-     */
-    setSelectHandler : function(handler)
-    {
-      this._selectHandler = handler;
-    },
-    
-    searchBarSelectHandler : function(view)
-    {
-      this._onGeoSelect(view);
-    },
-    
-    layoutLeftPanel : function()
-    {
+      return geoDaddy;
     },
     
     hasLeftPanel : function()
@@ -184,6 +195,25 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       this.performLayout();
       
       this._rendered = true;
+    },
+    
+    getSelectHandler : function()
+    {
+      return Mojo.Util.bind(this, this._selectHandler == null ? this._onGeoSelect : this._selectHandler);
+    },
+    
+    /**
+     * Sets the handler function to be called when
+     * a user selects a GeoEntity.
+     */
+    setSelectHandler : function(handler)
+    {
+      this._selectHandler = handler;
+    },
+    
+    searchBarSelectHandler : function(view)
+    {
+      this._onGeoSelect(view);
     },
     
     enforcesRoot : function()
@@ -253,40 +283,6 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
   
       this._doCreateRoot(request);
     },
-    
-    /**
-     * Creates the OK, Cancel buttons.
-     */
-//    _renderButtons : function(parent)
-//    {
-//      var fac = com.runwaysdk.ui.Manager.getFactory();
-//      var that = this;
-//      
-//      var ok = com.runwaysdk.Localize.get("OK");
-//      var cancel = com.runwaysdk.Localize.get("Cancel");
-//      
-//      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px"});
-//      this._bOK = fac.newButton(ok, function() {
-//        if (that._okHandler != null)
-//        {
-//          that._okHandler();
-//        }
-//        that.hide();
-//      });
-//      this._bOK.setStyle("margin-right", "5px");
-//      this._bOK.setEnabled(false);
-//      this._bContainer.appendChild(this._bOK);
-//      this._bCancel = fac.newButton(cancel, function() {
-//        if (that._cancelHandler != null)
-//        {
-//          that._cancelHandler();
-//        }
-//        that.hide();
-//      });
-//      this._bContainer.appendChild(this._bCancel);
-//      
-//      this._bContainer.render(parent);
-//    },
     
     getFlags : function()
     {

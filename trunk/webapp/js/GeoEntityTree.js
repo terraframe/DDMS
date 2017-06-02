@@ -4,7 +4,7 @@
  */
 Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   Instance : {
-    initialize : function(treeId, selectCallback, rootId)
+    initialize : function(treeId, selectCallback, rootId, customLeftClickHandler)
     {
       this._treeId = treeId;
 
@@ -36,6 +36,8 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
 
       // ID of the download interval timer
       this._intervalId = null;
+      
+      this._customLeftClickHandler = customLeftClickHandler;
     },
 
     /**
@@ -1213,6 +1215,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
 
       obj.references.modal.destroy();
     },
+    
+    getYUITree : function()
+    {
+      return this._geoTree;
+    },
 
     /**
      * Handler for the drag/drop operation. The this reference is set to the
@@ -1473,6 +1480,14 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._geoTree.getRoot().children[0].data.geoEntityId = view.getGeoEntityId();
 
       YAHOO.util.Event.on('exportIframe', 'load', this._handleExport, null, this);
+      
+      if (this._customLeftClickHandler)
+      {
+        this._geoTree.subscribe('clickEvent', Mojo.Util.bind(this, function(){
+          this._geoTree.onEventToggleHighlight.apply(this._geoTree, arguments);
+          this._customLeftClickHandler.apply(this, arguments);
+        }));
+      }
     },
 
     /**
