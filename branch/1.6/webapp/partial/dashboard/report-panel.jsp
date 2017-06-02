@@ -1,16 +1,27 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss" %>
 
 <div>    
-  <article id="reporticng-container" class="reporticng-container report-panel-closed"  resizable r-directions="['top']" r-flex="false">
-    <div ng-if="ctrl.canEdit() || hasReport" id="report-toolbar">
-      <div id="report-toggle-container">
+  <article ng-if="!vertical" id="reporticng-container" class="reporticng-container report-panel-closed"  resizable r-directions="['top']" r-flex="false">
+    <div id="report-toolbar" class="report-toolbar">
+      <div id="report-toggle-container" class="report-toggle-container">
         <i ng-show="ctrl.state != 'min'" ng-click="ctrl.collapse()" id="report-collapse-toggle" class="fa fa-angle-double-down report-height-toggle"></i>
         <i ng-show="ctrl.state != 'max'" ng-click="ctrl.expand()" id="report-expand-toggle" class="fa fa-angle-double-up report-height-toggle"></i>
       </div>      
     </div>
-    <div id="report-viewport" ng-class="{'opaque' : opaque, 'translucent' : !opaque }" context-menu="menuOptions">    
+    <div id="report-viewport" class="report-viewport" ng-class="{'opaque' : opaque, 'translucent' : !opaque }" context-menu="menuOptions">    
       <div id="report-content">
       </div>   
     </div>
-</article>
+  </article>
+  
+  <article ng-if="vertical" id="reporticng-container" class="h-reporticng-container report-panel-closed"  resizable r-directions="['right']" r-flex="false">
+    <div id="report-toggle-container" class="h-report-toggle-container">
+      <i ng-show="ctrl.state != 'min'" ng-click="ctrl.horizontalCollapse()" id="report-collapse-toggle" class="fa fa-angle-double-left report-height-toggle"></i>
+      <i ng-show="ctrl.state != 'max'" ng-click="ctrl.horizontalExpand()" id="report-expand-toggle" class="fa fa-angle-double-right report-height-toggle"></i>
+    </div>      
+    <div id="report-viewport" class="h-report-viewport" ng-class="{'opaque' : opaque, 'translucent' : !opaque }" context-menu="menuOptions">    
+      <div id="report-content">
+      </div>   
+    </div>
+  </article>
 </div>

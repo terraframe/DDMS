@@ -1649,11 +1649,3 @@ div.secondary-box label {
 .ontology-category-input-container .term-tree-buttons-wrapper{
 	float:right;
 }
-
-.rg-top {
-	cursor: row-resize;
-	width: 100%;
-	top: 10px;
-	left: 0;
-	margin-top: -14px;
-}

@@ -1,5 +1,5 @@
 (function(){
-  function ReportPanelController($scope, localizationService, dashboardService) {
+  function ReportPanelController($scope, $timeout, localizationService, dashboardService) {
     var controller = this;
     controller.state = 'min';
     
@@ -56,6 +56,37 @@
           $scope.opaque = true;
 
           controller.setupMenu($scope.hasReport);
+        }]);        
+      }
+      
+      if($scope.vertical) {
+        $scope.menuOptions.push([localizationService.localize("report", "horizontal"), function ($itemScope, $event, modelValue, text, $li) {
+          $scope.vertical = false;
+          controller.state = 'min';
+          
+          controller.setupMenu($scope.hasReport);          
+          
+          // Copy the current report html over to the new report div
+          var html = $('#report-content').html();
+          
+          $timeout(function(){
+            $('#report-content').html(html);        	  
+          }, 500);          
+        }]);
+      }
+      else {
+        $scope.menuOptions.push([localizationService.localize("report", "vertical"), function ($itemScope, $event, modelValue, text, $li) {
+          $scope.vertical = true;
+          controller.state = 'min';          
+          
+          controller.setupMenu($scope.hasReport);          
+          
+          // Copy the current report html over to the new report div
+          var html = $('#report-content').html();
+          
+          $timeout(function(){
+            $('#report-content').html(html);        	  
+          }, 500);
         }]);        
       }
     }
@@ -139,6 +170,81 @@
       }          
     }
     
+    controller.horizontalCollapse = function() {
+      var width = $("#mapDivId").width();
+        
+      if(controller.state === 'split'){
+        controller.setReportPanelWidth(0, false);
+        controller.state = 'min';
+      }
+      else if(controller.state === 'max'){
+        var splitWidth = Math.floor(width / 2);
+          
+        controller.setReportPanelWidth(splitWidth, true);
+        controller.state = 'split';
+      }
+    }
+      
+    controller.horizontalExpand = function() {
+      var width = $("#mapDivId").width();
+        
+      if(controller.state === 'min'){
+        var splitWidth = Math.floor(width / 2);
+          
+        controller.setReportPanelWidth(splitWidth, false);
+        controller.state = 'split';
+      }
+      else if(controller.state === 'split'){
+        var reportToolbarWidth = 15;
+          
+        controller.setReportPanelWidth(width + reportToolbarWidth, true);        
+        controller.state = 'max';
+      }      
+    }
+    
+    controller.setReportPanelWidth = function (width, flipButton) {
+      var current = $("#reporticng-container").width();
+      var toolbar = $("#report-toolbar").width();        
+          
+      // Minimize
+      if(current > width)
+      {
+        var difference = (current - width);
+            
+        $("#reporticng-container").animate({ right: "-=" + difference + "px" }, 1000, function(){
+              
+          if(flipButton){
+            $("#report-toggle-container").toggleClass("maxed");
+          }
+              
+          $("#reporticng-container").css("right", "0px");                                                  
+          $("#report-viewport").width(width-toolbar);
+          $("#reporticng-container").width(width);
+        });     
+            
+        // animate the loading spinner
+        $(".standby-overlay").animate({left: "+=" + difference + "px"}, 1000);
+      }
+      // Maximize
+      else if (current < width){
+        var difference = (width - current);
+            
+        $("#reporticng-container").css("right", "-" + difference + "px");
+        $("#reporticng-container").width(width);
+        $("#report-viewport").width(width-toolbar);
+                
+        $("#reporticng-container").animate({right: "+=" + difference + "px"}, 1000, function() {
+          if(flipButton){
+            $("#report-toggle-container").toggleClass("maxed");
+          }
+        });
+            
+        // animate the loading spinner
+        $(".standby-overlay").animate({left: "-=" + difference + "px"}, 1000);
+        $(".standby-overlay").css("width", current + difference);
+      }          
+    }
+    
     controller.upload = function(e) {
       var dashboardId = dashboardService.getDashboard().getDashboardId();
       
@@ -194,18 +300,36 @@
     });        
     
     $scope.$on('angular-resizable.resizing', function(event, info){
-      $("#report-viewport").height(info.height);      
+      if($scope.vertical) {
+        $("#report-viewport").width(info.width);            
+      }
+      else {
+        $("#report-viewport").height(info.height);    
+      }
     });        
     
     $scope.$on('angular-resizable.resizing', function(event, info){
-      var max = $("#mapDivId").height();
-    	
-      if((max-info.height) <= 0) {
-        $("#report-toggle-container").addClass("maxed");
-        $("#reporticng-container").height(max + 15);
-        $("#report-viewport").height(max);
-            
-        controller.state = 'max';
+      if($scope.vertical) {
+        var max = $("#mapDivId").width();
+          
+        if((max-info.width) <= 0) {
+          $("#report-toggle-container").addClass("maxed");
+          $("#reporticng-container").width(max + 15);
+          $("#report-viewport").width(max);
+                  
+          controller.state = 'max';
+        }
+      }
+      else {      	
+        var max = $("#mapDivId").height();
+          
+        if((max-info.height) <= 0) {
+          $("#report-toggle-container").addClass("maxed");
+          $("#reporticng-container").height(max + 15);
+          $("#report-viewport").height(max);
+                
+          controller.state = 'max';
+        }
       }
     });        
   }

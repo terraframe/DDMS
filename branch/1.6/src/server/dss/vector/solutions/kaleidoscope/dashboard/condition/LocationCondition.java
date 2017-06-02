@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.GeneratedComponentQuery;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -96,10 +97,44 @@ public class LocationCondition extends DashboardCondition implements com.runways
     return entities;
   }
 
+  private List<GeoEntity> getFilteredGeoEntities()
+  {
+    List<GeoEntity> entities = this.getGeoEntities();
+
+    List<GeoEntity> filtered = new LinkedList<GeoEntity>();
+
+    for (GeoEntity entity : entities)
+    {
+      boolean within = false;
+
+      for (GeoEntity test : entities)
+      {
+        if (!entity.getId().equals(test.getId()))
+        {
+          AllPathsQuery query = new AllPathsQuery(new QueryFactory());
+          query.WHERE(query.getChildGeoEntity().EQ(entity));
+          query.AND(query.getParentGeoEntity().EQ(test));
+
+          if (query.getCount() > 0)
+          {
+            within = true;
+          }
+        }
+      }
+
+      if (!within)
+      {
+        filtered.add(entity);
+      }
+    }
+
+    return filtered;
+  }
+
   @Override
   public void restrictQuery(ValueQuery _vQuery, Attribute _attribute)
   {
-    List<GeoEntity> entities = this.getGeoEntities();
+    List<GeoEntity> entities = this.getFilteredGeoEntities();
 
     if (entities.size() > 0)
     {
