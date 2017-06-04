@@ -151,15 +151,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._geoTree.destroy();
       this._geoTree = null;
     },
-    
-    /**
-     * Just remove the nodes from the tree, don't destroy everything
-     */
-    clear : function()
-    {
-      this._selectedNode = null;
-      this._geoTree.removeNode(this._geoTree.getRoot());
-    },
 
     _setGeoEntityAttributes : function(params, geoEntity)
     {

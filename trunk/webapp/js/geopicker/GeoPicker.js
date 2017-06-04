@@ -5,7 +5,6 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
   Instance : {
     
     // TODO
-    // - the geo tree checkboxes don't load properly
     // - styling on single tree
     // - validators (see queryBase, search for _selectSearch)
     // - Make sure it works across all QB's and input forms

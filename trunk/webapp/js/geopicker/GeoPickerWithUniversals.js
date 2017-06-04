@@ -216,8 +216,25 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
     
     setCriteria : function(geos)
     {
+      // uncheck everything that used to be checked
+      var oldGeos = this._geoMap.keySet();
+      for (var i = 0; i < oldGeos.length; ++i)
+      {
+        var oldGeo = oldGeos[i];
+        
+        var nodes = this._tree.getNodeByGeoEntityId(oldGeo);
+        if (nodes != null)
+        {
+          for (var j = 0; j < nodes.length; ++j)
+          {
+            nodes[j].unhighlight();
+          }
+        }
+      }
+      
       this._geoMap.clear();
       this._results.getRawEl().innerHTML = '';
+      this._liToNodesMap = [];
       
       if (geos.length > 0)
       {
@@ -225,10 +242,17 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
         {
           var geoView = geos[i];
           
-          this._geoMap.put(geoView.getGeoEntityId(), geoView);
+          var nodes = this._tree.getNodeByGeoEntityId(geoView.getGeoEntityId());
+          if (nodes != null)
+          {
+            for (var j = 0; j < nodes.length; ++j)
+            {
+              nodes[j].highlight();
+            }
+          }
+          this._layoutNewListGeo(geoView, nodes);
           
-          var node = this._tree.getNodeByGeoEntityId(geoView.getGeoEntityId());
-          this._layoutNewListGeo(geoView, node);
+          this._geoMap.put(geoView.getGeoEntityId(), geoView);
         }
       }
     },
@@ -237,9 +261,16 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
     {
       var liId = geoView.getGeoEntityId()+"_selected";
       
-      if (this._liToNodesMap[liId] != null)
+      if (this._geoMap.containsKey(geoView.getGeoEntityId()))
       {
-        this._liToNodesMap[liId].push(node);
+        if (this._liToNodesMap[liId] != null)
+        {
+          this._liToNodesMap[liId].push(node);
+        }
+        else
+        {
+          this._liToNodesMap[liId] = [node];
+        }
         node.highlight();
       }
     },
@@ -316,7 +347,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
     {
       var liId = geoEntityView.getGeoEntityId()+"_selected";
       
-      if (this._liToNodesMap[liId] == null)
+      if (!this._geoMap.containsKey(geoEntityView.getGeoEntityId()))
       {
         var li = document.createElement('li');
         li.className = "geoLi";
