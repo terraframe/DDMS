@@ -130,13 +130,14 @@ YAHOO.util.Event.onDOMReady(function(){
    }
    
     var query = new MDSS.QueryAggreatedIPT(selectableGroups, queryList);
-    query.render();
 
     var picker = query.getGeoPicker();
     picker.setPolitical(true);
     picker.setSprayTargetAllowed(false);
     picker.setPopulated(false);
     picker.addExtraUniversal('<%= HealthFacilityDTO.CLASS %>');
+    
+    query.render();
 
 });
 

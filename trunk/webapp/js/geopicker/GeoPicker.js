@@ -5,12 +5,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
   Instance : {
     
     // TODO
-    // - styling on single tree
-    // - validators (see queryBase, search for _selectSearch)
-    // - Make sure it works across all QB's and input forms
-    
-    // - add spacing between checkbox and label
-    // - Add support to the geo tree for filtering geo entities
+    // Attach the validator to the onGeoSelect
 
     /**
      * Constructor.
@@ -80,8 +75,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       
       var containerId = "geoPickerContainer" + this._suffix;
       var panelId = "geoPickerPanelEl" + this._suffix;
-      var width = this.hasLeftPanel() ? 600 : 400;
-      var height = this.hasLeftPanel() ? 550 : 300;
+      var width = this.hasLeftPanel() ? 600 : 405;
+      var height = this.hasLeftPanel() ? 550 : 360;
       var margin = 5;
       var buttonHeight = 30;
       var titleHeight = 24;
@@ -386,6 +381,11 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       {
         this._listeners[i].handleEvent(event);
       }
+    },
+    
+    setValidator : function(validator)
+    {
+      this._tree.setValidator(validator);
     },
   
     /**

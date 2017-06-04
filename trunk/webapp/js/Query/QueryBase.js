@@ -56,9 +56,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
   
-//      this._selectSearch = new MDSS.MultipleSelectSearch(this);
-//      this._selectSearch.setFilter('');
-      
       this._geoPicker = new MDSS.GeoPickerWithUniversals(this);
   
       // list of all elements and default settings
@@ -1483,7 +1480,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     },
   
     /**
-     * Displays the SelectSearch (handler for click event on Area/Target menu).
+     * Displays the geoPicker (handler for click event on Area/Target menu).
      */
     _displaySearch : function()
     {
@@ -1496,27 +1493,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._geoPicker.setCriteria(criteria);
       
       this._geoPicker.show();
-      
-//      if(this._selectSearch != null && this._selectSearch.isInitialized())
-//      {
-//        this._selectSearch.show();
-//      }
-//      else
-//      {
-//        this._selectSearch.render();
-//        this._setTreeValidator();
-//      }
-      
-    },
-    
-    _setTreeValidator : function()
-    {
-      this._selectSearch._tree.setValidator(Mojo.Util.bind(this, this._validator));          
+      this._geoPicker.setValidator(Mojo.Util.bind(this, this._validator));
     },
     
     _validator : function(request, geoId)
     {
-      var type = this._selectSearch.getFilter();
+      var type = this._geoPicker.getFilter();
         
       if(Mojo.Util.isString(type) && type != '')
       {
@@ -1524,12 +1506,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
       else 
       {
-        var political = this._selectSearch.getPolitical();
-        var populated = this._selectSearch.getPopulated();
-        var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
-        var urban = this._selectSearch.getUrban();
+        var political = this._geoPicker.getPolitical();
+        var populated = this._geoPicker.getPopulated();
+        var sprayTarget = this._geoPicker.getSprayTargetAllowed();        
+        var urban = this._geoPicker.getUrban();
         
-        var parameters = [political, populated, sprayTarget, urban].concat(this._selectSearch.getExtraUniversals());
+        var parameters = [political, populated, sprayTarget, urban].concat(this._geoPicker.getExtraUniversals());
            
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
       }    
