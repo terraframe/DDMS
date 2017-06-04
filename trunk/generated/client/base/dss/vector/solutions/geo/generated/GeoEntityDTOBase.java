@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1189574651)
+@com.runwaysdk.business.ClassSignature(hash = 200613014)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1189574651;
+  private static final long serialVersionUID = 200613014;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -785,6 +785,22 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     Object[] _parameters = new Object[]{id, typeFilter};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllChildIds", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.geo.GeoEntityViewDTO[] getAncestors()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] getAncestors(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getAsViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] entities)

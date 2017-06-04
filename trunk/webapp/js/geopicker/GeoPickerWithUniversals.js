@@ -219,9 +219,11 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       
       for (var i = 0; i < geos.length; ++i)
       {
-        var node = null;
+        var geo = geos[i];
         
-        this._layoutNewListGeo(geos[i], node);
+        var node = this._tree.getNodeByGeoEntityId(geo.getGeoEntityId());
+        
+        this._layoutNewListGeo(geo, node);
       }
     },
     

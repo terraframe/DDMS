@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -232299609)
+@com.runwaysdk.business.ClassSignature(hash = 910277838)
 public class GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.GeoEntityController";
@@ -119,6 +119,20 @@ public class GeoEntityControllerBase implements com.runwaysdk.generation.loader.
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntityController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.GeoEntityController.failEdit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoEntityId", post=false)
+  public void fetchAllParents(java.lang.String geoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntityController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoEntityId", post=false)
+  public void failFetchAllParents(java.lang.String geoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntityController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.GeoEntityController.failFetchAllParents");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.GeoEntityDTO:dto", post=true)

@@ -465,6 +465,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       }
       this._modal = null;
     },
+    
+    getNodeByGeoEntityId : function(geoEntityId)
+    {
+      return this._geoTree.getNodesByProperty('geoEntityId', geoEntityId);
+    },
 
     _changeType2 : function(oldId, view)
     {
@@ -1036,7 +1041,146 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         this._menu.cancel();
       }
     },
+    
+    allowSearchingForGeos : function()
+    {
+      this._allowSearchingForGeos = true;
+    },
 
+    searchForGeo : function(geoEntId)
+    {
+      var that = this;
+      this.searchForGeoId = geoEntId;
+
+      var request = new MDSS.Request({
+        onSuccess : function(strJSON)
+        {
+          that._geoTree.collapseAll();
+          
+          var ancestorArray = Mojo.Util.toObject(strJSON).returnValue;
+          var rootJSON = ancestorArray[0];
+          
+          var rootNode = that._geoTree.getNodesByProperty('geoEntityId', rootJSON.id)[0];
+          rootNode.nextAncestors = ancestorArray.splice(1);
+          rootNode.fetchedNodes = rootJSON.children;
+          rootNode.expand();
+        }
+      });
+      
+      dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents(request, geoEntId);
+    },
+    
+    _expandComplete : function(node){
+      // Make sure that ALL parent nodes have finished loading
+      var doneLoading = true;
+      var parentNodes = this._geoTree.getNodesByProperty('geoEntityId', node.data.geoEntityId);
+      for (var i = 0; i < parentNodes.length; ++i)
+      {
+        var parentNode = parentNodes[i];
+        
+        if (parentNode.expanded === false)
+        {
+          doneLoading = false;
+        }
+      }
+      
+      if (doneLoading)
+      {
+        var ancestorArray = node.nextAncestors;
+        
+        if (ancestorArray != null)
+        {
+          if (ancestorArray.length > 0)
+          {
+            var ancestorJSON = ancestorArray[0];
+            var ancestorId = ancestorJSON.id;
+            var children = ancestorJSON.children;
+            var nextAncestors = ancestorArray.slice(1);
+            
+            var parentNodes = this._geoTree.getNodesByProperty('geoEntityId', ancestorId);
+            Mojo.Iter.forEach(parentNodes, function(parentNode){
+              if (!parentNode.expanded)
+              {
+                parentNode.nextAncestors = nextAncestors;
+                parentNode.fetchedNodes = children;
+                parentNode.expand();
+              }
+            });
+          }
+          else if (ancestorArray.length === 0)
+          {
+            var searchNodeId = this.searchForGeoId;
+            var searchNodes = this._geoTree.getNodesByProperty('geoEntityId', searchNodeId);
+            
+            // All this code just to focus multiple items at once
+            var that = this;
+            setTimeout(function(){
+              if (searchNodes.length > 0)
+              {
+                for (var i = 0; i < searchNodes.length; ++i)
+                {
+                  var node = searchNodes[i];
+                  var focused = false;
+                  YAHOO.util.Dom.getElementsBy  (
+                      function (el) {
+                          return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                      } ,
+                      'td' , 
+                      node.getEl().firstChild , 
+                      function (el) {
+                          YAHOO.util.Dom.addClass(el, YAHOO.widget.TreeView.FOCUS_CLASS_NAME );
+                          if (!focused) { 
+                              var aEl = el.getElementsByTagName('a');
+                              if (aEl.length) {
+                                  aEl = aEl[0];
+                                  aEl.focus();
+                                  node._focusedItem = aEl;
+                                  focused = true;
+                              }
+                          }
+                      }
+                  );
+                }
+                
+                for (var i = 0; i < searchNodes.length; ++i)
+                {
+                  var node = searchNodes[i];
+                  var focused = false;
+                  YAHOO.util.Dom.getElementsBy  (
+                      function (el) {
+                          return (/ygtv(([tl][pmn]h?)|(content))/).test(el.className);
+                      } ,
+                      'td' , 
+                      node.getEl().firstChild , 
+                      function (el) {
+                          if (!focused) { 
+                              var aEl = el.getElementsByTagName('a');
+                              if (aEl.length) {
+                                  aEl = aEl[0];
+                                  node._focusedItem = aEl;
+                                  setTimeout(function(){
+                                    YAHOO.util.Event.on(aEl,'blur',function () {
+                                      node._removeFocus();
+                                    });
+                                  }, 300);
+                                  focused = true;
+                              }
+                          }
+                          node._focusHighlightedItems.push(el);
+                      }
+                  );
+                }
+              }
+              
+              that.searchForGeoId = null;
+            }, 100);
+          }
+          
+          node.nextAncestors = null;
+        }
+      }
+    },
+    
     /**
      * Loads child nodes dynamically
      */
@@ -1487,6 +1631,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           this._geoTree.onEventToggleHighlight.apply(this._geoTree, arguments);
           this._customLeftClickHandler.apply(this, arguments);
         }));
+      }
+      
+      if (this._allowSearchingForGeos)
+      {
+        this._geoTree.subscribe('expandComplete', Mojo.Util.bind(this, this._expandComplete));
       }
     },
 

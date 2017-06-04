@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -940639867)
+@com.runwaysdk.business.ClassSignature(hash = -1178284522)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -940639867;
+  private static final long serialVersionUID = -1178284522;
   
   public GeoEntityBase()
   {
@@ -234,10 +234,10 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(GEOMULTIPOLYGON);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoMultiPolygonMd()
+  public static com.runwaysdk.gis.dataaccess.MdAttributeMultiPolygonDAOIF getGeoMultiPolygonMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeDAOIF)mdClassIF.definesAttribute(GEOMULTIPOLYGON);
+    return (com.runwaysdk.gis.dataaccess.MdAttributeMultiPolygonDAOIF)mdClassIF.definesAttribute(GEOMULTIPOLYGON);
   }
   
   public void setGeoMultiPolygon(com.vividsolutions.jts.geom.MultiPolygon value)
@@ -262,10 +262,10 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(GEOPOINT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoPointMd()
+  public static com.runwaysdk.gis.dataaccess.MdAttributePointDAOIF getGeoPointMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeDAOIF)mdClassIF.definesAttribute(GEOPOINT);
+    return (com.runwaysdk.gis.dataaccess.MdAttributePointDAOIF)mdClassIF.definesAttribute(GEOPOINT);
   }
   
   public void setGeoPoint(com.vividsolutions.jts.geom.Point value)
@@ -775,6 +775,18 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.getAllChildIds(typeFilter);
+  }
+  
+  public dss.vector.solutions.geo.GeoEntityView[] getAncestors()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityView[] getAncestors(java.lang.String id)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    return _instance.getAncestors();
   }
   
   public static dss.vector.solutions.geo.GeoEntityViewQuery getAsViews(java.lang.String[] entities)

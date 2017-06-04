@@ -870,6 +870,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     return new GeoEntityView[0];
   }
 
+  @Override
+  public GeoEntityView[] getAncestors()
+  {
+    List<GeoEntityView> list = GeoEntityViewQuery.getOrderedAncestors(this, "");
+    
+    return list.toArray(new GeoEntityView[list.size()]);
+  }
+  
   /**
    * Collects all children and parents (optional) for the located in relationship.
    */

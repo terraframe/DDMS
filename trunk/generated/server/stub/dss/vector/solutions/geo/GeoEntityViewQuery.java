@@ -17,13 +17,17 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.transport.conversion.json.JSONUtil;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.TermQuery;
@@ -385,6 +389,161 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
     }
 
     return list;
+  }
+  
+  public static List<GeoEntityView> getOrderedAncestors(GeoEntity entity, String filter)
+  {
+    List<GeoEntityView> list = new LinkedList<GeoEntityView>();
+    QueryFactory factory = new QueryFactory();
+
+    GeoEntityViewQuery query = new GeoEntityViewQuery(factory, new GeoEntityViewQuery.AncestorsQueryBuilder(factory, entity, filter));
+
+    OIterator<? extends GeoEntityView> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        GeoEntityView view = it.next();
+
+        list.add(view);
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return list;
+  }
+  
+  /**
+   * Query builder to fetch all parent terms for a given child.
+   */
+  public static class AncestorsQueryBuilder extends ViewQueryBuilder implements Reloadable
+  {
+    private GeoEntity                  child;
+
+    private GeoEntityQuery             geoEntityQuery;
+
+    private AllPathsQuery         apq;
+    
+    private SelectableSQLInteger  depth;
+    
+    private MdBusinessQuery mdBusinessQuery;
+
+    private TermQuery       termQuery;
+
+    private String          filter;
+    
+    protected AncestorsQueryBuilder(QueryFactory queryFactory, GeoEntity child, String filter)
+    {
+      super(queryFactory);
+
+      this.child = child;
+      this.geoEntityQuery = new GeoEntityQuery(queryFactory);
+      this.apq = new AllPathsQuery(queryFactory);
+      this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
+      this.termQuery = new TermQuery(queryFactory);
+      this.filter = filter;
+    }
+
+    @Override
+    protected void buildSelectClause()
+    {
+      GeoEntityViewQuery query = (GeoEntityViewQuery) this.getViewQuery();
+      ValueQuery vq = query.valueQuery;
+      
+      query.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
+      query.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
+      query.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
+      query.map(GeoEntityView.ENTITYLABEL, geoEntityQuery.getEntityLabel().localize());
+      query.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
+      query.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
+      query.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
+      
+      String apq_table_name = apq.getTableAlias();
+      String apq_parent_col = apq.getParentGeoEntity().getDbColumnName();
+      String depthSQL = "(SELECT count(*) FROM allpaths_geo WHERE child_geo_entity=" + apq_table_name + "." + apq_parent_col + ")";
+      depth = vq.aSQLInteger("depth", depthSQL, "depth");
+      
+      vq.SELECT(depth);
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery query = this.getViewQuery();
+      
+      query.WHERE(apq.getParentGeoEntity().EQ(geoEntityQuery));
+      query.AND(apq.getChildGeoEntity().EQ(child.getId()));
+      query.AND(apq.getParentGeoEntity().NE(child.getId()));
+      query.AND(this.geoEntityQuery.getActivated().EQ(true));
+      query.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+      
+      // filter by type if possible (and all of type's child subclasses)
+      if (filter != null && filter.trim().length() > 0)
+      {
+        if (JSONUtil.isArray(this.filter))
+        {
+          // restrict by many types
+          try
+          {
+            JSONArray typesArr = new JSONArray(this.filter);
+            String[] types = new String[typesArr.length()];
+
+            if (types.length > 0)
+            {
+              for (int i = 0; i < typesArr.length(); i++)
+              {
+                types[i] = typesArr.getString(i);
+              }
+
+              query.AND(geoEntityQuery.getType().IN(types));
+            }
+          }
+          catch (JSONException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
+        }
+        else
+        {
+          // restrict by a single type
+          query.AND(geoEntityQuery.getType().EQ(filter));
+        }
+      }
+
+      // Restricted types to avoid returning large data sets
+      String[] baseTypes = { MDSSInfo.GENERATED_GEO_PACKAGE + ".WaterBody", MDSSInfo.GENERATED_GEO_PACKAGE + ".Reserve", MDSSInfo.GENERATED_GEO_PACKAGE + ".River", MDSSInfo.GENERATED_GEO_PACKAGE + ".Road", MDSSInfo.GENERATED_GEO_PACKAGE + ".Railway" };
+
+      // Grab all is_a children of the restricted types to add to
+      // the restricted list.
+      Set<String> notInSet = new HashSet<String>(Arrays.asList(baseTypes));
+      for (String baseType : baseTypes)
+      {
+        try
+        {
+          MdBusiness baseMd = MdBusiness.getMdBusiness(baseType);
+          MdBusinessDAOIF baseDAOIF = (MdBusinessDAOIF) BusinessFacade.getEntityDAO(baseMd);
+          for (MdBusinessDAOIF subclass : baseDAOIF.getAllConcreteSubClasses())
+          {
+            notInSet.add(subclass.definesType());
+          }
+        }
+        catch (DataNotFoundException e)
+        {
+          // The type doesn't exist for this country. Just ignore it
+        }
+      }
+      
+      query.AND(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
+
+      query.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
+      
+      query.ORDER_BY(depth, SortOrder.ASC);
+    }
+
   }
 
 }

@@ -5,6 +5,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
   Instance : {
     
     // TODO
+    // - geo tree search bar is supposed to find and open matches in the tree
     // - the geo tree checkboxes don't load properly
     // - styling on single tree
     // - validators (see queryBase, search for _selectSearch)
@@ -168,6 +169,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
         treeDiv.addClassName("ygtv-checkbox");
       }
       this._tree.render();
+      this._tree.allowSearchingForGeos();
       
       return geoDaddy;
     },
@@ -213,7 +215,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     
     searchBarSelectHandler : function(view)
     {
-      this._onGeoSelect(view);
+//      this._onGeoSelect(view);
+      this._tree.searchForGeo(view.getGeoEntityId());
     },
     
     enforcesRoot : function()

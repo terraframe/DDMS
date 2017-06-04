@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -2083856210)
+@com.runwaysdk.business.ClassSignature(hash = 1068223)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -175,38 +175,38 @@ public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon()
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon()
   {
     return getGeoMultiPolygon(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoPoint()
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint()
   {
     return getGeoPoint(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -854,12 +854,12 @@ public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getGeoId();
     public com.runwaysdk.query.SelectableChar getGeoId(String alias);
     public com.runwaysdk.query.SelectableChar getGeoId(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon();
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias);
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getGeoPoint();
-    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias);
-    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon();
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias);
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint();
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias);
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -1124,38 +1124,38 @@ public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon()
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon()
   {
     return getGeoMultiPolygon(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoPoint()
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint()
   {
     return getGeoPoint(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -1756,12 +1756,12 @@ public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getGeoId();
     public com.runwaysdk.query.SelectableChar getGeoId(String alias);
     public com.runwaysdk.query.SelectableChar getGeoId(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon();
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias);
-    public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getGeoPoint();
-    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias);
-    public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon();
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias);
+    public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint();
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias);
+    public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -1995,38 +1995,38 @@ public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon()
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon()
   {
     return getGeoMultiPolygon(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoMultiPolygon(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoMultiPolygon(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOMULTIPOLYGON, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getGeoPoint()
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint()
   {
     return getGeoPoint(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getGeoPoint(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableGeometry getGeoPoint(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableGeometry)this.get(dss.vector.solutions.geo.generated.GeoEntity.GEOPOINT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()

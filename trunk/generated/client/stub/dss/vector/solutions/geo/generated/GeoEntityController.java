@@ -1,5 +1,15 @@
 package dss.vector.solutions.geo.generated;
 
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.runwaysdk.transport.conversion.json.BusinessDTOToJSON;
+import com.runwaysdk.transport.conversion.json.JSONReturnObject;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+
+import dss.vector.solutions.geo.GeoEntityViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class GeoEntityController extends GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -30,6 +40,52 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       {
         this.failUpdate(dto);
       }
+    }
+  }
+  
+  @Override
+  public void fetchAllParents(String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      JSONArray json = new JSONArray();
+      
+      GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAncestors(getClientRequest(), id);
+      
+      for (int i = 0; i < ancestors.length; ++i)
+      {
+        GeoEntityViewDTO ancestor = ancestors[i];
+        
+        JSONObject ancestorJSON = new JSONObject();
+//        ancestorJSON.put("view", BusinessDTOToJSON.getConverter(ancestor).populate());
+        ancestorJSON.put("id", ancestor.getGeoEntityId());
+        
+        JSONArray childrenJSON = new JSONArray();
+        List<? extends GeoEntityDTO> children = GeoEntityDTO.getAllLocatedInGeoEntity(this.getClientRequest(), ancestor.getGeoEntityId());
+        for (GeoEntityDTO child: children)
+        {
+          GeoEntityViewDTO viewChild = new GeoEntityViewDTO(this.getClientRequest());
+          viewChild.setGeoEntityId(child.getId());
+          viewChild.setGeoId(child.getGeoId());
+          viewChild.setEntityLabel(child.getEntityLabel().getValue());
+          viewChild.setTypeDisplayLabel(child.getTypeDisplayLabel());
+          viewChild.setActivated(child.getActivated());
+          
+          childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
+        }
+        
+        ancestorJSON.put("children", childrenJSON);
+        
+        json.put(ancestorJSON);
+      }
+      
+      resp.getWriter().print(new JSONReturnObject(json).toString());
+    }
+    catch (Throwable t)
+    {
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
 
@@ -131,7 +187,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
-
+  
   public void delete(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
