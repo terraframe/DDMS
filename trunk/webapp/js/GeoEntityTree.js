@@ -38,6 +38,8 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._intervalId = null;
       
       this._customLeftClickHandler = customLeftClickHandler;
+      
+      this._onDynamicLoadListeners = [];
     },
 
     /**
@@ -148,6 +150,15 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
 
       this._geoTree.destroy();
       this._geoTree = null;
+    },
+    
+    /**
+     * Just remove the nodes from the tree, don't destroy everything
+     */
+    clear : function()
+    {
+      this._selectedNode = null;
+      this._geoTree.removeNode(this._geoTree.getRoot());
     },
 
     _setGeoEntityAttributes : function(params, geoEntity)
@@ -1047,7 +1058,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._allowSearchingForGeos = true;
     },
 
-    searchForGeo : function(geoEntId)
+    searchForGeo : function(geoEntId, geoData)
     {
       var that = this;
       this.searchForGeoId = geoEntId;
@@ -1110,6 +1121,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           else if (ancestorArray.length === 0)
           {
             var searchNodeId = this.searchForGeoId;
+            var searchGeoData = this._searchForGeoData;
             var searchNodes = this._geoTree.getNodesByProperty('geoEntityId', searchNodeId);
             
             // All this code just to focus multiple items at once
@@ -1171,7 +1183,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
                   );
                 }
               }
-              
               that.searchForGeoId = null;
             }, 100);
           }
@@ -1179,6 +1190,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           node.nextAncestors = null;
         }
       }
+    },
+    
+    addOnDynamicLoadListener : function(listener)
+    {
+      this._onDynamicLoadListeners.push(listener);
     },
     
     /**
@@ -1228,6 +1244,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
             } else
             {
               parentNode.appendChild(node);
+            }
+            
+            for (var j = 0; j < that._onDynamicLoadListeners.length; ++j)
+            {
+              that._onDynamicLoadListeners[j](node, child);
             }
           }
 

@@ -1,0 +1,28 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod name="getAncestors" label="getAncestors" returnType="dss.vector.solutions.geo.GeoEntityView[]" static="false">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    
+      <!-- 
+      <mdController name="dss.vector.solutions.geo.generated.GeoEntityController">
+        <create>
+          <mdAction name="fetchAllParents" label="fetchAllParents" returnType="java.lang.String" static="false">
+            <mdParameter name="geoEntityId" label="geoEntityId" order="0" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController> -->
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.geo.generated.GeoEntity.getAncestors" type="com.runwaysdk.system.metadata.MdMethod" />
+      <!-- <object key="dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents" type="com.runwaysdk.system.metadata.MdAction" /> -->
+    </delete>
+  </undoIt>
+</version>

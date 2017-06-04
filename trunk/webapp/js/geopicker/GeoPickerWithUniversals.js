@@ -15,7 +15,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       
       this._queryBase = queryBase;
       this._geoMap = new com.runwaysdk.structure.HashMap();
-      this._liToNodeMap = {};
+      this._liToNodesMap = {};
     },
     
     layoutLeftPanel : function(parent)
@@ -94,6 +94,8 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       
       // OK / Cancel Buttons
       this._renderButtons(this._geoPickerPanelEl);
+      
+      this._tree.addOnDynamicLoadListener(Mojo.Util.bind(this, this._onDynamicLoadListener));
     },
     
     /**
@@ -217,15 +219,59 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       this._geoMap.clear();
       this._results.getRawEl().innerHTML = '';
       
-      for (var i = 0; i < geos.length; ++i)
+      if (geos.length > 0)
       {
-        var geo = geos[i];
-        
-        var node = this._tree.getNodeByGeoEntityId(geo.getGeoEntityId());
-        
-        this._layoutNewListGeo(geo, node);
+        for (var i = 0; i < geos.length; ++i)
+        {
+          var geoView = geos[i];
+          
+          this._geoMap.put(geoView.getGeoEntityId(), geoView);
+          
+          var node = this._tree.getNodeByGeoEntityId(geoView.getGeoEntityId());
+          this._layoutNewListGeo(geoView, node);
+        }
       }
     },
+    
+    _onDynamicLoadListener : function(node, geoView)
+    {
+      var liId = geoView.getGeoEntityId()+"_selected";
+      
+      if (this._liToNodesMap[liId] != null)
+      {
+        this._liToNodesMap[liId].push(node);
+        node.highlight();
+      }
+    },
+    
+//    _geoSearchCompleteCallback : function(nodes)
+//    {
+//      this._numGeosLoading = this._numGeosLoading - 1;
+//      
+//      if (this._numGeosLoading >= 0)
+//      {
+//        for (var i = 0; i < nodes.length; ++i)
+//        {
+//          var node = nodes[i];
+//          
+//          node.highlight(); // check the checkbox
+//        }
+//      }
+//      
+//      if (this._numGeosLoading == 0)
+//      {
+//        for (var i = 0; i < this._waitingOnGeos; ++i)
+//        {
+//          var geoView = this._waitingOnGeos[i];
+//          var node = this._tree.getNodeByGeoEntityId(geoView.getGeoEntityId());
+//          
+//          this._layoutNewListGeo(geoView, node);
+//        }
+//        
+//        this._numGeosLoading = -1;
+//        this._waitingOnGeos = null;
+//      }
+//    },
     
     /**
      * Deletes the li element from the current selection list.
@@ -242,7 +288,17 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
 
 //    node.highlight() // adds a checkbox
 //      li.node.unhighlight() // removes a checkbox
-      delete this._liToNodeMap[id];
+      var nodes = this._liToNodesMap[id];
+      
+      if (Mojo.Util.isArray(nodes))
+      {
+        for (var i = 0; i < nodes.length; ++i)
+        {
+          nodes[i].unhighlight(); // unhighlight unchecks a checkbox
+        }
+      }
+      
+      delete this._liToNodesMap[id];
       
       // All this code just to figure out if the ok button is enabled/disabled
 //      if (this._applied.contains(id))
@@ -260,29 +316,38 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
     {
       var liId = geoEntityView.getGeoEntityId()+"_selected";
       
-      var li = document.createElement('li');
-      li.className = "geoLi";
-      li.id = liId;
-  
-      var del = document.createElement('img');
-      YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
-      YAHOO.util.Event.on(del, 'click', function(mouseEvent, id) {
-        this._liToNodeMap[id].unhighlight();
-        this._deleteSelection(id);
-      }, liId, this);
-  
-      var span = document.createElement('span');
-      span.innerHTML = this.constructor.formatDisplay(geoEntityView);
-  
-      var div = document.createElement('div');
-      div.appendChild(del);
-      div.appendChild(span);
-  
-      li.appendChild(div);
-      
-      this._liToNodeMap[liId] = node;
-  
-      this._results.appendChild(li);
+      if (this._liToNodesMap[liId] == null)
+      {
+        var li = document.createElement('li');
+        li.className = "geoLi";
+        li.id = liId;
+    
+        var del = document.createElement('img');
+        YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
+        YAHOO.util.Event.on(del, 'click', function(mouseEvent, id) {
+          this._deleteSelection(id);
+        }, liId, this);
+    
+        var span = document.createElement('span');
+        span.innerHTML = this.constructor.formatDisplay(geoEntityView);
+    
+        var div = document.createElement('div');
+        div.appendChild(del);
+        div.appendChild(span);
+    
+        li.appendChild(div);
+        
+        if (node != null)
+        {
+          this._liToNodesMap[liId] = [node];
+        }
+        else
+        {
+          this._liToNodesMap[liId] = [];
+        }
+        
+        this._results.appendChild(li);
+      }
     }
   }
 });
