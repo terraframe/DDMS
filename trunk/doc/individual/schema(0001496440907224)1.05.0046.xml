@@ -9,20 +9,19 @@
         </create>
       </mdBusiness>
     
-      <!-- 
       <mdController name="dss.vector.solutions.geo.generated.GeoEntityController">
         <create>
           <mdAction name="fetchAllParents" label="fetchAllParents" returnType="java.lang.String" static="false">
             <mdParameter name="geoEntityId" label="geoEntityId" order="0" type="java.lang.String"/>
           </mdAction>
         </create>
-      </mdController> -->
+      </mdController>
     </update>
   </doIt>
   <undoIt>
     <delete>
       <object key="dss.vector.solutions.geo.generated.GeoEntity.getAncestors" type="com.runwaysdk.system.metadata.MdMethod" />
-      <!-- <object key="dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents" type="com.runwaysdk.system.metadata.MdAction" /> -->
+      <object key="dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents" type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>
