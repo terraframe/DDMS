@@ -1145,24 +1145,25 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
       var geoInput = document.getElementById(this._inputId);
       geoInput.value = geoId;
       
-      var selectSearch = new MDSS.SingleSelectSearch(geoField.isUnderSystemRoot, geoField.selectSearchRootId);      
-      selectSearch.setPolitical(geoField.isPoliticalHierarchy);
-      selectSearch.setPopulated(geoField.isPopulationHierarchy);
-      selectSearch.setSprayTargetAllowed(geoField.isSprayHierarchy);
-      selectSearch.setUrban(geoField.isUrbanHierarchy);
+      var geoPicker = new MDSS.GeoPicker(geoField.isUnderSystemRoot, geoField.selectSearchRootId);      
+      geoPicker.setPolitical(geoField.isPoliticalHierarchy);
+      geoPicker.setPopulated(geoField.isPopulationHierarchy);
+      geoPicker.setSprayTargetAllowed(geoField.isSprayHierarchy);
+      geoPicker.setUrban(geoField.isUrbanHierarchy);
   
       // filter
-      selectSearch.setFilter(geoField.filter);
+      geoPicker.setFilter(geoField.filter);
           
       // extra universals
       var extra = geoField.extraUniversals;
       for(var i=0; i<extra.length; i++)
       {
-        selectSearch.addExtraUniversal(extra[i]);
+        geoPicker.addExtraUniversal(extra[i]);
       }      
       
-      selectSearch.addListener(this);
-      var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);    
+      geoPicker.addListener(this);
+      var geoSearch = new MDSS.GeoSearch(geoInput, geoPicker.getGeoFilterCriteria(), geoPicker);
+      geoPicker.render();
     },
     /**
      * Handler method called when a geo entity is selected through the 101 widget or ajax
