@@ -1015,15 +1015,19 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
                 item : item,
                 onSend : function()
                 {
+                  console.log("onSend : " + arguments);
                 },
                 onComplete : function()
                 {
+                  console.log("onComplete : " + arguments);
                 },
                 onFailure : function()
                 {
+                  console.log("onFailure : " + arguments);
                 },
                 onProblemExceptionDTO : function()
                 {
+                  console.log("onProblemEx : " + arguments);
                 },
                 onSuccess : function()
                 {

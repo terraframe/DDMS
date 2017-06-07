@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -67,6 +68,7 @@ import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -81,12 +83,20 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.ColumnInfo;
 import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedComponentQuery;
+import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.QueryHacker;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableReference;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.TableClassQuery;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
@@ -155,6 +165,7 @@ import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
@@ -1852,6 +1863,32 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return query;
   }
+  
+  public static ValueQuery searchObjectVQ(Business criteria, String type, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    ValueQuery query = getAndPopulateQueryVQ(criteria, type);
+
+    String sort = sortAttribute != null ? sortAttribute : OID;
+
+    if (sort != null && sort.length() > 0)
+    {
+      Attribute attribute = query.getSelectableRef(sort).getAttribute();
+
+      if (attribute instanceof AttributePrimitive)
+      {
+        SortOrder order = isAscending != null && isAscending ? SortOrder.ASC : SortOrder.DESC;
+
+        query.ORDER_BY((AttributePrimitive) attribute, order);
+      }
+    }
+
+    if (pageSize != null && pageNumber != null)
+    {
+      query.restrictRows(pageSize, pageNumber);
+    }
+
+    return query;
+  }
 
   @Transaction
   public static void deleteAll(Business criteria, String type)
@@ -1882,6 +1919,85 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         iterator.close();
       }
     }
+  }
+  
+  private static ValueQuery getAndPopulateQueryVQ(Business criteria, String type)
+  {
+    QueryFactory factory = new QueryFactory();
+    ValueQuery query = getQueryObjectVQ(type, factory);
+
+    if (criteria != null)
+    {
+      List<? extends MdAttributeConcreteDAOIF> mdAttributes = criteria.getMdAttributeDAOs();
+
+      for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
+      {
+        if (!mdAttribute.isSystem())
+        {
+          String attributeName = mdAttribute.definesAttribute();
+
+          /*
+           * Skip the key and domain attributes, the are essentially system attributes.
+           */
+          if (! ( attributeName.equals(ComponentInfo.KEY) || attributeName.equals(BusinessInfo.DOMAIN) ))
+          {
+            String value = criteria.getValue(attributeName);
+
+            if (value != null && value.length() > 0)
+            {
+              if (mdAttribute instanceof MdAttributeReferenceDAOIF)
+              {
+                // Possible reference attributes: disease, term, geo-entity
+                MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
+                MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+                String referenceType = referenceMdBusiness.definesType();
+                SelectableReference sel = (SelectableReference) query.getSelectableRef(attributeName);
+
+                Class<?> referenceClass = LoaderDecorator.load(referenceType);
+
+                /*
+                 * Handle geo entity references
+                 */
+                if (GeoEntity.class.isAssignableFrom(referenceClass))
+                {
+                  dss.vector.solutions.geo.AllPathsQuery apQuery = new dss.vector.solutions.geo.AllPathsQuery(factory);
+                  apQuery.WHERE(apQuery.getParentGeoEntity().EQ(value));
+                  
+                  query.WHERE(sel.EQ(apQuery.getChildGeoEntity()));
+                }
+                /*
+                 * Handle term references
+                 */
+                else if (Term.class.isAssignableFrom(referenceClass))
+                {
+                  dss.vector.solutions.ontology.AllPathsQuery apQuery = new dss.vector.solutions.ontology.AllPathsQuery(factory);
+                  apQuery.WHERE(apQuery.getParentTerm().EQ(value));
+
+                  query.WHERE(sel.EQ(apQuery.getChildTerm()));
+                }
+                /*
+                 * Handle disease, survey, household, bednet, and person references
+                 */
+                else if (Disease.class.isAssignableFrom(referenceClass) || FormSurvey.class.isAssignableFrom(referenceClass) || FormHousehold.class.isAssignableFrom(referenceClass) || FormPerson.class.isAssignableFrom(referenceClass) || FormBedNet.class.isAssignableFrom(referenceClass))
+                {
+                  query.WHERE(sel.EQ(value));
+                }
+                else
+                {
+                  throw new ProgrammingErrorException("Form search query builder does not know how to handle the reference type [" + type + "]");
+                }
+              }
+              else
+              {
+                Attribute attribute = query.get(attributeName);
+                query.WHERE(attribute.EQ(value));
+              }
+            }
+          }
+        }
+      }
+    }
+    return query;
   }
 
   private static GeneratedBusinessQuery getAndPopulateQuery(Business criteria, String type)
@@ -1963,6 +2079,77 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return query;
   }
 
+  @SuppressWarnings("unchecked")
+  private static ValueQuery getQueryObjectVQ(String type, QueryFactory factory)
+  {
+    try
+    {
+      Class<? extends GeneratedBusinessQuery> clazz = (Class<? extends GeneratedBusinessQuery>) LoaderDecorator.load(type + "Query");
+      Constructor<? extends GeneratedBusinessQuery> constructor = clazz.getConstructor(factory.getClass());
+
+      GeneratedBusinessQuery query = constructor.newInstance(factory);
+      return convertGeneratedBusinessQueryToValueQuery(query);
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  private static ValueQuery convertGeneratedBusinessQueryToValueQuery(GeneratedComponentQuery gbq)
+  {
+    TableClassQuery tcq = QueryHacker.getTableClassQuery((GeneratedTableClassQuery) gbq);
+    Map<String, ? extends MdAttributeDAOIF> attrMap = QueryHacker.getAttributeMap(tcq);
+    Map<String, ColumnInfo> columnInfoMap = QueryHacker.getColumnInfoMap(tcq);
+    
+    QueryFactory qf = tcq.getQueryFactory();
+    ValueQuery vq = new ValueQuery(qf);
+    
+    Set<String> keys = attrMap.keySet();
+    for (String key : keys)
+    {
+      MdAttributeDAOIF attr = attrMap.get(key);
+      ColumnInfo column = columnInfoMap.get(key);
+      Selectable sel = gbq.get(key);
+      
+      if (attr instanceof MdAttributeConcreteDAOIF)
+      {
+        if (attr instanceof MdAttributeReferenceDAO)
+        {
+          MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) attr;
+          MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+          String referenceType = referenceMdBusiness.definesType();
+          
+          // Dereference some references. This is the entire reason we wanted it to be a value query.
+          if (referenceType.equals(GeoEntity.CLASS))
+          {
+            GeoEntityQuery geq = new GeoEntityQuery(qf);
+            Selectable coalesce = geq.getEntityLabel().localize();
+            String selAlias = sel.getColumnAlias();
+            
+            SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
+            coalesce.setColumnAlias(selAlias + "_coal");
+            sel.setColumnAlias(selAlias + "_id");
+            
+            vq.SELECT(coalesce);
+            vq.SELECT(replacement);
+            vq.WHERE(geq.EQ((SelectableReference)sel));
+          }
+        }
+        else
+        {
+//          sqlAttr = QueryHacker.attributeFactory((ComponentQuery) tcq, sel, tcq.getMdTableClassIF(), column.getTableName(), column.getTableAlias(), (MdAttributeConcreteDAOIF) attr, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
+        }
+      }
+      
+      vq.SELECT(sel);
+    }
+    
+    vq.FROM(tcq);
+    
+    return vq;
+  }
+  
   @SuppressWarnings("unchecked")
   private static GeneratedBusinessQuery getQueryObject(String type, QueryFactory factory)
   {

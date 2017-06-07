@@ -693,7 +693,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
         this.populate(criteria, dto, new JSONArray(), new JSONArray());
       }
 
-      ComponentQueryDTO results = MdFormUtilDTO.searchObject(this.getClientRequest(), dto, type, sortAttribute, isAscending, pageSize, pageNumber);
+      ComponentQueryDTO results = MdFormUtilDTO.searchObjectVQ(this.getClientRequest(), dto, type, sortAttribute, isAscending, pageSize, pageNumber);
 
       JSONReturnObject returnJSON = new JSONReturnObject();
       JSONObject value = JSONFacade.getJSONFromQueryDTO(results, false);

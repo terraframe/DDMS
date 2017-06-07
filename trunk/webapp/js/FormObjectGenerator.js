@@ -1735,7 +1735,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       });
       
       var filter = function(columnName){
-        return (viewAllFields.indexOf(columnName) != -1);
+        return (viewAllFields.indexOf(columnName) != -1 || ( columnName.endsWith("_res") && viewAllFields.indexOf(columnName.replace("_res", "")) != -1 ));
       }
       
       this._searchFilter = function(columnName){

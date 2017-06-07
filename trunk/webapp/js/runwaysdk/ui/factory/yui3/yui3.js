@@ -810,6 +810,12 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           {
             var formatter = this._typeFormatters[attr.getType()];
             
+            // TODO : this should be a "label formatter" of the FormObjectGenerator
+            if (label.endsWith("_res"))
+            {
+              label = label.replace("_res", "");
+            }
+            
             cols.push(new Column({
               key : key,
               label : label,
