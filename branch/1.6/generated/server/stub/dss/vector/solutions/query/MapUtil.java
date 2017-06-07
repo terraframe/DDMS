@@ -383,7 +383,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
    * 
    * @return
    */
-  public static JSONArray getThematicBBox(List<Layer> layers, MapConfiguration configuration)
+  public static JSONArray getThematicBBox(List<BasicLayerIF> layers, MapConfiguration configuration)
   {
     JSONArray bboxArr = new JSONArray();
     if (layers.size() > 0)
@@ -392,7 +392,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       String sql;
       if (layers.size() == 1)
       {
-        Layer layer = layers.get(0);
+        BasicLayerIF layer = layers.get(0);
         String viewName = configuration.getViewName(layer);
         layerNames[0] = layer.getLayerName();
 
@@ -405,7 +405,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
 
         for (int i = 0; i < layers.size(); i++)
         {
-          Layer layer = layers.get(i);
+          BasicLayerIF layer = layers.get(i);
           String viewName = configuration.getViewName(layer);
           layerNames[i] = layer.getLayerName();
 

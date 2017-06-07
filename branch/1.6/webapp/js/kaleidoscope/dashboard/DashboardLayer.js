@@ -1,11 +1,40 @@
 (function(){
 
+   function JobModalController ($scope, $uibModalInstance, dashboardService, response) {
+     var controller = this;
+     
+     $scope.job = response.job;
+     $scope.layers = response.layers;
+     
+     $scope.submit = function () {
+       var onSuccess = function() {
+         $uibModalInstance.close();    	   
+       };
+
+       dashboardService.applyJob(JSON.stringify($scope.job), onSuccess);
+     }
+
+     $scope.cancel = function () {
+       
+       if(!$scope.job['new']) {
+         var onSuccess = function() {
+           $uibModalInstance.dismiss('cancel');
+         };
+
+         dashboardService.unlockJob($scope.job.id, onSuccess);
+       }
+       else {
+         $uibModalInstance.dismiss('cancel');    	   
+       }
+     }
+   } 
+  
   /**
    * 
    * MAP PANEL CONTROLLER AND WIDGET
    * 
    */
-  function MapPanelController($scope, $timeout, widgetService) {
+  function MapPanelController($scope, $timeout, $uibModal, dashboardService, widgetService) {
     var controller = this;
     controller.expanded = true;
     
@@ -44,6 +73,34 @@
     controller.toggleArrow = function() {
       $scope.$emit('toggleArrow', {});                
     }
+    
+    controller.generateImages = function(){
+        
+      var onSuccess = function(retval) {
+        var response = JSON.parse(retval);
+          
+        // Pop-message determining the right universal to use
+        var modalInstance = $uibModal.open({
+          animation: false,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: com.runwaysdk.__applicationContextPath + '/partial/dashboard/job-modal.jsp',
+          backdrop: 'static',
+          size: 600,
+          controllerAs: 'ctrl',          
+          controller: 'JobModalController',
+          resolve: {
+            response: function () {
+              return response;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {});        
+      };
+      
+      dashboardService.getJobJSON(onSuccess);      
+    }
   }
   
   function MapPanel() {
@@ -60,8 +117,7 @@
       }
     }    
   }  
-
-
+  
   /**
    * 
    * THEMATIC LAYER CONTROLLER AND WIDGET
@@ -478,7 +534,7 @@
     }
   }
   
-  angular.module("dashboard-layer", ["dashboard-service", "map-service", "widget-service"]);
+  angular.module("dashboard-layer", ['ui.bootstrap', "dashboard-service", "map-service", "widget-service"]);
   angular.module('dashboard-layer')
     .directive('mapPanel', MapPanel)
     .directive('thematicPanel', ThematicPanel)
@@ -486,5 +542,6 @@
     .directive('basePanel', BasePanel)  
     .directive('floatingLegends', FloatingLegends)
     .directive('legendPanel', LegendPanel)
-    .directive('legendDrag', LegendDrag);  
+    .directive('legendDrag', LegendDrag)
+    .controller('JobModalController', JobModalController);
 })();

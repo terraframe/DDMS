@@ -47,9 +47,14 @@ import org.geotools.data.wms.WMSUtils;
 import org.geotools.data.wms.WebMapServer;
 import org.geotools.data.wms.request.GetMapRequest;
 import org.geotools.data.wms.response.GetMapResponse;
+import org.geotools.geometry.jts.ReferencedEnvelope;
+import org.geotools.referencing.CRS;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
@@ -808,15 +813,22 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   @Override
   public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap)
   {
+    // Ordering the layers from the default map
+    return generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, this.getOrderedLayers());
+  }
+
+  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, DashboardLayer[] orderedLayers)
+  {
     try
     {
-
       InputStream inStream = null;
 
       // Get dimensions of the map window (<div>)
       JSONObject mapSizeObj = new JSONObject(mapSize);
       int width = mapSizeObj.getInt("width");
       int height = mapSizeObj.getInt("height");
+      int layerWidth = mapSizeObj.has("layerWidth") ? mapSizeObj.getInt("layerWidth") : width;
+      int layerHeight = mapSizeObj.has("layerHeight") ? mapSizeObj.getInt("layerHeight") : height;
 
       // Setup the base canvas to which we will add layers and map elements
       BufferedImage base = null;
@@ -838,11 +850,8 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         mapBaseGraphic.fillRect(0, 0, width, height);
         mapBaseGraphic.drawImage(base, 0, 0, null);
 
-        // Ordering the layers from the default map
-        DashboardLayer[] orderedLayers = this.getOrderedLayers();
-
         // Add layers to the base canvas
-        BufferedImage layerCanvas = getLayersExportCanvas(width, height, orderedLayers, mapBounds);
+        BufferedImage layerCanvas = getLayersExportCanvas(layerWidth, layerHeight, orderedLayers, mapBounds);
 
         // Get base map
         String baseType = null;
@@ -858,25 +867,44 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         }
 
         JSONObject mapBoundsObj = new JSONObject(mapBounds);
-        String bottom = mapBoundsObj.getString("bottom");
-        String top = mapBoundsObj.getString("top");
-        String right = mapBoundsObj.getString("right");
-        String left = mapBoundsObj.getString("left");
+        double bottom = mapBoundsObj.getDouble("bottom");
+        double top = mapBoundsObj.getDouble("top");
+        double right = mapBoundsObj.getDouble("right");
+        double left = mapBoundsObj.getDouble("left");
+
+        // Offset the layerCanvas so that it is center
+        int widthOffset = (int) ( ( width - layerWidth ) / 2 );
+        int heightOffset = (int) ( ( height - layerHeight ) / 2 );
 
         // Get bounds of the map
         if (baseType.length() > 0)
         {
-          BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, left, bottom, right, top, baseType);
+          // CoordinateReferenceSystem crs = CRS.decode("EPSG:4326", true);
+          // Envelope envelope = new ReferencedEnvelope(left, right, bottom, top, crs);
+          Envelope envelope = new Envelope(left, right, bottom, top);
+
+          final double xDiff = width;
+          final double yDiff = height;
+
+          // Transform Setup: Scale X and Y to tile extent values, flip Y values
+          double xScale = ( xDiff / (double) ( Math.abs(right) - Math.abs(left) ) );
+          double yScale = ( yDiff / (double) ( Math.abs(top) - Math.abs(bottom) ) );
+
+          // Calculate the buffered geometry envelop for determining geometry intersection
+          envelope.expandBy(widthOffset * Math.abs(1 / xScale), heightOffset * Math.abs(1 / yScale));
+
+          String sLeft = Double.toString(envelope.getMinX());
+          String sRight = Double.toString(envelope.getMaxX());
+          String sBottom = Double.toString(envelope.getMinY());
+          String sTop = Double.toString(envelope.getMaxY());
+
+          BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, sLeft, sBottom, sRight, sTop, baseType);
 
           if (baseMapImage != null)
           {
             mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
           }
         }
-
-        // Offset the layerCanvas so that it is center
-        int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
-        int heightOffset = (int) ( ( height - layerCanvas.getHeight() ) / 2 );
 
         mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
 
@@ -918,12 +946,16 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
           info.setWidth(width);
           info.setSavedMapHeight(layerCanvas.getHeight());
           info.setSavedMapWidth(layerCanvas.getWidth());
-          info.setNorthBound(Double.parseDouble(top));
-          info.setSouthBound(Double.parseDouble(bottom));
+          info.setNorthBound(top);
+          info.setSouthBound(bottom);
 
           MapUtil.generateScaleImageExport(info, dashboard.getScaleXPosition(), dashboard.getScaleYPosition(), mapBaseGraphic);
         }
       }
+//      catch (MismatchedDimensionException | FactoryException e)
+//      {
+//        throw new ProgrammingErrorException(e);
+//      }
       finally
       {
         ByteArrayOutputStream outStream = null;

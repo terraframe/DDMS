@@ -8,9 +8,11 @@ import java.util.List;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.query.MapUtil;
+
 public class DatabaseUtil
 {
-  private static boolean IS_MATERIALIZED = true;
+  private static boolean IS_MATERIALIZED = false;
 
   /**
    * Creates a view.
@@ -44,13 +46,13 @@ public class DatabaseUtil
   {
     if (IS_MATERIALIZED)
     {
-      String statement = "DROP MATERIALIZED VIEW IF EXISTS " + viewName;
+      String statement = "DROP MATERIALIZED VIEW IF EXISTS " + viewName + " CASCADE";
 
       Database.executeStatement(statement);
     }
     else
     {
-      Database.dropView(viewName, query, dropOnEndOfTransaction);
+      MapUtil.deleteMapView(viewName);
     }
   }
 

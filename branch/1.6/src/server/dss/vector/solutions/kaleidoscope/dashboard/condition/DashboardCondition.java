@@ -92,7 +92,6 @@ public abstract class DashboardCondition implements Reloadable
 
   public static List<DashboardCondition> deserialize(String json)
   {
-
     Locale locale = Session.getCurrentLocale();
 
     DateFormat source = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, locale);

@@ -180,7 +180,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       savedImagesJSON = new JSONArray();
       savedTextJSON = new JSONArray();
 
-      mapData.put("geoserverURL", geoserverPath);   
+      mapData.put("geoserverURL", geoserverPath);
       mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
       mapData.put("savedImages", savedImagesJSON);
@@ -305,7 +305,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
       else
       {
-        mapData.put("bbox", MapUtil.getThematicBBox(bboxLayers, configuration));
+        mapData.put("bbox", MapUtil.getThematicBBox(new LinkedList<BasicLayerIF>(bboxLayers), configuration));
       }
     }
     catch (JSONException e)
@@ -1428,7 +1428,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           String error = "Could not parse map bounds.";
           throw new ProgrammingErrorException(error, e);
         }
-        
+
         CanvasInformation info = new CanvasInformation();
         info.setHeight(height);
         info.setWidth(width);
@@ -1438,7 +1438,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         info.setSavedMapWidth(this.getMapWidth());
         info.setNorthBound(northBound);
         info.setSouthBound(southBound);
-        
+
         MapUtil.generateScaleImageExport(info, this.getScaleBarXPosition(), this.getScaleBarYPosition(), mapBaseGraphic);
       }
 
@@ -1538,7 +1538,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           String layersString = appName + ":" + configuration.getViewName(layer);
           String fileName = QueryConstants.createSLDName(layer.getId());
           String sldString = appUrl + "/webDir/" + QueryConstants.SLD_WEB_DIR + fileName + "." + QueryConstants.SLD_EXTENSION;
-          
+
           StringBuffer requestURL = new StringBuffer();
           requestURL.append(MapUtil.getGeoServerLocalURL() + "/wms?");
           requestURL.append("LAYERS=" + layersString);

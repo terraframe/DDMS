@@ -4,6 +4,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public interface MapConfigurationIF extends Reloadable
 {
-  public String getViewName(LayerIF layer);
+  public String getViewName(BasicLayerIF layer);
 
 }

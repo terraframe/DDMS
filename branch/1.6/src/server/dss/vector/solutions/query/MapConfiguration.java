@@ -33,7 +33,7 @@ public class MapConfiguration implements Reloadable, MapConfigurationIF
     this.disease = disease;
   }
 
-  public String getViewName(LayerIF layer)
+  public String getViewName(BasicLayerIF layer)
   {
     if (hasOverride(layer))
     {
@@ -43,12 +43,12 @@ public class MapConfiguration implements Reloadable, MapConfigurationIF
     return layer.getViewName();
   }
 
-  public boolean hasOverride(LayerIF layer)
+  public boolean hasOverride(BasicLayerIF layer)
   {
     return override.containsKey(layer.getId());
   }
 
-  public boolean includeLayer(LayerIF layer)
+  public boolean includeLayer(BasicLayerIF layer)
   {
     if (override.size() > 0)
     {

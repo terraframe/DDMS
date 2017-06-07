@@ -33,9 +33,10 @@ import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureStrategy;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureType;
 import dss.vector.solutions.kaleidoscope.wrapper.Layer;
+import dss.vector.solutions.query.BasicLayerIF;
 import dss.vector.solutions.util.DatabaseUtil;
 
-public abstract class DashboardLayer extends DashboardLayerBase implements Reloadable, Layer
+public abstract class DashboardLayer extends DashboardLayerBase implements Reloadable, Layer, BasicLayerIF
 {
   private static final long        serialVersionUID = 1992575686;
 
@@ -54,6 +55,12 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
   public void setConditions(List<DashboardCondition> conditions)
   {
     this.conditions = conditions;
+  }
+
+  @Override
+  public String getLayerName()
+  {
+    return this.getName();
   }
 
   public List<DashboardCondition> getConditions()

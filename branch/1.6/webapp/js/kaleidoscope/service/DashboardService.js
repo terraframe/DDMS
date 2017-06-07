@@ -201,6 +201,25 @@
       dss.vector.solutions.kaleidoscope.dashboard.Dashboard.setDashboardAttributesOrder(request, dashboardId, typeId, attributeIds);
     }
     
+    service.getJobJSON = function(onSuccess, onFailure) {
+      var request = runwayService.createRequest(onSuccess, onFailure);
+      var dashboardId = this.getDashboard().model.id;      
+      
+      dss.vector.solutions.kaleidoscope.dashboard.DashboardJob.getJSON(request, dashboardId);
+    }
+    
+    service.applyJob = function(job, onSuccess, onFailure) {
+      var request = runwayService.createRequest(onSuccess, onFailure);
+      
+      dss.vector.solutions.kaleidoscope.dashboard.DashboardJob.applyJSON(request, job);
+    }
+    
+    service.unlockJob = function(id, onSuccess, onFailure) {
+      var request = runwayService.createRequest(onSuccess, onFailure);
+      
+      dss.vector.solutions.kaleidoscope.dashboard.DashboardJob.unlock(request, id);
+    }
+    
     service.isEmptyFilter = function(filter) {
       for(var key in filter) {
         if(key != 'type' && key != 'operation' && key != 'mdAttribute' && filter.hasOwnProperty(key)) {

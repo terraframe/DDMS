@@ -165,8 +165,15 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
 
   public static SingleActor getCurrentUser()
   {
-    SingleActorDAOIF user = Session.getCurrentSession().getUser();
+    SessionIF session = Session.getCurrentSession();
 
-    return SingleActor.get(user.getId());
+    if (session != null)
+    {
+      SingleActorDAOIF user = session.getUser();
+
+      return SingleActor.get(user.getId());
+    }
+
+    return null;
   }
 }

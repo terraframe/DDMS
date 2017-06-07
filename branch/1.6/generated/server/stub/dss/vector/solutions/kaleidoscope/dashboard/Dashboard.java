@@ -77,6 +77,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeQuery;
+import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport;
 import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.BrowserRoot;
@@ -183,13 +184,18 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
       mIterator.close();
     }
 
+    /*
+     * Delete the cycle job corresponding to the map
+     */
+    this.deleteDashboardJob();
+
     // Delete the corresponding report item
-    // ReportItem report = ReportItem.getByDashboard(this.getId());
-    //
-    // if (report != null)
-    // {
-    // report.delete();
-    // }
+    KaleidoscopeReport report = KaleidoscopeReport.getByDashboard(this.getId());
+
+    if (report != null)
+    {
+      report.delete();
+    }
 
     Roles role = this.getDashboardRole();
 
@@ -197,6 +203,38 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
     // Delete the dashboard role
     role.delete();
+  }
+
+  private void deleteDashboardJob()
+  {
+    DashboardJob job = this.getDashboardJob();
+
+    if (job != null)
+    {
+      job.delete();
+    }
+  }
+
+  private DashboardJob getDashboardJob()
+  {
+    DashboardJobQuery query = new DashboardJobQuery(new QueryFactory());
+    query.WHERE(query.getDashboard().EQ(this));
+
+    OIterator<? extends DashboardJob> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return null;
   }
 
   public DashboardMap getMap()
@@ -1033,9 +1071,8 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("enableScale", this.getEnableScale());
     object.put("arrowXPosition", this.getArrowXPosition());
     object.put("arrowYPosition", this.getArrowYPosition());
-    object.put("enableArrow", this.getEnableArrow());    
+    object.put("enableArrow", this.getEnableArrow());
     object.put("types", types);
-    
 
     List<GeoEntity> countries = this.getCountries();
 

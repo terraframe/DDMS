@@ -167,7 +167,7 @@
     }    
   }
   
-  angular.module("dashboard-map", ['ui.bootstrap', "dashboard-service", "map-service", "localization-service"]);
+  angular.module("dashboard-map", ['ui.bootstrap', "dashboard-service", "map-service", "localization-service", "styled-inputs"]);
   angular.module('dashboard-map')
     .directive('mapPopup', MapPopup)
     .controller('DrilldownModalCtrl', DrilldownModalCtrl);

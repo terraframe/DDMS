@@ -54,8 +54,8 @@
                   <div class="label-holder"></div>
                   <div class="holder">
                     <div class="button-holder">
-                      <input type="button" class="btn btn-primary" ng-click="ctrl.submit()" ng-disabled="form.$invalid" value="<mdss:localize key="dashboard.Ok"/>" />
                       <input type="button" class="btn btn-default" ng-click="ctrl.cancel()" value="<mdss:localize key="dashboard.Cancel"/>"/>
+                      <input type="button" class="btn btn-primary" ng-click="ctrl.submit()" ng-disabled="form.$invalid" value="<mdss:localize key="dashboard.Ok"/>" />
                     </div>
                   </div>
                 </div>                

@@ -1724,7 +1724,9 @@ public class QueryUtil implements Reloadable
 
       try
       {
-        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.loadClass(queryClassName);
+        // IMPORTANT: CHANGE load backto loadClass
+        
+        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.load(queryClassName);
         Constructor<GeneratedComponentQuery> constructor = clazz.getConstructor(factory.getClass());
         GeneratedComponentQuery query = constructor.newInstance(factory);
 
@@ -1760,7 +1762,9 @@ public class QueryUtil implements Reloadable
 
       try
       {
-        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.loadClass(queryClassName);
+        // IMPORTANT: CHANGE load backto loadClass
+        
+        Class<GeneratedComponentQuery> clazz = (Class<GeneratedComponentQuery>) LoaderDecorator.load(queryClassName);
         Constructor<GeneratedComponentQuery> constructor = clazz.getConstructor(vQuery.getClass());
         GeneratedComponentQuery query = constructor.newInstance(vQuery);
 
