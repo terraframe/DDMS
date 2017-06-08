@@ -47,14 +47,9 @@ import org.geotools.data.wms.WMSUtils;
 import org.geotools.data.wms.WebMapServer;
 import org.geotools.data.wms.request.GetMapRequest;
 import org.geotools.data.wms.response.GetMapResponse;
-import org.geotools.geometry.jts.ReferencedEnvelope;
-import org.geotools.referencing.CRS;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.opengis.geometry.MismatchedDimensionException;
-import org.opengis.referencing.FactoryException;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
@@ -84,6 +79,7 @@ import com.runwaysdk.util.FileIO;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
+import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geoserver.GeoserverBatch;
@@ -830,6 +826,14 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
       int layerWidth = mapSizeObj.has("layerWidth") ? mapSizeObj.getInt("layerWidth") : width;
       int layerHeight = mapSizeObj.has("layerHeight") ? mapSizeObj.getInt("layerHeight") : height;
 
+      // Offset the layerCanvas so that it is center
+      int widthOffset = (int) ( ( width - layerWidth ) / 2 );
+      int heightOffset = (int) ( ( height - layerHeight ) / 2 );
+
+      MapBound bound = new MapBound(layerWidth, layerHeight, new JSONObject(mapBounds));
+      bound.setX(widthOffset);
+      bound.setY(heightOffset);
+
       // Setup the base canvas to which we will add layers and map elements
       BufferedImage base = null;
       Graphics mapBaseGraphic = null;
@@ -850,81 +854,41 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         mapBaseGraphic.fillRect(0, 0, width, height);
         mapBaseGraphic.drawImage(base, 0, 0, null);
 
-        // Add layers to the base canvas
-        BufferedImage layerCanvas = getLayersExportCanvas(layerWidth, layerHeight, orderedLayers, mapBounds);
-
         // Get base map
-        String baseType = null;
-        try
-        {
-          JSONObject activeBaseObj = new JSONObject(activeBaseMap);
-          baseType = activeBaseObj.getString("LAYER_SOURCE_TYPE");
-        }
-        catch (JSONException e)
-        {
-          String error = "Could not active base map JSON.";
-          throw new ProgrammingErrorException(error, e);
-        }
-
-        JSONObject mapBoundsObj = new JSONObject(mapBounds);
-        double bottom = mapBoundsObj.getDouble("bottom");
-        double top = mapBoundsObj.getDouble("top");
-        double right = mapBoundsObj.getDouble("right");
-        double left = mapBoundsObj.getDouble("left");
-
-        // Offset the layerCanvas so that it is center
-        int widthOffset = (int) ( ( width - layerWidth ) / 2 );
-        int heightOffset = (int) ( ( height - layerHeight ) / 2 );
+        JSONObject activeBaseObj = new JSONObject(activeBaseMap);
+        String baseType = activeBaseObj.getString("LAYER_SOURCE_TYPE");
 
         // Get bounds of the map
         if (baseType.length() > 0)
         {
-          // CoordinateReferenceSystem crs = CRS.decode("EPSG:4326", true);
-          // Envelope envelope = new ReferencedEnvelope(left, right, bottom, top, crs);
-          Envelope envelope = new Envelope(left, right, bottom, top);
-
-          final double xDiff = width;
-          final double yDiff = height;
-
-          // Transform Setup: Scale X and Y to tile extent values, flip Y values
-          double xScale = ( xDiff / (double) ( Math.abs(right) - Math.abs(left) ) );
-          double yScale = ( yDiff / (double) ( Math.abs(top) - Math.abs(bottom) ) );
-
-          // Calculate the buffered geometry envelop for determining geometry intersection
-          envelope.expandBy(widthOffset * Math.abs(1 / xScale), heightOffset * Math.abs(1 / yScale));
-
-          String sLeft = Double.toString(envelope.getMinX());
-          String sRight = Double.toString(envelope.getMaxX());
-          String sBottom = Double.toString(envelope.getMinY());
-          String sTop = Double.toString(envelope.getMaxY());
-
-          BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, sLeft, sBottom, sRight, sTop, baseType);
+          BufferedImage baseMapImage = this.getBaseMapCanvas(layerWidth, layerHeight, bound.left(), bound.bottom(), bound.right(), bound.top(), baseType);
 
           if (baseMapImage != null)
           {
-            mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
+            mapBaseGraphic.drawImage(baseMapImage, bound.getX(), bound.getY(), null);
           }
         }
 
-        mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
+        // Add layers to the base canvas
+        BufferedImage layerCanvas = getLayersExportCanvas(orderedLayers, bound);
+        mapBaseGraphic.drawImage(layerCanvas, bound.getX(), bound.getY(), null);
 
         // Add legends to the base canvas
         BufferedImage legendCanvas = getLegendExportCanvas(width, height);
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
 
         Dashboard dashboard = this.getDashboard();
+        DashboardState state = DashboardState.getDashboardState(dashboard, MDSSUser.getCurrentUser());
 
         // Add the north arrow to the base canvas
-        if (dashboard.getEnableArrow())
+        if (state.getEnableArrow() != null && state.getEnableArrow())
         {
           String deploy = DeployProperties.getDeployPath();
           String imagesDir = deploy + "/imgs";
           String northArrowPath = imagesDir + "/" + "northArrow.png";
           File northArrow = new File(northArrowPath);
-          int savedMapWidth = layerCanvas.getWidth();
-          int savedMapHeight = layerCanvas.getHeight();
-          int arrowXPositionPercentBased = (int) Math.round( ( (double) ( dashboard.getArrowXPosition() ) ) / savedMapWidth * width);
-          int arrowYPositionPercentBased = (int) Math.round( ( (double) ( dashboard.getArrowYPosition() ) ) / savedMapHeight * height);
+          int arrowXPositionPercentBased = (int) Math.round( ( (double) ( state.getArrowXPosition() ) ) / state.getSavedWidth() * width);
+          int arrowYPositionPercentBased = (int) Math.round( ( (double) ( state.getArrowYPosition() ) ) / state.getSavedHeight() * height);
 
           try
           {
@@ -939,23 +903,19 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         }
 
         // Add scale to the base canvas
-        if (dashboard.getEnableScale())
+        if (state.getEnableScale() != null && state.getEnableScale())
         {
           CanvasInformation info = new CanvasInformation();
           info.setHeight(height);
           info.setWidth(width);
-          info.setSavedMapHeight(layerCanvas.getHeight());
-          info.setSavedMapWidth(layerCanvas.getWidth());
-          info.setNorthBound(top);
-          info.setSouthBound(bottom);
+          info.setSavedMapHeight(state.getSavedHeight());
+          info.setSavedMapWidth(state.getSavedWidth());
+          info.setNorthBound(bound.getTop());
+          info.setSouthBound(bound.getBottom());
 
-          MapUtil.generateScaleImageExport(info, dashboard.getScaleXPosition(), dashboard.getScaleYPosition(), mapBaseGraphic);
+          MapUtil.generateScaleImageExport(info, state.getScaleXPosition(), state.getScaleYPosition(), mapBaseGraphic);
         }
       }
-//      catch (MismatchedDimensionException | FactoryException e)
-//      {
-//        throw new ProgrammingErrorException(e);
-//      }
       finally
       {
         ByteArrayOutputStream outStream = null;
@@ -1103,17 +1063,11 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   /**
    * Builds a combined image layer of all the layers in a saved map.
    * 
-   * @mapWidth
-   * @mapHeight
    * @orderedLayers
-   * @mapBounds - expects json object {"bottom":"VALUE", "top":"VALUE", "left":"VALUE", "right":"VALUE"}
+   * @param bound
    */
-  public BufferedImage getLayersExportCanvas(int mapWidth, int mapHeight, DashboardLayer[] orderedLayers, String mapBounds)
+  public BufferedImage getLayersExportCanvas(DashboardLayer[] orderedLayers, MapBound bound)
   {
-    String bottom;
-    String top;
-    String right;
-    String left;
     String processingFormat = "png"; // needed to allow transparency on each overlay before combining to a single
                                      // map/format
     Graphics mapBaseGraphic = null;
@@ -1121,28 +1075,20 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
     try
     {
-      base = new BufferedImage(mapWidth, mapHeight, BufferedImage.TYPE_INT_ARGB);
+      base = new BufferedImage(bound.getWidth(), bound.getHeight(), BufferedImage.TYPE_INT_ARGB);
       mapBaseGraphic = base.getGraphics();
       mapBaseGraphic.drawImage(base, 0, 0, null);
-
-      // Get bounds of the map
-      try
-      {
-        JSONObject mapBoundsObj = new JSONObject(mapBounds);
-        bottom = mapBoundsObj.getString("bottom");
-        top = mapBoundsObj.getString("top");
-        right = mapBoundsObj.getString("right");
-        left = mapBoundsObj.getString("left");
-      }
-      catch (JSONException e)
-      {
-        String error = "Could not parse map bounds.";
-        throw new ProgrammingErrorException(error, e);
-      }
 
       // Generates map overlays and combines them into a single map image
       for (DashboardLayer layer : orderedLayers)
       {
+        int mapWidth = bound.getWidth();
+        int mapHeight = bound.getHeight();
+
+        String left = bound.left();
+        String right = bound.right();
+        String top = bound.top();
+        String bottom = bound.bottom();
 
         Graphics2D newOverlayBaseGraphic = null;
         Graphics2D mapLayerGraphic2d = null;

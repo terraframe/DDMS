@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1294081310)
+@com.runwaysdk.business.ClassSignature(hash = -31860036)
 public abstract class DashboardStateDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardState";
-  private static final long serialVersionUID = -1294081310;
+  private static final long serialVersionUID = -31860036;
   
   protected DashboardStateDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,10 +27,14 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
     return CLASS;
   }
   
+  public static java.lang.String ARROWXPOSITION = "arrowXPosition";
+  public static java.lang.String ARROWYPOSITION = "arrowYPosition";
   public static java.lang.String CONDITIONS = "conditions";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DASHBOARD = "dashboard";
+  public static java.lang.String ENABLEARROW = "enableArrow";
+  public static java.lang.String ENABLESCALE = "enableScale";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOPRISMUSER = "geoprismUser";
   public static java.lang.String ID = "id";
@@ -40,9 +44,87 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAVEDHEIGHT = "savedHeight";
+  public static java.lang.String SAVEDWIDTH = "savedWidth";
+  public static java.lang.String SCALEXPOSITION = "scaleXPosition";
+  public static java.lang.String SCALEYPOSITION = "scaleYPosition";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  public Integer getArrowXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ARROWXPOSITION));
+  }
+  
+  public void setArrowXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ARROWXPOSITION, "");
+    }
+    else
+    {
+      setValue(ARROWXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isArrowXPositionWritable()
+  {
+    return isWritable(ARROWXPOSITION);
+  }
+  
+  public boolean isArrowXPositionReadable()
+  {
+    return isReadable(ARROWXPOSITION);
+  }
+  
+  public boolean isArrowXPositionModified()
+  {
+    return isModified(ARROWXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getArrowXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ARROWXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getArrowYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ARROWYPOSITION));
+  }
+  
+  public void setArrowYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ARROWYPOSITION, "");
+    }
+    else
+    {
+      setValue(ARROWYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isArrowYPositionWritable()
+  {
+    return isWritable(ARROWYPOSITION);
+  }
+  
+  public boolean isArrowYPositionReadable()
+  {
+    return isReadable(ARROWYPOSITION);
+  }
+  
+  public boolean isArrowYPositionModified()
+  {
+    return isModified(ARROWYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getArrowYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ARROWYPOSITION).getAttributeMdDTO();
+  }
+  
   public String getConditions()
   {
     return getValue(CONDITIONS);
@@ -189,6 +271,80 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDashboardMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DASHBOARD).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnableArrow()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLEARROW));
+  }
+  
+  public void setEnableArrow(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLEARROW, "");
+    }
+    else
+    {
+      setValue(ENABLEARROW, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnableArrowWritable()
+  {
+    return isWritable(ENABLEARROW);
+  }
+  
+  public boolean isEnableArrowReadable()
+  {
+    return isReadable(ENABLEARROW);
+  }
+  
+  public boolean isEnableArrowModified()
+  {
+    return isModified(ENABLEARROW);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnableArrowMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLEARROW).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnableScale()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLESCALE));
+  }
+  
+  public void setEnableScale(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLESCALE, "");
+    }
+    else
+    {
+      setValue(ENABLESCALE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnableScaleWritable()
+  {
+    return isWritable(ENABLESCALE);
+  }
+  
+  public boolean isEnableScaleReadable()
+  {
+    return isReadable(ENABLESCALE);
+  }
+  
+  public boolean isEnableScaleModified()
+  {
+    return isModified(ENABLESCALE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnableScaleMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLESCALE).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -502,6 +658,154 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public Integer getSavedHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SAVEDHEIGHT));
+  }
+  
+  public void setSavedHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDHEIGHT, "");
+    }
+    else
+    {
+      setValue(SAVEDHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isSavedHeightWritable()
+  {
+    return isWritable(SAVEDHEIGHT);
+  }
+  
+  public boolean isSavedHeightReadable()
+  {
+    return isReadable(SAVEDHEIGHT);
+  }
+  
+  public boolean isSavedHeightModified()
+  {
+    return isModified(SAVEDHEIGHT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSavedHeightMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SAVEDHEIGHT).getAttributeMdDTO();
+  }
+  
+  public Integer getSavedWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SAVEDWIDTH));
+  }
+  
+  public void setSavedWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDWIDTH, "");
+    }
+    else
+    {
+      setValue(SAVEDWIDTH, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isSavedWidthWritable()
+  {
+    return isWritable(SAVEDWIDTH);
+  }
+  
+  public boolean isSavedWidthReadable()
+  {
+    return isReadable(SAVEDWIDTH);
+  }
+  
+  public boolean isSavedWidthModified()
+  {
+    return isModified(SAVEDWIDTH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSavedWidthMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SAVEDWIDTH).getAttributeMdDTO();
+  }
+  
+  public Integer getScaleXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEXPOSITION));
+  }
+  
+  public void setScaleXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEXPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isScaleXPositionWritable()
+  {
+    return isWritable(SCALEXPOSITION);
+  }
+  
+  public boolean isScaleXPositionReadable()
+  {
+    return isReadable(SCALEXPOSITION);
+  }
+  
+  public boolean isScaleXPositionModified()
+  {
+    return isModified(SCALEXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getScaleXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SCALEXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getScaleYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEYPOSITION));
+  }
+  
+  public void setScaleYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEYPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isScaleYPositionWritable()
+  {
+    return isWritable(SCALEYPOSITION);
+  }
+  
+  public boolean isScaleYPositionReadable()
+  {
+    return isReadable(SCALEYPOSITION);
+  }
+  
+  public boolean isScaleYPositionModified()
+  {
+    return isModified(SCALEYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getScaleYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SCALEYPOSITION).getAttributeMdDTO();
   }
   
   public Long getSeq()

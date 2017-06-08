@@ -660,7 +660,15 @@
       var state = {
         mapId : oState.mapId,
         types : [],
-        drillDown : oState.drillDown
+        drillDown : oState.drillDown,
+        savedWidth : oState.savedWidth,
+        savedHeight : oState.savedHeight,
+        scaleXPosition : oState.scaleXPosition,
+        scaleYPosition : oState.scaleYPosition,
+        enableScale : oState.enableScale,
+        arrowXPosition : oState.arrowXPosition,
+        arrowYPosition : oState.arrowYPosition,
+        enableArrow : oState.enableArrow
       };
       
       if(!dashboardService.isEmptyFilter(oState.location)) {
@@ -753,33 +761,42 @@
     controller.setScale = function(position) {
       controller.model.scaleYPosition = position.top;
       controller.model.scaleXPosition = position.left;
-            
-      dashboardService.updateScale(controller.model.id, position.left, position.top, true);
+      
+      var $el = $('#mapDivId');              
+      controller.model.savedWidth = $el.outerWidth(true);
+  	  controller.model.savedHeight = $el.outerHeight(true);
     }
     
     controller.toggleScale = function(position) {
+      var $el = $('#mapDivId');              
+      controller.model.savedWidth = $el.outerWidth(true);
+  	  controller.model.savedHeight = $el.outerHeight(true);
+    	
       controller.model.enableScale = !controller.model.enableScale;
       
-      if(controller.model.enableScale && controller.model.scaleXPosition === 0 && controller.model.scaleYPosition === 0) {
-        var $el = $('#mapDivId');        
+      if(controller.model.enableScale && (!controller.model.scaleXPosition || controller.model.scaleXPosition === 0) && (!controller.model.scaleYPosition || controller.model.scaleYPosition === 0)) {
         var bottom = $el.offset().top + $el.outerHeight(true);
           
         controller.model.scaleYPosition = bottom - 5;        
         controller.model.scaleXPosition = 5;        
       }
-      
-      dashboardService.updateScale(controller.model.id, controller.model.scaleXPosition, controller.model.scaleYPosition, controller.model.enableScale);      
     }
     
     controller.setArrow = function(position) {
       controller.model.arrowYPosition = position.top;
       controller.model.arrowXPosition = position.left;
       
-      dashboardService.updateArrow(controller.model.id, position.left, position.top, true);
+      var $el = $('#mapDivId');              
+      controller.model.savedWidth = $el.outerWidth(true);
+  	  controller.model.savedHeight = $el.outerHeight(true);      
     }
     
     controller.toggleArrow = function(position) {
       controller.model.enableArrow = !controller.model.enableArrow;
+      
+      var $el = $('#mapDivId');              
+      controller.model.savedWidth = $el.outerWidth(true);
+  	  controller.model.savedHeight = $el.outerHeight(true);      
       
       if(controller.model.enableArrow && (!controller.model.arrowXPosition || controller.model.arrowXPosition === 0) && (!controller.model.arrowYPosition || controller.model.arrowYPosition === 0)) {
         var $el = $('#mapDivId');        
@@ -788,8 +805,6 @@
         controller.model.arrowYPosition = bottom - 100;        
         controller.model.arrowXPosition = 5;        
       }      
-      
-      dashboardService.updateArrow(controller.model.id, controller.model.arrowXPosition, controller.model.arrowYPosition, controller.model.enableArrow);      
     }
     
     controller.refreshDashboard = function(state) {

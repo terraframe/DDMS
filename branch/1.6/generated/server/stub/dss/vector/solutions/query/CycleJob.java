@@ -500,7 +500,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
 
           map.refreshMap(map.getId(), configuration);
 
-          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration);
+          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration, 0F);
 
           double left = array.getDouble(0);
           double bottom = array.getDouble(1);

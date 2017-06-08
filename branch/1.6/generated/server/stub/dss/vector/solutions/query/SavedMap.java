@@ -305,7 +305,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       }
       else
       {
-        mapData.put("bbox", MapUtil.getThematicBBox(new LinkedList<BasicLayerIF>(bboxLayers), configuration));
+        mapData.put("bbox", MapUtil.getThematicBBox(new LinkedList<BasicLayerIF>(bboxLayers), configuration, 0F));
       }
     }
     catch (JSONException e)

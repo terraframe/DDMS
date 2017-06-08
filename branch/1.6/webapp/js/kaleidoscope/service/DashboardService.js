@@ -42,22 +42,6 @@
       }
     };
     
-    service.updateScale = function(dashboardId, scaleX, scaleY, enableScale, onSuccess, onFailure) {
-      if(service.canEdit()) {
-        var request = runwayService.createRequest(onSuccess, onFailure);
-        
-        dss.vector.solutions.kaleidoscope.dashboard.Dashboard.updateScale(request, dashboardId, scaleX, scaleY, enableScale);
-      }
-    };
-    
-    service.updateArrow = function(dashboardId, arrowX, arrowY, enableArrow, onSuccess, onFailure) {
-      if(service.canEdit()) {
-        var request = runwayService.createRequest(onSuccess, onFailure);
-        
-        dss.vector.solutions.kaleidoscope.dashboard.Dashboard.updateArrow(request, dashboardId, arrowX, arrowY, enableArrow);
-      }
-    };
-    
     service.removeLayer = function(layerId, elementId, onSuccess, onFailure) {
       if(service.canEdit()) {      
         var request = runwayService.createStandbyRequest(elementId, onSuccess, onFailure);

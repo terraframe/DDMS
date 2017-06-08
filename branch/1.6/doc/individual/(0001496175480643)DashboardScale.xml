@@ -1,9 +1,11 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.Dashboard">
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.DashboardState">
         <create>
           <attributes>
+            <integer name="savedWidth" label="Saved width" defaultValue="0" />
+            <integer name="savedHeight" label="Saved height" defaultValue="0" />
             <integer name="scaleXPosition" label="Scale X Position" defaultValue="0" />
             <integer name="scaleYPosition" label="Scale Y Position" defaultValue="0" />
             <boolean name="enableScale" label="Enable scale" defaultValue="false"/>
@@ -11,30 +13,20 @@
             <integer name="arrowYPosition" label="Arrow Y Position" defaultValue="0" />
             <boolean name="enableArrow" label="Enable arrow" defaultValue="false"/>
           </attributes>
-          <mdMethod name="updateScale" label="Update Scale" returnType="void" static="false">
-            <mdParameter name="scaleXPosition" label="scaleXPosition" order="0" type="java.lang.Integer" />
-            <mdParameter name="scaleYPosition" label="scaleYPosition" order="1" type="java.lang.Integer" />
-            <mdParameter name="enableScale" label="Enable Scale" order="2" type="java.lang.Boolean" />
-          </mdMethod>
-          <mdMethod name="updateArrow" label="Update Arrow" returnType="void" static="false">
-            <mdParameter name="arrowXPosition" label="arrowXPosition" order="0" type="java.lang.Integer" />
-            <mdParameter name="arrowYPosition" label="arrowYPosition" order="1" type="java.lang.Integer" />
-            <mdParameter name="enableArrow" label="Enable Arrow" order="2" type="java.lang.Boolean" />
-          </mdMethod>          
         </create>
       </mdBusiness>    
     </update>
   </doIt>
   <undoIt>
     <delete>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.updateScale" type="com.runwaysdk.system.metadata.MdMethod"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.updateArrow" type="com.runwaysdk.system.metadata.MdMethod"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.scaleXPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.scaleYPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.enableScale" type="com.runwaysdk.system.metadata.MdAttribute"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.arrowXPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.arrowYPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
-      <object key="dss.vector.solutions.kaleidoscope.dashboard.Dashboard.enableArrow" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.savedWidth" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.savedHeight" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.scaleXPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.scaleYPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.enableScale" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.arrowXPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.arrowYPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.enableArrow" type="com.runwaysdk.system.metadata.MdAttribute"/>
     </delete>
   </undoIt>
 </version>

@@ -20,6 +20,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.AllAggregationTypeDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardController;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardDisplayLabelDTO;
+import dss.vector.solutions.kaleidoscope.dashboard.DashboardJobDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyleDTO;
@@ -109,6 +110,7 @@ public class JavascriptUtil implements Reloadable
     types.add(MappableClassDTO.CLASS);
     types.add(AllAggregationTypeDTO.CLASS);
     types.add(AggregationTypeDTO.CLASS);
+    types.add(DashboardJobDTO.CLASS);
 
     JavascriptUtil.loadJavascript(request, req, types);
   }

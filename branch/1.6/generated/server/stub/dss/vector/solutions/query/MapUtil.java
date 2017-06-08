@@ -381,9 +381,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   /**
    * Gets the bounding box of the thematic layer.
    * 
+   * @param expand
+   *          TODO
+   * 
    * @return
    */
-  public static JSONArray getThematicBBox(List<BasicLayerIF> layers, MapConfiguration configuration)
+  public static JSONArray getThematicBBox(List<BasicLayerIF> layers, MapConfiguration configuration, float expand)
   {
     JSONArray bboxArr = new JSONArray();
     if (layers.size() > 0)
@@ -396,12 +399,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         String viewName = configuration.getViewName(layer);
         layerNames[0] = layer.getLayerName();
 
-        sql = "SELECT ST_AsText(ST_Extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName;
+        sql = "SELECT ST_AsText(ST_Extent(ST_Expand(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + "), " + expand + ") AS bbox FROM " + viewName;
       }
       else
       {
         // More than one layer so union the geometry columns
-        sql = "SELECT ST_AsText(ST_Extent(geo_v)) AS bbox FROM (\n";
+        sql = "SELECT ST_AsText(ST_Extent(ST_Expand(geo_v, " + expand + "))) AS bbox FROM (\n";
 
         for (int i = 0; i < layers.size(); i++)
         {

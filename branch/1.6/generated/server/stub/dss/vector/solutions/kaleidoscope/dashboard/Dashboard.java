@@ -1057,6 +1057,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     }
 
     DashboardMap map = this.getMap();
+    DashboardState state = this.getDashboardState();
 
     JSONObject object = new JSONObject();
     object.put("id", this.getId());
@@ -1066,12 +1067,14 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("hasReport", this.hasReport());
     object.put("editDashboard", true);
     // object.put("editDashboard", GeoprismUser.hasAccess(AccessConstants.EDIT_DASHBOARD));
-    object.put("scaleXPosition", this.getScaleXPosition());
-    object.put("scaleYPosition", this.getScaleYPosition());
-    object.put("enableScale", this.getEnableScale());
-    object.put("arrowXPosition", this.getArrowXPosition());
-    object.put("arrowYPosition", this.getArrowYPosition());
-    object.put("enableArrow", this.getEnableArrow());
+    object.put("savedWidth", state.getSavedWidth());
+    object.put("savedHeight", state.getSavedHeight());
+    object.put("scaleXPosition", state.getScaleXPosition());
+    object.put("scaleYPosition", state.getScaleYPosition());
+    object.put("enableScale", state.getEnableScale());
+    object.put("arrowXPosition", state.getArrowXPosition());
+    object.put("arrowYPosition", state.getArrowYPosition());
+    object.put("enableArrow", state.getEnableArrow());
     object.put("types", types);
 
     List<GeoEntity> countries = this.getCountries();
@@ -1146,22 +1149,72 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   @Override
   public String saveState(String json, Boolean global)
   {
-    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(json);
-
-    SingleActor user = null;
-
-    if (!global)
+    try
     {
-      user = MDSSUser.getCurrentUser();
+      JSONObject object = new JSONObject(json);
+
+      List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(json);
+
+      SingleActor user = null;
+
+      if (!global)
+      {
+        user = MDSSUser.getCurrentUser();
+      }
+
+      DashboardState state = this.getOrCreateDashboardState(user);
+      state.setConditions(DashboardCondition.serialize(conditions));
+
+      if (object.has("savedWidth"))
+      {
+        state.setSavedWidth(object.getInt("savedWidth"));
+      }
+
+      if (object.has("savedHeight"))
+      {
+        state.setSavedHeight(object.getInt("savedHeight"));
+      }
+
+      if (object.has("scaleXPosition"))
+      {
+        state.setScaleXPosition(object.getInt("scaleXPosition"));
+      }
+
+      if (object.has("scaleYPosition"))
+      {
+        state.setScaleYPosition(object.getInt("scaleYPosition"));
+      }
+
+      if (object.has("enableScale"))
+      {
+        state.setEnableScale(object.getBoolean("enableScale"));
+      }
+
+      if (object.has("arrowXPosition"))
+      {
+        state.setArrowXPosition(object.getInt("arrowXPosition"));
+      }
+
+      if (object.has("arrowYPosition"))
+      {
+        state.setArrowYPosition(object.getInt("arrowYPosition"));
+      }
+
+      if (object.has("enableArrow"))
+      {
+        state.setEnableArrow(object.getBoolean("enableArrow"));
+      }
+
+      state.apply();
+
+      this.executeThumbnailThread(user);
+
+      return "";
     }
-
-    DashboardState state = this.getOrCreateDashboardState(user);
-    state.setConditions(DashboardCondition.serialize(conditions));
-    state.apply();
-
-    this.executeThumbnailThread(user);
-
-    return "";
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
   }
 
   @Override
@@ -1559,6 +1612,8 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
       int width = (int) Math.min(defaultWidth, Math.round( ( ( ( right - left ) / ( top - bottom ) ) * defaultHeight )));
       int height = (int) Math.min(defaultHeight, Math.round( ( ( ( top - bottom ) / ( right - left ) ) * defaultWidth )));
+      
+      MapBound bound = new MapBound(width, height, left, right, bottom, top);
 
       base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -1582,7 +1637,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
       }
 
       // Add layers to the base canvas
-      BufferedImage layerCanvas = dashMap.getLayersExportCanvas(width, height, orderedLayers, restructuredBounds.toString());
+      BufferedImage layerCanvas = dashMap.getLayersExportCanvas(orderedLayers, bound);
 
       // Offset the layerCanvas so that it is center
       int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
@@ -1637,29 +1692,5 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     }
 
     return null;
-  }
-
-  @Override
-  @Transaction
-  public void updateScale(Integer scaleXPosition, Integer scaleYPosition, Boolean enableScale)
-  {
-    this.appLock();
-
-    this.setScaleXPosition(scaleXPosition);
-    this.setScaleYPosition(scaleYPosition);
-    this.setEnableScale(enableScale);
-    this.apply();
-  }
-
-  @Override
-  @Transaction
-  public void updateArrow(Integer arrowXPosition, Integer arrowYPosition, Boolean enableArrow)
-  {
-    this.appLock();
-
-    this.setArrowXPosition(arrowXPosition);
-    this.setArrowYPosition(arrowYPosition);
-    this.setEnableArrow(enableArrow);
-    this.apply();
   }
 }

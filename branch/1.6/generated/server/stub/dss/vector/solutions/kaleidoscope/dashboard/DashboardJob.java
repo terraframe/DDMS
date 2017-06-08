@@ -72,7 +72,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
   public static final int     DEFAULT_HEIGHT            = 1000;
 
-  private static final int    MARGIN                    = 100;
+  private static final int    MARGIN                    = 0;
 
   private static final String GENERATED_MAP_VIEW_PREFIX = "k_";
 
@@ -158,7 +158,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     this.deleteDatabaseView();
 
     GeneratedDashboardQuery q = new GeneratedDashboardQuery(new QueryFactory());
-    q.WHERE(q.getDashboard().EQ(this));
+    q.WHERE(q.getDashboard().EQ(this.getDashboardId()));
 
     OIterator<? extends GeneratedDashboard> iterator = q.getIterator();
 
@@ -391,21 +391,24 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
   public void execute(ExecutionContext executionContext)
   {
     // Make sure there's not another instance of this job already running.
-    QueryFactory qf = new QueryFactory();
-    DashboardJobQuery cjq = new DashboardJobQuery(qf);
-    JobHistoryQuery jhq = new JobHistoryQuery(qf);
-    JobHistoryRecordQuery jhrq = new JobHistoryRecordQuery(qf);
-
-    jhq.WHERE(jhq.getStatus().containsExactly(AllJobStatus.RUNNING));
-    jhrq.WHERE(jhrq.hasChild(jhq));
-    cjq.AND(cjq.getId().EQ(jhrq.parentId()));
-    cjq.AND(cjq.getId().EQ(this.getId()));
-    jhq.AND(jhq.getId().NE(executionContext.getJobHistory().getId()));
-
-    if (jhq.getCount() > 0)
+    if (executionContext != null)
     {
-      // TODO : We should be localizing our exceptions.
-      throw new RuntimeException("Only one instance of a job may be running at a time.");
+      QueryFactory qf = new QueryFactory();
+      DashboardJobQuery cjq = new DashboardJobQuery(qf);
+      JobHistoryQuery jhq = new JobHistoryQuery(qf);
+      JobHistoryRecordQuery jhrq = new JobHistoryRecordQuery(qf);
+
+      jhq.WHERE(jhq.getStatus().containsExactly(AllJobStatus.RUNNING));
+      jhrq.WHERE(jhrq.hasChild(jhq));
+      cjq.AND(cjq.getId().EQ(jhrq.parentId()));
+      cjq.AND(cjq.getId().EQ(this.getId()));
+      jhq.AND(jhq.getId().NE(executionContext.getJobHistory().getId()));
+
+      if (jhq.getCount() > 0)
+      {
+        // TODO : We should be localizing our exceptions.
+        throw new RuntimeException("Only one instance of a job may be running at a time.");
+      }
     }
 
     Dashboard dashboard = this.getDashboard();
@@ -464,7 +467,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
            */
           GeoserverFacade.pushUpdates(batch);
 
-          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration);
+          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration, .5F);
 
           double left = array.getDouble(0);
           double bottom = array.getDouble(1);
@@ -526,19 +529,19 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
               generated.apply();
 
-              /*
-               * This is for testing
-               */
-              try
-              {
-                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-
-                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
-              }
-              catch (Exception e)
-              {
-                e.printStackTrace();
-              }
+//              /*
+//               * This is for testing
+//               */
+//              try
+//              {
+//                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//
+//                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
+//              }
+//              catch (Exception e)
+//              {
+//                e.printStackTrace();
+//              }
             }
             finally
             {
@@ -669,6 +672,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     }
   }
 
+  @Transaction
   public static void applyJSON(String json)
   {
     try
@@ -697,6 +701,5 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     {
       throw new ProgrammingErrorException(e);
     }
-
   }
 }
