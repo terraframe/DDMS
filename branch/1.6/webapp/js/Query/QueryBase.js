@@ -1191,15 +1191,18 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         
         
         var select = doc.getElementsByTagName("select")[0];          
-        var selectables = select.getElementsByTagName("selectable");
+        var selectables = select.childNodes;
         
         for(var i =0; i < selectables.length; i++) {
-          var selectable = selectables[i];          
-          var typeEl = selectable.childNodes[0];
-          var type = typeEl.tagName;
-          var name = typeEl.getElementsByTagName('userAlias')[0].childNodes[0].nodeValue;
+          var selectable = selectables[i]; 
           
-          attributes.push(type + "-" + name);
+          if(selectable.tagName === 'selectable') {
+            var typeEl = selectable.childNodes[0];
+            var type = typeEl.tagName;
+            var name = typeEl.getElementsByTagName('userAlias')[0].childNodes[0].nodeValue;
+              
+            attributes.push(type + "-!-" + name);            
+          }
         }
       }
       
