@@ -11,10 +11,32 @@
   <mdss:localize key="Excel_Export_Header" var="export_label"/>
   <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
 </form>
+
+<input type="text" id="geoSearchBar" />
+<input type="hidden" id="geoSearchBar_geoEntityId" />
+
 <script type="text/javascript">
   YAHOO.util.Event.onDOMReady(function(){
-
+    
     var tree = new MDSS.GeoEntityTree("treeView", null, MDSS.DefaultRoot);
+    
+    var searchBarSelectHandler = function(view) {
+      tree.searchForGeo(view.getGeoEntityId(), view);
+    };
+    
+    var geoSearch = new MDSS.GeoSearch(document.getElementById("geoSearchBar"), {
+      filter : "",
+      enforceRoot : false,
+      political : false,
+      populated : false,
+      sprayTargetAllowed : false,
+      urban : false,
+      extraUniversals : []
+    });
+    geoSearch.setSelectEventHandler(searchBarSelectHandler);
+    geoSearch.setIsFormInput(false);
+
+    tree.allowSearchingForGeos();
     tree.render();
   }, null, true);
 </script>

@@ -161,8 +161,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
         // Add checkboxes to geo tree
         treeDiv.addClassName("ygtv-checkbox");
       }
-      this._tree.render();
       this._tree.allowSearchingForGeos();
+      this._tree.render();
       
       return geoDaddy;
     },
