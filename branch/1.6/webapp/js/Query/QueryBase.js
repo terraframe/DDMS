@@ -989,8 +989,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     _loadSavedState : function(savedSearchView) {
       this._queryPanel.setKaleidoscopes(JSON.parse(savedSearchView.getKaleidoscopes()));
       
-      this._loadedMaterialized = savedSearchView.getIsMaterialized();      
       this._loadedXML = savedSearchView.getQueryXml();
+      this._loadedMaterialized = savedSearchView.getIsMaterialized();      
     },
   
     _loadQueryState : {
@@ -1163,13 +1163,44 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         view.setQueryName(queryName);
       }
       
-      var overwrite = (materialized && this._loadedMaterialized && this._loadedXML !== xml);
-  
+      var overwrite = false;
+      
+      if(materialized && this._loadedMaterialized) {
+        var oAttributes = this._getAttributeNames(this._loadedXML);
+        var nAttributes = this._getAttributeNames(xml);
+        
+        var deletes = this._diff(oAttributes, nAttributes);
+        var adds = this._diff(nAttributes, oAttributes);
+        
+        overwrite = (deletes.length > 0 || adds.length > 0);
+      }
+    	  
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
       view.setQueryType(queryType);
       view.setIsMaterialized(materialized);
       view.setOverwrite(overwrite);
+    },
+    
+    _getAttributeNames : function(xml) {
+      var attributeNames = [];
+      
+      if(xml !== "") {
+        var parser = new DOMParser();  
+        var doc = parser.parseFromString(xml, "text/xml");
+          
+        var elements = doc.getElementsByTagName("userAlias");
+        
+        for(var i =0; i < elements.length; i++) {
+          attributeNames.push(elements[i].childNodes[0].nodeValue);
+        }
+      }
+      
+      return attributeNames;
+    },
+    
+    _diff : function(a1, a2) {
+      return a1.filter(function(i) {return a2.indexOf(i) < 0;});
     },
     
     /**

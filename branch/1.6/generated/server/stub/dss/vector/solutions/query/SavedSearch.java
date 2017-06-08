@@ -846,7 +846,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     SavedSearch search = SavedSearch.get(view.getSavedQueryId());
     search.update(view);
 
-    return search.getAsView(false, false);
+    return search.getAsView(true, true);
   }
 
   public static SavedSearchViewQuery getSearchesForType(String type)
