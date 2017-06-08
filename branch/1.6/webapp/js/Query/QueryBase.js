@@ -1166,8 +1166,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var overwrite = false;
       
       if(materialized && this._loadedMaterialized) {
-        var oAttributes = this._getAttributeNames(this._loadedXML);
-        var nAttributes = this._getAttributeNames(xml);
+        var oAttributes = this._getAttributes(this._loadedXML);
+        var nAttributes = this._getAttributes(xml);
         
         var deletes = this._diff(oAttributes, nAttributes);
         var adds = this._diff(nAttributes, oAttributes);
@@ -1182,21 +1182,28 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       view.setOverwrite(overwrite);
     },
     
-    _getAttributeNames : function(xml) {
-      var attributeNames = [];
+    _getAttributes : function(xml) {
+      var attributes = [];
       
       if(xml !== "") {
         var parser = new DOMParser();  
         var doc = parser.parseFromString(xml, "text/xml");
-          
-        var elements = doc.getElementsByTagName("userAlias");
         
-        for(var i =0; i < elements.length; i++) {
-          attributeNames.push(elements[i].childNodes[0].nodeValue);
+        
+        var select = doc.getElementsByTagName("select")[0];          
+        var selectables = select.getElementsByTagName("selectable");
+        
+        for(var i =0; i < selectables.length; i++) {
+          var selectable = selectables[i];          
+          var typeEl = selectable.childNodes[0];
+          var type = typeEl.tagName;
+          var name = typeEl.getElementsByTagName('userAlias')[0].childNodes[0].nodeValue;
+          
+          attributes.push(type + "-" + name);
         }
       }
       
-      return attributeNames;
+      return attributes;
     },
     
     _diff : function(a1, a2) {
