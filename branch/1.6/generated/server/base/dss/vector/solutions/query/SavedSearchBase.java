@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 663702993)
+@com.runwaysdk.business.ClassSignature(hash = 1631116524)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 663702993;
+  private static final long serialVersionUID = 1631116524;
   
   public SavedSearchBase()
   {
@@ -337,7 +337,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -345,7 +345,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

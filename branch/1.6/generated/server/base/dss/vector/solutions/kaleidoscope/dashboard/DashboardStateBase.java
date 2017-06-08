@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 214057314)
+@com.runwaysdk.business.ClassSignature(hash = 1661692988)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,10 +11,14 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 public abstract class DashboardStateBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardState";
+  public static java.lang.String ARROWXPOSITION = "arrowXPosition";
+  public static java.lang.String ARROWYPOSITION = "arrowYPosition";
   public static java.lang.String CONDITIONS = "conditions";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DASHBOARD = "dashboard";
+  public static java.lang.String ENABLEARROW = "enableArrow";
+  public static java.lang.String ENABLESCALE = "enableScale";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOPRISMUSER = "geoprismUser";
   public static java.lang.String ID = "id";
@@ -24,14 +28,74 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAVEDHEIGHT = "savedHeight";
+  public static java.lang.String SAVEDWIDTH = "savedWidth";
+  public static java.lang.String SCALEXPOSITION = "scaleXPosition";
+  public static java.lang.String SCALEYPOSITION = "scaleYPosition";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 214057314;
+  private static final long serialVersionUID = 1661692988;
   
   public DashboardStateBase()
   {
     super();
+  }
+  
+  public Integer getArrowXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ARROWXPOSITION));
+  }
+  
+  public void validateArrowXPosition()
+  {
+    this.validateAttribute(ARROWXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getArrowXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ARROWXPOSITION);
+  }
+  
+  public void setArrowXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ARROWXPOSITION, "");
+    }
+    else
+    {
+      setValue(ARROWXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getArrowYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ARROWYPOSITION));
+  }
+  
+  public void validateArrowYPosition()
+  {
+    this.validateAttribute(ARROWYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getArrowYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(ARROWYPOSITION);
+  }
+  
+  public void setArrowYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(ARROWYPOSITION, "");
+    }
+    else
+    {
+      setValue(ARROWYPOSITION, java.lang.Integer.toString(value));
+    }
   }
   
   public String getConditions()
@@ -143,6 +207,62 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     else
     {
       setValue(DASHBOARD, value.getId());
+    }
+  }
+  
+  public Boolean getEnableArrow()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLEARROW));
+  }
+  
+  public void validateEnableArrow()
+  {
+    this.validateAttribute(ENABLEARROW);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnableArrowMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLEARROW);
+  }
+  
+  public void setEnableArrow(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLEARROW, "");
+    }
+    else
+    {
+      setValue(ENABLEARROW, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getEnableScale()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLESCALE));
+  }
+  
+  public void validateEnableScale()
+  {
+    this.validateAttribute(ENABLESCALE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getEnableScaleMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ENABLESCALE);
+  }
+  
+  public void setEnableScale(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLESCALE, "");
+    }
+    else
+    {
+      setValue(ENABLESCALE, java.lang.Boolean.toString(value));
     }
   }
   
@@ -407,6 +527,118 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public Integer getSavedHeight()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SAVEDHEIGHT));
+  }
+  
+  public void validateSavedHeight()
+  {
+    this.validateAttribute(SAVEDHEIGHT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getSavedHeightMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SAVEDHEIGHT);
+  }
+  
+  public void setSavedHeight(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDHEIGHT, "");
+    }
+    else
+    {
+      setValue(SAVEDHEIGHT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getSavedWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SAVEDWIDTH));
+  }
+  
+  public void validateSavedWidth()
+  {
+    this.validateAttribute(SAVEDWIDTH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getSavedWidthMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SAVEDWIDTH);
+  }
+  
+  public void setSavedWidth(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SAVEDWIDTH, "");
+    }
+    else
+    {
+      setValue(SAVEDWIDTH, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getScaleXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEXPOSITION));
+  }
+  
+  public void validateScaleXPosition()
+  {
+    this.validateAttribute(SCALEXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getScaleXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SCALEXPOSITION);
+  }
+  
+  public void setScaleXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEXPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getScaleYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SCALEYPOSITION));
+  }
+  
+  public void validateScaleYPosition()
+  {
+    this.validateAttribute(SCALEYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getScaleYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(SCALEYPOSITION);
+  }
+  
+  public void setScaleYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SCALEYPOSITION, "");
+    }
+    else
+    {
+      setValue(SCALEYPOSITION, java.lang.Integer.toString(value));
     }
   }
   
