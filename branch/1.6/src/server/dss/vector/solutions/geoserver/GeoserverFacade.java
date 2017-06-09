@@ -1,5 +1,6 @@
 package dss.vector.solutions.geoserver;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class GeoserverFacade implements Reloadable
   {
     return getService().workspaceExists();
   }
-
+  
   public static void removeWorkspace()
   {
     getService().removeWorkspace();
@@ -61,6 +62,27 @@ public class GeoserverFacade implements Reloadable
   public static void publishWorkspace()
   {
     getService().publishWorkspace();
+  }
+  
+  public static void removeStore(String workspaceName, String storeName)
+  {
+    getService().removeStore(workspaceName, storeName);
+  }
+  
+  public static boolean workspaceExists(String workspaceName)
+  {
+    return getService().workspaceExists(workspaceName);
+  }
+  
+  public static void removeWorkspace(String workspaceName)
+  {
+    getService().removeWorkspace(workspaceName);
+  }
+
+  public static void publishWorkspace(String workspaceName)
+  {
+	  System.out.println("publishing osm workspace");
+    getService().publishWorkspace(workspaceName);
   }
 
   /**
@@ -76,6 +98,11 @@ public class GeoserverFacade implements Reloadable
   public static void publishStore()
   {
     getService().publishStore();
+  }
+  
+  public static void publishStore(String storeName, String dbName, String schemaName)
+  {
+    getService().publishStore(storeName, dbName, schemaName);
   }
 
   /**
@@ -128,6 +155,11 @@ public class GeoserverFacade implements Reloadable
   {
     getService().removeStyle(styleName);
   }
+  
+  public static boolean publishStyle(String styleName, File sldFile, boolean force)
+  {
+    return getService().publishStyle(styleName, sldFile, force);
+  }
 
   public static boolean publishStyle(String styleName, String body, boolean force)
   {
@@ -149,11 +181,23 @@ public class GeoserverFacade implements Reloadable
   {
     getService().pushUpdates(batch);
   }
+  
+  /**
+   * Publishes a layer group composed of existing GeoServer layers.
+   * 
+   * @param layer
+   * @param styleName
+   */
+  public static boolean publishLayerGroup(String[] layers, String workspace, String groupName)
+  {
+    return getService().publishLayerGroup(layers, workspace, groupName);
+  }
 
   /**
    * Adds a database view and publishes the layer if necessary.
    * 
    * @param layer
+   * @param styleName
    */
   public static boolean publishLayer(String layer, String styleName)
   {
@@ -168,6 +212,16 @@ public class GeoserverFacade implements Reloadable
   public static boolean publishLayer(GeoserverLayerIF layer)
   {
     return getService().publishLayer(layer.getLayerName(), layer.getStyleName());
+  }
+  
+  /**
+   * Publishes the layer if necessary.
+   * 
+   * @param layer
+   */
+  public static boolean publishOSMLayer(GeoserverLayerIF layer)
+  {
+    return getService().publishOSMLayer(layer.getLayerName(), layer.getStyleName());
   }
 
   /**
@@ -190,6 +244,17 @@ public class GeoserverFacade implements Reloadable
   public static boolean layerExists(String layer)
   {
     return getService().layerExists(layer);
+  }
+  
+  /**
+   * Checks if the given layer exists in Geoserver.
+   * 
+   * @param layer
+   * @return
+   */
+  public static boolean layerExists(String layer, String workspace)
+  {
+    return getService().layerExists(layer, workspace);
   }
 
   /**

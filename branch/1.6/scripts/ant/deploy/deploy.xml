@@ -542,6 +542,20 @@
 				<include name="*.*" />
 			</fileset>
 		</copy>
+		
+		<!-- Copy the map styles -->
+    <copy todir="${deploy.bin}" overwrite="true">
+      <fileset dir="${profile.root}/mapstyles">
+          <include name="**/*" />
+      </fileset>
+    </copy>
+    
+    <!-- Copy geoserver configs -->
+    <copy todir="${deploy.bin}" overwrite="true">
+      <fileset dir="${profile.root}/geoserverconfig">
+          <include name="**/*" />
+      </fileset>
+    </copy>
 
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />

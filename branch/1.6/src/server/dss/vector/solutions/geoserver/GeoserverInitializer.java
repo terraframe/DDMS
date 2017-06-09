@@ -40,7 +40,7 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
         if (GeoserverFacade.existGeoserver())
         {
           log.debug("Geoserver available.");
-
+          
           // To prevent a problem if the database connection information of the
           // datastore ever changes we must delete and recreate the store and workspace.
           if (GeoserverFacade.workspaceExists())
@@ -51,7 +51,11 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
 
           GeoserverFacade.publishWorkspace();
           GeoserverFacade.publishStore();
-
+          
+          LocalBasemapBuilder.configureGeoserverForOSM();
+          LocalBasemapBuilder.importAllBasemapData();
+          LocalBasemapBuilder.buildOSMGeoserverServices();
+          
           initialized = true;
           log.debug("Geoserver initialized.");
           return; // we are done here
@@ -83,7 +87,7 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
       }
     }
   }
-
+  
   public static boolean isInitialized()
   {
     try
@@ -142,5 +146,5 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
     // Shutdown the mapping database view cleanup thread
     cleanup.shutdown();
   }
-
+  
 }

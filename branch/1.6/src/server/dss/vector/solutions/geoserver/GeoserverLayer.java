@@ -8,7 +8,7 @@ import com.runwaysdk.gis.constants.GeoserverProperties;
 public class GeoserverLayer implements GeoserverLayerIF
 {
   public static enum LayerType {
-    POINT, POLYGON
+    POINT, POLYGON, LINE
   }
 
   private String    layerName;

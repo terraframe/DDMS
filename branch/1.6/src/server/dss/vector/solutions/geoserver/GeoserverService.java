@@ -15,14 +15,22 @@ public interface GeoserverService extends Reloadable
   public void refresh();
 
   public void removeStore();
+  
+  public void removeStore(String workspaceName, String storeName);
 
   public void removeWorkspace();
 
   public void publishWorkspace();
+  
+  public void removeWorkspace(String workspaceName);
+
+  public void publishWorkspace(String workspaceName);
 
   public boolean geoserverExists();
 
   public void publishStore();
+  
+  public void publishStore(String storeName, String dbName, String schemaName);
 
   /**
    * Checks if the given style exists in geoserver.
@@ -61,6 +69,8 @@ public interface GeoserverService extends Reloadable
   public void removeStyle(String styleName);
 
   public boolean publishStyle(String styleName, String body, boolean force);
+  
+  public boolean publishStyle(String styleName, File sldFile, boolean force);
 
   /**
    * Publishes the SQL of the given name with the XML body.
@@ -78,6 +88,23 @@ public interface GeoserverService extends Reloadable
    * @param layer
    */
   public boolean publishLayer(String layer, String styleName);
+  
+  /**
+   * Adds a database view and publishes the layer if necessary.
+   * 
+   * @param layers
+   * @param workspace
+   * @param groupName
+   */
+  boolean publishLayerGroup(String[] layers, String workspace, String groupName);
+  
+  /**
+   * Adds a database view and publishes the layer if necessary.
+   * 
+   * @param layer
+   * @param styleName
+   */
+  public boolean publishOSMLayer(String layer, String styleName);
 
   /**
    * Removes the layer from geoserver.
@@ -112,6 +139,15 @@ public interface GeoserverService extends Reloadable
    * @return
    */
   public boolean layerExists(String layer);
+  
+  /**
+   * Checks if the given layer exists in Geoserver.
+   * 
+   * @param layer
+   * @param workspace
+   * @return
+   */
+  public boolean layerExists(String layer, String workspace);
 
   /**
    * Checks if the given layer has a database view.
@@ -140,6 +176,8 @@ public interface GeoserverService extends Reloadable
 
   public boolean workspaceExists();
   
+  public boolean workspaceExists(String workspaceName);
+  
   public Integer getDecimalLength();
 
   public Integer getDecimalPrecision();
@@ -153,4 +191,5 @@ public interface GeoserverService extends Reloadable
   public String getGeoServerRemoteURL();
 
   public String getAppName();
+
 }

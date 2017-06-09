@@ -24,15 +24,33 @@ public class NullGeoserverService implements GeoserverService
   {
 
   }
+  
+  @Override
+  public void removeStore(String workspaceName, String storeName)
+  {
+
+  }
 
   @Override
   public void removeWorkspace()
   {
 
   }
+  
+  @Override
+  public void removeWorkspace(String workspaceName)
+  {
+
+  }
 
   @Override
   public void publishWorkspace()
+  {
+
+  }
+  
+  @Override
+  public void publishWorkspace(String workspaceName)
   {
 
   }
@@ -46,6 +64,12 @@ public class NullGeoserverService implements GeoserverService
 
   @Override
   public void publishStore()
+  {
+
+  }
+  
+  @Override
+  public void publishStore(String storeName, String dbName, String schemaName)
   {
 
   }
@@ -83,6 +107,13 @@ public class NullGeoserverService implements GeoserverService
   {
 
   }
+  
+  @Override
+  public boolean publishStyle(String styleName, File sldFile, boolean force)
+  {
+
+    return true;
+  }
 
   @Override
   public boolean publishStyle(String styleName, String body, boolean force)
@@ -103,9 +134,23 @@ public class NullGeoserverService implements GeoserverService
   {
 
   }
+  
+  @Override
+  public boolean publishLayerGroup(String[] layers, String workspace, String groupName)
+  {
+
+    return true;
+  }
 
   @Override
   public boolean publishLayer(String layer, String styleName)
+  {
+
+    return true;
+  }
+  
+  @Override
+  public boolean publishOSMLayer(String layer, String styleName)
   {
 
     return true;
@@ -148,6 +193,13 @@ public class NullGeoserverService implements GeoserverService
 
     return false;
   }
+  
+  @Override
+  public boolean layerExists(String layer, String workspace)
+  {
+
+    return false;
+  }
 
   @Override
   public boolean viewExists(String viewName)
@@ -158,6 +210,12 @@ public class NullGeoserverService implements GeoserverService
 
   @Override
   public boolean workspaceExists()
+  {
+    return false;
+  }
+  
+  @Override
+  public boolean workspaceExists(String workspaceName)
   {
     return false;
   }

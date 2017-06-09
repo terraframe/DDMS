@@ -65,6 +65,19 @@ var MapConfig ={
             "ENABLED":"true"
     	},
     	{
+            "NAME":"Offline Map",
+            "LOCLIZATION_KEY":"osmLocal",
+            "LAYER_TYPE":"Tile",
+            "LAYER_TYPE_OPTIONS":{},
+            "CUSTOM_TYPE_OPTIONS":{},
+            "LAYER_SOURCE_TYPE":"OSM-LOCAL",
+            "LAYER_SOURCE_OPTIONS":{},
+            "URL":"",
+            "DEFAULT":"true",
+            "VISIBLE":"true",
+            "ENABLED":"true"
+        },
+    	{
     		"NAME":"MapQuest",
     		"LOCLIZATION_KEY":"mqAerial",
     		"LAYER_TYPE":"Tile",

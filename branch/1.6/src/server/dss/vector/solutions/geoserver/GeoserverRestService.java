@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
+import java.sql.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.decoder.RESTLayerList;
 import it.geosolutions.geoserver.rest.encoder.GSLayerEncoder;
+import it.geosolutions.geoserver.rest.encoder.GSLayerGroupEncoder23;
 import it.geosolutions.geoserver.rest.encoder.datastore.GSPostGISDatastoreEncoder;
 import it.geosolutions.geoserver.rest.encoder.feature.GSFeatureTypeEncoder;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
@@ -91,7 +93,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   private static GeoServerRESTPublisher    publisher  = null;
 
   private static GeoServerRESTReader       restReader = null;
-
+  
   public void refresh()
   {
     if (this.getPublisher().reload())
@@ -113,7 +115,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     return CommonProperties.getDeployAppName();
   }
-
+  
   public void removeStore()
   {
     String store = QueryConstants.getNamespacedDataStore();
@@ -127,6 +129,19 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Failed to remove the datastore [" + store + "].");
     }
   }
+  
+  public void removeStore(String workspaceName, String storeName)
+  {
+
+    if (this.getPublisher().removeDatastore(workspaceName, storeName, true))
+    {
+      logger.info("Removed the datastore [" + storeName + "].");
+    }
+    else
+    {
+      logger.warn("Failed to remove the datastore [" + storeName + "].");
+    }
+  }
 
   public void removeWorkspace()
   {
@@ -137,6 +152,18 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     else
     {
       logger.warn("Failed to remove the workspace [" + this.getWorkspace() + "].");
+    }
+  }
+  
+  public void removeWorkspace(String workspaceName)
+  {
+    if (this.getPublisher().removeWorkspace(workspaceName, true))
+    {
+      logger.info("Removed the workspace [" + workspaceName + "].");
+    }
+    else
+    {
+      logger.warn("Failed to remove the workspace [" + workspaceName + "].");
     }
   }
 
@@ -171,6 +198,18 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     GeoServerRESTReader reader = this.getReader();
 
     return reader.existsWorkspace(this.getWorkspace());
+  }
+  
+  /**
+   * Checks if the given workspace exists.
+   * 
+   * @return
+   */
+  public boolean workspaceExists(String workspaceName)
+  {
+    GeoServerRESTReader reader = this.getReader();
+
+    return reader.existsWorkspace(workspaceName);
   }
 
   /**
@@ -238,6 +277,27 @@ public class GeoserverRestService implements GeoserverService, Reloadable
         logger.warn("Failed to remove the SLD [" + styleName + "].");
       }
 
+    }
+  }
+  
+  public boolean publishStyle(String styleName, File sldFile, boolean force)
+  {
+    GeoServerRESTPublisher publisher = this.getPublisher();
+
+    if (force && styleExists(styleName))
+    {
+      publisher.removeStyle(styleName, true);
+    }
+
+    if (publisher.publishStyle(sldFile, styleName, true))
+    {
+      logger.info("Published the SLD [" + styleName + "].");
+      return true;
+    }
+    else
+    {
+      logger.warn("Failed to publish the SLD [" + styleName + "].");
+      return false;
     }
   }
 
@@ -331,6 +391,33 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       }
     }
   }
+  
+  /**
+   * Removes the layer from geoserver.
+   * 
+   * @param layer
+   * @return
+   */
+  public boolean removeLayer(String layer, String workspace)
+  {
+    if (GeoserverFacade.layerExists(layer))
+    {
+      GeoServerRESTPublisher publisher = this.getPublisher();
+
+      if (publisher.removeLayer(workspace, layer))
+      {
+        logger.info("Removed the layer for [" + layer + "].");
+        return true;
+      }
+      else
+      {
+        logger.warn("Failed to remove the layer for [" + layer + "].");
+        return false;
+      }
+    }
+    
+	return false;
+  }
 
   public void publishCache(String layer)
   {
@@ -405,11 +492,26 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     GeoServerRESTReader reader = this.getReader();
 
-    boolean exists = reader.existsStyle(layer);
+    boolean exists = reader.existsLayer(this.getWorkspace(), layer);
 
     return exists;
   }
+  
+  /**
+   * Checks if the given layer exists in Geoserver.
+   * 
+   * @param layer
+   * @return
+   */
+  public boolean layerExists(String layer, String workspace)
+  {
+    GeoServerRESTReader reader = this.getReader();
 
+    boolean exists = reader.existsLayer(layer, workspace);
+
+    return exists;
+  }
+  
   /**
    * Checks if the given layer has a database view.
    * 
@@ -614,6 +716,32 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       throw ex;
     }
   }
+  
+  /**
+   * Adds a database view and publishes the layer if necessary.
+   * 
+   * @param layer
+   */
+  public boolean publishLayerGroup(String[] layers, String workspace, String groupName)
+  {
+	  
+	GSLayerGroupEncoder23 groupWriter = new GSLayerGroupEncoder23();
+	for(String layer : layers)
+	{
+	  groupWriter.addLayer(workspace.concat(":").concat(layer));
+	}
+
+    if (getPublisher().createLayerGroup(workspace, groupName, groupWriter))
+    {
+      logger.debug("Created the layer group [" + groupName + "] in geoserver.");
+      return true;
+    }
+    else
+    {
+      logger.error("Failed to create the layer group [" + groupName + "] in geoserver.");
+      return false;
+    }
+  }
 
   /**
    * Adds a database view and publishes the layer if necessary.
@@ -657,6 +785,143 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       return false;
     }
   }
+  
+  
+  public boolean publishOSMLayer(String layer, String styleName)
+  {
+	if(layerExists(layer))
+	{
+		boolean removed = removeLayer(layer, "OSM");
+		System.out.println(removed);
+	}
+	
+	
+    double[] bbox = null;
+	try {
+		bbox = getOSMBBOX(layer);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+    GSFeatureTypeEncoder fte = new GSFeatureTypeEncoder();
+    fte.setEnabled(true);
+    fte.setName(layer);
+    fte.setSRS(GeoserverFacade.SRS);
+    fte.setTitle(layer);
+    fte.addKeyword(layer);
+
+    if (bbox != null)
+    {
+      double minX = bbox[GeoserverFacade.MINX_INDEX];
+      double minY = bbox[GeoserverFacade.MINY_INDEX];
+      double maxX = bbox[GeoserverFacade.MAXX_INDEX];
+      double maxY = bbox[GeoserverFacade.MAXY_INDEX];
+
+      fte.setNativeBoundingBox(minX, minY, maxX, maxY, GeoserverFacade.SRS);
+      fte.setLatLonBoundingBox(minX, minY, maxX, maxY, GeoserverFacade.SRS);
+    }
+
+    GSLayerEncoder le = new GSLayerEncoder();
+    le.setDefaultStyle(styleName);
+    le.setEnabled(true);
+
+    if (getPublisher().publishDBLayer("OSM", "OSM", fte, le))
+    {
+      logger.debug("Created the layer [" + layer + "] in geoserver.");
+      return true;
+    }
+    else
+    {
+      logger.error("Failed to create the layer [" + layer + "] in geoserver.");
+      return false;
+    }
+  }
+  
+  public double[] getOSMBBOX(String table) throws SQLException
+  {
+	Connection dbConnection = null;
+	Statement statement = null;
+	
+	String query = "SELECT (st_xmin(collected)) as minx, (st_ymin(collected)) as miny, (st_xmax(collected)) as maxx, (st_ymax(collected)) as maxy ";
+	query = query.concat("FROM ( SELECT (st_collect(way)) AS collected ");
+	query = query.concat("FROM (SELECT (way) AS way FROM ".concat(table)); 
+	query = query.concat(") unioned) collected;");
+	
+	try
+	{
+		dbConnection = getOSMDBConnection();
+		statement = dbConnection.createStatement();
+
+		
+		
+		ResultSet rs = statement.executeQuery(query);
+		
+		while(rs.next())
+		{
+		
+		  double[] bbox = new double[4];
+	      bbox[GeoserverFacade.MINX_INDEX] = Double.parseDouble(rs.getString("minx"));
+	      bbox[GeoserverFacade.MINY_INDEX] = Double.parseDouble(rs.getString("miny"));
+	      bbox[GeoserverFacade.MAXX_INDEX] = Double.parseDouble(rs.getString("maxx"));
+	      bbox[GeoserverFacade.MAXY_INDEX] = Double.parseDouble(rs.getString("maxy"));
+
+	      return bbox;
+		}
+	
+	} 
+	catch(SQLException e) {
+		System.out.println(e);
+	}
+	finally {
+
+		if (statement != null) {
+			statement.close();
+		}
+
+		if (dbConnection != null) {
+			dbConnection.close();
+		}
+
+	}
+	
+	return null;
+  }
+  
+  private static Connection getOSMDBConnection() {
+	  
+		final String DB_DRIVER = "org.postgresql.Driver";
+		final String DB_CONNECTION = "jdbc:postgresql://localhost:".concat(Integer.toString(DatabaseProperties.getPort())).concat("/osm");
+		final String DB_USER = DatabaseProperties.getUser(); 
+		final String DB_PASSWORD = DatabaseProperties.getPassword();
+
+		Connection dbConnection = null;
+
+		try {
+
+			Class.forName(DB_DRIVER);
+
+		} catch (ClassNotFoundException e) {
+
+			System.out.println(e.getMessage());
+
+		}
+
+		try {
+
+			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,
+					DB_PASSWORD);
+			return dbConnection;
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		}
+
+		return dbConnection;
+
+	}
 
   /**
    * Calculates the bounding box of all the layers.
@@ -845,6 +1110,27 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       throw new ConfigurationException("The URI [" + getGeoServerLocalURL() + "] is invalid.", e);
     }
   }
+  
+  public void publishWorkspace(String workspaceName)
+  {
+
+    try
+    {
+
+      if (getPublisher().createWorkspace(workspaceName, new URI(workspaceName)))
+      {
+        logger.info("Created the workspace [" + workspaceName + "].");
+      }
+      else
+      {
+        logger.warn("Failed to create the workspace [" + workspaceName + "].");
+      }
+    }
+    catch (URISyntaxException e)
+    {
+      throw new ConfigurationException("The URI [" + getGeoServerLocalURL() + "] is invalid.", e);
+    }
+  }
 
   public void publishStore()
   {
@@ -878,6 +1164,48 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     else
     {
       logger.warn("Failed to publish the store [" + QueryConstants.getNamespacedDataStore() + "].");
+    }
+  }
+  
+  public void publishStore(String storeName, String dbName, String schemaName)
+  {
+	String dbSchema = "public";
+	if(schemaName != null)
+	{
+		dbSchema = schemaName;
+	}
+	else
+	{
+      dbSchema = DatabaseProperties.getNamespace().length() != 0 ? DatabaseProperties.getNamespace() : "public";
+	}
+
+    GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder(storeName);
+    datastore.setDatabase(dbName);
+    datastore.setUser(DatabaseProperties.getUser());
+    datastore.setPassword(DatabaseProperties.getPassword());
+    datastore.setName(storeName);
+    datastore.setHost(DatabaseProperties.getServerName());
+    datastore.setPort(DatabaseProperties.getPort());
+    datastore.setSchema(dbSchema);
+    datastore.setNamespace(storeName);
+    datastore.setEnabled(true);
+    datastore.setMaxConnections(10);
+    datastore.setMinConnections(1);
+    datastore.setFetchSize(1000);
+    datastore.setConnectionTimeout(20);
+    datastore.setValidateConnections(true);
+    datastore.setLooseBBox(true);
+    datastore.setExposePrimaryKeys(false);
+    datastore.setPreparedStatements(false);
+
+    GeoServerRESTStoreManager manager = getManager();
+    if (manager.create(storeName, datastore))
+    {
+      logger.info("Published the store [" + storeName + "].");
+    }
+    else
+    {
+      logger.warn("Failed to publish the store [" + storeName + "].");
     }
   }
 

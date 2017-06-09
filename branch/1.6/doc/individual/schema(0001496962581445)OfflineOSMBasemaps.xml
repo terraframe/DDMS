@@ -1,0 +1,38 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdController
+         name="dss.vector.solutions.basemap.OfflineBasemapController"
+         label="Offline Map Administration Controller"
+         description="Controller to manage offline map data">
+        <mdAction name="viewAll" label="View All" description="View all available basemap data" />
+        <mdAction name="submit" label="Submit" description="Submit basemaps selected for upload" />
+      </mdController>
+      
+      <mdBusiness
+         name="dss.vector.solutions.basemap.OfflineBasemapManagement"
+         isAbstract="false"
+         label="Offline Basemap Management"
+         description="Offline basemap management"
+         cacheAlgorithm="everything">
+        <attributes>
+          <char name="config" label="Offline Basemap Configuration" required="true" size="10000" />
+        </attributes>
+      </mdBusiness>
+      
+      <object
+        type="dss.vector.solutions.basemap.OfflineBasemapManagement"
+        key="Singleton">
+        <attribute
+          name="config"
+          value="{}" />
+      </object>
+      
+      
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
