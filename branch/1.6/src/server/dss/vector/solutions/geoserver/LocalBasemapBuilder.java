@@ -196,7 +196,7 @@ public class LocalBasemapBuilder implements Reloadable
 	
 	
     List<String> command = new ArrayList<String>();
-    command.add("osm2pgsql");
+    command.add("C:\\libs\\share\\osm2pgsql\\osm2pgsql.exe");
     command.add("--".concat(uploadMethod));
     command.add("--number-processes");
     command.add("4"); // 4 processes
