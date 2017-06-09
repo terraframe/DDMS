@@ -1,6 +1,9 @@
 package dss.vector.solutions.geoserver;
 
+import java.io.RandomAccessFile;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.logging.Log;
@@ -40,7 +43,7 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
         if (GeoserverFacade.existGeoserver())
         {
           log.debug("Geoserver available.");
-          
+
           // To prevent a problem if the database connection information of the
           // datastore ever changes we must delete and recreate the store and workspace.
           if (GeoserverFacade.workspaceExists())
@@ -51,11 +54,45 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
 
           GeoserverFacade.publishWorkspace();
           GeoserverFacade.publishStore();
-          
-          LocalBasemapBuilder.configureGeoserverForOSM();
-          LocalBasemapBuilder.importAllBasemapData();
-          LocalBasemapBuilder.buildOSMGeoserverServices();
-          
+
+          RandomAccessFile raf = new RandomAccessFile(GeoserverProperties.getLockPath(), "rw");
+
+          try
+          {
+            FileChannel fileChannel = raf.getChannel();
+
+            try
+            {
+              FileLock lock = fileChannel.tryLock();
+
+              try
+              {
+                if (lock != null)
+                {
+                  // Got the lock
+                  LocalBasemapBuilder.configureGeoserverForOSM();
+                  LocalBasemapBuilder.importAllBasemapData();
+                  LocalBasemapBuilder.buildOSMGeoserverServices();
+                }
+              }
+              finally
+              {
+                if (lock != null)
+                {
+                  lock.release();
+                }
+              }
+            }
+            finally
+            {
+              fileChannel.close();
+            }
+          }
+          finally
+          {
+            raf.close();
+          }
+
           initialized = true;
           log.debug("Geoserver initialized.");
           return; // we are done here
@@ -74,7 +111,9 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
           }
         }
       }
-      catch (Throwable t)
+      catch (
+
+      Throwable t)
       {
         // we couldn't hit the application correctly, so log the error
         // and quit the loop to avoid excessive logging
@@ -86,8 +125,9 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
         lock.unlock();
       }
     }
+
   }
-  
+
   public static boolean isInitialized()
   {
     try
@@ -146,5 +186,5 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
     // Shutdown the mapping database view cleanup thread
     cleanup.shutdown();
   }
-  
+
 }

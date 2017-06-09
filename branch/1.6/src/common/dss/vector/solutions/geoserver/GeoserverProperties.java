@@ -1,9 +1,11 @@
 package dss.vector.solutions.geoserver;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.runwaysdk.constants.BusinessInfo;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.terraframe.utf8.UTF8ResourceBundle;
 
@@ -23,7 +25,7 @@ public class GeoserverProperties implements Reloadable
 
   public ResourceBundle getBundle()
   {
-    return bundle;  
+    return bundle;
   }
 
   public static String getGeoserverGWCDir()
@@ -54,5 +56,15 @@ public class GeoserverProperties implements Reloadable
   public static String getAppName()
   {
     return instance.getBundle().getString("geoserver.appname");
+  }
+
+  public static String getLockFile()
+  {
+    return instance.getBundle().getString("geoserver.lock.file");
+  }
+
+  public static String getLockPath()
+  {
+    return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + getAppName() + File.separator + getLockFile();
   }
 }
