@@ -1,11 +1,8 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -529,12 +526,12 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
               generated.apply();
 
-//              /*
-//               * This is for testing
-//               */
+              /*
+               * This is for testing
+               */
 //              try
 //              {
-//                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + "/" + dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
 //
 //                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
 //              }
