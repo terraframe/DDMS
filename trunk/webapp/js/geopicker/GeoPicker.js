@@ -72,27 +72,24 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     {
       com.runwaysdk.ui.Manager.setFactory("YUI3");
       var factory = com.runwaysdk.ui.Manager.getFactory();
-      
-      var containerId = "geoPickerContainer" + this._suffix;
-      var panelId = "geoPickerPanelEl" + this._suffix;
       var width = this.hasLeftPanel() ? 600 : 405;
       var height = this.hasLeftPanel() ? 550 : 360;
-      var margin = 5;
-      var buttonHeight = 30;
-      var titleHeight = 24;
+      var containerId = "geoPickerContainer" + this._suffix;
+      var panelId = "geoPickerPanelEl" + this._suffix;
+      this._margin = 5;
+      this._titleHeight = 24;
       
       // Geo Picker container (grand daddy of all els)
       this._geoPickerPanelEl = factory.newElement("div", {"id":panelId});
       this._geoPickerContainer = factory.newElement("div", {"id":containerId});
       this._geoPickerPanelEl.setStyle("background-color", "white");
-//      this._geoPickerContainer.setStyle("overflow", "auto");
-      this._geoPickerContainer.setStyle("height", (height - titleHeight - buttonHeight - margin*2) + "px");
-      this._geoPickerContainer.setStyle("width",  width - margin*2)
+      this._geoPickerContainer.addClassName("geoPickerContainer");
+      this._geoPickerContainer.setStyle("height", "calc(100% - " + (this._titleHeight + this._margin*2) + "px)");
+      this._geoPickerContainer.setStyle("width",  "calc(100% - " + this._margin*2 + "px)");
       this._geoPickerContainer.setStyle("position", "absolute");
-      this._geoPickerContainer.setStyle("margin", margin + "px");
+      this._geoPickerContainer.setStyle("margin", this._margin + "px");
       this._geoPickerPanelEl.appendChild(this._geoPickerContainer);
       this._geoPickerPanelEl.render(document.body);
-      
       
       // Turn that geoPickerContainer element into a Popup
       this._geoPickerMainPanel = new YAHOO.widget.Panel(panelId, {width: width+"px", height:height+"px", fixedcenter: true, zindex:9});
@@ -102,13 +99,13 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       this._geoPickerMainPanel.hide();
       
       // Make the panel Resizable
-//      var resize = new YAHOO.util.Resize(containerId, { 
-//        handles: ['br'], 
-//        autoRatio: false, 
-//        minWidth: width-100, 
-//        minHeight: height-100, 
-//        status: false 
-//      }); 
+      var resize = new YAHOO.util.Resize(panelId, { 
+        handles: ['br'], 
+        autoRatio: false, 
+        minWidth: width-50, 
+        minHeight: height-50, 
+        status: false 
+      }); 
       
       this.layoutLeftPanel(this._geoPickerContainer);
       
@@ -125,46 +122,52 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       var dividerColor = "#87a4db";
       
       // Geo grand daddy el
-      var geoDaddy = factory.newElement("div", {"id":"geoDaddy" + this._suffix});
-      geoDaddy.setStyle("margin-top", "10px");
-      geoDaddy.setStyle("width", "400px");
-      geoDaddy.setStyle("float", "left");
-      parent.appendChild(geoDaddy);
+      this._geoDaddy = factory.newElement("div", {"id":"this._geoDaddy" + this._suffix});
+      this._geoDaddy.setStyle("width", "100%");
+      this._geoDaddy.setStyle("height", "100%");
+      this._geoDaddy.setStyle("float", "left");
+      parent.appendChild(this._geoDaddy);
       
       // Section title that says "Select filters"
       if (this.hasLeftPanel())
       {
         var geoSectionTitle = factory.newElement("h2", {"id":"geoSectionTitle" + this._suffix});
         geoSectionTitle.setInnerHTML("Select filters"); // TODO : localize
-        geoDaddy.appendChild(geoSectionTitle);
-        geoDaddy.appendChild(factory.newElement("hr", {"color": dividerColor}));
+        this._geoDaddy.appendChild(geoSectionTitle);
+        this._geoDaddy.appendChild(factory.newElement("hr", {"color": dividerColor}));
       }
       
       // Geo search bar
+      this._geoInputHeight = 19;
       var geoInputId = 'geoPickerSearchBar_' + this._suffix;
       var geoInput = factory.newElement("input", {"type":"text", "id":geoInputId});
       var hiddenGeoInput = factory.newElement("input", {"type":"hidden", "id": geoInputId + '_geoEntityId'});
-      geoDaddy.appendChild(hiddenGeoInput);
-      geoDaddy.appendChild(geoInput);
+      this._geoDaddy.appendChild(hiddenGeoInput);
+      this._geoDaddy.appendChild(geoInput);
       var geoSearch = new MDSS.GeoSearch(geoInput.getRawEl(), this.getGeoFilterCriteria());
       geoSearch.setSelectEventHandler(Mojo.Util.bind(this, this.searchBarSelectHandler));
       geoSearch.setIsFormInput(false);
       
       // Geo Tree
-      var treeContainer = factory.newElement('div', {'id':"treeViewContainer" + this._suffix, 'class':'yui-skin-sam'}, {'background-color':'white', "overflow":"auto", "height":"300px"});
-      geoDaddy.setStyle("overflow", "auto");
+      this._treeContainer = factory.newElement('div', {'id':"treeViewContainer" + this._suffix, 'class':'yui-skin-sam'}, {'background-color':'white', "overflow":"auto"});
+      this._geoDaddy.setStyle("overflow", "auto");
       var treeDiv = factory.newElement('div', {'id':'treeView' + this._suffix});
-      treeContainer.appendChild(treeDiv);
-      geoDaddy.appendChild(treeContainer);
+      this._treeContainer.appendChild(treeDiv);
+      this._geoDaddy.appendChild(this._treeContainer);
       if (this.hasLeftPanel())
       {
-        // Add checkboxes to geo tree
-        treeDiv.addClassName("ygtv-checkbox");
+        treeDiv.addClassName("ygtv-checkbox"); // Add checkboxes to geo tree
+        this._treeContainer.setStyle("height","50%");
+      }
+      else
+      {
+        this._treeContainer.setStyle("height","calc(100% - " + this._geoInputHeight + "px)");
+        this._treeContainer.setStyle("width","calc(100%)");
       }
       this._tree.allowSearchingForGeos();
       this._tree.render();
       
-      return geoDaddy;
+      return this._geoDaddy;
     },
     
     hasLeftPanel : function()

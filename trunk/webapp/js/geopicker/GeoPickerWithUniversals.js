@@ -23,11 +23,18 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       var factory = com.runwaysdk.ui.Manager.getFactory();
       var dividerColor = "#87a4db";
       
+      this._buttonHeight = 30;
+      
+      this._geoDaddyW = 70; // in Percentage
+      this._uniDaddyW = 100 - this._geoDaddyW;
+      
+      this._geoPickerContainer.setStyle("height", "calc(100% - " + (this._titleHeight + this._buttonHeight + this._margin*2) + "px)");
+      
       // Universal grand daddy el
       var uniDaddy = factory.newElement("div", {"id":"uniDaddy" + this._suffix});
       uniDaddy.setStyle("margin-top", "10px");
       uniDaddy.setStyle("float", "left");
-      uniDaddy.setStyle("width", "150px");
+      uniDaddy.setStyle("width", "calc(" + this._uniDaddyW + "% - " + (this._margin*2 + 1) + "px)");
       uniDaddy.setStyle("height", "100%");
       parent.appendChild(uniDaddy);
       
@@ -40,7 +47,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       // Universal list
       this.layoutUniversalList(uniDaddy);
       
-      parent.appendChild(factory.newElement("hr", {"width": "1", "size": "300"}, {"float": "left", "margin": "10px"}));
+      parent.appendChild(factory.newElement("hr", {"width": "1", "size": "300"}, {"float": "left", "margin": this._margin}));
     },
     
     hasLeftPanel : function()
@@ -89,7 +96,12 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       var factory = com.runwaysdk.ui.Manager.getFactory();
       var geoDaddy = this.$layoutGeoSection(parent);
       
-      this._results = factory.newElement('div', {'id':"results" + this._suffix}, {"position":"absolute", "bottom":"0px", "height":"100px", "overflow":"auto"});
+      this._geoDaddy.setStyle("height", "100%");
+      this._geoDaddy.setStyle("width",  "calc(" + this._geoDaddyW + "% - " + (this._margin*2 + 1) + "px)");
+      
+      this._treeContainer.setStyle("height","calc(70% - " + ((this._geoInputHeight + 14 + 45)/2) + "px)");
+      
+      this._results = factory.newElement('div', {'id':"results" + this._suffix}, {"bottom":"0px", "height":"calc(30% - " + ((this._geoInputHeight + 14 + 45)/2) + "px)", "overflow":"auto"});
       geoDaddy.appendChild(this._results);
       
       // OK / Cancel Buttons
@@ -108,7 +120,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       var ok = com.runwaysdk.Localize.get("OK");
       var cancel = com.runwaysdk.Localize.get("Cancel");
       
-      this._bContainer = fac.newElement("div", null, {height:"30px", width:"130px", "padding-left":"120px", "padding-top":"20px", "position":"absolute", "bottom":"0px"});
+      this._bContainer = fac.newElement("div", null, {height: this._buttonHeight + "px", width:"100px", "padding-left":"calc(50% - 100px)", "position":"absolute", "padding-top":"10px", "bottom":"0px"});
       this._bOK = fac.newButton(ok, Mojo.Util.bind(this, this._okHandler));
       this._bOK.setStyle("margin-right", "5px");
       this._bOK.setEnabled(true);
