@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -2001641267)
+@com.runwaysdk.business.ClassSignature(hash = -822994480)
 public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = -2001641267;
+  private static final long serialVersionUID = -822994480;
   
   protected SavedSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,15 +16,53 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
     return CLASS;
   }
   
+  public static java.lang.String ADDITIVESELECTABLES = "additiveSelectables";
   public static java.lang.String CONFIG = "config";
+  public static java.lang.String DELETESELECTABLES = "deleteSelectables";
   public static java.lang.String ID = "id";
   public static java.lang.String ISMATERIALIZED = "isMaterialized";
   public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
-  public static java.lang.String OVERWRITE = "overwrite";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
+  public String getAdditiveSelectables()
+  {
+    return getValue(ADDITIVESELECTABLES);
+  }
+  
+  public void setAdditiveSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(ADDITIVESELECTABLES, "");
+    }
+    else
+    {
+      setValue(ADDITIVESELECTABLES, value);
+    }
+  }
+  
+  public boolean isAdditiveSelectablesWritable()
+  {
+    return isWritable(ADDITIVESELECTABLES);
+  }
+  
+  public boolean isAdditiveSelectablesReadable()
+  {
+    return isReadable(ADDITIVESELECTABLES);
+  }
+  
+  public boolean isAdditiveSelectablesModified()
+  {
+    return isModified(ADDITIVESELECTABLES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getAdditiveSelectablesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(ADDITIVESELECTABLES).getAttributeMdDTO();
+  }
+  
   public String getConfig()
   {
     return getValue(CONFIG);
@@ -60,6 +98,43 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getConfigMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
+  }
+  
+  public String getDeleteSelectables()
+  {
+    return getValue(DELETESELECTABLES);
+  }
+  
+  public void setDeleteSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(DELETESELECTABLES, "");
+    }
+    else
+    {
+      setValue(DELETESELECTABLES, value);
+    }
+  }
+  
+  public boolean isDeleteSelectablesWritable()
+  {
+    return isWritable(DELETESELECTABLES);
+  }
+  
+  public boolean isDeleteSelectablesReadable()
+  {
+    return isReadable(DELETESELECTABLES);
+  }
+  
+  public boolean isDeleteSelectablesModified()
+  {
+    return isModified(DELETESELECTABLES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDeleteSelectablesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DELETESELECTABLES).getAttributeMdDTO();
   }
   
   public Boolean getIsMaterialized()
@@ -134,43 +209,6 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getKaleidoscopesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(KALEIDOSCOPES).getAttributeMdDTO();
-  }
-  
-  public Boolean getOverwrite()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVERWRITE));
-  }
-  
-  public void setOverwrite(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OVERWRITE, "");
-    }
-    else
-    {
-      setValue(OVERWRITE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isOverwriteWritable()
-  {
-    return isWritable(OVERWRITE);
-  }
-  
-  public boolean isOverwriteReadable()
-  {
-    return isReadable(OVERWRITE);
-  }
-  
-  public boolean isOverwriteModified()
-  {
-    return isModified(OVERWRITE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getOverwriteMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OVERWRITE).getAttributeMdDTO();
   }
   
   public String getQueryName()

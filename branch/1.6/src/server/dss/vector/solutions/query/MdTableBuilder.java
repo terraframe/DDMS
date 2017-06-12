@@ -39,13 +39,13 @@ import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTextDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeCharacterDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDateDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDateTimeDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecimalDAO;
@@ -85,6 +85,52 @@ import dss.vector.solutions.ontology.Term;
 
 public class MdTableBuilder implements Reloadable
 {
+  private static class ClassDefinition implements Reloadable
+  {
+    private GeoHierarchy         lowest;
+
+    private List<GeoNode>        nodes;
+
+    private List<MdAttributeDAO> attributes;
+
+    public ClassDefinition(GeoHierarchy lowest)
+    {
+      this.lowest = lowest;
+      this.nodes = new LinkedList<GeoNode>();
+      this.attributes = new LinkedList<MdAttributeDAO>();
+    }
+
+    public void addAttribute(MdAttributeDAO mdAttribute)
+    {
+      this.attributes.add(mdAttribute);
+    }
+
+    public void addNode(GeoNode node)
+    {
+      this.nodes.add(node);
+    }
+
+    public List<MdAttributeDAO> getAttributes()
+    {
+      return attributes;
+    }
+
+    public void setLowest(GeoHierarchy lowest)
+    {
+      this.lowest = lowest;
+    }
+
+    public GeoHierarchy getLowest()
+    {
+      return lowest;
+    }
+
+    public List<GeoNode> getNodes()
+    {
+      return nodes;
+    }
+  }
+
   public MdTable build(String label, String viewName, ValueQuery query) throws JSONException
   {
     // Create the MdTable
@@ -98,14 +144,61 @@ public class MdTableBuilder implements Reloadable
     return build(mdTableDAO, query);
   }
 
-  @SuppressWarnings("unchecked")
   private MdTable build(MdTableDAO mdTableDAO, ValueQuery query)
   {
-    GeoHierarchy lowest = null;
-
     Disease disease = Disease.getCurrent();
 
     List<Selectable> selectables = query.getSelectableRefs();
+    ClassDefinition definition = this.defineMdAttributes(mdTableDAO, disease, null, selectables);
+
+    MdTable mdTable = (MdTable) BusinessFacade.get(mdTableDAO);
+
+    /*
+     * Create a new refresh job
+     */
+    RefreshViewJob job = new RefreshViewJob();
+    job.setMaterializedTable(mdTable);
+    job.apply();
+
+    /*
+     * Define the dataset
+     */
+    MappableClass mClass = new MappableClass();
+    mClass.setWrappedMdClass(mdTable);
+    mClass.setDisease(disease);
+    mClass.apply();
+
+    List<MdAttributeDAO> attributes = definition.getAttributes();
+    GeoHierarchy lowest = definition.getLowest();
+    List<GeoNode> nodes = definition.getNodes();
+
+    for (MdAttributeDAO mdAttributeDAO : attributes)
+    {
+      MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
+
+      MappableAttribute mAttribute = new MappableAttribute();
+      mAttribute.setWrappedMdAttribute(mdAttribute);
+      mAttribute.setAggregatable(true);
+      mAttribute.apply();
+    }
+
+    if (lowest != null)
+    {
+      mClass.addUniversal(lowest).apply();
+    }
+
+    for (GeoNode node : nodes)
+    {
+      mClass.addGeoNode(node).apply();
+    }
+
+    return mdTable;
+  }
+
+  @SuppressWarnings("unchecked")
+  private ClassDefinition defineMdAttributes(MdTableDAO mdTableDAO, Disease disease, GeoHierarchy lowest, List<Selectable> selectables)
+  {
+    ClassDefinition definition = new ClassDefinition(lowest);
 
     for (Selectable selectable : selectables)
     {
@@ -129,6 +222,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, mdBusiness.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
 
           // Create the browser field
           BrowserField tField = new BrowserField();
@@ -181,6 +276,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
         else
         {
@@ -192,6 +289,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
           mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
       }
       else if (mdAttributeIF instanceof MdAttributeCharacterDAOIF || mdAttributeIF instanceof MdAttributeTextDAOIF)
@@ -222,10 +321,19 @@ public class MdTableBuilder implements Reloadable
             mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
             mdAttribute.apply();
 
-            if (lowest == null || lowest.isAncestor(mdGeoEntity.definesType()))
+            definition.addAttribute(mdAttribute);
+
+            if (definition.getLowest() == null || definition.getLowest().isAncestor(mdGeoEntity.definesType()))
             {
-              lowest = hierarchy;
+              definition.setLowest(hierarchy);
             }
+
+            GeoNodeEntity node = new GeoNodeEntity();
+            node.setKeyName(mdAttribute.getKey());
+            node.setGeoEntityAttribute(MdAttributeReference.get(mdAttributeReference.getId()));
+            node.apply();
+
+            definition.addNode(node);
           }
         }
         else if (mdAttributeIF instanceof MdAttributeTextDAOIF)
@@ -236,6 +344,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeTextInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
         else
         {
@@ -251,6 +361,8 @@ public class MdTableBuilder implements Reloadable
             mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
             mdAttribute.setValue(MdAttributeCharacterInfo.SIZE, "4000");
             mdAttribute.apply();
+
+            definition.addAttribute(mdAttribute);
           }
         }
       }
@@ -262,6 +374,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.setValue(MdAttributeDateInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeDateTimeDAOIF)
       {
@@ -271,6 +385,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.setValue(MdAttributeDateTimeInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeTimeDAOIF)
       {
@@ -280,6 +396,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.setValue(MdAttributeTimeInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
         mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeDecimalDAOIF)
       {
@@ -291,6 +409,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeDecimalInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeDecimalInfo.DECIMAL).setValue("2");
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeDoubleDAOIF)
       {
@@ -302,6 +422,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeFloatDAOIF)
       {
@@ -313,6 +435,8 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeFloatInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeFloatInfo.DECIMAL).setValue("2");
         mdAttribute.apply();
+
+        definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeIntegerDAOIF)
       {
@@ -326,6 +450,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeIntegerInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
         else
         {
@@ -337,6 +463,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
           mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
       }
       else if (mdAttributeIF instanceof MdAttributeLongDAOIF)
@@ -351,6 +479,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
           mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
         else
         {
@@ -362,6 +492,8 @@ public class MdTableBuilder implements Reloadable
           mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
           mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
           mdAttribute.apply();
+
+          definition.addAttribute(mdAttribute);
         }
       }
       else
@@ -370,71 +502,10 @@ public class MdTableBuilder implements Reloadable
       }
     }
 
-    MdTable mdTable = (MdTable) BusinessFacade.get(mdTableDAO);
-
-    /*
-     * Create a new refresh job
-     */
-    RefreshViewJob job = new RefreshViewJob();
-    job.setMaterializedTable(mdTable);
-    job.apply();
-
-    /*
-     * Define the dataset
-     */
-    List<GeoNode> nodes = new LinkedList<GeoNode>();
-
-    MappableClass mClass = new MappableClass();
-    mClass.setWrappedMdClass(mdTable);
-    mClass.setDisease(disease);
-    mClass.apply();
-
-    List<? extends MdAttributeDAOIF> attributes = mdTableDAO.definesAttributes();
-
-    for (MdAttributeDAOIF mdAttributeDAO : attributes)
-    {
-      MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
-
-      MappableAttribute mAttribute = new MappableAttribute();
-      mAttribute.setWrappedMdAttribute(mdAttribute);
-      mAttribute.setAggregatable(true);
-      mAttribute.apply();
-
-      // Build the GeoNode
-      if (mdAttributeDAO instanceof MdAttributeReferenceDAOIF)
-      {
-        MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeDAO;
-        MdBusinessDAOIF mdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
-        MdEntityDAOIF rootBusiness = mdBusiness.getRootMdClassDAO();
-
-        if (rootBusiness.definesType().equals(GeoEntity.CLASS))
-        {
-          GeoNodeEntity node = new GeoNodeEntity();
-          node.setKeyName(mdAttribute.getKey());
-          node.setGeoEntityAttribute((MdAttributeReference) mdAttribute);
-          node.apply();
-
-          nodes.add(node);
-        }
-      }
-    }
-
-    if (lowest != null)
-    {
-      mClass.addUniversal(lowest).apply();
-    }
-
-    for (
-
-    GeoNode node : nodes)
-    {
-      mClass.addGeoNode(node).apply();
-    }
-
-    return mdTable;
+    return definition;
   }
 
-  public void update(MdTable mdTable, ValueQuery query) throws JSONException
+  public void overwrite(MdTable mdTable, ValueQuery query) throws JSONException
   {
     this.delete(mdTable, false);
 
@@ -450,10 +521,7 @@ public class MdTableBuilder implements Reloadable
 
   private void delete(MdTable mdTable, boolean includeTable)
   {
-    /*
-     * Delete the materialized view
-     */
-    Database.executeStatement("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
+    this.deleteMaterializedTable(mdTable);
 
     /*
      * Delete the materialized table metadata
@@ -503,6 +571,14 @@ public class MdTableBuilder implements Reloadable
     }
   }
 
+  public void deleteMaterializedTable(MdTable mdTable)
+  {
+    /*
+     * Delete the materialized view
+     */
+    Database.executeStatement("DROP TABLE IF EXISTS " + mdTable.getTableName() + " CASCADE");
+  }
+
   private void deleteBrowserRoots(MdTable mdTable)
   {
     MdTableDAOIF mdTableDAO = MdTableDAO.get(mdTable.getId());
@@ -537,6 +613,66 @@ public class MdTableBuilder implements Reloadable
           field.delete();
         }
       }
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public void update(MdTable mdTable, ValueQuery query, List<String> attributesToAdd)
+  {
+    this.deleteMaterializedTable(mdTable);
+
+    List<Selectable> filtered = new LinkedList<Selectable>();
+
+    List<Selectable> selectables = query.getSelectableRefs();
+
+    for (Selectable selectable : selectables)
+    {
+      Map<String, Object> data = (Map<String, Object>) selectable.getData();
+
+      String alias = (String) data.get(SavedSearch.ALIAS);
+
+      if (attributesToAdd.contains(alias))
+      {
+        filtered.add(selectable);
+      }
+    }
+
+    MdTableDAO mdTableDAO = (MdTableDAO) BusinessFacade.getEntityDAO(mdTable).getEntityDAO();
+    Disease disease = Disease.getCurrent();
+
+    MappableClass mClass = MappableClass.getMappableClass(mdTableDAO);
+
+    GeoHierarchy lowest = mClass.getAllUniversal().getAll().get(0);
+
+    ClassDefinition definition = this.defineMdAttributes(mdTableDAO, disease, lowest, filtered);
+
+    List<MdAttributeDAO> attributes = definition.getAttributes();
+    GeoHierarchy nLowest = definition.getLowest();
+    List<GeoNode> nodes = definition.getNodes();
+
+    for (MdAttributeDAO mdAttributeDAO : attributes)
+    {
+      MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
+
+      MappableAttribute mAttribute = new MappableAttribute();
+      mAttribute.setWrappedMdAttribute(mdAttribute);
+      mAttribute.setAggregatable(true);
+      mAttribute.apply();
+    }
+
+    if (nLowest != null && !nLowest.getId().equals(lowest.getId()))
+    {
+      /*
+       * A new universal has been added lower down in the hierarchy
+       */
+      mClass.getUniversalRel(lowest).getAll().get(0).delete();
+
+      mClass.addUniversal(nLowest).apply();
+    }
+
+    for (GeoNode node : nodes)
+    {
+      mClass.addGeoNode(node).apply();
     }
   }
 }

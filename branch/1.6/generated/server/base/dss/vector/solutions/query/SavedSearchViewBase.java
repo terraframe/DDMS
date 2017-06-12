@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1853415603)
+@com.runwaysdk.business.ClassSignature(hash = -565544880)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,20 +11,49 @@ package dss.vector.solutions.query;
 public abstract class SavedSearchViewBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
+  public static java.lang.String ADDITIVESELECTABLES = "additiveSelectables";
   public static java.lang.String CONFIG = "config";
+  public static java.lang.String DELETESELECTABLES = "deleteSelectables";
   public static java.lang.String ID = "id";
   public static java.lang.String ISMATERIALIZED = "isMaterialized";
   public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
-  public static java.lang.String OVERWRITE = "overwrite";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
-  private static final long serialVersionUID = -1853415603;
+  private static final long serialVersionUID = -565544880;
   
   public SavedSearchViewBase()
   {
     super();
+  }
+  
+  public String getAdditiveSelectables()
+  {
+    return getValue(ADDITIVESELECTABLES);
+  }
+  
+  public void validateAdditiveSelectables()
+  {
+    this.validateAttribute(ADDITIVESELECTABLES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAdditiveSelectablesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ADDITIVESELECTABLES);
+  }
+  
+  public void setAdditiveSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(ADDITIVESELECTABLES, "");
+    }
+    else
+    {
+      setValue(ADDITIVESELECTABLES, value);
+    }
   }
   
   public String getConfig()
@@ -52,6 +81,34 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     else
     {
       setValue(CONFIG, value);
+    }
+  }
+  
+  public String getDeleteSelectables()
+  {
+    return getValue(DELETESELECTABLES);
+  }
+  
+  public void validateDeleteSelectables()
+  {
+    this.validateAttribute(DELETESELECTABLES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getDeleteSelectablesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(DELETESELECTABLES);
+  }
+  
+  public void setDeleteSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(DELETESELECTABLES, "");
+    }
+    else
+    {
+      setValue(DELETESELECTABLES, value);
     }
   }
   
@@ -124,34 +181,6 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     else
     {
       setValue(KALEIDOSCOPES, value);
-    }
-  }
-  
-  public Boolean getOverwrite()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OVERWRITE));
-  }
-  
-  public void validateOverwrite()
-  {
-    this.validateAttribute(OVERWRITE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getOverwriteMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(OVERWRITE);
-  }
-  
-  public void setOverwrite(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OVERWRITE, "");
-    }
-    else
-    {
-      setValue(OVERWRITE, java.lang.Boolean.toString(value));
     }
   }
   

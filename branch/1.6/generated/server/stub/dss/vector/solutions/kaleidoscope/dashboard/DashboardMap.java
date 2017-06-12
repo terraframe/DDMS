@@ -51,6 +51,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.Pair;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
@@ -66,6 +67,7 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.gis.constants.GeoserverProperties;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.MAX;
@@ -984,28 +986,13 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   {
     BufferedImage image = null;
 
-    if (baseType.toLowerCase().equals("osm"))
+    try
     {
-      try
+      Pair<String, URL> endpoint = this.getBaseMapEndpoint(baseType);
+
+      if (endpoint != null)
       {
-        // TODO: Only add base map based on user settings (i.e. if OSM is enabled)
-        URL url = null;
-        String wmsLayerName = "osm";
-        //
-        // Currently we are using the WMS service from http://irs.gis-lab.info/ because most web services are offered as
-        // Tiled Map Services (TMS) which are not directly consumable by geotools.
-        //
-        // url = new URL("http://irs.gis-lab.info/?layers=" + wmsLayerName + "&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
-
-        //
-        // BACKUP SERVICE
-        // Currently we are using the WMS service from http://ows.terrestris.de/dienste.html#wms
-        // because this one http://irs.gis-lab.info/ is un-reliable and most web services are offered as
-        // Tiled Map Services (TMS) which are not directly consumable by geotools.
-        //
-        wmsLayerName = "osm-wms";
-        url = new URL("http://ows.terrestris.de/osm/service?layers=" + wmsLayerName + "&styles=&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
-
+        URL url = endpoint.getSecond();
         WebMapServer wms = new WebMapServer(url);
 
         GetMapRequest request = wms.createGetMapRequest();
@@ -1019,7 +1006,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
         for (Layer layer : WMSUtils.getNamedLayers(capabilities))
         {
-          if (layer.getName().toLowerCase().trim().equals(wmsLayerName))
+          if (layer.getName().trim().equalsIgnoreCase(endpoint.getFirst()))
           {
             request.addLayer(layer);
           }
@@ -1031,33 +1018,64 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
         image = ImageIO.read(response.getInputStream());
       }
-      catch (Exception e)
-      {
-        log.error(e);
-
-        return null;
-      }
-      // catch (MalformedURLException e)
-      // {
-      // // will not happen
-      // String error = "The URL is not formed correctly.";
-      // throw new ProgrammingErrorException(error, e);
-      // }
-      // catch (IOException e)
-      // {
-      // String error = "Could not read the response to an image.";
-      // throw new ProgrammingErrorException(error, e);
-      // }
-      // catch (ServiceException e)
-      // {
-      // // The server returned a ServiceException (unusual in this case)
-      // String error = "The server returned a ServiceException.";
-      // throw new ProgrammingErrorException(error, e);
-      // }
     }
+    catch (Exception e)
+    {
+      log.error(e);
+
+      return null;
+    }
+    // catch (MalformedURLException e)
+    // {
+    // // will not happen
+    // String error = "The URL is not formed correctly.";
+    // throw new ProgrammingErrorException(error, e);
+    // }
+    // catch (IOException e)
+    // {
+    // String error = "Could not read the response to an image.";
+    // throw new ProgrammingErrorException(error, e);
+    // }
+    // catch (ServiceException e)
+    // {
+    // // The server returned a ServiceException (unusual in this case)
+    // String error = "The server returned a ServiceException.";
+    // throw new ProgrammingErrorException(error, e);
+    // }
 
     return image;
+  }
 
+  private Pair<String, URL> getBaseMapEndpoint(String baseType) throws MalformedURLException
+  {
+    if (baseType.equalsIgnoreCase("OSM"))
+    {
+      //
+      // Currently we are using the WMS service from http://irs.gis-lab.info/ because most web services are offered as
+      // Tiled Map Services (TMS) which are not directly consumable by geotools.
+      //
+      // return new URL("http://irs.gis-lab.info/?layers=" + "osm" + "&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
+
+      //
+      // BACKUP SERVICE
+      // Currently we are using the WMS service from http://ows.terrestris.de/dienste.html#wms
+      // because this one http://irs.gis-lab.info/ is un-reliable and most web services are offered as
+      // Tiled Map Services (TMS) which are not directly consumable by geotools.
+      //
+      String layerName = "osm-wms";
+      URL url = new URL("http://ows.terrestris.de/osm/service?layers=" + layerName + "&styles=&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
+
+      return new Pair<String, URL>(layerName, url);
+    }
+    else if (baseType.equalsIgnoreCase("OSM-LOCAL"))
+    {
+      String layerName = "osm_basic";
+      URL url = new URL(GeoserverProperties.getLocalPath() + "/wms?service=WMS&version=1.1.0&request=GetMap&layers=" + layerName);
+
+      return new Pair<String, URL>(layerName, url);
+    }
+
+    return null;
   }
 
   /**

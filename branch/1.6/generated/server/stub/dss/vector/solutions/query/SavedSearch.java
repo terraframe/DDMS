@@ -111,6 +111,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   private static final String  VALID_PREFIX             = "_";
 
+  public static final String   ALIAS                    = "alias";
+
   public SavedSearch()
   {
     super();
@@ -172,7 +174,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
   public void apply()
   {
-    apply(false);
+    apply(new LinkedList<String>(), new LinkedList<String>());
   }
 
   /**
@@ -180,7 +182,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   @SuppressWarnings("unchecked")
   @Transaction
-  private void apply(boolean overwrite)
+  private void apply(List<String> attributesToAdd, List<String> attributesToDelete)
   {
     try
     {
@@ -215,13 +217,18 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
       else if (this.getIsMaterialized())
       {
-        if (this.getMaterializedTableId().length() == 0 || overwrite)
+        if (this.getMaterializedTableId().length() == 0 || attributesToDelete.size() > 0)
         {
           // Create the view because it doesn't exist
-          functionName = this.defineMaterializedView(overwrite);
+          functionName = this.defineMaterializedView(attributesToDelete);
         }
         else
         {
+          if (attributesToAdd.size() > 0)
+          {
+            this.defineMaterializedView(attributesToDelete, attributesToAdd);
+          }
+
           // Refresh the view
           functionName = this.refreshMaterializedView();
         }
@@ -259,7 +266,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     return this.createMaterializedView(query, viewNameNoPrefix, prefixedViewName);
   }
 
-  private String defineMaterializedView(boolean overwrite) throws JSONException
+  private String defineMaterializedView(List<String> attributesToDelete) throws JSONException
+  {
+    return this.defineMaterializedView(attributesToDelete, new LinkedList<String>());
+  }
+
+  private String defineMaterializedView(List<String> attributesToDelete, List<String> attributesToAdd) throws JSONException
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
@@ -273,7 +285,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       String viewNameNoPrefix = this.generateViewName("");
       String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
 
-      if (!overwrite || this.getMaterializedTableId().length() == 0)
+      if ( ( attributesToDelete.size() == 0 && attributesToAdd.size() == 0 ) || this.getMaterializedTableId().length() == 0)
       {
         MdTable mdTable = new MdTableBuilder().build(this.getQueryName(), prefixedViewName, outer);
 
@@ -284,7 +296,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         MdTable mdTable = this.getMaterializedTable();
 
-        new MdTableBuilder().update(mdTable, outer);
+        if (attributesToDelete.size() > 0)
+        {
+          new MdTableBuilder().overwrite(mdTable, outer);
+        }
+        else
+        {
+          new MdTableBuilder().update(mdTable, outer, attributesToAdd);
+        }
       }
 
       return this.createMaterializedView(outer, viewNameNoPrefix, prefixedViewName);
@@ -360,10 +379,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
       }
-      
-      if(!data.containsKey(SelectableAggregate.class.getName()))
+
+      if (!data.containsKey(SelectableAggregate.class.getName()))
       {
         data.put(SelectableAggregate.class.getName(), s.isAggregateFunction());
+      }
+
+      if (!data.containsKey(ALIAS))
+      {
+        data.put(ALIAS, s.getUserDefinedAlias());
       }
 
       // convert the user display label into something a user-friendly column.
@@ -419,7 +443,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       }
 
       c.setColumnAlias(newColumn);
-      c.setData(s.getData());
+      c.setData(data);
 
       outer.SELECT(c);
     }
@@ -873,9 +897,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     this.setConfig(config);
     this.setIsMaterialized(view.getIsMaterialized());
 
-    boolean overwrite = view.getOverwrite() != null ? view.getOverwrite() : false;
-
-    this.apply(overwrite);
+    this.apply(view.getAttributesToAdd(), view.getAttributeToDelete());
   }
 
   /**

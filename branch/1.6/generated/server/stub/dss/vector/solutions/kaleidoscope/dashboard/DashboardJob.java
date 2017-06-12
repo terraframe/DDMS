@@ -478,9 +478,9 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
           bounds.put("top", top);
 
           JSONObject baseMap = new JSONObject();
-          baseMap.put("NAME", "Open Street Map");
-          baseMap.put("LOCLIZATION_KEY", "osmBasic");
-          baseMap.put("LAYER_SOURCE_TYPE", "OSM");
+          baseMap.put("NAME", "Offline Map");
+          baseMap.put("LOCLIZATION_KEY", "osmLocal");
+          baseMap.put("LAYER_SOURCE_TYPE", "OSM-LOCAL");
 
           int defaultWidth = this.getImageWidth() - MARGIN;
           int defaultHeight = this.getImageHeight() - MARGIN;

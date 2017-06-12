@@ -1038,15 +1038,16 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       });
 
       var materialized = this._queryPanel.getIsMaterialized();
+      var overwrite = JSON.parse(view.getDeleteSelectables());
       
 
-      if((view.getOverwrite() || materialized !== this._loadedMaterialized)) {
+      if((overwrite || materialized !== this._loadedMaterialized)) {
         var request = new MDSS.Request({
           onSuccess : function(response)
           {
             var kaleidoscopes = JSON.parse(response);
             
-            if(kaleidoscopes != null && kaleidoscopes.length > 0 && (view.getOverwrite() || materialized !== this._loadedMaterialized)) {
+            if(kaleidoscopes != null && kaleidoscopes.length > 0 && (overwrite || materialized !== this._loadedMaterialized)) {
                   
               var content = "<ul>";
               content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
@@ -1163,23 +1164,21 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         view.setQueryName(queryName);
       }
       
-      var overwrite = false;
-      
       if(materialized && this._loadedMaterialized) {
         var oAttributes = this._getAttributes(this._loadedXML);
         var nAttributes = this._getAttributes(xml);
         
         var deletes = this._diff(oAttributes, nAttributes);
-        var adds = this._diff(nAttributes, oAttributes);
+        var adds = this._diff(nAttributes, oAttributes);        
         
-        overwrite = (deletes.length > 0 || adds.length > 0);
+        view.setAdditiveSelectables(JSON.stringify(adds));
+        view.setDeleteSelectables(JSON.stringify(deletes));
       }
     	  
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
       view.setQueryType(queryType);
       view.setIsMaterialized(materialized);
-      view.setOverwrite(overwrite);
     },
     
     _getAttributes : function(xml) {
