@@ -79,7 +79,7 @@ public class LocalBasemapBuilder implements Reloadable
 	  .concat(File.separator)
 	  .concat("webapps")
 	  .concat(File.separator)
-	  .concat("geoserver")
+	  .concat(GeoserverProperties.getAppName())
 	  .concat(File.separator)
 	  .concat("data")
 	  .concat(File.separator)

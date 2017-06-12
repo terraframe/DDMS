@@ -71,6 +71,7 @@ import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.irs.ActivityUnion;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.irs.AliasLookup;
@@ -1138,6 +1139,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       data.put(SelectableAggregate.class.getName(), source.isAggregateFunction());
     }
+        
+    if (!data.containsKey(SavedSearch.ALIAS))
+    {
+      data.put(SavedSearch.ALIAS, source.getUserDefinedAlias());
+    }    
 
     target.setData(data);
   }

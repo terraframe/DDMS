@@ -36,6 +36,7 @@ import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.Restriction;
@@ -304,6 +305,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
             data.put(SelectableAggregate.class.getName(), s.isAggregateFunction());
           }
           
+          
+          if (!data.containsKey(SavedSearch.ALIAS))
+          {
+            data.put(SavedSearch.ALIAS, s.getUserDefinedAlias());
+          }                    
 
           sel.setData(data);
 

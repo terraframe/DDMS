@@ -82,6 +82,7 @@ import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MaterializedMarkerLayer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
@@ -540,6 +541,11 @@ public abstract class AbstractQB implements Reloadable
       {
         data.put(SelectableAggregate.class.getName(), sel.isAggregateFunction());
       }
+      
+      if (!data.containsKey(SavedSearch.ALIAS))
+      {
+        data.put(SavedSearch.ALIAS, sel.getUserDefinedAlias());
+      }      
 
       newSel.setColumnAlias(sel.getColumnAlias());
       newSel.setData(data);
