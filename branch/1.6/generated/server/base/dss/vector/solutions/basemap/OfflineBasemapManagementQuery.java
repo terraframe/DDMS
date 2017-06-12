@@ -1,6 +1,6 @@
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -57294059)
+@com.runwaysdk.business.ClassSignature(hash = -1030964922)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -116,6 +116,40 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.basemap.OfflineBasemapManagement.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.basemap.OfflineBasemapManagement.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFilePath()
+  {
+    return getFilePath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -238,6 +272,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.basemap.OfflineBasemapManagement.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload()
+  {
+    return getQuedForUpload(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -287,6 +338,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful()
+  {
+    return getUploadSuccessful(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -364,6 +432,12 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFileName();
+    public com.runwaysdk.query.SelectableChar getFileName(String alias);
+    public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFilePath();
+    public com.runwaysdk.query.SelectableChar getFilePath(String alias);
+    public com.runwaysdk.query.SelectableChar getFilePath(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -382,6 +456,9 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload();
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias);
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -391,6 +468,9 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful();
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias);
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.basemap.OfflineBasemapManagement offlineBasemapManagement);
 
@@ -492,6 +572,40 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.ENTITYDOMAIN,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFilePath()
+  {
+    return getFilePath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -596,6 +710,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.OWNER,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload()
+  {
+    return getQuedForUpload(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -645,6 +776,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful()
+  {
+    return getUploadSuccessful(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -699,6 +847,12 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFileName();
+    public com.runwaysdk.query.SelectableChar getFileName(String alias);
+    public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFilePath();
+    public com.runwaysdk.query.SelectableChar getFilePath(String alias);
+    public com.runwaysdk.query.SelectableChar getFilePath(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -717,6 +871,9 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload();
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias);
+    public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -726,6 +883,9 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful();
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias);
+    public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias, String displayLabel);
 
     public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.basemap.OfflineBasemapManagement ... offlineBasemapManagement);
     public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.basemap.OfflineBasemapManagement ... offlineBasemapManagement);
@@ -878,6 +1038,40 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.ENTITYDOMAIN,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILENAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFilePath()
+  {
+    return getFilePath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFilePath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.FILEPATH, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -980,6 +1174,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.OWNER,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload()
+  {
+    return getQuedForUpload(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getQuedForUpload(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.QUEDFORUPLOAD, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -1029,6 +1240,23 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful()
+  {
+    return getUploadSuccessful(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUploadSuccessful(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.UPLOADSUCCESSFUL, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

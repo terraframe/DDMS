@@ -71,7 +71,6 @@ public class GeoserverInitializer implements UncaughtExceptionHandler, Reloadabl
                 {
                   // Got the lock
                   LocalBasemapBuilder.configureGeoserverForOSM();
-                  LocalBasemapBuilder.importAllBasemapData();
                   LocalBasemapBuilder.buildOSMGeoserverServices();
                 }
               }

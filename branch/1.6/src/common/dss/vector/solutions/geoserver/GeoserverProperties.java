@@ -57,6 +57,41 @@ public class GeoserverProperties implements Reloadable
   {
     return instance.getBundle().getString("geoserver.appname");
   }
+  
+  public static String getOSMDatabaseName()
+  {
+	  return instance.getBundle().getString("osm.databasename");
+  }
+  
+  public static String getOSMDatabaseSchema()
+  {
+	  return instance.getBundle().getString("osm.databaseschema");
+  }
+  
+  public static String getOSMUserName()
+  {
+	  return instance.getBundle().getString("osm.user");
+  }
+
+  public static String getOSMPassword()
+  {
+	  return instance.getBundle().getString("osm.password");
+  }
+  
+  public static String getOSMWorkspace()
+  {
+	  return instance.getBundle().getString("osm.workspace");
+  }
+  
+  public static String getOSMDatastore()
+  {
+	  return instance.getBundle().getString("osm.datastore");
+  }
+  
+  public static String getOSM2PgsqlRoot()
+  {
+	  return instance.getBundle().getString("osm.osm2pgsql.util.root");
+  }
 
   public static String getLockFile()
   {
@@ -67,4 +102,20 @@ public class GeoserverProperties implements Reloadable
   {
     return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + getAppName() + File.separator + getLockFile();
   }
+  
+  public static String getDefaultGeoWebCacheDirPath()
+  {
+    return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + getAppName() + File.separator + "data" + File.separator + "gwc";
+  }
+  
+  public static Integer getZoomStart()
+  {
+	  return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstart"));
+  }
+  
+  public static Integer getZoomStop()
+  {
+	  return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstop"));
+  }
+
 }

@@ -115,6 +115,8 @@ public interface GeoserverService extends Reloadable
   public void removeLayer(String layer);
 
   public void publishCache(String layer);
+  
+  public void rePublishCache(String layer, String workspace);
 
   /**
    * Returns a list of all cache directories.
@@ -131,6 +133,23 @@ public interface GeoserverService extends Reloadable
    * @param cacheName
    */
   public void removeCache(String cacheName);
+  
+  /**
+   * Checks if the given layer group exists in Geoserver.
+   * 
+   * @param layerGroup
+   * @return
+   */
+  public boolean layerGroupExists(String layerGroup);
+  
+  /**
+   * Checks if the given layer group exists in Geoserver.
+   * 
+   * @param layerGroup
+   * @param workspace
+   * @return
+   */
+  public boolean layerGroupExists(String layerGroup, String workspace);
 
   /**
    * Checks if the given layer exists in Geoserver.

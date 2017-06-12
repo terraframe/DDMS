@@ -84,6 +84,11 @@ public class GeoserverFacade implements Reloadable
 	  System.out.println("publishing osm workspace");
     getService().publishWorkspace(workspaceName);
   }
+  
+  public static void removeCache(String cacheName)
+  {
+    getService().removeCache(cacheName);
+  }
 
   /**
    * Checks if Geoserver is available.
@@ -125,6 +130,11 @@ public class GeoserverFacade implements Reloadable
   public static boolean cacheExists(String cacheName)
   {
     return getService().cacheExists(cacheName);
+  }
+  
+  public static void rePublishCache(String layerName, String workspace)
+  {
+	  getService().rePublishCache(layerName, workspace);
   }
 
   /**
@@ -233,6 +243,28 @@ public class GeoserverFacade implements Reloadable
   public static void removeLayer(String layer)
   {
     getService().removeLayer(layer);
+  }
+  
+  /**
+   * Checks if the given layer exists in Geoserver.
+   * 
+   * @param layer
+   * @return
+   */
+  public static boolean layerGroupExists(String layerGroup)
+  {
+    return getService().layerExists(layerGroup);
+  }
+  
+  /**
+   * Checks if the given layer exists in Geoserver.
+   * 
+   * @param layer
+   * @return
+   */
+  public static boolean layerGroupExists(String layerGroup, String workspace)
+  {
+    return getService().layerExists(layerGroup, workspace);
   }
 
   /**

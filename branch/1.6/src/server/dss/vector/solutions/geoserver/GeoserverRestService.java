@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 import java.sql.*;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.configuration.RunwayConfigurationException;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.mapping.gwc.SeedRequest;
@@ -40,6 +42,7 @@ import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MapConfiguration;
 import dss.vector.solutions.query.QueryConstants;
+import groovy.util.ResourceException;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.decoder.RESTLayerList;
@@ -431,6 +434,19 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Could not seed layer [" + layer + "]. Response code [" + request.getCode() + "].");
     }
   }
+  
+  public void rePublishCache(String layer, String workspace)
+  {
+    ReseedRequest request = new ReseedRequest(layer, workspace);
+    if (request.doRequest())
+    {
+      logger.info("Started seeding layer [" + layer + "].");
+    }
+    else
+    {
+      logger.warn("Could not seed layer [" + layer + "]. Response code [" + request.getCode() + "].");
+    }
+  }
 
   /**
    * Returns a list of all cache directories.
@@ -478,8 +494,49 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public void removeCache(String cacheName)
   {
-    String cacheDir = this.getGeoserverGWCDir() + cacheName;
-    removeCache(new File(cacheDir));
+	String cacheDir = null;
+	try
+	{
+      cacheDir = GeoserverProperties.getDefaultGeoWebCacheDirPath() + File.separator + GeoserverProperties.getOSMWorkspace() + "_" + cacheName;
+	} catch(MissingResourceException e)
+	{
+		throw new ProgrammingErrorException(e);
+	}
+	
+	if(cacheDir != null)
+	{
+      removeCache(new File(cacheDir));
+	}
+  }
+  
+  /**
+   * Checks if the given layer group exists in Geoserver.
+   * 
+   * @param layerGroup
+   * @return
+   */
+  public boolean layerGroupExists(String layerGroup)
+  {
+    GeoServerRESTReader reader = this.getReader();
+
+    boolean exists = reader.existsLayerGroup(this.getWorkspace(), layerGroup);
+
+    return exists;
+  }
+  
+  /**
+   * Checks if the given layer group exists in Geoserver.
+   * 
+   * @param layerGroup
+   * @return
+   */
+  public boolean layerGroupExists(String layerGroup, String workspace)
+  {
+    GeoServerRESTReader reader = this.getReader();
+
+    boolean exists = reader.existsLayerGroup(layerGroup, workspace);
+
+    return exists;
   }
 
   /**

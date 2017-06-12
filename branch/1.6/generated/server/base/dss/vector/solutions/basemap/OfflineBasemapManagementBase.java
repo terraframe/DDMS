@@ -1,6 +1,6 @@
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -119982754)
+@com.runwaysdk.business.ClassSignature(hash = -559347427)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,16 +15,20 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String FILENAME = "fileName";
+  public static java.lang.String FILEPATH = "filePath";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String QUEDFORUPLOAD = "quedForUpload";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -119982754;
+  public static java.lang.String UPLOADSUCCESSFUL = "uploadSuccessful";
+  private static final long serialVersionUID = -559347427;
   
   public OfflineBasemapManagementBase()
   {
@@ -140,6 +144,62 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
+    }
+  }
+  
+  public String getFileName()
+  {
+    return getValue(FILENAME);
+  }
+  
+  public void validateFileName()
+  {
+    this.validateAttribute(FILENAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFileNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILENAME);
+  }
+  
+  public void setFileName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FILENAME, "");
+    }
+    else
+    {
+      setValue(FILENAME, value);
+    }
+  }
+  
+  public String getFilePath()
+  {
+    return getValue(FILEPATH);
+  }
+  
+  public void validateFilePath()
+  {
+    this.validateAttribute(FILEPATH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getFilePathMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(FILEPATH);
+  }
+  
+  public void setFilePath(String value)
+  {
+    if(value == null)
+    {
+      setValue(FILEPATH, "");
+    }
+    else
+    {
+      setValue(FILEPATH, value);
     }
   }
   
@@ -299,6 +359,34 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
     }
   }
   
+  public Boolean getQuedForUpload()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(QUEDFORUPLOAD));
+  }
+  
+  public void validateQuedForUpload()
+  {
+    this.validateAttribute(QUEDFORUPLOAD);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getQuedForUploadMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(QUEDFORUPLOAD);
+  }
+  
+  public void setQuedForUpload(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(QUEDFORUPLOAD, "");
+    }
+    else
+    {
+      setValue(QUEDFORUPLOAD, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -347,6 +435,34 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(TYPE);
   }
   
+  public Boolean getUploadSuccessful()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(UPLOADSUCCESSFUL));
+  }
+  
+  public void validateUploadSuccessful()
+  {
+    this.validateAttribute(UPLOADSUCCESSFUL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getUploadSuccessfulMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(UPLOADSUCCESSFUL);
+  }
+  
+  public void setUploadSuccessful(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(UPLOADSUCCESSFUL, "");
+    }
+    else
+    {
+      setValue(UPLOADSUCCESSFUL, java.lang.Boolean.toString(value));
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -367,6 +483,12 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
   public static OfflineBasemapManagement getByKey(String key)
   {
     return (OfflineBasemapManagement) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.Boolean importBasemapFiles(java.lang.String[] files)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.basemap.OfflineBasemapManagement.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static OfflineBasemapManagement lock(java.lang.String id)

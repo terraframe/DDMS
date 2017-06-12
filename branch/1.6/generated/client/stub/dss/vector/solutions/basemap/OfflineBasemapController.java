@@ -1,11 +1,11 @@
 package dss.vector.solutions.basemap;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
-
-import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geoserver.LocalBasemapBuilder;
 
@@ -21,18 +21,49 @@ public class OfflineBasemapController extends OfflineBasemapControllerBase imple
   
   @Override
   public void viewAll() throws IOException, ServletException {
-	File[] flatFilesOnDisk = LocalBasemapBuilder.getBasemapFiles();
-	
-	OfflineBasemapManagement basemapManager = OfflineBasemapManagement.getByKey("Singledon");
-	String persistedBasemaps = basemapManager.getConfig();
-	
-	// TODO: Resolve difference between the two storage mechanisms. 
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    OfflineBasemapManagementQueryDTO query = dss.vector.solutions.basemap.OfflineBasemapManagementDTO.getAllInstances(clientRequest, null, true, 20, 1);
+
+    
+//	OfflineBasemapManagement basemapManager = OfflineBasemapManagement.getByKey("Singleton");
+//	String persistedBasemaps = basemapManager.getConfig();
+    
+    HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
+    
+    req.setAttribute("availableFiles", flatFilesOnDisk);
+    req.setAttribute("uploadStatus", false);
+    
+    render("viewAllComponent.jsp");
   }
   
   @Override
-  @Transaction
   public void submit() throws IOException, ServletException {
-	OfflineBasemapManagement basemapManager = OfflineBasemapManagement.getByKey("Singledon");
-    basemapManager.setConfig("");  // TODO: set the actual value dynamically. 
+	ArrayList<String> config = new ArrayList<String>();
+	Enumeration<String> inputFields = this.getRequest().getParameterNames();
+	while(inputFields.hasMoreElements())
+	{
+		String inputField = inputFields.nextElement();
+		String checkedFile = this.getRequest().getParameter(inputField);
+		config.add(checkedFile);
+	}
+	
+	
+	if(config != null)
+	{
+      OfflineBasemapManagementDTO.importBasemapFiles(this.getClientRequest(), config.toArray(new String[config.size()]));
+	}
+	
+	HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
+	
+    req.setAttribute("availableFiles", flatFilesOnDisk);
+    req.setAttribute("uploadStatus", true);
+	
+	render("viewAllComponent.jsp");
+  }
+
+  
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
   }
 }

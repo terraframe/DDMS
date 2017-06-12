@@ -186,6 +186,26 @@ public class NullGeoserverService implements GeoserverService
   {
 
   }
+  
+  @Override
+  public void rePublishCache(String layer, String workspace) 
+  {
+	  
+  }
+  
+  @Override
+  public boolean layerGroupExists(String layerGroup)
+  {
+
+    return false;
+  }
+  
+  @Override
+  public boolean layerGroupExists(String layerGroup, String workspace)
+  {
+
+    return false;
+  }
 
   @Override
   public boolean layerExists(String layer)
