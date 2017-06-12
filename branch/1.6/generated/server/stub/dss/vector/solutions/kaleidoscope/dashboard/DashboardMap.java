@@ -64,7 +64,6 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.gis.constants.GeoserverProperties;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.MAX;
@@ -82,6 +81,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geoserver.GeoserverBatch;
 import dss.vector.solutions.geoserver.GeoserverFacade;
+import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.kaleidoscope.DropViewTask;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.MappableClassQuery;
@@ -1092,7 +1092,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     else if (baseType.equalsIgnoreCase("OSM-LOCAL"))
     {
       String layerName = "osm_basic";
-      URL url = new URL(GeoserverProperties.getLocalPath() + "/wms?service=WMS&version=1.1.0&request=GetMap&layers=" + layerName);
+      URL url = new URL(GeoserverProperties.getGeoServerLocalURL() + "/wms?service=WMS&version=1.1.0&request=GetMap&layers=" + layerName);
 
       return new Pair<String, URL>(layerName, url);
     }
