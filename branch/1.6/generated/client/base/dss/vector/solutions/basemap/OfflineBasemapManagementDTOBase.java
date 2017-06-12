@@ -1,10 +1,10 @@
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -336521315)
+@com.runwaysdk.business.ClassSignature(hash = 1512874615)
 public abstract class OfflineBasemapManagementDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.basemap.OfflineBasemapManagement";
-  private static final long serialVersionUID = -336521315;
+  private static final long serialVersionUID = 1512874615;
   
   protected OfflineBasemapManagementDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,7 +27,6 @@ public abstract class OfflineBasemapManagementDTOBase extends com.runwaysdk.busi
     return CLASS;
   }
   
-  public static java.lang.String CONFIG = "config";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -44,43 +43,6 @@ public abstract class OfflineBasemapManagementDTOBase extends com.runwaysdk.busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPLOADSUCCESSFUL = "uploadSuccessful";
-  public String getConfig()
-  {
-    return getValue(CONFIG);
-  }
-  
-  public void setConfig(String value)
-  {
-    if(value == null)
-    {
-      setValue(CONFIG, "");
-    }
-    else
-    {
-      setValue(CONFIG, value);
-    }
-  }
-  
-  public boolean isConfigWritable()
-  {
-    return isWritable(CONFIG);
-  }
-  
-  public boolean isConfigReadable()
-  {
-    return isReadable(CONFIG);
-  }
-  
-  public boolean isConfigModified()
-  {
-    return isModified(CONFIG);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConfigMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
-  }
-  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));

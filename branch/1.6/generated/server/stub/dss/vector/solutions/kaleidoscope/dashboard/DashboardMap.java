@@ -54,9 +54,6 @@ import org.json.JSONObject;
 import com.runwaysdk.Pair;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
-import com.runwaysdk.constants.MdAttributeLocalInfo;
-import com.runwaysdk.constants.MdBusinessInfo;
-import com.runwaysdk.dataaccess.DuplicateDataException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -76,7 +73,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableGeometry;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.util.FileIO;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
@@ -250,24 +246,6 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
     // Check for exceptions
     return istream;
-  }
-
-  @Transaction
-  private void makeBiz()
-  {
-    try
-    {
-      MdBusiness biz = new MdBusiness();
-      biz.setValue(MdBusinessInfo.NAME, "ClassLoaderTestiesBiz");
-      biz.setValue(MdBusinessInfo.PACKAGE, "com.test.cltest");
-      biz.setStructValue(MdBusinessInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, "mdBusiness Set Test");
-      biz.setStructValue(MdBusinessInfo.DESCRIPTION, MdAttributeLocalInfo.DEFAULT_LOCALE, "Set mdBusiness Attributes Test");
-      biz.apply();
-    }
-    catch (DuplicateDataException e)
-    {
-
-    }
   }
 
   private void generateSessionViewName(DashboardLayer layer)
@@ -859,10 +837,53 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         // Get base map
         JSONObject activeBaseObj = new JSONObject(activeBaseMap);
         String baseType = activeBaseObj.getString("LAYER_SOURCE_TYPE");
-
         // Get bounds of the map
         if (baseType.length() > 0)
         {
+          /*
+           * Commented out stuff is an attempt to have the base layer not crop with layer canvas
+           */
+
+          // try
+          // {
+          // AffineTransform translate = AffineTransform.getTranslateInstance(-1 * bound.getLeft(), -1 * bound.getBottom());
+          // AffineTransform scale = AffineTransform.getScaleInstance(layerWidth / Math.abs(Math.abs(bound.getRight()) - Math.abs(bound.getLeft())),
+          // layerHeight / Math.abs(Math.abs(bound.getBottom()) - Math.abs(bound.getTop())));
+          // AffineTransform mirror_y = new AffineTransform(1, 0, 0, -1, 0, layerHeight);
+          //
+          // AffineTransform world2pixel = new AffineTransform(mirror_y);
+          // world2pixel.concatenate(scale);
+          // world2pixel.concatenate(translate);
+          //
+          // AffineTransform pixel2World = world2pixel.createInverse();
+          //
+          // Point2D p = new Point2D.Double(0 - widthOffset, 0 - heightOffset);
+          // Point2D tp1 = pixel2World.transform(p, null);
+          // System.out.println(tp1);
+          // System.out.println(world2pixel.transform(tp1, null));
+          //
+          // Point2D p2 = new Point2D.Double(width, height);
+          // Point2D tp2 = pixel2World.transform(p2, null);
+          // System.out.println(tp2);
+          // System.out.println(world2pixel.transform(tp2, null));
+          //
+          // String left = Double.toString(tp1.getX());
+          // String top = Double.toString(tp1.getY());
+          // String right = Double.toString(tp2.getX());
+          // String bottom = Double.toString(tp2.getY());
+          //
+          // BufferedImage baseMapImage = this.getBaseMapCanvas(width, height, left, bottom, right, top, baseType);
+          //
+          // if (baseMapImage != null)
+          // {
+          // mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
+          // }
+          // }
+          // catch (Exception e)
+          // {
+          // e.printStackTrace();
+          // }
+
           BufferedImage baseMapImage = this.getBaseMapCanvas(layerWidth, layerHeight, bound.left(), bound.bottom(), bound.right(), bound.top(), baseType);
 
           if (baseMapImage != null)
@@ -1054,7 +1075,8 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
       // Currently we are using the WMS service from http://irs.gis-lab.info/ because most web services are offered as
       // Tiled Map Services (TMS) which are not directly consumable by geotools.
       //
-      // return new URL("http://irs.gis-lab.info/?layers=" + "osm" + "&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
+      // String layerName = "osm";
+      // URL url = new URL("http://irs.gis-lab.info/?layers=" + layerName + "&VERSION=1.1.1&Request=GetCapabilities&Service=WMS");
 
       //
       // BACKUP SERVICE

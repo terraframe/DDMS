@@ -1573,9 +1573,9 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     String outFileFormat = "png";
     BufferedImage base = null;
     Graphics mapBaseGraphic = null;
-    BufferedImage resizedImage = null;
-    int defaultWidth = 1179;
-    int defaultHeight = 750;
+    BufferedImage resizedImage = null;    
+    int width = 660;
+    int height = 420;
     Double bottom;
     Double top;
     Double right;
@@ -1610,10 +1610,14 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
         throw new ProgrammingErrorException(error, e);
       }
 
-      int width = (int) Math.min(defaultWidth, Math.round( ( ( ( right - left ) / ( top - bottom ) ) * defaultHeight )));
-      int height = (int) Math.min(defaultHeight, Math.round( ( ( ( top - bottom ) / ( right - left ) ) * defaultWidth )));
+      int layerWidth = (int) Math.min(width, Math.round( ( ( ( right - left ) / ( top - bottom ) ) * height )));
+      int layerHeight = (int) Math.min(height, Math.round( ( ( ( top - bottom ) / ( right - left ) ) * width )));
       
-      MapBound bound = new MapBound(width, height, left, right, bottom, top);
+      // Offset the layerCanvas so that it is center
+      int widthOffset = (int) ( ( width - layerWidth ) / 2 );
+      int heightOffset = (int) ( ( height - layerHeight ) / 2 );
+      
+      MapBound bound = new MapBound(layerWidth, layerHeight, left, right, bottom, top);
 
       base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -1628,20 +1632,16 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
       if (baseType.length() > 0)
       {
-        BufferedImage baseMapImage = dashMap.getBaseMapCanvas(width, height, Double.toString(left), Double.toString(bottom), Double.toString(right), Double.toString(top), baseType);
+        BufferedImage baseMapImage = dashMap.getBaseMapCanvas(layerWidth, layerHeight, Double.toString(left), Double.toString(bottom), Double.toString(right), Double.toString(top), baseType);
 
         if (baseMapImage != null)
         {
-          mapBaseGraphic.drawImage(baseMapImage, 0, 0, null);
+          mapBaseGraphic.drawImage(baseMapImage, widthOffset, heightOffset, null);
         }
       }
 
       // Add layers to the base canvas
       BufferedImage layerCanvas = dashMap.getLayersExportCanvas(orderedLayers, bound);
-
-      // Offset the layerCanvas so that it is center
-      int widthOffset = (int) ( ( width - layerCanvas.getWidth() ) / 2 );
-      int heightOffset = (int) ( ( height - layerCanvas.getHeight() ) / 2 );
 
       mapBaseGraphic.drawImage(layerCanvas, widthOffset, heightOffset, null);
 

@@ -21,13 +21,6 @@ public class OfflineBasemapController extends OfflineBasemapControllerBase imple
   
   @Override
   public void viewAll() throws IOException, ServletException {
-    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    OfflineBasemapManagementQueryDTO query = dss.vector.solutions.basemap.OfflineBasemapManagementDTO.getAllInstances(clientRequest, null, true, 20, 1);
-
-    
-//	OfflineBasemapManagement basemapManager = OfflineBasemapManagement.getByKey("Singleton");
-//	String persistedBasemaps = basemapManager.getConfig();
-    
     HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
     
     req.setAttribute("availableFiles", flatFilesOnDisk);

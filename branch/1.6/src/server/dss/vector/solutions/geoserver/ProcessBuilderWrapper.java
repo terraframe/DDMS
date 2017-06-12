@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 
-public class ProcessBuilderWrapper {
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class ProcessBuilderWrapper implements Reloadable {
     private StringWriter infos;
     private StringWriter errors;
     private int status;
@@ -46,7 +48,7 @@ public class ProcessBuilderWrapper {
         return status;
     }
  
-    class StreamBoozer extends Thread {
+    class StreamBoozer extends Thread implements Reloadable {
         private InputStream in;
         private PrintWriter pw;
  

@@ -1,6 +1,6 @@
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -559347427)
+@com.runwaysdk.business.ClassSignature(hash = -247561993)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.basemap;
 public abstract class OfflineBasemapManagementBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.basemap.OfflineBasemapManagement";
-  public static java.lang.String CONFIG = "config";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -28,39 +27,11 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPLOADSUCCESSFUL = "uploadSuccessful";
-  private static final long serialVersionUID = -559347427;
+  private static final long serialVersionUID = -247561993;
   
   public OfflineBasemapManagementBase()
   {
     super();
-  }
-  
-  public String getConfig()
-  {
-    return getValue(CONFIG);
-  }
-  
-  public void validateConfig()
-  {
-    this.validateAttribute(CONFIG);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getConfigMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(CONFIG);
-  }
-  
-  public void setConfig(String value)
-  {
-    if(value == null)
-    {
-      setValue(CONFIG, "");
-    }
-    else
-    {
-      setValue(CONFIG, value);
-    }
   }
   
   public java.util.Date getCreateDate()

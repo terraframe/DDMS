@@ -1,6 +1,6 @@
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -1030964922)
+@com.runwaysdk.business.ClassSignature(hash = 683768750)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,23 +37,6 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public String getClassType()
   {
     return dss.vector.solutions.basemap.OfflineBasemapManagement.CLASS;
-  }
-  public com.runwaysdk.query.SelectableChar getConfig()
-  {
-    return getConfig(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, displayLabel);
-
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -420,9 +403,6 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public interface OfflineBasemapManagementQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
-    public com.runwaysdk.query.SelectableChar getConfig();
-    public com.runwaysdk.query.SelectableChar getConfig(String alias);
-    public com.runwaysdk.query.SelectableChar getConfig(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -506,23 +486,6 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
       return this.NE(offlineBasemapManagement.getId());
     }
 
-  public com.runwaysdk.query.SelectableChar getConfig()
-  {
-    return getConfig(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -835,9 +798,6 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
   public interface OfflineBasemapManagementQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableMultiReference
   {
 
-    public com.runwaysdk.query.SelectableChar getConfig();
-    public com.runwaysdk.query.SelectableChar getConfig(String alias);
-    public com.runwaysdk.query.SelectableChar getConfig(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -969,23 +929,6 @@ public  class OfflineBasemapManagementQuery extends com.runwaysdk.query.Generate
       }
 
       return this.containsExactly(itemIdArray);
-  }
-  public com.runwaysdk.query.SelectableChar getConfig()
-  {
-    return getConfig(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getConfig(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.basemap.OfflineBasemapManagement.CONFIG, alias, displayLabel);
-
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {

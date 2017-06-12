@@ -3,8 +3,6 @@ package dss.vector.solutions.geoserver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.gis.constants.GeoserverProperties;
-
 public class GeoserverLayer implements GeoserverLayerIF
 {
   public static enum LayerType {
@@ -55,7 +53,7 @@ public class GeoserverLayer implements GeoserverLayerIF
     JSONObject object = new JSONObject();
     object.put("layerName", this.layerName);
     object.put("layerType", this.layerType.name());
-    object.put("workspace", GeoserverProperties.getWorkspace());
+    object.put("workspace", GeoserverProperties.getOSMWorkspace());
 
     return object;
   }

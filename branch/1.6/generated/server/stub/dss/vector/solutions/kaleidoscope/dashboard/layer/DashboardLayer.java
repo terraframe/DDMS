@@ -25,6 +25,7 @@ import dss.vector.solutions.SessionParameterFacade;
 import dss.vector.solutions.geoserver.GeoserverBatch;
 import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.geoserver.SessionPredicate;
+import dss.vector.solutions.kaleidoscope.dashboard.DashboardJob;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.Drilldown;
@@ -376,6 +377,13 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     for (DashboardStyle style : this.getAllHasStyle())
     {
       style.delete();
+    }
+
+    DashboardJob job = DashboardJob.get(this);
+
+    if (job != null)
+    {
+      job.delete();
     }
 
     super.delete();

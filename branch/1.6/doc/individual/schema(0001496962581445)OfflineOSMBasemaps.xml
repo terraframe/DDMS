@@ -1,4 +1,4 @@
-<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
       <mdController
@@ -15,19 +15,7 @@
          label="Offline Basemap Management"
          description="Offline basemap management"
          cacheAlgorithm="everything">
-        <attributes>
-          <char name="config" label="Offline Basemap Configuration" required="true" size="10000" />
-        </attributes>
       </mdBusiness>
-      
-      <object
-        type="dss.vector.solutions.basemap.OfflineBasemapManagement"
-        key="Singleton">
-        <attribute
-          name="config"
-          value="{}" />
-      </object>
-      
       
     </create>
     <update></update>

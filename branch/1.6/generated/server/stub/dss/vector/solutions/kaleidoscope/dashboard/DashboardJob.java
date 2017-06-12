@@ -351,6 +351,30 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     }
   }
 
+  public static DashboardJob get(DashboardLayer layer)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    DashboardJobQuery query = new DashboardJobQuery(factory);
+    query.WHERE(query.getLayer().EQ(layer));
+
+    OIterator<? extends DashboardJob> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
   private DashboardLayer[] setupLayers(Dashboard dashboard, DashboardMap map)
   {
     List<DashboardCondition> conditions = dashboard.getConditions();
@@ -482,6 +506,11 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
           baseMap.put("LOCLIZATION_KEY", "osmLocal");
           baseMap.put("LAYER_SOURCE_TYPE", "OSM-LOCAL");
 
+//           JSONObject baseMap = new JSONObject();
+//           baseMap.put("NAME", "Open street map");
+//           baseMap.put("LOCLIZATION_KEY", "osm");
+//           baseMap.put("LAYER_SOURCE_TYPE", "OSM");
+
           int defaultWidth = this.getImageWidth() - MARGIN;
           int defaultHeight = this.getImageHeight() - MARGIN;
 
@@ -526,12 +555,12 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
               generated.apply();
 
-              /*
-               * This is for testing
-               */
+//              /*
+//               * This is for testing
+//               */
 //              try
 //              {
-//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + "/" + dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
 //
 //                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
 //              }
