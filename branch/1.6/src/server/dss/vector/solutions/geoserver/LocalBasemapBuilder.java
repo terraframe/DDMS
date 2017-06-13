@@ -2,6 +2,8 @@ package dss.vector.solutions.geoserver;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -109,9 +110,9 @@ public class LocalBasemapBuilder implements Reloadable
 	ArrayList<File> filteredFiles = new ArrayList<File>();
 	File[] filteredFilesArr = null;
 
-    File folder = new File(CommonProperties.getDeployRoot() + File.separator + "basemaps");
+    File folder = new File(GeoserverProperties.getBasemapDirectory());
     
-    if(folder != null)
+    if(folder != null && folder.exists())
     {
 	    File[] listOfFiles = folder.listFiles();
 	
@@ -147,7 +148,7 @@ public class LocalBasemapBuilder implements Reloadable
     ArrayList<String> uploadedFiles = new ArrayList<String>();
     for (String fileName : fileNames)
     {
-      File file = new File(CommonProperties.getDeployRoot() + File.separator + "basemaps" + File.separator + fileName);
+      File file = new File(GeoserverProperties.getBasemapDirectory() + File.separator + fileName);
 
       if (file.exists())
       {
@@ -184,14 +185,14 @@ public class LocalBasemapBuilder implements Reloadable
         cleanDB = false;
       }
     }
-	
-	// ONLY run after all data is uploaded and if there are actually updates
-	if(fileNames.length > 0)
-	{
-		buildOSMGeoserverServices();
-	}
-	
-	return allSuccessful;
+
+    // ONLY run after all data is uploaded and if there are actually updates
+    if (fileNames.length > 0)
+    {
+      buildOSMGeoserverServices();
+    }
+
+    return allSuccessful;
   }
 
   public static boolean importBasemapFile(File file, boolean cleanFirst)
@@ -216,7 +217,7 @@ public class LocalBasemapBuilder implements Reloadable
     command.add(psqlRoot);
     command.add("--".concat(uploadMethod));
     command.add("--number-processes");
-    command.add(GeoserverProperties.getNumberOfProcessesForUploads()); 
+    command.add(GeoserverProperties.getNumberOfProcessesForUploads());
     command.add("--slim");
     command.add("--latlong");
     command.add("-d");
@@ -225,31 +226,44 @@ public class LocalBasemapBuilder implements Reloadable
     command.add(Integer.toString(DatabaseProperties.getPort())); // port
     command.add("--username");
     command.add(GeoserverProperties.getOSMUserName()); // user name
-    command.add("--password");
+    //    command.add("--password");
     command.add(file.getAbsolutePath());
-    
-    try {
-    	ProcessBuilderWrapper proc =	new ProcessBuilderWrapper(new File("/tmp"), command);
-    	
-    	System.out.println("Command has terminated with status: " + proc.getStatus());
-    	System.out.println("Output:\n" + proc.getInfos());
-    	System.out.println("Error: " + proc.getErrors());
-    	
-        if(proc.getStatus() == 0)
-    	{
-    		success = true;
-    		
-    		log.debug("\n\nBasemap data import successful!");
-    	}
-    	else
-    	{
-    		log.debug("\n\nProblem with basemap data import!");
-    	}
-	} catch (Exception e2) {
-		// TODO Auto-generated catch block
-		e2.printStackTrace();
-	}
-    
+
+    try
+    {
+      Path path = Files.createTempDirectory("pb");
+      File dir = path.toFile();
+
+      try
+      {
+        ProcessBuilderWrapper proc = new ProcessBuilderWrapper(dir, command);
+
+        System.out.println("Command has terminated with status: " + proc.getStatus());
+        System.out.println("Output:\n" + proc.getInfos());
+        System.out.println("Error: " + proc.getErrors());
+
+        if (proc.getStatus() == 0)
+        {
+          success = true;
+
+          log.debug("\n\nBasemap data import successful!");
+        }
+        else
+        {
+          log.debug("\n\nProblem with basemap data import!");
+        }
+      }
+      finally
+      {
+        Files.deleteIfExists(path);
+      }
+    }
+    catch (Exception e2)
+    {
+      // TODO Auto-generated catch block
+      e2.printStackTrace();
+    }
+
     return success;
   }
 
@@ -267,58 +281,58 @@ public class LocalBasemapBuilder implements Reloadable
 
   public static void buildOSMGeoserverServices()
   {
-	  GeoserverLayer lineLayer = new GeoserverLayer();
-      lineLayer.setLayerName("planet_osm_line");
-      lineLayer.setLayerType(LayerType.LINE);
-      lineLayer.setStyleName("osm-line-style");
-      
-      GeoserverLayer roadLayer = new GeoserverLayer();
-      roadLayer.setLayerName("planet_osm_roads");
-      roadLayer.setLayerType(LayerType.LINE);
-      roadLayer.setStyleName("osm-line-style");
-      
-      GeoserverLayer polyLayer = new GeoserverLayer();
-      polyLayer.setLayerName("planet_osm_polygon");
-      polyLayer.setLayerType(LayerType.POLYGON);
-      polyLayer.setStyleName("osm-polygon-style");
-      
-//      GeoserverLayer pointLayer = new GeoserverLayer();
-//      pointLayer.setLayerName("planet_osm_point");
-//      pointLayer.setLayerType(LayerType.POINT);
-//      pointLayer.setStyleName("osm-polygon-style");
-      
-      if(GeoserverFacade.layerExists(lineLayer.getLayerName()))
-      {
-    	  GeoserverFacade.removeLayer(lineLayer.getLayerName());
-      }
-      GeoserverFacade.publishOSMLayer(lineLayer);
-      
-      if(GeoserverFacade.layerExists(roadLayer.getLayerName()))
-      {
-    	  GeoserverFacade.removeLayer(roadLayer.getLayerName());
-      }
-      GeoserverFacade.publishOSMLayer(roadLayer);
-      
-      if(GeoserverFacade.layerExists(polyLayer.getLayerName()))
-      {
-    	  GeoserverFacade.removeLayer(polyLayer.getLayerName());
-      }
-      GeoserverFacade.publishOSMLayer(polyLayer);
-//      GeoserverFacade.publishOSMLayer(pointLayer);
-      
-      String[] layers = new String[3];
-      layers[0] = polyLayer.getLayerName();
-      layers[1] = lineLayer.getLayerName();
-      layers[2] = roadLayer.getLayerName();
-//      layers[3] = pointLayer.getLayerName();
-      
-      if(GeoserverFacade.layerGroupExists("osm_basic"))
-      {
-    	  GeoserverFacade.removeLayer(lineLayer.getLayerName());
-      }
-      GeoserverFacade.publishLayerGroup(layers, GeoserverProperties.getOSMWorkspace(), "osm_basic");
-      
-      GeoserverFacade.removeCache("osm_basic", GeoserverProperties.getOSMWorkspace());
+    GeoserverLayer lineLayer = new GeoserverLayer();
+    lineLayer.setLayerName("planet_osm_line");
+    lineLayer.setLayerType(LayerType.LINE);
+    lineLayer.setStyleName("osm-line-style");
+
+    GeoserverLayer roadLayer = new GeoserverLayer();
+    roadLayer.setLayerName("planet_osm_roads");
+    roadLayer.setLayerType(LayerType.LINE);
+    roadLayer.setStyleName("osm-line-style");
+
+    GeoserverLayer polyLayer = new GeoserverLayer();
+    polyLayer.setLayerName("planet_osm_polygon");
+    polyLayer.setLayerType(LayerType.POLYGON);
+    polyLayer.setStyleName("osm-polygon-style");
+
+    // GeoserverLayer pointLayer = new GeoserverLayer();
+    // pointLayer.setLayerName("planet_osm_point");
+    // pointLayer.setLayerType(LayerType.POINT);
+    // pointLayer.setStyleName("osm-polygon-style");
+
+    if (GeoserverFacade.layerExists(lineLayer.getLayerName()))
+    {
+      GeoserverFacade.removeLayer(lineLayer.getLayerName());
+    }
+    GeoserverFacade.publishOSMLayer(lineLayer);
+
+    if (GeoserverFacade.layerExists(roadLayer.getLayerName()))
+    {
+      GeoserverFacade.removeLayer(roadLayer.getLayerName());
+    }
+    GeoserverFacade.publishOSMLayer(roadLayer);
+
+    if (GeoserverFacade.layerExists(polyLayer.getLayerName()))
+    {
+      GeoserverFacade.removeLayer(polyLayer.getLayerName());
+    }
+    GeoserverFacade.publishOSMLayer(polyLayer);
+    // GeoserverFacade.publishOSMLayer(pointLayer);
+
+    String[] layers = new String[3];
+    layers[0] = polyLayer.getLayerName();
+    layers[1] = lineLayer.getLayerName();
+    layers[2] = roadLayer.getLayerName();
+    // layers[3] = pointLayer.getLayerName();
+
+    if (GeoserverFacade.layerGroupExists("osm_basic"))
+    {
+      GeoserverFacade.removeLayer(lineLayer.getLayerName());
+    }
+    GeoserverFacade.publishLayerGroup(layers, GeoserverProperties.getOSMWorkspace(), "osm_basic");
+
+    GeoserverFacade.removeCache("osm_basic", GeoserverProperties.getOSMWorkspace());
   }
 
 }

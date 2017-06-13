@@ -123,4 +123,9 @@ public class GeoserverProperties implements Reloadable
     return instance.getBundle().getString("osm.numberprocessesforuploads");
   }
 
+  public static String getBasemapDirectory()
+  {
+    return instance.getBundle().getString("osm.basemaps.root");
+  }
+
 }
