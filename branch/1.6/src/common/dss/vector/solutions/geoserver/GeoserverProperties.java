@@ -117,5 +117,10 @@ public class GeoserverProperties implements Reloadable
   {
 	  return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstop"));
   }
+  
+  public static String getNumberOfProcessesForUploads()
+  {
+    return instance.getBundle().getString("osm.numberprocessesforuploads");
+  }
 
 }

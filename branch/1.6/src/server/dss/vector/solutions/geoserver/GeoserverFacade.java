@@ -85,9 +85,9 @@ public class GeoserverFacade implements Reloadable
     getService().publishWorkspace(workspaceName);
   }
   
-  public static void removeCache(String cacheName)
+  public static void removeCache(String cacheName, String workspace)
   {
-    getService().removeCache(cacheName);
+    getService().removeCache(cacheName, workspace);
   }
 
   /**

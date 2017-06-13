@@ -29,7 +29,8 @@
 <h3 style="color:red;margin:10px 0px 10px 0;"><mdss:localize key="offline_basemap_instructions_important" /></h3>
 
 <form id="basemapForm" action="dss.vector.solutions.basemap.OfflineBasemapController.submit.mojo" method="post" 
-style="width: 250px;left: 0;margin-left:0;border:1px solid #CCCCCC;margin-top:10px;">
+style="width:300px;left:0;margin-left:0;border:1px solid #CCCCCC;margin-top:10px;"
+onsubmit="return checkForm(this);">
   <fieldset style="background:#f6f5ed; border:none;">
 	  <div>
 	  
@@ -48,11 +49,23 @@ style="width: 250px;left: 0;margin-left:0;border:1px solid #CCCCCC;margin-top:10
 	  
 	  </div>
 	  <div>
-	    <button type="submit" form="basemapForm" value="Submit"><mdss:localize key="offline_basemap_button" /></button>
+	    <button id="basemapRebuildBtn" type="submit" form="basemapForm" value="Submit" style="padding:4px;"><mdss:localize key="offline_basemap_button" /></button>
 	  </div>
   </fieldset>
 </form>
 
-<c:if test="${uploadStatus}">
-   <h2>Upload Complete</h2>
-</c:if>
+<%-- <c:if test="${uploadStatus}"> --%>
+<%--    <h2><mdss:localize key="offline_map_data_upload_complete" /></h2> --%>
+<%-- </c:if> --%>
+
+<script type="text/javascript">
+
+  function checkForm(form)
+  {
+    $("body").append('<div style="width:300px;position:absolute;margin:0 auto;top:50%;bottom:0;left:0;right:0;height:50px;background:rgba(169, 169, 169, .80);"><img src="imgs/rel_interstitial_loading.gif" style="margin:0 auto;display:block;transform:translateY(15px);" /><div>')
+    
+    form.basemapRebuildBtn.disabled = true;
+    return true;
+  }
+
+</script>

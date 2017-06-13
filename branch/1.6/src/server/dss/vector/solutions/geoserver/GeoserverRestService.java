@@ -492,12 +492,12 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    * 
    * @param cacheName
    */
-  public void removeCache(String cacheName)
+  public void removeCache(String cacheName, String workspace)
   {
 	String cacheDir = null;
 	try
 	{
-      cacheDir = GeoserverProperties.getDefaultGeoWebCacheDirPath() + File.separator + GeoserverProperties.getOSMWorkspace() + "_" + cacheName;
+      cacheDir = GeoserverProperties.getDefaultGeoWebCacheDirPath() + File.separator + workspace + "_" + cacheName;
 	} catch(MissingResourceException e)
 	{
 		throw new ProgrammingErrorException(e);

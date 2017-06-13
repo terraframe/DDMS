@@ -877,10 +877,8 @@
 	              else if(base.LAYER_SOURCE_TYPE.toLowerCase() === "osm-local"){
 	                baseObj.setSource( 
 	                  new ol.source.TileWMS(({
-	                	    url: 'http://localhost:8080/geoserver-2.9.1/gwc/service/wms',
-	                	    params: {'LAYERS': 'OSM:osm_basic', 'TILED': true, 'VERSION': '1.1.1',
-	                	      'FORMAT': 'image/png', 'WIDTH': 256, 'HEIGHT': 256, 'SRS': 'EPSG:3857'}
-	                	    }))
+	                	    url: base.URL,
+	                	    params: base.LAYER_SOURCE_OPTIONS}))
 	                );
 	              }
 	              else if(base.LAYER_SOURCE_TYPE.toLowerCase() === "mapquest"){

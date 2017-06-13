@@ -12,7 +12,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <sld:Title>'Polygon'</sld:Title>
 <sld:FeatureTypeStyle>
 <sld:Rule>
-<sld:MaxScaleDenominator>50000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>150000000</sld:MaxScaleDenominator>
 <sld:PolygonSymbolizer><sld:Fill>
 <sld:CssParameter name="fill">#ededed</sld:CssParameter>
 </sld:Fill></sld:PolygonSymbolizer>
@@ -776,3 +776,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 </sld:UserStyle>
 </sld:NamedLayer>
 </sld:StyledLayerDescriptor>
+

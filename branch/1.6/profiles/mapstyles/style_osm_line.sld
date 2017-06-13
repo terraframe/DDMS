@@ -1575,7 +1575,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>primary</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:TextSymbolizer><sld:Label><ogc:PropertyName>ref</ogc:PropertyName></sld:Label><sld:Font><sld:CssParameter name="font-family">Lucida Sans</sld:CssParameter><sld:CssParameter name="font-size">10</sld:CssParameter><sld:CssParameter name="font-style">normal</sld:CssParameter><sld:CssParameter name="font-weight">bold</sld:CssParameter></sld:Font><sld:Fill><sld:CssParameter name="fill">#ffffff</sld:CssParameter><sld:CssParameter name="fill-opacity">1.0</sld:CssParameter></sld:Fill><sld:Graphic><sld:ExternalGraphic><sld:OnlineResource xlink:type="simple" xlink:href="symbols/pri_shield5.png"/><sld:Format>image/png</sld:Format></sld:ExternalGraphic><sld:Size>18</sld:Size></sld:Graphic><sld:VendorOption name="group">yes</sld:VendorOption><sld:VendorOption name="spaceAround">0</sld:VendorOption><sld:VendorOption name="repeat">750</sld:VendorOption></sld:TextSymbolizer>
 </sld:Rule>
 </sld:FeatureTypeStyle>
@@ -1585,7 +1585,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>primary</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:TextSymbolizer><sld:Label><ogc:PropertyName>name</ogc:PropertyName></sld:Label><sld:Font><sld:CssParameter name="font-family">Lucida Sans</sld:CssParameter><sld:CssParameter name="font-size">10</sld:CssParameter><sld:CssParameter name="font-style">normal</sld:CssParameter><sld:CssParameter name="font-weight">normal</sld:CssParameter></sld:Font><sld:LabelPlacement><sld:LinePlacement /></sld:LabelPlacement><sld:Halo><sld:Radius>1</sld:Radius><sld:Fill><sld:CssParameter name="fill">#ffffff</sld:CssParameter></sld:Fill></sld:Halo><sld:Fill><sld:CssParameter name="fill">#000000</sld:CssParameter><sld:CssParameter name="fill-opacity">1.0</sld:CssParameter></sld:Fill><sld:VendorOption name="followLine">true</sld:VendorOption><sld:VendorOption name="group">yes</sld:VendorOption><sld:VendorOption name="spaceAround">0</sld:VendorOption><sld:VendorOption name="maxDisplacement">300</sld:VendorOption><sld:VendorOption name="repeat">750</sld:VendorOption></sld:TextSymbolizer>
 </sld:Rule>
 </sld:FeatureTypeStyle>
@@ -1595,7 +1595,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>motorway</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:LineSymbolizer><sld:Stroke>
 <sld:CssParameter name="stroke">#506077</sld:CssParameter>
 <sld:CssParameter name="stroke-width">2</sld:CssParameter>
@@ -1610,7 +1610,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>motorway</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:TextSymbolizer><sld:Label><ogc:PropertyName>ref</ogc:PropertyName></sld:Label><sld:Font><sld:CssParameter name="font-family">Lucida Sans</sld:CssParameter><sld:CssParameter name="font-size">10</sld:CssParameter><sld:CssParameter name="font-style">normal</sld:CssParameter><sld:CssParameter name="font-weight">bold</sld:CssParameter></sld:Font><sld:Fill><sld:CssParameter name="fill">#ffffff</sld:CssParameter><sld:CssParameter name="fill-opacity">1.0</sld:CssParameter></sld:Fill><sld:Graphic><sld:ExternalGraphic><sld:OnlineResource xlink:type="simple" xlink:href="symbols/mot_shield5.png"/><sld:Format>image/png</sld:Format></sld:ExternalGraphic><sld:Size>18</sld:Size></sld:Graphic><sld:VendorOption name="group">yes</sld:VendorOption><sld:VendorOption name="spaceAround">0</sld:VendorOption><sld:VendorOption name="repeat">750</sld:VendorOption></sld:TextSymbolizer>
 </sld:Rule>
 </sld:FeatureTypeStyle>
@@ -1620,7 +1620,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>trunk</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:LineSymbolizer><sld:Stroke>
 <sld:CssParameter name="stroke">#a8daa8</sld:CssParameter>
 <sld:CssParameter name="stroke-width">2</sld:CssParameter>
@@ -1635,10 +1635,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ogc:PropertyIsEqualTo><ogc:PropertyName>highway</ogc:PropertyName><ogc:Literal>trunk</ogc:Literal></ogc:PropertyIsEqualTo>
 </ogc:Filter>
 <sld:MinScaleDenominator>200000</sld:MinScaleDenominator>
-<sld:MaxScaleDenominator>250000000000</sld:MaxScaleDenominator>
+<sld:MaxScaleDenominator>9000000</sld:MaxScaleDenominator>
 <sld:TextSymbolizer><sld:Label><ogc:PropertyName>ref</ogc:PropertyName></sld:Label><sld:Font><sld:CssParameter name="font-family">Lucida Sans</sld:CssParameter><sld:CssParameter name="font-size">10</sld:CssParameter><sld:CssParameter name="font-style">normal</sld:CssParameter><sld:CssParameter name="font-weight">bold</sld:CssParameter></sld:Font><sld:Fill><sld:CssParameter name="fill">#ffffff</sld:CssParameter><sld:CssParameter name="fill-opacity">1.0</sld:CssParameter></sld:Fill><sld:Graphic><sld:ExternalGraphic><sld:OnlineResource xlink:type="simple" xlink:href="symbols/tru_shield5.png"/><sld:Format>image/png</sld:Format></sld:ExternalGraphic><sld:Size>18</sld:Size></sld:Graphic><sld:VendorOption name="group">yes</sld:VendorOption><sld:VendorOption name="spaceAround">0</sld:VendorOption><sld:VendorOption name="repeat">750</sld:VendorOption></sld:TextSymbolizer>
 </sld:Rule>
 </sld:FeatureTypeStyle>
 </sld:UserStyle>
 </sld:NamedLayer>
 </sld:StyledLayerDescriptor>
+

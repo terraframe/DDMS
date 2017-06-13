@@ -132,7 +132,7 @@ public interface GeoserverService extends Reloadable
    * 
    * @param cacheName
    */
-  public void removeCache(String cacheName);
+  public void removeCache(String cacheName, String workspace);
   
   /**
    * Checks if the given layer group exists in Geoserver.

@@ -182,7 +182,7 @@ public class NullGeoserverService implements GeoserverService
   }
 
   @Override
-  public void removeCache(String cacheName)
+  public void removeCache(String cacheName, String workspace)
   {
 
   }
