@@ -1091,10 +1091,9 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     }
     else if (baseType.equalsIgnoreCase("OSM-LOCAL"))
     {
-      String layerName = "osm_basic";
-      URL url = new URL(GeoserverProperties.getGeoServerLocalURL() + "/wms?service=WMS&version=1.1.0&request=GetMap&layers=" + layerName);
+      URL url = new URL(GeoserverProperties.getGeoServerLocalURL() + "/wms?service=WMS&version=1.1.0&request=GetMap&layers=" + "osm_basic");
 
-      return new Pair<String, URL>(layerName, url);
+      return new Pair<String, URL>("OSM:osm_basic", url);
     }
 
     return null;
