@@ -1038,8 +1038,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       });
 
       var materialized = this._queryPanel.getIsMaterialized();
-      var overwrite = JSON.parse(view.getDeleteSelectables()).length > 0;
-      
+      var overwrite = view.getDeleteSelectables() !== "" && JSON.parse(view.getDeleteSelectables()).length > 0;      
 
       if((overwrite || materialized !== this._loadedMaterialized)) {
         var request = new MDSS.Request({
