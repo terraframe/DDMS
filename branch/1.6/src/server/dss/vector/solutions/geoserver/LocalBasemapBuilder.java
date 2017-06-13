@@ -106,26 +106,35 @@ public class LocalBasemapBuilder implements Reloadable
 
   public static File[] getBasemapFiles()
   {
-    File folder = new File(CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + CommonProperties.getDeployAppName() + File.separator + "basemaps");
-    File[] listOfFiles = folder.listFiles();
-    ArrayList<File> filteredFiles = new ArrayList<File>();
+	ArrayList<File> filteredFiles = new ArrayList<File>();
+	File[] filteredFilesArr = null;
 
-    for (int i = 0; i < listOfFiles.length; i++)
+    File folder = new File(CommonProperties.getDeployRoot() + File.separator + "basemaps");
+    
+    if(folder != null)
     {
-      if (listOfFiles[i].isFile() && FilenameUtils.getExtension(listOfFiles[i].getName()).equals("pbf"))
-      {
-        filteredFiles.add(listOfFiles[i]);
-      }
-      else if (listOfFiles[i].isDirectory())
-      {
-        // skip any sub-directories
-      }
-    }
-
-    File[] filteredFilesArr = new File[filteredFiles.size()];
-    for (int i = 0; i < filteredFiles.size(); i++)
-    {
-      filteredFilesArr[i] = filteredFiles.get(i);
+	    File[] listOfFiles = folder.listFiles();
+	
+	    if(listOfFiles != null)
+	    {
+		    for (int i = 0; i < listOfFiles.length; i++)
+		    {
+		      if (listOfFiles[i].isFile() && FilenameUtils.getExtension(listOfFiles[i].getName()).equals("pbf"))
+		      {
+		        filteredFiles.add(listOfFiles[i]);
+		      }
+		      else if (listOfFiles[i].isDirectory())
+		      {
+		        // skip any sub-directories
+		      }
+		    }
+		
+		    filteredFilesArr = new File[filteredFiles.size()];
+		    for (int i = 0; i < filteredFiles.size(); i++)
+		    {
+		      filteredFilesArr[i] = filteredFiles.get(i);
+		    }
+	    }
     }
 
     return filteredFilesArr;
@@ -138,7 +147,7 @@ public class LocalBasemapBuilder implements Reloadable
     ArrayList<String> uploadedFiles = new ArrayList<String>();
     for (String fileName : fileNames)
     {
-      File file = new File(CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + CommonProperties.getDeployAppName() + File.separator + "basemaps" + File.separator + fileName);
+      File file = new File(CommonProperties.getDeployRoot() + File.separator + "basemaps" + File.separator + fileName);
 
       if (file.exists())
       {
