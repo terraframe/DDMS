@@ -80,8 +80,8 @@ var MapConfig ={
                 "HEIGHT":256, 
                 "SRS":"EPSG:3857"
             },
-            //"URL":"http://localhost:8080/geoserver/wms",
-            "URL":"http://localhost:8080/geoserver/gwc/service/wms",
+            //"URL":"http://localhost:8080/geoserver-2.9.1/wms",
+            "URL":"http://localhost:8080/geoserver-2.9.1/gwc/service/wms",
             "DEFAULT":"false",
             "VISIBLE":"true",
             "ENABLED":"true"
