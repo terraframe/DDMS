@@ -93,6 +93,7 @@ import dss.vector.solutions.geo.GeoEntitySelectionProblem;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.GeoSynonym;
 import dss.vector.solutions.geo.LocatedIn;
@@ -1791,6 +1792,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     private MdBusinessQuery mdBusinessQuery;
 
     private TermQuery       termQuery;
+    
+    private GeoHierarchyQuery geoHierarchyQuery;
 
     private String          filter;
 
@@ -1803,6 +1806,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       this.geoEntityQuery = new GeoEntityQuery(queryFactory);
       this.locatedInQuery = new LocatedInQuery(queryFactory);
       this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
+      this.geoHierarchyQuery = new GeoHierarchyQuery(queryFactory);
       this.termQuery = new TermQuery(queryFactory);
     }
 
@@ -1818,6 +1822,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
+      
+      vQuery.map(GeoEntityView.POLITICAL, geoHierarchyQuery.getPolitical());
+      vQuery.map(GeoEntityView.URBAN, geoHierarchyQuery.getUrban());
+      vQuery.map(GeoEntityView.POPULATIONALLOWED, geoHierarchyQuery.getPopulationAllowed());
+      vQuery.map(GeoEntityView.SPRAYTARGETALLOWED, geoHierarchyQuery.getSprayTargetAllowed());
     }
 
     @Override
@@ -1829,6 +1838,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       vQuery.AND(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
 
       vQuery.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+      vQuery.AND(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
 
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)

@@ -1,0 +1,22 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="searchObjectVQ" label="Search Object (Value Query version)" static="true" returnType="com.runwaysdk.query.ValueQuery">
+            <mdParameter name="criteria" label="Criteria" order="0" type="com.runwaysdk.business.Business" />
+            <mdParameter name="type" label="type" order="1" type="java.lang.String" />
+            <mdParameter name="sortAttribute" label="Sort Attribute" type="java.lang.String" order="2" />
+            <mdParameter name="isAscending" label="Is Ascending" type="java.lang.Boolean" order="3" />
+            <mdParameter name="pageSize" label="Page Size" type="java.lang.Integer" order="4" />
+            <mdParameter name="pageNumber" label="Page Number" type="java.lang.Integer" order="5" />
+          </mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

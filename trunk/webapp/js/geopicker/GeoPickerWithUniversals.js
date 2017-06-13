@@ -176,6 +176,13 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
     
     _onGeoSelect : function(geoEntityView, node)
     {
+      if (!this._isActiveBasedOnGeoFilterCriteria(geoEntityView))
+      {
+        node.unhighlight()
+        node.toggle()
+        return;
+      }
+      
       var id = geoEntityView.getGeoEntityId();
       var mapVal = this._geoMap.get(id);
       if (mapVal == null)

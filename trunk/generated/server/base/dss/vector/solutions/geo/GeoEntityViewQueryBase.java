@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1634205837)
+@com.runwaysdk.business.ClassSignature(hash = -545298399)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -151,6 +151,60 @@ public  abstract  class GeoEntityViewQueryBase extends com.runwaysdk.query.Gener
 
   }
  
+  public com.runwaysdk.query.SelectableBoolean getPolitical()
+  {
+    return getPolitical(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPolitical(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.POLITICAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPolitical(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.POLITICAL, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPopulationAllowed()
+  {
+    return getPopulationAllowed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPopulationAllowed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.POPULATIONALLOWED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getPopulationAllowed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.POPULATIONALLOWED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getSprayTargetAllowed()
+  {
+    return getSprayTargetAllowed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getSprayTargetAllowed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.SPRAYTARGETALLOWED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getSprayTargetAllowed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.SPRAYTARGETALLOWED, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getTypeDisplayLabel()
   {
     return getTypeDisplayLabel(null);
@@ -166,6 +220,24 @@ public  abstract  class GeoEntityViewQueryBase extends com.runwaysdk.query.Gener
   public com.runwaysdk.query.SelectableChar getTypeDisplayLabel(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.TYPEDISPLAYLABEL, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban()
+  {
+    return getUrban(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.URBAN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityView.URBAN, alias, displayLabel);
 
   }
  

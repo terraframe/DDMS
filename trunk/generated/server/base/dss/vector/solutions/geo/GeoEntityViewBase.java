@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1378365206)
+@com.runwaysdk.business.ClassSignature(hash = 1528793400)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,8 +18,12 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String MOSUBTYPE = "moSubType";
+  public static java.lang.String POLITICAL = "political";
+  public static java.lang.String POPULATIONALLOWED = "populationAllowed";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
-  private static final long serialVersionUID = 1378365206;
+  public static java.lang.String URBAN = "urban";
+  private static final long serialVersionUID = 1528793400;
   
   public GeoEntityViewBase()
   {
@@ -210,6 +214,90 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     }
   }
   
+  public Boolean getPolitical()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+  }
+  
+  public void validatePolitical()
+  {
+    this.validateAttribute(POLITICAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getPoliticalMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(POLITICAL);
+  }
+  
+  public void setPolitical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POLITICAL, "");
+    }
+    else
+    {
+      setValue(POLITICAL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getPopulationAllowed()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
+  }
+  
+  public void validatePopulationAllowed()
+  {
+    this.validateAttribute(POPULATIONALLOWED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getPopulationAllowedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(POPULATIONALLOWED);
+  }
+  
+  public void setPopulationAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POPULATIONALLOWED, "");
+    }
+    else
+    {
+      setValue(POPULATIONALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void validateSprayTargetAllowed()
+  {
+    this.validateAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getSprayTargetAllowedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getTypeDisplayLabel()
   {
     return getValue(TYPEDISPLAYLABEL);
@@ -235,6 +323,34 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     else
     {
       setValue(TYPEDISPLAYLABEL, value);
+    }
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void validateUrban()
+  {
+    this.validateAttribute(URBAN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getUrbanMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(URBAN);
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
     }
   }
   

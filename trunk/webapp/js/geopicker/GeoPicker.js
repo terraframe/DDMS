@@ -192,6 +192,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       
       this.performLayout();
       
+      this._tree.setGeoFilterCriteria(this.getGeoFilterCriteria());
+      
       this._rendered = true;
     },
     
@@ -332,12 +334,46 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       }
     },
     
+    // basically copy/pasted from GeoEntityTree.js
+    _isActiveBasedOnGeoFilterCriteria : function(geoEntityView)
+    {
+      var geoFilterCriteria = this.getGeoFilterCriteria();
+      
+      var active = geoEntityView.getActivated();
+      
+      if (active && geoFilterCriteria != null)
+      {
+        if (geoFilterCriteria.filter != null && geoFilterCriteria.filter !== geoEntityView.getEntityType())
+        {
+          active = false;
+        }
+        else if (geoFilterCriteria.political && !geoEntityView.getPolitical())
+        {
+          active = false;
+        }
+        else if (geoFilterCriteria.urban && !geoEntityView.getUrban())
+        {
+          active = false;
+        }
+        else if (geoFilterCriteria.populationAllowed && !geoEntityView.getPopulationAllowed())
+        {
+          active = false;
+        }
+        else if (geoFilterCriteria.sprayTargetAllowed && !geoEntityView.getSprayTargetAllowed())
+        {
+          active = false;
+        }
+      }
+      
+      return active;
+    },
+    
     _onGeoSelect : function(geoEntityView)
     {
-//      if(Mojo.Util.isFunction(this._selectHandler))
-//      {
-//        this._selectHandler(geoEntityView);
-//      }
+      if (!this._isActiveBasedOnGeoFilterCriteria(geoEntityView))
+      {
+        return;
+      }
       
       // Some pages also have a field that takes the geoentity id.
       // Those fields are namespaced as the geo id field+"_geoEntityId",
@@ -388,7 +424,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     
     setValidator : function(validator)
     {
-      this._tree.setValidator(validator);
+      console.log("WARNING : This method is deprecated and does not do anything anymore. The tree directly accepts geo filter criteria now.");
     },
   
     /**

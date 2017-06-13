@@ -555,6 +555,10 @@ div.ygtv-checkbox td.ygtvcell > div.activeEntity > span
 {
 	margin-left: 5px;
 }
+div.ygtv-checkbox td.ygtvcell > div.inactiveEntity > span
+{
+  margin-left: 5px;
+}
 
 ul#columnsList {
   margin-bottom: 150px;

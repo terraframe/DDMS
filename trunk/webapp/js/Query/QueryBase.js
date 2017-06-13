@@ -1432,7 +1432,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       // Filter out all attributes which are null
       var attributes = this._geoEntityAttribs.filter(function (val) {return val != null});
       var html;
-            
+      
       if(attributes.length > 0)
       {
         var attributeKeys = [];
@@ -1493,7 +1493,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._geoPicker.setCriteria(criteria);
       
       this._geoPicker.show();
-      this._geoPicker.setValidator(Mojo.Util.bind(this, this._validator));
     },
     
     _validator : function(request, geoId)

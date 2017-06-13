@@ -31,9 +31,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._currentBrowser = null;
       this._currentType = null;
 
-      // Selection validator for the tree
-      this._validator = null;
-
       // ID of the download interval timer
       this._intervalId = null;
       
@@ -997,48 +994,16 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           var geoEntityView = this._selectedNode.data.geoEntityView;
           var geoId = geoEntityView.getGeoId();
 
+          var active = this._isActiveBasedOnGeoFilterCriteria(geoEntityView);
+          
           // IMPORTANT:
           // We have to access itemData directly as a property instead of using
           // getItem()
           // because the ContextMenu only loads items after the first render
           // (possibly because
           // of lazy loading).
-          if (this._validator != null)
-          {
-            var item = this._menu.itemData[0];
-            item.cfg.setProperty('disabled', true);
-
-            if (geoEntityView.getActivated())
-            {
-
-              var request = new MDSS.Request({
-                item : item,
-                onSend : function()
-                {
-                  console.log("onSend : " + arguments);
-                },
-                onComplete : function()
-                {
-                  console.log("onComplete : " + arguments);
-                },
-                onFailure : function()
-                {
-                  console.log("onFailure : " + arguments);
-                },
-                onProblemExceptionDTO : function()
-                {
-                  console.log("onProblemEx : " + arguments);
-                },
-                onSuccess : function()
-                {
-                  this.item.cfg.setProperty('disabled', false);
-                }
-              });
-
-              this._validator(request, geoId);
-            }
-          }
-
+          var item = this._menu.itemData[0];
+          item.cfg.setProperty('disabled', !active);
         }
 
         this._menu.bringToTop();
@@ -1464,12 +1429,45 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _createNodeDiv : function(geoEntityView, scrapeTerm)
     {
-      var activeClass = geoEntityView.getActivated() === true ? 'activeEntity' : 'inactiveEntity';
+      var active = this._isActiveBasedOnGeoFilterCriteria(geoEntityView);
+      
+      var activeClass = active === true ? 'activeEntity' : 'inactiveEntity';
 
       var span = this._createContentSpan(geoEntityView, scrapeTerm);
-      var div = "<div class='" + activeClass + "'>" + span + "</div>";
+      var div = "<div id='tn_" + geoEntityView.getId() + "' class='" + activeClass + "'>" + span + "</div>";
 
       return div;
+    },
+    
+    _isActiveBasedOnGeoFilterCriteria : function(geoEntityView)
+    {
+      var active = geoEntityView.getActivated();
+      
+      if (active && this._geoFilterCriteria != null)
+      {
+        if (this._geoFilterCriteria.filter != null && this._geoFilterCriteria.filter !== geoEntityView.getEntityType())
+        {
+          active = false;
+        }
+        else if (this._geoFilterCriteria.political && !geoEntityView.getPolitical())
+        {
+          active = false;
+        }
+        else if (this._geoFilterCriteria.urban && !geoEntityView.getUrban())
+        {
+          active = false;
+        }
+        else if (this._geoFilterCriteria.populationAllowed && !geoEntityView.getPopulationAllowed())
+        {
+          active = false;
+        }
+        else if (this._geoFilterCriteria.sprayTargetAllowed && !geoEntityView.getSprayTargetAllowed())
+        {
+          active = false;
+        }
+      }
+      
+      return active;
     },
 
     _createContentSpan : function(geoEntityView, scrapeTerm)
@@ -1673,10 +1671,15 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       // Fetch the root node
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, this._rootId);
     },
+    
+    setGeoFilterCriteria : function(criteria)
+    {
+      this._geoFilterCriteria = criteria;
+    },
 
     setValidator : function(validator)
     {
-      this._validator = validator;
+      console.log("GeoEntityTree.setValidator is deprecated. Use setGeoFilterCriteria instead. This function now does nothing.");
     }
   }
 });

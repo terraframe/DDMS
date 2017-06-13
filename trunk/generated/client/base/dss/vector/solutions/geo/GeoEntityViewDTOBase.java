@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 833433750)
+@com.runwaysdk.business.ClassSignature(hash = -518359112)
 public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityView";
-  private static final long serialVersionUID = 833433750;
+  private static final long serialVersionUID = -518359112;
   
   protected GeoEntityViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,7 +23,11 @@ public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDT
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String MOSUBTYPE = "moSubType";
+  public static java.lang.String POLITICAL = "political";
+  public static java.lang.String POPULATIONALLOWED = "populationAllowed";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
+  public static java.lang.String URBAN = "urban";
   public Boolean getActivated()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
@@ -246,6 +250,117 @@ public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDT
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSUBTYPE).getAttributeMdDTO();
   }
   
+  public Boolean getPolitical()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+  }
+  
+  public void setPolitical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POLITICAL, "");
+    }
+    else
+    {
+      setValue(POLITICAL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isPoliticalWritable()
+  {
+    return isWritable(POLITICAL);
+  }
+  
+  public boolean isPoliticalReadable()
+  {
+    return isReadable(POLITICAL);
+  }
+  
+  public boolean isPoliticalModified()
+  {
+    return isModified(POLITICAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
+  }
+  
+  public Boolean getPopulationAllowed()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
+  }
+  
+  public void setPopulationAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POPULATIONALLOWED, "");
+    }
+    else
+    {
+      setValue(POPULATIONALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isPopulationAllowedWritable()
+  {
+    return isWritable(POPULATIONALLOWED);
+  }
+  
+  public boolean isPopulationAllowedReadable()
+  {
+    return isReadable(POPULATIONALLOWED);
+  }
+  
+  public boolean isPopulationAllowedModified()
+  {
+    return isModified(POPULATIONALLOWED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
+  }
+  
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isSprayTargetAllowedWritable()
+  {
+    return isWritable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedReadable()
+  {
+    return isReadable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedModified()
+  {
+    return isModified(SPRAYTARGETALLOWED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
+  }
+  
   public String getTypeDisplayLabel()
   {
     return getValue(TYPEDISPLAYLABEL);
@@ -281,6 +396,43 @@ public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDT
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTypeDisplayLabelMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPEDISPLAYLABEL).getAttributeMdDTO();
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isUrbanWritable()
+  {
+    return isWritable(URBAN);
+  }
+  
+  public boolean isUrbanReadable()
+  {
+    return isReadable(URBAN);
+  }
+  
+  public boolean isUrbanModified()
+  {
+    return isModified(URBAN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
   }
   
   public static GeoEntityViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
