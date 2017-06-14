@@ -28,7 +28,7 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       this._geoEntityAttribs = [
                                 {
                                   keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                                  display : efficacyInstance.getGeoEntityMd().getDisplayLabel()
+                                  display : com.runwaysdk.Localize.get("Geo_Entity")
                                 }        
                               ];
       

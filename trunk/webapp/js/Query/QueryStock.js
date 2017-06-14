@@ -35,7 +35,7 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
       this._geoEntityAttribs = [
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.STOCKDEPOT,
-                               display : this._stock.getStockDepotMd().getDisplayLabel()
+                               display : com.runwaysdk.Localize.get("Geo_Entity") //this._stock.getStockDepotMd().getDisplayLabel()
                              },
                              
                            ];

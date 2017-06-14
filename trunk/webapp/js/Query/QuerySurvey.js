@@ -17,7 +17,7 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           this._geoEntityAttribs = [
                                  {
                                    keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                                   display : this._surveyPoint.getGeoEntityMd().getDisplayLabel()
+                                   display : com.runwaysdk.Localize.get("Geo_Entity") //this._surveyPoint.getGeoEntityMd().getDisplayLabel()
                                  },
                                  
                                ];

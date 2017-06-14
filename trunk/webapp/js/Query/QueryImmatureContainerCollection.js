@@ -32,7 +32,7 @@ Mojo.Meta.newClass('MDSS.QueryImmatureContainerCollection', {
       this._geoEntityAttribs = [
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                               display : this._larvacide.getGeoEntityMd().getDisplayLabel()
+                               display : com.runwaysdk.Localize.get("Geo_Entity")
                              },
                              
                            ];

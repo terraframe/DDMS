@@ -39,7 +39,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       this._geoEntityAttribs = [
                                 {
                                   keyName :  abstractSpray.CLASS+'.' + abstractSpray.GEOENTITY,
-                                  display :  abstractSprayInstance.getGeoEntityMd().getDisplayLabel()
+                                  display :  com.runwaysdk.Localize.get("Geo_Entity")
                                 },                                    
                               ];
       this._dateAttribs = [

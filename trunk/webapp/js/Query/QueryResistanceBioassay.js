@@ -19,7 +19,7 @@ Mojo.Meta.newClass('MDSS.QueryResistanceBioassay', {
       this._geoEntityAttribs = [
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                               display : this._mosquitoCollection.getGeoEntityMd().getDisplayLabel()
+                               display : com.runwaysdk.Localize.get("Geo_Entity") //this._mosquitoCollection.getGeoEntityMd().getDisplayLabel()
                              },
                              
                            ];

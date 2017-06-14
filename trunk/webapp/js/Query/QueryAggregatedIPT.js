@@ -37,7 +37,7 @@ Mojo.Meta.newClass('MDSS.QueryAggreatedIPT', {
       this._geoEntityAttribs = [
                                 {
                                   keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
-                                  display : instance.getGeoEntityMd().getDisplayLabel()
+                                  display : com.runwaysdk.Localize.get("Geo_Entity")
                                 }        
                               ];
       
