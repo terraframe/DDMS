@@ -3,9 +3,6 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
   IsAbstract : false,
 
   Instance : {
-    
-    // TODO
-    // Attach the validator to the onGeoSelect
 
     /**
      * Constructor.
@@ -94,7 +91,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       
       // Turn that geoPickerContainer element into a Popup
       this._geoPickerMainPanel = new YAHOO.widget.Panel(panelId, {width: width+"px", height:height+"px", fixedcenter: true, zindex:9});
-      this._geoPickerMainPanel.setHeader("Geography"); // TODO : localize
+      this._geoPickerMainPanel.setHeader(com.runwaysdk.Localize.get("Geopicker_title"));
       this._geoPickerMainPanel.render();
       this._geoPickerMainPanel.bringToTop();
       this._geoPickerMainPanel.hide();
@@ -135,7 +132,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       if (this.hasLeftPanel())
       {
         var geoSectionTitle = factory.newElement("h2", {"id":"geoSectionTitle" + this._suffix});
-        geoSectionTitle.setInnerHTML("Select filters"); // TODO : localize
+        geoSectionTitle.setInnerHTML(com.runwaysdk.Localize.get("geopicker_select_filters"));
         this._geoDaddy.appendChild(geoSectionTitle);
         this._geoDaddy.appendChild(factory.newElement("hr", {"color": dividerColor}));
       }

@@ -40,7 +40,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       
       // Section title that says "Select columns"
       var uniSectionTitle = factory.newElement("h2", {"id":"uniSectionTitle" + this._suffix});
-      uniSectionTitle.setInnerHTML("Select columns"); // TODO : localize
+      uniSectionTitle.setInnerHTML(com.runwaysdk.Localize.get("geopicker_select_columns"));
       uniDaddy.appendChild(uniSectionTitle);
       uniDaddy.appendChild(factory.newElement("hr", {"color": dividerColor}));
       
