@@ -66,6 +66,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     hide : function()
     {
       this._geoPickerMainPanel.hide();
+      this._geoSearch.hide();
     },
     
     performLayout : function()
@@ -97,6 +98,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       this._geoPickerMainPanel.render();
       this._geoPickerMainPanel.bringToTop();
       this._geoPickerMainPanel.hide();
+      
+      this._geoPickerMainPanel.subscribe('beforeHide', Mojo.Util.bind(this, function(){this._geoSearch.hide()}));
       
       // Make the panel Resizable
       var resize = new YAHOO.util.Resize(panelId, { 
@@ -138,15 +141,15 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       }
       
       // Geo search bar
-      this._geoInputHeight = 19;
+      this._geoInputHeight = 24;
       var geoInputId = 'geoPickerSearchBar_' + this._suffix;
-      var geoInput = factory.newElement("input", {"type":"text", "id":geoInputId});
+      var geoInput = factory.newElement("input", {"type":"text", "id":geoInputId}, {"margin-bottom":"5px"});
       var hiddenGeoInput = factory.newElement("input", {"type":"hidden", "id": geoInputId + '_geoEntityId'});
       this._geoDaddy.appendChild(hiddenGeoInput);
       this._geoDaddy.appendChild(geoInput);
-      var geoSearch = new MDSS.GeoSearch(geoInput.getRawEl(), this.getGeoFilterCriteria());
-      geoSearch.setSelectEventHandler(Mojo.Util.bind(this, this.searchBarSelectHandler));
-      geoSearch.setIsFormInput(false);
+      this._geoSearch = new MDSS.GeoSearch(geoInput.getRawEl(), this.getGeoFilterCriteria());
+      this._geoSearch.setSelectEventHandler(Mojo.Util.bind(this, this.searchBarSelectHandler));
+      this._geoSearch.setIsFormInput(false);
       
       // Geo Tree
       this._treeContainer = factory.newElement('div', {'id':"treeViewContainer" + this._suffix, 'class':'yui-skin-sam'}, {'background-color':'white', "overflow":"auto"});

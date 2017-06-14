@@ -91,6 +91,11 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       }
     },
     
+    hide : function()
+    {
+      this._genericSearch.hide();
+    },
+    
     _clickHandler : function(e)
     {
       if(this._geoInput != null && this._geoInput.value !== '' && this._geoPicker != null)
