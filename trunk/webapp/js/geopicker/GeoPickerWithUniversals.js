@@ -81,7 +81,7 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
             uniDiv.appendChild(uniInput);
             
             var uniLabel = factory.newElement("span");
-            uniLabel.setInnerHTML(uni.toString());
+            uniLabel.setInnerHTML(uni.getDisplayLabel());
             uniDiv.appendChild(uniLabel);
           }
           parent.appendChild(uniListDiv);
