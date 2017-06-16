@@ -1,8 +1,11 @@
 package dss.vector.solutions.gis;
 
+import java.io.InvalidClassException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.sf.ehcache.CacheException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -140,13 +143,13 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
       throwable = throwable.getCause();
     }
 
-//    if (throwable instanceof CacheException)
-//    {
-//      if (throwable.getCause() instanceof InvalidClassException)
-//      {
-//        throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
-//      }
-//    }
+    if (throwable instanceof CacheException)
+    {
+      if (throwable.getCause() instanceof InvalidClassException)
+      {
+        throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
+      }
+    }
 
     if (throwable instanceof NoSuchMethodError)
     {
