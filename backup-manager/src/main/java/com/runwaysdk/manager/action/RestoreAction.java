@@ -152,7 +152,6 @@ public class RestoreAction extends Action
       restore.addAgent(new RegistryAgent(appName));
     }
     
-    // All this does for now is make sure the RMI port is not in use
     restore.addAgent(new PropertiesAgent(appName));
 
     restore.restore();

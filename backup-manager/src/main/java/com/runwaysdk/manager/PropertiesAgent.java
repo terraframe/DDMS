@@ -21,11 +21,11 @@ import com.runwaysdk.util.FileIO;
 
 public class PropertiesAgent implements RestoreAgent
 {
-  public static String ROOT_DIRECTORY = "C:/MDSS";
+  public static String ROOT_DIRECTORY = "C:\\MDSS";
 
-  public static String DEFAULT_TOMCAT = ROOT_DIRECTORY + "/tomcat/";
+  public static String DEFAULT_TOMCAT = ROOT_DIRECTORY + "\\tomcat\\";
 
-  public static String DEFAULT_MANAGER = ROOT_DIRECTORY + "/manager/";
+  public static String DEFAULT_MANAGER = ROOT_DIRECTORY + "\\manager\\";
 
   private String appName;
 
@@ -43,6 +43,21 @@ public class PropertiesAgent implements RestoreAgent
   public void postRestore()
   {
     this.updateRMI();
+    this.updatePostgres();
+  }
+  
+  /**
+   * This function ensures that the postgres referenced in the backup matches the current postgres version used by the manager.
+   */
+  private void updatePostgres()
+  {
+    try
+    {
+      editWebappProperty("databaseBinDirectory", ROOT_DIRECTORY + "\\PostgreSql\\9.6\\bin", "database.properties");
+    } catch (IOException e)
+    {
+      throw new FileWriteException("Couldn't write database.properties file for " + appName, null, e);
+    }
   }
 
   /**
@@ -57,7 +72,7 @@ public class PropertiesAgent implements RestoreAgent
     int port = 1099;
     String managerDirectory = DEFAULT_MANAGER;
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
-    File applications = new File(managerDirectory + "manager-1.0.0/classes/applications.txt");
+    File applications = new File(managerDirectory + "manager-1.0.0\\classes\\applications.txt");
     String appTxt;
     
     try
@@ -183,8 +198,8 @@ public class PropertiesAgent implements RestoreAgent
 
   public void editWebappProperty(String key, String newValue, String bundle) throws IOException
   {
-    File appRoot = new File(DEFAULT_TOMCAT + "webapps/" + appName);
-    File classes = new File(appRoot, "WEB-INF/classes");
+    File appRoot = new File(DEFAULT_TOMCAT + "webapps\\" + appName);
+    File classes = new File(appRoot, "WEB-INF\\classes");
     editProperty(key, newValue, new File(classes, bundle));
   }
 
