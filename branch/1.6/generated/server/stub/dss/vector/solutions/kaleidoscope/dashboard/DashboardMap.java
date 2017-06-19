@@ -891,17 +891,17 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
             mapBaseGraphic.drawImage(baseMapImage, bound.getX(), bound.getY(), null);
           }
         }
+        
+        Dashboard dashboard = this.getDashboard();
+        DashboardState state = DashboardState.getDashboardState(dashboard, MDSSUser.getCurrentUser());        
 
         // Add layers to the base canvas
         BufferedImage layerCanvas = getLayersExportCanvas(orderedLayers, bound);
         mapBaseGraphic.drawImage(layerCanvas, bound.getX(), bound.getY(), null);
 
         // Add legends to the base canvas
-        BufferedImage legendCanvas = getLegendExportCanvas(width, height);
+        BufferedImage legendCanvas = getLegendExportCanvas(width, height, state);
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
-
-        Dashboard dashboard = this.getDashboard();
-        DashboardState state = DashboardState.getDashboardState(dashboard, MDSSUser.getCurrentUser());
 
         // Add the north arrow to the base canvas
         if (state.getEnableArrow() != null && state.getEnableArrow())
@@ -1225,8 +1225,9 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
    * 
    * @mapWidth
    * @mapHeight
+   * @param state TODO
    */
-  private BufferedImage getLegendExportCanvas(int mapWidth, int mapHeight)
+  private BufferedImage getLegendExportCanvas(int mapWidth, int mapHeight, DashboardState state)
   {
     int padding = 2;
     BufferedImage base = null;
@@ -1295,8 +1296,8 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
             }
             else
             {
-              legendXPosition = (int) Math.round((double) legend.getLegendXPosition());
-              legendYPosition = (int) Math.round((double) legend.getLegendYPosition());
+              legendXPosition = (int) Math.round((double) legend.getLegendXPosition() / state.getSavedWidth() * mapWidth);
+              legendYPosition = (int) Math.round((double) legend.getLegendYPosition()  / state.getSavedHeight()* mapWidth);              
             }
 
             BufferedImage legendBase = new BufferedImage(fullWidth + ( padding * 2 ), fullHeight + ( padding * 2 ), BufferedImage.TYPE_INT_ARGB);
