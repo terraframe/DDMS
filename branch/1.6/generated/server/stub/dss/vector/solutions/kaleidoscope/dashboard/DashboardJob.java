@@ -1,11 +1,13 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -386,26 +388,9 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
       layer.setConditions(conditions);
 
       layer.createDatabaseView(true);
-
-      DashboardStyle style = layer.getStyles().get(0);
-      style.setName(layer.getViewName());
     }
 
     return layers;
-  }
-
-  private Map<String, String> generateViewNames(DashboardLayer[] layers)
-  {
-    Map<String, String> dashboard = new LinkedHashMap<String, String>();
-
-    for (DashboardLayer layer : layers)
-    {
-      String viewName = Layer.GEO_VIEW_PREFIX + IDGenerator.nextID();
-
-      dashboard.put(layer.getId(), viewName);
-    }
-
-    return dashboard;
   }
 
   @Override
@@ -449,13 +434,18 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
     try
     {
-      Map<String, String> views = this.generateViewNames(layers);
+      Map<String, String> originalNames = new HashMap<String, String>();
+
+      for (DashboardLayer layer : layers)
+      {
+        String viewName = layer.getViewName();
+
+        originalNames.put(layer.getId(), viewName);
+      }
 
       /*
        * 2a) Create the dashboard
        */
-      MapConfiguration configuration = new MapConfiguration(views, dashboard.getDisease());
-
       List<FilterInfo> list = this.getFilterInfo(cycleLayer);
 
       for (FilterInfo filter : list)
@@ -467,7 +457,6 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
         // geo entities which contain or are contained by the current geoId
         try
         {
-
           /*
            * 2b) Create the database views which will be used for mapping
            */
@@ -475,11 +464,15 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
           for (DashboardLayer layer : layers)
           {
-            String viewName = views.get(layer.getId());
+            String viewName = Layer.GEO_VIEW_PREFIX + IDGenerator.nextID();
 
             this.createDatabaseView(filterGeoId, layer, viewName);
 
-            batch.addLayerToDrop(layer);
+            layer.setViewName(viewName);
+
+            DashboardStyle style = layer.getStyles().get(0);
+            style.setName(layer.getViewName());
+
             batch.addLayerToPublish(layer);
           }
 
@@ -487,6 +480,8 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
            * 2c) Publish the database layers
            */
           GeoserverFacade.pushUpdates(batch);
+
+          MapConfiguration configuration = new MapConfiguration(new HashMap<>(), disease);
 
           JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration, .5F);
 
@@ -506,10 +501,10 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
           baseMap.put("LOCLIZATION_KEY", "osmLocal");
           baseMap.put("LAYER_SOURCE_TYPE", "OSM-LOCAL");
 
-//           JSONObject baseMap = new JSONObject();
-//           baseMap.put("NAME", "Open street map");
-//           baseMap.put("LOCLIZATION_KEY", "osm");
-//           baseMap.put("LAYER_SOURCE_TYPE", "OSM");
+          // JSONObject baseMap = new JSONObject();
+          // baseMap.put("NAME", "Open street map");
+          // baseMap.put("LOCLIZATION_KEY", "osm");
+          // baseMap.put("LAYER_SOURCE_TYPE", "OSM");
 
           int defaultWidth = this.getImageWidth() - MARGIN;
           int defaultHeight = this.getImageHeight() - MARGIN;
@@ -555,9 +550,9 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
               generated.apply();
 
-//              /*
-//               * This is for testing
-//               */
+              /*
+               * This is for testing
+               */
 //              try
 //              {
 //                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
@@ -588,11 +583,9 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
           /*
            * Remove the temp views
            */
-          Collection<String> viewNames = views.values();
-
-          for (String viewName : viewNames)
+          for (DashboardLayer layer : layers)
           {
-            DatabaseUtil.dropView(viewName, "", false);
+            DatabaseUtil.dropView(layer.getViewName(), "", false);
           }
 
           /*
@@ -602,11 +595,25 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
           for (DashboardLayer layer : layers)
           {
-            batch.addLayerToDrop(layer);
+            batch.addLayerToDrop(layer.getViewName(), layer.getViewName());
           }
 
           GeoserverFacade.pushUpdates(batch);
         }
+
+        /*
+         * Reset the layer view names
+         */
+        for (DashboardLayer layer : layers)
+        {
+          String viewName = originalNames.get(layer.getId());
+
+          layer.setViewName(viewName);
+
+          DashboardStyle style = layer.getStyles().get(0);
+          style.setName(viewName);
+        }
+
       }
 
       /*

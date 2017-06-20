@@ -13,11 +13,11 @@ public class GeoserverBatch implements Reloadable
   /**
    * These are for storing mass publish/deletes which can be pushArrayList<E> once for maximum efficiency.
    */
-  private ArrayList<DashboardLayer> layersToPublish;
+  private ArrayList<DashboardLayer>   layersToPublish;
 
-  private ArrayList<String>         layersToDrop;
+  private ArrayList<String>           layersToDrop;
 
-  private ArrayList<String>         stylesToDrop;
+  private ArrayList<String>           stylesToDrop;
 
   public GeoserverBatch()
   {
@@ -53,6 +53,12 @@ public class GeoserverBatch implements Reloadable
         stylesToDrop.add(styleName);
       }
     }
+  }
+
+  public void addLayerToDrop(String layerName, String styleName)
+  {
+    layersToDrop.add(layerName);
+    stylesToDrop.add(styleName);
   }
 
   public ArrayList<String> getLayersToDrop()

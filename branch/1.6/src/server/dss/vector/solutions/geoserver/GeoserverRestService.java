@@ -7,6 +7,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,7 +21,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
-import java.sql.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +46,6 @@ import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MapConfiguration;
 import dss.vector.solutions.query.QueryConstants;
-import groovy.util.ResourceException;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.decoder.RESTLayerList;
@@ -96,7 +99,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   private static GeoServerRESTPublisher    publisher  = null;
 
   private static GeoServerRESTReader       restReader = null;
-  
+
   public void refresh()
   {
     if (this.getPublisher().reload())
@@ -118,7 +121,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     return CommonProperties.getDeployAppName();
   }
-  
+
   public void removeStore()
   {
     String store = QueryConstants.getNamespacedDataStore();
@@ -132,7 +135,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Failed to remove the datastore [" + store + "].");
     }
   }
-  
+
   public void removeStore(String workspaceName, String storeName)
   {
 
@@ -157,7 +160,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Failed to remove the workspace [" + this.getWorkspace() + "].");
     }
   }
-  
+
   public void removeWorkspace(String workspaceName)
   {
     if (this.getPublisher().removeWorkspace(workspaceName, true))
@@ -202,7 +205,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     return reader.existsWorkspace(this.getWorkspace());
   }
-  
+
   /**
    * Checks if the given workspace exists.
    * 
@@ -269,7 +272,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public void removeStyle(String styleName)
   {
-    if (styleExists(styleName))
+//    if (styleExists(styleName))
     {
       if (this.getPublisher().removeStyle(styleName, true))
       {
@@ -282,7 +285,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     }
   }
-  
+
   public boolean publishStyle(String styleName, File sldFile, boolean force)
   {
     GeoServerRESTPublisher publisher = this.getPublisher();
@@ -360,14 +363,17 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     for (DashboardLayer layer : layersToPublish)
     {
+      String viewName = layer.getViewName();
+
       List<? extends DashboardStyle> styles = layer.getStyles();
       for (int i = 0; i < styles.size(); ++i)
       {
         DashboardStyle style = styles.get(i);
+
         publishStyle(style.getName(), style.generateSLD(), false);
       }
 
-      publishLayer(layer.getViewName(), layer.getViewName());
+      publishLayer(viewName, viewName);
     }
   }
 
@@ -379,9 +385,10 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public void removeLayer(String layer)
   {
-    if (GeoserverFacade.layerExists(layer))
+    String workspace = this.getWorkspace();
+
+//    if (GeoserverFacade.layerExists(workspace + ":" + layer, workspace))
     {
-      String workspace = this.getWorkspace();
       GeoServerRESTPublisher publisher = this.getPublisher();
 
       if (publisher.removeLayer(workspace, layer))
@@ -394,7 +401,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       }
     }
   }
-  
+
   /**
    * Removes the layer from geoserver.
    * 
@@ -403,7 +410,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public boolean removeLayer(String layer, String workspace)
   {
-    if (GeoserverFacade.layerExists(layer))
+//    if (GeoserverFacade.layerExists(layer, workspace))
     {
       GeoServerRESTPublisher publisher = this.getPublisher();
 
@@ -418,8 +425,8 @@ public class GeoserverRestService implements GeoserverService, Reloadable
         return false;
       }
     }
-    
-	return false;
+
+//    return false;
   }
 
   public void publishCache(String layer)
@@ -434,7 +441,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Could not seed layer [" + layer + "]. Response code [" + request.getCode() + "].");
     }
   }
-  
+
   public void rePublishCache(String layer, String workspace)
   {
     ReseedRequest request = new ReseedRequest(layer, workspace);
@@ -494,21 +501,22 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public void removeCache(String cacheName, String workspace)
   {
-	String cacheDir = null;
-	try
-	{
+    String cacheDir = null;
+    try
+    {
       cacheDir = GeoserverProperties.getDefaultGeoWebCacheDirPath() + File.separator + workspace + "_" + cacheName;
-	} catch(MissingResourceException e)
-	{
-		throw new ProgrammingErrorException(e);
-	}
-	
-	if(cacheDir != null)
-	{
+    }
+    catch (MissingResourceException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
+    if (cacheDir != null)
+    {
       removeCache(new File(cacheDir));
-	}
+    }
   }
-  
+
   /**
    * Checks if the given layer group exists in Geoserver.
    * 
@@ -523,7 +531,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     return exists;
   }
-  
+
   /**
    * Checks if the given layer group exists in Geoserver.
    * 
@@ -553,7 +561,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     return exists;
   }
-  
+
   /**
    * Checks if the given layer exists in Geoserver.
    * 
@@ -568,7 +576,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
     return exists;
   }
-  
+
   /**
    * Checks if the given layer has a database view.
    * 
@@ -688,7 +696,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     return GeoserverProperties.getGeoServerRemoteURL();
   }
-  
+
   @Override
   public String getAppName()
   {
@@ -773,7 +781,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       throw ex;
     }
   }
-  
+
   /**
    * Adds a database view and publishes the layer if necessary.
    * 
@@ -781,12 +789,12 @@ public class GeoserverRestService implements GeoserverService, Reloadable
    */
   public boolean publishLayerGroup(String[] layers, String workspace, String groupName)
   {
-	  
-	GSLayerGroupEncoder23 groupWriter = new GSLayerGroupEncoder23();
-	for(String layer : layers)
-	{
-	  groupWriter.addLayer(workspace.concat(":").concat(layer));
-	}
+
+    GSLayerGroupEncoder23 groupWriter = new GSLayerGroupEncoder23();
+    for (String layer : layers)
+    {
+      groupWriter.addLayer(workspace.concat(":").concat(layer));
+    }
 
     if (getPublisher().createLayerGroup(workspace, groupName, groupWriter))
     {
@@ -842,24 +850,25 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       return false;
     }
   }
-  
-  
+
   public boolean publishOSMLayer(String layer, String styleName)
   {
-	if(layerExists(layer))
-	{
-		boolean removed = removeLayer(layer, "OSM");
-		System.out.println(removed);
-	}
-	
-	
+    if (layerExists(layer))
+    {
+      boolean removed = removeLayer(layer, "OSM");
+      System.out.println(removed);
+    }
+
     double[] bbox = null;
-	try {
-		bbox = getOSMBBOX(layer);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+    try
+    {
+      bbox = getOSMBBOX(layer);
+    }
+    catch (SQLException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
     GSFeatureTypeEncoder fte = new GSFeatureTypeEncoder();
     fte.setEnabled(true);
@@ -894,91 +903,99 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       return false;
     }
   }
-  
+
   public double[] getOSMBBOX(String table) throws SQLException
   {
-	Connection dbConnection = null;
-	Statement statement = null;
-	
-	String query = "SELECT (st_xmin(collected)) as minx, (st_ymin(collected)) as miny, (st_xmax(collected)) as maxx, (st_ymax(collected)) as maxy ";
-	query = query.concat("FROM ( SELECT (st_collect(way)) AS collected ");
-	query = query.concat("FROM (SELECT (way) AS way FROM ".concat(table)); 
-	query = query.concat(") unioned) collected;");
-	
-	try
-	{
-		dbConnection = getOSMDBConnection();
-		statement = dbConnection.createStatement();
+    Connection dbConnection = null;
+    Statement statement = null;
 
-		
-		
-		ResultSet rs = statement.executeQuery(query);
-		
-		while(rs.next())
-		{
-		
-		  double[] bbox = new double[4];
-	      bbox[GeoserverFacade.MINX_INDEX] = Double.parseDouble(rs.getString("minx"));
-	      bbox[GeoserverFacade.MINY_INDEX] = Double.parseDouble(rs.getString("miny"));
-	      bbox[GeoserverFacade.MAXX_INDEX] = Double.parseDouble(rs.getString("maxx"));
-	      bbox[GeoserverFacade.MAXY_INDEX] = Double.parseDouble(rs.getString("maxy"));
+    String query = "SELECT (st_xmin(collected)) as minx, (st_ymin(collected)) as miny, (st_xmax(collected)) as maxx, (st_ymax(collected)) as maxy ";
+    query = query.concat("FROM ( SELECT (st_collect(way)) AS collected ");
+    query = query.concat("FROM (SELECT (way) AS way FROM ".concat(table));
+    query = query.concat(") unioned) collected;");
 
-	      return bbox;
-		}
-	
-	} 
-	catch(SQLException e) {
-		System.out.println(e);
-	}
-	finally {
+    try
+    {
+      dbConnection = getOSMDBConnection();
+      statement = dbConnection.createStatement();
 
-		if (statement != null) {
-			statement.close();
-		}
+      ResultSet rs = statement.executeQuery(query);
 
-		if (dbConnection != null) {
-			dbConnection.close();
-		}
+      while (rs.next())
+      {
 
-	}
-	
-	return null;
+        double[] bbox = new double[4];
+        bbox[GeoserverFacade.MINX_INDEX] = Double.parseDouble(rs.getString("minx"));
+        bbox[GeoserverFacade.MINY_INDEX] = Double.parseDouble(rs.getString("miny"));
+        bbox[GeoserverFacade.MAXX_INDEX] = Double.parseDouble(rs.getString("maxx"));
+        bbox[GeoserverFacade.MAXY_INDEX] = Double.parseDouble(rs.getString("maxy"));
+
+        return bbox;
+      }
+
+    }
+    catch (SQLException e)
+    {
+      System.out.println(e);
+    }
+    finally
+    {
+
+      if (statement != null)
+      {
+        statement.close();
+      }
+
+      if (dbConnection != null)
+      {
+        dbConnection.close();
+      }
+
+    }
+
+    return null;
   }
-  
-  private static Connection getOSMDBConnection() {
-	  
-		final String DB_DRIVER = "org.postgresql.Driver";
-		final String DB_CONNECTION = "jdbc:postgresql://localhost:".concat(Integer.toString(DatabaseProperties.getPort())).concat("/osm");
-		final String DB_USER = DatabaseProperties.getUser(); 
-		final String DB_PASSWORD = DatabaseProperties.getPassword();
 
-		Connection dbConnection = null;
+  private static Connection getOSMDBConnection()
+  {
 
-		try {
+    final String DB_DRIVER = "org.postgresql.Driver";
+    final String DB_CONNECTION = "jdbc:postgresql://localhost:".concat(Integer.toString(DatabaseProperties.getPort())).concat("/osm");
+    final String DB_USER = DatabaseProperties.getUser();
+    final String DB_PASSWORD = DatabaseProperties.getPassword();
 
-			Class.forName(DB_DRIVER);
+    Connection dbConnection = null;
 
-		} catch (ClassNotFoundException e) {
+    try
+    {
 
-			System.out.println(e.getMessage());
+      Class.forName(DB_DRIVER);
 
-		}
+    }
+    catch (ClassNotFoundException e)
+    {
 
-		try {
+      System.out.println(e.getMessage());
 
-			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,
-					DB_PASSWORD);
-			return dbConnection;
+    }
 
-		} catch (SQLException e) {
+    try
+    {
 
-			System.out.println(e.getMessage());
+      dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+      return dbConnection;
 
-		}
+    }
+    catch (SQLException e)
+    {
 
-		return dbConnection;
+      System.out.println(e.getMessage());
 
-	}
+    }
+
+    return dbConnection;
+
+  }
 
   /**
    * Calculates the bounding box of all the layers.
@@ -1061,7 +1078,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
       for (String layerName : layerNames)
       {
-        publisher.removeLayer(CommonProperties.getDeployAppName(), layerName);
+        publisher.removeLayer(this.getWorkspace(), layerName);
       }
     }
     catch (Exception e)
@@ -1167,7 +1184,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       throw new ConfigurationException("The URI [" + getGeoServerLocalURL() + "] is invalid.", e);
     }
   }
-  
+
   public void publishWorkspace(String workspaceName)
   {
 
@@ -1223,18 +1240,18 @@ public class GeoserverRestService implements GeoserverService, Reloadable
       logger.warn("Failed to publish the store [" + QueryConstants.getNamespacedDataStore() + "].");
     }
   }
-  
+
   public void publishStore(String storeName, String dbName, String schemaName)
   {
-	String dbSchema = "public";
-	if(schemaName != null)
-	{
-		dbSchema = schemaName;
-	}
-	else
-	{
+    String dbSchema = "public";
+    if (schemaName != null)
+    {
+      dbSchema = schemaName;
+    }
+    else
+    {
       dbSchema = DatabaseProperties.getNamespace().length() != 0 ? DatabaseProperties.getNamespace() : "public";
-	}
+    }
 
     GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder(storeName);
     datastore.setDatabase(dbName);
