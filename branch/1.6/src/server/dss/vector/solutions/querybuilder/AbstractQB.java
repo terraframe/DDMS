@@ -1319,12 +1319,13 @@ public abstract class AbstractQB implements Reloadable
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
 
-      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer && hierarchies.containsKey(attributeKey))
+//      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer && hierarchies.containsKey(attributeKey))
+      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer)
       {
-        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
-        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
-
-        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
+//        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
+//        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
+//
+//        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
         {
           selectables.add(selectable6);
 

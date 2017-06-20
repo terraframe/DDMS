@@ -53,10 +53,15 @@ public class SavedSearchView extends SavedSearchViewBase implements com.runwaysd
       {
         String selectable = selectables.getString(i);
         String[] split = selectable.split("-!-");
-        String type = split[0];
         String alias = split[1];
 
         list.add(alias);
+        
+
+        if (alias.contains("__") && alias.endsWith("_geoId"))
+        {
+          list.add(alias.replace("_geoId", "_id"));
+        }        
       }
     }
 
