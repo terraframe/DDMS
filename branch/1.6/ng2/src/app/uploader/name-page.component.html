@@ -1,0 +1,44 @@
+<form #form="ngForm" name="form" class="modal-form">
+  <div>
+    <fieldset>
+      <section class="form-container">
+
+
+<div>
+  <div class="label-holder">
+    <strong><localize key="dataUploader.label"></localize></strong>
+  </div>
+  <div class="holder">
+    <span class="text">
+      <input [(ngModel)]="sheet.label" name="label" type="text" required asyncValidator [validator]="this" #label="ngModel" />
+    </span>
+    <div class="inline-error-message">
+      <p *ngIf="!label.valid">
+        <localize key="dataUploader.unique"></localize>
+      </p>    
+    </div>      
+  </div> 
+  <div class="label-holder">
+    <label><localize key="dataset.source"></localize></label>
+  </div>          
+  <div class="holder" >
+    <span class="text">
+      <label>{{sheet.source}}</label>
+    </span>
+  </div>
+  <div class="label-holder">
+    <label><localize key="dataset.description"></localize></label>
+  </div>          
+  <div class="holder" >
+    <span class="text">
+      <textarea [(ngModel)]="sheet.description" name="description"></textarea>
+    </span>
+  </div>
+</div>
+
+      </section>        
+    </fieldset>    
+    
+    <paging [form]="form" [page]="page"></paging>
+  </div>
+</form>
