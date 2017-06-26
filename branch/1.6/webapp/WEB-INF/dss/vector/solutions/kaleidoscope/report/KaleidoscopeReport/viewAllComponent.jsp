@@ -1,10 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/WEB-INF/tlds/geoprism.tld" prefix="gdb"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 
 <head>
-
-<gdb:localize var="page_title" key="reports.title"/>
 
 <!-- Report CSS -->
 <jwr:style src="/bundles/datatable.css" useRandomParam="false"/>  

@@ -295,7 +295,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         divParent.scrollTop = sHeight - oHeight;
       }
       
-      var evt = new dss.vector.solutions.ontology.TermSelectedEvent(termId, onOpen);
+      var evt = new dss.vector.solutions.ontology.TermSelectedEvent(termId, onOpen, li.innerText);
       this.dispatchEvent(evt);
     },
     
@@ -933,7 +933,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       MDSS.Calendar.removeError(this._button); 
       
       var termId = li.id;
-      var evt = new this._TermSelectedEvent(termId);
+      var evt = new this._TermSelectedEvent(termId, undefined, li.innerText);
       this.dispatchEvent(evt);   
     },
         
@@ -1061,7 +1061,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
           
           this.map[id] = label;
           
-          var evt = new this._TermSelectedEvent(id);
+          var evt = new this._TermSelectedEvent(id, undefined, label);
           this.dispatchEvent(evt); 
         }
 
@@ -1180,7 +1180,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       
       this.attributeElement.value = '';
       
-      var evt = new this._TermSelectedEvent(selection.id);
+      var evt = new this._TermSelectedEvent(selection.id, undefined, selection.label);
       this.dispatchEvent(evt);
     }        
   }
@@ -1332,13 +1332,15 @@ getInputDisplayLabel : function() {
 Mojo.Meta.newClass('dss.vector.solutions.ontology.TermSelectedEvent', {
   Extends: Mojo.$.com.runwaysdk.event.CustomEvent,
   Instance : {
-    initialize : function(termId, onOpen){
+    initialize : function(termId, onOpen, label){
       this.$initialize();
       this._termId = termId;
       this._onOpen = onOpen;
+      this._label = label;
     },
     getTermId : function(){ return this._termId; },
-    getOnOpen : function(){ return this._onOpen; }
+    getOnOpen : function(){ return this._onOpen; },
+    getLabel : function(){ return this._label; }
   }
 });
 

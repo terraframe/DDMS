@@ -44,8 +44,12 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
         field.categoryLabel = field.label;
       }
       
+      if(field.rootType == null) {
+        field.rootType = '';
+      }
+      
       if(field.root == null) {
-        field.root = '';
+        field.root = {id :'', value:''};
       }
       
       this.accept(field);

@@ -32,7 +32,8 @@ export class Field {
 
   // Properties for category fields 
   categoryLabel: string;
-  root: string;
+  rootType: string;
+  root: Pair;
 
   // Properties for location fields
   universal: string;

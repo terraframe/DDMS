@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { EventService, IEventListener } from '../service/core.service';
 
+declare var MDSS: any;
+
 @Component({
   
   selector: 'loading-bar',
@@ -10,6 +12,7 @@ import { EventService, IEventListener } from '../service/core.service';
 })
 export class LoadingBarComponent implements OnInit, IEventListener {
   showIndicator: boolean = false;
+  request:any = new MDSS.Request();
 
   constructor(private service: EventService) { }
 
@@ -22,11 +25,14 @@ export class LoadingBarComponent implements OnInit, IEventListener {
   }
   
   start(): void {
-    this.showIndicator = true;    
+    //this.showIndicator = true;   
+	  
+	this.request.onSend();
   }
   
   complete(): void {
-    this.showIndicator = false;    
+//    this.showIndicator = false;    
+	this.request.onComplete();
   }  
   
   onError(error:any): void {

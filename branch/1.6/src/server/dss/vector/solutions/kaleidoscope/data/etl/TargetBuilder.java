@@ -283,7 +283,7 @@ public class TargetBuilder implements Reloadable
     mClass.setWrappedMdClass(mdClass);
     mClass.setDataSource(dSource);
     mClass.setDisease(Disease.getCurrent());
-    mClass.setRemovable(true);    
+    mClass.setRemovable(true);
     mClass.apply();
 
     mClass.addUniversal(lowest).apply();
@@ -507,32 +507,21 @@ public class TargetBuilder implements Reloadable
     // Create the attribute
     if (columnType.equals(ColumnType.CATEGORY.name()))
     {
-      if (!cField.has("root") || cField.getString("root").length() == 0)
+      if (!cField.has("rootType") || cField.getString("rootType").length() == 0)
       {
         MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
 
         /*
          * Create the root term for the options
          */
-        BrowserRootView[] classifiers = BrowserRoot.getAttributeRoots(mdBusiness.definesType(), attributeName);
+        String categoryLabel = cField.getString("categoryLabel");
 
-        Term classifier = null;
-
-        if (classifiers.length > 0)
-        {
-          classifier = Term.get(classifiers[0].getTermId());
-        }
-        else if (classifiers.length == 0)
-        {
-          String categoryLabel = cField.getString("categoryLabel");
-
-          classifier = new Term();
-          classifier.setTermId(LocalProperty.getNextId());
-          classifier.setNamespace("ddms");
-          classifier.setName(categoryLabel);
-          classifier.getTermDisplayLabel().setValue(categoryLabel);
-          classifier.applyWithParent(root.getId(), false, "", false);
-        }
+        Term classifier = new Term();
+        classifier.setTermId(LocalProperty.getNextId());
+        classifier.setNamespace("ddms");
+        classifier.setName(categoryLabel);
+        classifier.getTermDisplayLabel().setValue(categoryLabel);
+        classifier.applyWithParent(root.getId(), false, "", false);
 
         /*
          * Add the root as an option to the MdAttributeTerm
@@ -582,6 +571,7 @@ public class TargetBuilder implements Reloadable
       }
     }
     else if (columnType.equals(ColumnType.BOOLEAN.name()))
+
     {
       MdWebBoolean mdField = new MdWebBoolean();
       mdField.setFieldName(attributeName);

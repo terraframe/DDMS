@@ -1376,7 +1376,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
        */
       for (MdWebField mdField : fields)
       {
-        if (mdField instanceof MdWebGeo)
+        if (mdField instanceof MdWebGeo || mdField instanceof MdWebSingleTerm || mdField instanceof MdWebSingleTerm || mdField instanceof MdWebSingleTermGrid)
         {
           MdFormUtil.deleteField(mdForm, mdField);
         }

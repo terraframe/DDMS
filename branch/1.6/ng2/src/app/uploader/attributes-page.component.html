@@ -67,14 +67,18 @@
         </div>      
         <div class="inline-box fade-ngIf" *ngIf="field.type == 'CATEGORY'">
           <label><localize key="dataUploader.domainRoot"></localize></label>
-          <select class="select-area" [(ngModel)]="field.root" [name]="i + '-root'">
+          <select class="select-area" [(ngModel)]="field.rootType" [name]="i + '-rootType'">
             <option value=""><localize key="dataUploader.new"></localize></option>          
             <option value="EXISTING"><localize key="dataUploader.existing"></localize></option>          
           </select>
         </div>      
-        <div class="inline-text fade-ngIf" *ngIf="field.type == 'CATEGORY' && field.root == ''">
+        <div class="inline-text fade-ngIf" *ngIf="field.type == 'CATEGORY' && field.rootType == ''">
           <label><localize key="dataUploader.categoryLabel"></localize></label>
           <input [(ngModel)]="field.categoryLabel" #categoryLabel="ngModel" [name]="i + '-categoryLabel'" required type="text" />
+        </div>
+        <div class="inline-text fade-ngIf" *ngIf="field.type == 'CATEGORY' && field.rootType == 'EXISTING'">
+          <label><localize key="dataUploader.categoryLabel"></localize></label>
+          <term-field [(model)]="field.root" [attribute]="i + '-root'"></term-field>
         </div>
       
         <div class="inline-text" *ngIf="field.type == 'DATE' || field.type == 'LONG' || field.type == 'DOUBLE'">
