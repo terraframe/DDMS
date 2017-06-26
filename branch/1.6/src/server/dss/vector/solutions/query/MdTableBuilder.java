@@ -166,6 +166,7 @@ public class MdTableBuilder implements Reloadable
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(mdTable);
     mClass.setDisease(disease);
+    mClass.setRemovable(false);
     mClass.apply();
 
     List<MdAttributeDAO> attributes = definition.getAttributes();

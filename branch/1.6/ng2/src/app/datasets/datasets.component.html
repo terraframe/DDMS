@@ -18,7 +18,7 @@
 	      <tr *ngFor="let dataset of datasets" class="fade-ngRepeat-item">
 	        <td class="button-column">
 	          <a class="fa fa-pencil ico-edit" (click)="edit(dataset, $event)" [title]="'dataset.editTooltip' | localize"></a>                             
-	          <a class="fa fa-trash-o ico-remove" [title]="'dataset.removeTooltip' | localize"
+	          <a *ngIf="dataset.removable" class="fa fa-trash-o ico-remove" [title]="'dataset.removeTooltip' | localize"
 	             confirm-modal 
 	             [message]="'dataset.removeContent' | localize"
 	             (onConfirm)="remove(dataset, $event)"></a>

@@ -283,6 +283,7 @@ public class TargetBuilder implements Reloadable
     mClass.setWrappedMdClass(mdClass);
     mClass.setDataSource(dSource);
     mClass.setDisease(Disease.getCurrent());
+    mClass.setRemovable(true);    
     mClass.apply();
 
     mClass.addUniversal(lowest).apply();

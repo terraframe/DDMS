@@ -302,7 +302,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     object.put("id", this.getId());
     object.put("type", mdClass.getKey());
     object.put("value", value);
-    object.put("removable", false);
+    object.put("removable", this.getRemovable() != null ? this.getRemovable() : false);
     object.put("source", this.getDataSource());
 
     LinkedList<AttributeWrapper> attributes = new LinkedList<AttributeWrapper>();

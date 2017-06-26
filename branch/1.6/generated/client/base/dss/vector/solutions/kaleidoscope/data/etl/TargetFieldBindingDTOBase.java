@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = 945694205)
+@com.runwaysdk.business.ClassSignature(hash = -1983844619)
 public abstract class TargetFieldBindingDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding";
-  private static final long serialVersionUID = 945694205;
+  private static final long serialVersionUID = -1983844619;
   
   protected TargetFieldBindingDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -474,7 +474,7 @@ public abstract class TargetFieldBindingDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.metadata.MdAttributeDTO getTargetAttribute()
+  public com.runwaysdk.system.metadata.MdWebAttributeDTO getTargetAttribute()
   {
     if(getValue(TARGETATTRIBUTE) == null || getValue(TARGETATTRIBUTE).trim().equals(""))
     {
@@ -482,7 +482,7 @@ public abstract class TargetFieldBindingDTOBase extends com.runwaysdk.business.B
     }
     else
     {
-      return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(TARGETATTRIBUTE));
+      return com.runwaysdk.system.metadata.MdWebAttributeDTO.get(getRequest(), getValue(TARGETATTRIBUTE));
     }
   }
   
@@ -491,7 +491,7 @@ public abstract class TargetFieldBindingDTOBase extends com.runwaysdk.business.B
     return getValue(TARGETATTRIBUTE);
   }
   
-  public void setTargetAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)
+  public void setTargetAttribute(com.runwaysdk.system.metadata.MdWebAttributeDTO value)
   {
     if(value == null)
     {

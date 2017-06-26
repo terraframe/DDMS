@@ -67,29 +67,25 @@ export class LocalizationService {
     }
   }
   
-  validateInteger(value: string): Promise<{[key : string] : any}> {
-    return new Promise((resolve, reject) => {
-      let number = MDSS.parseNumber(value);
+  validateInteger(value: string): {[key : string] : any} {
+    let number = MDSS.parseNumber(value);
       
-      if(number != null && number === Math.floor(number)) {
-        resolve(number);    	  
-      }
-      else {
-        reject(value);
-      }
-    });   
+    if(number != null && !isNaN(number) && number === Math.floor(number)) {
+      return null;        
+    }
+    else {
+      return {validInteger: false};
+    }
   }  
   
-  validateNumber(value: string): Promise<{[key : string] : any}> {
-    return new Promise((resolve, reject) => {
-      let number = MDSS.parseNumber(value);
-      
-      if(number != null) {
-        resolve(number);        
-      }
-      else {
-        reject(value);
-      }
-    });   
+  validateNumber(value: string): {[key : string] : any} {
+    let number = MDSS.parseNumber(value);
+        
+    if(number != null && !isNaN(number)) {
+      return null;        
+    }
+    else {
+      return {validInteger: false};
+    }
   }  
 }

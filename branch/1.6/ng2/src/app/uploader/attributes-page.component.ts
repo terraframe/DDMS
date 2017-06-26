@@ -101,7 +101,10 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
     if(config === 'label') {
       return this.validateLabel(value);	
     }
-    
+    else if(config === 'integer') {
+      return this.localizationService.validateNumber(value);  
+    }
+        
     return null;
   }
   
@@ -128,9 +131,6 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
   validate(value:string, config:string): Promise<{[key : string] : any}> {
     if(config === 'category') {
       return this.validateCategory(value);	
-    }
-    else if(config === 'integer') {
-      return this.localizationService.validateNumber(value);  
     }
     
     return null;	  

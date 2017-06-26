@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -1614917275)
+@com.runwaysdk.business.ClassSignature(hash = 374546049)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.kaleidoscope;
 public class MappableClassQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1614917275;
+private static final long serialVersionUID = 374546049;
 
   protected MappableClassQueryDTO(String type)
   {
