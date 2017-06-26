@@ -9,6 +9,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ST_WITHIN;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 
@@ -83,7 +84,7 @@ public class TargetFieldDerived extends TargetFieldCoordinate implements TargetF
   {
     MdAttribute latitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLatitudeSourceAttributeName());
     MdAttribute longitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLongitudeSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldDerivedBinding field = new TargetFieldDerivedBinding();
     field.setTarget(binding);

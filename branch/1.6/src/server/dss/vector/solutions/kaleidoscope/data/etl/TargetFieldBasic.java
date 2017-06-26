@@ -22,6 +22,7 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 
 public class TargetFieldBasic extends TargetField implements TargetFieldIF, Reloadable
 {
@@ -54,11 +55,11 @@ public class TargetFieldBasic extends TargetField implements TargetFieldIF, Relo
   public void persist(TargetBinding binding)
   {
     MdAttribute sourceAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute mdField = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldBasicBinding field = new TargetFieldBasicBinding();
     field.setTarget(binding);
-    field.setTargetAttribute(targetAttribute);
+    field.setTargetAttribute(mdField);
     field.setSourceAttribute(sourceAttribute);
     field.setColumnLabel(this.getLabel());
     field.apply();

@@ -6,8 +6,8 @@ import java.util.List;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdView;
+import com.runwaysdk.system.metadata.MdWebForm;
 
 public class TargetBinding extends TargetBindingBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -64,7 +64,7 @@ public class TargetBinding extends TargetBindingBase implements com.runwaysdk.ge
   public TargetDefinitionIF getDefinition()
   {
     MdView sourceView = this.getSourceView();
-    MdClass targetBusiness = this.getTargetBusiness();
+    MdWebForm targetBusiness = this.getTargetBusiness();
     PersistenceStrategy strategy = this.getStrategy();
 
     TargetDefinition definition = new TargetDefinition();
@@ -86,10 +86,10 @@ public class TargetBinding extends TargetBindingBase implements com.runwaysdk.ge
 
   public static TargetBinding getBinding(String type)
   {
-    return TargetBinding.getBindingForTarget(MdClass.getMdClass(type));
+    return TargetBinding.getBindingForTarget(MdWebForm.getByKey(type));
   }
 
-  public static TargetBinding getBindingForTarget(MdClass mdClass)
+  public static TargetBinding getBindingForTarget(MdWebForm mdClass)
   {
     TargetBindingQuery query = new TargetBindingQuery(new QueryFactory());
     query.WHERE(query.getTargetBusiness().EQ(mdClass));

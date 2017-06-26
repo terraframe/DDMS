@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -141939070)
+@com.runwaysdk.business.ClassSignature(hash = 741003828)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class DataUploaderBase extends com.runwaysdk.business.Util imple
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.DataUploader";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -141939070;
+  private static final long serialVersionUID = 741003828;
   
   public DataUploaderBase()
   {
@@ -82,6 +82,18 @@ public abstract class DataUploaderBase extends com.runwaysdk.business.Util imple
   }
   
   public static java.lang.String importData(java.lang.String configuration)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataUploader.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void validateCategoryName(java.lang.String name, java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataUploader.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void validateDatasetName(java.lang.String name, java.lang.String id)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataUploader.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

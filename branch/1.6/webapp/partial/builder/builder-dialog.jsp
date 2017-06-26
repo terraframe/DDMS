@@ -62,7 +62,7 @@
                   </div>
                 
                   
-                   <div ng-show="showWidgetType == 'DATASETS'" class="row-holder vertical-checkbox-list">
+                   <div ng-show="showWidgetType == 'DATASETS'" class="row-holder vertical-checkbox-list" fire-on-ready>
                     <div class="builder-data-set" ng-if="dashboard.options.types != null && dashboard.options.types.length > 0" >
                       <div id="type-field-row" class="collapse in">
 	                      <ul class="list-unstyled">
@@ -88,17 +88,6 @@
                     <div class="" ng-if="dashboard.options.types != null && dashboard.options.types.length < 1">
                       <h4 class="user-notice"><mdss:localize key='dashboard.noDataSetsMsg'/></h4>
                     </div>
-                 </div>
-                 <div ng-show="showWidgetType == 'DATASETS'" class="row-holder">
-                   <div class="drop-box-container" ngf-drag-over-class="'drop-active'" ngf-select="ctrl.uploadFile($files)" ngf-drop="ctrl.uploadFile($files)" ngf-multiple="false" ngf-drop-available="dropAvailable" fire-on-ready>
-                     <div class="drop-box">
-                       <div class="inner-drop-box">
-                         <i class="fa fa-cloud-upload">
-                           <p class="upload-text"><mdss:localize key="dashboardbuilder.uploadDataSet"/></p>
-                         </i>
-                       </div>
-                     </div>
-                   </div>
                  </div>
                  
               </div> <!-- end widget container -->

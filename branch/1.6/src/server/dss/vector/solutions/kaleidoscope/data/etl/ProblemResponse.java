@@ -11,11 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdWebForm;
 
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.ontology.Term;
@@ -64,8 +64,10 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
       {
         String type = definition.getTargetType();
 
-        MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(type);
-        MappableClass mClass = MappableClass.getMappableClass(mdBusiness);
+        MdWebForm mdForm = MdWebForm.getByKey(type);
+        MdClass mdClass = mdForm.getFormMdClass();
+
+        MappableClass mClass = MappableClass.getMappableClass(mdClass);
 
         datasets.put(mClass.toJSON());
       }

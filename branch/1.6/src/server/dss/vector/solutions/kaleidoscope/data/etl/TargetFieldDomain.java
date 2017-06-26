@@ -11,6 +11,7 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 
 import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootView;
@@ -44,7 +45,7 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
   public void persist(TargetBinding binding)
   {
     MdAttribute sourceAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldDomainBinding field = new TargetFieldDomainBinding();
     field.setTarget(binding);

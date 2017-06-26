@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = 1425618086)
+@com.runwaysdk.business.ClassSignature(hash = -1617953882)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class TargetBindingBase extends com.runwaysdk.business.Business 
   public static java.lang.String STRATEGY = "strategy";
   public static java.lang.String TARGETBUSINESS = "targetBusiness";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1425618086;
+  private static final long serialVersionUID = -1617953882;
   
   public TargetBindingBase()
   {
@@ -385,7 +385,7 @@ public abstract class TargetBindingBase extends com.runwaysdk.business.Business 
     }
   }
   
-  public com.runwaysdk.system.metadata.MdClass getTargetBusiness()
+  public com.runwaysdk.system.metadata.MdWebForm getTargetBusiness()
   {
     if (getValue(TARGETBUSINESS).trim().equals(""))
     {
@@ -393,7 +393,7 @@ public abstract class TargetBindingBase extends com.runwaysdk.business.Business 
     }
     else
     {
-      return com.runwaysdk.system.metadata.MdClass.get(getValue(TARGETBUSINESS));
+      return com.runwaysdk.system.metadata.MdWebForm.get(getValue(TARGETBUSINESS));
     }
   }
   
@@ -413,7 +413,7 @@ public abstract class TargetBindingBase extends com.runwaysdk.business.Business 
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TARGETBUSINESS);
   }
   
-  public void setTargetBusiness(com.runwaysdk.system.metadata.MdClass value)
+  public void setTargetBusiness(com.runwaysdk.system.metadata.MdWebForm value)
   {
     if(value == null)
     {

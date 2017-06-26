@@ -34,8 +34,10 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdElement;
+import com.runwaysdk.system.metadata.MdWebForm;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.kaleidoscope.dashboard.AttributeWrapper;
@@ -100,15 +102,15 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
   {
     MdClass mdClass = this.getWrappedMdClass();
 
-    if (mdClass.getGenerateSource())
-    {
-      String msg = "Cannot delete types that have generated source.";
-
-      RequiredMappableClassException ex = new RequiredMappableClassException(msg);
-      ex.setDataSetLabel(mdClass.getDisplayLabel().getValue());
-
-      throw ex;
-    }
+    // if (mdClass.getGenerateSource())
+    // {
+    // String msg = "Cannot delete types that have generated source.";
+    //
+    // RequiredMappableClassException ex = new RequiredMappableClassException(msg);
+    // ex.setDataSetLabel(mdClass.getDisplayLabel().getValue());
+    //
+    // throw ex;
+    // }
 
     /*
      * Delete all layers which reference attributes on this type
@@ -134,11 +136,16 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     /*
      * Delete all import mappings if they exist
      */
-    TargetBinding binding = TargetBinding.getBinding(mdClass.definesType());
+    MdWebForm mdForm = MdFormUtil.getMdFormFromBusinessType(mdClass.definesType());
 
-    if (binding != null)
+    if (mdForm != null)
     {
-      binding.delete();
+      TargetBinding binding = TargetBinding.getBinding(mdForm.definesType());
+
+      if (binding != null)
+      {
+        binding.delete();
+      }
     }
 
     /*
@@ -183,6 +190,11 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
         DatabaseUtil.dropViews(viewNames);
       }
 
+      if (mdForm != null)
+      {
+        MdFormUtil.delete(mdForm);
+      }
+
       mdClass.delete();
     }
   }
@@ -198,6 +210,30 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
   {
     MdClass mdClass = MdClass.get(_mdClass.getId());
 
+    MappableClassQuery query = new MappableClassQuery(new QueryFactory());
+    query.WHERE(query.getWrappedMdClass().EQ(mdClass));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
+
+    OIterator<? extends MappableClass> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+  }
+
+  public static MappableClass getMappableClass(MdClass mdClass)
+  {
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
     query.WHERE(query.getWrappedMdClass().EQ(mdClass));
     query.AND(query.getDisease().EQ(Disease.getCurrent()));
@@ -266,6 +302,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     object.put("id", this.getId());
     object.put("type", mdClass.getKey());
     object.put("value", value);
+    object.put("removable", false);
     object.put("source", this.getDataSource());
 
     LinkedList<AttributeWrapper> attributes = new LinkedList<AttributeWrapper>();

@@ -99,7 +99,6 @@
         com.runwaysdk.ui.Manager.setFactory("JQuery");
       });
     </script>  
-    
   </head>
 
   <body ng-controller="DashboardController as dashboard" ng-init="init('${geoserver}', '${workspace}', ${editDashboard}, ${editData})" style="text-align: left;" class="yui-skin-sam">

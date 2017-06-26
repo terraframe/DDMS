@@ -28,6 +28,8 @@ import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.LocalizationUtil;
+
 public class DateCondition extends DashboardAttributeCondition implements Reloadable
 {
   public static final String CONDITION_TYPE = "DATE_CONDITION";
@@ -69,13 +71,8 @@ public class DateCondition extends DashboardAttributeCondition implements Reload
   {
     try
     {
-      SimpleDateFormat format = (SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
-      String pattern = format.toPattern();
-      pattern = pattern.replace("yy", "yyyy");
-      pattern = pattern.replace("yyyyyyyy", "yyyy");      
-      
       DateFormat source = new SimpleDateFormat(Constants.DATE_FORMAT);
-      DateFormat target = new SimpleDateFormat(pattern);
+      DateFormat target = LocalizationUtil.getDateFormat();
             
       JSONObject object = new JSONObject();
       object.put(TYPE_KEY, CONDITION_TYPE);

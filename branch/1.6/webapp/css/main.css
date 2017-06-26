@@ -1954,7 +1954,7 @@ span.select-area span.center {
 *
 */
 .jqtree-loading{
-	background: url(../images/busy.gif) no-repeat;
+	background: url(../imgs/busy.gif) no-repeat;
 }
 .jqtree-tree .jqtree-element .jqtree-title{
 	margin-left: 0;
@@ -1970,7 +1970,7 @@ span.select-area span.center {
 */
 div.standby-overlay {
 	background-color: #CCCCCC;
-	background-image: url('../images/loading_spinner_splitring.gif');
+	background-image: url('../imgs/loading_spinner_splitring.gif');
 	background-repeat: no-repeat;
 	background-position: center center;
 	position: absolute;
@@ -1981,7 +1981,7 @@ div.standby-overlay {
 
 div.gdb-maincontent-busy {
 	background-color: #CCCCCC;
-	background-image: url('../images/loading_spinner_splitring.gif');
+	background-image: url('../imgs/loading_spinner_splitring.gif');
 	background-repeat: no-repeat;
 	background-position: center center;
 	position: absolute;
@@ -2044,7 +2044,7 @@ div.alert.alertbox {
 
 .ng-modal-dialog {
   /* A centered div above the overlay with a box shadow. */
-  z-index:999;
+  z-index:100;
   position: absolute;
   width: 50%; /* Default - often overwritten by 'width' property on element html */
   top: 50%;  /* Center the dialog */

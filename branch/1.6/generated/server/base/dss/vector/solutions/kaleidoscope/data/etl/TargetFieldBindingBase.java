@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = -1550960771)
+@com.runwaysdk.business.ClassSignature(hash = 411397493)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class TargetFieldBindingBase extends com.runwaysdk.business.Busi
   public static java.lang.String TARGET = "target";
   public static java.lang.String TARGETATTRIBUTE = "targetAttribute";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1550960771;
+  private static final long serialVersionUID = 411397493;
   
   public TargetFieldBindingBase()
   {
@@ -373,7 +373,7 @@ public abstract class TargetFieldBindingBase extends com.runwaysdk.business.Busi
     }
   }
   
-  public com.runwaysdk.system.metadata.MdAttribute getTargetAttribute()
+  public com.runwaysdk.system.metadata.MdWebAttribute getTargetAttribute()
   {
     if (getValue(TARGETATTRIBUTE).trim().equals(""))
     {
@@ -381,7 +381,7 @@ public abstract class TargetFieldBindingBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.metadata.MdAttribute.get(getValue(TARGETATTRIBUTE));
+      return com.runwaysdk.system.metadata.MdWebAttribute.get(getValue(TARGETATTRIBUTE));
     }
   }
   
@@ -401,7 +401,7 @@ public abstract class TargetFieldBindingBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TARGETATTRIBUTE);
   }
   
-  public void setTargetAttribute(com.runwaysdk.system.metadata.MdAttribute value)
+  public void setTargetAttribute(com.runwaysdk.system.metadata.MdWebAttribute value)
   {
     if(value == null)
     {

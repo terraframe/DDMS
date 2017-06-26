@@ -14,17 +14,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 import dss.vector.solutions.kaleidoscope.data.etl.ConverterIF;
-import dss.vector.solutions.kaleidoscope.data.etl.ProgressMonitorIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceContextIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceFieldIF;
 
 public class SourceContentHandler implements SheetHandler, Reloadable
-{
-  /**
-   * Handles progress reporting
-   */
-  private ProgressMonitorIF monitor;
-  
+{  
   /**
    * Handler which handles the view object once they have been created.
    */
@@ -70,7 +64,7 @@ public class SourceContentHandler implements SheetHandler, Reloadable
    */
   private DateFormat           dateFormat;
 
-  public SourceContentHandler(ConverterIF converter, SourceContextIF context, ProgressMonitorIF monitor)
+  public SourceContentHandler(ConverterIF converter, SourceContextIF context)
   {
     this.converter = converter;
     this.context = context;
@@ -80,8 +74,6 @@ public class SourceContentHandler implements SheetHandler, Reloadable
 
     this.dateTimeFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_TIME_FORMAT);
     this.dateFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_FORMAT);
-    
-    this.monitor = monitor;
   }
   
   @Override
@@ -103,8 +95,6 @@ public class SourceContentHandler implements SheetHandler, Reloadable
     if (rowNum != 0)
     {
       this.view = this.context.newView(this.sheetName);
-      
-      this.monitor.setCurrentRow(rowNum);
     }
   }
 

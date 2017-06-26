@@ -27,7 +27,6 @@ public class DefinitionBuilder implements Reloadable
     JSONObject object = new JSONObject();
     object.put("name", source.getName());
     object.put("label", source.getLabel());
-    object.put("country", source.getCountry());
     object.put("fields", this.getFields());
     object.put("attributes", this.getAttributes());
     object.put("coordinates", this.getCoordinates());

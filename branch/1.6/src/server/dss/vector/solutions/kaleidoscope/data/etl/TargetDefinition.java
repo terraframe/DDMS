@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdView;
+import com.runwaysdk.system.metadata.MdWebForm;
 
 public class TargetDefinition implements TargetDefinitionIF, Reloadable
 {
@@ -109,7 +109,7 @@ public class TargetDefinition implements TargetDefinitionIF, Reloadable
     {
       TargetBinding binding = new TargetBinding();
       binding.setSourceView(MdView.getMdView(this.sourceType));
-      binding.setTargetBusiness(MdClass.getMdClass(this.targetType));
+      binding.setTargetBusiness(MdWebForm.getByKey(this.targetType));
       binding.setStrategy((PersistenceStrategy) this.strategy);
       binding.apply();
 

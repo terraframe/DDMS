@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = 29819343)
+@com.runwaysdk.business.ClassSignature(hash = 1344217743)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -301,27 +301,27 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     return (dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.STRATEGY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness()
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness()
   {
     return getTargetBusiness(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS);
 
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS);
 
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -375,7 +375,7 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS)) 
     {
-       return new com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -455,9 +455,9 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy();
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy(String alias);
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness();
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias);
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness();
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias);
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -717,21 +717,21 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     return (dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.STRATEGY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness()
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness()
   {
     return getTargetBusiness(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias)
   {
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS,  alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -785,7 +785,7 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS)) 
     {
-       return new com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -842,9 +842,9 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy();
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy(String alias);
     public dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF getStrategy(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness();
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias);
-    public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness();
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias);
+    public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1153,21 +1153,21 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     return (dss.vector.solutions.kaleidoscope.data.etl.PersistenceStrategyQuery.PersistenceStrategyQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.STRATEGY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness()
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness()
   {
     return getTargetBusiness(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias)
   {
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF getTargetBusiness(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS,  alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -1221,7 +1221,7 @@ public  class TargetBindingQuery extends com.runwaysdk.query.GeneratedBusinessQu
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetBinding.TARGETBUSINESS)) 
     {
-       return new com.runwaysdk.system.metadata.MdClassQuery.MdClassQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebFormQuery.MdWebFormQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

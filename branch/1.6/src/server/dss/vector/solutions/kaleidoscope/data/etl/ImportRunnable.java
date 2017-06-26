@@ -15,13 +15,14 @@ import com.runwaysdk.RunwayException;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.constants.MdAttributeDecInfo;
 import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdWebForm;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportValidator.DecimalAttribute;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
@@ -30,8 +31,6 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.SourceContentHandler;
 
 public class ImportRunnable implements Reloadable
 {
-  private ProgressMonitorIF monitor;
-  
   static class ValidationResult implements Reloadable
   {
     private ImportResponseIF              response;
@@ -55,16 +54,14 @@ public class ImportRunnable implements Reloadable
     }
   }
 
-  private String configuration;
+  private String            configuration;
 
-  private File   file;
+  private File              file;
 
-  public ImportRunnable(String configuration, File file, ProgressMonitorIF monitor)
+  public ImportRunnable(String configuration, File file)
   {
     this.configuration = configuration;
     this.file = file;
-    
-    this.monitor = monitor;
   }
 
   @Transaction
@@ -77,7 +74,7 @@ public class ImportRunnable implements Reloadable
        */
       DataSetBuilderIF builder = new DataSetBuilder(configuration);
       builder.build();
-      
+
       /*
        * Create and import the view objects from the configuration
        */
@@ -87,12 +84,10 @@ public class ImportRunnable implements Reloadable
       /*
        * Before importing the data we must validate that the location text information
        */
-      monitor.setState(DataImportState.VALIDATION);
       ValidationResult result = this.validateData(file, sContext, tContext);
-      
+
       if (result.getResponse() != null)
       {
-        monitor.setState(DataImportState.VALIDATIONFAIL);
         return result.getResponse();
       }
 
@@ -104,12 +99,10 @@ public class ImportRunnable implements Reloadable
       /*
        * Import the data
        */
-      monitor.setState(DataImportState.DATAIMPORT);
       this.importData(file, sContext, tContext);
-      
+
       /*
-       * Return a JSONArray of the datasets which were created as part of the import. Do not include datasets which have
-       * already been created.
+       * Return a JSONArray of the datasets which were created as part of the import. Do not include datasets which have already been created.
        */
       JSONArray datasets = new JSONArray();
 
@@ -119,13 +112,12 @@ public class ImportRunnable implements Reloadable
       {
         String type = definition.getTargetType();
 
-        MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(type);
-        MappableClass mClass = MappableClass.getMappableClass(mdBusiness);
+        MdWebForm mdForm = MdWebForm.getByKey(type);
+        MdClass mdClass = mdForm.getFormMdClass();
+        MappableClass mClass = MappableClass.getMappableClass(mdClass);
 
         datasets.put(mClass.toJSON());
       }
-      
-      monitor.setState(DataImportState.COMPLETE);
 
       // Return the new data set definition
       return new SuccessResponse(datasets);
@@ -169,13 +161,13 @@ public class ImportRunnable implements Reloadable
 
   private void importData(File file, SourceContextIF sContext, TargetContextIF tContext) throws FileNotFoundException, Exception, IOException
   {
-    ConverterIF converter = new Converter(tContext);
+    ConverterIF converter = new Converter(tContext, Disease.getCurrent());
 
     FileInputStream istream = new FileInputStream(file);
 
     try
     {
-      SourceContentHandler handler = new SourceContentHandler(converter, sContext, this.monitor);
+      SourceContentHandler handler = new SourceContentHandler(converter, sContext);
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
@@ -195,7 +187,7 @@ public class ImportRunnable implements Reloadable
 
     try
     {
-      SourceContentHandler handler = new SourceContentHandler(converter, sContext, this.monitor);
+      SourceContentHandler handler = new SourceContentHandler(converter, sContext);
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);

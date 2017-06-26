@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = 1400538231)
+@com.runwaysdk.business.ClassSignature(hash = 1027767571)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -259,6 +259,23 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.MappableClass.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.MappableClass.OWNER, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getRemovable()
+  {
+    return getRemovable(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -671,6 +688,9 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getRemovable();
+    public com.runwaysdk.query.SelectableBoolean getRemovable(String alias);
+    public com.runwaysdk.query.SelectableBoolean getRemovable(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -959,6 +979,23 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getRemovable()
+  {
+    return getRemovable(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -1342,6 +1379,9 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getRemovable();
+    public com.runwaysdk.query.SelectableBoolean getRemovable(String alias);
+    public com.runwaysdk.query.SelectableBoolean getRemovable(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -1623,6 +1663,23 @@ public  class MappableClassQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.MappableClass.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getRemovable()
+  {
+    return getRemovable(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getRemovable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.MappableClass.REMOVABLE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()

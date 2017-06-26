@@ -7,7 +7,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
 {
-  private static Logger logger = LoggerFactory.getLogger(ImportRunnable.class);
+//  private static Logger logger = LoggerFactory.getLogger(ImportRunnable.class);
   
   private DataImportState state;
   
@@ -31,7 +31,7 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
   {
     this.state = state;
     
-    logger.info("Spreadsheet importer entering state [" + state.toString() + "] on file [" + filename + "].");
+    System.out.println("Spreadsheet importer entering state [" + state.toString() + "] on file [" + filename + "].");
   }
   
   public DataImportState getState()
@@ -45,7 +45,7 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
     
     if (rowNum % 50 == 0)
     {
-      logger.info("Spreadsheet importer processing row [" + rowNum + "]");
+      System.out.println("Spreadsheet importer processing row [" + rowNum + "]");
     }
   }
   

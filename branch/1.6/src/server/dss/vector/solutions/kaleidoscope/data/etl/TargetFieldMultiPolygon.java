@@ -22,6 +22,7 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 
@@ -47,7 +48,7 @@ public class TargetFieldMultiPolygon extends TargetFieldCoordinate implements Ta
   {
     MdAttribute latitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLatitudeSourceAttributeName());
     MdAttribute longitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLongitudeSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldMultiPolygonBinding field = new TargetFieldMultiPolygonBinding();
     field.setTarget(binding);

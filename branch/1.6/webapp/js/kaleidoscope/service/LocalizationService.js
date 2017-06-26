@@ -8,7 +8,7 @@
     service.parseNumber = function(value) {
       if(value != null && value.length > 0) {            
         //convert data from view format to model format
-        var number = parseFloat(value); //service.parser( value );
+        var number = MDSS.parseNumber(value, false);
         
         return number;
       }

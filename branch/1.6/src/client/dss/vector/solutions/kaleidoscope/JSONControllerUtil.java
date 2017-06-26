@@ -61,6 +61,17 @@ public class JSONControllerUtil
     JSONControllerUtil.writeOutputStream(resp, bytes);
   }
 
+  public static void writeDirectReponse(HttpServletResponse resp, Object returnValue) throws IOException
+  {
+    String content = returnValue.toString();
+    byte[] bytes = content.getBytes("UTF-8");
+    
+    resp.setStatus(200);
+    resp.setContentType("application/json");
+    
+    JSONControllerUtil.writeOutputStream(resp, bytes);
+  }
+  
   public static ResponseIF writeReponse(Object returnValue)
   {
 //    JSONReturnObject ret = new JSONReturnObject();

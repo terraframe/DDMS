@@ -23,6 +23,7 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 
 import dss.vector.solutions.ontology.Term;
 
@@ -49,7 +50,7 @@ public class TargetFieldClassifier extends TargetFieldBasic implements TargetFie
   public void persist(TargetBinding binding)
   {
     MdAttribute sourceAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldClassifierBinding field = new TargetFieldClassifierBinding();
     field.setTarget(binding);

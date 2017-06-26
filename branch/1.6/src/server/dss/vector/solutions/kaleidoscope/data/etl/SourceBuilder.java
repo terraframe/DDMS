@@ -69,7 +69,6 @@ public class SourceBuilder implements Reloadable
   {
     String sheetName = cSheet.getString("name");
     String label = cSheet.getString("label");
-    String country = cSheet.getString("country");
 
     String typeName = this.generateViewType(label);
 
@@ -88,7 +87,6 @@ public class SourceBuilder implements Reloadable
     SourceDefinition definition = new SourceDefinition();
     definition.setType(PACKAGE_NAME + "." + typeName);
     definition.setSheetName(sheetName);
-    definition.setCountry(country);
 
     for (int i = 0; i < cFields.length(); i++)
     {

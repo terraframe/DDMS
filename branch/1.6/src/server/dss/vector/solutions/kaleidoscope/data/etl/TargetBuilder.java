@@ -1,18 +1,9 @@
-/**
- * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
- *
- * This file is part of Runway SDK(tm).
- *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
- */
 package dss.vector.solutions.kaleidoscope.data.etl;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,29 +17,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.AttributeDateParseException;
+import com.runwaysdk.AttributeDecimalParseException;
 import com.runwaysdk.constants.MdAttributeCharacterInfo;
-import com.runwaysdk.constants.MdAttributeDateInfo;
 import com.runwaysdk.constants.MdAttributeDoubleInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
-import com.runwaysdk.constants.MdAttributeLongInfo;
 import com.runwaysdk.constants.MdAttributeReferenceInfo;
-import com.runwaysdk.constants.MdAttributeTextInfo;
-import com.runwaysdk.constants.MdBusinessInfo;
-import com.runwaysdk.constants.MdViewInfo;
-import com.runwaysdk.constants.RelationshipInfo;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAO;
-import com.runwaysdk.dataaccess.TermAttributeDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeCharacterDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDateDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDoubleDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -57,27 +35,42 @@ import com.runwaysdk.gis.constants.MdAttributeMultiPolygonInfo;
 import com.runwaysdk.gis.constants.MdAttributePointInfo;
 import com.runwaysdk.gis.dataaccess.metadata.MdAttributeMultiPolygonDAO;
 import com.runwaysdk.gis.dataaccess.metadata.MdAttributePointDAO;
-import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeReference;
-import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.MdWebAttribute;
+import com.runwaysdk.system.metadata.MdWebBoolean;
+import com.runwaysdk.system.metadata.MdWebDate;
+import com.runwaysdk.system.metadata.MdWebDouble;
+import com.runwaysdk.system.metadata.MdWebForm;
+import com.runwaysdk.system.metadata.MdWebGeo;
+import com.runwaysdk.system.metadata.MdWebLong;
+import com.runwaysdk.system.metadata.MdWebNumber;
+import com.runwaysdk.system.metadata.MdWebSingleTerm;
+import com.runwaysdk.system.metadata.MdWebText;
 
 import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.LocalizationUtil;
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.MdFormUtil;
+import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.kaleidoscope.MappableAttribute;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
+import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.BrowserRootView;
-import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.MDSSProperties;
 
 public class TargetBuilder implements Reloadable
 {
@@ -86,6 +79,8 @@ public class TargetBuilder implements Reloadable
   public static final String EXLUDE       = "EXCLUDE";
 
   public static final String DERIVE       = "DERIVE";
+
+  public static final String ROOT_TERM_ID = "DDMS:0000001";
 
   private JSONObject         configuration;
 
@@ -126,7 +121,8 @@ public class TargetBuilder implements Reloadable
 
           if (replace)
           {
-            MdClass mdClass = tBinding.getTargetBusiness();
+            MdWebForm mdWebForm = tBinding.getTargetBusiness();
+            MdClass mdClass = mdWebForm.getFormMdClass();
 
             if (mdClass instanceof MdEntity)
             {
@@ -158,34 +154,30 @@ public class TargetBuilder implements Reloadable
     String label = cSheet.getString("label");
     String description = ( cSheet.has("description") ? cSheet.getString("description") : "" );
     String dSource = ( cSheet.has("source") ? cSheet.getString("source") : "" );
-    String countryId = cSheet.getString("country");
     List<GeoNode> nodes = new LinkedList<GeoNode>();
 
-    GeoEntity country = GeoEntity.get(countryId);
-    GeoHierarchy lowest = GeoHierarchy.getGeoHierarchyFromType(country.getType());
+    GeoHierarchy lowest = GeoHierarchy.getRoot();
 
     String sourceType = this.source.getType(sheetName);
-    String typeName = this.generateBusinessTypeName(label);
+
+    /*
+     * Define the new MdForm and MdBusiness
+     */
+    MdWebForm mdForm = new MdWebForm();
+    mdForm.getDisplayLabel().setValue(label);
+    mdForm.getDescription().setValue(description);
+    mdForm.setFormName(label);
+
+    MdFormUtil.apply(mdForm);
 
     TargetDefinition definition = new TargetDefinition();
     definition.setSourceType(sourceType);
-    definition.setTargetType(PACKAGE_NAME + "." + typeName);
-
-    /*
-     * Define the new MdView
-     */
-    MdBusinessDAO mdBusiness = MdBusinessDAO.newInstance();
-    mdBusiness.setValue(MdBusinessInfo.PACKAGE, PACKAGE_NAME);
-    mdBusiness.setValue(MdBusinessInfo.NAME, typeName);
-    mdBusiness.setStructValue(MdBusinessInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-    mdBusiness.setStructValue(MdBusinessInfo.DESCRIPTION, MdAttributeLocalInfo.DEFAULT_LOCALE, description);
-    mdBusiness.setValue(MdViewInfo.GENERATE_SOURCE, MdAttributeBooleanInfo.FALSE);
-    mdBusiness.apply();
+    definition.setTargetType(mdForm.definesType());
 
     /*
      * Create the default classifier root for the MdBusiness
      */
-    RootTerm root = RootTerm.getRootInstance();
+    Term root = Term.getByTermId(ROOT_TERM_ID);
 
     /*
      * Add all of the basic fields
@@ -200,7 +192,7 @@ public class TargetBuilder implements Reloadable
 
         if (this.isValid(cField))
         {
-          TargetFieldIF field = this.createMdAttribute(mdBusiness, sheetName, cField, root);
+          TargetFieldIF field = this.createMdAttribute(mdForm, sheetName, cField, root);
 
           definition.addField(field);
         }
@@ -226,7 +218,7 @@ public class TargetBuilder implements Reloadable
 
         lowest = this.setLowest(lowest, universalId);
 
-        TargetFieldIF field = this.createMdGeoEntity(mdBusiness, sheetName, country, cField);
+        TargetFieldIF field = this.createMdGeoEntity(mdForm, sheetName, cField);
 
         definition.addField(field);
 
@@ -234,10 +226,12 @@ public class TargetBuilder implements Reloadable
         if (!references.contains(field.getLabel()))
         {
           String key = field.getKey();
+          MdWebGeo mdField = MdWebGeo.getByKey(key);
+          MdAttributeReference mdAttribute = (MdAttributeReference) mdField.getDefiningMdAttribute();
 
           GeoNodeEntity node = new GeoNodeEntity();
           node.setKeyName(key);
-          node.setGeoEntityAttribute(MdAttributeReference.getByKey(key));
+          node.setGeoEntityAttribute(mdAttribute);
           node.apply();
 
           nodes.add(node);
@@ -250,44 +244,45 @@ public class TargetBuilder implements Reloadable
      */
     if (cSheet.has("coordinates"))
     {
-      Object object = cSheet.get("coordinates");
-
-      if (object instanceof JSONObject)
-      {
-        JSONObject cCoordinates = (JSONObject) object;
-        JSONObject values = cCoordinates.getJSONObject("values");
-        JSONArray ids = cCoordinates.getJSONArray("ids");
-
-        for (int i = 0; i < ids.length(); i++)
-        {
-          String id = ids.getString(i);
-          JSONObject cField = values.getJSONObject(id);
-
-          lowest = this.createGeoNodeGeometry(sheetName, nodes, country, lowest, definition, mdBusiness, cField);
-        }
-      }
-      else
-      {
-        JSONArray cCoordinates = (JSONArray) object;
-
-        for (int i = 0; i < cCoordinates.length(); i++)
-        {
-          JSONObject cField = cCoordinates.getJSONObject(i);
-
-          lowest = this.createGeoNodeGeometry(sheetName, nodes, country, lowest, definition, mdBusiness, cField);
-        }
-      }
-
+      // Object object = cSheet.get("coordinates");
+      //
+      // if (object instanceof JSONObject)
+      // {
+      // JSONObject cCoordinates = (JSONObject) object;
+      // JSONObject values = cCoordinates.getJSONObject("values");
+      // JSONArray ids = cCoordinates.getJSONArray("ids");
+      //
+      // for (int i = 0; i < ids.length(); i++)
+      // {
+      // String id = ids.getString(i);
+      // JSONObject cField = values.getJSONObject(id);
+      //
+      // lowest = this.createGeoNodeGeometry(sheetName, nodes, country, lowest, definition, mdBusiness, cField);
+      // }
+      // }
+      // else
+      // {
+      // JSONArray cCoordinates = (JSONArray) object;
+      //
+      // for (int i = 0; i < cCoordinates.length(); i++)
+      // {
+      // JSONObject cField = cCoordinates.getJSONObject(i);
+      //
+      // lowest = this.createGeoNodeGeometry(sheetName, nodes, country, lowest, definition, mdBusiness, cField);
+      // }
+      // }
+      //
     }
 
     /*
      * Create the MappableClass
      */
-    MdClass mdClass = MdClass.getMdClass(mdBusiness.definesType());
+    MdClass mdClass = mdForm.getFormMdClass();
 
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(mdClass);
     mClass.setDataSource(dSource);
+    mClass.setDisease(Disease.getCurrent());
     mClass.apply();
 
     mClass.addUniversal(lowest).apply();
@@ -301,7 +296,8 @@ public class TargetBuilder implements Reloadable
 
     for (TargetFieldIF field : fields)
     {
-      MdAttribute mdAttribute = MdAttribute.getByKey(field.getKey());
+      MdWebAttribute mdField = MdWebAttribute.getByKey(field.getKey());
+      MdAttribute mdAttribute = mdField.getDefiningMdAttribute();
 
       MappableAttribute mAttribute = new MappableAttribute();
       mAttribute.setWrappedMdAttribute(mdAttribute);
@@ -496,14 +492,15 @@ public class TargetBuilder implements Reloadable
     return false;
   }
 
-  private TargetFieldIF createMdAttribute(MdClassDAO mdClass, String sheetName, JSONObject cField, Term root) throws JSONException
+  private TargetFieldIF createMdAttribute(MdWebForm mdForm, String sheetName, JSONObject cField, Term root) throws JSONException
   {
+    MdClass mdBusiness = mdForm.getFormMdClass();
     String columnType = cField.getString("type");
     String columnName = cField.getString("name");
     String label = cField.getString("label");
     String attributeName = this.generateAttributeName(label);
     String sourceAttributeName = this.source.getFieldByName(sheetName, columnName).getAttributeName();
-    String key = mdClass.definesType() + "." + attributeName;
+    String key = mdForm.definesType() + "." + attributeName;
     Boolean aggregatable = this.getAggregatable(cField);
 
     // Create the attribute
@@ -511,12 +508,12 @@ public class TargetBuilder implements Reloadable
     {
       if (!cField.has("root") || cField.getString("root").length() == 0)
       {
-        MdAttributeReferenceDAO mdAttribute = createMdAttributeTerm(mdClass, label, attributeName);
+        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
 
         /*
          * Create the root term for the options
          */
-        BrowserRootView[] classifiers = BrowserRoot.getAttributeRoots(mdClass.definesType(), attributeName);
+        BrowserRootView[] classifiers = BrowserRoot.getAttributeRoots(mdBusiness.definesType(), attributeName);
 
         Term classifier = null;
 
@@ -539,11 +536,12 @@ public class TargetBuilder implements Reloadable
         /*
          * Add the root as an option to the MdAttributeTerm
          */
-        String relationshipType = ( (TermAttributeDAOIF) mdAttribute ).getAttributeRootRelationshipType();
+        BrowserRoot bRoot = new BrowserRoot();
+        bRoot.setTerm(classifier);
+        bRoot.setDisease(Disease.getCurrent());
 
-        RelationshipDAO relationship = RelationshipDAO.newInstance(mdAttribute.getId(), classifier.getId(), relationshipType);
-        relationship.setValue(RelationshipInfo.KEY, mdAttribute.getKey() + "-" + classifier.getKey());
-        relationship.apply();
+        BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
+        bField.addBrowserRoot(bRoot);
 
         TargetFieldClassifier field = new TargetFieldClassifier();
         field.setName(attributeName);
@@ -556,7 +554,7 @@ public class TargetBuilder implements Reloadable
       }
       else
       {
-        MdAttributeReferenceDAO mdAttribute = createMdAttributeTerm(mdClass, label, attributeName);
+        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
 
         String classifierId = cField.getString("root");
 
@@ -565,11 +563,12 @@ public class TargetBuilder implements Reloadable
         /*
          * Add the root as an option to the MdAttributeTerm
          */
-        String relationshipType = ( (TermAttributeDAOIF) mdAttribute ).getAttributeRootRelationshipType();
+        BrowserRoot bRoot = new BrowserRoot();
+        bRoot.setTerm(classifier);
+        bRoot.setDisease(Disease.getCurrent());
 
-        RelationshipDAO relationship = RelationshipDAO.newInstance(mdAttribute.getId(), classifier.getId(), relationshipType);
-        relationship.setValue(RelationshipInfo.KEY, mdAttribute.getKey() + "-" + classifier.getKey());
-        relationship.apply();
+        BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
+        bField.addBrowserRoot(bRoot);
 
         TargetFieldDomain field = new TargetFieldDomain();
         field.setName(attributeName);
@@ -583,51 +582,54 @@ public class TargetBuilder implements Reloadable
     }
     else if (columnType.equals(ColumnType.BOOLEAN.name()))
     {
-      MdAttributeBooleanDAO mdAttribute = MdAttributeBooleanDAO.newInstance();
-      mdAttribute.setValue(MdAttributeBooleanInfo.NAME, attributeName);
-      mdAttribute.setValue(MdAttributeBooleanInfo.DEFINING_MD_CLASS, mdClass.getId());
-      mdAttribute.setStructValue(MdAttributeBooleanInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-      mdAttribute.setStructValue(MdAttributeBooleanInfo.NEGATIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, "False");
-      mdAttribute.setStructValue(MdAttributeBooleanInfo.POSITIVE_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, "True");
-      mdAttribute.apply();
+      MdWebBoolean mdField = new MdWebBoolean();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+
+      MdFormUtil.createMdField(mdField, mdForm.getId());
     }
     else if (columnType.equals(ColumnType.DATE.name()))
     {
-      MdAttributeDateDAO mdAttribute = MdAttributeDateDAO.newInstance();
-      mdAttribute.setValue(MdAttributeDateInfo.NAME, attributeName);
-      mdAttribute.setValue(MdAttributeDateInfo.DEFINING_MD_CLASS, mdClass.getId());
-      mdAttribute.setStructValue(MdAttributeDateInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-      mdAttribute.apply();
+      MdWebDate mdField = new MdWebDate();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+
+      this.setValidations(mdField, cField);
+
+      MdFormUtil.createMdField(mdField, mdForm.getId());
     }
     else if (columnType.equals(ColumnType.DOUBLE.name()))
     {
       int length = cField.getInt("precision");
       int decimal = cField.getInt("scale");
 
-      MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
-      mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
-      mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdClass.getId());
-      mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-      mdAttribute.setValue(MdAttributeDoubleInfo.LENGTH, new Integer(length).toString());
-      mdAttribute.setValue(MdAttributeDoubleInfo.DECIMAL, new Integer(decimal).toString());
-      mdAttribute.apply();
+      MdWebDouble mdField = new MdWebDouble();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+      mdField.setDecPrecision(length);
+      mdField.setDecScale(decimal);
+
+      this.setValidations(mdField, cField);
+
+      MdFormUtil.createMdField(mdField, mdForm.getId());
     }
     else if (columnType.equals(ColumnType.LONG.name()))
     {
-      MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
-      mdAttribute.setValue(MdAttributeLongInfo.NAME, attributeName);
-      mdAttribute.setValue(MdAttributeLongInfo.DEFINING_MD_CLASS, mdClass.getId());
-      mdAttribute.setStructValue(MdAttributeLongInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-      mdAttribute.apply();
+      MdWebLong mdField = new MdWebLong();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+
+      this.setValidations(mdField, cField);
+
+      MdFormUtil.createMdField(mdField, mdForm.getId());
     }
     else if (columnType.equals(ColumnType.TEXT.name()))
     {
-      MdAttributeTextDAO mdAttribute = MdAttributeTextDAO.newInstance();
-      mdAttribute.setValue(MdAttributeTextInfo.NAME, attributeName);
-      mdAttribute.setValue(MdAttributeTextInfo.DEFINING_MD_CLASS, mdClass.getId());
-      mdAttribute.setStructValue(MdAttributeTextInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-      // mdAttribute.setValue(MdAttributeTextInfo.SIZE, "6000");
-      mdAttribute.apply();
+      MdWebText mdField = new MdWebText();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+
+      MdFormUtil.createMdField(mdField, mdForm.getId());
     }
 
     // Create the target field
@@ -641,18 +643,115 @@ public class TargetBuilder implements Reloadable
     return field;
   }
 
-  private MdAttributeReferenceDAO createMdAttributeTerm(MdClassDAO mdClass, String label, String attributeName)
+  private void setValidations(MdWebDate mdField, JSONObject cField) throws JSONException
   {
-    MdBusinessDAOIF referenceMdBusiness = MdBusinessDAO.getMdBusinessDAO(Term.CLASS);
+    if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
+    {
+      String validation = cField.has("validation") ? cField.getString("validation") : "";
 
-    MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
-    mdAttribute.setValue(MdAttributeReferenceInfo.NAME, attributeName);
-    mdAttribute.setValue(MdAttributeReferenceInfo.DEFINING_MD_CLASS, mdClass.getId());
-    mdAttribute.setStructValue(MdAttributeReferenceInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, referenceMdBusiness.getId());
-    mdAttribute.apply();
+      if (validation.equalsIgnoreCase("bte"))
+      {
+        mdField.setBeforeTodayExclusive(true);
+      }
+      else if (validation.equalsIgnoreCase("bti"))
+      {
+        mdField.setBeforeTodayInclusive(true);
+      }
+      else if (validation.equalsIgnoreCase("ate"))
+      {
+        mdField.setAfterTodayExclusive(true);
+      }
+      else if (validation.equalsIgnoreCase("ati"))
+      {
+        mdField.setAfterTodayInclusive(true);
+      }
+      else if (validation.equalsIgnoreCase("range"))
+      {
+        SimpleDateFormat format = LocalizationUtil.getDateFormat();
 
-    return mdAttribute;
+        if (cField.has("validationStartRange"))
+        {
+          String value = cField.getString("validationStartRange");
+
+          try
+          {
+            Date date = format.parse(value);
+            mdField.setStartDate(date);
+          }
+          catch (ParseException e)
+          {
+            throw new AttributeDateParseException("", MDSSProperties.getString("dataUploader.startDate"), value, format.toPattern());
+          }
+
+        }
+
+        if (cField.has("validationEndRange"))
+        {
+          String value = cField.getString("validationEndRange");
+
+          try
+          {
+            Date date = format.parse(value);
+            mdField.setEndDate(date);
+          }
+          catch (ParseException e)
+          {
+            throw new AttributeDateParseException("", MDSSProperties.getString("dataUploader.endDate"), value, format.toPattern());
+          }
+        }
+      }
+    }
+  }
+
+  private void setValidations(MdWebNumber mdField, JSONObject cField) throws JSONException
+  {
+    if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
+    {
+      if (cField.has("validationStartRange"))
+      {
+        String startRange = cField.getString("validationStartRange");
+        NumberFormat format = NumberFormat.getInstance(Session.getCurrentLocale());
+
+        try
+        {
+          Number value = format.parse(startRange);
+
+          mdField.setStartRange(value.toString());
+        }
+        catch (ParseException e)
+        {
+          throw new AttributeDecimalParseException("", e, MdAttributeDoubleInfo.START_RANGE, startRange);
+        }
+      }
+
+      if (cField.has("validationEndRange"))
+      {
+        String endRange = cField.getString("validationEndRange");
+        NumberFormat format = NumberFormat.getInstance(Session.getCurrentLocale());
+
+        try
+        {
+          Number value = format.parse(endRange);
+
+          mdField.setEndRange(value.toString());
+        }
+        catch (ParseException e)
+        {
+          throw new AttributeDecimalParseException("", e, MdAttributeDoubleInfo.END_RANGE, endRange);
+        }
+      }
+    }
+  }
+
+  private MdWebSingleTerm createMdAttributeTerm(MdWebForm mdForm, String label, String attributeName)
+  {
+    MdWebSingleTerm mdField = new MdWebSingleTerm();
+    mdField.setFieldName(attributeName);
+    mdField.getDisplayLabel().setValue(label);
+
+    MdFormUtil.createMdField(mdField, mdForm.getId());
+
+    return mdField;
   }
 
   private Boolean getAggregatable(JSONObject cField) throws JSONException
@@ -660,28 +759,28 @@ public class TargetBuilder implements Reloadable
     return cField.has("ratio") ? !cField.getBoolean("ratio") : true;
   }
 
-  private TargetFieldIF createMdGeoEntity(MdClassDAO mdClass, String sheetName, GeoEntity country, JSONObject cAttribute) throws JSONException
+  private TargetFieldIF createMdGeoEntity(MdWebForm mdForm, String sheetName, JSONObject cAttribute) throws JSONException
   {
     String label = cAttribute.getString("label");
     String universalId = cAttribute.getString("universal");
     Boolean aggregatable = this.getAggregatable(cAttribute);
     String attributeName = this.generateAttributeName(label);
 
-    MdAttributeReferenceDAO mdAttribute = MdAttributeReferenceDAO.newInstance();
-    mdAttribute.setValue(MdAttributeReferenceInfo.NAME, attributeName);
-    mdAttribute.setValue(MdAttributeReferenceInfo.DEFINING_MD_CLASS, mdClass.getId());
-    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, MdBusinessDAO.getMdBusinessDAO(GeoEntity.CLASS).getId());
-    mdAttribute.setStructValue(MdAttributeReferenceInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
-    mdAttribute.apply();
+    MdWebGeo mdField = new MdWebGeo();
+    mdField.setFieldName(attributeName);
+    mdField.getDisplayLabel().setValue(label);
+
+    MdFormUtil.createGeoField(mdField, mdForm.getId(), new GeoField(), new String[] { universalId });
 
     GeoHierarchy lowest = GeoHierarchy.get(universalId);
     List<GeoHierarchy> universals = lowest.getAllParents();
+    universals.add(0, lowest);
 
     TargetFieldGeoEntity field = new TargetFieldGeoEntity();
     field.setName(attributeName);
     field.setLabel(label);
-    field.setKey(mdClass.definesType() + "." + attributeName);
-    field.setRoot(country);
+    field.setKey(mdForm.definesType() + "." + attributeName);
+    field.setRoot(Earth.getEarthInstance());
     field.setAggregatable(aggregatable);
 
     JSONObject fields = cAttribute.getJSONObject("fields");
@@ -789,40 +888,6 @@ public class TargetBuilder implements Reloadable
   private String generateAttributeName(String label)
   {
     return GeoHierarchy.getSystemName(label, "Attribute", false);
-  }
-
-  private String generateBusinessTypeName(String label)
-  {
-    // Create a unique name for the view type based upon the name of the sheet
-    String typeName = GeoHierarchy.getSystemName(label, "Type", true);
-
-    Integer suffix = 0;
-
-    while (!this.isUnique(PACKAGE_NAME, typeName, suffix))
-    {
-      suffix += 1;
-    }
-
-    if (suffix > 0)
-    {
-      return typeName + suffix;
-    }
-
-    return typeName;
-  }
-
-  private boolean isUnique(String packageName, String typeName, Integer suffix)
-  {
-    if (suffix > 0)
-    {
-      typeName = typeName + suffix;
-    }
-
-    MdBusinessQuery query = new MdBusinessQuery(new QueryFactory());
-    query.WHERE(query.getTypeName().EQ(typeName));
-    query.AND(query.getPackageName().EQ(packageName));
-
-    return ( query.getCount() == 0 );
   }
 
   public void setupLocationExclusions()

@@ -32,8 +32,6 @@ public interface SourceDefinitionIF extends Reloadable
 
   public String getId();
 
-  public String getCountry();
-
   public boolean isNew();
 
   public SourceFieldIF getFieldByName(String columnName);

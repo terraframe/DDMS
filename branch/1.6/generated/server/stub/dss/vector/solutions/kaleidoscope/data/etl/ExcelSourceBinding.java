@@ -26,9 +26,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdView;
 
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.kaleidoscope.MappableClass;
-
 public class ExcelSourceBinding extends ExcelSourceBindingBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1190316606;
@@ -106,14 +103,10 @@ public class ExcelSourceBinding extends ExcelSourceBindingBase implements com.ru
   {
     MdView mdView = this.getMdView();
     
-    MappableClass mClass = MappableClass.getMappableClass(this.getTargetBinding().getTargetBusiness().definesType());
-    GeoHierarchy country = mClass.getCountry();
-    
     SourceDefinition definition = new SourceDefinition();
     definition.setType(mdView.definesType());
     definition.setLabel(mdView.getDisplayLabel().getValue());
     definition.setSheetName(sheetName);
-    definition.setCountry(country.getId());
     definition.setNew(false);
     definition.setApplied(true);
     definition.setId(this.getId());

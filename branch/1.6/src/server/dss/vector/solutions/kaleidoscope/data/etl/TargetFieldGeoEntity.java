@@ -34,6 +34,7 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -42,6 +43,7 @@ import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.kaleidoscope.ontology.NonUniqueEntityResultException;
 import dss.vector.solutions.util.QueryUtil;
 
 public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoEntityIF, TargetFieldValidationIF, Reloadable
@@ -95,10 +97,13 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
   private GeoHierarchy                  rootUniversal;
 
+  private Earth                         earth;
+
   public TargetFieldGeoEntity()
   {
     this.attributes = new ArrayList<UniversalAttribute>();
     this.id = IDGenerator.nextID();
+    this.earth = Earth.getEarthInstance();
   }
 
   public String getId()
@@ -215,13 +220,12 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
         if (iterator.hasNext())
         {
-          // TODO FINISH
-          // NonUniqueEntityResultException e = new NonUniqueEntityResultException();
-          // e.setLabel(label);
-          // e.setUniversal(universal.getDisplayLabel().getValue());
-          // e.setParent(parent.getDisplayLabel().getValue());
-          //
-          // throw e;
+          NonUniqueEntityResultException e = new NonUniqueEntityResultException();
+          e.setLabel(label);
+          e.setUniversal(universal.getDisplayLabel());
+          e.setParent(parent.getEntityLabel().getValue());
+
+          throw e;
         }
 
         return entity;
@@ -238,7 +242,7 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
   @Override
   public void persist(TargetBinding binding)
   {
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldGeoEntityBinding field = new TargetFieldGeoEntityBinding();
     field.setTarget(binding);
@@ -290,7 +294,6 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
   @Override
   public ImportProblemIF validate(Transient source, Map<String, Object> parameters)
   {
-    Earth earth = Earth.getEarthInstance();
     GeoEntity parent = this.root;
 
     Map<String, Set<String>> locationExclusions = (Map<String, Set<String>>) parameters.get("locationExclusions");

@@ -3,18 +3,13 @@
  *
  * This file is part of Runway SDK(tm).
  *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
  */
 package dss.vector.solutions.kaleidoscope.data.etl.excel;
 
@@ -54,9 +49,9 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
     private int              precision;
 
-    private int             scale;
-    
-    private int             inputPosition;
+    private int              scale;
+
+    private int              inputPosition;
 
     private Set<ColumnType>  dataTypes;
 
@@ -79,12 +74,12 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
     {
       return name.trim();
     }
-    
+
     public void setInputPosition(int position)
     {
       this.inputPosition = position;
     }
-    
+
     public int getInputPosition()
     {
       return this.inputPosition;
@@ -189,9 +184,12 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
    */
   private JSONArray           information;
 
-  public FieldInfoContentsHandler()
+  private String              filename;
+
+  public FieldInfoContentsHandler(String filename)
   {
     this.information = new JSONArray();
+    this.filename = filename;
   }
 
   private Field getField(String cellReference)
@@ -206,7 +204,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
     return this.map.get(column);
   }
-  
+
   private int getFieldPosition(String cellReference)
   {
     CellReference reference = new CellReference(cellReference);
@@ -250,6 +248,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
       JSONObject sheet = new JSONObject();
       sheet.put("name", this.sheetName);
       sheet.put("label", this.sheetName);
+      sheet.put("source", this.filename);
       sheet.put("fields", fields);
       sheet.put("matches", matches);
 

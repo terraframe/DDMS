@@ -30,6 +30,7 @@ import com.runwaysdk.system.gis.geo.GeoNodeGeometry;
 import com.runwaysdk.system.gis.geo.GeoNodeGeometryQuery;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeReference;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.util.IDGenerator;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
@@ -63,7 +64,7 @@ public class TargetFieldPoint extends TargetFieldCoordinate implements TargetFie
   {
     MdAttribute latitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLatitudeSourceAttributeName());
     MdAttribute longitudeAttribute = MdAttribute.getByKey(binding.getSourceView().definesType() + "." + this.getLongitudeSourceAttributeName());
-    MdAttribute targetAttribute = MdAttribute.getByKey(this.getKey());
+    MdWebAttribute targetAttribute = MdWebAttribute.getByKey(this.getKey());
 
     TargetFieldPointBinding field = new TargetFieldPointBinding();
     field.setTarget(binding);

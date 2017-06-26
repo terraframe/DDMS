@@ -41,14 +41,14 @@
       <mdBusiness name="dss.vector.solutions.kaleidoscope.data.etl.TargetBinding" label="Target Binding">
         <attributes>
           <reference name="sourceView" label="Source Type" type="com.runwaysdk.system.metadata.MdView" required="true" indexType="non-unique index" />
-          <reference name="targetBusiness" label="Target Type" type="com.runwaysdk.system.metadata.MdClass" required="true" indexType="non-unique index" />
+          <reference name="targetBusiness" label="Target Type" type="com.runwaysdk.system.metadata.MdWebForm" required="true" indexType="non-unique index" />
         </attributes>
       </mdBusiness>
       
       <mdBusiness name="dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding" label="Target Field Binding" isAbstract="true">
         <attributes>
           <reference name="target" label="Attribute" type="dss.vector.solutions.kaleidoscope.data.etl.TargetBinding" required="true" indexType="non-unique index" />
-          <reference name="targetAttribute" label="Target Attribute" type="com.runwaysdk.system.metadata.MdAttribute" required="true" indexType="non-unique index" />
+          <reference name="targetAttribute" label="Target Attribute" type="com.runwaysdk.system.metadata.MdWebAttribute" required="true" indexType="non-unique index" />
           <char name="columnLabel" label="Label" required="true" size="255" />          
         </attributes>
       </mdBusiness>

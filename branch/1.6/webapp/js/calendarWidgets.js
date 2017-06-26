@@ -457,7 +457,7 @@ MDSS.Calendar = {
       {    	
         var caldiv = document.createElement('div');
         caldiv.id = "calContainer-" + el.id;
-        caldiv.style.zIndex = "15";
+        caldiv.style.zIndex = "115";
         document.getElementsByTagName('body')[0].appendChild(caldiv);
       
         YAHOO.util.Dom.addClass("calContainer-" + el.id, 'yui-skin-sam');      

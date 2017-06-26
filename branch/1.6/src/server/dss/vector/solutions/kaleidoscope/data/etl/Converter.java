@@ -7,13 +7,20 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.MdFormUtil;
+
 public class Converter implements ConverterIF, Reloadable
 {
   private TargetContextIF context;
 
-  public Converter(TargetContextIF context)
+  private Disease         disease;
+
+  public Converter(TargetContextIF context, Disease disease)
   {
     this.context = context;
+    this.disease = disease;
   }
 
   @Override
@@ -44,6 +51,9 @@ public class Converter implements ConverterIF, Reloadable
 
         hasValues = hasValues || !fValue.isBlank();
       }
+
+      business.setValue(MdFormUtil.DISEASE, this.disease.getId());
+      business.setValue(MdFormUtil.OID, LocalProperty.getNextId());
 
       /*
        * Before apply ensure that at least one source field was not blank

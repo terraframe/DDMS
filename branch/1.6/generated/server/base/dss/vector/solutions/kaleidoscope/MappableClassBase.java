@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = 1126006734)
+@com.runwaysdk.business.ClassSignature(hash = -1168659798)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,11 +22,12 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String REMOVABLE = "removable";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WRAPPEDMDCLASS = "wrappedMdClass";
-  private static final long serialVersionUID = 1126006734;
+  private static final long serialVersionUID = -1168659798;
   
   public MappableClassBase()
   {
@@ -338,6 +339,34 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public Boolean getRemovable()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(REMOVABLE));
+  }
+  
+  public void validateRemovable()
+  {
+    this.validateAttribute(REMOVABLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getRemovableMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.MappableClass.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(REMOVABLE);
+  }
+  
+  public void setRemovable(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(REMOVABLE, "");
+    }
+    else
+    {
+      setValue(REMOVABLE, java.lang.Boolean.toString(value));
     }
   }
   

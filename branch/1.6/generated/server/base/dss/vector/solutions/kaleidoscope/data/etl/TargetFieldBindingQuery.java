@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = -261220250)
+@com.runwaysdk.business.ClassSignature(hash = 293828588)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -295,27 +295,27 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGET, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute()
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute()
   {
     return getTargetAttribute(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE);
 
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE);
 
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -365,7 +365,7 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE)) 
     {
-       return new com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -445,9 +445,9 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget();
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget(String alias);
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute();
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias);
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute();
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias);
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -707,21 +707,21 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGET,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute()
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute()
   {
     return getTargetAttribute(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias)
   {
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE,  alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -771,7 +771,7 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE)) 
     {
-       return new com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -828,9 +828,9 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget();
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget(String alias);
     public dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF getTarget(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute();
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias);
-    public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute();
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias);
+    public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1139,21 +1139,21 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     return (dss.vector.solutions.kaleidoscope.data.etl.TargetBindingQuery.TargetBindingQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGET,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute()
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute()
   {
     return getTargetAttribute(null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias)
   {
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, alias, null);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE, alias, null);
 
   }
  
-  public com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
+  public com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF getTargetAttribute(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE,  alias, displayLabel);
+    return (com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -1203,7 +1203,7 @@ public  class TargetFieldBindingQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBinding.TARGETATTRIBUTE)) 
     {
-       return new com.runwaysdk.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.metadata.MdWebAttributeQuery.MdWebAttributeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

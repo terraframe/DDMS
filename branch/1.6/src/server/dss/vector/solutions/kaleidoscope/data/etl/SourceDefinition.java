@@ -27,8 +27,6 @@ public class SourceDefinition implements SourceDefinitionIF, Reloadable
 
   private String                         id;
 
-  private String                         country;
-
   public SourceDefinition()
   {
     this.fieldMap = new HashMap<String, SourceFieldIF>();
@@ -57,17 +55,6 @@ public class SourceDefinition implements SourceDefinitionIF, Reloadable
   public void setType(String type)
   {
     this.type = type;
-  }
-
-  @Override
-  public String getCountry()
-  {
-    return this.country;
-  }
-
-  public void setCountry(String country)
-  {
-    this.country = country;
   }
 
   @Override
