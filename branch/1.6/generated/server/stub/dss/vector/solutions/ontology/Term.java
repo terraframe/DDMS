@@ -540,6 +540,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
     // 3) If the parentIds array has ids, restrict by those ids
     if (parentTermIds != null && parentTermIds.length > 0)
     {
+      for (int i = 0; i < parentTermIds.length; i++)
+      {
+        if (parentTermIds[i].equals("ROOT"))
+        {
+          parentTermIds[i] = RootTerm.getRootInstance().getId();
+        }
+      }
+
       conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
       conditions.add(pathsQuery.getParentTerm().IN(parentTermIds));
     }

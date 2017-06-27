@@ -29,6 +29,7 @@ export class TermFieldComponent implements AfterViewInit, OnDestroy {
     };
   
     this.browser = new MDSS.GenericOntologyBrowser('', [config]);
+    this.browser.addRoot(['ROOT', 'false']);
     this.browser.addTermSelectedListener((event:any) => {
       this.model.id = event.getTermId();	
       this.model.value = event.getLabel();	

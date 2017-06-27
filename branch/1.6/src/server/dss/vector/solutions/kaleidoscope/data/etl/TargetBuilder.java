@@ -55,6 +55,7 @@ import com.runwaysdk.system.metadata.MdWebText;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.LocalizationUtil;
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoField;
@@ -68,7 +69,6 @@ import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRoot;
-import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -495,7 +495,6 @@ public class TargetBuilder implements Reloadable
 
   private TargetFieldIF createMdAttribute(MdWebForm mdForm, String sheetName, JSONObject cField, Term root) throws JSONException
   {
-    MdClass mdBusiness = mdForm.getFormMdClass();
     String columnType = cField.getString("type");
     String columnName = cField.getString("name");
     String label = cField.getString("label");
@@ -546,28 +545,39 @@ public class TargetBuilder implements Reloadable
       {
         MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
 
-        String classifierId = cField.getString("root");
+        JSONObject object = cField.getJSONObject("root");
 
-        Term classifier = Term.get(classifierId);
+        String classifierId = object.has("id") ? object.getString("id") : "";
 
-        /*
-         * Add the root as an option to the MdAttributeTerm
-         */
-        BrowserRoot bRoot = new BrowserRoot();
-        bRoot.setTerm(classifier);
-        bRoot.setDisease(Disease.getCurrent());
+        if (classifierId.length() > 0)
+        {
+          Term classifier = Term.get(classifierId);
 
-        BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
-        bField.addBrowserRoot(bRoot);
+          /*
+           * Add the root as an option to the MdAttributeTerm
+           */
+          BrowserRoot bRoot = new BrowserRoot();
+          bRoot.setTerm(classifier);
+          bRoot.setDisease(Disease.getCurrent());
 
-        TargetFieldDomain field = new TargetFieldDomain();
-        field.setName(attributeName);
-        field.setLabel(label);
-        field.setKey(key);
-        field.setSourceAttributeName(sourceAttributeName);
-        field.setAggregatable(aggregatable);
+          BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
+          bField.addBrowserRoot(bRoot);
 
-        return field;
+          TargetFieldDomain field = new TargetFieldDomain();
+          field.setName(attributeName);
+          field.setLabel(label);
+          field.setKey(key);
+          field.setSourceAttributeName(sourceAttributeName);
+          field.setAggregatable(aggregatable);
+
+          return field;
+        }
+        else
+        {
+          RequiredAttributeException ex = new RequiredAttributeException();
+          ex.setAttributeLabel(MDSSProperties.getString("dataUploader.categoryLabel", Session.getCurrentLocale()));
+          throw ex;
+        }
       }
     }
     else if (columnType.equals(ColumnType.BOOLEAN.name()))
