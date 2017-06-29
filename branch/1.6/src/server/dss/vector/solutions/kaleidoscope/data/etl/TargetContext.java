@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.runwaysdk.business.BusinessFacade;
-import com.runwaysdk.business.Mutable;
+import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -78,7 +77,7 @@ public class TargetContext implements TargetContextIF, Reloadable
   }
 
   @Override
-  public Mutable newMutable(String sourceType)
+  public BusinessDAO newMutable(String sourceType)
   {
     TargetDefinitionIF definition = this.getDefinition(sourceType);
 
@@ -88,7 +87,7 @@ public class TargetContext implements TargetContextIF, Reloadable
       MdWebForm mdForm = MdWebForm.getByKey(type);
       MdClass mdClass = mdForm.getFormMdClass();
 
-      Mutable business = BusinessFacade.newMutable(mdClass.definesType());
+      BusinessDAO business = BusinessDAO.newInstance(mdClass.definesType());
 
       return business;
     }

@@ -17,7 +17,6 @@ import com.runwaysdk.constants.MdAttributeDecInfo;
 import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -64,11 +63,12 @@ public class ImportRunnable implements Reloadable
     this.file = file;
   }
 
-  @Transaction
   public ImportResponseIF run()
   {
     try
     {
+      Disease current = Disease.getCurrent();
+      
       /*
        * First create the data types from the configuration
        */
@@ -84,7 +84,7 @@ public class ImportRunnable implements Reloadable
       /*
        * Before importing the data we must validate that the location text information
        */
-      ValidationResult result = this.validateData(file, sContext, tContext);
+      ValidationResult result = this.validateData(file, sContext, tContext, current);
 
       if (result.getResponse() != null)
       {
@@ -179,7 +179,7 @@ public class ImportRunnable implements Reloadable
     }
   }
 
-  private ValidationResult validateData(File file, SourceContextIF sContext, TargetContextIF tContext) throws FileNotFoundException, Exception, IOException
+  private ValidationResult validateData(File file, SourceContextIF sContext, TargetContextIF tContext, Disease current) throws FileNotFoundException, Exception, IOException
   {
     ImportValidator converter = new ImportValidator(tContext);
 
@@ -202,7 +202,7 @@ public class ImportRunnable implements Reloadable
 
     if (converter.getProblems().size() > 0)
     {
-      response = new ProblemResponse(converter.getProblems(), sContext, tContext);
+      response = new ProblemResponse(converter.getProblems(), sContext, tContext, current);
     }
 
     return new ValidationResult(response, converter.getAttributes());

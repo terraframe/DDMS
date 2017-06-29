@@ -98,7 +98,7 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
     }
     else
     {
-      Attribute id = query.get(MdClassInfo.ID);
+      Selectable id = query.get(MdClassInfo.ID);
 
       ValueQuery vQuery = config.getValueQuery();
       vQuery.SELECT(id);

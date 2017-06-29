@@ -66,7 +66,7 @@ public class GeometryThematicQueryBuilder extends ThematicQueryBuilder implement
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.get(this.geoNode.getDisplayLabelAttribute().getId());
     String attributeName = mdAttribute.definesAttribute();
 
-    Attribute attribute = query.get(attributeName, GeoEntity.ENTITYLABEL);
+    Selectable attribute = query.get(attributeName, GeoEntity.ENTITYLABEL);
     SelectableSingle label = null;
 
     if (attribute instanceof AttributeLocal)
@@ -106,7 +106,7 @@ public class GeometryThematicQueryBuilder extends ThematicQueryBuilder implement
     MdAttributeReferenceDAOIF geoRef = MdAttributeReferenceDAO.get(this.geoNode.getGeoEntityAttributeId());
 
     // Join the entity's GeoEntity reference with the all paths table
-    Attribute geoAttr = componentQuery.get(geoRef.definesAttribute());
+    Attribute geoAttr = (Attribute) componentQuery.get(geoRef.definesAttribute());
 
     return geoAttr;
   }

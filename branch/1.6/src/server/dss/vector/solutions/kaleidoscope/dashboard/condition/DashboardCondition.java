@@ -29,8 +29,8 @@ import com.runwaysdk.constants.Constants;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.format.ParseException;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.GeneratedComponentQuery;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
@@ -59,7 +59,7 @@ public abstract class DashboardCondition implements Reloadable
 
   public abstract List<String> getConditionInformation();
 
-  public abstract void restrictQuery(ValueQuery vQuery, Attribute attribute);
+  public abstract void restrictQuery(ValueQuery vQuery, Selectable attribute);
 
   public abstract void restrictQuery(String _type, ValueQuery _vQuery, GeneratedComponentQuery _query);
 

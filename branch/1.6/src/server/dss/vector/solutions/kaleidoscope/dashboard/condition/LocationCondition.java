@@ -10,10 +10,10 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -132,7 +132,7 @@ public class LocationCondition extends DashboardCondition implements com.runways
   }
 
   @Override
-  public void restrictQuery(ValueQuery _vQuery, Attribute _attribute)
+  public void restrictQuery(ValueQuery _vQuery, Selectable _attribute)
   {
     List<GeoEntity> entities = this.getFilteredGeoEntities();
 

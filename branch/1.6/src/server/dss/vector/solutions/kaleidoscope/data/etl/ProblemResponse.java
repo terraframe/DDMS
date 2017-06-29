@@ -17,6 +17,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebForm;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.ontology.Term;
 
@@ -28,11 +29,14 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
 
   private TargetContextIF             tContext;
 
-  public ProblemResponse(Collection<ImportProblemIF> problems, SourceContextIF sContext, TargetContextIF tContext)
+  private Disease                     current;
+
+  public ProblemResponse(Collection<ImportProblemIF> problems, SourceContextIF sContext, TargetContextIF tContext, Disease current)
   {
     this.problems = problems;
     this.sContext = sContext;
     this.tContext = tContext;
+    this.current = current;
   }
 
   public String getJSON()
@@ -67,7 +71,7 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
         MdWebForm mdForm = MdWebForm.getByKey(type);
         MdClass mdClass = mdForm.getFormMdClass();
 
-        MappableClass mClass = MappableClass.getMappableClass(mdClass);
+        MappableClass mClass = MappableClass.getMappableClass(mdClass, this.current);
 
         datasets.put(mClass.toJSON());
       }

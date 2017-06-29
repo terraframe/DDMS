@@ -18,6 +18,7 @@ import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.util.FileIO;
@@ -28,8 +29,6 @@ import dss.vector.solutions.kaleidoscope.data.etl.DefinitionBuilder;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportResponseIF;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportRunnable;
-import dss.vector.solutions.kaleidoscope.data.etl.LoggingProgressMonitor;
-import dss.vector.solutions.kaleidoscope.data.etl.ProgressMonitorIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.TargetDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
@@ -217,6 +216,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
   }
 
   @Authenticate
+  @Transaction
   public static String importData(String configuration)
   {
     try

@@ -11,7 +11,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeLocal;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.Coalesce;
@@ -107,7 +106,7 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
 
   protected SelectablePrimitive getSelectable(ValueQuery vQuery, GeneratedComponentQuery query, ReportAttributeMetadata attribute)
   {
-    Attribute selectable = query.get(attribute.getAttributeName());
+    Selectable selectable = query.get(attribute.getAttributeName());
 
     if (selectable instanceof SelectableReference)
     {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-import com.runwaysdk.business.Mutable;
+import com.runwaysdk.dataaccess.BusinessDAO;
 
 public class LocalPersistenceStrategy extends LocalPersistenceStrategyBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -12,7 +12,7 @@ public class LocalPersistenceStrategy extends LocalPersistenceStrategyBase imple
   }
 
   @Override
-  public void handle(Mutable mutable)
+  public void handle(BusinessDAO mutable)
   {
     mutable.apply();
   }

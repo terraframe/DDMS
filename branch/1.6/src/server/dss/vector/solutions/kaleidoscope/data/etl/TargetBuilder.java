@@ -3,6 +3,7 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,6 +47,7 @@ import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebBoolean;
 import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDouble;
+import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebLong;
@@ -508,7 +510,7 @@ public class TargetBuilder implements Reloadable
     {
       if (!cField.has("rootType") || cField.getString("rootType").length() == 0)
       {
-        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
+        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName, cField);
 
         /*
          * Create the root term for the options
@@ -543,7 +545,7 @@ public class TargetBuilder implements Reloadable
       }
       else
       {
-        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName);
+        MdWebSingleTerm mdField = createMdAttributeTerm(mdForm, label, attributeName, cField);
 
         JSONObject object = cField.getJSONObject("root");
 
@@ -581,11 +583,12 @@ public class TargetBuilder implements Reloadable
       }
     }
     else if (columnType.equals(ColumnType.BOOLEAN.name()))
-
     {
       MdWebBoolean mdField = new MdWebBoolean();
       mdField.setFieldName(attributeName);
       mdField.getDisplayLabel().setValue(label);
+
+      this.setValidations(mdField, cField);
 
       MdFormUtil.createMdField(mdField, mdForm.getId());
     }
@@ -630,6 +633,8 @@ public class TargetBuilder implements Reloadable
       mdField.setFieldName(attributeName);
       mdField.getDisplayLabel().setValue(label);
 
+      this.setValidations(mdField, cField);
+
       MdFormUtil.createMdField(mdField, mdForm.getId());
     }
 
@@ -644,8 +649,21 @@ public class TargetBuilder implements Reloadable
     return field;
   }
 
+  private void setValidations(MdWebField mdField, JSONObject cField) throws JSONException
+  {
+    if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
+    {
+      if (cField.has("required"))
+      {
+        mdField.setRequired(cField.getBoolean("required"));
+      }
+    }
+  }
+
   private void setValidations(MdWebDate mdField, JSONObject cField) throws JSONException
   {
+    this.setValidations((MdWebField) mdField, cField);
+
     if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
     {
       String validation = cField.has("validation") ? cField.getString("validation") : "";
@@ -706,6 +724,8 @@ public class TargetBuilder implements Reloadable
 
   private void setValidations(MdWebNumber mdField, JSONObject cField) throws JSONException
   {
+    this.setValidations((MdWebField) mdField, cField);
+
     if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
     {
       if (cField.has("validationStartRange"))
@@ -744,11 +764,13 @@ public class TargetBuilder implements Reloadable
     }
   }
 
-  private MdWebSingleTerm createMdAttributeTerm(MdWebForm mdForm, String label, String attributeName)
+  private MdWebSingleTerm createMdAttributeTerm(MdWebForm mdForm, String label, String attributeName, JSONObject cField) throws JSONException
   {
     MdWebSingleTerm mdField = new MdWebSingleTerm();
     mdField.setFieldName(attributeName);
     mdField.getDisplayLabel().setValue(label);
+
+    this.setValidations(mdField, cField);
 
     MdFormUtil.createMdField(mdField, mdForm.getId());
 
@@ -776,6 +798,8 @@ public class TargetBuilder implements Reloadable
     GeoHierarchy lowest = GeoHierarchy.get(universalId);
     List<GeoHierarchy> universals = lowest.getAllParents();
     universals.add(0, lowest);
+    
+    Collections.reverse(universals);
 
     TargetFieldGeoEntity field = new TargetFieldGeoEntity();
     field.setName(attributeName);

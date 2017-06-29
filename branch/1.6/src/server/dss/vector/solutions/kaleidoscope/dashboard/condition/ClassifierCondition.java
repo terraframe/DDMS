@@ -28,8 +28,8 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.ontology.AllPathsQuery;
@@ -54,7 +54,7 @@ public class ClassifierCondition extends DashboardPrimitiveCondition implements 
   }
 
   @Override
-  public void restrictQuery(ValueQuery vQuery, Attribute attribute)
+  public void restrictQuery(ValueQuery vQuery, Selectable attribute)
   {
     AttributeReference attributeTerm = (AttributeReference) attribute;
     MdAttributeReferenceDAOIF mdAttributeTerm = (MdAttributeReferenceDAOIF) attributeTerm.getMdAttributeIF();

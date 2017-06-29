@@ -113,6 +113,30 @@ public class TargetBinding extends TargetBindingBase implements com.runwaysdk.ge
     }
   }
 
+  public static TargetBinding getBindingForTarget(String formId)
+  {
+    TargetBindingQuery query = new TargetBindingQuery(new QueryFactory());
+    query.WHERE(query.getTargetBusiness().EQ(formId));
+    
+    OIterator<? extends TargetBinding> iterator = query.getIterator();
+    
+    try
+    {
+      if (iterator.hasNext())
+      {
+        TargetBinding binding = iterator.next();
+        
+        return binding;
+      }
+      
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
   public static TargetBinding getBindingForSource(MdView mdView)
   {
     TargetBindingQuery query = new TargetBindingQuery(new QueryFactory());

@@ -158,7 +158,10 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.kaleidoscope.MappableAttribute;
 import dss.vector.solutions.kaleidoscope.MappableClass;
+import dss.vector.solutions.kaleidoscope.ModifyFormException;
+import dss.vector.solutions.kaleidoscope.RemoveMappableClassException;
 import dss.vector.solutions.kaleidoscope.data.etl.LocalPersistenceStrategy;
+import dss.vector.solutions.kaleidoscope.data.etl.TargetBinding;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity;
 import dss.vector.solutions.ontology.BrowserField;
@@ -503,6 +506,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     InstallProperties.validateMasterOperation();
 
+    /*
+     * Validate form is not from a dataset
+     */
+    MdFormUtil.validateFormModification(mdFormId);
+
     DDMSFieldBuilders.create(mdField, mdFormId);
     return mdField;
   }
@@ -512,6 +520,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
   {
     InstallProperties.validateMasterOperation();
+
+    /*
+     * Validate form is not from a dataset
+     */
+    MdFormUtil.validateFormModification(mdFormId);
 
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
@@ -1347,6 +1360,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     InstallProperties.validateMasterOperation();
 
+    TargetBinding binding = TargetBinding.getBindingForTarget(mdForm.getId());
+
+    if (binding != null)
+    {
+      throw new RemoveMappableClassException();
+    }
+
     MdClass mdClass = mdForm.getFormMdClass();
 
     new FormSystemURLBuilder(mdForm).delete();
@@ -1445,6 +1465,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void deleteField(MdWebForm mdForm, MdWebField mdField)
   {
     InstallProperties.validateMasterOperation();
+
+    /*
+     * Validate form is not from a dataset
+     */
+    MdFormUtil.validateFormModification(mdForm.getId());
 
     try
     {
@@ -2271,4 +2296,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     strategy.apply();
   }
 
+  private static void validateFormModification(String mdFormId)
+  {
+    TargetBinding binding = TargetBinding.getBindingForTarget(mdFormId);
+
+    if (binding != null)
+    {
+      throw new ModifyFormException();
+    }
+  }
 }

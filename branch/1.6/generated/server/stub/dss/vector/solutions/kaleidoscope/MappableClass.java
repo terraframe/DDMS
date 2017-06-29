@@ -13,16 +13,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.BusinessInfo;
+import com.runwaysdk.constants.IndicatorCompositeInfo;
+import com.runwaysdk.constants.IndicatorPrimitiveInfo;
+import com.runwaysdk.constants.MdAttributeIndicatorInfo;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
+import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
+import com.runwaysdk.dataaccess.IndicatorPrimitiveDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.metadata.MdAttributeIndicatorDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdElementDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -30,6 +39,8 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.IndicatorAggregateFunction;
+import com.runwaysdk.system.metadata.IndicatorOperator;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdClass;
@@ -234,28 +245,33 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
   public static MappableClass getMappableClass(MdClass mdClass)
   {
+    return MappableClass.getMappableClass(mdClass, Disease.getCurrent());
+  }
+
+  public static MappableClass getMappableClass(MdClass mdClass, Disease disease)
+  {
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
     query.WHERE(query.getWrappedMdClass().EQ(mdClass));
-    query.AND(query.getDisease().EQ(Disease.getCurrent()));
-
+    query.AND(query.getDisease().EQ(disease));
+    
     OIterator<? extends MappableClass> iterator = query.getIterator();
-
+    
     try
     {
       if (iterator.hasNext())
       {
         return iterator.next();
       }
-
+      
       return null;
     }
     finally
     {
       iterator.close();
     }
-
+    
   }
-
+  
   public static MappableClass[] getAll()
   {
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
@@ -319,7 +335,25 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
     object.put("attributes", this.getAttributeJSON(mdClass, attributes));
 
+    JSONArray aggregations = new JSONArray();
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.AVG));
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.COUNT));
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.MAX));
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.MIN));
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.STDEV));
+    aggregations.put(this.getAggregationJSON(IndicatorAggregateFunction.SUM));
+
+    object.put("aggregations", aggregations);
+
     return object;
+  }
+
+  private JSONObject getAggregationJSON(IndicatorAggregateFunction func) throws JSONException
+  {
+    JSONObject aggregation = new JSONObject();
+    aggregation.put("value", func.getDisplayLabel());
+    aggregation.put("id", IndicatorAggregateFunction.AVG.getEnumName());
+    return aggregation;
   }
 
   private boolean isSelected(List<? extends MetadataWrapper> wrappers)
@@ -534,6 +568,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
         object.put("id", mdAttribute.getId());
         object.put("selected", selected);
         object.put("type", mdAttribute.getMdBusinessDAO().getTypeName());
+        object.put("numeric", ( mdAttribute instanceof MdAttributeNumberDAOIF ));
 
         if (mdAttribute instanceof MdAttributeReferenceDAOIF)
         {
@@ -832,11 +867,61 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
           mdAttribute.apply();
         }
       }
+
+      if (object.has("indicators"))
+      {
+        JSONArray indicators = object.getJSONArray("indicators");
+
+        for (int i = 0; i < indicators.length(); i++)
+        {
+          JSONObject indicator = indicators.getJSONObject(i);
+          String displayLabel = indicator.getString("label");
+          String name = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
+
+          IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"));
+          left.apply();
+
+          IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"));
+          right.apply();
+
+          IndicatorCompositeDAO composite = IndicatorCompositeDAO.newInstance();
+          composite.setValue(IndicatorCompositeInfo.LEFT_OPERAND, left.getId());
+          composite.setValue(IndicatorCompositeInfo.OPERATOR, IndicatorOperator.DIV.getId());
+          composite.setValue(IndicatorCompositeInfo.RIGHT_OPERAND, right.getId());
+          composite.apply();
+
+          MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
+          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
+          mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
+          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
+          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
+          mdAttributeDAO.apply();
+
+          MdAttribute mdAttribute = (MdAttribute) BusinessFacade.get(mdAttributeDAO);
+
+          MappableAttribute mAttribute = new MappableAttribute();
+          mAttribute.setWrappedMdAttribute(mdAttribute);
+          mAttribute.setAggregatable(false);
+          mAttribute.apply();
+        }
+      }
     }
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+
+  private static IndicatorPrimitiveDAO createIndicator(JSONObject indicator) throws JSONException
+  {
+    String aggregation = indicator.getString("aggregation");
+    String attributeId = indicator.getString("attribute");
+
+    IndicatorPrimitiveDAO primitive = IndicatorPrimitiveDAO.newInstance();
+    primitive.setValue(IndicatorPrimitiveInfo.MD_ATTRIBUTE_PRIMITIVE, attributeId);
+    primitive.setValue(IndicatorPrimitiveInfo.INDICATOR_FUNCTION, IndicatorAggregateFunction.valueOf(aggregation).getId());
+
+    return primitive;
   }
 
   @Transaction

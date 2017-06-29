@@ -2,8 +2,8 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import java.util.List;
 
-import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Transient;
+import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -28,7 +28,7 @@ public class Converter implements ConverterIF, Reloadable
   {
     try
     {
-      Mutable business = this.context.newMutable(source.getType());
+      BusinessDAO business = this.context.newMutable(source.getType());
       boolean hasValues = false;
 
       List<TargetFieldIF> fields = this.context.getFields(source.getType());

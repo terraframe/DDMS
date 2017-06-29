@@ -87,12 +87,12 @@ public class GeoEntityThematicQueryBuilder extends ThematicQueryBuilder implemen
     return geoId;
   }
 
-  private Attribute getGeoEntityAttribute(GeneratedComponentQuery componentQuery)
+  private Selectable getGeoEntityAttribute(GeneratedComponentQuery componentQuery)
   {
     MdAttributeReferenceDAOIF geoRef = MdAttributeReferenceDAO.get(this.geoNode.getGeoEntityAttributeId());
 
     // Join the entity's GeoEntity reference with the all paths table
-    Attribute geoAttr = componentQuery.get(geoRef.definesAttribute());
+    Selectable geoAttr = componentQuery.get(geoRef.definesAttribute());
 
     return geoAttr;
   }
@@ -100,7 +100,7 @@ public class GeoEntityThematicQueryBuilder extends ThematicQueryBuilder implemen
   @Override
   protected void addLocationCriteria(ValueQuery vQuery, GeneratedComponentQuery componentQuery)
   {
-    Attribute geoAttr = this.getGeoEntityAttribute(componentQuery);
+    Attribute geoAttr = (Attribute) this.getGeoEntityAttribute(componentQuery);
 
     // the entity's GeoEntity should match the all path's child
     AllPathsQuery geAllPathsQ = new AllPathsQuery(vQuery);

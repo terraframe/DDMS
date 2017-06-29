@@ -8,11 +8,9 @@ import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
-import com.runwaysdk.dataaccess.metadata.MdFieldDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
-import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 
 import dss.vector.solutions.ontology.BrowserRoot;

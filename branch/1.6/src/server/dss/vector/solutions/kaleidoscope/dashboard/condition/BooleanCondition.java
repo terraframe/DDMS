@@ -8,10 +8,10 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeBoolean;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OR;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.util.LocalizationFacade;
@@ -66,7 +66,7 @@ public class BooleanCondition extends DashboardAttributeCondition implements Rel
   }
 
   @Override
-  public void restrictQuery(ValueQuery vQuery, Attribute attribute)
+  public void restrictQuery(ValueQuery vQuery, Selectable attribute)
   {
     List<Condition> conditions = new LinkedList<Condition>();
 
