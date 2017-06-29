@@ -107,21 +107,21 @@ export class UploadWizardComponent implements OnDestroy {
     for(let i=0; i<fields.length; i++){
       let field = fields[i];
         
-      if(field.columnType === "NUMBER"){
-        let label = field.label.toLowerCase();
-        
-        for(let j = 0; j < lats.length; j++) {
-          if(label.includes(lats[j]) ){
-            field.type = 'LATITUDE'; 
-          }
-        }
-        
-        for(let j = 0; j < longs.length; j++) {
-          if(label.includes(longs[j]) ){
-            field.type = 'LONGITUDE'; 
-          }
-        }
-      }
+//      if(field.columnType === "NUMBER"){
+//        let label = field.label.toLowerCase();
+//        
+//        for(let j = 0; j < lats.length; j++) {
+//          if(label.includes(lats[j]) ){
+//            field.type = 'LATITUDE'; 
+//          }
+//        }
+//        
+//        for(let j = 0; j < longs.length; j++) {
+//          if(label.includes(longs[j]) ){
+//            field.type = 'LONGITUDE'; 
+//          }
+//        }
+//      }
     }
   }
   

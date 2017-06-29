@@ -7,6 +7,7 @@ import { EventService, BasicService } from './core.service';
 import { EventHttpService } from './event-http.service';
 
 import { Dataset, DatasetCollection } from '../model/dataset';
+import { Pair } from '../model/pair';
 
 declare var acp: any;
 
@@ -84,5 +85,5 @@ export class DatasetService extends BasicService {
     return this.http
       .get(acp + '/uploader/validateDatasetName', {search: params})
       .toPromise();
-  }    
+  }  
 }

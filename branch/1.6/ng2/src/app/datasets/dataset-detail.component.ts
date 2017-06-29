@@ -5,11 +5,13 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
-import { Dataset } from '../model/dataset';
+import { Dataset, DatasetAttribute, IndicatorField } from '../model/dataset';
 import { BasicCategory } from '../model/category';
 
 import { EventService } from '../service/core.service';
 import { DatasetService } from '../service/dataset.service';
+
+import { IndicatorModalComponent } from './indicator-modal.component';
 
 export class DatasetResolver implements Resolve<Dataset> {
   constructor(@Inject(DatasetService) private datasetService: DatasetService, @Inject(EventService) private eventService: EventService) {}
@@ -18,7 +20,7 @@ export class DatasetResolver implements Resolve<Dataset> {
     return this.datasetService.edit(route.params['id'])
       .catch((error:any) => {
         this.eventService.onError(error); 
-    	  
+        
         return Promise.reject(error);
       });    
   }
@@ -33,6 +35,10 @@ export class DatasetResolver implements Resolve<Dataset> {
 export class DatasetDetailComponent implements OnInit {
   @Input() dataset: Dataset;
   @Output() close = new EventEmitter();
+  
+  @ViewChild(IndicatorModalComponent)
+  private modal: IndicatorModalComponent;
+
 
   validName: boolean = true;
 
@@ -69,5 +75,27 @@ export class DatasetDetailComponent implements OnInit {
     this.close.emit(dataset);
     
     this.location.back();
+  }
+  
+  addIndicator() : void {
+    let attributes:DatasetAttribute[] = [];
+    
+  for (let i = 0; i < this.dataset.attributes.length; i++) {
+    let attribute:DatasetAttribute = this.dataset.attributes[i];
+    
+      if(attribute.numeric) {
+        attributes.push(attribute);        
+    }
+  }        
+    
+    this.modal.initialize(this.dataset.aggregations, attributes);
+  }
+  
+  onIndicatorSuccess(field:IndicatorField): void {
+    if(this.dataset.indicators === undefined) {
+      this.dataset.indicators = [];
+    }    
+    
+    this.dataset.indicators.push(field);    
   }
 }

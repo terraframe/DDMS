@@ -2,7 +2,7 @@
   <message ></message>  
 
   <form #form="ngForm" class="modal-form" (ngSubmit)="form.valid && validName && onSubmit()">    
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="z-index: 5">
       <div class="modal-content">
         <div class="heading">
           <h1><localize key="dataset.editTooltip"></localize></h1>
@@ -62,6 +62,33 @@
               </table>
             </div>
           </div>      
+          <div class="row-holder" *ngIf="dataset.indicators != null && dataset.indicators.length > 0">
+            <div class="label-holder">
+              <label><localize key="dataset.new.indicators"></localize></label>            
+            </div>          
+            <div class="holder" >
+              <table class="list-table table table-bordered table-striped">
+                <tbody>
+                  <tr *ngFor="let indicator of dataset.indicators" class="fade-ngRepeat-item">
+                    <td class="submit-form">
+                      <dl>
+                        <dd>
+                          <input type="text" name="{{indicator.label}}" [(ngModel)]="indicator.label" required>
+                        </dd>
+                      </dl>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>      
+          <div class="row-holder">
+            <div class="label-holder">
+            </div>                    
+            <div class="holder">
+              <i class="fa fa-plus" aria-hidden="true" (click)="addIndicator()"><localize key="dataset.addIndicator"></localize></i>
+            </div>
+          </div>
           <div class="row-holder">
             <div class="label-holder">
             </div>                    
@@ -76,4 +103,6 @@
       </div>
     </div>
   </form>
+  
+  <indicator-modal (onSuccess)="onIndicatorSuccess($event)"></indicator-modal>
 </div>

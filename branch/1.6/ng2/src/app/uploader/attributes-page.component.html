@@ -32,8 +32,10 @@
           <select class="select-area" [(ngModel)]="field.type" [name]="i + '-type'" required (change)="accept(field)">
             <option value="LONG"><localize key="dataUploader.long"></localize></option>
             <option value="DOUBLE"><localize key="dataUploader.double"></localize></option>
+<!-- 
             <option value="LATITUDE"><localize key="dataUploader.latitude"></localize></option>
             <option value="LONGITUDE"><localize key="dataUploader.longitude"></localize></option>
+ -->            
             <option value="TEXT"><localize key="dataUploader.text"></localize></option>     
             <option value="IGNORE"><localize key="dataUploader.ignore"></localize></option>
           </select>      
@@ -81,7 +83,7 @@
           <term-field [(model)]="field.root" [attribute]="i + '-root'"></term-field>
         </div>
       
-        <div class="inline-text" *ngIf="field.type == 'DATE' || field.type == 'LONG' || field.type == 'DOUBLE'">
+        <div class="inline-text" *ngIf="field.type != 'LOCATION'">
           <label><localize key="dataUploader.validation"></localize></label>
           <input [(ngModel)]="field.hasValidation" [name]="i + '-validation'" type="checkbox" />
         </div>
@@ -96,6 +98,12 @@
         </div>      
       </div>
       <div class="row-holder" *ngIf="field.hasValidation">
+        <div>
+          <div class="inline-text">
+            <label><localize key="dataUploader.required"></localize></label>
+            <input [(ngModel)]="field.required" [name]="i + '-required'" type="checkbox" />
+          </div>
+        </div>      
         <div *ngIf="field.type == 'DATE'">
           <div class="inline-box">
             <input type="radio" [name]="i + '-validation'" [(ngModel)]="field.validation" value="" /><localize key="dataUploader.none"></localize>

@@ -4,6 +4,7 @@ import { Routes, RouterModule, Resolve, ActivatedRouteSnapshot, RouterStateSnaps
 import { Observable } from 'rxjs/Observable';
 
 import { DatasetsComponent } from './datasets/datasets.component';
+import { IndicatorModalComponent } from './datasets/indicator-modal.component';
 import { DatasetDetailComponent, DatasetResolver} from './datasets/dataset-detail.component';
 
 declare var acp: any;
@@ -34,4 +35,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [DatasetsComponent, DatasetDetailComponent];
+export const routedComponents = [DatasetsComponent, DatasetDetailComponent, IndicatorModalComponent];
