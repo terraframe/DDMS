@@ -1439,13 +1439,14 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       return div;
     },
     
+    // If you change this code make sure you also change the method by the same name in GeoPicker.js
     _isActiveBasedOnGeoFilterCriteria : function(geoEntityView)
     {
       var active = geoEntityView.getActivated();
       
       if (active && this._geoFilterCriteria != null)
       {
-        if (this._geoFilterCriteria.filter != null && this._geoFilterCriteria.filter !== geoEntityView.getEntityType())
+        if (this._geoFilterCriteria.filter != null && this._geoFilterCriteria.filter.length > 0 && $.inArray(geoEntityView.getEntityType(), this._geoFilterCriteria.filter) === -1)
         {
           active = false;
         }

@@ -343,7 +343,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       
       if (active && geoFilterCriteria != null)
       {
-        if (geoFilterCriteria.filter != null && geoFilterCriteria.filter !== geoEntityView.getEntityType())
+        if (geoFilterCriteria.filter != null && geoFilterCriteria.filter.length > 0 && $.inArray(geoEntityView.getEntityType(), geoFilterCriteria.filter) === -1)
         {
           active = false;
         }
