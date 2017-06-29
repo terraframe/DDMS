@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1123911296)
+@com.runwaysdk.business.ClassSignature(hash = -487682994)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -3395,6 +3395,122 @@ public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   }
 
 
+  public com.runwaysdk.query.Condition synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.getBusinessQuery().isParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.getBusinessQuery().isParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.getBusinessQuery().isNotParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -3496,6 +3612,20 @@ public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
 
 
+  public com.runwaysdk.query.Condition synonyms();
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery);
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms();
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_childTerm();
 
   public com.runwaysdk.query.Condition NOT_IN_childTerm(dss.vector.solutions.ontology.TermQuery termQuery);
@@ -3522,6 +3652,20 @@ public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms();
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms();
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery);
 
 
   public com.runwaysdk.query.Condition aNCVisitAggregatedIPTs();
@@ -4562,6 +4706,64 @@ public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   }
 
 
+  public com.runwaysdk.query.Condition synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.isParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.isParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.isParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.isParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+
   public com.runwaysdk.query.Condition NOT_IN_childTerm()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -4675,6 +4877,64 @@ public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   {
     inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
     return this.isNotParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.isNotParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.HasSynonym.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termSynonymQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.isNotParentIn(hasSynonymQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_synonyms(dss.vector.solutions.ontology.TermSynonymQuery termSynonymQuery, dss.vector.solutions.ontology.HasSynonymQuery hasSynonymQuery)
+  {
+    hasSynonymQuery.AND(hasSynonymQuery.hasChild(termSynonymQuery));
+    return this.isNotParentIn_SUBSELECT(hasSynonymQuery);
   }
 
 

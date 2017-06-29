@@ -1,0 +1,180 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+      <mdBusiness name="dss.vector.solutions.ontology.TermSynonym"   
+         label="Term Synonym"
+         description="Synonym for a Term Name."
+         isAbstract="false"
+         extendable="true"
+         generateController="false">
+      
+	       <attributes>
+	         <char name="termName" required="false" label="Term Name" indexType="non-unique index" size="255" />
+	       </attributes>
+	       <mdMethod
+	           name="createSynonym"
+	           label="Create Synonym"
+	           description="Creates a new synonym with the given name with the given term id"
+	           static="true"
+	           returnType="void">
+	          <mdParameter name="termName" label="Term Name" description="Term Name" order="0" type="java.lang.String" />
+	          <mdParameter name="termId" label="Term Id" description="Term Id" order="1" type="java.lang.String" />
+	       </mdMethod>
+	       
+      </mdBusiness>
+      
+      <mdRelationship
+        name="dss.vector.solutions.ontology.HasSynonym"
+        label="Has Synonym"
+        description="Relationship between term entity names and synonyms"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.ontology.Term"
+          method="Term" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.TermSynonym"
+          method="Synonyms" />
+      </mdRelationship>
+      
+      
+      
+      <mdController name="dss.vector.solutions.ontology.TermSynonymController" label="TermSynonymController">
+        <mdAction name="search" label="search" isPost="false" isQuery="false">
+        </mdAction>
+        <mdAction name="view" label="view" isPost="false" isQuery="false">
+          <mdParameter name="id" type="java.lang.String" order="0"/>
+        </mdAction>
+        <mdAction name="fetchAllParents" label="fetchAllParents" isPost="true" isQuery="false"/>
+      </mdController>
+      
+      
+      <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView">
+        <create>
+          <attributes>
+            <reference name="term" label="Term" required="false" type="dss.vector.solutions.ontology.Term"/>
+            <char name="termName" required="false" label="Term Name" size="255" />
+            <char name="termDisplayLabel" required="false" size="100" label="Term Label" />
+            <char name="synonymNames" required="true"  label="SynonymNames" size="25500"/>
+            <char name="synonymIds" required="true"  label="SynonymIds" size="25500"/>
+          </attributes>
+          <mdMethod name="getMostRecent" label="getMostRecent" removable="false" returnType="dss.vector.solutions.ontology.TermSynonymArrayViewQuery" static="true"></mdMethod>
+          <mdMethod name="getTermSynonym" label="getTermSynonym" removable="false" returnType="dss.vector.solutions.ontology.TermSynonymArrayView" static="true">
+            <mdParameter name="termId" label="termId" order="0" type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod name="searchByView" label="searchByView" removable="false" returnType="dss.vector.solutions.ontology.TermSynonymArrayViewQuery" static="true">
+            <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+            <mdParameter name="sortAttribute" label="sortAttribute" order="1" type="java.lang.String"/>
+            <mdParameter name="isAscending" label="isAscending" order="2" type="java.lang.Boolean"/>
+            <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer"/>
+            <mdParameter name="pageNumber" label="pageNumber" order="4" type="java.lang.Integer"/>
+          </mdMethod>
+          <mdMethod name="lock" label="lock" static="false" returnType="void"></mdMethod>
+          <mdMethod name="unlock" label="unlock" static="false" returnType="void"></mdMethod>
+        </create>
+      </mdView>
+
+        <object key="Ontology__dss.vector.solutions.ontology.TermSynonymArrayView.term" type="dss.vector.solutions.ontology.BrowserField">
+            <attributeReference name="mdAttribute" key="dss.vector.solutions.ontology.TermSynonymArrayView.term" />
+          </object>
+      
+      
+      <mdView name="dss.vector.solutions.ontology.TermSynonymView">
+        <create>
+          <attributes>
+            <char name="termSynonymId" required="false" label="TermSynonym Id" size="64" />
+            <char name="synonymName" required="true" label="syonynmName" size="200" />
+          </attributes>
+        </create>
+      </mdView>
+
+
+
+
+      <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView" label="Term Excel View" publish="false">
+        <attributes>
+          <virtual concrete="termId" label="Term Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+          <virtual  concrete="synonymNames" type="dss.vector.solutions.ontology.TermSynonymArrayView" />
+          <reference name="term" label="term" type="dss.vector.solutions.ontology.Term"/>
+          
+        </attributes>
+      </mdView>
+      
+      <mdView
+         name="dss.vector.solutions.ontology.UnknownTerm"
+         label="Unknown Term"
+         description="Represents an unknown Term"
+         isAbstract="false"
+         extendable="true"
+         generateController="false">
+        <attributes>
+          <char name="termName" required="true" label="Geo Entity Name" size="255" />
+          <text name="synonyms" required="false" label="Similar Term Names" description="Comma delimited list of synonyms" />
+        </attributes>
+      </mdView>
+      
+    
+    </create>
+    
+    
+    <update>
+	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView">
+	      <create>
+	      <attributes>
+	        <char name="termInstanceId" required="true"  label="Term Instance ID" size="64"/>
+<!--           <char name="termRunwayId" required="true"  label="Term Runway ID" size="64"/> -->
+	      </attributes>  
+	        <mdMethod name="applyWithSynonyms" label="applyWithSynonyms" static="false" returnType="void">
+            <mdParameter name="synonyms" label="synonyms" order="0" type="dss.vector.solutions.ontology.TermSynonymView[]"/>
+          </mdMethod>
+	      </create>
+	    </mdView>
+	    
+	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView"> 
+	      <create>
+          <attributes>
+            <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+          </attributes>
+        </create>
+      </mdView>
+
+	    
+	    <mdController name="dss.vector.solutions.ontology.TermSynonymController">
+	      <create>
+          <mdAction name="create" label="create" isPost="true" isQuery="false">
+            <mdParameter name="view" type="dss.vector.solutions.ontology.TermSynonymArrayView" order="0" />
+          </mdAction>
+	        <mdAction name="cancel" label="cancel" isPost="true" isQuery="false">
+	          <mdParameter name="view" type="dss.vector.solutions.ontology.TermSynonymArrayView" order="0" />
+	        </mdAction>
+          <mdAction name="newInstance" label="newInstance" isPost="true" isQuery="false">
+            <mdParameter name="view" label="view" type="dss.vector.solutions.ontology.TermSynonymArrayView" order="0" />
+          </mdAction>
+	        
+		      <mdAction name="delete" label="delete" isPost="true" isQuery="false">
+	          <mdParameter name="view" type="dss.vector.solutions.ontology.TermSynonymArrayView" order="0"/>
+	        </mdAction>
+	        
+	        <mdAction name="searchByDTO" label="search" isPost="true" isQuery="false">
+	        <mdParameter name="view" label="view" order="0" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+	          <mdParameter name="sortAttribute" label="sortAttribute" order="1" type="java.lang.String"/>
+	          <mdParameter name="isAscending" label="isAscending" order="2" type="java.lang.Boolean"/>
+	          <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer"/>
+	          <mdParameter name="pageNumber" label="pageNumber" order="4" type="java.lang.Integer"/>
+	        </mdAction>
+        </create>
+      </mdController>
+      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+       <object key="dss.vector.solutions.ontology.TermSynonym" type="com.runwaysdk.system.metadata.MdBusiness" />
+       <object key="dss.vector.solutions.ontology.TermSynonymArrayView" type="com.runwaysdk.system.metadata.MdView" />
+       <object key="dss.vector.solutions.ontology.TermSynonymArrayExcelView" type="com.runwaysdk.system.metadata.MdView" />
+    
+    </delete>
+  </undoIt>
+</version>

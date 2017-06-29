@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -607394217)
+@com.runwaysdk.business.ClassSignature(hash = 351495831)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -607394217;
+  private static final long serialVersionUID = 351495831;
   
   public TermBase()
   {
@@ -634,6 +634,34 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease> getInactivePropertiesRel(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
   {
     return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease>) getRelationshipsWithChild(inactiveProperty, dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+  }
+  
+  public dss.vector.solutions.ontology.HasSynonym addSynonyms(dss.vector.solutions.ontology.TermSynonym termSynonym)
+  {
+    return (dss.vector.solutions.ontology.HasSynonym) addChild(termSynonym, dss.vector.solutions.ontology.HasSynonym.CLASS);
+  }
+  
+  public void removeSynonyms(dss.vector.solutions.ontology.TermSynonym termSynonym)
+  {
+    removeAllChildren(termSynonym, dss.vector.solutions.ontology.HasSynonym.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.TermSynonym> getAllSynonyms()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.TermSynonym>) getChildren(dss.vector.solutions.ontology.HasSynonym.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.HasSynonym> getAllSynonymsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.HasSynonym>) getChildRelationships(dss.vector.solutions.ontology.HasSynonym.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.HasSynonym> getSynonymsRel(dss.vector.solutions.ontology.TermSynonym termSynonym)
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.HasSynonym>) getRelationshipsWithChild(termSynonym, dss.vector.solutions.ontology.HasSynonym.CLASS);
   }
   
   public dss.vector.solutions.intervention.monitor.IPTANCVisit addANCVisitAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)

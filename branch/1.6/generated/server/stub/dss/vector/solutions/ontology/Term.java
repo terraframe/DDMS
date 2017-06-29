@@ -1907,4 +1907,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
     // TODO Auto-generated method stub
     return null;
   }
+  
+  @Transaction
+  public void addSynonym(String termSynonymName) {
+	  
+	  TermSynonym syn = TermSynonym.getByNameAndTerm(this.getTermId(), termSynonymName);
+	  
+	  if(syn == null)
+	  {
+	    TermSynonym termSynonym = new TermSynonym();
+	    termSynonym.setTermName(termSynonymName);
+	    termSynonym.apply();
+
+	    this.addSynonyms(termSynonym).apply();
+	  }
+  }
 }
