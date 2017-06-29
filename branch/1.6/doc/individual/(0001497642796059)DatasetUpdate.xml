@@ -18,7 +18,7 @@
       </mdBusiness>
     </update>
     <create>
-      <mdException name="dss.vector.solutions.kaleidoscope.RemoveMappableClassException" message="Datasets defined by saved queries must be removed from the save query screen" />
+      <mdException name="dss.vector.solutions.kaleidoscope.RemoveMappableClassException" message="A form defined by a dataset cannot be removed independent of the dataset" />
       <mdException name="dss.vector.solutions.kaleidoscope.ModifyFormException" message="A form defined by a dataset cannot have attributes added or removed" />
     </create>
   </doIt>

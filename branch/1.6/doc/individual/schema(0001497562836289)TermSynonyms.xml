@@ -59,7 +59,12 @@
             <char name="termDisplayLabel" required="false" size="100" label="Term Label" />
             <char name="synonymNames" required="true"  label="SynonymNames" size="25500"/>
             <char name="synonymIds" required="true"  label="SynonymIds" size="25500"/>
+	        <char name="termInstanceId" required="true"  label="Term Instance ID" size="64"/>            
           </attributes>
+          <mdMethod name="applyWithSynonyms" label="applyWithSynonyms" static="false" returnType="void">
+            <mdParameter name="synonyms" label="synonyms" order="0" type="dss.vector.solutions.ontology.TermSynonymView[]"/>
+          </mdMethod>
+          
           <mdMethod name="getMostRecent" label="getMostRecent" removable="false" returnType="dss.vector.solutions.ontology.TermSynonymArrayViewQuery" static="true"></mdMethod>
           <mdMethod name="getTermSynonym" label="getTermSynonym" removable="false" returnType="dss.vector.solutions.ontology.TermSynonymArrayView" static="true">
             <mdParameter name="termId" label="termId" order="0" type="java.lang.String"/>
@@ -90,15 +95,11 @@
         </create>
       </mdView>
 
-
-
-
       <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView" label="Term Excel View" publish="false">
         <attributes>
-          <virtual concrete="termId" label="Term Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
-          <virtual  concrete="synonymNames" type="dss.vector.solutions.ontology.TermSynonymArrayView" />
-          <reference name="term" label="term" type="dss.vector.solutions.ontology.Term"/>
-          
+          <virtual concrete="synonymNames" type="dss.vector.solutions.ontology.TermSynonymArrayView" />
+          <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>          
+          <virtual concrete="term" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>          
         </attributes>
       </mdView>
       
@@ -120,26 +121,6 @@
     
     
     <update>
-	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView">
-	      <create>
-	      <attributes>
-	        <char name="termInstanceId" required="true"  label="Term Instance ID" size="64"/>
-<!--           <char name="termRunwayId" required="true"  label="Term Runway ID" size="64"/> -->
-	      </attributes>  
-	        <mdMethod name="applyWithSynonyms" label="applyWithSynonyms" static="false" returnType="void">
-            <mdParameter name="synonyms" label="synonyms" order="0" type="dss.vector.solutions.ontology.TermSynonymView[]"/>
-          </mdMethod>
-	      </create>
-	    </mdView>
-	    
-	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView"> 
-	      <create>
-          <attributes>
-            <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
-          </attributes>
-        </create>
-      </mdView>
-
 	    
 	    <mdController name="dss.vector.solutions.ontology.TermSynonymController">
 	      <create>

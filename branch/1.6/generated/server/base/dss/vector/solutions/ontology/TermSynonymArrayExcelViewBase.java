@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1198871653)
+@com.runwaysdk.business.ClassSignature(hash = 1114932297)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,7 @@ public abstract class TermSynonymArrayExcelViewBase extends com.runwaysdk.busine
   public static java.lang.String SYNONYMNAMES = "synonymNames";
   public static java.lang.String TERM = "term";
   public static java.lang.String TERMINSTANCEID = "termInstanceId";
-  private static final long serialVersionUID = 1198871653;
+  private static final long serialVersionUID = 1114932297;
   
   public TermSynonymArrayExcelViewBase()
   {
@@ -88,10 +88,10 @@ public abstract class TermSynonymArrayExcelViewBase extends com.runwaysdk.busine
     this.validateAttribute(TERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermMd()
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermSynonymArrayExcelView.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERM);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(TERM);
   }
   
   public void setTerm(dss.vector.solutions.ontology.Term value)
