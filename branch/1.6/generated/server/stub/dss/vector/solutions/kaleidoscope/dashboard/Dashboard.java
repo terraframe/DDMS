@@ -832,25 +832,22 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     GeoNode[] nodes = this.getGeoNodes(thematicAttribute);
     for (GeoNode node : nodes)
     {
-      if (aggregatable || ( node instanceof GeoNodeGeometry ))
+      try
       {
-        try
-        {
-          JSONObject nodeJSON = new JSONObject();
-          nodeJSON.put("id", node.getId());
-          nodeJSON.put("type", node.getType());
-          nodeJSON.put("displayLabel", node.getGeoEntityAttribute().getDisplayLabel());
-          nodesArr.put(nodeJSON);
-        }
-        catch (JSONException e)
-        {
-          String error = "Could not build GeoNode JSON.";
-          throw new ProgrammingErrorException(error, e);
-        }
+        JSONObject nodeJSON = new JSONObject();
+        nodeJSON.put("id", node.getId());
+        nodeJSON.put("type", node.getType());
+        nodeJSON.put("displayLabel", node.getGeoEntityAttribute().getDisplayLabel());
+        nodesArr.put(nodeJSON);
+      }
+      catch (JSONException e)
+      {
+        String error = "Could not build GeoNode JSON.";
+        throw new ProgrammingErrorException(error, e);
       }
     }
 
-    if (aggregatable && nodesArr.length() == 0)
+    if (nodesArr.length() == 0)
     {
       throw new UnsupportedAggregationException();
     }
@@ -1573,7 +1570,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     String outFileFormat = "png";
     BufferedImage base = null;
     Graphics mapBaseGraphic = null;
-    BufferedImage resizedImage = null;    
+    BufferedImage resizedImage = null;
     int width = 660;
     int height = 420;
     Double bottom;
@@ -1612,11 +1609,11 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
       int layerWidth = (int) Math.min(width, Math.round( ( ( ( right - left ) / ( top - bottom ) ) * height )));
       int layerHeight = (int) Math.min(height, Math.round( ( ( ( top - bottom ) / ( right - left ) ) * width )));
-      
+
       // Offset the layerCanvas so that it is center
       int widthOffset = (int) ( ( width - layerWidth ) / 2 );
       int heightOffset = (int) ( ( height - layerHeight ) / 2 );
-      
+
       MapBound bound = new MapBound(layerWidth, layerHeight, left, right, bottom, top);
 
       base = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);

@@ -290,7 +290,6 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
       Boolean aggregatable = ( mAttribute != null ? mAttribute.getAggregatable() : true );
 
       String[] fonts = DashboardThematicStyle.getSortedFonts();
-      OIterator<? extends AggregationType> aggregations = DashboardStyle.getSortedAggregations(thematicAttributeId).getIterator();
       String geoNodesJSON = dashboard.getGeoNodesJSON(tAttr, aggregatable);
 
       JSONArray aggStrategiesJSON = new JSONArray();
@@ -357,7 +356,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
       }
 
       JSONObject json = new JSONObject();
-      json.put("aggregations", formatAggregationMethods(aggregations));
+      json.put("aggregations", getAggregationMethodsAsJSON(thematicAttributeId, aggregatable));
       json.put("aggegationStrategies", aggStrategiesJSON);
       json.put("fonts", new JSONArray(Arrays.asList(fonts)));
       json.put("geoNodes", new JSONArray(geoNodesJSON));
@@ -394,27 +393,51 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     }
   }
 
-  private static JSONArray formatAggregationMethods(OIterator<? extends AggregationType> aggregations)
+  private static JSONArray getAggregationMethodsAsJSON(String thematicAttributeId, boolean aggregatable)
   {
-    JSONArray formattedAggMethods = new JSONArray();
-    for (AggregationType aggMethod : aggregations)
+    try
     {
-      try
-      {
-        JSONObject aggMethodObj = new JSONObject();
-        String formattedAggMethod = aggMethod.toString().replaceAll(".*\\.", "");
-        aggMethodObj.put("method", formattedAggMethod);
-        aggMethodObj.put("label", aggMethod.getDisplayLabel());
-        aggMethodObj.put("id", aggMethod.getId());
-        formattedAggMethods.put(aggMethodObj);
-      }
-      catch (JSONException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
-    }
+      JSONArray methods = new JSONArray();
 
-    return formattedAggMethods;
+      if (aggregatable)
+      {
+        OIterator<? extends AggregationType> aggregations = DashboardStyle.getSortedAggregations(thematicAttributeId).getIterator();
+
+        try
+        {
+          for (AggregationType aggMethod : aggregations)
+          {
+            String formattedAggMethod = aggMethod.toString().replaceAll(".*\\.", "");
+
+            JSONObject aggMethodObj = new JSONObject();
+            aggMethodObj.put("method", formattedAggMethod);
+            aggMethodObj.put("label", aggMethod.getDisplayLabel());
+            aggMethodObj.put("id", aggMethod.getId());
+
+            methods.put(aggMethodObj);
+          }
+        }
+        finally
+        {
+          aggregations.close();
+        }
+      }
+      else
+      {
+        JSONObject method = new JSONObject();
+        method.put("method", AllAggregationType.NONE.name());
+        method.put("label", AllAggregationType.NONE.getDisplayLabel());
+        method.put("id", AllAggregationType.NONE.getId());
+
+        methods.put(method);
+      }
+
+      return methods;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
   }
 
   private static JSONArray getSecodaryAttributesJSON(String mapId, String mdAttributeId)
@@ -540,7 +563,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
    * @prerequisite conditions is populated with any DashboardConditions necessary for restricting the view dataset.
    * 
    * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
-   */  
+   */
   @Override
   public ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns)
   {

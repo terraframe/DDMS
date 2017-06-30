@@ -24,6 +24,7 @@ import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
 import com.runwaysdk.dataaccess.IndicatorPrimitiveDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -656,6 +657,10 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
       return false;
     }
+    else if (mdAttributeConcrete instanceof MdAttributeIndicatorDAOIF)
+    {
+      return true;
+    }
 
     return !mdAttributeConcrete.isSystem() && !mdAttributeConcrete.definesAttribute().equals(BusinessInfo.KEY) && ( mdAttributeConcrete instanceof MdAttributePrimitiveDAOIF ) && !ids.contains(mdAttributeConcrete.getId());
   }
@@ -892,7 +897,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
           MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
           mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
-          mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, label);
+          mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, displayLabel);
           mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
           mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
           mdAttributeDAO.apply();

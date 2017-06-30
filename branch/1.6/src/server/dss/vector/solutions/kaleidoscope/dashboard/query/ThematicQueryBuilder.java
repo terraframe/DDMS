@@ -18,6 +18,7 @@ import com.runwaysdk.query.OrderBy;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableBoolean;
+import com.runwaysdk.query.SelectableIndicator;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableSingle;
@@ -161,14 +162,14 @@ public abstract class ThematicQueryBuilder implements Reloadable
     String attributeName = mdAttribute.definesAttribute();
     String displayLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
 
-    Selectable thematicAttr = query.get(attributeName);
+    Selectable thematicAttr = query.getS(attributeName);
     // use the basic Selectable if no aggregate is selected
     Selectable thematicSel = thematicAttr;
 
     Selectable label = this.getLabelSelectable(query);
     Selectable id = this.getIdentifierSelectable(query);
 
-    if (thematicSel instanceof SelectableNumber || thematicSel instanceof SelectableMoment || thematicSel instanceof SelectableBoolean)
+    if (thematicSel instanceof SelectableNumber || thematicSel instanceof SelectableMoment || thematicSel instanceof SelectableBoolean  || thematicSel instanceof SelectableIndicator)
     {
       boolean isAggregate = false;
 
