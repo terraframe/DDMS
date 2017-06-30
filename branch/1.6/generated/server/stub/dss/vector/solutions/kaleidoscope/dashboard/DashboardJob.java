@@ -1,11 +1,8 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -553,16 +550,16 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
               /*
                * This is for testing
                */
-//              try
-//              {
-//                OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-//
-//                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
-//              }
-//              catch (Exception e)
-//              {
-//                e.printStackTrace();
-//              }
+              // try
+              // {
+              // OutputStream tstream = new FileOutputStream(dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+              //
+              // FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
+              // }
+              // catch (Exception e)
+              // {
+              // e.printStackTrace();
+              // }
             }
             finally
             {
@@ -712,23 +709,32 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     {
       JSONObject object = new JSONObject(json);
 
-      DashboardJob job = null;
-
-      if (object.getBoolean("new"))
+      if (object.has("layer") && !object.getString("layer").equals("null"))
       {
-        job = new DashboardJob();
-        job.setDashboard(Dashboard.get(object.getString("dashboard")));
+        DashboardJob job = null;
+
+        if (object.getBoolean("new"))
+        {
+          job = new DashboardJob();
+          job.setDashboard(Dashboard.get(object.getString("dashboard")));
+        }
+        else
+        {
+          String id = object.getString("id");
+          job = DashboardJob.get(id);
+        }
+
+        job.setImageHeight(object.getInt("height"));
+        job.setImageWidth(object.getInt("width"));
+        job.setLayer(DashboardLayer.get(object.getString("layer")));
+        job.apply();
       }
-      else
+      else if (!object.getBoolean("new"))
       {
         String id = object.getString("id");
-        job = DashboardJob.get(id);
+        DashboardJob job = DashboardJob.get(id);
+        job.delete();
       }
-
-      job.setImageHeight(object.getInt("height"));
-      job.setImageWidth(object.getInt("width"));
-      job.setLayer(DashboardLayer.get(object.getString("layer")));
-      job.apply();
     }
     catch (JSONException e)
     {

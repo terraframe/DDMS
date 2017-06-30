@@ -36,7 +36,9 @@
           <div class="holder">
             <div class="box">
               <div class="select-box">
-                <select class="method-select" ng-model="job.layer" ng-options="opt.id as opt.label for opt in layers" required></select>
+                <select class="method-select" ng-model="job.layer" ng-options="opt.id as opt.label for opt in layers">
+                  <option value=""></option>
+                </select>
               </div>  
             </div>
           </div>
