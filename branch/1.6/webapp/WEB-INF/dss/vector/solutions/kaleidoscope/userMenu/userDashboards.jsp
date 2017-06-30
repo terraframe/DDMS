@@ -52,7 +52,8 @@
 
   div.pageContent {
 	padding: 13px 25px 0 25px;
-	height: 80%;
+/* 	height: 80%; */
+  height: calc(100% - 163px);
 	overflow-y: auto;
   }
 

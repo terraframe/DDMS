@@ -40,8 +40,12 @@ body.iFrameBody {
 
 div.pageContent {
 	padding: 13px 25px 0 25px;
-	height: 100%;
-	overflow-y: auto;
+/* 	height: 100%; */
+/* 	overflow-y: auto; */
+	
+	  overflow: visible;
+/*     height: initial; */
+  height: calc(100% - 163px);
 }
 
 

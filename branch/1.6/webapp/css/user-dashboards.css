@@ -21,7 +21,8 @@
 html, body, #container {
   height: 100%; 
   overflow: hidden;
-  overflow-y: auto;
+/*   overflow-y: auto; */
+    overflow-y: hidden;
 }
 
 h1 {
