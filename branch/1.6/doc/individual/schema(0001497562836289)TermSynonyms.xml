@@ -97,9 +97,9 @@
 
       <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView" label="Term Excel View" publish="false">
         <attributes>
-          <virtual concrete="synonymNames" type="dss.vector.solutions.ontology.TermSynonymArrayView" />
-          <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>          
-          <virtual concrete="term" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>          
+          <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+          <virtual  concrete="synonymNames" type="dss.vector.solutions.ontology.TermSynonymArrayView" />
+          <reference name="term" label="term" type="dss.vector.solutions.ontology.Term"/>
         </attributes>
       </mdView>
       
@@ -121,6 +121,26 @@
     
     
     <update>
+    
+	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView">
+	      <create>
+	      <attributes>
+	        <char name="termInstanceId" required="true"  label="Term Instance ID" size="64"/>
+	      </attributes>  
+	        <mdMethod name="applyWithSynonyms" label="applyWithSynonyms" static="false" returnType="void">
+            <mdParameter name="synonyms" label="synonyms" order="0" type="dss.vector.solutions.ontology.TermSynonymView[]"/>
+          </mdMethod>
+	      </create>
+	    </mdView>
+	    
+	    <mdView name="dss.vector.solutions.ontology.TermSynonymArrayExcelView"> 
+	      <create>
+          <attributes>
+            <virtual concrete="termInstanceId" label="Term Instance Id" type="dss.vector.solutions.ontology.TermSynonymArrayView"/>
+          </attributes>
+        </create>
+      </mdView>
+
 	    
 	    <mdController name="dss.vector.solutions.ontology.TermSynonymController">
 	      <create>
@@ -155,7 +175,6 @@
        <object key="dss.vector.solutions.ontology.TermSynonym" type="com.runwaysdk.system.metadata.MdBusiness" />
        <object key="dss.vector.solutions.ontology.TermSynonymArrayView" type="com.runwaysdk.system.metadata.MdView" />
        <object key="dss.vector.solutions.ontology.TermSynonymArrayExcelView" type="com.runwaysdk.system.metadata.MdView" />
-    
     </delete>
   </undoIt>
 </version>
