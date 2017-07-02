@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 91132414)
+@com.runwaysdk.business.ClassSignature(hash = -282600302)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 public abstract class AggregationTypeBase extends com.runwaysdk.system.EnumerationMaster implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.AggregationType";
-  private static final long serialVersionUID = 91132414;
+  private static final long serialVersionUID = -282600302;
   
   public AggregationTypeBase()
   {

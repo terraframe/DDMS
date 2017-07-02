@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 337613694)
+@com.runwaysdk.business.ClassSignature(hash = -831406574)
 public abstract class AggregationTypeDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.AggregationType";
-  private static final long serialVersionUID = 337613694;
+  private static final long serialVersionUID = -831406574;
   
   protected AggregationTypeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {

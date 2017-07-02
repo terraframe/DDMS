@@ -14,10 +14,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.constants.MdAttributeDecimalInfo;
+import com.runwaysdk.constants.MdAttributeDoubleInfo;
+import com.runwaysdk.constants.MdAttributeFloatInfo;
+import com.runwaysdk.constants.MdAttributeIndicatorInfo;
+import com.runwaysdk.constants.MdAttributeIntegerInfo;
+import com.runwaysdk.constants.MdAttributeLongInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
@@ -35,15 +43,9 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
-import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeDate;
-import com.runwaysdk.system.metadata.MdAttributeDecimal;
-import com.runwaysdk.system.metadata.MdAttributeDouble;
-import com.runwaysdk.system.metadata.MdAttributeFloat;
-import com.runwaysdk.system.metadata.MdAttributeInteger;
-import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
@@ -143,12 +145,13 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     // Only number types can be used
     //
     Set<String> numerics = new TreeSet<String>();
-    numerics.add(MdAttributeLong.CLASS);
-    numerics.add(MdAttributeInteger.CLASS);
-    numerics.add(MdAttributeDouble.CLASS);
-    numerics.add(MdAttributeDecimal.CLASS);
-    numerics.add(MdAttributeFloat.CLASS);
-    numerics.add(MdAttributeBoolean.CLASS);
+    numerics.add(MdAttributeLongInfo.CLASS);
+    numerics.add(MdAttributeIntegerInfo.CLASS);
+    numerics.add(MdAttributeDoubleInfo.CLASS);
+    numerics.add(MdAttributeDecimalInfo.CLASS);
+    numerics.add(MdAttributeFloatInfo.CLASS);
+    numerics.add(MdAttributeBooleanInfo.CLASS);
+    numerics.add(MdAttributeIndicatorInfo.CLASS);
 
     if (numerics.contains(thematicAttrType))
     {
@@ -639,7 +642,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     {
       return AttributeType.TIME;
     }
-    else if (mdAttribute instanceof MdAttributeNumberDAOIF)
+    else if (mdAttribute instanceof MdAttributeNumberDAOIF || mdAttribute instanceof MdAttributeIndicatorDAOIF)
     {
       return AttributeType.NUMBER;
     }
