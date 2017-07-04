@@ -139,31 +139,15 @@ export class UploadService extends BasicService {
     .catch(this.handleError.bind(this));    
   }
     
-  getClassifierSuggestions(mdAttributeId: string, text: string, limit: string): Promise<Array<{ text: string, data: any }>> {
-    
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('mdAttributeId', mdAttributeId);
-    params.set('text', text);    
-    params.set('limit', limit);    
-  
-    return this.http
-      .get(acp + '/uploader/getClassifierSuggestions', {search: params})
-      .toPromise()
-      .then((response: any) => {
-        return response.json() as Array<{ text: string, data: any }>;
-      })
-      .catch(this.handleError.bind(this));    
-  }
-  
-  createClassifierSynonym(classifierId: string, label: string): Promise<ClassifierSynonym> {
+  createTermSynonym(termId: string, label: string): Promise<ClassifierSynonym> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });    
     
-    let data = JSON.stringify({classifierId: classifierId, label: label });
+    let data = JSON.stringify({termId: termId, label: label });
     
     return this.ehttp
-    .post(acp + '/uploader/createClassifierSynonym', data, {headers: headers})
+    .post(acp + '/uploader/createTermSynonym', data, {headers: headers})
     .toPromise() 
     .then((response: any) => {
       return response.json() as ClassifierSynonym;
@@ -171,7 +155,7 @@ export class UploadService extends BasicService {
     .catch(this.handleError.bind(this));
   }
   
-  deleteClassifierSynonym(synonymId: string): Promise<Response> {
+  deleteTermSynonym(synonymId: string): Promise<Response> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });    
@@ -179,7 +163,36 @@ export class UploadService extends BasicService {
     let data = JSON.stringify({synonymId: synonymId});
     
     return this.ehttp
-    .post(acp + '/uploader/deleteClassifierSynonym', data, {headers: headers})
+    .post(acp + '/uploader/deleteTermSynonym', data, {headers: headers})
+    .toPromise() 
+    .catch(this.handleError.bind(this));    
+  }
+  
+  createTerm(label: string, parentId: string): Promise<ClassifierSynonym> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });    
+    
+    let data = JSON.stringify({parentId: termId, label: label });
+    
+    return this.ehttp
+    .post(acp + '/uploader/createTerm', data, {headers: headers})
+    .toPromise() 
+    .then((response: any) => {
+      return response.json() as ClassifierSynonym;
+    })      
+    .catch(this.handleError.bind(this));
+  }
+  
+  deleteTerm(termId: string): Promise<Response> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });    
+    
+    let data = JSON.stringify({termId: termId});
+    
+    return this.ehttp
+    .post(acp + '/uploader/deleteTerm', data, {headers: headers})
     .toPromise() 
     .catch(this.handleError.bind(this));    
   }
