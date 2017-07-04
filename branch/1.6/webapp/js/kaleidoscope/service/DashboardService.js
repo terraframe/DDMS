@@ -5,6 +5,15 @@
     service.edit = false;
     service.editData = false;
     service.dashboard = null;
+    service.dashboardPanelIsCollapsed = false;
+    
+    service.setDashboardPanelCollapsed = function(collapsed) {
+    	service.dashboardPanelIsCollapsed = collapsed;
+    }
+    
+    service.getDashboardPanelCollapsed = function() {
+    	return service.dashboardPanelIsCollapsed;
+    }
     
     service.setEdit = function(edit) {
       service.edit = edit;

@@ -1148,12 +1148,16 @@ input:focus.gdb-attr-filter.field-error {
 */
 #map-tools-collapse-container{
 	  padding: 5px;
-	  width: 180px; /* Simply remove this for full width */
+/* 	  width: 180px; Simply remove this for full width */
 }
 
 div#collapse-map-tools.accordion-body{
 	height: 100%;
-	width: 180px;
+/* 	width: 180px; */
+}
+
+div#mapToolsContainer > .fa {
+    padding: 3px;
 }
 
 .fa.fa-file-image-o.map-tool-icon{
@@ -1563,6 +1567,8 @@ input.category-input.category-range-input.cat-range-max-val.right{
 a.filters-button {
 	padding-left: 10px;
 	padding-right: 10px;
+	
+  padding-top: 5px;
 }
 
 

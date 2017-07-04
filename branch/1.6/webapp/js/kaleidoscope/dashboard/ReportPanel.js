@@ -64,6 +64,10 @@
           $scope.vertical = false;
           controller.state = 'min';
           
+          var panelCollapsed = dashboardService.getDashboardPanelCollapsed();
+          $scope.panelCollapsed = panelCollapsed;
+          console.log("yaaaaa")
+          
           controller.setupMenu($scope.hasReport);          
           
           // Copy the current report html over to the new report div
@@ -77,7 +81,7 @@
       else {
         $scope.menuOptions.push([localizationService.localize("report", "vertical"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.vertical = true;
-          controller.state = 'min';          
+          controller.state = 'min';  
           
           controller.setupMenu($scope.hasReport);          
           
@@ -205,22 +209,22 @@
     controller.setReportPanelWidth = function (width, flipButton) {
       var current = $("#reporticng-container").width();
       var toolbar = $("#report-toolbar").width();        
-          
+  
       // Minimize
       if(current > width)
       {
         var difference = (current - width);
             
-        $("#reporticng-container").animate({ right: "-=" + difference + "px" }, 1000, function(){
-              
+        $("#reporticng-container").css("left", "0px");
+        
+        $("#reporticng-container").animate({ width: "-=" + difference + "px" }, {duration: 1000, queue: false, complete: function(){
           if(flipButton){
             $("#report-toggle-container").toggleClass("maxed");
           }
-              
-          $("#reporticng-container").css("right", "0px");                                                  
-          $("#report-viewport").width(width-toolbar);
-          $("#reporticng-container").width(width);
-        });     
+        }});     
+        
+        $("#report-viewport").animate({ width: "-=" + difference + "px" }, {duration: 1000, queue: false, complete: function(){
+	    }});    
             
         // animate the loading spinner
         $(".standby-overlay").animate({left: "+=" + difference + "px"}, 1000);
@@ -229,15 +233,15 @@
       else if (current < width){
         var difference = (width - current);
             
-        $("#reporticng-container").css("right", "-" + difference + "px");
-        $("#reporticng-container").width(width);
-        $("#report-viewport").width(width-toolbar);
-                
-        $("#reporticng-container").animate({right: "+=" + difference + "px"}, 1000, function() {
+        $("#reporticng-container").css("left", "0px");
+        $("#reporticng-container").animate({width: "+=" + difference + "px"}, {duration: 1000, queue: false, complete: function() {
           if(flipButton){
             $("#report-toggle-container").toggleClass("maxed");
           }
-        });
+        }});
+        
+        $("#report-viewport").animate({width: "+=" + difference + "px"}, {duration: 1000, queue: false, complete: function() {
+        }});
             
         // animate the loading spinner
         $(".standby-overlay").animate({left: "-=" + difference + "px"}, 1000);

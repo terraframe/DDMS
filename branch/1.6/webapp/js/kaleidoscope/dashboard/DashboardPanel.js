@@ -1,8 +1,9 @@
 (function(){
 	
-  function DashboardPanelController($scope, $timeout, widgetService) {
+  function DashboardPanelController($scope, $timeout, widgetService, dashboardService) {
     var controller = this;
     controller.expanded = true;
+    dashboardService.setDashboardPanelCollapsed(false);
     
     controller.toggle = function() {
       var speed = 500;
@@ -10,6 +11,7 @@
       if(controller.expanded){
         widgetService.animate("#dashboardMetadata", {right: "-=300"}, speed, function(){
           controller.expanded = false;
+          dashboardService.setDashboardPanelCollapsed(true);
           $scope.$apply();
         });
 
@@ -22,6 +24,7 @@
       else{    	  
         widgetService.animate("#dashboardMetadata", {right: "+=300"}, speed, function(){
           controller.expanded = true;
+          dashboardService.setDashboardPanelCollapsed(false);
           $scope.$apply();
         });
 
@@ -49,7 +52,7 @@
     }    
   }  
 	
-  angular.module("dashboard-panel", ["widget-service", "dashboard-accordion"]);
+  angular.module("dashboard-panel", ["widget-service", "dashboard-accordion", "dashboard-service"]);
   angular.module('dashboard-panel')
     .directive('dashboardPanel', DashboardPanel);  
 })();
