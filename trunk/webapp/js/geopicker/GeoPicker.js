@@ -442,12 +442,14 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
      */
     setFilter : function(filter)
     {
-      this._filterType = filter;
-  
-//      if(this.isInitialized())
-//      {
-//        this._doFilter();
-//      }
+      if (!Mojo.Util.isArray(filter))
+      {
+        this._filterType = [filter]
+      }
+      else
+      {
+        this._filterType = filter;
+      }
     },
     
     getFilter : function()
