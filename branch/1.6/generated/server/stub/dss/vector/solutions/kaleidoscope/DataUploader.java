@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -14,16 +15,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.RunwayException;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoSynonym;
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geoserver.SessionPredicate;
 import dss.vector.solutions.kaleidoscope.data.etl.DefinitionBuilder;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
@@ -35,6 +42,8 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelSheetReader;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.FieldInfoContentsHandler;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.InvalidExcelFileException;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermSynonym;
 
 public class DataUploader extends DataUploaderBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -45,93 +54,87 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     super();
   }
 
-  // @Transaction
-  // @Authenticate
-  // public static void createGeoEntity(String parentId, String universalId, String label)
-  // {
-  // GeoHierarchy universal = GeoHierarchy.get(universalId);
-  //
-  // GeoEntity entity = (GeoEntity) BusinessFacade.newBusiness(universal.getGeoEntityClass().definesType());
-  // entity.setGeoId(IDGenerator.nextID());
-  // entity.getEntityLabel().setDefaultValue(label);
-  // entity.applyWithParent(parentId, false, null);
-  // }
-  //
-  // @Transaction
-  // @Authenticate
-  // public static void deleteGeoEntity(String entityId)
-  // {
-  // GeoEntity entity = GeoEntity.get(entityId);
-  // entity.delete();
-  // }
-  //
-  // @Transaction
-  // @Authenticate
-  // public static String createGeoEntityGeoSynonym(String entityId, String label)
-  // {
-  // try
-  // {
-  // GeoEntity entity = GeoEntity.get(entityId);
-  //
-  // GeoSynonym synonym = new GeoSynonym();
-  // synonym.getDisplayLabel().setValue(label);
-  //
-  // TermAndRel tr = GeoSynonym.create(synonym, entityId);
-  //
-  // JSONObject object = new JSONObject();
-  // object.put("synonymId", tr.getTerm().getId());
-  // object.put("label", entity.getDisplayLabel().getValue());
-  // object.put("ancestors", new JSONArray(GeoEntityUtil.getAncestorsAsJSON(entityId)));
-  //
-  // return object.toString();
-  // }
-  // catch (JSONException e)
-  // {
-  // throw new ProgrammingErrorException(e);
-  // }
-  // }
-  //
-  // @Transaction
-  // @Authenticate
-  // public static void deleteGeoEntityGeoSynonym(String synonymId)
-  // {
-  // GeoSynonym synonym = GeoSynonym.get(synonymId);
-  // synonym.delete();
-  // }
-  //
-  // @Transaction
-  // @Authenticate
-  // public static String createClassifierGeoSynonym(String classifierId, String label)
-  // {
-  // try
-  // {
-  // Classifier classifier = Classifier.get(classifierId);
-  //
-  // ClassifierGeoSynonym synonym = new ClassifierGeoSynonym();
-  // synonym.getDisplayLabel().setValue(label);
-  //
-  // TermAndRel tr = ClassifierGeoSynonym.createGeoSynonym(synonym, classifierId);
-  //
-  // JSONObject object = new JSONObject();
-  // object.put("synonymId", tr.getTerm().getId());
-  // object.put("label", classifier.getDisplayLabel().getValue());
-  //
-  // return object.toString();
-  // }
-  // catch (JSONException e)
-  // {
-  // throw new ProgrammingErrorException(e);
-  // }
-  // }
-  //
-  // @Transaction
-  // @Authenticate
-  // public static void deleteClassifierGeoSynonym(String synonymId)
-  // {
-  // ClassifierGeoSynonym synonym = ClassifierGeoSynonym.get(synonymId);
-  // synonym.delete();
-  // }
-  //
+  @Transaction
+  @Authenticate
+  public static String createGeoEntity(String parentId, String universalId, String label)
+  {
+    GeoHierarchy universal = GeoHierarchy.get(universalId);
+    MdBusiness mdClass = universal.getGeoEntityClass();
+
+    GeoEntity entity = (GeoEntity) BusinessFacade.newBusiness(mdClass.definesType());
+    entity.setGeoId(LocalProperty.getNextId());
+    entity.getEntityLabel().setDefaultValue(label);
+    entity.applyWithParent(parentId, false, null);
+
+    return entity.getId();
+  }
+
+  @Transaction
+  @Authenticate
+  public static void deleteGeoEntity(String entityId)
+  {
+    GeoEntity.deleteEntity(entityId);
+  }
+
+  @Transaction
+  @Authenticate
+  public static String createGeoEntitySynonym(String entityId, String label)
+  {
+    try
+    {
+      GeoEntity entity = GeoEntity.get(entityId);
+      String synonymId = entity.addSynonym(label);
+
+      JSONObject object = new JSONObject();
+      object.put("synonymId", synonymId);
+      object.put("label", entity.getEntityLabel().getValue());
+      object.put("ancestors", new JSONArray(DataUploader.getAncestorsAsJSON(entity)));
+
+      return object.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  @Transaction
+  @Authenticate
+  public static void deleteGeoEntitySynonym(String synonymId)
+  {
+    GeoSynonym synonym = GeoSynonym.get(synonymId);
+    synonym.delete();
+  }
+
+  @Transaction
+  @Authenticate
+  public static String createTermSynonym(String classifierId, String label)
+  {
+    try
+    {
+      Term classifier = Term.get(classifierId);      
+      String synonymId = classifier.addSynonym(label);
+
+      JSONObject object = new JSONObject();
+      object.put("synonymId", synonymId);
+      object.put("label", classifier.getTermDisplayLabel().getValue());
+
+      return object.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  @Transaction
+  @Authenticate
+  public static void deleteTermSynonym(String synonymId)
+  {
+    TermSynonym synonym = TermSynonym.get(synonymId);
+    synonym.delete();
+  }
+
   public static String getAttributeInformation(String fileName, InputStream fileStream)
   {
     // Save the file to the file system
@@ -341,4 +344,55 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     // }
   }
 
+  public static String getAncestorsAsJSON(GeoEntity entity)
+  {
+    try
+    {
+      GeoEntity root = Earth.getEarthInstance();
+
+      JSONArray array = new JSONArray();
+
+      List<GeoEntity> ancestors = entity.getAllParents();
+
+      Collections.reverse(ancestors);
+
+      for (GeoEntity ancestor : ancestors)
+      {
+        if (!ancestor.getId().equals(root.getId()))
+        {
+          JSONObject object = new JSONObject();
+          object.put("label", ancestor.getEntityLabel().getValue());
+
+          array.put(object);
+        }
+      }
+
+      return array.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  
+  @Transaction
+  @Authenticate
+  public static void deleteTerm(String termId)
+  {
+    Term.deleteTerm(termId);
+  }
+  
+  @Transaction
+  @Authenticate
+  public static String createTerm(String parentId, String label)
+  {
+    Term term = new Term();
+    term.getTermDisplayLabel().setValue(label);
+    term.setName(label);
+    term.setTermId(LocalProperty.getNextId());
+    term.applyWithParent(parentId, false, "", false);
+    
+    return term.getId();
+  }
 }

@@ -152,7 +152,7 @@ export class CategoryProblem {
   categoryId: string;
   optionId: string;
   resolved: boolean;
-  synonym: string;
+  synonym: Pair;
   action: any;
 }
 

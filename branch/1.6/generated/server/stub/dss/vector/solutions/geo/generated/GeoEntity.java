@@ -58,6 +58,8 @@ import com.runwaysdk.gis.dataaccess.AttributeGeometryIF;
 import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.CONCAT;
+import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedViewQuery;
@@ -97,6 +99,7 @@ import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.GeoSynonym;
+import dss.vector.solutions.geo.HasSynonym;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -2270,7 +2273,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   @Transaction
-  public void addSynonym(String synonymEntityName)
+  public String addSynonym(String synonymEntityName)
   {
     GeoSynonym gs = GeoSynonym.getByNameAndGeo(this.getGeoId(), synonymEntityName);
     if (gs == null)
@@ -2279,12 +2282,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       geoSynonym.setEntityName(synonymEntityName);
       geoSynonym.apply();
 
-      this.addSynonyms(geoSynonym).apply();
+      HasSynonym relationship = this.addSynonyms(geoSynonym);
+      relationship.apply();
+
+      return geoSynonym.getId();
     }
-    else
-    {
-      // Nothing to update if it already exists...
-    }
+
+    return gs.getId();
   }
 
   @Override
@@ -2660,4 +2664,41 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       throw new ProgrammingErrorException(e);
     }
   }
+
+  public static ValueQuery getGeoEntitySuggestions(String parentId, String universalId, String text, Integer limit)
+  {
+    GeoHierarchy hierarchy = GeoHierarchy.get(universalId);
+    MdBusinessDAOIF mdClass = MdBusinessDAO.get(hierarchy.getGeoEntityClassId());
+
+    ValueQuery query = new ValueQuery(new QueryFactory());
+
+    GeoEntityQuery entityQuery = (GeoEntityQuery) QueryUtil.getQuery(mdClass, query);
+
+    SelectableChar id = entityQuery.getId();
+    Coalesce geoLabel = entityQuery.getEntityLabel().localize();
+    SelectableChar geoId = entityQuery.getGeoId();
+
+    CONCAT label = F.CONCAT(F.CONCAT(F.CONCAT(geoLabel, " (" + hierarchy.getDisplayLabel() + ")"), " : "), geoId);
+    label.setColumnAlias(GeoEntity.ENTITYLABEL);
+    label.setUserDefinedAlias(GeoEntity.ENTITYLABEL);
+    label.setUserDefinedDisplayLabel(GeoEntity.ENTITYLABEL);
+
+    query.SELECT(id, label);
+    query.WHERE(label.LIKEi("%" + text + "%"));
+
+    if (parentId != null && parentId.length() > 0)
+    {
+      AllPathsQuery aptQuery = new AllPathsQuery(query);
+
+      query.AND(entityQuery.EQ(aptQuery.getChildGeoEntity()));
+      query.AND(aptQuery.getParentGeoEntity().EQ(parentId));
+    }
+
+    query.ORDER_BY_ASC(geoLabel);
+
+    query.restrictRows(limit, 1);
+
+    return query;
+  }
+
 }

@@ -2,10 +2,14 @@ package dss.vector.solutions.kaleidoscope;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.business.ValueObjectDTO;
+import com.runwaysdk.business.ValueQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.controller.ServletMethod;
@@ -16,6 +20,8 @@ import com.runwaysdk.mvc.ErrorSerialization;
 import com.runwaysdk.mvc.RequestParamter;
 import com.runwaysdk.mvc.ResponseIF;
 import com.runwaysdk.mvc.RestBodyResponse;
+
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 @Controller(url = "uploader")
 public class DataUploaderController implements Reloadable
@@ -31,7 +37,7 @@ public class DataUploaderController implements Reloadable
       JSONObject object = new JSONObject();
       object.put("information", new JSONObject(DataUploaderDTO.getAttributeInformation(request, fileName, stream)));
       object.put("options", new JSONObject(DataUploaderDTO.getOptionsJSON(request)));
-      // object.put("classifiers", new JSONArray(ClassifierDTO.getCategoryClassifiersAsJSON(request)));
+      // object.put("classifiers", new JSONArray(TermDTO.getCategoryTermsAsJSON(request)));
 
       return new RestBodyResponse(object);
     }
@@ -87,105 +93,97 @@ public class DataUploaderController implements Reloadable
     return new RestBodyResponse("");
   }
 
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF createGeoEntity(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId, @RequestParamter(name =
-  // "universalId") String universalId, @RequestParamter(name = "label") String label) throws JSONException
-  // {
-  // String entityId = DataUploaderDTO.createGeoEntity(request, parentId, universalId, label);
-  //
-  // JSONObject object = new JSONObject();
-  // object.put("entityId", entityId);
-  //
-  // return new RestBodyResponse(object);
-  // }
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF createGeoEntitySynonym(ClientRequestIF request, @RequestParamter(name = "entityId") String entityId, @RequestParamter(name =
-  // "label") String label) throws JSONException
-  // {
-  // String response = DataUploaderDTO.createGeoEntitySynonym(request, entityId, label);
-  //
-  // JSONObject object = new JSONObject(response);
-  //
-  // return new RestBodyResponse(object);
-  // }
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF deleteGeoEntity(ClientRequestIF request, @RequestParamter(name = "entityId") String entityId)
-  // {
-  // DataUploaderDTO.deleteGeoEntity(request, entityId);
-  //
-  // return new RestBodyResponse("");
-  // }
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF deleteGeoEntitySynonym(ClientRequestIF request, @RequestParamter(name = "synonymId") String synonymId)
-  // {
-  // DataUploaderDTO.deleteGeoEntitySynonym(request, synonymId);
-  //
-  // return new RestBodyResponse("");
-  // }
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF createClassifierSynonym(ClientRequestIF request, @RequestParamter(name = "classifierId") String classifierId,
-  // @RequestParamter(name = "label") String label) throws JSONException
-  // {
-  // String response = DataUploaderDTO.createClassifierSynonym(request, classifierId, label);
-  //
-  // JSONObject object = new JSONObject(response);
-  //
-  // return new RestBodyResponse(object);
-  // }
-  //
-  // @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  // public ResponseIF deleteClassifierSynonym(ClientRequestIF request, @RequestParamter(name = "synonymId") String synonymId)
-  // {
-  // DataUploaderDTO.deleteClassifierSynonym(request, synonymId);
-  //
-  // return new RestBodyResponse("");
-  // }
-  //
-  // @Endpoint(error = ErrorSerialization.JSON)
-  // public ResponseIF getClassifierSuggestions(ClientRequestIF request, @RequestParamter(name = "mdAttributeId") String mdAttributeId,
-  // @RequestParamter(name = "text") String text, @RequestParamter(name = "limit") Integer limit) throws JSONException
-  // {
-  // JSONArray response = new JSONArray();
-  //
-  // ValueQueryDTO query = ClassifierDTO.getClassifierSuggestions(request, mdAttributeId, text, limit);
-  // List<ValueObjectDTO> results = query.getResultSet();
-  //
-  // for (ValueObjectDTO result : results)
-  // {
-  // JSONObject object = new JSONObject();
-  // object.put("label", result.getValue(ClassifierDTO.DISPLAYLABEL));
-  // object.put("value", result.getValue(ClassifierDTO.ID));
-  //
-  // response.put(object);
-  // }
-  //
-  // return new RestBodyResponse(response);
-  // }
-  //
-  // @Endpoint(error = ErrorSerialization.JSON)
-  // public ResponseIF getGeoEntitySuggestions(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId, @RequestParamter(name =
-  // "universalId") String universalId, @RequestParamter(name = "text") String text, @RequestParamter(name = "limit") Integer limit) throws
-  // JSONException
-  // {
-  // JSONArray response = new JSONArray();
-  //
-  // ValueQueryDTO query = GeoEntityUtilDTO.getGeoEntitySuggestions(request, parentId, universalId, text, limit);
-  // List<ValueObjectDTO> results = query.getResultSet();
-  //
-  // for (ValueObjectDTO result : results)
-  // {
-  // JSONObject object = new JSONObject();
-  // object.put("text", result.getValue(GeoEntityDTO.DISPLAYLABEL));
-  // object.put("data", result.getValue(GeoEntityDTO.ID));
-  //
-  // response.put(object);
-  // }
-  //
-  // return new RestBodyResponse(response);
-  // }
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF createGeoEntity(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId, @RequestParamter(name = "universalId") String universalId, @RequestParamter(name = "label") String label) throws JSONException
+  {
+    String entityId = DataUploaderDTO.createGeoEntity(request, parentId, universalId, label);
+
+    JSONObject object = new JSONObject();
+    object.put("entityId", entityId);
+
+    return new RestBodyResponse(object);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF createGeoEntitySynonym(ClientRequestIF request, @RequestParamter(name = "entityId") String entityId, @RequestParamter(name = "label") String label) throws JSONException
+  {
+    String response = DataUploaderDTO.createGeoEntitySynonym(request, entityId, label);
+
+    JSONObject object = new JSONObject(response);
+
+    return new RestBodyResponse(object);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF deleteGeoEntity(ClientRequestIF request, @RequestParamter(name = "entityId") String entityId)
+  {
+    DataUploaderDTO.deleteGeoEntity(request, entityId);
+
+    return new RestBodyResponse("");
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF deleteGeoEntitySynonym(ClientRequestIF request, @RequestParamter(name = "synonymId") String synonymId)
+  {
+    DataUploaderDTO.deleteGeoEntitySynonym(request, synonymId);
+
+    return new RestBodyResponse("");
+  }
+
+  @Endpoint(error = ErrorSerialization.JSON)
+  public ResponseIF getGeoEntitySuggestions(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId, @RequestParamter(name = "universalId") String universalId, @RequestParamter(name = "text") String text, @RequestParamter(name = "limit") Integer limit) throws JSONException
+  {
+    JSONArray response = new JSONArray();
+
+    ValueQueryDTO query = GeoEntityDTO.getGeoEntitySuggestions(request, parentId, universalId, text, limit);
+    List<ValueObjectDTO> results = query.getResultSet();
+
+    for (ValueObjectDTO result : results)
+    {
+      JSONObject object = new JSONObject();
+      object.put("text", result.getValue(GeoEntityDTO.ENTITYLABEL));
+      object.put("data", result.getValue(GeoEntityDTO.ID));
+
+      response.put(object);
+    }
+
+    return new RestBodyResponse(response);
+  }
+  
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF createTerm(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId, @RequestParamter(name = "label") String label) throws JSONException
+  {
+    String termId = DataUploaderDTO.createTerm(request, parentId, label);
+
+    JSONObject object = new JSONObject();
+    object.put("id", termId);
+
+    return new RestBodyResponse(object);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF createTermSynonym(ClientRequestIF request, @RequestParamter(name = "termId") String termId, @RequestParamter(name = "label") String label) throws JSONException
+  {
+    String response = DataUploaderDTO.createTermSynonym(request, termId, label);
+
+    JSONObject object = new JSONObject(response);
+
+    return new RestBodyResponse(object);
+  }
+  
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF deleteTerm(ClientRequestIF request, @RequestParamter(name = "termId") String termId)
+  {
+    DataUploaderDTO.deleteTerm(request, termId);
+
+    return new RestBodyResponse("");
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF deleteTermSynonym(ClientRequestIF request, @RequestParamter(name = "synonymId") String synonymId)
+  {
+    DataUploaderDTO.deleteTermSynonym(request, synonymId);
+
+    return new RestBodyResponse("");
+  }
 }

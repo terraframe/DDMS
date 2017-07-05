@@ -3,7 +3,6 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { Page, CategoryProblem, Workbook} from './uploader-model';
 import { Pair } from '../model/pair';
 
-import { CategoryService } from '../service/category.service';
 import { UploadService } from '../service/upload.service';
 import { IdService } from '../service/core.service';
 
@@ -18,35 +17,22 @@ export class CategoryValidationProblemComponent implements OnInit {
   @Input() problem: CategoryProblem;
   @Input() index: number;
   @Input() workbook: Workbook;
-  @Input() options: Pair[];
 
   @Output() onProblemChange = new EventEmitter();
   
   show: boolean;
-  hasSynonym: boolean;
   
-  constructor(private uploadService: UploadService, private categoryService: CategoryService, private idService: IdService) {
+  constructor(private uploadService:UploadService, private idService:IdService) {
   }   
   
   ngOnInit(): void {
-    this.problem.synonym = null;
+    this.problem.synonym = {id :'', value:''};
     this.show = false;    
-    this.hasSynonym = false;        
   }
   
-  source = (text: string) => {
-    let limit = '20';
-
-    return this.uploadService.getClassifierSuggestions(this.problem.mdAttributeId, text, limit);
-  }
-        
-  setSynonym() {  
-    this.hasSynonym = (this.problem.synonym != null && this.problem.synonym.length > 0);            
-  }
-    
   createSynonym(): void {
-    if(this.hasSynonym){      
-      this.uploadService.createClassifierSynonym(this.problem.synonym, this.problem.label)
+    if(this.problem.synonym.id !== ''){      
+      this.uploadService.createTermSynonym(this.problem.synonym.id, this.problem.label)
         .then(response => {
           this.problem.resolved = true;
           this.problem.action = {
@@ -61,7 +47,7 @@ export class CategoryValidationProblemComponent implements OnInit {
   }
   
   createOption(): void {
-    this.categoryService.create(this.problem.label, this.problem.categoryId, false)
+    this.uploadService.createTerm(this.problem.label, this.problem.categoryId)
       .then(response => {
         this.problem.resolved = true;
         this.problem.action = {
@@ -123,25 +109,21 @@ export class CategoryValidationProblemComponent implements OnInit {
         this.onProblemChange.emit(this.problem);
       }
       else if(action.name === 'SYNONYM')  {    	
-        this.uploadService.deleteClassifierSynonym(action.synonymId)
+        this.uploadService.deleteTermSynonym(action.synonymId)
           .then(response => {
           this.problem.resolved = false;
-          this.problem.synonym = null;
+          this.problem.synonym = {id :'', value:''};
           this.problem.action = null;
-          
-          this.hasSynonym = (this.problem.synonym != null);
           
           this.onProblemChange.emit(this.problem);
         });
       }
       else if(action.name === 'OPTION')  {    	
-        this.categoryService.remove(action.optionId)
+        this.uploadService.deleteTerm(action.optionId)
           .then(response => {
             this.problem.resolved = false;
             this.problem.optionId = null;
             this.problem.action = null;
-            
-            this.hasSynonym = (this.problem.synonym != null);
             
             this.onProblemChange.emit(this.problem);
           });

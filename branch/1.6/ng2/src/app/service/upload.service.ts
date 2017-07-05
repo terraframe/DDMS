@@ -9,6 +9,7 @@ import { EventHttpService } from './event-http.service';
 
 import { Pair } from '../model/pair';
 import { Sheet, Workbook, GeoSynonym, ClassifierSynonym, Entity, DatasetResponse } from '../uploader/uploader-model';
+import { Category, BasicCategory } from '../model/category';
 
 declare var acp: any;
 
@@ -168,12 +169,12 @@ export class UploadService extends BasicService {
     .catch(this.handleError.bind(this));    
   }
   
-  createTerm(label: string, parentId: string): Promise<ClassifierSynonym> {
+  createTerm(label: string, parentId: string): Promise<BasicCategory> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });    
     
-    let data = JSON.stringify({parentId: termId, label: label });
+    let data = JSON.stringify({parentId: parentId, label: label });
     
     return this.ehttp
     .post(acp + '/uploader/createTerm', data, {headers: headers})

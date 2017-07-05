@@ -9,13 +9,22 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 
+import dss.vector.solutions.kaleidoscope.ontology.NonUniqueCategoryException;
+import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.ontology.TermSynonymQuery;
 
 public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF, TargetFieldValidationIF, Reloadable
 {
@@ -71,7 +80,7 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
 
       if (!this.isExcluded(exclusions, mdAttributeTerm, value))
       {
-        Term classifier = Term.findByDisplayLabel(value.trim(), mdAttributeTerm);
+        Term classifier = this.findTerm(mdAttributeTerm, value.trim());
 
         if (classifier == null)
         {
@@ -97,4 +106,53 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
 
     return false;
   }
+  
+  private Term findTerm(MdAttributeReferenceDAOIF mdAttributeTerm, String label)
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    BrowserFieldQuery bfQuery = new BrowserFieldQuery(factory);
+    bfQuery.WHERE(bfQuery.getMdAttribute().EQ(mdAttributeTerm.getId()));
+    
+    BrowserRootQuery brQuery = new BrowserRootQuery(factory);
+    brQuery.WHERE(brQuery.getBrowserField().EQ(bfQuery));
+
+    AllPathsQuery aptQuery = new AllPathsQuery(factory);
+    aptQuery.WHERE(aptQuery.getParentTerm().EQ(brQuery.getTerm()));
+
+    TermSynonymQuery synonymQuery = new TermSynonymQuery(factory);
+    synonymQuery.WHERE(synonymQuery.getTermName().EQ(label));
+
+    TermQuery query = new TermQuery(factory);
+    query.AND(query.getId().EQ(aptQuery.getChildTerm().getId()));
+    query.AND(OR.get(query.getTermDisplayLabel().localize().EQ(label), query.synonyms(synonymQuery)));
+
+    OIterator<? extends Term> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        Term entity = iterator.next();
+        
+        if (iterator.hasNext())
+        {
+          NonUniqueCategoryException e = new NonUniqueCategoryException();
+          e.setLabel(label);
+
+          throw e;
+        }
+        
+
+        return entity;
+      }
+
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
 }

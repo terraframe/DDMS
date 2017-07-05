@@ -869,6 +869,10 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       {
         this._browser = new MDSS.OntologyBrowser(false);
       }
+      else if(config.mdAttributeId)
+      {
+        this._browser = new MDSS.OntologyBrowser(false, config.mdAttributeId);
+      }
       else
       {
         this._browser = new MDSS.OntologyBrowser(false, this._attributeClass, this._browserField);

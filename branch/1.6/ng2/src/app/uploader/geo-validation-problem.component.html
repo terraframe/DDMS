@@ -12,8 +12,8 @@
           <input class="synonym" [name]="index + '-name'" type="text" [placeholder]="'dataUploader.synonymSearchPlaceholder' | localize" required autocomplete="off" auto-complete [source]="source" (onDropdownSelect)="setSynonym($event)" />
         </div>
         <div class="inline-actions">
-          <i aria-hidden="true" data-icon="&#xe900;" class="icon-synonym_icon" [ngClass]="{disabled: !hasSynonym}" (click)="createSynonym()" [title]="'dataUploader.createSynonymFromLocationTooltip' | localize" ></i>
-          <i aria-hidden="true" data-icon="&#xe901;" class="icon-new_location_icon" (click)="createEntity()" [title]="'dataUploader.createNewLocationTooltip' | localize" ></i>
+          <i aria-hidden="true" class="fa fa-lg fa-share-alt" [ngClass]="{disabled: !hasSynonym}" (click)="createSynonym()" [title]="'dataUploader.createSynonymFromLocationTooltip' | localize" ></i>
+          <i aria-hidden="true" class="fa fa-lg fa-map-marker" (click)="createEntity()" [title]="'dataUploader.createNewLocationTooltip' | localize" ></i>
           <span class="fa-stack fa-lg" [title]="'dataUploader.ignoreAtLocationTooltip' | localize" (click)="ignoreDataAtLocation()">
             <i class="fa fa-square fa-stack-2x"></i>
             <i class="fa fa-times fa-stack-1x"></i>

@@ -51,7 +51,6 @@ import dss.vector.solutions.kaleidoscope.wrapper.ThematicLayer;
 import dss.vector.solutions.kaleidoscope.wrapper.ThematicStyle;
 import dss.vector.solutions.util.LocalizationFacade;
 
-
 /**
  * Traverses an object graph of map Component objects and creates an SLD document.
  */
@@ -151,11 +150,16 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     {
       AttributeType type = tLayer.getAttributeType();
 
-      if (type.equals(AttributeType.NUMBER))
+      if (type.isNumber())
       {
         DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getNumberInstance(LocalizationFacade.getLocale());
         String pattern = decimalFormat.toPattern();
         DecimalFormatSymbols symbols = decimalFormat.getDecimalFormatSymbols();
+
+        if (type.equals(AttributeType.PERCENT))
+        {
+          pattern = pattern + "%";
+        }
 
         Node format = node(OGC, "Literal").text(pattern).build();
         Node property = this.getBasicPropertyValueNode(tLayer);
@@ -1585,11 +1589,11 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       node("Fill").child(css("fill", color)).build(root);
 
       // vendor options
-//      node("VendorOption").attr("name", "group").text(GeoserverProperties.getLabelGroup()).build(root);
-//      node("VendorOption").attr("name", "conflict-resolution").text(GeoserverProperties.getLabelConflictResolution()).build(root);
-//      node("VendorOption").attr("name", "spaceAround").text(GeoserverProperties.getLabelSpaceAround()).build(root);
-//      node("VendorOption").attr("name", "goodnessOfFit").text(GeoserverProperties.getLabelGoodnessOfFit()).build(root);
-//      node("VendorOption").attr("name", "autoWrap").text(GeoserverProperties.getLabelAutoWrap()).build(root);
+      // node("VendorOption").attr("name", "group").text(GeoserverProperties.getLabelGroup()).build(root);
+      // node("VendorOption").attr("name", "conflict-resolution").text(GeoserverProperties.getLabelConflictResolution()).build(root);
+      // node("VendorOption").attr("name", "spaceAround").text(GeoserverProperties.getLabelSpaceAround()).build(root);
+      // node("VendorOption").attr("name", "goodnessOfFit").text(GeoserverProperties.getLabelGoodnessOfFit()).build(root);
+      // node("VendorOption").attr("name", "autoWrap").text(GeoserverProperties.getLabelAutoWrap()).build(root);
 
       return root;
     }
@@ -1998,7 +2002,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     // If this category is a defined category (i.e. not the other category)
     if (isOtherCat == false)
     {
-      if (attributeType.equals(AttributeType.NUMBER) && catVal != null && catVal.length() > 0)
+      if (attributeType.isNumber() && catVal != null && catVal.length() > 0)
       {
         try
         {
@@ -2071,7 +2075,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     // If this category is a defined category (i.e. not the other category)
     if (isOtherCat == false)
     {
-      if (attributeType.equals(AttributeType.NUMBER) && catVal != null && catVal.length() > 0)
+      if (attributeType.isNumber() && catVal != null && catVal.length() > 0)
       {
         if (catMaxVal != null && catMaxVal.length() > 0)
         {

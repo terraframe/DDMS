@@ -21,6 +21,7 @@ import com.runwaysdk.constants.MdAttributeFloatInfo;
 import com.runwaysdk.constants.MdAttributeIndicatorInfo;
 import com.runwaysdk.constants.MdAttributeIntegerInfo;
 import com.runwaysdk.constants.MdAttributeLongInfo;
+import com.runwaysdk.dataaccess.IndicatorElementDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
@@ -641,8 +642,21 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     else if (mdAttribute instanceof MdAttributeTimeDAOIF)
     {
       return AttributeType.TIME;
-    }
-    else if (mdAttribute instanceof MdAttributeNumberDAOIF || mdAttribute instanceof MdAttributeIndicatorDAOIF)
+    }    
+    else if (mdAttribute instanceof MdAttributeIndicatorDAOIF)
+    {
+      IndicatorElementDAOIF indicator = ( (MdAttributeIndicatorDAOIF) mdAttribute ).getIndicator();
+
+      if(indicator.isPercentage())
+      {        
+        return AttributeType.PERCENT;
+      }
+      else
+      {
+        return AttributeType.NUMBER;
+      }
+    }    
+    else if (mdAttribute instanceof MdAttributeNumberDAOIF)
     {
       return AttributeType.NUMBER;
     }

@@ -4,15 +4,12 @@
       <div class="inline-value">{{problem.attributeLabel}}</div>    
       <div class="inline-value error-message">{{problem.label}}</div>
       <div *ngIf="!problem.resolved">      
-        <div class="inline-combo">
-          <select class="select-area" [(ngModel)]="problem.synonym" (change)="setSynonym()" name="synonym">
-            <option value=""></option>          
-            <option *ngFor="let opt of options" [value]="opt.id">{{opt.label}}</option>
-          </select>
+        <div class="inline-text">
+          <term-field [(model)]="problem.synonym" [attribute]="problem.label + '-category'" [root]="problem.categoryId" [mdAttributeId]="problem.mdAttributeId"></term-field>
         </div>
         <div class="inline-actions">
-          <i aria-hidden="true" data-icon="&#xe900;" class="icon-synonym_icon" (ngClass)="{disabled: !hasSynonym}" (click)="createSynonym()" [title]="'dataUploader.createSynonymCategoryTooltip' | localize" ></i>
-          <i aria-hidden="true" data-icon="&#xe901;" class="icon-new_location_icon" (click)="createOption()" [title]="'dataUploader.createNewOptionTooltip' | localize" ></i>          
+          <i aria-hidden="true" class="fa fa-lg fa-share-alt" (ngClass)="{disabled: (this.problem.synonym.id != '')}" (click)="createSynonym()" [title]="'dataUploader.createSynonymCategoryTooltip' | localize" ></i>
+          <i aria-hidden="true"  class="fa fa-lg fa-map-marker" (click)="createOption()" [title]="'dataUploader.createNewOptionTooltip' | localize" ></i>          
           <span class="fa-stack fa-lg" [title]="'dataUploader.ignoreCategoryTooltip' | localize" (click)="ignoreValue()">
             <i class="fa fa-square fa-stack-2x"></i>
             <i class="fa fa-times fa-stack-1x"></i>

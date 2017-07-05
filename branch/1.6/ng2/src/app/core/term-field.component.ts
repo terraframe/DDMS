@@ -16,20 +16,27 @@ export class TermFieldComponent implements AfterViewInit, OnDestroy {
 
   @Input() attribute:string = "";
   @Input() model:Pair = {id :'', value:''};
+  @Input() root:string = "ROOT";
+  @Input() mdAttributeId:string = "";
+  
   @Output() modelChange = new EventEmitter<Pair>();
 
   constructor(){
   }
   
   ngAfterViewInit():any {
-    var config = {
+    var config:any = {
       attributeName : this.attribute,
       enabled : true,
-      defaultRoot : true
+      defaultRoot : (this.root === 'ROOT')
     };
+    
+    if(this.mdAttributeId !== "") {
+      config.mdAttributeId = this.mdAttributeId;
+    }
   
     this.browser = new MDSS.GenericOntologyBrowser('', [config]);
-    this.browser.addRoot(['ROOT', 'false']);
+    this.browser.addRoot([this.root, 'false']);
     this.browser.addTermSelectedListener((event:any) => {
       this.model.id = event.getTermId();	
       this.model.value = event.getLabel();	
