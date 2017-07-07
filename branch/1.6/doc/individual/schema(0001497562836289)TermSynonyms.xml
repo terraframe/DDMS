@@ -51,7 +51,7 @@
       </mdController>
       
       
-      <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView">
+      <mdView name="dss.vector.solutions.ontology.TermSynonymArrayView" label="Term synonym array view">
         <create>
           <attributes>
             <reference name="term" label="Term" required="false" type="dss.vector.solutions.ontology.Term"/>
@@ -86,7 +86,7 @@
           </object>
       
       
-      <mdView name="dss.vector.solutions.ontology.TermSynonymView">
+      <mdView name="dss.vector.solutions.ontology.TermSynonymView" label="Term synonym view">
         <create>
           <attributes>
             <char name="termSynonymId" required="false" label="TermSynonym Id" size="64" />

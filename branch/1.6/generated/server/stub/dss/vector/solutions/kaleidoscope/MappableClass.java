@@ -22,6 +22,7 @@ import com.runwaysdk.constants.MdAttributeIndicatorInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
 import com.runwaysdk.dataaccess.IndicatorPrimitiveDAO;
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
@@ -569,7 +570,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
         object.put("id", mdAttribute.getId());
         object.put("selected", selected);
         object.put("type", mdAttribute.getMdBusinessDAO().getTypeName());
-        object.put("numeric", ( mdAttribute instanceof MdAttributeNumberDAOIF ));
+        object.put("numeric", ( mdAttribute instanceof MdAttributeNumberDAOIF || mdAttribute instanceof MdAttributeBooleanDAOIF ));
 
         if (mdAttribute instanceof MdAttributeReferenceDAOIF)
         {

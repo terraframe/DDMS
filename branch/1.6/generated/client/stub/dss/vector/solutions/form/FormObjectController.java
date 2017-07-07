@@ -36,6 +36,7 @@ import com.runwaysdk.form.field.FieldIF;
 import com.runwaysdk.form.web.JSONFormVisitor;
 import com.runwaysdk.form.web.JSONWebFieldConstants;
 import com.runwaysdk.form.web.WebFormObject;
+import com.runwaysdk.form.web.field.FieldBuilders;
 import com.runwaysdk.form.web.field.WebAttribute;
 import com.runwaysdk.form.web.field.WebBoolean;
 import com.runwaysdk.form.web.field.WebCharacter;
@@ -76,6 +77,8 @@ import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.generator.GenericGridBuilder;
 import dss.vector.solutions.generator.MdFormUtilDTO;
+import dss.vector.solutions.generator.WebIndicatorPlugin;
+import dss.vector.solutions.generator.WebIndicatorVisitorPlugin;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.ontology.TermViewDTO;
 import dss.vector.solutions.ontology.TermViewQueryDTO;
@@ -670,6 +673,9 @@ public class FormObjectController extends FormObjectControllerBase implements co
   {
     try
     {
+      FieldBuilders.registerPlugin(new WebIndicatorPlugin());
+      JSONFormVisitor.registerPlugin(new WebIndicatorVisitorPlugin());
+      
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
       WebFormObject form = (WebFormObject) WebFormObject.newDisconnectedInstance(mdFormDTO);
 

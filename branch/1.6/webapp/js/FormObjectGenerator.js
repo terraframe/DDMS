@@ -553,7 +553,7 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       
       if(field.isReadable())
       {
-        var skip = this._editMode && (field instanceof FIELD.WebPrimitive) && field.getFieldMd().getIsExpression();
+        var skip = this._editMode && (((field instanceof FIELD.WebPrimitive) && field.getFieldMd().getIsExpression()) || field.getType() === 'dss.vector.solutions.generator.MdWebIndicator');
         
         if(!skip)
         {          
@@ -736,8 +736,9 @@ var FormObjectSearchVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
     },
     _addField : function(formComponent){
       var field = formComponent.getField();
+      var type = field.getType();
       
-      if(field instanceof FIELD.WebAttribute)
+      if(field instanceof FIELD.WebAttribute && type !== 'dss.vector.solutions.generator.MdWebIndicator')
       {        
         var attributeName = field.getFieldMd().getFieldName();
         

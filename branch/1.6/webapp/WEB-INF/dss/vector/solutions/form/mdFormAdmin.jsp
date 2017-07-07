@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.generator.MdWebIndicatorDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
@@ -153,6 +154,9 @@ MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
 MdWebReferenceDTO.CLASS,
+
+// Indicator
+MdWebIndicatorDTO.CLASS,
 
 // Display related
 MdWebBreakDTO.CLASS,

@@ -35,6 +35,7 @@ import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdWebFormInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -87,6 +88,7 @@ import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
@@ -1923,7 +1925,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
       for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
       {
-        if (!mdAttribute.isSystem())
+        if (!mdAttribute.isSystem() && !(mdAttribute instanceof MdAttributeIndicatorDAOIF))
         {
           String attributeName = mdAttribute.definesAttribute();
 
@@ -1980,7 +1982,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
               }
               else
               {
-                Attribute attribute = query.get(attributeName);
+                Selectable attribute = query.getS(attributeName);
                 query.WHERE(attribute.EQ(value));
               }
             }

@@ -29,10 +29,12 @@ import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.AggregationFunctionDTO;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
 import com.runwaysdk.system.metadata.DoubleConditionDTO;
 import com.runwaysdk.system.metadata.FieldConditionDTO;
+import com.runwaysdk.system.metadata.IndicatorAggregateFunctionDTO;
 import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDTO;
@@ -63,6 +65,7 @@ import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
+import dss.vector.solutions.generator.MdWebIndicatorDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
@@ -273,6 +276,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       // grab the appropriate MdField
       Class<?> klass = LoaderDecorator.load(mdFieldType + TypeGeneratorInfo.DTO_SUFFIX);
+      
+      List<MdWebFieldDTO> numerics = new LinkedList<MdWebFieldDTO>();
 
       if (formId != null)
       {
@@ -286,6 +291,11 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
           if (! ( field instanceof MdWebPrimitiveDTO || field instanceof MdWebSingleTermDTO || field instanceof MdWebGeoDTO ))
           {
             it.remove();
+          }
+          
+          if(field instanceof MdWebNumberDTO || field instanceof MdWebBooleanDTO)
+          {
+            numerics.add(field);
           }
         }
 
@@ -310,6 +320,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       else if (dto instanceof MdWebNumberDTO)
       {
         formatRanges((MdWebNumberDTO) dto);
+      }
+      else if (dto instanceof MdWebIndicatorDTO)
+      {
+        List<AggregationFunctionDTO> aggregations = IndicatorAggregateFunctionDTO.allItems(clientRequest);
+        
+        this.req.setAttribute("aggregations", aggregations);
+        this.req.setAttribute("numerics", numerics);
       }
 
       // forward to the namespaced jsp
@@ -436,7 +453,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
-
+      
+      List<MdWebFieldDTO> numerics = new LinkedList<MdWebFieldDTO>();
+      
       if (formId != null)
       {
         MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
@@ -450,6 +469,11 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
           {
             it.remove();
           }
+          
+          if(field instanceof MdWebNumberDTO || field instanceof MdWebBooleanDTO)
+          {
+            numerics.add(field);
+          }          
         }
 
         this.req.setAttribute("fields", fields);
@@ -486,6 +510,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       {
         formatRanges((MdWebNumberDTO) dto);
       }
+      else if (dto instanceof MdWebIndicatorDTO)
+      {
+        List<AggregationFunctionDTO> aggregations = IndicatorAggregateFunctionDTO.allItems(clientRequest);
+        
+        this.req.setAttribute("aggregations", aggregations);
+        this.req.setAttribute("numerics", numerics);
+      }      
 
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
