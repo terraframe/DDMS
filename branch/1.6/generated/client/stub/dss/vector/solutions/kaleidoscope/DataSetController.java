@@ -1,6 +1,7 @@
 package dss.vector.solutions.kaleidoscope;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 
@@ -21,6 +22,11 @@ public class DataSetController extends DataSetControllerBase implements com.runw
 
   public void management() throws IOException, ServletException
   {
+    URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
+    String path = url.toString();
+    
+    this.req.setAttribute("path", path);
+
     this.render("dataset-management.jsp");
   }
 

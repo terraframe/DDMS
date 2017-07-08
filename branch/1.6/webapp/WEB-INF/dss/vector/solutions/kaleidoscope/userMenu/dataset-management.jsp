@@ -19,8 +19,8 @@
   </script>
   
   <!-- IE required polyfills, in this exact order -->
-  <script type="text/javascript" src="<%=request.getContextPath()%>/dist/polyfills.js"></script>  
-  <script type="text/javascript" src="<%=request.getContextPath()%>/dist/vendor.js"></script>  
+  <script type="text/javascript" src="${path}/dist/polyfills.js"></script>  
+  <script type="text/javascript" src="${path}/dist/vendor.js"></script>  
 <!-- 
   <script type="text/javascript" src="http://localhost:8040/dist/polyfills.js"></script>  
   <script type="text/javascript" src="http://localhost:8040/dist/vendor.js"></script>  
@@ -64,7 +64,7 @@
     <!-- TEMP CONTENT WHILE THE PAGE IS LOADING -->
     <mdss:localize key="bootstrap.loading"/>  
   </my-app>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/dist/app.js"></script>  
+  <script type="text/javascript" src="${path}/dist/app.js"></script>  
 <!-- 
   <script type="text/javascript" src="http://localhost:8040/dist/app.js"></script>  
  -->  
