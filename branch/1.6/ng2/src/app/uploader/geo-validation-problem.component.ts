@@ -16,8 +16,6 @@ export class GeoValidationProblemComponent implements OnInit {
   @Input() index: number;
   @Input() workbook: Workbook;
   
-  @Output() onProblemChange = new EventEmitter();
-  
   show: boolean;
   hasSynonym: boolean;
   
@@ -51,9 +49,7 @@ export class GeoValidationProblemComponent implements OnInit {
             synonymId : response.synonymId,
             label : response.label,
             ancestors : response.ancestors            
-          };
-          
-          this.onProblemChange.emit(this.problem);          
+          };          
         });
     }      
   }
@@ -67,8 +63,6 @@ export class GeoValidationProblemComponent implements OnInit {
           name : 'ENTITY',
           entityId : response.entityId
         };
-        
-        this.onProblemChange.emit(this.problem);        
       });
   }
     
@@ -100,8 +94,6 @@ export class GeoValidationProblemComponent implements OnInit {
     else{
       this.workbook.locationExclusions = [exclusion];
     }
-    
-    this.onProblemChange.emit(this.problem);
   }    
 
   undoAction(): void {
@@ -119,8 +111,6 @@ export class GeoValidationProblemComponent implements OnInit {
             this.problem.action = null;
             
             this.hasSynonym = (this.problem.synonym != null);
-            
-            this.onProblemChange.emit(this.problem);
           });
       }
       else if(action.name === 'IGNOREATLOCATION'){
@@ -128,8 +118,6 @@ export class GeoValidationProblemComponent implements OnInit {
         this.problem.action = null;
         
         this.removeLocationExclusion(action.id);
-        
-        this.onProblemChange.emit(this.problem);
       }      
       else if(action.name === 'SYNONYM')  {    	
         this.uploadService.deleteGeoEntitySynonym(action.synonymId)
@@ -139,8 +127,6 @@ export class GeoValidationProblemComponent implements OnInit {
           this.problem.action = null;
           
           this.hasSynonym = (this.problem.synonym != null);        	  
-          
-          this.onProblemChange.emit(this.problem);
         });
       }
         
