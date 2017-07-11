@@ -6,9 +6,9 @@
       <mdBusiness name="dss.vector.solutions.generator.MdWebIndicator" label="Indicator Field" extends="com.runwaysdk.system.metadata.MdWebAttribute" generateController="false">
         <attributes>
           <enumeration name="numeratorAggregation" label="Numerator aggregation" type="com.runwaysdk.system.metadata.IndicatorAggregateFunction" selectMultiple="false" required="true" />
-          <enumeration name="denominatorAggregation" label="Numerator aggregation" type="com.runwaysdk.system.metadata.IndicatorAggregateFunction" selectMultiple="false" required="true" />
-          <reference name="numeratorField" label="Numerator aggregation" type="com.runwaysdk.system.metadata.MdWebAttribute" required="true"/>
-          <reference name="denominatorField" label="Numerator aggregation" type="com.runwaysdk.system.metadata.MdWebAttribute" required="true" />
+          <enumeration name="denominatorAggregation" label="Denominator aggregation" type="com.runwaysdk.system.metadata.IndicatorAggregateFunction" selectMultiple="false" required="true" />
+          <reference name="numeratorField" label="Numerator field" type="com.runwaysdk.system.metadata.MdWebAttribute" required="true"/>
+          <reference name="denominatorField" label="Denominator field" type="com.runwaysdk.system.metadata.MdWebAttribute" required="true" />
           <boolean name="percentage" label="Is percent" defaultValue="false" negativeLabel="No" positiveLabel="Yes" />
         </attributes>
       </mdBusiness>      

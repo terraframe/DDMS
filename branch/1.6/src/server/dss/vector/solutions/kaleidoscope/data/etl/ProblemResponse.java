@@ -2,24 +2,22 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebForm;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.kaleidoscope.MappableClass;
-import dss.vector.solutions.ontology.Term;
 
 public class ProblemResponse implements ImportResponseIF, Reloadable
 {
@@ -94,50 +92,28 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
 
   private JSONObject getProblemsJSON() throws JSONException
   {
-    Map<String, List<JSONObject>> map = new HashMap<String, List<JSONObject>>();
-    map.put(LocationProblem.TYPE, new LinkedList<JSONObject>());
-    map.put(CategoryProblem.TYPE, new LinkedList<JSONObject>());
+    Map<String, JSONArray> map = new HashMap<String, JSONArray>();
+    map.put(LocationProblem.TYPE, new JSONArray());
+    map.put(CategoryProblem.TYPE, new JSONArray());
 
     JSONObject options = new JSONObject();
 
     for (ImportProblemIF problem : this.problems)
     {
-      map.putIfAbsent(problem.getType(), new LinkedList<JSONObject>());
+      map.putIfAbsent(problem.getType(), new JSONArray());
 
-      map.get(problem.getType()).add(problem.toJSON());
-
-      if (problem instanceof CategoryProblem)
-      {
-        CategoryProblem cProblem = (CategoryProblem) problem;
-
-        /*
-         * Load all of the options for this attribute
-         */
-        if (!options.has(cProblem.getMdAttributeId()))
-        {
-          // Serialized JSON array of all the classifier options for this mdAttribute
-          JSONArray array = new JSONArray();
-
-          MdAttributeReferenceDAOIF mdAttributeTerm = MdAttributeReferenceDAO.get(cProblem.getMdAttributeId());
-          Term[] children = Term.getRootChildren(mdAttributeTerm, true);
-
-          for (Term child : children)
-          {
-            JSONObject option = new JSONObject();
-            option.put("label", child.getTermDisplayLabel().getValue());
-            option.put("id", child.getId());
-
-            array.put(option);
-          }
-
-          options.put(cProblem.getMdAttributeId(), array);
-        }
-
-      }
+      map.get(problem.getType()).put(problem.toJSON());
     }
 
-    JSONObject object = new JSONObject(map);
+    JSONObject object = new JSONObject();
     object.put("options", options);
+
+    Set<Entry<String, JSONArray>> entries = map.entrySet();
+
+    for (Entry<String, JSONArray> entry : entries)
+    {
+      object.put(entry.getKey(), entry.getValue());
+    }
 
     return object;
   }

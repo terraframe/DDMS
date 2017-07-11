@@ -33,6 +33,7 @@ import com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeFloatDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -424,6 +425,19 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
         mdAttribute.apply();
 
+        definition.addAttribute(mdAttribute);
+      }
+      else if (mdAttributeIF instanceof MdAttributeIndicatorDAOIF)
+      {
+        MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
+        mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
+        mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+        mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
+        mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
+        mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
+        mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
+        mdAttribute.apply();
+        
         definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeFloatDAOIF)
