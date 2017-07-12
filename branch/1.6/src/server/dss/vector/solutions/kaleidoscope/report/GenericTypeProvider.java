@@ -10,6 +10,7 @@ import com.runwaysdk.constants.MdClassInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLocalDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -178,6 +179,10 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
             label.setUserDefinedAlias(attributeName);
 
             vQuery.SELECT(label);
+          }
+          else if (mdAttributeConcrete instanceof MdAttributeIndicatorDAOIF)
+          {
+            // Indicators are not supported
           }
           else if (mdAttributeConcrete instanceof MdAttributeEnumerationDAOIF)
           {
