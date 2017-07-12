@@ -484,6 +484,40 @@ h4.location-summary-sub-table-heading{
 	cursor: default;
 }
 
+
+.fa.fa-lg.fa-map-marker{
+  font-size: 30px;
+  color: #bababa;
+  line-height: 100%;
+}
+.fa.fa-lg.fa-map-marker:hover{
+  color:#00bfff;
+  cursor: pointer;
+}
+.fa.fa-lg.fa-map-marker.disabled{
+  color:#ddd;
+}
+.fa.fa-lg.fa-map-marker.disabled:hover{
+  cursor: default;
+}
+
+
+.fa.fa-lg.fa-share-alt{
+  font-size: 30px;
+  color: #bababa;
+  line-height: 100%;
+}
+.fa.fa-lg.fa-share-alt:hover{
+	color:#00bfff;
+  cursor: pointer;
+}
+.fa.fa-lg.fa-share-alt.disabled{
+	color:#ddd;
+}
+.fa.fa-lg.fa-share-alt.disabled:hover{
+	cursor: default;
+}
+
 .icon-new_location_icon{
 	font-size: 30px;
 	color: #bababa;
