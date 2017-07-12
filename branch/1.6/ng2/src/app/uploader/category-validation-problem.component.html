@@ -8,7 +8,7 @@
           <term-field [(model)]="problem.synonym" [attribute]="problem.label + '-category'" [root]="problem.categoryId" [mdAttributeId]="problem.mdAttributeId"></term-field>
         </div>
         <div class="inline-actions">
-          <i aria-hidden="true" class="fa fa-lg fa-share-alt" (ngClass)="{disabled: (this.problem.synonym.id != '')}" (click)="createSynonym()" [title]="'dataUploader.createSynonymCategoryTooltip' | localize" ></i>
+          <i aria-hidden="true" class="fa fa-lg fa-share-alt" [ngClass]="{'disabled':problem.synonym.id === ''}" (click)="createSynonym()" [title]="'dataUploader.createSynonymCategoryTooltip' | localize" ></i>
           <i aria-hidden="true"  class="fa fa-lg fa-map-marker" (click)="createOption()" [title]="'dataUploader.createNewOptionTooltip' | localize" ></i>          
           <span class="fa-stack fa-lg" [title]="'dataUploader.ignoreCategoryTooltip' | localize" (click)="ignoreValue()">
             <i class="fa fa-square fa-stack-2x"></i>

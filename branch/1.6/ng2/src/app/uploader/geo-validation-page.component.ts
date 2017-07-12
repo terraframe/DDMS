@@ -14,8 +14,7 @@ export class GeoValidationPageComponent {
   @Input() page: Page;
   @Input() problems: Problems;
   
-  constructor() {
-  }  
+  constructor() {}  
 
   hasProblems(): boolean {
     if(this.problems.locations != null) {      
