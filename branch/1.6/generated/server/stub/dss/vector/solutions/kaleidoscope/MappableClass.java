@@ -883,7 +883,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
           JSONObject indicator = indicators.getJSONObject(i);
           String displayLabel = indicator.getString("label");
           String name = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
-          String percentage = indicator.getString("percentage");
+          String percentage = indicator.has("percentage") ? indicator.getString("percentage") : "false";
 
           IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"));
           left.apply();
