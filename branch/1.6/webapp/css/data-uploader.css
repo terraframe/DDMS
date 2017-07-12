@@ -602,3 +602,7 @@ h4.location-summary-sub-table-heading{
 .inline-value.error-message{
 	text-align: left;
 }
+
+.yui-panel-container{
+	position: fixed;
+}
