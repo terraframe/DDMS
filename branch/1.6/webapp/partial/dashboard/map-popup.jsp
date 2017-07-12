@@ -8,9 +8,9 @@
 	    <table class="table">
 	      <thead class="popup-table-heading">
 	        <tr>
-	          <th><mdss:localize key="net.geoprism.gis.DynamicMap.location"/></th>  
-	          <th><mdss:localize key="net.geoprism.gis.DynamicMap.aggregationMethod"/></th> 
-	          <th><mdss:localize key="net.geoprism.gis.DynamicMap.aggregateValue"/></th> 
+	          <th><mdss:localize key="dss.vector.solutions.kaleidoscope.gis.OpenLayersMap.location"/></th>  
+	          <th><mdss:localize key="dss.vector.solutions.kaleidoscope.gis.OpenLayersMap.aggregationMethod"/></th> 
+	          <th><mdss:localize key="dss.vector.solutions.kaleidoscope.gis.OpenLayersMap.aggregateValue"/></th> 
 	        </tr>  
 	      </thead>
 	      <tbody>  
@@ -21,14 +21,14 @@
 	        </tr>
 	        <tr ng-if="ctrl.canEditData()"> 
 	          <td colspan="3">
-	            <a href="#" ng-click="ctrl.editData()" class="edit-feature"><mdss:localize key="net.geoprism.gis.DynamicMap.editFeature"/></a>
+	            <a href="#" ng-click="ctrl.editData()" class="edit-feature"><mdss:localize key="dss.vector.solutions.kaleidoscope.gis.OpenLayersMap.editFeature"/></a>
 	          </td>  
 	        </tr>
 	      </tbody>
 	    </table>
     </div>
     <div>
-      <a href="#" ng-click="ctrl.zoomToFeatureExtent()"><mdss:localize key="net.geoprism.gis.DynamicMap.zoomToFeatureBtnLabel"/></a>
+      <a href="#" ng-click="ctrl.zoomToFeatureExtent()"><mdss:localize key="dss.vector.solutions.kaleidoscope.gis.OpenLayersMap.zoomToFeatureBtnLabel"/></a>
     </div>
     <div ng-if="feature.featureGeom.type != 'Point'">
       <a href="#" ng-click="ctrl.getDrillUniversal()"><mdss:localize key="net.geoprism.gis.DynamicMap.drilldown"/></a>    
