@@ -225,10 +225,8 @@ h4.location-summary-sub-table-heading{
 .modal-form input[type="checkbox"]:checked:after {
   content: '\2714';
   font-size: 20px;
-  position: absolute;
-  bottom: -2px;
-  left: 3px;
   color: white;
+      line-height: 98%;
 }
 
 .modal-form input[type="text"]:focus {
