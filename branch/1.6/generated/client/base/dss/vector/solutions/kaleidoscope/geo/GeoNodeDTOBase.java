@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -481671531)
+@com.runwaysdk.business.ClassSignature(hash = -850033030)
 public abstract class GeoNodeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.geo.GeoNode";
-  private static final long serialVersionUID = -481671531;
+  private static final long serialVersionUID = -850033030;
   
   protected GeoNodeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -39,6 +39,7 @@ public abstract class GeoNodeDTOBase extends com.runwaysdk.business.BusinessDTO 
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SUFFIX = "suffix";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
@@ -433,6 +434,43 @@ public abstract class GeoNodeDTOBase extends com.runwaysdk.business.BusinessDTO 
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public String getSuffix()
+  {
+    return getValue(SUFFIX);
+  }
+  
+  public void setSuffix(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUFFIX, "");
+    }
+    else
+    {
+      setValue(SUFFIX, value);
+    }
+  }
+  
+  public boolean isSuffixWritable()
+  {
+    return isWritable(SUFFIX);
+  }
+  
+  public boolean isSuffixReadable()
+  {
+    return isReadable(SUFFIX);
+  }
+  
+  public boolean isSuffixModified()
+  {
+    return isModified(SUFFIX);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSuffixMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUFFIX).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")

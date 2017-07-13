@@ -78,6 +78,7 @@ import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.generator.GenericGridBuilder;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.generator.WebIndicatorPlugin;
+import dss.vector.solutions.generator.WebIndicatorPlugin.WebIndicator;
 import dss.vector.solutions.generator.WebIndicatorVisitorPlugin;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.ontology.TermViewDTO;
@@ -589,6 +590,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           {
             problems.add(new DecimalParseProblemDTO(dto, attributeMdDTO, locale, value));
           }
+        }
+        else if (field instanceof WebIndicator)
+        {
+          // Do not update indicator values
         }
         else
         {

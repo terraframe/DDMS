@@ -305,6 +305,11 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
         String nodeType = geoNode.getType();
         String nodeLabel = geoNode.getDisplayLabelAttribute().getDisplayLabel().getValue();
 
+        if (geoNode.getSuffix() != null && geoNode.getSuffix().length() > 0)
+        {
+          nodeLabel += " (" + geoNode.getSuffix() + ")";
+        }
+
         List<AggregationStrategyView> strategies = Arrays.asList(AggregationStrategyView.getAggregationStrategies(geoNode, aggregatable));
 
         if (strategies.size() > 0)
@@ -642,20 +647,20 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     else if (mdAttribute instanceof MdAttributeTimeDAOIF)
     {
       return AttributeType.TIME;
-    }    
+    }
     else if (mdAttribute instanceof MdAttributeIndicatorDAOIF)
     {
       IndicatorElementDAOIF indicator = ( (MdAttributeIndicatorDAOIF) mdAttribute ).getIndicator();
 
-      if(indicator.isPercentage())
-      {        
+      if (indicator.isPercentage())
+      {
         return AttributeType.PERCENT;
       }
       else
       {
         return AttributeType.NUMBER;
       }
-    }    
+    }
     else if (mdAttribute instanceof MdAttributeNumberDAOIF)
     {
       return AttributeType.NUMBER;

@@ -75,7 +75,6 @@ import dss.vector.solutions.kaleidoscope.dashboard.query.GeoEntityThematicQueryB
 import dss.vector.solutions.kaleidoscope.dashboard.query.GeometryThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
-import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeQuery;
 import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReport;
 import dss.vector.solutions.kaleidoscope.report.KaleidoscopeReportQuery;
@@ -828,31 +827,38 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
   public String getGeoNodesJSON(MdAttribute thematicAttribute, Boolean aggregatable)
   {
-    JSONArray nodesArr = new JSONArray();
-    GeoNode[] nodes = this.getGeoNodes(thematicAttribute);
-    for (GeoNode node : nodes)
+    try
     {
-      try
+      JSONArray nodesArr = new JSONArray();
+      GeoNode[] nodes = this.getGeoNodes(thematicAttribute);
+      for (GeoNode node : nodes)
       {
+        String nodeLabel = node.getGeoEntityAttribute().getDisplayLabel().getValue();
+
+        if (node.getSuffix() != null && node.getSuffix().length() > 0)
+        {
+          nodeLabel += " (" + node.getSuffix() + ")";
+        }
+
         JSONObject nodeJSON = new JSONObject();
         nodeJSON.put("id", node.getId());
         nodeJSON.put("type", node.getType());
-        nodeJSON.put("displayLabel", node.getGeoEntityAttribute().getDisplayLabel());
+        nodeJSON.put("displayLabel", nodeLabel);
         nodesArr.put(nodeJSON);
       }
-      catch (JSONException e)
+
+      if (nodesArr.length() == 0)
       {
-        String error = "Could not build GeoNode JSON.";
-        throw new ProgrammingErrorException(error, e);
+        throw new UnsupportedAggregationException();
       }
-    }
 
-    if (nodesArr.length() == 0)
+      return nodesArr.toString();
+    }
+    catch (JSONException e)
     {
-      throw new UnsupportedAggregationException();
+      String error = "Could not build GeoNode JSON.";
+      throw new ProgrammingErrorException(error, e);
     }
-
-    return nodesArr.toString();
   }
 
   public GeoNode[] getGeoNodes(MdAttributeDAOIF thematicAttribute)

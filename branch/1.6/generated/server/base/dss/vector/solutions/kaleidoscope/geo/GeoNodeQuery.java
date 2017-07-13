@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1872689588)
+@com.runwaysdk.business.ClassSignature(hash = -140897885)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -278,6 +278,23 @@ public  class GeoNodeQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SITEMASTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getSuffix()
+  {
+    return getSuffix(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -514,6 +531,9 @@ public  class GeoNodeQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSuffix();
+    public com.runwaysdk.query.SelectableChar getSuffix(String alias);
+    public com.runwaysdk.query.SelectableChar getSuffix(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -780,6 +800,23 @@ public  class GeoNodeQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SITEMASTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getSuffix()
+  {
+    return getSuffix(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -993,6 +1030,9 @@ public  class GeoNodeQuery extends com.runwaysdk.query.GeneratedBusinessQuery
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getSuffix();
+    public com.runwaysdk.query.SelectableChar getSuffix(String alias);
+    public com.runwaysdk.query.SelectableChar getSuffix(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1282,6 +1322,23 @@ public  class GeoNodeQuery extends com.runwaysdk.query.GeneratedBusinessQuery
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getSuffix()
+  {
+    return getSuffix(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getSuffix(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.geo.GeoNode.SUFFIX, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()

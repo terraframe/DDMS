@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -304618219)
+@com.runwaysdk.business.ClassSignature(hash = -1190545414)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,8 +23,9 @@ public abstract class GeoNodeBase extends com.runwaysdk.business.Business implem
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SUFFIX = "suffix";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -304618219;
+  private static final long serialVersionUID = -1190545414;
   
   public GeoNodeBase()
   {
@@ -341,6 +342,34 @@ public abstract class GeoNodeBase extends com.runwaysdk.business.Business implem
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.geo.GeoNode.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SITEMASTER);
+  }
+  
+  public String getSuffix()
+  {
+    return getValue(SUFFIX);
+  }
+  
+  public void validateSuffix()
+  {
+    this.validateAttribute(SUFFIX);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getSuffixMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.geo.GeoNode.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(SUFFIX);
+  }
+  
+  public void setSuffix(String value)
+  {
+    if(value == null)
+    {
+      setValue(SUFFIX, "");
+    }
+    else
+    {
+      setValue(SUFFIX, value);
+    }
   }
   
   public String getType()

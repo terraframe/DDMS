@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -817306210)
+@com.runwaysdk.business.ClassSignature(hash = 705197201)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.kaleidoscope.geo;
 public class GeoNodeQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -817306210;
+private static final long serialVersionUID = 705197201;
 
   protected GeoNodeQueryDTO(String type)
   {

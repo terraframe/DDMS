@@ -333,6 +333,7 @@ public class MdTableBuilder implements Reloadable
             GeoNodeEntity node = new GeoNodeEntity();
             node.setKeyName(mdAttribute.getKey());
             node.setGeoEntityAttribute(MdAttributeReference.get(mdAttribute.getId()));
+            node.setSuffix(hierarchy.getDisplayLabel());
             node.apply();
 
             definition.addNode(node);
