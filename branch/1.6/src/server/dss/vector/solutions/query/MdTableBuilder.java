@@ -658,7 +658,8 @@ public class MdTableBuilder implements Reloadable
 
     MappableClass mClass = MappableClass.getMappableClass(mdTableDAO);
 
-    GeoHierarchy lowest = mClass.getAllUniversal().getAll().get(0);
+    List<? extends GeoHierarchy> all = mClass.getAllUniversal().getAll();
+    GeoHierarchy lowest = all.size() > 0 ? all.get(0) : null;
 
     ClassDefinition definition = this.defineMdAttributes(mdTableDAO, disease, lowest, filtered);
 

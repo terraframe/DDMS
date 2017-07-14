@@ -215,12 +215,32 @@
     
     controller.setDashboardState = function(state, initialRender) {
       $timeout(function() {
+    	  
+        // Calculate the location of the saved arrow and scale to the screen window
+        var $el = $('#mapDivId');              
+        var mapWidth = $el.outerWidth(true);
+        var mapHeight = $el.outerHeight(true);
+    	  
+        if(state.scaleXPosition !== undefined && state.scaleXPosition !== 0) {
+          state.scaleXPosition = Math.floor(state.scaleXPosition / state.savedWidth * mapWidth);
+          state.scaleYPosition = Math.floor(state.scaleYPosition / state.savedHeight * mapHeight);          
+        }
+
+        if(state.arrowXPosition !== undefined && state.arrowXPosition !== 0) {
+          state.arrowXPosition = Math.floor(state.arrowXPosition / state.savedWidth * mapWidth);
+          state.arrowYPosition = Math.floor(state.arrowYPosition / state.savedHeight * mapHeight);          
+        }
+        
+        // Update the saved width and height incase the state is saved      
+        state.savedWidth = mapWidth;
+        state.savedHeight = mapHeight;
+    	      	  
         controller.model = state;
         controller.renderBase = true;
         
         // overwrite title with dashboard name
         document.title = state.label;
-
+        
         // Initialize the default base map
         var layerSourceType = controller.model.activeBaseMap["LAYER_SOURCE_TYPE"];
             
@@ -760,11 +780,7 @@
     
     controller.setScale = function(position) {
       controller.model.scaleYPosition = position.top;
-      controller.model.scaleXPosition = position.left;
-      
-      var $el = $('#mapDivId');              
-      controller.model.savedWidth = $el.outerWidth(true);
-  	  controller.model.savedHeight = $el.outerHeight(true);
+      controller.model.scaleXPosition = position.left;      
     }
     
     controller.toggleScale = function(position) {
@@ -785,10 +801,6 @@
     controller.setArrow = function(position) {
       controller.model.arrowYPosition = position.top;
       controller.model.arrowXPosition = position.left;
-      
-      var $el = $('#mapDivId');              
-      controller.model.savedWidth = $el.outerWidth(true);
-  	  controller.model.savedHeight = $el.outerHeight(true);      
     }
     
     controller.toggleArrow = function(position) {
