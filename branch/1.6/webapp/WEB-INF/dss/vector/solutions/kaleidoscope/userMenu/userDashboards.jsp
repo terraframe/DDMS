@@ -53,8 +53,27 @@
   div.pageContent {
 	padding: 13px 25px 0 25px;
 /* 	height: 80%; */
-  height: calc(100% - 163px);
+  height: calc(100% - 210px);
 	overflow-y: auto;
+  }
+  
+  .pageFooter {
+     color: white;
+  }
+  
+  h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .dashboard-thumnail-ico-ctrl {
+    font-size: 18px !important;
+  }
+  
+  .pageTitle {
+    margin-top: 15px;
+    text-align: center;
   }
 
   .ng-modal-dialog {
