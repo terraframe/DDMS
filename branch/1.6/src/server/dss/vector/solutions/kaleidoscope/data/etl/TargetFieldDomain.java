@@ -37,7 +37,7 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
     {
       MdAttributeReferenceDAOIF mdAttributeTerm = (MdAttributeReferenceDAOIF) mdAttribute;
 
-      Term classifier = Term.findByDisplayLabel(value, mdAttributeTerm);
+      Term classifier = this.findTerm(mdAttributeTerm, value);
 
       if (classifier == null)
       {
