@@ -47,7 +47,7 @@ var MapConfig ={
      		"TYPE":"ScaleLine",
      		"CLASSNAME":"ol-scale-line", 
         	"TARGET":"scale-line",
-        	"UNITS":"us"
+        	"UNITS":"metric"
      	}
      ],
      "_BASEMAPS":[
