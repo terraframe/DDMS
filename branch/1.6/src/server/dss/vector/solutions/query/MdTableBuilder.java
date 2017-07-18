@@ -438,7 +438,7 @@ public class MdTableBuilder implements Reloadable
         mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
         mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
         mdAttribute.apply();
-        
+
         definition.addAttribute(mdAttribute);
       }
       else if (mdAttributeIF instanceof MdAttributeFloatDAOIF)
@@ -677,14 +677,21 @@ public class MdTableBuilder implements Reloadable
       mAttribute.apply();
     }
 
-    if (nLowest != null && !nLowest.getId().equals(lowest.getId()))
+    if (nLowest != null)
     {
-      /*
-       * A new universal has been added lower down in the hierarchy
-       */
-      mClass.getUniversalRel(lowest).getAll().get(0).delete();
+      if (lowest == null)
+      {
+        mClass.addUniversal(nLowest).apply();
+      }
+      else if (!nLowest.getId().equals(lowest.getId()))
+      {
+        /*
+         * A new universal has been added lower down in the hierarchy
+         */
+        mClass.getUniversalRel(lowest).getAll().get(0).delete();
 
-      mClass.addUniversal(nLowest).apply();
+        mClass.addUniversal(nLowest).apply();
+      }
     }
 
     for (GeoNode node : nodes)

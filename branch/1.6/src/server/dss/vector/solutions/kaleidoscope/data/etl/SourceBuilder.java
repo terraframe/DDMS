@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.EntityInfo;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdAttributeTextInfo;
@@ -12,6 +13,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
+import com.runwaysdk.dataaccess.metadata.ReservedWords;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdViewQuery;
@@ -38,7 +40,7 @@ public class SourceBuilder implements Reloadable
     {
       JSONArray cSheets = configuration.getJSONArray("sheets");
 
-//      for (int i = 0; i < cSheets.length(); i++)
+      // for (int i = 0; i < cSheets.length(); i++)
       {
         JSONObject sheet = cSheets.getJSONObject(0);
 
@@ -134,6 +136,11 @@ public class SourceBuilder implements Reloadable
   private String generateAttributeName(String label, String suffix)
   {
     String name = GeoHierarchy.getSystemName(label, suffix, false);
+
+    if (name.equalsIgnoreCase(EntityInfo.ID) || name.equalsIgnoreCase(EntityInfo.KEY))
+    {
+      name += suffix;
+    }
 
     return name;
   }

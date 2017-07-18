@@ -2181,7 +2181,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       {
         systemName += suffix;
       }
-
+      
       if (!isClassName)
         systemName = systemName.substring(0, 1).toLowerCase() + systemName.substring(1);
     }

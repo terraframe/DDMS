@@ -80,7 +80,10 @@ public abstract class WebFieldBuilder implements Reloadable
         p.throwIt();
       }
 
-      convertDisplayLabelToFieldName(mdField);
+      if (mdField.getFieldName() == null || mdField.getFieldName().length() == 0)
+      {
+        convertDisplayLabelToFieldName(mdField);
+      }
     }
   }
 
@@ -93,8 +96,7 @@ public abstract class WebFieldBuilder implements Reloadable
   }
 
   /**
-   * Builds a new MdAttributeDAO based on the MdField type. Subclasses should
-   * override and call this method to set attribute specific information.
+   * Builds a new MdAttributeDAO based on the MdField type. Subclasses should override and call this method to set attribute specific information.
    * 
    * @param mdClassId
    * 
