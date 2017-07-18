@@ -28,6 +28,8 @@ import dss.vector.solutions.ontology.TermSynonymQuery;
 
 public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF, TargetFieldValidationIF, Reloadable
 {
+  private MdAttributeReferenceDAOIF mdAttribute;
+
   @Override
   public FieldValue getValue(MdAttributeConcreteDAOIF mdAttribute, Transient source)
   {
@@ -73,10 +75,8 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
     if (value != null && value.length() > 0)
     {
       Map<String, Set<String>> exclusions = (Map<String, Set<String>>) parameters.get("categoryExclusions");
-      
-      MdWebAttribute mdField = MdWebAttribute.getByKey(this.getKey());
 
-      MdAttributeReferenceDAOIF mdAttributeTerm = (MdAttributeReferenceDAOIF) MdAttributeDAO.get(mdField.getDefiningMdAttributeId());
+      MdAttributeReferenceDAOIF mdAttributeTerm = this.getMdAttribute();
 
       if (!this.isExcluded(exclusions, mdAttributeTerm, value))
       {
@@ -95,6 +95,18 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
     return null;
   }
 
+  private MdAttributeReferenceDAOIF getMdAttribute()
+  {
+    if (this.mdAttribute == null)
+    {
+      MdWebAttribute mdField = MdWebAttribute.getByKey(this.getKey());
+
+      this.mdAttribute = (MdAttributeReferenceDAOIF) MdAttributeDAO.get(mdField.getDefiningMdAttributeId());
+    }
+
+    return this.mdAttribute;
+  }
+
   private boolean isExcluded(Map<String, Set<String>> exclusions, MdAttributeReferenceDAOIF mdAttributeTerm, String label)
   {
     if (exclusions.containsKey(mdAttributeTerm.getId()))
@@ -106,14 +118,14 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
 
     return false;
   }
-  
+
   private Term findTerm(MdAttributeReferenceDAOIF mdAttributeTerm, String label)
   {
     QueryFactory factory = new QueryFactory();
-    
+
     BrowserFieldQuery bfQuery = new BrowserFieldQuery(factory);
     bfQuery.WHERE(bfQuery.getMdAttribute().EQ(mdAttributeTerm.getId()));
-    
+
     BrowserRootQuery brQuery = new BrowserRootQuery(factory);
     brQuery.WHERE(brQuery.getBrowserField().EQ(bfQuery));
 
@@ -134,7 +146,7 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
       if (iterator.hasNext())
       {
         Term entity = iterator.next();
-        
+
         if (iterator.hasNext())
         {
           NonUniqueCategoryException e = new NonUniqueCategoryException();
@@ -142,7 +154,6 @@ public class TargetFieldDomain extends TargetFieldBasic implements TargetFieldIF
 
           throw e;
         }
-        
 
         return entity;
       }

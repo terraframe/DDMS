@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 
 public class ImportValidator implements ConverterIF, Reloadable
 {
@@ -49,18 +50,20 @@ public class ImportValidator implements ConverterIF, Reloadable
     }
   }
 
-  private TargetContextIF               context;
+  private TargetContextIF                       context;
 
-  private Set<ImportProblemIF>          problems;
+  private Set<ImportProblemIF>                  problems;
 
-  private Map<String, DecimalAttribute> attributes;
+  private Map<String, DecimalAttribute>         attributes;
+
+  private Map<String, MdAttributeConcreteDAOIF> mdAttributes;
 
   public ImportValidator(TargetContextIF context)
   {
     this.context = context;
     this.problems = new TreeSet<ImportProblemIF>();
     this.attributes = new HashMap<String, DecimalAttribute>();
-
+    this.mdAttributes = new HashMap<String, MdAttributeConcreteDAOIF>();
   }
 
   @Override
@@ -87,7 +90,7 @@ public class ImportValidator implements ConverterIF, Reloadable
       }
       else if (field instanceof TargetFieldBasic)
       {
-        MdAttributeConcreteDAOIF mdAttribute = MdAttributeConcreteDAO.getByKey(field.getKey());
+        MdAttributeConcreteDAOIF mdAttribute = this.getMdAttribute(field);
 
         if (mdAttribute instanceof MdAttributeDecDAOIF)
         {
@@ -121,6 +124,22 @@ public class ImportValidator implements ConverterIF, Reloadable
         }
       }
     }
+  }
+
+  private MdAttributeConcreteDAOIF getMdAttribute(TargetFieldIF field)
+  {
+    String key = field.getKey();
+
+    if (!this.mdAttributes.containsKey(key))
+    {
+      MdWebAttribute mdField = MdWebAttribute.getByKey(key);
+
+      MdAttributeConcreteDAOIF mdAttribute = MdAttributeConcreteDAO.get(mdField.getDefiningMdAttributeId());
+
+      this.mdAttributes.put(key, mdAttribute);
+    }
+
+    return this.mdAttributes.get(key);
   }
 
   public Map<String, DecimalAttribute> getAttributes()

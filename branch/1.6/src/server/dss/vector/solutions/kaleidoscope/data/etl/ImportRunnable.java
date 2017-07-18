@@ -53,9 +53,9 @@ public class ImportRunnable implements Reloadable
     }
   }
 
-  private String            configuration;
+  private String configuration;
 
-  private File              file;
+  private File   file;
 
   public ImportRunnable(String configuration, File file)
   {
@@ -68,7 +68,7 @@ public class ImportRunnable implements Reloadable
     try
     {
       Disease current = Disease.getCurrent();
-      
+
       /*
        * First create the data types from the configuration
        */
@@ -142,18 +142,22 @@ public class ImportRunnable implements Reloadable
       DecimalAttribute attribute = entry.getValue();
 
       int scale = attribute.getScale();
-      int total = attribute.getPrecision() + scale;
+      int precision = attribute.getPrecision();
 
       MdAttributeDecDAOIF mdAttributeIF = (MdAttributeDecDAOIF) MdAttributeDecDAO.get(mdAttributeId);
 
-      Integer length = new Integer(mdAttributeIF.getLength());
-      Integer decimal = new Integer(mdAttributeIF.getDecimal());
+      int eLength = new Integer(mdAttributeIF.getLength()).intValue();
+      int eScale = new Integer(mdAttributeIF.getDecimal()).intValue();
+      int ePrecision = eLength - eScale;
 
-      if (total > length || scale > decimal)
+      if (precision > ePrecision || scale > eScale)
       {
+        int nLength = Math.max(Math.max(precision + scale, precision + eScale), Math.max(ePrecision + scale, ePrecision + eScale));
+        int nScale = Math.max(scale, eScale);
+
         MdAttributeDecDAO mdAttribute = (MdAttributeDecDAO) mdAttributeIF.getBusinessDAO();
-        mdAttribute.setValue(MdAttributeDecInfo.LENGTH, new Integer(total).toString());
-        mdAttribute.setValue(MdAttributeDecInfo.DECIMAL, new Integer(scale).toString());
+        mdAttribute.setValue(MdAttributeDecInfo.LENGTH, new Integer(nLength).toString());
+        mdAttribute.setValue(MdAttributeDecInfo.DECIMAL, new Integer(nScale).toString());
         mdAttribute.apply();
       }
     }
