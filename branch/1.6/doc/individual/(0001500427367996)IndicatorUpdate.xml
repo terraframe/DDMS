@@ -1,0 +1,33 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.MappableClass">
+        <create>
+          <mdMethod name="addIndicator" label="Add indicator" returnType="java.lang.String" static="true">
+            <mdParameter name="datasetId" label="Dataset Id" order="0" type="java.lang.String"/>
+            <mdParameter name="indicator" label="Indicator" order="1" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>      
+      
+      <mdController name="dss.vector.solutions.kaleidoscope.DataSetController">
+        <create>
+          <mdAction name="addIndicator" label="Add indicator" isPost="true">
+            <mdParameter name="datasetId" label="Dataset Id" order="0" type="java.lang.String"/>
+            <mdParameter name="indicator" label="Indicator" order="1" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+    <permissions>
+      <method methodName="addIndicator" type="dss.vector.solutions.kaleidoscope.MappableClass">
+        <assignedRole roleName="Administrator"/>
+      </method>    
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

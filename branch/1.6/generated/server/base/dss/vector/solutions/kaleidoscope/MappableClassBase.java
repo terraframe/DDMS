@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -1168659798)
+@com.runwaysdk.business.ClassSignature(hash = -674808264)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WRAPPEDMDCLASS = "wrappedMdClass";
-  private static final long serialVersionUID = -1168659798;
+  private static final long serialVersionUID = -674808264;
   
   public MappableClassBase()
   {
@@ -534,6 +534,12 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static MappableClass getByKey(String key)
   {
     return (MappableClass) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.String addIndicator(java.lang.String datasetId, java.lang.String indicator)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.MappableClass.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static void applyDatasetUpdate(java.lang.String dataset)

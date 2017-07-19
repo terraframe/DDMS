@@ -24,7 +24,7 @@ public class DataSetController extends DataSetControllerBase implements com.runw
   {
     URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
     String path = url.toString();
-    
+
     this.req.setAttribute("path", path);
 
     this.render("dataset-management.jsp");
@@ -129,6 +129,23 @@ public class DataSetController extends DataSetControllerBase implements com.runw
       MappableClassDTO.unlock(request, id);
 
       JSONControllerUtil.writeReponse(this.resp);
+    }
+    catch (Throwable t)
+    {
+      JSONControllerUtil.handleException(this.resp, t, this.getClientRequest());
+    }
+  }
+
+  @Override
+  public void addIndicator(String datasetId, String indicator) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    try
+    {
+      String response = MappableClassDTO.addIndicator(request, datasetId, indicator);
+
+      JSONControllerUtil.writeDirectReponse(this.resp, new JSONObject(response));
     }
     catch (Throwable t)
     {

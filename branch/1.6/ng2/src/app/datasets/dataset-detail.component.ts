@@ -80,22 +80,22 @@ export class DatasetDetailComponent implements OnInit {
   addIndicator() : void {
     let attributes:DatasetAttribute[] = [];
     
-  for (let i = 0; i < this.dataset.attributes.length; i++) {
-    let attribute:DatasetAttribute = this.dataset.attributes[i];
+    for (let i = 0; i < this.dataset.attributes.length; i++) {
+      let attribute:DatasetAttribute = this.dataset.attributes[i];
     
       if(attribute.numeric) {
         attributes.push(attribute);        
-    }
-  }        
+      }
+    }        
     
     this.modal.initialize(this.dataset.aggregations, attributes);
   }
   
-  onIndicatorSuccess(field:IndicatorField): void {
-    if(this.dataset.indicators === undefined) {
-      this.dataset.indicators = [];
+  onIndicatorSuccess(attribute:DatasetAttribute): void {
+    if(this.dataset.attributes === undefined) {
+      this.dataset.attributes = [];
     }    
     
-    this.dataset.indicators.push(field);    
+    this.dataset.attributes.push(attribute);    
   }
 }

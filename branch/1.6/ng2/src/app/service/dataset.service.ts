@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { EventService, BasicService } from './core.service';
 import { EventHttpService } from './event-http.service';
 
-import { Dataset, DatasetCollection } from '../model/dataset';
+import { Dataset, DatasetCollection, IndicatorField, DatasetAttribute } from '../model/dataset';
 import { Pair } from '../model/pair';
 
 declare var acp: any;
@@ -64,6 +64,22 @@ export class DatasetService extends BasicService {
       return response.json() as Dataset;
     })          
     .catch(this.handleError.bind(this));
+  }
+  
+  addIndicator(datasetId:string, indicator:IndicatorField): Promise<DatasetAttribute> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });    
+    
+    let param = JSON.stringify({datasetId:datasetId, indicator:indicator});
+    
+    return this.ehttp
+     .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.addIndicator.mojo', param, {headers: headers})
+     .toPromise() 
+     .then((response: any) => {
+       return response.json() as DatasetAttribute;
+      })          
+     .catch(this.handleError.bind(this));
   }
   
   remove(dataset: Dataset): Promise<Response> {

@@ -255,25 +255,25 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
     query.WHERE(query.getWrappedMdClass().EQ(mdClass));
     query.AND(query.getDisease().EQ(disease));
-    
+
     OIterator<? extends MappableClass> iterator = query.getIterator();
-    
+
     try
     {
       if (iterator.hasNext())
       {
         return iterator.next();
       }
-      
+
       return null;
     }
     finally
     {
       iterator.close();
     }
-    
+
   }
-  
+
   public static MappableClass[] getAll()
   {
     MappableClassQuery query = new MappableClassQuery(new QueryFactory());
@@ -563,45 +563,51 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     {
       if (this.isValid(mdAttribute, ids))
       {
-        boolean selected = this.isSelected(mdAttribute, attributes);
-
-        JSONObject object = new JSONObject();
-        object.put("label", mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
-        object.put("id", mdAttribute.getId());
-        object.put("selected", selected);
-        object.put("type", mdAttribute.getMdBusinessDAO().getTypeName());
-        object.put("numeric", ( mdAttribute instanceof MdAttributeNumberDAOIF || mdAttribute instanceof MdAttributeBooleanDAOIF ));
-
-        if (mdAttribute instanceof MdAttributeReferenceDAOIF)
-        {
-          MdAttributeReferenceDAOIF mdAttributeTerm = (MdAttributeReferenceDAOIF) mdAttribute;
-          MdBusinessDAOIF mdBusiness = mdAttributeTerm.getReferenceMdBusinessDAO();
-
-          if (mdBusiness.definesType().equals(Term.CLASS))
-          {
-            Term[] children = Term.getRootChildren(mdAttributeTerm);
-
-            JSONArray roots = new JSONArray();
-
-            for (Term child : children)
-            {
-              JSONObject root = new JSONObject();
-              root.put("id", child.getId());
-              root.put("label", child.getTermDisplayLabel().getValue());
-
-              roots.put(root);
-            }
-
-            object.put("type", "Category");
-            object.put("roots", roots);
-          }
-        }
+        JSONObject object = getAttributeJSON(mdAttribute, attributes);
 
         array.put(object);
       }
     }
 
     return array;
+  }
+
+  private static JSONObject getAttributeJSON(MdAttributeDAOIF mdAttribute, List<? extends AttributeWrapper> attributes) throws JSONException
+  {
+    boolean selected = MappableClass.isSelected(mdAttribute, attributes);
+
+    JSONObject object = new JSONObject();
+    object.put("label", mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+    object.put("id", mdAttribute.getId());
+    object.put("selected", selected);
+    object.put("type", mdAttribute.getMdBusinessDAO().getTypeName());
+    object.put("numeric", ( mdAttribute instanceof MdAttributeNumberDAOIF || mdAttribute instanceof MdAttributeBooleanDAOIF ));
+
+    if (mdAttribute instanceof MdAttributeReferenceDAOIF)
+    {
+      MdAttributeReferenceDAOIF mdAttributeTerm = (MdAttributeReferenceDAOIF) mdAttribute;
+      MdBusinessDAOIF mdBusiness = mdAttributeTerm.getReferenceMdBusinessDAO();
+
+      if (mdBusiness.definesType().equals(Term.CLASS))
+      {
+        Term[] children = Term.getRootChildren(mdAttributeTerm);
+
+        JSONArray roots = new JSONArray();
+
+        for (Term child : children)
+        {
+          JSONObject root = new JSONObject();
+          root.put("id", child.getId());
+          root.put("label", child.getTermDisplayLabel().getValue());
+
+          roots.put(root);
+        }
+
+        object.put("type", "Category");
+        object.put("roots", roots);
+      }
+    }
+    return object;
   }
 
   private Collection<String> getGeoNodeAttributeIds()
@@ -666,7 +672,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     return !mdAttributeConcrete.isSystem() && !mdAttributeConcrete.definesAttribute().equals(BusinessInfo.KEY) && ( mdAttributeConcrete instanceof MdAttributePrimitiveDAOIF ) && !ids.contains(mdAttributeConcrete.getId());
   }
 
-  private boolean isSelected(MdAttributeDAOIF mdAttribute, List<? extends AttributeWrapper> attributes)
+  private static boolean isSelected(MdAttributeDAOIF mdAttribute, List<? extends AttributeWrapper> attributes)
   {
     for (AttributeWrapper attribute : attributes)
     {
@@ -880,37 +886,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
         for (int i = 0; i < indicators.length(); i++)
         {
-          JSONObject indicator = indicators.getJSONObject(i);
-          String displayLabel = indicator.getString("label");
-          String name = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
-          String percentage = indicator.has("percentage") ? indicator.getString("percentage") : "false";
-
-          IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"));
-          left.apply();
-
-          IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"));
-          right.apply();
-
-          IndicatorCompositeDAO composite = IndicatorCompositeDAO.newInstance();
-          composite.setValue(IndicatorCompositeInfo.LEFT_OPERAND, left.getId());
-          composite.setValue(IndicatorCompositeInfo.OPERATOR, IndicatorOperator.DIV.getId());
-          composite.setValue(IndicatorCompositeInfo.RIGHT_OPERAND, right.getId());
-          composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
-          composite.apply();
-
-          MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
-          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
-          mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, displayLabel);
-          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
-          mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
-          mdAttributeDAO.apply();
-
-          MdAttribute mdAttribute = (MdAttribute) BusinessFacade.get(mdAttributeDAO);
-
-          MappableAttribute mAttribute = new MappableAttribute();
-          mAttribute.setWrappedMdAttribute(mdAttribute);
-          mAttribute.setAggregatable(false);
-          mAttribute.apply();
+          MappableClass.addIndicator(mdClass, indicators.getJSONObject(i));
         }
       }
     }
@@ -918,6 +894,63 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+
+  @Authenticate
+  @Transaction
+  public static String addIndicator(String datasetId, String indicator)
+  {
+    try
+    {
+      MappableClass mClass = MappableClass.get(datasetId);
+      MdClass mdClass = mClass.getWrappedMdClass();
+
+      MdAttributeIndicatorDAO mdAttribute = MappableClass.addIndicator(mdClass, new JSONObject(indicator));
+
+      JSONObject response = MappableClass.getAttributeJSON(mdAttribute, new LinkedList<>());
+
+      return response.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static MdAttributeIndicatorDAO addIndicator(MdClass mdClass, JSONObject indicator) throws JSONException
+  {
+    String displayLabel = indicator.getString("label");
+    String name = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
+    String percentage = indicator.has("percentage") ? indicator.getString("percentage") : "false";
+
+    IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"));
+    left.apply();
+
+    IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"));
+    right.apply();
+
+    IndicatorCompositeDAO composite = IndicatorCompositeDAO.newInstance();
+    composite.setValue(IndicatorCompositeInfo.LEFT_OPERAND, left.getId());
+    composite.setValue(IndicatorCompositeInfo.OPERATOR, IndicatorOperator.DIV.getId());
+    composite.setValue(IndicatorCompositeInfo.RIGHT_OPERAND, right.getId());
+    composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
+    composite.apply();
+
+    MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
+    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
+    mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, displayLabel);
+    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
+    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
+    mdAttributeDAO.apply();
+
+    MdAttribute mdAttribute = (MdAttribute) BusinessFacade.get(mdAttributeDAO);
+
+    MappableAttribute mAttribute = new MappableAttribute();
+    mAttribute.setWrappedMdAttribute(mdAttribute);
+    mAttribute.setAggregatable(false);
+    mAttribute.apply();
+
+    return mdAttributeDAO;
   }
 
   private static IndicatorPrimitiveDAO createIndicator(JSONObject indicator) throws JSONException

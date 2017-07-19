@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 import { Dataset, DatasetAttribute, IndicatorField} from '../model/dataset';
 import { Pair } from '../model/pair';
+
+import { DatasetService } from '../service/dataset.service';
 
 @Component({  
   selector: 'indicator-modal',
@@ -10,14 +12,15 @@ import { Pair } from '../model/pair';
 })
 export class IndicatorModalComponent {
 
-  @Output() onSuccess = new EventEmitter<IndicatorField>();
+  @Output() onSuccess = new EventEmitter<DatasetAttribute>();
+  @Input() datasetId:string;
   
   indicator: IndicatorField;
   show: boolean;
   aggregations: Pair[];
   attributes: DatasetAttribute[];
   
-  constructor() {}
+  constructor(private datasetService: DatasetService) {}
   
   initialize(aggregations: Pair[], attributes:DatasetAttribute[]): void {
     this.indicator = {
@@ -45,9 +48,16 @@ export class IndicatorModalComponent {
   }
   
   onSubmit(): void{
-//	  event.stopPropagation();  
-	
-    this.onSuccess.emit(this.indicator);
-    this.cancel();
+//	  event.stopPropagation(); 
+	  
+    this.datasetService.addIndicator(this.datasetId, this.indicator)
+      .then(attribute => {
+        this.onSuccess.emit(attribute);
+        this.cancel();
+      })
+//	  
+//	
+//    this.onSuccess.emit(this.indicator);
+//    this.cancel();
   }
 }

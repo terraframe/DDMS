@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = 119494954)
+@com.runwaysdk.business.ClassSignature(hash = 812703672)
 public abstract class MappableClassDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.MappableClass";
-  private static final long serialVersionUID = 119494954;
+  private static final long serialVersionUID = 812703672;
   
   protected MappableClassDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -559,6 +559,14 @@ public abstract class MappableClassDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWrappedMdClassMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WRAPPEDMDCLASS).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.String addIndicator(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String datasetId, java.lang.String indicator)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{datasetId, indicator};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.MappableClassDTO.CLASS, "addIndicator", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void applyDatasetUpdate(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String dataset)
