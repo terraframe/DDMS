@@ -55,6 +55,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.kaleidoscope.ontology.NonUniqueCategoryException;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.surveillance.OptionComparator;
@@ -1293,28 +1294,33 @@ public class Term extends TermBase implements Reloadable, OptionIF
       return null;
     }
 
-    QueryFactory qf = new QueryFactory();
-    ValueQuery query = new ValueQuery(qf);
-    BrowserFieldQuery bfq = new BrowserFieldQuery(query);
-    BrowserRootQuery brq = new BrowserRootQuery(query);
-    AllPathsQuery apq = new AllPathsQuery(query);
-    TermQuery tq = new TermQuery(query);
+    QueryFactory factory = new QueryFactory();
 
-    tq.WHERE(OR.get(tq.getName().EQi(displayLabel), tq.getTermDisplayLabel().localize().EQi(displayLabel), tq.getTermId().EQ(displayLabel)));
-    query.SELECT_DISTINCT(tq.getId());
-    query.WHERE(apq.getChildTerm().EQ(tq.getId()));
-    query.WHERE(brq.getTerm().EQ(apq.getParentTerm()));
-    query.WHERE(bfq.getId().EQ(brq.getBrowserField().getId()));
-    query.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
-    query.WHERE(brq.getDisease().EQ(Disease.getCurrent()));
+    BrowserFieldQuery bfQuery = new BrowserFieldQuery(factory);
+    bfQuery.WHERE(bfQuery.getMdAttribute().EQ(mdAttribute.getId()));
 
-    OIterator<ValueObject> iterator = query.getIterator();
+    BrowserRootQuery brQuery = new BrowserRootQuery(factory);
+    brQuery.WHERE(brQuery.getBrowserField().EQ(bfQuery));
+
+    AllPathsQuery aptQuery = new AllPathsQuery(factory);
+    aptQuery.WHERE(aptQuery.getParentTerm().EQ(brQuery.getTerm()));
+
+    TermSynonymQuery synonymQuery = new TermSynonymQuery(factory);
+    synonymQuery.WHERE(synonymQuery.getTermName().EQ(displayLabel));
+
+    TermQuery query = new TermQuery(factory);
+    query.AND(query.getId().EQ(aptQuery.getChildTerm().getId()));
+    query.AND(OR.get(query.getTermDisplayLabel().localize().EQ(displayLabel), query.synonyms(synonymQuery)));
+
+    OIterator<? extends Term> iterator = query.getIterator();
 
     try
     {
       if (iterator.hasNext())
       {
-        return Term.get(iterator.next().getValue(Term.ID));
+        Term entity = iterator.next();
+
+        return entity;
       }
 
       return null;
