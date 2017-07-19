@@ -77,6 +77,7 @@ Var RunwayVersion           # Version of the runway metadata contained in the in
 Var ManagerVersion          # Version of the manager contained in the install.
 Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
+Var EclipseVersion          # Version of Eclipse contained in the install.
 Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion
 Var RootsVersion
@@ -159,7 +160,6 @@ Function userInputPage
   
   nsDialogs::Show
 FunctionEnd
-
 # Enforces an Installation number between 1 and 999
 Function verifyNumber
   Pop $1 # $1 == $ Text
@@ -179,7 +179,6 @@ Function exitUserInputPage
   # Pull the text out of the form element and store it in $InstallationNumber
   ${NSD_GetText} $Text $InstallationNumber
 FunctionEnd
-
 Function appNameInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
   nsDialogs::Create 1018
@@ -341,18 +340,19 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8299
-    StrCpy $RootsVersion 7829
-    StrCpy $MenuVersion 8225
-    StrCpy $LocalizationVersion 8225
-    StrCpy $PermissionsVersion 8298
-	StrCpy $RunwayVersion 8275
+    StrCpy $PatchVersion 8560
+    StrCpy $RootsVersion 8512
+    StrCpy $MenuVersion 8515
+    StrCpy $LocalizationVersion 8556
+    StrCpy $PermissionsVersion 8548
+	StrCpy $RunwayVersion 8531
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8299
+	StrCpy $ManagerVersion 8560
 	StrCpy $BirtVersion 7851
-	StrCpy $WebappsVersion 8118
+	StrCpy $EclipseVersion 8387  
+	StrCpy $WebappsVersion 8474
 	StrCpy $JavaVersion 8188
-	StrCpy $TomcatVersion 8190
+	StrCpy $TomcatVersion 8474
 	
 	# Set up our logger
 	LogEx::Init "$INSTDIR\installer-log.txt"
@@ -475,6 +475,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\birt
     File /r /x .svn birt\*
     
+    ################################################################################
+    # Copy over the Eclipse
+    ################################################################################
+
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Eclipse"
+    LogEx::Write "Installing Eclipse"
+    SetOutPath $INSTDIR\eclipse
+    File /r /x .svn eclipse\*
     
     # Add the special elevation command for backup/restore
     LogEx::Write "Adding special elevation command for backup/restore"
@@ -623,6 +631,34 @@ Section -Main SEC0000
 	File ..\standalone\manager-1.0.0\classes\applications.txt
 	SetOverwrite on
 	
+  # Create offline basemap cache directory
+  IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
+  BASEMAP_NO_EXIST:
+    LogEx::Write "3527 Creating offline basemap cache directory."
+    CreateDirectory $INSTDIR\basemaps
+  BASEMAP_EXIST:
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
+  Call execDos
+  
+  SetOutPath "C:\libs\share\osm2pgsql"
+  File /r "..\installer-stage\osm2pgsql\*"
+  
+  WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+  
+  
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
@@ -783,12 +819,14 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion    
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
 	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
 	
 	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 1
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 1
 	
     # Write some shortcuts
     LogEx::Write "Creating shortcuts"
@@ -798,7 +836,12 @@ Section -Main SEC0000
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\birt
     #CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
-	CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat"
+	  CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat"
+
+    SetOutPath $INSTDIR\eclipse
+    #CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.exe" "" "$INSTDIR\eclipse\eclipse.exe" 0 SW_SHOWMINIMIZED
+   	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"
+  
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
@@ -897,6 +940,7 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
   DeleteRegValue HKLM "${REGKEY}\Components" Java 
   DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse  
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
   
@@ -907,6 +951,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"    
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"

@@ -26,14 +26,9 @@
   <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
   <target name="build" depends="build_installer_exe"/>
-
-  
-  
-  
-  
-  
   
   <property name="project.root" location="C:/svn/ddms" />
+  <property name="trunk.root" location="${project.root}/branch/1.6" />  
   <property name="local.root" location="../trunk" />
   <property name="country" value="blank" />
   <property name="geodata.db" value="mrc_blank" />
@@ -91,11 +86,12 @@
   
   <target name="deploy">
     <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
-	  <property name="profile.root" value="${profile.root}" />
+	    <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
 	
-	  <target name="import_localization_disease_defaults"/>
-	  <target name="deploy" />
+      <target name="delete_localization_files"/>
+	    <target name="import_localization_disease_defaults"/>
+	    <target name="deploy" />
       <target name="deploy_all_files"/>
 	</ant>
 	
@@ -251,23 +247,24 @@
   
   <target name="build_installer_exe">
     <!-- Copy in cache files -->
-	<copy todir="${stage.dir}/cache/global">
+	  <copy todir="${stage.dir}/cache/global" failonerror="false">
       <fileset dir="${local.root}/cache/global"/>
     </copy>
   
     <!-- Get revision info from svn -->
     <svn refid="svn.settings">
-      <info target="${project.root}/trunk" propPrefix="svn.info." />
-      <info target="${project.root}/trunk/doc/ontology/MOroots.xls" propPrefix="moroots.svn." />
-      <info target="${project.root}/trunk/doc/menu/MenuItems.xls" propPrefix="menuitems.svn." />
-      <info target="${project.root}/trunk/doc/localization" propPrefix="localization.svn." />
-      <info target="${project.root}/trunk/profiles/Permissions.xls" propPrefix="permissions.svn." />
-	  <info target="${runway-patch.dir}" propPrefix="runway-patch.info." />	
-	  <info target="${manager.dir}" propPrefix="manager.info." />
+      <info target="${trunk.root}" propPrefix="svn.info." />
+      <info target="${trunk.root}/doc/ontology/MOroots.xls" propPrefix="moroots.svn." />
+      <info target="${trunk.root}/doc/menu/MenuItems.xls" propPrefix="menuitems.svn." />
+      <info target="${trunk.root}/doc/localization" propPrefix="localization.svn." />
+      <info target="${trunk.root}/profiles/Permissions.xls" propPrefix="permissions.svn." />
+	    <info target="${runway-patch.dir}" propPrefix="runway-patch.info." />	
+	    <info target="${manager.dir}" propPrefix="manager.info." />
       <info target="${project.root}/installer-stage/birt" propPrefix="birt.svn." />	  
-	  <info target="${project.root}/installer-stage/tomcat/webapps" propPrefix="webapps.svn." />	  	  			
-	  <info target="${project.root}/installer-stage/Java" propPrefix="java.svn." />
-	  <info target="${project.root}/installer-stage/tomcat" propPrefix="tomcat.svn." />
+      <info target="${project.root}/installer-stage/eclipse" propPrefix="eclipse.svn." />	        
+	    <info target="${project.root}/installer-stage/tomcat/webapps" propPrefix="webapps.svn." />	  	  			
+	    <info target="${project.root}/installer-stage/Java" propPrefix="java.svn." />
+	    <info target="${project.root}/installer-stage/tomcat" propPrefix="tomcat.svn." />
     </svn>
     
     <!-- Write revision info into Installer.nsi -->
@@ -276,12 +273,13 @@
     <replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     <replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
-	<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
-	<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
-	<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
-	<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
-	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
-	<replaceregexp match="StrCpy \$TomcatVersion \d*" replace="StrCpy $TomcatVersion ${tomcat.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+  	<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+	  <replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+  	<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+  	<replaceregexp match="StrCpy \$EclipseVersion \d*" replace="StrCpy $EclipseVersion ${eclipse.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	    
+	  <replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />	
+  	<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
+	  <replaceregexp match="StrCpy \$TomcatVersion \d*" replace="StrCpy $TomcatVersion ${tomcat.svn.lastRev}" file="${stage.dir}/Installer.nsi" byline="true" />
     
     <exec executable="${nsis.dir}/makensis" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
       <arg line="Installer.nsi" />
