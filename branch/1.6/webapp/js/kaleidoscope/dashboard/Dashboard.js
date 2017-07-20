@@ -113,7 +113,10 @@
         var info = (response != null ? response.getInformation() : null);
                   
         if(info != null){
-          MDSS.ErrorModal(info[0].getMessage());                      
+          for(var i = 0; i < info.length; i++) {
+            MDSS.ErrorModal(info[i].getMessage());                                            
+          }
+          
         }
       };      
       
