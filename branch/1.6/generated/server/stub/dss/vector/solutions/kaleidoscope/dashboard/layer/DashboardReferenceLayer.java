@@ -19,6 +19,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -98,9 +99,22 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
         {
           GeoHierarchy universal = this.getUniversal(drilldowns);
           MdBusinessDAOIF mdBusiness = MdBusinessDAO.get(universal.getGeoEntityClassId());
-
+          
           // geoentity label
           GeoEntityQuery geQ1 = (GeoEntityQuery) QueryUtil.getQuery(mdBusiness, query);
+                    
+          if (drilldowns.size() > 0)
+          {
+            Drilldown last = drilldowns.getLast();
+
+            GeoEntity entity = GeoEntity.getByKey(last.getGeoId());
+            
+            AllPathsQuery aptQuery = new AllPathsQuery(query);
+            aptQuery.WHERE(aptQuery.getParentGeoEntity().EQ(entity));
+
+            query.AND(geQ1.EQ(aptQuery.getChildGeoEntity()));            
+          }
+          
           SelectableSingle label = geQ1.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
           label.setColumnAlias(ThematicQueryBuilder.LABEL_ALIAS);
           label.setUserDefinedAlias(ThematicQueryBuilder.LABEL_ALIAS);
@@ -109,6 +123,7 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
           Selectable geoId1 = geQ1.getGeoId(GeoEntity.GEOID);
           geoId1.setColumnAlias(ThematicQueryBuilder.LOCATION_ALIAS);
           geoId1.setUserDefinedAlias(ThematicQueryBuilder.LOCATION_ALIAS);
+          
 
           query.SELECT(label);
           query.SELECT(geoId1);
@@ -125,7 +140,7 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
 
           geom.setColumnAlias(GeoserverFacade.GEOM_COLUMN);
           geom.setUserDefinedAlias(GeoserverFacade.GEOM_COLUMN);
-          query.SELECT(geom);
+          query.SELECT(geom);          
         }
       }
     }
