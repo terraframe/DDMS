@@ -92,6 +92,15 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   // return this.getNameLabel().getValue();
   // }
 
+  @Override
+  public void apply()
+  {
+    DashboardLayerNameLabel label = this.getNameLabel();
+    label.setDefaultValue(label.getValue());
+
+    super.apply();
+  }
+
   @Transaction
   public void applyAll(DashboardStyle style, String mapId, AggregationStrategy strategy, DashboardCondition[] conditions)
   {
