@@ -93,6 +93,42 @@ export class DatasetService extends BasicService {
       .catch(this.handleError.bind(this));
   }
   
+  removeAttribute(attribute:DatasetAttribute): Promise<Response> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });  
+    
+    return this.ehttp
+      .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.removeAttribute.mojo', JSON.stringify({id:attribute.id}), {headers: headers})
+      .toPromise()
+      .catch(this.handleError.bind(this));
+  }
+  
+  unlockAttribute(id:string): Promise<Response> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });  
+    
+    return this.ehttp
+     .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.unlockAttribute.mojo', JSON.stringify({id:id}), {headers: headers})
+     .toPromise()
+     .catch(this.handleError.bind(this));
+  }
+  
+  editAttribute(attribute:DatasetAttribute): Promise<IndicatorField> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });  
+    
+    return this.ehttp
+      .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.editAttribute.mojo', JSON.stringify({id:attribute.id}), {headers: headers})
+      .toPromise()
+      .then((response: any) => {
+        return response.json() as IndicatorField;
+      })          
+     .catch(this.handleError.bind(this));
+  }
+  
   validateDatasetName(name: string, id: string): Promise<Response> {
 	let params: URLSearchParams = new URLSearchParams();
     params.set('name', name);

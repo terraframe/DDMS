@@ -287,6 +287,10 @@ h4.location-summary-sub-table-heading{
    width: 25%;
 }
  
+.modal-form .error-message {
+  color: #8C0000;
+}
+
 .modal-form .inline-error-message {
   float: left;
   padding: 6px 0px 0px;

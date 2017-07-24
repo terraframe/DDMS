@@ -5,6 +5,7 @@ import java.util.List;
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.LocalProperty;
@@ -28,10 +29,11 @@ public class Converter implements ConverterIF, Reloadable
   {
     try
     {
-      BusinessDAO business = this.context.newMutable(source.getType());
-      boolean hasValues = false;
-
       List<TargetFieldIF> fields = this.context.getFields(source.getType());
+      String oid = this.getOid(source, fields);
+
+      BusinessDAO business = this.context.getOrCreateMutable(source.getType(), oid);
+      boolean hasValues = false;
 
       for (TargetFieldIF field : fields)
       {
@@ -53,7 +55,11 @@ public class Converter implements ConverterIF, Reloadable
       }
 
       business.setValue(MdFormUtil.DISEASE, this.disease.getId());
-      business.setValue(MdFormUtil.OID, LocalProperty.getNextId());
+
+      if (oid == null)
+      {
+        business.setValue(MdFormUtil.OID, LocalProperty.getNextId());
+      }
 
       /*
        * Before apply ensure that at least one source field was not blank
@@ -70,5 +76,20 @@ public class Converter implements ConverterIF, Reloadable
     {
       // Do nothing. It's likely that a source value was not found because of location exclusions
     }
+  }
+
+  private String getOid(Transient source, List<TargetFieldIF> fields)
+  {
+    for (TargetFieldIF field : fields)
+    {
+      if (field.getName().equals(MdFormUtil.OID))
+      {
+        MdAttributeConcreteDAOIF mdAttribute = (MdAttributeConcreteDAOIF) MdAttributeConcreteDAO.getByKey(field.getKey());
+
+        FieldValue fValue = field.getValue(mdAttribute, source);
+        return fValue.getValue().toString();
+      }
+    }
+    return null;
   }
 }

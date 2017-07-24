@@ -86,7 +86,7 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
     else {
       delete this.textFields[field.name];
     }
-      
+    
     this.coordinateMismatch = (Object.keys(this.latitudeFields).length !== Object.keys(this.longitudeFields).length);
     
     if(Object.keys(this.latitudeFields).length > 0 || Object.keys(this.longitudeFields).length > 0) {
@@ -104,6 +104,9 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
   localValidate(value: string, config: string): {[key : string] : any} {
     if(config === 'label') {
       return this.validateLabel(value);	
+    }
+    else if(config === 'type') {
+      return this.validateType(value);  
     }
     else if(config === 'integer') {
       return this.localizationService.validateNumber(value);  
@@ -132,6 +135,26 @@ export class AttributesPageComponent implements OnInit, AfterViewChecked, LocalV
     return null;
   }
 
+  validateType(type: string): {[key : string] : any} {
+    if(this.sheet != null) {
+      let count = 0;
+      
+      for(let i = 0; i < this.sheet.fields.length; i++) {
+        let field = this.sheet.fields[i];
+        
+        if(field.type === 'FORMID') {
+          count++;
+        }            
+      }
+      
+      if(count > 1) {
+        return {formId:false};
+      }
+    }  
+    
+    return null;
+  }
+  
   validate(value:string, config:string): Promise<{[key : string] : any}> {
     if(config === 'category') {
       return this.validateCategory(value);	

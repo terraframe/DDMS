@@ -50,6 +50,13 @@
               <table class="list-table table table-bordered table-striped">
                 <tbody>
                   <tr *ngFor="let attribute of dataset.attributes" class="fade-ngRepeat-item">
+                    <td class="button-column">
+                      <a *ngIf="attribute.type == 'MdAttributeIndicator'" class="fa fa-pencil ico-edit" (click)="editAttribute(attribute, $event)" [title]="'dataset.editAttributeTooltip' | localize"></a>                             
+                      <a *ngIf="attribute.type == 'MdAttributeIndicator'" class="fa fa-trash-o ico-remove" [title]="'dataset.removeAttributeTooltip' | localize"
+                        confirm-modal 
+                        [message]="'dataset.removeAttribute' | localize"
+                        (onConfirm)="removeAttribute(attribute, $event)"></a>
+                    </td>
                     <td class="submit-form">
                       <dl>
                         <dd>
@@ -104,5 +111,5 @@
     </div>
   </form>
   
-  <indicator-modal [datasetId]="dataset.id" (onSuccess)="onIndicatorSuccess($event)"></indicator-modal>
+  <indicator-modal (onSuccess)="onIndicatorSuccess($event)"></indicator-modal>
 </div>

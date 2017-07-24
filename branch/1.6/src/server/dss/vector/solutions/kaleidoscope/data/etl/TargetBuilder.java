@@ -43,6 +43,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebBoolean;
 import com.runwaysdk.system.metadata.MdWebDate;
@@ -491,6 +492,10 @@ public class TargetBuilder implements Reloadable
     {
       return true;
     }
+    else if (type.equals(ColumnType.FORMID.name()))
+    {
+      return true;
+    }
 
     return false;
   }
@@ -638,15 +643,32 @@ public class TargetBuilder implements Reloadable
       MdFormUtil.createMdField(mdField, mdForm.getId());
     }
 
-    // Create the target field
-    TargetFieldBasic field = new TargetFieldBasic();
-    field.setName(attributeName);
-    field.setLabel(label);
-    field.setKey(key);
-    field.setSourceAttributeName(sourceAttributeName);
-    field.setAggregatable(aggregatable);
+    if (columnType.equals(ColumnType.FORMID.name()))
+    {
+      MdField mdField = mdForm.getField(MdFormUtil.OID);
+      
+      // Create the target field
+      TargetFieldBasic field = new TargetFieldBasic();
+      field.setName(mdField.getFieldName());
+      field.setLabel(mdField.getDisplayLabel().getValue());
+      field.setKey(mdField.getKey());
+      field.setSourceAttributeName(sourceAttributeName);
+      field.setAggregatable(aggregatable);
 
-    return field;
+      return field;
+    }
+    else
+    {
+      // Create the target field
+      TargetFieldBasic field = new TargetFieldBasic();
+      field.setName(attributeName);
+      field.setLabel(label);
+      field.setKey(key);
+      field.setSourceAttributeName(sourceAttributeName);
+      field.setAggregatable(aggregatable);
+
+      return field;
+    }
   }
 
   private void setValidations(MdWebField mdField, JSONObject cField) throws JSONException
@@ -798,7 +820,7 @@ public class TargetBuilder implements Reloadable
     GeoHierarchy lowest = GeoHierarchy.get(universalId);
     List<GeoHierarchy> universals = lowest.getAllParents();
     universals.add(0, lowest);
-    
+
     Collections.reverse(universals);
 
     TargetFieldGeoEntity field = new TargetFieldGeoEntity();

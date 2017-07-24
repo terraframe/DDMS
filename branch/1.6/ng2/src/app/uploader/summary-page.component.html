@@ -14,6 +14,27 @@
       <p><localize key="dataUploader.summary.heading.paragraph"></localize></p>
     </div>
   </div>
+  <div *ngIf="formId != null">
+    <div class="label-holder">
+      <strong><localize key="dataUploader.summaryFormLabel"></localize></strong>
+    </div>
+    <div class="holder">
+      <div class="row-holder">
+         <table class="table table-bordered" style="font-size:inherit;"> 
+            <thead> 
+              <tr>
+                <th><localize key="dataUploader.summary.tableHeading.label"></localize></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{formId.label}}</td>
+              </tr>
+            </tbody>
+           </table>
+      </div>
+    </div>
+  </div>
   <div *ngIf="texts.length > 0">
     <div class="label-holder">
       <strong><localize key="dataUploader.summaryTextLabel"></localize></strong>

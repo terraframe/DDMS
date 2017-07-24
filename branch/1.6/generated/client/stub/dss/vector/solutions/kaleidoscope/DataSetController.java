@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import org.json.JSONObject;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.system.metadata.MdAttributeIndicatorDTO;
 
 public class DataSetController extends DataSetControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -146,6 +147,57 @@ public class DataSetController extends DataSetControllerBase implements com.runw
       String response = MappableClassDTO.addIndicator(request, datasetId, indicator);
 
       JSONControllerUtil.writeDirectReponse(this.resp, new JSONObject(response));
+    }
+    catch (Throwable t)
+    {
+      JSONControllerUtil.handleException(this.resp, t, this.getClientRequest());
+    }
+  }
+
+  @Override
+  public void editAttribute(String id) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    try
+    {
+      String response = MappableClassDTO.lockIndicator(request, id);
+
+      JSONControllerUtil.writeDirectReponse(this.resp, new JSONObject(response));
+    }
+    catch (Throwable t)
+    {
+      JSONControllerUtil.handleException(this.resp, t, this.getClientRequest());
+    }
+  }
+
+  @Override
+  public void removeAttribute(String id) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    try
+    {
+      MappableClassDTO.removeIndicator(request, id);
+
+      JSONControllerUtil.writeReponse(this.resp);
+    }
+    catch (Throwable t)
+    {
+      JSONControllerUtil.handleException(this.resp, t, this.getClientRequest());
+    }
+  }
+
+  @Override
+  public void unlockAttribute(String id) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+
+    try
+    {
+      MdAttributeIndicatorDTO.unlock(request, id);
+
+      JSONControllerUtil.writeReponse(this.resp);
     }
     catch (Throwable t)
     {

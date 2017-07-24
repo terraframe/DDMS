@@ -18,6 +18,7 @@ export class SummaryPageComponent implements OnInit {
   universals: Universal[];
   labels: {[key : string] : string};  
   
+  formId: Field;
   texts: Field[];
   categories: Field[];
   numbers: Field[];
@@ -58,6 +59,10 @@ export class SummaryPageComponent implements OnInit {
       
       if(valid && field.type === 'TEXT') {
         this.texts.push(field);
+      }
+      
+      if(valid && field.type === 'FORMID') {
+        this.formId = field;
       }
       
       if(valid && (field.type === 'CATEGORY' || field.type === 'DOMAIN')) {

@@ -77,9 +77,9 @@ export class DatasetDetailComponent implements OnInit {
     this.location.back();
   }
   
-  addIndicator() : void {
+  getNumericAttributes() : DatasetAttribute[] {
     let attributes:DatasetAttribute[] = [];
-    
+  
     for (let i = 0; i < this.dataset.attributes.length; i++) {
       let attribute:DatasetAttribute = this.dataset.attributes[i];
     
@@ -88,7 +88,11 @@ export class DatasetDetailComponent implements OnInit {
       }
     }        
     
-    this.modal.initialize(this.dataset.aggregations, attributes);
+    return attributes;
+  }
+  
+  addIndicator() : void {
+    this.modal.initialize(this.dataset.id, this.dataset.aggregations, this.getNumericAttributes(), undefined);
   }
   
   onIndicatorSuccess(attribute:DatasetAttribute): void {
@@ -96,6 +100,23 @@ export class DatasetDetailComponent implements OnInit {
       this.dataset.attributes = [];
     }    
     
+    this.dataset.attributes = this.dataset.attributes.filter(attr => attr.id !== attribute.id);
+    
     this.dataset.attributes.push(attribute);    
+  }
+  
+  editAttribute(attribute:DatasetAttribute): void{
+    this.datasetService.editAttribute(attribute)
+      .then(indicator => {      
+        this.modal.initialize(this.dataset.id, this.dataset.aggregations, this.getNumericAttributes(), indicator);          
+      });
+  
+  }
+  
+  removeAttribute(attribute:DatasetAttribute): void {
+    this.datasetService.removeAttribute(attribute)
+      .then(response => {
+        this.dataset.attributes = this.dataset.attributes.filter(attr => attr.id !== attribute.id);
+      });
   }
 }

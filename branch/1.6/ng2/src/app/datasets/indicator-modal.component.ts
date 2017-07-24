@@ -13,48 +13,68 @@ import { DatasetService } from '../service/dataset.service';
 export class IndicatorModalComponent {
 
   @Output() onSuccess = new EventEmitter<DatasetAttribute>();
-  @Input() datasetId:string;
   
+  datasetId:string;
   indicator: IndicatorField;
+  
   show: boolean;
   aggregations: Pair[];
   attributes: DatasetAttribute[];
   
   constructor(private datasetService: DatasetService) {}
   
-  initialize(aggregations: Pair[], attributes:DatasetAttribute[]): void {
-    this.indicator = {
-      label: '',
-      left: {
-        aggregation: '',
-        attribute: ''       
-      },
-      operation: 'divide', 
-      right: {
-        aggregation: '',
-        attribute: ''         
-      }
-    }; 
+  initialize(datasetId:string, aggregations: Pair[], attributes:DatasetAttribute[], indicator:IndicatorField): void {
+	
+    if(indicator === undefined) {
+      this.indicator = {
+        label: '',
+        left: {
+          aggregation: '',
+          attribute: ''       
+        },
+        right: {
+          aggregation: '',
+          attribute: ''         
+        },
+        id: undefined,
+        percentage : false
+      };     
+    }
+    else {
+      this.indicator = indicator;
+    }
     
+    this.datasetId = datasetId;
     this.aggregations = aggregations;;
     this.attributes = attributes;
     this.show = true;	  
   }
   
-  cancel(): void{
+  clear(): void{
     this.aggregations = null;
     this.attributes = null;
     this.show = false;
   }
   
+  cancel(): void{
+    if(this.indicator.id === undefined) {
+      this.clear();	
+    }
+    else {
+      this.datasetService.unlockAttribute(this.indicator.id)
+        .then(response => {
+          this.clear();
+        });
+    }
+  }
   onSubmit(): void{
 //	  event.stopPropagation(); 
 	  
     this.datasetService.addIndicator(this.datasetId, this.indicator)
       .then(attribute => {
         this.onSuccess.emit(attribute);
-        this.cancel();
-      })
+        this.clear();
+      });
 //	  
 //	
 //    this.onSuccess.emit(this.indicator);

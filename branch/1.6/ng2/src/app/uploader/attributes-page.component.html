@@ -14,12 +14,12 @@
   <div class="wide-holder">
     <div *ngFor="let field of sheet.fields; let i = index;">
       <div class="row-holder">
-        <div class="inline-text short" *ngIf="field.type != 'LOCATION'">
+        <div class="inline-text short" *ngIf="field.type != 'LOCATION' && field.type != 'FORMID'">
           <label><localize key="dataUploader.validate"></localize></label>
           <input [(ngModel)]="field.hasValidation" [name]="i + '-validation'" type="checkbox" class="jcf-unselectable chk-area" />
         </div>
         
-        <div class="inline-text short" *ngIf="field.type == 'LOCATION'"></div>
+        <div class="inline-text short" *ngIf="field.type == 'LOCATION' || field.type == 'FORMID'"></div>
         
         <div class="inline-text">
           <label><localize key="dataUploader.label"></localize></label>
@@ -27,16 +27,21 @@
         </div>
         <div class="inline-box medium" *ngIf="field.columnType == 'TEXT'">
           <label><localize key="dataUploader.type"></localize></label>
-          <select class="select-area" [(ngModel)]="field.type" [ngClass]="{selectInputDisabled : field.type == 'IGNORE'}" [name]="i + '-type'" required (change)="accept(field)">
+          <select class="select-area" [(ngModel)]="field.type"  #fieldType="ngModel" [ngClass]="{selectInputDisabled : field.type == 'IGNORE'}" [name]="i + '-type'" required (change)="accept(field)"  funcValidator [validator]="this" config="type">
             <option value="LOCATION"><localize key="dataUploader.location"></localize></option>
             <option value="CATEGORY"><localize key="dataUploader.category"></localize></option>
+            <option value="FORMID"><localize key="dataUploader.formId"></localize></option>
             <option value="TEXT"><localize key="dataUploader.text"></localize></option>
             <option value="IGNORE"><localize key="dataUploader.ignore"></localize></option>
-          </select>      
+          </select>             
+          <p *ngIf="fieldType.invalid" class="error-message">
+            <localize key="dataUploader.uniqueFormId"></localize>
+          </p>                 
         </div>
         <div class="inline-box medium" *ngIf="field.columnType == 'NUMBER'">
           <label><localize key="dataUploader.type"></localize></label>
-          <select class="select-area" [(ngModel)]="field.type" [name]="i + '-type'" required (change)="accept(field)">
+          <select class="select-area" [(ngModel)]="field.type" #fieldType="ngModel" [name]="i + '-type'" required (change)="accept(field)" funcValidator [validator]="this" config="type">
+          
             <option value="LONG"><localize key="dataUploader.long"></localize></option>
             <option value="DOUBLE"><localize key="dataUploader.double"></localize></option>
 <!-- 
@@ -44,9 +49,14 @@
             <option value="LONGITUDE"><localize key="dataUploader.longitude"></localize></option>
  -->            
             <option value="LOCATION"><localize key="dataUploader.location"></localize></option> 
+            <option value="FORMID"><localize key="dataUploader.formId"></localize></option>            
             <option value="TEXT"><localize key="dataUploader.text"></localize></option>     
             <option value="IGNORE"><localize key="dataUploader.ignore"></localize></option>
-          </select>      
+          </select> 
+          
+          <p *ngIf="fieldType.invalid" class="error-message">
+            <localize key="dataUploader.uniqueFormId"></localize>
+          </p>               
         </div>      
         <div class="inline-box medium" *ngIf="field.columnType == 'DATE'">
           <label><localize key="dataUploader.type"></localize></label>

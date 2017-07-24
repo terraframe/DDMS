@@ -9,7 +9,14 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public interface TargetContextIF extends Reloadable
 {
-  public BusinessDAO newMutable(String sourceType);
+  /**
+   * @param sourceType
+   * 
+   * @param oid
+   *          Object id
+   * @return
+   */
+  public BusinessDAO getOrCreateMutable(String sourceType, String oid);
 
   public String getType(String sourceType);
 

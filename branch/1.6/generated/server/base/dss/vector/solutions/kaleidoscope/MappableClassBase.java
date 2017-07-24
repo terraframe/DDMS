@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -674808264)
+@com.runwaysdk.business.ClassSignature(hash = -1578168476)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WRAPPEDMDCLASS = "wrappedMdClass";
-  private static final long serialVersionUID = -674808264;
+  private static final long serialVersionUID = -1578168476;
   
   public MappableClassBase()
   {
@@ -584,7 +584,19 @@ public abstract class MappableClassBase extends com.runwaysdk.business.Business 
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static java.lang.String lockIndicator(java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.MappableClass.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static void remove(java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.MappableClass.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void removeIndicator(java.lang.String id)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.MappableClass.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

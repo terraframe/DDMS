@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = -488640864)
+@com.runwaysdk.business.ClassSignature(hash = -1134320630)
 public class DataSetControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.kaleidoscope.DataSetController";
@@ -135,6 +135,20 @@ public class DataSetControllerBase implements com.runwaysdk.generation.loader.Re
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.failEdit");
   }
   
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void editAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.editAttribute");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failEditAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.failEditAttribute");
+  }
+  
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void getAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -175,6 +189,34 @@ public class DataSetControllerBase implements com.runwaysdk.generation.loader.Re
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.failRemove");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void removeAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.removeAttribute");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failRemoveAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.failRemoveAttribute");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void unlockAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.unlockAttribute");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failUnlockAttribute(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.DataSetController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.DataSetController.failUnlockAttribute");
   }
   
 }

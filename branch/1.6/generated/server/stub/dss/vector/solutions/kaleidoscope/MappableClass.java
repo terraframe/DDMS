@@ -20,8 +20,11 @@ import com.runwaysdk.constants.IndicatorCompositeInfo;
 import com.runwaysdk.constants.IndicatorPrimitiveInfo;
 import com.runwaysdk.constants.MdAttributeIndicatorInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
+import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
+import com.runwaysdk.dataaccess.IndicatorCompositeDAOIF;
 import com.runwaysdk.dataaccess.IndicatorPrimitiveDAO;
+import com.runwaysdk.dataaccess.IndicatorPrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -45,6 +48,7 @@ import com.runwaysdk.system.metadata.IndicatorAggregateFunction;
 import com.runwaysdk.system.metadata.IndicatorOperator;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeIndicator;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdElement;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -354,7 +358,8 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
   {
     JSONObject aggregation = new JSONObject();
     aggregation.put("value", func.getDisplayLabel());
-    aggregation.put("id", IndicatorAggregateFunction.AVG.getEnumName());
+    aggregation.put("id", func.getEnumName());
+    
     return aggregation;
   }
 
@@ -922,43 +927,62 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     String displayLabel = indicator.getString("label");
     String name = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
     String percentage = indicator.has("percentage") ? indicator.getString("percentage") : "false";
+    String id = indicator.has("id") ? indicator.getString("id") : "";
 
-    IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"));
-    left.apply();
+    if (id.length() > 0)
+    {
+      MdAttributeIndicatorDAO mdAttributeIndicator = (MdAttributeIndicatorDAO) MdAttributeIndicatorDAO.get(id).getBusinessDAO();
+      IndicatorCompositeDAO composite = (IndicatorCompositeDAO) mdAttributeIndicator.getIndicator().getBusinessDAO();
 
-    IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"));
-    right.apply();
+      IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"), (IndicatorPrimitiveDAO) composite.getLeftOperand().getBusinessDAO());
+      left.apply();
 
-    IndicatorCompositeDAO composite = IndicatorCompositeDAO.newInstance();
-    composite.setValue(IndicatorCompositeInfo.LEFT_OPERAND, left.getId());
-    composite.setValue(IndicatorCompositeInfo.OPERATOR, IndicatorOperator.DIV.getId());
-    composite.setValue(IndicatorCompositeInfo.RIGHT_OPERAND, right.getId());
-    composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
-    composite.apply();
+      IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"), (IndicatorPrimitiveDAO) composite.getRightOperand().getBusinessDAO());
+      right.apply();
 
-    MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
-    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
-    mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, displayLabel);
-    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
-    mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
-    mdAttributeDAO.apply();
+      composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
+      composite.apply();
 
-    MdAttribute mdAttribute = (MdAttribute) BusinessFacade.get(mdAttributeDAO);
+      return mdAttributeIndicator;
+    }
+    else
+    {
+      IndicatorPrimitiveDAO left = MappableClass.createIndicator(indicator.getJSONObject("left"), IndicatorPrimitiveDAO.newInstance());
+      left.apply();
 
-    MappableAttribute mAttribute = new MappableAttribute();
-    mAttribute.setWrappedMdAttribute(mdAttribute);
-    mAttribute.setAggregatable(false);
-    mAttribute.apply();
+      IndicatorPrimitiveDAO right = MappableClass.createIndicator(indicator.getJSONObject("right"), IndicatorPrimitiveDAO.newInstance());
+      right.apply();
 
-    return mdAttributeDAO;
+      IndicatorCompositeDAO composite = IndicatorCompositeDAO.newInstance();
+      composite.setValue(IndicatorCompositeInfo.LEFT_OPERAND, left.getId());
+      composite.setValue(IndicatorCompositeInfo.OPERATOR, IndicatorOperator.DIV.getId());
+      composite.setValue(IndicatorCompositeInfo.RIGHT_OPERAND, right.getId());
+      composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
+      composite.apply();
+
+      MdAttributeIndicatorDAO mdAttributeDAO = MdAttributeIndicatorDAO.newInstance();
+      mdAttributeDAO.setValue(MdAttributeIndicatorInfo.NAME, name);
+      mdAttributeDAO.setStructValue(MdAttributeIndicatorInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, displayLabel);
+      mdAttributeDAO.setValue(MdAttributeIndicatorInfo.INDICATOR_ELEMENT, composite.getId());
+      mdAttributeDAO.setValue(MdAttributeIndicatorInfo.DEFINING_MD_CLASS, mdClass.getId());
+      mdAttributeDAO.apply();
+
+      MdAttribute mdAttribute = (MdAttribute) BusinessFacade.get(mdAttributeDAO);
+
+      MappableAttribute mAttribute = new MappableAttribute();
+      mAttribute.setWrappedMdAttribute(mdAttribute);
+      mAttribute.setAggregatable(false);
+      mAttribute.apply();
+
+      return mdAttributeDAO;
+    }
   }
 
-  private static IndicatorPrimitiveDAO createIndicator(JSONObject indicator) throws JSONException
+  private static IndicatorPrimitiveDAO createIndicator(JSONObject indicator, IndicatorPrimitiveDAO primitive) throws JSONException
   {
     String aggregation = indicator.getString("aggregation");
     String attributeId = indicator.getString("attribute");
 
-    IndicatorPrimitiveDAO primitive = IndicatorPrimitiveDAO.newInstance();
     primitive.setValue(IndicatorPrimitiveInfo.MD_ATTRIBUTE_PRIMITIVE, attributeId);
     primitive.setValue(IndicatorPrimitiveInfo.INDICATOR_FUNCTION, IndicatorAggregateFunction.valueOf(aggregation).getId());
 
@@ -1006,5 +1030,56 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     }
 
     return null;
+  }
+
+  @Transaction
+  public static void removeIndicator(String id)
+  {
+
+    /*
+     * Delete the corresponding MappableAttributes
+     */
+    MappableAttribute mAttribute = MappableAttribute.getMappableAttribute(id);
+
+    if (mAttribute != null)
+    {
+      mAttribute.delete();
+    }
+
+    BusinessDAO mdAttributeIndicator = MdAttributeIndicatorDAO.get(id).getBusinessDAO();
+    mdAttributeIndicator.delete();
+  }
+
+  @Transaction
+  public static String lockIndicator(String id)
+  {
+    try
+    {
+      MdAttributeIndicator mdAttributeIndicator = MdAttributeIndicator.lock(id);
+      MdAttributeIndicatorDAOIF mdAttribute = (MdAttributeIndicatorDAOIF) MdAttributeIndicatorDAO.get(id);
+
+      IndicatorCompositeDAOIF composite = (IndicatorCompositeDAOIF) mdAttribute.getIndicator();
+      JSONObject response = new JSONObject();
+      response.put("id", mdAttributeIndicator.getId());
+      response.put("label", mdAttributeIndicator.getDisplayLabel().getValue());
+      response.put("percentage", composite.isPercentage());
+      response.put("left", MappableClass.serializeIndicator((IndicatorPrimitiveDAOIF) composite.getLeftOperand()));
+      response.put("right", MappableClass.serializeIndicator((IndicatorPrimitiveDAOIF) composite.getRightOperand()));
+
+      return response.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  private static JSONObject serializeIndicator(IndicatorPrimitiveDAOIF element) throws JSONException
+  {
+    JSONObject indicator = new JSONObject();
+    indicator.put("aggregation", element.getAggregateFunction().getName());
+    indicator.put("attribute", element.getMdAttributePrimitive().getId());
+
+    return indicator;
   }
 }

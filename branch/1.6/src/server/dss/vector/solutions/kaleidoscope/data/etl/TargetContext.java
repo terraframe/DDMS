@@ -20,9 +20,15 @@ import java.util.Map;
 import java.util.Set;
 
 import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.dataaccess.BusinessDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.BusinessDAOQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebForm;
+
+import dss.vector.solutions.generator.MdFormUtil;
 
 public class TargetContext implements TargetContextIF, Reloadable
 {
@@ -77,7 +83,7 @@ public class TargetContext implements TargetContextIF, Reloadable
   }
 
   @Override
-  public BusinessDAO newMutable(String sourceType)
+  public BusinessDAO getOrCreateMutable(String sourceType, String oid)
   {
     TargetDefinitionIF definition = this.getDefinition(sourceType);
 
@@ -87,9 +93,29 @@ public class TargetContext implements TargetContextIF, Reloadable
       MdWebForm mdForm = MdWebForm.getByKey(type);
       MdClass mdClass = mdForm.getFormMdClass();
 
-      BusinessDAO business = BusinessDAO.newInstance(mdClass.definesType());
+      if (oid != null)
+      {
+        QueryFactory factory = new QueryFactory();
+        BusinessDAOQuery query = factory.businessDAOQuery(mdClass.definesType());
+        query.WHERE(query.aCharacter(MdFormUtil.OID).EQ(oid));
 
-      return business;
+        OIterator<BusinessDAOIF> it = query.getIterator();
+
+        try
+        {
+          if (it.hasNext())
+          {
+            return it.next().getBusinessDAO();
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+
+      }
+
+      return BusinessDAO.newInstance(mdClass.definesType());
     }
 
     return null;

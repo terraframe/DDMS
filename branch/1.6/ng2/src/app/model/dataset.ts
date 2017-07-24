@@ -35,8 +35,9 @@ export class Indicator {
 }
 
 export class IndicatorField {
-  label: string 
+  label: string; 
   left: Indicator;
-  operation : string;
-  right: Indicator; 
+  right: Indicator;
+  id: string;
+  percentage: boolean;
 }
