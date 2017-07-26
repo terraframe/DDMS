@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 31441222)
+@com.runwaysdk.business.ClassSignature(hash = -288228565)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
   public static java.lang.String TYPE = "type";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String VIEWCREATED = "viewCreated";
-  private static final long serialVersionUID = 31441222;
+  private static final long serialVersionUID = -288228565;
   
   public GeoHierarchyBase()
   {
@@ -249,7 +249,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.SingleActor getLockedBy()
+  public com.runwaysdk.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -257,7 +257,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     }
     else
     {
-      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
   }
   
