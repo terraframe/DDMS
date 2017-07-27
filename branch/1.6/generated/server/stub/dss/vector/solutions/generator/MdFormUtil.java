@@ -101,7 +101,6 @@ import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeIndices;
 import com.runwaysdk.system.metadata.MdAttributeReference;
-import com.runwaysdk.system.metadata.MdAttributeReferenceQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
@@ -112,6 +111,7 @@ import com.runwaysdk.system.metadata.MdWebAttributeQuery;
 import com.runwaysdk.system.metadata.MdWebBoolean;
 import com.runwaysdk.system.metadata.MdWebBreak;
 import com.runwaysdk.system.metadata.MdWebCharacter;
+import com.runwaysdk.system.metadata.MdWebCharacterQuery;
 import com.runwaysdk.system.metadata.MdWebComment;
 import com.runwaysdk.system.metadata.MdWebDec;
 import com.runwaysdk.system.metadata.MdWebDecimal;
@@ -531,16 +531,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     if (mdField instanceof MdWebAttribute && ! ( mdField instanceof MdWebMultipleTerm ) && ! ( mdField instanceof MdWebSingleTermGrid ) && addToDataset && MdFormUtil.isDatasetValid(form))
     {
-      MdWebAttribute mdWebAttribute = (MdWebAttribute) mdField;
-      MdAttribute mdAttribute = mdWebAttribute.getDefiningMdAttribute();
-
-      MappableAttribute mAttribute = new MappableAttribute();
-      mAttribute.setWrappedMdAttribute(mdAttribute);
-      mAttribute.setAggregatable(true);
-      mAttribute.apply();
+      MdFormUtil.addFieldToDataset(mdField);
     }
 
     return mdField;
+  }
+
+  private static void addFieldToDataset(MdField mdField)
+  {
+    MdWebAttribute mdWebAttribute = (MdWebAttribute) mdField;
+    MdAttribute mdAttribute = mdWebAttribute.getDefiningMdAttribute();
+
+    MappableAttribute mAttribute = new MappableAttribute();
+    mAttribute.setWrappedMdAttribute(mdAttribute);
+    mAttribute.setAggregatable(true);
+    mAttribute.apply();
   }
 
   @Transaction
@@ -565,50 +570,54 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     if (addToDataset && MdFormUtil.isDatasetValid(form))
     {
-      MdAttribute mdAttribute = mdField.getDefiningMdAttribute();
-
-      MappableAttribute mAttribute = new MappableAttribute();
-      mAttribute.setWrappedMdAttribute(mdAttribute);
-      mAttribute.setAggregatable(true);
-      mAttribute.apply();
-
-      GeoNodeEntity node = new GeoNodeEntity();
-      node.setKeyName(mdField.getKey());
-      node.setGeoEntityAttribute((MdAttributeReference) mdAttribute);
-      node.apply();
-
-      MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
-      MdClassDAOIF mdClass = mdForm.getFormMdClass();
-
-      List<GeoHierarchy> universals = geoField.getUniversals();
-
-      MappableClass mClass = MappableClass.getMappableClass(mdClass);
-      mClass.addGeoNode(node).apply();
-
-      if (universals.size() > 0)
-      {
-        GeoHierarchy nLowest = universals.get(universals.size() - 1);
-
-        List<? extends GeoHierarchy> current = mClass.getAllUniversal().getAll();
-        GeoHierarchy lowest = current.size() > 0 ? current.get(0) : null;
-
-        if (nLowest != null && ( lowest == null || lowest.isAncestor(nLowest.getQualifiedType()) ))
-        {
-          /*
-           * A new universal has been added lower down in the hierarchy
-           */
-          if (lowest != null)
-          {
-            mClass.getUniversalRel(lowest).getAll().get(0).delete();
-          }
-
-          mClass.addUniversal(nLowest).apply();
-        }
-      }
-
+      MdFormUtil.addGeoFieldToDataset(mdField, mdFormId, geoField);
     }
 
     return mdField;
+  }
+
+  private static void addGeoFieldToDataset(MdWebGeo mdField, String mdFormId, GeoField geoField)
+  {
+    MdAttribute mdAttribute = mdField.getDefiningMdAttribute();
+
+    MappableAttribute mAttribute = new MappableAttribute();
+    mAttribute.setWrappedMdAttribute(mdAttribute);
+    mAttribute.setAggregatable(true);
+    mAttribute.apply();
+
+    GeoNodeEntity node = new GeoNodeEntity();
+    node.setKeyName(mdField.getKey());
+    node.setGeoEntityAttribute((MdAttributeReference) mdAttribute);
+    node.apply();
+
+    MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
+    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+
+    List<GeoHierarchy> universals = geoField.getUniversals();
+
+    MappableClass mClass = MappableClass.getMappableClass(mdClass);
+    mClass.addGeoNode(node).apply();
+
+    if (universals.size() > 0)
+    {
+      GeoHierarchy nLowest = universals.get(universals.size() - 1);
+
+      List<? extends GeoHierarchy> current = mClass.getAllUniversal().getAll();
+      GeoHierarchy lowest = current.size() > 0 ? current.get(0) : null;
+
+      if (nLowest != null && ( lowest == null || lowest.isAncestor(nLowest.getQualifiedType()) ))
+      {
+        /*
+         * A new universal has been added lower down in the hierarchy
+         */
+        if (lowest != null)
+        {
+          mClass.getUniversalRel(lowest).getAll().get(0).delete();
+        }
+
+        mClass.addUniversal(nLowest).apply();
+      }
+    }
   }
 
   @Transaction
@@ -1200,6 +1209,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     mdForm.apply();
 
+    boolean addToDataset = MdFormUtil.isDatasetValid(oldFormId);
+
+    if (addToDataset)
+    {
+      MappableClass mClass = new MappableClass();
+      mClass.setWrappedMdClass(mdClass);
+      mClass.setDisease(Disease.getCurrent());
+      mClass.setRemovable(false);
+      mClass.apply();
+    }
+
     new FormSystemURLBuilder(mdForm).generate();
 
     for (MdWebField field : fields)
@@ -1237,6 +1257,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         }
 
         DDMSFieldBuilders.createGeoField((MdWebGeo) field, mdForm.getId(), clonedGeoField, extraUniversals.toArray(new String[extraUniversals.size()]));
+
+        if (addToDataset)
+        {
+          MdFormUtil.addGeoFieldToDataset((MdWebGeo) field, mdForm.getId(), clonedGeoField);
+        }
       }
       else if (field instanceof MdWebSingleTermGrid)
       {
@@ -1267,6 +1292,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       else if (field instanceof MdWebMultipleTerm || field instanceof MdWebSingleTerm)
       {
         DDMSFieldBuilders.create(field, mdForm.getId());
+
+        if (field instanceof MdWebSingleTerm && addToDataset)
+        {
+          MdFormUtil.addFieldToDataset(field);
+        }
       }
       else
       {
@@ -1292,6 +1322,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         }
 
         field.apply();
+
+        if (field instanceof MdWebAttribute && addToDataset)
+        {
+          MdFormUtil.addFieldToDataset(field);
+        }
       }
     }
 
@@ -2471,33 +2506,41 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       return false;
     }
 
+    if (MdFormUtil.hasReferenceField(form))
+    {
+      return false;
+    }
+
+    if (MdFormUtil.hasCollectionIdField(form))
+    {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static boolean isDatasetValid(String id)
+  {
+    return MdFormUtil.isDatasetValid(MdWebForm.get(id));
+  }
+
+  private static boolean hasReferenceField(MdWebForm form)
+  {
     QueryFactory factory = new QueryFactory();
     MdWebReferenceQuery fieldQuery = new MdWebReferenceQuery(factory);
     fieldQuery.WHERE(fieldQuery.getDefiningMdForm().EQ(form));
 
-    MdAttributeReferenceQuery attributeQuery = new MdAttributeReferenceQuery(factory);
-    attributeQuery.WHERE(attributeQuery.EQ(fieldQuery.getDefiningMdAttribute()));
+    return fieldQuery.getCount() > 0;
+  }
 
-    OIterator<? extends MdAttributeReference> iterator = attributeQuery.getIterator();
+  private static boolean hasCollectionIdField(MdWebForm form)
+  {
+    QueryFactory factory = new QueryFactory();
+    MdWebCharacterQuery fieldQuery = new MdWebCharacterQuery(factory);
+    fieldQuery.WHERE(fieldQuery.getDefiningMdForm().EQ(form));
+    fieldQuery.AND(fieldQuery.getFieldName().EQ("collectionId"));
 
-    try
-    {
-      while (iterator.hasNext())
-      {
-        MdAttributeReference mdAttributeReference = iterator.next();
-
-        if (!mdAttributeReference.getSystem())
-        {
-          return false;
-        }
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-
-    return true;
+    return fieldQuery.getCount() > 0;
   }
 
   public static boolean hasDataset(MdWebForm form)
