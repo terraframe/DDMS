@@ -189,6 +189,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   public static final String XSD_LOCATION      = "classpath:/datatype_gis.xsd";
 
+  public static final String VECTOR_FORM_TYPE  = "dss.vector.solutions.form.HumanBloodIndex";
+
   public MdFormUtil()
   {
     super();
@@ -2464,7 +2466,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   public static boolean isDatasetValid(MdWebForm form)
   {
-    if (form.definesType().equals(FormSurvey.FORM_TYPE) || form.definesType().equals(HumanBloodIndex.FORM_TYPE))
+    if (form.definesType().equals(FormSurvey.FORM_TYPE) || form.definesType().equals(VECTOR_FORM_TYPE))
     {
       return false;
     }
