@@ -55,7 +55,6 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.kaleidoscope.ontology.NonUniqueCategoryException;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.surveillance.OptionComparator;
@@ -1310,7 +1309,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     TermQuery query = new TermQuery(factory);
     query.AND(query.getId().EQ(aptQuery.getChildTerm().getId()));
-    query.AND(OR.get(query.getTermDisplayLabel().localize().EQ(displayLabel), query.synonyms(synonymQuery)));
+    query.AND(OR.get(query.getName().EQi(displayLabel), query.getTermDisplayLabel().localize().EQi(displayLabel), query.getTermId().EQ(displayLabel), query.synonyms(synonymQuery)));
 
     OIterator<? extends Term> iterator = query.getIterator();
 
