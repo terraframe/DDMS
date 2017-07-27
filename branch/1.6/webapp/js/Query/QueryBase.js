@@ -1031,6 +1031,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           onSuccess : function(savedSearchView)
           {
             that._loadSavedState(savedSearchView);
+            
+            var info = this.getInformation();
+            
+            if(info != null) {
+              for(var i = 0; i < info.length; i++) {
+                new MDSS.ErrorModal(info[i].getMessage());
+              }
+            }
           }
         });
         

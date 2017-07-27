@@ -1,6 +1,10 @@
 package dss.vector.solutions.kaleidoscope.geo;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.gis.metadata.MdAttributeMultiPolygon;
 import com.runwaysdk.system.gis.metadata.MdAttributePoint;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -44,6 +48,16 @@ public class GeoNodeEntity extends GeoNodeEntityBase implements Reloadable
   public MdAttributePoint getPointAttribute()
   {
     return MdAttributePoint.get(GeoEntity.getGeoPointMd().getId());
+  }
+
+  public static List<GeoNodeEntity> getByEntityAttribute(String mdAttributeId)
+  {
+    GeoNodeEntityQuery query = new GeoNodeEntityQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntityAttribute().EQ(mdAttributeId));
+
+    List<? extends GeoNodeEntity> list = query.getIterator().getAll();
+
+    return new LinkedList<GeoNodeEntity>(list);
   }
 
 }

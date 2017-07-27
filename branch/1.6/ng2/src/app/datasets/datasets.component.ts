@@ -19,7 +19,8 @@ declare let acp: string;
   styleUrls: ['./datasets.component.css']
 })
 export class DatasetsComponent implements OnInit {
-  public datasets: Dataset[];
+  public datasets: Dataset[] = [];
+  public forms: Dataset[] = [];
   
   public canExport: boolean;
 
@@ -73,8 +74,19 @@ export class DatasetsComponent implements OnInit {
     this.datasetService
       .getDatasets()
       .then(datasetCollection => {
-        this.datasets = datasetCollection.datasets;
+        this.datasets = [];
+        this.forms = [];
         this.canExport = datasetCollection.canExport;
+        
+        datasetCollection.datasets.forEach(dataset => {
+          if(dataset.removable) {
+            this.datasets.push(dataset);
+          }
+          else {
+            this.forms.push(dataset);        	  
+          }
+        });
+        
       })
   };
   

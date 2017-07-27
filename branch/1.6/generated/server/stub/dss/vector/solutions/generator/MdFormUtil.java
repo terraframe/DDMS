@@ -101,6 +101,7 @@ import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeIndices;
 import com.runwaysdk.system.metadata.MdAttributeReference;
+import com.runwaysdk.system.metadata.MdAttributeReferenceQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
@@ -129,6 +130,7 @@ import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebNumber;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
+import com.runwaysdk.system.metadata.MdWebReferenceQuery;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGridField;
@@ -506,6 +508,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Authenticate
   public static MdField createMdField(MdField mdField, String mdFormId)
   {
+    return MdFormUtil.createMdField(mdField, mdFormId, true);
+  }
+
+  public static MdField createMdField(MdField mdField, String mdFormId, boolean addToDataset)
+  {
     InstallProperties.validateMasterOperation();
 
     /*
@@ -514,12 +521,29 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFormUtil.validateFormModification(mdFormId);
 
     DDMSFieldBuilders.create(mdField, mdFormId);
+
+    if (mdField instanceof MdWebAttribute && ! ( mdField instanceof MdWebMultipleTerm ) && ! ( mdField instanceof MdWebSingleTermGrid ) && addToDataset)
+    {
+      MdWebAttribute mdWebAttribute = (MdWebAttribute) mdField;
+      MdAttribute mdAttribute = mdWebAttribute.getDefiningMdAttribute();
+
+      MappableAttribute mAttribute = new MappableAttribute();
+      mAttribute.setWrappedMdAttribute(mdAttribute);
+      mAttribute.setAggregatable(true);
+      mAttribute.apply();
+    }
+
     return mdField;
   }
 
   @Transaction
   @Authenticate
   public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
+  {
+    return MdFormUtil.createGeoField(mdField, mdFormId, geoField, extraUniversals, true);
+  }
+
+  public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals, boolean addToDataset)
   {
     InstallProperties.validateMasterOperation();
 
@@ -529,6 +553,51 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFormUtil.validateFormModification(mdFormId);
 
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
+
+    if (addToDataset)
+    {
+      MdAttribute mdAttribute = mdField.getDefiningMdAttribute();
+
+      MappableAttribute mAttribute = new MappableAttribute();
+      mAttribute.setWrappedMdAttribute(mdAttribute);
+      mAttribute.setAggregatable(true);
+      mAttribute.apply();
+
+      GeoNodeEntity node = new GeoNodeEntity();
+      node.setKeyName(mdField.getKey());
+      node.setGeoEntityAttribute((MdAttributeReference) mdAttribute);
+      node.apply();
+
+      MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
+      MdClassDAOIF mdClass = mdForm.getFormMdClass();
+
+      List<GeoHierarchy> universals = geoField.getUniversals();
+
+      MappableClass mClass = MappableClass.getMappableClass(mdClass);
+      mClass.addGeoNode(node).apply();
+
+      if (universals.size() > 0)
+      {
+        GeoHierarchy nLowest = universals.get(universals.size() - 1);
+
+        List<? extends GeoHierarchy> current = mClass.getAllUniversal().getAll();
+        GeoHierarchy lowest = current.size() > 0 ? current.get(0) : null;
+
+        if (nLowest != null && ( lowest == null || lowest.isAncestor(nLowest.getQualifiedType()) ))
+        {
+          /*
+           * A new universal has been added lower down in the hierarchy
+           */
+          if (lowest != null)
+          {
+            mClass.getUniversalRel(lowest).getAll().get(0).delete();
+          }
+
+          mClass.addUniversal(nLowest).apply();
+        }
+      }
+
+    }
 
     return mdField;
   }
@@ -878,6 +947,29 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       List<? extends MdWebField> fields = iterator.getAll();
       return fields.toArray(new MdWebField[fields.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  public static MdWebAttribute getField(MdWebForm mdForm, MdAttributeDAOIF mdAttribute)
+  {
+    MdWebAttributeQuery q = new MdWebAttributeQuery(new QueryFactory());
+    q.WHERE(q.getDefiningMdAttribute().EQ(mdAttribute.getId()));
+    q.AND(q.getDefiningMdForm().EQ(mdForm));
+
+    OIterator<? extends MdWebAttribute> iterator = q.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      return null;
     }
     finally
     {
@@ -1259,6 +1351,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Authenticate
   public static MdWebForm apply(MdWebForm mdForm)
   {
+    return MdFormUtil.apply(mdForm, true);
+  }
+
+  public static MdWebForm apply(MdWebForm mdForm, boolean createDataset)
+  {
     InstallProperties.validateMasterOperation();
 
     MdBusiness mdBusiness = null;
@@ -1313,6 +1410,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
       mdForm.setTypeName(typeName);
       mdForm.setFormMdClass(mdBusiness);
+
+      /*
+       * Create the mappable class
+       */
+      if (createDataset)
+      {
+        MappableClass mClass = new MappableClass();
+        mClass.setWrappedMdClass(mdBusiness);
+        mClass.setDisease(Disease.getCurrent());
+        mClass.setRemovable(false);
+        mClass.apply();
+      }
     }
 
     mdForm.apply();
@@ -1360,6 +1469,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Authenticate
   public static void delete(MdWebForm mdForm)
   {
+    MdFormUtil.delete(mdForm, true);
+  }
+
+  public static void delete(MdWebForm mdForm, boolean deleteMappableClass)
+  {
     InstallProperties.validateMasterOperation();
 
     TargetBinding binding = TargetBinding.getBindingForTarget(mdForm.getId());
@@ -1398,7 +1512,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
        */
       for (MdWebField mdField : fields)
       {
-        if (mdField instanceof MdWebGeo || mdField instanceof MdWebSingleTerm || mdField instanceof MdWebSingleTerm || mdField instanceof MdWebSingleTermGrid)
+        if (mdField instanceof MdWebGeo || mdField instanceof MdWebSingleTerm || mdField instanceof MdWebMultipleTerm || mdField instanceof MdWebSingleTermGrid)
         {
           MdFormUtil.deleteField(mdForm, mdField);
         }
@@ -1407,6 +1521,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     finally
     {
       it.close();
+    }
+
+    if (deleteMappableClass)
+    {
+      MappableClass mClass = MappableClass.getMappableClass(mdClass);
+
+      if (mClass != null)
+      {
+        mClass.delete(false);
+      }
     }
 
     mdForm.delete();
@@ -1486,6 +1610,28 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
           f.appLock();
           f.setFieldOrder(++order);
           f.apply();
+        }
+      }
+
+      if (mdField instanceof MdWebAttribute)
+      {
+        MdWebAttribute mdWebAttribute = (MdWebAttribute) mdField;
+
+        MappableAttribute mAttribute = MappableAttribute.getMappableAttribute(mdWebAttribute.getDefiningMdAttributeId());
+
+        if (mAttribute != null)
+        {
+          mAttribute.delete();
+        }
+
+        if (mdField instanceof MdWebGeo)
+        {
+          List<GeoNodeEntity> nodes = GeoNodeEntity.getByEntityAttribute(mdWebAttribute.getDefiningMdAttributeId());
+
+          for (GeoNodeEntity node : nodes)
+          {
+            node.delete();
+          }
         }
       }
 
@@ -1925,7 +2071,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
       for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
       {
-        if (!mdAttribute.isSystem() && !(mdAttribute instanceof MdAttributeIndicatorDAOIF))
+        if (!mdAttribute.isSystem() && ! ( mdAttribute instanceof MdAttributeIndicatorDAOIF ))
         {
           String attributeName = mdAttribute.definesAttribute();
 
@@ -2237,6 +2383,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(MdClass.get(mdClass.getId()));
     mClass.setDisease(Disease.getCurrent());
+    mClass.setRemovable(false);
     mClass.apply();
 
     List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
@@ -2306,5 +2453,46 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       throw new ModifyFormException();
     }
+  }
+
+  public static boolean isDatasetValid(MdWebForm form)
+  {
+    if (form.definesType().equals(FormSurvey.FORM_TYPE) || form.definesType().equals(HumanBloodIndex.FORM_TYPE))
+    {
+      return false;
+    }
+
+    QueryFactory factory = new QueryFactory();
+    MdWebReferenceQuery fieldQuery = new MdWebReferenceQuery(factory);
+    fieldQuery.WHERE(fieldQuery.getDefiningMdForm().EQ(form));
+
+    MdAttributeReferenceQuery attributeQuery = new MdAttributeReferenceQuery(factory);
+    attributeQuery.WHERE(attributeQuery.EQ(fieldQuery.getDefiningMdAttribute()));
+
+    OIterator<? extends MdAttributeReference> iterator = attributeQuery.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        MdAttributeReference mdAttributeReference = iterator.next();
+
+        if (!mdAttributeReference.getSystem())
+        {
+          return false;
+        }
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    return true;
+  }
+
+  public static boolean hasDataset(MdWebForm form)
+  {
+    return ( MappableClass.getMappableClass(form.getFormMdClass()) != null );
   }
 }

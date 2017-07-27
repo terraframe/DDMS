@@ -20,7 +20,6 @@ import com.runwaysdk.constants.IndicatorCompositeInfo;
 import com.runwaysdk.constants.IndicatorPrimitiveInfo;
 import com.runwaysdk.constants.MdAttributeIndicatorInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
-import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAOIF;
 import com.runwaysdk.dataaccess.IndicatorPrimitiveDAO;
@@ -55,6 +54,7 @@ import com.runwaysdk.system.metadata.MdWebForm;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.MdFormUtil;
+import dss.vector.solutions.generator.MdWebIndicator;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.kaleidoscope.dashboard.AttributeWrapper;
@@ -209,7 +209,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
       if (mdForm != null)
       {
-        MdFormUtil.delete(mdForm);
+        MdFormUtil.delete(mdForm, false);
       }
 
       mdClass.delete();
@@ -359,7 +359,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     JSONObject aggregation = new JSONObject();
     aggregation.put("value", func.getDisplayLabel());
     aggregation.put("id", func.getEnumName());
-    
+
     return aggregation;
   }
 
@@ -664,7 +664,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       {
         boolean isClassifier = referenceMdBusiness.definesType().equals(Term.CLASS);
 
-        return isClassifier;
+        return isClassifier && ( MappableAttribute.getMappableAttribute(mdAttribute) != null );
       }
 
       return false;
@@ -943,6 +943,24 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       composite.setValue(IndicatorCompositeInfo.PERCENTAGE, percentage);
       composite.apply();
 
+      MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(mdClass.definesType());
+
+      /*
+       * Update the WebField as well
+       */
+      if (mdWebForm != null)
+      {
+        MdWebIndicator mdWebIndicator = (MdWebIndicator) MdFormUtil.getField(mdWebForm, mdAttributeIndicator);
+        mdWebIndicator.lock();
+        mdWebIndicator.getDisplayLabel().setValue(displayLabel);        
+        mdWebIndicator.setNumeratorField(MdFormUtil.getField(mdWebForm, left.getMdAttributePrimitive()));
+        mdWebIndicator.addNumeratorAggregation(IndicatorAggregateFunction.valueOf(left.getAggregateFunction().getName()));
+        mdWebIndicator.setDenominatorField(MdFormUtil.getField(mdWebForm, right.getMdAttributePrimitive()));
+        mdWebIndicator.addDenominatorAggregation(IndicatorAggregateFunction.valueOf(right.getAggregateFunction().getName()));
+        mdWebIndicator.setPercentage(new Boolean(percentage));
+        mdWebIndicator.apply();
+      }
+
       return mdAttributeIndicator;
     }
     else
@@ -973,6 +991,27 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       mAttribute.setWrappedMdAttribute(mdAttribute);
       mAttribute.setAggregatable(false);
       mAttribute.apply();
+
+      MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(mdClass.definesType());
+
+      /*
+       * Create a WebField as well
+       */
+      if (mdWebForm != null)
+      {
+        MdWebIndicator mdWebIndicator = new MdWebIndicator();
+        mdWebIndicator.setFieldName(mdAttribute.getAttributeName());
+        mdWebIndicator.setFieldOrder(MdFormUtil.getHighestOrder(mdWebForm));
+        mdWebIndicator.setDefiningMdAttribute(mdAttribute);
+        mdWebIndicator.getDisplayLabel().setValue(displayLabel);
+        mdWebIndicator.setDefiningMdForm(mdWebForm);
+        mdWebIndicator.setNumeratorField(MdFormUtil.getField(mdWebForm, left.getMdAttributePrimitive()));
+        mdWebIndicator.addNumeratorAggregation(IndicatorAggregateFunction.valueOf(left.getAggregateFunction().getName()));
+        mdWebIndicator.setDenominatorField(MdFormUtil.getField(mdWebForm, right.getMdAttributePrimitive()));
+        mdWebIndicator.addDenominatorAggregation(IndicatorAggregateFunction.valueOf(right.getAggregateFunction().getName()));
+        mdWebIndicator.setPercentage(new Boolean(percentage));
+        mdWebIndicator.apply();
+      }
 
       return mdAttributeDAO;
     }
@@ -1046,8 +1085,26 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       mAttribute.delete();
     }
 
-    BusinessDAO mdAttributeIndicator = MdAttributeIndicatorDAO.get(id).getBusinessDAO();
-    mdAttributeIndicator.delete();
+    MdAttributeConcreteDAOIF mdAttributeIndicator = MdAttributeIndicatorDAO.get(id);
+    MdClassDAOIF mdClass = mdAttributeIndicator.definedByClass();
+
+    MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(mdClass.definesType());
+
+    /*
+     * Delete the WebField as well
+     */
+    if (mdWebForm != null)
+    {
+      MdWebIndicator mdWebIndicator = (MdWebIndicator) MdFormUtil.getField(mdWebForm, mdAttributeIndicator);
+
+      if (mdWebIndicator != null)
+      {
+        MdFormUtil.deleteField(mdWebForm, mdWebIndicator);
+      }
+    }
+
+    // Get and delete a new instance of the indicator because it might be stale if the web indicator is deleted
+    MdAttributeIndicatorDAO.get(id).getBusinessDAO().delete();
   }
 
   @Transaction

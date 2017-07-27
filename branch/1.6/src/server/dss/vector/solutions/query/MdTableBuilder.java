@@ -430,16 +430,11 @@ public class MdTableBuilder implements Reloadable
       }
       else if (mdAttributeIF instanceof MdAttributeIndicatorDAOIF)
       {
-        MdAttributeDoubleDAO mdAttribute = MdAttributeDoubleDAO.newInstance();
-        mdAttribute.setValue(MdAttributeDoubleInfo.NAME, attributeName);
-        mdAttribute.setStructValue(MdAttributeDoubleInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
-        mdAttribute.setValue(MdAttributeDoubleInfo.DEFINING_MD_CLASS, mdTableDAO.getId());
-        mdAttribute.getAttribute(MdAttributeConcreteInfo.COLUMN_NAME).setValueNoValidation(selectable.getDbColumnName());
-        mdAttribute.getAttribute(MdAttributeDoubleInfo.LENGTH).setValue("20");
-        mdAttribute.getAttribute(MdAttributeDoubleInfo.DECIMAL).setValue("2");
-        mdAttribute.apply();
-
-        definition.addAttribute(mdAttribute);
+        // Throw a indicator warning
+        IgnoredColumnInformation info = new IgnoredColumnInformation();
+        info.setColumnName(mdAttributeIF.getDisplayLabel(Session.getCurrentLocale()));
+        info.apply();
+        info.throwIt();
       }
       else if (mdAttributeIF instanceof MdAttributeFloatDAOIF)
       {
