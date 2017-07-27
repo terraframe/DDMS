@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,9 @@ import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.DHIS2IdMapping;
 import dss.vector.solutions.etl.dhis2.DHIS2IdMappingQuery;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
+import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
+import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -113,9 +116,13 @@ public class MdClassExporter
     
     JSONObject metadata = new JSONObject();
     
-    createCategoryOptionsMetadata(metadata);
+    createCategoryOptionsMetadata(metadata); // #8
     
-    createCategoryMetadata(metadata);
+    createCategoryMetadata(metadata); // #9
+    
+    createCategoryCombinationMetadata(metadata); // #10
+    
+//    createCategoryOptionCombinationMetadata(metadata); // #11
     
     System.out.println(metadata.toString());
   }
@@ -174,6 +181,7 @@ public class MdClassExporter
             categoryAttrs.add(mdAttr);
           }
         }
+        // Numbers are not exported as categories.
         else if (mdAttr instanceof MdAttributeNumber)
         {
           if (!(sel instanceof AggregateFunction))
@@ -181,7 +189,7 @@ public class MdClassExporter
             throw new RuntimeException("All number columns must be aggregated. [" + mdAttr.getDisplayLabel().getValue() + "] is not aggregated.");
           }
         }
-        // TODO : Time columns aren't actually an instance of moment
+        // Most columns are defaulted to character (time, user, etc)
         else if (mdAttr instanceof MdAttributeCharacter)
         {
           if (mdAttr.getAttributeName().equals("dategroup_year"))
@@ -233,6 +241,8 @@ public class MdClassExporter
         vq.SELECT(tq.get(attr.getAttributeName()));
       }
       
+      Set<String> noDuplicatesSet = new HashSet<String>(); // Prevents us from exporting the same object many times.
+      
       OIterator<ValueObject> it = vq.getIterator();
       for (ValueObject val : it)
       {
@@ -241,6 +251,7 @@ public class MdClassExporter
           String attrVal = val.getValue(mdAttr.getAttributeName());
           if (attrVal == null) { continue; }
           
+          // We need to figure out values for all of these if we're to export. The problem is that the values will vary depending on the attribute.
           String name = null;
           String code = null;
           String shortName = null;
@@ -264,12 +275,12 @@ public class MdClassExporter
           {
             continue;
           }
-          else
+          else // This typically matches to characters (which is most columns)
           {
             name = attrVal;
             shortName = name;
             code = attrVal;
-            rwId = mdClass.getTypeName() + "." + mdAttr.getAttributeName() + "." + attrVal;
+            rwId = mdAttr.getAttributeName() + "." + attrVal; // TODO : We may need to filter out values from the attrVal here
             
             if (rwId.length() > 64)
             {
@@ -277,24 +288,19 @@ public class MdClassExporter
             }
           }
           
+          // If we set values to those variables, then we know we have categories that need to be exported.
           if (name != null)
           {
-            DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
-            idq.WHERE(idq.getRunwayId().EQ(rwId));
-            OIterator<? extends DHIS2IdMapping> mappingIt = idq.getIterator();
-            try
+            if (noDuplicatesSet.contains(rwId))
             {
-              if (mappingIt.hasNext())
-              {
-                continue;
-              }
+              continue;
             }
-            finally
+            else
             {
-              mappingIt.close();
+              noDuplicatesSet.add(rwId);
             }
             
-            String dhis2Id = idCache.next();
+            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(rwId, idCache);
             
             JSONObject option = new JSONObject();
             option.put("code", code);
@@ -302,11 +308,6 @@ public class MdClassExporter
             option.put("shortName", shortName);
             option.put("id", dhis2Id);
             options.put(option);
-            
-            DHIS2IdMapping map = new DHIS2IdMapping();
-            map.setRunwayId(rwId);
-            map.setDhis2Id(dhis2Id);
-            map.apply();
             
             Set<String> catSet = categoryMetadataMap.get(mdAttr);
             if (catSet == null)
@@ -337,15 +338,16 @@ public class MdClassExporter
       
       for (MdAttribute mdAttr : keys)
       {
-        Set<String> categoryOptions = categoryMetadataMap.get(mdAttr);
+        String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdAttr.getId(), idCache);
         
-        String dhis2Id = idCache.next();
-        
+        // Basic identifier info about the category
         JSONObject category = new JSONObject();
         category.put("name", mdAttr.getDisplayLabel().getValue());
         category.put("id", dhis2Id);
         category.put("dataDimensionType", "DISAGGREGATION");
         
+        // A list of all the category options associated with this category
+        Set<String> categoryOptions = categoryMetadataMap.get(mdAttr);
         JSONArray jsonCategoryOptions = new JSONArray();
         for (String option : categoryOptions)
         {
@@ -356,14 +358,95 @@ public class MdClassExporter
         category.put("categoryOptions", jsonCategoryOptions);
         
         categories.put(category);
-        
-        DHIS2IdMapping map = new DHIS2IdMapping();
-        map.setRunwayId(mdAttr.getId());
-        map.setDhis2Id(dhis2Id);
-        map.apply();
       }
       
       json.put("categories", categories);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createCategoryCombinationMetadata(JSONObject json)
+  {
+    try
+    {
+      JSONArray categoryCombos = new JSONArray();
+      JSONObject categoryCombo = new JSONObject();
+      
+      String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
+      
+      categoryCombo.put("name", mdClass.getDisplayLabel().getValue());
+      categoryCombo.put("id", dhis2Id);
+      categoryCombo.put("dataDimensionType", "DISAGGREGATION");
+      
+      // We can get the category ids by reading the json we generated earlier.
+      JSONArray categoryIds = new JSONArray();
+      JSONArray allCategories = json.getJSONArray("categories");
+      for (int i = 0; i < allCategories.length(); ++i)
+      {
+        String categoryId = allCategories.getJSONObject(i).getString("id");
+        
+        categoryIds.put(new JSONObject().put("id", categoryId));
+      }
+      categoryCombo.put("categories", categoryIds);
+      
+      categoryCombos.put(categoryCombo);
+      json.put("categoryCombos", categoryCombos);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createCategoryOptionCombinationMetadata(JSONObject json)
+  {
+    try
+    {
+      // Fetch the default category combo
+      HTTPResponse response = dhis2.apiGet("categoryOptionCombos", new NameValuePair[]{
+          new NameValuePair("filter", "displayName:eq:default")
+      });
+      DHIS2TrackerResponseProcessor.validateStatusCode(response);
+      
+      JSONObject defaultCatJS = response.getJSON();
+      JSONArray defaultCombos = defaultCatJS.getJSONArray("categoryOptionCombos");
+      JSONObject defaultCombo = defaultCombos.getJSONObject(0);
+      String defaultComboId = defaultCombo.getString("id");
+      
+      
+      // Do a cross product on our attributes
+      JSONArray combos = new JSONArray();
+      
+      for (MdAttribute mdAttr1 : categoryAttrs)
+      {
+        // Add default to the cross product
+        JSONObject defaultCross = new JSONObject();
+        
+        
+        for (MdAttribute mdAttr2 : categoryAttrs)
+        {
+          if (mdAttr1 != mdAttr2)
+          {
+            String dhis2Id = idCache.next();
+            
+            JSONObject combo = new JSONObject();
+            combo.put("name", mdAttr1.getDisplayLabel().getValue() + ", " + mdAttr2.getDisplayLabel().getValue());
+            combo.put("id", dhis2Id);
+            
+            JSONObject categoryCombo = new JSONObject();
+            categoryCombo.put("id", idCache.next());
+            combo.put("categoryCombo", categoryCombo);
+            
+            JSONArray categoryOptions = new JSONArray();
+            
+          }
+        }
+      }
+      
+      json.put("categoryOptionCombos", combos);
     }
     catch (JSONException e)
     {

@@ -88,11 +88,21 @@ abstract public class AbstractDHIS2Connector
   
   public HTTPResponse apiGet(String url, NameValuePair[] params)
   {
+    if (!url.endsWith(".json"))
+    {
+      url = url + ".json";
+    }
+    
     return httpGet("api/" + apiVersion + "/" + url, params);
   }
   
   public HTTPResponse apiPost(String url, String body)
   {
+    if (!url.endsWith(".json"))
+    {
+      url = url + ".json";
+    }
+    
     return httpPost("api/" + apiVersion + "/" + url, body);
   }
   

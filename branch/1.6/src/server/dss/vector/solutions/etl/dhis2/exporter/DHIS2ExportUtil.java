@@ -18,6 +18,8 @@
  */
 package dss.vector.solutions.etl.dhis2.exporter;
 
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
@@ -28,11 +30,46 @@ import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeText;
 
+import dss.vector.solutions.etl.dhis2.DHIS2IdMapping;
+import dss.vector.solutions.etl.dhis2.DHIS2IdMappingQuery;
+import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
+
 /**
  * @author rrowlands
  */
 public class DHIS2ExportUtil
 {
+  public static String queryAndMapIds(String runwayId, DHIS2IdCache idCache)
+  {
+    DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
+    idq.WHERE(idq.getRunwayId().EQ(runwayId));
+    OIterator<? extends DHIS2IdMapping> mappingIt = idq.getIterator();
+    try
+    {
+      if (mappingIt.hasNext())
+      {
+        DHIS2IdMapping mapping = mappingIt.next();
+        
+        return mapping.getDhis2Id();
+      }
+      else
+      {
+        String id = idCache.next();
+        
+        DHIS2IdMapping map = new DHIS2IdMapping();
+        map.setRunwayId(runwayId);
+        map.setDhis2Id(id);
+        map.apply();
+        
+        return id;
+      }
+    }
+    finally
+    {
+      mappingIt.close();
+    }
+  }
+  
   public static String getDHIS2TypeFromMdAttribute(MdAttribute mdAttr)
   {
     String valueType = null;
