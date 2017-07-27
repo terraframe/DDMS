@@ -195,7 +195,7 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
     MdBusinessDAOIF mdBusinessDAOIF = MdBusinessDAO.get(universal.getGeoEntityClassId());
     GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(mdBusinessDAOIF, factory);
     query.AND(query.getId().EQ(aptQuery.getChildGeoEntity().getId()));
-    query.AND(OR.get(query.getEntityLabel().localize().EQ(label), query.synonyms(synonymQuery)));
+    query.AND(OR.get(query.getEntityLabel().localize().EQ(label), query.getGeoId().EQ(label), query.synonyms(synonymQuery)));
 
     OIterator<? extends GeoEntity> iterator = query.getIterator();
 
