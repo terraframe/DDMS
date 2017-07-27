@@ -518,11 +518,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     /*
      * Validate form is not from a dataset
      */
-    MdFormUtil.validateFormModification(mdFormId);
+    if (! ( mdField instanceof MdWebIndicator ))
+    {
+      MdFormUtil.validateFormModification(mdFormId);
+    }
 
     DDMSFieldBuilders.create(mdField, mdFormId);
 
-    if (mdField instanceof MdWebAttribute && ! ( mdField instanceof MdWebMultipleTerm ) && ! ( mdField instanceof MdWebSingleTermGrid ) && addToDataset)
+    MdWebForm form = MdWebForm.get(mdFormId);
+
+    if (mdField instanceof MdWebAttribute && ! ( mdField instanceof MdWebMultipleTerm ) && ! ( mdField instanceof MdWebSingleTermGrid ) && addToDataset && MdFormUtil.isDatasetValid(form))
     {
       MdWebAttribute mdWebAttribute = (MdWebAttribute) mdField;
       MdAttribute mdAttribute = mdWebAttribute.getDefiningMdAttribute();
@@ -554,7 +559,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
-    if (addToDataset)
+    MdWebForm form = MdWebForm.get(mdFormId);
+
+    if (addToDataset && MdFormUtil.isDatasetValid(form))
     {
       MdAttribute mdAttribute = mdField.getDefiningMdAttribute();
 
