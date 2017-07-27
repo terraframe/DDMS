@@ -29,6 +29,7 @@ export class UploadWizardComponent implements OnDestroy {
   sheet: Sheet;
   page: Page;
   problems: Problems;
+  hasError: boolean = false;
   
   pageDirection: string;
   currentStep: number;
@@ -494,6 +495,9 @@ export class UploadWizardComponent implements OnDestroy {
                                  
           this.onSuccess.emit({datasets:result.datasets, finished : false});          
         }         
+      })
+      .catch(error => {
+        this.hasError = true;
       });    
 	  
   }

@@ -14,6 +14,7 @@ export class SummaryPageComponent implements OnInit {
   @Input() sheet: Sheet;
   @Input() page: Page;
   @Input() info: UploadInformation;
+  @Input() hasError: boolean = false;
   
   universals: Universal[];
   labels: {[key : string] : string};  
