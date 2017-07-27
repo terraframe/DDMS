@@ -122,7 +122,7 @@ public class MdClassExporter
     
     createCategoryCombinationMetadata(metadata); // #10
     
-//    createCategoryOptionCombinationMetadata(metadata); // #11
+    createCategoryOptionCombinationMetadata(metadata); // #11
     
     System.out.println(metadata.toString());
   }
@@ -414,34 +414,55 @@ public class MdClassExporter
       JSONObject defaultCatJS = response.getJSON();
       JSONArray defaultCombos = defaultCatJS.getJSONArray("categoryOptionCombos");
       JSONObject defaultCombo = defaultCombos.getJSONObject(0);
-      String defaultComboId = defaultCombo.getString("id");
       
+      String categoryComboId = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
+      JSONObject categoryCombo = new JSONObject();
+      categoryCombo.put("id", categoryComboId);
       
       // Do a cross product on our attributes
       JSONArray combos = new JSONArray();
       
-      for (MdAttribute mdAttr1 : categoryAttrs)
+      JSONArray allCategoryOptions = json.getJSONArray("categoryOptions");
+      for (int i = 0; i < allCategoryOptions.length(); ++i)
       {
+        JSONObject option1 = allCategoryOptions.getJSONObject(i);
+        
         // Add default to the cross product
         JSONObject defaultCross = new JSONObject();
+        defaultCross.put("name", option1.getString("name") + ", " + defaultCombo.getString("displayName"));
+        defaultCross.put("id", DHIS2ExportUtil.queryAndMapIds(option1.getString("id") + defaultCombo.getString("id"), idCache));
+        
+        defaultCross.put("categoryCombo", categoryCombo);
+        
+        JSONArray crossCategoryOptions = new JSONArray();
+        crossCategoryOptions.put(new JSONObject().put("id", option1.getString("id")));
+        crossCategoryOptions.put(new JSONObject().put("id", defaultCombo.getString("id")));
+        defaultCross.put("categoryOptions", crossCategoryOptions);
+        
+        combos.put(defaultCross);
         
         
-        for (MdAttribute mdAttr2 : categoryAttrs)
+        for (int j = 0; j < allCategoryOptions.length(); ++j)
         {
-          if (mdAttr1 != mdAttr2)
+          JSONObject option2 = allCategoryOptions.getJSONObject(j);
+          
+          if (option1 != option2)
           {
-            String dhis2Id = idCache.next();
+            String runwayId = option1.getString("id") + option2.getString("id");
+            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(runwayId, idCache);
             
             JSONObject combo = new JSONObject();
-            combo.put("name", mdAttr1.getDisplayLabel().getValue() + ", " + mdAttr2.getDisplayLabel().getValue());
+            combo.put("name", option1.getString("name") + ", " + option2.getString("name"));
             combo.put("id", dhis2Id);
             
-            JSONObject categoryCombo = new JSONObject();
-            categoryCombo.put("id", idCache.next());
             combo.put("categoryCombo", categoryCombo);
             
             JSONArray categoryOptions = new JSONArray();
+            categoryOptions.put(new JSONObject().put("id", option1.getString("id")));
+            categoryOptions.put(new JSONObject().put("id", option2.getString("id")));
+            combo.put("categoryOptions", categoryOptions);
             
+            combos.put(combo);
           }
         }
       }

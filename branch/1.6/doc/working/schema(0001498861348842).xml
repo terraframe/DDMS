@@ -35,7 +35,7 @@
       
       <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2IdMapping" label="DHIS2 Id Mapping">
         <attributes>
-          <char name="runwayId" size="64" indexType="unique index" label="Runway Id" />
+          <char name="runwayId" size="128" indexType="unique index" label="Runway Id" />
           <char name="dhis2Id" size="64" label="DHIS2 Id" />
         </attributes>
       </mdBusiness>
@@ -63,6 +63,7 @@
   </doIt>
   <undoIt>
     <delete>
+      <object key="dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.etl.dhis2.response.DHIS2DuplicateAttributeException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.etl.dhis2.response.OAuthLoginRequiredException" type="com.runwaysdk.system.metadata.MdException" />
       <object key="dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException" type="com.runwaysdk.system.metadata.MdException" />
