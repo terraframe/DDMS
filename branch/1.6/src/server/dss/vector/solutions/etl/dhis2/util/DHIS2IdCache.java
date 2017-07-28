@@ -61,7 +61,7 @@ public class DHIS2IdCache
       });
       DHIS2TrackerResponseProcessor.validateStatusCode(response); // TODO : We need better validation than just status code.
       
-      JSONObject json = response.getJSON();
+      JSONObject json = response.getJSONObject();
       
       if (json.has("codes"))
       {

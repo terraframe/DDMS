@@ -19,7 +19,6 @@
 package dss.vector.solutions.etl.dhis2;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -28,13 +27,11 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.URI;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dss.vector.solutions.etl.dhis2.DHIS2Configuration;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
 abstract public class AbstractDHIS2Connector
@@ -113,7 +110,7 @@ abstract public class AbstractDHIS2Connector
     this.setCredentials(config.getUsername(), config.getPazzword());
   }
   
-  public int httpRequest(HttpClient client, HttpMethod method, JSONObject response)
+  public HTTPResponse httpRequest(HttpClient client, HttpMethod method)
   {
     String sResponse = null;
     try
@@ -129,7 +126,7 @@ abstract public class AbstractDHIS2Connector
         this.logger.info("Redirected [" + statusCode + "] to [" + method.getResponseHeader("location").getValue() + "].");
         method.setURI(new URI(method.getResponseHeader("location").getValue(), true, method.getParams().getUriCharset()));
         method.releaseConnection();
-        return httpRequest(client, method, response);
+        return httpRequest(client, method);
       }
       
       // TODO : we might blow the memory stack here, read this as a stream somehow if possible.
@@ -152,41 +149,13 @@ abstract public class AbstractDHIS2Connector
         this.logger.info("Receieved a very large response.");
       }
 
-      JSONObject jsonResp;
-      if (sResponse.startsWith("["))
-      {
-        jsonResp = new JSONArray(sResponse).getJSONObject(0);
-      }
-      else if (sResponse.startsWith("{"))
-      {
-        jsonResp = new JSONObject(sResponse);
-      }
-      else
-      {
-        jsonResp = new JSONObject();
-        jsonResp.put("errorCode", statusCode);
-        jsonResp.put("message", sResponse);
-      }
-
-      @SuppressWarnings("unchecked")
-      Iterator<String> it = jsonResp.keys();
-      while (it.hasNext())
-      {
-        String key = it.next();
-        response.put(key, jsonResp.get(key));
-      }
-
-      return statusCode;
+      return new HTTPResponse(sResponse, statusCode);
     }
     catch (HttpException e)
     {
       throw new RuntimeException(e);
     }
     catch (IOException e)
-    {
-      throw new RuntimeException(e);
-    }
-    catch (JSONException e)
     {
       throw new RuntimeException(e);
     }

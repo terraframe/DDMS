@@ -27,7 +27,7 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.json.JSONException;
+import org.apache.http.HttpResponse;
 import org.json.JSONObject;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
@@ -56,10 +56,9 @@ public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector
     
     get.setQueryString(params);
     
-    JSONObject response = new JSONObject();
-    int statusCode = this.httpRequest(this.client, get, response);
+    HTTPResponse response = this.httpRequest(this.client, get);
     
-    return new HTTPResponse(response, statusCode);
+    return response;
   }
   
   public HTTPResponse httpPost(String url, String body)
@@ -77,10 +76,7 @@ public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector
       
       post.setRequestEntity(new StringRequestEntity(body, null, null));
 
-      JSONObject response = new JSONObject();
-      int statusCode = this.httpRequest(this.client, post, response);
-
-      return new HTTPResponse(response, statusCode);
+      return this.httpRequest(this.client, post);
     }
     catch (UnsupportedEncodingException e)
     {

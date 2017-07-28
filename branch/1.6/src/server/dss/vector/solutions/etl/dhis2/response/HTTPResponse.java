@@ -18,25 +18,34 @@
  */
 package dss.vector.solutions.etl.dhis2.response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HTTPResponse
 {
-  private JSONObject response;
+  private String response;
   
   private int statusCode;
   
-  public HTTPResponse(JSONObject response, int statusCode)
+  public HTTPResponse(String response, int statusCode)
   {
     this.response = response;
     this.statusCode = statusCode;
   }
 
-  public JSONObject getJSON() {
-    return response;
+  public JSONObject getJSONObject() throws JSONException
+  {
+    return new JSONObject(response);
+  }
+  
+  public JSONArray getJSONArray() throws JSONException
+  {
+    return new JSONArray(response);
   }
 
-  public void setResponse(JSONObject response) {
+  public void setResponse(String response)
+  {
     this.response = response;
   }
 

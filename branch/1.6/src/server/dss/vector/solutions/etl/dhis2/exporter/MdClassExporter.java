@@ -35,9 +35,13 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AggregateFunction;
+import com.runwaysdk.query.MAX;
+import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.TableQuery;
 import com.runwaysdk.query.ValueQuery;
@@ -45,6 +49,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeNumber;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -52,8 +57,6 @@ import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
-import dss.vector.solutions.etl.dhis2.DHIS2IdMapping;
-import dss.vector.solutions.etl.dhis2.DHIS2IdMappingQuery;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
@@ -123,6 +126,8 @@ public class MdClassExporter
     createCategoryCombinationMetadata(metadata); // #10
     
     createCategoryOptionCombinationMetadata(metadata); // #11
+    
+    createDataElementsMetadata(metadata); // #12
     
     System.out.println(metadata.toString());
   }
@@ -411,7 +416,7 @@ public class MdClassExporter
       });
       DHIS2TrackerResponseProcessor.validateStatusCode(response);
       
-      JSONObject defaultCatJS = response.getJSON();
+      JSONObject defaultCatJS = response.getJSONObject();
       JSONArray defaultCombos = defaultCatJS.getJSONArray("categoryOptionCombos");
       JSONObject defaultCombo = defaultCombos.getJSONObject(0);
       
@@ -468,6 +473,95 @@ public class MdClassExporter
       }
       
       json.put("categoryOptionCombos", combos);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createDataElementsMetadata(JSONObject json)
+  {
+    try
+    {
+      // Fetch the org unit levels
+      HTTPResponse response = dhis2.apiGet("filledOrganisationUnitLevels", new NameValuePair[]{});
+      DHIS2TrackerResponseProcessor.validateStatusCode(response);
+      
+      JSONArray levels = response.getJSONArray();
+      JSONArray aggregationLevels = new JSONArray();
+      for (int i = 0; i < levels.length(); ++i)
+      {
+        JSONObject level = levels.getJSONObject(i);
+        aggregationLevels.put(level.getInt("level"));
+      }
+      
+      
+      String categoryComboId = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
+      
+      JSONArray dataElements = new JSONArray();
+      
+      OIterator<? extends MdAttribute> mdAttrs = mdClass.getAllAttribute();
+      for (MdAttribute mdAttr : mdAttrs)
+      {
+        if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+            !ArrayUtils.contains(MdClassExporter.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+          )
+        {
+          if (mdAttr instanceof MdAttributeNumber)
+          {
+            Selectable sel = valueQuery.getSelectableRef(mdAttr.getAttributeName());
+            
+            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdAttr.getId(), idCache);
+            
+            JSONObject dataElement = new JSONObject();
+            
+            dataElement.put("id", dhis2Id);
+            
+            String name = mdClass.getDisplayLabel().getValue() + " " + mdAttr.getDisplayLabel().getValue();
+            dataElement.put("name", name);
+            dataElement.put("shortName", name);
+            
+            if (sel instanceof AVG)
+            {
+              dataElement.put("aggregationType", "AVG");
+            }
+            else if (sel instanceof SUM)
+            {
+              dataElement.put("aggregationType", "SUM");
+            }
+            else if (sel instanceof MIN)
+            {
+              dataElement.put("aggregationType", "MIN");
+            }
+            else if (sel instanceof MAX)
+            {
+              dataElement.put("aggregationType", "MAX");
+            }
+            
+            dataElement.put("domainType", "AGGREGATE");
+            
+            if (mdAttr instanceof MdAttributeInteger)
+            {
+              dataElement.put("valueType", "INTEGER");
+            }
+            else
+            {
+              dataElement.put("valueType", "NUMBER");
+            }
+            
+            dataElement.put("zeroIsSignificant", true);
+            
+            dataElement.put("categoryCombo", new JSONObject().put("id", categoryComboId));
+            
+            dataElement.put("aggregationLevels", aggregationLevels);
+            
+            dataElements.put(dataElement);
+          }
+        }
+      }
+      
+      json.put("dataElements", dataElements);
     }
     catch (JSONException e)
     {

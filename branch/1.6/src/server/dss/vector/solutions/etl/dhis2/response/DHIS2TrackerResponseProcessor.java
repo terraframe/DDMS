@@ -53,12 +53,12 @@ public class DHIS2TrackerResponseProcessor
   {
     try
     {
-      JSONObject json = response.getJSON();
+      JSONObject json = response.getJSONObject();
       int statusCode = response.getStatusCode();
       
       if (json.has("response"))
       {
-        validateImportSummaryResponse(new HTTPResponse(json.getJSONObject("response"), statusCode));
+        validateImportSummaryResponse(new HTTPResponse(json.getJSONObject("response").toString(), statusCode));
         return;
       }
       
@@ -117,7 +117,7 @@ public class DHIS2TrackerResponseProcessor
           {
             JSONObject enrollments = summary.getJSONObject("enrollments");
             
-            validateImportSummaryResponse(new HTTPResponse(enrollments, statusCode));
+            validateImportSummaryResponse(new HTTPResponse(enrollments.toString(), statusCode));
           }
           
           String status = summary.getString("status");
@@ -167,7 +167,7 @@ public class DHIS2TrackerResponseProcessor
   {
     try
     {
-      JSONObject json = response.getJSON();
+      JSONObject json = response.getJSONObject();
       int statusCode = response.getStatusCode();
       
       if (!json.has("status"))
