@@ -551,19 +551,19 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
               generated.apply();
 
-              /*
-               * This is for testing
-               */
-              try
-              {
-                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
-
-                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
-              }
-              catch (Exception e)
-              {
-                e.printStackTrace();
-              }
+//              /*
+//               * This is for testing
+//               */
+//              try
+//              {
+//                OutputStream tstream = new FileOutputStream(DeployProperties.getJspDir() + dashboard.getName().replaceAll("//s", "") + "-" + filterGeoId + ".png");
+//
+//                FileIO.write(tstream, new ByteArrayInputStream(imageInByte));
+//              }
+//              catch (Exception e)
+//              {
+//                e.printStackTrace();
+//              }
             }
             finally
             {
