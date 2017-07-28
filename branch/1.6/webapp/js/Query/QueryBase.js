@@ -1153,6 +1153,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           this.thisRef._queryPanel.addAvailableQuery(obj);
   
           this.modal.destroy();
+          
+          var info = this.getInformation();
+          
+          if(info != null) {
+            for(var i = 0; i < info.length; i++) {
+              new MDSS.ErrorModal(info[i].getMessage());
+            }
+          }          
         }
       });
   
