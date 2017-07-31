@@ -56,6 +56,10 @@ public class DHIS2GeoMapper
   
   private static Logger logger = LoggerFactory.getLogger(DHIS2GeoMapper.class);
   
+  private int hits = 0;
+  
+  private int misses = 0;
+  
   public static void main(String[] args)
   {
     CommandLineParser parser = new DefaultParser();
@@ -132,6 +136,8 @@ public class DHIS2GeoMapper
     {
       throw new RuntimeException(e);
     }
+    
+    logger.info("Geo mapping is finished. Hits: " + hits + ", Misses: " + misses + " Total: " + (hits + misses));
   }
   
   protected void deleteAll()
@@ -250,6 +256,8 @@ public class DHIS2GeoMapper
 //          logger.info("Mapping [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "] from geoId [" + geoId + "]." );
           
           DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
+          
+          hits++;
         }
         catch (DataNotFoundException e)
         {
@@ -266,10 +274,13 @@ public class DHIS2GeoMapper
               DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
               
 //              logger.info("Mapping [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "] from geoId [" + geoId + "]." );
+              
+              hits++;
             }
             else
             {
               logger.warn("No mapping found for shortName [" + name + "] and code [" + geoId + "] and level [" + level + "].");
+              misses++;
             }
           }
         }
@@ -277,6 +288,7 @@ public class DHIS2GeoMapper
       else if (unit.has("shortName"))
       {
         logger.warn("Expected code on [" + name + "] at level [" + level + "].");
+        misses++;
       }
     }
   }
