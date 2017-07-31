@@ -27,8 +27,6 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.URI;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,7 +103,7 @@ abstract public class AbstractDHIS2Connector
   
   public void readConfigFromDB()
   {
-    DHIS2Configuration config = DHIS2Configuration.getByKey("DEFAULT");
+    DHIS2HTTPConfiguration config = DHIS2HTTPConfiguration.getByKey("DEFAULT");
     this.setServerUrl(config.getUrl());
     this.setCredentials(config.getUsername(), config.getPazzword());
   }

@@ -1,25 +1,25 @@
 package dss.vector.solutions.etl.dhis2;
 
-public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class DHIS2ExportableDatasetController extends DHIS2ExportableDatasetControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/etl/dhis2/DHIS2Configuration/";
+  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/etl/dhis2/DHIS2ExportableDataset/";
   public static final String LAYOUT = "/layout.jsp";
   
-  public DHIS2ConfigurationController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public DHIS2ExportableDatasetController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void cancel(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
   }
-  public void create(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -35,12 +35,13 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
       }
     }
   }
-  public void failCreate(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -56,8 +57,9 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
       }
     }
   }
-  public void failDelete(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -65,7 +67,8 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
   {
     try
     {
-      dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto = dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.lock(super.getClientRequest(), id);
+      dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto = dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -87,7 +90,8 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
     try
     {
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto = new dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO(clientRequest);
+      dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto = new dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO(clientRequest);
+      req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
@@ -104,7 +108,7 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
   {
     this.viewAll();
   }
-  public void update(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -120,8 +124,9 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
       }
     }
   }
-  public void failUpdate(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -133,7 +138,8 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
       utility.put("id", id);
       utility.checkURL(this.getClass().getSimpleName(), "view");
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO dto = dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.get(clientRequest, id);
+      dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO dto = dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.get(clientRequest, id);
+      req.setAttribute("queryRef", com.runwaysdk.system.metadata.MdTableDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("viewComponent.jsp");
     }
@@ -153,7 +159,7 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.etl.dhis2.DHIS2ConfigurationQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -164,7 +170,7 @@ public class DHIS2ConfigurationController extends DHIS2ConfigurationControllerBa
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.etl.dhis2.DHIS2ConfigurationQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

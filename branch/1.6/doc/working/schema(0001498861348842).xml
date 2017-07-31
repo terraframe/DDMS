@@ -1,6 +1,18 @@
-<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="/Users/richard1/workspace/MDSS/profiles/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
+      <mdException name="dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException" label="Numbers Must Be Aggregated Exception" message="All number columns must be aggregated. [{numberColumn}] is not aggregated.">
+        <attributes>
+          <char name="numberColumn" label="Number Column" required="true" size="2000"/>
+        </attributes>
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException" label="Max One Geo Column Exception" message="Query must contain exactly one geo column.">
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.CalendarYearRequiredException" label="Calendar Year Required Exception" message="Query must contain 'Calendar year' column.">
+      </mdException>
+      
       <mdException name="dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException" label="Geo Field Required Exception" message="A Geo attribute is required for tracker exporting.">
       </mdException>
     
@@ -39,17 +51,26 @@
           <char name="dhis2Id" size="64" label="DHIS2 Id" />
         </attributes>
       </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset" label="DHIS2 Exportable Dataset">
+        <attributes>
+          <reference type="com.runwaysdk.system.metadata.MdTable" label="Persisted query" name="queryRef" required="true" />
+          <char label="DHIS2 dataset name" name="dhis2Name" size="1000" required="true" />
+          <text label="Description" name="description" required="false" />
+          <reference type="dss.vector.solutions.geo.generated.GeoEntity" label="Org unit" name="geoRef" required="false" />
+        </attributes>
+      </mdBusiness>
     
       <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration" label="Abstract DHIS2 configuration">
         <attributes>
-          <char label="url" name="url" size="1000" />
+          <char label="Url" name="url" size="1000" />
         </attributes>
       </mdBusiness>
     
       <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration" label="DHIS2 HTTP Configuration" extends="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration">
         <attributes>
-          <char label="username" name="username" size="1000" />
-          <char label="password" name="pazzword" size="1000" />
+          <char label="Username" name="username" size="1000" />
+          <char label="Password" name="pazzword" size="1000" />
         </attributes>
       </mdBusiness>
       

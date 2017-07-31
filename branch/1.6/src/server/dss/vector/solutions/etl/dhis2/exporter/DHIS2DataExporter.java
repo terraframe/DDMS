@@ -27,9 +27,11 @@ import org.apache.commons.cli.ParseException;
 
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdTable;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
+import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2HTTPCredentialConnector;
 
 public class DHIS2DataExporter
@@ -71,8 +73,12 @@ public class DHIS2DataExporter
   {
     MdClass mdClass = MdClass.getMdClass(MDSSInfo.GENERATED_TABLE_PACKAGE + "." + dataset);
     
+    DHIS2ExportableDataset exportable = new DHIS2ExportableDataset();
+    exportable.setDhis2Name(mdClass.getTypeName());
+    exportable.setQueryRef((MdTable) mdClass);
+    
     DHIS2DataExporter exporter = new DHIS2DataExporter();
-    exporter.exportWithCredentials(mdClass, url, username, password);
+    exporter.exportWithCredentials(exportable, url, username, password);
   }
   
   // Our constructor must be 0 arguments because it conforms to Java service loader paradigm.
@@ -81,15 +87,15 @@ public class DHIS2DataExporter
     dhis2 = new DHIS2HTTPCredentialConnector();
   }
   
-  public void exportWithCredentials(MdClass mdClass, String url, String username, String password)
+  public void exportWithCredentials(DHIS2ExportableDataset exportable, String url, String username, String password)
   {
     dhis2.setServerUrl(url);
     dhis2.setCredentials(username, password);
     
-    actuallyDoExport(mdClass);
+    actuallyDoExport(exportable);
   }
   
-  public void xport(MdClass mdClass)
+  public void export(DHIS2ExportableDataset exportable)
   {
     // TODO : Maybe some day we'll re-enable this (when DIHS2 gets their act together)
 //    if (ExternalProfile.getAccessToken() == null)
@@ -100,12 +106,12 @@ public class DHIS2DataExporter
     
     dhis2.readConfigFromDB();
     
-    actuallyDoExport(mdClass);
+    actuallyDoExport(exportable);
   }
   
-  private void actuallyDoExport(MdClass mdClass)
+  private void actuallyDoExport(DHIS2ExportableDataset exportable)
   {
-    MdClassExporter exporter = new MdClassExporter(mdClass, dhis2);
+    DHIS2ExportHandler exporter = new DHIS2ExportHandler(exportable, dhis2);
     exporter.export();
   }
 }

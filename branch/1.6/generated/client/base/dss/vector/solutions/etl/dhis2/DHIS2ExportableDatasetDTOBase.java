@@ -1,12 +1,12 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 201399349)
-public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1456203538)
+public abstract class DHIS2ExportableDatasetDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.etl.dhis2.DHIS2Configuration";
-  private static final long serialVersionUID = 201399349;
+  public final static String CLASS = "dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset";
+  private static final long serialVersionUID = -1456203538;
   
-  protected DHIS2ConfigurationDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected DHIS2ExportableDatasetDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected DHIS2ConfigurationDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected DHIS2ExportableDatasetDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -29,19 +29,20 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DESCRIPTION = "description";
+  public static java.lang.String DHIS2NAME = "dhis2Name";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String GEOREF = "geoRef";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PAZZWORD = "pazzword";
+  public static java.lang.String QUERYREF = "queryRef";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String URL = "url";
-  public static java.lang.String USERNAME = "username";
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -104,6 +105,80 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
+  public String getDescription()
+  {
+    return getValue(DESCRIPTION);
+  }
+  
+  public void setDescription(String value)
+  {
+    if(value == null)
+    {
+      setValue(DESCRIPTION, "");
+    }
+    else
+    {
+      setValue(DESCRIPTION, value);
+    }
+  }
+  
+  public boolean isDescriptionWritable()
+  {
+    return isWritable(DESCRIPTION);
+  }
+  
+  public boolean isDescriptionReadable()
+  {
+    return isReadable(DESCRIPTION);
+  }
+  
+  public boolean isDescriptionModified()
+  {
+    return isModified(DESCRIPTION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDescriptionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+  }
+  
+  public String getDhis2Name()
+  {
+    return getValue(DHIS2NAME);
+  }
+  
+  public void setDhis2Name(String value)
+  {
+    if(value == null)
+    {
+      setValue(DHIS2NAME, "");
+    }
+    else
+    {
+      setValue(DHIS2NAME, value);
+    }
+  }
+  
+  public boolean isDhis2NameWritable()
+  {
+    return isWritable(DHIS2NAME);
+  }
+  
+  public boolean isDhis2NameReadable()
+  {
+    return isReadable(DHIS2NAME);
+  }
+  
+  public boolean isDhis2NameModified()
+  {
+    return isModified(DHIS2NAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDhis2NameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DHIS2NAME).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
@@ -151,6 +226,55 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoRef()
+  {
+    if(getValue(GEOREF) == null || getValue(GEOREF).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOREF));
+    }
+  }
+  
+  public String getGeoRefId()
+  {
+    return getValue(GEOREF);
+  }
+  
+  public void setGeoRef(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(GEOREF, "");
+    }
+    else
+    {
+      setValue(GEOREF, value.getId());
+    }
+  }
+  
+  public boolean isGeoRefWritable()
+  {
+    return isWritable(GEOREF);
+  }
+  
+  public boolean isGeoRefReadable()
+  {
+    return isReadable(GEOREF);
+  }
+  
+  public boolean isGeoRefModified()
+  {
+    return isModified(GEOREF);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoRefMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOREF).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -338,41 +462,53 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
-  public String getPazzword()
+  public com.runwaysdk.system.metadata.MdTableDTO getQueryRef()
   {
-    return getValue(PAZZWORD);
-  }
-  
-  public void setPazzword(String value)
-  {
-    if(value == null)
+    if(getValue(QUERYREF) == null || getValue(QUERYREF).trim().equals(""))
     {
-      setValue(PAZZWORD, "");
+      return null;
     }
     else
     {
-      setValue(PAZZWORD, value);
+      return com.runwaysdk.system.metadata.MdTableDTO.get(getRequest(), getValue(QUERYREF));
     }
   }
   
-  public boolean isPazzwordWritable()
+  public String getQueryRefId()
   {
-    return isWritable(PAZZWORD);
+    return getValue(QUERYREF);
   }
   
-  public boolean isPazzwordReadable()
+  public void setQueryRef(com.runwaysdk.system.metadata.MdTableDTO value)
   {
-    return isReadable(PAZZWORD);
+    if(value == null)
+    {
+      setValue(QUERYREF, "");
+    }
+    else
+    {
+      setValue(QUERYREF, value.getId());
+    }
   }
   
-  public boolean isPazzwordModified()
+  public boolean isQueryRefWritable()
   {
-    return isModified(PAZZWORD);
+    return isWritable(QUERYREF);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPazzwordMd()
+  public boolean isQueryRefReadable()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PAZZWORD).getAttributeMdDTO();
+    return isReadable(QUERYREF);
+  }
+  
+  public boolean isQueryRefModified()
+  {
+    return isModified(QUERYREF);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getQueryRefMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(QUERYREF).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -425,85 +561,11 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public String getUrl()
-  {
-    return getValue(URL);
-  }
-  
-  public void setUrl(String value)
-  {
-    if(value == null)
-    {
-      setValue(URL, "");
-    }
-    else
-    {
-      setValue(URL, value);
-    }
-  }
-  
-  public boolean isUrlWritable()
-  {
-    return isWritable(URL);
-  }
-  
-  public boolean isUrlReadable()
-  {
-    return isReadable(URL);
-  }
-  
-  public boolean isUrlModified()
-  {
-    return isModified(URL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URL).getAttributeMdDTO();
-  }
-  
-  public String getUsername()
-  {
-    return getValue(USERNAME);
-  }
-  
-  public void setUsername(String value)
-  {
-    if(value == null)
-    {
-      setValue(USERNAME, "");
-    }
-    else
-    {
-      setValue(USERNAME, value);
-    }
-  }
-  
-  public boolean isUsernameWritable()
-  {
-    return isWritable(USERNAME);
-  }
-  
-  public boolean isUsernameReadable()
-  {
-    return isReadable(USERNAME);
-  }
-  
-  public boolean isUsernameModified()
-  {
-    return isModified(USERNAME);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
-  }
-  
-  public static dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
     com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
-    return (dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO) dto;
+    return (dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO) dto;
   }
   
   public void apply()
@@ -522,9 +584,9 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.etl.dhis2.DHIS2ConfigurationQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.etl.dhis2.DHIS2ConfigurationQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -532,12 +594,12 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -545,12 +607,12 @@ public abstract class DHIS2ConfigurationDTOBase extends com.runwaysdk.business.B
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.etl.dhis2.DHIS2ConfigurationDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }

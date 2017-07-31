@@ -49,6 +49,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeDate;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeNumber;
 import com.runwaysdk.system.metadata.MdAttributeReference;
@@ -57,6 +58,12 @@ import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
+import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
+import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
+import dss.vector.solutions.etl.dhis2.DHIS2GeoMapper;
+import dss.vector.solutions.etl.dhis2.DHIS2Util;
+import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
+import dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
@@ -74,9 +81,11 @@ import dss.vector.solutions.query.SavedSearchQuery;
  * 
  * @author rrowlands
  */
-public class MdClassExporter
+public class DHIS2ExportHandler
 {
-  private static Logger logger = LoggerFactory.getLogger(MdClassExporter.class);
+  private static Logger logger = LoggerFactory.getLogger(DHIS2ExportHandler.class);
+  
+  protected DHIS2ExportableDataset exportable;
   
   protected MdClass mdClass;
   
@@ -92,6 +101,8 @@ public class MdClassExporter
   
   private Map<MdAttribute, Set<String>> categoryMetadataMap = new HashMap<MdAttribute, Set<String>>();
   
+  private String categoryComboId = null;
+  
   private final int pageSize = 1000;
   
   private long teiCount;
@@ -103,9 +114,10 @@ public class MdClassExporter
     MdAttributeConcreteDTO.DEFININGMDCLASS, MdAttributeConcreteDTO.ENTITYDOMAIN, MdAttributeConcreteDTO.OWNER, MdAttributeConcreteDTO.SETTERVISIBILITY, MdAttributeConcreteDTO.SITEMASTER
   };
   
-  public MdClassExporter(MdClass mdClass, AbstractDHIS2Connector dhis2)
+  public DHIS2ExportHandler(DHIS2ExportableDataset exportable, AbstractDHIS2Connector dhis2)
   {
-    this.mdClass = mdClass;
+    this.exportable = exportable;
+    this.mdClass = exportable.getQueryRef();
     this.dhis2 = dhis2;
     this.idCache = new DHIS2IdCache(dhis2);
   }
@@ -129,7 +141,9 @@ public class MdClassExporter
     
     createDataElementsMetadata(metadata); // #12
     
-    System.out.println(metadata.toString());
+    createDataSetMetadata(metadata); // #13
+    
+//    System.out.println(metadata.toString());
   }
   
   protected void gatherPrereqs()
@@ -164,7 +178,7 @@ public class MdClassExporter
     for (MdAttribute mdAttr : mdAttrs)
     {
       if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
-          !ArrayUtils.contains(MdClassExporter.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+          !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
         )
       {
         Selectable sel = null;
@@ -191,7 +205,9 @@ public class MdClassExporter
         {
           if (!(sel instanceof AggregateFunction))
           {
-            throw new RuntimeException("All number columns must be aggregated. [" + mdAttr.getDisplayLabel().getValue() + "] is not aggregated.");
+            NumbersMustBeAggregatedException ex = new NumbersMustBeAggregatedException();
+            ex.setNumberColumn(mdAttr.getDisplayLabel().getValue());
+            throw ex;
           }
         }
         // Most columns are defaulted to character (time, user, etc)
@@ -223,11 +239,13 @@ public class MdClassExporter
     }
     else if (numGeos > 1)
     {
-      throw new RuntimeException("Query must contain exactly one geo column."); // TODO : Custom exception
+      MaxOneGeoColumnException ex = new MaxOneGeoColumnException();
+      throw ex;
     }
     else if (!hasYear)
     {
-      throw new RuntimeException("Query must contain 'Calendar year' column.");
+      CalendarYearRequiredException ex = new CalendarYearRequiredException();
+      throw ex;
     }
   }
   
@@ -305,7 +323,7 @@ public class MdClassExporter
               noDuplicatesSet.add(rwId);
             }
             
-            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(rwId, idCache);
+            String dhis2Id = DHIS2Util.queryAndMapIds(rwId, idCache);
             
             JSONObject option = new JSONObject();
             option.put("code", code);
@@ -343,7 +361,7 @@ public class MdClassExporter
       
       for (MdAttribute mdAttr : keys)
       {
-        String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdAttr.getId(), idCache);
+        String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
         
         // Basic identifier info about the category
         JSONObject category = new JSONObject();
@@ -380,10 +398,10 @@ public class MdClassExporter
       JSONArray categoryCombos = new JSONArray();
       JSONObject categoryCombo = new JSONObject();
       
-      String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
+      categoryComboId = DHIS2Util.queryAndMapIds(mdClass.getId() + "_catCombo", idCache);
       
       categoryCombo.put("name", mdClass.getDisplayLabel().getValue());
-      categoryCombo.put("id", dhis2Id);
+      categoryCombo.put("id", categoryComboId);
       categoryCombo.put("dataDimensionType", "DISAGGREGATION");
       
       // We can get the category ids by reading the json we generated earlier.
@@ -420,7 +438,6 @@ public class MdClassExporter
       JSONArray defaultCombos = defaultCatJS.getJSONArray("categoryOptionCombos");
       JSONObject defaultCombo = defaultCombos.getJSONObject(0);
       
-      String categoryComboId = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
       JSONObject categoryCombo = new JSONObject();
       categoryCombo.put("id", categoryComboId);
       
@@ -435,7 +452,7 @@ public class MdClassExporter
         // Add default to the cross product
         JSONObject defaultCross = new JSONObject();
         defaultCross.put("name", option1.getString("name") + ", " + defaultCombo.getString("displayName"));
-        defaultCross.put("id", DHIS2ExportUtil.queryAndMapIds(option1.getString("id") + defaultCombo.getString("id"), idCache));
+        defaultCross.put("id", DHIS2Util.queryAndMapIds(option1.getString("id") + defaultCombo.getString("id"), idCache));
         
         defaultCross.put("categoryCombo", categoryCombo);
         
@@ -454,7 +471,7 @@ public class MdClassExporter
           if (option1 != option2)
           {
             String runwayId = option1.getString("id") + option2.getString("id");
-            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(runwayId, idCache);
+            String dhis2Id = DHIS2Util.queryAndMapIds(runwayId, idCache);
             
             JSONObject combo = new JSONObject();
             combo.put("name", option1.getString("name") + ", " + option2.getString("name"));
@@ -497,22 +514,20 @@ public class MdClassExporter
       }
       
       
-      String categoryComboId = DHIS2ExportUtil.queryAndMapIds(mdClass.getId(), idCache);
-      
       JSONArray dataElements = new JSONArray();
       
       OIterator<? extends MdAttribute> mdAttrs = mdClass.getAllAttribute();
       for (MdAttribute mdAttr : mdAttrs)
       {
         if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
-            !ArrayUtils.contains(MdClassExporter.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+            !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
           )
         {
           if (mdAttr instanceof MdAttributeNumber)
           {
             Selectable sel = valueQuery.getSelectableRef(mdAttr.getAttributeName());
             
-            String dhis2Id = DHIS2ExportUtil.queryAndMapIds(mdAttr.getId(), idCache);
+            String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
             
             JSONObject dataElement = new JSONObject();
             
@@ -562,6 +577,127 @@ public class MdClassExporter
       }
       
       json.put("dataElements", dataElements);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createDataSetMetadata(JSONObject json)
+  {
+    try
+    {
+      String dhis2Id = DHIS2Util.queryAndMapIds(mdClass.getId(), idCache);
+      
+      JSONArray dataSets = new JSONArray();
+      
+      JSONObject dataSet = new JSONObject();
+      
+      dataSet.put("id", dhis2Id);
+      
+      dataSet.put("name", this.exportable.getDhis2Name());
+      
+      dataSet.put("timelyDays", 0);
+      
+      int periodInt = 4;
+      
+      JSONArray dataSetElements = new JSONArray();
+      
+      OIterator<? extends MdAttribute> mdAttrs = mdClass.getAllAttribute();
+      for (MdAttribute mdAttr : mdAttrs)
+      {
+        if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+            !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+          )
+        {
+          if (mdAttr instanceof MdAttributeNumber)
+          {
+            JSONObject dataSetElement = new JSONObject();
+            
+            String dataElementId = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
+            String dataSetElementId = DHIS2Util.queryAndMapIds(mdAttr.getId() + "_dataSetElement", idCache);
+            
+            dataSetElement.put("id", dataSetElementId);
+            
+            
+            JSONObject dataElement = new JSONObject();
+            dataElement.put("id", dataElementId);
+            dataSetElement.put("dataElement", dataElement);
+            
+            
+            dataSetElements.put(dataSetElement);
+          }
+          else if (mdAttr instanceof MdAttributeDate)
+          {
+            periodInt = 0;
+          }
+          else if (mdAttr.getAttributeName().contains("dategroup"))
+          {
+            String attrName = mdAttr.getAttributeName();
+            
+            if (periodInt > 1 && attrName.equals("dategroup_epiweek"))
+            {
+              periodInt = 1;
+            }
+            else if (periodInt > 2 && attrName.equals("dategroup_month"))
+            {
+              periodInt = 2;
+            }
+            else if (periodInt > 3 && attrName.equals("dategroup_quarter"))
+            {
+              periodInt = 3;
+            }
+            else if (periodInt > 4 && (attrName.equals("dategroup_epiyear") || attrName.equals("dategroup_year")))
+            {
+              periodInt = 4;
+            }
+          }
+        }
+      }
+      dataSet.put("dataSetElements", dataSetElements);
+      
+      if (periodInt == 0)
+      {
+        dataSet.put("periodType", "Daily");
+      }
+      else if (periodInt == 1)
+      {
+        dataSet.put("periodType", "Weekly");
+      }
+      else if (periodInt == 2)
+      {
+        dataSet.put("periodType", "Monthly");
+      }
+      else if (periodInt == 3)
+      {
+        dataSet.put("periodType", "Quarterly");
+      }
+      else
+      {
+        dataSet.put("periodType", "Yearly");
+      }
+      
+      dataSet.put("categoryCombo", new JSONObject().put("id", categoryComboId));
+      
+      JSONArray organisationUnits = new JSONArray();
+      
+      GeoEntity zambia = GeoEntity.getByKey("ZA");
+      String zambiaDhis2Id = DHIS2Util.getDhis2IdFromRunwayId(DHIS2GeoMapper.MAPPING_PREFIX + zambia.getId());
+      if (zambiaDhis2Id == null)
+      {
+        throw new RuntimeException("Zambia is not mapped.");
+      }
+      
+      JSONObject organisationUnit = new JSONObject();
+      organisationUnit.put("id", zambiaDhis2Id);
+      organisationUnits.put(organisationUnit);
+      
+      dataSet.put("organisationUnits", organisationUnits);
+      
+      dataSets.put(dataSet);
+      
+      json.put("dataSets", dataSets);
     }
     catch (JSONException e)
     {

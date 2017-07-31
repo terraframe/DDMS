@@ -16,8 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
  */
-package dss.vector.solutions.etl.dhis2.exporter;
+package dss.vector.solutions.etl.dhis2;
 
+import java.sql.Savepoint;
+
+import com.runwaysdk.dataaccess.DuplicateDataException;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -30,15 +34,51 @@ import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeText;
 
-import dss.vector.solutions.etl.dhis2.DHIS2IdMapping;
-import dss.vector.solutions.etl.dhis2.DHIS2IdMappingQuery;
 import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
 
 /**
  * @author rrowlands
  */
-public class DHIS2ExportUtil
+public class DHIS2Util
 {
+  public static void mapIds(String runwayId, String dhis2Id)
+  {
+    Savepoint sp = Database.setSavepoint();
+    try
+    {
+      DHIS2IdMapping map = new DHIS2IdMapping();
+      map.setRunwayId(runwayId);
+      map.setDhis2Id(dhis2Id);
+      map.apply();
+    }
+    catch (DuplicateDataException e)
+    {
+      Database.rollbackSavepoint(sp);
+    }
+  }
+  
+  public static String getDhis2IdFromRunwayId(String runwayId)
+  {
+    DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
+    idq.WHERE(idq.getRunwayId().EQ(runwayId));
+    OIterator<? extends DHIS2IdMapping> mappingIt = idq.getIterator();
+    try
+    {
+      if (mappingIt.hasNext())
+      {
+        return mappingIt.next().getDhis2Id();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      mappingIt.close();
+    }
+  }
+  
   public static String queryAndMapIds(String runwayId, DHIS2IdCache idCache)
   {
     DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
