@@ -64,6 +64,7 @@ export class UploadWizardComponent implements OnDestroy {
   initialize(info: string): void {
     this.info = JSON.parse(info) as UploadInformation;
     this.sheet = this.info.information.sheets[0];
+    this.hasError = false;
     	  
 	if(this.sheet.attributes == null) {
 	  this.sheet.attributes = new Locations();
