@@ -36,6 +36,7 @@ import com.runwaysdk.constants.MdWebFormInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
+import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -68,6 +69,7 @@ import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributePrimitiveDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -520,10 +522,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     /*
      * Validate form is not from a dataset
      */
-    if (! ( mdField instanceof MdWebIndicator ))
-    {
-      MdFormUtil.validateFormModification(mdFormId);
-    }
+    MdFormUtil.validateFormModification(mdField, mdFormId);
 
     DDMSFieldBuilders.create(mdField, mdFormId);
 
@@ -562,7 +561,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     /*
      * Validate form is not from a dataset
      */
-    MdFormUtil.validateFormModification(mdFormId);
+    MdFormUtil.validateFormModification(mdField, mdFormId);
 
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
@@ -1639,10 +1638,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     /*
      * Validate form is not from a dataset
      */
-    if (! ( mdField instanceof MdWebIndicator ))
-    {
-      MdFormUtil.validateFormModification(mdForm.getId());
-    }
+    MdFormUtil.validateFormModification(mdField, mdForm.getId());
 
     try
     {
@@ -2492,13 +2488,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     strategy.apply();
   }
 
-  private static void validateFormModification(String mdFormId)
+  private static void validateFormModification(MdField mdField, String mdFormId)
   {
-    TargetBinding binding = TargetBinding.getBindingForTarget(mdFormId);
-
-    if (binding != null)
+    if (mdField instanceof MdWebPrimitive && ! ( mdField instanceof MdWebIndicator ))
     {
-      throw new ModifyFormException();
+      MdWebPrimitive mdWebAttribute = (MdWebPrimitive) mdField;
+
+      if (!mdWebAttribute.getIsExpression())
+      {
+        TargetBinding binding = TargetBinding.getBindingForTarget(mdFormId);
+
+        if (binding != null)
+        {
+          throw new ModifyFormException();
+        }
+      }
     }
   }
 
