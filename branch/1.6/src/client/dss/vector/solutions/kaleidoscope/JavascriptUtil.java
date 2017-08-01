@@ -9,9 +9,12 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.mvc.ViewTemplateResponse;
 import com.runwaysdk.system.RolesDTO;
+import com.runwaysdk.system.gis.geo.GeoEntityViewDTO;
 import com.runwaysdk.web.json.JSONController;
 
 import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.geo.GeoHierarchyDTO;
+import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.AggregationStrategyDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.AggregationStrategyViewDTO;
@@ -140,6 +143,9 @@ public class JavascriptUtil implements Reloadable
     Set<String> types = new HashSet<String>();
     types.add(DataSetController.CLASS);
     types.add(GeoEntityDTO.CLASS);
+    types.add(GeoHierarchyDTO.CLASS);
+    types.add(GeoHierarchyViewDTO.CLASS);
+    
 //    types.add(DataUploaderController.CLASS);
 
     JavascriptUtil.loadJavascript(request, req, types);
@@ -150,6 +156,9 @@ public class JavascriptUtil implements Reloadable
     Set<String> types = new HashSet<String>();
     types.add(DataSetController.CLASS);
     types.add(GeoEntityDTO.CLASS);
+    types.add(GeoHierarchyDTO.CLASS);
+    types.add(GeoEntityViewDTO.CLASS);
+    
 //    types.add(DataUploaderController.CLASS);
     
     JavascriptUtil.loadJavascript(request, req, types);

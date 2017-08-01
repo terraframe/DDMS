@@ -9,10 +9,10 @@
       <div class="inline-value error-message">{{problem.label}} ({{problem.universalLabel}})</div>
       <div *ngIf="!problem.resolved">      
         <div class="inline-combo">
-          <input class="synonym" [name]="index + '-name'" type="text" [placeholder]="'dataUploader.synonymSearchPlaceholder' | localize" required autocomplete="off" auto-complete [source]="source" (onDropdownSelect)="setSynonym($event)" />
+          <geo-field [(model)]="problem.synonym" [attribute]="problem.label + '-geo'" [root]="problem.parentId" [universal]="problem.universalId"></geo-field>
         </div>
         <div class="inline-actions">
-          <i aria-hidden="true" class="fa fa-lg fa-share-alt" [ngClass]="{disabled: !hasSynonym}" (click)="createSynonym()" [title]="'dataUploader.createSynonymFromLocationTooltip' | localize" ></i>
+          <i aria-hidden="true" class="fa fa-lg fa-share-alt" [ngClass]="{'disabled':problem.synonym.id === ''}" (click)="createSynonym()" [title]="'dataUploader.createSynonymFromLocationTooltip' | localize" ></i>
           <i aria-hidden="true" class="fa fa-lg fa-map-marker" (click)="createEntity()" [title]="'dataUploader.createNewLocationTooltip' | localize" ></i>
           <span class="fa-stack fa-lg" [title]="'dataUploader.ignoreAtLocationTooltip' | localize" (click)="ignoreDataAtLocation()">
             <i class="fa fa-square fa-stack-2x"></i>

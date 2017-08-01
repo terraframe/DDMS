@@ -21,6 +21,7 @@ import { LocalizePipe } from './core/localize.pipe';
 
 import { DateFieldDirective } from './core/date-field.directive';
 import { TermFieldComponent } from './core/term-field.component';
+import { GeoFieldComponent } from './core/geo-field.component';
 
 import { AutoCompleteDirective } from './autocomplete/auto-complete.directive';
 import { AutoCompleteComponent } from './autocomplete/auto-complete.component';
@@ -80,7 +81,8 @@ import { EventHttpService } from './service/event-http.service';
     AutoCompleteComponent,
 
     DateFieldDirective,
-    TermFieldComponent,    
+    TermFieldComponent,   
+    GeoFieldComponent,
     ConfirmModalDirective,
     ConfirmModalComponent,
     

@@ -17,31 +17,31 @@ export class GeoValidationProblemComponent implements OnInit {
   @Input() workbook: Workbook;
   
   show: boolean;
-  hasSynonym: boolean;
   
   constructor(private uploadService: UploadService, private idService: IdService) {
   }   
   
   ngOnInit(): void {
-    this.problem.synonym = null;
+    this.problem.synonym = {id :'', geoId:''};
     this.show = false;	  
-    this.hasSynonym = false;	      
+	  
+//    this.problem.synonym = null;
   }
   
-  source = (keyword: string) => {
-    let limit = '20';
-
-    return this.uploadService.getGeoEntitySuggestions(this.problem.parentId, this.problem.universalId, keyword, limit);
-  }
-        
-  setSynonym(item: {text: string, data: any}) {	
-    this.problem.synonym = item.data;
-    this.hasSynonym = (this.problem.synonym != null);        	  
-  }
+//  source = (keyword: string) => {
+//    let limit = '20';
+//
+//    return this.uploadService.getGeoEntitySuggestions(this.problem.parentId, this.problem.universalId, keyword, limit);
+//  }
+//        
+//  setSynonym(item: {text: string, data: any}) {	
+//    this.problem.synonym = item.data;
+//    this.hasSynonym = (this.problem.synonym != null);        	  
+//  }
     
   createSynonym(): void {
-    if(this.hasSynonym){    	
-      this.uploadService.createGeoEntitySynonym(this.problem.synonym, this.problem.label)
+    if(this.problem.synonym.id !== ''){      
+      this.uploadService.createGeoEntitySynonym(this.problem.synonym.id, this.problem.label)
         .then(response => {
           this.problem.resolved = true;
           this.problem.action = {
@@ -107,10 +107,8 @@ export class GeoValidationProblemComponent implements OnInit {
         this.uploadService.deleteGeoEntity(action.entityId)
           .then(response => {
             this.problem.resolved = false;
-            this.problem.synonym = null;
+            this.problem.synonym = {id :'', geoId:''};
             this.problem.action = null;
-            
-            this.hasSynonym = (this.problem.synonym != null);
           });
       }
       else if(action.name === 'IGNOREATLOCATION'){
@@ -123,10 +121,8 @@ export class GeoValidationProblemComponent implements OnInit {
         this.uploadService.deleteGeoEntitySynonym(action.synonymId)
           .then(response => {
           this.problem.resolved = false;
-          this.problem.synonym = null;
+          this.problem.synonym = {id :'', geoId:''};
           this.problem.action = null;
-          
-          this.hasSynonym = (this.problem.synonym != null);        	  
         });
       }
         

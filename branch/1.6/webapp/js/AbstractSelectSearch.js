@@ -434,9 +434,16 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         
         var search = input.getRawEl();
             
-        var sFunction = Mojo.Util.bind(this, function(typeRef, request, value){
-          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value, this.enforcesRoot());
-        }, type);
+        var sFunction = Mojo.Util.bind(this, function(typeRef, parentId, request, value){
+          if(parentId != null) {
+            var parameters = [typeRef, parentId];
+                  
+            Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, this.enforcesRoot());
+          }
+          else {                        
+            Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value, this.enforcesRoot());
+          }
+        }, type, this._selectSearchRootId);
             
         var sHandler = Mojo.Util.bind(this, function(typeRef, option){
           this._resetWithSelection(typeRef, option.id);

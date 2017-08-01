@@ -142,7 +142,10 @@ export class LocationProblem {
   universalLabel: string;
   context: LocationContext[];
   resolved: boolean;
-  synonym: string;
+  synonym: {
+    id:string,
+    geoId:string
+  };
   action: any;
 }
 

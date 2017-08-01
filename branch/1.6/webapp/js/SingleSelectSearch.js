@@ -147,7 +147,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
         onValidGeoEntitySelected();
       }
       
-      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected}));
+      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected, info:geoInfo.innerHTML}));
     },
     
     validateSelection : function()
@@ -436,7 +436,15 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       if(Mojo.Util.isString(type) && type != '')
       {
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value, enforceRoot);
+    	if(this._selectSearch._selectSearchRootId != null) {
+  
+          var parameters = [type, this._selectSearch._selectSearchRootId];
+            
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, enforceRoot);
+    	}
+        else {          
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value, enforceRoot);        
+        }
       }
       else 
       {

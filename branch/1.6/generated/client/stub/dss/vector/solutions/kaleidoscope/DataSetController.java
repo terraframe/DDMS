@@ -27,6 +27,8 @@ public class DataSetController extends DataSetControllerBase implements com.runw
     String path = url.toString();
 
     this.req.setAttribute("path", path);
+    
+    JavascriptUtil.loadDatasets(this.getClientRequest(), req);
 
     this.render("dataset-management.jsp");
   }
