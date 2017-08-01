@@ -1639,7 +1639,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     /*
      * Validate form is not from a dataset
      */
-    MdFormUtil.validateFormModification(mdForm.getId());
+    if (! ( mdField instanceof MdWebIndicator ))
+    {
+      MdFormUtil.validateFormModification(mdForm.getId());
+    }
 
     try
     {
