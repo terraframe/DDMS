@@ -221,6 +221,7 @@ public class DHIS2GeoMapper
     {
       JSONObject unit = units.getJSONObject(i);
       
+      // Find the org unit name
       String name = "";
       if (unit.has("name"))
       {
@@ -231,7 +232,9 @@ public class DHIS2GeoMapper
         name = unit.getString("shortName");
       }
       
+      // Find the universal
       int level = -1;
+      GeoHierarchy universal = null;
       if (unit.has("path"))
       {
         String path = unit.getString("path");
@@ -240,10 +243,17 @@ public class DHIS2GeoMapper
         {
           path = "/" + path;
         }
+        if (!path.endsWith("/"))
+        {
+          path = path + "/";
+        }
         
         level = StringUtils.countMatches(path, "/") - 1;
+        
+        universal = universals.get(level);
       }
       
+      // The org unit code may be the same as our GeoId.
       if (unit.has("code"))
       {
         String geoId = unit.getString("code");
@@ -258,38 +268,36 @@ public class DHIS2GeoMapper
           DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
           
           hits++;
+          continue;
         }
         catch (DataNotFoundException e)
         {
           Database.rollbackSavepoint(sp);
-          
-          if (level != -1)
-          {
-            GeoHierarchy universal = universals.get(level);
-            
-            GeoEntity geoEntity = findGeoEntityNameMatch(name, universal);
-            
-            if (geoEntity != null)
-            {
-              DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
-              
-//              logger.info("Mapping [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "] from geoId [" + geoId + "]." );
-              
-              hits++;
-            }
-            else
-            {
-              logger.warn("No mapping found for shortName [" + name + "] and code [" + geoId + "] and level [" + level + "].");
-              misses++;
-            }
-          }
         }
       }
-      else if (unit.has("shortName"))
+      
+      // Basic name matching
+      if (universal != null)
       {
-        logger.warn("Expected code on [" + name + "] at level [" + level + "].");
-        misses++;
+        GeoEntity geoEntity = findGeoEntityNameMatch(name, universal);
+        
+        if (geoEntity != null)
+        {
+          DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
+          
+//          logger.info("Name matched [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "]." );
+          
+          hits++;
+          continue;
+        }
       }
+      
+      String sUni = universal == null ? "null" : universal.getDisplayLabel();
+      String msg = "No mapping found for name [" + name + "] and universal [" + sUni + "].";
+//      logger.warn(msg);
+      System.out.println(msg);
+      
+      misses++;
     }
   }
   
@@ -315,7 +323,9 @@ public class DHIS2GeoMapper
         
         if (iterator.hasNext())
         {
-          logger.warn("Multiple matches found for geo label [" + label + "] and universal [" + universal.getDisplayLabel() + "]");
+          String msg = "Multiple matches found for geo label [" + label + "] and universal [" + universal.getDisplayLabel() + "]";
+//          logger.warn(msg);
+          System.out.println(msg);
         }
         
         return entity;

@@ -129,19 +129,21 @@ public class DHIS2ExportHandler
     
     validateExport();
     
-    JSONObject metadata = new JSONObject();
+    JSONObject payload = new JSONObject();
     
-    createCategoryOptionsMetadata(metadata); // #8
+    createCategoryOptionsMetadata(payload); // #8
     
-    createCategoryMetadata(metadata); // #9
+    createCategoryMetadata(payload); // #9
     
-    createCategoryCombinationMetadata(metadata); // #10
+    createCategoryCombinationMetadata(payload); // #10
     
-    createCategoryOptionCombinationMetadata(metadata); // #11
+    createCategoryOptionCombinationMetadata(payload); // #11
     
-    createDataElementsMetadata(metadata); // #12
+    createDataElementsMetadata(payload); // #12
     
-    createDataSetMetadata(metadata); // #13
+    createDataSetMetadata(payload); // #13
+    
+    createDataValues(payload); // #14
     
 //    System.out.println(metadata.toString());
   }
@@ -698,6 +700,35 @@ public class DHIS2ExportHandler
       dataSets.put(dataSet);
       
       json.put("dataSets", dataSets);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createDataValues(JSONObject json)
+  {
+    try
+    {
+      JSONArray dataValues = new JSONArray();
+      
+      QueryFactory qf = new QueryFactory();
+
+      ValueQuery vq = qf.valueQuery();
+      TableQuery tq = qf.tableQuery(mdClass.definesType());
+      for (MdAttribute attr : categoryAttrs)
+      {
+        vq.SELECT(tq.get(attr.getAttributeName()));
+      }
+      
+      OIterator<ValueObject> it = vq.getIterator();
+      for (ValueObject val : it)
+      {
+        
+      }
+      
+      json.put("dataValues", dataValues);
     }
     catch (JSONException e)
     {
