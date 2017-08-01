@@ -17,6 +17,7 @@
   <script>
     window.acp = "<%=request.getContextPath()%>";  
   </script>
+  <script type="text/javascript">${js}</script>
   
   <!-- IE required polyfills, in this exact order -->
   <script type="text/javascript" src="${path}/dist/polyfills.js"></script>  
@@ -57,6 +58,8 @@
   
 
 </head>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <div>
   <my-app>
