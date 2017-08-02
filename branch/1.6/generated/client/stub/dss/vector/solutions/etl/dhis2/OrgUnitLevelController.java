@@ -1,25 +1,25 @@
 package dss.vector.solutions.etl.dhis2;
 
-public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class OrgUnitLevelController extends OrgUnitLevelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/etl/dhis2/DHIS2IdMapping/";
+  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/etl/dhis2/OrgUnitLevel/";
   public static final String LAYOUT = "/layout.jsp";
   
-  public DHIS2IdMappingController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public OrgUnitLevelController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void cancel(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
   }
-  public void create(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -35,12 +35,13 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
       }
     }
   }
-  public void failCreate(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -56,8 +57,9 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
       }
     }
   }
-  public void failDelete(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -65,7 +67,8 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
   {
     try
     {
-      dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto = dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO.lock(super.getClientRequest(), id);
+      dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto = dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -87,7 +90,8 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
     try
     {
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto = new dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO(clientRequest);
+      dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto = new dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO(clientRequest);
+      req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
@@ -104,7 +108,7 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
   {
     this.viewAll();
   }
-  public void update(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -120,8 +124,9 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
       }
     }
   }
-  public void failUpdate(dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -133,7 +138,8 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
       utility.put("id", id);
       utility.checkURL(this.getClass().getSimpleName(), "view");
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO dto = dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO.get(clientRequest, id);
+      dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO dto = dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.get(clientRequest, id);
+      req.setAttribute("universal", com.runwaysdk.system.metadata.MdBusinessDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("viewComponent.jsp");
     }
@@ -153,7 +159,7 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.etl.dhis2.DHIS2IdMappingQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.etl.dhis2.OrgUnitLevelQueryDTO query = dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -164,7 +170,7 @@ public class DHIS2IdMappingController extends DHIS2IdMappingControllerBase imple
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.etl.dhis2.DHIS2IdMappingQueryDTO query = dss.vector.solutions.etl.dhis2.DHIS2IdMappingDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.etl.dhis2.OrgUnitLevelQueryDTO query = dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

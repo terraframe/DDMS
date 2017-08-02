@@ -86,6 +86,7 @@ import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.WKTParsingProblem;
+import dss.vector.solutions.etl.dhis2.GeoMap;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ChildEntityOverflowInformation;
@@ -225,11 +226,20 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       this.getEntityLabel().setValue(this.getGeoId());
     }
-
+    
+    boolean isNew = this.isNew();
+    
     super.apply();
 
+    if (isNew)
+    {
+      GeoMap map = new GeoMap();
+      map.setGeoEntity(this);
+      map.apply();
+    }
+    
     SavedSearch.updateSavedSearchIds(this);
-
+    
     return ids;
   }
 
@@ -817,7 +827,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   /**
    * Deletes this GeoEntity.
    * 
-   * WARNING: Does not maintain allpaths table!!
+   * WARNING: Does not maintain allpaths table!! Invoke deleteEntity if you want to preserve allpaths integrity.
    */
   @Override
   public void delete()
@@ -840,6 +850,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         }
       }
     }
+    
+    GeoMap map = GeoMap.getByKey(this.getId());
+    map.delete();
 
     super.delete();
   }

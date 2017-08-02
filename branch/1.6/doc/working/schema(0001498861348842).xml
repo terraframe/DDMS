@@ -45,10 +45,44 @@
         </attributes>
       </mdException>
       
-      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2IdMapping" label="DHIS2 Id Mapping">
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.OrgUnitLevel" label="DHIS2 OrgUnitLevel">
         <attributes>
-          <char name="runwayId" size="128" indexType="unique index" label="Runway Id" />
-          <char name="dhis2Id" size="64" label="DHIS2 Id" />
+          <char name="name" size="128" label="name" />
+          <integer name="level" size="128" label="level" column="levelNum" />
+          <reference type="com.runwaysdk.system.metadata.MdBusiness" name="universal" label="Universal" />
+          <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
+          <boolean name="valid" label="valid" column="validFlag" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.OrgUnit" label="DHIS2 OrgUnit">
+        <attributes>
+          <char name="name" size="128" label="name" />
+          <char name="code" size="128" label="code" />
+          <char name="path" size="128" label="path" column="pathStr" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnit" name="parent" label="parent" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnitLevel" name="orgUnitLevel" label="Organisation Unit Level" />
+          <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
+          <boolean name="valid" label="valid" column="validFlag" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.BasicIdMapping" label="DHIS2 OrgUnit">
+        <attributes>
+          <!-- I tried to make this a reference to a runway object but there is simply no common base class I can use.
+               Entity or Business doesn't work, its kind of an unenforced rule that you're not supposed to use those here.
+           -->
+          <char name="runwayId" size="128" indexType="unique index" label="Arbitrary Text that is probably a runway id" />
+          
+          <char name="dhis2Id" size="32" indexType="unique index" label="DHIS2 Id" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.GeoMap" label="DHIS2 GeoMap">
+        <attributes>
+          <reference type="dss.vector.solutions.geo.generated.GeoEntity" name="geoEntity" indexType="unique index" label="GeoEntity" required="true" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnit" name="orgUnit" label="GeoEntity" required="false" />
+          <boolean name="confirmed" label="confirmed" defaultValue="false" />
         </attributes>
       </mdBusiness>
       
@@ -64,6 +98,7 @@
       <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration" label="Abstract DHIS2 configuration">
         <attributes>
           <char label="Url" name="url" size="1000" />
+          <char label="Name" name="name" size="1000" />
         </attributes>
       </mdBusiness>
     

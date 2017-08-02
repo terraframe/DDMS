@@ -35,6 +35,7 @@ import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdAttributeText;
 
 import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 /**
  * @author rrowlands
@@ -46,7 +47,7 @@ public class DHIS2Util
     Savepoint sp = Database.setSavepoint();
     try
     {
-      DHIS2IdMapping map = new DHIS2IdMapping();
+      BasicIdMapping map = new BasicIdMapping();
       map.setRunwayId(runwayId);
       map.setDhis2Id(dhis2Id);
       map.apply();
@@ -55,13 +56,39 @@ public class DHIS2Util
     {
       Database.rollbackSavepoint(sp);
     }
+    finally
+    {
+      Database.releaseSavepoint(sp);
+    }
+  }
+  
+  public static OrgUnit getOrgUnitFromGeoEntity(GeoEntity geo)
+  {
+    GeoMapQuery query = new GeoMapQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().EQ(geo));
+    OIterator<? extends GeoMap> mappingIt = query.getIterator();
+    try
+    {
+      if (mappingIt.hasNext())
+      {
+        return mappingIt.next().getOrgUnit();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      mappingIt.close();
+    }
   }
   
   public static String getDhis2IdFromRunwayId(String runwayId)
   {
-    DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
-    idq.WHERE(idq.getRunwayId().EQ(runwayId));
-    OIterator<? extends DHIS2IdMapping> mappingIt = idq.getIterator();
+    BasicIdMappingQuery query = new BasicIdMappingQuery(new QueryFactory());
+    query.WHERE(query.getRunwayId().EQ(runwayId));
+    OIterator<? extends BasicIdMapping> mappingIt = query.getIterator();
     try
     {
       if (mappingIt.hasNext())
@@ -78,17 +105,17 @@ public class DHIS2Util
       mappingIt.close();
     }
   }
-  
+
   public static String queryAndMapIds(String runwayId, DHIS2IdCache idCache)
   {
-    DHIS2IdMappingQuery idq = new DHIS2IdMappingQuery(new QueryFactory());
-    idq.WHERE(idq.getRunwayId().EQ(runwayId));
-    OIterator<? extends DHIS2IdMapping> mappingIt = idq.getIterator();
+    BasicIdMappingQuery query = new BasicIdMappingQuery(new QueryFactory());
+    query.WHERE(query.getRunwayId().EQ(runwayId));
+    OIterator<? extends BasicIdMapping> mappingIt = query.getIterator();
     try
     {
       if (mappingIt.hasNext())
       {
-        DHIS2IdMapping mapping = mappingIt.next();
+        BasicIdMapping mapping = mappingIt.next();
         
         return mapping.getDhis2Id();
       }
@@ -96,7 +123,7 @@ public class DHIS2Util
       {
         String id = idCache.next();
         
-        DHIS2IdMapping map = new DHIS2IdMapping();
+        BasicIdMapping map = new BasicIdMapping();
         map.setRunwayId(runwayId);
         map.setDhis2Id(id);
         map.apply();

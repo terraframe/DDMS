@@ -56,6 +56,7 @@ import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
@@ -64,6 +65,7 @@ import dss.vector.solutions.etl.dhis2.DHIS2GeoMapper;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
 import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
 import dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException;
+import dss.vector.solutions.etl.dhis2.OrgUnit;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
@@ -280,7 +282,7 @@ public class DHIS2ExportHandler
           String name = null;
           String code = null;
           String shortName = null;
-          String rwId = null;
+          String runwayId = null;
           
           if (mdAttr instanceof MdAttributeReference)
           {
@@ -293,7 +295,7 @@ public class DHIS2ExportHandler
               name = term.getTermDisplayLabel().getValue();
               shortName = name;
               code = term.getTermId();
-              rwId = term.getId();
+              runwayId = term.getId();
             }
           }
           else if (mdAttr instanceof MdAttributeNumber || mdAttr instanceof MdAttributeBoolean)
@@ -305,27 +307,29 @@ public class DHIS2ExportHandler
             name = attrVal;
             shortName = name;
             code = attrVal;
-            rwId = mdAttr.getAttributeName() + "." + attrVal; // TODO : We may need to filter out values from the attrVal here
+            String text = mdAttr.getAttributeName() + "." + attrVal; // TODO : We may need to filter out values from the attrVal here
             
-            if (rwId.length() > 64)
+            if (text.length() > 128)
             {
-              rwId = rwId.substring(0, 63);
+              text = text.substring(0, 127);
             }
+            
+            runwayId = text;
           }
           
           // If we set values to those variables, then we know we have categories that need to be exported.
           if (name != null)
           {
-            if (noDuplicatesSet.contains(rwId))
+            if (noDuplicatesSet.contains(runwayId))
             {
               continue;
             }
             else
             {
-              noDuplicatesSet.add(rwId);
+              noDuplicatesSet.add(runwayId);
             }
             
-            String dhis2Id = DHIS2Util.queryAndMapIds(rwId, idCache);
+            String dhis2Id = DHIS2Util.queryAndMapIds(runwayId, idCache);
             
             JSONObject option = new JSONObject();
             option.put("code", code);
@@ -685,14 +689,14 @@ public class DHIS2ExportHandler
       JSONArray organisationUnits = new JSONArray();
       
       GeoEntity zambia = GeoEntity.getByKey("ZA");
-      String zambiaDhis2Id = DHIS2Util.getDhis2IdFromRunwayId(DHIS2GeoMapper.MAPPING_PREFIX + zambia.getId());
-      if (zambiaDhis2Id == null)
+      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia);
+      if (zambiaOrgUnit == null)
       {
         throw new RuntimeException("Zambia is not mapped.");
       }
       
       JSONObject organisationUnit = new JSONObject();
-      organisationUnit.put("id", zambiaDhis2Id);
+      organisationUnit.put("id", zambiaOrgUnit.getDhis2Id());
       organisationUnits.put(organisationUnit);
       
       dataSet.put("organisationUnits", organisationUnits);

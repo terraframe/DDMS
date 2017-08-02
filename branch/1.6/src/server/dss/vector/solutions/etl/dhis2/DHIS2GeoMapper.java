@@ -1,5 +1,7 @@
 package dss.vector.solutions.etl.dhis2;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,26 +20,22 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.business.Business;
+import com.runwaysdk.dataaccess.DuplicateDataException;
+import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
-import dss.vector.solutions.geo.GeoSynonymQuery;
-import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.util.QueryUtil;
 
 /**
  * This class is responsible for pulling org units from DHIS2 and associating them with a GeoEntity in DDMS
@@ -46,19 +44,13 @@ import dss.vector.solutions.util.QueryUtil;
  */
 public class DHIS2GeoMapper
 {
-  public static final String MAPPING_PREFIX = "GEO_";
-  
   private AbstractDHIS2Connector dhis2;
   
-  private Map<Integer, GeoHierarchy> universals;
+  private Map<Integer, OrgUnitLevel> levels;
   
   private String[] countryOrgUnitExcludes;
   
   private static Logger logger = LoggerFactory.getLogger(DHIS2GeoMapper.class);
-  
-  private int hits = 0;
-  
-  private int misses = 0;
   
   public static void main(String[] args)
   {
@@ -115,38 +107,42 @@ public class DHIS2GeoMapper
     dhis2.setServerUrl(url);
     dhis2.setCredentials(username, password);
     
-    universals = new HashMap<Integer, GeoHierarchy>();
+    levels = new HashMap<Integer, OrgUnitLevel>();
   }
   
   protected void mapAll()
   {
-    mapAllInTransaction();
+    fetchAllInTransaction();
+    matchAllInTransaction();
+    logger.info("Geo mapping is finished.");
   }
   
   @Transaction
-  protected void mapAllInTransaction()
+  protected void fetchAllInTransaction()
   {
     try
     {
-      deleteAll();
-      mapOrgUnitLevels();
-      mapOrgUnits();
+      fetchOrgUnitLevels();
+      fetchOrgUnits();
+      populateGeoMap();
     }
     catch (JSONException e)
     {
       throw new RuntimeException(e);
     }
+  }
+  
+  @Transaction
+  protected void matchAllInTransaction()
+  {
+    matchOrgUnitLevels();
+    matchOrgUnitsByCode();
+  }
+  
+  protected void fetchOrgUnitLevels() throws JSONException
+  {
+    Database.parseAndExecute("UPDATE org_unit_level SET validFlag=0");
     
-    logger.info("Geo mapping is finished. Hits: " + hits + ", Misses: " + misses + " Total: " + (hits + misses));
-  }
-  
-  protected void deleteAll()
-  {
-    Database.parseAndExecute("DELETE FROM dhis2_id_mapping WHERE runway_id like '" + MAPPING_PREFIX + "%'");
-  }
-  
-  protected void mapOrgUnitLevels() throws JSONException
-  {
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
         new NameValuePair("assumeTrue", "false"),
         new NameValuePair("organisationUnitLevels", "true")
@@ -155,59 +151,81 @@ public class DHIS2GeoMapper
     
     JSONObject json = response.getJSONObject();
     
-    JSONArray levels = json.getJSONArray("organisationUnitLevels");
+    JSONArray jsonLevels = json.getJSONArray("organisationUnitLevels");
     
-    for (int i = 0; i < levels.length(); ++i)
+    for (int i = 0; i < jsonLevels.length(); ++i)
     {
-      JSONObject level = levels.getJSONObject(i);
+      JSONObject jsonOUL = jsonLevels.getJSONObject(i);
       
       String name = "";
-      if (level.has("name"))
+      if (jsonOUL.has("name"))
       {
-        name = level.getString("name");
+        name = jsonOUL.getString("name");
+      }
+      else if (jsonOUL.has("shortName"))
+      {
+        name = jsonOUL.getString("shortName");
       }
       else
       {
         continue;
       }
       
-      GeoHierarchyQuery ghq = new GeoHierarchyQuery(new QueryFactory());
-      ghq.WHERE(F.TRIM(ghq.getGeoEntityClass().getDisplayLabel().localize()).EQi(name.trim()));
-      OIterator<? extends GeoHierarchy> it = ghq.getIterator();
+      Integer levelInt = Integer.parseInt(jsonOUL.getString("level"));
       
+      OrgUnitLevel oul = new OrgUnitLevel();
+      oul.setName(name);
+      oul.setDhis2Id(jsonOUL.getString("id"));
+      oul.setLevel(levelInt);
+      oul.setValid(true);
+      
+      Savepoint sp = Database.setSavepoint();
       try
       {
-        if (it.hasNext())
-        {
-          GeoHierarchy gh = it.next();
-          
-          Integer levelInt = Integer.parseInt(level.getString("level"));
-          
-          DHIS2Util.mapIds(MAPPING_PREFIX + gh.getId(), level.getString("id"));
-          
-          universals.put(levelInt, gh);
-          
-          logger.info("Successfully mapped orgUnitLevel [" + name + "] at level [" + levelInt + "].");
-        }
-        else
-        {
-          throw new RuntimeException("Could not find match for OrgUnitLevel [" + level.getString("name") + "].");
-        }
+        oul.apply();
+      }
+      catch (DuplicateDataException e)
+      {
+        Database.rollbackSavepoint(sp);
+        
+        OrgUnitLevel dup = OrgUnitLevel.getByKey(oul.getDhis2Id());
+        dup.setName(oul.getName());
+        dup.setLevel(oul.getLevel());
+        dup.setUniversal(oul.getUniversal());
+        dup.setValid(true);
+        dup.apply();
+        
+        oul = dup;
       }
       finally
       {
-        it.close();
+        Database.releaseSavepoint(sp);
       }
+      
+      levels.put(levelInt, oul);
     }
     
-    if (!universals.containsKey(0))
+    OrgUnitLevelQuery query = new OrgUnitLevelQuery(new QueryFactory());
+    query.WHERE(query.getValid().EQ(false));
+    OIterator<? extends OrgUnitLevel> it = query.getIterator();
+    
+    try
     {
-      universals.put(0, GeoHierarchy.getByKey(Country.CLASS));
+      for (OrgUnitLevel level : it)
+      {
+        level.delete();
+      }
+    }
+    finally
+    {
+      it.close();
     }
   }
   
-  protected void mapOrgUnits() throws JSONException
+  protected void fetchOrgUnits() throws JSONException
   {
+    Database.parseAndExecute("UPDATE org_unit SET validFlag=0");
+    
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
         new NameValuePair("assumeTrue", "false"),
         new NameValuePair("organisationUnits", "true")
@@ -221,6 +239,15 @@ public class DHIS2GeoMapper
     {
       JSONObject unit = units.getJSONObject(i);
       
+      OrgUnit org = new OrgUnit();
+      
+      org.setDhis2Id(unit.getString("id"));
+      
+      if (unit.has("code"))
+      {
+        org.setCode(unit.getString("code"));
+      }
+      
       // Find the org unit name
       String name = "";
       if (unit.has("name"))
@@ -231,10 +258,9 @@ public class DHIS2GeoMapper
       {
         name = unit.getString("shortName");
       }
+      org.setName(name);
       
       // Find the universal
-      int level = -1;
-      GeoHierarchy universal = null;
       if (unit.has("path"))
       {
         String path = unit.getString("path");
@@ -248,94 +274,204 @@ public class DHIS2GeoMapper
           path = path + "/";
         }
         
-        level = StringUtils.countMatches(path, "/") - 1;
+        int level = StringUtils.countMatches(path, "/") - 1;
         
-        universal = universals.get(level);
+        org.setOrgUnitLevel(levels.get(level));
+        org.setPath(path);
       }
       
-      // The org unit code may be the same as our GeoId.
-      if (unit.has("code"))
+//      org.setParent(parent); // TODO
+      
+      org.setValid(true);
+      
+      Savepoint sp = Database.setSavepoint();
+      try
       {
-        String geoId = unit.getString("code");
-        
-        Savepoint sp = Database.setSavepoint();
-        try
-        {
-          GeoEntity geoEntity = GeoEntity.getByKey(geoId); // The key is the geoId
-          
-//          logger.info("Mapping [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "] from geoId [" + geoId + "]." );
-          
-          DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
-          
-          hits++;
-          continue;
-        }
-        catch (DataNotFoundException e)
-        {
-          Database.rollbackSavepoint(sp);
-        }
+        org.apply();
       }
-      
-      // Basic name matching
-      if (universal != null)
+      catch (DuplicateDataException e)
       {
-        GeoEntity geoEntity = findGeoEntityNameMatch(name, universal);
+        Database.rollbackSavepoint(sp);
         
-        if (geoEntity != null)
-        {
-          DHIS2Util.mapIds(MAPPING_PREFIX + geoEntity.getId(), unit.getString("id"));
-          
-//          logger.info("Name matched [" + name + "] level [" + level + "] to [" + geoEntity.getEntityLabel().getValue() + "]." );
-          
-          hits++;
-          continue;
-        }
+        OrgUnit dup = OrgUnit.getByKey(org.getDhis2Id());
+        dup.setCode(org.getCode());
+        dup.setName(org.getName());
+        dup.setPath(org.getPath());
+        dup.setOrgUnitLevel(org.getOrgUnitLevel());
+        dup.setParent(org.getParent());
+        dup.apply();
       }
-      
-      String sUni = universal == null ? "null" : universal.getDisplayLabel();
-      String msg = "No mapping found for name [" + name + "] and universal [" + sUni + "].";
-//      logger.warn(msg);
-      System.out.println(msg);
-      
-      misses++;
+      finally
+      {
+        Database.releaseSavepoint(sp);
+      }
     }
-  }
-  
-  // A good reference : TargetFieldGeoEntity.findGeoEntity
-  protected GeoEntity findGeoEntityNameMatch(String label, GeoHierarchy universal)
-  {
-    QueryFactory factory = new QueryFactory();
     
-    GeoSynonymQuery synonymQuery = new GeoSynonymQuery(factory);
-    synonymQuery.WHERE(synonymQuery.getEntityName().EQ(label));
-    
-    MdBusinessDAOIF mdBusinessDAOIF = MdBusinessDAO.get(universal.getGeoEntityClassId());
-    GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(mdBusinessDAOIF, factory);
-    query.AND(OR.get(query.getEntityLabel().localize().EQi(label), query.synonyms(synonymQuery)));
-    
-    OIterator<? extends GeoEntity> iterator = query.getIterator();
+    OrgUnitQuery query = new OrgUnitQuery(new QueryFactory());
+    query.WHERE(query.getValid().EQ(false));
+    OIterator<? extends OrgUnit> it = query.getIterator();
     
     try
     {
-      if (iterator.hasNext())
+      for (OrgUnit unit : it)
       {
-        GeoEntity entity = iterator.next();
-        
-        if (iterator.hasNext())
-        {
-          String msg = "Multiple matches found for geo label [" + label + "] and universal [" + universal.getDisplayLabel() + "]";
-//          logger.warn(msg);
-          System.out.println(msg);
-        }
-        
-        return entity;
+        unit.delete();
       }
-
-      return null;
     }
     finally
     {
-      iterator.close();
+      it.close();
     }
   }
+  
+  protected void populateGeoMap()
+  {
+    int newMappings = 0;
+    
+    ResultSet resultSet = Database.query("select id from geo_entity ge where ge.id not in (select geo_entity from geo_map)");
+
+    try
+    {
+      while (resultSet.next())
+      {
+        GeoMap map = new GeoMap();
+        map.setValue(GeoMap.GEOENTITY, resultSet.getString("id"));
+        map.apply();
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    logger.info("Added " + newMappings + " new mappings to the GeoMap table.");
+  }
+  
+  protected void matchOrgUnitLevels()
+  {
+    int hits = 0;
+    
+    QueryFactory qf = new QueryFactory();
+    
+    ValueQuery vq = new ValueQuery(qf);
+    OrgUnitLevelQuery levelq = new OrgUnitLevelQuery(qf);
+    GeoHierarchyQuery ghq = new GeoHierarchyQuery(qf);
+    
+    vq.SELECT(ghq.getId("geoHierarchyId"));
+    vq.SELECT(levelq.getId("levelId"));
+    vq.WHERE(F.TRIM(ghq.getGeoEntityClass().getDisplayLabel().localize()).EQi(F.TRIM(levelq.getName())));
+    
+    OIterator<ValueObject> it = vq.getIterator();
+    
+    try
+    {
+      for (ValueObject obj : it)
+      {
+        GeoHierarchy gh = (GeoHierarchy) Business.get(obj.getValue("geoHierarchyId"));
+        OrgUnitLevel level = OrgUnitLevel.get(obj.getValue("levelId"));
+        
+        level.setUniversal(gh.getGeoEntityClass());
+        
+        level.apply();
+        
+        hits++;
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    logger.info("Org unit level matching completed. hits = " + hits);
+  }
+  
+  protected void matchOrgUnitsByCode()
+  {
+    int hits = 0;
+    
+    QueryFactory qf = new QueryFactory();
+    
+    ValueQuery vq = new ValueQuery(qf);
+    GeoMapQuery gmq = new GeoMapQuery(qf);
+    OrgUnitQuery ouq = new OrgUnitQuery(qf);
+    
+    vq.SELECT(gmq.getId("geoMapId"));
+    vq.SELECT(ouq.getId("orgUnitId"));
+    vq.WHERE(gmq.getConfirmed().EQ(false));
+    vq.WHERE(ouq.getCode().EQ(gmq.getGeoEntity().getGeoId()));
+    
+    OIterator<? extends ValueObject> it = vq.getIterator();
+    
+    try
+    {
+      for (ValueObject obj : it)
+      {
+        GeoMap map = GeoMap.get(obj.getValue("geoMapId"));
+        OrgUnit unit = OrgUnit.get(obj.getValue("orgUnitId"));
+        
+        map.setOrgUnit(unit);
+        map.setConfirmed(false);
+        map.apply();
+        
+        hits++;
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    logger.info("Org unit matching completed. hits = " + hits);
+  }
+  
+  // A good reference : TargetFieldGeoEntity.findGeoEntity
+//  protected GeoEntity findOrgUnitNameMatch(String label, GeoHierarchy universal)
+//  {
+//    QueryFactory factory = new QueryFactory();
+//    
+//    GeoSynonymQuery synonymQuery = new GeoSynonymQuery(factory);
+//    synonymQuery.WHERE(synonymQuery.getEntityName().EQ(label));
+//    
+//    MdBusinessDAOIF mdBusinessDAOIF = MdBusinessDAO.get(universal.getGeoEntityClassId());
+//    GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(mdBusinessDAOIF, factory);
+//    query.AND(OR.get(query.getEntityLabel().localize().EQi(label), query.synonyms(synonymQuery)));
+//    
+//    OIterator<? extends GeoEntity> iterator = query.getIterator();
+//    
+//    try
+//    {
+//      if (iterator.hasNext())
+//      {
+//        GeoEntity entity = iterator.next();
+//        
+//        if (iterator.hasNext())
+//        {
+//          String msg = "Multiple matches found for geo label [" + label + "] and universal [" + universal.getDisplayLabel() + "]";
+//          logger.warn(msg);
+////          System.out.println(msg);
+//        }
+//        
+//        return entity;
+//      }
+//
+//      return null;
+//    }
+//    finally
+//    {
+//      iterator.close();
+//    }
+//  }
 }
