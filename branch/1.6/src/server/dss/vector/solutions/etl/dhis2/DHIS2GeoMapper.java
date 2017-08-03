@@ -141,6 +141,10 @@ public class DHIS2GeoMapper
   
   protected void fetchOrgUnitLevels() throws JSONException
   {
+    int updated = 0;
+    int created = 0;
+    int deleted = 0;
+    
     Database.parseAndExecute("UPDATE org_unit_level SET validFlag=0");
     
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
@@ -183,6 +187,8 @@ public class DHIS2GeoMapper
       try
       {
         oul.apply();
+        
+        created++;
       }
       catch (DuplicateDataException e)
       {
@@ -196,6 +202,8 @@ public class DHIS2GeoMapper
         dup.apply();
         
         oul = dup;
+        
+        updated++;
       }
       finally
       {
@@ -214,16 +222,23 @@ public class DHIS2GeoMapper
       for (OrgUnitLevel level : it)
       {
         level.delete();
+        deleted++;
       }
     }
     finally
     {
       it.close();
     }
+    
+    logger.info("Org unit level fetching completed. created = " + created + " updated = " + updated + " deleted = " + deleted);
   }
   
   protected void fetchOrgUnits() throws JSONException
   {
+    int updated = 0;
+    int created = 0;
+    int deleted = 0;
+    
     Database.parseAndExecute("UPDATE org_unit SET validFlag=0");
     
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
@@ -288,6 +303,8 @@ public class DHIS2GeoMapper
       try
       {
         org.apply();
+        
+        created++;
       }
       catch (DuplicateDataException e)
       {
@@ -299,7 +316,10 @@ public class DHIS2GeoMapper
         dup.setPath(org.getPath());
         dup.setOrgUnitLevel(org.getOrgUnitLevel());
         dup.setParent(org.getParent());
+        dup.setValid(true);
         dup.apply();
+        
+        updated++;
       }
       finally
       {
@@ -316,12 +336,15 @@ public class DHIS2GeoMapper
       for (OrgUnit unit : it)
       {
         unit.delete();
+        deleted++;
       }
     }
     finally
     {
       it.close();
     }
+    
+    logger.info("Org unit fetching completed. created = " + created + " updated = " + updated + " deleted = " + deleted);
   }
   
   protected void populateGeoMap()
