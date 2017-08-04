@@ -84,6 +84,28 @@ public class DHIS2Util
     }
   }
   
+  public static String getRunwayIdFromDhis2Id(String dhis2Id)
+  {
+    BasicIdMappingQuery query = new BasicIdMappingQuery(new QueryFactory());
+    query.WHERE(query.getDhis2Id().EQ(dhis2Id));
+    OIterator<? extends BasicIdMapping> mappingIt = query.getIterator();
+    try
+    {
+      if (mappingIt.hasNext())
+      {
+        return mappingIt.next().getRunwayId();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      mappingIt.close();
+    }
+  }
+  
   public static String getDhis2IdFromRunwayId(String runwayId)
   {
     BasicIdMappingQuery query = new BasicIdMappingQuery(new QueryFactory());
@@ -97,7 +119,7 @@ public class DHIS2Util
       }
       else
       {
-        return null;
+        throw new RuntimeException("Expected a basic mapping to exist with runwayId [" + runwayId + "].");
       }
     }
     finally

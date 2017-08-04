@@ -51,7 +51,7 @@
           <integer name="level" size="128" label="level" column="levelNum" />
           <reference type="com.runwaysdk.system.metadata.MdBusiness" name="universal" label="Universal" />
           <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
-          <boolean name="valid" label="valid" column="validFlag" />
+          <boolean name="valid" label="valid" column="validflag" />
         </attributes>
       </mdBusiness>
       
@@ -63,7 +63,7 @@
           <reference type="dss.vector.solutions.etl.dhis2.OrgUnit" name="parent" label="parent" />
           <reference type="dss.vector.solutions.etl.dhis2.OrgUnitLevel" name="orgUnitLevel" label="Organisation Unit Level" />
           <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
-          <boolean name="valid" label="valid" column="validFlag" />
+          <boolean name="valid" label="valid" column="validflag" />
         </attributes>
       </mdBusiness>
       
@@ -72,7 +72,7 @@
           <!-- I tried to make this a reference to a runway object but there is simply no common base class I can use.
                Entity or Business doesn't work, its kind of an unenforced rule that you're not supposed to use those here.
            -->
-          <char name="runwayId" size="128" indexType="unique index" label="Arbitrary Text that is probably a runway id" />
+          <char name="runwayId" size="500" indexType="unique index" label="Arbitrary Text that is probably a runway id" />
           
           <char name="dhis2Id" size="32" indexType="unique index" label="DHIS2 Id" />
         </attributes>

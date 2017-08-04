@@ -35,7 +35,6 @@ import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
-import dss.vector.solutions.geo.generated.GeoEntity;
 
 /**
  * This class is responsible for pulling org units from DHIS2 and associating them with a GeoEntity in DDMS
@@ -48,7 +47,7 @@ public class DHIS2GeoMapper
   
   private Map<Integer, OrgUnitLevel> levels;
   
-  private String[] countryOrgUnitExcludes;
+//  private String[] countryOrgUnitExcludes;
   
   private static Logger logger = LoggerFactory.getLogger(DHIS2GeoMapper.class);
   
@@ -59,7 +58,7 @@ public class DHIS2GeoMapper
     options.addOption(Option.builder("url").hasArg().argName("url").longOpt("url").desc("URL of the DHIS2 server to connect to, including the port. Defaults to: http://127.0.0.1:8085/").optionalArg(true).build());
     options.addOption(Option.builder("username").hasArg().argName("username").longOpt("username").desc("The username of the root (admin) DHIS2 user.").required().build());
     options.addOption(Option.builder("password").hasArg().argName("password").longOpt("password").desc("The password for the root (admin) DHIS2 user.").required().build());
-    options.addOption(Option.builder("countryOrgUnitExcludes").hasArg().argName("countryOrgUnitExcludes").longOpt("countryOrgUnitExcludes").desc("DHIS2 does not support multiple countries. However, some systems are misconfigured and have multiple countries. Our importer does not support this. You must exclude the extraneous countries to get this importer to work. This is a comma separated list of org unit ids to exclude from the import.").optionalArg(true).build());
+//    options.addOption(Option.builder("countryOrgUnitExcludes").hasArg().argName("countryOrgUnitExcludes").longOpt("countryOrgUnitExcludes").desc("DHIS2 does not support multiple countries. However, some systems are misconfigured and have multiple countries. Our importer does not support this. You must exclude the extraneous countries to get this importer to work. This is a comma separated list of org unit ids to exclude from the import.").optionalArg(true).build());
     
     try {
       CommandLine line = parser.parse( options, args );
@@ -67,14 +66,14 @@ public class DHIS2GeoMapper
       String url = line.getOptionValue("url");
       String username = line.getOptionValue("username");
       String password = line.getOptionValue("password");
-      String countryOrgUnitExcludes = line.getOptionValue("countryOrgUnitExcludes");
+//      String countryOrgUnitExcludes = line.getOptionValue("countryOrgUnitExcludes");
       
       if (url == null)
       {
         url = "http://127.0.0.1:8085/";
       }
       
-      doImportInRequest(url, username, password, countryOrgUnitExcludes);
+      doImportInRequest(url, username, password);
     }
     catch (ParseException e)
     {
@@ -84,7 +83,7 @@ public class DHIS2GeoMapper
   
   // Don't ever put an @Request on a main method or you will regret it I promise you
   @Request
-  public static void doImportInRequest(String url, String username, String password, String countryOrgUnitExcludes)
+  public static void doImportInRequest(String url, String username, String password)
   {
     DHIS2HTTPConfiguration config = DHIS2HTTPConfiguration.getByKey("DEFAULT");
     config.setPazzword(password);
@@ -93,15 +92,15 @@ public class DHIS2GeoMapper
     config.appLock();
     config.apply();
     
-    new DHIS2GeoMapper(url, username, password, countryOrgUnitExcludes).mapAll();
+    new DHIS2GeoMapper(url, username, password).mapAll();
   }
   
-  public DHIS2GeoMapper(String url, String username, String password, String countryOrgUnitExcludes)
+  public DHIS2GeoMapper(String url, String username, String password)
   {
-    if (countryOrgUnitExcludes != null)
-    {
-      this.countryOrgUnitExcludes = StringUtils.split(countryOrgUnitExcludes, ",");
-    }
+//    if (countryOrgUnitExcludes != null)
+//    {
+//      this.countryOrgUnitExcludes = StringUtils.split(countryOrgUnitExcludes, ",");
+//    }
     
     dhis2 = new DHIS2HTTPCredentialConnector();
     dhis2.setServerUrl(url);
@@ -110,7 +109,15 @@ public class DHIS2GeoMapper
     levels = new HashMap<Integer, OrgUnitLevel>();
   }
   
-  protected void mapAll()
+  public DHIS2GeoMapper()
+  {
+    dhis2 = new DHIS2HTTPCredentialConnector();
+    dhis2.readConfigFromDB();
+    
+    levels = new HashMap<Integer, OrgUnitLevel>();
+  }
+  
+  public void mapAll()
   {
     fetchAllInTransaction();
     matchAllInTransaction();
@@ -137,6 +144,7 @@ public class DHIS2GeoMapper
   {
     matchOrgUnitLevels();
     matchOrgUnitsByCode();
+    matchOrgUnitsByName();
   }
   
   protected void fetchOrgUnitLevels() throws JSONException
@@ -145,7 +153,7 @@ public class DHIS2GeoMapper
     int created = 0;
     int deleted = 0;
     
-    Database.parseAndExecute("UPDATE org_unit_level SET validFlag=0");
+    Database.parseAndExecute("UPDATE org_unit_level SET validflag=0");
     
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
         new NameValuePair("assumeTrue", "false"),
@@ -239,7 +247,7 @@ public class DHIS2GeoMapper
     int created = 0;
     int deleted = 0;
     
-    Database.parseAndExecute("UPDATE org_unit SET validFlag=0");
+    Database.parseAndExecute("UPDATE org_unit SET validflag=0");
     
     HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[] {
         new NameValuePair("assumeTrue", "false"),
@@ -457,44 +465,45 @@ public class DHIS2GeoMapper
       it.close();
     }
     
-    logger.info("Org unit matching completed. hits = " + hits);
+    logger.info("Org unit code matching completed. hits = " + hits);
   }
   
-  // A good reference : TargetFieldGeoEntity.findGeoEntity
-//  protected GeoEntity findOrgUnitNameMatch(String label, GeoHierarchy universal)
-//  {
-//    QueryFactory factory = new QueryFactory();
-//    
-//    GeoSynonymQuery synonymQuery = new GeoSynonymQuery(factory);
-//    synonymQuery.WHERE(synonymQuery.getEntityName().EQ(label));
-//    
-//    MdBusinessDAOIF mdBusinessDAOIF = MdBusinessDAO.get(universal.getGeoEntityClassId());
-//    GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(mdBusinessDAOIF, factory);
-//    query.AND(OR.get(query.getEntityLabel().localize().EQi(label), query.synonyms(synonymQuery)));
-//    
-//    OIterator<? extends GeoEntity> iterator = query.getIterator();
-//    
-//    try
-//    {
-//      if (iterator.hasNext())
-//      {
-//        GeoEntity entity = iterator.next();
-//        
-//        if (iterator.hasNext())
-//        {
-//          String msg = "Multiple matches found for geo label [" + label + "] and universal [" + universal.getDisplayLabel() + "]";
-//          logger.warn(msg);
-////          System.out.println(msg);
-//        }
-//        
-//        return entity;
-//      }
-//
-//      return null;
-//    }
-//    finally
-//    {
-//      iterator.close();
-//    }
-//  }
+  protected void matchOrgUnitsByName()
+  {
+    int hits = 0;
+    
+    QueryFactory qf = new QueryFactory();
+    
+    ValueQuery vq = new ValueQuery(qf);
+    GeoMapQuery gmq = new GeoMapQuery(qf);
+    OrgUnitQuery ouq = new OrgUnitQuery(qf);
+    
+    vq.SELECT(gmq.getId("geoMapId"));
+    vq.SELECT(ouq.getId("orgUnitId"));
+    vq.WHERE(gmq.getConfirmed().EQ(false));
+    vq.WHERE(ouq.getName().EQi(gmq.getGeoEntity().getEntityLabel().localize()));
+    
+    OIterator<? extends ValueObject> it = vq.getIterator();
+    
+    try
+    {
+      for (ValueObject obj : it)
+      {
+        GeoMap map = GeoMap.get(obj.getValue("geoMapId"));
+        OrgUnit unit = OrgUnit.get(obj.getValue("orgUnitId"));
+        
+        map.setOrgUnit(unit);
+        map.setConfirmed(false);
+        map.apply();
+        
+        hits++;
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    logger.info("Org unit name matching completed. hits = " + hits);
+  }
 }

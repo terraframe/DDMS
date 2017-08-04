@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -738243823)
+@com.runwaysdk.business.ClassSignature(hash = -1202497962)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -198,6 +198,23 @@ public  class DHIS2AbstractConfigurationQuery extends com.runwaysdk.query.Genera
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getName()
+  {
+    return getName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -376,6 +393,9 @@ public  class DHIS2AbstractConfigurationQuery extends com.runwaysdk.query.Genera
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getName();
+    public com.runwaysdk.query.SelectableChar getName(String alias);
+    public com.runwaysdk.query.SelectableChar getName(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -562,6 +582,23 @@ public  class DHIS2AbstractConfigurationQuery extends com.runwaysdk.query.Genera
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getName()
+  {
+    return getName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -711,6 +748,9 @@ public  class DHIS2AbstractConfigurationQuery extends com.runwaysdk.query.Genera
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getName();
+    public com.runwaysdk.query.SelectableChar getName(String alias);
+    public com.runwaysdk.query.SelectableChar getName(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -944,6 +984,23 @@ public  class DHIS2AbstractConfigurationQuery extends com.runwaysdk.query.Genera
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getName()
+  {
+    return getName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.NAME, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()

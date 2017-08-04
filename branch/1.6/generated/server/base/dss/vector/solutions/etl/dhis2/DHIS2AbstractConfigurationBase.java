@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 1613373928)
+@com.runwaysdk.business.ClassSignature(hash = -2130928481)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,12 +19,13 @@ public abstract class DHIS2AbstractConfigurationBase extends com.runwaysdk.busin
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String NAME = "name";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
-  private static final long serialVersionUID = 1613373928;
+  private static final long serialVersionUID = -2130928481;
   
   public DHIS2AbstractConfigurationBase()
   {
@@ -229,6 +230,34 @@ public abstract class DHIS2AbstractConfigurationBase extends com.runwaysdk.busin
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public String getName()
+  {
+    return getValue(NAME);
+  }
+  
+  public void validateName()
+  {
+    this.validateAttribute(NAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(NAME);
+  }
+  
+  public void setName(String value)
+  {
+    if(value == null)
+    {
+      setValue(NAME, "");
+    }
+    else
+    {
+      setValue(NAME, value);
+    }
   }
   
   public com.runwaysdk.system.Actor getOwner()
