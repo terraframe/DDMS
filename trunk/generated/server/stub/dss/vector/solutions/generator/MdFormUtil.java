@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
+import com.runwaysdk.Pair;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
@@ -83,7 +84,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.AttributeReference;
-import com.runwaysdk.query.ColumnInfo;
 import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedTableClassQuery;
@@ -1924,8 +1924,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   private static ValueQuery getAndPopulateQueryVQ(Business criteria, String type)
   {
     QueryFactory factory = new QueryFactory();
-    ValueQuery query = getQueryObjectVQ(type, factory);
-
+    Pair<ValueQuery, GeneratedBusinessQuery> pair = getQueryObjectVQ(type, factory);
+    
+	ValueQuery vQuery = pair.getFirst();
+	GeneratedBusinessQuery query = pair.getSecond();
+    
     if (criteria != null)
     {
       List<? extends MdAttributeConcreteDAOIF> mdAttributes = criteria.getMdAttributeDAOs();
@@ -1951,7 +1954,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
                 MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttribute;
                 MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
                 String referenceType = referenceMdBusiness.definesType();
-                SelectableReference sel = (SelectableReference) query.getSelectableRef(attributeName);
+                SelectableReference sel = (SelectableReference) query.get(attributeName);
 
                 Class<?> referenceClass = LoaderDecorator.load(referenceType);
 
@@ -1960,27 +1963,27 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
                  */
                 if (GeoEntity.class.isAssignableFrom(referenceClass))
                 {
-                  dss.vector.solutions.geo.AllPathsQuery apQuery = new dss.vector.solutions.geo.AllPathsQuery(factory);
-                  apQuery.WHERE(apQuery.getParentGeoEntity().EQ(value));
+                  dss.vector.solutions.geo.AllPathsQuery apQuery = new dss.vector.solutions.geo.AllPathsQuery(vQuery);
+                  vQuery.WHERE(apQuery.getParentGeoEntity().EQ(value));
                   
-                  query.WHERE(sel.EQ(apQuery.getChildGeoEntity()));
+                  vQuery.WHERE(sel.EQ(apQuery.getChildGeoEntity()));
                 }
                 /*
                  * Handle term references
                  */
                 else if (Term.class.isAssignableFrom(referenceClass))
                 {
-                  dss.vector.solutions.ontology.AllPathsQuery apQuery = new dss.vector.solutions.ontology.AllPathsQuery(factory);
-                  apQuery.WHERE(apQuery.getParentTerm().EQ(value));
+                  dss.vector.solutions.ontology.AllPathsQuery apQuery = new dss.vector.solutions.ontology.AllPathsQuery(vQuery);
+                  vQuery.WHERE(apQuery.getParentTerm().EQ(value));
 
-                  query.WHERE(sel.EQ(apQuery.getChildTerm()));
+                  vQuery.WHERE(sel.EQ(apQuery.getChildTerm()));
                 }
                 /*
                  * Handle disease, survey, household, bednet, and person references
                  */
                 else if (Disease.class.isAssignableFrom(referenceClass) || FormSurvey.class.isAssignableFrom(referenceClass) || FormHousehold.class.isAssignableFrom(referenceClass) || FormPerson.class.isAssignableFrom(referenceClass) || FormBedNet.class.isAssignableFrom(referenceClass))
                 {
-                  query.WHERE(sel.EQ(value));
+                	vQuery.WHERE(sel.EQ(value));
                 }
                 else
                 {
@@ -1990,14 +1993,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
               else
               {
                 Attribute attribute = query.get(attributeName);
-                query.WHERE(attribute.EQ(value));
+                vQuery.WHERE(attribute.EQ(value));
               }
             }
           }
         }
       }
     }
-    return query;
+    return vQuery;
   }
 
   private static GeneratedBusinessQuery getAndPopulateQuery(Business criteria, String type)
@@ -2080,15 +2083,20 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @SuppressWarnings("unchecked")
-  private static ValueQuery getQueryObjectVQ(String type, QueryFactory factory)
+  private static Pair<ValueQuery, GeneratedBusinessQuery> getQueryObjectVQ(String type, QueryFactory factory)
   {
     try
     {
+    	ValueQuery vQuery = new ValueQuery(factory);
+    	
       Class<? extends GeneratedBusinessQuery> clazz = (Class<? extends GeneratedBusinessQuery>) LoaderDecorator.load(type + "Query");
-      Constructor<? extends GeneratedBusinessQuery> constructor = clazz.getConstructor(factory.getClass());
+      Constructor<? extends GeneratedBusinessQuery> constructor = clazz.getConstructor(vQuery.getClass());
 
-      GeneratedBusinessQuery query = constructor.newInstance(factory);
-      return convertGeneratedBusinessQueryToValueQuery(query);
+      GeneratedBusinessQuery query = constructor.newInstance(vQuery);
+      
+      convertGeneratedBusinessQueryToValueQuery(vQuery, query);
+      
+      return new Pair<ValueQuery, GeneratedBusinessQuery>(vQuery, query);
     }
     catch (Exception e)
     {
@@ -2096,20 +2104,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
   
-  private static ValueQuery convertGeneratedBusinessQueryToValueQuery(GeneratedComponentQuery gbq)
+  private static void convertGeneratedBusinessQueryToValueQuery(ValueQuery vq, GeneratedComponentQuery gbq)
   {
     TableClassQuery tcq = QueryHacker.getTableClassQuery((GeneratedTableClassQuery) gbq);
     Map<String, ? extends MdAttributeDAOIF> attrMap = QueryHacker.getAttributeMap(tcq);
-    Map<String, ColumnInfo> columnInfoMap = QueryHacker.getColumnInfoMap(tcq);
     
     QueryFactory qf = tcq.getQueryFactory();
-    ValueQuery vq = new ValueQuery(qf);
     
     Set<String> keys = attrMap.keySet();
     for (String key : keys)
     {
       MdAttributeDAOIF attr = attrMap.get(key);
-      ColumnInfo column = columnInfoMap.get(key);
       Selectable sel = gbq.get(key);
       
       if (attr instanceof MdAttributeConcreteDAOIF)
@@ -2146,8 +2151,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
     
     vq.FROM(tcq);
-    
-    return vq;
   }
   
   @SuppressWarnings("unchecked")
