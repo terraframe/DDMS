@@ -370,10 +370,10 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     
     _onGeoSelect : function(geoEntityView)
     {
-      if (!this._isActiveBasedOnGeoFilterCriteria(geoEntityView))
-      {
-        return;
-      }
+//      if (!this._isActiveBasedOnGeoFilterCriteria(geoEntityView))
+//      {
+//        return;
+//      }
       
       // Some pages also have a field that takes the geoentity id.
       // Those fields are namespaced as the geo id field+"_geoEntityId",
