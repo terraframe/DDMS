@@ -4,12 +4,13 @@ import { Headers, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 
-import { EventService, BasicService } from './core.service';
-import { EventHttpService } from './event-http.service';
+import { EventService, BasicService } from '../../core/service/core.service';
+import { EventHttpService } from '../../core/service/event-http.service';
 
-import { Pair } from '../model/pair';
-import { Sheet, Workbook, GeoSynonym, ClassifierSynonym, Entity, DatasetResponse } from '../uploader/uploader-model';
-import { Category, BasicCategory } from '../model/category';
+import { Sheet, Workbook, GeoSynonym, ClassifierSynonym, Entity, DatasetResponse } from '../uploader-model';
+
+import { Pair } from '../../model/pair';
+import { Category, BasicCategory } from '../../model/category';
 
 declare var acp: any;
 

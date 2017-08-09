@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 1688224466)
+@com.runwaysdk.business.ClassSignature(hash = -1564914082)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN

@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { UploadInformation, Step, Sheet, Page } from './uploader-model';
 
-import { UploadService } from '../service/upload.service';
+import { UploadService } from './service/upload.service';
 
 
 @Component({

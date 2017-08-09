@@ -1,0 +1,101 @@
+<div id="app-container" class="container">
+
+  <message ></message>
+  
+  <form #form="ngForm" class="modal-form" style="border: solid 1px;" (ngSubmit)="form.valid && onSubmit()">    
+    <div class="modal-dialog" style="z-index: 5">
+      <div class="modal-content">
+        <div class="heading">
+          <h1><localize key="dhis2.instance.header"></localize></h1>
+        </div>            
+        <fieldset>            
+          <div class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.url"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="connection.url" name="url" required>
+              </span>
+            </div>
+          </div>
+          <div class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.auth"></localize></label>
+            </div>          
+            <div class="holder" >
+              <select class="select-area" [(ngModel)]="connection.type" name="type" required>
+                <option value="BASIC"><localize key="dhis2.basic"></localize></option>
+<!--
+                
+                <option value="OAUTH-CODE"><localize key="dhis2.oauth.code"></localize></option>
+-->                
+              </select>             
+            </div>
+          </div>
+          <div *ngIf="connection.type === 'OAUTH-CODE'" class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.name"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="connection.name" name="name" required>
+              </span>
+            </div>
+          </div>          
+          <div *ngIf="connection.type === 'OAUTH-CODE'" class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.client.id"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="connection.clientId" name="clientId" required>
+              </span>
+            </div>
+          </div>          
+          <div *ngIf="connection.type === 'OAUTH-CODE'" class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.secret"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="connection.secret" name="secret" required>
+              </span>
+            </div>
+          </div>          
+          <div *ngIf="connection.type === 'BASIC'" class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.username"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="connection.username" name="secret" required>
+              </span>
+            </div>
+          </div>          
+          <div *ngIf="connection.type === 'BASIC'" class="row-holder">
+            <div class="label-holder">
+              <label><localize key="dhis2.password"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="password" [(ngModel)]="connection.password" name="password">
+              </span>
+            </div>
+          </div>          
+          <div class="row-holder">
+            <div class="label-holder">
+            </div>                    
+            <div class="holder">
+              <div class="button-holder">
+                <input type="submit" [value]="'dhis2.connect' | localize" class="btn btn-primary" [disabled]="!(form.valid)" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </form>
+  
+
+</div>

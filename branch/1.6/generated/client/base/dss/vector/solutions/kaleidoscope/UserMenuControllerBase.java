@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope;
 
-@com.runwaysdk.business.ClassSignature(hash = 1282671211)
+@com.runwaysdk.business.ClassSignature(hash = -1105847344)
 public class UserMenuControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.kaleidoscope.UserMenuController";
@@ -63,6 +63,20 @@ public class UserMenuControllerBase implements com.runwaysdk.generation.loader.R
   public com.runwaysdk.ClientSession getClientSession()
   {
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void dhis2Management() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.UserMenuController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.UserMenuController.dhis2Management");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void failDhis2Management() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.UserMenuController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.UserMenuController.failDhis2Management");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:dashboardId", post=false)

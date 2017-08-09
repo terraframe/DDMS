@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy} from '@angular/core';
 
-import { Pair } from '../model/pair';
+import { Pair } from '../../model/pair';
 
 declare var MDSS:any;
 declare var acp:string;

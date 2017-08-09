@@ -7,8 +7,8 @@ import 'rxjs/add/operator/switchMap';
 
 import { Category, BasicCategory } from '../model/category';
 
-import { EventService } from '../service/core.service';
-import { LocalizationService } from '../service/localization.service';
+import { EventService } from '../core/service/core.service';
+
 import { CategoryService } from '../service/category.service';
 
 export class CategoryResolver implements Resolve<Category> {
@@ -47,8 +47,7 @@ export class CategoryDetailComponent implements OnInit {
     private router: Router,      
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private location: Location,
-    private localizationService: LocalizationService) {
+    private location: Location) {
   }
 
   ngOnInit(): void {
@@ -91,15 +90,10 @@ export class CategoryDetailComponent implements OnInit {
   }
   
   remove(descendant: BasicCategory) {
-//    let message = this.localizationService.localize("category.management", "removeCategoryConfirm");
-//    message = message.replace('{0}', this.category.label);
-//
-//    if(confirm(message)) {
       this.categoryService.remove(descendant.id)
        .then((response:any) => {
          this.category.descendants = this.category.descendants.filter(h => h !== descendant);        
        });
-//    }
   }
   
   

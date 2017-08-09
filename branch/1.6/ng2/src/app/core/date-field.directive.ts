@@ -1,7 +1,7 @@
 import {Directive, AfterViewInit, OnDestroy, ElementRef} from '@angular/core';
 import {NgModel} from '@angular/forms';
 
-import { LocalizationService } from '../service/localization.service';
+import { LocalizationService } from './service/localization.service';
 
 @Directive({ 
   selector: '[ngModel][dateField]',

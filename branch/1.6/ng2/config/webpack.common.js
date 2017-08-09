@@ -56,9 +56,5 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
     }),
-
-//    new HtmlWebpackPlugin({
-//      template: '../../webapp/WEB-INF/net/geoprism/prism/prism.jsp'
-//    })
   ]
 };

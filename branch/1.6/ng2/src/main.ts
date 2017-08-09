@@ -1,31 +1,22 @@
-///
-/// Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
-///
-/// This file is part of Runway SDK(tm).
-///
-/// Runway SDK(tm) is free software: you can redistribute it and/or modify
-/// it under the terms of the GNU Lesser General Public License as
-/// published by the Free Software Foundation, either version 3 of the
-/// License, or (at your option) any later version.
-///
-/// Runway SDK(tm) is distributed in the hope that it will be useful, but
-/// WITHOUT ANY WARRANTY; without even the implied warranty of
-/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-/// GNU Lesser General Public License for more details.
-///
-/// You should have received a copy of the GNU Lesser General Public
-/// License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
-///
-
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+
 import { AppModule } from './app/app.module';
+import { Dhis2Module } from './app/dhis2/dhis2.module';
+
+declare var appname: string;
 
 if (process.env.ENV === 'production') {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .then(success => console.log('Bootstrap success'))
-  .catch(error => console.log(error));
-
+if(appname !== undefined && appname === 'dhis2-app' ) {
+  platformBrowserDynamic().bootstrapModule(Dhis2Module)
+    .then(success => console.log('DHIS2 Bootstrap success'))
+    .catch(error => console.log(error));  
+}
+else {
+  platformBrowserDynamic().bootstrapModule(AppModule)
+    .then(success => console.log('App bootstrap success'))
+    .catch(error => console.log(error));  
+}

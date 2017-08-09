@@ -42,6 +42,10 @@ export class IndicatorModalComponent {
     }
     else {
       this.indicator = indicator;
+      
+      if(this.indicator.percentage === undefined) {
+        this.indicator.percentage = false;
+      }
     }
     
     this.datasetId = datasetId;

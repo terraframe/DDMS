@@ -5,10 +5,11 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
+import { EventService } from '../core/service/core.service';
+
 import { Dataset, DatasetAttribute, IndicatorField } from '../model/dataset';
 import { BasicCategory } from '../model/category';
 
-import { EventService } from '../service/core.service';
 import { DatasetService } from '../service/dataset.service';
 
 import { IndicatorModalComponent } from './indicator-modal.component';

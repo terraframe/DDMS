@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Category, BasicCategory } from '../model/category';
 
-import { EventService } from '../service/core.service';
+import { EventService } from '../core/service/core.service';
 import { CategoryService } from '../service/category.service';
 
 class Instance {

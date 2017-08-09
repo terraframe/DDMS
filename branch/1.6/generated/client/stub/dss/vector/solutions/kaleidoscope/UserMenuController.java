@@ -2,6 +2,7 @@ package dss.vector.solutions.kaleidoscope;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -84,5 +85,18 @@ public class UserMenuController extends UserMenuControllerBase implements com.ru
     {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void dhis2Management() throws IOException, ServletException
+  {
+    URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
+    String path = url.toString();
+
+    this.req.setAttribute("path", path);
+
+    JavascriptUtil.loadDatasets(this.getClientRequest(), req);
+
+    this.render("dhis2-management.jsp");
   }
 }

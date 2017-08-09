@@ -3,9 +3,10 @@ import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
 
 import { LocalValidator } from '../core/function-validator.directive';
 import { RemoteValidator } from '../core/async-validator.directive';
+import { LocalizationService } from '../core/service/localization.service';
+
 import { UploadInformation, Sheet, Page, Field, Universal} from './uploader-model';
 import { CategoryService } from '../service/category.service';
-import { LocalizationService } from '../service/localization.service';
 
 @Component({
   

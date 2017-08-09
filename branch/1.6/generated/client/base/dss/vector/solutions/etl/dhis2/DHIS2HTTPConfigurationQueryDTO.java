@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 788714404)
+@com.runwaysdk.business.ClassSignature(hash = 1978664240)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.etl.dhis2;
 public class DHIS2HTTPConfigurationQueryDTO extends dss.vector.solutions.etl.dhis2.DHIS2AbstractConfigurationQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 788714404;
+private static final long serialVersionUID = 1978664240;
 
   protected DHIS2HTTPConfigurationQueryDTO(String type)
   {

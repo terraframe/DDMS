@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1456203538)
+@com.runwaysdk.business.ClassSignature(hash = -1302605514)
 public abstract class DHIS2ExportableDatasetDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset";
-  private static final long serialVersionUID = -1456203538;
+  private static final long serialVersionUID = -1302605514;
   
   protected DHIS2ExportableDatasetDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -559,6 +559,30 @@ public abstract class DHIS2ExportableDatasetDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO[] getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, "getAll", _declaredTypes);
+    return (dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdTableDTO[] getQueries(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, "getQueries", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdTableDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String xport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String datasets, java.lang.String strategy)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{datasets, strategy};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO.CLASS, "xport", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDatasetDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 723004014)
+@com.runwaysdk.business.ClassSignature(hash = 1583940278)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class DHIS2ExportableDatasetBase extends com.runwaysdk.business.
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 723004014;
+  private static final long serialVersionUID = 1583940278;
   
   public DHIS2ExportableDatasetBase()
   {
@@ -478,6 +478,24 @@ public abstract class DHIS2ExportableDatasetBase extends com.runwaysdk.business.
   public static DHIS2ExportableDataset getByKey(String key)
   {
     return (DHIS2ExportableDataset) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset[] getAll()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static com.runwaysdk.system.metadata.MdTable[] getQueries()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String xport(java.lang.String datasets, java.lang.String strategy)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static DHIS2ExportableDataset lock(java.lang.String id)

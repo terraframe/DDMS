@@ -3,8 +3,8 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { Page, CategoryProblem, Workbook} from './uploader-model';
 import { Pair } from '../model/pair';
 
-import { UploadService } from '../service/upload.service';
-import { IdService } from '../service/core.service';
+import { UploadService } from './service/upload.service';
+import { IdService } from '../core/service/core.service';
 
 @Component({
   

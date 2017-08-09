@@ -1,0 +1,67 @@
+<div id="app-container" class="container">
+
+  <message ></message>
+
+  <div *ngIf="mappings === null">
+    <localize key='query.mappings.loadingData'></localize>
+  </div>
+  
+  <div class="list-table-wrapper">
+    <table id="manage-datasets-table" class="list-table table table-bordered table-striped">        
+      <thead>
+        <tr>
+          <th class="label-column"><localize key='query.mappings.export'></localize></th>
+          <th class="label-column"><localize key='query.mappings.remove'></localize></th>
+          <th class="label-column"><localize key='query.mappings.dataset'></localize></th>
+        </tr>
+      </thead>    
+      <tbody>
+        <tr *ngFor="let mapping of mappings" class="fade-ngRepeat-item">
+          <td  class="button-column">
+            <div style="padding-left: 45%">
+              <boolean-field [(value)]="mapping.xport"></boolean-field>
+            </div>
+          </td>
+          <td class="button-column">
+            <a class="fa fa-trash-o ico-remove" [title]="'query.mappings.removeTooltip' | localize"
+               confirm-modal 
+               [message]="'query.mappings.removeContent' | localize"
+               (onConfirm)="remove(mapping, $event)"></a>
+          </td>
+          <td class="label-column" style="width: 95%;"> {{ mapping.label }} </td>
+        </tr>
+        <tr>
+          <td class="button-column" colspan="2">
+            <a class="fa fa-plus" (click)="newInstance()" [title]="'query.mappings.createTooltip' | localize"></a>
+          </td>
+          <td class="label-column"></td>
+        </tr>
+      </tbody>    
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 pad-left">
+      <div class="row">
+        <a (click)="selectAll()"><i class="fa fa-check-square-o" aria-hidden="true"></i><localize key='query.mappings.selectAll'></localize></a>
+      </div>    
+      <div class="row">
+        <a (click)="selectNone()"><i class="fa fa-square-o" aria-hidden="true"></i><localize key='query.mappings.selectNone'></localize></a>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label><localize key='query.mappings.strategy'></localize></label>    
+      <select class="select-box" [(ngModel)]="strategy" name="strategy">
+        <option value="CREATE_AND_UPDATE"><localize key='query.mappings.both'></localize></option>
+        <option value="CREATE"><localize key='query.mappings.new'></localize></option>
+        <option value="UPDATE"><localize key='query.mappings.updates'></localize></option>
+      </select>             
+    </div>
+    <div class="col-sm-2">    
+      <div class="holder">
+        <div class="button-holder">
+          <input type="button" [value]="'query.mappings.upload' | localize" class="btn btn-default btn-primary" (click)="upload()" />                            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

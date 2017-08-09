@@ -5,8 +5,9 @@ import { FileSelectDirective, FileDropDirective, FileUploader, FileUploaderOptio
 
 import { Dataset } from '../model/dataset';
 
-import { EventService } from '../service/core.service';
-import { LocalizationService } from '../service/localization.service';
+import { EventService } from '../core/service/core.service';
+import { LocalizationService } from '../core/service/localization.service';
+
 import { DatasetService } from '../service/dataset.service';
 
 import { UploadWizardComponent } from '../uploader/upload-wizard.component';

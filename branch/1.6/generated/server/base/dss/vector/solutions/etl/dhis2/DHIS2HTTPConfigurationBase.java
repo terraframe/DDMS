@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 922686043)
+@com.runwaysdk.business.ClassSignature(hash = -442330905)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class DHIS2HTTPConfigurationBase extends dss.vector.solutions.et
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration";
   public static java.lang.String PAZZWORD = "pazzword";
   public static java.lang.String USERNAME = "username";
-  private static final long serialVersionUID = 922686043;
+  private static final long serialVersionUID = -442330905;
   
   public DHIS2HTTPConfigurationBase()
   {
@@ -96,6 +96,24 @@ public abstract class DHIS2HTTPConfigurationBase extends dss.vector.solutions.et
   public static DHIS2HTTPConfiguration getByKey(String key)
   {
     return (DHIS2HTTPConfiguration) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public void connect()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void connect(java.lang.String id)
+  {
+    DHIS2HTTPConfiguration _instance = DHIS2HTTPConfiguration.get(id);
+    _instance.connect();
+  }
+  
+  public static dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration getInstance()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static DHIS2HTTPConfiguration lock(java.lang.String id)

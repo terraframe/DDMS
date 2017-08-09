@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup} from '@angular/forms';
 
 import { Page } from './uploader-model';
-import { NavigationService } from './navigation.service';
+import { NavigationService } from './service/navigation.service';
 
 @Component({
   

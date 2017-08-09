@@ -1,0 +1,53 @@
+<div class="modal-body">
+  <message ></message>
+
+  <form #form="ngForm" class="modal-form" style="border: solid 1px;" (ngSubmit)="form.valid && onSubmit()">    
+    <div class="modal-dialog" style="z-index: 5">
+      <div class="modal-content">
+        <fieldset>            
+          <div class="row-holder">
+            <div class="label-holder">
+              <label><localize key="query.mapping.query"></localize>*</label>
+            </div>          
+            <div class="holder" >
+              <select class="select-area" [(ngModel)]="mapping.queryId" name="queryId" required>
+                <option value=""></option>
+                <option *ngFor="let option of options" [value]="option.id">{{option.label}}</option>
+              </select>             
+            </div>
+          </div>        
+          <div class="row-holder">
+            <div class="label-holder">
+              <label><localize key="query.mapping.dhis2Name"></localize>*</label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <input type="text" [(ngModel)]="mapping.dhis2Name" name="dhis2Name" required>
+              </span>
+            </div>
+          </div>
+          <div class="row-holder">
+            <div class="label-holder">
+              <label><localize key="query.mapping.description"></localize></label>
+            </div>          
+            <div class="holder" >
+              <span class="text">
+                <textarea [(ngModel)]="mapping.description" name="description"></textarea>
+              </span>              
+            </div>
+          </div>
+          <div class="row-holder">
+            <div class="label-holder">
+            </div>                    
+            <div class="holder">
+              <div class="button-holder">
+                <input type="button" [value]="'dataset.cancel' | localize" class="btn btn-default" (click)="cancel()" />                            
+                <input type="submit" [value]="'dataset.submit' | localize" class="btn btn-primary" [disabled]="!(form.valid)" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </form>
+</div>
