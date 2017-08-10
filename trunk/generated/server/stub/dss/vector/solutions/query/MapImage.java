@@ -48,7 +48,7 @@ public class MapImage extends MapImageBase implements com.runwaysdk.generation.l
     DefaultSavedMap defaultMap = SavedMap.getSessionDefaultMap();
     List<? extends MapImage> defaultMapChildImages = defaultMap.getAllHasImage().getAll();
     for( MapImage defaultMapChildImage : defaultMapChildImages){
-      if(defaultMapChildImage.getImageName().equals(imageFileName)){
+      if(defaultMapChildImage.getImageName().equals(imageFileName) && !defaultMapChildImage.getId().equals(mapImageId)){
         defaultMapChildImage.delete();
       }
     }
