@@ -20,10 +20,6 @@ import { EventService, IdService, BasicService} from './service/core.service';
 import { LocalizationService } from './service/localization.service';
 import { EventHttpService } from './service/event-http.service';
 
-import { AutoCompleteDirective } from './autocomplete/auto-complete.directive';
-import { AutoCompleteComponent } from './autocomplete/auto-complete.component';
-
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -42,9 +38,7 @@ import { AutoCompleteComponent } from './autocomplete/auto-complete.component';
     DateFieldDirective,
     TermFieldComponent,   
     GeoFieldComponent,
-    BooleanFieldComponent,
-    AutoCompleteDirective,
-    AutoCompleteComponent    
+    BooleanFieldComponent
   ],
   providers: [
     LocalizationService,
@@ -70,10 +64,7 @@ import { AutoCompleteComponent } from './autocomplete/auto-complete.component';
     DateFieldDirective,
     TermFieldComponent,   
     GeoFieldComponent,
-    BooleanFieldComponent,
-    AutoCompleteDirective,
-    AutoCompleteComponent    
-  ],
-  entryComponents: [AutoCompleteComponent]  
+    BooleanFieldComponent
+  ]
 })
 export class CoreModule { }

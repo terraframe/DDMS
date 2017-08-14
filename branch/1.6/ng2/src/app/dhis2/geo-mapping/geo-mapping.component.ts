@@ -1,13 +1,17 @@
 import { Component, OnInit} from '@angular/core';
 import {TreeNode} from 'angular-tree-component';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+
 import { GeoMappingService } from './geo-mapping.service'
 import { GeoMapping } from './geo-mapping'
 
 @Component({
   selector: 'geo-mapping',
   templateUrl: './geo-mapping.component.html',
-  styleUrls: ['./geo-mapping.component.css']
+  styleUrls: []
 })
 export class GeoMappingComponent implements OnInit{
   
@@ -19,7 +23,7 @@ export class GeoMappingComponent implements OnInit{
      getChildren: (node:TreeNode) => {
        return this.service.getChildren(node.id);
      }
-   };  
+   };     
   }
   
   ngOnInit():void {
@@ -31,11 +35,6 @@ export class GeoMappingComponent implements OnInit{
   source = (keyword: string) => {
     return this.service.search(keyword);
   }
-    
-  setOrgUnit(mapping:GeoMapping, item: {text: string, data: any}):void {  
-    mapping.orgId = item.data;
-    mapping.orgLabel = item.text;
-  }
   
   toggle(mapping:GeoMapping, confirmed:boolean):void {
     this.service.apply(mapping).then(data => {
@@ -44,5 +43,20 @@ export class GeoMappingComponent implements OnInit{
       mapping.orgLabel = data.orgLabel;
       mapping.confirmed = data.confirmed;
     });
-  }  
+  }
+  
+  onSelect(mapping:GeoMapping, match:TypeaheadMatch):void {
+    let item = match.item;
+    
+    mapping.orgId = item.data;
+    mapping.orgLabel = item.text;    
+  }
+  
+  setup(mapping:GeoMapping):Observable<any> {
+    return Observable.create((observer: any) => {
+      // Runs on every search
+      observer.next(mapping.orgLabel);
+    })
+    .mergeMap((token: string) => this.service.search(token));     
+  }
 }

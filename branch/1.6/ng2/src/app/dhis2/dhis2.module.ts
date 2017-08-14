@@ -4,6 +4,8 @@ import { FormsModule} from '@angular/forms';
 import { HttpModule} from '@angular/http';
 
 import { ModalModule } from 'ngx-bootstrap/modal'
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 import { TreeModule } from 'angular-tree-component';
 
 import { CoreModule } from '../core/core.module';
@@ -26,6 +28,7 @@ import { Dhis2RoutingModule, routedComponents } from './dhis2-routing.module';
     FormsModule,
     HttpModule,
     ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     TreeModule,    
     Dhis2RoutingModule,    
     CoreModule,

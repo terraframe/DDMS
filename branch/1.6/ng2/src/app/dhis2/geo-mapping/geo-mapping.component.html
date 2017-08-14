@@ -1,3 +1,7 @@
+<template #customItemTemplate let-model="item" let-index="index">
+  <h5>{{model.text}}</h5>
+</template>
+
 <div id="app-container" class="container">
   <message ></message>
 
@@ -7,8 +11,13 @@
       <div style="width: 100%">
         <boolean-field [(value)]="node.data.confirmed" (valueChange)="toggle(node.data, $event)" [disabled]="node.data.orgId == null"></boolean-field>
         <span>{{ node.data.name }}</span>
-        <span class="text">
-          <input type="text" [(ngModel)]="node.data.orgLabel" autocomplete="off" [disabled]="node.data.confirmed" auto-complete [source]="source" (onDropdownSelect)="setOrgUnit(node.data, $event)">
+        <span class="text autobox">
+          <input type="text" [(ngModel)]="node.data.orgLabel" style="width: 250px" autocomplete="off" [disabled]="node.data.confirmed"
+            [typeahead]="setup(node.data)"
+            typeaheadMinLength="2"            
+            [typeaheadItemTemplate]="customItemTemplate"            
+            typeaheadOptionField="text"
+            (typeaheadOnSelect)="onSelect(node.data, $event)">
         </span>
       </div>
     </template>
