@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1938814971)
+@com.runwaysdk.business.ClassSignature(hash = -718871680)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class GeoMapBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1938814971;
+  private static final long serialVersionUID = -718871680;
   
   public GeoMapBase()
   {
@@ -449,6 +449,18 @@ public abstract class GeoMapBase extends com.runwaysdk.business.Business impleme
   public static GeoMap getByKey(String key)
   {
     return (GeoMap) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.String getMappings(java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.GeoMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String getRoots()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.GeoMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static GeoMap lock(java.lang.String id)

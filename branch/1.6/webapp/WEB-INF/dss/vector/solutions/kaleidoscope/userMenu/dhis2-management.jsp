@@ -59,6 +59,10 @@
     background: #fff;
     opacity: 1;
   }  
+  
+  .node-content-wrapper {
+    width:100%
+  }
 
   </style>
   

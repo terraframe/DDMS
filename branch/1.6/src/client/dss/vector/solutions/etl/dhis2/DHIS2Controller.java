@@ -114,13 +114,87 @@ public class DHIS2Controller implements Reloadable
 
     return new RestResponse();
   }
-  
+
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
   public ResponseIF xport(ClientRequestIF request, @RequestParamter(name = "datasets") String datasets, @RequestParamter(name = "strategy") String strategy) throws JSONException
   {
     String response = DHIS2ExportableDatasetDTO.xport(request, datasets, strategy);
-    
+
     return new RestBodyResponse(response);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF roots(ClientRequestIF request) throws JSONException
+  {
+    String roots = GeoMapDTO.getRoots(request);
+
+    return new RestBodyResponse(roots);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF children(ClientRequestIF request, @RequestParamter(name = "parentId") String parentId) throws JSONException
+  {
+    String children = GeoMapDTO.getMappings(request, parentId);
+
+    return new RestBodyResponse(children);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
+  public ResponseIF search(ClientRequestIF request, @RequestParamter(name = "text") String text) throws JSONException
+  {
+    String response = OrgUnitDTO.search(request, text, "");
+
+    return new RestBodyResponse(response);
+  }
+
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON, url = "apply-geo-mapping")
+  public ResponseIF applyGeoMapping(ClientRequestIF request, @RequestParamter(name = "mapping") String mapping) throws JSONException
+  {
+    JSONObject object = new JSONObject(mapping);
+    String orgUnitId = object.getString("orgId");
+    boolean confirmed = object.getBoolean("confirmed");
+    String mappingId = object.getString("mappingId");
+    OrgUnitDTO orgUnit = OrgUnitDTO.get(request, orgUnitId);
+
+    if (mappingId != null && mappingId.length() > 0)
+    {
+      if (!confirmed)
+      {
+        GeoMapDTO map = GeoMapDTO.lock(request, mappingId);
+        map.setOrgUnit(null);
+        map.setConfirmed(false);
+        map.apply();
+
+        object.remove("orgId");
+        object.remove("orgLabel");
+        object.put("confirmed", false);
+
+        return new RestBodyResponse(object);
+      }
+      else
+      {
+        GeoMapDTO map = GeoMapDTO.lock(request, mappingId);
+        map.setOrgUnit(orgUnit);
+        map.setConfirmed(true);
+        map.apply();
+
+        object.put("confirmed", true);
+
+        return new RestBodyResponse(object);
+      }
+    }
+    else
+    {
+      GeoMapDTO map = new GeoMapDTO(request);
+      map.setOrgUnit(orgUnit);
+      map.setConfirmed(true);
+      map.apply();
+
+      object.put("mappingId", map.getId());
+      object.put("confirmed", true);
+
+      return new RestBodyResponse(object);
+    }
   }
 
   private JSONObject serialize(DHIS2ExportableDatasetDTO dataset) throws JSONException

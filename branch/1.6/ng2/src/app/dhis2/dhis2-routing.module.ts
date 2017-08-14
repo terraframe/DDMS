@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {ConnectionComponent} from './connection/connection.component'
 import {QueryMappingsComponent} from './query-mapping/query-mappings.component'
+import {GeoMappingComponent} from './geo-mapping/geo-mapping.component'
 
 declare var acp: any;
 
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'export',
     component: QueryMappingsComponent
+  },
+  {
+    path: 'mapping',
+    component: GeoMappingComponent
   }
 ];
 
@@ -31,4 +36,4 @@ const routes: Routes = [
 })
 export class Dhis2RoutingModule { }
 
-export const routedComponents = [ConnectionComponent, QueryMappingsComponent];
+export const routedComponents = [ConnectionComponent, QueryMappingsComponent, GeoMappingComponent];

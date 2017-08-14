@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1197844758)
+@com.runwaysdk.business.ClassSignature(hash = 1114105427)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class OrgUnitBase extends com.runwaysdk.business.Business implem
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALID = "valid";
-  private static final long serialVersionUID = -1197844758;
+  private static final long serialVersionUID = 1114105427;
   
   public OrgUnitBase()
   {
@@ -565,6 +565,12 @@ public abstract class OrgUnitBase extends com.runwaysdk.business.Business implem
   public static OrgUnit getByKey(String key)
   {
     return (OrgUnit) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.String search(java.lang.String text, java.lang.String geoId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.OrgUnit.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static OrgUnit lock(java.lang.String id)

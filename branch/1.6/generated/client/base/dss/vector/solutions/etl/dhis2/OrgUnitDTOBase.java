@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 1736833130)
+@com.runwaysdk.business.ClassSignature(hash = 1589774291)
 public abstract class OrgUnitDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.OrgUnit";
-  private static final long serialVersionUID = 1736833130;
+  private static final long serialVersionUID = 1589774291;
   
   protected OrgUnitDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -673,6 +673,14 @@ public abstract class OrgUnitDTOBase extends com.runwaysdk.business.BusinessDTO 
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getValidMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VALID).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.String search(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String text, java.lang.String geoId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{text, geoId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.OrgUnitDTO.CLASS, "search", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.etl.dhis2.OrgUnitDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -12,14 +12,17 @@ declare var acp:string;
 export class BooleanFieldComponent {
 
   @Input() value:boolean = false;  
+  @Input() disabled:boolean = false;
   
   @Output() public valueChange = new EventEmitter<boolean>();
 
   constructor(){}
   
   toggle():void {
-    this.value = !this.value;
-    
-    this.valueChange.emit(this.value);
+    if(!this.disabled) {
+      this.value = !this.value;
+        
+      this.valueChange.emit(this.value);    
+    }
   }
 }

@@ -15,9 +15,6 @@ import { UploaderModule } from './uploader/uploader.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 
-import { AutoCompleteDirective } from './autocomplete/auto-complete.directive';
-import { AutoCompleteComponent } from './autocomplete/auto-complete.component';
-
 import { DatasetService } from './service/dataset.service';
 import { CategoryService } from './service/category.service';
 
@@ -37,9 +34,6 @@ import { CategoryService } from './service/category.service';
 	// Global components
     AppComponent,
     
-    AutoCompleteDirective,
-    AutoCompleteComponent,
-
     // Routing components
     routedComponents
   ],
@@ -47,7 +41,6 @@ import { CategoryService } from './service/category.service';
     DatasetService,
     CategoryService
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [AutoCompleteComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

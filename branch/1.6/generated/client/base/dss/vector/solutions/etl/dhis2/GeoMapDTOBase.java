@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1287195003)
+@com.runwaysdk.business.ClassSignature(hash = -235695616)
 public abstract class GeoMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.GeoMap";
-  private static final long serialVersionUID = -1287195003;
+  private static final long serialVersionUID = -235695616;
   
   protected GeoMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -521,6 +521,22 @@ public abstract class GeoMapDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.String getMappings(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{parentId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.GeoMapDTO.CLASS, "getMappings", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getRoots(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.GeoMapDTO.CLASS, "getRoots", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.etl.dhis2.GeoMapDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

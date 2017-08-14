@@ -2,5 +2,6 @@
 <mappings>
 
   <package name="dss.vector.solutions.kaleidoscope"/>  
+  <package name="dss.vector.solutions.etl.dhis2"/>  
 
 </mappings>
