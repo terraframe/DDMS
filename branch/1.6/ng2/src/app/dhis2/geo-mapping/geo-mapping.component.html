@@ -1,14 +1,14 @@
 <div id="app-container" class="container">
   <message ></message>
 
-  <h3>Org unit mapping</h3>
+  <h3><localize key="geo.mappings.header"></localize></h3>
   <tree-root [nodes]="nodes" [options]="options">
     <template #treeNodeTemplate let-node let-index="index">
       <div style="width: 100%">
         <boolean-field [(value)]="node.data.confirmed" (valueChange)="toggle(node.data, $event)" [disabled]="node.data.orgId == null"></boolean-field>
         <span>{{ node.data.name }}</span>
         <span class="text">
-          <input type="text" [(ngModel)]="node.data.orgLabel" autocomplete="off" auto-complete [source]="source" (onDropdownSelect)="setOrgUnit(node.data, $event)">
+          <input type="text" [(ngModel)]="node.data.orgLabel" autocomplete="off" [disabled]="node.data.confirmed" auto-complete [source]="source" (onDropdownSelect)="setOrgUnit(node.data, $event)">
         </span>
       </div>
     </template>

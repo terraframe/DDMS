@@ -48,7 +48,7 @@ export class GeoMappingService extends BasicService {
       'Content-Type': 'application/json'
     });  
     
-    return this.ehttp
+    return this.http
     .post(acp + '/dhis2/search', JSON.stringify({text:text}), {headers: headers})
     .toPromise()
     .then(response => {
