@@ -203,6 +203,7 @@ public class DHIS2GeoMapper
         Database.rollbackSavepoint(sp);
         
         OrgUnitLevel dup = OrgUnitLevel.getByKey(oul.getDhis2Id());
+        dup.appLock();
         dup.setName(oul.getName());
         dup.setLevel(oul.getLevel());
         dup.setUniversal(oul.getUniversal());
@@ -319,6 +320,7 @@ public class DHIS2GeoMapper
         Database.rollbackSavepoint(sp);
         
         OrgUnit dup = OrgUnit.getByKey(org.getDhis2Id());
+        dup.appLock();
         dup.setCode(org.getCode());
         dup.setName(org.getName());
         dup.setPath(org.getPath());
@@ -453,6 +455,7 @@ public class DHIS2GeoMapper
         GeoMap map = GeoMap.get(obj.getValue("geoMapId"));
         OrgUnit unit = OrgUnit.get(obj.getValue("orgUnitId"));
         
+        map.appLock();
         map.setOrgUnit(unit);
         map.setConfirmed(false);
         map.apply();
@@ -492,6 +495,7 @@ public class DHIS2GeoMapper
         GeoMap map = GeoMap.get(obj.getValue("geoMapId"));
         OrgUnit unit = OrgUnit.get(obj.getValue("orgUnitId"));
         
+        map.appLock();
         map.setOrgUnit(unit);
         map.setConfirmed(false);
         map.apply();
