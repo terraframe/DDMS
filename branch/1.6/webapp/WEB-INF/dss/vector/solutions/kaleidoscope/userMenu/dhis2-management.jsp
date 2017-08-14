@@ -12,7 +12,6 @@
   
   <!-- CSS imports -->
   <jwr:style src="/bundles/main.css" useRandomParam="false" />
-  <jwr:style src="/bundles/dashboard.css" useRandomParam="false" />
   
   <script>
     window.acp = "<%=request.getContextPath()%>";  
