@@ -134,7 +134,7 @@ public class DHIS2ExportHandler
   {
     JSONObject payload = new JSONObject();
     exportTransaction1(payload);
-    exportTransaction2(payload);
+//    exportTransaction2(payload);
   }
   
   @Transaction
@@ -155,12 +155,8 @@ public class DHIS2ExportHandler
     createDataElementsMetadata(payload); // #12
     
     createDataSetMetadata(payload); // #13
-  }
-  
-  @Transaction
-  protected void exportTransaction2(JSONObject payload)
-  {
-//    createDataValues(payload); // #14
+    
+    createDataValues(payload); // #14
     
     System.out.println(payload.toString());
     
@@ -175,6 +171,25 @@ public class DHIS2ExportHandler
       throw new RuntimeException(e);
     }
   }
+  
+//  @Transaction
+//  protected void exportTransaction2(JSONObject payload)
+//  {
+////    createDataValues(payload); // #14
+//    
+//    System.out.println(payload.toString());
+//    
+//    try
+//    {
+//      PrintWriter writer = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-export.json", "UTF-8");
+//      writer.println(payload.toString());
+//      writer.close();
+//    }
+//    catch (IOException e)
+//    {
+//      throw new RuntimeException(e);
+//    }
+//  }
   
   protected void gatherPrereqs()
   {
@@ -889,17 +904,23 @@ public class DHIS2ExportHandler
       TableQuery tq = qf.tableQuery(mdClass.definesType());
       
       List<? extends MdAttribute> attrs = mdClass.getAllAttribute().getAll();
-      for (MdAttribute attr : attrs)
+      for (MdAttribute mdAttr : attrs)
       {
-        vq.SELECT(tq.get(attr.getAttributeName()));
+        if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+          !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME)))
+        {
+          vq.SELECT(tq.get(mdAttr.getAttributeName()));
+        }
       }
       
       HashMap<MdAttribute, String> attrIdMap = new HashMap<MdAttribute, String>();
-      for (MdAttribute attr : attrs)
+      for (MdAttribute mdAttr : attrs)
       {
-        if (attr instanceof MdAttributeNumber)
+        if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+            !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+            && mdAttr instanceof MdAttributeNumber)
         {
-          attrIdMap.put(attr, DHIS2Util.getDhis2IdFromRunwayId(attr.getId()));
+          attrIdMap.put(mdAttr, DHIS2Util.getDhis2IdFromRunwayId(mdAttr.getId()));
         }
       }
       
@@ -916,7 +937,20 @@ public class DHIS2ExportHandler
           
           dataValue.put("dataElement", dataElementM.getString("id"));
           
-          dataValue.put("period", val.getValue(periodMdAttr.getAttributeName())); // TODO
+          String period = "";
+          if (val.hasAttribute("dategroup_year"))
+          {
+            period = val.getValue("dategroup_year");
+          }
+          else if (val.hasAttribute("dategroup_epiyear"))
+          {
+            period = val.getValue("dategroup_epiyear");
+          }
+          if (val.hasAttribute("dategroup_epiweek"))
+          {
+            period += "W" + val.getValue("dategroup_epiweek");
+          }
+          dataValue.put("period", period);
           
           dataValue.put("orgUnit", zambiaOrgUnit.getDhis2Id()); // TODO
           
