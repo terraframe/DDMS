@@ -63,6 +63,20 @@
   .node-content-wrapper {
     width:100%
   }
+  
+  .tree li {
+    background:inherit;
+    list-style-type: inherit;
+    padding: inherit;
+    height: inherit;
+    color: inherit;
+  }  
+  
+  .tree.dropdown-menu li:hover, .tree.dropdown-menu li:focus {
+    color:  inherit;
+    background:  inherit;
+    text-decoration: inherit;
+  }  
 
   </style>
   

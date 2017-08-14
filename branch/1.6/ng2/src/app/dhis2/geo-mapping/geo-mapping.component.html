@@ -10,7 +10,7 @@
     <template #treeNodeTemplate let-node let-index="index">
       <div style="width: 100%">
         <boolean-field [(value)]="node.data.confirmed" (valueChange)="toggle(node.data, $event)" [disabled]="node.data.orgId == null"></boolean-field>
-        <span>{{ node.data.name }}</span>
+        <span style="padding-right: 10px;">{{ node.data.name }}</span>
         <span class="text autobox">
           <input type="text" [(ngModel)]="node.data.orgLabel" style="width: 250px" autocomplete="off" [disabled]="node.data.confirmed"
             [typeahead]="setup(node.data)"
