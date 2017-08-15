@@ -34,8 +34,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.Pair;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class DHIS2TrackerResponseProcessor
+public class DHIS2TrackerResponseProcessor implements Reloadable
 {
   private static Logger logger = LoggerFactory.getLogger(DHIS2TrackerResponseProcessor.class);
   

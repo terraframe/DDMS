@@ -25,6 +25,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdTable;
@@ -34,7 +35,7 @@ import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2HTTPCredentialConnector;
 
-public class DHIS2DataExporter
+public class DHIS2DataExporter implements Reloadable
 {
   private AbstractDHIS2Connector dhis2;
   

@@ -40,6 +40,7 @@ import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.MAX;
@@ -86,7 +87,7 @@ import dss.vector.solutions.query.SavedSearchQuery;
  * 
  * @author rrowlands
  */
-public class DHIS2ExportHandler
+public class DHIS2ExportHandler implements Reloadable
 {
   private static Logger logger = LoggerFactory.getLogger(DHIS2ExportHandler.class);
   

@@ -25,6 +25,7 @@ import com.runwaysdk.dataaccess.DuplicateDataException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -41,7 +42,7 @@ import dss.vector.solutions.geo.GeoHierarchyQuery;
  * 
  * @author rrowlands
  */
-public class DHIS2GeoMapper
+public class DHIS2GeoMapper implements Reloadable
 {
   private AbstractDHIS2Connector dhis2;
   

@@ -22,7 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HTTPResponse
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class HTTPResponse implements Reloadable
 {
   private String response;
   

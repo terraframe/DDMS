@@ -27,12 +27,12 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.http.HttpResponse;
-import org.json.JSONObject;
+
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
-public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector
+public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector implements Reloadable
 {
   synchronized public void initialize()
   {

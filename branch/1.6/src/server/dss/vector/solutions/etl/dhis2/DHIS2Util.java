@@ -22,6 +22,7 @@ import java.sql.Savepoint;
 
 import com.runwaysdk.dataaccess.DuplicateDataException;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -40,7 +41,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 /**
  * @author rrowlands
  */
-public class DHIS2Util
+public class DHIS2Util implements Reloadable
 {
   public static void mapIds(String runwayId, String dhis2Id)
   {

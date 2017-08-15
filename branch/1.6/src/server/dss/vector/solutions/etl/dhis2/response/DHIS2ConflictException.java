@@ -18,10 +18,11 @@
  */
 package dss.vector.solutions.etl.dhis2.response;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class DHIS2ConflictException extends RuntimeException
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class DHIS2ConflictException extends RuntimeException implements Reloadable
 {
   private static final long serialVersionUID = -4285516551413638133L;
   

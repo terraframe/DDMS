@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.DHIS2UnexpectedResponseException;
@@ -35,7 +37,7 @@ import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
  * 
  * @author rrowlands
  */
-public class DHIS2IdCache
+public class DHIS2IdCache implements Reloadable
 {
   // Number of ids to fetch and cache
   private static final String FETCH_NUM = "1000";
