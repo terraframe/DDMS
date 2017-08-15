@@ -342,7 +342,7 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
   private boolean isExcluded(Map<String, Set<String>> locationExclusions, Earth earth, GeoHierarchy universal, GeoEntity parent, String label)
   {
-    String key = universal.getId() + "-" + parent.getId();
+    String key = universal.getQualifiedType() + "-" + parent.getId();
 
     if (universal.getId().equals(this.rootUniversal.getId()))
     {
