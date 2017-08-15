@@ -77,39 +77,39 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
     }
   }
 
-  public static void main(String[] args)
-  {
-    test();
-  }
-
-  @Request
-  private static void test()
-  {
-    MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
-
-    OrgUnitLevel level = new OrgUnitLevel();
-    level.setDhis2Id("District");
-    level.setLevel(0);
-    level.setUniversal(universal);
-    level.setName("District");
-    level.apply();
-
-    OrgUnit unit = new OrgUnit();
-    unit.setValid(true);
-    unit.setCode("DHISCODE");
-    unit.setDhis2Id("Test Location");
-    unit.setOrgUnitLevel(level);
-    unit.setName("Test Location");
-    unit.apply();
-    
-    OrgUnit unit2 = new OrgUnit();
-    unit2.setValid(true);
-    unit2.setCode("DHISCODE2");
-    unit2.setDhis2Id("Test District");
-    unit2.setOrgUnitLevel(level);
-    unit2.setName("Test Name");
-    unit2.apply();
-
-    System.out.println(search("Te", ""));
-  }
+//  public static void main(String[] args)
+//  {
+//    test();
+//  }
+//
+//  @Request
+//  private static void test()
+//  {
+//    MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
+//
+//    OrgUnitLevel level = new OrgUnitLevel();
+//    level.setDhis2Id("District");
+//    level.setLevel(0);
+//    level.setUniversal(universal);
+//    level.setName("District");
+//    level.apply();
+//
+//    OrgUnit unit = new OrgUnit();
+//    unit.setValid(true);
+//    unit.setCode("DHISCODE");
+//    unit.setDhis2Id("Test Location");
+//    unit.setOrgUnitLevel(level);
+//    unit.setName("Test Location");
+//    unit.apply();
+//    
+//    OrgUnit unit2 = new OrgUnit();
+//    unit2.setValid(true);
+//    unit2.setCode("DHISCODE2");
+//    unit2.setDhis2Id("Test District");
+//    unit2.setOrgUnitLevel(level);
+//    unit2.setName("Test Name");
+//    unit2.apply();
+//
+//    System.out.println(search("Te", ""));
+//  }
 }
