@@ -158,7 +158,7 @@ public class DHIS2ExportHandler
     
     createDataValues(payload); // #14
     
-    System.out.println(payload.toString());
+//    System.out.println(payload.toString());
     
     try
     {

@@ -416,8 +416,8 @@ public class DHIS2GeoMapper
         GeoHierarchy gh = (GeoHierarchy) Business.get(obj.getValue("geoHierarchyId"));
         OrgUnitLevel level = OrgUnitLevel.get(obj.getValue("levelId"));
         
+        level.appLock();
         level.setUniversal(gh.getGeoEntityClass());
-        
         level.apply();
         
         hits++;
