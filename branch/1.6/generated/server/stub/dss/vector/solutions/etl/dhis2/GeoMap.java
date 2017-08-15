@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.geo.generated.Earth;
 
@@ -36,7 +35,7 @@ public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loade
     sql.append(" ge.id AS geoId,");
     sql.append(" COALESCE(gel.default_locale) || ' (' || COALESCE(mdl.default_locale) || ') ' || ge.geo_id AS geoLabel,");
     sql.append(" ou.id AS orgId,");
-    sql.append(" ou.dhis2_id || ' (' || oul.dhis2_id || ') ' || ou.code AS orgLabel,");
+    sql.append(" ou.name || ' (' || oul.name || ') ' || ou.code AS orgLabel,");
     sql.append(" gm.confirmed AS confirmed");
     sql.append(" FROM ddms.located_in AS li");
     sql.append(" LEFT JOIN ddms.geo_entity AS ge ON ge.id = li.child_id");
@@ -96,16 +95,5 @@ public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loade
     Earth earth = Earth.getEarthInstance();
 
     return GeoMap.getMappings(earth.getId());
-  }
-
-  public static void main(String[] args)
-  {
-    mainInRequest();
-  }
-
-  @Request
-  private static void mainInRequest()
-  {
-    System.out.println(GeoMap.getRoots());
   }
 }

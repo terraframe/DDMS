@@ -271,7 +271,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       var ok = com.runwaysdk.Localize.get("OK");
       var cancel = com.runwaysdk.Localize.get("Cancel");
       
-      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px"});
+      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px", "display":"inline"});
       this._bOK = fac.newButton(ok, function() {
         if (that._okHandler != null)
         {

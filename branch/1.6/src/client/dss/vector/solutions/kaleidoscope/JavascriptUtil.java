@@ -9,10 +9,10 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.mvc.ViewTemplateResponse;
 import com.runwaysdk.system.RolesDTO;
-import com.runwaysdk.system.gis.geo.GeoEntityViewDTO;
 import com.runwaysdk.web.json.JSONController;
 
 import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.geo.GeoEntityViewDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -145,6 +145,7 @@ public class JavascriptUtil implements Reloadable
     types.add(GeoEntityDTO.CLASS);
     types.add(GeoHierarchyDTO.CLASS);
     types.add(GeoHierarchyViewDTO.CLASS);
+    types.add(GeoEntityViewDTO.CLASS);
     
 //    types.add(DataUploaderController.CLASS);
 
@@ -157,6 +158,7 @@ public class JavascriptUtil implements Reloadable
     types.add(DataSetController.CLASS);
     types.add(GeoEntityDTO.CLASS);
     types.add(GeoHierarchyDTO.CLASS);
+    types.add(GeoHierarchyViewDTO.CLASS);
     types.add(GeoEntityViewDTO.CLASS);
     
 //    types.add(DataUploaderController.CLASS);

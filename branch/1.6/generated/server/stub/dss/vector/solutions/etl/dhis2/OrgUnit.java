@@ -12,6 +12,9 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdBusiness;
+
+import dss.vector.solutions.geo.generated.District;
 
 public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -36,13 +39,11 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
 
       OrgUnitQuery query = new OrgUnitQuery(vQuery);
 
-      // ou.dhis2_id || '(' || oul.dhis2_id || ')' || ou.code AS orgLabel
-
-      Selectable label = F.CONCAT(F.CONCAT(F.CONCAT(query.getDhis2Id(), " ("), F.CONCAT(query.getOrgUnitLevel().getDhis2Id(), ") ")), query.getCode(), "label");
+      Selectable label = F.CONCAT(F.CONCAT(F.CONCAT(query.getName(), " ("), F.CONCAT(query.getOrgUnitLevel().getName(), ") ")), query.getCode(), "label");
 
       vQuery.SELECT(label, query.getId("id"));
-      vQuery.WHERE(query.getDhis2Id().LIKEi("%" + text + "%"));
-      vQuery.ORDER_BY_ASC(query.getDhis2Id());
+      vQuery.WHERE(query.getName().LIKEi("%" + text + "%"));
+      vQuery.ORDER_BY_ASC(query.getName());
       vQuery.restrictRows(20, 1);
 
       OIterator<ValueObject> it = vQuery.getIterator();
@@ -84,22 +85,31 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
   @Request
   private static void test()
   {
-//    MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
-//
-//    OrgUnitLevel level = new OrgUnitLevel();
-//    level.setDhis2Id("District");
-//    level.setLevel(0);
-//    level.setUniversal(universal);
-//    level.apply();
-//
-//    OrgUnit unit = new OrgUnit();
-//    unit.setValid(true);
-//    unit.setCode("DHISCODE");
-//    unit.setDhis2Id("Test Location");
-//    unit.setOrgUnitLevel(level);
-//    unit.apply();
+    MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
+
+    OrgUnitLevel level = new OrgUnitLevel();
+    level.setDhis2Id("District");
+    level.setLevel(0);
+    level.setUniversal(universal);
+    level.setName("District");
+    level.apply();
+
+    OrgUnit unit = new OrgUnit();
+    unit.setValid(true);
+    unit.setCode("DHISCODE");
+    unit.setDhis2Id("Test Location");
+    unit.setOrgUnitLevel(level);
+    unit.setName("Test Location");
+    unit.apply();
     
-    
+    OrgUnit unit2 = new OrgUnit();
+    unit2.setValid(true);
+    unit2.setCode("DHISCODE2");
+    unit2.setDhis2Id("Test District");
+    unit2.setOrgUnitLevel(level);
+    unit2.setName("Test Name");
+    unit2.apply();
+
     System.out.println(search("Te", ""));
   }
 }
