@@ -11,10 +11,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.MdBusiness;
-
-import dss.vector.solutions.geo.generated.District;
 
 public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loader.Reloadable
 {
