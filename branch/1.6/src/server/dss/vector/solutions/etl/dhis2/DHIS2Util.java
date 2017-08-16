@@ -63,10 +63,13 @@ public class DHIS2Util implements Reloadable
     }
   }
   
-  public static OrgUnit getOrgUnitFromGeoEntity(GeoEntity geo)
+  public static OrgUnit getOrgUnitFromGeoEntity(String geoId)
   {
+    if (geoId == null) { return null; }
+    
     GeoMapQuery query = new GeoMapQuery(new QueryFactory());
-    query.WHERE(query.getGeoEntity().EQ(geo));
+    query.WHERE(query.getGeoEntity().EQ(geoId));
+    query.AND(query.getConfirmed().EQ(true));
     OIterator<? extends GeoMap> mappingIt = query.getIterator();
     try
     {

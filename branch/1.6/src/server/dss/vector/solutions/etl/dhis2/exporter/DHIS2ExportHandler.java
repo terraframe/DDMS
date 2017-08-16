@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.attributes.value.Attribute;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
@@ -75,12 +77,14 @@ import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchQuery;
+import dss.vector.solutions.surveillance.AggregatedCase;
 
 /**
  * This class is responsible for exporting an MdClass to DHIS2.
@@ -883,7 +887,7 @@ public class DHIS2ExportHandler implements Reloadable
       JSONArray organisationUnits = new JSONArray();
       
       GeoEntity zambia = GeoEntity.getByKey("ZA");
-      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia);
+      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
       if (zambiaOrgUnit == null)
       {
         throw new RuntimeException("Zambia is not mapped.");
@@ -910,7 +914,7 @@ public class DHIS2ExportHandler implements Reloadable
     try
     {
       GeoEntity zambia = GeoEntity.getByKey("ZA");
-      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia);
+      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
       if (zambiaOrgUnit == null)
       {
         throw new RuntimeException("Zambia is not mapped.");
@@ -941,6 +945,33 @@ public class DHIS2ExportHandler implements Reloadable
             && mdAttr instanceof MdAttributeNumber)
         {
           attrIdMap.put(mdAttr, DHIS2Util.getDhis2IdFromRunwayId(mdAttr.getId()));
+          
+          
+        }
+      }
+      
+      
+      String geoType = null;
+      String queryType = QueryConstants.getQueryClass(this.savedSearch.getQueryType());
+      JSONObject selectedUniMap = new JSONObject(savedSearch.getConfig()).getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        String attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0 && attributeKey.equals(queryType + '.' + AggregatedCase.GEOENTITY))
+        {
+          String[] selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+          }
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.ID;
+          geoType = geoType.replace('.', '_');
+          geoType = geoType.substring(geoType.length() - 20, geoType.length()); // TODO : I think this depends on database column name length so we're just kinda doing our best here. If database column name length is less than 20 this will break.
         }
       }
       
@@ -972,7 +1003,44 @@ public class DHIS2ExportHandler implements Reloadable
           }
           dataValue.put("period", period);
           
-          dataValue.put("orgUnit", zambiaOrgUnit.getDhis2Id()); // TODO
+          if (geoType != null)
+          {
+            String geoId = null;
+            
+            Map<String, Attribute> valMap = val.getAttributeMap();
+            Set<String> valMapKeys = valMap.keySet();
+            for (String valMapKey : valMapKeys)
+            {
+              if (valMapKey.contains(geoType))
+              {
+                geoId = val.getValue(valMapKey);
+              }
+            }
+            
+            OrgUnit orgUnit = DHIS2Util.getOrgUnitFromGeoEntity(geoId);
+            
+            if (orgUnit != null)
+            {
+              dataValue.put("orgUnit", orgUnit.getDhis2Id());
+            }
+            else
+            {
+              if (geoId != null)
+              {
+                geoId = GeoEntity.get(geoId).getEntityLabel().getValue();
+              }
+              else
+              {
+                geoId = "null";
+              }
+              
+              System.out.println("Unable to find org unit from geo [" + geoId + "]");
+            }
+          }
+          else
+          {
+            dataValue.put("orgUnit", zambiaOrgUnit.getDhis2Id());
+          }
           
           ArrayList<String> runwayIds = new ArrayList<String>();
           for (MdAttribute mdAttr : categoryAttrs)
