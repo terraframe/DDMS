@@ -46,6 +46,11 @@ public class HTTPResponse implements Reloadable
     return new JSONArray(response);
   }
 
+  public String getResponse()
+  {
+    return this.response;
+  }
+  
   public void setResponse(String response)
   {
     this.response = response;

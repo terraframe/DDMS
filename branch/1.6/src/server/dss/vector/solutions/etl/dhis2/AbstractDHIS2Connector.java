@@ -85,7 +85,7 @@ abstract public class AbstractDHIS2Connector implements Reloadable
   
   public HTTPResponse apiGet(String url, NameValuePair[] params)
   {
-    if (!url.endsWith(".json"))
+    if (!url.contains("?") && !url.endsWith(".json"))
     {
       url = url + ".json";
     }
@@ -95,7 +95,7 @@ abstract public class AbstractDHIS2Connector implements Reloadable
   
   public HTTPResponse apiPost(String url, String body)
   {
-    if (!url.endsWith(".json"))
+    if (!url.contains("?") && !url.endsWith(".json"))
     {
       url = url + ".json";
     }

@@ -139,35 +139,54 @@ public class DHIS2ExportHandler implements Reloadable
   }
   
   @Transaction
-  protected void exportTransaction1(JSONObject payload)
+  protected void exportTransaction1(JSONObject metadata)
   {
     gatherPrereqs();
     
     validateExport();
     
-    createCategoryOptionsMetadata(payload); // #8
+    createCategoryOptionsMetadata(metadata); // #8
     
-    createCategoryMetadata(payload); // #9
+    createCategoryMetadata(metadata); // #9
     
-    createCategoryCombinationMetadata(payload); // #10
+    createCategoryCombinationMetadata(metadata); // #10
     
-    createCategoryOptionCombinationMetadata(payload); // #11
+    createCategoryOptionCombinationMetadata(metadata); // #11
     
-    createDataElementsMetadata(payload); // #12
+    createDataElementsMetadata(metadata); // #12
     
-    createDataSetMetadata(payload); // #13
+    createDataSetMetadata(metadata); // #13
     
-    createDataValues(payload); // #14
+    JSONObject data = createDataValues(metadata); // #14
     
-//    System.out.println(payload.toString());
-    
+    // Write json to a file
     try
     {
-      PrintWriter writer = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-export.json", "UTF-8");
-      writer.println(payload.toString());
+      PrintWriter writer = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-metadata.json", "UTF-8");
+      writer.println(metadata.toString());
       writer.close();
+      
+      PrintWriter writer2 = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-data.json", "UTF-8");
+      writer2.println(data.toString());
+      writer2.close();
     }
     catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
+    
+    // Send it to DHIS2
+    try
+    {
+      metadata.put("importStrategy", "CREATE_AND_UPDATE");
+      HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
+      DHIS2TrackerResponseProcessor.validateStatusCode(resp);
+      
+      data.put("importStrategy", "CREATE_AND_UPDATE");
+      HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
+      DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
+    }
+    catch (JSONException e)
     {
       throw new RuntimeException(e);
     }
@@ -886,7 +905,7 @@ public class DHIS2ExportHandler implements Reloadable
     }
   }
   
-  protected void createDataValues(JSONObject json)
+  protected JSONObject createDataValues(JSONObject metadata)
   {
     try
     {
@@ -925,7 +944,7 @@ public class DHIS2ExportHandler implements Reloadable
         }
       }
       
-      JSONArray dataElementMetadatas = json.getJSONArray("dataElements");
+      JSONArray dataElementMetadatas = metadata.getJSONArray("dataElements");
       
       OIterator<ValueObject> it = vq.getIterator();
       for (ValueObject val : it)
@@ -991,19 +1010,27 @@ public class DHIS2ExportHandler implements Reloadable
           if (catOptComboId == null) { throw new RuntimeException("Unable to find a category option combo by runway id [" + rwId + "]. This object should already be mapped at this point."); }
           dataValue.put("categoryOptionCombo", catOptComboId);
           
+          String value = "";
           for (MdAttribute attr : attrs)
           {
             if (attr instanceof MdAttributeNumber && attrIdMap.get(attr).equals(dataElementM.getString("id")))
             {
-              dataValue.put("value", val.getValue(attr.getAttributeName()));
+              value = val.getValue(attr.getAttributeName());
+              continue;
             }
           }
           
-          dataValues.put(dataValue);
+          if (!value.equals(""))
+          {
+            dataValue.put("value", value);
+            dataValues.put(dataValue);
+          }
         }
       }
       
-      json.put("dataValues", dataValues);
+      JSONObject data = new JSONObject();
+      data.put("dataValues", dataValues);
+      return data;
     }
     catch (JSONException e)
     {
