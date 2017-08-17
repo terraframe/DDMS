@@ -14,6 +14,7 @@ import com.runwaysdk.system.metadata.MdTable;
 import com.runwaysdk.system.metadata.MdTableQuery;
 
 import dss.vector.solutions.etl.dhis2.exporter.DHIS2DataExporter;
+import dss.vector.solutions.etl.dhis2.exporter.DHIS2ExportResults;
 import dss.vector.solutions.query.SavedSearchQuery;
 
 public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implements com.runwaysdk.generation.loader.Reloadable
@@ -83,6 +84,8 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
   @Transaction
   public static String xport(String datasets, String strategy)
   {
+    DHIS2ExportResults results = null;
+    
     try
     {
       JSONArray array = new JSONArray(datasets);
@@ -95,9 +98,19 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
         DHIS2ExportableDataset dataset = DHIS2ExportableDataset.get(datasetId);
 
         DHIS2DataExporter exporter = new DHIS2DataExporter();
-        exporter.export(dataset);
+        DHIS2ExportResults result = exporter.export(dataset);
+        
+        if (results != null)
+        {
+          results.add(result);
+        }
+        else
+        {
+          results = result;
+        }
       }
-      return "";
+      
+      return results.toString();
     }
     catch (JSONException e)
     {

@@ -6,6 +6,37 @@
     <localize key='query.mappings.loadingData'></localize>
   </div>
   
+  <div class="export-results" *ngIf="results != null">
+    <div style="text-align: center;">
+    <label>Export Status: {{results.status}}</label>
+    </div>
+    <br/>
+    
+    <div class="stats-box">
+	    <div class="metadata-stats-box">
+		    <label>Metadata Stats</label>
+		    <table>
+		      <tr><td>created</td><td>{{results.metadataStats.created}}</td></tr>
+		      <tr><td>updated</td><td>{{results.metadataStats.updated}}</td></tr>
+		      <tr><td>ignored</td><td>{{results.metadataStats.ignored}}</td></tr>
+		      <tr><td>deleted</td><td>{{results.metadataStats.deleted}}</td></tr>
+		      <tr><td>total</td><td>{{results.metadataStats.total}}</td></tr>
+		    </table>
+	    </div>
+	    
+	    <div class="data-stats-box">
+		    <label>Data Stats</label>
+		    <table>
+		      <tr><td>created</td><td>{{results.dataStats.created}}</td></tr>
+		      <tr><td>updated</td><td>{{results.dataStats.updated}}</td></tr>
+		      <tr><td>ignored</td><td>{{results.dataStats.ignored}}</td></tr>
+		      <tr><td>deleted</td><td>{{results.dataStats.deleted}}</td></tr>
+		      <tr><td>total</td><td>{{results.dataStats.total}}</td></tr>
+		    </table>
+	    </div>
+	  </div>
+  </div>
+  
   <div class="list-table-wrapper">
     <table id="manage-datasets-table" class="list-table table table-bordered table-striped">        
       <thead>

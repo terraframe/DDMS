@@ -8,7 +8,10 @@ import { EventHttpService } from '../../core/service/event-http.service';
 
 import { QueryMapping } from './query-mapping';
 
+import { ExportResults } from './export-results'
+
 declare var acp: any;
+declare var alert: any;
 
 @Injectable()
 export class QueryMappingService extends BasicService {
@@ -66,7 +69,7 @@ export class QueryMappingService extends BasicService {
   }    
   
   
-  xport(datasets:QueryMapping[], strategy:string): Promise<Response> {
+  xport(datasets:QueryMapping[], strategy:string): Promise<ExportResults> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
@@ -74,6 +77,9 @@ export class QueryMappingService extends BasicService {
     return this.ehttp
      .post(acp + '/dhis2/xport', JSON.stringify({datasets:datasets, strategy:strategy}), {headers: headers})
      .toPromise()
+     .then(response => {
+       return response.json() as ExportResults;
+     })
      .catch(this.handleError.bind(this));      
   }    
 }

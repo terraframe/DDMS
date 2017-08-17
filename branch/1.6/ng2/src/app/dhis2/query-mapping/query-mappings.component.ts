@@ -6,6 +6,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { QueryMappingComponent } from './query-mapping.component'
 import { QueryMappingService } from './query-mapping.service'
 import { QueryMapping } from './query-mapping'
+import { ExportResults } from './export-results'
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -21,6 +22,8 @@ export class QueryMappingsComponent implements OnInit, OnDestroy {
 
   bsModalRef: BsModalRef;  
   subscription: Subscription = null;
+  
+  results: ExportResults;
 
   constructor(private service:QueryMappingService, private modalService: BsModalService) {}
 
@@ -73,7 +76,7 @@ export class QueryMappingsComponent implements OnInit, OnDestroy {
     let uploads = this.mappings.filter(h => h.xport === true);        
 	  
     this.service.xport(uploads, this.strategy).then(response => {
-      console.log('Export finished');
+      this.results = response;
     });        
   }
 }

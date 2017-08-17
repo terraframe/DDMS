@@ -118,6 +118,8 @@ public class DHIS2ExportHandler implements Reloadable
   
   private long teiCount;
   
+  private DHIS2ExportResults results;
+  
   private MdAttribute periodMdAttr = null;
   
   static String[] skipAttrs = new String[]{
@@ -133,21 +135,17 @@ public class DHIS2ExportHandler implements Reloadable
     this.mdClass = exportable.getQueryRef();
     this.dhis2 = dhis2;
     this.idCache = new DHIS2IdCache(dhis2);
-  }
-  
-  public void export()
-  {
-    JSONObject payload = new JSONObject();
-    exportTransaction1(payload);
-//    exportTransaction2(payload);
+    results = new DHIS2ExportResults();
   }
   
   @Transaction
-  protected void exportTransaction1(JSONObject metadata)
+  public DHIS2ExportResults export()
   {
     gatherPrereqs();
     
     validateExport();
+    
+    JSONObject metadata = new JSONObject();
     
     createCategoryOptionsMetadata(metadata); // #8
     
@@ -185,15 +183,19 @@ public class DHIS2ExportHandler implements Reloadable
       metadata.put("importStrategy", "CREATE_AND_UPDATE");
       HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
       DHIS2TrackerResponseProcessor.validateStatusCode(resp);
+      results.processMetadataResponse(resp);
       
       data.put("importStrategy", "CREATE_AND_UPDATE");
       HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
       DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
+      results.processDataResponse(resp2);
     }
     catch (JSONException e)
     {
       throw new RuntimeException(e);
     }
+    
+    return results;
   }
   
 //  @Transaction

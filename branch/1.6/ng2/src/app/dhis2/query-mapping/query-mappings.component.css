@@ -14,3 +14,26 @@
 .pad-left {
     padding-left: 31px;	
 }
+
+.export-results {
+	border-width: 1px;
+	border-style: solid;
+	border-color: green;
+	margin-left: 12%;
+	margin-right: 10%;
+	color: green;
+}
+
+.stats-box {
+	width: 300px;
+	margin: 0 auto;
+	padding-left: 50px;
+}
+
+.metadata-stats-box {
+	float:left;
+	margin-right: 50px;
+}
+
+.data-stats-box {
+}

@@ -96,7 +96,7 @@ public class DHIS2DataExporter implements Reloadable
     actuallyDoExport(exportable);
   }
   
-  public void export(DHIS2ExportableDataset exportable)
+  public DHIS2ExportResults export(DHIS2ExportableDataset exportable)
   {
     // TODO : Maybe some day we'll re-enable this (when DIHS2 gets their act together)
 //    if (ExternalProfile.getAccessToken() == null)
@@ -107,12 +107,12 @@ public class DHIS2DataExporter implements Reloadable
     
     dhis2.readConfigFromDB();
     
-    actuallyDoExport(exportable);
+    return actuallyDoExport(exportable);
   }
   
-  private void actuallyDoExport(DHIS2ExportableDataset exportable)
+  private DHIS2ExportResults actuallyDoExport(DHIS2ExportableDataset exportable)
   {
     DHIS2ExportHandler exporter = new DHIS2ExportHandler(exportable, dhis2);
-    exporter.export();
+    return exporter.export();
   }
 }
