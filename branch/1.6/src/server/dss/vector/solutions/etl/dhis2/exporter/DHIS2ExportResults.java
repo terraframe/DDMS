@@ -23,10 +23,7 @@ public class DHIS2ExportResults implements Reloadable
       JSONObject resp = response.getJSONObject();
       
       String status = resp.getString("status");
-      if (!status.equals("OK"))
-      {
-        this.status = status;
-      }
+      mergeStatus(status);
       
       metadataStats = new Stats();
       
@@ -54,10 +51,7 @@ public class DHIS2ExportResults implements Reloadable
       JSONObject resp = response.getJSONObject();
       
       String status = resp.getString("status");
-      if (!status.equals("OK"))
-      {
-        this.status = status;
-      }
+      mergeStatus(status);
       
       dataStats = new Stats();
       
@@ -100,10 +94,7 @@ public class DHIS2ExportResults implements Reloadable
   
   public void add(DHIS2ExportResults extra)
   {
-    if (!extra.status.equals("OK"))
-    {
-      this.status = extra.status;
-    }
+    mergeStatus(extra.status);
     
     metadataStats.created += extra.metadataStats.created;
     metadataStats.updated += extra.metadataStats.updated;
@@ -116,6 +107,27 @@ public class DHIS2ExportResults implements Reloadable
     dataStats.deleted += extra.dataStats.deleted;
     dataStats.ignored += extra.dataStats.ignored;
     dataStats.total += extra.dataStats.total;
+  }
+  
+  private void mergeStatus(String incoming)
+  {
+    if (this.status == null)
+    {
+      this.status = incoming;
+    }
+    else if (this.status.equals("ERROR"))
+    {
+      // do nothing our status is already as bad as it can get
+      return;
+    }
+    else if (this.status.equals("WARN") && incoming.equals("ERROR"))
+    {
+      this.status = incoming;
+    }
+    else if (this.status.equals("OK") || this.status.equals(""))
+    {
+      this.status = incoming;
+    }
   }
   
   public class Stats implements Reloadable

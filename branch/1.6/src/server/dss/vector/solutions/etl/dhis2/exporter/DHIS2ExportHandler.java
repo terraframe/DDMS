@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -206,11 +205,13 @@ public class DHIS2ExportHandler implements Reloadable
         HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
         DHIS2TrackerResponseProcessor.validateStatusCode(resp);
         results.processMetadataResponse(resp);
+        log.append("Sent metadata json to DHIS2 and received this as a response:\n" + resp.getResponse() + "\n");
         
         data.put("importStrategy", "CREATE_AND_UPDATE");
         HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
         DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
         results.processDataResponse(resp2);
+        log.append("Sent data json to DHIS2 and received this as a response:\n" + resp2.getResponse() + "\n");
       }
       catch (JSONException e)
       {
