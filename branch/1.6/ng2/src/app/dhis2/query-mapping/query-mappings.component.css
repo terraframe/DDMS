@@ -21,7 +21,6 @@
 	border-color: green;
 	margin-left: 12%;
 	margin-right: 10%;
-	color: green;
 }
 
 .stats-box {
@@ -36,4 +35,15 @@
 }
 
 .data-stats-box {
+	
+}
+
+.log-info-box {
+	margin: 5px;
+	text-align: center;
+}
+
+.status-box {
+	text-align: center;
+	margin: 5px;
 }

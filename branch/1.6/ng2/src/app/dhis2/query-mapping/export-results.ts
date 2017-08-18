@@ -3,6 +3,7 @@ export class ExportResults {
   status:string;
   metadataStats:Stats;
   dataStats:Stats;
+  logLocation:string;
 }
 
 export class Stats {

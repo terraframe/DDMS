@@ -3,6 +3,7 @@ package dss.vector.solutions.etl.dhis2.exporter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
@@ -87,6 +88,7 @@ public class DHIS2ExportResults implements Reloadable
       ret.put("status", this.status);
       ret.put("metadataStats", this.metadataStats.toJSON());
       ret.put("dataStats", this.dataStats.toJSON());
+      ret.put("logLocation", DeployProperties.getDeployPath() + "/DHIS2/export.log");
     }
     catch (JSONException e)
     {

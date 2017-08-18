@@ -18,7 +18,13 @@
  */
 package dss.vector.solutions.etl.dhis2.exporter;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +43,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.value.Attribute;
@@ -95,6 +101,8 @@ public class DHIS2ExportHandler implements Reloadable
 {
   private static Logger logger = LoggerFactory.getLogger(DHIS2ExportHandler.class);
   
+  private PrintStream log = null;
+  
   protected DHIS2ExportableDataset exportable;
   
   protected MdClass mdClass;
@@ -141,61 +149,83 @@ public class DHIS2ExportHandler implements Reloadable
   @Transaction
   public DHIS2ExportResults export()
   {
-    gatherPrereqs();
-    
-    validateExport();
-    
-    JSONObject metadata = new JSONObject();
-    
-    createCategoryOptionsMetadata(metadata); // #8
-    
-    createCategoryMetadata(metadata); // #9
-    
-    createCategoryCombinationMetadata(metadata); // #10
-    
-    createCategoryOptionCombinationMetadata(metadata); // #11
-    
-    createDataElementsMetadata(metadata); // #12
-    
-    createDataSetMetadata(metadata); // #13
-    
-    JSONObject data = createDataValues(metadata); // #14
-    
-    // Write json to a file
+    // TODO : If you change this path you also need to change DHIS2ExportResults.toString
+    File dhis2Dir = new File(DeployProperties.getDeployPath() + "/DHIS2");
+    dhis2Dir.mkdirs();
     try
     {
-      PrintWriter writer = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-metadata.json", "UTF-8");
-      writer.println(metadata.toString());
-      writer.close();
-      
-      PrintWriter writer2 = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-data.json", "UTF-8");
-      writer2.println(data.toString());
-      writer2.close();
+      log = new PrintStream(new BufferedOutputStream(new FileOutputStream(DeployProperties.getDeployPath() + "/DHIS2/export.log")));
     }
-    catch (IOException e)
+    catch (FileNotFoundException e1)
     {
-      throw new RuntimeException(e);
+      logger.error("Unable to open log file [" + DeployProperties.getDeployPath() + "/DHIS2/export.log]");
     }
     
-    // Send it to DHIS2
     try
     {
-      metadata.put("importStrategy", "CREATE_AND_UPDATE");
-      HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
-      DHIS2TrackerResponseProcessor.validateStatusCode(resp);
-      results.processMetadataResponse(resp);
+      gatherPrereqs();
       
-      data.put("importStrategy", "CREATE_AND_UPDATE");
-      HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
-      DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
-      results.processDataResponse(resp2);
+      validateExport();
+      
+      JSONObject metadata = new JSONObject();
+      
+      createCategoryOptionsMetadata(metadata); // #8
+      
+      createCategoryMetadata(metadata); // #9
+      
+      createCategoryCombinationMetadata(metadata); // #10
+      
+      createCategoryOptionCombinationMetadata(metadata); // #11
+      
+      createDataElementsMetadata(metadata); // #12
+      
+      createDataSetMetadata(metadata); // #13
+      
+      JSONObject data = createDataValues(metadata); // #14
+      
+      // Write json to a file
+      try
+      {
+        PrintWriter writer = new PrintWriter(DeployProperties.getDeployPath() + "/DHIS2/metadata.json", "UTF-8");
+        writer.println(metadata.toString());
+        writer.close();
+        
+        PrintWriter writer2 = new PrintWriter(DeployProperties.getDeployPath() + "/DHIS2/data.json", "UTF-8");
+        writer2.println(data.toString());
+        writer2.close();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
+      
+      // Send it to DHIS2
+      try
+      {
+        metadata.put("importStrategy", "CREATE_AND_UPDATE");
+        HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
+        DHIS2TrackerResponseProcessor.validateStatusCode(resp);
+        results.processMetadataResponse(resp);
+        
+        data.put("importStrategy", "CREATE_AND_UPDATE");
+        HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
+        DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
+        results.processDataResponse(resp2);
+      }
+      catch (JSONException e)
+      {
+        throw new RuntimeException(e);
+      }
+      
+      return results;
     }
-    catch (JSONException e)
+    finally
     {
-      throw new RuntimeException(e);
+      if (log != null)
+      {
+        log.close();
+      }
     }
-    
-    return results;
   }
   
 //  @Transaction
@@ -979,6 +1009,8 @@ public class DHIS2ExportHandler implements Reloadable
       
       JSONArray dataElementMetadatas = metadata.getJSONArray("dataElements");
       
+      int row = 0;
+      
       OIterator<ValueObject> it = vq.getIterator();
       for (ValueObject val : it)
       {
@@ -1036,7 +1068,12 @@ public class DHIS2ExportHandler implements Reloadable
                 geoId = "null";
               }
               
-              System.out.println("Unable to find org unit from geo [" + geoId + "]");
+              String msg = row + " : The GeoEntity [" + geoId + "] is not mapped to an OrgUnit.";
+//              logger.warn(msg);
+              if (log != null)
+              {
+                log.append(msg + "\n");
+              }
             }
           }
           else
@@ -1096,6 +1133,8 @@ public class DHIS2ExportHandler implements Reloadable
             dataValues.put(dataValue);
           }
         }
+        
+        row++;
       }
       
       JSONObject data = new JSONObject();

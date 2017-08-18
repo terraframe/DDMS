@@ -7,34 +7,37 @@
   </div>
   
   <div class="export-results" *ngIf="results != null">
-    <div style="text-align: center;">
-    <label>Export Status: {{results.status}}</label>
+    <div class="status-box">
+      <label><localize key='dhis2.exportstatus'></localize> {{results.status}}</label>
     </div>
-    <br/>
     
     <div class="stats-box">
 	    <div class="metadata-stats-box">
-		    <label>Metadata Stats</label>
+		    <label><localize key='dhis2.metadatastats'></localize></label>
 		    <table>
-		      <tr><td>created</td><td>{{results.metadataStats.created}}</td></tr>
-		      <tr><td>updated</td><td>{{results.metadataStats.updated}}</td></tr>
-		      <tr><td>ignored</td><td>{{results.metadataStats.ignored}}</td></tr>
-		      <tr><td>deleted</td><td>{{results.metadataStats.deleted}}</td></tr>
-		      <tr><td>total</td><td>{{results.metadataStats.total}}</td></tr>
+		      <tr><td><localize key='dhis2.created'></localize></td><td>{{results.metadataStats.created}}</td></tr>
+		      <tr><td><localize key='dhis2.updated'></localize></td><td>{{results.metadataStats.updated}}</td></tr>
+		      <tr><td><localize key='dhis2.ignored'></localize></td><td>{{results.metadataStats.ignored}}</td></tr>
+		      <tr><td><localize key='dhis2.deleted'></localize></td><td>{{results.metadataStats.deleted}}</td></tr>
+		      <tr><td><localize key='dhis2.total'></localize></td><td>{{results.metadataStats.total}}</td></tr>
 		    </table>
 	    </div>
 	    
 	    <div class="data-stats-box">
-		    <label>Data Stats</label>
+		    <label><localize key='dhis2.datastats'></localize></label>
 		    <table>
-		      <tr><td>created</td><td>{{results.dataStats.created}}</td></tr>
-		      <tr><td>updated</td><td>{{results.dataStats.updated}}</td></tr>
-		      <tr><td>ignored</td><td>{{results.dataStats.ignored}}</td></tr>
-		      <tr><td>deleted</td><td>{{results.dataStats.deleted}}</td></tr>
-		      <tr><td>total</td><td>{{results.dataStats.total}}</td></tr>
+		      <tr><td><localize key='dhis2.created'></localize></td><td>{{results.dataStats.created}}</td></tr>
+		      <tr><td><localize key='dhis2.updated'></localize></td><td>{{results.dataStats.updated}}</td></tr>
+		      <tr><td><localize key='dhis2.ignored'></localize></td><td>{{results.dataStats.ignored}}</td></tr>
+		      <tr><td><localize key='dhis2.deleted'></localize></td><td>{{results.dataStats.deleted}}</td></tr>
+		      <tr><td><localize key='dhis2.total'></localize></td><td>{{results.dataStats.total}}</td></tr>
 		    </table>
 	    </div>
 	  </div>
+	  
+	  <div class="log-info-box">
+      <label><localize key='dhis2.logloc'></localize> {{results.logLocation}}.</label>
+    </div>
   </div>
   
   <div class="list-table-wrapper">
