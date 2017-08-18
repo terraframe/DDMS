@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 716403071)
+@com.runwaysdk.business.ClassSignature(hash = 1559400714)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -323,29 +323,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.TYPE, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal()
-  {
-    return getUniversal(null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL);
-
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL);
-
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL, mdAttributeIF, this, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableBoolean getValid()
   {
     return getValid(null);
@@ -386,10 +363,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL)) 
-    {
-       return new com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -475,9 +448,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal();
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias);
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getValid();
     public com.runwaysdk.query.SelectableBoolean getValid(String alias);
     public com.runwaysdk.query.SelectableBoolean getValid(String alias, String displayLabel);
@@ -771,23 +741,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.TYPE, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal()
-  {
-    return getUniversal(null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias)
-  {
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL,  alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableBoolean getValid()
   {
     return getValid(null);
@@ -828,10 +781,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL)) 
-    {
-       return new com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -894,9 +843,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal();
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias);
-    public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getValid();
     public com.runwaysdk.query.SelectableBoolean getValid(String alias);
     public com.runwaysdk.query.SelectableBoolean getValid(String alias, String displayLabel);
@@ -1239,23 +1185,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.TYPE, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal()
-  {
-    return getUniversal(null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias)
-  {
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getUniversal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL,  alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableBoolean getValid()
   {
     return getValid(null);
@@ -1296,10 +1225,6 @@ public  class OrgUnitLevelQuery extends com.runwaysdk.query.GeneratedBusinessQue
     else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.etl.dhis2.OrgUnitLevel.UNIVERSAL)) 
-    {
-       return new com.runwaysdk.system.metadata.MdBusinessQuery.MdBusinessQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

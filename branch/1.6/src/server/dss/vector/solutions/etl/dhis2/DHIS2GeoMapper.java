@@ -132,6 +132,7 @@ public class DHIS2GeoMapper implements Reloadable
     {
       fetchOrgUnitLevels();
       fetchOrgUnits();
+      populateGeoLevelMap();
       populateGeoMap();
     }
     catch (JSONException e)
@@ -207,7 +208,6 @@ public class DHIS2GeoMapper implements Reloadable
         dup.appLock();
         dup.setName(oul.getName());
         dup.setLevel(oul.getLevel());
-        dup.setUniversal(oul.getUniversal());
         dup.setValid(true);
         dup.apply();
         
@@ -394,6 +394,42 @@ public class DHIS2GeoMapper implements Reloadable
     logger.info("Added " + newMappings + " new mappings to the GeoMap table.");
   }
   
+  protected void populateGeoLevelMap()
+  {
+    int newMappings = 0;
+    
+    ResultSet resultSet = Database.query("select geo_entity_class from geo_hierarchy gh where gh.geo_entity_class not in (select universal from geo_level_map)");
+
+    try
+    {
+      while (resultSet.next())
+      {
+        GeoLevelMap map = new GeoLevelMap();
+        map.setValue(GeoLevelMap.UNIVERSAL, resultSet.getString("geo_entity_class"));
+        map.apply();
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    logger.info("Added " + newMappings + " new mappings to the GeoLevelMap table.");
+  }
+  
   protected void matchOrgUnitLevels()
   {
     int hits = 0;
@@ -403,10 +439,12 @@ public class DHIS2GeoMapper implements Reloadable
     ValueQuery vq = new ValueQuery(qf);
     OrgUnitLevelQuery levelq = new OrgUnitLevelQuery(qf);
     GeoHierarchyQuery ghq = new GeoHierarchyQuery(qf);
+    GeoLevelMapQuery glmq = new GeoLevelMapQuery(qf);
     
-    vq.SELECT(ghq.getId("geoHierarchyId"));
     vq.SELECT(levelq.getId("levelId"));
+    vq.SELECT(glmq.getId("mapId"));
     vq.WHERE(F.TRIM(ghq.getGeoEntityClass().getDisplayLabel().localize()).EQi(F.TRIM(levelq.getName())));
+    vq.AND(glmq.getUniversal().EQ(ghq.getGeoEntityClass()));
     
     OIterator<ValueObject> it = vq.getIterator();
     
@@ -414,12 +452,12 @@ public class DHIS2GeoMapper implements Reloadable
     {
       for (ValueObject obj : it)
       {
-        GeoHierarchy gh = (GeoHierarchy) Business.get(obj.getValue("geoHierarchyId"));
-        OrgUnitLevel level = OrgUnitLevel.get(obj.getValue("levelId"));
+        OrgUnitLevel ol = OrgUnitLevel.get(obj.getValue("levelId"));
+        GeoLevelMap map = GeoLevelMap.get(obj.getValue("mapId"));
         
-        level.appLock();
-        level.setUniversal(gh.getGeoEntityClass());
-        level.apply();
+        map.appLock();
+        map.setOrgUnitLevel(ol);
+        map.apply();
         
         hits++;
       }

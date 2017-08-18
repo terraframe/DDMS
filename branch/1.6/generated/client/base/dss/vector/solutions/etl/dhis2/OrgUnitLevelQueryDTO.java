@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -494177299)
+@com.runwaysdk.business.ClassSignature(hash = 1560037084)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.etl.dhis2;
 public class OrgUnitLevelQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -494177299;
+private static final long serialVersionUID = 1560037084;
 
   protected OrgUnitLevelQueryDTO(String type)
   {

@@ -1,12 +1,12 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 965772435)
-public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -249638673)
+public abstract class GeoLevelMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.etl.dhis2.OrgUnitLevel";
-  private static final long serialVersionUID = 965772435;
+  public final static String CLASS = "dss.vector.solutions.etl.dhis2.GeoLevelMap";
+  private static final long serialVersionUID = -249638673;
   
-  protected OrgUnitLevelDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected GeoLevelMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected OrgUnitLevelDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected GeoLevelMapDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,22 +27,58 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     return CLASS;
   }
   
+  public static java.lang.String CONFIRMED = "confirmed";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DHIS2ID = "dhis2Id";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
-  public static java.lang.String LEVEL = "level";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String NAME = "name";
+  public static java.lang.String ORGUNITLEVEL = "orgUnitLevel";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String VALID = "valid";
+  public static java.lang.String UNIVERSAL = "universal";
+  public Boolean getConfirmed()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CONFIRMED));
+  }
+  
+  public void setConfirmed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMED, "");
+    }
+    else
+    {
+      setValue(CONFIRMED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isConfirmedWritable()
+  {
+    return isWritable(CONFIRMED);
+  }
+  
+  public boolean isConfirmedReadable()
+  {
+    return isReadable(CONFIRMED);
+  }
+  
+  public boolean isConfirmedModified()
+  {
+    return isModified(CONFIRMED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getConfirmedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CONFIRMED).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -103,43 +139,6 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
-  }
-  
-  public String getDhis2Id()
-  {
-    return getValue(DHIS2ID);
-  }
-  
-  public void setDhis2Id(String value)
-  {
-    if(value == null)
-    {
-      setValue(DHIS2ID, "");
-    }
-    else
-    {
-      setValue(DHIS2ID, value);
-    }
-  }
-  
-  public boolean isDhis2IdWritable()
-  {
-    return isWritable(DHIS2ID);
-  }
-  
-  public boolean isDhis2IdReadable()
-  {
-    return isReadable(DHIS2ID);
-  }
-  
-  public boolean isDhis2IdModified()
-  {
-    return isModified(DHIS2ID);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDhis2IdMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DHIS2ID).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -290,43 +289,6 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public Integer getLevel()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEVEL));
-  }
-  
-  public void setLevel(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(LEVEL, "");
-    }
-    else
-    {
-      setValue(LEVEL, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isLevelWritable()
-  {
-    return isWritable(LEVEL);
-  }
-  
-  public boolean isLevelReadable()
-  {
-    return isReadable(LEVEL);
-  }
-  
-  public boolean isLevelModified()
-  {
-    return isModified(LEVEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLevelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEVEL).getAttributeMdDTO();
-  }
-  
   public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
@@ -364,41 +326,53 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public String getName()
+  public dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO getOrgUnitLevel()
   {
-    return getValue(NAME);
-  }
-  
-  public void setName(String value)
-  {
-    if(value == null)
+    if(getValue(ORGUNITLEVEL) == null || getValue(ORGUNITLEVEL).trim().equals(""))
     {
-      setValue(NAME, "");
+      return null;
     }
     else
     {
-      setValue(NAME, value);
+      return dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.get(getRequest(), getValue(ORGUNITLEVEL));
     }
   }
   
-  public boolean isNameWritable()
+  public String getOrgUnitLevelId()
   {
-    return isWritable(NAME);
+    return getValue(ORGUNITLEVEL);
   }
   
-  public boolean isNameReadable()
+  public void setOrgUnitLevel(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO value)
   {
-    return isReadable(NAME);
+    if(value == null)
+    {
+      setValue(ORGUNITLEVEL, "");
+    }
+    else
+    {
+      setValue(ORGUNITLEVEL, value.getId());
+    }
   }
   
-  public boolean isNameModified()
+  public boolean isOrgUnitLevelWritable()
   {
-    return isModified(NAME);
+    return isWritable(ORGUNITLEVEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNameMd()
+  public boolean isOrgUnitLevelReadable()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAME).getAttributeMdDTO();
+    return isReadable(ORGUNITLEVEL);
+  }
+  
+  public boolean isOrgUnitLevelModified()
+  {
+    return isModified(ORGUNITLEVEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOrgUnitLevelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ORGUNITLEVEL).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.ActorDTO getOwner()
@@ -500,48 +474,60 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public Boolean getValid()
+  public com.runwaysdk.system.metadata.MdBusinessDTO getUniversal()
   {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VALID));
-  }
-  
-  public void setValid(Boolean value)
-  {
-    if(value == null)
+    if(getValue(UNIVERSAL) == null || getValue(UNIVERSAL).trim().equals(""))
     {
-      setValue(VALID, "");
+      return null;
     }
     else
     {
-      setValue(VALID, java.lang.Boolean.toString(value));
+      return com.runwaysdk.system.metadata.MdBusinessDTO.get(getRequest(), getValue(UNIVERSAL));
     }
   }
   
-  public boolean isValidWritable()
+  public String getUniversalId()
   {
-    return isWritable(VALID);
+    return getValue(UNIVERSAL);
   }
   
-  public boolean isValidReadable()
+  public void setUniversal(com.runwaysdk.system.metadata.MdBusinessDTO value)
   {
-    return isReadable(VALID);
+    if(value == null)
+    {
+      setValue(UNIVERSAL, "");
+    }
+    else
+    {
+      setValue(UNIVERSAL, value.getId());
+    }
   }
   
-  public boolean isValidModified()
+  public boolean isUniversalWritable()
   {
-    return isModified(VALID);
+    return isWritable(UNIVERSAL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getValidMd()
+  public boolean isUniversalReadable()
   {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VALID).getAttributeMdDTO();
+    return isReadable(UNIVERSAL);
   }
   
-  public static dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
+  public boolean isUniversalModified()
+  {
+    return isModified(UNIVERSAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUniversalMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIVERSAL).getAttributeMdDTO();
+  }
+  
+  public static dss.vector.solutions.etl.dhis2.GeoLevelMapDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
     com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
-    return (dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO) dto;
+    return (dss.vector.solutions.etl.dhis2.GeoLevelMapDTO) dto;
   }
   
   public void apply()
@@ -560,9 +546,9 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.etl.dhis2.OrgUnitLevelQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.etl.dhis2.GeoLevelMapQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.etl.dhis2.OrgUnitLevelQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.etl.dhis2.GeoLevelMapQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.etl.dhis2.GeoLevelMapDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -570,12 +556,12 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.etl.dhis2.GeoLevelMapDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.GeoLevelMapDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.etl.dhis2.GeoLevelMapDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -583,12 +569,12 @@ public abstract class OrgUnitLevelDTOBase extends com.runwaysdk.business.Busines
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.etl.dhis2.GeoLevelMapDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.etl.dhis2.OrgUnitLevelDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.GeoLevelMapDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.etl.dhis2.GeoLevelMapDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }
