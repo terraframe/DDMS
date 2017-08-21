@@ -55,9 +55,9 @@ public class DHIS2ExportResults implements Reloadable
       
       dataStats = new Stats();
       
-      if (resp.has("stats"))
+      if (resp.has("importCount"))
       {
-        JSONObject jStats = resp.getJSONObject("stats");
+        JSONObject jStats = resp.getJSONObject("importCount");
         
         dataStats.created = jStats.getInt("imported");
         dataStats.updated = jStats.getInt("updated");

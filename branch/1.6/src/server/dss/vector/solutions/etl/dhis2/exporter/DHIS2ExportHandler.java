@@ -180,6 +180,8 @@ public class DHIS2ExportHandler implements Reloadable
       
       createDataSetMetadata(metadata); // #13
       
+      createDataElementGroupMetadata(metadata);
+      
       JSONObject data = createDataValues(metadata); // #14
       
       // Write json to a file
@@ -935,6 +937,36 @@ public class DHIS2ExportHandler implements Reloadable
       dataSets.put(dataSet);
       
       json.put("dataSets", dataSets);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createDataElementGroupMetadata(JSONObject payload)
+  {
+    try
+    {
+      JSONArray dataElementGroups = new JSONArray();
+      
+      JSONObject dataElementGroup = new JSONObject();
+      dataElementGroup.put("name", this.exportable.getDhis2Name());
+      dataElementGroup.put("id", DHIS2Util.queryAndMapIds(mdClass.getId() + "_deg", idCache));
+      
+      JSONArray dataElements = new JSONArray();
+      JSONArray dataElementMetadatas = payload.getJSONArray("dataElements");
+      for (int dei = 0; dei < dataElementMetadatas.length(); ++dei)
+      {
+        JSONObject dataElementM = dataElementMetadatas.getJSONObject(dei);
+        
+        dataElements.put(new JSONObject().put("id", dataElementM.get("id")));
+      }
+      dataElementGroup.put("dataElements", dataElements);
+      
+      dataElementGroups.put(dataElementGroup);
+      
+      payload.put("dataElementGroups", dataElementGroups);
     }
     catch (JSONException e)
     {
