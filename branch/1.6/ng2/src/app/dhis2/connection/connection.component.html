@@ -1,13 +1,12 @@
-<div id="app-container" class="container">
+<h2 class="section-title"><localize key="dhis2.instance.header"></localize></h2>
+
+<div id="app-container" class="container bordered">
 
   <message ></message>
   
-  <form #form="ngForm" class="modal-form" style="border: solid 1px;" (ngSubmit)="form.valid && onSubmit()">    
+  <form #form="ngForm" class="modal-form" (ngSubmit)="form.valid && onSubmit()">    
     <div class="modal-dialog" style="z-index: 5">
       <div class="modal-content">
-        <div class="heading">
-          <h1><localize key="dhis2.instance.header"></localize></h1>
-        </div>            
         <fieldset>            
           <div class="row-holder">
             <div class="label-holder">

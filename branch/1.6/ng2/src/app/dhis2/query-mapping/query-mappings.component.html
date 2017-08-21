@@ -1,4 +1,7 @@
-<div id="app-container" class="container">
+
+<h2 class="section-title"><localize key="query.mapping.header"></localize></h2>
+
+<div id="app-container" class="container bordered">
 
   <message ></message>
 
@@ -76,11 +79,9 @@
   <div class="row">
     <div class="col-sm-4 pad-left">
       <div class="row">
-        <a (click)="selectAll()"><i class="fa fa-check-square-o" aria-hidden="true"></i><localize key='query.mappings.selectAll'></localize></a>
+        <input type="button" [value]="'query.mappings.selectAll' | localize" class="btn" (click)="selectAll()" />                            
+        <input type="button" [value]="'query.mappings.selectNone' | localize" class="btn" (click)="selectNone()" />                                    
       </div>    
-      <div class="row">
-        <a (click)="selectNone()"><i class="fa fa-square-o" aria-hidden="true"></i><localize key='query.mappings.selectNone'></localize></a>
-      </div>
     </div>
     <div class="col-sm-6">
       <label><localize key='query.mappings.strategy'></localize></label>    

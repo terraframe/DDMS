@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -249638673)
+@com.runwaysdk.business.ClassSignature(hash = -991712278)
 public abstract class GeoLevelMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.GeoLevelMap";
-  private static final long serialVersionUID = -249638673;
+  private static final long serialVersionUID = -991712278;
   
   protected GeoLevelMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -521,6 +521,14 @@ public abstract class GeoLevelMapDTOBase extends com.runwaysdk.business.Business
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUniversalMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIVERSAL).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.String getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.etl.dhis2.GeoLevelMapDTO.CLASS, "getAll", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.etl.dhis2.GeoLevelMapDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -126,9 +126,16 @@ public class DHIS2Controller implements Reloadable
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
   public ResponseIF roots(ClientRequestIF request) throws JSONException
   {
-    String roots = GeoMapDTO.getRoots(request);
+    String mappings = GeoLevelMapDTO.getAll(request);
 
-    return new RestBodyResponse(roots);
+    OrgUnitLevelDTO[] levels = OrgUnitLevelDTO.getAll(request);
+
+    JSONObject response = new JSONObject();
+    response.put("roots", new JSONArray(GeoMapDTO.getRoots(request)));
+    response.put("mappings", new JSONArray(mappings));
+    response.put("levels", this.serialize(levels));
+
+    return new RestBodyResponse(response);
   }
 
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
@@ -197,6 +204,35 @@ public class DHIS2Controller implements Reloadable
     }
   }
 
+  @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON, url = "apply-level-mapping")
+  public ResponseIF applyLevelMapping(ClientRequestIF request, @RequestParamter(name = "mapping") String mapping) throws JSONException
+  {
+    JSONObject object = new JSONObject(mapping);
+    String levelId = object.getString("levelId");
+    String mappingId = object.getString("id");
+
+    if (levelId != null && levelId.length() > 0)
+    {
+      OrgUnitLevelDTO level = OrgUnitLevelDTO.get(request, levelId);
+
+      GeoLevelMapDTO map = GeoLevelMapDTO.lock(request, mappingId);
+      map.setOrgUnitLevel(level);
+      map.setConfirmed(true);
+      map.apply();
+
+      return new RestBodyResponse(object);
+    }
+    else
+    {
+      GeoLevelMapDTO map = GeoLevelMapDTO.lock(request, mappingId);
+      map.setOrgUnitLevel(null);
+      map.setConfirmed(true);
+      map.apply();
+
+      return new RestBodyResponse(object);
+    }
+  }
+
   private JSONObject serialize(DHIS2ExportableDatasetDTO dataset) throws JSONException
   {
     MdTableDTO query = dataset.getQueryRef();
@@ -211,4 +247,21 @@ public class DHIS2Controller implements Reloadable
 
     return object;
   }
+
+  private JSONArray serialize(OrgUnitLevelDTO[] levels) throws JSONException
+  {
+    JSONArray array = new JSONArray();
+
+    for (OrgUnitLevelDTO level : levels)
+    {
+      JSONObject object = new JSONObject();
+      object.put("id", level.getId());
+      object.put("label", level.getName());
+
+      array.put(object);
+    }
+
+    return array;
+  }
+
 }

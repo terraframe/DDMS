@@ -2,24 +2,60 @@
   <h5>{{model.text}}</h5>
 </template>
 
-<div id="app-container" class="container">
+<h2 class="section-title"><localize key="geo.mappings.title"></localize></h2>
+<div id="app-container" class="container bordered geo-mapping modal-form"> 
   <message ></message>
-
-  <h3><localize key="geo.mappings.header"></localize></h3>
-  <tree-root [nodes]="nodes" [options]="options">
-    <template #treeNodeTemplate let-node let-index="index">
-      <div style="width: 100%">
-        <boolean-field [(value)]="node.data.confirmed" (valueChange)="toggle(node.data, $event)" [disabled]="node.data.orgId == null"></boolean-field>
-        <span style="padding-right: 10px;">{{ node.data.name }}</span>
-        <span class="text autobox">
-          <input type="text" [(ngModel)]="node.data.orgLabel" style="width: 250px" autocomplete="off" [disabled]="node.data.confirmed"
-            [typeahead]="setup(node.data)"
-            typeaheadMinLength="2"            
-            [typeaheadItemTemplate]="customItemTemplate"            
-            typeaheadOptionField="text"
-            (typeaheadOnSelect)="onSelect(node.data, $event)">
-        </span>
+  
+  <div class="row-holder">
+    <div class="label-holder">
+      <label><localize key='level.mappings.header'></localize></label>      
+    </div>
+    <div class="holder">
+      <div class="list-table-wrapper">
+        <table id="manage-datasets-table" class="list-table table table-bordered table-striped">        
+          <thead>
+            <tr>
+              <th class="label-column"><localize key='level.mappings.universal'></localize></th>
+              <th class="label-column"><localize key='level.mappings.level'></localize></th>
+            </tr>
+          </thead>    
+          <tbody>
+            <tr *ngFor="let mapping of mappings" class="fade-ngRepeat-item">
+              <td class="label-column"> {{ mapping.label }} </td>
+              <td>
+                <select class="select-area" [(ngModel)]="mapping.levelId" (change)="apply(mapping)">
+                  <option value=""></option>
+                  <option *ngFor="let level of levels" [value]="level.id">{{level.label}}</option>
+                </select>             
+              </td>
+            </tr>
+          </tbody>    
+        </table>
       </div>
-    </template>
-  </tree-root>
+    </div>
+  </div>
+  
+  <div class="row-holder">
+    <div class="label-holder">
+      <label><localize key="geo.mappings.header"></localize></label>      
+    </div>
+    <div class="holder">
+      <tree-root [nodes]="nodes" [options]="options">
+        <template #treeNodeTemplate let-node let-index="index">
+          <div style="width: 100%">
+            <boolean-field [(value)]="node.data.confirmed" (valueChange)="toggle(node.data, $event)" [disabled]="node.data.orgId == null"></boolean-field>
+            <span style="padding-right: 10px;">{{ node.data.name }}</span>
+            <span class="text autobox">
+              <input type="text" [(ngModel)]="node.data.orgLabel" style="width: 250px" autocomplete="off" [disabled]="node.data.confirmed"
+                [typeahead]="setup(node.data)"
+                typeaheadMinLength="2"            
+                [typeaheadItemTemplate]="customItemTemplate"            
+                typeaheadOptionField="text"
+                (typeaheadOnSelect)="onSelect(node.data, $event)">
+            </span>
+          </div>
+        </template>
+      </tree-root>
+    </div>
+  </div>
 </div>

@@ -76,7 +76,76 @@
     background:  inherit;
     text-decoration: inherit;
   }  
-
+  
+  .modal-form .text input[type="text"] {
+    font-size: 14px;
+  }  
+  
+  .navbar {
+    padding-right: 5px;
+    width: 200px;
+  }
+  
+  .bordered {
+    border: 1px blue solid;
+    padding-top: 25px;
+    padding-bottom: 25px;    
+    width: calc(100% - 220px);    
+    margin-left: 220px;
+    background-color: white;         
+  }
+  
+  .geo-mapping .text input[type="text"] {
+    background: #eee;
+    border: 1px solid #aaa;
+    width: 100%;
+    margin: 0;
+    height: inherit;
+    padding: inherit;
+    float:none;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333;
+    box-shadow: none;
+    outline: none;
+  }  
+  
+  .geo-mapping .check-block {
+    float: inherit;
+    position: inherit;
+    margin: inherit;
+    padding: inherit;
+    min-width: inherit;
+    display: inherit;
+    white-space: inherit;
+  }  
+  
+  .geo-mapping .text {
+    float: inherit;
+    position: inherit;
+    width: inherit;
+  }  
+  
+  .geo-mapping .check-block .chk-area {
+    margin: 0px 11px 0 0;
+  }
+  
+  .geo-mapping .holder {
+    width: calc(100% - 300px);
+  }
+  
+  .section-title {
+    margin-left: 220px;
+  }
+  
+  .pageTitle {
+    color: black;
+  }  
+    
+  body {
+    background-color: #e6e6e6;
+  }  
+    
   </style>
   
 

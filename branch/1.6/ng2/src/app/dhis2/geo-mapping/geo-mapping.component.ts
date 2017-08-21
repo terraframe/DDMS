@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 import { GeoMappingService } from './geo-mapping.service'
-import { GeoMapping } from './geo-mapping'
+import { GeoMapping, UniversalMapping, OrgLevel } from './geo-mapping'
 
 @Component({
   selector: 'geo-mapping',
@@ -16,6 +16,8 @@ import { GeoMapping } from './geo-mapping'
 export class GeoMappingComponent implements OnInit{
   
   nodes:GeoMapping[] = [];
+  mappings:UniversalMapping[] = [];
+  levels:OrgLevel[] = [];
   options:any = {};
   
   constructor(private service:GeoMappingService) {
@@ -27,8 +29,10 @@ export class GeoMappingComponent implements OnInit{
   }
   
   ngOnInit():void {
-    this.service.getRoots().then(nodes => {
-      this.nodes = nodes;
+    this.service.getRoots().then(response => {
+      this.nodes = response.roots;
+      this.levels = response.levels;
+      this.mappings = response.mappings;
     });  
   }
   
@@ -58,5 +62,11 @@ export class GeoMappingComponent implements OnInit{
       observer.next(mapping.orgLabel);
     })
     .mergeMap((token: string) => this.service.search(token));     
+  }
+  
+  apply(mapping:UniversalMapping):void {
+    this.service.applyLevelMapping(mapping).then(data => {
+      // Do nothing
+    });    
   }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1744768072)
+@com.runwaysdk.business.ClassSignature(hash = -1734250367)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.etl.dhis2;
 public class GeoLevelMapQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1744768072;
+private static final long serialVersionUID = -1734250367;
 
   protected GeoLevelMapQueryDTO(String type)
   {

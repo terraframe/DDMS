@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = -1725706385)
+@com.runwaysdk.business.ClassSignature(hash = 1707351402)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class GeoLevelMapBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIVERSAL = "universal";
-  private static final long serialVersionUID = -1725706385;
+  private static final long serialVersionUID = 1707351402;
   
   public GeoLevelMapBase()
   {
@@ -449,6 +449,12 @@ public abstract class GeoLevelMapBase extends com.runwaysdk.business.Business im
   public static GeoLevelMap getByKey(String key)
   {
     return (GeoLevelMap) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.String getAll()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.etl.dhis2.GeoLevelMap.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static GeoLevelMap lock(java.lang.String id)
