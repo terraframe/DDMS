@@ -1143,6 +1143,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         thisRef: this,
         modal:modal,
         onSuccess: function(savedSearchView){
+        	
+          this.thisRef._loadSavedState(savedSearchView);
   
           this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
   

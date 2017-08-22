@@ -839,7 +839,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     SavedSearch search = new SavedSearch();
     search.create(view, false);
 
-    return search.getAsView(false, false);
+    return search.getAsView(true, true);
   }
 
   @Transaction
