@@ -102,7 +102,6 @@ Var outputTrunc
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
 Page custom appNameInputPage appNameUniquenessCheck
-Page custom userInputPage exitUserInputPage
 #Page directory locationInputPage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
@@ -129,56 +128,6 @@ InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
 RequestExecutionLevel admin
 
-Function userInputPage
-  StrCmp  $Master_Value "true" 0 +2
-    Return  
-  !insertmacro MUI_HEADER_TEXT "Installation Number" "Specify the installation number"
-  nsDialogs::Create 1018
-  Pop $TfDialog
-  
-  ${If} $TfDialog == error
-    Abort
-  ${EndIf}
-  
-  # Create the label, which gets put on the stack
-  ${NSD_CreateLabel} 0 2u 25% 12u "Installation Number"
-  # Pop the label off the stack and store it in $Label
-  Pop $Label
-  
-  ${NSD_CreateText} 25% 0 74% 12u $InstallationNumber
-  Pop $Text
-  # Set up the number validator
-  ${NSD_OnChange} $Text verifyNumber
-  
-  ${NSD_CreateHLine} 0 18u 100% 2 "HLine"
-  Pop $Label
-  
-  # Create the label, which gets put on the stack
-  ${NSD_CreateLabel} 0 23u 100% 32u "The installation number must be unique!  If any other installation shares the same number, synchronization will fail and you will not be able to share or receive any data.  The number should be between 1 and 999.  If you're not sure which installation number to use, please consult the IT professional that provided your install disc."
-  # Pop the label off the stack and store it in $Label
-  Pop $Label
-  
-  nsDialogs::Show
-FunctionEnd
-# Enforces an Installation number between 1 and 999
-Function verifyNumber
-  Pop $1 # $1 == $ Text
-  
-  ${NSD_GetText} $Text $0
-  ${If} $0 > 999
-    ${NSD_SetText} $Text 999
-  ${EndIf}
-  ${If} $0 < 1
-    ${NSD_SetText} $Text 1
-  ${EndIf}
-FunctionEnd
-
-Function exitUserInputPage
- StrCmp  $Master_Value "true" 0 +2
-    Return  
-  # Pull the text out of the form element and store it in $InstallationNumber
-  ${NSD_GetText} $Text $InstallationNumber
-FunctionEnd
 Function appNameInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
   nsDialogs::Create 1018
@@ -340,14 +289,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8560
+    StrCpy $PatchVersion 8631
     StrCpy $RootsVersion 8512
-    StrCpy $MenuVersion 8515
-    StrCpy $LocalizationVersion 8556
-    StrCpy $PermissionsVersion 8548
+    StrCpy $MenuVersion 8601
+    StrCpy $LocalizationVersion 8628
+    StrCpy $PermissionsVersion 8621
 	StrCpy $RunwayVersion 8531
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8560
+	StrCpy $ManagerVersion 8631
 	StrCpy $BirtVersion 7851
 	StrCpy $EclipseVersion 8387  
 	StrCpy $WebappsVersion 8474
@@ -972,33 +921,14 @@ Function .onInit
   InitPluginsDir
   #SetRebootFlag true
   # Initialize the value of the text string
-  StrCpy $InstallationNumber "1"
   StrCpy $AppName "Name"
-  StrCpy $Master_Value "init"
+  
+  # Legacy variables #3651
+  StrCpy $Master_Value "true"
+  StrCpy $InstallationNumber "0"
   
   # Read the command-line parameters
   ${GetParameters} $Params
-  ${GetOptions} "$Params" "-master" $R0
-  
-  IfErrors masterFalse masterTrue
-   masterFalse:
-      StrCpy $Master_Value "false"
-      Goto masterDone
-    masterTrue:
-      StrCpy $Master_Value "true"
-      StrCpy $InstallationNumber "0"
-    masterDone:
-      ClearErrors
-    
-  ClearErrors
-  ${GetOptions} "$Params" "-install_number" $R0
-  IfErrors numberFalse numberTrue
-   numberFalse:
-      Goto numberDone
-    numberTrue:
-      StrCpy $InstallationNumber $R0
-    numberDone:
-      ClearErrors
 	
   ClearErrors
   ${GetOptions} "$Params" "-app_name" $R0
