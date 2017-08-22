@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { EventService, IEventListener } from '../service/core.service';
 
+declare var MDSS:any;
+
 @Component({
   
   selector: 'message',
@@ -10,10 +12,6 @@ import { EventService, IEventListener } from '../service/core.service';
 })
 export class MessageComponent implements OnInit, IEventListener {
 	
-  private error: any = null;
-  
-  private message: string = "";
-
   constructor(private service: EventService) { }
 
   ngOnInit(): void {
@@ -25,18 +23,16 @@ export class MessageComponent implements OnInit, IEventListener {
   }
   
   start(): void {
-    this.error = null;
   }
   
   complete(): void {
-    console.log('complete');
   }  
   
   onError(error: any): void {
-    this.error = error;
+    MDSS.ErrorModal(error.localizedMessage);
   }
   
   onMessage(msg: string): void {
-    this.message = msg;
+    MDSS.ErrorModal(msg);    
   }
 }

@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
 
 public class GeoLevelMap extends GeoLevelMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -51,16 +50,4 @@ public class GeoLevelMap extends GeoLevelMapBase implements com.runwaysdk.genera
       it.close();
     }
   }
-
-  public static void main(String[] args)
-  {
-    request();
-  }
-
-  @Request
-  public static void request()
-  {
-    System.out.println(getAll());
-  }
-
 }
