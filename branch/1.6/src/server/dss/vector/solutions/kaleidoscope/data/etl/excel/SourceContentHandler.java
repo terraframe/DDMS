@@ -9,8 +9,10 @@ import java.util.Map;
 
 import org.apache.poi.ss.util.CellReference;
 
+import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 import dss.vector.solutions.kaleidoscope.data.etl.ConverterIF;
@@ -18,7 +20,7 @@ import dss.vector.solutions.kaleidoscope.data.etl.SourceContextIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceFieldIF;
 
 public class SourceContentHandler implements SheetHandler, Reloadable
-{  
+{
   /**
    * Handler which handles the view object once they have been created.
    */
@@ -75,7 +77,7 @@ public class SourceContentHandler implements SheetHandler, Reloadable
     this.dateTimeFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_TIME_FORMAT);
     this.dateFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_FORMAT);
   }
-  
+
   @Override
   public void startSheet(String sheetName)
   {
@@ -115,7 +117,16 @@ public class SourceContentHandler implements SheetHandler, Reloadable
       // Wrap all exceptions with information about the cell and row
       ExcelObjectException exception = new ExcelObjectException();
       exception.setRow(new Long(this.rowNum));
-      exception.setMsg(e.getLocalizedMessage());
+
+      if (e instanceof SmartException)
+      {
+        SmartException sme = (SmartException) e;
+        exception.setMsg(sme.localize(Session.getCurrentLocale()));
+      }
+      else
+      {
+        exception.setMsg(e.getLocalizedMessage());
+      }
 
       throw exception;
     }
@@ -181,7 +192,16 @@ public class SourceContentHandler implements SheetHandler, Reloadable
       // Wrap all exceptions with information about the cell and row
       ExcelValueException exception = new ExcelValueException();
       exception.setCell(cellReference);
-      exception.setMsg(e.getLocalizedMessage());
+
+      if (e instanceof SmartException)
+      {
+        SmartException sme = (SmartException) e;
+        exception.setMsg(sme.localize(Session.getCurrentLocale()));
+      }
+      else
+      {
+        exception.setMsg(e.getLocalizedMessage());
+      }
 
       throw exception;
     }
