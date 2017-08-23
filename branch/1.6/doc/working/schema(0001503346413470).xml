@@ -1,0 +1,17 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.etl.dhis2.NoCalculatedFieldsException" message="Calculated fields cannot be exported to DHIS2 at this time. [{calcField}] is a calculated field." >
+        <attributes>
+          <char name="calcField" label="calcField" required="true" size="2000"/>
+        </attributes>
+      </mdException>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.etl.dhis2.NoCalculatedFieldsException" type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

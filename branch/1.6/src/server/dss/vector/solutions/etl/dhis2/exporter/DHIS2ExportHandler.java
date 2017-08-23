@@ -790,7 +790,7 @@ public class DHIS2ExportHandler implements Reloadable
             
             if (sel instanceof AVG)
             {
-              dataElement.put("aggregationType", "AVG");
+              dataElement.put("aggregationType", "AVERAGE");
             }
             else if (sel instanceof SUM)
             {
