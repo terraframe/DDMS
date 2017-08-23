@@ -25,11 +25,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,6 +48,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.runwaysdk.constants.Constants;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.ValueObject;
@@ -75,7 +82,6 @@ import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
-import dss.vector.solutions.etl.dhis2.GeoMap;
 import dss.vector.solutions.etl.dhis2.GeoMapQuery;
 import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
 import dss.vector.solutions.etl.dhis2.NoCalculatedFieldsException;
@@ -1042,8 +1048,6 @@ public class DHIS2ExportHandler implements Reloadable
             && mdAttr instanceof MdAttributeNumber)
         {
           attrIdMap.put(mdAttr, DHIS2Util.getDhis2IdFromRunwayId(mdAttr.getId()));
-          
-          
         }
       }
       
@@ -1088,17 +1092,50 @@ public class DHIS2ExportHandler implements Reloadable
           dataValue.put("dataElement", dataElementM.getString("id"));
           
           String period = "";
-          if (val.hasAttribute("dategroup_year"))
+          String periodN = periodMdAttr.getAttributeName();
+          
+          if (periodN.equals("dategroup_year") || periodN.equals("dategroup_epiyear") || periodN.equals("dategroup_epiweek")
+              || periodN.equals("dategroup_month") || periodN.equals("dategroup_quarter")
+              )
           {
-            period = val.getValue("dategroup_year");
+            if (val.hasAttribute("dategroup_year"))
+            {
+              period = val.getValue("dategroup_year");
+            }
+            else if (val.hasAttribute("dategroup_epiyear"))
+            {
+              period = val.getValue("dategroup_epiyear");
+            }
+            if (val.hasAttribute("dategroup_epiweek"))
+            {
+              period += "W" + val.getValue("dategroup_epiweek");
+            }
+            else if (val.hasAttribute("dategroup_month"))
+            {
+              period += val.getValue("dategroup_month");
+            }
+            else if (val.hasAttribute("dategroup_quarter"))
+            {
+              period += "Q" + val.getValue("dategroup_quarter");
+            }
           }
-          else if (val.hasAttribute("dategroup_epiyear"))
+          else
           {
-            period = val.getValue("dategroup_epiyear");
-          }
-          if (val.hasAttribute("dategroup_epiweek"))
-          {
-            period += "W" + val.getValue("dategroup_epiweek");
+            String rwDate = val.getValue(periodMdAttr.getAttributeName());
+            
+            // Convert from runway's date format to DHIS2's format
+            try
+            {
+              DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.ENGLISH);
+              Date date = format.parse(rwDate);
+            
+              SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+              period = formatter.format(date);
+            }
+            catch (ParseException e)
+            {
+              throw new RuntimeException(e);
+            }
           }
           dataValue.put("period", period);
           
