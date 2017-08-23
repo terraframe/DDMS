@@ -56,6 +56,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.TableQuery;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -74,9 +75,13 @@ import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
+import dss.vector.solutions.etl.dhis2.GeoMap;
+import dss.vector.solutions.etl.dhis2.GeoMapQuery;
 import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
+import dss.vector.solutions.etl.dhis2.NoCalculatedFieldsException;
 import dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException;
 import dss.vector.solutions.etl.dhis2.OrgUnit;
+import dss.vector.solutions.etl.dhis2.OrgUnitQuery;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
@@ -148,18 +153,6 @@ public class DHIS2ExportHandler implements Reloadable
   @Transaction
   public DHIS2ExportResults export()
   {
-    // TODO : If you change this path you also need to change DHIS2ExportResults.toString
-    File dhis2Dir = new File(DeployProperties.getDeployPath() + "/DHIS2");
-    dhis2Dir.mkdirs();
-    try
-    {
-      log = new PrintStream(new BufferedOutputStream(new FileOutputStream(DeployProperties.getDeployPath() + "/DHIS2/export.log")));
-    }
-    catch (FileNotFoundException e1)
-    {
-      logger.error("Unable to open log file [" + DeployProperties.getDeployPath() + "/DHIS2/export.log]");
-    }
-    
     try
     {
       gatherPrereqs();
@@ -252,6 +245,18 @@ public class DHIS2ExportHandler implements Reloadable
   
   protected void gatherPrereqs()
   {
+    // TODO : If you change this path you also need to change DHIS2ExportResults.toString
+    File dhis2Dir = new File(DeployProperties.getDeployPath() + "/DHIS2");
+    dhis2Dir.mkdirs();
+    try
+    {
+      log = new PrintStream(new BufferedOutputStream(new FileOutputStream(DeployProperties.getDeployPath() + "/DHIS2/export.log")));
+    }
+    catch (FileNotFoundException e1)
+    {
+      logger.error("Unable to open log file [" + DeployProperties.getDeployPath() + "/DHIS2/export.log]");
+    }
+    
     QueryFactory qf = new QueryFactory();
     SavedSearchQuery ssq = new SavedSearchQuery(qf);
     ssq.WHERE(ssq.getMaterializedTable().EQ(mdClass));
@@ -307,7 +312,13 @@ public class DHIS2ExportHandler implements Reloadable
         // Numbers are not exported as categories.
         else if (mdAttr instanceof MdAttributeNumber)
         {
-          if (!(sel instanceof AggregateFunction))
+          if (sel instanceof SelectableSQL)
+          {
+            NoCalculatedFieldsException ex = new NoCalculatedFieldsException();
+            ex.setCalcField(mdAttr.getDisplayLabel().getValue());
+            throw ex;
+          }
+          else if (!(sel instanceof AggregateFunction))
           {
             NumbersMustBeAggregatedException ex = new NumbersMustBeAggregatedException();
             ex.setNumberColumn(mdAttr.getDisplayLabel().getValue());
@@ -801,7 +812,7 @@ public class DHIS2ExportHandler implements Reloadable
             
             dataElement.put("zeroIsSignificant", true);
             
-            dataElement.put("categoryCombo", new JSONObject().put("id", categoryComboId));
+//            dataElement.put("categoryCombo", new JSONObject().put("id", categoryComboId));
             
             dataElement.put("aggregationLevels", aggregationLevels);
             
@@ -822,6 +833,40 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
+      // We need to include all DHIS2 mapped org units
+      JSONArray organisationUnits = new JSONArray();
+      
+      QueryFactory qf = new QueryFactory();
+      
+      ValueQuery vq = new ValueQuery(qf);
+      GeoMapQuery gmq = new GeoMapQuery(qf);
+      OrgUnitQuery ouq = new OrgUnitQuery(qf);
+      
+      vq.SELECT(ouq.getDhis2Id("dhis2Id"));
+      vq.WHERE(gmq.getConfirmed().EQ(false));
+      vq.AND(gmq.getOrgUnit().NE(""));
+      vq.AND(gmq.getOrgUnit().EQ(ouq));
+      
+      OIterator<? extends ValueObject> it = vq.getIterator();
+      
+      try
+      {
+        for (ValueObject obj : it)
+        {
+          JSONObject organisationUnit = new JSONObject();
+          organisationUnit.put("id", obj.getValue("dhis2Id"));
+          organisationUnits.put(organisationUnit);
+        }
+      }
+      finally
+      {
+        it.close();
+      }
+      
+      
+      
+      
+      
       String dhis2Id = DHIS2Util.queryAndMapIds(mdClass.getId(), idCache);
       
       JSONArray dataSets = new JSONArray();
@@ -918,19 +963,6 @@ public class DHIS2ExportHandler implements Reloadable
       }
       
       dataSet.put("categoryCombo", new JSONObject().put("id", categoryComboId));
-      
-      JSONArray organisationUnits = new JSONArray();
-      
-      GeoEntity zambia = GeoEntity.getByKey("ZA");
-      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
-      if (zambiaOrgUnit == null)
-      {
-        throw new RuntimeException("Zambia is not mapped.");
-      }
-      
-      JSONObject organisationUnit = new JSONObject();
-      organisationUnit.put("id", zambiaOrgUnit.getDhis2Id());
-      organisationUnits.put(organisationUnit);
       
       dataSet.put("organisationUnits", organisationUnits);
       
