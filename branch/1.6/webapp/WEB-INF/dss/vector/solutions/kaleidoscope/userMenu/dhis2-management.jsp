@@ -104,7 +104,7 @@
     padding: inherit;
     float:none;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 20px;
     color: #333;
     box-shadow: none;
     outline: none;
@@ -127,7 +127,7 @@
   }  
   
   .geo-mapping .check-block .chk-area {
-    margin: 0px 11px 0 0;
+    margin: 3px 11px 0 0;
   }
   
   .geo-mapping .holder {
@@ -144,7 +144,13 @@
     
   body {
     background-color: #e6e6e6;
-  }  
+  }
+  
+  .geo-mapping .chk-area .rad-area {
+    width: 15px;
+    height: 15px;
+  }
+
     
   </style>
   
