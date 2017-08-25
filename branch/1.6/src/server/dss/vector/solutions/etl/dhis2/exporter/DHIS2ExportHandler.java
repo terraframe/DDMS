@@ -29,7 +29,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,10 +80,11 @@ import com.runwaysdk.system.metadata.MdClass;
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
+import dss.vector.solutions.etl.dhis2.DHIS2NameLengthException;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
 import dss.vector.solutions.etl.dhis2.GeoMapQuery;
+import dss.vector.solutions.etl.dhis2.InvalidFieldException;
 import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
-import dss.vector.solutions.etl.dhis2.NoCalculatedFieldsException;
 import dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException;
 import dss.vector.solutions.etl.dhis2.OrgUnit;
 import dss.vector.solutions.etl.dhis2.OrgUnitQuery;
@@ -266,14 +266,54 @@ public class DHIS2ExportHandler implements Reloadable
     QueryFactory qf = new QueryFactory();
     SavedSearchQuery ssq = new SavedSearchQuery(qf);
     ssq.WHERE(ssq.getMaterializedTable().EQ(mdClass));
-    savedSearch = ssq.getIterator().next();
+    OIterator<? extends SavedSearch> it = ssq.getIterator();
+    try
+    {
+      savedSearch = it.next();
+    }
+    finally
+    {
+      it.close();
+    }
     
     String queryClass = QueryConstants.getQueryClass(this.savedSearch.getQueryType());
     valueQuery = QueryBuilder.getValueQuery(queryClass, this.savedSearch.getQueryXml(), this.savedSearch.getConfig(), null, null, null, this.savedSearch.getDisease());
   }
   
+  private String getAggTypeFromSql(SelectableSQL sel)
+  {
+    String sql = sel.getSQL().toLowerCase();
+    
+    if (StringUtils.countMatches(sql, "min(") == 1 && !(sql.contains("max(") || sql.contains("avg(") || sql.contains("sum(")))
+    {
+      return "MIN";
+    }
+    else if (StringUtils.countMatches(sql, "max(") == 1 && !(sql.contains("min(") || sql.contains("avg(") || sql.contains("sum(")))
+    {
+      return "MAX";
+    }
+    else if (StringUtils.countMatches(sql, "avg(") == 1 && !(sql.contains("min(") || sql.contains("max(") || sql.contains("sum(")))
+    {
+      return "AVERAGE";
+    }
+    else if (StringUtils.countMatches(sql, "sum(") == 1 && !(sql.contains("min(") || sql.contains("max(") || sql.contains("avg(")))
+    {
+      return "SUM";
+    }
+    
+    return null;
+  }
+  
   protected void validateExport()
   {
+    if (this.exportable.getDhis2Name().length() > 50)
+    {
+      DHIS2NameLengthException ex = new DHIS2NameLengthException();
+      ex.setCharLen("50");
+      ex.setName(this.exportable.getDhis2Name());
+      throw ex;
+    }
+    
     // Check #1 : We have to have rows in our dataset
     QueryFactory qf = new QueryFactory();
     TableQuery tq = qf.tableQuery(mdClass.definesType());
@@ -320,9 +360,12 @@ public class DHIS2ExportHandler implements Reloadable
         {
           if (sel instanceof SelectableSQL)
           {
-            NoCalculatedFieldsException ex = new NoCalculatedFieldsException();
-            ex.setCalcField(mdAttr.getDisplayLabel().getValue());
-            throw ex;
+            if (getAggTypeFromSql((SelectableSQL) sel) == null)
+            {
+              InvalidFieldException ex = new InvalidFieldException();
+              ex.setField(mdAttr.getDisplayLabel().getValue());
+              throw ex;
+            }
           }
           else if (!(sel instanceof AggregateFunction))
           {
@@ -374,6 +417,8 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
+      if (categoryAttrs.size() == 0) { return; }
+      
       JSONArray options = new JSONArray();
     
       QueryFactory qf = new QueryFactory();
@@ -478,6 +523,8 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
+      if (categoryAttrs.size() == 0) { return; }
+      
       JSONArray categories = new JSONArray();
       
       Set<MdAttribute> keys = categoryMetadataMap.keySet();
@@ -490,7 +537,7 @@ public class DHIS2ExportHandler implements Reloadable
         JSONObject category = new JSONObject();
         category.put("name", mdAttr.getDisplayLabel().getValue());
         category.put("id", dhis2Id);
-        category.put("dataDimensionType", "DISAGGREGATION");
+        category.put("dataDimensionType", "ATTRIBUTE");
         
         // A list of all the category options associated with this category
         Set<String> categoryOptions = categoryMetadataMap.get(mdAttr);
@@ -518,6 +565,8 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
+      if (categoryAttrs.size() == 0) { return; }
+      
       JSONArray categoryCombos = new JSONArray();
       JSONObject categoryCombo = new JSONObject();
       
@@ -525,7 +574,7 @@ public class DHIS2ExportHandler implements Reloadable
       
       categoryCombo.put("name", mdClass.getDisplayLabel().getValue());
       categoryCombo.put("id", categoryComboId);
-      categoryCombo.put("dataDimensionType", "DISAGGREGATION");
+      categoryCombo.put("dataDimensionType", "ATTRIBUTE");
       
       // We can get the category ids by reading the json we generated earlier.
       JSONArray categoryIds = new JSONArray();
@@ -551,6 +600,8 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
+      if (categoryAttrs.size() == 0) { return; }
+      
       JSONArray optCombos = new JSONArray();
     
       QueryFactory qf = new QueryFactory();
@@ -784,25 +835,44 @@ public class DHIS2ExportHandler implements Reloadable
             
             dataElement.put("id", dhis2Id);
             
-            String name = mdClass.getDisplayLabel().getValue() + " " + mdAttr.getDisplayLabel().getValue();
+            String name = this.exportable.getDhis2Name();
+            if (name.length() > 40)
+            {
+              name = name.substring(0, 40);
+            }
+            name = name + " " + mdAttr.getDisplayLabel().getValue();
+            if (name.length() > 50)
+            {
+              name = name.substring(0, 50);
+            }
+            
             dataElement.put("name", name);
             dataElement.put("shortName", name);
             
-            if (sel instanceof AVG)
+            if (sel instanceof SelectableSQL)
             {
-              dataElement.put("aggregationType", "AVERAGE");
+              String aggType = getAggTypeFromSql((SelectableSQL) sel);
+              
+              dataElement.put("aggregationType", aggType);
             }
-            else if (sel instanceof SUM)
+            else if (sel instanceof AggregateFunction)
             {
-              dataElement.put("aggregationType", "SUM");
-            }
-            else if (sel instanceof MIN)
-            {
-              dataElement.put("aggregationType", "MIN");
-            }
-            else if (sel instanceof MAX)
-            {
-              dataElement.put("aggregationType", "MAX");
+              if (sel instanceof AVG)
+              {
+                dataElement.put("aggregationType", "AVERAGE");
+              }
+              else if (sel instanceof SUM)
+              {
+                dataElement.put("aggregationType", "SUM");
+              }
+              else if (sel instanceof MIN)
+              {
+                dataElement.put("aggregationType", "MIN");
+              }
+              else if (sel instanceof MAX)
+              {
+                dataElement.put("aggregationType", "MAX");
+              }
             }
             
             dataElement.put("domainType", "AGGREGATE");
@@ -968,7 +1038,10 @@ public class DHIS2ExportHandler implements Reloadable
         dataSet.put("periodType", "Yearly");
       }
       
-      dataSet.put("categoryCombo", new JSONObject().put("id", categoryComboId));
+      if (categoryComboId != null)
+      {
+        dataSet.put("categoryCombo", new JSONObject().put("id", categoryComboId));
+      }
       
       dataSet.put("organisationUnits", organisationUnits);
       
@@ -1183,41 +1256,44 @@ public class DHIS2ExportHandler implements Reloadable
             dataValue.put("orgUnit", zambiaOrgUnit.getDhis2Id());
           }
           
-          ArrayList<String> runwayIds = new ArrayList<String>();
-          for (MdAttribute mdAttr : categoryAttrs)
+          if (categoryAttrs.size() > 0)
           {
-            String attrVal = val.getValue(mdAttr.getAttributeName());
-            
-            if (mdAttr instanceof MdAttributeReference)
+            ArrayList<String> runwayIds = new ArrayList<String>();
+            for (MdAttribute mdAttr : categoryAttrs)
             {
-              MdBusiness reference = ((MdAttributeReference) mdAttr).getMdBusiness();
+              String attrVal = val.getValue(mdAttr.getAttributeName());
               
-              if (reference.definesType().equals(Term.CLASS))
+              if (mdAttr instanceof MdAttributeReference)
               {
-                Term term = Term.get(attrVal);
+                MdBusiness reference = ((MdAttributeReference) mdAttr).getMdBusiness();
                 
-                runwayIds.add(term.getId());
+                if (reference.definesType().equals(Term.CLASS))
+                {
+                  Term term = Term.get(attrVal);
+                  
+                  runwayIds.add(term.getId());
+                }
               }
-            }
-            else
-            {
-              // If this code changes don't forget to also change the corresponding code when the categoryOption is created.
-              
-              String text = mdAttr.getAttributeName() + "." + attrVal; // TODO : We may need to filter out values from the attrVal here
-              
-              if (text.length() > 128)
+              else
               {
-                text = text.substring(0, 127);
+                // If this code changes don't forget to also change the corresponding code when the categoryOption is created.
+                
+                String text = mdAttr.getAttributeName() + "." + attrVal; // TODO : We may need to filter out values from the attrVal here
+                
+                if (text.length() > 128)
+                {
+                  text = text.substring(0, 127);
+                }
+                
+                runwayIds.add(text);
               }
-              
-              runwayIds.add(text);
             }
-          }
           
-          String rwId = StringUtils.join(runwayIds, "");
-          String catOptComboId = DHIS2Util.getDhis2IdFromRunwayId(rwId);
-          if (catOptComboId == null) { throw new RuntimeException("Unable to find a category option combo by runway id [" + rwId + "]. This object should already be mapped at this point."); }
-          dataValue.put("categoryOptionCombo", catOptComboId);
+            String rwId = StringUtils.join(runwayIds, "");
+            String catOptComboId = DHIS2Util.getDhis2IdFromRunwayId(rwId);
+            if (catOptComboId == null) { throw new RuntimeException("Unable to find a category option combo by runway id [" + rwId + "]. This object should already be mapped at this point."); }
+            dataValue.put("attributeOptionCombo", catOptComboId);
+          }
           
           String value = "";
           for (MdAttribute attr : attrs)
