@@ -140,6 +140,8 @@ public class DHIS2ExportHandler implements Reloadable
   
   private MdAttribute periodMdAttr = null;
   
+  private static final String namePrefix = " ";
+  
   static String[] skipAttrs = new String[]{
     MdBusinessDTO.CACHEALGORITHM, MdBusinessDTO.TABLENAME, MdBusinessDTO.KEYNAME,
     MdBusinessDTO.BASECLASS, MdBusinessDTO.BASESOURCE, MdBusinessDTO.DTOCLASS, MdBusinessDTO.DTOSOURCE, MdBusinessDTO.STUBCLASS, MdBusinessDTO.STUBDTOCLASS, MdBusinessDTO.STUBDTOSOURCE, MdBusinessDTO.STUBSOURCE,
@@ -306,13 +308,13 @@ public class DHIS2ExportHandler implements Reloadable
   
   protected void validateExport()
   {
-    if (this.exportable.getDhis2Name().length() > 50)
-    {
-      DHIS2NameLengthException ex = new DHIS2NameLengthException();
-      ex.setCharLen("50");
-      ex.setName(this.exportable.getDhis2Name());
-      throw ex;
-    }
+//    if (this.exportable.getDhis2Name().length() > 50)
+//    {
+//      DHIS2NameLengthException ex = new DHIS2NameLengthException();
+//      ex.setCharLen("50");
+//      ex.setName(this.exportable.getDhis2Name());
+//      throw ex;
+//    }
     
     // Check #1 : We have to have rows in our dataset
     QueryFactory qf = new QueryFactory();
@@ -493,12 +495,12 @@ public class DHIS2ExportHandler implements Reloadable
             
             String dhis2Id = DHIS2Util.queryAndMapIds(runwayId, idCache);
             
-            JSONObject option = new JSONObject();
-            option.put("code", code);
-            option.put("name", name);
-            option.put("shortName", shortName);
-            option.put("id", dhis2Id);
-            options.put(option);
+            MetadataElement option = new MetadataElement();
+            option.setCode(code);
+            option.setName(name);
+            option.setShortName(shortName);
+            option.setId(dhis2Id);
+            options.put(option.getJSON());
             
             Set<String> catSet = categoryMetadataMap.get(mdAttr);
             if (catSet == null)
@@ -534,9 +536,9 @@ public class DHIS2ExportHandler implements Reloadable
         String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
         
         // Basic identifier info about the category
-        JSONObject category = new JSONObject();
-        category.put("name", mdAttr.getDisplayLabel().getValue());
-        category.put("id", dhis2Id);
+        MetadataElement category = new MetadataElement();
+        category.setName(mdAttr.getDisplayLabel().getValue());
+        category.setId(dhis2Id);
         category.put("dataDimensionType", "ATTRIBUTE");
         
         // A list of all the category options associated with this category
@@ -550,7 +552,7 @@ public class DHIS2ExportHandler implements Reloadable
         }
         category.put("categoryOptions", jsonCategoryOptions);
         
-        categories.put(category);
+        categories.put(category.getJSON());
       }
       
       json.put("categories", categories);
@@ -568,12 +570,12 @@ public class DHIS2ExportHandler implements Reloadable
       if (categoryAttrs.size() == 0) { return; }
       
       JSONArray categoryCombos = new JSONArray();
-      JSONObject categoryCombo = new JSONObject();
+      MetadataElement categoryCombo = new MetadataElement();
       
       categoryComboId = DHIS2Util.queryAndMapIds(mdClass.getId() + "_catCombo", idCache);
       
-      categoryCombo.put("name", mdClass.getDisplayLabel().getValue());
-      categoryCombo.put("id", categoryComboId);
+      categoryCombo.setName(mdClass.getDisplayLabel().getValue());
+      categoryCombo.setId(categoryComboId);
       categoryCombo.put("dataDimensionType", "ATTRIBUTE");
       
       // We can get the category ids by reading the json we generated earlier.
@@ -587,7 +589,7 @@ public class DHIS2ExportHandler implements Reloadable
       }
       categoryCombo.put("categories", categoryIds);
       
-      categoryCombos.put(categoryCombo);
+      categoryCombos.put(categoryCombo.getJSON());
       json.put("categoryCombos", categoryCombos);
     }
     catch (JSONException e)
@@ -688,14 +690,14 @@ public class DHIS2ExportHandler implements Reloadable
             noDuplicatesSet.add(comboRWId);
           }
           
-          JSONObject optCombo = new JSONObject();
+          MetadataElement optCombo = new MetadataElement();
           
-          optCombo.put("name", StringUtils.join(optComboNames, ", "));
-          optCombo.put("id", DHIS2Util.queryAndMapIds(comboRWId, idCache));
+          optCombo.setName(StringUtils.join(optComboNames, ", "));
+          optCombo.setId(DHIS2Util.queryAndMapIds(comboRWId, idCache));
           optCombo.put("categoryCombo", new JSONObject().put("id", categoryComboId));
           optCombo.put("categoryOptions", catOpts);
           
-          optCombos.put(optCombo);
+          optCombos.put(optCombo.getJSON());
         }
       }
     
@@ -831,23 +833,20 @@ public class DHIS2ExportHandler implements Reloadable
             
             String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
             
-            JSONObject dataElement = new JSONObject();
+            MetadataElement dataElement = new MetadataElement();
             
-            dataElement.put("id", dhis2Id);
+            dataElement.setId(dhis2Id);
             
-            String name = this.exportable.getDhis2Name();
-            if (name.length() > 40)
+            String name = this.exportable.getDhis2Name() + " " + mdAttr.getDisplayLabel().getValue();
+            dataElement.setName(name);
+            
+            String shortName = this.exportable.getDhis2Name();
+            if (shortName.length() > 35)
             {
-              name = name.substring(0, 40);
+              shortName = shortName.substring(0, 35);
             }
-            name = name + " " + mdAttr.getDisplayLabel().getValue();
-            if (name.length() > 50)
-            {
-              name = name.substring(0, 50);
-            }
-            
-            dataElement.put("name", name);
-            dataElement.put("shortName", name);
+            shortName = shortName + " " + mdAttr.getDisplayLabel().getValue();
+            dataElement.setShortName(shortName);
             
             if (sel instanceof SelectableSQL)
             {
@@ -892,7 +891,7 @@ public class DHIS2ExportHandler implements Reloadable
             
             dataElement.put("aggregationLevels", aggregationLevels);
             
-            dataElements.put(dataElement);
+            dataElements.put(dataElement.getJSON());
           }
         }
       }
@@ -947,11 +946,11 @@ public class DHIS2ExportHandler implements Reloadable
       
       JSONArray dataSets = new JSONArray();
       
-      JSONObject dataSet = new JSONObject();
+      MetadataElement dataSet = new MetadataElement();
       
-      dataSet.put("id", dhis2Id);
+      dataSet.setId(dhis2Id);
       
-      dataSet.put("name", this.exportable.getDhis2Name());
+      dataSet.setName(this.exportable.getDhis2Name());
       
       dataSet.put("timelyDays", 0);
       
@@ -1045,7 +1044,7 @@ public class DHIS2ExportHandler implements Reloadable
       
       dataSet.put("organisationUnits", organisationUnits);
       
-      dataSets.put(dataSet);
+      dataSets.put(dataSet.getJSON());
       
       json.put("dataSets", dataSets);
     }
@@ -1061,9 +1060,9 @@ public class DHIS2ExportHandler implements Reloadable
     {
       JSONArray dataElementGroups = new JSONArray();
       
-      JSONObject dataElementGroup = new JSONObject();
-      dataElementGroup.put("name", this.exportable.getDhis2Name());
-      dataElementGroup.put("id", DHIS2Util.queryAndMapIds(mdClass.getId() + "_deg", idCache));
+      MetadataElement dataElementGroup = new MetadataElement();
+      dataElementGroup.setName(this.exportable.getDhis2Name());
+      dataElementGroup.setId(DHIS2Util.queryAndMapIds(mdClass.getId() + "_deg", idCache));
       
       JSONArray dataElements = new JSONArray();
       JSONArray dataElementMetadatas = payload.getJSONArray("dataElements");
@@ -1075,7 +1074,7 @@ public class DHIS2ExportHandler implements Reloadable
       }
       dataElementGroup.put("dataElements", dataElements);
       
-      dataElementGroups.put(dataElementGroup);
+      dataElementGroups.put(dataElementGroup.getJSON());
       
       payload.put("dataElementGroups", dataElementGroups);
     }

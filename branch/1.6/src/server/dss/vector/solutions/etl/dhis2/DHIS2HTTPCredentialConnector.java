@@ -29,6 +29,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.InvalidLoginException;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
@@ -58,6 +59,11 @@ public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector impleme
     
     HTTPResponse response = this.httpRequest(this.client, get);
     
+    if (response.getStatusCode() == 401)
+    {
+      throw new InvalidLoginException("Unable to log in to DHIS2");
+    }
+    
     return response;
   }
   
@@ -76,7 +82,14 @@ public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector impleme
       
       post.setRequestEntity(new StringRequestEntity(body, null, null));
 
-      return this.httpRequest(this.client, post);
+      HTTPResponse response = this.httpRequest(this.client, post);
+      
+      if (response.getStatusCode() == 401)
+      {
+        throw new InvalidLoginException("Unable to log in to DHIS2");
+      }
+      
+      return response;
     }
     catch (UnsupportedEncodingException e)
     {
