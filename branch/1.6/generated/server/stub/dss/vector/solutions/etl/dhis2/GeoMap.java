@@ -35,7 +35,7 @@ public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loade
     sql.append(" ge.id AS geoId,");
     sql.append(" COALESCE(gel.default_locale) || ' (' || COALESCE(mdl.default_locale) || ') ' || ge.geo_id AS geoLabel,");
     sql.append(" ou.id AS orgId,");
-    sql.append(" ou.name || ' (' || oul.name || ') ' || ou.code AS orgLabel,");
+    sql.append(" ou.name || ' (' || oul.name || ') ' || COALESCE(ou.code, '') AS orgLabel,");
     sql.append(" gm.confirmed AS confirmed");
     sql.append(" FROM ddms.located_in AS li");
     sql.append(" LEFT JOIN ddms.geo_entity AS ge ON ge.id = li.child_id");

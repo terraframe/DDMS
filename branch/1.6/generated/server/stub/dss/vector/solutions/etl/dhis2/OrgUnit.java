@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -35,7 +36,7 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
 
       OrgUnitQuery query = new OrgUnitQuery(vQuery);
 
-      Selectable label = F.CONCAT(F.CONCAT(F.CONCAT(query.getName(), " ("), F.CONCAT(query.getOrgUnitLevel().getName(), ") ")), query.getCode(), "label");
+      Selectable label = F.CONCAT(F.CONCAT(F.CONCAT(query.getName(), " ("), F.CONCAT(query.getOrgUnitLevel().getName(), ") ")), F.COALESCE((Attribute) query.getCode(), "''"), "label");
 
       vQuery.SELECT(label, query.getId("id"));
       vQuery.WHERE(query.getName().LIKEi("%" + text + "%"));
@@ -81,34 +82,41 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
 //  @Request
 //  private static void test()
 //  {
-//    MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
+//    // MdBusiness universal = MdBusiness.getMdBusiness(District.CLASS);
+//    //
+//    // GeoLevelMap map = new GeoLevelMap();
+//    // map.setUniversal(universal);
+//    // map.apply();
+//    //
+//    // OrgUnitLevel level = new OrgUnitLevel();
+//    // level.setDhis2Id("District");
+//    // level.setLevel(0);
+//    // level.setName("District");
+//    // level.apply();
+//    //
+//    // OrgUnit unit = new OrgUnit();
+//    // unit.setValid(true);
+//    // unit.setCode("DHISCODE");
+//    // unit.setDhis2Id("Test Location");
+//    // unit.setOrgUnitLevel(level);
+//    // unit.setName("Test Location");
+//    // unit.apply();
+//    //
+//    // OrgUnit unit2 = new OrgUnit();
+//    // unit2.setValid(true);
+//    // unit2.setCode("DHISCODE2");
+//    // unit2.setDhis2Id("Test District");
+//    // unit2.setOrgUnitLevel(level);
+//    // unit2.setName("Test Name");
+//    // unit2.apply();
 //
-//    GeoLevelMap map = new GeoLevelMap();
-//    map.setUniversal(universal);
-//    map.apply();
-//    
-//    OrgUnitLevel level = new OrgUnitLevel();
-//    level.setDhis2Id("District");
-//    level.setLevel(0);
-//    level.setName("District");
-//    level.apply();
+//    OrgUnitLevel level = OrgUnitLevel.getByKey("District");
 //
-//    OrgUnit unit = new OrgUnit();
-//    unit.setValid(true);
-//    unit.setCode("DHISCODE");
-//    unit.setDhis2Id("Test Location");
-//    unit.setOrgUnitLevel(level);
-//    unit.setName("Test Location");
-//    unit.apply();
-//
-//    OrgUnit unit2 = new OrgUnit();
-//    unit2.setValid(true);
-//    unit2.setCode("DHISCODE2");
-//    unit2.setDhis2Id("Test District");
-//    unit2.setOrgUnitLevel(level);
-//    unit2.setName("Test Name");
-//    unit2.apply();
-//
-//    System.out.println(search("Te", ""));
+//    OrgUnit unit3 = new OrgUnit();
+//    unit3.setValid(true);
+//    unit3.setDhis2Id("Test District 3");
+//    unit3.setOrgUnitLevel(level);
+//    unit3.setName("Test Name");
+//    unit3.apply();
 //  }
 }

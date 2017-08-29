@@ -20,12 +20,12 @@
   <script type="text/javascript">${js}</script>
   
   <!-- IE required polyfills, in this exact order -->
+<!-- 
   <script type="text/javascript" src="${path}/dist/polyfills.js"></script>  
   <script type="text/javascript" src="${path}/dist/vendor.js"></script>  
-<!-- 
+ -->  
   <script type="text/javascript" src="http://localhost:8040/dist/polyfills.js"></script>  
   <script type="text/javascript" src="http://localhost:8040/dist/vendor.js"></script>  
- -->  
   
   <style type="text/css">
   #headermiddle {
@@ -66,9 +66,10 @@
   .tree li {
     background:inherit;
     list-style-type: inherit;
-    padding: inherit;
-    height: inherit;
     color: inherit;
+    
+    padding: 0px 0px 10px 0px;
+    height: 20px;    
   }  
   
   .tree.dropdown-menu li:hover, .tree.dropdown-menu li:focus {
@@ -159,6 +160,11 @@
     font-size: 12px;
   }  
   
+  .tree h4, .tree h5, .tree h6 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }  
+  
   </style>
   
 
@@ -170,10 +176,10 @@
     <!-- TEMP CONTENT WHILE THE PAGE IS LOADING -->
     <mdss:localize key="bootstrap.loading"/>  
   </dhis2-app>
-  <script type="text/javascript" src="${path}/dist/app.js"></script>  
 <!-- 
-  <script type="text/javascript" src="http://localhost:8040/dist/app.js"></script>  
+  <script type="text/javascript" src="${path}/dist/app.js"></script>  
  -->  
+  <script type="text/javascript" src="http://localhost:8040/dist/app.js"></script>  
   
   
 </div>
