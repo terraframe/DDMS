@@ -154,8 +154,11 @@
   .geo-mapping .chk-checked {
     background-position: -46px -24px;
   }  
-
-    
+  
+  .geo-mapping .node-wrapper .text input[type="text"] {
+    font-size: 12px;
+  }  
+  
   </style>
   
 
