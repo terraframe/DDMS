@@ -8,6 +8,9 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
+
 public class GeoLevelMap extends GeoLevelMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 267881842;
@@ -20,6 +23,8 @@ public class GeoLevelMap extends GeoLevelMapBase implements com.runwaysdk.genera
   public static String getAll()
   {
     GeoLevelMapQuery query = new GeoLevelMapQuery(new QueryFactory());
+    query.WHERE(query.getUniversal().getTypeName().NE(Earth.class.getSimpleName()));
+    query.AND(query.getUniversal().getTypeName().NE(GeoEntity.class.getSimpleName()));
 
     OIterator<? extends GeoLevelMap> it = query.getIterator();
 
