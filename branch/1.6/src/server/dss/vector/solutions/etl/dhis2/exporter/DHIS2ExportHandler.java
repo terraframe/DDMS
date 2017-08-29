@@ -1131,7 +1131,6 @@ public class DHIS2ExportHandler implements Reloadable
       
       
       String geoType = null;
-      String queryType = QueryConstants.getQueryClass(this.savedSearch.getQueryType());
       JSONObject selectedUniMap = new JSONObject(savedSearch.getConfig()).getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
       while (keys.hasNext())
@@ -1139,7 +1138,7 @@ public class DHIS2ExportHandler implements Reloadable
         String attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(queryType + '.' + AggregatedCase.GEOENTITY))
+        if (universals.length() > 0)  // && attributeKey.equals(queryType + '.' + AggregatedCase.GEOENTITY)
         {
           String[] selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
