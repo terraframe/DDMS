@@ -68,6 +68,8 @@ import dss.vector.solutions.kaleidoscope.data.etl.TargetBinding;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchQuery;
 import dss.vector.solutions.util.DatabaseUtil;
 
 public class MappableClass extends MappableClassBase implements com.runwaysdk.generation.loader.Reloadable
@@ -213,6 +215,18 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       }
 
       mdClass.delete();
+
+      /*
+       * Delete any persisted results which are based on this dataset
+       */
+      SavedSearchQuery sQuery = new SavedSearchQuery(new QueryFactory());
+      sQuery.WHERE(sQuery.getQueryType().EQ(mdClass.definesType() + ":dss.vector.solutions.querybuilder.TypeQB"));
+      List<? extends SavedSearch> searches = sQuery.getIterator().getAll();
+
+      for (SavedSearch search : searches)
+      {
+        search.delete();
+      }
     }
   }
 
@@ -952,7 +966,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
       {
         MdWebIndicator mdWebIndicator = (MdWebIndicator) MdFormUtil.getField(mdWebForm, mdAttributeIndicator);
         mdWebIndicator.lock();
-        mdWebIndicator.getDisplayLabel().setValue(displayLabel);        
+        mdWebIndicator.getDisplayLabel().setValue(displayLabel);
         mdWebIndicator.setNumeratorField(MdFormUtil.getField(mdWebForm, left.getMdAttributePrimitive()));
         mdWebIndicator.addNumeratorAggregation(IndicatorAggregateFunction.valueOf(left.getAggregateFunction().getName()));
         mdWebIndicator.setDenominatorField(MdFormUtil.getField(mdWebForm, right.getMdAttributePrimitive()));

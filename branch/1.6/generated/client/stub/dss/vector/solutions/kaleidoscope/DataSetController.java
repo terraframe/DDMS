@@ -27,7 +27,7 @@ public class DataSetController extends DataSetControllerBase implements com.runw
     String path = url.toString();
 
     this.req.setAttribute("path", path);
-    
+
     JavascriptUtil.loadDatasets(this.getClientRequest(), req);
 
     this.render("dataset-management.jsp");
@@ -83,7 +83,11 @@ public class DataSetController extends DataSetControllerBase implements com.runw
     {
       MappableClassDTO.remove(request, id);
 
-      JSONControllerUtil.writeDirectReponse(this.resp, "");
+      String datasets = MappableClassDTO.getAllAsJSON(request);
+
+      JSONObject object = new JSONObject(datasets);
+
+      JSONControllerUtil.writeDirectReponse(this.resp, object);
     }
     catch (Throwable t)
     {

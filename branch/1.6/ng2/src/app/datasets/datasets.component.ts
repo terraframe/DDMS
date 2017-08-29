@@ -94,8 +94,18 @@ export class DatasetsComponent implements OnInit {
   remove(dataset: Dataset, event: any) : void {
     this.datasetService
       .remove(dataset)
-      .then(response => {
-        this.datasets = this.datasets.filter(h => h.id !== dataset.id);    
+      .then(collection => {
+        this.datasets = [];
+        this.forms = [];
+          
+        collection.datasets.forEach(dataset => {
+          if(dataset.removable) {
+            this.datasets.push(dataset);
+          }
+          else {
+            this.forms.push(dataset);        	  
+          }
+        });
       });
   }
   

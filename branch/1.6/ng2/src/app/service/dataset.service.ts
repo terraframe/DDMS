@@ -82,7 +82,7 @@ export class DatasetService extends BasicService {
      .catch(this.handleError.bind(this));
   }
   
-  remove(dataset: Dataset): Promise<Response> {
+  remove(dataset: Dataset): Promise<DatasetCollection> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
@@ -90,6 +90,9 @@ export class DatasetService extends BasicService {
     return this.ehttp
       .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.remove.mojo', JSON.stringify({id:dataset.id}), {headers: headers})
       .toPromise()
+      .then(response => {
+        return response.json() as DatasetCollection;
+      })
       .catch(this.handleError.bind(this));
   }
   
