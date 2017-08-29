@@ -366,7 +366,7 @@ public class DHIS2ExportHandler implements Reloadable
             if (getAggTypeFromSql((SelectableSQL) sel) == null)
             {
               InvalidFieldException ex = new InvalidFieldException();
-              ex.setField(mdAttr.getDisplayLabel().getValue());
+              ex.setField(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
               ex.setDataset(this.exportable.getDhis2Name());
               throw ex;
             }
@@ -374,7 +374,7 @@ public class DHIS2ExportHandler implements Reloadable
           else if (!(sel instanceof AggregateFunction))
           {
             NumbersMustBeAggregatedException ex = new NumbersMustBeAggregatedException();
-            ex.setNumberColumn(mdAttr.getDisplayLabel().getValue());
+            ex.setNumberColumn(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
             ex.setDataset(this.exportable.getDhis2Name());
             throw ex;
           }
@@ -462,7 +462,7 @@ public class DHIS2ExportHandler implements Reloadable
             {
               Term term = Term.get(attrVal);
               
-              name = term.getTermDisplayLabel().getValue();
+              name = term.getTermDisplayLabel().getValue(Locale.ROOT);
               shortName = name;
               code = term.getTermId();
               runwayId = term.getId();
@@ -543,7 +543,7 @@ public class DHIS2ExportHandler implements Reloadable
         
         // Basic identifier info about the category
         MetadataElement category = new MetadataElement();
-        category.setName(mdAttr.getDisplayLabel().getValue());
+        category.setName(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
         category.setId(dhis2Id);
         category.put("dataDimensionType", "ATTRIBUTE");
         
@@ -580,7 +580,7 @@ public class DHIS2ExportHandler implements Reloadable
       
       categoryComboId = DHIS2Util.queryAndMapIds(mdClass.getId() + "_catCombo", idCache);
       
-      categoryCombo.setName(mdClass.getDisplayLabel().getValue());
+      categoryCombo.setName(mdClass.getDisplayLabel().getValue(Locale.ROOT));
       categoryCombo.setId(categoryComboId);
       categoryCombo.put("dataDimensionType", "ATTRIBUTE");
       
@@ -649,7 +649,7 @@ public class DHIS2ExportHandler implements Reloadable
             {
               Term term = Term.get(attrVal);
               
-              name = term.getTermDisplayLabel().getValue();
+              name = term.getTermDisplayLabel().getValue(Locale.ROOT);
               runwayId = term.getId();
             }
           }
@@ -843,7 +843,7 @@ public class DHIS2ExportHandler implements Reloadable
             
             dataElement.setId(dhis2Id);
             
-            String name = this.exportable.getDhis2Name() + " " + mdAttr.getDisplayLabel().getValue();
+            String name = this.exportable.getDhis2Name() + " " + mdAttr.getDisplayLabel().getValue(Locale.ROOT);
             dataElement.setName(name);
             
             String shortName = this.exportable.getDhis2Name();
@@ -851,7 +851,7 @@ public class DHIS2ExportHandler implements Reloadable
             {
               shortName = shortName.substring(0, 35);
             }
-            shortName = shortName + " " + mdAttr.getDisplayLabel().getValue();
+            shortName = shortName + " " + mdAttr.getDisplayLabel().getValue(Locale.ROOT);
             dataElement.setShortName(shortName);
             
             if (sel instanceof SelectableSQL)
@@ -1241,7 +1241,7 @@ public class DHIS2ExportHandler implements Reloadable
             {
               if (geoId != null)
               {
-                geoId = GeoEntity.get(geoId).getEntityLabel().getValue();
+                geoId = GeoEntity.get(geoId).getEntityLabel().getValue(Locale.ROOT);
               }
               else
               {
