@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 528662056)
+@com.runwaysdk.business.ClassSignature(hash = 88495206)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,9 +11,10 @@ package dss.vector.solutions.etl.dhis2;
 public abstract class NumbersMustBeAggregatedExceptionBase extends com.runwaysdk.business.SmartException implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException";
+  public static java.lang.String DATASET = "dataset";
   public static java.lang.String ID = "id";
   public static java.lang.String NUMBERCOLUMN = "numberColumn";
-  private static final long serialVersionUID = 528662056;
+  private static final long serialVersionUID = 88495206;
   
   public NumbersMustBeAggregatedExceptionBase()
   {
@@ -33,6 +34,34 @@ public abstract class NumbersMustBeAggregatedExceptionBase extends com.runwaysdk
   public NumbersMustBeAggregatedExceptionBase(java.lang.Throwable cause)
   {
     super(cause);
+  }
+  
+  public String getDataset()
+  {
+    return getValue(DATASET);
+  }
+  
+  public void validateDataset()
+  {
+    this.validateAttribute(DATASET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDatasetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DATASET);
+  }
+  
+  public void setDataset(String value)
+  {
+    if(value == null)
+    {
+      setValue(DATASET, "");
+    }
+    else
+    {
+      setValue(DATASET, value);
+    }
   }
   
   public String getId()
@@ -87,6 +116,7 @@ public abstract class NumbersMustBeAggregatedExceptionBase extends com.runwaysdk
   public java.lang.String localize(java.util.Locale locale)
   {
     java.lang.String message = super.localize(locale);
+    message = replace(message, "{dataset}", this.getDataset());
     message = replace(message, "{id}", this.getId());
     message = replace(message, "{numberColumn}", this.getNumberColumn());
     return message;

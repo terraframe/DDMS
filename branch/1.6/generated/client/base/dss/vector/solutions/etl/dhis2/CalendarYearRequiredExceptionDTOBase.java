@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 353172314)
+@com.runwaysdk.business.ClassSignature(hash = 754349852)
 public abstract class CalendarYearRequiredExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.CalendarYearRequiredException";
-  private static final long serialVersionUID = 353172314;
+  private static final long serialVersionUID = 754349852;
   
   public CalendarYearRequiredExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -51,7 +51,45 @@ public abstract class CalendarYearRequiredExceptionDTOBase extends com.runwaysdk
     return CLASS;
   }
   
+  public static java.lang.String DATASET = "dataset";
   public static java.lang.String ID = "id";
+  public String getDataset()
+  {
+    return getValue(DATASET);
+  }
+  
+  public void setDataset(String value)
+  {
+    if(value == null)
+    {
+      setValue(DATASET, "");
+    }
+    else
+    {
+      setValue(DATASET, value);
+    }
+  }
+  
+  public boolean isDatasetWritable()
+  {
+    return isWritable(DATASET);
+  }
+  
+  public boolean isDatasetReadable()
+  {
+    return isReadable(DATASET);
+  }
+  
+  public boolean isDatasetModified()
+  {
+    return isModified(DATASET);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDatasetMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DATASET).getAttributeMdDTO();
+  }
+  
   /**
    * Overrides java.lang.Throwable#getMessage() to retrieve the localized
    * message from the exceptionDTO, instead of from a class variable.
@@ -60,6 +98,7 @@ public abstract class CalendarYearRequiredExceptionDTOBase extends com.runwaysdk
   {
     java.lang.String template = super.getMessage();
     
+    template = template.replace("{dataset}", this.getDataset().toString());
     template = template.replace("{id}", this.getId().toString());
     
     return template;

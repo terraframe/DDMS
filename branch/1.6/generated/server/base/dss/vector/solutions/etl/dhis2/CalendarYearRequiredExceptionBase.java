@@ -1,6 +1,6 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 347568602)
+@com.runwaysdk.business.ClassSignature(hash = 1991071132)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,8 +11,9 @@ package dss.vector.solutions.etl.dhis2;
 public abstract class CalendarYearRequiredExceptionBase extends com.runwaysdk.business.SmartException implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.CalendarYearRequiredException";
+  public static java.lang.String DATASET = "dataset";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 347568602;
+  private static final long serialVersionUID = 1991071132;
   
   public CalendarYearRequiredExceptionBase()
   {
@@ -32,6 +33,34 @@ public abstract class CalendarYearRequiredExceptionBase extends com.runwaysdk.bu
   public CalendarYearRequiredExceptionBase(java.lang.Throwable cause)
   {
     super(cause);
+  }
+  
+  public String getDataset()
+  {
+    return getValue(DATASET);
+  }
+  
+  public void validateDataset()
+  {
+    this.validateAttribute(DATASET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getDatasetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.etl.dhis2.CalendarYearRequiredException.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(DATASET);
+  }
+  
+  public void setDataset(String value)
+  {
+    if(value == null)
+    {
+      setValue(DATASET, "");
+    }
+    else
+    {
+      setValue(DATASET, value);
+    }
   }
   
   public String getId()
@@ -58,6 +87,7 @@ public abstract class CalendarYearRequiredExceptionBase extends com.runwaysdk.bu
   public java.lang.String localize(java.util.Locale locale)
   {
     java.lang.String message = super.localize(locale);
+    message = replace(message, "{dataset}", this.getDataset());
     message = replace(message, "{id}", this.getId());
     return message;
   }

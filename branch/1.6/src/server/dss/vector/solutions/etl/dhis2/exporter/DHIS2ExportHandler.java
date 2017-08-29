@@ -324,6 +324,7 @@ public class DHIS2ExportHandler implements Reloadable
     if (teiCount == 0)
     {
       DHIS2EmptyDatasetException ex = new DHIS2EmptyDatasetException();
+      ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
     
@@ -366,6 +367,7 @@ public class DHIS2ExportHandler implements Reloadable
             {
               InvalidFieldException ex = new InvalidFieldException();
               ex.setField(mdAttr.getDisplayLabel().getValue());
+              ex.setDataset(this.exportable.getDhis2Name());
               throw ex;
             }
           }
@@ -373,6 +375,7 @@ public class DHIS2ExportHandler implements Reloadable
           {
             NumbersMustBeAggregatedException ex = new NumbersMustBeAggregatedException();
             ex.setNumberColumn(mdAttr.getDisplayLabel().getValue());
+            ex.setDataset(this.exportable.getDhis2Name());
             throw ex;
           }
         }
@@ -401,16 +404,19 @@ public class DHIS2ExportHandler implements Reloadable
     if (numGeos == 0)
     {
       GeoFieldRequiredException ex = new GeoFieldRequiredException();
+      ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
     else if (numGeos > 1)
     {
       MaxOneGeoColumnException ex = new MaxOneGeoColumnException();
+      ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
     else if (!hasYear)
     {
       CalendarYearRequiredException ex = new CalendarYearRequiredException();
+      ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.etl.dhis2;
 
-@com.runwaysdk.business.ClassSignature(hash = 1095726165)
+@com.runwaysdk.business.ClassSignature(hash = -659029417)
 public abstract class InvalidFieldExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.etl.dhis2.InvalidFieldException";
-  private static final long serialVersionUID = 1095726165;
+  private static final long serialVersionUID = -659029417;
   
   public InvalidFieldExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -51,8 +51,46 @@ public abstract class InvalidFieldExceptionDTOBase extends com.runwaysdk.busines
     return CLASS;
   }
   
+  public static java.lang.String DATASET = "dataset";
   public static java.lang.String FIELD = "field";
   public static java.lang.String ID = "id";
+  public String getDataset()
+  {
+    return getValue(DATASET);
+  }
+  
+  public void setDataset(String value)
+  {
+    if(value == null)
+    {
+      setValue(DATASET, "");
+    }
+    else
+    {
+      setValue(DATASET, value);
+    }
+  }
+  
+  public boolean isDatasetWritable()
+  {
+    return isWritable(DATASET);
+  }
+  
+  public boolean isDatasetReadable()
+  {
+    return isReadable(DATASET);
+  }
+  
+  public boolean isDatasetModified()
+  {
+    return isModified(DATASET);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDatasetMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DATASET).getAttributeMdDTO();
+  }
+  
   public String getField()
   {
     return getValue(FIELD);
@@ -98,6 +136,7 @@ public abstract class InvalidFieldExceptionDTOBase extends com.runwaysdk.busines
   {
     java.lang.String template = super.getMessage();
     
+    template = template.replace("{dataset}", this.getDataset().toString());
     template = template.replace("{field}", this.getField().toString());
     template = template.replace("{id}", this.getId().toString());
     
