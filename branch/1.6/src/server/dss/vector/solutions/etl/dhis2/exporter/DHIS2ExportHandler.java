@@ -918,7 +918,7 @@ public class DHIS2ExportHandler implements Reloadable
       OrgUnitQuery ouq = new OrgUnitQuery(qf);
       
       vq.SELECT(ouq.getDhis2Id("dhis2Id"));
-      vq.WHERE(gmq.getConfirmed().EQ(false));
+      vq.WHERE(gmq.getConfirmed().EQ(true));
       vq.AND(gmq.getOrgUnit().NE(""));
       vq.AND(gmq.getOrgUnit().EQ(ouq));
       
