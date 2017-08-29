@@ -36,10 +36,6 @@ export class GeoMappingComponent implements OnInit{
     });  
   }
   
-  source = (keyword: string) => {
-    return this.service.search(keyword);
-  }
-  
   toggle(mapping:GeoMapping, confirmed:boolean):void {
     this.service.apply(mapping).then(data => {
       mapping.mappingId = data.mappingId;
@@ -61,7 +57,7 @@ export class GeoMappingComponent implements OnInit{
       // Runs on every search
       observer.next(mapping.orgLabel);
     })
-    .mergeMap((token: string) => this.service.search(token));     
+    .mergeMap((token: string) => this.service.search(token, mapping.id));     
   }
   
   apply(mapping:UniversalMapping):void {

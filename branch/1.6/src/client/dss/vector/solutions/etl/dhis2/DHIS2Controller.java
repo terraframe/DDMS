@@ -147,9 +147,9 @@ public class DHIS2Controller implements Reloadable
   }
 
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
-  public ResponseIF search(ClientRequestIF request, @RequestParamter(name = "text") String text) throws JSONException
+  public ResponseIF search(ClientRequestIF request, @RequestParamter(name = "text") String text, @RequestParamter(name = "geoId") String geoId) throws JSONException
   {
-    String response = OrgUnitDTO.search(request, text, "");
+    String response = OrgUnitDTO.search(request, text, geoId);
 
     return new RestBodyResponse(response);
   }

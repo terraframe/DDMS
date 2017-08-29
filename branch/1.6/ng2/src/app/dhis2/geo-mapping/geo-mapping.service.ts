@@ -43,13 +43,13 @@ export class GeoMappingService extends BasicService {
     .catch(this.handleError.bind(this));      
   }    
   
-  search(text:String): Promise<{data:string, text:string}[]> {
+  search(text:String, geoId:String): Promise<{data:string, text:string}[]> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
     
     return this.http
-    .post(acp + '/dhis2/search', JSON.stringify({text:text}), {headers: headers})
+    .post(acp + '/dhis2/search', JSON.stringify({text:text, geoId:geoId}), {headers: headers})
     .toPromise()
     .then(response => {
       return response.json() as {data:string, text:string}[];
