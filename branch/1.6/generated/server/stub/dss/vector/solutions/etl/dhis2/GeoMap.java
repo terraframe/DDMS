@@ -2,15 +2,26 @@ package dss.vector.solutions.etl.dhis2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.metadata.MdLocalStructDAO;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntityEntityLabel;
 
 public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -29,11 +40,14 @@ public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loade
 
   public static String getMappings(String parentId)
   {
+    MdLocalStructDAOIF gel = MdLocalStructDAO.getMdLocalStructDAO(GeoEntityEntityLabel.CLASS);
+    MdLocalStructDAOIF mdl = MdLocalStructDAO.getMdLocalStructDAO(MetadataDisplayLabel.CLASS);
+
     StringBuilder sql = new StringBuilder();
     sql.append("SELECT");
     sql.append(" gm.id AS id,");
     sql.append(" ge.id AS geoId,");
-    sql.append(" COALESCE(gel.default_locale) || ' (' || COALESCE(mdl.default_locale) || ') ' || ge.geo_id AS geoLabel,");
+    sql.append(" " + localize(gel, "gel") + " || ' (' || " + localize(mdl, "mdl") + " || ') ' || ge.geo_id AS geoLabel,");
     sql.append(" ou.id AS orgId,");
     sql.append(" ou.name || ' (' || oul.name || ') ' || COALESCE(ou.code, '') AS orgLabel,");
     sql.append(" gm.confirmed AS confirmed");
@@ -90,10 +104,75 @@ public class GeoMap extends GeoMapBase implements com.runwaysdk.generation.loade
     }
   }
 
+  public static String localize(MdLocalStructDAOIF mdLocalStruct, String prefix)
+  {
+    List<String> selectableList = new ArrayList<String>();
+    Locale locale = Session.getCurrentLocale();
+
+    String[] localeStringArray;
+
+    MdDimensionDAOIF mdDimensionDAOIF = Session.getCurrentDimension();
+    if (mdDimensionDAOIF != null)
+    {
+      localeStringArray = new String[2];
+      localeStringArray[0] = mdDimensionDAOIF.getLocaleAttributeName(locale);
+      localeStringArray[1] = locale.toString();
+    }
+    else
+    {
+      localeStringArray = new String[1];
+      localeStringArray[0] = locale.toString();
+    }
+
+    boolean firstIterationComplete = false;
+    for (String localeString : localeStringArray)
+    {
+      for (int i = localeString.length(); i > 0; i = localeString.lastIndexOf('_', i - 1))
+      {
+        String subLocale = localeString.substring(0, i);
+        for (MdAttributeConcreteDAOIF a : mdLocalStruct.definesAttributes())
+        {
+          if (a.definesAttribute().equalsIgnoreCase(subLocale))
+          {
+            selectableList.add(a.getColumnName());
+          }
+        }
+      }
+
+      // Check the default for the dimension
+      if (mdDimensionDAOIF != null && !firstIterationComplete)
+      {
+        String dimensionDefaultAttr = mdDimensionDAOIF.getDefaultLocaleAttributeName();
+        MdAttributeDAOIF definesDimensionDefault = mdLocalStruct.definesAttribute(dimensionDefaultAttr);
+        if (definesDimensionDefault != null)
+        {
+          selectableList.add(definesDimensionDefault.getColumnName());
+        }
+      }
+
+      firstIterationComplete = true;
+    }
+    // And finally, add the default at the very end
+    selectableList.add("default_locale");
+
+    StringBuilder sql = new StringBuilder();
+    sql.append("COALESCE(" + prefix + "." + selectableList.remove(0));
+
+    for (String selectable : selectableList)
+    {
+      sql.append(", " + prefix + "." + selectable);
+    }
+
+    sql.append(")");
+
+    return sql.toString();
+  }
+
   public static String getRoots()
   {
     Earth earth = Earth.getEarthInstance();
 
     return GeoMap.getMappings(earth.getId());
   }
+
 }
