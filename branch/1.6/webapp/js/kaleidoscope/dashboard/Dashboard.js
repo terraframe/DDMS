@@ -132,10 +132,45 @@
       if(!controller.model.drillDown) {
         controller.model.drillDown = [];
       }
-    	
-      controller.model.drillDown.push(data);
       
-      controller.refresh(null, false);
+      var enable = true;
+      
+      if(controller.model.drillDown.length > 0) {
+        var latest = controller.model.drillDown[controller.model.drillDown.length - 1];
+      
+        if(controller.isSame(latest, data)) {
+          enable = false;    
+        }
+      }
+      
+      if (enable) {        
+        controller.model.drillDown.push(data);
+          
+        controller.refresh(null, false);
+      }
+    }
+    
+    controller.isSame = function(latest, data) {
+      if(latest.geoId !== data.geoId) {
+        return false;
+      }
+      
+      var lKeys = Object.keys(latest.universals);
+      var dKeys = Object.keys(data.universals);
+      
+      if(lKeys.length !== dKeys.length) {
+        return false;
+      }
+      
+      for(var i = 0; i < lKeys.length; i++) {
+        var key = lKeys[i];
+        
+        if(!data.universals.hasOwnProperty(key) || latest.universals[key] !== data.universals[key]) {
+          return false;
+        }
+      }
+      
+      return true;
     }
     
     controller.rollup = function() {
@@ -218,12 +253,12 @@
     
     controller.setDashboardState = function(state, initialRender) {
       $timeout(function() {
-    	  
+        
         // Calculate the location of the saved arrow and scale to the screen window
         var $el = $('#mapDivId');              
         var mapWidth = $el.outerWidth(true);
         var mapHeight = $el.outerHeight(true);
-    	  
+        
         if(state.scaleXPosition !== undefined && state.scaleXPosition !== 0) {
           state.scaleXPosition = Math.floor(state.scaleXPosition / state.savedWidth * mapWidth);
           state.scaleYPosition = Math.floor(state.scaleYPosition / state.savedHeight * mapHeight);          
@@ -237,7 +272,7 @@
         // Update the saved width and height incase the state is saved      
         state.savedWidth = mapWidth;
         state.savedHeight = mapHeight;
-    	      	  
+                
         controller.model = state;
         controller.renderBase = true;
         
@@ -608,7 +643,7 @@
         configuration.parameters.push({'name' : 'state', 'value' : JSON.stringify(controller.getCompressedState())});
         
         if(pageNumber) {
-          configuration.parameters.push({'name' : 'pageNumber', 'value' : pageNumber});        	
+          configuration.parameters.push({'name' : 'pageNumber', 'value' : pageNumber});          
         }
         
         var onSuccess = function(html){
@@ -628,13 +663,13 @@
           
           // Scroll to the report element
           if(id) {
-        	$timeout(function(){
+          $timeout(function(){
               var top = $('#report-viewport').scrollTop();
               var offset = $('#report-viewport').offset().top;
               var elemOff = $('#' + id).offset().top;
                   
               $('#report-viewport').scrollTop(top - offset + elemOff);
-        	}, 200);
+          }, 200);
           }
         };
         
@@ -789,8 +824,8 @@
     controller.toggleScale = function(position) {
       var $el = $('#mapDivId');              
       controller.model.savedWidth = $el.outerWidth(true);
-  	  controller.model.savedHeight = $el.outerHeight(true);
-    	
+      controller.model.savedHeight = $el.outerHeight(true);
+      
       controller.model.enableScale = !controller.model.enableScale;
       
       if(controller.model.enableScale && (!controller.model.scaleXPosition || controller.model.scaleXPosition === 0) && (!controller.model.scaleYPosition || controller.model.scaleYPosition === 0)) {
@@ -811,7 +846,7 @@
       
       var $el = $('#mapDivId');              
       controller.model.savedWidth = $el.outerWidth(true);
-  	  controller.model.savedHeight = $el.outerHeight(true);      
+      controller.model.savedHeight = $el.outerHeight(true);      
       
       if(controller.model.enableArrow && (!controller.model.arrowXPosition || controller.model.arrowXPosition === 0) && (!controller.model.arrowYPosition || controller.model.arrowYPosition === 0)) {
         var $el = $('#mapDivId');        
