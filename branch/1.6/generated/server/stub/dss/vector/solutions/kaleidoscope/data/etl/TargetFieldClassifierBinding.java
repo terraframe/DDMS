@@ -1,6 +1,5 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-
 public class TargetFieldClassifierBinding extends TargetFieldClassifierBindingBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 30417876;
@@ -13,10 +12,21 @@ public class TargetFieldClassifierBinding extends TargetFieldClassifierBindingBa
   @Override
   public TargetFieldIF getTargetField()
   {
-    TargetFieldClassifier field = new TargetFieldClassifier();
+    if (this.getIsValidate() == null || this.getIsValidate())
+    {
+      TargetFieldDomain field = new TargetFieldDomain();
 
-    populate(field);
+      populate(field);
 
-    return field;
+      return field;
+    }
+    else
+    {
+      TargetFieldClassifier field = new TargetFieldClassifier();
+
+      populate(field);
+
+      return field;
+    }
   }
 }

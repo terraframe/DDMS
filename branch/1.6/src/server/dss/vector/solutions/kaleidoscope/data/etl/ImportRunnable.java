@@ -18,7 +18,11 @@ import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebForm;
 
 import dss.vector.solutions.general.Disease;
@@ -117,6 +121,42 @@ public class ImportRunnable implements Reloadable
         MappableClass mClass = MappableClass.getMappableClass(mdClass);
 
         datasets.put(mClass.toJSON());
+
+        /*
+         * Update classifiers value
+         */
+        List<TargetFieldIF> fields = definition.getFields();
+
+        for (TargetFieldIF field : fields)
+        {
+          if (field instanceof TargetFieldClassifier)
+          {
+            String key = field.getKey();
+
+            MdWebAttribute mdWebAttribute = MdWebAttribute.getByKey(key);
+
+            TargetFieldClassifierBindingQuery query = new TargetFieldClassifierBindingQuery(new QueryFactory());
+            query.WHERE(query.getTargetAttribute().EQ(mdWebAttribute));
+
+            OIterator<? extends TargetFieldClassifierBinding> it = query.getIterator();
+
+            try
+            {
+              while (it.hasNext())
+              {
+                TargetFieldClassifierBinding binding = it.next();
+                binding.lock();
+                binding.setIsValidate(true);
+                binding.apply();
+              }
+            }
+            finally
+            {
+              it.close();
+            }
+          }
+        }
+
       }
 
       // Return the new data set definition

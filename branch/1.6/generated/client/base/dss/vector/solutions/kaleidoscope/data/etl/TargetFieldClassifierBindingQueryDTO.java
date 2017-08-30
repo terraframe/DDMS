@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = -1677784929)
+@com.runwaysdk.business.ClassSignature(hash = -605219024)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 public class TargetFieldClassifierBindingQueryDTO extends dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBasicBindingQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1677784929;
+private static final long serialVersionUID = -605219024;
 
   protected TargetFieldClassifierBindingQueryDTO(String type)
   {

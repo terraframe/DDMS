@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = 796958541)
+@com.runwaysdk.business.ClassSignature(hash = 491519554)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,6 +38,23 @@ public  class TargetFieldClassifierBindingQuery extends dss.vector.solutions.kal
   {
     return dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.CLASS;
   }
+  public com.runwaysdk.query.SelectableBoolean getIsValidate()
+  {
+    return getIsValidate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, displayLabel);
+
+  }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -70,6 +87,9 @@ public  class TargetFieldClassifierBindingQuery extends dss.vector.solutions.kal
   public interface TargetFieldClassifierBindingQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBasicBindingQuery.TargetFieldBasicBindingQueryReferenceIF
   {
 
+    public com.runwaysdk.query.SelectableBoolean getIsValidate();
+    public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding targetFieldClassifierBinding);
 
@@ -105,6 +125,23 @@ public  class TargetFieldClassifierBindingQuery extends dss.vector.solutions.kal
       return this.NE(targetFieldClassifierBinding.getId());
     }
 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate()
+  {
+    return getIsValidate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, displayLabel);
+
+  }
   }
 
 /**
@@ -114,6 +151,9 @@ public  class TargetFieldClassifierBindingQuery extends dss.vector.solutions.kal
   public interface TargetFieldClassifierBindingQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBasicBindingQuery.TargetFieldBasicBindingQueryMultiReferenceIF
   {
 
+    public com.runwaysdk.query.SelectableBoolean getIsValidate();
+    public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias, String displayLabel);
 
     public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding ... targetFieldClassifierBinding);
     public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding ... targetFieldClassifierBinding);
@@ -197,6 +237,23 @@ public  class TargetFieldClassifierBindingQuery extends dss.vector.solutions.kal
       }
 
       return this.containsExactly(itemIdArray);
+  }
+  public com.runwaysdk.query.SelectableBoolean getIsValidate()
+  {
+    return getIsValidate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsValidate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.ISVALIDATE, alias, displayLabel);
+
   }
   }
 }

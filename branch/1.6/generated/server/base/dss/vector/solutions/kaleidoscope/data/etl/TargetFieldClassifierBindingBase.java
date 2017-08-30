@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-@com.runwaysdk.business.ClassSignature(hash = -1933745386)
+@com.runwaysdk.business.ClassSignature(hash = -1565630567)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,11 +11,40 @@ package dss.vector.solutions.kaleidoscope.data.etl;
 public abstract class TargetFieldClassifierBindingBase extends dss.vector.solutions.kaleidoscope.data.etl.TargetFieldBasicBinding implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding";
-  private static final long serialVersionUID = -1933745386;
+  public static java.lang.String ISVALIDATE = "isValidate";
+  private static final long serialVersionUID = -1565630567;
   
   public TargetFieldClassifierBindingBase()
   {
     super();
+  }
+  
+  public Boolean getIsValidate()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISVALIDATE));
+  }
+  
+  public void validateIsValidate()
+  {
+    this.validateAttribute(ISVALIDATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsValidateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISVALIDATE);
+  }
+  
+  public void setIsValidate(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISVALIDATE, "");
+    }
+    else
+    {
+      setValue(ISVALIDATE, java.lang.Boolean.toString(value));
+    }
   }
   
   protected String getDeclaredType()
