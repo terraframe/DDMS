@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,7 +81,6 @@ import com.runwaysdk.system.metadata.MdClass;
 import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
-import dss.vector.solutions.etl.dhis2.DHIS2NameLengthException;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
 import dss.vector.solutions.etl.dhis2.GeoMapQuery;
 import dss.vector.solutions.etl.dhis2.InvalidFieldException;
@@ -100,7 +100,6 @@ import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchQuery;
-import dss.vector.solutions.surveillance.AggregatedCase;
 
 /**
  * This class is responsible for exporting an MdClass to DHIS2.
@@ -206,15 +205,16 @@ public class DHIS2ExportHandler implements Reloadable
       {
         metadata.put("importStrategy", "CREATE_AND_UPDATE");
         HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
-        DHIS2TrackerResponseProcessor.validateStatusCode(resp);
-        results.processMetadataResponse(resp);
         log.append("Sent metadata json to DHIS2 and received this as a response:\n" + resp.getResponse() + "\n");
+        DHIS2TrackerResponseProcessor.validateStatusCode(resp); // TODO : We need to do a better job displaying the results to the end user if it throws an exception
+        results.processMetadataResponse(resp);
         
         data.put("importStrategy", "CREATE_AND_UPDATE");
         HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
-        DHIS2TrackerResponseProcessor.validateStatusCode(resp2);
-        results.processDataResponse(resp2);
         log.append("Sent data json to DHIS2 and received this as a response:\n" + resp2.getResponse() + "\n");
+//        DHIS2TrackerResponseProcessor.validateStatusCode(resp2); // At this point the metadata has already been committed to DHIS2 so we don't want to rollback the transaction
+        results.processDataResponse(resp2);
+        
       }
       catch (JSONException e)
       {
@@ -279,6 +279,7 @@ public class DHIS2ExportHandler implements Reloadable
     }
     
     String queryClass = QueryConstants.getQueryClass(this.savedSearch.getQueryType());
+    
     valueQuery = QueryBuilder.getValueQuery(queryClass, this.savedSearch.getQueryXml(), this.savedSearch.getConfig(), null, null, null, this.savedSearch.getDisease());
   }
   
@@ -419,6 +420,14 @@ public class DHIS2ExportHandler implements Reloadable
       ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
+    
+    String ss = "";
+    OIterator<? extends MdAttribute> mdAttrs2 = mdClass.getAllAttribute();
+    for (MdAttribute mdAttr : mdAttrs2)
+    {
+      ss = ss + mdAttr.getAttributeName() + ", ";
+    }
+    log.append("attributeNames in query : " + ss.toString() + "\n");
   }
   
   protected void createCategoryOptionsMetadata(JSONObject json)
@@ -539,7 +548,7 @@ public class DHIS2ExportHandler implements Reloadable
       
       for (MdAttribute mdAttr : keys)
       {
-        String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
+        String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr, idCache, valueQuery);
         
         // Basic identifier info about the category
         MetadataElement category = new MetadataElement();
@@ -685,6 +694,7 @@ public class DHIS2ExportHandler implements Reloadable
         
         if (optComboNames.size() > 0)
         {
+          Collections.sort(optComboRWIds);
           String comboRWId = StringUtils.join(optComboRWIds, "");
           
           if (noDuplicatesSet.contains(comboRWId))
@@ -837,7 +847,7 @@ public class DHIS2ExportHandler implements Reloadable
           {
             Selectable sel = valueQuery.getSelectableRef(mdAttr.getAttributeName());
             
-            String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
+            String dhis2Id = DHIS2Util.queryAndMapIds(mdAttr, idCache, valueQuery);
             
             MetadataElement dataElement = new MetadataElement();
             
@@ -975,8 +985,8 @@ public class DHIS2ExportHandler implements Reloadable
           {
             JSONObject dataSetElement = new JSONObject();
             
-            String dataElementId = DHIS2Util.queryAndMapIds(mdAttr.getId(), idCache);
-            String dataSetElementId = DHIS2Util.queryAndMapIds(mdAttr.getId() + "_dataSetElement", idCache);
+            String dataElementId = DHIS2Util.getDhis2IdFromRunwayId(mdAttr, valueQuery);
+            String dataSetElementId = DHIS2Util.queryAndMapIds(mdClass.getId() + mdAttr.getId() + "_dataSetElement", idCache);
             
             dataSetElement.put("id", dataSetElementId);
             
@@ -1125,7 +1135,7 @@ public class DHIS2ExportHandler implements Reloadable
             !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
             && mdAttr instanceof MdAttributeNumber)
         {
-          attrIdMap.put(mdAttr, DHIS2Util.getDhis2IdFromRunwayId(mdAttr.getId()));
+          attrIdMap.put(mdAttr, DHIS2Util.getDhis2IdFromRunwayId(mdAttr, valueQuery));
         }
       }
       
@@ -1293,6 +1303,7 @@ public class DHIS2ExportHandler implements Reloadable
               }
             }
           
+            Collections.sort(runwayIds);
             String rwId = StringUtils.join(runwayIds, "");
             String catOptComboId = DHIS2Util.getDhis2IdFromRunwayId(rwId);
             if (catOptComboId == null) { throw new RuntimeException("Unable to find a category option combo by runway id [" + rwId + "]. This object should already be mapped at this point."); }

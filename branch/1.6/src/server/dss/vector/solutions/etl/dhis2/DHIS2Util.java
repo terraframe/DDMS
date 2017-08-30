@@ -19,12 +19,22 @@
 package dss.vector.solutions.etl.dhis2;
 
 import java.sql.Savepoint;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import com.runwaysdk.dataaccess.DuplicateDataException;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
+import com.runwaysdk.query.SelectableSpoof;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.sql.MdAttributeConcrete_SQL;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
@@ -33,10 +43,14 @@ import com.runwaysdk.system.metadata.MdAttributeDouble;
 import com.runwaysdk.system.metadata.MdAttributeFloat;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeLong;
+import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdAttributeText;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.etl.dhis2.util.DHIS2IdCache;
-import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.BrowserRootView;
+import dss.vector.solutions.ontology.Term;
 
 /**
  * @author rrowlands
@@ -110,6 +124,11 @@ public class DHIS2Util implements Reloadable
     }
   }
   
+  public static String getDhis2IdFromRunwayId(MdAttribute mdAttr, ValueQuery vq)
+  {
+    return getDhis2IdFromRunwayId(getUniqueIdentifier(mdAttr, vq));
+  }
+  
   public static String getDhis2IdFromRunwayId(String runwayId)
   {
     BasicIdMappingQuery query = new BasicIdMappingQuery(new QueryFactory());
@@ -130,6 +149,76 @@ public class DHIS2Util implements Reloadable
     {
       mappingIt.close();
     }
+  }
+  
+  private static String getUniqueIdentifier(MdAttribute mdAttr, ValueQuery vq)
+  {
+    String uniqueId = null;
+    
+    // Our best bet is to map it to the term attribute root
+    if (mdAttr instanceof MdAttributeReference)
+    {
+      MdBusiness reference = ((MdAttributeReference) mdAttr).getMdBusiness();
+      
+      if (reference.definesType().equals(Term.CLASS))
+      {
+        MdAttributeDAOIF mdAttrDAOIF = MdAttributeDAO.get(mdAttr.getId());
+        
+        ArrayList<String> rootIds = new ArrayList<String>();
+        
+        BrowserRootView[] roots = BrowserRoot.getAttributeRoots(mdAttrDAOIF.definedByClass().definesType(), mdAttrDAOIF.definesAttribute());
+        for (BrowserRootView root : roots)
+        {
+          rootIds.add(root.getTermId());
+        }
+        
+        Collections.sort(rootIds);
+        
+        int strlen = 64;
+        if (rootIds.size() == 5) { strlen = 50; }
+        if (rootIds.size() == 6) { strlen = 45; }
+        if (rootIds.size() == 7) { strlen = 40; }
+        if (rootIds.size() >= 8) { strlen = 30; }
+        
+        uniqueId = "";
+        for (String rootId : rootIds)
+        {
+          uniqueId += rootId.substring(0, strlen);
+        }
+      }
+    }
+    
+    // Second best is to map it to the defining attribute.
+    if (uniqueId == null && vq.hasSelectableRef(mdAttr.getAttributeName()))
+    {
+      Selectable sel = vq.getSelectableRef(mdAttr.getAttributeName());
+      
+      if ( !(sel instanceof SelectableSQL) && !(sel instanceof SelectableSpoof) && !(sel.getMdAttributeIF() instanceof MdAttributeConcrete_SQL) && sel.getMdAttributeIF() != null )
+      {
+        MdAttributeConcreteDAOIF attr = sel.getMdAttributeIF();
+        uniqueId = attr.getId();
+      }
+    }
+    
+    // Third best is the attribute name.
+    if (uniqueId == null)
+    {
+      uniqueId = mdAttr.getAttributeName();
+    }
+    
+    return uniqueId;
+  }
+  
+  /**
+   * 
+   * @param mdAttr The MdAttribute originating from the MdTable which represents a column in our persisted table.
+   * @param idCache
+   * @param vq
+   * @return
+   */
+  public static String queryAndMapIds(MdAttribute mdAttr, DHIS2IdCache idCache, ValueQuery vq)
+  {
+    return queryAndMapIds(getUniqueIdentifier(mdAttr, vq), idCache);
   }
 
   public static String queryAndMapIds(String runwayId, DHIS2IdCache idCache)

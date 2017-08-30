@@ -690,7 +690,74 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     createDatabaseView(true, functionName);
   }
+  
+  // wrap the query with outer SELECT that uses user-friendly column names based on the display labels.
+  public static ValueQuery wrapQuery(ValueQuery valueQuery)
+  {
+    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
+    
+    ValueQuery outer = new ValueQuery(new QueryFactory());
+    outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
+    outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
 
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
+      {
+        continue; // used only for queries as an optimization
+      }
+
+      // convert the user display label into something a user-friendly column.
+      // use SQL character because it's generic enough to handle all cases.
+      Selectable c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
+
+      String newColumn;
+      String label = s.getUserDefinedDisplayLabel();
+      if (label != null && label.length() > 0)
+      {
+        newColumn = label;
+      }
+      else
+      {
+        newColumn = c.getColumnAlias();
+      }
+
+      newColumn.replaceAll("%", "percent");
+
+      newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
+
+      // Postgres identifiers are case-insensitive so
+      // lowercase everything to simplify the label
+      newColumn = newColumn.toLowerCase();
+
+      // an identifier cannot start with a number so add
+      // an underscore if a digit is detected
+
+      if (INVALID_PREFIX.matcher(newColumn).matches())
+      {
+        newColumn = VALID_PREFIX + newColumn;
+      }
+
+      if (columnNameMap.containsKey(newColumn))
+      {
+        Integer count = columnNameMap.get(newColumn) + 1;
+        columnNameMap.put(newColumn, count);
+
+        newColumn += "_" + count;
+      }
+      else
+      {
+        columnNameMap.put(newColumn, new Integer(1));
+      }
+
+      c.setColumnAlias(newColumn);
+
+      outer.SELECT(c);
+    }
+    
+    return outer;
+  }
+  
   private void createDatabaseView(boolean replaceExisting, String functionName)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
@@ -703,72 +770,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     String config = this.getConfig();
 
     String queryClass = QueryConstants.getQueryClass(queryType);
-    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
 
     try
     {
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null, null, null, this.getDisease());
 
-      // wrap the query with outer SELECT that uses user-friendly column names
-      // based on the display labels.
-      ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
-      outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
-
-      for (Selectable s : valueQuery.getSelectableRefs())
-      {
-        if (s.getUserDefinedAlias().equals(AbstractQB.WINDOW_COUNT_ALIAS))
-        {
-          continue; // used only for queries as an optimization
-        }
-
-        // convert the user display label into something a user-friendly column.
-        // use SQL character because it's generic enough to handle all cases.
-        Selectable c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
-
-        String newColumn;
-        String label = s.getUserDefinedDisplayLabel();
-        if (label != null && label.length() > 0)
-        {
-          newColumn = label;
-        }
-        else
-        {
-          newColumn = c.getColumnAlias();
-        }
-
-        newColumn.replaceAll("%", "percent");
-
-        newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
-
-        // Postgres identifiers are case-insensitive so
-        // lowercase everything to simplify the label
-        newColumn = newColumn.toLowerCase();
-
-        // an identifier cannot start with a number so add
-        // an underscore if a digit is detected
-
-        if (INVALID_PREFIX.matcher(newColumn).matches())
-        {
-          newColumn = VALID_PREFIX + newColumn;
-        }
-
-        if (columnNameMap.containsKey(newColumn))
-        {
-          Integer count = columnNameMap.get(newColumn) + 1;
-          columnNameMap.put(newColumn, count);
-
-          newColumn += "_" + count;
-        }
-        else
-        {
-          columnNameMap.put(newColumn, new Integer(1));
-        }
-
-        c.setColumnAlias(newColumn);
-
-        outer.SELECT(c);
-      }
+      ValueQuery outer = wrapQuery(valueQuery);
 
       // create the database view
       String viewNameNoPrefix = this.generateViewName("");
