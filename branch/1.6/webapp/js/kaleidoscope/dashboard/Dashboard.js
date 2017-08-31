@@ -148,6 +148,9 @@
           
         controller.refresh(null, false);
       }
+      else {
+        MDSS.ErrorModal(localizationService.localize("dashboard", "nodrilldown"));                                                	  
+      }
     }
     
     controller.isSame = function(latest, data) {
