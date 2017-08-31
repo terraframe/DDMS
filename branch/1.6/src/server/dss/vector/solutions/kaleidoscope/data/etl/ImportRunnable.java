@@ -20,7 +20,6 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebForm;

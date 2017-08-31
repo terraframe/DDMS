@@ -62,7 +62,8 @@ export class GeoMappingComponent implements OnInit{
   
   apply(mapping:UniversalMapping):void {
     this.service.applyLevelMapping(mapping).then(data => {
-      // Do nothing
+      mapping.levelId = data.levelId;
+      mapping.confirmed = data.confirmed;
     });    
   }
 }

@@ -13,15 +13,19 @@
         <table id="manage-datasets-table" class="list-table table table-bordered table-striped">        
           <thead>
             <tr>
+              <th></th>
               <th class="label-column"><localize key='level.mappings.universal'></localize></th>
               <th class="label-column"><localize key='level.mappings.level'></localize></th>
             </tr>
           </thead>    
           <tbody>
             <tr *ngFor="let mapping of mappings" class="fade-ngRepeat-item">
+              <td class="label-column">
+                <boolean-field [(value)]="mapping.confirmed" (valueChange)="apply(mapping, $event)" [disabled]="mapping.levelId == null"></boolean-field>
+              </td>
               <td class="label-column"> {{ mapping.label }} </td>
               <td>
-                <select class="select-area" [(ngModel)]="mapping.levelId" (change)="apply(mapping)">
+                <select class="select-area" [(ngModel)]="mapping.levelId">
                   <option value=""></option>
                   <option *ngFor="let level of levels" [value]="level.id">{{level.label}}</option>
                 </select>             

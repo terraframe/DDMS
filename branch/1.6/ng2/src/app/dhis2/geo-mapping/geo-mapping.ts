@@ -13,6 +13,7 @@ export class UniversalMapping {
   id:string;
   label:string;    
   levelId:string;    
+  confirmed:boolean;
 }
 
 export class OrgLevel {

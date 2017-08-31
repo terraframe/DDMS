@@ -210,17 +210,35 @@ public class DHIS2Controller implements Reloadable
     JSONObject object = new JSONObject(mapping);
     String levelId = object.getString("levelId");
     String mappingId = object.getString("id");
+    boolean confirmed = object.getBoolean("confirmed");
 
     if (levelId != null && levelId.length() > 0)
     {
-      OrgUnitLevelDTO level = OrgUnitLevelDTO.get(request, levelId);
+      if (!confirmed)
+      {
+        GeoLevelMapDTO map = GeoLevelMapDTO.lock(request, mappingId);
+        map.setOrgUnitLevel(null);
+        map.setConfirmed(false);
+        map.apply();
 
-      GeoLevelMapDTO map = GeoLevelMapDTO.lock(request, mappingId);
-      map.setOrgUnitLevel(level);
-      map.setConfirmed(true);
-      map.apply();
+        object.remove("levelId");
+        object.put("confirmed", false);
 
-      return new RestBodyResponse(object);
+        return new RestBodyResponse(object);
+      }
+      else
+      {
+        OrgUnitLevelDTO level = OrgUnitLevelDTO.get(request, levelId);
+
+        GeoLevelMapDTO map = GeoLevelMapDTO.lock(request, mappingId);
+        map.setOrgUnitLevel(level);
+        map.setConfirmed(true);
+        map.apply();
+
+        object.put("confirmed", true);
+
+        return new RestBodyResponse(object);
+      }
     }
     else
     {
@@ -228,6 +246,9 @@ public class DHIS2Controller implements Reloadable
       map.setOrgUnitLevel(null);
       map.setConfirmed(true);
       map.apply();
+
+      object.put("id", map.getId());
+      object.put("confirmed", true);
 
       return new RestBodyResponse(object);
     }
