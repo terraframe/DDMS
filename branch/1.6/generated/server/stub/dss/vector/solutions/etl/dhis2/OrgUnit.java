@@ -38,7 +38,7 @@ public class OrgUnit extends OrgUnitBase implements com.runwaysdk.generation.loa
   {
     try
     {
-      GeoEntity entity = GeoEntity.get(geoId);
+//      GeoEntity entity = GeoEntity.get(geoId);
 //      MdBusiness mdBusiness = MdBusiness.getMdBusiness(entity.getType());
 
       ValueQuery vQuery = new ValueQuery(new QueryFactory());
