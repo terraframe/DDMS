@@ -31,6 +31,7 @@ import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
 import com.runwaysdk.transport.conversion.ConversionException;
@@ -424,8 +425,30 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
         {
           try
           {
+            MdAttributeDAOIF secondaryAttribute = tStyle.getSecondaryAttributeDAO();
             JSONArray secondaryCategories = tStyle.getSecondaryAttributeCategoriesAsJSON();
+            String secondarAttributeName = secondaryAttribute.definesAttribute().toLowerCase();
+            
             Boolean hasRangeCat = false;
+
+            /**
+             * Build the other rule
+             * 
+             * NOTE: The other rule is not needed for range categories
+             */
+            // if(hasRangeCat != true)
+            // {
+            // String fill = tStyle.getBubbleFill();
+            // NodeBuilder[] filterNodes = this.getElseNode(attribute, secondaryCategories);
+            // this.createRule(root, filterNodes, fill, null, minAttrVal, maxAttrVal, minSize, maxSize, label, null);
+            // }
+            
+            /*
+             * Create the 'Other' option first
+             */
+            String label = LocalizationFacade.getFromBundles("Other");
+            this.createRule(root, null, tStyle.getBubbleFill(), null, minAttrVal, maxAttrVal, minSize, maxSize, label, false);
+
             for (int i = 0; i < secondaryCategories.length(); i++)
             {
               Boolean isRangeCat = false;
@@ -469,23 +492,11 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
               // If this category is a defined category (i.e. not the other category)
               if (catOtherCat == false)
               {
-                this.createRule(root, null, secondaryColor, null, minAttrVal, maxAttrVal, minSize, maxSize, title, isRangeCat);
+                NodeBuilder filter = getPropertyIsEqualToNode(secondarAttributeName, getFormattedNumericValue(secondaryCatVal));
+
+                this.createRule(root, new NodeBuilder[] { filter }, secondaryColor, null, minAttrVal, maxAttrVal, minSize, maxSize, title, isRangeCat);
               }
             }
-
-            /**
-             * Build the other rule
-             * 
-             * NOTE: The other rule is not needed for range categories
-             */
-            // if(hasRangeCat != true)
-            // {
-            // String fill = tStyle.getBubbleFill();
-            // NodeBuilder[] filterNodes = this.getElseNode(attribute, secondaryCategories);
-            // String label = LocalizationFacade.getFromBundles("Other");
-            // this.createRule(root, filterNodes, fill, null, minAttrVal, maxAttrVal, minSize, maxSize, label, null);
-            // }
-
           }
           catch (JSONException e)
           {
@@ -1027,7 +1038,9 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
             }
             else
             {
-              function = node(OGC, "Function").attr("name", "if_then_else").child(node(OGC, "Function").attr("name", "isNull").child(this.getRecodeNode(tStyle)), node("ogc:Literal").text(bubbleFill), this.getRecodeNode(tStyle));
+              // function = node(OGC, "Function").attr("name", "if_then_else").child(node(OGC, "Function").attr("name",
+              // "isNull").child(this.getRecodeNode(tStyle)), node("ogc:Literal").text(bubbleFill), this.getRecodeNode(tStyle));
+              return css("Fill", fill);
             }
 
             return css("fill").child(function);
