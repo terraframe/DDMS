@@ -16,7 +16,7 @@ public class DuplicateChecker
   
   public static void main(String[] args) throws JSONException, IOException
   {
-    String dataStr = FileUtils.readFileToString(new File("/Users/richard1/workspace/tomcat/ddms/webapps/DDMS/DHIS2/data.json"));
+    String dataStr = FileUtils.readFileToString(new File("/Users/richard1/Downloads/mosquitos-data-raw.json"));
     
     mySet = new HashSet<String>();
     

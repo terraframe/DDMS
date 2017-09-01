@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class MetadataElement
 {
-  private static final String prefix = " ";
+  private static final String append = " ";
   
   private JSONObject json;
   
@@ -21,17 +21,17 @@ public class MetadataElement
   
   public JSONObject setCode(String code) throws JSONException
   {
-    return this.json.put("code", prefix + code);
+    return this.json.put("code", code + append);
   }
   
   public JSONObject setName(String name) throws JSONException
   {
-    return this.json.put("name", prefix + name);
+    return this.json.put("name", name + append);
   }
   
   public JSONObject setShortName(String shortName) throws JSONException
   {
-    shortName = prefix + shortName;
+    shortName = shortName + append;
     
     if (shortName.length() > 50)
     {
